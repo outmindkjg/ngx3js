@@ -1,0 +1,27 @@
+<pre style="position: absolute; left:0;top: 100px;z-index: 100;">
+{{guiControl | json }}
+</pre>
+<three-renderer [statsMode]="0" [guiControl]="guiControl" [guiParams]="guiParams" (onRender)="render($event)"> 
+    <three-camera></three-camera>
+    <three-scene>
+        <three-light type="ambient"></three-light>
+        <three-light type="spot"></three-light>
+        <three-mesh>
+            <three-position [x]="30" [y]="4" [z]="2"></three-position>
+            <three-geometry type="sphere"></three-geometry>
+            <three-material [color]="'#ff0000'"></three-material>
+        </three-mesh>
+        <three-mesh>
+            <three-position [x]="-4" [y]="3" [z]="0"></three-position>
+            <three-geometry type="box"></three-geometry>
+            <three-material [color]="'#ffff00'"></three-material>
+        </three-mesh>
+        <three-mesh #plane>
+            <three-position [x]="-4" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
+            <three-geometry type="plane" [width]="40" [height]="40"></three-geometry>
+            <three-material [color]="'#00ffff'"></three-material>
+        </three-mesh>
+    </three-scene>
+</three-renderer>
