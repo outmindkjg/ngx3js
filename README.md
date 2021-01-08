@@ -1,5 +1,6 @@
 # Install 
 ```bash
+git clone it@github.com:josdirksen/learning-threejs.git
 npm install -g @angular/cli
 ng new my-app
 cd my-app
