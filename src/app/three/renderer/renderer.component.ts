@@ -12,9 +12,16 @@ export interface GuiControlParam {
   min?: number;
   max?: number;
   step?: number;
+  control? : string;
+  listen ?: boolean; 
   change?: (value?: any) => void;
   finishChange? : (value?: any) => void;
   children?: GuiControlParam[];
+}
+
+export interface RendererTimer {
+  delta : number
+  elapsedTime : number
 }
 
 @Component({
@@ -28,12 +35,18 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ContentChild(CameraComponent) camera: CameraComponent;
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
+  
+  @Input() type: string = "webgl";
+  @Input() shadowMapEnabled: boolean = true;
+  @Input() clearColor: string | number = null;
+
+  @Input() antialias: boolean = false;
   @Input() width: number = -1;
   @Input() height: number = -1;
   @Input() statsMode: number = -1;
   @Input() guiControl: any = null;
   @Input() guiParams: GuiControlParam[] = [];
-  @Output() onRender:EventEmitter<any> = new EventEmitter<any>();
+  @Output() onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
   constructor() { }
 
@@ -74,9 +87,23 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
   }
 
+  getClearColor(def : string | number) : string | number {
+    if (this.clearColor === null) {
+      return def;
+    } else {
+      const clearColor = this.clearColor.toString();
+      if (clearColor.startsWith('0x')) {
+        return parseInt(clearColor, 16);
+      } else {
+        return this.clearColor;
+      }
+    }
+  }
+
   setSize(width: number, height: number) {
     if (this.renderer !== null) {
-      this.cameraAspect = width / height;
+      this.cameraWidth = width;
+      this.cameraHeight = height;
       this.renderer.setSize(width, height);
       if (this.camera != null && this.camera != undefined) {
         this.getCamera();
@@ -85,11 +112,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   ngAfterContentInit() {
-    console.log(this.scene);
   }
 
   private renderer: THREE.Renderer = null;
-  private cameraAspect: number = 1;
+  private cameraWidth: number = 100;
+  private cameraHeight: number = 100;
+  
   private stats: Stats = null;
   private gui: dat.GUI = null;
   private clock : THREE.Clock = null;
@@ -116,7 +144,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return this.gui;
   }
 
-  private setupGuiChange(control : dat.GUIController, onFinishChange? : (value?: any) => void, onChange? : (value?: any) => void) {
+  private setupGuiChange(control : dat.GUIController, onFinishChange? : (value?: any) => void, onChange? : (value?: any) => void, listen ? : boolean ) {
+    if (listen != null && listen) {
+      control.listen();
+    }
     if (onFinishChange != null) {
       control.onFinishChange(onFinishChange);
     }
@@ -130,27 +161,34 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       switch (param.type) {
         case 'color':
           this.setupGuiChange(
-            gui.addColor(control, param.name),
+            gui.addColor(param.control ? control[param.control] :  control , param.name),
             param.finishChange, 
-            param.change
+            param.change,
+            param.listen
           );
           break;
         case 'folder':
           const folder = gui.addFolder(param.name);
-          this.setupGui(control, folder, param.children);
+          this.setupGui(param.control ? control[param.control] :  control, folder, param.children);
           break;
         case 'number':
           this.setupGuiChange(
-            gui.add(control, param.name, param.min, param.max, param.step),
+            gui.add(param.control ? control[param.control] :  control, param.name, param.min, param.max, param.step),
             param.finishChange, 
-            param.change
+            param.change,
+            param.listen
           );
           break;
+        case 'listen' :
+          gui.add(param.control ? control[param.control] :  control, param.name).listen();
+          break;
+        case 'button' :
         default:
           this.setupGuiChange(
-            gui.add(control, param.name), 
+            gui.add(param.control ? control[param.control] :  control, param.name), 
             param.finishChange, 
-            param.change
+            param.change,
+            param.listen
           );
           break;
         
@@ -172,25 +210,40 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     } else {
       this.stats = null;
     }
-    this.renderer = new THREE.WebGLRenderer();
+    switch(this.type.toLowerCase()) {
+      case 'webgl' :
+      default :
+        this.renderer = new THREE.WebGLRenderer({ antialias : this.antialias });
+        break;
+    }
     const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
-    this.cameraAspect = width / height;
+    this.cameraWidth = width;
+    this.cameraHeight = height;
     this.renderer.setSize(width, height);
     if (this.renderer instanceof THREE.WebGLRenderer) {
-      this.renderer.setClearColor(new THREE.Color(0xEEEEEE));
-      this.renderer.shadowMap.enabled = true;
+      this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
+      this.renderer.shadowMap.enabled = this.shadowMapEnabled;
     }
     this.canvas.nativeElement.appendChild(this.renderer.domElement);
     this.render();
   }
 
   getScene(): THREE.Scene {
-    return this.scene.getScene();
+    if (this.scene !== null && this.scene !== undefined) {
+      return this.scene.getScene();
+    } else {
+      return null;
+    }
   }
 
   getCamera(): THREE.Camera {
-    return this.camera.getCamera(this.cameraAspect);
+    if (this.camera !== null && this.camera !== undefined) {
+      return this.camera.getCamera(this.cameraWidth, this.cameraHeight);
+    } else {
+      return null;
+    }
   }
+
   render() {
     if (this.stats != null) {
       this.stats.begin();

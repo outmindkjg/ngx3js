@@ -1,1 +1,23 @@
-<p>page0207 works!</p>
+<three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0xEEEEEE'" [guiControl]="controls" [guiParams]="controlsParams">
+    <three-camera [type]="controls.perspective" [fov]="45" [near]="0.1" [far]="1000">
+        <three-position [x]="120" [y]="60" [z]="180"></three-position>
+        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+    </three-camera>
+    <three-scene #scene>
+        <three-light type="ambient" [color]="'0x292929'"></three-light>
+        <three-light type="Directional" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
+            <three-position [x]="-20" [y]="40" [z]="60"></three-position>
+        </three-light>
+        <three-mesh *ngFor="let cube of cubeInfo" [castShadow]="true">
+            <three-position [x]="cube.x" [y]="cube.y" [z]="cube.z"></three-position>
+            <three-geometry type="box" [width]="4" [height]="4" [depth]="4"></three-geometry>
+            <three-material type="meshlambert" [color]="cube.color"></three-material>
+        </three-mesh>
+        <three-mesh #plane [receiveShadow]="true">
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+            <three-geometry #planeGeometry type="plane" [width]="180" [height]="180"></three-geometry>
+            <three-material type="meshlambert" [color]="'0xffffff'"></three-material>
+        </three-mesh>
+    </three-scene>
+</three-renderer>

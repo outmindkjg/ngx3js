@@ -15,6 +15,9 @@ ng g c three/light
 ng g c three/position
 ng g c three/rotation
 ng g c three/scale
+ng g c three/line
+ng g c three/lookat
+
 ng g c menu
 
 

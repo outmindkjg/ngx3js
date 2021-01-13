@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {
     this.subscription = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        this.changeRouter(event.url);
+        this.changeRouter(event.urlAfterRedirects || event.url);
       }
     });
   }

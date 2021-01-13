@@ -1,7 +1,10 @@
-import { Component, ContentChildren, OnInit, QueryList } from '@angular/core';
+import { Component, ContentChild, ContentChildren, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LightComponent } from './../light/light.component';
 import { MeshComponent } from './../mesh/mesh.component';
+import { LineComponent } from './../line/line.component';
+import { FogComponent } from '../fog/fog.component';
+import { MaterialComponent } from '../material/material.component';
 
 @Component({
   selector: 'three-scene',
@@ -10,8 +13,11 @@ import { MeshComponent } from './../mesh/mesh.component';
 })
 export class SceneComponent implements OnInit {
 
-  @ContentChildren(LightComponent) lights: QueryList<LightComponent>;
-  @ContentChildren(MeshComponent) meshes: QueryList<MeshComponent>;
+  @ContentChildren(LightComponent,{descendants: false}) lights: QueryList<LightComponent>;
+  @ContentChildren(MeshComponent,{descendants: false}) meshes: QueryList<MeshComponent>;
+  @ContentChildren(LineComponent,{descendants: false}) lines: QueryList<LineComponent>;
+  @ContentChild(FogComponent,{descendants: false}) fog: FogComponent = null;
+  @ContentChild(MaterialComponent,{descendants: false}) overrideMaterial: MaterialComponent = null;
 
   constructor() { }
 
@@ -20,16 +26,53 @@ export class SceneComponent implements OnInit {
 
   private scene: THREE.Scene = null;
 
+  ngAfterContentInit(): void {
+    this.meshes.changes.subscribe((e) => {
+      const scene = this.getScene();
+      this.meshes.forEach(mesh => {
+        mesh.setObject3D(scene);
+      });
+    });
+    this.lights.changes.subscribe((e) => {
+      const scene = this.getScene();
+      this.lights.forEach(light => {
+        light.setObject3D(scene);
+      });
+    });
+    this.lines.changes.subscribe((e) => {
+      const scene = this.getScene();
+      this.lines.forEach(light => {
+        light.setObject3D(scene);
+      });
+    });
+  }
+
+  getPosition(): THREE.Vector3 {
+    return this.getScene().position;
+  }
+
   getScene(): THREE.Scene {
     if (this.scene === null) {
       this.scene = new THREE.Scene();
       this.lights.forEach(light => {
-        this.scene.add(light.getLight());
+        light.setObject3D(this.scene);
       });
       this.meshes.forEach(mesh => {
-        this.scene.add(mesh.getMesh());
-      })
-      console.log(this.scene.children);
+        mesh.setObject3D(this.scene);
+      });
+      this.lines.forEach(line => {
+        line.setObject3D(this.scene);
+      });
+      if (this.fog !== null && this.fog !== undefined) {
+        this.fog.setScene(this.scene);
+      }
+      if (this.overrideMaterial !== null && this.overrideMaterial !== undefined) {
+        console.log(this.overrideMaterial);
+        this.scene.overrideMaterial = this.overrideMaterial.getMaterial();
+        this.overrideMaterial.setMaterial(this.scene.overrideMaterial);
+        console.log(this.scene.overrideMaterial);
+      }
+      
     }
     return this.scene;
   }

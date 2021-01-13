@@ -74,6 +74,9 @@ import { PositionComponent } from './three/position/position.component';
 import { RotationComponent } from './three/rotation/rotation.component';
 import { ScaleComponent } from './three/scale/scale.component';
 import { MenuComponent } from './menu/menu.component';
+import { LineComponent } from './three/line/line.component';
+import { LookatComponent } from './three/lookat/lookat.component';
+import { FogComponent } from './three/fog/fog.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +151,10 @@ import { MenuComponent } from './menu/menu.component';
     PositionComponent,
     RotationComponent,
     ScaleComponent,
-    MenuComponent
+    MenuComponent,
+    LineComponent,
+    LookatComponent,
+    FogComponent
   ],
   imports: [
     BrowserModule,

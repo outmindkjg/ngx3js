@@ -9,7 +9,7 @@ import { MenuVo } from './common-interface';
 export class AppComponent {
   public menuList : MenuVo[] = [
     { url : 'ch01', name : 'Creating Your First 3D Scene with Three.js'},
-    { url : 'cn02', name : 'Basic Components That Make Up a Three.js Scene'},
+    { url : 'ch02', name : 'Basic Components That Make Up a Three.js Scene'},
     { url : 'ch03', name : 'Working with the Different Light Sources Available in Three.js'},
     { url : 'ch04', name : 'Working with Three.js Materials'},
     { url : 'ch05', name : 'Learning to Work with Geometries'},

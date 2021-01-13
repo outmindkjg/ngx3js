@@ -21,9 +21,17 @@ export class ScaleComponent implements OnInit {
     if (changes.x || changes.y || changes.z) {
       this.scale = null;
     }
+    if (this.refScale != null) {
+      this.refScale.copy(this.getScale());
+    }
   }
 
   private scale : THREE.Vector3 = null;
+  private refScale : THREE.Vector3 = null;
+  
+  setScale(refScale : THREE.Vector3) {
+    this.refScale = refScale;
+  }
 
   getScale() : THREE.Vector3 {
     if (this.scale === null) {

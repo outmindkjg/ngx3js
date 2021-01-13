@@ -21,9 +21,17 @@ export class RotationComponent implements OnInit {
     if (changes.x || changes.y || changes.z) {
       this.rotation = null;
     }
+    if (this.refRotation != null) {
+      this.refRotation.copy(this.getRotation());
+    }
   }
 
   private rotation : THREE.Euler = null;
+  private refRotation : THREE.Euler = null;
+
+  setRotation(refRotation : THREE.Euler) {
+    this.refRotation = refRotation;
+  }
 
   getRotation() : THREE.Euler {
     if (this.rotation === null) {

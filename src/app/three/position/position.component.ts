@@ -21,9 +21,16 @@ export class PositionComponent implements OnInit {
     if (changes.x || changes.y || changes.z) {
       this.position = null;
     }
+    if (this.refPosition != null) {
+      this.refPosition.copy(this.getPosition());
+    }
   }
 
   private position : THREE.Vector3 = null;
+  private refPosition : THREE.Vector3 = null;
+  setPosition(refPosition : THREE.Vector3){
+    this.refPosition = refPosition;
+  }
 
   getPosition() : THREE.Vector3 {
     if (this.position === null) {
