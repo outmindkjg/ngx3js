@@ -231,6 +231,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.renderer.setSize(width, height);
     if (this.renderer instanceof THREE.WebGLRenderer) {
       this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
+      this.renderer.setPixelRatio( window.devicePixelRatio );
       this.renderer.shadowMap.enabled = this.shadowMapEnabled;
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
