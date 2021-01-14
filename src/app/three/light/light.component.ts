@@ -315,11 +315,13 @@ export class LightComponent implements OnInit {
         } else {
           this.helper = null;
         }
+        /*
         this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
         this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
         this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
         this.light.shadow.camera.far = this.getShadowCameraFar(2000);
         this.light.shadow.camera.fov = this.getShadowCameraFov(50);
+        */
         const target = this.getTarget(null);
         if (target != null) {
           this.light.target = target;

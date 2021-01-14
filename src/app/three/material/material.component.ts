@@ -131,7 +131,6 @@ export class MaterialComponent implements OnInit, OnChanges {
   private getConvColor(paramColor: string | number, def: string | number): string | number {
     const color = paramColor === null ? def : paramColor;
     if (typeof(color) === 'string') {
-      console.log(color);
       if (color.startsWith('0x')) {
         return parseInt(color, 16);
       } else {

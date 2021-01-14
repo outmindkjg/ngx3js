@@ -239,7 +239,6 @@ export class GeometryComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.geometry = null;
-      console.log(changes);
     }
     if (changes.params) {
       Object.entries(this.params).forEach(([key, value]) => {

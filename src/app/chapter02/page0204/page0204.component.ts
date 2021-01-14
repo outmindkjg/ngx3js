@@ -171,7 +171,6 @@ export class Page0204Component implements OnInit {
       geo.position.x = -24 + ((idx % 4) * 12);
       geo.position.y = 4;
       geo.position.z = -8 + (Math.floor(idx / 4) * 12);
-      console.log(geo.position);
     })
   }
 
