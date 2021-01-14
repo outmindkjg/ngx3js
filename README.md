@@ -17,10 +17,23 @@ ng g c three/rotation
 ng g c three/scale
 ng g c three/line
 ng g c three/lookat
+ng g c three/texture
 
 ng g c menu
 
+.+ ([a-zA-Z]+): .+;
+case '$1' :\nreturn THREE.$1;
 
+([a-zA-Z]+)\?: ([a-z\[\]]+);
+@Input() $1 : $2 = null;
+
+
+@Input\(\) ([a-zA-Z]+) : ([a-zA-Z\[\]]+) =.+
+private get$1(def : $2) : $2 {\nconst $1  = this.$1 === null ? def : this.$1;\nreturn $1;\n}\n
+
+^([a-zA-Z]+)\?:.+
+([a-zA-Z]+)[\?]*: .+;
+$1 : this.get$1(1),
 
 ```
 

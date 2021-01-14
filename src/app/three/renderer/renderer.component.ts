@@ -12,6 +12,7 @@ export interface GuiControlParam {
   min?: number;
   max?: number;
   step?: number;
+  select? : any[];
   control? : string;
   listen ?: boolean; 
   change?: (value?: any) => void;
@@ -182,6 +183,14 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         case 'listen' :
           gui.add(param.control ? control[param.control] :  control, param.name).listen();
           break;
+        case 'select' :
+          this.setupGuiChange(
+            gui.add(param.control ? control[param.control] :  control, param.name, param.select),
+            param.finishChange, 
+            param.change,
+            param.listen
+          );
+          break;
         case 'button' :
         default:
           this.setupGuiChange(
@@ -223,6 +232,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.renderer instanceof THREE.WebGLRenderer) {
       this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
       this.renderer.shadowMap.enabled = this.shadowMapEnabled;
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      this.renderer.outputEncoding = THREE.sRGBEncoding;
     }
     this.canvas.nativeElement.appendChild(this.renderer.domElement);
     this.render();

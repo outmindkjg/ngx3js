@@ -77,7 +77,17 @@ export class CameraComponent implements OnInit {
   private cameraWidth: number = 0;
   private cameraHeight: number = 0;
 
-  getCamera(width : number, height : number) : THREE.Camera {
+  getObject3D() : THREE.Object3D {
+    return this.getCamera();
+  }
+
+  getCamera(width? : number, height? : number) : THREE.Camera {
+    if (width == null) {
+      width = this.cameraWidth;
+    }
+    if (height == null) {
+      height = this.cameraHeight;
+    }
     if (this.camera === null) {
       this.cameraWidth = width;
       this.cameraHeight = height;

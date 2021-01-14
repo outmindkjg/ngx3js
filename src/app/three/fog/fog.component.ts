@@ -52,7 +52,10 @@ export class FogComponent implements OnInit {
           break;
         case 'fog' :
         default :
-          this.fog = new THREE.Fog(this.getColor(0xffffff), this.near, this.far);
+          this.fog = new THREE.Fog(
+            this.getColor(0xffffff), this.near, 
+            this.far
+          );
           break; 
       }
     }

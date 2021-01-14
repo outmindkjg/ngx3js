@@ -77,6 +77,7 @@ import { MenuComponent } from './menu/menu.component';
 import { LineComponent } from './three/line/line.component';
 import { LookatComponent } from './three/lookat/lookat.component';
 import { FogComponent } from './three/fog/fog.component';
+import { TextureComponent } from './three/texture/texture.component';
 
 @NgModule({
   declarations: [
@@ -154,7 +155,8 @@ import { FogComponent } from './three/fog/fog.component';
     MenuComponent,
     LineComponent,
     LookatComponent,
-    FogComponent
+    FogComponent,
+    TextureComponent
   ],
   imports: [
     BrowserModule,

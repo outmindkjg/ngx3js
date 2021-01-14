@@ -41,6 +41,10 @@ export class LineComponent implements OnInit {
     }
   }
 
+  getObject3D() : THREE.Object3D {
+    return this.getLine();
+  }
+ 
   getLine() : THREE.LineSegments {
     if (this.line === null ) {
       switch(this.type) {

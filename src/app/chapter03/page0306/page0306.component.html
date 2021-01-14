@@ -1,1 +1,34 @@
-<p>page0306 works!</p>
+<three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams">
+    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+        <three-position [x]="20" [y]="30" [z]="21"></three-position>
+        <three-lookat [x]="0" [y]="0" [z]="-30"></three-lookat>
+    </three-camera>
+    <three-scene #scene>
+        <three-light [shadowCameraVisible]="true" [type]="'spot'" [color]="'0xcccccc'" [intensity]="0.1" [angle]="10">
+            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="plane"></three-lookat>
+        </three-light>
+        <three-light [shadowCameraVisible]="true" [type]="'area'" [color]="controls.color1" [intensity]="controls.intensity1" [width]="7" [height]="9.9">
+            <three-position [x]="-10" [y]="6" [z]="-35"></three-position>
+            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
+        </three-light>
+        <three-light [shadowCameraVisible]="true" [type]="'area'" [color]="controls.color2" [intensity]="controls.intensity2" [width]="7" [height]="9.9">
+            <three-position [x]="0" [y]="6" [z]="-35"></three-position>
+            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
+        </three-light>
+        <three-light [shadowCameraVisible]="true" [type]="'area'"  [color]="controls.color3" [intensity]="controls.intensity3" [width]="7" [height]="9.9">
+            <three-position [x]="10" [y]="6" [z]="-35"></three-position>
+            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
+        </three-light>
+        <three-mesh #plane>
+            <three-geometry type="Plane" [width]="70" [height]="70"></three-geometry>
+            <three-material type="MeshStandard"
+                [color]="'0xffffff'"
+                [specular]="'0xffffff'"
+                [shininess]="0"
+            ></three-material>
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+        </three-mesh>
+    </three-scene>
+</three-renderer>

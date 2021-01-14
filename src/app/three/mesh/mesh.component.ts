@@ -73,6 +73,10 @@ export class MeshComponent implements OnInit {
     }
   }
 
+  getObject3D() : THREE.Object3D {
+    return this.getMesh();
+  }
+
   getMesh(): THREE.Mesh | THREE.Group {
     if (this.mesh === null) {
       if (this.geometry != null && this.geometry != undefined) {

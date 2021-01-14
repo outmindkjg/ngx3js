@@ -51,6 +51,10 @@ export class SceneComponent implements OnInit {
     return this.getScene().position;
   }
 
+  getObject3D() : THREE.Object3D {
+    return this.getScene();
+  }
+ 
   getScene(): THREE.Scene {
     if (this.scene === null) {
       this.scene = new THREE.Scene();
@@ -67,12 +71,10 @@ export class SceneComponent implements OnInit {
         this.fog.setScene(this.scene);
       }
       if (this.overrideMaterial !== null && this.overrideMaterial !== undefined) {
-        console.log(this.overrideMaterial);
         this.scene.overrideMaterial = this.overrideMaterial.getMaterial();
         this.overrideMaterial.setMaterial(this.scene.overrideMaterial);
-        console.log(this.scene.overrideMaterial);
       }
-      
+      console.log(this.scene.children);
     }
     return this.scene;
   }
