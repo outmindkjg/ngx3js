@@ -1,11 +1,14 @@
 import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
+import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
+
 import { GeometryComponent } from '../geometry/geometry.component';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
+import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 
 
 
@@ -22,11 +25,12 @@ export class MeshComponent implements OnInit {
   @Input() receiveShadow: boolean = false;
   @Input() name: string = null;
 
-  @ContentChild(GeometryComponent) geometry: GeometryComponent = null;
-  @ContentChildren(MaterialComponent) materials: QueryList<MaterialComponent>;
-  @ContentChild(PositionComponent) position: PositionComponent = null;
-  @ContentChild(RotationComponent) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent) scale: ScaleComponent = null;
+  @ContentChild(GeometryComponent,{descendants: false}) geometry: GeometryComponent = null;
+  @ContentChildren(MaterialComponent,{descendants: false}) materials: QueryList<MaterialComponent>;
+  @ContentChildren(LensflareelementComponent,{descendants: false}) lensflareElements: QueryList<LensflareelementComponent>;
+  @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
+  @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
+  @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
 
   constructor() { }
 
@@ -64,6 +68,15 @@ export class MeshComponent implements OnInit {
     return (this.getMesh() as THREE.Mesh).geometry;
   }
 
+  private getMaterials() {
+    const materials: THREE.Material[] = [];
+    this.materials.forEach(material => {
+      materials.push(material.getMaterial())
+    });
+    return materials;
+  }
+
+
   private refObject3d: THREE.Object3D = null;
 
   setObject3D(refObject3d: THREE.Object3D) {
@@ -73,70 +86,76 @@ export class MeshComponent implements OnInit {
     }
   }
 
-  getObject3D() : THREE.Object3D {
+  getObject3D(): THREE.Object3D {
     return this.getMesh();
   }
 
   getMesh(): THREE.Mesh | THREE.Group {
     if (this.mesh === null) {
+      let geometry: THREE.Geometry | THREE.BufferGeometry = null;
       if (this.geometry != null && this.geometry != undefined) {
-        const materials: THREE.Material[] = [];
-        this.materials.forEach(material => {
-          materials.push(material.getMaterial())
-        });
-        switch (this.type.toLowerCase()) {
-          case 'multi':
-          case 'multimaterial':
-            this.mesh = SceneUtils.createMultiMaterialObject(this.geometry.getGeometry() as THREE.Geometry , materials);
-            this.mesh.children.forEach(function (e) {
-              e.castShadow = true
-            });
-            break;
-          case 'mesh':
-          default:
-            this.mesh = new THREE.Mesh(this.geometry.getGeometry(), materials.length > 1 ? materials : materials[0]);
-            this.mesh.castShadow = this.castShadow;
-            break;
-        }
-        if (this.name !== null) {
-          this.mesh.name = this.name;
-        }
-        this.mesh.receiveShadow = this.receiveShadow;
-        if (this.position !== null && this.position != undefined) {
-          this.mesh.position.copy(this.position.getPosition())
-          this.position.setPosition(this.mesh.position);
-        }
-        if (this.rotation !== null && this.rotation != undefined) {
-          this.mesh.rotation.copy(this.rotation.getRotation())
-          this.rotation.setRotation(this.mesh.rotation);
-        }
-        if (this.scale !== null && this.scale != undefined) {
-          this.mesh.scale.copy(this.scale.getScale())
-          this.scale.setScale(this.mesh.scale);
-        }
-        this.mesh.visible = this.visible;
-        if (this.mesh instanceof THREE.Mesh) {
-          const mesh = this.mesh;
-          this.geometry.setMesh(mesh);
-          if (mesh.material instanceof Array) {
-            this.materials.forEach((material, idx) => {
-              if (mesh.material[idx])
-                material.setMaterial(mesh.material[idx])
-            });
-          } else if (this.materials.length == 0) {
-            this.materials.first.setMaterial(mesh.material);
-          }
-        } else if (this.mesh instanceof THREE.Group) {
-          const meshes = this.mesh.children as THREE.Mesh[];
-          this.geometry.setMesh(meshes);
-          meshes.forEach((mesh, idx) => {
-            if (mesh.material instanceof Array) {
-              this.materials[idx].setMaterial(mesh.material[idx])
-            } else if (this.materials.length == 0) {
-              this.materials[idx].setMaterial(mesh.material);
-            }
+        geometry = this.geometry.getGeometry();
+      }
+      switch (this.type.toLowerCase()) {
+        case 'lensflare':
+          const lensflare = new Lensflare();
+          this.lensflareElements.forEach(lensflareElement => {
+            lensflareElement.setLensflare(lensflare);
           });
+          console.log(lensflare);
+          this.mesh = lensflare;
+          break;
+        case 'multi':
+        case 'multimaterial':
+          this.mesh = SceneUtils.createMultiMaterialObject(geometry as THREE.Geometry, this.getMaterials());
+          this.mesh.children.forEach(function (e) {
+            e.castShadow = true
+          });
+          break;
+        case 'mesh':
+        default:
+          const materials = this.getMaterials();
+          this.mesh = new THREE.Mesh(geometry, materials.length > 1 ? materials : materials[0]);
+          this.mesh.castShadow = this.castShadow;
+          break;
+      }
+      if (this.name !== null) {
+        this.mesh.name = this.name;
+      }
+      this.mesh.receiveShadow = this.receiveShadow;
+      if (this.position !== null && this.position != undefined) {
+        this.position.setPosition(this.mesh.position);
+      }
+      if (this.rotation !== null && this.rotation != undefined) {
+        this.rotation.setRotation(this.mesh.rotation);
+      }
+      if (this.scale !== null && this.scale != undefined) {
+        this.scale.setScale(this.mesh.scale);
+      }
+      this.mesh.visible = this.visible;
+      if (this.mesh instanceof THREE.Mesh) {
+        const mesh = this.mesh;
+        if (geometry !== null) {
+          this.geometry.setMesh(mesh);
         }
+        if (mesh.material instanceof Array) {
+          this.materials.forEach((material, idx) => {
+            if (mesh.material[idx])
+              material.setMaterial(mesh.material[idx])
+          });
+        } else if (this.materials.length == 1) {
+          this.materials.first.setMaterial(mesh.material);
+        }
+      } else if (this.mesh instanceof THREE.Group) {
+        const meshes = this.mesh.children as THREE.Mesh[];
+        this.geometry.setMesh(meshes);
+        meshes.forEach((mesh, idx) => {
+          if (mesh.material instanceof Array) {
+            this.materials[idx].setMaterial(mesh.material[idx])
+          } else if (this.materials.length == 0) {
+            this.materials[idx].setMaterial(mesh.material);
+          }
+        });
       }
     }
     return this.mesh;

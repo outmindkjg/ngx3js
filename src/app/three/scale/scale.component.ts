@@ -30,7 +30,10 @@ export class ScaleComponent implements OnInit {
   private refScale : THREE.Vector3 = null;
   
   setScale(refScale : THREE.Vector3) {
-    this.refScale = refScale;
+    if (this.refScale !== refScale) {
+      this.refScale = refScale;
+      this.refScale.copy(this.getScale());
+    }
   }
 
   getScale() : THREE.Vector3 {

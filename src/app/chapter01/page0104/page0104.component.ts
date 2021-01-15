@@ -1,5 +1,5 @@
 import { Component, ContentChild, OnInit, ViewChild } from '@angular/core';
-import { MeshComponent } from 'src/app/three/mesh/mesh.component';
+import { MeshComponent } from './../../three/mesh/mesh.component';
 
 @Component({
   selector: 'app-page0104',

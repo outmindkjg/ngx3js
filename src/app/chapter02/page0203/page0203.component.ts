@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GeometryComponent } from 'src/app/three/geometry/geometry.component';
-import { MeshComponent } from 'src/app/three/mesh/mesh.component';
-import { SceneComponent } from 'src/app/three/scene/scene.component';
+import { GeometryComponent } from './../../three/geometry/geometry.component';
+import { MeshComponent } from './../../three/mesh/mesh.component';
+import { SceneComponent } from './../../three/scene/scene.component';
 import * as THREE from 'three';
 
 @Component({

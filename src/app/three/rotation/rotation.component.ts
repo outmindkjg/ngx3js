@@ -30,7 +30,10 @@ export class RotationComponent implements OnInit {
   private refRotation : THREE.Euler = null;
 
   setRotation(refRotation : THREE.Euler) {
-    this.refRotation = refRotation;
+    if (this.refRotation !== refRotation) {
+      this.refRotation = refRotation;
+      this.refRotation.copy(this.getRotation());
+    }
   }
 
   getRotation() : THREE.Euler {

@@ -38,8 +38,7 @@ export class TextureComponent implements OnInit {
   }
  
   private getImage(def: string): string {
-    const image = (this.image === null) ? def : this.image;
-    return image;
+    return (this.image === null) ? def : this.image;
   }
 
   private getMapping(def: string): THREE.Mapping {
@@ -232,11 +231,15 @@ export class TextureComponent implements OnInit {
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
 
-  getTextureLoader() : THREE.TextureLoader{
-    if (TextureComponent.textureLoader === null) {
-      TextureComponent.textureLoader = new THREE.TextureLoader();
+  getTextureImage(image : string) : THREE.Texture{
+    return TextureComponent.getTextureImage(image);
+  }
+
+  static getTextureImage(image : string) : THREE.Texture {
+    if (this.textureLoader === null) {
+      this.textureLoader = new THREE.TextureLoader();
     }
-    return TextureComponent.textureLoader;
+    return this.textureLoader.load(image);
   }
 
   setTexture(refTexture: THREE.Texture) {
@@ -248,7 +251,7 @@ export class TextureComponent implements OnInit {
 
   getTexture() {
     if (this.texture === null) {
-      this.texture = this.getTextureLoader().load(this.getImage(''));
+      this.texture = this.getTextureImage(this.getImage(''));
       this.texture.mapping = this.getMapping('default');
       this.texture.wrapS = this.getWrapS('clamptoedge');
       this.texture.wrapT = this.getWrapT('clamptoedge');

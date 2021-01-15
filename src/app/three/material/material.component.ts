@@ -116,7 +116,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.type || changes.color) {
+    if (changes) {
       this.material = null;
     }
     if (this.refMaterial != null) {
@@ -130,7 +130,7 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   private getConvColor(paramColor: string | number, def: string | number): string | number {
     const color = paramColor === null ? def : paramColor;
-    if (typeof(color) === 'string') {
+    if (typeof (color) === 'string') {
       if (color.startsWith('0x')) {
         return parseInt(color, 16);
       } else {
@@ -761,6 +761,13 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
     return Object.assign({
+      name: this.getName(''),
+      opacity: this.getOpacity(1),
+      transparent: this.getTransparent(false),
+      side: this.getSide('front'),
+      visible: this.getVisible(true)
+    },extendObj);
+    return Object.assign({
       alphaTest: this.getAlphaTest(1),
       blendDst: this.getBlendDst('oneminussrcalpha'),
       blendDstAlpha: this.getBlendDstAlpha(null),
@@ -773,12 +780,11 @@ export class MaterialComponent implements OnInit, OnChanges {
       clippingPlanes: this.getClippingPlanes([]),
       clipShadows: this.getClipShadows(false),
       colorWrite: this.getColorWrite(true),
-      defines: this.getDefines(undefined),
+      // defines: this.getDefines(null),
       depthFunc: this.getDepthFunc('lessequal'),
       depthTest: this.getDepthTest(true),
       depthWrite: this.getDepthWrite(true),
       fog: this.getFog(true),
-      name: this.getName(''),
       opacity: this.getOpacity(1),
       polygonOffset: this.getPolygonOffset(false),
       polygonOffsetFactor: this.getPolygonOffsetFactor(0),
@@ -787,12 +793,10 @@ export class MaterialComponent implements OnInit, OnChanges {
       premultipliedAlpha: this.getPremultipliedAlpha(false),
       dithering: this.getDithering(false),
       flatShading: this.getFlatShading(false),
-      side: this.getSide('front'),
       shadowSide: this.getShadowSide('none'),
       toneMapped: this.getToneMapped(true),
       transparent: this.getTransparent(false),
       vertexColors: this.getVertexColors(false),
-      visible: this.getVisible(true),
       stencilWrite: this.getStencilWrite(false),
       stencilFunc: this.getStencilFunc('always'),
       stencilRef: this.getStencilRef(0),
@@ -825,15 +829,34 @@ export class MaterialComponent implements OnInit, OnChanges {
           })
           break;
         case 'meshbasic':
-          this.material = new THREE.MeshBasicMaterial({
+          const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
             color: this.getColor(0xffffff),
-            wireframe: this.wireframe
-          })
+            aoMapIntensity: this.getAoMapIntensity(1),
+            refractionRatio: this.getRefractionRatio(1),
+            wireframe: this.getWireframe(false),
+            wireframeLinewidth: this.getWireframeLinewidth(1),
+            skinning: this.getSkinning(false),
+            morphTargets: this.getMorphTargets(false),
+            reflectivity: this.getReflectivity(0.5),
+            opacity: this.getOpacity(1),
+            combine: this.getCombine('multiply'),
+            wireframeLinecap: this.getWireframeLinecap('round'),
+            wireframeLinejoin: this.getWireframeLinejoin('round'),
+          }
+          this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
           break;
-        case 'mesh':
-          this.material = new THREE.MeshDepthMaterial({
-            wireframe: this.wireframe
-          });
+        case 'meshdepth':
+          const parametersMeshDepthMaterial: THREE.MeshDepthMaterialParameters = {
+            map: this.getTexture('map'),
+            alphaMap: this.getTexture('alphaMap'),
+            // depthPacking: getDepthPackingStrategies(), todo
+            displacementMap: this.getTexture('displacementMap'),
+            displacementScale : this.getDisplacementScale(1),
+            displacementBias : this.getDisplacementBias(0),
+            wireframe : this.getWireframe(true),
+            wireframeLinewidth : this.getWireframeLinewidth(1),
+          }
+          this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
           break;
         case 'meshdistance':
           this.material = new THREE.MeshDistanceMaterial({
@@ -851,7 +874,7 @@ export class MaterialComponent implements OnInit, OnChanges {
           });
           break;
         case 'meshphong':
-          this.material = new THREE.MeshPhongMaterial({
+          const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
@@ -884,11 +907,12 @@ export class MaterialComponent implements OnInit, OnChanges {
             specularMap: this.getTexture('clearcoatNormalMap'),
             combine: this.getCombine('multiply'),
             wireframeLinecap: this.getWireframeLinecap('round'),
-            wireframeLinejoin: this.getWireframeLinejoin('round'),
-          });
+            wireframeLinejoin: this.getWireframeLinejoin('round')
+          }
+          this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
           break;
         case 'meshphysical':
-          this.material = new THREE.MeshPhysicalMaterial({
+          const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
             color: this.getColor(0xffffff),
             roughness: this.getRoughness(1),
             metalness: this.getMetalness(0),
@@ -930,11 +954,12 @@ export class MaterialComponent implements OnInit, OnChanges {
             ior: this.getIor(1.5),
             sheen: this.getSheen(null),
             transmission: this.getTransmission(0),
-            transmissionMap: this.getTexture('transmissionMap'),
-          });
+            transmissionMap: this.getTexture('transmissionMap')
+          }
+          this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
           break;
         case 'meshstandard':
-          this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters({
+          const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
             color: this.getColor(0xffffff),
             roughness: this.getRoughness(1),
             metalness: this.getMetalness(0),
@@ -965,11 +990,12 @@ export class MaterialComponent implements OnInit, OnChanges {
             skinning: this.getSkinning(false),
             vertexTangents: this.getVertexTangents(false),
             morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false),
-          }));
+            morphNormals: this.getMorphNormals(false)
+          }
+          this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
           break;
         case 'meshtoon':
-          this.material = new THREE.MeshToonMaterial(this.getMaterialParameters({
+          const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
             color: this.getColor(0xffffff),
             opacity: this.getOpacity(1),
             gradientMap: this.getTexture('gradientMap'),
@@ -997,27 +1023,29 @@ export class MaterialComponent implements OnInit, OnChanges {
             skinning: this.getSkinning(false),
             morphTargets: this.getMorphTargets(false),
             morphNormals: this.getMorphNormals(false)
-          }));
+          }
+          this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
           break;
         case 'points':
-          this.material = new THREE.PointsMaterial(this.getMaterialParameters({
+          const parametersPointsMaterial: THREE.PointsMaterialParameters = {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
             size: this.getSize(1),
             sizeAttenuation: this.getSizeAttenuation(true),
             morphTargets: this.getMorphTargets(false),
-          }));
+          }
+          this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
           break;
         case 'rawshader':
-          this.material = new THREE.RawShaderMaterial({
+          this.material = new THREE.RawShaderMaterial(this.getMaterialParameters({
             // todo
-          });
+          }));
           break;
         case 'shader':
-          this.material = new THREE.ShaderMaterial({
+          this.material = new THREE.ShaderMaterial(this.getMaterialParameters({
             // todo
-          });
+          }));
           break;
         case 'shadow':
           this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
@@ -1025,17 +1053,18 @@ export class MaterialComponent implements OnInit, OnChanges {
           }));
           break;
         case 'sprite':
-          this.material = new THREE.SpriteMaterial(this.getMaterialParameters({
+          const parametersSpriteMaterial: THREE.SpriteMaterialParameters = {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
             rotation: this.getRotation(1),
             sizeAttenuation: this.getSizeAttenuation(true)
-          }));
+          }
+          this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
           break;
         case 'meshlambert':
         default:
-          this.material = new THREE.MeshLambertMaterial({
+          const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
             color: this.getColor(0xffffff),
             emissive: this.getEmissive(0x000000),
             emissiveIntensity: this.getEmissiveIntensity(1),
@@ -1058,7 +1087,8 @@ export class MaterialComponent implements OnInit, OnChanges {
             skinning: this.getSkinning(false),
             morphTargets: this.getMorphTargets(false),
             morphNormals: this.getMorphNormals(false)
-          });
+          }
+          this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
           break;
       }
     }

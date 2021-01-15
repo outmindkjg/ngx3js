@@ -1,10 +1,11 @@
-import { Component, ContentChild, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 
 import * as THREE from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
-      
+
 import { LookatComponent } from '../lookat/lookat.component';
+import { MeshComponent } from '../mesh/mesh.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
@@ -31,7 +32,7 @@ export class LightComponent implements OnInit {
   @Input() width: number = null;
   @Input() height: number = null;
   @Input() exponent: number = null;
-  
+
   @Input() shadowCameraVisible: boolean = false;
   @Input() shadowCameraNear: number = null;
   @Input() shadowMapSizeWidth: number = null;
@@ -45,10 +46,11 @@ export class LightComponent implements OnInit {
   @Input() target: any = null;
 
 
-  @ContentChild(PositionComponent) position: PositionComponent = null;
-  @ContentChild(RotationComponent) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent) scale: ScaleComponent = null;
-  @ContentChild(LookatComponent) lookat: LookatComponent = null;
+  @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
+  @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
+  @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
+  @ContentChild(LookatComponent,{descendants: false}) lookat: LookatComponent = null;
+  @ContentChildren(MeshComponent,{descendants: false}) meshes: QueryList<MeshComponent>;
 
   constructor() { }
 
@@ -149,7 +151,6 @@ export class LightComponent implements OnInit {
   getShadowCameraNear(def: number): number {
     return this.shadowCameraNear === null ? def : this.shadowCameraNear;
   }
-  
 
   getShadowCameraFar(def: number): number {
     return this.shadowCameraFar === null ? def : this.shadowCameraFar;
@@ -185,7 +186,7 @@ export class LightComponent implements OnInit {
     return null;
   }
 
- 
+
   ngOnInit(): void {
   }
 
@@ -219,7 +220,7 @@ export class LightComponent implements OnInit {
     if (this.refObject3d !== refObject3d) {
       if (this.refObject3d != null && this.helper != null) {
         this.refObject3d.remove(this.helper);
-      } 
+      }
       this.refObject3d = refObject3d;
       this.refObject3d.add(this.getLight());
       if (this.helper != null) {
@@ -228,12 +229,22 @@ export class LightComponent implements OnInit {
     }
   }
 
-  getObject3D() : THREE.Object3D {
+  getObject3D(): THREE.Object3D {
     return this.getLight();
   }
 
   getLight(): THREE.Light {
     if (this.light === null) {
+/*
+todo
+AmbientLightProbe
+HemisphereLightProbe
+LightProbe
+LightShadow
+PointLightShadow
+DirectionalLightShadow
+SpotLightShadow
+*/
       switch (this.type.toLowerCase()) {
         case 'directional':
           this.light = new THREE.DirectionalLight(
@@ -248,7 +259,6 @@ export class LightComponent implements OnInit {
             this.getGroundColor(0xffffff),
             this.getIntensity(1)
           );
-          this.light.castShadow = this.castShadow;
           break;
         case 'point':
           this.light = new THREE.PointLight(
@@ -259,17 +269,14 @@ export class LightComponent implements OnInit {
           );
           this.light.castShadow = this.castShadow;
           break;
-        case 'area' :
+        case 'area':
         case 'rectarea':
-          RectAreaLightUniformsLib.init();
-          
           this.light = new THREE.RectAreaLight(
             this.getColor(0xffffff),
             this.getIntensity(1),
             this.getWidth(10),
             this.getHeight(10)
           );
-          // this.light.castShadow = this.castShadow;
           break;
         case 'spot':
           this.light = new THREE.SpotLight(
@@ -308,51 +315,54 @@ export class LightComponent implements OnInit {
         this.lookat.setObject3D(this.light);
       }
       if (this.light instanceof THREE.SpotLight) {
-        // this.light.onlyShadow = this.onlyShadow;
         this.light.penumbra = this.exponent;
-        if (this.shadowCameraVisible) {
-          this.helper = new THREE.CameraHelper( this.light.shadow.camera );
-        } else {
-          this.helper = null;
-        }
-        /*
-        this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
-        this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
-        this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
-        this.light.shadow.camera.far = this.getShadowCameraFar(2000);
-        this.light.shadow.camera.fov = this.getShadowCameraFov(50);
-        */
         const target = this.getTarget(null);
         if (target != null) {
           this.light.target = target;
         }
       } else if (this.light instanceof THREE.DirectionalLight) {
-        if (this.shadowCameraVisible) {
-          this.helper = new THREE.CameraHelper( this.light.shadow.camera );
-        } else {
-          this.helper = null;
-        }
-        this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
-        this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
-        this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
-        this.light.shadow.camera.far = this.getShadowCameraFar(2000);
-        this.light.shadow.camera.left = this.getShadowCameraLeft(-50);
-        this.light.shadow.camera.right = this.getShadowCameraRight(50);
-        this.light.shadow.camera.top = this.getShadowCameraTop(50);
-        this.light.shadow.camera.bottom = this.getShadowCameraBottom(-50);
         const target = this.getTarget(null);
         if (target != null) {
           this.light.target = target;
         }
       } else if (this.light instanceof THREE.RectAreaLight) {
         if (this.shadowCameraVisible) {
-          const rectLightHelper = new RectAreaLightHelper( this.light );
+          const rectLightHelper = new RectAreaLightHelper(this.light);
           this.light.add(rectLightHelper);
         }
-        // this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
-        // this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
       }
-
+      if (this.meshes && this.meshes.length > 0) {
+        this.meshes.forEach(mesh => {
+          mesh.setObject3D(this.light);
+        });
+      }
+      if (this.light.shadow) {
+        this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
+        this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
+        if (this.light.shadow.camera) {
+          if (this.shadowCameraVisible) {
+            this.helper = new THREE.CameraHelper(this.light.shadow.camera);
+          } else {
+            this.helper = null;
+          }
+          if (this.light.shadow.camera instanceof THREE.PerspectiveCamera) {
+            this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
+            this.light.shadow.camera.far = this.getShadowCameraFar(2000);
+            this.light.shadow.camera.fov = this.getShadowCameraFov(50);
+          } else if (this.light.shadow.camera instanceof THREE.OrthographicCamera) {
+            this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
+            this.light.shadow.camera.far = this.getShadowCameraFar(2000);
+            this.light.shadow.camera.left = this.getShadowCameraLeft(-50);
+            this.light.shadow.camera.right = this.getShadowCameraRight(50);
+            this.light.shadow.camera.top = this.getShadowCameraTop(50);
+            this.light.shadow.camera.bottom = this.getShadowCameraBottom(-50);
+          }
+        } else {
+          this.helper = null;
+        }
+      } else {
+        this.helper = null;
+      }
     }
     return this.light;
   }

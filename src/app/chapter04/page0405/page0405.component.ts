@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GuiControlParam } from './../../three';
 
 @Component({
   selector: 'app-page0405',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page0405.component.scss']
 })
 export class Page0405Component implements OnInit {
+
+  controls = {
+  }
+
+  controlsParams: GuiControlParam[] = [
+  ]
 
   constructor() { }
 

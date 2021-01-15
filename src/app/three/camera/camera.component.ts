@@ -6,6 +6,12 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 
+/*
+ArrayCamera
+CubeCamera
+StereoCamera
+*/
+
 @Component({
   selector: 'three-camera',
   templateUrl: './camera.component.html',
@@ -22,10 +28,10 @@ export class CameraComponent implements OnInit {
   @Input() top : number = 16;
   @Input() bottom : number = -16;
 
-  @ContentChild(PositionComponent) position: PositionComponent = null;
-  @ContentChild(RotationComponent) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent) scale: ScaleComponent = null;
-  @ContentChild(LookatComponent) lookat: LookatComponent = null;
+  @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
+  @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
+  @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
+  @ContentChild(LookatComponent,{descendants: false}) lookat: LookatComponent = null;
   
 
   constructor() { }

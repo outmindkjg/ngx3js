@@ -18,6 +18,8 @@ ng g c three/scale
 ng g c three/line
 ng g c three/lookat
 ng g c three/texture
+ng g c three/lensflareelement
+ng g c three/helper
 
 ng g c menu
 

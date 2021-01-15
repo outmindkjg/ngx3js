@@ -78,6 +78,8 @@ import { LineComponent } from './three/line/line.component';
 import { LookatComponent } from './three/lookat/lookat.component';
 import { FogComponent } from './three/fog/fog.component';
 import { TextureComponent } from './three/texture/texture.component';
+import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
+import { HelperComponent } from './three/helper/helper.component';
 
 @NgModule({
   declarations: [
@@ -156,7 +158,9 @@ import { TextureComponent } from './three/texture/texture.component';
     LineComponent,
     LookatComponent,
     FogComponent,
-    TextureComponent
+    TextureComponent,
+    LensflareelementComponent,
+    HelperComponent
   ],
   imports: [
     BrowserModule,
