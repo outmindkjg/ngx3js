@@ -20,6 +20,7 @@ import { LensflareelementComponent } from '../lensflareelement/lensflareelement.
 export class MeshComponent implements OnInit {
 
   @Input() type: string = "mesh";
+  @Input() scaleStep: number = 1;
   @Input() visible: boolean = true;
   @Input() castShadow: boolean = true;
   @Input() receiveShadow: boolean = false;
@@ -27,6 +28,7 @@ export class MeshComponent implements OnInit {
 
   @ContentChild(GeometryComponent,{descendants: false}) geometry: GeometryComponent = null;
   @ContentChildren(MaterialComponent,{descendants: false}) materials: QueryList<MaterialComponent>;
+  @ContentChildren(MeshComponent,{descendants: false}) meshes: QueryList<MeshComponent>;
   @ContentChildren(LensflareelementComponent,{descendants: false}) lensflareElements: QueryList<LensflareelementComponent>;
   @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
   @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
@@ -50,7 +52,7 @@ export class MeshComponent implements OnInit {
     }
   }
 
-  private mesh: THREE.Mesh | THREE.Group = null;
+  private mesh: THREE.Mesh | THREE.Group | THREE.Line = null;
 
   getPosition(): THREE.Vector3 {
     return this.getMesh().position;
@@ -90,7 +92,7 @@ export class MeshComponent implements OnInit {
     return this.getMesh();
   }
 
-  getMesh(): THREE.Mesh | THREE.Group {
+  getMesh(): THREE.Mesh | THREE.Group | THREE.Line{
     if (this.mesh === null) {
       let geometry: THREE.Geometry | THREE.BufferGeometry = null;
       if (this.geometry != null && this.geometry != undefined) {
@@ -102,7 +104,6 @@ export class MeshComponent implements OnInit {
           this.lensflareElements.forEach(lensflareElement => {
             lensflareElement.setLensflare(lensflare);
           });
-          console.log(lensflare);
           this.mesh = lensflare;
           break;
         case 'multi':
@@ -111,11 +112,28 @@ export class MeshComponent implements OnInit {
           this.mesh.children.forEach(function (e) {
             e.castShadow = true
           });
+          if (this.scaleStep != 1) {
+            let scaleStep = this.scaleStep;
+            this.mesh.children.forEach((mesh) => {
+              mesh.scale.x *= scaleStep;
+              mesh.scale.y *= scaleStep;
+              mesh.scale.z *= scaleStep;
+              scaleStep *= this.scaleStep;
+            });
+          }
+          break;
+        case 'line' :
+          this.mesh = new THREE.Line(geometry, this.getMaterials()[0]);
+          this.mesh.computeLineDistances();
           break;
         case 'mesh':
         default:
           const materials = this.getMaterials();
-          this.mesh = new THREE.Mesh(geometry, materials.length > 1 ? materials : materials[0]);
+          if (geometry && materials.length > 0) {
+            this.mesh = new THREE.Mesh(geometry, materials.length > 1 ? materials : materials[0]);
+          } else {
+            this.mesh = new THREE.Mesh();
+          }
           this.mesh.castShadow = this.castShadow;
           break;
       }
@@ -131,6 +149,11 @@ export class MeshComponent implements OnInit {
       }
       if (this.scale !== null && this.scale != undefined) {
         this.scale.setScale(this.mesh.scale);
+      }
+      if (this.meshes && this.meshes.length > 0) {
+        this.meshes.forEach(mesh => {
+          mesh.setObject3D(this.mesh);
+        })
       }
       this.mesh.visible = this.visible;
       if (this.mesh instanceof THREE.Mesh) {

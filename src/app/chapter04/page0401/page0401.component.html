@@ -5,10 +5,11 @@
     </three-camera>
     <three-scene #scene>
         <three-light type="ambient" [color]="'0x121212'"></three-light>
-        <three-light type="Spot" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" [shadowCameraVisible]="true">
+        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" [shadowCameraVisible]="true">
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="baseGeo"></three-lookat>
         </three-light>
-        <three-mesh>
+        <three-mesh #baseGeo>
             <three-position [x]="0" [y]="3" [z]="2"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry 

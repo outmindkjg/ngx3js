@@ -20,7 +20,7 @@ ng g c three/lookat
 ng g c three/texture
 ng g c three/lensflareelement
 ng g c three/helper
-
+ng g c three/shader
 ng g c menu
 
 .+ ([a-zA-Z]+): .+;
@@ -48,4 +48,7 @@ npm install @types/stats-js –save-dev
 npm install @types/dat.gui –save-dev
 npm install @types/physijs –save-dev
 ```
+
+ng g c chapter05/page0510
+ng g c chapter05/page0511
 

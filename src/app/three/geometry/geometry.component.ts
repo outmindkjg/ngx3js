@@ -97,6 +97,7 @@ export class GeometryComponent implements OnInit {
   @Input() slices: number = null;
   @Input() stacks: number = null;
   @Input() vertices: GeometriesVector3[] = null;
+  @Input() colors: (string | number)[] = null;
   @Input() faces: GeometriesFace3[] = null;
   @Input() thresholdAngle: number = null;
   @ContentChild(GeometryComponent) childGeometry: GeometryComponent;
@@ -226,6 +227,15 @@ export class GeometryComponent implements OnInit {
     });
     return vertices;
   }
+
+  getColors(def: (string | number)[]): THREE.Color[] {
+    const colors: THREE.Color[] = [];
+    (this.colors === null ? def : this.colors).forEach(c => {
+      colors.push(new THREE.Color(c))
+    });
+    return colors;
+  }
+  
 
   getFaces(def: GeometriesVector3[]): THREE.Face3[] {
     const faces: THREE.Face3[] = [];
@@ -390,7 +400,10 @@ export class GeometryComponent implements OnInit {
           this.geometry = new THREE.Geometry();
           this.geometry.vertices = this.getVertices([]);
           this.geometry.faces = this.getFaces([]);
-          this.geometry.computeFaceNormals();
+          this.geometry.colors = this.getColors([]);
+          if (this.geometry.faces && this.geometry.faces.length > 0) {
+            this.geometry.computeFaceNormals();
+          }
           break;
         case 'boxbuffer':
           this.geometry = new THREE.BoxBufferGeometry(

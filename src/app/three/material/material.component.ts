@@ -1,5 +1,6 @@
 import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
 
 @Component({
@@ -51,6 +52,9 @@ export class MaterialComponent implements OnInit, OnChanges {
   @Input() stencilZFail: string = null;
   @Input() stencilZPass: string = null;
   @Input() userData: any = null;
+  @Input() uniforms: { [uniform: string]: THREE.IUniform } = null;
+  @Input() lights: boolean = null;
+  @Input() clipping: boolean = null;
   @Input() transparent: boolean = false;
   @Input() wireframe: boolean = false;
   @Input() shading: string = null;
@@ -103,6 +107,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   @Input() sizeAttenuation: boolean = null;
 
   @ContentChildren(TextureComponent) textures: QueryList<TextureComponent>;
+  @ContentChildren(ShaderComponent) shaders: QueryList<ShaderComponent>;
 
   constructor() { }
 
@@ -759,12 +764,40 @@ export class MaterialComponent implements OnInit, OnChanges {
     return userData;
   }
 
+  private getUniforms(def : any) : { [uniform: string]: THREE.IUniform } {
+    return this.uniforms === null ? def : this.uniforms;
+  }
+
+  private getLights(def: any): any {
+    return this.lights === null ? def : this.lights;
+  }
+
+  private getClipping(def: any): any {
+    return this.clipping === null ? def : this.clipping;
+  }
+
+  private getShader(type : string) {
+    if (this.shaders != null && this.shaders.length > 0) {
+      const foundShader = this.shaders.find((shader) => {
+        return shader.type.toLowerCase() === type;
+      });
+      if (foundShader !== null && foundShader !== undefined) {
+        console.log(foundShader.getShader());
+        return foundShader.getShader();
+      } else {
+        console.log("null shader " + type);
+      }
+    }
+    return null;
+  }
+
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
     return Object.assign({
       name: this.getName(''),
       opacity: this.getOpacity(1),
       transparent: this.getTransparent(false),
       side: this.getSide('front'),
+      blending: this.getBlending('normal'),
       visible: this.getVisible(true)
     },extendObj);
     return Object.assign({
@@ -773,7 +806,6 @@ export class MaterialComponent implements OnInit, OnChanges {
       blendDstAlpha: this.getBlendDstAlpha(null),
       blendEquation: this.getBlendEquation('add'),
       blendEquationAlpha: this.getBlendEquationAlpha(null),
-      blending: this.getBlending('normal'),
       blendSrc: this.getBlendSrc('srcalpha'),
       blendSrcAlpha: this.getBlendSrcAlpha(null),
       clipIntersection: this.getClipIntersection(false),
@@ -820,12 +852,18 @@ export class MaterialComponent implements OnInit, OnChanges {
       switch (this.type.toLowerCase()) {
         case 'linebasic':
           this.material = new THREE.LineBasicMaterial({
-            color: this.getColor(0xffffff)
+            opacity: 1.0,
+            linewidth: 1,
+            vertexColors : true
           })
           break;
         case 'linedashed':
           this.material = new THREE.LineDashedMaterial({
-            color: this.getColor(0xffffff)
+            color: this.getColor(0xffffff),
+            vertexColors: true,
+            dashSize: 2,
+            gapSize: 2,
+            scale: 0.1
           })
           break;
         case 'meshbasic':
@@ -843,6 +881,7 @@ export class MaterialComponent implements OnInit, OnChanges {
             wireframeLinecap: this.getWireframeLinecap('round'),
             wireframeLinejoin: this.getWireframeLinejoin('round'),
           }
+          console.log(parametersMeshBasicMaterial);
           this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
           break;
         case 'meshdepth':
@@ -853,7 +892,7 @@ export class MaterialComponent implements OnInit, OnChanges {
             displacementMap: this.getTexture('displacementMap'),
             displacementScale : this.getDisplacementScale(1),
             displacementBias : this.getDisplacementBias(0),
-            wireframe : this.getWireframe(true),
+            wireframe : this.getWireframe(false),
             wireframeLinewidth : this.getWireframeLinewidth(1),
           }
           this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
@@ -869,9 +908,22 @@ export class MaterialComponent implements OnInit, OnChanges {
           });
           break;
         case 'meshnormal':
-          this.material = new THREE.MeshNormalMaterial({
-
-          });
+          const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
+            bumpMap: this.getTexture('bumpMap'),
+            // bumpScale: this.getBumpScale(1);
+            normalMap: this.getTexture('normalMap'),
+            normalMapType: this.getNormalMapType(''),
+            normalScale: this.getNormalScale(1,1),
+            displacementMap: this.getTexture('displacementMap'),
+            displacementScale: this.getDisplacementScale(1),
+            displacementBias: this.getDisplacementBias(0),
+            wireframe: this.getWireframe(false),
+            wireframeLinewidth: this.getWireframeLinewidth(1),
+            skinning: this.getSkinning(false),
+            morphTargets: this.getMorphTargets(false),
+            morphNormals: this.getMorphNormals(false)
+          }
+          this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
           break;
         case 'meshphong':
           const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
@@ -1038,14 +1090,36 @@ export class MaterialComponent implements OnInit, OnChanges {
           this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
           break;
         case 'rawshader':
-          this.material = new THREE.RawShaderMaterial(this.getMaterialParameters({
-            // todo
-          }));
+          const parametersRawShaderMaterial: THREE.ShaderMaterialParameters = {
+            uniforms: this.getUniforms({}),
+            vertexShader: this.getShader('x-shader/x-vertex'), 
+            fragmentShader: this.getShader('x-shader/x-fragment'),
+            linewidth: this.getLinewidth(1),
+            wireframe: this.getWireframe(false),
+            wireframeLinewidth: this.getWireframeLinewidth(1),
+            lights: this.getLights(false),
+            clipping: this.getClipping(false),
+            skinning: this.getSkinning(false),
+            morphTargets: this.getMorphTargets(false),
+            morphNormals: this.getMorphNormals(false)
+          }
+          this.material = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
           break;
         case 'shader':
-          this.material = new THREE.ShaderMaterial(this.getMaterialParameters({
-            // todo
-          }));
+          const parametersShaderMaterial: THREE.ShaderMaterialParameters = {
+            uniforms: this.getUniforms({}),
+            vertexShader: this.getShader('x-shader/x-vertex'), 
+            fragmentShader: this.getShader('x-shader/x-fragment'),
+            linewidth: this.getLinewidth(1),
+            wireframe: this.getWireframe(false),
+            wireframeLinewidth: this.getWireframeLinewidth(1),
+            lights: this.getLights(false),
+            clipping: this.getClipping(false),
+            skinning: this.getSkinning(false),
+            morphTargets: this.getMorphTargets(false),
+            morphNormals: this.getMorphNormals(false)
+          }
+          this.material = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
           break;
         case 'shadow':
           this.material = new THREE.ShadowMaterial(this.getMaterialParameters({

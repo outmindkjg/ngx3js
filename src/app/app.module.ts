@@ -55,6 +55,8 @@ import { Page0506Component } from './chapter05/page0506/page0506.component';
 import { Page0507Component } from './chapter05/page0507/page0507.component';
 import { Page0508Component } from './chapter05/page0508/page0508.component';
 import { Page0509Component } from './chapter05/page0509/page0509.component';
+import { Page0510Component } from './chapter05/page0510/page0510.component';
+import { Page0511Component } from './chapter05/page0511/page0511.component';
 import { Page0601Component } from './chapter06/page0601/page0601.component';
 import { Page0602Component } from './chapter06/page0602/page0602.component';
 import { Page0603Component } from './chapter06/page0603/page0603.component';
@@ -80,6 +82,7 @@ import { FogComponent } from './three/fog/fog.component';
 import { TextureComponent } from './three/texture/texture.component';
 import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
 import { HelperComponent } from './three/helper/helper.component';
+import { ShaderComponent } from './three/shader/shader.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +163,10 @@ import { HelperComponent } from './three/helper/helper.component';
     FogComponent,
     TextureComponent,
     LensflareelementComponent,
-    HelperComponent
+    HelperComponent,
+    ShaderComponent,
+    Page0510Component,
+    Page0511Component
   ],
   imports: [
     BrowserModule,

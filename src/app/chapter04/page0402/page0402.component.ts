@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GeometryComponent } from './../../three/geometry/geometry.component';
-import { MeshComponent } from './../../three/mesh/mesh.component';
-import { SceneComponent } from './../../three/scene/scene.component';
 import * as THREE from 'three';
+import { SceneComponent } from './../../three/scene/scene.component';
 
 @Component({
   selector: 'app-page0402',
@@ -11,7 +9,6 @@ import * as THREE from 'three';
 })
 export class Page0402Component implements OnInit {
 
-  @ViewChild('planeGeometry') planeGeometry: GeometryComponent = null;
   @ViewChild('scene') scene: SceneComponent = null;
 
   cubes : {
@@ -25,6 +22,8 @@ export class Page0402Component implements OnInit {
   controls = {
     rotationSpeed : 0.02,
     numberOfObjects : 10,
+    cameraNear : 10,
+    cameraFar : 130,
     removeCube : () => {
       this.cubes.pop();
       this.updateNumberOfObjects();
@@ -32,9 +31,9 @@ export class Page0402Component implements OnInit {
     addCube : () => {
       const cubeSize = Math.ceil((Math.random() * 3));
       const cubeColor = Math.random() * 0xffffff;
-      const x = -30 + Math.round((Math.random() * 60));
-      const y = Math.round((Math.random() * 5));
-      const z = -20 + Math.round((Math.random() * 40));
+      const x = -60 + Math.round((Math.random() * 100));
+      const y = Math.round((Math.random() * 10));
+      const z = -100 + Math.round((Math.random() * 150));
       this.cubes.push({
         name : 'cube-' + this.cubes.length,
         x : x,
@@ -60,6 +59,8 @@ export class Page0402Component implements OnInit {
     { name : 'rotationSpeed', type : 'number', min : 0, max : 0.5},
     { name : 'addCube', type : 'button'},
     { name : 'removeCube', type : 'button'},
+    { name : 'cameraNear', type : 'number', min : 0, max : 50},
+    { name : 'cameraFar', type : 'number', min : 50, max : 200},
     { name : 'outputObjects', type : 'button'},
     { name : 'numberOfObjects', type : 'listen'}
   ]
@@ -67,6 +68,9 @@ export class Page0402Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    for(let i = 0 ; i < 5 ; i++) {
+       this.controls.addCube();
+    }
   }
 
   step : number = 0;

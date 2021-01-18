@@ -47,6 +47,19 @@ import { Page0408Component } from './chapter04/page0408/page0408.component';
 import { Page0409Component } from './chapter04/page0409/page0409.component';
 import { Page0410Component } from './chapter04/page0410/page0410.component';
 
+import { Page0501Component } from './chapter05/page0501/page0501.component';
+import { Page0502Component } from './chapter05/page0502/page0502.component';
+import { Page0503Component } from './chapter05/page0503/page0503.component';
+import { Page0504Component } from './chapter05/page0504/page0504.component';
+import { Page0505Component } from './chapter05/page0505/page0505.component';
+import { Page0506Component } from './chapter05/page0506/page0506.component';
+import { Page0507Component } from './chapter05/page0507/page0507.component';
+import { Page0508Component } from './chapter05/page0508/page0508.component';
+import { Page0509Component } from './chapter05/page0509/page0509.component';
+import { Page0510Component } from './chapter05/page0510/page0510.component';
+import { Page0511Component } from './chapter05/page0511/page0511.component';
+
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
   {
@@ -108,7 +121,24 @@ const routes: Routes = [
       { path: 'pg10', component: Page0410Component }
     ]
   },
-  { path: 'ch05', component: Chapter05Component },
+  { 
+    path: 'ch05',
+    component: Chapter05Component,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'pg01' },
+      { path: 'pg01', component: Page0501Component },
+      { path: 'pg02', component: Page0502Component },
+      { path: 'pg03', component: Page0503Component },
+      { path: 'pg04', component: Page0504Component },
+      { path: 'pg05', component: Page0505Component },
+      { path: 'pg06', component: Page0506Component },
+      { path: 'pg07', component: Page0507Component },
+      { path: 'pg08', component: Page0508Component },
+      { path: 'pg09', component: Page0509Component },
+      { path: 'pg10', component: Page0510Component },
+      { path: 'pg11', component: Page0511Component }
+    ]
+  },
   { path: 'ch06', component: Chapter06Component },
   { path: 'ch07', component: Chapter07Component },
   { path: 'ch08', component: Chapter08Component },
