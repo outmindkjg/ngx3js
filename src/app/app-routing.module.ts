@@ -59,6 +59,14 @@ import { Page0509Component } from './chapter05/page0509/page0509.component';
 import { Page0510Component } from './chapter05/page0510/page0510.component';
 import { Page0511Component } from './chapter05/page0511/page0511.component';
 
+import { Page0601Component } from './chapter06/page0601/page0601.component';
+import { Page0602Component } from './chapter06/page0602/page0602.component';
+import { Page0603Component } from './chapter06/page0603/page0603.component';
+import { Page0604Component } from './chapter06/page0604/page0604.component';
+import { Page0605Component } from './chapter06/page0605/page0605.component';
+import { Page0606Component } from './chapter06/page0606/page0606.component';
+import { Page0607Component } from './chapter06/page0607/page0607.component';
+import { Page0608Component } from './chapter06/page0608/page0608.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
@@ -139,7 +147,21 @@ const routes: Routes = [
       { path: 'pg11', component: Page0511Component }
     ]
   },
-  { path: 'ch06', component: Chapter06Component },
+  { 
+    path: 'ch06',
+    component: Chapter06Component,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'pg01' },
+      { path: 'pg01', component: Page0601Component },
+      { path: 'pg02', component: Page0602Component },
+      { path: 'pg03', component: Page0603Component },
+      { path: 'pg04', component: Page0604Component },
+      { path: 'pg05', component: Page0605Component },
+      { path: 'pg06', component: Page0606Component },
+      { path: 'pg07', component: Page0607Component },
+      { path: 'pg08', component: Page0608Component }
+    ]
+  },
   { path: 'ch07', component: Chapter07Component },
   { path: 'ch08', component: Chapter08Component },
   { path: 'ch09', component: Chapter09Component },

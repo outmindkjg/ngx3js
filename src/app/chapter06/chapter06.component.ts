@@ -9,16 +9,14 @@ import { MenuVo } from '../common-interface';
 export class Chapter06Component implements OnInit {
 
   public menuList : MenuVo[] = [
-    { url : 'pg01', name : ''},
-    { url : 'pg02', name : ''},
-    { url : 'pg03', name : ''},
-    { url : 'pg04', name : ''},
-    { url : 'pg05', name : ''},
-    { url : 'pg06', name : ''},
-    { url : 'pg07', name : ''},
-    { url : 'pg08', name : ''},
-    { url : 'pg09', name : ''},
-    { url : 'pg10', name : ''}
+    { url : 'pg01', name : 'Advanced 3D geometries - Convex Hull'},
+    { url : 'pg02', name : 'Advanced 3D geometries - Lathe'},
+    { url : 'pg03', name : 'Extrude Geometry'},
+    { url : 'pg04', name : 'Extrude TubeGeometry'},
+    { url : 'pg05', name : 'Extrude SVG'},
+    { url : 'pg06', name : 'Parametric geometries'},
+    { url : 'pg07', name : 'Text geometry'},
+    { url : 'pg08', name : 'Binary operations'}
   ];
 
   constructor() { }

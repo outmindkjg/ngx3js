@@ -1,7 +1,9 @@
-import { Component, ContentChild, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ConvexGeometry, ConvexBufferGeometry } from 'three/examples/jsm/geometries/ConvexGeometry'
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries'
+import { CurveComponent } from '../curve/curve.component';
+import { ShapeComponent } from '../shape/shape.component';
 
 export interface GeometriesParametric {
   (u: number, v: number, dest: THREE.Vector3): void;
@@ -67,6 +69,7 @@ export class GeometryComponent implements OnInit {
   @Input() type: string = "sphere";
   @Input() name: string = null;
   @Input() radius: number = null;
+  @Input() radiusSegments: number = null;
   @Input() radialSegments: number = null;
   @Input() width: number = null;
   @Input() widthSegments: number = null;
@@ -97,17 +100,33 @@ export class GeometryComponent implements OnInit {
   @Input() slices: number = null;
   @Input() stacks: number = null;
   @Input() vertices: GeometriesVector3[] = null;
+  @Input() polyVertices: number[] = null;
+  @Input() polyIndices: number[] = null;
   @Input() colors: (string | number)[] = null;
   @Input() faces: GeometriesFace3[] = null;
   @Input() thresholdAngle: number = null;
+  @Input() curveSegments: number = null;
+  @Input() steps: number = null;
+  @Input() bevelEnabled: boolean = null;
+  @Input() bevelThickness: number = null;
+  @Input() bevelSize: number = null;
+  @Input() bevelOffset: number = null;
+  @Input() bevelSegments: number = null;
+  @Input() closed: boolean = null;
+
   @ContentChild(GeometryComponent) childGeometry: GeometryComponent;
+  @ContentChildren(ShapeComponent,{descendants: false}) shapes: QueryList<ShapeComponent>;
+  @ContentChildren(CurveComponent,{descendants: false}) curves: QueryList<CurveComponent>;
+  
 
   constructor() { }
 
   getRadius(def: number): number {
     return this.radius === null ? def : this.radius;
   }
-
+  getRadiusSegments(def: number): number {
+    return this.radiusSegments === null ? def : this.radiusSegments;
+  }
   getRadialSegments(def: number): number {
     return this.radialSegments === null ? def : this.radialSegments;
   }
@@ -228,6 +247,22 @@ export class GeometryComponent implements OnInit {
     return vertices;
   }
 
+  getPolyVertices(def: number[]): number[] {
+    const vertices: number[] = [];
+    (this.polyVertices === null ? def : this.polyVertices).forEach(p => {
+      vertices.push(p);
+    });
+    return vertices;
+  }
+
+  getPolyIndices(def: number[]): number[] {
+    const indices: number[] = [];
+    (this.polyIndices === null ? def : this.polyIndices).forEach(p => {
+      indices.push(p);
+    });
+    return indices;
+  }
+
   getColors(def: (string | number)[]): THREE.Color[] {
     const colors: THREE.Color[] = [];
     (this.colors === null ? def : this.colors).forEach(c => {
@@ -259,9 +294,77 @@ export class GeometryComponent implements OnInit {
     }
   }
 
+  getCurveSegments(def: number): number {
+    return this.curveSegments === null ? def : this.curveSegments;
+  }
+
+  getSteps(def: number): number {
+    return this.steps === null ? def : this.steps;
+  }
+
+  getBevelEnabled(def: boolean): boolean {
+    return this.bevelEnabled === null ? def : this.bevelEnabled;
+  }
+
+  getBevelThickness(def: number): number {
+    return this.bevelThickness === null ? def : this.bevelThickness;
+  }
+
+  getBevelSize(def: number): number {
+    return this.bevelSize === null ? def : this.bevelSize;
+  }
+
+  getBevelOffset(def: number): number {
+    return this.bevelOffset === null ? def : this.bevelOffset;
+  }
+
+  getBevelSegments(def: number): number {
+    return this.bevelSegments === null ? def : this.bevelSegments;
+  }
+
+  getShapes(): THREE.Shape {
+    const shape = new THREE.Shape();
+    if (this.shapes != null && this.shapes.length > 0) {
+      this.shapes.forEach(path => {
+        path.getShape(shape);
+      });
+    }
+    return shape;
+  }
+
+  getClosed(def: boolean): boolean {
+    return this.closed === null ? def : this.closed;
+  }
+
+  getCurve() : THREE.Curve<THREE.Vector3>{
+    if (this.curves !== null && this.curves.length > 0) {
+      return this.curves.first.getCurve() as THREE.Curve<THREE.Vector3>;
+    }
+    return new THREE.LineCurve3(new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,0));
+  }
+
   ngOnInit(): void {
   }
 
+  ngAfterContentInit(): void {
+    this.curves.changes.subscribe((e) => {
+      this.geometry = null;
+      if (this.mesh !== null) {
+        alert('');
+        if (this.mesh instanceof Array) {
+          const geometry = this.getGeometry();
+          this.mesh.forEach(mesh => {
+            mesh.geometry.dispose();
+            mesh.geometry = geometry;
+          });
+        } else {
+          this.mesh.geometry.dispose();
+          this.mesh.geometry = this.getGeometry();
+        }
+      }
+    });
+  }
+ 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.geometry = null;
@@ -507,35 +610,35 @@ export class GeometryComponent implements OnInit {
           break;
         case 'extrudebuffer':
           this.geometry = new THREE.ExtrudeBufferGeometry(
-            [], // todo Shape | Shape[]
+            this.getShapes(), 
             {
-              curveSegments: 12,
-              steps: 1,
-              depth: 100,
-              bevelEnabled: true,
-              bevelThickness: 6,
-              bevelSize: 0,
-              bevelOffset: 0,
-              bevelSegments: 3,
-              extrudePath: new THREE.Curve<THREE.Vector3>(),
-              UVGenerator: null // THREE.UVGenerator;
+              curveSegments : this.getCurveSegments(12),
+              steps: this.getSteps(1),
+              depth: this.getDepth(100),
+              bevelEnabled: this.getBevelEnabled(true),
+              bevelThickness: this.getBevelThickness(6),
+              bevelSize: this.getBevelSize(0),
+              bevelOffset: this.getBevelOffset(0),
+              bevelSegments: this.getBevelSegments(3),
+              // extrudePath: new THREE.Curve<THREE.Vector3>(),
+              // UVGenerator: null // THREE.UVGenerator;
             }
           );
           break;
         case 'extrude':
           this.geometry = new THREE.ExtrudeGeometry(
-            [], // todo Shape | Shape[]
+            this.getShapes(), 
             {
-              curveSegments: 12,
-              steps: 1,
-              depth: 100,
-              bevelEnabled: true,
-              bevelThickness: 6,
-              bevelSize: 0,
-              bevelOffset: 0,
-              bevelSegments: 3,
-              extrudePath: new THREE.Curve<THREE.Vector3>(),
-              UVGenerator: null // THREE.UVGenerator;
+              curveSegments : this.getCurveSegments(12),
+              steps: this.getSteps(1),
+              depth: this.getDepth(100),
+              bevelEnabled: this.getBevelEnabled(true),
+              bevelThickness: this.getBevelThickness(6),
+              bevelSize: this.getBevelSize(0),
+              bevelOffset: this.getBevelOffset(0),
+              bevelSegments: this.getBevelSegments(3),
+              // extrudePath: new THREE.Curve<THREE.Vector3>(),
+              // UVGenerator: null // THREE.UVGenerator;
             }
           );
           break;
@@ -611,16 +714,16 @@ export class GeometryComponent implements OnInit {
           break;
         case 'polyhedronbuffer':
           this.geometry = new THREE.PolyhedronBufferGeometry(
-            [], // todo vertices number[]
-            [], // todo indices number[]
+            this.getPolyVertices([]),
+            this.getPolyIndices([]),
             this.getRadius(1),
             this.getDetail(0)
           );
           break;
         case 'polyhedron':
           this.geometry = new THREE.PolyhedronGeometry(
-            [], // todo vertices number[]
-            [], // todo indices number[]
+            this.getPolyVertices([]),
+            this.getPolyIndices([]),
             this.getRadius(1),
             this.getDetail(0)
           );
@@ -647,14 +750,14 @@ export class GeometryComponent implements OnInit {
           break;
         case 'shapebuffer':
           this.geometry = new THREE.ShapeBufferGeometry(
-            [], // todo shapes: Shape | Shape[]
-            0 // todo  curveSegments?: number
+            this.getShapes(),
+            this.getCurveSegments(0),
           );
           break;
         case 'shape':
           this.geometry = new THREE.ShapeGeometry(
-            [], // todo shapes: Shape | Shape[]
-            0 // todo  curveSegments?: number
+            this.getShapes(),
+            this.getCurveSegments(0),
           );
           break;
         case 'spherebuffer':
@@ -763,20 +866,20 @@ export class GeometryComponent implements OnInit {
           break;
         case 'tubebuffer':
           this.geometry = new THREE.TubeBufferGeometry(
-            new THREE.Curve<THREE.Vector3>(), // todo path Curve<Vector3>,
+            this.getCurve(),
             this.getTubularSegments(64),
             this.getRadius(1),
-            this.getRadialSegments(8),
-            false // todo [closed=false]
+            this.getRadiusSegments(8),
+            this.getClosed(false)
           );
           break;
         case 'tube':
           this.geometry = new THREE.TubeGeometry(
-            new THREE.Curve<THREE.Vector3>(), // todo path Curve<Vector3>,
+            this.getCurve(),
             this.getTubularSegments(64),
             this.getRadius(1),
-            this.getRadialSegments(8),
-            false // todo [closed=false]
+            this.getRadiusSegments(8),
+            this.getClosed(false)
           );
           break;
         case 'wireframe':

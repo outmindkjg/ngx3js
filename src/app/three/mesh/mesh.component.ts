@@ -40,6 +40,16 @@ export class MeshComponent implements OnInit {
 
   }
 
+  ngAfterContentInit(): void {
+    this.meshes.changes.subscribe((e) => {
+      if (this.mesh !== null) {
+        this.meshes.forEach(mesh => {
+          mesh.setObject3D(this.mesh);
+        })
+      }
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.mesh != null && this.refObject3d != null) {
       this.refObject3d.remove(this.mesh)

@@ -21,6 +21,9 @@ ng g c three/texture
 ng g c three/lensflareelement
 ng g c three/helper
 ng g c three/shader
+ng g c three/shape
+ng g c three/curve
+
 ng g c menu
 
 .+ ([a-zA-Z]+): .+;

@@ -83,6 +83,8 @@ import { TextureComponent } from './three/texture/texture.component';
 import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
 import { HelperComponent } from './three/helper/helper.component';
 import { ShaderComponent } from './three/shader/shader.component';
+import { ShapeComponent } from './three/shape/shape.component';
+import { CurveComponent } from './three/curve/curve.component';
 
 @NgModule({
   declarations: [
@@ -166,7 +168,9 @@ import { ShaderComponent } from './three/shader/shader.component';
     HelperComponent,
     ShaderComponent,
     Page0510Component,
-    Page0511Component
+    Page0511Component,
+    ShapeComponent,
+    CurveComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,103 @@
-<p>page0603 works!</p>
+<three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0xEEEEEE'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+        <three-position [x]="-20" [y]="50" [z]="40"></three-position>
+        <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
+    </three-camera>
+    <three-scene #scene>
+        <three-light type="ambient" [color]="'0x121212'"></three-light>
+        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="scene"></three-lookat>
+        </three-light>
+        <three-mesh type="group">
+            <three-position [x]="0" [y]="3" [z]="2"></three-position>
+            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-mesh>
+                <three-geometry 
+                    [type]="'Extrude'" 
+                    [depth]="controls.amount"
+                    [bevelThickness]="controls.bevelThickness"
+                    [bevelSize]="controls.bevelSize"
+                    [bevelSegments]="controls.bevelSegments"
+                    [bevelEnabled]="controls.bevelEnabled"
+                    [curveSegments]="controls.curveSegments"
+                    [steps]="controls.steps"
+                >
+                    <three-shape type="moveTo" [x]="10" [y]="10"></three-shape>
+                    <three-shape type="lineTo" [x]="10" [y]="40"></three-shape>
+                    <three-shape type="bezierCurveTo" 
+                        [aCP1x]="15"
+                        [aCP1y]="25"
+                        [aCP2x]="25"
+                        [aCP2y]="25"
+                        [aX]="30"
+                        [aY]="40"
+                    ></three-shape>
+                    <three-shape type="splineThru" [points]="[
+                        { x : 32, y : 30},
+                        { x : 28, y : 20},
+                        { x : 30, y : 10}                        
+                    ]"></three-shape>
+                    <three-shape type="quadraticCurveTo" 
+                        [aCPx]="20"
+                        [aCPy]="15"
+                        [aX]="10"
+                        [aY]="10"
+                    ></three-shape>
+                    <three-shape type="hole">
+                        <three-shape type="absellipse" 
+                            [aX]="16"
+                            [aY]="24"
+                            [xRadius]="2"
+                            [yRadius]="3"
+                            [aStartAngle]="0"
+                            [aEndAngle]="360"
+                            [aClockwise]="true"
+                            [aRotation]="0"
+                        ></three-shape>
+                    </three-shape>
+                    <three-shape type="hole">
+                        <three-shape type="absellipse" 
+                            [aX]="23"
+                            [aY]="24"
+                            [xRadius]="2"
+                            [yRadius]="3"
+                            [aStartAngle]="0"
+                            [aEndAngle]="360"
+                            [aClockwise]="true"
+                            [aRotation]="0"
+                        ></three-shape>
+                    </three-shape>
+                    <three-shape type="hole">
+                        <three-shape type="absarc" 
+                            [aX]="20"
+                            [aY]="16"
+                            [aRadius]="2"
+                            [aStartAngle]="0"
+                            [aEndAngle]="180"
+                            [aClockwise]="true"
+                        ></three-shape>
+                    </three-shape>
+                </three-geometry>
+                <three-material type="MeshNormal"
+                    [color]="'0x00ff00'"
+                    [opacity]="0.7"
+                    [transparent]="true"
+                    [side]="'double'"
+                    [wireframe]="controls.wireframe"
+                ></three-material>
+            </three-mesh>
+            <three-mesh *ngFor="let p of points" >
+                <three-position [x]="p.x" [y]="p.y" [z]="p.z"></three-position>
+                <three-geometry 
+                    [type]="'Sphere'" 
+                    [radius]="0.2" 
+                ></three-geometry>
+                <three-material type="MeshBasic"
+                    [color]="'0xff0000'"
+                    [transparent]="true"
+                ></three-material>
+            </three-mesh>
+        </three-mesh>
+    </three-scene>
+</three-renderer>

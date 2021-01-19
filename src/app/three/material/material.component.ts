@@ -782,10 +782,7 @@ export class MaterialComponent implements OnInit, OnChanges {
         return shader.type.toLowerCase() === type;
       });
       if (foundShader !== null && foundShader !== undefined) {
-        console.log(foundShader.getShader());
         return foundShader.getShader();
-      } else {
-        console.log("null shader " + type);
       }
     }
     return null;
@@ -881,7 +878,6 @@ export class MaterialComponent implements OnInit, OnChanges {
             wireframeLinecap: this.getWireframeLinecap('round'),
             wireframeLinejoin: this.getWireframeLinejoin('round'),
           }
-          console.log(parametersMeshBasicMaterial);
           this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
           break;
         case 'meshdepth':
