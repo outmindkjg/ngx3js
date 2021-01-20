@@ -21,21 +21,31 @@ export class RotationComponent implements OnInit {
     if (changes.x || changes.y || changes.z) {
       this.rotation = null;
     }
-    if (this.refRotation != null) {
-      this.refRotation.copy(this.getRotation());
-    }
+    this.resetRotation();
   }
 
   private rotation : THREE.Euler = null;
-  private refRotation : THREE.Euler = null;
+  private refRotation : THREE.Euler | THREE.Euler[] = null;
 
-  setRotation(refRotation : THREE.Euler) {
+  setRotation(refRotation : THREE.Euler | THREE.Euler[]) {
     if (this.refRotation !== refRotation) {
       this.refRotation = refRotation;
-      this.refRotation.copy(this.getRotation());
+      this.resetRotation();
     }
   }
 
+  resetRotation() {
+    if (this.refRotation !== null) {
+      if (this.refRotation instanceof Array) {
+        this.refRotation.forEach(refRotation => {
+          refRotation.copy(this.getRotation());
+        });
+      } else if(this.refRotation instanceof THREE.Euler) {
+        this.refRotation.copy(this.getRotation())
+      }
+    }
+  }
+ 
   getRotation() : THREE.Euler {
     if (this.rotation === null) {
         this.rotation = new THREE.Euler(

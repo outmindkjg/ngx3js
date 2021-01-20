@@ -74,7 +74,6 @@ export class SceneComponent implements OnInit {
         this.scene.overrideMaterial = this.overrideMaterial.getMaterial();
         this.overrideMaterial.setMaterial(this.scene.overrideMaterial);
       }
-      // console.log(this.scene.children);
     }
     return this.scene;
   }

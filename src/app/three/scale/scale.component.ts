@@ -21,21 +21,31 @@ export class ScaleComponent implements OnInit {
     if (changes.x || changes.y || changes.z) {
       this.scale = null;
     }
-    if (this.refScale != null) {
-      this.refScale.copy(this.getScale());
-    }
+    this.resetScale();
   }
 
   private scale : THREE.Vector3 = null;
-  private refScale : THREE.Vector3 = null;
+  private refScale : THREE.Vector3 | THREE.Vector3[]= null;
   
-  setScale(refScale : THREE.Vector3) {
+  setScale(refScale : THREE.Vector3 | THREE.Vector3[]) {
     if (this.refScale !== refScale) {
       this.refScale = refScale;
-      this.refScale.copy(this.getScale());
+      this.resetScale();
     }
   }
 
+  resetScale() {
+    if (this.refScale !== null) {
+      if (this.refScale instanceof Array) {
+        this.refScale.forEach(refScale => {
+          refScale.copy(this.getScale());
+        });
+      } else if(this.refScale instanceof THREE.Vector3) {
+        this.refScale.copy(this.getScale())
+      }
+    }
+  }
+ 
   getScale() : THREE.Vector3 {
     if (this.scale === null) {
         this.scale = new THREE.Vector3(this.x, this.y, this.z);

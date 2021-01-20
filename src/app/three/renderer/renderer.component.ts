@@ -1,6 +1,11 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
+import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import { GUI, GUIController } from 'three/examples/jsm/libs/dat.gui.module';
 import { CameraComponent } from './../camera/camera.component';
 import { SceneComponent } from './../scene/scene.component';
@@ -37,6 +42,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ViewChild('debug') debug: ElementRef;
 
   @Input() type: string = "webgl";
+  @Input() controlType: string = "none";
   @Input() shadowMapEnabled: boolean = true;
   @Input() clearColor: string | number = null;
 
@@ -52,6 +58,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   ngOnInit(): void {
   }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.type && this.renderer) {
@@ -126,6 +133,23 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private stats: Stats = null;
   private gui: GUI = null;
   private clock: THREE.Clock = null;
+  private control: any = null;
+
+  private getControls(camera: THREE.Camera, renderer: THREE.Renderer): any{
+    switch (this.controlType.toLowerCase()) {
+      case "orbit":
+        return new OrbitControls(camera, renderer.domElement);
+      case "fly":
+        return new FlyControls(camera, renderer.domElement);
+      case "firstperson":
+        return new FirstPersonControls(camera, renderer.domElement);
+      case "transform":
+        return new TransformControls(camera, renderer.domElement);
+      case "trackball":
+        return new TrackballControls(camera, renderer.domElement);
+    }
+    return null;
+  }
 
   private getStats(): Stats {
     if (this.stats === null) {
@@ -223,6 +247,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.stats = null;
     }
     this.renderer = this.getRenderer();
+    this.control = this.getControls(this.getCamera(), this.renderer);
     this.render();
   }
 
@@ -281,6 +306,17 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       delta: delta,
       elapsedTime: elapsedTime
     });
+    if (this.control !== null) {
+      if (this.control instanceof OrbitControls) {
+        this.control.update();
+      } else if (this.control instanceof FlyControls) {
+        this.control.update(delta);
+      } else if (this.control instanceof FirstPersonControls) {
+        this.control.update(delta);
+      } else if (this.control instanceof TrackballControls) {
+        this.control.update();
+      }
+    }
     if (this.scene !== null && this.camera !== null) {
       this.renderer.render(
         this.getScene(),

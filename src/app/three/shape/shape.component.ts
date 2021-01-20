@@ -138,7 +138,7 @@ export class ShapeComponent implements OnInit {
     }
     return holes;
   }
-
+ 
   getShape(shape: THREE.Shape | THREE.Path): THREE.Shape | THREE.Path{
     switch (this.type.toLowerCase()) {
       case 'frompoints':

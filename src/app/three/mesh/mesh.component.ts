@@ -1,16 +1,14 @@
-import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { Lensflare } from 'three/examples/jsm/objects/Lensflare';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
-import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
-
 import { GeometryComponent } from '../geometry/geometry.component';
+import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
-import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
-
-
+import { SvgComponent, SvgGeometry } from '../svg/svg.component';
 
 @Component({
   selector: 'three-mesh',
@@ -33,6 +31,7 @@ export class MeshComponent implements OnInit {
   @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
   @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
   @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
+  @ContentChild(SvgComponent,{descendants: false}) svg: SvgComponent = null;
 
   constructor() { }
 
@@ -80,14 +79,15 @@ export class MeshComponent implements OnInit {
     return (this.getMesh() as THREE.Mesh).geometry;
   }
 
-  private getMaterials() {
+  private getMaterials():THREE.Material[] {
     const materials: THREE.Material[] = [];
-    this.materials.forEach(material => {
-      materials.push(material.getMaterial())
-    });
+    if (this.materials !== null && this.materials.length > 0) {
+      this.materials.forEach(material => {
+        materials.push(material.getMaterial())
+      });
+    }
     return materials;
   }
-
 
   private refObject3d: THREE.Object3D = null;
 
@@ -160,12 +160,15 @@ export class MeshComponent implements OnInit {
       if (this.scale !== null && this.scale != undefined) {
         this.scale.setScale(this.mesh.scale);
       }
+      this.mesh.visible = this.visible;
       if (this.meshes && this.meshes.length > 0) {
         this.meshes.forEach(mesh => {
           mesh.setObject3D(this.mesh);
         })
+      } 
+      if (this.svg !== null && this.svg !== undefined) {
+        this.svg.setObject3D(this.mesh);
       }
-      this.mesh.visible = this.visible;
       if (this.mesh instanceof THREE.Mesh) {
         const mesh = this.mesh;
         if (geometry !== null) {

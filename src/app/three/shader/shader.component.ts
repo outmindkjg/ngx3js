@@ -22,7 +22,6 @@ export class ShaderComponent implements OnInit {
       if (this.refShader !== null) {
         this.shader = this.refShader.getShader();
       } else {
-        console.log(this.ele.nativeElement);
         this.shader = this.ele.nativeElement.innerText;
       }
     }

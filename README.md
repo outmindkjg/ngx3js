@@ -23,6 +23,10 @@ ng g c three/helper
 ng g c three/shader
 ng g c three/shape
 ng g c three/curve
+ng g c three/svg
+ng g c three/translation
+
+
 
 ng g c menu
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
 @Component({
@@ -115,7 +115,25 @@ export class CurveComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      this.curve = null;
+      if (this.onChange !== null) {
+        this.onChange.onChange();
+      }
+    }
+  }
+
   private curve: THREE.Curve<THREE.Vector> = null;
+  private onChange : {
+    onChange() : void
+  } = null;
+
+  setOnChange( onChange : {
+    onChange() : void
+  }) {
+    this.onChange = onChange;
+  }
 
   getCurve(): THREE.Curve<THREE.Vector> {
     if (this.curve === null) {

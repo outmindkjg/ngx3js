@@ -85,6 +85,8 @@ import { HelperComponent } from './three/helper/helper.component';
 import { ShaderComponent } from './three/shader/shader.component';
 import { ShapeComponent } from './three/shape/shape.component';
 import { CurveComponent } from './three/curve/curve.component';
+import { SvgComponent } from './three/svg/svg.component';
+import { TranslationComponent } from './three/translation/translation.component';
 
 @NgModule({
   declarations: [
@@ -170,7 +172,9 @@ import { CurveComponent } from './three/curve/curve.component';
     Page0510Component,
     Page0511Component,
     ShapeComponent,
-    CurveComponent
+    CurveComponent,
+    SvgComponent,
+    TranslationComponent
   ],
   imports: [
     BrowserModule,
