@@ -25,6 +25,7 @@
     "stats-js": "^1.0.1",
     "stats.js.fps": "0.0.1",
     "three": "^0.124.0",
+    "three-js-csg": "^72.0.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
