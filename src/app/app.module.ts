@@ -65,6 +65,17 @@ import { Page0605Component } from './chapter06/page0605/page0605.component';
 import { Page0606Component } from './chapter06/page0606/page0606.component';
 import { Page0607Component } from './chapter06/page0607/page0607.component';
 import { Page0608Component } from './chapter06/page0608/page0608.component';
+import { Page0701Component } from './chapter07/page0701/page0701.component';
+import { Page0702Component } from './chapter07/page0702/page0702.component';
+import { Page0703Component } from './chapter07/page0703/page0703.component';
+import { Page0704Component } from './chapter07/page0704/page0704.component';
+import { Page0705aComponent } from './chapter07/page0705a/page0705a.component';
+import { Page0705bComponent } from './chapter07/page0705b/page0705b.component';
+import { Page0706Component } from './chapter07/page0706/page0706.component';
+import { Page0707Component } from './chapter07/page0707/page0707.component';
+import { Page0708Component } from './chapter07/page0708/page0708.component';
+import { Page0709Component } from './chapter07/page0709/page0709.component';
+import { Page0710Component } from './chapter07/page0710/page0710.component';
 import { SceneComponent } from './three/scene/scene.component';
 import { CameraComponent } from './three/camera/camera.component';
 import { RendererComponent } from './three/renderer/renderer.component';
@@ -174,7 +185,18 @@ import { TranslationComponent } from './three/translation/translation.component'
     ShapeComponent,
     CurveComponent,
     SvgComponent,
-    TranslationComponent
+    TranslationComponent,
+    Page0701Component,
+    Page0702Component,
+    Page0703Component,
+    Page0704Component,
+    Page0705aComponent,
+    Page0705bComponent,
+    Page0706Component,
+    Page0707Component,
+    Page0708Component,
+    Page0709Component,
+    Page0710Component
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,26 @@
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+        <three-position [x]="0" [y]="20" [z]="150"></three-position>
+        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+    </three-camera>
+    <three-scene #scene>
+        <three-light type="ambient" [color]="'0x121212'"></three-light>
+        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="scene"></three-lookat>
+        </three-light>
+        <three-mesh [type]="'points'">
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-geometry [type]="'geometry'" [vertices]="positions" [colors]="colors"></three-geometry>
+            <three-material [type]="'Points'" 
+                [size]="controls.size"
+                [transparent]="controls.transparent"
+                [opacity]="controls.opacity"
+                [vertexColors]="controls.vertexColors"
+                [sizeAttenuation]="controls.sizeAttenuation"
+                [color]="controls.color"
+            ></three-material>
+        </three-mesh>
+    </three-scene>
+</three-renderer>

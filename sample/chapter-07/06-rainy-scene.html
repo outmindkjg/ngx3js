@@ -73,9 +73,9 @@
         };
 
         var gui = new dat.GUI();
-        gui.add(controls, 'size', 0, 20).onChange(controls.redraw);
+        gui.add(controls, 'size', 0, 20).onFinishChange(controls.redraw);
         gui.add(controls, 'transparent').onChange(controls.redraw);
-        gui.add(controls, 'opacity', 0, 1).onChange(controls.redraw);
+        gui.add(controls, 'opacity', 0, 1).onFinishChange(controls.redraw);
         gui.addColor(controls, 'color').onChange(controls.redraw);
         gui.add(controls, 'sizeAttenuation').onChange(controls.redraw);
 

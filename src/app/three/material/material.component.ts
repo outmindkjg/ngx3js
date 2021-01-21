@@ -795,10 +795,13 @@ export class MaterialComponent implements OnInit, OnChanges {
       transparent: this.getTransparent(false),
       side: this.getSide('front'),
       blending: this.getBlending('normal'),
+      vertexColors: this.getVertexColors(false),
+      // alphaTest: this.getAlphaTest(1),
+      depthTest: this.getDepthTest(true),
+      depthWrite: this.getDepthWrite(false),
       visible: this.getVisible(true)
     },extendObj);
     return Object.assign({
-      alphaTest: this.getAlphaTest(1),
       blendDst: this.getBlendDst('oneminussrcalpha'),
       blendDstAlpha: this.getBlendDstAlpha(null),
       blendEquation: this.getBlendEquation('add'),
@@ -825,7 +828,6 @@ export class MaterialComponent implements OnInit, OnChanges {
       shadowSide: this.getShadowSide('none'),
       toneMapped: this.getToneMapped(true),
       transparent: this.getTransparent(false),
-      vertexColors: this.getVertexColors(false),
       stencilWrite: this.getStencilWrite(false),
       stencilFunc: this.getStencilFunc('always'),
       stencilRef: this.getStencilRef(0),
@@ -1079,9 +1081,9 @@ export class MaterialComponent implements OnInit, OnChanges {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
-            size: this.getSize(1),
+            size: this.getSize(5),
             sizeAttenuation: this.getSizeAttenuation(true),
-            morphTargets: this.getMorphTargets(false),
+            // morphTargets: this.getMorphTargets(false),
           }
           this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
           break;
@@ -1131,6 +1133,7 @@ export class MaterialComponent implements OnInit, OnChanges {
             sizeAttenuation: this.getSizeAttenuation(true)
           }
           this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
+          console.log(this.material);
           break;
         case 'meshlambert':
         default:

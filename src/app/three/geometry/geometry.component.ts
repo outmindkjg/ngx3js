@@ -13,7 +13,6 @@ import {
   ConvexBufferGeometry,
 } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
-import { ThreeBSP } from 'three-js-csg';
 
 import { CurveComponent } from '../curve/curve.component';
 import { ShapeComponent } from '../shape/shape.component';
@@ -1041,31 +1040,6 @@ export class GeometryComponent implements OnInit {
       }
       if (this.name !== null) {
         this.geometry.name = this.name;
-      }
-      if (this.subGeometry !== null && this.subGeometry.length > 0) {
-        let lastBSP: ThreeBSP = new ThreeBSP(this.geometry);
-        this.subGeometry.forEach((subGeometry) => {
-          subGeometry.setOnChange(this);
-          switch (subGeometry.action.toLowerCase()) {
-            case 'subtract':
-              lastBSP = lastBSP.subtract(
-                new ThreeBSP(subGeometry.getGeometry())
-              );
-              break;
-            case 'intersect':
-              lastBSP = lastBSP.intersect(
-                new ThreeBSP(subGeometry.getGeometry())
-              );
-              break;
-            case 'union':
-              lastBSP = lastBSP.union(new ThreeBSP(subGeometry.getGeometry()));
-              break;
-            case 'none':
-            default:
-              break;
-          }
-        });
-        this.geometry = lastBSP.toMesh();
       }
     }
     return this.geometry;

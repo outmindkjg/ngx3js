@@ -26,6 +26,17 @@ ng g c three/curve
 ng g c three/svg
 ng g c three/translation
 
+ng g c chapter07/page0701
+ng g c chapter07/page0702
+ng g c chapter07/page0703
+ng g c chapter07/page0704
+ng g c chapter07/page0705
+ng g c chapter07/page0706
+ng g c chapter07/page0707
+ng g c chapter07/page0708
+ng g c chapter07/page0709
+ng g c chapter07/page0710
+
 
 
 ng g c menu
@@ -48,8 +59,7 @@ $1 : this.get$1(1),
 
 ```bash
 npm install three –save
-npm install stats-js –save
-npm install dat.gui –save
+npm install three-csg-ts –save
 npm install @types/three –save-dev
 npm install @types/stats-js –save-dev
 npm install @types/dat.gui –save-dev

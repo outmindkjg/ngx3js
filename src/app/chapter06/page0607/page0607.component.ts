@@ -37,10 +37,10 @@ export class Page0607Component implements OnInit {
     { name: "bevelThickness", type: "number", min : 0, max : 10 },
     { name: "bevelSize", type: "number", min : 0, max : 10 },
     { name: "bevelSegments", type: "number", min : 0, max : 30, step : 1 },
-    { name: "bevelEnabled", type: "botton" },
+    { name: "bevelEnabled", type: "checkbox" },
     { name: "curveSegments", type: "number", min : 0, max : 30, step : 1 },
     { name: "steps", type: "number", min : 0, max : 5, step : 1 },
-    { name: "wireframe", type: "button" },
+    { name: "wireframe", type: "checkbox" },
   ]
 
 

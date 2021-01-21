@@ -1,0 +1,73 @@
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+        <three-position [x]="0" [y]="20" [z]="150"></three-position>
+        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+    </three-camera>
+    <three-scene #scene>
+        <three-light type="ambient" [color]="'0x121212'"></three-light>
+        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="scene"></three-lookat>
+        </three-light>
+        <three-mesh>
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-mesh [type]="'points'">
+                <three-geometry [type]="'geometry'" [vertices]="positions[0]" [colors]="colors"></three-geometry>
+                <three-material [type]="'points'" 
+                    [size]="controls.size"
+                    [transparent]="controls.transparent"
+                    [opacity]="controls.opacity"
+                    [sizeAttenuation]="controls.sizeAttenuation"
+                    [color]="controls.color"
+                    [blending]="'additive'"
+                >
+                    <three-texture [image]="'/assets/textures/particles/snowflake1.png'"></three-texture>
+                </three-material>
+            </three-mesh>
+            <three-mesh [type]="'points'">
+                <three-geometry [type]="'geometry'" [vertices]="positions[1]" [colors]="colors"></three-geometry>
+                <three-material [type]="'points'" 
+                    [size]="controls.size"
+                    [transparent]="controls.transparent"
+                    [opacity]="controls.opacity"
+                    [sizeAttenuation]="controls.sizeAttenuation"
+                    [color]="controls.color"
+                    [blending]="'additive'"
+                    [depthWrite]="false"
+                >
+                    <three-texture [image]="'/assets/textures/particles/snowflake2.png'"></three-texture>
+                </three-material>
+            </three-mesh>
+            <three-mesh [type]="'points'">
+                <three-geometry [type]="'geometry'" [vertices]="positions[2]" [colors]="colors"></three-geometry>
+                <three-material [type]="'points'" 
+                    [size]="controls.size"
+                    [transparent]="controls.transparent"
+                    [opacity]="controls.opacity"
+                    [sizeAttenuation]="controls.sizeAttenuation"
+                    [color]="controls.color"
+                    [blending]="'additive'"
+                    [depthWrite]="false"
+                >
+                    <three-texture [image]="'/assets/textures/particles/snowflake3.png'"></three-texture>
+                </three-material>
+            </three-mesh>
+            <three-mesh [type]="'points'">
+                <three-geometry [type]="'geometry'" [vertices]="positions[3]" [colors]="colors"></three-geometry>
+                <three-material [type]="'points'" 
+                    [size]="controls.size"
+                    [transparent]="controls.transparent"
+                    [opacity]="controls.opacity"
+                    [sizeAttenuation]="controls.sizeAttenuation"
+                    [color]="controls.color"
+                    [blending]="'additive'"
+                    [depthWrite]="false"
+                >
+                    <three-texture [image]="'/assets/textures/particles/snowflake4.png'"></three-texture>
+                </three-material>
+            </three-mesh>
+
+        </three-mesh>
+    </three-scene>
+</three-renderer>

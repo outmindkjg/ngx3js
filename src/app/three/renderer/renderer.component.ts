@@ -12,13 +12,14 @@ import { SceneComponent } from './../scene/scene.component';
 
 export interface GuiControlParam {
   name: string;
-  type?: string;
+  type?: 'number' | 'folder' | 'select' | 'folder' | 'button' | 'color' | 'checkbox' | 'input' | 'listen' | 'auto';
   min?: number;
   max?: number;
   step?: number;
   select?: any[];
   control?: string;
   listen?: boolean;
+  isOpen?: boolean;
   change?: (value?: any) => void;
   finishChange?: (value?: any) => void;
   children?: GuiControlParam[];
@@ -199,6 +200,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         case 'folder':
           const folder = gui.addFolder(param.name);
           this.setupGui(param.control ? control[param.control] : control, folder, param.children);
+          if (param.isOpen) {
+            folder.open();
+          }
+          
           break;
         case 'number':
           this.setupGuiChange(

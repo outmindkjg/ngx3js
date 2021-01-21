@@ -9,16 +9,17 @@ import { MenuVo } from '../common-interface';
 export class Chapter07Component implements OnInit {
 
   public menuList : MenuVo[] = [
-    { url : 'pg01', name : ''},
-    { url : 'pg02', name : ''},
-    { url : 'pg03', name : ''},
-    { url : 'pg04', name : ''},
-    { url : 'pg05', name : ''},
-    { url : 'pg06', name : ''},
-    { url : 'pg07', name : ''},
-    { url : 'pg08', name : ''},
-    { url : 'pg09', name : ''},
-    { url : 'pg10', name : ''}
+    { url : 'pg01', name : 'Particles - Only works in CanvasRenderer'},
+    { url : 'pg02', name : 'Particles - Only works in WebGLRenderer'},
+    { url : 'pg03', name : 'Particle Basic Material'},
+    { url : 'pg04', name : 'Particles - Canvas based texture'},
+    { url : 'pg05a', name : 'Particles - Canvas based texture - WebGL'},
+    { url : 'pg05b', name : 'Particles - Canvas based texture'},
+    { url : 'pg06', name : 'Particles - Rainy scene'},
+    { url : 'pg07', name : 'Particles - Snowy scene'},
+    { url : 'pg08', name : 'Particles - Sprites'},
+    { url : 'pg09', name : 'Sprites in 3D'},
+    { url : 'pg10', name : '3D Torusknot'}
   ];
 
   constructor() { }

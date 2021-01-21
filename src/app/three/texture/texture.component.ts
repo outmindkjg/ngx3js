@@ -9,7 +9,8 @@ import * as THREE from 'three';
 export class TextureComponent implements OnInit {
 
   @Input() textureType: string = 'map';
-  @Input() image: string = '';
+  @Input() image: string = null;
+  @Input() program: (ctx : CanvasRenderingContext2D) => void = null;
   @Input() mapping: string = null;
   @Input() wrapS: string = null;
   @Input() wrapT: string = null;
@@ -39,6 +40,10 @@ export class TextureComponent implements OnInit {
  
   private getImage(def: string): string {
     return (this.image === null) ? def : this.image;
+  }
+
+  private getProgram(def: (ctx : CanvasRenderingContext2D) => void): (ctx : CanvasRenderingContext2D) => void {
+    return (this.program === null) ? def : this.program;
   }
 
   private getMapping(def: string): THREE.Mapping {
@@ -231,15 +236,30 @@ export class TextureComponent implements OnInit {
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
 
-  getTextureImage(image : string) : THREE.Texture{
-    return TextureComponent.getTextureImage(image);
+  getTextureImage(image : string, program?: (ctx :CanvasRenderingContext2D) => void) : THREE.Texture{
+    return TextureComponent.getTextureImage(image, program);
   }
 
-  static getTextureImage(image : string) : THREE.Texture {
+  static getTextureImage(image : string, program?: (ctx :CanvasRenderingContext2D) => void) : THREE.Texture {
     if (this.textureLoader === null) {
       this.textureLoader = new THREE.TextureLoader();
     }
-    return this.textureLoader.load(image);
+    if (image !== null && image !== '') {
+      return this.textureLoader.load(image);
+    } else {
+      const canvas:HTMLCanvasElement = document.createElement('canvas');
+      canvas.width = 35;
+      canvas.height = 35;
+      if (program !== null) {
+        const _context = canvas.getContext('2d', {
+          alpha: true
+        })
+        // _context.save();
+        program(_context);
+        // _context.restore();
+      }
+      return new THREE.CanvasTexture(canvas);
+    }
   }
 
   setTexture(refTexture: THREE.Texture) {
@@ -251,14 +271,14 @@ export class TextureComponent implements OnInit {
 
   getTexture() {
     if (this.texture === null) {
-      this.texture = this.getTextureImage(this.getImage(''));
-      this.texture.mapping = this.getMapping('default');
+      this.texture = this.getTextureImage(this.getImage(null), this.getProgram(null));
+      // this.texture.mapping = this.getMapping('default');
       this.texture.wrapS = this.getWrapS('clamptoedge');
       this.texture.wrapT = this.getWrapT('clamptoedge');
       this.texture.magFilter = this.getMagFilter('linear');
       this.texture.minFilter = this.getMinFilter('linearmipmaplinear');
       this.texture.format = this.getFormat('rgba');
-      this.texture.type = this.getType('unsignedbyte');
+      // this.texture.type = this.getType('unsignedbyte');
       this.texture.anisotropy = this.getAnisotropy(1);
       this.texture.encoding = this.getEncoding('linear');
       this.texture.repeat.copy(this.getRepeat(1,1));
