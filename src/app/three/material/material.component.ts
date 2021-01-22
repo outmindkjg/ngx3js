@@ -124,9 +124,7 @@ export class MaterialComponent implements OnInit, OnChanges {
     if (changes) {
       this.material = null;
     }
-    if (this.refMaterial != null) {
-      this.refMaterial.copy(this.getMaterial());
-    }
+    this.resetMaterial();
   }
 
   getColor(def: string | number): string | number {
@@ -796,9 +794,9 @@ export class MaterialComponent implements OnInit, OnChanges {
       side: this.getSide('front'),
       blending: this.getBlending('normal'),
       vertexColors: this.getVertexColors(false),
-      // alphaTest: this.getAlphaTest(1),
+      alphaTest: this.getAlphaTest(0),
       depthTest: this.getDepthTest(true),
-      depthWrite: this.getDepthWrite(false),
+      depthWrite: this.getDepthWrite(true),
       visible: this.getVisible(true)
     },extendObj);
     return Object.assign({
@@ -843,7 +841,16 @@ export class MaterialComponent implements OnInit, OnChanges {
   private material: THREE.Material = null;
   private refMaterial: THREE.Material = null;
   setMaterial(refMaterial: THREE.Material) {
-    this.refMaterial = refMaterial;
+    if (this.refMaterial !== refMaterial) {
+      this.refMaterial = refMaterial;
+      this.resetMaterial();
+    }
+  }
+
+  resetMaterial() {
+    if (this.refMaterial !== null) {
+      this.refMaterial.copy(this.getMaterial());
+    }
   }
 
   getMaterial(): THREE.Material {
@@ -1081,9 +1088,9 @@ export class MaterialComponent implements OnInit, OnChanges {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
-            size: this.getSize(5),
+            size: this.getSize(1),
             sizeAttenuation: this.getSizeAttenuation(true),
-            // morphTargets: this.getMorphTargets(false),
+            morphTargets: this.getMorphTargets(false),
           }
           this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
           break;
@@ -1129,11 +1136,10 @@ export class MaterialComponent implements OnInit, OnChanges {
             color: this.getColor(0xffffff),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
-            rotation: this.getRotation(1),
+            rotation: this.getRotation(0),
             sizeAttenuation: this.getSizeAttenuation(true)
           }
           this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
-          console.log(this.material);
           break;
         case 'meshlambert':
         default:

@@ -25,18 +25,34 @@ ng g c three/shape
 ng g c three/curve
 ng g c three/svg
 ng g c three/translation
+ng g s three/local-storage-service
 
-ng g c chapter07/page0701
-ng g c chapter07/page0702
-ng g c chapter07/page0703
-ng g c chapter07/page0704
-ng g c chapter07/page0705
-ng g c chapter07/page0706
-ng g c chapter07/page0707
-ng g c chapter07/page0708
-ng g c chapter07/page0709
-ng g c chapter07/page0710
+ng g c chapter08/page0801
+ng g c chapter08/page0802
+ng g c chapter08/page0803
+ng g c chapter08/page0804
+ng g c chapter08/page0805
+ng g c chapter08/page0806
+ng g c chapter08/page0807
+ng g c chapter08/page0808
+ng g c chapter08/page0809
+ng g c chapter08/page0810
+ng g c chapter08/page0811
+ng g c chapter08/page0812
+ng g c chapter08/page0813
+ng g c chapter08/page0814
+ng g c chapter08/page0815
+ng g c chapter08/page0816
+ng g c chapter08/page0817
 
+ng g c chapter11/page1101
+ng g c chapter11/page1102
+ng g c chapter11/page1103a
+ng g c chapter11/page1103b
+ng g c chapter11/page1104
+ng g c chapter11/page1105
+ng g c chapter11/page1106
+ng g c chapter11/page1107
 
 
 ng g c menu

@@ -9,16 +9,13 @@ import { MenuVo } from '../common-interface';
 export class Chapter11Component implements OnInit {
 
   public menuList : MenuVo[] = [
-    { url : 'pg01', name : ''},
-    { url : 'pg02', name : ''},
-    { url : 'pg03', name : ''},
-    { url : 'pg04', name : ''},
-    { url : 'pg05', name : ''},
-    { url : 'pg06', name : ''},
-    { url : 'pg07', name : ''},
-    { url : 'pg08', name : ''},
-    { url : 'pg09', name : ''},
-    { url : 'pg10', name : ''}
+    { url : 'pg01', name : 'Effect composings'},
+    { url : 'pg02', name : 'Simple passes'},
+    { url : 'pg03', name : 'Effect composings'},
+    { url : 'pg04', name : 'Post processing masks'},
+    { url : 'pg05', name : 'Shader Pass simple'},
+    { url : 'pg06', name : 'Advanced'},
+    { url : 'pg07', name : 'custom shaderpass'}
   ];
 
   constructor() { }

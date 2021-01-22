@@ -1,10 +1,11 @@
-import { Component, ContentChild, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 
 import * as THREE from 'three';
 import { LookatComponent } from '../lookat/lookat.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
+import { SceneComponent } from '../scene/scene.component';
 
 /*
 ArrayCamera
@@ -19,15 +20,18 @@ StereoCamera
 })
 export class CameraComponent implements OnInit {
 
-  @Input() type : string = 'perspective';
+  @Input() type : 'perspective' | 'orthographic' = 'perspective';
   @Input() fov : number = 45;
   @Input() near : number = null;
   @Input() far : number = null;
-  @Input() left : number = -16;
-  @Input() right : number = 16;
-  @Input() top : number = 16;
-  @Input() bottom : number = -16;
-
+  @Input() left : number = -0.5;
+  @Input() right : number = 0.5;
+  @Input() top : number = 0.5;
+  @Input() bottom : number = -0.5;
+  @Input() autoClear : boolean = null;
+  @Input() controlType: string = "none";
+  @Input() scene : SceneComponent = null;
+  
   @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
   @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
   @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
@@ -61,19 +65,19 @@ export class CameraComponent implements OnInit {
   }
 
   getLeft(width : number) : number {
-    return width / this.left;
+    return width * this.left;
   }
 
   getRight(width : number) : number {
-    return width / this.right;
+    return width * this.right;
   }
 
   getTop(height : number) : number {
-    return height / this.top;
+    return height * this.top;
   }
 
   getBottom(height : number) : number {
-    return height / this.bottom;
+    return height * this.bottom;
   }
 
   getAspect(width : number, height : number) : number {
@@ -160,5 +164,17 @@ export class CameraComponent implements OnInit {
       }
     }
     return this.camera;
+  }
+
+  render(renderer : THREE.Renderer , scenes : QueryList<SceneComponent>, width? : number, height? : number) {
+    const scene = ((this.scene !== null) ? this.scene : scenes.first);
+    if (scene !== null) {
+      if (this.autoClear !== null) {
+        if (renderer instanceof THREE.WebGLRenderer || renderer instanceof THREE.WebGL1Renderer) {
+          renderer.autoClear = this.autoClear;
+        }
+      }
+      renderer.render(scene.getScene(), this.getCamera(width, height));
+    }
   }
 }

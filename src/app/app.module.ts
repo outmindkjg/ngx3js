@@ -76,6 +76,32 @@ import { Page0707Component } from './chapter07/page0707/page0707.component';
 import { Page0708Component } from './chapter07/page0708/page0708.component';
 import { Page0709Component } from './chapter07/page0709/page0709.component';
 import { Page0710Component } from './chapter07/page0710/page0710.component';
+import { Page0801Component } from './chapter08/page0801/page0801.component';
+import { Page0802Component } from './chapter08/page0802/page0802.component';
+import { Page0803Component } from './chapter08/page0803/page0803.component';
+import { Page0804Component } from './chapter08/page0804/page0804.component';
+import { Page0805Component } from './chapter08/page0805/page0805.component';
+import { Page0806Component } from './chapter08/page0806/page0806.component';
+import { Page0807Component } from './chapter08/page0807/page0807.component';
+import { Page0808Component } from './chapter08/page0808/page0808.component';
+import { Page0809Component } from './chapter08/page0809/page0809.component';
+import { Page0810Component } from './chapter08/page0810/page0810.component';
+import { Page0811Component } from './chapter08/page0811/page0811.component';
+import { Page0812Component } from './chapter08/page0812/page0812.component';
+import { Page0813Component } from './chapter08/page0813/page0813.component';
+import { Page0814Component } from './chapter08/page0814/page0814.component';
+import { Page0815Component } from './chapter08/page0815/page0815.component';
+import { Page0816Component } from './chapter08/page0816/page0816.component';
+import { Page0817Component } from './chapter08/page0817/page0817.component';
+import { Page1101Component } from './chapter11/page1101/page1101.component';
+import { Page1102Component } from './chapter11/page1102/page1102.component';
+import { Page1103aComponent } from './chapter11/page1103a/page1103a.component';
+import { Page1103bComponent } from './chapter11/page1103b/page1103b.component';
+import { Page1104Component } from './chapter11/page1104/page1104.component';
+import { Page1105Component } from './chapter11/page1105/page1105.component';
+import { Page1106Component } from './chapter11/page1106/page1106.component';
+import { Page1107Component } from './chapter11/page1107/page1107.component';
+
 import { SceneComponent } from './three/scene/scene.component';
 import { CameraComponent } from './three/camera/camera.component';
 import { RendererComponent } from './three/renderer/renderer.component';
@@ -196,7 +222,32 @@ import { TranslationComponent } from './three/translation/translation.component'
     Page0707Component,
     Page0708Component,
     Page0709Component,
-    Page0710Component
+    Page0710Component,
+    Page0801Component,
+    Page0802Component,
+    Page0803Component,
+    Page0804Component,
+    Page0805Component,
+    Page0806Component,
+    Page0807Component,
+    Page0808Component,
+    Page0809Component,
+    Page0810Component,
+    Page0811Component,
+    Page0812Component,
+    Page0813Component,
+    Page0814Component,
+    Page0815Component,
+    Page0816Component,
+    Page0817Component,
+    Page1101Component,
+    Page1102Component,
+    Page1103aComponent,
+    Page1103bComponent,
+    Page1104Component,
+    Page1105Component,
+    Page1106Component,
+    Page1107Component
   ],
   imports: [
     BrowserModule,

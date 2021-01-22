@@ -1,8 +1,13 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-        <three-position [x]="0" [y]="20" [z]="20"></three-position>
+        <three-position [x]="20" [y]="0" [z]="150"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
+    <three-texture #baseTexture
+        [image]="'/assets/textures/particles/sprite-sheet.png'"
+        [repeatX]="1/5" [repeatY]="1"
+        [offsetY]="0"
+    ></three-texture>
     <three-scene #scene>
         <three-light type="ambient" [color]="'0x121212'"></three-light>
         <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
@@ -10,13 +15,24 @@
             <three-lookat [position]="scene"></three-lookat>
         </three-light>
         <three-mesh>
-            <three-material [type]="'MeshNormal'" [side]="'front'" [transparent]="false" [opacity]="0.5" [wireframe]="controls.wireframe"></three-material>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
-            <three-geometry [type]="'Sphere'" 
-                [radius]="5"
-                [widthSegments]="20"
-                [heightSegments]="30"
-            ></three-geometry>
-        </three-mesh>
+            <three-mesh *ngFor="let sprit of spritePosition" [type]="'Sprite'">
+                <three-position [x]="sprit.x" [y]="sprit.y" [z]="sprit.z"></three-position>
+                <three-scale [x]="sprit.size" [y]="sprit.size" [z]="sprit.size"></three-scale>
+                <three-material [type]="'Sprite'"
+                    [opacity]="0.6"
+                    [transparent]="false"
+                    [color]="'0xffffff'"
+                    [blending]="'Additive'"
+                    [depthTest]="false"
+                    [wireframe]="controls.wireframe"
+                >
+                    <three-texture 
+                        [link]="baseTexture"
+                        [offsetX]=" 0.2 * sprit.sprite "
+                    ></three-texture>
+                </three-material>
+            </three-mesh>
+            </three-mesh>
     </three-scene>
 </three-renderer>

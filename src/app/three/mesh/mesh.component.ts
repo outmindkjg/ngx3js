@@ -10,6 +10,7 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { SvgComponent } from '../svg/svg.component';
+import { LocalStorageService } from './../local-storage.service';
 
 @Component({
   selector: 'three-mesh',
@@ -25,6 +26,7 @@ export class MeshComponent implements OnInit {
   @Input() castShadow: boolean = true;
   @Input() receiveShadow: boolean = false;
   @Input() name: string = null;
+  @Input() storageName:string = null;
 
   @ContentChild(GeometryComponent, { descendants: false }) geometry: GeometryComponent = null;
   @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
@@ -35,7 +37,7 @@ export class MeshComponent implements OnInit {
   @ContentChild(ScaleComponent, { descendants: false }) scale: ScaleComponent = null;
   @ContentChild(SvgComponent, { descendants: false }) svg: SvgComponent = null;
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
 
@@ -49,6 +51,12 @@ export class MeshComponent implements OnInit {
         })
       }
     });
+    this.materials.changes.subscribe((e) => {
+      if (this.mesh !== null) {
+        this.resetMesh(true);
+      }
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -61,6 +69,9 @@ export class MeshComponent implements OnInit {
     if (changes) {
       if (this.refObject3d !== null && this.mesh !== null) {
         this.refObject3d.remove(this.mesh);
+      }
+      if (changes.type || changes.storageName) {
+        this.mesh = null;
       }
       if (this.mesh && changes.visible) {
         this.mesh.visible = this.visible;
@@ -136,12 +147,22 @@ export class MeshComponent implements OnInit {
         this.refObject3d.remove(this.mesh);
         this.mesh = null;
       }
-      this.refObject3d.add(this.getMesh());
+      if (this.mesh === null) {
+        this.refObject3d.add(this.getMesh());
+      }
     }
   }
 
   getObject3D(): THREE.Object3D {
     return this.getMesh();
+  }
+
+  getJson() : any {
+    return this.getMesh().toJSON();
+  }
+
+  setSavelocalStorage(storageName : string) {
+    return this.localStorageService.setObject(storageName, this.getMesh());
   }
 
   getMesh(): THREE.Mesh | THREE.Group | THREE.Line | THREE.Object3D{
@@ -151,6 +172,9 @@ export class MeshComponent implements OnInit {
         geometry = this.geometry.getGeometry();
       }
       switch (this.type.toLowerCase()) {
+        case 'storage' :
+          this.mesh = this.localStorageService.getObject(this.storageName);
+          break;
         case 'lensflare':
           const lensflare = new Lensflare();
           this.lensflareElements.forEach(lensflareElement => {
@@ -281,14 +305,13 @@ export class MeshComponent implements OnInit {
       if (this.svg !== null && this.svg !== undefined) {
         this.svg.setObject3D(this.mesh);
       }
-      if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.Points) {
+      if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.Points || this.mesh instanceof THREE.Sprite) {
         const mesh = this.mesh;
         if (this.mesh instanceof THREE.Mesh) {
           mesh.castShadow = this.castShadow;
         }
         if (geometry !== null) {
           this.geometry.setMesh(mesh);
-          console.log(this.geometry);
         }
         if (mesh.material instanceof Array) {
           this.materials.forEach((material, idx) => {

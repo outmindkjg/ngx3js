@@ -1,7 +1,10 @@
-<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-        <three-position [x]="0" [y]="20" [z]="20"></three-position>
+<three-renderer  [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-camera [type]="'perspective'" [scene]="scene" [fov]="45" [near]="0.1" [far]="2000">
+        <three-position [x]="cameraPosition.x" [y]="cameraPosition.y" [z]="cameraPosition.z"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+    </three-camera>
+    <three-camera [type]="'orthographic'" [autoClear]="false" [scene]="orthoScene" [near]="-1000" [far]="2000" [left]="0"  [right]="1" [top]="1" [bottom]="0">
+        <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
     </three-camera>
     <three-scene #scene>
         <three-light type="ambient" [color]="'0x121212'"></three-light>
@@ -10,13 +13,39 @@
             <three-lookat [position]="scene"></three-lookat>
         </three-light>
         <three-mesh>
-            <three-material [type]="'MeshNormal'" [side]="'front'" [transparent]="false" [opacity]="0.5" [wireframe]="controls.wireframe"></three-material>
+            <three-material [type]="'MeshNormal'" [wireframe]="controls.wireframe"></three-material>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry [type]="'Sphere'" 
-                [radius]="5"
+                [radius]="15"
                 [widthSegments]="20"
-                [heightSegments]="30"
+                [heightSegments]="20"
             ></three-geometry>
+        </three-mesh>
+    </three-scene>
+    <three-scene #orthoScene>
+        <three-light type="ambient" [color]="'0x121212'"></three-light>
+        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
+            <three-lookat [position]="scene"></three-lookat>
+        </three-light>
+        <three-mesh [type]="'Sprite'">
+            <three-scale [x]="controls.size" [y]="controls.size" [z]="controls.size"></three-scale>
+            <three-material [type]="'Sprite'" 
+                [opacity]="controls.opacity"
+                [color]="controls.color"
+                [transparent]="controls.transparent"
+                [blending]="'Additive'"
+                [depthTest]="false"
+                [wireframe]="controls.wireframe"
+            >
+                <three-texture [image]="'/assets/textures/particles/sprite-sheet.png'" 
+                    [repeatX]="1/5" [repeatY]="1"
+                    [offsetX]=" 0.2 * controls.sprite "
+                    [offsetY]="0"
+                ></three-texture>
+            </three-material>
+            <three-rotation [x]="0" [y]="0" [z]="-45"></three-rotation>
+            <three-position [x]="spritePosition.x" [y]="spritePosition.y" [z]="spritePosition.z"></three-position>
         </three-mesh>
     </three-scene>
 </three-renderer>

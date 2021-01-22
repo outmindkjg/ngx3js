@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, QueryList, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -37,8 +37,8 @@ export interface RendererTimer {
 })
 export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
 
-  @ContentChild(SceneComponent, { descendants: false }) scene: SceneComponent;
-  @ContentChild(CameraComponent, { descendants: false }) camera: CameraComponent;
+  @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
 
@@ -115,12 +115,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   setSize(width: number, height: number) {
     if (this.renderer !== null) {
-      this.cameraWidth = width;
-      this.cameraHeight = height;
+      this.rendererWidth = width;
+      this.rendererHeight = height;
       this.renderer.setSize(width, height);
-      if (this.camera != null && this.camera != undefined) {
-        this.getCamera();
-      }
     }
   }
 
@@ -128,26 +125,42 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   private renderer: THREE.Renderer = null;
-  private cameraWidth: number = 100;
-  private cameraHeight: number = 100;
+  private rendererWidth: number = 100;
+  private rendererHeight: number = 100;
 
   private stats: Stats = null;
   private gui: GUI = null;
   private clock: THREE.Clock = null;
   private control: any = null;
 
-  private getControls(camera: THREE.Camera, renderer: THREE.Renderer): any{
-    switch (this.controlType.toLowerCase()) {
-      case "orbit":
-        return new OrbitControls(camera, renderer.domElement);
-      case "fly":
-        return new FlyControls(camera, renderer.domElement);
-      case "firstperson":
-        return new FirstPersonControls(camera, renderer.domElement);
-      case "transform":
-        return new TransformControls(camera, renderer.domElement);
-      case "trackball":
-        return new TrackballControls(camera, renderer.domElement);
+  private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer): any {
+    let cameraComp: CameraComponent = null;
+    let controlType: string = this.controlType.toLowerCase();
+    if (cameras !== null && cameras.length > 0) {
+      cameraComp = cameras.find(camera => {
+        if (camera.controlType.toLowerCase() !== 'none') {
+          controlType = camera.controlType;
+          return true;
+        } else if (controlType !== 'none') {
+          return true;
+        }
+        return false;
+      })
+    }
+    if (cameraComp !== null && cameraComp !== undefined) {
+      const camera: THREE.Camera = cameraComp.getCamera(this.rendererWidth, this.rendererHeight);
+      switch (controlType.toLowerCase()) {
+        case "orbit":
+          return new OrbitControls(camera, renderer.domElement);
+        case "fly":
+          return new FlyControls(camera, renderer.domElement);
+        case "firstperson":
+          return new FirstPersonControls(camera, renderer.domElement);
+        case "transform":
+          return new TransformControls(camera, renderer.domElement);
+        case "trackball":
+          return new TrackballControls(camera, renderer.domElement);
+      }
     }
     return null;
   }
@@ -203,7 +216,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           if (param.isOpen) {
             folder.open();
           }
-          
+
           break;
         case 'number':
           this.setupGuiChange(
@@ -252,7 +265,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.stats = null;
     }
     this.renderer = this.getRenderer();
-    this.control = this.getControls(this.getCamera(), this.renderer);
+    this.control = this.getControls(this.cameras, this.renderer);
     this.render();
   }
 
@@ -268,8 +281,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           break;
       }
       const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
-      this.cameraWidth = width;
-      this.cameraHeight = height;
+      this.rendererWidth = width;
+      this.rendererHeight = height;
       this.renderer.setSize(width, height);
       if (this.renderer instanceof THREE.WebGLRenderer) {
         this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
@@ -284,29 +297,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return this.renderer;
   }
 
-  getScene(): THREE.Scene {
-    if (this.scene !== null && this.scene !== undefined) {
-      return this.scene.getScene();
-    } else {
-      return null;
-    }
-  }
-
-  getCamera(): THREE.Camera {
-    if (this.camera !== null && this.camera !== undefined) {
-      return this.camera.getCamera(this.cameraWidth, this.cameraHeight);
-    } else {
-      return null;
-    }
-  }
-
   render() {
     if (this.stats != null) {
       this.stats.begin();
     }
     const delta = this.clock.getDelta();
     const elapsedTime = this.clock.getElapsedTime();
-
     this.onRender.emit({
       delta: delta,
       elapsedTime: elapsedTime
@@ -322,12 +318,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.control.update();
       }
     }
-    if (this.scene !== null && this.camera !== null) {
-      this.renderer.render(
-        this.getScene(),
-        this.getCamera()
-      );
-    }
+    this.cameras.forEach(camera => {
+      camera.render(this.renderer, this.scenes, this.rendererWidth, this.rendererHeight)
+    });
     if (this.stats != null) {
       this.stats.end();
     }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -8,9 +8,10 @@ import * as THREE from 'three';
 })
 export class TextureComponent implements OnInit {
 
+  @Input() link: TextureComponent = null;
   @Input() textureType: string = 'map';
   @Input() image: string = null;
-  @Input() program: (ctx : CanvasRenderingContext2D) => void = null;
+  @Input() program: (ctx: CanvasRenderingContext2D) => void = null;
   @Input() mapping: string = null;
   @Input() wrapS: string = null;
   @Input() wrapT: string = null;
@@ -22,7 +23,11 @@ export class TextureComponent implements OnInit {
   @Input() encoding: string = null;
   @Input() repeatX: number = null;
   @Input() repeatY: number = null;
-  
+  @Input() offsetX: number = null;
+  @Input() offsetY: number = null;
+  @Input() textureWidth: number = null;
+  @Input() textureHeight: number = null;
+
 
   constructor() { }
 
@@ -35,14 +40,21 @@ export class TextureComponent implements OnInit {
     }
     if (this.refTexture != null) {
       this.refTexture.dispose();
-    } 
+    }
   }
- 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getTexture(changes);
+    if (this.refTexture != null) {
+      this.refTexture.copy(this.texture);
+    }
+  }
+
   private getImage(def: string): string {
     return (this.image === null) ? def : this.image;
   }
 
-  private getProgram(def: (ctx : CanvasRenderingContext2D) => void): (ctx : CanvasRenderingContext2D) => void {
+  private getProgram(def: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
     return (this.program === null) ? def : this.program;
   }
 
@@ -162,9 +174,9 @@ export class TextureComponent implements OnInit {
       case 'depthstencil':
         return THREE.DepthStencilFormat;
       case 'rgba':
-      default :
-          return THREE.RGBAFormat;
-      }
+      default:
+        return THREE.RGBAFormat;
+    }
   }
 
   private getType(def: string): THREE.TextureDataType {
@@ -193,8 +205,8 @@ export class TextureComponent implements OnInit {
       case 'unsignedint248':
         return THREE.UnsignedInt248Type;
       case 'unsignedbyte':
-      default :
-          return THREE.UnsignedByteType;
+      default:
+        return THREE.UnsignedByteType;
     }
   }
 
@@ -221,35 +233,42 @@ export class TextureComponent implements OnInit {
       case 'rgbd':
         return THREE.RGBDEncoding;
       case 'linear':
-      default :
-          return THREE.LinearEncoding;
+      default:
+        return THREE.LinearEncoding;
     }
   }
 
-  private getRepeat(defX : number, defY : number) : THREE.Vector2 {
+  private getRepeat(defX: number, defY: number): THREE.Vector2 {
     const x = (this.repeatX === null) ? defX : this.repeatX;
     const y = (this.repeatY === null) ? defY : this.repeatY;
     return new THREE.Vector2(x, y);
   }
 
+  private getOffset(defX: number, defY: number): THREE.Vector2 {
+    const x = (this.offsetX === null) ? defX : this.offsetX;
+    const y = (this.offsetY === null) ? defY : this.offsetY;
+    return new THREE.Vector2(x, y);
+  }
+
+
   private refTexture: THREE.Texture = null;
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
 
-  getTextureImage(image : string, program?: (ctx :CanvasRenderingContext2D) => void) : THREE.Texture{
-    return TextureComponent.getTextureImage(image, program);
+  getTextureImage(image: string, program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
+    return TextureComponent.getTextureImage(image, program, this.textureWidth, this.textureHeight);
   }
 
-  static getTextureImage(image : string, program?: (ctx :CanvasRenderingContext2D) => void) : THREE.Texture {
+  static getTextureImage(image: string, program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number): THREE.Texture {
     if (this.textureLoader === null) {
       this.textureLoader = new THREE.TextureLoader();
     }
     if (image !== null && image !== '') {
       return this.textureLoader.load(image);
     } else {
-      const canvas:HTMLCanvasElement = document.createElement('canvas');
-      canvas.width = 35;
-      canvas.height = 35;
+      const canvas: HTMLCanvasElement = document.createElement('canvas');
+      canvas.width = canvasWidth ? canvasWidth : 35;
+      canvas.height = canvasHeight ? canvasHeight : 35;
       if (program !== null) {
         const _context = canvas.getContext('2d', {
           alpha: true
@@ -269,21 +288,54 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  getTexture() {
-    if (this.texture === null) {
-      this.texture = this.getTextureImage(this.getImage(null), this.getProgram(null));
-      // this.texture.mapping = this.getMapping('default');
-      this.texture.wrapS = this.getWrapS('clamptoedge');
-      this.texture.wrapT = this.getWrapT('clamptoedge');
-      this.texture.magFilter = this.getMagFilter('linear');
-      this.texture.minFilter = this.getMinFilter('linearmipmaplinear');
-      this.texture.format = this.getFormat('rgba');
-      // this.texture.type = this.getType('unsignedbyte');
-      this.texture.anisotropy = this.getAnisotropy(1);
-      this.texture.encoding = this.getEncoding('linear');
-      this.texture.repeat.copy(this.getRepeat(1,1));
+  getTexture(changes?: SimpleChanges) {
+    if (this.texture === null || (changes && (changes.image || changes.program))) {
+      if (this.link !== null) {
+        this.texture = this.getTextureImage(this.link.getImage(null), this.link.getProgram(null));
+        this.texture.repeat.copy(this.link.getRepeat(1, 1));
+        this.texture.offset.copy(this.link.getOffset(0, 0));
+      } else {
+        this.texture = this.getTextureImage(this.getImage(null), this.getProgram(null));
+      }
+    }
+    if (this.texture != null && changes) {
+      for (const propName in changes) {
+        switch (propName) {
+          case 'wrapS':
+            this.texture.wrapS = this.getWrapS('clamptoedge');
+            break;
+          case 'wrapT':
+            this.texture.wrapT = this.getWrapT('clamptoedge');
+            break;
+          case 'magFilter':
+            this.texture.magFilter = this.getMagFilter('linear');
+            break;
+          case 'minFilter':
+            this.texture.minFilter = this.getMinFilter('linearmipmaplinear');
+            break;
+          case 'format':
+            this.texture.format = this.getFormat('rgba');
+            break;
+          case 'type':
+            this.texture.type = this.getType('unsignedbyte');
+            break;
+          case 'anisotropy':
+            this.texture.anisotropy = this.getAnisotropy(1);
+            break;
+          case 'encoding':
+            this.texture.encoding = this.getEncoding('linear');
+            break;
+          case 'repeatX':
+          case 'repeatY':
+            this.texture.repeat.copy(this.getRepeat(1, 1));
+            break;
+          case 'offsetX':
+          case 'offsetY':
+            this.texture.offset.copy(this.getOffset(0, 0));
+            break;
+        }
+      }
     }
     return this.texture;
   }
-
 }
