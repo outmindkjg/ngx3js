@@ -1,6 +1,7 @@
 import { Component, ContentChild, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 
 import * as THREE from 'three';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { LookatComponent } from '../lookat/lookat.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
@@ -160,6 +161,9 @@ export class CameraComponent implements OnInit {
           this.camera.bottom = bottom;
           this.camera.updateProjectionMatrix();
         }
+        // const effect = new EffectComposer(null);
+        // effect.addPass();
+
 
       }
     }
