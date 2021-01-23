@@ -179,6 +179,7 @@ export class CameraComponent implements OnInit {
         }
       }
       renderer.render(scene.getScene(), this.getCamera(width, height));
+    } else {
     }
   }
 }

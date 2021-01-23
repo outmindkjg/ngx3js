@@ -1,10 +1,10 @@
-<three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0xaaaaff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xaaaaff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="1000">
         <three-position [x]="-20" [y]="10" [z]="45"></three-position>
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-light type="Directional" [color]="controls.pointColor" [intensity]="controls.intensity" [castShadow]="true" [visible]="true" [shadowCameraVisible]="false">
+        <three-mesh type="light" lightType="directional" [color]="controls.pointColor" [intensity]="controls.intensity" [castShadow]="true" [visible]="true" [shadowCameraVisible]="false">
             <three-position [x]="30" [y]="10" [z]="-50"></three-position>
             <three-lookat [position]="plane"></three-lookat>
             <three-mesh type="lensflare">
@@ -14,8 +14,8 @@
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="120" [distance]="0.9"></three-lensflareelement>
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="70" [distance]="1"></three-lensflareelement>
             </three-mesh>
-        </three-light>
-        <three-light type="ambient" [color]="controls.ambientColor"></three-light>
+        </three-mesh>
+        <three-mesh type="light" lightType="ambient" [color]="controls.ambientColor"></three-mesh>
         <three-mesh #cube [castShadow]="true">
             <three-position [x]="-4" [y]="3" [z]="0"></three-position>
             <three-rotation [x]="boxRotation.x" [y]="boxRotation.y" [z]="boxRotation.z"></three-rotation>

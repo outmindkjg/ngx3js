@@ -10,7 +10,7 @@ export class Page0510Component implements OnInit {
 
   controls = {
     radius : 10,
-    tube : 0.3,
+    tube : 1,
     radialSegments : 64,
     tubularSegments : 8,
     p : 2,

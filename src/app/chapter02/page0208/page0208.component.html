@@ -1,13 +1,13 @@
 <three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0xEEEEEE'" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-    <three-camera [type]="controls.perspective" [fov]="45" [near]="0.1" [far]="1000">
+    <three-camera [type]="controls.perspective" [fov]="45" [near]="0.1" [far]="1000" [left]="-0.0625" [right]="0.0625" [top]="0.0625" [bottom]="-0.0625">
         <three-position [x]="120" [y]="60" [z]="180"></three-position>
         <three-lookat [x]="lookAt.x" [y]="lookAt.y" [z]="lookAt.z"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-light type="ambient" [color]="'0x292929'"></three-light>
-        <three-light type="Directional" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
+        <three-mesh type="light" lightType="ambient" [color]="'0x292929'"></three-mesh>
+        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
             <three-position [x]="-20" [y]="40" [z]="60"></three-position>
-        </three-light>
+        </three-mesh>
         <three-mesh [castShadow]="true">
             <three-position [x]="lookAt.x" [y]="lookAt.y" [z]="lookAt.z"></three-position>
             <three-geometry type="Sphere" [radius]="2"></three-geometry>

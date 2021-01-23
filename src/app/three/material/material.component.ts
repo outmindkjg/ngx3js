@@ -850,6 +850,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   resetMaterial() {
     if (this.refMaterial !== null) {
       this.refMaterial.copy(this.getMaterial());
+      this.refMaterial.needsUpdate = true;
     }
   }
 
@@ -915,7 +916,7 @@ export class MaterialComponent implements OnInit, OnChanges {
         case 'meshnormal':
           const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
             bumpMap: this.getTexture('bumpMap'),
-            // bumpScale: this.getBumpScale(1);
+            bumpScale: this.getBumpScale(1),
             normalMap: this.getTexture('normalMap'),
             normalMapType: this.getNormalMapType(''),
             normalScale: this.getNormalScale(1,1),

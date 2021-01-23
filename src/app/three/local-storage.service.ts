@@ -33,7 +33,6 @@ export class LocalStorageService {
   }
 
   public setScene(key: string, scene: THREE.Scene) {
-    console.log(scene.toJSON());
     this.setItem(key, JSON.stringify(scene.toJSON()));
   }
 

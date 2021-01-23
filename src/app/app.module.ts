@@ -108,17 +108,14 @@ import { RendererComponent } from './three/renderer/renderer.component';
 import { GeometryComponent } from './three/geometry/geometry.component';
 import { MaterialComponent } from './three/material/material.component';
 import { MeshComponent } from './three/mesh/mesh.component';
-import { LightComponent } from './three/light/light.component';
 import { PositionComponent } from './three/position/position.component';
 import { RotationComponent } from './three/rotation/rotation.component';
 import { ScaleComponent } from './three/scale/scale.component';
 import { MenuComponent } from './menu/menu.component';
-import { LineComponent } from './three/line/line.component';
 import { LookatComponent } from './three/lookat/lookat.component';
 import { FogComponent } from './three/fog/fog.component';
 import { TextureComponent } from './three/texture/texture.component';
 import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
-import { HelperComponent } from './three/helper/helper.component';
 import { ShaderComponent } from './three/shader/shader.component';
 import { ShapeComponent } from './three/shape/shape.component';
 import { CurveComponent } from './three/curve/curve.component';
@@ -194,17 +191,14 @@ import { TranslationComponent } from './three/translation/translation.component'
     GeometryComponent,
     MaterialComponent,
     MeshComponent,
-    LightComponent,
     PositionComponent,
     RotationComponent,
     ScaleComponent,
     MenuComponent,
-    LineComponent,
     LookatComponent,
     FogComponent,
     TextureComponent,
     LensflareelementComponent,
-    HelperComponent,
     ShaderComponent,
     Page0510Component,
     Page0511Component,

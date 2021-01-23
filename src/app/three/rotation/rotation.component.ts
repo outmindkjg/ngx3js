@@ -27,10 +27,14 @@ export class RotationComponent implements OnInit {
   private rotation : THREE.Euler = null;
   private refRotation : THREE.Euler | THREE.Euler[] = null;
 
-  setRotation(refRotation : THREE.Euler | THREE.Euler[]) {
+  setRotation(refRotation : THREE.Euler | THREE.Euler[], isRestore : boolean = false) {
     if (this.refRotation !== refRotation) {
       this.refRotation = refRotation;
-      this.resetRotation();
+      if (isRestore) {
+        console.log('restored')
+      } else {
+        this.resetRotation();
+      }
     }
   }
 

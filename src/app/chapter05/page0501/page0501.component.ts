@@ -24,7 +24,9 @@ export class Page0501Component implements OnInit {
     { name: "wireframe", type: "button"},
   ]
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
   }

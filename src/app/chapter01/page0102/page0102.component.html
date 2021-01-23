@@ -4,10 +4,9 @@
         <three-lookat [position]="scene"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-light type="ambient"></three-light>
-        <three-light type="spot"></three-light>
-        <three-line [type]="'axishelper'" [size]="20">
-        </three-line>
+        <three-mesh type="light" lightType="ambient"></three-mesh>
+        <three-mesh type="light" lightType="spot"></three-mesh>
+        <three-mesh type="helper" helperType="axis" [size]="10"></three-mesh>
         <three-mesh>
             <three-position [x]="-4" [y]="3" [z]="0"></three-position>
             <three-geometry type="box" [width]="4" [height]="4" [depth]="4"></three-geometry>

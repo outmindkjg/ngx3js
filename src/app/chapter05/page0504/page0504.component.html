@@ -1,17 +1,21 @@
-<three-renderer [statsMode]="0" [antialias]="true" [clearColor]="'0xEEEEEE'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="-20" [y]="50" [z]="40"></three-position>
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-light type="ambient" [color]="'0x121212'"></three-light>
-        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
+        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="baseGeo"></three-lookat>
-        </three-light>
+        </three-mesh>
         <three-mesh #baseGeo>
             <three-position [x]="0" [y]="3" [z]="2"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-material type="MeshNormal"
+                [side]="'double'"
+                [wireframe]="controls.wireframe"
+            ></three-material>
             <three-geometry 
                 [type]="'Ring'" 
                 [innerRadius]="controls.innerRadius" 
@@ -21,10 +25,6 @@
                 [thetaStart]="controls.thetaStart"
                 [thetaLength]="controls.thetaLength"
             ></three-geometry>
-            <three-material type="MeshNormal"
-                [side]="'double'"
-                [wireframe]="controls.wireframe"
-            ></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

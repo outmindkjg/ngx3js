@@ -27,10 +27,14 @@ export class ScaleComponent implements OnInit {
   private scale : THREE.Vector3 = null;
   private refScale : THREE.Vector3 | THREE.Vector3[]= null;
   
-  setScale(refScale : THREE.Vector3 | THREE.Vector3[]) {
+  setScale(refScale : THREE.Vector3 | THREE.Vector3[], isRestore : boolean = false) {
     if (this.refScale !== refScale) {
       this.refScale = refScale;
-      this.resetScale();
+      if (isRestore) {
+
+      } else {
+        this.resetScale();
+      }
     }
   }
 

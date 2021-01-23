@@ -27,10 +27,14 @@ export class PositionComponent implements OnInit {
   private position : THREE.Vector3 = null;
   private refPosition : THREE.Vector3 | THREE.Vector3[] = null;
   
-  setPosition(refPosition : THREE.Vector3 | THREE.Vector3[]){
+  setPosition(refPosition : THREE.Vector3 | THREE.Vector3[], isRestore : boolean = false){
     if (this.refPosition !== refPosition) {
       this.refPosition = refPosition;
-      this.resetPosition();
+      if (isRestore) {
+
+      } else {
+        this.resetPosition();
+      }
     }
   }
 

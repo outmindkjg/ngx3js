@@ -9,11 +9,11 @@
         [offsetY]="0"
     ></three-texture>
     <three-scene #scene>
-        <three-light type="ambient" [color]="'0x121212'"></three-light>
-        <three-light type="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
+        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="scene"></three-lookat>
-        </three-light>
+        </three-mesh>
         <three-mesh>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-mesh *ngFor="let sprit of spritePosition" [type]="'Sprite'">

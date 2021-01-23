@@ -4,9 +4,9 @@
         <three-lookat [position]="scene"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-light type="spot" [color]="'0xffffff'">
+        <three-mesh type="light" lightType="spot" [color]="'0xffffff'">
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
-        </three-light>
+        </three-mesh>
         <three-mesh>
             <three-position [x]="-4" [y]="3" [z]="0"></three-position>
             <three-geometry type="box" [width]="4" [height]="4" [depth]="4"></three-geometry>
