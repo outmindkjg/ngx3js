@@ -437,15 +437,22 @@ var MeshComponent = /** @class */ (function () {
                     }
                     break;
                 case 'storage':
-                    this.mesh = this.localStorageService.getObject(this.storageName);
-                    this.meshes.forEach(function (mesh) {
-                        if (mesh.name !== null &&
-                            mesh.name !== undefined &&
-                            mesh.name !== '') {
-                            var foundMesh = _this.mesh.getObjectByName(mesh.name);
-                            if (foundMesh instanceof THREE.Mesh) {
-                                mesh.setMesh(foundMesh, true);
-                            }
+                    this.mesh = new THREE.Object3D();
+                    this.localStorageService.getObject(this.storageName, function (mesh) {
+                        _this.mesh.add(mesh);
+                        var oldMesh = _this.refObject3d ? _this.refObject3d : _this.mesh;
+                        oldMesh.add(mesh);
+                        if (_this.meshes) {
+                            _this.meshes.forEach(function (mesh) {
+                                if (mesh.name !== null &&
+                                    mesh.name !== undefined &&
+                                    mesh.name !== '') {
+                                    var foundMesh = oldMesh.getObjectByName(mesh.name);
+                                    if (foundMesh instanceof THREE.Object3D) {
+                                        mesh.setMesh(foundMesh, true);
+                                    }
+                                }
+                            });
                         }
                     });
                     break;

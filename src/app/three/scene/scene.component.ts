@@ -46,7 +46,7 @@ export class SceneComponent implements OnInit {
   getObject3D() : THREE.Object3D {
     return this.getScene();
   }
- 
+
   getJson() : any {
     return this.getScene().toJSON();
   }
@@ -70,18 +70,21 @@ export class SceneComponent implements OnInit {
       }
     }
   }
- 
+
   getScene(): THREE.Scene {
     if (this.scene === null) {
       if (this.storageName !== null) {
-        this.scene = this.localStorageService.getScene(this.storageName);
-        this.meshes.forEach(mesh => {
-          if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
-            const foundMesh = this.scene.getObjectByName(mesh.name);
-            if (foundMesh !== null && foundMesh !== undefined) {
-              mesh.setMesh(foundMesh, true);
+        this.scene = new THREE.Scene();
+        this.localStorageService.getScene(this.storageName, (scene : THREE.Scene) => {
+          this.scene.copy(scene);
+          this.meshes.forEach(mesh => {
+            if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
+              const foundMesh = this.scene.getObjectByName(mesh.name);
+              if (foundMesh !== null && foundMesh !== undefined) {
+                mesh.setMesh(foundMesh, true);
+              }
             }
-          }
+          });
         });
       } else {
         this.scene = new THREE.Scene();

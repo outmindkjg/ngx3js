@@ -271,7 +271,7 @@ export class MeshComponent implements OnInit {
     } else if (this.position !== null && this.position !== undefined) {
       return this.position.getPosition();
     } else {
-      return new THREE.Vector3(0,0,0);
+      return new THREE.Vector3(0, 0, 0);
     }
   }
 
@@ -281,7 +281,7 @@ export class MeshComponent implements OnInit {
     } else if (this.scale !== null && this.scale !== undefined) {
       return this.scale.getScale();
     } else {
-      return new THREE.Vector3(1,1,1);
+      return new THREE.Vector3(1, 1, 1);
     }
   }
 
@@ -291,7 +291,7 @@ export class MeshComponent implements OnInit {
     } else if (this.scale !== null && this.scale !== undefined) {
       return this.rotation.getRotation();
     } else {
-      return new THREE.Euler(1,1,1);
+      return new THREE.Euler(1, 1, 1);
     }
   }
 
@@ -536,17 +536,25 @@ export class MeshComponent implements OnInit {
           }
           break;
         case 'storage':
-          this.mesh = this.localStorageService.getObject(this.storageName);
-          this.meshes.forEach((mesh) => {
-            if (
-              mesh.name !== null &&
-              mesh.name !== undefined &&
-              mesh.name !== ''
-            ) {
-              const foundMesh = this.mesh.getObjectByName(mesh.name);
-              if (foundMesh instanceof THREE.Mesh) {
-                mesh.setMesh(foundMesh, true);
-              }
+          this.mesh = new THREE.Object3D();
+          this.localStorageService.getObject(this.storageName, (mesh) => {
+            this.mesh.add(mesh);
+            const oldMesh: THREE.Object3D =
+              this.refObject3d ? this.refObject3d : this.mesh;
+            oldMesh.add(mesh);
+            if (this.meshes) {
+              this.meshes.forEach((mesh) => {
+                if (
+                  mesh.name !== null &&
+                  mesh.name !== undefined &&
+                  mesh.name !== ''
+                ) {
+                  const foundMesh = oldMesh.getObjectByName(mesh.name);
+                  if (foundMesh instanceof THREE.Object3D) {
+                    mesh.setMesh(foundMesh, true);
+                  }
+                }
+              });
             }
           });
           break;
@@ -624,7 +632,8 @@ export class MeshComponent implements OnInit {
         if (this.mesh instanceof THREE.Mesh) {
           if (meshBSP.length > 0) {
             this.mesh.updateMatrix();
-            let sourceCsg: CSG = geometry !== null ? CSG.fromMesh(this.mesh) : null;
+            let sourceCsg: CSG =
+              geometry !== null ? CSG.fromMesh(this.mesh) : null;
             const matrix: THREE.Matrix4 = this.mesh.matrix;
             meshBSP.forEach((mesh) => {
               const meshIns = mesh.getMesh();
