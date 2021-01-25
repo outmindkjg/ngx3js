@@ -9,7 +9,7 @@ import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three
 export class Page0805Component implements OnInit {
 
   controls = {
-    rotate: false,
+    rotate: true,
     wireframe: false,
   }
 

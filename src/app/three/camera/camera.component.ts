@@ -31,6 +31,7 @@ export class CameraComponent implements OnInit {
   @Input() bottom : number = -0.5;
   @Input() autoClear : boolean = null;
   @Input() controlType: string = "none";
+  @Input() controlAutoRotate: boolean = null;
   @Input() scene : SceneComponent = null;
   
   @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
@@ -90,6 +91,14 @@ export class CameraComponent implements OnInit {
 
   getObject3D() : THREE.Object3D {
     return this.getCamera();
+  }
+
+  getRaycaster(event) : THREE.Raycaster {
+    const vector = new THREE.Vector3(( event.clientX / this.cameraWidth ) * 2 - 1, -( event.clientY / this.cameraHeight ) * 2 + 1, 0.5);
+    const camera = this.getCamera(this.cameraWidth, this.cameraHeight);
+    const v = vector.unproject(camera);
+    const raycaster = new THREE.Raycaster(camera.position, v.sub(camera.position).normalize());
+    return raycaster;
   }
 
   getCamera(width? : number, height? : number) : THREE.Camera {
@@ -174,7 +183,7 @@ export class CameraComponent implements OnInit {
     const scene = ((this.scene !== null) ? this.scene : scenes.first);
     if (scene !== null) {
       if (this.autoClear !== null) {
-        if (renderer instanceof THREE.WebGLRenderer || renderer instanceof THREE.WebGL1Renderer) {
+        if (renderer instanceof THREE.WebGLRenderer) {
           renderer.autoClear = this.autoClear;
         }
       }

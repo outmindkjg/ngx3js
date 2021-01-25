@@ -1003,16 +1003,16 @@ export class MaterialComponent implements OnInit, OnChanges {
             morphTargets: this.getMorphTargets(false),
             morphNormals: this.getMorphNormals(false),
             clearcoat: this.getClearcoat(0),
-            clearcoatMap: this.getTexture('clearcoatMap'),
+            // clearcoatMap: this.getTexture('clearcoatMap'),
             clearcoatRoughness: this.getClearcoatRoughness(0),
-            clearcoatRoughnessMap: this.getTexture('clearcoatRoughnessMap'),
+            // clearcoatRoughnessMap: this.getTexture('clearcoatRoughnessMap'),
             clearcoatNormalScale: this.getClearcoatNormalScale(1, 1),
             clearcoatNormalMap: this.getTexture('clearcoatNormalMap'),
             reflectivity: this.getReflectivity(0.5),
-            ior: this.getIor(1.5),
+            // ior: this.getIor(1.5),
             sheen: this.getSheen(null),
-            transmission: this.getTransmission(0),
-            transmissionMap: this.getTexture('transmissionMap')
+            // transmission: this.getTransmission(0),
+            // transmissionMap: this.getTexture('transmissionMap')
           }
           this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
           break;

@@ -44,6 +44,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @Input() type: string = "webgl";
   @Input() controlType: string = "none";
+  @Input() controlAutoRotate: boolean = false;
   @Input() shadowMapEnabled: boolean = true;
   @Input() clearColor: string | number = null;
 
@@ -136,10 +137,14 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer): any {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
+    let controlAutoRotate : boolean = this.controlAutoRotate;
     if (cameras !== null && cameras.length > 0) {
       cameraComp = cameras.find(camera => {
         if (camera.controlType.toLowerCase() !== 'none') {
           controlType = camera.controlType;
+          if (camera.controlAutoRotate !== null && camera.controlAutoRotate !== undefined) {
+            controlAutoRotate = camera.controlAutoRotate;
+          }
           return true;
         } else if (controlType !== 'none') {
           return true;
@@ -151,7 +156,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       const camera: THREE.Camera = cameraComp.getCamera(this.rendererWidth, this.rendererHeight);
       switch (controlType.toLowerCase()) {
         case "orbit":
-          return new OrbitControls(camera, renderer.domElement);
+          const controls = new OrbitControls(camera, renderer.domElement);
+          controls.autoRotate = controlAutoRotate;
+          return controls;
         case "fly":
           return new FlyControls(camera, renderer.domElement);
         case "firstperson":
@@ -272,9 +279,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   getRenderer(): THREE.Renderer {
     if (this.renderer === null) {
       switch (this.type.toLowerCase()) {
-        case 'webgl1':
-          this.renderer = new THREE.WebGL1Renderer({ antialias: this.antialias });
-          break;
         case 'webgl':
         default:
           this.renderer = new THREE.WebGLRenderer({ antialias: this.antialias });

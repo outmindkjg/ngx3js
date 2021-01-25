@@ -13,6 +13,7 @@ import { Chapter09Component } from './chapter09/chapter09.component';
 import { Chapter10Component } from './chapter10/chapter10.component';
 import { Chapter11Component } from './chapter11/chapter11.component';
 import { Chapter12Component } from './chapter12/chapter12.component';
+
 import { Page0101Component } from './chapter01/page0101/page0101.component';
 import { Page0102Component } from './chapter01/page0102/page0102.component';
 import { Page0103Component } from './chapter01/page0103/page0103.component';
@@ -97,6 +98,23 @@ import { Page0814Component } from './chapter08/page0814/page0814.component';
 import { Page0815Component } from './chapter08/page0815/page0815.component';
 import { Page0816Component } from './chapter08/page0816/page0816.component';
 import { Page0817Component } from './chapter08/page0817/page0817.component';
+
+import { Page0901Component } from './chapter09/page0901/page0901.component';
+import { Page0902Component } from './chapter09/page0902/page0902.component';
+import { Page0903Component } from './chapter09/page0903/page0903.component';
+import { Page0904Component } from './chapter09/page0904/page0904.component';
+import { Page0905Component } from './chapter09/page0905/page0905.component';
+import { Page0906Component } from './chapter09/page0906/page0906.component';
+import { Page0907Component } from './chapter09/page0907/page0907.component';
+import { Page0908Component } from './chapter09/page0908/page0908.component';
+import { Page0909Component } from './chapter09/page0909/page0909.component';
+import { Page0910Component } from './chapter09/page0910/page0910.component';
+import { Page0911Component } from './chapter09/page0911/page0911.component';
+import { Page0912Component } from './chapter09/page0912/page0912.component';
+import { Page0913Component } from './chapter09/page0913/page0913.component';
+import { Page0914Component } from './chapter09/page0914/page0914.component';
+import { Page0915Component } from './chapter09/page0915/page0915.component';
+import { Page0916Component } from './chapter09/page0916/page0916.component';
 
 import { Page1101Component } from './chapter11/page1101/page1101.component';
 import { Page1102Component } from './chapter11/page1102/page1102.component';
@@ -243,8 +261,29 @@ const routes: Routes = [
       { path: 'pg17', component: Page0817Component }
     ]
   },
-  { path: 'ch08', component: Chapter08Component },
-  { path: 'ch09', component: Chapter09Component },
+  { 
+    path: 'ch09',
+    component: Chapter09Component,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'pg01' },
+      { path: 'pg01', component: Page0901Component },
+      { path: 'pg02', component: Page0902Component },
+      { path: 'pg03', component: Page0903Component },
+      { path: 'pg04', component: Page0904Component },
+      { path: 'pg05', component: Page0905Component },
+      { path: 'pg06', component: Page0906Component },
+      { path: 'pg07', component: Page0907Component },
+      { path: 'pg08', component: Page0908Component },
+      { path: 'pg09', component: Page0909Component },
+      { path: 'pg10', component: Page0910Component },
+      { path: 'pg11', component: Page0911Component },
+      { path: 'pg12', component: Page0912Component },
+      { path: 'pg13', component: Page0913Component },
+      { path: 'pg14', component: Page0914Component },
+      { path: 'pg15', component: Page0915Component },
+      { path: 'pg16', component: Page0916Component }
+    ]
+  },
   { path: 'ch10', component: Chapter10Component },
   { 
     path: 'ch11',

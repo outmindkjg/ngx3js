@@ -54,6 +54,23 @@ ng g c chapter11/page1105
 ng g c chapter11/page1106
 ng g c chapter11/page1107
 
+ng g c chapter09/page0901
+ng g c chapter09/page0902
+ng g c chapter09/page0903
+ng g c chapter09/page0904
+ng g c chapter09/page0905
+ng g c chapter09/page0906
+ng g c chapter09/page0907
+ng g c chapter09/page0908
+ng g c chapter09/page0909
+ng g c chapter09/page0910
+ng g c chapter09/page0911
+ng g c chapter09/page0912
+ng g c chapter09/page0913
+ng g c chapter09/page0914
+ng g c chapter09/page0915
+ng g c chapter09/page0916
+
 
 ng g c menu
 
@@ -75,13 +92,27 @@ $1 : this.get$1(1),
 
 ```bash
 npm install three –save
+npm install physijs –save
+
 npm install three-csg-ts –save
+npm uninstall three –save
+npm uninstall physijs
+npm uninstall three-csg-ts –save
+npm uninstall physijs-webpack
+
+npm install physijs-webpack
+npm install -D worker-loader
+
+
 npm install @types/three –save-dev
 npm install @types/stats-js –save-dev
 npm install @types/dat.gui –save-dev
 npm install @types/physijs –save-dev
 ```
 
+
+
 ng g c chapter05/page0510
 ng g c chapter05/page0511
 
+"editor.wordWrapColumn": 100,

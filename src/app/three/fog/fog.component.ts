@@ -20,7 +20,7 @@ export class FogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getColor(def : string | number) : string | number{
+  getColor(def : number) : number{
     if (this.color === null) {
       return def;
     } else {
@@ -28,7 +28,7 @@ export class FogComponent implements OnInit {
       if (color.startsWith('0x')) {
         return parseInt(color, 16);
       } else {
-        return this.color;
+        return def;
       }
     }
   }
@@ -48,7 +48,10 @@ export class FogComponent implements OnInit {
       switch(this.type) {
         case 'exp2' :
         case 'fogexp2' :
-          this.fog = new THREE.FogExp2(this.getColor(0xffffff), this.density);
+          this.fog = new THREE.FogExp2(
+            this.getColor(0xffffff), 
+            this.density
+          );
           break;
         case 'fog' :
         default :

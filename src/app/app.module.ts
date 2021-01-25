@@ -93,6 +93,22 @@ import { Page0814Component } from './chapter08/page0814/page0814.component';
 import { Page0815Component } from './chapter08/page0815/page0815.component';
 import { Page0816Component } from './chapter08/page0816/page0816.component';
 import { Page0817Component } from './chapter08/page0817/page0817.component';
+import { Page0901Component } from './chapter09/page0901/page0901.component';
+import { Page0902Component } from './chapter09/page0902/page0902.component';
+import { Page0903Component } from './chapter09/page0903/page0903.component';
+import { Page0904Component } from './chapter09/page0904/page0904.component';
+import { Page0905Component } from './chapter09/page0905/page0905.component';
+import { Page0906Component } from './chapter09/page0906/page0906.component';
+import { Page0907Component } from './chapter09/page0907/page0907.component';
+import { Page0908Component } from './chapter09/page0908/page0908.component';
+import { Page0909Component } from './chapter09/page0909/page0909.component';
+import { Page0910Component } from './chapter09/page0910/page0910.component';
+import { Page0911Component } from './chapter09/page0911/page0911.component';
+import { Page0912Component } from './chapter09/page0912/page0912.component';
+import { Page0913Component } from './chapter09/page0913/page0913.component';
+import { Page0914Component } from './chapter09/page0914/page0914.component';
+import { Page0915Component } from './chapter09/page0915/page0915.component';
+import { Page0916Component } from './chapter09/page0916/page0916.component';
 import { Page1101Component } from './chapter11/page1101/page1101.component';
 import { Page1102Component } from './chapter11/page1102/page1102.component';
 import { Page1103aComponent } from './chapter11/page1103a/page1103a.component';
@@ -241,7 +257,23 @@ import { TranslationComponent } from './three/translation/translation.component'
     Page1104Component,
     Page1105Component,
     Page1106Component,
-    Page1107Component
+    Page1107Component,
+    Page0901Component,
+    Page0902Component,
+    Page0903Component,
+    Page0904Component,
+    Page0905Component,
+    Page0906Component,
+    Page0907Component,
+    Page0908Component,
+    Page0909Component,
+    Page0910Component,
+    Page0911Component,
+    Page0912Component,
+    Page0913Component,
+    Page0914Component,
+    Page0915Component,
+    Page0916Component
   ],
   imports: [
     BrowserModule,

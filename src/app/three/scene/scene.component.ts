@@ -1,5 +1,7 @@
 import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import * as PHYSIJS from 'physijs';
+
 import { MeshComponent } from './../mesh/mesh.component';
 import { FogComponent } from '../fog/fog.component';
 import { MaterialComponent } from '../material/material.component';
@@ -16,6 +18,7 @@ import { ScaleComponent } from '../scale/scale.component';
 export class SceneComponent implements OnInit {
 
   @Input() storageName:string = null;
+  @Input() physiType: string = 'none';
   @ContentChildren(MeshComponent,{descendants: false}) meshes: QueryList<MeshComponent>;
   @ContentChild(FogComponent,{descendants: false}) fog: FogComponent = null;
   @ContentChild(MaterialComponent,{descendants: false}) overrideMaterial: MaterialComponent = null;
@@ -53,7 +56,13 @@ export class SceneComponent implements OnInit {
 
   setClear() : void {
     const scene = this.getScene();
-    scene.clear();
+    if (scene['clear']) {
+      scene['clear']();
+    } else {
+      scene.children.forEach(child => {
+        scene.remove(child);
+      })
+    }
   }
 
   setSavelocalStorage(storageName : string) {
@@ -74,7 +83,19 @@ export class SceneComponent implements OnInit {
   getScene(): THREE.Scene {
     if (this.scene === null) {
       if (this.storageName !== null) {
-        this.scene = new THREE.Scene();
+        switch(this.physiType.toLowerCase()) {
+          case 'physi' :
+            const scene = new PHYSIJS.Scene();
+            scene.setGravity(new THREE.Vector3(0, -50, 0));
+            this.scene = scene;
+            break;
+          case 'none' :
+          default :
+            this.scene = new THREE.Scene();
+            break;
+        }
+        
+
         this.localStorageService.getScene(this.storageName, (scene : THREE.Scene) => {
           this.scene.copy(scene);
           this.meshes.forEach(mesh => {

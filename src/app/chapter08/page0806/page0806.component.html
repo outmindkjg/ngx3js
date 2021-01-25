@@ -11,9 +11,8 @@
       </three-mesh>
       <three-mesh [type]="'storage'" [storageName]="'/assets/models/obj/emerald.obj'">
           <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-mesh name="allObj">
-            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
-          </three-mesh>
-      </three-mesh>
+          <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+          <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
+        </three-mesh>
   </three-scene>
 </three-renderer>
