@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.MeshComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
+var PHYSIJS = require("physijs");
 var three_csg_ts_1 = require("three-csg-ts");
 var RectAreaLightHelper_js_1 = require("three/examples/jsm/helpers/RectAreaLightHelper.js");
 var Lensflare_1 = require("three/examples/jsm/objects/Lensflare");
@@ -25,6 +26,8 @@ var MeshComponent = /** @class */ (function () {
     function MeshComponent(localStorageService) {
         this.localStorageService = localStorageService;
         this.type = 'mesh';
+        this.physiType = 'none';
+        this.mass = null;
         this.lightType = 'spot';
         this.helperType = 'axis';
         this.typeCsg = 'none';
@@ -72,6 +75,9 @@ var MeshComponent = /** @class */ (function () {
         this.refObject3d = null;
     }
     MeshComponent_1 = MeshComponent;
+    MeshComponent.prototype.getMass = function (def) {
+        return this.mass === null ? def : this.mass;
+    };
     MeshComponent.prototype.getIntensity = function (def) {
         return this.intensity === null ? def : this.intensity;
     };
@@ -265,6 +271,14 @@ var MeshComponent = /** @class */ (function () {
             return null;
         }
     };
+    MeshComponent.prototype.getPhysiMesh = function () {
+        if (this.mesh !== null && this.mesh instanceof PHYSIJS.Mesh) {
+            return this.mesh;
+        }
+        else {
+            return null;
+        }
+    };
     MeshComponent.prototype.getMaterials = function () {
         var materials = [];
         if (this.materials !== null && this.materials.length > 0) {
@@ -342,31 +356,32 @@ var MeshComponent = /** @class */ (function () {
             if (this.geometry != null && this.geometry != undefined) {
                 geometry = this.geometry.getGeometry();
             }
+            var basemesh_1 = null;
             switch (this.type.toLowerCase()) {
                 case 'light':
                     switch (this.lightType.toLowerCase()) {
                         case 'directional':
-                            this.mesh = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
-                            this.mesh.castShadow = this.castShadow;
+                            basemesh_1 = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
+                            basemesh_1.castShadow = this.castShadow;
                             break;
                         case 'hemisphere':
-                            this.mesh = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
+                            basemesh_1 = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
                             break;
                         case 'point':
-                            this.mesh = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(0), this.getDecay(1));
-                            this.mesh.castShadow = this.castShadow;
+                            basemesh_1 = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(0), this.getDecay(1));
+                            basemesh_1.castShadow = this.castShadow;
                             break;
                         case 'area':
                         case 'rectarea':
-                            this.mesh = new THREE.RectAreaLight(this.getColor(0xffffff), this.getIntensity(1), this.getWidth(10), this.getHeight(10));
+                            basemesh_1 = new THREE.RectAreaLight(this.getColor(0xffffff), this.getIntensity(1), this.getWidth(10), this.getHeight(10));
                             break;
                         case 'spot':
-                            this.mesh = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(0), this.getAngle(60), this.getPenumbra(0), this.getDecay(1));
-                            this.mesh.castShadow = this.castShadow;
+                            basemesh_1 = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(0), this.getAngle(60), this.getPenumbra(0), this.getDecay(1));
+                            basemesh_1.castShadow = this.castShadow;
                             break;
                         case 'ambient':
                         default:
-                            this.mesh = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
+                            basemesh_1 = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
                             break;
                     }
                     break;
@@ -381,7 +396,7 @@ var MeshComponent = /** @class */ (function () {
                              * @param headLength
                              * @param headWidth
                              */
-                            this.mesh = new THREE.ArrowHelper(null // dir: Vector3,
+                            basemesh_1 = new THREE.ArrowHelper(null // dir: Vector3,
                             // origin?: Vector3,
                             // length?: number,
                             // color?: Color | string | number,
@@ -394,60 +409,58 @@ var MeshComponent = /** @class */ (function () {
                              * @param object
                              * @param [color=0xffff00]
                              */
-                            this.mesh = new THREE.BoxHelper(null, // object: Object3D,
+                            basemesh_1 = new THREE.BoxHelper(null, // object: Object3D,
                             null // color?: Color | string | number
                             );
                             break;
                         case 'box3':
-                            this.mesh = new THREE.Box3Helper(null);
+                            basemesh_1 = new THREE.Box3Helper(null);
                             break;
                         case 'camera':
-                            this.mesh = new THREE.CameraHelper(null);
+                            basemesh_1 = new THREE.CameraHelper(null);
                             break;
                         case 'directionallight':
-                            this.mesh = new THREE.DirectionalLightHelper(null);
+                            basemesh_1 = new THREE.DirectionalLightHelper(null);
                             break;
                         case 'grid':
-                            this.mesh = new THREE.GridHelper();
+                            basemesh_1 = new THREE.GridHelper(0, 0); // todo
                             break;
                         case 'polargrid':
-                            this.mesh = new THREE.PolarGridHelper(null, null, null, null, null, null);
+                            basemesh_1 = new THREE.PolarGridHelper(null, null, null, null, null, null);
                             break;
                         case 'hemispherelight':
-                            this.mesh = new THREE.HemisphereLightHelper(this.getHelperTarget(), this.getSize(10), this.getColor(0x000000));
+                            basemesh_1 = new THREE.HemisphereLightHelper(this.getHelperTarget(), this.getSize(10), this.getColor(0x000000));
                             break;
                         case 'plane':
-                            this.mesh = new THREE.PlaneHelper(null
+                            basemesh_1 = new THREE.PlaneHelper(null
                             // this.getHelperTarget() as THREE.Plane
                             );
                             break;
                         case 'pointlight':
-                            this.mesh = new THREE.PointLightHelper(this.getHelperTarget());
+                            basemesh_1 = new THREE.PointLightHelper(this.getHelperTarget());
                             break;
                         case 'skeleton':
-                            this.mesh = new THREE.SkeletonHelper(this.getHelperTarget());
+                            basemesh_1 = new THREE.SkeletonHelper(this.getHelperTarget());
                             break;
                         case 'spotlight':
-                            this.mesh = new THREE.SpotLightHelper(this.getHelperTarget(), this.getColor(0xffffff));
+                            basemesh_1 = new THREE.SpotLightHelper(this.getHelperTarget(), this.getColor(0xffffff));
                             break;
                         case 'axes':
                         default:
-                            this.mesh = new THREE.AxesHelper(this.getSize(5));
+                            basemesh_1 = new THREE.AxesHelper(this.getSize(5));
                             break;
                     }
                     break;
                 case 'storage':
-                    this.mesh = new THREE.Object3D();
-                    this.localStorageService.getObject(this.storageName, function (mesh) {
-                        _this.mesh.add(mesh);
-                        var oldMesh = _this.refObject3d ? _this.refObject3d : _this.mesh;
-                        oldMesh.add(mesh);
+                    basemesh_1 = new THREE.Object3D();
+                    this.localStorageService.getObject(this.storageName, function (loadedMesh) {
+                        basemesh_1.add(loadedMesh);
                         if (_this.meshes) {
                             _this.meshes.forEach(function (mesh) {
                                 if (mesh.name !== null &&
                                     mesh.name !== undefined &&
                                     mesh.name !== '') {
-                                    var foundMesh = oldMesh.getObjectByName(mesh.name);
+                                    var foundMesh = basemesh_1.getObjectByName(mesh.name);
                                     if (foundMesh instanceof THREE.Object3D) {
                                         mesh.setMesh(foundMesh, true);
                                     }
@@ -461,17 +474,17 @@ var MeshComponent = /** @class */ (function () {
                     this.lensflareElements.forEach(function (lensflareElement) {
                         lensflareElement.setLensflare(lensflare_1);
                     });
-                    this.mesh = lensflare_1;
+                    basemesh_1 = lensflare_1;
                     break;
                 case 'multi':
                 case 'multimaterial':
-                    this.mesh = SceneUtils_1.SceneUtils.createMultiMaterialObject(geometry, this.getMaterials());
-                    this.mesh.children.forEach(function (e) {
+                    basemesh_1 = SceneUtils_1.SceneUtils.createMultiMaterialObject(geometry, this.getMaterials());
+                    basemesh_1.children.forEach(function (e) {
                         e.castShadow = true;
                     });
                     if (this.scaleStep != 1) {
                         var scaleStep_1 = this.scaleStep;
-                        this.mesh.children.forEach(function (mesh) {
+                        basemesh_1.children.forEach(function (mesh) {
                             mesh.scale.x *= scaleStep_1;
                             mesh.scale.y *= scaleStep_1;
                             mesh.scale.z *= scaleStep_1;
@@ -480,34 +493,34 @@ var MeshComponent = /** @class */ (function () {
                     }
                     break;
                 case 'sprite':
-                    this.mesh = new THREE.Sprite(this.getMaterials()[0]);
+                    basemesh_1 = new THREE.Sprite(this.getMaterials()[0]);
                     break;
                 case 'points':
-                    this.mesh = new THREE.Points(geometry, this.getMaterials()[0]);
+                    basemesh_1 = new THREE.Points(geometry, this.getMaterials()[0]);
                     break;
                 case 'line':
                     var mesh = new THREE.Line(geometry, this.getMaterials()[0]);
                     mesh.computeLineDistances();
-                    this.mesh = mesh;
+                    basemesh_1 = mesh;
                     break;
                 case 'mesh':
                 default:
                     var materials = this.getMaterials();
                     if (geometry !== null) {
                         if (materials.length > 1) {
-                            this.mesh = new THREE.Mesh(geometry, materials);
+                            basemesh_1 = new THREE.Mesh(geometry, materials);
                         }
                         else if (materials.length == 1) {
-                            this.mesh = new THREE.Mesh(geometry, materials[0]);
+                            basemesh_1 = new THREE.Mesh(geometry, materials[0]);
                         }
                         else {
-                            this.mesh = new THREE.Mesh(geometry);
+                            basemesh_1 = new THREE.Mesh(geometry);
                         }
                     }
                     else {
-                        this.mesh = new THREE.Mesh();
+                        basemesh_1 = new THREE.Mesh();
                     }
-                    this.mesh.castShadow = this.castShadow;
+                    basemesh_1.castShadow = this.castShadow;
                     break;
             }
             if (this.meshes && this.meshes.length > 0) {
@@ -521,15 +534,15 @@ var MeshComponent = /** @class */ (function () {
                             meshBSP_1.push(mesh);
                             break;
                         default:
-                            mesh.setObject3D(_this.mesh);
+                            mesh.setObject3D(basemesh_1);
                             break;
                     }
                 });
-                if (this.mesh instanceof THREE.Mesh) {
+                if (basemesh_1 instanceof THREE.Mesh) {
                     if (meshBSP_1.length > 0) {
-                        this.mesh.updateMatrix();
-                        var sourceCsg_1 = geometry !== null ? three_csg_ts_1.CSG.fromMesh(this.mesh) : null;
-                        var matrix = this.mesh.matrix;
+                        basemesh_1.updateMatrix();
+                        var sourceCsg_1 = geometry !== null ? three_csg_ts_1.CSG.fromMesh(basemesh_1) : null;
+                        var matrix = basemesh_1.matrix;
                         meshBSP_1.forEach(function (mesh) {
                             var meshIns = mesh.getMesh();
                             if (meshIns instanceof THREE.Mesh) {
@@ -566,10 +579,44 @@ var MeshComponent = /** @class */ (function () {
                                     mesh.material = materials_1[0];
                                 }
                             }
-                            this.mesh = mesh;
+                            basemesh_1 = mesh;
                         }
                     }
                 }
+            }
+            if (basemesh_1 instanceof THREE.Mesh && basemesh_1.geometry instanceof THREE.Geometry && basemesh_1.material instanceof THREE.Material) {
+                switch (this.physiType.toLowerCase()) {
+                    case 'box':
+                        this.mesh = new PHYSIJS.BoxMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'sphere':
+                        this.mesh = new PHYSIJS.SphereMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'cylinder':
+                        this.mesh = new PHYSIJS.CylinderMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'capsule':
+                        this.mesh = new PHYSIJS.CapsuleMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'cone':
+                        this.mesh = new PHYSIJS.ConeMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'concave':
+                        this.mesh = new PHYSIJS.ConcaveMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'convex':
+                        this.mesh = new PHYSIJS.ConvexMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'capsule':
+                        this.mesh = new PHYSIJS.CapsuleMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        break;
+                    case 'none':
+                    default:
+                        this.mesh = basemesh_1;
+                }
+            }
+            else {
+                this.mesh = basemesh_1;
             }
             if (this.name !== null) {
                 this.mesh.name = this.name;
@@ -683,6 +730,12 @@ var MeshComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "type");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "physiType");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "mass");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "lightType");

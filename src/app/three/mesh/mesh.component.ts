@@ -684,7 +684,6 @@ export class MeshComponent implements OnInit {
         switch (this.physiType.toLowerCase()) {
           case 'box':
             this.mesh = new PHYSIJS.BoxMesh(basemesh.geometry, basemesh.material, this.getMass(1));
-            console.log(this.mesh);
             break;
           case 'sphere':
             this.mesh = new PHYSIJS.SphereMesh(basemesh.geometry, basemesh.material, this.getMass(1));

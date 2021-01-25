@@ -83,19 +83,7 @@ export class SceneComponent implements OnInit {
   getScene(): THREE.Scene {
     if (this.scene === null) {
       if (this.storageName !== null) {
-        switch(this.physiType.toLowerCase()) {
-          case 'physi' :
-            const scene = new PHYSIJS.Scene();
-            scene.setGravity(new THREE.Vector3(0, -50, 0));
-            this.scene = scene;
-            break;
-          case 'none' :
-          default :
-            this.scene = new THREE.Scene();
-            break;
-        }
-        
-
+        this.scene = new THREE.Scene();
         this.localStorageService.getScene(this.storageName, (scene : THREE.Scene) => {
           this.scene.copy(scene);
           this.meshes.forEach(mesh => {
@@ -108,7 +96,25 @@ export class SceneComponent implements OnInit {
           });
         });
       } else {
-        this.scene = new THREE.Scene();
+        switch(this.physiType.toLowerCase()) {
+          case 'physi' :
+            // PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
+            // PHYSIJS.scripts.ammo = "/assets/ammo.js";
+            const scene = new PHYSIJS.Scene();
+            scene.setGravity(new THREE.Vector3(0, -50, 0));
+            scene.addEventListener('update', () => {
+              scene.simulate(undefined, 2);
+              console.log('simulate');
+            });
+            scene.simulate();
+            this.scene = scene;
+            break;
+          case 'none' :
+          default :
+            this.scene = new THREE.Scene();
+            console.log(this.physiType);
+            break;
+        }
         this.meshes.forEach(mesh => {
           mesh.setObject3D(this.scene);
         });

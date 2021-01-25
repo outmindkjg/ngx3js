@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.SceneComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
+var PHYSIJS = require("physijs");
 var mesh_component_1 = require("./../mesh/mesh.component");
 var fog_component_1 = require("../fog/fog.component");
 var material_component_1 = require("../material/material.component");
@@ -19,6 +20,7 @@ var SceneComponent = /** @class */ (function () {
     function SceneComponent(localStorageService) {
         this.localStorageService = localStorageService;
         this.storageName = null;
+        this.physiType = 'none';
         this.fog = null;
         this.overrideMaterial = null;
         this.position = null;
@@ -48,7 +50,14 @@ var SceneComponent = /** @class */ (function () {
     };
     SceneComponent.prototype.setClear = function () {
         var scene = this.getScene();
-        scene.clear();
+        if (scene['clear']) {
+            scene['clear']();
+        }
+        else {
+            scene.children.forEach(function (child) {
+                scene.remove(child);
+            });
+        }
     };
     SceneComponent.prototype.setSavelocalStorage = function (storageName) {
         return this.localStorageService.setScene(storageName, this.getScene());
@@ -81,7 +90,25 @@ var SceneComponent = /** @class */ (function () {
                 });
             }
             else {
-                this.scene = new THREE.Scene();
+                switch (this.physiType.toLowerCase()) {
+                    case 'physi':
+                        // PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
+                        // PHYSIJS.scripts.ammo = "/assets/ammo.js";
+                        var scene_1 = new PHYSIJS.Scene();
+                        scene_1.setGravity(new THREE.Vector3(0, -50, 0));
+                        scene_1.addEventListener('update', function () {
+                            scene_1.simulate(undefined, 2);
+                            console.log('simulate');
+                        });
+                        scene_1.simulate();
+                        this.scene = scene_1;
+                        break;
+                    case 'none':
+                    default:
+                        this.scene = new THREE.Scene();
+                        console.log(this.physiType);
+                        break;
+                }
                 this.meshes.forEach(function (mesh) {
                     mesh.setObject3D(_this.scene);
                 });
@@ -108,6 +135,9 @@ var SceneComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], SceneComponent.prototype, "storageName");
+    __decorate([
+        core_1.Input()
+    ], SceneComponent.prototype, "physiType");
     __decorate([
         core_1.ContentChildren(mesh_component_1.MeshComponent, { descendants: false })
     ], SceneComponent.prototype, "meshes");

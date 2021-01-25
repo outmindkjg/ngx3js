@@ -1,4 +1,4 @@
-<three-renderer [controlType]="'orb1it'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera #camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="-30" [y]="40" [z]="30"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
@@ -19,7 +19,7 @@
             </three-geometry>
             <three-material type="MeshBasic" [color]="'0xff0000'" [transparent]="true" [opacity]="0.4" [wireframe]="controls.wireframe"></three-material>
         </three-mesh>
-        
+
         <three-mesh #cylinder >
             <three-position [x]="0" [y]="0" [z]="1"></three-position>
             <three-scale [x]="scalingStep.x" [y]="scalingStep.y" [z]="scalingStep.z"></three-scale>
@@ -32,7 +32,7 @@
             <three-material type="meshlambert" [color]="'0x7777ff'" [wireframe]="controls.wireframe"></three-material>
         </three-mesh>
         <three-mesh #box [physiType]="'box'">
-            <three-position [x]="-9" [y]="3" [z]="0"></three-position>
+            <three-position [x]="-9" [y]="10" [z]="0"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry [type]="'box'" [width]="4" [height]="4" [depth]="4"></three-geometry>
             <three-material type="meshlambert" [color]="'0xff0000'" [wireframe]="controls.wireframe"></three-material>
