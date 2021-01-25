@@ -29,6 +29,7 @@ export class SceneComponent implements OnInit {
   constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+
   }
 
   private scene: THREE.Scene = null;
@@ -98,13 +99,12 @@ export class SceneComponent implements OnInit {
       } else {
         switch(this.physiType.toLowerCase()) {
           case 'physi' :
-            // PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
-            // PHYSIJS.scripts.ammo = "/assets/ammo.js";
+            PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
+            PHYSIJS.scripts.ammo = "/assets/ammo.js";
             const scene = new PHYSIJS.Scene();
             scene.setGravity(new THREE.Vector3(0, -50, 0));
             scene.addEventListener('update', () => {
               scene.simulate(undefined, 2);
-              console.log('simulate');
             });
             scene.simulate();
             this.scene = scene;
@@ -112,7 +112,6 @@ export class SceneComponent implements OnInit {
           case 'none' :
           default :
             this.scene = new THREE.Scene();
-            console.log(this.physiType);
             break;
         }
         this.meshes.forEach(mesh => {

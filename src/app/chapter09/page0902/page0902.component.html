@@ -37,11 +37,11 @@
             <three-geometry [type]="'box'" [width]="4" [height]="4" [depth]="4"></three-geometry>
             <three-material type="meshlambert" [color]="'0xff0000'" [wireframe]="controls.wireframe"></three-material>
         </three-mesh>
-        <three-mesh [receiveShadow]="true">
+        <three-mesh [physiType]="'box'" [mass]="0" [receiveShadow]="true">
             <three-position [x]="15" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
             <three-geometry [type]="'Plane'" [width]="60" [height]="20"></three-geometry>
-            <three-material type="meshlambert" [color]="'0xffffff'"></three-material>
+            <three-material type="MeshPhong" [color]="'0xffffff'"></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

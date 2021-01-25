@@ -587,7 +587,7 @@ var MeshComponent = /** @class */ (function () {
             if (basemesh_1 instanceof THREE.Mesh && basemesh_1.geometry instanceof THREE.Geometry && basemesh_1.material instanceof THREE.Material) {
                 switch (this.physiType.toLowerCase()) {
                     case 'box':
-                        this.mesh = new PHYSIJS.BoxMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));
+                        this.mesh = new PHYSIJS.BoxMesh(basemesh_1.geometry, PHYSIJS.createMaterial(basemesh_1.material, 0.9, 0), this.getMass(1));
                         break;
                     case 'sphere':
                         this.mesh = new PHYSIJS.SphereMesh(basemesh_1.geometry, basemesh_1.material, this.getMass(1));

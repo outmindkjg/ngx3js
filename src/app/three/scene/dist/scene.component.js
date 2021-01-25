@@ -92,13 +92,12 @@ var SceneComponent = /** @class */ (function () {
             else {
                 switch (this.physiType.toLowerCase()) {
                     case 'physi':
-                        // PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
-                        // PHYSIJS.scripts.ammo = "/assets/ammo.js";
+                        PHYSIJS.scripts.worker = "/assets/physijs_worker.js";
+                        PHYSIJS.scripts.ammo = "/assets/ammo.js";
                         var scene_1 = new PHYSIJS.Scene();
                         scene_1.setGravity(new THREE.Vector3(0, -50, 0));
                         scene_1.addEventListener('update', function () {
                             scene_1.simulate(undefined, 2);
-                            console.log('simulate');
                         });
                         scene_1.simulate();
                         this.scene = scene_1;
@@ -106,7 +105,6 @@ var SceneComponent = /** @class */ (function () {
                     case 'none':
                     default:
                         this.scene = new THREE.Scene();
-                        console.log(this.physiType);
                         break;
                 }
                 this.meshes.forEach(function (mesh) {

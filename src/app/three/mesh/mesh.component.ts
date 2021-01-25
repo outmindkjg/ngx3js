@@ -683,7 +683,9 @@ export class MeshComponent implements OnInit {
       if (basemesh instanceof THREE.Mesh && basemesh.geometry instanceof THREE.Geometry && basemesh.material instanceof THREE.Material) {
         switch (this.physiType.toLowerCase()) {
           case 'box':
-            this.mesh = new PHYSIJS.BoxMesh(basemesh.geometry, basemesh.material, this.getMass(1));
+            this.mesh = new PHYSIJS.BoxMesh(basemesh.geometry,
+              PHYSIJS.createMaterial(basemesh.material, 0.9, 0),
+            this.getMass(1));
             break;
           case 'sphere':
             this.mesh = new PHYSIJS.SphereMesh(basemesh.geometry, basemesh.material, this.getMass(1));
