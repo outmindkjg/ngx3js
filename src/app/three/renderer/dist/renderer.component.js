@@ -22,6 +22,7 @@ var RendererComponent = /** @class */ (function () {
     function RendererComponent() {
         this.type = "webgl";
         this.controlType = "none";
+        this.controlAutoRotate = false;
         this.shadowMapEnabled = true;
         this.clearColor = null;
         this.antialias = false;
@@ -107,10 +108,14 @@ var RendererComponent = /** @class */ (function () {
     RendererComponent.prototype.getControls = function (cameras, renderer) {
         var cameraComp = null;
         var controlType = this.controlType.toLowerCase();
+        var controlAutoRotate = this.controlAutoRotate;
         if (cameras !== null && cameras.length > 0) {
             cameraComp = cameras.find(function (camera) {
                 if (camera.controlType.toLowerCase() !== 'none') {
                     controlType = camera.controlType;
+                    if (camera.controlAutoRotate !== null && camera.controlAutoRotate !== undefined) {
+                        controlAutoRotate = camera.controlAutoRotate;
+                    }
                     return true;
                 }
                 else if (controlType !== 'none') {
@@ -120,10 +125,12 @@ var RendererComponent = /** @class */ (function () {
             });
         }
         if (cameraComp !== null && cameraComp !== undefined) {
-            var camera = cameraComp.getCamera(this.rendererWidth, this.rendererHeight);
+            var camera = cameraComp.getCamera();
             switch (controlType.toLowerCase()) {
                 case "orbit":
-                    return new OrbitControls_1.OrbitControls(camera, renderer.domElement);
+                    var controls = new OrbitControls_1.OrbitControls(camera, renderer.domElement);
+                    controls.autoRotate = controlAutoRotate;
+                    return controls;
                 case "fly":
                     return new FlyControls_1.FlyControls(camera, renderer.domElement);
                 case "firstperson":
@@ -198,6 +205,7 @@ var RendererComponent = /** @class */ (function () {
         });
     };
     RendererComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         if (this.guiControl != null) {
             this.setupGui(this.guiControl, this.getGui(), this.guiParams);
         }
@@ -212,15 +220,16 @@ var RendererComponent = /** @class */ (function () {
             this.stats = null;
         }
         this.renderer = this.getRenderer();
+        this.cameras.forEach(function (camera) {
+            camera.setRenderer(_this.renderer, _this.scenes);
+            camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
+        });
         this.control = this.getControls(this.cameras, this.renderer);
         this.render();
     };
     RendererComponent.prototype.getRenderer = function () {
         if (this.renderer === null) {
             switch (this.type.toLowerCase()) {
-                case 'webgl1':
-                    this.renderer = new THREE.WebGL1Renderer({ antialias: this.antialias });
-                    break;
                 case 'webgl':
                 default:
                     this.renderer = new THREE.WebGLRenderer({ antialias: this.antialias });
@@ -249,10 +258,11 @@ var RendererComponent = /** @class */ (function () {
         }
         var delta = this.clock.getDelta();
         var elapsedTime = this.clock.getElapsedTime();
-        this.onRender.emit({
+        var renderTimer = {
             delta: delta,
             elapsedTime: elapsedTime
-        });
+        };
+        this.onRender.emit(renderTimer);
         if (this.control !== null) {
             if (this.control instanceof OrbitControls_1.OrbitControls) {
                 this.control.update();
@@ -268,7 +278,7 @@ var RendererComponent = /** @class */ (function () {
             }
         }
         this.cameras.forEach(function (camera) {
-            camera.render(_this.renderer, _this.scenes, _this.rendererWidth, _this.rendererHeight);
+            camera.render(_this.renderer, _this.scenes, renderTimer);
         });
         if (this.stats != null) {
             this.stats.end();
@@ -298,6 +308,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "controlType");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "controlAutoRotate");
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "shadowMapEnabled");

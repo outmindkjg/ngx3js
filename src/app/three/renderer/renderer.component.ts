@@ -153,7 +153,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       })
     }
     if (cameraComp !== null && cameraComp !== undefined) {
-      const camera: THREE.Camera = cameraComp.getCamera(this.rendererWidth, this.rendererHeight);
+      const camera: THREE.Camera = cameraComp.getCamera();
       switch (controlType.toLowerCase()) {
         case "orbit":
           const controls = new OrbitControls(camera, renderer.domElement);
@@ -272,6 +272,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.stats = null;
     }
     this.renderer = this.getRenderer();
+    this.cameras.forEach(camera => {
+      camera.setRenderer(this.renderer, this.scenes);
+      camera.setCameraSize(this.rendererWidth, this.rendererHeight);
+    });
     this.control = this.getControls(this.cameras, this.renderer);
     this.render();
   }
@@ -307,10 +311,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     const delta = this.clock.getDelta();
     const elapsedTime = this.clock.getElapsedTime();
-    this.onRender.emit({
+    const renderTimer : RendererTimer = {
       delta: delta,
       elapsedTime: elapsedTime
-    });
+    }
+    this.onRender.emit(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
         this.control.update();
@@ -323,7 +328,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       }
     }
     this.cameras.forEach(camera => {
-      camera.render(this.renderer, this.scenes, this.rendererWidth, this.rendererHeight)
+      camera.render(this.renderer, this.scenes, renderTimer)
     });
     if (this.stats != null) {
       this.stats.end();

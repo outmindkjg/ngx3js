@@ -1,12 +1,14 @@
-import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { LookatComponent } from '../lookat/lookat.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
-import { SceneComponent } from '../scene/scene.component';
+import { CamerapassComponent } from './../camerapass/camerapass.component';
+import { RendererTimer } from './../renderer/renderer.component';
+import { SceneComponent } from './../scene/scene.component';
+
 
 /*
 ArrayCamera
@@ -38,6 +40,7 @@ export class CameraComponent implements OnInit {
   @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
   @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+  @ContentChildren(CamerapassComponent,{descendants: false}) pass: QueryList<CamerapassComponent>;
 
 
   constructor() { }
@@ -47,11 +50,42 @@ export class CameraComponent implements OnInit {
 
   private camera: THREE.Camera = null;
 
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.type) {
       this.camera = null;
     }
+  }
+
+  private renderer : THREE.Renderer = null;
+  private rendererScenes : QueryList<SceneComponent>;
+  private effectComposer : EffectComposer = null;
+  setRenderer(renderer : THREE.Renderer, rendererScenes : QueryList<SceneComponent>) {
+    if (this.renderer !== renderer) {
+      this.renderer = renderer;
+      this.rendererScenes = rendererScenes;
+      this.effectComposer = this.getEffectComposer();
+    }
+  }
+
+  resetEffectComposer() {
+    this.pass
+    this.effectComposer = this.getEffectComposer();
+  }
+
+  getEffectComposer() : EffectComposer {
+    if (this.pass != null && this.pass.length > 0) {
+      if (this.renderer instanceof THREE.WebGLRenderer) {
+        const effectComposer : EffectComposer = new EffectComposer(this.renderer);
+        this.pass.forEach(item => {
+          const pass = item.getPass(this.getScene(), this.getCamera(), this);
+          if (pass !== null) {
+            effectComposer.addPass(pass);
+          }
+        })
+        return effectComposer;
+      }
+    }
+    return null;
   }
 
   ngAfterContentInit(): void {
@@ -139,23 +173,34 @@ export class CameraComponent implements OnInit {
 
   getRaycaster(event): THREE.Raycaster {
     const vector = new THREE.Vector3((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1, 0.5);
-    const camera = this.getCamera(this.cameraWidth, this.cameraHeight);
+    const camera = this.getCamera();
     const v = vector.unproject(camera);
     const raycaster = new THREE.Raycaster(camera.position, v.sub(camera.position).normalize());
     return raycaster;
   }
 
-  getCamera(width?: number, height?: number): THREE.Camera {
-    if (width == null) {
-      width = this.cameraWidth;
+  setCameraSize(width : number, height : number) {
+    this.cameraWidth = width;
+    this.cameraHeight = height;
+    if (this.camera !== null) {
+      if (this.camera instanceof THREE.OrthographicCamera) {
+        this.camera.left = this.getLeft(width);
+        this.camera.right = this.getRight(width);
+        this.camera.top = this.getTop(height);
+        this.camera.bottom = this.getBottom(height);
+        this.camera.updateProjectionMatrix();
+      } else if (this.camera instanceof THREE.PerspectiveCamera) {
+        this.camera.aspect = this.getAspect(width, height);
+        this.camera.updateProjectionMatrix();
+      }
     }
-    if (height == null) {
-      height = this.cameraHeight;
-    }
+  }
+
+  getCamera(): THREE.Camera {
     if (this.camera === null) {
-      this.cameraWidth = width;
-      this.cameraHeight = height;
-      switch (this.type.toLowerCase()) {
+        const width = this.cameraWidth;
+        const height = this.cameraHeight;
+        switch (this.type.toLowerCase()) {
         case 'orthographic':
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
@@ -178,46 +223,34 @@ export class CameraComponent implements OnInit {
       }
       this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
     }
-    if (this.cameraWidth !== width || this.cameraHeight !== height) {
-      this.cameraWidth = width;
-      this.cameraHeight = height;
-      if (this.camera instanceof THREE.PerspectiveCamera) {
-        const aspect = this.getAspect(width, height);
-        if (this.camera.aspect != aspect) {
-          this.camera.aspect = aspect;
-          this.camera.updateProjectionMatrix();
-        }
-      } else if (this.camera instanceof THREE.OrthographicCamera) {
-        const left = this.getLeft(width);
-        const right = this.getRight(width);
-        const top = this.getTop(height);
-        const bottom = this.getBottom(height);
-        if (this.camera.left != left || this.camera.right != right || this.camera.top != top || this.camera.bottom != bottom) {
-          this.camera.left = left;
-          this.camera.right = right;
-          this.camera.top = top;
-          this.camera.bottom = bottom;
-          this.camera.updateProjectionMatrix();
-        }
-        // const effect = new EffectComposer(null);
-        // effect.addPass();
-
-
-      }
-    }
     return this.camera;
   }
 
-  render(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, width?: number, height?: number) {
-    const scene = ((this.scene !== null) ? this.scene : scenes.first);
+  getScene(scenes?: QueryList<SceneComponent>) : THREE.Scene {
+    if (this.scene !== null) {
+      return this.scene.getScene();
+    } else if (scenes && scenes.length > 0) {
+      return scenes.first.getScene();
+    } else if (this.rendererScenes && this.rendererScenes.length > 0) {
+      return this.rendererScenes.first.getScene();
+    } else {
+      return new THREE.Scene();
+    }
+  }
+
+  render(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, renderTimer : RendererTimer) {
+    const scene = this.getScene(scenes);
     if (scene !== null) {
       if (this.autoClear !== null) {
         if (renderer instanceof THREE.WebGLRenderer) {
           renderer.autoClear = this.autoClear;
         }
       }
-      renderer.render(scene.getScene(), this.getCamera(width, height));
-    } else {
+      if (this.effectComposer !== null) {
+        this.effectComposer.render(renderTimer.delta);
+      } else {
+        renderer.render(scene, this.getCamera());
+      }
     }
   }
 }
