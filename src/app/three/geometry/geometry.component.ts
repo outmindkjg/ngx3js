@@ -1,22 +1,21 @@
 import {
   Component,
-  ContentChild,
   ContentChildren,
   Input,
   OnInit,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
 import {
-  ConvexGeometry,
-  ConvexBufferGeometry,
+  ConvexBufferGeometry, ConvexGeometry
 } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
-
 import { CurveComponent } from '../curve/curve.component';
+import { AbstractGetGeometry, AbstractMeshComponent } from '../interface';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
+
 
 export interface GeometriesParametric {
   (u: number, v: number): GeometriesVector3;
@@ -75,7 +74,9 @@ export interface GeometryParams {
   templateUrl: './geometry.component.html',
   styleUrls: ['./geometry.component.scss'],
 })
-export class GeometryComponent implements OnInit {
+export class GeometryComponent extends AbstractGetGeometry implements OnInit {
+
+  @Input() visible: boolean = true;
   @Input() params: GeometryParams = null;
   @Input() type: string = 'sphere';
   @Input() action: string = 'none';
@@ -130,16 +131,10 @@ export class GeometryComponent implements OnInit {
   @Input() bevelSegments: number = null;
   @Input() closed: boolean = null;
 
-  @ContentChildren(GeometryComponent, { descendants: false })
-  subGeometry: QueryList<GeometryComponent>;
-  @ContentChildren(ShapeComponent, { descendants: false })
-  shapes: QueryList<ShapeComponent>;
-  @ContentChildren(CurveComponent, { descendants: false })
-  curves: QueryList<CurveComponent>;
-  @ContentChild(TranslationComponent, { descendants: false })
-  translation: TranslationComponent = null;
-
-  constructor() {}
+  @ContentChildren(GeometryComponent, { descendants: false }) subGeometry: QueryList<GeometryComponent>;
+  @ContentChildren(ShapeComponent, { descendants: false }) shapes: QueryList<ShapeComponent>;
+  @ContentChildren(CurveComponent, { descendants: false }) curves: QueryList<CurveComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) translation: QueryList<TranslationComponent>;
 
   private getRadius(def: number): number {
     return this.radius === null ? def : this.radius;
@@ -397,14 +392,6 @@ export class GeometryComponent implements OnInit {
     return this.thresholdAngle === null ? def : this.thresholdAngle;
   }
 
-  private _onChange: {
-    onChange(): void;
-  } = null;
-
-  setOnChange(onChange: { onChange(): void }) {
-    this._onChange = onChange;
-  }
-
   private getSubGeometry(): THREE.Geometry | THREE.BufferGeometry {
     if (this.subGeometry !== null && this.subGeometry.length > 0) {
       return this.subGeometry.first.getGeometry();
@@ -457,7 +444,6 @@ export class GeometryComponent implements OnInit {
 
   private getCurve(): THREE.Curve<THREE.Vector3> {
     if (this.curves !== null && this.curves.length > 0) {
-      this.curves.first.setOnChange(this);
       return this.curves.first.getCurve() as THREE.Curve<THREE.Vector3>;
     }
     return new THREE.LineCurve3(
@@ -470,10 +456,7 @@ export class GeometryComponent implements OnInit {
 
   ngAfterContentInit(): void {
     this.curves.changes.subscribe((e) => {
-      this.geometry = null;
-      if (this.mesh !== null) {
-        this.resetGeometry();
-      }
+      this.resetGeometry(true);
     });
   }
 
@@ -587,44 +570,76 @@ export class GeometryComponent implements OnInit {
       });
     }
     this.resetGeometry();
-    if (this._onChange !== null) {
-      this._onChange.onChange();
-    }
   }
 
-  private resetGeometry() {
-    if (this.mesh !== null) {
-      if (this.mesh instanceof Array) {
-        const geometry = this.getGeometry();
-        this.mesh.forEach((mesh) => {
-          mesh.geometry.dispose();
-          mesh.geometry = geometry;
+  resetGeometry(clearGeometry = false) {
+    if (this.refObject3d !== null && this.visible) {
+      if (this.refObject3d instanceof THREE.Mesh) {
+        if (clearGeometry && this.geometry !== null) {
+          this.geometry = null;
+        }
+        this.refObject3d.geometry = this.getGeometry();
+      } else if (this.refObject3d instanceof THREE.Points) {
+        this.refObject3d.geometry = this.getGeometry();
+      } else if (this.refObject3d instanceof THREE.Group) {
+        this.refObject3d.children.forEach(mesh => {
+          if (mesh instanceof THREE.Mesh) {
+            mesh.geometry = this.getGeometry();
+          }
         });
-      } else {
-        this.mesh.geometry.dispose();
-        this.mesh.geometry = this.getGeometry();
+      } else if (this.refObject3d instanceof AbstractMeshComponent) {
+        this.refObject3d.resetMesh(true);
       }
     }
   }
 
-  onChange(): void {
-    if (this.geometry !== null) {
-      this.geometry = null;
-      this.resetGeometry();
+  private geometry: THREE.Geometry | THREE.BufferGeometry = null;
+
+  private refObject3d: THREE.Object3D | AbstractMeshComponent | GeometryComponent = null;
+
+  setObject3D(refObject3d: THREE.Object3D | AbstractMeshComponent | GeometryComponent, isRestore: boolean = false) {
+    if (isRestore) {
+      if (this.refObject3d !== refObject3d) {
+        this.refObject3d = refObject3d;
+        if (this.refObject3d instanceof THREE.Mesh) {
+          this.geometry = this.refObject3d.geometry;
+        }
+      }
+    } else {
+      if (this.refObject3d !== refObject3d) {
+        this.refObject3d = refObject3d;
+        this.resetGeometry();
+      }
     }
   }
 
-  private geometry: THREE.Geometry | THREE.BufferGeometry = null;
-  private mesh:
-    | { geometry: THREE.Geometry | THREE.BufferGeometry }
-    | { geometry: THREE.Geometry | THREE.BufferGeometry }[] = null;
-
-  setMesh(
-    mesh:
-      | { geometry: THREE.Geometry | THREE.BufferGeometry }
-      | { geometry: THREE.Geometry | THREE.BufferGeometry }[]
-  ) {
-    this.mesh = mesh;
+  synkObject3D(synkTypes: string[]) {
+    if (this.geometry !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'geometry':
+            this.subGeometry.forEach((subGeometry) => {
+              subGeometry.setObject3D(this);
+            });
+            break;
+          case 'shape':
+            this.shapes.forEach((shape) => {
+              shape.setObject3D(this);
+            });
+            break;
+          case 'curve':
+            this.curves.forEach((curve) => {
+              curve.setObject3D(this);
+            });
+            break;
+          case 'translation':
+            this.translation.forEach((translation) => {
+              translation.setObject3D(this);
+            });
+            break;
+        }
+      })
+    }
   }
 
   getGeometry(): THREE.Geometry | THREE.BufferGeometry {
@@ -949,16 +964,7 @@ export class GeometryComponent implements OnInit {
                 );
                 break;
             }
-            if (this.mesh instanceof Array) {
-              const geometry = this.geometry;
-              this.mesh.forEach((mesh) => {
-                mesh.geometry.dispose();
-                mesh.geometry = geometry;
-              });
-            } else {
-              this.mesh.geometry.dispose();
-              this.mesh.geometry = this.geometry;
-            }
+            this.resetGeometry();
           });
           break;
         case 'torusbuffer':
@@ -1035,12 +1041,10 @@ export class GeometryComponent implements OnInit {
           );
           break;
       }
-      if (this.translation !== null && this.translation !== undefined) {
-        this.translation.setTranslation(this.geometry);
-      }
       if (this.name !== null) {
         this.geometry.name = this.name;
       }
+      this.synkObject3D(['geometry','shape','curve','translation']);
     }
     return this.geometry;
   }

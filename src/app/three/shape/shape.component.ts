@@ -1,6 +1,6 @@
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import * as THREE from 'three';
-import { GeometriesVector3 } from '../geometry/geometry.component';
+import { GeometriesVector3, GeometryComponent } from '../geometry/geometry.component';
 
 @Component({
   selector: 'three-shape',
@@ -137,6 +137,14 @@ export class ShapeComponent implements OnInit {
       })
     }
     return holes;
+  }
+
+  private refObject3d : GeometryComponent= null;
+
+  setObject3D(refObject3d : GeometryComponent){
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+    }
   }
  
   getShape(shape: THREE.Shape | THREE.Path): THREE.Shape | THREE.Path{

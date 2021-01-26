@@ -31,13 +31,13 @@
             <three-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="20" [heightSegments]="20"></three-geometry>
             <three-material type="meshlambert" [color]="'0x7777ff'" [wireframe]="controls.wireframe"></three-material>
         </three-mesh>
-        <three-mesh #box [physiType]="'box'">
+        <three-mesh #box>
             <three-position [x]="-9" [y]="10" [z]="0"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry [type]="'box'" [width]="4" [height]="4" [depth]="4"></three-geometry>
             <three-material type="meshlambert" [color]="'0xff0000'" [wireframe]="controls.wireframe"></three-material>
         </three-mesh>
-        <three-mesh [physiType]="'box'" [mass]="0" [receiveShadow]="true">
+        <three-mesh [receiveShadow]="true">
             <three-position [x]="15" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
             <three-geometry [type]="'Plane'" [width]="60" [height]="20"></three-geometry>

@@ -13,7 +13,7 @@ export class Page0902Component implements OnInit {
     rotationSpeed : 0.02,
     bouncingSpeed : 0.03,
     scalingSpeed : 0.03,
-    showRay : false,
+    showRay : true,
     rotate: true,
     wireframe: false,
   }
@@ -110,7 +110,7 @@ export class Page0902Component implements OnInit {
 
   onRender(timer: RendererTimer) {    
     if (this.controls.rotate) {
-      this.rotation.y += timer.delta * 20;
+      this.rotation.y += this.controls.rotationSpeed * timer.delta * 250;
       this.rotation.x = this.rotation.z = this.rotation.y;
       
       const step = this.controls.bouncingSpeed * timer.elapsedTime * 60;

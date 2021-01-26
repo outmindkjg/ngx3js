@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { AbstractSvgGeometry } from '../interface';
 
 @Component({
   selector: 'three-position',
@@ -8,10 +9,11 @@ import * as THREE from 'three';
 })
 export class PositionComponent implements OnInit {
 
-  @Input() x : number = 0;
-  @Input() y : number = 0;
-  @Input() z : number = 0;
-  
+  @Input() visible: boolean = true;
+  @Input() x: number = 0;
+  @Input() y: number = 0;
+  @Input() z: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -24,35 +26,37 @@ export class PositionComponent implements OnInit {
     this.resetPosition();
   }
 
-  private position : THREE.Vector3 = null;
-  private refPosition : THREE.Vector3 | THREE.Vector3[] = null;
-  
-  setPosition(refPosition : THREE.Vector3 | THREE.Vector3[], isRestore : boolean = false){
-    if (this.refPosition !== refPosition) {
-      this.refPosition = refPosition;
-      if (isRestore) {
+  private position: THREE.Vector3 = null;
+  private refObject3d: THREE.Object3D | AbstractSvgGeometry = null;
 
-      } else {
-        this.resetPosition();
+  setObject3D(refObject3d: THREE.Object3D | AbstractSvgGeometry, isRestore: boolean = false) {
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+      if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+        this.position = null;
+        this.x = this.refObject3d.position.x;
+        this.y = this.refObject3d.position.y;
+        this.z = this.refObject3d.position.z;
       }
+      this.resetPosition();
     }
   }
 
   resetPosition() {
-    if (this.refPosition !== null) {
-      if (this.refPosition instanceof Array) {
-        this.refPosition.forEach(refPosition => {
-          refPosition.copy(this.getPosition());
+    if (this.refObject3d !== null && this.visible) {
+      if (this.refObject3d instanceof THREE.Object3D) {
+        this.refObject3d.position.copy(this.getPosition())
+      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+        this.refObject3d.meshPositions.forEach(position => {
+          position.copy(this.getPosition());
         });
-      } else if(this.refPosition instanceof THREE.Vector3) {
-        this.refPosition.copy(this.getPosition())
       }
     }
   }
 
-  getPosition() : THREE.Vector3 {
+  getPosition(): THREE.Vector3 {
     if (this.position === null) {
-        this.position = new THREE.Vector3(this.x, this.y, this.z);
+      this.position = new THREE.Vector3(this.x, this.y, this.z);
     }
     return this.position;
   }

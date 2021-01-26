@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { AbstractSvgGeometry } from '../interface';
 
 @Component({
   selector: 'three-rotation',
@@ -8,6 +9,7 @@ import * as THREE from 'three';
 })
 export class RotationComponent implements OnInit {
 
+  @Input() visible : boolean = true;
   @Input() x : number = 0;
   @Input() y : number = 0;
   @Input() z : number = 0;
@@ -25,27 +27,29 @@ export class RotationComponent implements OnInit {
   }
 
   private rotation : THREE.Euler = null;
-  private refRotation : THREE.Euler | THREE.Euler[] = null;
+  private refObject3d : THREE.Object3D | AbstractSvgGeometry = null;
 
-  setRotation(refRotation : THREE.Euler | THREE.Euler[], isRestore : boolean = false) {
-    if (this.refRotation !== refRotation) {
-      this.refRotation = refRotation;
-      if (isRestore) {
-        console.log('restored')
-      } else {
-        this.resetRotation();
+  setObject3D(refObject3d : THREE.Object3D | AbstractSvgGeometry , isRestore : boolean = false){
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+      if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+        this.rotation = null;
+        this.x = this.refObject3d.rotation.x;
+        this.y = this.refObject3d.rotation.y;
+        this.z = this.refObject3d.rotation.z;
       }
+      this.resetRotation();
     }
   }
-
+  
   resetRotation() {
-    if (this.refRotation !== null) {
-      if (this.refRotation instanceof Array) {
-        this.refRotation.forEach(refRotation => {
-          refRotation.copy(this.getRotation());
+    if (this.refObject3d !== null && this.visible) {
+      if (this.refObject3d instanceof THREE.Object3D) {
+        this.refObject3d.rotation.copy(this.getRotation())
+      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+        this.refObject3d.meshRotations.forEach(rotation => {
+          rotation.copy(this.getRotation());
         });
-      } else if(this.refRotation instanceof THREE.Euler) {
-        this.refRotation.copy(this.getRotation())
       }
     }
   }

@@ -7,6 +7,8 @@ cd my-app
 ng serve --open
 ng g c three/scene
 ng g c three/camera
+ng g c three/camerapass
+
 ng g c three/renderer
 ng g c three/geometry
 ng g c three/material
@@ -81,7 +83,7 @@ case '$1' :\nreturn THREE.$1;
 @Input() $1 : $2 = null;
 
 
-@Input\(\) ([a-zA-Z]+) : ([a-zA-Z\[\]]+) =.+
+@Input\(\) ([a-zA-Z]+) : (.+) =.+
 private get$1(def : $2) : $2 {\nconst $1  = this.$1 === null ? def : this.$1;\nreturn $1;\n}\n
 
 ^([a-zA-Z]+)\?:.+

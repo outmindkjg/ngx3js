@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
-
-export interface ApplyMatrix4 {
-  applyMatrix4( matrix: THREE.Matrix4 ): any ;
-}
+import { AbstractGetGeometry, AbstractSvgGeometry, ApplyMatrix4 } from '../interface';
 
 @Component({
   selector: 'three-translation',
@@ -12,6 +9,7 @@ export interface ApplyMatrix4 {
 })
 export class TranslationComponent implements OnInit {
 
+  @Input() visible: boolean = true;
   @Input() x : number = 0;
   @Input() y : number = 0;
   @Input() z : number = 0;
@@ -22,17 +20,32 @@ export class TranslationComponent implements OnInit {
   }
 
   private translation : THREE.Matrix4 = null;
-  private refTranslation : ApplyMatrix4 | ApplyMatrix4[] = null;
-  
-  setTranslation(refTranslation : ApplyMatrix4 | ApplyMatrix4[]){
-    if (this.refTranslation !== refTranslation) {
-      this.refTranslation = refTranslation;
-      if (this.refTranslation instanceof Array) {
-        this.refTranslation.forEach(refTranslation => {
-          refTranslation.applyMatrix4(this.getTranslation());
+  private refObject3d : THREE.Object3D | AbstractGetGeometry | AbstractSvgGeometry= null;
+
+  setObject3D(refObject3d : THREE.Object3D | AbstractGetGeometry | AbstractSvgGeometry){
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+      this.resetTranslation();
+    }
+  }
+
+  resetTranslation(){
+    if (this.refObject3d !== null && this.visible) {
+      const refTranslation:ApplyMatrix4[] = [];
+      if (this.refObject3d instanceof THREE.Geometry) {
+        refTranslation.push(this.refObject3d);
+      } else if (this.refObject3d instanceof AbstractGetGeometry) {
+        refTranslation.push(this.refObject3d.getGeometry());
+      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+        this.refObject3d.meshTranslations.forEach(translations => {
+          refTranslation.push(translations);
+        });
+      }
+      if (refTranslation.length > 0) {
+        const translation : THREE.Matrix4 = this.getTranslation();
+        refTranslation.forEach(refTranslation => {
+          refTranslation.applyMatrix4(translation);
         })
-      } else {
-        this.refTranslation.applyMatrix4(this.getTranslation());
       }
     }
   }

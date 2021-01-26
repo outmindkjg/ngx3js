@@ -1,6 +1,7 @@
-import { Component, ContentChild, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
+import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
+import { AbstractSvgGeometry } from '../interface';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
@@ -25,7 +26,7 @@ export interface SvgGeometry {
   templateUrl: './svg.component.html',
   styleUrls: ['./svg.component.scss']
 })
-export class SvgComponent implements OnInit {
+export class SvgComponent extends AbstractSvgGeometry implements OnInit {
 
 
   @Input() type: string = 'shape';
@@ -47,12 +48,14 @@ export class SvgComponent implements OnInit {
   @Input() noHoles: boolean = null;
 
   @ContentChildren(MaterialComponent,{descendants: false}) materials: QueryList<MaterialComponent>;
-  @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
-  @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
-  @ContentChild(TranslationComponent,{descendants: false}) translation: TranslationComponent = null;
+  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) translation: QueryList<TranslationComponent>;
 
-  constructor(private ele: ElementRef) { }
+  constructor(private ele: ElementRef) { 
+    super();
+  }
 
   private getCurveSegments(def: number): number {
     return this.curveSegments === null ? def : this.curveSegments;
@@ -119,6 +122,53 @@ export class SvgComponent implements OnInit {
     this.resetMeshes();
   }
 
+  ngAfterContentInit(): void {
+    this.position.changes.subscribe(() => {
+      this.resetMeshes();
+    });
+    this.rotation.changes.subscribe(() => {
+      this.resetMeshes();
+    });
+    this.scale.changes.subscribe(() => {
+      this.resetMeshes();
+    });
+  }
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.meshes !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'position':
+            this.position.forEach((position) => {
+              position.setObject3D(this);
+            });
+            break;
+          case 'rotation':
+            this.rotation.forEach((rotation) => {
+              rotation.setObject3D(this);
+            });
+            break;
+          case 'scale':
+            this.scale.forEach((scale) => {
+              scale.setObject3D(this);
+            });
+            break;
+          case 'material':
+            this.materials.forEach((material, seqn) => {
+              material.setObject3D(this, seqn);
+            });
+            break;
+            case 'translation':
+              this.translation.forEach((translation, seqn) => {
+                translation.setObject3D(this);
+              });
+              break;
+              
+        }
+      })
+    }
+  }
+ 
   private meshes : THREE.Mesh[] = null;
   private refObject3d: THREE.Object3D = null;
 
@@ -133,11 +183,12 @@ export class SvgComponent implements OnInit {
   resetMeshes() {
     if (this.refObject3d !== null && this.meshes === null) {
       this.getPaths((result : SvgGeometry[]) => {
-        const positions : THREE.Vector3[] = [];
-        const rotations : THREE.Euler[] = [];
-        const scales : THREE.Vector3[] = [];
-        const translations : (THREE.Geometry | THREE.BufferGeometry)[] = [];
         this.meshes = [];
+        this.meshPositions = [];
+        this.meshRotations = [];
+        this.meshScales = [];
+        this.meshTranslations = [];
+        this.meshMaterials = [];
         const materials = this.getMaterials();
         result.forEach((data, idx) => {
           const geom = data.geometry;
@@ -147,29 +198,15 @@ export class SvgComponent implements OnInit {
             mesh.name = this.name;
           }
           mesh.receiveShadow = this.receiveShadow;
-          positions.push(mesh.position);
-          rotations.push(mesh.rotation);
-          scales.push(mesh.scale);
-          translations.push(geom);
+          this.meshPositions.push(mesh.position);
+          this.meshRotations.push(mesh.rotation);
+          this.meshScales.push(mesh.scale);
+          this.meshTranslations.push(geom);
+          this.meshMaterials.push(meshMaterial);
           this.meshes.push(mesh);
           this.refObject3d.add(mesh);
         })
-        if (this.translation !== null && this.translation !== undefined) {
-          this.translation.setTranslation(translations);
-        }
-        if (this.position !== null && this.position != undefined) {
-          this.position.setPosition(positions);
-        }
-        if (this.rotation !== null && this.rotation != undefined) {
-          this.rotation.setRotation(rotations);
-        }
-        if (this.scale !== null && this.scale != undefined) {
-          this.scale.setScale(scales);
-        }
-        this.materials.forEach((material, idx) => {
-          if (this.meshes.length > idx && this.meshes[idx].material)
-            material.setMaterial(this.meshes[idx].material as THREE.Material)
-        });
+        this.synkObject3D(['translation', 'position','rotation','scale','material']);
       });
     }
   }

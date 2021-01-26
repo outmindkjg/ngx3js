@@ -38,12 +38,12 @@ export class Page0901Component implements OnInit {
     x: 0, y: 0, z: 0
   }
   scalingStep  : GeometriesVector3 = {
-    x: 1, y: 1, z: 1
+    x: 0, y: 0, z: 0
   }
 
   onRender(timer: RendererTimer) {    
     if (this.controls.rotate) {
-      this.rotation.y += timer.delta * 20;
+      this.rotation.y += this.controls.rotationSpeed * timer.delta * 250;
       this.rotation.x = this.rotation.z = this.rotation.y;
       
       const step = this.controls.bouncingSpeed * timer.elapsedTime * 60;

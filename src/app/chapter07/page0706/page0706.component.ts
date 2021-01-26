@@ -10,7 +10,7 @@ import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three
 export class Page0706Component implements OnInit {
 
   controls = {
-    dotCnt: 15000,
+    dotCnt: 15,
     size: 4,
     transparent: true,
     opacity: 0.6,

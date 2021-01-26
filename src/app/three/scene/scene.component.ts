@@ -9,6 +9,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
+import { LookatComponent } from '../lookat/lookat.component';
 
 @Component({
   selector: 'three-scene',
@@ -20,11 +21,12 @@ export class SceneComponent implements OnInit {
   @Input() storageName:string = null;
   @Input() physiType: string = 'none';
   @ContentChildren(MeshComponent,{descendants: false}) meshes: QueryList<MeshComponent>;
-  @ContentChild(FogComponent,{descendants: false}) fog: FogComponent = null;
-  @ContentChild(MaterialComponent,{descendants: false}) overrideMaterial: MaterialComponent = null;
-  @ContentChild(PositionComponent, { descendants: false }) position: PositionComponent = null;
-  @ContentChild(RotationComponent, { descendants: false }) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent, { descendants: false }) scale: ScaleComponent = null;
+  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
+  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+  @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) overrideMaterial: QueryList<MaterialComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -33,15 +35,6 @@ export class SceneComponent implements OnInit {
   }
 
   private scene: THREE.Scene = null;
-
-  ngAfterContentInit(): void {
-    this.meshes.changes.subscribe((e) => {
-      const scene = this.getScene();
-      this.meshes.forEach(mesh => {
-        mesh.setObject3D(scene);
-      });
-    });
-  }
 
   getPosition(): THREE.Vector3 {
     return this.getScene().position;
@@ -60,9 +53,7 @@ export class SceneComponent implements OnInit {
     if (scene['clear']) {
       scene['clear']();
     } else {
-      scene.children.forEach(child => {
-        scene.remove(child);
-      })
+      scene.children = [];
     }
   }
 
@@ -72,12 +63,68 @@ export class SceneComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (changes.storageName) {
+      if (changes.storageName || changes.physiType) {
         this.scene = null;
       }
-      if (this.meshes) {
-        this.getScene();
-      }
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.position.changes.subscribe(() => {
+      this.synkObject3D(['position']);
+    });
+    this.rotation.changes.subscribe(() => {
+      this.synkObject3D(['rotation']);
+    });
+    this.scale.changes.subscribe(() => {
+      this.synkObject3D(['scale']);
+    });
+    this.lookat.changes.subscribe(() => {
+      this.synkObject3D(['lookat']);
+    });
+    this.meshes.changes.subscribe((e) => {
+      this.synkObject3D(['mesh']);
+    });
+    this.overrideMaterial.changes.subscribe((e) => {
+      this.synkObject3D(['overrideMaterial']);
+    });
+  }
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.scene !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'position':
+            this.position.forEach((position) => {
+              position.setObject3D(this.scene);
+            });
+            break;
+            case 'rotation':
+              this.rotation.forEach((rotation) => {
+                rotation.setObject3D(this.scene);
+              });
+              break;
+            case 'scale':
+            this.scale.forEach((scale) => {
+              scale.setObject3D(this.scene);
+            });
+            break;
+          case 'lookat':
+            this.lookat.forEach((lookat) => {
+              lookat.setObject3D(this.scene);
+            });
+            break;
+            case 'mesh':
+            this.meshes.forEach(mesh => {
+              mesh.setObject3D(this.scene);
+            });
+          case 'overrideMaterial' :
+            this.overrideMaterial.forEach(mesh => {
+              mesh.setObject3D(this.scene);
+            });
+            break;
+        }
+      })
     }
   }
 
@@ -91,7 +138,7 @@ export class SceneComponent implements OnInit {
             if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
               const foundMesh = this.scene.getObjectByName(mesh.name);
               if (foundMesh !== null && foundMesh !== undefined) {
-                mesh.setMesh(foundMesh, true);
+                mesh.setObject3D(foundMesh, true);
               }
             }
           });
@@ -114,25 +161,7 @@ export class SceneComponent implements OnInit {
             this.scene = new THREE.Scene();
             break;
         }
-        this.meshes.forEach(mesh => {
-          mesh.setObject3D(this.scene);
-        });
-        if (this.fog !== null && this.fog !== undefined) {
-          this.fog.setScene(this.scene);
-        }
-      }
-      if (this.position !== null && this.position != undefined) {
-        this.position.setPosition(this.scene.position);
-      }
-      if (this.rotation !== null && this.rotation != undefined) {
-        this.rotation.setRotation(this.scene.rotation);
-      }
-      if (this.scale !== null && this.scale != undefined) {
-        this.scale.setScale(this.scene.scale);
-      }
-      if (this.overrideMaterial !== null && this.overrideMaterial !== undefined) {
-        this.scene.overrideMaterial = this.overrideMaterial.getMaterial();
-        this.overrideMaterial.setMaterial(this.scene.overrideMaterial);
+        this.synkObject3D(['position','rotation','scale','lookat','overrideMaterial','mesh','fog']);
       }
     }
     return this.scene;

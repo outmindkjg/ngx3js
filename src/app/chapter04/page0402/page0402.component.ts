@@ -20,6 +20,7 @@ export class Page0402Component implements OnInit {
     color : number
   }[]= []
   controls = {
+    overrideMaterial : true,
     rotationSpeed : 0.02,
     numberOfObjects : 10,
     cameraNear : 10,
@@ -56,6 +57,7 @@ export class Page0402Component implements OnInit {
   }
 
   controlsParams = [
+    { name : 'overrideMaterial', type : 'button'},
     { name : 'rotationSpeed', type : 'number', min : 0, max : 0.5},
     { name : 'addCube', type : 'button'},
     { name : 'removeCube', type : 'button'},

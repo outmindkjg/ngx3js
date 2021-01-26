@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
@@ -21,31 +21,31 @@ StereoCamera
 })
 export class CameraComponent implements OnInit {
 
-  @Input() type : 'perspective' | 'orthographic' = 'perspective';
-  @Input() fov : number = 45;
-  @Input() near : number = null;
-  @Input() far : number = null;
-  @Input() left : number = -0.5;
-  @Input() right : number = 0.5;
-  @Input() top : number = 0.5;
-  @Input() bottom : number = -0.5;
-  @Input() autoClear : boolean = null;
+  @Input() type: 'perspective' | 'orthographic' = 'perspective';
+  @Input() fov: number = 45;
+  @Input() near: number = null;
+  @Input() far: number = null;
+  @Input() left: number = -0.5;
+  @Input() right: number = 0.5;
+  @Input() top: number = 0.5;
+  @Input() bottom: number = -0.5;
+  @Input() autoClear: boolean = null;
   @Input() controlType: string = "none";
   @Input() controlAutoRotate: boolean = null;
-  @Input() scene : SceneComponent = null;
-  
-  @ContentChild(PositionComponent,{descendants: false}) position: PositionComponent = null;
-  @ContentChild(RotationComponent,{descendants: false}) rotation: RotationComponent = null;
-  @ContentChild(ScaleComponent,{descendants: false}) scale: ScaleComponent = null;
-  @ContentChild(LookatComponent,{descendants: false}) lookat: LookatComponent = null;
-  
+  @Input() scene: SceneComponent = null;
+
+  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
+  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  private camera : THREE.Camera = null;
+  private camera: THREE.Camera = null;
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,54 +54,98 @@ export class CameraComponent implements OnInit {
     }
   }
 
-  getFov(def : number) : number {
+  ngAfterContentInit(): void {
+    this.position.changes.subscribe(() => {
+      this.synkObject3D(['position']);
+    });
+    this.rotation.changes.subscribe(() => {
+      this.synkObject3D(['rotation']);
+    });
+    this.scale.changes.subscribe(() => {
+      this.synkObject3D(['scale']);
+    });
+    this.lookat.changes.subscribe(() => {
+      this.synkObject3D(['lookat']);
+    });
+  }
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.camera !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'position':
+            this.position.forEach((position) => {
+              position.setObject3D(this.camera);
+            });
+            break;
+          case 'rotation':
+            this.rotation.forEach((rotation) => {
+              rotation.setObject3D(this.camera);
+            });
+            break;
+          case 'scale':
+            this.scale.forEach((scale) => {
+              scale.setObject3D(this.camera);
+            });
+            break;
+          case 'lookat':
+            this.lookat.forEach((lookat) => {
+              lookat.setObject3D(this.camera);
+            });
+            break;
+        }
+      })
+    }
+  }
+
+  getFov(def: number): number {
     return this.fov === null ? def : this.fov;
   }
 
-  getNear(def : number) : number {
+  getNear(def: number): number {
     return this.near === null ? def : this.near;
   }
- 
-  getFar(def : number) : number {
+
+  getFar(def: number): number {
     return this.far === null ? def : this.far;
   }
 
-  getLeft(width : number) : number {
+  getLeft(width: number): number {
     return width * this.left;
   }
 
-  getRight(width : number) : number {
+  getRight(width: number): number {
     return width * this.right;
   }
 
-  getTop(height : number) : number {
+  getTop(height: number): number {
     return height * this.top;
   }
 
-  getBottom(height : number) : number {
+  getBottom(height: number): number {
     return height * this.bottom;
   }
 
-  getAspect(width : number, height : number) : number {
+  getAspect(width: number, height: number): number {
     return width > 0 && height > 0 ? width / height : 1;
   }
-  
+
   private cameraWidth: number = 0;
   private cameraHeight: number = 0;
 
-  getObject3D() : THREE.Object3D {
+  getObject3D(): THREE.Object3D {
     return this.getCamera();
   }
 
-  getRaycaster(event) : THREE.Raycaster {
-    const vector = new THREE.Vector3(( event.clientX / this.cameraWidth ) * 2 - 1, -( event.clientY / this.cameraHeight ) * 2 + 1, 0.5);
+  getRaycaster(event): THREE.Raycaster {
+    const vector = new THREE.Vector3((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1, 0.5);
     const camera = this.getCamera(this.cameraWidth, this.cameraHeight);
     const v = vector.unproject(camera);
     const raycaster = new THREE.Raycaster(camera.position, v.sub(camera.position).normalize());
     return raycaster;
   }
 
-  getCamera(width? : number, height? : number) : THREE.Camera {
+  getCamera(width?: number, height?: number): THREE.Camera {
     if (width == null) {
       width = this.cameraWidth;
     }
@@ -111,8 +155,8 @@ export class CameraComponent implements OnInit {
     if (this.camera === null) {
       this.cameraWidth = width;
       this.cameraHeight = height;
-      switch(this.type.toLowerCase()) {
-        case 'orthographic' :
+      switch (this.type.toLowerCase()) {
+        case 'orthographic':
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
             this.getRight(width),
@@ -122,34 +166,19 @@ export class CameraComponent implements OnInit {
             this.getFar(2000)
           );
           break;
-        case 'perspective' :
-        default :
+        case 'perspective':
+        default:
           this.camera = new THREE.PerspectiveCamera(
-            this.getFov(50), 
-            this.getAspect(width, height), 
+            this.getFov(50),
+            this.getAspect(width, height),
             this.getNear(0.1),
             this.getFar(2000)
           );
           break;
       }
-      if (this.position !== null && this.position != undefined) {
-        this.camera.position.copy(this.position.getPosition());
-        this.position.setPosition(this.camera.position);
-      }
-      if (this.rotation !== null && this.rotation != undefined) {
-        this.camera.rotation.copy(this.rotation.getRotation());
-        this.rotation.setRotation(this.camera.rotation);
-      }
-      if (this.scale !== null && this.scale != undefined) {
-        this.camera.scale.copy(this.scale.getScale());
-        this.scale.setScale(this.camera.scale);
-      }
-      if (this.lookat !== null && this.lookat != undefined) {
-        this.camera.lookAt(this.lookat.getLookAt());
-        this.lookat.setObject3D(this.camera);
-      }
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
     }
-    if (this.cameraWidth !== width || this.cameraHeight !== height ) {
+    if (this.cameraWidth !== width || this.cameraHeight !== height) {
       this.cameraWidth = width;
       this.cameraHeight = height;
       if (this.camera instanceof THREE.PerspectiveCamera) {
@@ -179,7 +208,7 @@ export class CameraComponent implements OnInit {
     return this.camera;
   }
 
-  render(renderer : THREE.Renderer , scenes : QueryList<SceneComponent>, width? : number, height? : number) {
+  render(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, width?: number, height?: number) {
     const scene = ((this.scene !== null) ? this.scene : scenes.first);
     if (scene !== null) {
       if (this.autoClear !== null) {

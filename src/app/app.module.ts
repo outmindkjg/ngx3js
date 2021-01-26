@@ -137,6 +137,7 @@ import { ShapeComponent } from './three/shape/shape.component';
 import { CurveComponent } from './three/curve/curve.component';
 import { SvgComponent } from './three/svg/svg.component';
 import { TranslationComponent } from './three/translation/translation.component';
+import { CamerapassComponent } from './three/camerapass/camerapass.component';
 
 @NgModule({
   declarations: [
@@ -273,7 +274,8 @@ import { TranslationComponent } from './three/translation/translation.component'
     Page0913Component,
     Page0914Component,
     Page0915Component,
-    Page0916Component
+    Page0916Component,
+    CamerapassComponent
   ],
   imports: [
     BrowserModule,

@@ -1,36 +1,36 @@
-import { CameraComponent } from './../camera/camera.component';
 import {
   Component,
-  ContentChild,
   ContentChildren,
   Input,
   OnInit,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
-import * as THREE from 'three';
 import * as PHYSIJS from 'physijs';
-
+import * as THREE from 'three';
 import { CSG } from 'three-csg-ts';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { Lensflare } from 'three/examples/jsm/objects/Lensflare';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
+import { AbstractMeshComponent } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { SvgComponent } from '../svg/svg.component';
+import { CameraComponent } from './../camera/camera.component';
 import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
+
 
 @Component({
   selector: 'three-mesh',
   templateUrl: './mesh.component.html',
   styleUrls: ['./mesh.component.scss'],
 })
-export class MeshComponent implements OnInit {
+export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() type: string = 'mesh';
   @Input() physiType: string = 'none';
   @Input() mass: number = null;
@@ -71,25 +71,19 @@ export class MeshComponent implements OnInit {
   @Input() helperTarget: MeshComponent = null;
   @Input() camera: CameraComponent = null;
 
-  @ContentChild(GeometryComponent, { descendants: false }) geometry: GeometryComponent = null;
-
+  @ContentChildren(GeometryComponent, { descendants: false }) geometry: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
-
   @ContentChildren(MeshComponent, { descendants: false }) meshes: QueryList<MeshComponent>;
-
   @ContentChildren(LensflareelementComponent, { descendants: false }) lensflareElements: QueryList<LensflareelementComponent>;
+  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
+  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+  @ContentChildren(SvgComponent, { descendants: false }) svg: QueryList<SvgComponent>;
 
-  @ContentChild(PositionComponent, { descendants: false }) position: PositionComponent = null;
-
-  @ContentChild(RotationComponent, { descendants: false }) rotation: RotationComponent = null;
-
-  @ContentChild(ScaleComponent, { descendants: false }) scale: ScaleComponent = null;
-
-  @ContentChild(SvgComponent, { descendants: false }) svg: SvgComponent = null;
-
-  @ContentChild(LookatComponent, { descendants: false }) lookat: LookatComponent = null;
-
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
 
   getMass(def: number): number {
     return this.mass === null ? def : this.mass;
@@ -222,21 +216,6 @@ export class MeshComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  ngAfterContentInit(): void {
-    this.meshes.changes.subscribe((e) => {
-      if (this.mesh !== null) {
-        this.meshes.forEach((mesh) => {
-          mesh.setObject3D(this.mesh);
-        });
-      }
-    });
-    this.materials.changes.subscribe((e) => {
-      if (this.mesh !== null) {
-        this.resetMesh(true);
-      }
-    });
-  }
-
   ngOnDestroy(): void {
     if (this.mesh != null && this.refObject3d != null) {
       this.refObject3d.remove(this.mesh);
@@ -256,9 +235,6 @@ export class MeshComponent implements OnInit {
         this.mesh.visible = this.visible;
       }
       this.resetMesh();
-      if (this._onChange !== null) {
-        this._onChange.onChange();
-      }
     }
   }
 
@@ -268,8 +244,8 @@ export class MeshComponent implements OnInit {
   getPosition(): THREE.Vector3 {
     if (this.mesh !== null) {
       return this.getMesh().position;
-    } else if (this.position !== null && this.position !== undefined) {
-      return this.position.getPosition();
+    } else if (this.position !== null && this.position.length > 0) {
+      return this.position.first.getPosition();
     } else {
       return new THREE.Vector3(0, 0, 0);
     }
@@ -278,8 +254,8 @@ export class MeshComponent implements OnInit {
   getScale(): THREE.Vector3 {
     if (this.mesh !== null) {
       return this.getMesh().scale;
-    } else if (this.scale !== null && this.scale !== undefined) {
-      return this.scale.getScale();
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.scale.first.getScale();
     } else {
       return new THREE.Vector3(1, 1, 1);
     }
@@ -288,8 +264,8 @@ export class MeshComponent implements OnInit {
   getRotation(): THREE.Euler {
     if (this.mesh !== null) {
       return this.getMesh().rotation;
-    } else if (this.scale !== null && this.scale !== undefined) {
-      return this.rotation.getRotation();
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.rotation.first.getRotation();
     } else {
       return new THREE.Euler(1, 1, 1);
     }
@@ -298,8 +274,8 @@ export class MeshComponent implements OnInit {
   getGeometry(): THREE.Geometry | THREE.BufferGeometry {
     if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
       return this.mesh.geometry;
-    } else if (this.geometry !== null && this.geometry !== undefined) {
-      return this.geometry.getGeometry();
+    } else if (this.geometry !== null && this.geometry.length > 0) {
+      return this.geometry.first.getGeometry();
     } else {
       return null;
     }
@@ -326,49 +302,97 @@ export class MeshComponent implements OnInit {
     return materials;
   }
 
-  private _onChange: {
-    onChange(): void;
-  } = null;
-
-  setOnChange(onChange: { onChange(): void }) {
-    this._onChange = onChange;
-  }
-
-  onChange(): void {
-    if (this.mesh !== null) {
-      if (this.refObject3d !== null && this.mesh !== null) {
-        this.refObject3d.remove(this.mesh);
-      }
-      this.mesh = null;
-      this.resetMesh();
-    }
-  }
-
   private refObject3d: THREE.Object3D = null;
 
-  setObject3D(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
-      this.resetMesh();
-    }
-  }
-
-  setMesh(mesh: THREE.Object3D, isRestore: boolean = false) {
-    this.mesh = mesh;
-    if (this.mesh !== null && isRestore) {
-      if (this.position !== null && this.position !== undefined) {
-        this.position.setPosition(this.mesh.position, true);
+  setObject3D(refObject3d: THREE.Object3D, isRestore: boolean = false) {
+    if (isRestore) {
+      if (this.refObject3d !== refObject3d.parent) {
+        this.refObject3d = refObject3d.parent;
+        this.mesh = refObject3d;
+        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'mesh', 'geometry', 'material', 'svg']);
       }
-      if (this.rotation !== null && this.rotation !== undefined) {
-        this.rotation.setRotation(this.mesh.rotation, true);
-      }
-      if (this.scale !== null && this.scale !== undefined) {
-        this.scale.setScale(this.mesh.scale, true);
+    } else {
+      if (this.refObject3d !== refObject3d) {
+        this.refObject3d = refObject3d;
+        this.resetMesh(true);
       }
     }
   }
 
-  resetMesh(clearMesh = false) {
+  ngAfterContentInit(): void {
+    this.position.changes.subscribe(() => {
+      this.synkObject3D(['position']);
+    });
+    this.rotation.changes.subscribe(() => {
+      this.synkObject3D(['rotation']);
+    });
+    this.scale.changes.subscribe(() => {
+      this.synkObject3D(['scale']);
+    });
+    this.lookat.changes.subscribe(() => {
+      this.synkObject3D(['lookat']);
+    });
+    this.meshes.changes.subscribe((e) => {
+      this.synkObject3D(['mesh']);
+    });
+    this.geometry.changes.subscribe((e) => {
+      this.synkObject3D(['geometry']);
+    });
+    this.svg.changes.subscribe((e) => {
+      this.synkObject3D(['svg']);
+    });
+    this.materials.changes.subscribe((e) => {
+      this.synkObject3D(['material']);
+    });
+  }
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.mesh !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'position':
+            this.position.forEach((position) => {
+              position.setObject3D(this.mesh);
+            });
+            break;
+          case 'rotation':
+            this.rotation.forEach((rotation) => {
+              rotation.setObject3D(this.mesh);
+            });
+            break;
+          case 'scale':
+            this.scale.forEach((scale) => {
+              scale.setObject3D(this.mesh);
+            });
+            break;
+          case 'lookat':
+            this.lookat.forEach((lookat) => {
+              lookat.setObject3D(this.mesh);
+            });
+            break;
+          case 'mesh':
+            this.meshes.forEach(mesh => {
+              mesh.setObject3D(this.mesh);
+            });
+          case 'geometry':
+            this.geometry.forEach(geometry => {
+              geometry.setObject3D(this.mesh);
+            });
+          case 'svg':
+            this.svg.forEach(svg => {
+              svg.setObject3D(this.mesh);
+            });
+          case 'material':
+            this.materials.forEach((mesh, seqn) => {
+              mesh.setObject3D(this.mesh, seqn);
+            });
+            break;
+        }
+      })
+    }
+  }
+
+  resetMesh(clearMesh: boolean = false) {
     if (this.refObject3d !== null) {
       if (clearMesh && this.mesh !== null) {
         this.refObject3d.remove(this.mesh);
@@ -378,7 +402,6 @@ export class MeshComponent implements OnInit {
         this.refObject3d.remove(this.helper);
         this.helper = null;
       }
-
       if (this.mesh === null) {
         this.refObject3d.add(this.getMesh());
       }
@@ -400,8 +423,8 @@ export class MeshComponent implements OnInit {
   getMesh(): THREE.Object3D {
     if (this.mesh === null) {
       let geometry: THREE.Geometry | THREE.BufferGeometry = null;
-      if (this.geometry != null && this.geometry != undefined) {
-        geometry = this.geometry.getGeometry();
+      if (this.geometry != null && this.geometry.length > 0) {
+        geometry = this.getGeometry();
       }
       let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
@@ -557,7 +580,7 @@ export class MeshComponent implements OnInit {
                 ) {
                   const foundMesh = basemesh.getObjectByName(mesh.name);
                   if (foundMesh instanceof THREE.Object3D) {
-                    mesh.setMesh(foundMesh, true);
+                    mesh.setObject3D(foundMesh, true);
                   }
                 }
               });
@@ -627,7 +650,6 @@ export class MeshComponent implements OnInit {
             case 'subtract':
             case 'intersect':
             case 'union':
-              mesh.setOnChange(this);
               meshBSP.push(mesh);
               break;
             default:
@@ -638,8 +660,8 @@ export class MeshComponent implements OnInit {
         if (basemesh instanceof THREE.Mesh) {
           if (meshBSP.length > 0) {
             basemesh.updateMatrix();
-            let sourceCsg: CSG =
-              geometry !== null ? CSG.fromMesh(basemesh) : null;
+            let sourceCsg: CSG = geometry !== null ? CSG.fromMesh(basemesh) : null;
+            sourceCsg = null;
             const matrix: THREE.Matrix4 = basemesh.matrix;
             meshBSP.forEach((mesh) => {
               const meshIns = mesh.getMesh();
@@ -647,7 +669,7 @@ export class MeshComponent implements OnInit {
                 meshIns.updateMatrix();
                 const targetBsp: CSG = CSG.fromMesh(meshIns);
                 if (sourceCsg != null) {
-                  switch (mesh.typeCsg) {
+                  switch (mesh.typeCsg.toLowerCase()) {
                     case 'subtract':
                       sourceCsg = sourceCsg.subtract(targetBsp);
                       break;
@@ -685,7 +707,7 @@ export class MeshComponent implements OnInit {
           case 'box':
             this.mesh = new PHYSIJS.BoxMesh(basemesh.geometry,
               PHYSIJS.createMaterial(basemesh.material, 0.9, 0),
-            this.getMass(1));
+              this.getMass(1));
             break;
           case 'sphere':
             this.mesh = new PHYSIJS.SphereMesh(basemesh.geometry, basemesh.material, this.getMass(1));
@@ -719,19 +741,7 @@ export class MeshComponent implements OnInit {
       if (this.name !== null) {
         this.mesh.name = this.name;
       }
-      if (this.position !== null && this.position != undefined) {
-        this.position.setPosition(this.mesh.position);
-      }
-      if (this.rotation !== null && this.rotation != undefined) {
-        this.rotation.setRotation(this.mesh.rotation);
-      }
-      if (this.scale !== null && this.scale != undefined) {
-        this.scale.setScale(this.mesh.scale);
-      }
       this.mesh.visible = this.visible;
-      if (this.svg !== null && this.svg !== undefined) {
-        this.svg.setObject3D(this.mesh);
-      }
       if (
         this.mesh instanceof THREE.Mesh ||
         this.mesh instanceof THREE.Points ||
@@ -742,31 +752,7 @@ export class MeshComponent implements OnInit {
           mesh.castShadow = this.castShadow;
           mesh.receiveShadow = this.receiveShadow;
         }
-        if (geometry !== null) {
-          this.geometry.setMesh(mesh);
-        }
-        if (mesh.material instanceof Array) {
-          this.materials.forEach((material, idx) => {
-            if (mesh.material[idx]) material.setMaterial(mesh.material[idx]);
-          });
-        } else if (this.materials.length == 1) {
-          this.materials.first.setMaterial(mesh.material);
-        }
-      } else if (this.mesh instanceof THREE.Group) {
-        const meshes = this.mesh.children as THREE.Mesh[];
-        this.geometry.setMesh(meshes);
-        meshes.forEach((mesh, idx) => {
-          if (mesh.material instanceof Array) {
-            this.materials[idx].setMaterial(mesh.material[idx]);
-          } else if (this.materials.length == 0) {
-            this.materials[idx].setMaterial(mesh.material);
-          }
-        });
       } else if (this.mesh instanceof THREE.Light) {
-        if (this.lookat !== null && this.lookat != undefined) {
-          this.mesh.lookAt(this.lookat.getLookAt());
-          this.lookat.setObject3D(this.mesh);
-        }
         if (this.mesh instanceof THREE.SpotLight) {
           this.mesh.penumbra = this.exponent;
           const target = this.getTarget(null);
@@ -814,6 +800,7 @@ export class MeshComponent implements OnInit {
           this.helper = null;
         }
       }
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'mesh', 'geometry', 'material', 'svg']);
     }
     return this.mesh;
   }

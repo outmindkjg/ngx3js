@@ -8,6 +8,7 @@ import * as THREE from 'three';
 })
 export class LookatComponent implements OnInit {
 
+  @Input() visible : boolean = true;
   @Input() x : number = 0;
   @Input() y : number = 0;
   @Input() z : number = 0;
@@ -23,15 +24,23 @@ export class LookatComponent implements OnInit {
     if (changes.x || changes.y || changes.z || changes.position) {
       this.lookat = null;
     }
-    if (this.refObject3d != null) {
-      this.refObject3d.lookAt(this.getLookAt());
-    }
+    this.resetLookAt();
   }
 
   private lookat : THREE.Vector3 = null;
+
   private refObject3d : THREE.Object3D = null;
   setObject3D(refObject3d : THREE.Object3D){
-    this.refObject3d = refObject3d;
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+      this.resetLookAt();
+    }
+  }
+
+  resetLookAt() {
+    if (this.refObject3d != null && this.visible) {
+      this.refObject3d.lookAt(this.getLookAt());
+    }
   }
 
   getLookAt() : THREE.Vector3 {
