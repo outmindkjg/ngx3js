@@ -1,34 +1,13 @@
 import { AfterContentInit, AfterViewInit, Component, QueryList, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
-import Stats from 'three/examples/jsm/libs/stats.module';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
-import { GUI, GUIController } from 'three/examples/jsm/libs/dat.gui.module';
 import { CameraComponent } from './../camera/camera.component';
 import { SceneComponent } from './../scene/scene.component';
-
-export interface GuiControlParam {
-  name: string;
-  type?: 'number' | 'folder' | 'select' | 'folder' | 'button' | 'color' | 'checkbox' | 'input' | 'listen' | 'auto';
-  min?: number;
-  max?: number;
-  step?: number;
-  select?: any[];
-  control?: string;
-  listen?: boolean;
-  isOpen?: boolean;
-  change?: (value?: any) => void;
-  finishChange?: (value?: any) => void;
-  children?: GuiControlParam[];
-}
-
-export interface RendererTimer {
-  delta: number
-  elapsedTime: number
-}
+import { ThreeClock, ThreeStats, ThreeUtil, ThreeGui, GuiControlParam, RendererTimer } from '../interface';
 
 @Component({
   selector: 'three-renderer',
@@ -95,7 +74,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           this.gui = null;
         }
         if (this.guiControl != null) {
-          this.setupGui(this.guiControl, this.getGui(), this.guiParams);
+          ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
         }
       }
     }
@@ -129,9 +108,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private rendererWidth: number = 100;
   private rendererHeight: number = 100;
 
-  private stats: Stats = null;
-  private gui: GUI = null;
-  private clock: THREE.Clock = null;
+  private stats: ThreeStats = null;
+  private gui: ThreeGui = null;
+  private clock: ThreeClock = null;
   private control: any = null;
 
   private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer): any {
@@ -172,97 +151,35 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return null;
   }
 
-  private getStats(): Stats {
+  private getStats(): ThreeStats {
     if (this.stats === null) {
-      this.stats = Stats();
-      this.stats.dom.style.position = 'absolute';
-      this.stats.dom.style.left = '10px';
-      this.stats.dom.style.top = '25px';
+      this.stats = ThreeUtil.getStats({ 
+        position : 'absolute',
+        left : '10px',
+        top : '25px'
+      });
       this.debug.nativeElement.appendChild(this.stats.dom);
     }
     return this.stats;
   }
 
-  private getGui(): GUI {
+  private getGui(): ThreeGui {
     if (this.gui == null) {
-      this.gui = new GUI();
-      this.gui.domElement.style.position = 'absolute';
-      this.gui.domElement.style.right = '0px';
-      this.gui.domElement.style.top = '0px';
+      this.gui = new ThreeGui({
+        position : 'absolute',
+        right : '0px',
+        top : '0px'
+      });
       this.debug.nativeElement.appendChild(this.gui.domElement);
     }
     return this.gui;
   }
 
-  private setupGuiChange(control: GUIController, onFinishChange?: (value?: any) => void, onChange?: (value?: any) => void, listen?: boolean) {
-    if (listen != null && listen) {
-      control.listen();
-    }
-    if (onFinishChange != null) {
-      control.onFinishChange(onFinishChange);
-    }
-    if (onChange != null) {
-      control.onChange(onChange);
-    }
-  }
-
-  private setupGui(control, gui: GUI, params: GuiControlParam[]) {
-    params.forEach(param => {
-      switch (param.type) {
-        case 'color':
-          this.setupGuiChange(
-            gui.addColor(param.control ? control[param.control] : control, param.name),
-            param.finishChange,
-            param.change,
-            param.listen
-          );
-          break;
-        case 'folder':
-          const folder = gui.addFolder(param.name);
-          this.setupGui(param.control ? control[param.control] : control, folder, param.children);
-          if (param.isOpen) {
-            folder.open();
-          }
-
-          break;
-        case 'number':
-          this.setupGuiChange(
-            gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step),
-            param.finishChange,
-            param.change,
-            param.listen
-          );
-          break;
-        case 'listen':
-          gui.add(param.control ? control[param.control] : control, param.name).listen();
-          break;
-        case 'select':
-          this.setupGuiChange(
-            gui.add(param.control ? control[param.control] : control, param.name, param.select),
-            param.finishChange,
-            param.change,
-            param.listen
-          );
-          break;
-        case 'button':
-        default:
-          this.setupGuiChange(
-            gui.add(param.control ? control[param.control] : control, param.name),
-            param.finishChange,
-            param.change,
-            param.listen
-          );
-          break;
-
-      }
-    });
-  }
-
   ngAfterViewInit() {
     if (this.guiControl != null) {
-      this.setupGui(this.guiControl, this.getGui(), this.guiParams);
+      ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
     }
-    this.clock = new THREE.Clock();
+    this.clock = ThreeUtil.getClock(true);
     if (this.statsMode >= 0) {
       if (this.stats === null) {
         this.getStats();
@@ -309,20 +226,15 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.stats != null) {
       this.stats.begin();
     }
-    const delta = this.clock.getDelta();
-    const elapsedTime = this.clock.getElapsedTime();
-    const renderTimer : RendererTimer = {
-      delta: delta,
-      elapsedTime: elapsedTime
-    }
+    const renderTimer = this.clock.getTimer();
     this.onRender.emit(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
         this.control.update();
       } else if (this.control instanceof FlyControls) {
-        this.control.update(delta);
+        this.control.update(renderTimer.delta);
       } else if (this.control instanceof FirstPersonControls) {
-        this.control.update(delta);
+        this.control.update(renderTimer.delta);
       } else if (this.control instanceof TrackballControls) {
         this.control.update();
       }

@@ -2,14 +2,14 @@
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-        <three-camerapass [type]="'Render'"></three-camerapass>
-        <three-camerapass [type]="'Film'"
+        <three-pass [type]="'Render'"></three-pass>
+        <three-pass [type]="'Film'"
           [noiseIntensity]="controls.noiseIntensity"
           [scanlinesIntensity]="controls.scanlinesIntensity"
           [scanlinesCount]="controls.scanlinesCount"
           [grayscale]="controls.grayscale"
           [renderToScreen]="true"
-        ></three-camerapass>
+        ></three-pass>
     </three-camera>
     <three-scene #scene>
         <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>

@@ -42,7 +42,7 @@ export class Page1101Component implements OnInit {
 
   onRender(timer: RendererTimer) {
     if (this.controls.rotate) {
-      this.rotation.y += timer.delta * 10;
+      this.rotation.y += timer.delta * 30;
       // this.rotation.x = this.rotation.z = this.rotation.y;
     }
 

@@ -14,7 +14,7 @@ var lookat_component_1 = require("../lookat/lookat.component");
 var position_component_1 = require("../position/position.component");
 var rotation_component_1 = require("../rotation/rotation.component");
 var scale_component_1 = require("../scale/scale.component");
-var camerapass_component_1 = require("./../camerapass/camerapass.component");
+var pass_component_1 = require("./../pass/pass.component");
 /*
 ArrayCamera
 CubeCamera
@@ -265,7 +265,7 @@ var CameraComponent = /** @class */ (function () {
         core_1.ContentChildren(lookat_component_1.LookatComponent, { descendants: false })
     ], CameraComponent.prototype, "lookat");
     __decorate([
-        core_1.ContentChildren(camerapass_component_1.CamerapassComponent, { descendants: false })
+        core_1.ContentChildren(pass_component_1.PassComponent, { descendants: false })
     ], CameraComponent.prototype, "pass");
     CameraComponent = __decorate([
         core_1.Component({

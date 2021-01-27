@@ -28,6 +28,7 @@ ng g c three/curve
 ng g c three/svg
 ng g c three/translation
 ng g s three/local-storage-service
+ng g c three/composer
 
 ng g c chapter08/page0801
 ng g c chapter08/page0802

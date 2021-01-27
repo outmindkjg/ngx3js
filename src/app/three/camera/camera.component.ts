@@ -5,9 +5,10 @@ import { LookatComponent } from '../lookat/lookat.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
-import { CamerapassComponent } from './../camerapass/camerapass.component';
-import { RendererTimer } from './../renderer/renderer.component';
+import { PassComponent } from '../pass/pass.component';
+import { AbstractEffectComposer, RendererTimer } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
+import { ComposerComponent } from '../composer/composer.component';
 
 
 /*
@@ -21,7 +22,7 @@ StereoCamera
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss']
 })
-export class CameraComponent implements OnInit {
+export class CameraComponent implements OnInit, AbstractEffectComposer {
 
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
   @Input() fov: number = 45;
@@ -40,7 +41,8 @@ export class CameraComponent implements OnInit {
   @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
   @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
-  @ContentChildren(CamerapassComponent,{descendants: false}) pass: QueryList<CamerapassComponent>;
+  @ContentChildren(PassComponent,{descendants: false}) pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent,{descendants: false}) composer: QueryList<ComposerComponent>;
 
 
   constructor() { }
@@ -59,16 +61,25 @@ export class CameraComponent implements OnInit {
   private renderer : THREE.Renderer = null;
   private rendererScenes : QueryList<SceneComponent>;
   private effectComposer : EffectComposer = null;
+
+  getRenderer() : THREE.Renderer{
+    return this.renderer;
+  }
+
   setRenderer(renderer : THREE.Renderer, rendererScenes : QueryList<SceneComponent>) {
     if (this.renderer !== renderer) {
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
       this.effectComposer = this.getEffectComposer();
+      if (this.composer !== null && this.composer.length > 0) {
+        this.composer.forEach(composer => {
+          composer.setCamera(this);
+        })
+      }
     }
   }
 
   resetEffectComposer() {
-    this.pass
     this.effectComposer = this.getEffectComposer();
   }
 
@@ -194,6 +205,11 @@ export class CameraComponent implements OnInit {
         this.camera.updateProjectionMatrix();
       }
     }
+    if (this.composer !== null && this.composer.length > 0) {
+      this.composer.forEach(composer => {
+        composer.setCameraSize(this.cameraWidth, this.cameraHeight);
+      })
+    }
   }
 
   getCamera(): THREE.Camera {
@@ -245,6 +261,11 @@ export class CameraComponent implements OnInit {
         if (renderer instanceof THREE.WebGLRenderer) {
           renderer.autoClear = this.autoClear;
         }
+      }
+      if (renderer instanceof THREE.WebGLRenderer) {
+        this.composer.forEach(composer => {
+          composer.render(renderer, renderTimer);
+        })
       }
       if (this.effectComposer !== null) {
         this.effectComposer.render(renderTimer.delta);

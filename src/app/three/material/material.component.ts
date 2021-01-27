@@ -1,6 +1,7 @@
 import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { AbstractSvgGeometry } from '../interface';
+import { Vector2 } from 'three';
+import { AbstractSvgGeometry, ThreeUtil } from '../interface';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -140,11 +141,11 @@ export class MaterialComponent implements OnInit, OnChanges {
     this.resetMaterial();
   }
 
-  getColor(def: string | number): string | number {
+  getColor(def?: string | number): string | number {
     return this.getConvColor(this.color, def);
   }
 
-  private getConvColor(paramColor: string | number, def: string | number): string | number {
+  private getConvColor(paramColor: string | number, def?: string | number): string | number {
     const color = paramColor === null ? def : paramColor;
     if (typeof (color) === 'string') {
       if (color.startsWith('0x')) {
@@ -157,84 +158,82 @@ export class MaterialComponent implements OnInit, OnChanges {
     }
   }
 
-  private getOpacity(def: number): number {
-    return this.opacity === null ? def : this.opacity;
+  private getOpacity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.opacity, def);
   }
 
-  private getTransparent(def: boolean): boolean {
-    return this.transparent === null ? def : this.transparent;
+  private getTransparent(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.transparent, def);
   }
 
-  private getWireframe(def: boolean): boolean {
-    return this.wireframe === null ? def : this.wireframe;
+  private getWireframe(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.wireframe, def);
   }
 
-  getShading(def: string): THREE.Shading {
-    const shading = (this.shading === null) ? def : this.shading;
+  getShading(def?: string): THREE.Shading {
+    const shading = ThreeUtil.getTypeSafe(this.shading, def, '');
     switch (shading.toLowerCase()) {
       case 'smooth':
         return THREE.SmoothShading;
       case 'flat':
-      default:
         return THREE.FlatShading;
     }
+    return undefined;
   }
 
-  private getSpecular(def: number | string): number | string {
+  private getSpecular(def?: number | string): number | string {
     return this.getConvColor(this.specular, def);
   }
 
-  private getShininess(def: number): number {
-    return this.shininess === null ? def : this.shininess;
+  private getShininess(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shininess, def);
   }
 
-  private getLightMapIntensity(def: number): number {
-    return this.lightMapIntensity === null ? def : this.lightMapIntensity;
+  private getLightMapIntensity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.lightMapIntensity, def);
   }
 
-  private getAoMapIntensity(def: number): number {
-    return this.aoMapIntensity === null ? def : this.aoMapIntensity;
+  private getAoMapIntensity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.aoMapIntensity, def);
   }
 
-  private getEmissive(def: string | number): string | number {
+  private getEmissive(def?: string | number): string | number {
     return this.getConvColor(this.emissive, def);
   }
 
-  private getEmissiveIntensity(def: number): number {
-    return this.emissiveIntensity === null ? def : this.emissiveIntensity;
+  private getEmissiveIntensity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.emissiveIntensity, def);
   }
 
-  private getBumpScale(def: number): number {
-    return this.bumpScale === null ? def : this.bumpScale;
+  private getBumpScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.bumpScale, def);
   }
 
-  private getNormalMapType(def: string): THREE.NormalMapTypes {
-    const normalMapType = this.normalMapType === null ? def : this.normalMapType;
+  private getNormalMapType(def?: string): THREE.NormalMapTypes {
+    const normalMapType = ThreeUtil.getTypeSafe(this.normalMapType, def,'');
     switch (normalMapType.toLowerCase()) {
       case 'tangentspace':
         return THREE.TangentSpaceNormalMap;
       case 'objectspace':
         return THREE.ObjectSpaceNormalMap;
     }
-    return null;
+    return undefined;
   }
 
-  private getNormalScale(defX: number, defY: number): THREE.Vector2 {
-    const x = this.normalScaleX === null ? defX : this.normalScaleX;
-    const y = this.normalScaleY === null ? defY : this.normalScaleY;
-    return new THREE.Vector2(x, y);
+  private getNormalScale(def?: THREE.Vector2): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(this.normalScaleX, this.normalScaleY, def);
   }
 
-  private getDisplacementScale(def: number): number {
-    return this.displacementScale === null ? def : this.displacementScale;
+  private getDisplacementScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.displacementScale, def);
   }
 
-  private getDisplacementBias(def: number): number {
-    return this.displacementBias === null ? def : this.displacementBias;
+  private getDisplacementBias(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.displacementBias, def);
   }
 
-  private getCombine(def: string): THREE.Combine {
-    const combine = this.combine === null ? def : this.combine;
+  private getCombine(def?: string): THREE.Combine {
+    const combine = ThreeUtil.getTypeSafe(this.combine, def, '');
     switch (combine.toLowerCase()) {
       case 'multiply':
         return THREE.MultiplyOperation;
@@ -243,140 +242,131 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'add':
         return THREE.AddOperation;
     }
-    return null;
+    return undefined;
   }
 
-  private getReflectivity(def: number): number {
-    return this.reflectivity === null ? def : this.reflectivity;
+  private getReflectivity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.reflectivity, def);
   }
 
-  private getRefractionRatio(def: number): number {
-    return this.refractionRatio === null ? def : this.refractionRatio;
+  private getRefractionRatio(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.refractionRatio, def);
   }
 
-  private getWireframeLinewidth(def: number): number {
-    return this.wireframeLinewidth === null ? def : this.wireframeLinewidth;
+  private getWireframeLinewidth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.wireframeLinewidth, def);
   }
 
-  private getWireframeLinecap(def: string): string {
-    return this.wireframeLinecap === null ? def : this.wireframeLinecap;
+  private getWireframeLinecap(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.wireframeLinecap, def);
   }
 
-  private getWireframeLinejoin(def: string): string {
-    return this.wireframeLinejoin === null ? def : this.wireframeLinejoin;
+  private getWireframeLinejoin(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.wireframeLinejoin, def);
   }
 
-  private getSkinning(def: boolean): boolean {
-    return this.skinning === null ? def : this.skinning;
+  private getSkinning(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.skinning, def);
   }
 
-  private getMorphTargets(def: boolean): boolean {
-    return this.morphTargets === null ? def : this.morphTargets;
+  private getMorphTargets(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.morphTargets, def);
   }
 
-  private getMorphNormals(def: boolean): boolean {
-    return this.morphNormals === null ? def : this.morphNormals;
+  private getMorphNormals(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.morphNormals, def);
   }
 
-  private getLinewidth(def: number): number {
-    return this.linewidth === null ? def : this.linewidth;
+  private getLinewidth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.linewidth, def);
   }
 
-  private getLinecap(def: string): string {
-    const linecap = this.linecap === null ? def : this.linecap;
-    return linecap;
+  private getLinecap(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.linecap, def);
   }
 
-  private getLinejoin(def: string): string {
-    const linejoin = this.linejoin === null ? def : this.linejoin;
-    return linejoin;
+  private getLinejoin(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.linejoin, def);
   }
 
-  private getScale(def: number): number {
-    return this.scale === null ? def : this.scale;
+  private getScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.scale, def);
   }
 
-  private getDashSize(def: number): number {
-    return this.dashSize === null ? def : this.dashSize;
+  private getDashSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.dashSize, def);
   }
 
-  private getGapSize(def: number): number {
-    return this.gapSize === null ? def : this.gapSize;
+  private getGapSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.gapSize, def);
   }
 
-  private getDepthPacking(def: string): string {
-    return this.depthPacking === null ? def : this.depthPacking;
+  private getDepthPacking(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.depthPacking, def);
   }
 
-  private getFarDistance(def: number): number {
-    return this.farDistance === null ? def : this.farDistance;
+  private getFarDistance(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.farDistance, def);
   }
 
-  private getNearDistance(def: number): number {
-    return this.nearDistance === null ? def : this.nearDistance;
+  private getNearDistance(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.nearDistance, def);
   }
 
-  private getReferencePosition(def: number): number {
-    const referencePositionX = this.referencePositionX === null ? def : this.referencePositionX;
-    return referencePositionX;
+  private getReferencePosition(def?: THREE.Vector3): THREE.Vector3 {
+    return ThreeUtil.getVector3Safe(this.referencePositionX, this.referencePositionY, this.referencePositionZ, def);
   }
 
-  private getClearcoat(def: number): number {
-    return this.clearcoat === null ? def : this.clearcoat;
+  private getClearcoat(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.clearcoat, def);
   }
 
-  private getClearcoatRoughness(def: number): number {
-    return this.clearcoatRoughness === null ? def : this.clearcoatRoughness;
+  private getClearcoatRoughness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.clearcoatRoughness, def);
   }
 
-  private getClearcoatNormalScale(defX: number, defY: number): THREE.Vector2 {
-    const x = this.clearcoatNormalScaleX === null ? defX : this.clearcoatNormalScaleX;
-    const y = this.clearcoatNormalScaleY === null ? defY : this.clearcoatNormalScaleY;
-    return new THREE.Vector2(x, y);
+  private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(this.clearcoatNormalScaleX, this.clearcoatNormalScaleY, def);
   }
 
-  private getIor(def: number): number {
-    return this.ior === null ? def : this.ior;
+  private getIor(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.ior, def);
   }
 
-  private getSheen(def: string): THREE.Color {
-    const sheen = this.sheen === null ? def : this.sheen;
-    if (sheen !== null) {
-      return new THREE.Color(this.getConvColor(this.sheen, def));
-    }
-    return null;
+  private getSheen(def?: THREE.Color): THREE.Color {
+    return ThreeUtil.getColorSafe(this.sheen, def);
   }
 
-  private getTransmission(def: number): number {
-    return this.transmission === null ? def : this.transmission;
+  private getTransmission(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.transmission, def);
   }
 
-  private getRoughness(def: number): number {
-    return this.roughness === null ? def : this.roughness;
+  private getRoughness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.roughness, def);
   }
 
-  private getMetalness(def: number): number {
-    return this.metalness === null ? def : this.metalness;
+  private getMetalness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.metalness, def);
   }
 
-  private getEnvMapIntensity(def: number): number {
-    return this.envMapIntensity === null ? def : this.envMapIntensity;
+  private getEnvMapIntensity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.envMapIntensity, def);
   }
 
-  private getVertexTangents(def: boolean): boolean {
-    return this.vertexTangents === null ? def : this.vertexTangents;
+  private getVertexTangents(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.vertexTangents, def);
   }
 
-  private getRotation(def: number): number {
-    return this.rotation === null ? def : this.rotation;
+  private getRotation(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.rotation, def);
   }
 
-  private getSize(def: number): number {
-    return this.size === null ? def : this.size;
+  private getSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.size, def);
   }
 
-  private getSizeAttenuation(def: boolean): boolean {
-    return this.sizeAttenuation === null ? def : this.sizeAttenuation;
+  private getSizeAttenuation(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.sizeAttenuation, def);
   }
 
   getTexture(type: string): THREE.Texture {
@@ -389,17 +379,16 @@ export class MaterialComponent implements OnInit, OnChanges {
         return foundTexture.getTexture();
       }
     }
-    return null;
+    return undefined;
   }
 
 
-  private getAlphaTest(def: number): number {
-    const alphaTest = this.alphaTest === null ? def : this.alphaTest;
-    return alphaTest;
+  private getAlphaTest(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.alphaTest, def);
   }
 
-  private getBlendDst(def: string): THREE.BlendingDstFactor {
-    const blendDst = this.blendDst === null ? def : this.blendDst;
+  private getBlendDst(def?: string): THREE.BlendingDstFactor {
+    const blendDst = ThreeUtil.getTypeSafe(this.blendDst, def, '');
     switch (blendDst.toLowerCase()) {
       case 'zero':
         return THREE.ZeroFactor;
@@ -422,15 +411,15 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'oneminusdstcolor':
         return THREE.OneMinusDstColorFactor;
     }
-    return null;
+    return undefined;
   }
 
-  private getBlendDstAlpha(def: number): number {
-    return this.blendDstAlpha === null ? def : this.blendDstAlpha;
+  private getBlendDstAlpha(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.blendDstAlpha, def);
   }
 
-  private getBlendEquation(def: string): THREE.BlendingEquation {
-    const blendEquation = this.blendEquation === null ? def : this.blendEquation;
+  private getBlendEquation(def?: string): THREE.BlendingEquation {
+    const blendEquation = ThreeUtil.getTypeSafe(this.blendEquation, def, '');
     switch (blendEquation.toLowerCase()) {
       case 'adde':
         return THREE.AddEquation;
@@ -443,16 +432,15 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'maxe':
         return THREE.MaxEquation;
     }
-    return null;
+    return undefined;
   }
 
-  private getBlendEquationAlpha(def: number): number {
-    const blendEquationAlpha = this.blendEquationAlpha === null ? def : this.blendEquationAlpha;
-    return blendEquationAlpha;
+  private getBlendEquationAlpha(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.blendEquationAlpha, def);
   }
 
-  private getBlending(def: string): THREE.Blending {
-    const blending = this.blending === null ? def : this.blending;
+  private getBlending(def?: string): THREE.Blending {
+    const blending = ThreeUtil.getTypeSafe(this.blending, def, '');
     switch (blending.toLowerCase()) {
       case 'no':
         return THREE.NoBlending;
@@ -467,11 +455,11 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'custom':
         return THREE.CustomBlending;
     }
-    return null;
+    return undefined;
   }
 
-  private getBlendSrc(def: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
-    const blendSrc = this.blendSrc === null ? def : this.blendSrc;
+  private getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
+    const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
     switch (blendSrc.toLowerCase()) {
       case 'srcalphasaturate':
         return THREE.SrcAlphaSaturateFactor;
@@ -499,38 +487,33 @@ export class MaterialComponent implements OnInit, OnChanges {
     return null;
   }
 
-  private getBlendSrcAlpha(def: number): number {
-    const blendSrcAlpha = this.blendSrcAlpha === null ? def : this.blendSrcAlpha;
-    return blendSrcAlpha;
+  private getBlendSrcAlpha(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.blendSrcAlpha, def);
   }
 
-  private getClipIntersection(def: boolean): boolean {
-    const clipIntersection = this.clipIntersection === null ? def : this.clipIntersection;
-    return clipIntersection;
+  private getClipIntersection(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.clipIntersection, def);
   }
 
-  private getClippingPlanes(def: string[]): THREE.Plane[] {
-    const clippingPlanes = this.clippingPlanes === null ? def : this.clippingPlanes;
-    return []; // todo
+  private getClippingPlanes(def?: string[]): THREE.Plane[] {
+    const clippingPlanes = ThreeUtil.getTypeSafe(this.clippingPlanes, def);
+    return undefined; // todo
   }
 
-  private getClipShadows(def: boolean): boolean {
-    const clipShadows = this.clipShadows === null ? def : this.clipShadows;
-    return clipShadows;
+  private getClipShadows(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.clipShadows, def);
   }
 
-  private getColorWrite(def: boolean): boolean {
-    const colorWrite = this.colorWrite === null ? def : this.colorWrite;
-    return colorWrite;
+  private getColorWrite(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.colorWrite, def);
   }
 
-  private getDefines(def: any): any {
-    const defines = this.defines === null ? def : this.defines;
-    return defines;
+  private getDefines(def?: any): any {
+    return ThreeUtil.getTypeSafe(this.defines, def);
   }
 
-  private getDepthFunc(def: string): THREE.DepthModes {
-    const depthFunc = this.depthFunc === null ? def : this.depthFunc;
+  private getDepthFunc(def?: string): THREE.DepthModes {
+    const depthFunc =  ThreeUtil.getTypeSafe(this.depthFunc, def, '');
     switch (depthFunc.toLowerCase()) {
       case 'never':
         return THREE.NeverDepth;
@@ -549,46 +532,39 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'notequal':
         return THREE.NotEqualDepth;
     }
-    return null;
+    return undefined;
   }
 
-  private getDepthTest(def: boolean): boolean {
-    const depthTest = this.depthTest === null ? def : this.depthTest;
-    return depthTest;
+  private getDepthTest(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.depthTest, def);
   }
 
-  private getDepthWrite(def: boolean): boolean {
-    const depthWrite = this.depthWrite === null ? def : this.depthWrite;
-    return depthWrite;
+  private getDepthWrite(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.depthWrite, def);
   }
 
-  private getFog(def: boolean): boolean {
-    const fog = this.fog === null ? def : this.fog;
-    return fog;
+  private getFog(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.fog, def);
   }
 
-  private getName(def: string): string {
-    const name = this.name === null ? def : this.name;
-    return name;
+  private getName(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.name, def);
   }
 
-  private getPolygonOffset(def: boolean): boolean {
-    const polygonOffset = this.polygonOffset === null ? def : this.polygonOffset;
-    return polygonOffset;
+  private getPolygonOffset(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.polygonOffset, def);
   }
 
-  private getPolygonOffsetFactor(def: number): number {
-    const polygonOffsetFactor = this.polygonOffsetFactor === null ? def : this.polygonOffsetFactor;
-    return polygonOffsetFactor;
+  private getPolygonOffsetFactor(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.polygonOffsetFactor, def);
   }
 
-  private getPolygonOffsetUnits(def: number): number {
-    const polygonOffsetUnits = this.polygonOffsetUnits === null ? def : this.polygonOffsetUnits;
-    return polygonOffsetUnits;
+  private getPolygonOffsetUnits(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.polygonOffsetUnits, def);
   }
 
-  private getPrecision(def: string): 'highp' | 'mediump' | 'lowp' | null {
-    const precision = this.precision === null ? def : this.precision;
+  private getPrecision(def?: string): 'highp' | 'mediump' | 'lowp' | null {
+    const precision = ThreeUtil.getTypeSafe(this.precision, def, '');
     switch (precision.toLowerCase()) {
       case 'highp':
         return 'highp';
@@ -596,41 +572,37 @@ export class MaterialComponent implements OnInit, OnChanges {
         return 'mediump';
       case 'lowp':
         return 'lowp';
-      default:
-        return null;
     }
+    return undefined;
   }
 
-  private getPremultipliedAlpha(def: boolean): boolean {
-    const premultipliedAlpha = this.premultipliedAlpha === null ? def : this.premultipliedAlpha;
-    return premultipliedAlpha;
+  private getPremultipliedAlpha(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.premultipliedAlpha, def);
   }
 
-  private getDithering(def: boolean): boolean {
-    const dithering = this.dithering === null ? def : this.dithering;
-    return dithering;
+  private getDithering(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.dithering, def);
   }
 
-  private getFlatShading(def: boolean): boolean {
-    const flatShading = this.flatShading === null ? def : this.flatShading;
-    return flatShading;
+  private getFlatShading(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.flatShading, def);
   }
 
-  private getSide(def: string): THREE.Side {
-    const side = this.side === null ? def : this.side;
+  private getSide(def?: string): THREE.Side {
+    const side = ThreeUtil.getTypeSafe(this.side, def, '');
     switch (side.toLowerCase()) {
       case 'back':
         return THREE.BackSide;
       case 'double':
         return THREE.DoubleSide;
       case 'front':
-      default:
         return THREE.FrontSide;
     }
+    return undefined;
   }
 
-  private getShadowSide(def: string): THREE.Side {
-    const shadowSide = this.shadowSide === null ? def : this.shadowSide;
+  private getShadowSide(def?: string): THREE.Side {
+    const shadowSide = ThreeUtil.getTypeSafe(this.shadowSide, def, '');
     switch (shadowSide.toLowerCase()) {
       case 'back':
         return THREE.BackSide;
@@ -638,33 +610,28 @@ export class MaterialComponent implements OnInit, OnChanges {
         return THREE.DoubleSide;
       case 'front':
         return THREE.FrontSide;
-      default:
-        return null;
     }
+    return undefined;
   }
 
-  private getToneMapped(def: boolean): boolean {
-    const toneMapped = this.toneMapped === null ? def : this.toneMapped;
-    return toneMapped;
+  private getToneMapped(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.toneMapped, def);
   }
 
-  private getVertexColors(def: boolean): boolean {
-    const vertexColors = this.vertexColors === null ? def : this.vertexColors;
-    return vertexColors;
+  private getVertexColors(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.vertexColors, def);
   }
 
-  private getVisible(def: boolean): boolean {
-    const visible = this.visible === null ? def : this.visible;
-    return visible;
+  private getVisible(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.visible, def);
   }
 
-  private getStencilWrite(def: boolean): boolean {
-    const stencilWrite = this.stencilWrite === null ? def : this.stencilWrite;
-    return stencilWrite;
+  private getStencilWrite(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.stencilWrite, def);
   }
 
-  private getStencilFunc(def: string): THREE.StencilFunc {
-    const stencilFunc = this.stencilFunc === null ? def : this.stencilFunc;
+  private getStencilFunc(def?: string): THREE.StencilFunc {
+    const stencilFunc = ThreeUtil.getTypeSafe(this.stencilFunc, def,'');
     switch (stencilFunc.toLowerCase()) {
       case 'never':
         return THREE.NeverStencilFunc;
@@ -683,26 +650,23 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'always':
         return THREE.AlwaysStencilFunc;
     }
-    return null;
+    return undefined;
   }
 
-  private getStencilRef(def: number): number {
-    const stencilRef = this.stencilRef === null ? def : this.stencilRef;
-    return stencilRef;
+  private getStencilRef(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.stencilRef, def);
   }
 
-  private getStencilWriteMask(def: number): number {
-    const stencilWriteMask = this.stencilWriteMask === null ? def : this.stencilWriteMask;
-    return stencilWriteMask;
+  private getStencilWriteMask(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.stencilWriteMask, def);
   }
 
-  private getStencilFuncMask(def: number): number {
-    const stencilFuncMask = this.stencilFuncMask === null ? def : this.stencilFuncMask;
-    return stencilFuncMask;
+  private getStencilFuncMask(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.stencilFuncMask, def);
   }
 
-  private getStencilFail(def: string): THREE.StencilOp {
-    const stencilFail = this.stencilFail === null ? def : this.stencilFail;
+  private getStencilFail(def?: string): THREE.StencilOp {
+    const stencilFail = ThreeUtil.getTypeSafe(this.stencilFail, def, '');
     switch (stencilFail.toLowerCase()) {
       case 'zero':
         return THREE.ZeroStencilOp;
@@ -721,11 +685,11 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'invert':
         return THREE.InvertStencilOp;
     }
-    return null;
+    return undefined;
   }
 
-  private getStencilZFail(def: string): THREE.StencilOp {
-    const stencilZFail = this.stencilZFail === null ? def : this.stencilZFail;
+  private getStencilZFail(def?: string): THREE.StencilOp {
+    const stencilZFail = ThreeUtil.getTypeSafe(this.stencilZFail, def, '');
     switch (stencilZFail.toLowerCase()) {
       case 'zero':
         return THREE.ZeroStencilOp;
@@ -744,11 +708,11 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'invert':
         return THREE.InvertStencilOp;
     }
-    return null;
+    return undefined;
   }
 
-  private getStencilZPass(def: string): THREE.StencilOp {
-    const stencilZPass = this.stencilZPass === null ? def : this.stencilZPass;
+  private getStencilZPass(def?: string): THREE.StencilOp {
+    const stencilZPass = ThreeUtil.getTypeSafe(this.stencilZPass, def, '');
     switch (stencilZPass.toLowerCase()) {
       case 'zero':
         return THREE.ZeroStencilOp;
@@ -767,24 +731,23 @@ export class MaterialComponent implements OnInit, OnChanges {
       case 'invert':
         return THREE.InvertStencilOp;
     }
-    return null;
+    return undefined;
   }
 
-  private getUserData(def: any): any {
-    const userData = this.userData === null ? def : this.userData;
-    return userData;
+  private getUserData(def?: any): any {
+    return ThreeUtil.getTypeSafe(this.userData, def);
   }
 
-  private getUniforms(def: any): { [uniform: string]: THREE.IUniform } {
-    return this.uniforms === null ? def : this.uniforms;
+  private getUniforms(def?: any): { [uniform: string]: THREE.IUniform } {
+    return ThreeUtil.getTypeSafe(this.uniforms, def);
   }
 
-  private getLights(def: any): any {
-    return this.lights === null ? def : this.lights;
+  private getLights(def?: any): any {
+    return ThreeUtil.getTypeSafe(this.lights, def);
   }
 
-  private getClipping(def: any): any {
-    return this.clipping === null ? def : this.clipping;
+  private getClipping(def?: any): any {
+    return ThreeUtil.getTypeSafe(this.clipping, def);
   }
 
   private getShader(type: string) {
@@ -796,59 +759,54 @@ export class MaterialComponent implements OnInit, OnChanges {
         return foundShader.getShader();
       }
     }
-    return null;
+    return undefined;
   }
 
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
-    return Object.assign({
-      name: this.getName(''),
-      opacity: this.getOpacity(1),
-      transparent: this.getTransparent(false),
-      side: this.getSide('front'),
-      blending: this.getBlending('normal'),
-      vertexColors: this.getVertexColors(false),
-      alphaTest: this.getAlphaTest(0),
-      depthTest: this.getDepthTest(true),
-      depthWrite: this.getDepthWrite(true),
-      visible: this.getVisible(true)
+    const materialParameters : THREE.MaterialParameters = Object.assign({
+      blendDst: this.getBlendDst(),
+      blendDstAlpha: this.getBlendDstAlpha(),
+      blendEquation: this.getBlendEquation(),
+      blendEquationAlpha: this.getBlendEquationAlpha(),
+      blendSrc: this.getBlendSrc(),
+      blendSrcAlpha: this.getBlendSrcAlpha(),
+      clipIntersection: this.getClipIntersection(),
+      clippingPlanes: this.getClippingPlanes(),
+      clipShadows: this.getClipShadows(),
+      colorWrite: this.getColorWrite(),
+      defines: this.getDefines(),
+      depthFunc: this.getDepthFunc(),
+      depthTest: this.getDepthTest(),
+      depthWrite: this.getDepthWrite(),
+      fog: this.getFog(),
+      opacity: this.getOpacity(),
+      polygonOffset: this.getPolygonOffset(),
+      polygonOffsetFactor: this.getPolygonOffsetFactor(),
+      polygonOffsetUnits: this.getPolygonOffsetUnits(),
+      precision: this.getPrecision(),
+      premultipliedAlpha: this.getPremultipliedAlpha(),
+      dithering: this.getDithering(),
+      flatShading: this.getFlatShading(),
+      shadowSide: this.getShadowSide(),
+      toneMapped: this.getToneMapped(),
+      transparent: this.getTransparent(),
+      stencilWrite: this.getStencilWrite(),
+      stencilFunc: this.getStencilFunc(),
+      stencilRef: this.getStencilRef(),
+      stencilWriteMask: this.getStencilWriteMask(),
+      stencilFuncMask: this.getStencilFuncMask(),
+      stencilFail: this.getStencilFail(),
+      stencilZFail: this.getStencilZFail(),
+      stencilZPass: this.getStencilZPass(),
+      userData: this.getUserData(),
     }, extendObj);
-    return Object.assign({
-      blendDst: this.getBlendDst('oneminussrcalpha'),
-      blendDstAlpha: this.getBlendDstAlpha(null),
-      blendEquation: this.getBlendEquation('add'),
-      blendEquationAlpha: this.getBlendEquationAlpha(null),
-      blendSrc: this.getBlendSrc('srcalpha'),
-      blendSrcAlpha: this.getBlendSrcAlpha(null),
-      clipIntersection: this.getClipIntersection(false),
-      clippingPlanes: this.getClippingPlanes([]),
-      clipShadows: this.getClipShadows(false),
-      colorWrite: this.getColorWrite(true),
-      // defines: this.getDefines(null),
-      depthFunc: this.getDepthFunc('lessequal'),
-      depthTest: this.getDepthTest(true),
-      depthWrite: this.getDepthWrite(true),
-      fog: this.getFog(true),
-      opacity: this.getOpacity(1),
-      polygonOffset: this.getPolygonOffset(false),
-      polygonOffsetFactor: this.getPolygonOffsetFactor(0),
-      polygonOffsetUnits: this.getPolygonOffsetUnits(0),
-      precision: this.getPrecision('none'),
-      premultipliedAlpha: this.getPremultipliedAlpha(false),
-      dithering: this.getDithering(false),
-      flatShading: this.getFlatShading(false),
-      shadowSide: this.getShadowSide('none'),
-      toneMapped: this.getToneMapped(true),
-      transparent: this.getTransparent(false),
-      stencilWrite: this.getStencilWrite(false),
-      stencilFunc: this.getStencilFunc('always'),
-      stencilRef: this.getStencilRef(0),
-      stencilWriteMask: this.getStencilWriteMask(0xff),
-      stencilFuncMask: this.getStencilFuncMask(0xff),
-      stencilFail: this.getStencilFail('keep'),
-      stencilZFail: this.getStencilZFail('keep'),
-      stencilZPass: this.getStencilZPass('keep'),
-      userData: this.getUserData(1),
-    }, extendObj);
+    const materialParametersSafe : THREE.MaterialParameters = {}
+    Object.entries(materialParameters).forEach(([key, value]) => {
+      if (ThreeUtil.isNotNull(value)) {
+        materialParametersSafe[key] = value;
+      }
+    });
+    return materialParametersSafe
   }
 
   private material: THREE.Material = null;
@@ -897,35 +855,37 @@ export class MaterialComponent implements OnInit, OnChanges {
     if (this.material === null) {
       switch (this.type.toLowerCase()) {
         case 'linebasic':
-          this.material = new THREE.LineBasicMaterial({
-            opacity: 1.0,
-            linewidth: 1,
-            vertexColors: true
-          })
+          const parametersLineBasicMaterial: THREE.LineBasicMaterialParameters = {
+            opacity: this.getOpacity(),
+            linewidth: this.getLinewidth(),
+            vertexColors: this.getVertexColors()
+          }
+          this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
           break;
         case 'linedashed':
-          this.material = new THREE.LineDashedMaterial({
-            color: this.getColor(0xffffff),
-            vertexColors: true,
-            dashSize: 2,
-            gapSize: 2,
-            scale: 0.1
-          })
+          const parametersLineDashedMaterial: THREE.LineDashedMaterialParameters = {
+            color: this.getColor(),
+            vertexColors: this.getVertexColors(),
+            dashSize: this.getDashSize(),
+            gapSize: this.getGapSize(),
+            scale: this.getScale()
+          }
+          this.material = new THREE.LineDashedMaterial(this.getMaterialParameters(parametersLineDashedMaterial));
           break;
         case 'meshbasic':
           const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
-            color: this.getColor(0xffffff),
-            aoMapIntensity: this.getAoMapIntensity(1),
-            refractionRatio: this.getRefractionRatio(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            reflectivity: this.getReflectivity(0.5),
-            opacity: this.getOpacity(1),
-            combine: this.getCombine('multiply'),
-            wireframeLinecap: this.getWireframeLinecap('round'),
-            wireframeLinejoin: this.getWireframeLinejoin('round'),
+            color: this.getColor(),
+            aoMapIntensity: this.getAoMapIntensity(),
+            refractionRatio: this.getRefractionRatio(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            reflectivity: this.getReflectivity(),
+            opacity: this.getOpacity(),
+            combine: this.getCombine(),
+            wireframeLinecap: this.getWireframeLinecap(),
+            wireframeLinejoin: this.getWireframeLinejoin(),
           }
           this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
           break;
@@ -935,202 +895,225 @@ export class MaterialComponent implements OnInit, OnChanges {
             alphaMap: this.getTexture('alphaMap'),
             // depthPacking: getDepthPackingStrategies(), todo
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(0),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
           }
           this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
           break;
         case 'meshdistance':
-          this.material = new THREE.MeshDistanceMaterial({
-
-          });
+          const parametersMeshDistanceMaterial: THREE.MeshDistanceMaterialParameters = {
+            map: this.getTexture('map'),
+            alphaMap: this.getTexture('alphaMap'),
+            displacementMap: this.getTexture('displacementMap'),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
+            farDistance: this.getFarDistance(),
+            nearDistance: this.getNearDistance(),
+            referencePosition: this.getReferencePosition()
+          }
+          this.material = new THREE.MeshDistanceMaterial(this.getMaterialParameters(parametersMeshDistanceMaterial));
           break;
         case 'meshmatcap':
-          this.material = new THREE.MeshMatcapMaterial({
-
-          });
+          const parametersMeshMatcapMaterial: THREE.MeshMatcapMaterialParameters = {
+            color: this.getColor(),
+            matcap: this.getTexture('matcap'),
+            map: this.getTexture('map'),
+            alphaMap: this.getTexture('alphaMap'),
+            bumpMap: this.getTexture('bumpMap'),
+            bumpScale: this.getBumpScale(),
+            normalMap: this.getTexture('normalMap'),
+            normalMapType: this.getNormalMapType(),
+            normalScale: this.getNormalScale(),
+            displacementMap: this.getTexture('displacementMap'),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
+          }
+          this.material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
           break;
         case 'meshnormal':
           const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
             bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(1),
+            bumpScale: this.getBumpScale(),
             normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType(''),
-            normalScale: this.getNormalScale(1, 1),
+            normalMapType: this.getNormalMapType(),
+            normalScale: this.getNormalScale(),
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(0),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
           break;
         case 'meshphong':
           const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
-            color: this.getColor(0xffffff),
+            color: this.getColor(),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(1),
+            lightMapIntensity: this.getLightMapIntensity(),
             aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(1),
-            emissive: this.getEmissive(0x000000),
-            emissiveIntensity: this.getEmissiveIntensity(1),
+            aoMapIntensity: this.getAoMapIntensity(),
+            emissive: this.getEmissive(),
+            emissiveIntensity: this.getEmissiveIntensity(),
             emissiveMap: this.getTexture('emissiveMap'),
             bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(1),
+            bumpScale: this.getBumpScale(),
             normalMap: this.getTexture('normalMap'),
             normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(1, 1),
+            normalScale: this.getNormalScale(),
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(1),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
             alphaMap: this.getTexture('alphaMap'),
             envMap: this.getTexture('envMap'),
-            refractionRatio: this.getRefractionRatio(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false),
-            reflectivity: this.getReflectivity(0.5),
-            specular: this.getSpecular(0x111111),
-            shininess: this.getShininess(30),
-            opacity: this.getOpacity(1),
+            refractionRatio: this.getRefractionRatio(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals(),
+            reflectivity: this.getReflectivity(),
+            specular: this.getSpecular(),
+            shininess: this.getShininess(),
+            opacity: this.getOpacity(),
             specularMap: this.getTexture('clearcoatNormalMap'),
-            combine: this.getCombine('multiply'),
-            wireframeLinecap: this.getWireframeLinecap('round'),
-            wireframeLinejoin: this.getWireframeLinejoin('round')
+            combine: this.getCombine(),
+            wireframeLinecap: this.getWireframeLinecap(),
+            wireframeLinejoin: this.getWireframeLinejoin()
           }
           this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
           break;
         case 'meshphysical':
           const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
-            color: this.getColor(0xffffff),
-            roughness: this.getRoughness(1),
-            metalness: this.getMetalness(0),
+            color: this.getColor(),
+            roughness: this.getRoughness(),
+            metalness: this.getMetalness(),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(1),
+            lightMapIntensity: this.getLightMapIntensity(),
             aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(1),
-            emissive: this.getEmissive(0x000000),
-            emissiveIntensity: this.getEmissiveIntensity(1),
+            aoMapIntensity: this.getAoMapIntensity(),
+            emissive: this.getEmissive(),
+            emissiveIntensity: this.getEmissiveIntensity(),
             emissiveMap: this.getTexture('emissiveMap'),
             bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(1),
+            bumpScale: this.getBumpScale(),
             normalMap: this.getTexture('normalMap'),
             normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(1, 1),
+            normalScale: this.getNormalScale(),
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(1),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
             roughnessMap: this.getTexture('roughnessMap'),
             metalnessMap: this.getTexture('metalnessMap'),
             alphaMap: this.getTexture('alphaMap'),
             envMap: this.getTexture('envMap'),
-            envMapIntensity: this.getEnvMapIntensity(1),
-            refractionRatio: this.getRefractionRatio(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            skinning: this.getSkinning(false),
-            vertexTangents: this.getVertexTangents(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false),
-            clearcoat: this.getClearcoat(0),
+            envMapIntensity: this.getEnvMapIntensity(),
+            refractionRatio: this.getRefractionRatio(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            skinning: this.getSkinning(),
+            vertexTangents: this.getVertexTangents(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals(),
+            clearcoat: this.getClearcoat(),
             // clearcoatMap: this.getTexture('clearcoatMap'),
-            clearcoatRoughness: this.getClearcoatRoughness(0),
+            clearcoatRoughness: this.getClearcoatRoughness(),
             // clearcoatRoughnessMap: this.getTexture('clearcoatRoughnessMap'),
-            clearcoatNormalScale: this.getClearcoatNormalScale(1, 1),
+            clearcoatNormalScale: this.getClearcoatNormalScale(),
             clearcoatNormalMap: this.getTexture('clearcoatNormalMap'),
-            reflectivity: this.getReflectivity(0.5),
-            // ior: this.getIor(1.5),
-            sheen: this.getSheen(null),
-            // transmission: this.getTransmission(0),
+            reflectivity: this.getReflectivity(),
+            // ior: this.getIor(),
+            sheen: this.getSheen(),
+            // transmission: this.getTransmission(),
             // transmissionMap: this.getTexture('transmissionMap')
           }
           this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
           break;
         case 'meshstandard':
           const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
-            color: this.getColor(0xffffff),
-            roughness: this.getRoughness(1),
-            metalness: this.getMetalness(0),
+            color: this.getColor(),
+            roughness: this.getRoughness(),
+            metalness: this.getMetalness(),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(1),
+            lightMapIntensity: this.getLightMapIntensity(),
             aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(1),
-            emissive: this.getEmissive(0x000000),
-            emissiveIntensity: this.getEmissiveIntensity(1),
+            aoMapIntensity: this.getAoMapIntensity(),
+            emissive: this.getEmissive(),
+            emissiveIntensity: this.getEmissiveIntensity(),
             emissiveMap: this.getTexture('emissiveMap'),
             bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(1),
+            bumpScale: this.getBumpScale(),
             normalMap: this.getTexture('normalMap'),
             normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(1, 1),
+            normalScale: this.getNormalScale(),
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(0),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
             roughnessMap: this.getTexture('roughnessMap'),
             metalnessMap: this.getTexture('metalnessMap'),
             alphaMap: this.getTexture('alphaMap'),
             envMap: this.getTexture('envMap'),
-            envMapIntensity: this.getEnvMapIntensity(1),
+            envMapIntensity: this.getEnvMapIntensity(),
             refractionRatio: this.getRefractionRatio(0.98),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            skinning: this.getSkinning(false),
-            vertexTangents: this.getVertexTangents(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            skinning: this.getSkinning(),
+            vertexTangents: this.getVertexTangents(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
           break;
         case 'meshtoon':
           const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
-            color: this.getColor(0xffffff),
-            opacity: this.getOpacity(1),
+            color: this.getColor(),
+            opacity: this.getOpacity(),
             gradientMap: this.getTexture('gradientMap'),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(1),
+            lightMapIntensity: this.getLightMapIntensity(),
             aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(1),
-            emissive: this.getEmissive(0x000000),
-            emissiveIntensity: this.getEmissiveIntensity(1),
+            aoMapIntensity: this.getAoMapIntensity(),
+            emissive: this.getEmissive(),
+            emissiveIntensity: this.getEmissiveIntensity(),
             emissiveMap: this.getTexture('emissiveMap'),
             bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(1),
+            bumpScale: this.getBumpScale(),
             normalMap: this.getTexture('normalMap'),
             normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(1, 1),
+            normalScale: this.getNormalScale(),
             displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(1),
-            displacementBias: this.getDisplacementBias(0),
+            displacementScale: this.getDisplacementScale(),
+            displacementBias: this.getDisplacementBias(),
             alphaMap: this.getTexture('alphaMap'),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
             wireframeLinecap: this.getWireframeLinecap('round'),
             wireframeLinejoin: this.getWireframeLinejoin('round'),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
           break;
         case 'points':
           const parametersPointsMaterial: THREE.PointsMaterialParameters = {
-            color: this.getColor(0xffffff),
+            color: this.getColor(),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
-            size: this.getSize(1),
-            sizeAttenuation: this.getSizeAttenuation(true),
-            morphTargets: this.getMorphTargets(false),
+            size: this.getSize(),
+            sizeAttenuation: this.getSizeAttenuation(),
+            morphTargets: this.getMorphTargets(),
           }
           this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
           break;
@@ -1139,14 +1122,14 @@ export class MaterialComponent implements OnInit, OnChanges {
             uniforms: this.getUniforms({}),
             vertexShader: this.getShader('x-shader/x-vertex'),
             fragmentShader: this.getShader('x-shader/x-fragment'),
-            linewidth: this.getLinewidth(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            lights: this.getLights(false),
-            clipping: this.getClipping(false),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            linewidth: this.getLinewidth(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            lights: this.getLights(),
+            clipping: this.getClipping(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
           break;
@@ -1155,57 +1138,57 @@ export class MaterialComponent implements OnInit, OnChanges {
             uniforms: this.getUniforms({}),
             vertexShader: this.getShader('x-shader/x-vertex'),
             fragmentShader: this.getShader('x-shader/x-fragment'),
-            linewidth: this.getLinewidth(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
-            lights: this.getLights(false),
-            clipping: this.getClipping(false),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            linewidth: this.getLinewidth(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
+            lights: this.getLights(),
+            clipping: this.getClipping(),
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
           break;
         case 'shadow':
           this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
-            color: this.getColor(0xffffff)
+            color: this.getColor()
           }));
           break;
         case 'sprite':
           const parametersSpriteMaterial: THREE.SpriteMaterialParameters = {
-            color: this.getColor(0xffffff),
+            color: this.getColor(),
             map: this.getTexture('map'),
             alphaMap: this.getTexture('alphaMap'),
-            rotation: this.getRotation(0),
-            sizeAttenuation: this.getSizeAttenuation(true)
+            rotation: this.getRotation(),
+            sizeAttenuation: this.getSizeAttenuation()
           }
           this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
           break;
         case 'meshlambert':
         default:
           const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
-            color: this.getColor(0xffffff),
-            emissive: this.getEmissive(0x000000),
-            emissiveIntensity: this.getEmissiveIntensity(1),
+            color: this.getColor(),
+            emissive: this.getEmissive(),
+            emissiveIntensity: this.getEmissiveIntensity(),
             emissiveMap: this.getTexture('emissiveMap'),
             map: this.getTexture('map'),
             lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(1),
+            lightMapIntensity: this.getLightMapIntensity(),
             aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(1),
+            aoMapIntensity: this.getAoMapIntensity(),
             specularMap: this.getTexture('specularMap'),
             alphaMap: this.getTexture('alphaMap'),
             envMap: this.getTexture('envMap'),
             combine: this.getCombine('multiply'),
-            reflectivity: this.getReflectivity(1),
-            refractionRatio: this.getRefractionRatio(1),
-            wireframe: this.getWireframe(false),
-            wireframeLinewidth: this.getWireframeLinewidth(1),
+            reflectivity: this.getReflectivity(),
+            refractionRatio: this.getRefractionRatio(),
+            wireframe: this.getWireframe(),
+            wireframeLinewidth: this.getWireframeLinewidth(),
             wireframeLinecap: this.getWireframeLinecap('round'),
             wireframeLinejoin: this.getWireframeLinejoin('round'),
-            skinning: this.getSkinning(false),
-            morphTargets: this.getMorphTargets(false),
-            morphNormals: this.getMorphNormals(false)
+            skinning: this.getSkinning(),
+            morphTargets: this.getMorphTargets(),
+            morphNormals: this.getMorphNormals()
           }
           this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
           break;

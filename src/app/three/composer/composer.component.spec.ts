@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CamerapassComponent } from './camerapass.component';
+import { ComposerComponent } from './composer.component';
 
-describe('CamerapassComponent', () => {
-  let component: CamerapassComponent;
-  let fixture: ComponentFixture<CamerapassComponent>;
+describe('ComposerComponent', () => {
+  let component: ComposerComponent;
+  let fixture: ComponentFixture<ComposerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CamerapassComponent ]
+      declarations: [ ComposerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CamerapassComponent);
+    fixture = TestBed.createComponent(ComposerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
