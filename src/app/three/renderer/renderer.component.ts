@@ -97,7 +97,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.renderer !== null) {
       this.rendererWidth = width;
       this.rendererHeight = height;
-      this.renderer.setSize(width, height);
+      this.renderer.setSize(this.rendererWidth, this.rendererHeight);
+      this.cameras.forEach(camera => {
+        camera.setCameraSize(this.rendererWidth, this.rendererHeight);
+      })
     }
   }
 
@@ -153,7 +156,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   private getStats(): ThreeStats {
     if (this.stats === null) {
-      this.stats = ThreeUtil.getStats({ 
+      this.stats = ThreeUtil.getStats({
         position : 'absolute',
         left : '10px',
         top : '25px'
@@ -228,6 +231,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     const renderTimer = this.clock.getTimer();
     this.onRender.emit(renderTimer);
+    ThreeUtil.render(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
         this.control.update();
@@ -250,7 +254,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @HostListener('window:resize')
   resizeRender(e: any) {
-    if (this.width <= 0 && this.height <= 0) {
+    if (this.width <= 0 || this.height <= 0) {
       this.setSize(window.innerWidth, window.innerHeight);
     }
   }

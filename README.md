@@ -7,8 +7,8 @@ cd my-app
 ng serve --open
 ng g c three/scene
 ng g c three/camera
-ng g c three/camerapass
-
+ng g c three/pass
+ng g c three/tween
 ng g c three/renderer
 ng g c three/geometry
 ng g c three/material

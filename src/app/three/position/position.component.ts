@@ -1,23 +1,19 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { TweenComponent } from './../tween/tween.component';
+import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList } from '@angular/core';
 import * as THREE from 'three';
-import { AbstractSvgGeometry } from '../interface';
+import { AbstractSvgGeometry, AbstractThreeComponent } from '../interface';
 
 @Component({
   selector: 'three-position',
   templateUrl: './position.component.html',
   styleUrls: ['./position.component.scss']
 })
-export class PositionComponent implements OnInit {
+export class PositionComponent extends AbstractThreeComponent implements OnInit {
 
   @Input() visible: boolean = true;
   @Input() x: number = 0;
   @Input() y: number = 0;
   @Input() z: number = 0;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z) {
@@ -46,6 +42,7 @@ export class PositionComponent implements OnInit {
     if (this.refObject3d !== null && this.visible) {
       if (this.refObject3d instanceof THREE.Object3D) {
         this.refObject3d.position.copy(this.getPosition())
+        this.setTweenTarget(this.refObject3d.position);
       } else if (this.refObject3d instanceof AbstractSvgGeometry) {
         this.refObject3d.meshPositions.forEach(position => {
           position.copy(this.getPosition());

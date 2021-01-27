@@ -9,15 +9,14 @@ exports.__esModule = true;
 exports.RendererComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
-var stats_module_1 = require("three/examples/jsm/libs/stats.module");
 var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
 var FlyControls_1 = require("three/examples/jsm/controls/FlyControls");
 var FirstPersonControls_1 = require("three/examples/jsm/controls/FirstPersonControls");
 var TrackballControls_1 = require("three/examples/jsm/controls/TrackballControls");
 var TransformControls_1 = require("three/examples/jsm/controls/TransformControls");
-var dat_gui_module_1 = require("three/examples/jsm/libs/dat.gui.module");
 var camera_component_1 = require("./../camera/camera.component");
 var scene_component_1 = require("./../scene/scene.component");
+var interface_1 = require("../interface");
 var RendererComponent = /** @class */ (function () {
     function RendererComponent() {
         this.type = "webgl";
@@ -77,7 +76,7 @@ var RendererComponent = /** @class */ (function () {
                     this.gui = null;
                 }
                 if (this.guiControl != null) {
-                    this.setupGui(this.guiControl, this.getGui(), this.guiParams);
+                    interface_1.ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
                 }
             }
         }
@@ -97,10 +96,14 @@ var RendererComponent = /** @class */ (function () {
         }
     };
     RendererComponent.prototype.setSize = function (width, height) {
+        var _this = this;
         if (this.renderer !== null) {
             this.rendererWidth = width;
             this.rendererHeight = height;
-            this.renderer.setSize(width, height);
+            this.renderer.setSize(this.rendererWidth, this.rendererHeight);
+            this.cameras.forEach(function (camera) {
+                camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
+            });
         }
     };
     RendererComponent.prototype.ngAfterContentInit = function () {
@@ -145,71 +148,32 @@ var RendererComponent = /** @class */ (function () {
     };
     RendererComponent.prototype.getStats = function () {
         if (this.stats === null) {
-            this.stats = stats_module_1["default"]();
-            this.stats.dom.style.position = 'absolute';
-            this.stats.dom.style.left = '10px';
-            this.stats.dom.style.top = '25px';
+            this.stats = interface_1.ThreeUtil.getStats({
+                position: 'absolute',
+                left: '10px',
+                top: '25px'
+            });
             this.debug.nativeElement.appendChild(this.stats.dom);
         }
         return this.stats;
     };
     RendererComponent.prototype.getGui = function () {
         if (this.gui == null) {
-            this.gui = new dat_gui_module_1.GUI();
-            this.gui.domElement.style.position = 'absolute';
-            this.gui.domElement.style.right = '0px';
-            this.gui.domElement.style.top = '0px';
+            this.gui = new interface_1.ThreeGui({
+                position: 'absolute',
+                right: '0px',
+                top: '0px'
+            });
             this.debug.nativeElement.appendChild(this.gui.domElement);
         }
         return this.gui;
     };
-    RendererComponent.prototype.setupGuiChange = function (control, onFinishChange, onChange, listen) {
-        if (listen != null && listen) {
-            control.listen();
-        }
-        if (onFinishChange != null) {
-            control.onFinishChange(onFinishChange);
-        }
-        if (onChange != null) {
-            control.onChange(onChange);
-        }
-    };
-    RendererComponent.prototype.setupGui = function (control, gui, params) {
-        var _this = this;
-        params.forEach(function (param) {
-            switch (param.type) {
-                case 'color':
-                    _this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
-                    break;
-                case 'folder':
-                    var folder = gui.addFolder(param.name);
-                    _this.setupGui(param.control ? control[param.control] : control, folder, param.children);
-                    if (param.isOpen) {
-                        folder.open();
-                    }
-                    break;
-                case 'number':
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen);
-                    break;
-                case 'listen':
-                    gui.add(param.control ? control[param.control] : control, param.name).listen();
-                    break;
-                case 'select':
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen);
-                    break;
-                case 'button':
-                default:
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
-                    break;
-            }
-        });
-    };
     RendererComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         if (this.guiControl != null) {
-            this.setupGui(this.guiControl, this.getGui(), this.guiParams);
+            interface_1.ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
         }
-        this.clock = new THREE.Clock();
+        this.clock = interface_1.ThreeUtil.getClock(true);
         if (this.statsMode >= 0) {
             if (this.stats === null) {
                 this.getStats();
@@ -256,22 +220,18 @@ var RendererComponent = /** @class */ (function () {
         if (this.stats != null) {
             this.stats.begin();
         }
-        var delta = this.clock.getDelta();
-        var elapsedTime = this.clock.getElapsedTime();
-        var renderTimer = {
-            delta: delta,
-            elapsedTime: elapsedTime
-        };
+        var renderTimer = this.clock.getTimer();
         this.onRender.emit(renderTimer);
+        interface_1.ThreeUtil.render(renderTimer);
         if (this.control !== null) {
             if (this.control instanceof OrbitControls_1.OrbitControls) {
                 this.control.update();
             }
             else if (this.control instanceof FlyControls_1.FlyControls) {
-                this.control.update(delta);
+                this.control.update(renderTimer.delta);
             }
             else if (this.control instanceof FirstPersonControls_1.FirstPersonControls) {
-                this.control.update(delta);
+                this.control.update(renderTimer.delta);
             }
             else if (this.control instanceof TrackballControls_1.TrackballControls) {
                 this.control.update();
@@ -286,7 +246,7 @@ var RendererComponent = /** @class */ (function () {
         requestAnimationFrame(function () { _this.render(); });
     };
     RendererComponent.prototype.resizeRender = function (e) {
-        if (this.width <= 0 && this.height <= 0) {
+        if (this.width <= 0 || this.height <= 0) {
             this.setSize(window.innerWidth, window.innerHeight);
         }
     };

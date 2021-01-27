@@ -139,6 +139,7 @@ import { SvgComponent } from './three/svg/svg.component';
 import { TranslationComponent } from './three/translation/translation.component';
 import { PassComponent } from './three/pass/pass.component';
 import { ComposerComponent } from './three/composer/composer.component';
+import { TweenComponent } from './three/tween/tween.component';
 
 @NgModule({
   declarations: [
@@ -277,7 +278,8 @@ import { ComposerComponent } from './three/composer/composer.component';
     Page0915Component,
     Page0916Component,
     PassComponent,
-    ComposerComponent
+    ComposerComponent,
+    TweenComponent
   ],
   imports: [
     BrowserModule,
