@@ -140,6 +140,7 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { PassComponent } from './three/pass/pass.component';
 import { ComposerComponent } from './three/composer/composer.component';
 import { TweenComponent } from './three/tween/tween.component';
+import { SharedComponent } from './three/shared/shared.component';
 
 @NgModule({
   declarations: [
@@ -279,7 +280,8 @@ import { TweenComponent } from './three/tween/tween.component';
     Page0916Component,
     PassComponent,
     ComposerComponent,
-    TweenComponent
+    TweenComponent,
+    SharedComponent
   ],
   imports: [
     BrowserModule,

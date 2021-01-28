@@ -765,8 +765,8 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             bevelSize: this.getBevelSize(0),
             bevelOffset: this.getBevelOffset(0),
             bevelSegments: this.getBevelSegments(3),
-            // extrudePath: new THREE.Curve<THREE.Vector3>(),
-            // UVGenerator: null // THREE.UVGenerator;
+            extrudePath: new THREE.Curve<THREE.Vector3>(),
+            UVGenerator: null // THREE.UVGenerator;
           });
           break;
         case 'extrude':
@@ -779,8 +779,8 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             bevelSize: this.getBevelSize(0),
             bevelOffset: this.getBevelOffset(0),
             bevelSegments: this.getBevelSegments(3),
-            // extrudePath: new THREE.Curve<THREE.Vector3>(),
-            // UVGenerator: null // THREE.UVGenerator;
+            extrudePath: new THREE.Curve<THREE.Vector3>(),
+            UVGenerator: null // THREE.UVGenerator;
           });
           break;
         case 'icosahedronbuffer':

@@ -764,6 +764,7 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
     const materialParameters : THREE.MaterialParameters = Object.assign({
+      blending : this.getBlending(),
       blendDst: this.getBlendDst(),
       blendDstAlpha: this.getBlendDstAlpha(),
       blendEquation: this.getBlendEquation(),
@@ -799,6 +800,11 @@ export class MaterialComponent implements OnInit, OnChanges {
       stencilZFail: this.getStencilZFail(),
       stencilZPass: this.getStencilZPass(),
       userData: this.getUserData(),
+      alphaTest: this.getAlphaTest(),
+      name: this.getName(),
+      side: this.getSide(),
+      vertexColors: this.getVertexColors(),
+      visible: this.getVisible(),
     }, extendObj);
     const materialParametersSafe : THREE.MaterialParameters = {}
     Object.entries(materialParameters).forEach(([key, value]) => {
@@ -875,6 +881,7 @@ export class MaterialComponent implements OnInit, OnChanges {
         case 'meshbasic':
           const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
             color: this.getColor(),
+            opacity: this.getOpacity(),
             aoMapIntensity: this.getAoMapIntensity(),
             refractionRatio: this.getRefractionRatio(),
             wireframe: this.getWireframe(),
@@ -882,10 +889,14 @@ export class MaterialComponent implements OnInit, OnChanges {
             skinning: this.getSkinning(),
             morphTargets: this.getMorphTargets(),
             reflectivity: this.getReflectivity(),
-            opacity: this.getOpacity(),
             combine: this.getCombine(),
             wireframeLinecap: this.getWireframeLinecap(),
             wireframeLinejoin: this.getWireframeLinejoin(),
+            map: this.getTexture('map'),
+            aoMap: this.getTexture('aoMap'),
+            specularMap: this.getTexture('specularMap'),
+            alphaMap: this.getTexture('alphaMap'),
+            envMap: this.getTexture('envMap'),
           }
           this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
           break;

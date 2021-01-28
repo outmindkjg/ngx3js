@@ -36,6 +36,8 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   @Input() controlType: string = "none";
   @Input() controlAutoRotate: boolean = null;
   @Input() scene: SceneComponent = null;
+  @Input() scenes: SceneComponent[] = null;
+  
 
   @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
   @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
@@ -88,7 +90,7 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
       if (this.renderer instanceof THREE.WebGLRenderer) {
         const effectComposer : EffectComposer = new EffectComposer(this.renderer);
         this.pass.forEach(item => {
-          const pass = item.getPass(this.getScene(), this.getCamera(), this);
+          const pass = item.getPass(this.getScene(), this.getCamera(), this, this);
           if (pass !== null) {
             effectComposer.addPass(pass);
           }
@@ -255,22 +257,45 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   }
 
   render(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, renderTimer : RendererTimer) {
-    const scene = this.getScene(scenes);
-    if (scene !== null) {
-      if (this.autoClear !== null) {
-        if (renderer instanceof THREE.WebGLRenderer) {
-          renderer.autoClear = this.autoClear;
+    if (this.scenes !== null && this.scenes.length > 0) {
+      this.scenes.forEach((sceneCom) => { 
+        const scene = sceneCom.getScene();
+        if (scene !== null) {
+          if (this.autoClear !== null) {
+            if (renderer instanceof THREE.WebGLRenderer) {
+              renderer.autoClear = this.autoClear;
+            }
+          }
+          if (renderer instanceof THREE.WebGLRenderer) {
+            this.composer.forEach(composer => {
+              composer.render(renderer, renderTimer);
+            })
+          }
+          if (this.effectComposer !== null) {
+            this.effectComposer.render(renderTimer.delta);
+          } else {
+            renderer.render(scene, this.getCamera());
+          }
         }
-      }
-      if (renderer instanceof THREE.WebGLRenderer) {
-        this.composer.forEach(composer => {
-          composer.render(renderer, renderTimer);
-        })
-      }
-      if (this.effectComposer !== null) {
-        this.effectComposer.render(renderTimer.delta);
-      } else {
-        renderer.render(scene, this.getCamera());
+      });
+    } else {
+      const scene = this.getScene(scenes);
+      if (scene !== null) {
+        if (this.autoClear !== null) {
+          if (renderer instanceof THREE.WebGLRenderer) {
+            renderer.autoClear = this.autoClear;
+          }
+        }
+        if (renderer instanceof THREE.WebGLRenderer) {
+          this.composer.forEach(composer => {
+            composer.render(renderer, renderTimer);
+          })
+        }
+        if (this.effectComposer !== null) {
+          this.effectComposer.render(renderTimer.delta);
+        } else {
+          renderer.render(scene, this.getCamera());
+        }
       }
     }
   }

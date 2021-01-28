@@ -22,8 +22,8 @@
     "@tweenjs/tween.js": "^18.6.4",
     "physijs": "^1.0.4",
     "rxjs": "~6.6.0",
-    "three": "^0.115.0",
-    "three-csg-ts": "^1.0.4",
+    "three": "^0.124.0",
+    "three-csg-ts": "^2.2.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

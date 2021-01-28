@@ -1,9 +1,9 @@
-<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer  [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera #camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="-30" [y]="40" [z]="30"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
-    <three-scene #scene [physiType]="'physi'">
+    <three-scene #scene >
         <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
         <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>

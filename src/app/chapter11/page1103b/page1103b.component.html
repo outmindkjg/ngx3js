@@ -1,19 +1,79 @@
-<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-        <three-position [x]="20" [y]="0" [z]="-20"></three-position>
-        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+<three-renderer #render [statsMode]="0" [antialias]="true" [clearColor]="'0x000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-shared>
+        <three-pass #bgPass [type]="'Render'" [scene]="sceneBG" [camera]="cameraBG"></three-pass>
+        <three-pass #renderPass [type]="'Render'" [clear]="false" [scene]="sceneEarth" [camera]="cameraEarth" ></three-pass>
+        <three-pass #renderPass2 [type]="" [clear]="false" [scene]="sceneMars" [camera]="cameraEarth" ></three-pass>
+        <three-pass #marsMask [type]="'Mask'" [clear]="false" [scene]="sceneMars" [camera]="cameraEarth"></three-pass>
+        <three-pass #effectColorify [type]="'Shader'"  [clear]="false" [shader]="'Colorify'" [camera]="cameraEarth"></three-pass>
+        <three-pass #clearMask [type]="'ClearMask'" [clear]="false" [camera]="cameraEarth"></three-pass>
+        <three-pass #earthMask [type]="'Mask'"  [clear]="false" [scene]="sceneEarth"  [camera]="cameraEarth"></three-pass>
+        <three-pass #effectSepia [type]="'Shader'"  [clear]="false" [shader]="'Sepia'" [camera]="cameraEarth"></three-pass>
+        <three-pass #effectCopy [type]="'Shader'" [clear]="false" [renderToScreen]="true" [shader]="'copy'" [camera]="cameraEarth"></three-pass>
+    </three-shared>
+    <three-camera #cameraBG [scene]="sceneBG" [type]="'Orthographic'" [fov]="45" [near]="0.1" [far]="2000" [left]="-1" [right]="1" [top]="1" [bottom]="-1">
+        <three-position [x]="0" [y]="0" [z]="50"></three-position>
     </three-camera>
-    <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.2" [castShadow]="true" >
-            <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
-            <three-lookat [position]="scene"></three-lookat>
-        </three-mesh>
+    <three-scene #sceneBG>
         <three-mesh>
-            <three-position [x]="0" [y]="0" [z]="0"></three-position>
-            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
-            <three-geometry [type]="'box'" [width]="10" [height]="10" [depth]="10"></three-geometry>
-            <three-material type="meshlambert" [color]="'0xff0000'" [wireframe]="controls.wireframe"></three-material>
+            <three-position [x]="0" [y]="0" [z]="-100"></three-position>
+            <three-scale [refer]="render" [x]="4" [y]="3" [z]="1"></three-scale>
+            <three-geometry [type]="'Plane'" [width]="1" [height]="1"></three-geometry>
+            <three-material type="MeshBasic" [depthTest]="false" [side]="'bouble'">
+              <three-texture [textureType]="'map'" [image]="'/assets/textures/starry-deep-outer-space-galaxy.jpg'"></three-texture>
+            </three-material>
         </three-mesh>
     </three-scene>
+    <three-camera [controlType]="'orbit'" #cameraEarth [autoClear]="false" [scenes]="[sceneEarth,sceneMars]" [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000" >
+        <three-position [x]="-10" [y]="15" [z]="25"></three-position>
+        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+        <three-composer [clear]="true">
+            <three-pass [refer]="bgPass"></three-pass>
+            <three-pass [refer]="effectSepia"></three-pass>
+<!--
+            <three-pass [refer]="renderPass"></three-pass>
+            <three-pass [refer]="renderPass2"></three-pass>
+            <three-pass [refer]="marsMask"></three-pass>
+            <three-pass [refer]="effectColorify"></three-pass>
+            <three-pass [refer]="clearMask"></three-pass>
+            <three-pass [refer]="earthMask"></three-pass>
+            <three-pass [refer]="effectSepia"></three-pass>
+            <three-pass [refer]="clearMask"></three-pass>
+            <three-pass [refer]="effectCopy"></three-pass>
+-->
+        </three-composer>
+    </three-camera>
+    <three-scene #sceneEarth>
+        <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>
+        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
+            <three-position [x]="550" [y]="100" [z]="550"></three-position>
+            <three-lookat [position]="sceneEarth"></three-lookat>
+        </three-mesh>
+        <three-mesh>
+            <three-position [x]="-10" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-geometry [type]="'Sphere'" [radius]="10" [widthSegments]="40" [heightSegments]="40"></three-geometry>
+            <three-material type="MeshPhong" [specular]="'0x4444aa'" [wireframe]="controls.wireframe">
+              <three-texture [textureType]="'map'" [image]="'/assets/textures/planets/Earth.png'"></three-texture>
+              <three-texture [textureType]="'specularMap'" [image]="'/assets/textures/planets/EarthSpec.png'"></three-texture>
+              <three-texture [textureType]="'normalMap'" [image]="'/assets/textures/planets/EarthNormal.png'"></three-texture>
+            </three-material>
+        </three-mesh>
+    </three-scene>
+    <three-scene #sceneMars>
+        <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>
+        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
+            <three-position [x]="550" [y]="100" [z]="550"></three-position>
+            <three-lookat [position]="sceneMars"></three-lookat>
+        </three-mesh>
+        <three-mesh>
+            <three-position [x]="10" [y]="0" [z]="0"></three-position>
+            <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
+            <three-geometry [type]="'Sphere'" [radius]="5" [widthSegments]="40" [heightSegments]="40"></three-geometry>
+            <three-material type="MeshPhong" [wireframe]="controls.wireframe">
+              <three-texture [textureType]="'map'" [image]="'/assets/textures/planets/Mars_2k-050104.png'"></three-texture>
+              <three-texture [textureType]="'normalMap'" [image]="'/assets/textures/planets/Mars-normalmap_2k.png'"></three-texture>
+            </three-material>
+        </three-mesh>
+    </three-scene>
+
 </three-renderer>

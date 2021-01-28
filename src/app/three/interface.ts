@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import * as TWEEN from '@tweenjs/tween.js';
+import { CameraComponent } from './camera/camera.component';
 
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
@@ -70,6 +71,14 @@ export abstract class AbstractGetGeometry extends AbstractThreeComponent {
   abstract getGeometry(): THREE.Geometry | THREE.BufferGeometry;
   abstract resetGeometry(clearGeometry: boolean);
 }
+
+export abstract class AbstractComposerComponent extends AbstractThreeComponent {
+  abstract getWriteBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
+  abstract getReadBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
+  abstract getRenderTarget1(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
+  abstract getRenderTarget2(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
+}
+
 
 
 export abstract class AbstractSvgGeometry extends AbstractThreeComponent {
@@ -208,6 +217,17 @@ export class ThreeUtil {
     }
   }
 
+  static getAngleSafe(
+    angle: number, 
+    altangle?: number
+  ): number {
+    const defValue = this.getTypeSafe(angle, altangle);
+    if (this.isNotNull(defValue)) {
+      return defValue / 180 * Math.PI;
+    }
+    return undefined;
+  }
+ 
   static getVector2Safe<T>(
     x: number,
     y: number,
@@ -532,3 +552,6 @@ export interface ThreeGuiController {
   hide(): void;
   show(): void;
 }
+
+
+

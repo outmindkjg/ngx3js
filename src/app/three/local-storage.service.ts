@@ -99,7 +99,7 @@ export class LocalStorageService {
       if (this.dracoLoader === null) {
         this.dracoLoader = new DRACOLoader();
       }
-      this.dracoLoader.load(key, (geometry: THREE.BufferGeometry) => {
+      this.dracoLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
         callBack(mesh);
       }, null, (e) => {
@@ -123,31 +123,6 @@ export class LocalStorageService {
       this.mmdLoader.load(key, callBack, null, (e) => {
         console.log(e);
       })
-    } else if (key.endsWith('.mtl')) {
-      if (this.mtlLoader === null) {
-        this.mtlLoader = new MTLLoader();
-      }
-      this.mtlLoader.load(key, (materialCreator: MTLLoader.MaterialCreator) => {
-        // const mesh = new THREE.Mesh(gltf, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        // callBack(mesh);
-        // todo
-      }, null, (e) => {
-        console.log(e);
-      })
-    } else if (key.endsWith('.obj')) {
-      if (this.objLoader2 === null) {
-        this.objLoader2 = new OBJLoader2();
-      }
-      this.objLoader2.load(key, callBack, null, (e) => {
-        console.log(e);
-      })
-    } else if (key.endsWith('.obj')) {
-      if (this.objLoader2 === null) {
-        this.objLoader2Parallel = new OBJLoader2Parallel();
-      }
-      this.objLoader2Parallel.load(key, callBack, null, (e) => {
-        console.log(e);
-      })
     } else if (key.endsWith('.pcd')) {
       if (this.pcdLoader === null) {
         this.pcdLoader = new PCDLoader();
@@ -159,7 +134,7 @@ export class LocalStorageService {
       if (this.prwmLoader === null) {
         this.prwmLoader = new PRWMLoader();
       }
-      this.prwmLoader.load(key, (geometry: THREE.BufferGeometry) => {
+      this.prwmLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
         callBack(mesh);
       }, null, (e) => {

@@ -32,7 +32,7 @@ export class TranslationComponent implements OnInit {
   resetTranslation(){
     if (this.refObject3d !== null && this.visible) {
       const refTranslation:ApplyMatrix4[] = [];
-      if (this.refObject3d instanceof THREE.Geometry) {
+      if (this.refObject3d instanceof THREE.BufferGeometry || this.refObject3d instanceof THREE.Geometry) {
         refTranslation.push(this.refObject3d);
       } else if (this.refObject3d instanceof AbstractGetGeometry) {
         refTranslation.push(this.refObject3d.getGeometry());

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+
 import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass';
@@ -23,7 +24,61 @@ import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass';
 import { TAARenderPass } from 'three/examples/jsm/postprocessing/TAARenderPass';
 import { TexturePass } from 'three/examples/jsm/postprocessing/TexturePass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-import { AbstractEffectComposer, ThreeUtil } from '../interface';
+
+import { AfterimageShader } from 'three/examples/jsm/shaders/AfterimageShader';
+import { BasicShader } from 'three/examples/jsm/shaders/BasicShader';
+import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader';
+import { BlendShader } from 'three/examples/jsm/shaders/BlendShader';
+import { BokehShader } from 'three/examples/jsm/shaders/BokehShader';
+import { BrightnessContrastShader } from 'three/examples/jsm/shaders/BrightnessContrastShader';
+import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader';
+import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader';
+import { ConvolutionShader } from 'three/examples/jsm/shaders/ConvolutionShader';
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader';
+import { DepthLimitedBlurShader } from 'three/examples/jsm/shaders/DepthLimitedBlurShader';
+import { DigitalGlitch } from 'three/examples/jsm/shaders/DigitalGlitch';
+import { DOFMipMapShader } from 'three/examples/jsm/shaders/DOFMipMapShader';
+import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader';
+import { FilmShader } from 'three/examples/jsm/shaders/FilmShader';
+import { FocusShader } from 'three/examples/jsm/shaders/FocusShader';
+import { FreiChenShader } from 'three/examples/jsm/shaders/FreiChenShader';
+import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
+import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader';
+import { GodRaysDepthMaskShader, GodRaysGenerateShader, GodRaysCombineShader, GodRaysFakeSunShader } from 'three/examples/jsm/shaders/GodRaysShader';
+import { HalftoneShader } from 'three/examples/jsm/shaders/HalftoneShader';
+import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader';
+import { HorizontalTiltShiftShader } from 'three/examples/jsm/shaders/HorizontalTiltShiftShader';
+import { HueSaturationShader } from 'three/examples/jsm/shaders/HueSaturationShader';
+import { KaleidoShader } from 'three/examples/jsm/shaders/KaleidoShader';
+import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityHighPassShader';
+import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader';
+import { MirrorShader } from 'three/examples/jsm/shaders/MirrorShader';
+import { NormalMapShader } from 'three/examples/jsm/shaders/NormalMapShader';
+import { OceanShaders } from 'three/examples/jsm/shaders/OceanShaders';
+import { ParallaxShader } from 'three/examples/jsm/shaders/ParallaxShader';
+import { PixelShader } from 'three/examples/jsm/shaders/PixelShader';
+import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader';
+import { SAOShader } from 'three/examples/jsm/shaders/SAOShader';
+import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader';
+import { SMAAEdgesShader, SMAAWeightsShader, SMAABlendShader } from 'three/examples/jsm/shaders/SMAAShader';
+import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader';
+import { SSAOShader } from 'three/examples/jsm/shaders/SSAOShader';
+import { SubsurfaceScatteringShader } from 'three/examples/jsm/shaders/SubsurfaceScatteringShader';
+import { TechnicolorShader } from 'three/examples/jsm/shaders/TechnicolorShader';
+import { ToneMapShader } from 'three/examples/jsm/shaders/ToneMapShader';
+import { ToonShader1, ToonShader2, ToonShaderDotted, ToonShaderHatching } from 'three/examples/jsm/shaders/ToonShader';
+import { TriangleBlurShader } from 'three/examples/jsm/shaders/TriangleBlurShader';
+import { UnpackDepthRGBAShader } from 'three/examples/jsm/shaders/UnpackDepthRGBAShader';
+import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader';
+import { VerticalTiltShiftShader } from 'three/examples/jsm/shaders/VerticalTiltShiftShader';
+import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader';
+import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
+import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
+import { CameraComponent } from '../camera/camera.component';
+
+import { AbstractComposerComponent, AbstractEffectComposer, ThreeUtil } from '../interface';
+import { SceneComponent } from '../scene/scene.component';
 
 @Component({
   selector: 'three-pass',
@@ -32,6 +87,7 @@ import { AbstractEffectComposer, ThreeUtil } from '../interface';
 })
 export class PassComponent implements OnInit {
   @Input() type: string = '';
+  @Input() refer: PassComponent = null;
   @Input() enabled: boolean = null;
   @Input() needsSwap: boolean = null;
   @Input() clear: boolean = null;
@@ -42,14 +98,15 @@ export class PassComponent implements OnInit {
   @Input() strength: number = null;
   @Input() kernelSize: number = null;
   @Input() sigma: number = null;
-  @Input() scene: THREE.Scene = null;
-  @Input() camera: THREE.Camera = null;
+  @Input() scene: THREE.Scene | SceneComponent = null;
+  @Input() camera: THREE.Camera | CameraComponent = null;
   @Input() params: BokehPassParamters = null;
   @Input() clearColor: THREE.Color | string | number = null;
   @Input() clearAlpha: number = null;
   @Input() envMap: THREE.CubeTexture = null;
   @Input() opacity: number = null;
-  @Input() center: THREE.Vector2 = null;
+  @Input() centerX: number = null;
+  @Input() centerY: number = null;
   @Input() angle: number = null;
   @Input() scale: number = null;
   @Input() noiseIntensity: number = null;
@@ -64,12 +121,13 @@ export class PassComponent implements OnInit {
   @Input() depthTexture: boolean = null;
   @Input() useNormals: boolean = null;
   @Input() renderTarget: THREE.WebGLRenderTarget = null;
-  @Input() shader: object = null;
+  @Input() shader: string = null;
   @Input() textureID: string = null;
-  @Input() map: THREE.Texture = null;
+  @Input() map: THREE.Texture | AbstractComposerComponent = null;
   @Input() radius: number = null;
   @Input() threshold: number = null;
-
+  @Input() goWild: boolean = null;
+  
   constructor() { }
 
   private getEnabled(def?: boolean): boolean {
@@ -112,14 +170,31 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.sigma, def);
   }
 
-  private getScene(def? : THREE.Scene): THREE.Scene {
+  private getScene(def?: THREE.Scene | SceneComponent ): THREE.Scene {
     const scene = ThreeUtil.getTypeSafe(this.scene, def);
-    return ThreeUtil.isNotNull(scene) ? scene : new THREE.Scene();
+    if (ThreeUtil.isNotNull(scene)) {
+      if (scene instanceof SceneComponent) {
+        return scene.getScene();
+      } else {
+        return scene;
+       }
+    } else {
+      return new THREE.Scene();
+    }
   }
 
-  private getCamera(def? : THREE.Camera): THREE.Camera {
+  private getCamera(def?: THREE.Camera | CameraComponent): THREE.Camera {
     const camera = ThreeUtil.getTypeSafe(this.camera, def);
-    return ThreeUtil.isNotNull(camera) ? camera : new THREE.Camera();
+    if (ThreeUtil.isNotNull(camera)) {
+      if (camera instanceof CameraComponent) {
+        return camera.getCamera();
+      } else {
+        return camera;
+       }
+    } else {
+      return new THREE.Camera();
+    }
+
   }
 
   private getParams(def?: BokehPassParamters): BokehPassParamters {
@@ -143,11 +218,11 @@ export class PassComponent implements OnInit {
   }
 
   private getCenter(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getTypeSafe(this.center, def);
+    return ThreeUtil.getVector2Safe(this.centerX, this.centerY, def);
   }
 
   private getAngle(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.angle, def);
+    return ThreeUtil.getAngleSafe(this.angle, def);
   }
 
   private getScale(def?: number): number {
@@ -202,16 +277,155 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.renderTarget, def);
   }
 
-  private getShader(def?: object): object {
-    return ThreeUtil.getTypeSafe(this.shader, def);
+  private getShader(def?: string): object {
+    const shader = ThreeUtil.getTypeSafe(this.shader, def, '');
+    switch (shader.toLowerCase()) {
+      case 'afterimage':
+        return AfterimageShader;
+      case 'basic':
+        return BasicShader;
+      case 'bleachbypass':
+        return BleachBypassShader;
+      case 'blend':
+        return BlendShader;
+      case 'bokeh':
+        return BokehShader;
+      case 'bokeh':
+        return BokehShader;
+      case 'brightnesscontrast':
+        return BrightnessContrastShader;
+      case 'colorcorrection':
+        return ColorCorrectionShader;
+      case 'colorify':
+        return ColorifyShader;
+      case 'convolution':
+        return ConvolutionShader;
+      case 'copy':
+        return CopyShader;
+      case 'depthlimitedblur':
+        return DepthLimitedBlurShader;
+      case 'digitalglitch':
+        return DigitalGlitch;
+      case 'dofmipmap':
+        return DOFMipMapShader;
+      case 'dotscreen':
+        return DotScreenShader;
+      case 'film':
+        return FilmShader;
+      case 'focus':
+        return FocusShader;
+      case 'freichen':
+        return FreiChenShader;
+      case 'fresnel':
+        return FresnelShader;
+      case 'fxaa':
+        return FXAAShader;
+      case 'gammacorrection':
+        return GammaCorrectionShader;
+      case 'godraysdepthmask':
+        return GodRaysDepthMaskShader;
+      case 'godraysgenerate':
+        return GodRaysGenerateShader;
+      case 'godrayscombine':
+        return GodRaysCombineShader;
+      case 'godraysfakesun':
+        return GodRaysFakeSunShader;
+      case 'halftone':
+        return HalftoneShader;
+      case 'horizontalblur':
+        return HorizontalBlurShader;
+      case 'horizontaltiltshift':
+        return HorizontalTiltShiftShader;
+      case 'huesaturation':
+        return HueSaturationShader;
+      case 'kaleido':
+        return KaleidoShader;
+      case 'luminosityhighpass':
+        return LuminosityHighPassShader;
+      case 'luminosity':
+        return LuminosityShader;
+      case 'mirror':
+        return MirrorShader;
+      case 'normalmap':
+        return NormalMapShader;
+      case 'ocean':
+        return OceanShaders;
+      case 'parallax':
+        return ParallaxShader;
+      case 'pixel':
+        return PixelShader;
+      case 'rgbshift':
+        return RGBShiftShader;
+      case 'sao':
+        return SAOShader;
+      case 'sepia':
+        return SepiaShader;
+      case 'smaaedges':
+        return SMAAEdgesShader;
+      case 'smaaweights':
+        return SMAAWeightsShader;
+      case 'smaablend':
+        return SMAABlendShader;
+      case 'sobeloperator':
+        return SobelOperatorShader;
+      case 'ssao':
+        return SSAOShader;
+      case 'subsurfacescattering':
+        return SubsurfaceScatteringShader;
+      case 'technicolor':
+        return TechnicolorShader;
+      case 'tonemap':
+        return ToneMapShader;
+      case 'toon2':
+        return ToonShader1;
+      case 'toon1':
+        return ToonShader2;
+      case 'toondotted':
+        return ToonShaderDotted;
+      case 'toonhatching':
+        return ToonShaderHatching;
+      case 'triangleblur':
+        return TriangleBlurShader;
+      case 'unpackdepthrgba':
+        return UnpackDepthRGBAShader;
+      case 'verticalblur':
+        return VerticalBlurShader;
+      case 'verticaltiltshift':
+        return VerticalTiltShiftShader;
+      case 'vignette':
+        return VignetteShader;
+      case 'volume':
+        return VolumeRenderShader1;
+      case 'waterrefraction':
+        return WaterRefractionShader;
+    }
+    return undefined;
   }
 
   private getTextureID(def?: string): string {
     return ThreeUtil.getTypeSafe(this.textureID, def);
   }
 
-  private getMap(def?: THREE.Texture): THREE.Texture {
-    return ThreeUtil.getTypeSafe(this.map, def);
+  private getMap(def?: THREE.Texture | AbstractComposerComponent, camera?: CameraComponent, mapType?: string): THREE.Texture {
+    const map = ThreeUtil.getTypeSafe(this.map, def);
+    if (map !== null) {
+      if (map instanceof AbstractComposerComponent) {
+        switch ((mapType || '').toLowerCase()) {
+          case 'target1':
+            return map.getRenderTarget1(camera).texture;
+          case 'write':
+            return map.getWriteBuffer(camera).texture;
+          case 'read':
+            return map.getReadBuffer(camera).texture;
+          case 'target2':
+          default:
+            return map.getRenderTarget2(camera).texture;
+        }
+      } else {
+        return map;
+      }
+    }
+    return undefined;
   }
 
   private getRadius(def?: number): number {
@@ -222,6 +436,11 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.threshold, def);
   }
 
+  private getGoWild(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.goWild, def);
+  }
+
+  
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -237,9 +456,11 @@ export class PassComponent implements OnInit {
 
   private pass: Pass = null;
 
-  getPass(scene: THREE.Scene, camera: THREE.Camera, cameraComponent: AbstractEffectComposer): Pass {
-    if (this.pass === null) {
-      this.cameraComponent = cameraComponent;
+  getPass(scene: THREE.Scene, camera: THREE.Camera, effectComposer: AbstractEffectComposer, cameraComponent? : CameraComponent): Pass {
+    if (this.refer !== null && this.refer !== undefined) {
+      return this.refer.getPass(scene, camera, effectComposer, cameraComponent);
+    } else if (this.pass === null) {
+      this.cameraComponent = effectComposer;
       switch (this.type.toLowerCase()) {
         case 'adaptivetonemapping':
           this.pass = new AdaptiveToneMappingPass(
@@ -288,9 +509,11 @@ export class PassComponent implements OnInit {
           );
           break;
         case 'glitch':
-          this.pass = new GlitchPass(
+          const pass = new GlitchPass(
             this.getDtSize()
           );
+          pass.goWild = this.getGoWild(false);
+          this.pass = pass;
           break;
         case 'halftone':
           this.pass = new HalftonePass(
@@ -344,7 +567,7 @@ export class PassComponent implements OnInit {
           break;
         case 'smaa':
           this.pass = new SMAAPass(
-            this.getWidth(), 
+            this.getWidth(),
             this.getHeight()
           );
           break;
@@ -374,7 +597,7 @@ export class PassComponent implements OnInit {
           break;
         case 'texture':
           this.pass = new TexturePass(
-            this.getMap(), 
+            this.getMap(null,cameraComponent,),
             this.getOpacity()
           );
           break;

@@ -53,7 +53,7 @@ export class Page0902Component implements OnInit {
 
   lastMaterial : THREE.Material = null;
 
-  @HostListener('mousedown', ['$event']) 
+  @HostListener('document:mousedown', ['$event']) 
   hasPressed(event) {
     if (this.camera !== null && this.camera !== undefined) {
       var v = this.camera.getRaycaster(event);
@@ -76,7 +76,7 @@ export class Page0902Component implements OnInit {
 
   tubePoints : GeometriesVector3[] = null;
   
-  @HostListener('mousemove', ['$event'])  
+  @HostListener('document:mousemove', ['$event']) 
   hasReleased(event) {
     if (this.controls.showRay) {
       if (this.camera !== null && this.camera !== undefined) {

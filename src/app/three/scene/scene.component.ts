@@ -1,7 +1,6 @@
-import { Component, ContentChild, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import * as PHYSIJS from 'physijs';
-
+import * as PHYSIJS from './../physijs/src';
 import { MeshComponent } from './../mesh/mesh.component';
 import { FogComponent } from '../fog/fog.component';
 import { MaterialComponent } from '../material/material.component';
@@ -154,6 +153,7 @@ export class SceneComponent implements OnInit {
               scene.simulate(undefined, 2);
             });
             scene.simulate();
+            this.scene.fog
             this.scene = scene;
             break;
           case 'none' :

@@ -1,26 +1,48 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-shared>
+        <three-pass #renderPass [type]="'render'"></three-pass>
+        <three-pass #effectCopy [type]="'shader'" [shader]="'copy'"></three-pass>
+        <three-pass #renderScene [type]="'texture'" [map]="composer"></three-pass>
+        <three-pass #bloomPass [type]="'bloom'" 
+            [strength]="controls.bloompass.strength"
+            [kernelSize]="controls.bloompass.kernelSize"
+            [sigma]="controls.bloompass.sigma"
+            [resolution]="controls.bloompass.resolution"
+        ></three-pass>
+        <three-pass #effectFilm [type]="'Film'" 
+            [noiseIntensity]="controls.film.noiseIntensity"
+            [scanlinesIntensity]="controls.film.scanlinesIntensity"
+            [scanlinesCount]="controls.film.scanlinesCount"
+            [grayscale]="controls.film.grayscale"
+            [renderToScreen]="true"
+        ></three-pass>
+        <three-pass #dotScreenPass [type]="'dotScreen'" 
+            [centerX]="controls.dotscreen.centerX"
+            [centerY]="controls.dotscreen.centerY"
+            [angle]="controls.dotscreen.angle"
+            [scale]="controls.dotscreen.scale"
+        ></three-pass>
+    </three-shared>
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-        <three-composer [clear]="true" [viewport]="true" [width]="'50%'" [height]="'50%'">
-            <three-pass [type]="'Render'"></three-pass>
-            <three-pass [type]="'Film'"
-              [noiseIntensity]="controls.noiseIntensity"
-              [scanlinesIntensity]="controls.scanlinesIntensity"
-              [scanlinesCount]="controls.scanlinesCount"
-              [grayscale]="controls.grayscale"
-              [renderToScreen]="true"
-            ></three-pass>
+        <three-composer [clear]="true" [viewport]="true" [x]="0" [y]="'50%'" [width]="'50%'" [height]="'50%'">
+            <three-pass [refer]="renderScene"></three-pass>
+            <three-pass [refer]="bloomPass"></three-pass>
+            <three-pass [refer]="effectCopy"></three-pass>
         </three-composer>
         <three-composer [viewport]="true" [x]="'50%'" [y]="'50%'" [width]="'50%'" [height]="'50%'">
-            <three-pass [type]="'Render'"></three-pass>
-            <three-pass [type]="'Film'"
-              [noiseIntensity]="controls.noiseIntensity"
-              [scanlinesIntensity]="controls.scanlinesIntensity"
-              [scanlinesCount]="controls.scanlinesCount"
-              [grayscale]="controls.grayscale"
-              [renderToScreen]="true"
-            ></three-pass>
+            <three-pass [refer]="renderScene"></three-pass>
+            <three-pass [refer]="effectFilm"></three-pass>
+        </three-composer>
+        <three-composer [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'50%'">
+            <three-pass [refer]="renderScene"></three-pass>
+            <three-pass [refer]="dotScreenPass"></three-pass>
+            <three-pass [refer]="effectCopy"></three-pass>
+        </three-composer>
+        <three-composer #composer [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'50%'">
+            <three-pass [refer]="renderPass"></three-pass>
+            <three-pass [refer]="effectCopy"></three-pass>
         </three-composer>
     </three-camera>
     <three-scene #scene>

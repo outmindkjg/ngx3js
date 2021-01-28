@@ -6,7 +6,7 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
-import * as PHYSIJS from 'physijs';
+import * as PHYSIJS from './../physijs/src';
 import * as THREE from 'three';
 import { CSG } from 'three-csg-ts';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
@@ -402,7 +402,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         this.refObject3d.remove(this.helper);
         this.helper = null;
       }
-      if (this.mesh === null) {
+      if (this.mesh === null && this.typeCsg == 'none') {
         this.refObject3d.add(this.getMesh());
       }
     }
@@ -653,7 +653,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               meshBSP.push(mesh);
               break;
             default:
-              mesh.setObject3D(basemesh);
+            //  mesh.setObject3D(basemesh);
               break;
           }
         });
@@ -661,7 +661,6 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           if (meshBSP.length > 0) {
             basemesh.updateMatrix();
             let sourceCsg: CSG = geometry !== null ? CSG.fromMesh(basemesh) : null;
-            sourceCsg = null;
             const matrix: THREE.Matrix4 = basemesh.matrix;
             meshBSP.forEach((mesh) => {
               const meshIns = mesh.getMesh();
@@ -702,7 +701,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           }
         }
       }
-      if (basemesh instanceof THREE.Mesh && basemesh.geometry instanceof THREE.Geometry && basemesh.material instanceof THREE.Material) {
+      if (basemesh instanceof THREE.Mesh && (basemesh.geometry instanceof THREE.Geometry || basemesh.geometry instanceof THREE.BufferGeometry) && basemesh.material instanceof THREE.Material) {
         switch (this.physiType.toLowerCase()) {
           case 'box':
             this.mesh = new PHYSIJS.BoxMesh(basemesh.geometry,

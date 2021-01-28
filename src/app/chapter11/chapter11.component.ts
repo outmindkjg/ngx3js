@@ -11,7 +11,8 @@ export class Chapter11Component implements OnInit {
   public menuList : MenuVo[] = [
     { url : 'pg01', name : 'Effect composings'},
     { url : 'pg02', name : 'Simple passes'},
-    { url : 'pg03', name : 'Effect composings'},
+    { url : 'pg03a', name : 'Effect composings - A'},
+    { url : 'pg03b', name : 'Effect composings - B'},
     { url : 'pg04', name : 'Post processing masks'},
     { url : 'pg05', name : 'Shader Pass simple'},
     { url : 'pg06', name : 'Advanced'},

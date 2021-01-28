@@ -8,6 +8,7 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import { CameraComponent } from './../camera/camera.component';
 import { SceneComponent } from './../scene/scene.component';
 import { ThreeClock, ThreeStats, ThreeUtil, ThreeGui, GuiControlParam, RendererTimer } from '../interface';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'three-renderer',
@@ -101,7 +102,17 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.cameras.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
+      this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
     }
+  }
+
+  protected sizeSubject:Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
+
+  sizeSubscribe() : Observable<THREE.Vector2>{
+    setTimeout(() => {
+      this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
+    },1)
+    return this.sizeSubject.asObservable();
   }
 
   ngAfterContentInit() {

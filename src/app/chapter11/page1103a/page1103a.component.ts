@@ -9,11 +9,15 @@ import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three
 export class Page1103aComponent implements OnInit {
 
   controls = {
+    dtSize : 64,
+    goWild : false,
     rotate: true,
     wireframe: false,
   }
 
   controlsParams: GuiControlParam[] = [
+    { name: "dtSize", type: "number", min : 1, max : 256 },
+    { name: "goWild", type: "checkbox" },
     { name: "rotate", type: "checkbox" },
     { name: "wireframe", type: "checkbox" },
   ]

@@ -2,7 +2,7 @@ import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/c
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { CameraComponent } from '../camera/camera.component';
-import { AbstractEffectComposer, RendererTimer, ThreeUtil } from '../interface';
+import { AbstractComposerComponent, AbstractEffectComposer, RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { PassComponent } from '../pass/pass.component';
   templateUrl: './composer.component.html',
   styleUrls: ['./composer.component.scss']
 })
-export class ComposerComponent implements OnInit, AbstractEffectComposer {
+export class ComposerComponent extends AbstractComposerComponent implements OnInit, AbstractEffectComposer {
 
   @Input() scene: THREE.Scene = null;
   @Input() camera: THREE.Camera = null;
@@ -23,7 +23,9 @@ export class ComposerComponent implements OnInit, AbstractEffectComposer {
 
   @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   private getScene(def?: THREE.Scene): THREE.Scene {
     const scene = ThreeUtil.getTypeSafe(this.scene, def);
@@ -147,20 +149,35 @@ export class ComposerComponent implements OnInit, AbstractEffectComposer {
   private cameraComponent: CameraComponent = null;
   private effectComposer: EffectComposer = null;
 
+  getWriteBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget {
+    return this.getEffectComposer(cameraComponent).writeBuffer;  
+  }
+
+  getReadBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget {
+    return this.getEffectComposer(cameraComponent).readBuffer;  
+  }
+
+  getRenderTarget1(cameraComponent: CameraComponent): THREE.WebGLRenderTarget {
+    return this.getEffectComposer(cameraComponent).renderTarget1;  
+  }
+ 
+  getRenderTarget2(cameraComponent: CameraComponent): THREE.WebGLRenderTarget {
+    return this.getEffectComposer(cameraComponent).renderTarget2;  
+  }
+
   getEffectComposer(cameraComponent: CameraComponent): EffectComposer {
     if (this.effectComposer === null) {
       this.cameraComponent = cameraComponent;
       const scene = this.cameraComponent.getScene();
       const camera = this.cameraComponent.getCamera();
       const webGLRenderer = this.cameraComponent.getRenderer() as THREE.WebGLRenderer;
-      const effectComposer = new EffectComposer(webGLRenderer);
+      this.effectComposer = new EffectComposer(webGLRenderer);
       this.pass.forEach(item => {
-        const pass = item.getPass(this.getScene(scene), this.getCamera(camera), this);
+        const pass = item.getPass(this.getScene(scene), this.getCamera(camera), this, this.cameraComponent);
         if (pass !== null) {
-          effectComposer.addPass(pass);
+          this.effectComposer.addPass(pass);
         }
       })
-      this.effectComposer = effectComposer;
     }
     return this.effectComposer;
   }
