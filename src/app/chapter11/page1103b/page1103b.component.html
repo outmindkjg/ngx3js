@@ -10,6 +10,21 @@
         <three-pass #effectSepia [type]="'Shader'"  [clear]="false" [shader]="'Sepia'" [camera]="cameraEarth"></three-pass>
         <three-pass #effectCopy [type]="'Shader'" [clear]="false" [renderToScreen]="true" [shader]="'copy'" [camera]="cameraEarth"></three-pass>
     </three-shared>
+    <three-composer [clear]="true">
+        <three-pass [refer]="bgPass"></three-pass>
+        <three-pass [refer]="effectSepia"></three-pass>
+<!--
+        <three-pass [refer]="renderPass"></three-pass>
+        <three-pass [refer]="renderPass2"></three-pass>
+        <three-pass [refer]="marsMask"></three-pass>
+        <three-pass [refer]="effectColorify"></three-pass>
+        <three-pass [refer]="clearMask"></three-pass>
+        <three-pass [refer]="earthMask"></three-pass>
+        <three-pass [refer]="effectSepia"></three-pass>
+        <three-pass [refer]="clearMask"></three-pass>
+        <three-pass [refer]="effectCopy"></three-pass>
+-->
+    </three-composer>
     <three-camera #cameraBG [scene]="sceneBG" [type]="'Orthographic'" [fov]="45" [near]="0.1" [far]="2000" [left]="-1" [right]="1" [top]="1" [bottom]="-1">
         <three-position [x]="0" [y]="0" [z]="50"></three-position>
     </three-camera>
@@ -26,21 +41,6 @@
     <three-camera [controlType]="'orbit'" #cameraEarth [autoClear]="false" [scenes]="[sceneEarth,sceneMars]" [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000" >
         <three-position [x]="-10" [y]="15" [z]="25"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-        <three-composer [clear]="true">
-            <three-pass [refer]="bgPass"></three-pass>
-            <three-pass [refer]="effectSepia"></three-pass>
-<!--
-            <three-pass [refer]="renderPass"></three-pass>
-            <three-pass [refer]="renderPass2"></three-pass>
-            <three-pass [refer]="marsMask"></three-pass>
-            <three-pass [refer]="effectColorify"></three-pass>
-            <three-pass [refer]="clearMask"></three-pass>
-            <three-pass [refer]="earthMask"></three-pass>
-            <three-pass [refer]="effectSepia"></three-pass>
-            <three-pass [refer]="clearMask"></three-pass>
-            <three-pass [refer]="effectCopy"></three-pass>
--->
-        </three-composer>
     </three-camera>
     <three-scene #sceneEarth>
         <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>

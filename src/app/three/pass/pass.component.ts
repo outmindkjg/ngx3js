@@ -75,7 +75,6 @@ import { VerticalTiltShiftShader } from 'three/examples/jsm/shaders/VerticalTilt
 import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader';
 import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
-import { CameraComponent } from '../camera/camera.component';
 
 import { AbstractComposerComponent, AbstractEffectComposer, ThreeUtil } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
@@ -98,8 +97,8 @@ export class PassComponent implements OnInit {
   @Input() strength: number = null;
   @Input() kernelSize: number = null;
   @Input() sigma: number = null;
-  @Input() scene: THREE.Scene | SceneComponent = null;
-  @Input() camera: THREE.Camera | CameraComponent = null;
+  @Input() scene: any = null;
+  @Input() camera: any = null;
   @Input() params: BokehPassParamters = null;
   @Input() clearColor: THREE.Color | string | number = null;
   @Input() clearAlpha: number = null;
@@ -170,27 +169,27 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.sigma, def);
   }
 
-  private getScene(def?: THREE.Scene | SceneComponent ): THREE.Scene {
+  private getScene(def?: any ): THREE.Scene {
     const scene = ThreeUtil.getTypeSafe(this.scene, def);
     if (ThreeUtil.isNotNull(scene)) {
-      if (scene instanceof SceneComponent) {
-        return scene.getScene();
-      } else {
+      if (scene instanceof THREE.Scene) {
         return scene;
-       }
+      } else {
+        return scene.getScene();
+      }
     } else {
       return new THREE.Scene();
     }
   }
 
-  private getCamera(def?: THREE.Camera | CameraComponent): THREE.Camera {
+  private getCamera(def?: any ): THREE.Camera {
     const camera = ThreeUtil.getTypeSafe(this.camera, def);
     if (ThreeUtil.isNotNull(camera)) {
-      if (camera instanceof CameraComponent) {
-        return camera.getCamera();
-      } else {
+      if (camera instanceof THREE.Camera) {
         return camera;
-       }
+      } else {
+        return camera.getScene();
+      }
     } else {
       return new THREE.Camera();
     }
@@ -406,7 +405,7 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.textureID, def);
   }
 
-  private getMap(def?: THREE.Texture | AbstractComposerComponent, camera?: CameraComponent, mapType?: string): THREE.Texture {
+  private getMap(def?: THREE.Texture | AbstractComposerComponent, camera?: any, mapType?: string): THREE.Texture {
     const map = ThreeUtil.getTypeSafe(this.map, def);
     if (map !== null) {
       if (map instanceof AbstractComposerComponent) {
@@ -456,7 +455,7 @@ export class PassComponent implements OnInit {
 
   private pass: Pass = null;
 
-  getPass(scene: THREE.Scene, camera: THREE.Camera, effectComposer: AbstractEffectComposer, cameraComponent? : CameraComponent): Pass {
+  getPass(scene: THREE.Scene, camera: THREE.Camera, effectComposer: AbstractEffectComposer, cameraComponent? : any): Pass {
     if (this.refer !== null && this.refer !== undefined) {
       return this.refer.getPass(scene, camera, effectComposer, cameraComponent);
     } else if (this.pass === null) {
