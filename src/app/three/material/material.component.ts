@@ -13,6 +13,7 @@ import { TextureComponent } from '../texture/texture.component';
 export class MaterialComponent implements OnInit, OnChanges {
 
   @Input() type: string = "lambert";
+  @Input() materialType: string = "material";
   @Input() color: string | number = null;
   @Input() opacity: number = null;
   @Input() alphaTest: number = null;
@@ -141,21 +142,8 @@ export class MaterialComponent implements OnInit, OnChanges {
     this.resetMaterial();
   }
 
-  getColor(def?: string | number): string | number {
-    return this.getConvColor(this.color, def);
-  }
-
-  private getConvColor(paramColor: string | number, def?: string | number): string | number {
-    const color = paramColor === null ? def : paramColor;
-    if (typeof (color) === 'string') {
-      if (color.startsWith('0x')) {
-        return parseInt(color, 16);
-      } else {
-        return color;
-      }
-    } else {
-      return color;
-    }
+  getColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.color, def);
   }
 
   private getOpacity(def?: number): number {
@@ -181,8 +169,8 @@ export class MaterialComponent implements OnInit, OnChanges {
     return undefined;
   }
 
-  private getSpecular(def?: number | string): number | string {
-    return this.getConvColor(this.specular, def);
+  private getSpecular(def?: number | string): THREE.Color {
+    return ThreeUtil.getColorSafe(this.specular, def);
   }
 
   private getShininess(def?: number): number {
@@ -197,8 +185,8 @@ export class MaterialComponent implements OnInit, OnChanges {
     return ThreeUtil.getTypeSafe(this.aoMapIntensity, def);
   }
 
-  private getEmissive(def?: string | number): string | number {
-    return this.getConvColor(this.emissive, def);
+  private getEmissive(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.emissive, def);
   }
 
   private getEmissiveIntensity(def?: number): number {
@@ -210,7 +198,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private getNormalMapType(def?: string): THREE.NormalMapTypes {
-    const normalMapType = ThreeUtil.getTypeSafe(this.normalMapType, def,'');
+    const normalMapType = ThreeUtil.getTypeSafe(this.normalMapType, def, '');
     switch (normalMapType.toLowerCase()) {
       case 'tangentspace':
         return THREE.TangentSpaceNormalMap;
@@ -513,7 +501,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private getDepthFunc(def?: string): THREE.DepthModes {
-    const depthFunc =  ThreeUtil.getTypeSafe(this.depthFunc, def, '');
+    const depthFunc = ThreeUtil.getTypeSafe(this.depthFunc, def, '');
     switch (depthFunc.toLowerCase()) {
       case 'never':
         return THREE.NeverDepth;
@@ -631,7 +619,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private getStencilFunc(def?: string): THREE.StencilFunc {
-    const stencilFunc = ThreeUtil.getTypeSafe(this.stencilFunc, def,'');
+    const stencilFunc = ThreeUtil.getTypeSafe(this.stencilFunc, def, '');
     switch (stencilFunc.toLowerCase()) {
       case 'never':
         return THREE.NeverStencilFunc;
@@ -763,8 +751,8 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
-    const materialParameters : THREE.MaterialParameters = Object.assign({
-      blending : this.getBlending(),
+    const materialParameters: THREE.MaterialParameters = Object.assign({
+      blending: this.getBlending(),
       blendDst: this.getBlendDst(),
       blendDstAlpha: this.getBlendDstAlpha(),
       blendEquation: this.getBlendEquation(),
@@ -806,13 +794,13 @@ export class MaterialComponent implements OnInit, OnChanges {
       vertexColors: this.getVertexColors(),
       visible: this.getVisible(),
     }, extendObj);
-    const materialParametersSafe : THREE.MaterialParameters = {}
+    const materialParametersSafe: THREE.MaterialParameters = {}
     Object.entries(materialParameters).forEach(([key, value]) => {
       if (ThreeUtil.isNotNull(value)) {
         materialParametersSafe[key] = value;
       }
     });
-    return materialParametersSafe
+    return materialParametersSafe;
   }
 
   private material: THREE.Material = null;
@@ -827,12 +815,59 @@ export class MaterialComponent implements OnInit, OnChanges {
     }
   }
 
+  private backgroundangularTryOutCnt: number = 0;
+
   resetMaterial() {
-    if (this.refObject3d !== null) {
+    if (this.refObject3d !== null && this.getVisible(true)) {
       const material = this.getMaterial();
       if (this.refObject3d instanceof THREE.Scene) {
-        this.refObject3d.overrideMaterial = material;
-        this.refObject3d.overrideMaterial.needsUpdate = true;
+        const map: THREE.Texture = (material['map'] && material['map'] instanceof THREE.Texture) ? material['map'] : null;
+        const color: THREE.Color = (material['color'] && material['color'] instanceof THREE.Color) ? material['color'] : null;
+        switch (this.materialType.toLowerCase()) {
+          case 'environment':
+            if (map !== null) {
+              this.refObject3d.environment = map;
+            } else {
+              this.refObject3d.environment = null;
+            }
+            break;
+          case 'background':
+            if (map !== null) {
+              this.refObject3d.background = map;
+            } else if (color !== null) {
+              this.refObject3d.background = color;
+            } else {
+              this.refObject3d.background = null;
+            }
+            break;
+          case 'background-angular':
+          case 'backgroundangular':
+            if (map !== null) {
+              if (map.image !== null && map.image !== undefined) {
+                this.backgroundangularTryOutCnt = 0;
+                const rt = new THREE.WebGLCubeRenderTarget(map.image.height);
+                rt.fromEquirectangularTexture(ThreeUtil.getRenderer() as THREE.WebGLRenderer, map);
+                this.refObject3d['background'] = rt;
+              } else {
+                if (this.backgroundangularTryOutCnt < 10) {
+                  setTimeout(() => {
+                    this.backgroundangularTryOutCnt++;
+                    this.resetMaterial();
+                  }, 200);
+                }
+              }
+            } else if (color !== null) {
+              this.refObject3d.background = color;
+            } else {
+              this.refObject3d.background = null;
+            }
+            break;
+          case 'material':
+          case 'overrideMaterial':
+            this.refObject3d.overrideMaterial = material;
+            this.refObject3d.overrideMaterial.needsUpdate = true;
+            break;
+        }
       } else if (this.refObject3d instanceof THREE.Mesh) {
         if (this.refObject3d.material instanceof Array) {
           if (this.refObject3d.material.length > this.refSeqn) {

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-texture',
@@ -11,6 +12,7 @@ export class TextureComponent implements OnInit {
   @Input() link: TextureComponent = null;
   @Input() textureType: string = 'map';
   @Input() image: string = null;
+  @Input() cubeImage: string[] = null;
   @Input() program: (ctx: CanvasRenderingContext2D) => void = null;
   @Input() mapping: string = null;
   @Input() wrapS: string = null;
@@ -51,15 +53,19 @@ export class TextureComponent implements OnInit {
   }
 
   private getImage(def: string): string {
-    return (this.image === null) ? def : this.image;
+    return ThreeUtil.getTypeSafe(this.image, def);
+  }
+
+  private getCubeImage(def: string[]): string[] {
+    return ThreeUtil.getTypeSafe(this.cubeImage, def);
   }
 
   private getProgram(def: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
-    return (this.program === null) ? def : this.program;
+    return ThreeUtil.getTypeSafe(this.program, def);
   }
 
   private getMapping(def: string): THREE.Mapping {
-    const mapping = (this.mapping === null) ? def : this.mapping;
+    const mapping = ThreeUtil.getTypeSafe(this.mapping, def, '');
     switch (mapping.toLowerCase()) {
       case 'uv':
         return THREE.UVMapping;
@@ -81,7 +87,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getWrapS(def: string): THREE.Wrapping {
-    const wrapS = (this.wrapS === null) ? def : this.wrapS;
+    const wrapS = ThreeUtil.getTypeSafe(this.wrapS, def, '');
     switch (wrapS.toLowerCase()) {
       case 'repeat':
         return THREE.RepeatWrapping;
@@ -94,7 +100,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getWrapT(def: string): THREE.Wrapping {
-    const wrapT = (this.wrapT === null) ? def : this.wrapT;
+    const wrapT = ThreeUtil.getTypeSafe(this.wrapT, def, '');
     switch (wrapT.toLowerCase()) {
       case 'repeat':
         return THREE.RepeatWrapping;
@@ -107,7 +113,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getMagFilter(def: string): THREE.TextureFilter {
-    const magFilter = (this.magFilter === null) ? def : this.magFilter;
+    const magFilter = ThreeUtil.getTypeSafe(this.magFilter, def, '');
     switch (magFilter.toLowerCase()) {
       case 'nearest':
         return THREE.NearestFilter;
@@ -126,7 +132,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getMinFilter(def: string): THREE.TextureFilter {
-    const minFilter = (this.minFilter === null) ? def : this.minFilter;
+    const minFilter = ThreeUtil.getTypeSafe(this.minFilter, def, '');
     switch (minFilter.toLowerCase()) {
       case 'nearest':
         return THREE.NearestFilter;
@@ -145,7 +151,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getFormat(def: string): THREE.PixelFormat {
-    const format = (this.format === null) ? def : this.format;
+    const format = ThreeUtil.getTypeSafe(this.format, def, '');
     switch (format.toLowerCase()) {
       case 'alpha':
         return THREE.AlphaFormat;
@@ -180,7 +186,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getType(def: string): THREE.TextureDataType {
-    const type = (this.type === null) ? def : this.type;
+    const type = ThreeUtil.getTypeSafe(this.type, def, '');
     switch (type.toLowerCase()) {
       case 'byte':
         return THREE.ByteType;
@@ -211,12 +217,11 @@ export class TextureComponent implements OnInit {
   }
 
   private getAnisotropy(def: number): number {
-    const anisotropy = (this.anisotropy === null) ? def : this.anisotropy;
-    return anisotropy;
+    return ThreeUtil.getTypeSafe(this.anisotropy, def);
   }
 
   private getEncoding(def: string): THREE.TextureEncoding {
-    const encoding = (this.encoding === null) ? def : this.encoding;
+    const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
     switch (encoding.toLowerCase()) {
       case 'srgb':
         return THREE.sRGBEncoding;
@@ -239,37 +244,42 @@ export class TextureComponent implements OnInit {
   }
 
   private getRepeat(defX: number, defY: number): THREE.Vector2 {
-    const x = (this.repeatX === null) ? defX : this.repeatX;
-    const y = (this.repeatY === null) ? defY : this.repeatY;
-    return new THREE.Vector2(x, y);
+    return ThreeUtil.getVector2Safe(this.repeatX, this.repeatY, new THREE.Vector2(defX,defY));
   }
 
   private getOffset(defX: number, defY: number): THREE.Vector2 {
-    const x = (this.offsetX === null) ? defX : this.offsetX;
-    const y = (this.offsetY === null) ? defY : this.offsetY;
-    return new THREE.Vector2(x, y);
+    return ThreeUtil.getVector2Safe(this.offsetX, this.offsetY, new THREE.Vector2(defX,defY));
   }
 
 
   private refTexture: THREE.Texture = null;
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
+  static cubeTextureLoader: THREE.CubeTextureLoader = null;
 
-  getTextureImage(image: string, program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
-    return TextureComponent.getTextureImage(image, program, this.textureWidth, this.textureHeight);
+  getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
+    return TextureComponent.getTextureImage(image, cubeImage, program, this.textureWidth, this.textureHeight);
   }
 
-  static getTextureImage(image: string, program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number): THREE.Texture {
-    if (this.textureLoader === null) {
-      this.textureLoader = new THREE.TextureLoader();
-    }
-    if (image !== null && image !== '') {
+  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number): THREE.Texture {
+    if (cubeImage !== null && cubeImage !== undefined && cubeImage.length > 0) {
+      if (this.cubeTextureLoader === null) {
+        this.cubeTextureLoader = new THREE.CubeTextureLoader();
+      }
+      if (image !== null && image !== '') {
+        this.cubeTextureLoader.setPath(image);
+      }
+      return this.cubeTextureLoader.load(cubeImage);
+    } else if (image !== null && image !== '') {
+      if (this.textureLoader === null) {
+        this.textureLoader = new THREE.TextureLoader();
+      }
       return this.textureLoader.load(image);
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
       canvas.width = canvasWidth ? canvasWidth : 35;
       canvas.height = canvasHeight ? canvasHeight : 35;
-      if (program !== null) {
+      if (program !== null && program !== undefined) {
         const _context = canvas.getContext('2d', {
           alpha: true
         })
@@ -291,11 +301,11 @@ export class TextureComponent implements OnInit {
   getTexture(changes?: SimpleChanges) {
     if (this.texture === null || (changes && (changes.image || changes.program))) {
       if (this.link !== null) {
-        this.texture = this.getTextureImage(this.link.getImage(null), this.link.getProgram(null));
+        this.texture = this.getTextureImage(this.link.getImage(null), this.link.getCubeImage(null), this.link.getProgram(null));
         this.texture.repeat.copy(this.link.getRepeat(1, 1));
         this.texture.offset.copy(this.link.getOffset(0, 0));
       } else {
-        this.texture = this.getTextureImage(this.getImage(null), this.getProgram(null));
+        this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
       }
     }
     if (this.texture != null && changes) {

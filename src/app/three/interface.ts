@@ -10,6 +10,13 @@ export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
 }
 
+export interface LoadedObject {
+  object? : THREE.Object3D;
+  material? : THREE.Material;
+  geometry? : THREE.Geometry | THREE.BufferGeometry;
+  animations? : THREE.AnimationClip;
+}
+
 export interface AbstractEffectComposer {
   resetEffectComposer(): void;
 }
@@ -55,7 +62,7 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
       this.tweenTimer.onUpdate(() => {
 
       }).onComplete(() => {
-        console.log(this.tweenTarget);
+        // console.log(this.tweenTarget);
       }).start();
     } else if (this.tweenTimer !== null) {
       this.tweenTimer.stop();
@@ -95,7 +102,18 @@ export abstract class AbstractMeshComponent extends AbstractThreeComponent {
 
 export class ThreeUtil {
 
+  private static lastRenderer : THREE.Renderer ;
+
+  static setRenderer(lastRenderer : THREE.Renderer) {
+    this.lastRenderer = lastRenderer;
+  }
+
+  static getRenderer() {
+    return this.lastRenderer;
+  }
+
   private static renderTimer : RendererTimer;
+
   static render(renderTimer : RendererTimer) {
     if (this.renderTimer !== renderTimer) {
       this.renderTimer = renderTimer;

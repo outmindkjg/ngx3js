@@ -25,7 +25,7 @@ export class SceneComponent implements OnInit {
   @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
   @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) overrideMaterial: QueryList<MaterialComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -84,8 +84,8 @@ export class SceneComponent implements OnInit {
     this.meshes.changes.subscribe((e) => {
       this.synkObject3D(['mesh']);
     });
-    this.overrideMaterial.changes.subscribe((e) => {
-      this.synkObject3D(['overrideMaterial']);
+    this.materials.changes.subscribe((e) => {
+      this.synkObject3D(['materials']);
     });
   }
 
@@ -113,13 +113,13 @@ export class SceneComponent implements OnInit {
               lookat.setObject3D(this.scene);
             });
             break;
-            case 'mesh':
+          case 'mesh':
             this.meshes.forEach(mesh => {
               mesh.setObject3D(this.scene);
             });
-          case 'overrideMaterial' :
-            this.overrideMaterial.forEach(mesh => {
-              mesh.setObject3D(this.scene);
+          case 'materials' :
+            this.materials.forEach(material => {
+              material.setObject3D(this.scene);
             });
             break;
         }
@@ -161,7 +161,7 @@ export class SceneComponent implements OnInit {
             this.scene = new THREE.Scene();
             break;
         }
-        this.synkObject3D(['position','rotation','scale','lookat','overrideMaterial','mesh','fog']);
+        this.synkObject3D(['position','rotation','scale','lookat','materials','mesh','fog']);
       }
     }
     return this.scene;

@@ -10,10 +10,10 @@ import * as PHYSIJS from './../physijs/src';
 import * as THREE from 'three';
 import { CSG } from 'three-csg-ts';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
-import { Lensflare } from 'three/examples/jsm/objects/Lensflare';
+import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
-import { AbstractMeshComponent } from '../interface';
+import { AbstractMeshComponent, ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
@@ -23,6 +23,7 @@ import { SvgComponent } from '../svg/svg.component';
 import { CameraComponent } from './../camera/camera.component';
 import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
+import { TextureComponent } from '../texture/texture.component';
 
 
 @Component({
@@ -35,6 +36,14 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() physiType: string = 'none';
   @Input() mass: number = null;
   @Input() lightType: string = 'spot';
+  @Input() skyboxType: string = 'auto';
+  @Input() skyboxRate: number = 100;
+  @Input() skyboxImage: string = null;
+  @Input() skyboxCubeImage: string[] = null;
+  @Input() skyboxSunImage: string = null;
+  @Input() skyboxSunX: number = 0;
+  @Input() skyboxSunY: number = 0;
+  @Input() skyboxSunZ: number = 0;
   @Input() helperType: string = 'axis';
   @Input() typeCsg: 'subtract' | 'intersect' | 'union' | 'none' = 'none';
   @Input() scaleStep: number = 1;
@@ -85,116 +94,106 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     super();
   }
 
-  getMass(def: number): number {
-    return this.mass === null ? def : this.mass;
+  getMass(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.mass, def);
   }
 
-  getIntensity(def: number): number {
-    return this.intensity === null ? def : this.intensity;
-  }
-
-  getDistance(def: number): number {
-    return this.distance === null ? def : this.distance;
-  }
-
-  getAngle(def: number): number {
-    return ((this.angle === null ? def : this.angle) / 180) * Math.PI;
-  }
-
-  getPenumbra(def: number): number {
-    return this.penumbra === null ? def : this.penumbra;
-  }
-
-  getDecay(def: number): number {
-    return this.decay === null ? def : this.decay;
-  }
-
-  getWidth(def: number): number {
-    return this.width === null ? def : this.width;
-  }
-
-  getHeight(def: number): number {
-    return this.height === null ? def : this.height;
-  }
-
-  getColor(def: string | number): string | number {
-    if (this.color === null) {
-      return def;
+  getSkyboxSize(def?: number): number {
+    const skyboxSize = ThreeUtil.getTypeSafe(this.distance, def, 10000);
+    if (ThreeUtil.isNotNull(skyboxSize)) {
+      return skyboxSize * this.skyboxRate / 100;
     } else {
-      const color = this.color.toString();
-      if (color.startsWith('0x')) {
-        return parseInt(color, 16);
-      } else {
-        return this.color;
-      }
+      return 10000;
     }
   }
 
-  getSkyColor(def: string | number): string | number {
-    if (this.skyColor === null) {
-      return def;
-    } else {
-      const color = this.skyColor.toString();
-      if (color.startsWith('0x')) {
-        return parseInt(color, 16);
-      } else {
-        return this.skyColor;
-      }
-    }
+  getSkySunPosition(): THREE.Euler {
+    return new THREE.Euler(
+      ThreeUtil.getAngleSafe(this.skyboxSunX, 0),
+      ThreeUtil.getAngleSafe(this.skyboxSunY, 0),
+      ThreeUtil.getAngleSafe(this.skyboxSunZ, 0),
+    )
   }
 
-  getGroundColor(def: string | number): string | number {
-    if (this.groundColor === null) {
-      return def;
-    } else {
-      const color = this.groundColor.toString();
-      if (color.startsWith('0x')) {
-        return parseInt(color, 16);
-      } else {
-        return this.groundColor;
-      }
-    }
+  getIntensity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.intensity, def);
   }
 
-  getShadowMapSizeWidth(def: number): number {
-    return this.shadowMapSizeWidth === null ? def : this.shadowMapSizeWidth;
+  getDistance(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.distance, def);
   }
 
-  getShadowMapSizeHeight(def: number): number {
-    return this.shadowMapSizeHeight === null ? def : this.shadowMapSizeHeight;
+  getAngle(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.angle, def);
   }
 
-  getShadowCameraNear(def: number): number {
-    return this.shadowCameraNear === null ? def : this.shadowCameraNear;
+  getPenumbra(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.penumbra, def);
   }
 
-  getShadowCameraFar(def: number): number {
-    return this.shadowCameraFar === null ? def : this.shadowCameraFar;
+  getDecay(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.decay, def);
   }
 
-  getShadowCameraFov(def: number): number {
-    return this.shadowCameraFov === null ? def : this.shadowCameraFov;
+  getWidth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.width, def);
   }
 
-  getShadowCameraLeft(def: number): number {
-    return this.shadowCameraLeft === null ? def : this.shadowCameraLeft;
+  getHeight(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.height, def);
   }
 
-  getShadowCameraRight(def: number): number {
-    return this.shadowCameraRight === null ? def : this.shadowCameraRight;
+  getColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.color, def);
   }
 
-  getShadowCameraTop(def: number): number {
-    return this.shadowCameraTop === null ? def : this.shadowCameraTop;
+  getSkyColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.skyColor, def);
   }
 
-  getShadowCameraBottom(def: number): number {
-    return this.shadowCameraBottom === null ? def : this.shadowCameraBottom;
+  getGroundColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.groundColor, def);
   }
 
-  getTarget(def: number): THREE.Object3D {
-    const target = this.target === null ? def : this.target;
-    if (target !== null) {
+  getShadowMapSizeWidth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowMapSizeWidth, def);
+  }
+
+  getShadowMapSizeHeight(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, def);
+  }
+
+  getShadowCameraNear(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraNear, def);
+  }
+
+  getShadowCameraFar(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraFar, def);
+  }
+
+  getShadowCameraFov(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraFov, def);
+  }
+
+  getShadowCameraLeft(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraLeft, def);
+  }
+
+  getShadowCameraRight(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraRight, def);
+  }
+
+  getShadowCameraTop(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraTop, def);
+  }
+
+  getShadowCameraBottom(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
+  }
+
+  getTarget(def?: number): THREE.Object3D {
+    const target = ThreeUtil.getTypeSafe(this.target, def);
+    if (target !== null && target !== undefined) {
       if (target.getObject3D) {
         return target.getObject3D();
       }
@@ -210,8 +209,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     }
   }
 
-  private getSize(def: number): number {
-    return this.size === null ? def : this.size;
+  private getSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.size, def);
   }
 
   ngOnInit(): void { }
@@ -267,7 +266,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     } else if (this.scale !== null && this.scale.length > 0) {
       return this.rotation.first.getRotation();
     } else {
-      return new THREE.Euler(1, 1, 1);
+      return new THREE.Euler(0, 0, 0);
     }
   }
 
@@ -394,8 +393,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   resetMesh(clearMesh: boolean = false) {
     if (this.refObject3d !== null) {
-      if (clearMesh && this.mesh !== null) {
-        this.refObject3d.remove(this.mesh);
+      if (clearMesh && this.mesh !== null && this.mesh.parent) {
+        this.mesh.parent.remove(this.mesh);
         this.mesh = null;
       }
       if (clearMesh && this.helper != null) {
@@ -428,6 +427,58 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
       }
       let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
+        case 'skybox':
+          const skyboxSize = this.getSkyboxSize(1500);
+          switch (this.skyboxType.toLowerCase()) {
+            case 'sun' :
+              const lensflare = new Lensflare();
+              lensflare.addElement(new LensflareElement(
+                TextureComponent.getTextureImage(this.skyboxSunImage),
+                this.getSize(100),
+                0,
+                this.getColor(null)
+              ))
+              lensflare.position.set(0,0, skyboxSize * 0.99);
+              lensflare.position.applyEuler(this.getSkySunPosition());
+              basemesh = lensflare;
+              break;
+            case 'box':
+            case 'sphere':
+            default:
+              let skyGeometry: THREE.Geometry | THREE.BufferGeometry = null;
+              let skyMaterial: THREE.Material = null;
+              switch (this.skyboxType.toLowerCase()) {
+                case 'box':
+                  skyGeometry = new THREE.BoxGeometry(skyboxSize, skyboxSize, skyboxSize);
+                  break;
+                case 'sphere':
+                default:
+                  skyGeometry = new THREE.SphereGeometry(skyboxSize, 8, 6);
+                  break;
+              }
+              if (ThreeUtil.isNotNull(this.skyboxImage) || ThreeUtil.isNotNull(this.skyboxCubeImage)) {
+                const envMap = TextureComponent.getTextureImage(this.skyboxImage, this.skyboxCubeImage);
+                // envMap.flipY = true;
+                skyMaterial = new THREE.MeshBasicMaterial({
+                  depthTest : false,
+                  // depthWrite : false,
+                  envMap: envMap,
+                  side : THREE.BackSide
+                });
+              } else {
+                skyMaterial = new THREE.MeshBasicMaterial({
+                  depthTest : false,
+                  // depthWrite : false,
+                  color: this.getSkyColor(0xff0000),
+                  side : THREE.BackSide
+                });
+              }
+              basemesh = new THREE.Mesh(skyGeometry, skyMaterial);
+              basemesh.receiveShadow = false;
+              basemesh.castShadow = false;
+              break;
+          }
+          break;
         case 'light':
           switch (this.lightType.toLowerCase()) {
             case 'directional':
@@ -570,7 +621,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         case 'storage':
           basemesh = new THREE.Object3D();
           this.localStorageService.getObject(this.storageName, (loadedMesh: THREE.Object3D) => {
-            basemesh.add(loadedMesh);
+            this.mesh.add(loadedMesh);
+            console.log(this.mesh);
             if (this.meshes) {
               this.meshes.forEach((mesh) => {
                 if (
@@ -653,7 +705,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               meshBSP.push(mesh);
               break;
             default:
-            //  mesh.setObject3D(basemesh);
+              // mesh.setObject3D(basemesh);
               break;
           }
         });

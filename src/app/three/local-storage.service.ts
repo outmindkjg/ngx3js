@@ -18,9 +18,9 @@ import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
 import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
-
-
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { LoadedObject } from './interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -61,14 +61,16 @@ export class LocalStorageService {
   private svgLoader: SVGLoader = null;
   private tgaLoader: TGALoader = null;
 
-  public getObjectFromKey(key: string, callBack: (mesh: THREE.Object3D) => void): void {
+  public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void): void {
 
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
         this.colladaLoader = new ColladaLoader();
       }
       this.colladaLoader.load(key, (result: Collada) => {
-        callBack(result.scene)
+        callBack({
+          object : result.scene
+        })
       }, null, (e) => {
         console.log(e);
       })
@@ -76,14 +78,22 @@ export class LocalStorageService {
       if (this.objLoader === null) {
         this.objLoader = new OBJLoader();
       }
-      this.objLoader.load(key, callBack, null, (e) => {
+      this.objLoader.load(key, (result: THREE.Group) => {
+        callBack({
+          object : result
+        })
+      }, null, (e) => {
         console.log(e);
       })
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
         this.rhino3dmLoader = new ThreeMFLoader();
       }
-      this.rhino3dmLoader.load(key, callBack, null, (e) => {
+      this.rhino3dmLoader.load(key, (result: THREE.Group) => {
+        callBack({
+          object : result
+        })
+      }, null, (e) => {
         console.log(e);
       })
     } else if (key.endsWith('.basis')) {
@@ -100,16 +110,21 @@ export class LocalStorageService {
         this.dracoLoader = new DRACOLoader();
       }
       this.dracoLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
-        const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        callBack(mesh);
+        callBack({
+          geometry : geometry
+        })
       }, null, (e) => {
         console.log(e);
       })
-    } else if (key.endsWith('.gltf')) {
+    } else if (key.endsWith('.gltf') || key.endsWith('.glb')) {
       if (this.gltfLoader === null) {
         this.gltfLoader = new GLTFLoader();
       }
-      this.gltfLoader.load(key, (gltf: GLTF) => {
+      this.gltfLoader.load(key, (result: GLTF) => {
+        console.log(result);
+        callBack({
+          object : result.scene
+        });
         // const mesh = new THREE.Mesh(gltf, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
         // callBack(mesh);
         // todo
@@ -120,14 +135,20 @@ export class LocalStorageService {
       if (this.mmdLoader === null) {
         this.mmdLoader = new MMDLoader();
       }
-      this.mmdLoader.load(key, callBack, null, (e) => {
+      this.mmdLoader.load(key, (result: THREE.SkinnedMesh) => {
+        callBack({
+          object : result
+        })
+      }, null, (e) => {
         console.log(e);
       })
     } else if (key.endsWith('.pcd')) {
       if (this.pcdLoader === null) {
         this.pcdLoader = new PCDLoader();
       }
-      this.pcdLoader.load(key, callBack, null, (e) => {
+      this.pcdLoader.load(key, () => {
+
+      }, null, (e) => {
         console.log(e);
       })
     } else if (key.endsWith('.prwm')) {
@@ -136,7 +157,7 @@ export class LocalStorageService {
       }
       this.prwmLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        callBack(mesh);
+        //callBack(mesh);
       }, null, (e) => {
         console.log(e);
       })
@@ -166,7 +187,7 @@ export class LocalStorageService {
       }
       this.plyLoader.load(key, (geometry: THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        callBack(mesh);
+        // callBack(mesh);
       }, null, (e) => {
         console.log(e);
       })
@@ -176,7 +197,7 @@ export class LocalStorageService {
       }
       this.vtkLoader.load(key, (geometry: THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        callBack(mesh);
+        // callBack(mesh);
       }, null, (e) => {
         console.log(e);
       })
@@ -236,7 +257,7 @@ export class LocalStorageService {
           object.lookAt(end);
           group.add(object);
         }
-        callBack(group);
+        // callBack(group);
       }, null, (e) => {
         console.log(e);
       })
@@ -249,7 +270,7 @@ export class LocalStorageService {
         const mesh = new THREE.Mesh();
         mesh.geometry = geometry;
         mesh.material = new THREE.MeshLambertMaterial({ color: 0x7777ff });
-        callBack(mesh);
+        // callBack(mesh);
       }, null, (e) => {
         console.log(e);
       })
@@ -261,31 +282,49 @@ export class LocalStorageService {
         key.endsWith('.js') ||
         key.endsWith('.json')
       ) {
-        this.objectLoader.load(key, callBack, null, (e) => {
+        this.objectLoader.load(key, () => {
+
+        }, null, (e) => {
           console.log(e);
         })
       } else {
         const json = this.getItem(key);
         const loadedGeometry = JSON.parse(json);
         if (json) {
-          callBack(this.objectLoader.parse(loadedGeometry));
+          // callBack(this.objectLoader.parse(loadedGeometry));
         } else {
-          callBack(new THREE.Object3D());
+          // callBack(new THREE.Object3D());
         }
       }
     }
   }
 
   public getObject(key: string, callBack: (mesh: THREE.Object3D) => void): void {
-    this.getObjectFromKey(key, callBack);
+    this.getObjectFromKey(key, (result) => {
+      if (result.object instanceof THREE.Object3D) {
+        callBack(result.object);
+      } else {
+        const scene = new THREE.Scene();
+        scene.add(result.object); 
+        callBack(scene);
+      }});
   }
 
   public setScene(key: string, scene: THREE.Scene) {
     this.setItem(key, JSON.stringify(scene.toJSON()));
   }
 
-  public getScene(key: string, callBack: (mesh: THREE.Object3D) => void): void {
-    this.getObjectFromKey(key, callBack);
+  public getScene(key: string, callBack: (mesh: THREE.Scene) => void): void {
+    this.getObjectFromKey(key, (result) => {
+      if (result.object instanceof THREE.Scene) {
+        callBack(result.object);
+      } else {
+        const scene = new THREE.Scene();
+        scene.add(result.object); 
+        callBack(scene);
+      }
+      
+    });
   }
 
   public removeItem(key: string) {

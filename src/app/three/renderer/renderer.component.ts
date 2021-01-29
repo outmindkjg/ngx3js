@@ -36,7 +36,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() guiParams: GuiControlParam[] = [];
   @Output() onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
-  constructor() { }
+  constructor() { 
+    ThreeUtil.setupGui
+  }
 
   ngOnInit(): void {
   }
@@ -232,6 +234,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.outputEncoding = THREE.sRGBEncoding;
       }
       this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      ThreeUtil.setRenderer(this.renderer);
     }
     return this.renderer;
   }

@@ -1,13 +1,34 @@
-<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xEEEEEE'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xFFEEEE'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-        <three-position [x]="-20" [y]="50" [z]="40"></three-position>
+        <three-position [x]="0" [y]="0" [z]="-40"></three-position>
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
+        <three-material [visible]="false"  [type]="'meshphong'" [materialType]="'backgroundangular'" [color]="'0xff0000'">
+            <three-texture 
+                [image]="'https://threejsfundamentals.org/threejs/resources/images/equirectangularmaps/tears_of_steel_bridge_2k.jpg'" 
+            ></three-texture>
+        </three-material>
+        <three-material [visible]="false" [type]="'meshphong'" [materialType]="'background'" [color]="'0xff0000'">
+            <three-texture 
+                [image]="'https://threejs.org/examples/textures/cube/Bridge2/'" 
+                [cubeImage]="['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg']"
+            ></three-texture>
+        </three-material>
         <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
         <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="baseGeo"></three-lookat>
+        </three-mesh>
+        <three-mesh type="skybox" [skyboxType]="'bo1x'" [skyColor]="'0xffff00'"
+            [skyboxImage]="'https://threejs.org/examples/textures/cube/Bridge2/'" 
+            [skyboxCubeImage]="['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg']"
+            >
+            <three-mesh type="skybox" [skyboxType]="'sun'" 
+                [skyboxSunX]="-45"
+                [skyboxSunImage]="'/assets/textures/lensflare/lensflare0.png'" [size]="350"
+            >
+            </three-mesh>
         </three-mesh>
         <three-mesh #baseGeo>
             <three-position [x]="0" [y]="3" [z]="2"></three-position>
