@@ -98,8 +98,8 @@ var ClipComponent = /** @class */ (function () {
         if (this.action !== null) {
             this.action.time = 0;
             this.action.enabled = true;
-            this.action.setEffectiveTimeScale(this.timeScale);
-            this.action.setEffectiveWeight(this.weight);
+            // this.action.setEffectiveTimeScale( this.timeScale );
+            // this.action.setEffectiveWeight( this.weight );
         }
     };
     ClipComponent.prototype.fadeIn = function (duration) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -8,6 +8,8 @@ import * as THREE from 'three';
 })
 export class ListenerComponent implements OnInit {
 
+  @Input() volume : number = 1 ;
+  @Input() visible : boolean = true ;
 
   constructor() { }
 
@@ -15,7 +17,19 @@ export class ListenerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private listener : THREE.AudioListener;
+  ngOnDestroy(): void {
+    if (this.listener !== null && this.listener.parent !== null) {
+      this.listener.parent.remove(this.listener);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      this.resetListener();
+    }
+  }
+
+  private listener : THREE.AudioListener = null;
 
   private refObject3d: THREE.Object3D = null;
 
@@ -31,13 +45,22 @@ export class ListenerComponent implements OnInit {
       this.listener = this.getListener();
     }
     if (this.listener !== null && this.refObject3d !== null) {
-      if (this.listener.parent !== this.refObject3d) {
-        if (this.listener.parent !== null) {
-          this.listener.parent.remove(this.listener);
+      this.listener.setMasterVolume(this.volume);
+      if (!this.visible && this.listener.parent !== null) {
+        this.listener.parent.remove(this.listener);
+        this.listener.setMasterVolume(0);
+      } else if (this.visible && this.listener.parent === null) {
+        if (this.listener.parent !== this.refObject3d) {
+          if (this.listener.parent !== null && this.listener.parent !== undefined) {
+            this.listener.parent.remove(this.listener);
+          }
+          this.refObject3d.add(this.listener);
         }
-        this.refObject3d.add(this.listener);
+        this.listener.setMasterVolume(this.volume);
       }
+      this.listener.visible = this.visible;
     }
+
   }
 
   getListener() : THREE.AudioListener {

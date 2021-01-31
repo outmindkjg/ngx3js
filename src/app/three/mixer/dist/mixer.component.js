@@ -27,6 +27,11 @@ var MixerComponent = /** @class */ (function () {
     };
     MixerComponent.prototype.ngOnInit = function () {
     };
+    MixerComponent.prototype.ngOnDestroy = function () {
+        if (this.mixer !== null) {
+            this.mixer.stopAllAction();
+        }
+    };
     MixerComponent.prototype.setModel = function (model, clips) {
         if (this.model !== model) {
             this.model = model;
@@ -39,10 +44,12 @@ var MixerComponent = /** @class */ (function () {
     };
     MixerComponent.prototype.resetMixer = function () {
         var _this = this;
-        this.mixer = new THREE.AnimationMixer(this.model);
-        this.clip.forEach(function (clip) {
-            clip.setMixer(_this.mixer, _this.clips);
-        });
+        if (this.mixer == null) {
+            this.mixer = new THREE.AnimationMixer(this.model);
+            this.clip.forEach(function (clip) {
+                clip.setMixer(_this.mixer, _this.clips);
+            });
+        }
     };
     MixerComponent.prototype.play = function (name) {
         var _this = this;
@@ -57,9 +64,6 @@ var MixerComponent = /** @class */ (function () {
                     }
                 }
             });
-            console.log("----------");
-            console.log(foundAction_1);
-            console.log(this.lastPlayedClip);
             if (this.lastPlayedClip !== null) {
                 if (foundAction_1 !== null) {
                     this.lastPlayedClip.crossFadeTo(foundAction_1, this.duration);
@@ -76,6 +80,7 @@ var MixerComponent = /** @class */ (function () {
     };
     MixerComponent.prototype.update = function (timer) {
         if (this.mixer !== null) {
+            // console.log(timer.delta);
             this.mixer.update(timer.delta);
         }
     };

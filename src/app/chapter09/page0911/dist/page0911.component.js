@@ -11,10 +11,34 @@ var core_1 = require("@angular/core");
 var Page0911Component = /** @class */ (function () {
     function Page0911Component() {
         this.controls = {
+            master: {
+                volume: 1,
+                visible: true
+            },
+            box: {
+                volume: 1,
+                refDistance: 3,
+                rolloffFactor: 3,
+                maxDistance: 3,
+                play: true,
+                visible: true
+            },
             rotate: true,
             wireframe: false
         };
         this.controlsParams = [
+            { name: "Listener", type: "folder", control: "master", children: [
+                    { name: "volume", type: "number", min: 0, max: 3 },
+                    { name: "visible", type: "checkbox" },
+                ], isOpen: true },
+            { name: "Box", type: "folder", control: "box", children: [
+                    { name: "volume", type: "number", min: 0, max: 3 },
+                    { name: "refDistance", type: "number", min: 0, max: 3 },
+                    { name: "rolloffFactor", type: "number", min: 0, max: 3 },
+                    { name: "maxDistance", type: "number", min: 0, max: 3 },
+                    { name: "play", type: "checkbox" },
+                    { name: "visible", type: "checkbox" },
+                ], isOpen: true },
             { name: "rotate", type: "checkbox" },
             { name: "wireframe", type: "checkbox" },
         ];

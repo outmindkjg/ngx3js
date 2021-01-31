@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.CameraComponent = void 0;
+var audio_component_1 = require("./../audio/audio.component");
 var core_1 = require("@angular/core");
 var THREE = require("three");
 var EffectComposer_1 = require("three/examples/jsm/postprocessing/EffectComposer");
@@ -14,7 +15,9 @@ var lookat_component_1 = require("../lookat/lookat.component");
 var position_component_1 = require("../position/position.component");
 var rotation_component_1 = require("../rotation/rotation.component");
 var scale_component_1 = require("../scale/scale.component");
-var pass_component_1 = require("./../pass/pass.component");
+var pass_component_1 = require("../pass/pass.component");
+var composer_component_1 = require("../composer/composer.component");
+var listener_component_1 = require("../listener/listener.component");
 /*
 ArrayCamera
 CubeCamera
@@ -31,31 +34,39 @@ var CameraComponent = /** @class */ (function () {
         this.top = 0.5;
         this.bottom = -0.5;
         this.autoClear = null;
-        this.controlType = "none";
+        this.controlType = 'none';
         this.controlAutoRotate = null;
         this.scene = null;
+        this.scenes = null;
         this.camera = null;
         this.renderer = null;
         this.effectComposer = null;
         this.cameraWidth = 0;
         this.cameraHeight = 0;
     }
-    CameraComponent.prototype.ngOnInit = function () {
-    };
+    CameraComponent.prototype.ngOnInit = function () { };
     CameraComponent.prototype.ngOnChanges = function (changes) {
         if (changes.type) {
             this.camera = null;
         }
     };
+    CameraComponent.prototype.getRenderer = function () {
+        return this.renderer;
+    };
     CameraComponent.prototype.setRenderer = function (renderer, rendererScenes) {
+        var _this = this;
         if (this.renderer !== renderer) {
             this.renderer = renderer;
             this.rendererScenes = rendererScenes;
             this.effectComposer = this.getEffectComposer();
+            if (this.composer !== null && this.composer.length > 0) {
+                this.composer.forEach(function (composer) {
+                    composer.setCamera(_this);
+                });
+            }
         }
     };
     CameraComponent.prototype.resetEffectComposer = function () {
-        this.pass;
         this.effectComposer = this.getEffectComposer();
     };
     CameraComponent.prototype.getEffectComposer = function () {
@@ -64,7 +75,7 @@ var CameraComponent = /** @class */ (function () {
             if (this.renderer instanceof THREE.WebGLRenderer) {
                 var effectComposer_1 = new EffectComposer_1.EffectComposer(this.renderer);
                 this.pass.forEach(function (item) {
-                    var pass = item.getPass(_this.getScene(), _this.getCamera(), _this);
+                    var pass = item.getPass(_this.getScene(), _this.getCamera(), _this, _this);
                     if (pass !== null) {
                         effectComposer_1.addPass(pass);
                     }
@@ -87,6 +98,12 @@ var CameraComponent = /** @class */ (function () {
         });
         this.lookat.changes.subscribe(function () {
             _this.synkObject3D(['lookat']);
+        });
+        this.listner.changes.subscribe(function () {
+            _this.synkObject3D(['listner']);
+        });
+        this.audio.changes.subscribe(function () {
+            _this.synkObject3D(['audio']);
         });
     };
     CameraComponent.prototype.synkObject3D = function (synkTypes) {
@@ -112,6 +129,16 @@ var CameraComponent = /** @class */ (function () {
                     case 'lookat':
                         _this.lookat.forEach(function (lookat) {
                             lookat.setObject3D(_this.camera);
+                        });
+                        break;
+                    case 'listner':
+                        _this.listner.forEach(function (listner) {
+                            listner.setObject3D(_this.camera);
+                        });
+                        break;
+                    case 'audio':
+                        _this.audio.forEach(function (audio) {
+                            audio.setObject3D(_this.camera);
                         });
                         break;
                 }
@@ -153,6 +180,7 @@ var CameraComponent = /** @class */ (function () {
         return raycaster;
     };
     CameraComponent.prototype.setCameraSize = function (width, height) {
+        var _this = this;
         this.cameraWidth = width;
         this.cameraHeight = height;
         if (this.camera !== null) {
@@ -168,6 +196,11 @@ var CameraComponent = /** @class */ (function () {
                 this.camera.updateProjectionMatrix();
             }
         }
+        if (this.composer !== null && this.composer.length > 0) {
+            this.composer.forEach(function (composer) {
+                composer.setCameraSize(_this.cameraWidth, _this.cameraHeight);
+            });
+        }
     };
     CameraComponent.prototype.getCamera = function () {
         if (this.camera === null) {
@@ -182,7 +215,7 @@ var CameraComponent = /** @class */ (function () {
                     this.camera = new THREE.PerspectiveCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
                     break;
             }
-            this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
+            this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'audio']);
         }
         return this.camera;
     };
@@ -201,18 +234,49 @@ var CameraComponent = /** @class */ (function () {
         }
     };
     CameraComponent.prototype.render = function (renderer, scenes, renderTimer) {
-        var scene = this.getScene(scenes);
-        if (scene !== null) {
-            if (this.autoClear !== null) {
-                if (renderer instanceof THREE.WebGLRenderer) {
-                    renderer.autoClear = this.autoClear;
+        var _this = this;
+        if (this.scenes !== null && this.scenes.length > 0) {
+            this.scenes.forEach(function (sceneCom) {
+                var scene = sceneCom.getScene();
+                if (scene !== null) {
+                    if (_this.autoClear !== null) {
+                        if (renderer instanceof THREE.WebGLRenderer) {
+                            renderer.autoClear = _this.autoClear;
+                        }
+                    }
+                    if (renderer instanceof THREE.WebGLRenderer) {
+                        _this.composer.forEach(function (composer) {
+                            composer.render(renderer, renderTimer);
+                        });
+                    }
+                    if (_this.effectComposer !== null) {
+                        _this.effectComposer.render(renderTimer.delta);
+                    }
+                    else {
+                        renderer.render(scene, _this.getCamera());
+                    }
                 }
-            }
-            if (this.effectComposer !== null) {
-                this.effectComposer.render(renderTimer.delta);
-            }
-            else {
-                renderer.render(scene, this.getCamera());
+            });
+        }
+        else {
+            var scene = this.getScene(scenes);
+            if (scene !== null) {
+                if (this.autoClear !== null) {
+                    if (renderer instanceof THREE.WebGLRenderer) {
+                        renderer.autoClear = this.autoClear;
+                    }
+                }
+                if (renderer instanceof THREE.WebGLRenderer) {
+                    this.composer.forEach(function (composer) {
+                        composer.render(renderer, renderTimer);
+                    });
+                }
+                if (this.effectComposer !== null) {
+                    this.effectComposer.render(renderTimer.delta);
+                }
+                else {
+                    renderer.render(scene, this.getCamera());
+                }
             }
         }
     };
@@ -253,6 +317,9 @@ var CameraComponent = /** @class */ (function () {
         core_1.Input()
     ], CameraComponent.prototype, "scene");
     __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "scenes");
+    __decorate([
         core_1.ContentChildren(position_component_1.PositionComponent, { descendants: false })
     ], CameraComponent.prototype, "position");
     __decorate([
@@ -267,6 +334,15 @@ var CameraComponent = /** @class */ (function () {
     __decorate([
         core_1.ContentChildren(pass_component_1.PassComponent, { descendants: false })
     ], CameraComponent.prototype, "pass");
+    __decorate([
+        core_1.ContentChildren(composer_component_1.ComposerComponent, { descendants: false })
+    ], CameraComponent.prototype, "composer");
+    __decorate([
+        core_1.ContentChildren(listener_component_1.ListenerComponent, { descendants: false })
+    ], CameraComponent.prototype, "listner");
+    __decorate([
+        core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: false })
+    ], CameraComponent.prototype, "audio");
     CameraComponent = __decorate([
         core_1.Component({
             selector: 'three-camera',

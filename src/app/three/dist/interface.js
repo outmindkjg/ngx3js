@@ -244,10 +244,7 @@ var ThreeUtil = /** @class */ (function () {
         return undefined;
     };
     ThreeUtil.getClock = function (autoStart) {
-        if (this.clock === null) {
-            this.clock = new ThreeClock(autoStart);
-        }
-        return this.clock;
+        return new ThreeClock(autoStart);
     };
     ThreeUtil.getStats = function (style) {
         return new ThreeStats(style);
@@ -295,7 +292,6 @@ var ThreeUtil = /** @class */ (function () {
             }
         });
     };
-    ThreeUtil.clock = null;
     ThreeUtil.stats = null;
     return ThreeUtil;
 }());

@@ -2,12 +2,25 @@
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+        <three-listener
+          [volume]="controls.master.volume"
+          [visible]="controls.master.visible"
+        ></three-listener>
     </three-camera>
     <three-scene #scene>
         <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
         <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="scene"></three-lookat>
+            <three-audio
+              [url]="'/assets/sounds/358232_j_s_song.mp3'"
+              [volume]="controls.box.volume"
+              [play]="controls.box.play"
+              [refDistance]="controls.box.refDistance"
+              [rolloffFactor]="controls.box.rolloffFactor"
+              [maxDistance]="controls.box.maxDistance"
+              [visible]="controls.box.visible"
+            ></three-audio>
         </three-mesh>
         <three-mesh>
             <three-position [x]="0" [y]="0" [z]="0"></three-position>

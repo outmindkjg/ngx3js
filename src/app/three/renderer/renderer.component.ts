@@ -1,3 +1,5 @@
+import { AudioComponent } from './../audio/audio.component';
+import { ListenerComponent } from './../listener/listener.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import { AfterContentInit, AfterViewInit, Component, QueryList, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
@@ -18,12 +20,6 @@ import { Observable, Subject } from 'rxjs';
 })
 export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
 
-  @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
-  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
-
-  @ViewChild('canvas') canvas: ElementRef;
-  @ViewChild('debug') debug: ElementRef;
 
   @Input() type: string = "webgl";
   @Input() controlType: string = "none";
@@ -38,6 +34,15 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() guiControl: any = null;
   @Input() guiParams: GuiControlParam[] = [];
   @Output() onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
+
+  @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
+
+  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('debug') debug: ElementRef;
 
   constructor() {
     ThreeUtil.setupGui
@@ -121,6 +126,33 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   ngAfterContentInit() {
+    this.listner.changes.subscribe(() => {
+      this.synkObject3D(['listner']);
+    });
+    this.audio.changes.subscribe(() => {
+      this.synkObject3D(['audio']);
+    });
+  }
+
+  private renderListner : THREE.AudioListener = null;
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.renderer !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'listner':
+            this.listner.forEach((listner) => {
+              this.renderListner  = listner.getListener();
+            });
+            break;
+          case 'audio':
+            this.audio.forEach((audio) => {
+              audio.setListener(this.renderListner);
+            });
+            break;
+        }
+      });
+    }
   }
 
   private renderer: THREE.Renderer = null;
@@ -213,6 +245,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
     this.control = this.getControls(this.cameras, this.renderer);
+    this.synkObject3D(['listner','audio']);
     this.render();
   }
 

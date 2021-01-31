@@ -66,7 +66,9 @@ export class ClipComponent implements OnInit {
               THREE.AnimationUtils.subclip(
                 clip,
                 clip.name,
-                this.startFrame, this.endFrame, this.fps
+                this.startFrame,
+                this.endFrame,
+                this.fps
               ),
               null,
               this.getBlendMode()
@@ -109,8 +111,8 @@ export class ClipComponent implements OnInit {
     if (this.action !== null) {
       this.action.time = 0;
       this.action.enabled = true;
-      this.action.setEffectiveTimeScale( this.timeScale );
-      this.action.setEffectiveWeight( this.weight );
+      // this.action.setEffectiveTimeScale( this.timeScale );
+      // this.action.setEffectiveWeight( this.weight );
     }
   }
 

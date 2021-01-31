@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.RendererComponent = void 0;
+var audio_component_1 = require("./../audio/audio.component");
+var listener_component_1 = require("./../listener/listener.component");
 var mixer_component_1 = require("./../mixer/mixer.component");
 var core_1 = require("@angular/core");
 var THREE = require("three");
@@ -34,6 +36,7 @@ var RendererComponent = /** @class */ (function () {
         this.guiParams = [];
         this.onRender = new core_1.EventEmitter();
         this.sizeSubject = new rxjs_1.Subject();
+        this.renderListner = null;
         this.renderer = null;
         this.rendererWidth = 100;
         this.rendererHeight = 100;
@@ -119,6 +122,32 @@ var RendererComponent = /** @class */ (function () {
         return this.sizeSubject.asObservable();
     };
     RendererComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this.listner.changes.subscribe(function () {
+            _this.synkObject3D(['listner']);
+        });
+        this.audio.changes.subscribe(function () {
+            _this.synkObject3D(['audio']);
+        });
+    };
+    RendererComponent.prototype.synkObject3D = function (synkTypes) {
+        var _this = this;
+        if (this.renderer !== null) {
+            synkTypes.forEach(function (synkType) {
+                switch (synkType) {
+                    case 'listner':
+                        _this.listner.forEach(function (listner) {
+                            _this.renderListner = listner.getListener();
+                        });
+                        break;
+                    case 'audio':
+                        _this.audio.forEach(function (audio) {
+                            audio.setListener(_this.renderListner);
+                        });
+                        break;
+                }
+            });
+        }
     };
     RendererComponent.prototype.getControls = function (cameras, renderer) {
         var cameraComp = null;
@@ -201,6 +230,7 @@ var RendererComponent = /** @class */ (function () {
             camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
         });
         this.control = this.getControls(this.cameras, this.renderer);
+        this.synkObject3D(['listner', 'audio']);
         this.render();
     };
     RendererComponent.prototype.getRenderer = function () {
@@ -267,21 +297,6 @@ var RendererComponent = /** @class */ (function () {
         }
     };
     __decorate([
-        core_1.ContentChildren(scene_component_1.SceneComponent, { descendants: false })
-    ], RendererComponent.prototype, "scenes");
-    __decorate([
-        core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: false })
-    ], RendererComponent.prototype, "cameras");
-    __decorate([
-        core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: true })
-    ], RendererComponent.prototype, "mixer");
-    __decorate([
-        core_1.ViewChild('canvas')
-    ], RendererComponent.prototype, "canvas");
-    __decorate([
-        core_1.ViewChild('debug')
-    ], RendererComponent.prototype, "debug");
-    __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "type");
     __decorate([
@@ -317,6 +332,27 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], RendererComponent.prototype, "onRender");
+    __decorate([
+        core_1.ContentChildren(scene_component_1.SceneComponent, { descendants: false })
+    ], RendererComponent.prototype, "scenes");
+    __decorate([
+        core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: false })
+    ], RendererComponent.prototype, "cameras");
+    __decorate([
+        core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: true })
+    ], RendererComponent.prototype, "mixer");
+    __decorate([
+        core_1.ContentChildren(listener_component_1.ListenerComponent, { descendants: true })
+    ], RendererComponent.prototype, "listner");
+    __decorate([
+        core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: true })
+    ], RendererComponent.prototype, "audio");
+    __decorate([
+        core_1.ViewChild('canvas')
+    ], RendererComponent.prototype, "canvas");
+    __decorate([
+        core_1.ViewChild('debug')
+    ], RendererComponent.prototype, "debug");
     __decorate([
         core_1.HostListener('window:resize')
     ], RendererComponent.prototype, "resizeRender");

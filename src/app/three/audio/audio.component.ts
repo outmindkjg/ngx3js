@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -9,6 +9,10 @@ import * as THREE from 'three';
 export class AudioComponent implements OnInit {
   @Input() type: string = 'position';
   @Input() url: string = null;
+  @Input() visible : boolean = true ;
+  @Input() autoplay : boolean = true ;
+  @Input() play : boolean = true ;
+  @Input() volume: number = 1;
   @Input() refDistance: number = 1;
   @Input() rolloffFactor: number = 1;
   @Input() distanceModel: string = "";
@@ -20,6 +24,27 @@ export class AudioComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.type) {
+      this.audio = null;
+    }
+    if (this.audio !== null && this.audio.buffer !== null && changes.url) {
+      this.audio.buffer = null;
+    }
+    this.resetAudio();
+  }
+
+  ngOnDestroy(): void {
+    if (this.audio !== null) {
+      if (this.audio.parent !== null) {
+        this.audio.parent.remove(this.audio);
+      }
+      if (this.audio.source !== null) {
+        this.audio.stop();
+      }
+    }
+  }
 
   private audio: THREE.Audio<any> = null;
   private listener: THREE.AudioListener = null;
@@ -80,20 +105,43 @@ export class AudioComponent implements OnInit {
       if (this.audio.buffer === null && this.url !== null) {
         this.loadAudio(this.url, (buffer: AudioBuffer) => {
             this.audio.setBuffer(buffer);
-            if (this.audio instanceof THREE.PositionalAudio) {
-              this.audio.setRefDistance(this.refDistance);
-              this.audio.setRolloffFactor(this.rolloffFactor);
-              this.audio.setDistanceModel(this.distanceModel);
-              this.audio.setMaxDistance(this.maxDistance);
-              this.audio.setDirectionalCone(
-                this.coneInnerAngle,
-                this.coneOuterAngle,
-                this.coneOuterGain
-              );
-            }
-            this.audio.play();
+            this.resetAudio();
         });
       }
+      if (!this.visible) {
+        if (this.audio.parent !== null) {
+          this.audio.parent.remove(this.audio);
+        }
+        this.audio.setVolume(0);
+      } else if (this.visible) {
+        if (this.audio.parent === null && this.audio.parent !== this.refObject3d) {
+          if (this.audio.parent !== null && this.audio.parent !== undefined) {
+            this.audio.parent.remove(this.audio);
+          }
+          this.refObject3d.add(this.audio);
+        }
+        this.audio.setVolume(this.volume);
+        if (this.audio instanceof THREE.PositionalAudio) {
+          this.audio.setRefDistance(this.refDistance);
+          this.audio.setRolloffFactor(this.rolloffFactor);
+          // this.audio.setDistanceModel(this.distanceModel);
+          this.audio.setMaxDistance(this.maxDistance);
+          /*
+          this.audio.setDirectionalCone(
+            this.coneInnerAngle,
+            this.coneOuterAngle,
+            this.coneOuterGain
+          );
+          */
+          // this.audio.play();
+        }
+      }
+      if (this.play && !this.audio.isPlaying) {
+        this.audio.play();
+      } else if (!this.play && this.audio.isPlaying) {
+        this.audio.pause();
+      }
+      this.audio.visible = this.visible;
     }
   }
 
@@ -115,6 +163,7 @@ export class AudioComponent implements OnInit {
           this.audio = new THREE.PositionalAudio(this.listener);
           break;
       }
+      this.audio.autoplay = false;
     }
     return this.audio;
   }

@@ -26,6 +26,12 @@ export class MixerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    if (this.mixer !== null) {
+      this.mixer.stopAllAction();
+    }
+  }
+
   private mixer : THREE.AnimationMixer = null;
   private model : THREE.Object3D | THREE.AnimationObjectGroup = null;
   private clips : THREE.AnimationClip[] = null;
@@ -44,10 +50,12 @@ export class MixerComponent implements OnInit {
   private lastAction : string = null;
 
   resetMixer() {
-    this.mixer = new THREE.AnimationMixer(this.model);
-    this.clip.forEach(clip => {
-      clip.setMixer(this.mixer, this.clips);
-    });
+    if (this.mixer == null) {
+      this.mixer = new THREE.AnimationMixer(this.model);
+      this.clip.forEach(clip => {
+        clip.setMixer(this.mixer, this.clips);
+      });
+    }
   }
 
   lastPlayedClip : ClipComponent = null;
@@ -63,10 +71,6 @@ export class MixerComponent implements OnInit {
           }
         }
       });
-      console.log("----------");
-      console.log(foundAction);
-      console.log(this.lastPlayedClip);
-
       if (this.lastPlayedClip !== null) {
         if (foundAction !== null) {
           this.lastPlayedClip.crossFadeTo(foundAction, this.duration);
@@ -82,6 +86,7 @@ export class MixerComponent implements OnInit {
 
   update(timer : RendererTimer) {
     if (this.mixer !== null) {
+      // console.log(timer.delta);
       this.mixer.update( timer.delta );
     }
   }

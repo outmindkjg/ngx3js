@@ -11,9 +11,22 @@ var core_1 = require("@angular/core");
 var THREE = require("three");
 var ListenerComponent = /** @class */ (function () {
     function ListenerComponent() {
+        this.volume = 1;
+        this.visible = true;
+        this.listener = null;
         this.refObject3d = null;
     }
     ListenerComponent.prototype.ngOnInit = function () {
+    };
+    ListenerComponent.prototype.ngOnDestroy = function () {
+        if (this.listener !== null && this.listener.parent !== null) {
+            this.listener.parent.remove(this.listener);
+        }
+    };
+    ListenerComponent.prototype.ngOnChanges = function (changes) {
+        if (changes) {
+            this.resetListener();
+        }
     };
     ListenerComponent.prototype.setObject3D = function (refObject3d) {
         if (this.refObject3d !== refObject3d) {
@@ -26,12 +39,21 @@ var ListenerComponent = /** @class */ (function () {
             this.listener = this.getListener();
         }
         if (this.listener !== null && this.refObject3d !== null) {
-            if (this.listener.parent !== this.refObject3d) {
-                if (this.listener.parent !== null) {
-                    this.listener.parent.remove(this.listener);
-                }
-                this.refObject3d.add(this.listener);
+            this.listener.setMasterVolume(this.volume);
+            if (!this.visible && this.listener.parent !== null) {
+                this.listener.parent.remove(this.listener);
+                this.listener.setMasterVolume(0);
             }
+            else if (this.visible && this.listener.parent === null) {
+                if (this.listener.parent !== this.refObject3d) {
+                    if (this.listener.parent !== null && this.listener.parent !== undefined) {
+                        this.listener.parent.remove(this.listener);
+                    }
+                    this.refObject3d.add(this.listener);
+                }
+                this.listener.setMasterVolume(this.volume);
+            }
+            this.listener.visible = this.visible;
         }
     };
     ListenerComponent.prototype.getListener = function () {
@@ -40,6 +62,12 @@ var ListenerComponent = /** @class */ (function () {
         }
         return this.listener;
     };
+    __decorate([
+        core_1.Input()
+    ], ListenerComponent.prototype, "volume");
+    __decorate([
+        core_1.Input()
+    ], ListenerComponent.prototype, "visible");
     ListenerComponent = __decorate([
         core_1.Component({
             selector: 'three-listener',

@@ -20,6 +20,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.MeshComponent = void 0;
+var audio_component_1 = require("./../audio/audio.component");
+var listener_component_1 = require("./../listener/listener.component");
 var mixer_component_1 = require("./../mixer/mixer.component");
 var core_1 = require("@angular/core");
 var PHYSIJS = require("./../physijs/src");
@@ -308,6 +310,8 @@ var MeshComponent = /** @class */ (function (_super) {
                     'geometry',
                     'material',
                     'svg',
+                    'listner',
+                    'audio'
                 ]);
             }
         }
@@ -343,6 +347,12 @@ var MeshComponent = /** @class */ (function (_super) {
         });
         this.materials.changes.subscribe(function (e) {
             _this.synkObject3D(['material']);
+        });
+        this.listner.changes.subscribe(function () {
+            _this.synkObject3D(['listner']);
+        });
+        this.audio.changes.subscribe(function () {
+            _this.synkObject3D(['audio']);
         });
     };
     MeshComponent.prototype.synkObject3D = function (synkTypes) {
@@ -394,6 +404,16 @@ var MeshComponent = /** @class */ (function (_super) {
                             });
                         }
                         break;
+                    case 'listner':
+                        _this.listner.forEach(function (listner) {
+                            listner.setObject3D(_this.mesh);
+                        });
+                        break;
+                    case 'audio':
+                        _this.audio.forEach(function (audio) {
+                            audio.setObject3D(_this.mesh);
+                        });
+                        break;
                 }
             });
         }
@@ -411,7 +431,6 @@ var MeshComponent = /** @class */ (function (_super) {
             }
             if (this.mesh === null && this.typeCsg == 'none') {
                 this.refObject3d.add(this.getMesh());
-                console.log('resetMesh');
             }
         }
     };
@@ -621,7 +640,6 @@ var MeshComponent = /** @class */ (function (_super) {
                                     }
                                 });
                             }
-                            console.log(clips);
                             if (_this.getSkeleton(false)) {
                                 _this.helper = new THREE.SkeletonHelper(loadedMesh);
                                 _this.helper.visible = _this.getSkeletonVisible(true);
@@ -642,7 +660,6 @@ var MeshComponent = /** @class */ (function (_super) {
                             }
                             if (clips !== null && clips !== undefined) {
                                 _this.clips = clips;
-                                console.log(clips);
                                 _this.synkObject3D(['mixer']);
                             }
                         });
@@ -837,6 +854,8 @@ var MeshComponent = /** @class */ (function (_super) {
                 'geometry',
                 'material',
                 'svg',
+                'listner',
+                'audio'
             ]);
         }
         return this.mesh;
@@ -1013,6 +1032,12 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: false })
     ], MeshComponent.prototype, "mixer");
+    __decorate([
+        core_1.ContentChildren(listener_component_1.ListenerComponent, { descendants: false })
+    ], MeshComponent.prototype, "listner");
+    __decorate([
+        core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: false })
+    ], MeshComponent.prototype, "audio");
     MeshComponent = MeshComponent_1 = __decorate([
         core_1.Component({
             selector: 'three-mesh',

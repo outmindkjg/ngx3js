@@ -1,4 +1,12 @@
-import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { AudioComponent } from './../audio/audio.component';
+import {
+  Component,
+  ContentChildren,
+  Input,
+  OnInit,
+  QueryList,
+  SimpleChanges,
+} from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { LookatComponent } from '../lookat/lookat.component';
@@ -9,7 +17,7 @@ import { PassComponent } from '../pass/pass.component';
 import { AbstractEffectComposer, RendererTimer } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
 import { ComposerComponent } from '../composer/composer.component';
-
+import { ListenerComponent } from '../listener/listener.component';
 
 /*
 ArrayCamera
@@ -20,10 +28,9 @@ StereoCamera
 @Component({
   selector: 'three-camera',
   templateUrl: './camera.component.html',
-  styleUrls: ['./camera.component.scss']
+  styleUrls: ['./camera.component.scss'],
 })
 export class CameraComponent implements OnInit, AbstractEffectComposer {
-
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
   @Input() fov: number = 45;
   @Input() near: number = null;
@@ -33,24 +40,31 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   @Input() top: number = 0.5;
   @Input() bottom: number = -0.5;
   @Input() autoClear: boolean = null;
-  @Input() controlType: string = "none";
+  @Input() controlType: string = 'none';
   @Input() controlAutoRotate: boolean = null;
   @Input() scene: SceneComponent = null;
   @Input() scenes: SceneComponent[] = null;
-  
 
-  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
-  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
-  @ContentChildren(PassComponent,{descendants: false}) pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent,{descendants: false}) composer: QueryList<ComposerComponent>;
+  @ContentChildren(PositionComponent, { descendants: false })
+  position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false })
+  rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false })
+  scale: QueryList<ScaleComponent>;
+  @ContentChildren(LookatComponent, { descendants: false })
+  lookat: QueryList<LookatComponent>;
+  @ContentChildren(PassComponent, { descendants: false })
+  pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent, { descendants: false })
+  composer: QueryList<ComposerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false })
+  listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false })
+  audio: QueryList<AudioComponent>;
 
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private camera: THREE.Camera = null;
 
@@ -60,23 +74,26 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
     }
   }
 
-  private renderer : THREE.Renderer = null;
-  private rendererScenes : QueryList<SceneComponent>;
-  private effectComposer : EffectComposer = null;
+  private renderer: THREE.Renderer = null;
+  private rendererScenes: QueryList<SceneComponent>;
+  private effectComposer: EffectComposer = null;
 
-  getRenderer() : THREE.Renderer{
+  getRenderer(): THREE.Renderer {
     return this.renderer;
   }
 
-  setRenderer(renderer : THREE.Renderer, rendererScenes : QueryList<SceneComponent>) {
+  setRenderer(
+    renderer: THREE.Renderer,
+    rendererScenes: QueryList<SceneComponent>
+  ) {
     if (this.renderer !== renderer) {
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
       this.effectComposer = this.getEffectComposer();
       if (this.composer !== null && this.composer.length > 0) {
-        this.composer.forEach(composer => {
+        this.composer.forEach((composer) => {
           composer.setCamera(this);
-        })
+        });
       }
     }
   }
@@ -85,16 +102,23 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
     this.effectComposer = this.getEffectComposer();
   }
 
-  getEffectComposer() : EffectComposer {
+  getEffectComposer(): EffectComposer {
     if (this.pass != null && this.pass.length > 0) {
       if (this.renderer instanceof THREE.WebGLRenderer) {
-        const effectComposer : EffectComposer = new EffectComposer(this.renderer);
-        this.pass.forEach(item => {
-          const pass = item.getPass(this.getScene(), this.getCamera(), this, this);
+        const effectComposer: EffectComposer = new EffectComposer(
+          this.renderer
+        );
+        this.pass.forEach((item) => {
+          const pass = item.getPass(
+            this.getScene(),
+            this.getCamera(),
+            this,
+            this
+          );
           if (pass !== null) {
             effectComposer.addPass(pass);
           }
-        })
+        });
         return effectComposer;
       }
     }
@@ -113,6 +137,12 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
     });
     this.lookat.changes.subscribe(() => {
       this.synkObject3D(['lookat']);
+    });
+    this.listner.changes.subscribe(() => {
+      this.synkObject3D(['listner']);
+    });
+    this.audio.changes.subscribe(() => {
+      this.synkObject3D(['audio']);
     });
   }
 
@@ -140,8 +170,18 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
               lookat.setObject3D(this.camera);
             });
             break;
+          case 'listner':
+            this.listner.forEach((listner) => {
+              listner.setObject3D(this.camera);
+            });
+            break;
+          case 'audio':
+            this.audio.forEach((audio) => {
+              audio.setObject3D(this.camera);
+            });
+            break;
         }
-      })
+      });
     }
   }
 
@@ -185,14 +225,21 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   }
 
   getRaycaster(event): THREE.Raycaster {
-    const vector = new THREE.Vector3((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1, 0.5);
+    const vector = new THREE.Vector3(
+      (event.clientX / this.cameraWidth) * 2 - 1,
+      -(event.clientY / this.cameraHeight) * 2 + 1,
+      0.5
+    );
     const camera = this.getCamera();
     const v = vector.unproject(camera);
-    const raycaster = new THREE.Raycaster(camera.position, v.sub(camera.position).normalize());
+    const raycaster = new THREE.Raycaster(
+      camera.position,
+      v.sub(camera.position).normalize()
+    );
     return raycaster;
   }
 
-  setCameraSize(width : number, height : number) {
+  setCameraSize(width: number, height: number) {
     this.cameraWidth = width;
     this.cameraHeight = height;
     if (this.camera !== null) {
@@ -208,17 +255,17 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
       }
     }
     if (this.composer !== null && this.composer.length > 0) {
-      this.composer.forEach(composer => {
+      this.composer.forEach((composer) => {
         composer.setCameraSize(this.cameraWidth, this.cameraHeight);
-      })
+      });
     }
   }
 
   getCamera(): THREE.Camera {
     if (this.camera === null) {
-        const width = this.cameraWidth;
-        const height = this.cameraHeight;
-        switch (this.type.toLowerCase()) {
+      const width = this.cameraWidth;
+      const height = this.cameraHeight;
+      switch (this.type.toLowerCase()) {
         case 'orthographic':
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
@@ -239,12 +286,12 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
           );
           break;
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','listner','audio']);
     }
     return this.camera;
   }
 
-  getScene(scenes?: QueryList<SceneComponent>) : THREE.Scene {
+  getScene(scenes?: QueryList<SceneComponent>): THREE.Scene {
     if (this.scene !== null) {
       return this.scene.getScene();
     } else if (scenes && scenes.length > 0) {
@@ -256,9 +303,13 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
     }
   }
 
-  render(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, renderTimer : RendererTimer) {
+  render(
+    renderer: THREE.Renderer,
+    scenes: QueryList<SceneComponent>,
+    renderTimer: RendererTimer
+  ) {
     if (this.scenes !== null && this.scenes.length > 0) {
-      this.scenes.forEach((sceneCom) => { 
+      this.scenes.forEach((sceneCom) => {
         const scene = sceneCom.getScene();
         if (scene !== null) {
           if (this.autoClear !== null) {
@@ -267,9 +318,9 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
             }
           }
           if (renderer instanceof THREE.WebGLRenderer) {
-            this.composer.forEach(composer => {
+            this.composer.forEach((composer) => {
               composer.render(renderer, renderTimer);
-            })
+            });
           }
           if (this.effectComposer !== null) {
             this.effectComposer.render(renderTimer.delta);
@@ -287,9 +338,9 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
           }
         }
         if (renderer instanceof THREE.WebGLRenderer) {
-          this.composer.forEach(composer => {
+          this.composer.forEach((composer) => {
             composer.render(renderer, renderTimer);
-          })
+          });
         }
         if (this.effectComposer !== null) {
           this.effectComposer.render(renderTimer.delta);

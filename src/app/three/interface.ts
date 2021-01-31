@@ -277,13 +277,8 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static clock: ThreeClock = null;
-
   static getClock(autoStart?: boolean): ThreeClock {
-    if (this.clock === null) {
-      this.clock = new ThreeClock(autoStart);
-    }
-    return this.clock;
+    return new ThreeClock(autoStart);
   }
 
   static stats: ThreeStats = null;

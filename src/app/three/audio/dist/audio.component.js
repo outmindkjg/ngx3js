@@ -13,6 +13,10 @@ var AudioComponent = /** @class */ (function () {
     function AudioComponent() {
         this.type = 'position';
         this.url = null;
+        this.visible = true;
+        this.autoplay = true;
+        this.play = true;
+        this.volume = 1;
         this.refDistance = 1;
         this.rolloffFactor = 1;
         this.distanceModel = "";
@@ -27,6 +31,25 @@ var AudioComponent = /** @class */ (function () {
     }
     AudioComponent_1 = AudioComponent;
     AudioComponent.prototype.ngOnInit = function () { };
+    AudioComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.type) {
+            this.audio = null;
+        }
+        if (this.audio !== null && this.audio.buffer !== null && changes.url) {
+            this.audio.buffer = null;
+        }
+        this.resetAudio();
+    };
+    AudioComponent.prototype.ngOnDestroy = function () {
+        if (this.audio !== null) {
+            if (this.audio.parent !== null) {
+                this.audio.parent.remove(this.audio);
+            }
+            if (this.audio.source !== null) {
+                this.audio.stop();
+            }
+        }
+    };
     AudioComponent.prototype.loadAudio = function (url, onLoad) {
         AudioComponent_1.loadAudio(url, onLoad);
     };
@@ -70,16 +93,45 @@ var AudioComponent = /** @class */ (function () {
             if (this.audio.buffer === null && this.url !== null) {
                 this.loadAudio(this.url, function (buffer) {
                     _this.audio.setBuffer(buffer);
-                    if (_this.audio instanceof THREE.PositionalAudio) {
-                        _this.audio.setRefDistance(_this.refDistance);
-                        _this.audio.setRolloffFactor(_this.rolloffFactor);
-                        _this.audio.setDistanceModel(_this.distanceModel);
-                        _this.audio.setMaxDistance(_this.maxDistance);
-                        _this.audio.setDirectionalCone(_this.coneInnerAngle, _this.coneOuterAngle, _this.coneOuterGain);
-                    }
-                    _this.audio.play();
+                    _this.resetAudio();
                 });
             }
+            if (!this.visible) {
+                if (this.audio.parent !== null) {
+                    this.audio.parent.remove(this.audio);
+                }
+                this.audio.setVolume(0);
+            }
+            else if (this.visible) {
+                if (this.audio.parent === null && this.audio.parent !== this.refObject3d) {
+                    if (this.audio.parent !== null && this.audio.parent !== undefined) {
+                        this.audio.parent.remove(this.audio);
+                    }
+                    this.refObject3d.add(this.audio);
+                }
+                this.audio.setVolume(this.volume);
+                if (this.audio instanceof THREE.PositionalAudio) {
+                    this.audio.setRefDistance(this.refDistance);
+                    this.audio.setRolloffFactor(this.rolloffFactor);
+                    // this.audio.setDistanceModel(this.distanceModel);
+                    this.audio.setMaxDistance(this.maxDistance);
+                    /*
+                    this.audio.setDirectionalCone(
+                      this.coneInnerAngle,
+                      this.coneOuterAngle,
+                      this.coneOuterGain
+                    );
+                    */
+                    // this.audio.play();
+                }
+            }
+            if (this.play && !this.audio.isPlaying) {
+                this.audio.play();
+            }
+            else if (!this.play && this.audio.isPlaying) {
+                this.audio.pause();
+            }
+            this.audio.visible = this.visible;
         }
     };
     AudioComponent.prototype.getAnalyser = function () {
@@ -99,6 +151,7 @@ var AudioComponent = /** @class */ (function () {
                     this.audio = new THREE.PositionalAudio(this.listener);
                     break;
             }
+            this.audio.autoplay = false;
         }
         return this.audio;
     };
@@ -110,6 +163,18 @@ var AudioComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], AudioComponent.prototype, "url");
+    __decorate([
+        core_1.Input()
+    ], AudioComponent.prototype, "visible");
+    __decorate([
+        core_1.Input()
+    ], AudioComponent.prototype, "autoplay");
+    __decorate([
+        core_1.Input()
+    ], AudioComponent.prototype, "play");
+    __decorate([
+        core_1.Input()
+    ], AudioComponent.prototype, "volume");
     __decorate([
         core_1.Input()
     ], AudioComponent.prototype, "refDistance");

@@ -1,3 +1,5 @@
+import { AudioComponent } from './../audio/audio.component';
+import { ListenerComponent } from './../listener/listener.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import {
   Component,
@@ -104,6 +106,10 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   svg: QueryList<SvgComponent>;
   @ContentChildren(MixerComponent, { descendants: false })
   mixer: QueryList<MixerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false })
+  listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false })
+  audio: QueryList<AudioComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -247,11 +253,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       Object.entries(changes).forEach(([key, value]) => {
-        switch(key) {
-          case 'skeletonVisible' :
-          case 'visible' :
+        switch (key) {
+          case 'skeletonVisible':
+          case 'visible':
             break;
-          default :
+          default:
             if (this.refObject3d !== null && this.mesh !== null) {
               this.refObject3d.remove(this.mesh);
               this.mesh = null;
@@ -352,6 +358,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           'geometry',
           'material',
           'svg',
+          'listner',
+          'audio'
         ]);
       }
     } else {
@@ -386,6 +394,12 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     });
     this.materials.changes.subscribe((e) => {
       this.synkObject3D(['material']);
+    });
+    this.listner.changes.subscribe(() => {
+      this.synkObject3D(['listner']);
+    });
+    this.audio.changes.subscribe(() => {
+      this.synkObject3D(['audio']);
     });
   }
 
@@ -430,12 +444,22 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               mesh.setObject3D(this.mesh, seqn);
             });
             break;
-          case 'mixer' :
+          case 'mixer':
             if (this.clips !== null && this.clips !== undefined) {
               this.mixer.forEach((mixer) => {
                 mixer.setModel(this.mesh, this.clips);
               });
             }
+            break;
+          case 'listner':
+            this.listner.forEach((listner) => {
+              listner.setObject3D(this.mesh);
+            });
+            break;
+          case 'audio':
+            this.audio.forEach((audio) => {
+              audio.setObject3D(this.mesh);
+            });
             break;
         }
       });
@@ -726,7 +750,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             basemesh = new THREE.Object3D();
             this.localStorageService.getObject(
               this.storageName,
-              (loadedMesh: THREE.Object3D, clips? : THREE.AnimationClip[]) => {
+              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
                 if (this.castShadow) {
                   loadedMesh.traverse((object) => {
                     if (object instanceof THREE.Mesh) {
@@ -977,6 +1001,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         'geometry',
         'material',
         'svg',
+        'listner',
+        'audio'
       ]);
     }
     return this.mesh;
