@@ -141,6 +141,10 @@ import { PassComponent } from './three/pass/pass.component';
 import { ComposerComponent } from './three/composer/composer.component';
 import { TweenComponent } from './three/tween/tween.component';
 import { SharedComponent } from './three/shared/shared.component';
+import { MixerComponent } from './three/mixer/mixer.component';
+import { ClipComponent } from './three/clip/clip.component';
+import { ListenerComponent } from './three/listener/listener.component';
+import { AudioComponent } from './three/audio/audio.component';
 
 @NgModule({
   declarations: [
@@ -281,7 +285,11 @@ import { SharedComponent } from './three/shared/shared.component';
     PassComponent,
     ComposerComponent,
     TweenComponent,
-    SharedComponent
+    SharedComponent,
+    MixerComponent,
+    ClipComponent,
+    ListenerComponent,
+    AudioComponent
   ],
   imports: [
     BrowserModule,

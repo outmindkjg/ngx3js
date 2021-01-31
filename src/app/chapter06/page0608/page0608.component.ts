@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, RendererTimer, GeometriesParametric, MeshComponent } from 'src/app/three';
+import { GeometriesVector3, GuiControlParam, RendererTimer, GeometriesParametric, MeshComponent } from './../../three';
 
 @Component({
   selector: 'app-page0608',

@@ -1,3 +1,4 @@
+import { MixerComponent } from './../mixer/mixer.component';
 import { AfterContentInit, AfterViewInit, Component, QueryList, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -19,6 +20,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
+
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
 
@@ -36,7 +39,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() guiParams: GuiControlParam[] = [];
   @Output() onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
-  constructor() { 
+  constructor() {
     ThreeUtil.setupGui
   }
 
@@ -245,6 +248,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     const renderTimer = this.clock.getTimer();
     this.onRender.emit(renderTimer);
+    this.mixer.forEach(mixer => {
+      mixer.update(renderTimer);
+    });
     ThreeUtil.render(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {

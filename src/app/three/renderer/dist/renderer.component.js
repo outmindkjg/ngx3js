@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.RendererComponent = void 0;
+var mixer_component_1 = require("./../mixer/mixer.component");
 var core_1 = require("@angular/core");
 var THREE = require("three");
 var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
@@ -17,6 +18,7 @@ var TransformControls_1 = require("three/examples/jsm/controls/TransformControls
 var camera_component_1 = require("./../camera/camera.component");
 var scene_component_1 = require("./../scene/scene.component");
 var interface_1 = require("../interface");
+var rxjs_1 = require("rxjs");
 var RendererComponent = /** @class */ (function () {
     function RendererComponent() {
         this.type = "webgl";
@@ -31,6 +33,7 @@ var RendererComponent = /** @class */ (function () {
         this.guiControl = null;
         this.guiParams = [];
         this.onRender = new core_1.EventEmitter();
+        this.sizeSubject = new rxjs_1.Subject();
         this.renderer = null;
         this.rendererWidth = 100;
         this.rendererHeight = 100;
@@ -38,6 +41,7 @@ var RendererComponent = /** @class */ (function () {
         this.gui = null;
         this.clock = null;
         this.control = null;
+        interface_1.ThreeUtil.setupGui;
     }
     RendererComponent.prototype.ngOnInit = function () {
     };
@@ -104,7 +108,15 @@ var RendererComponent = /** @class */ (function () {
             this.cameras.forEach(function (camera) {
                 camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
             });
+            this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
         }
+    };
+    RendererComponent.prototype.sizeSubscribe = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.sizeSubject.next(new THREE.Vector2(_this.rendererWidth, _this.rendererHeight));
+        }, 1);
+        return this.sizeSubject.asObservable();
     };
     RendererComponent.prototype.ngAfterContentInit = function () {
     };
@@ -212,6 +224,7 @@ var RendererComponent = /** @class */ (function () {
                 this.renderer.outputEncoding = THREE.sRGBEncoding;
             }
             this.canvas.nativeElement.appendChild(this.renderer.domElement);
+            interface_1.ThreeUtil.setRenderer(this.renderer);
         }
         return this.renderer;
     };
@@ -222,6 +235,9 @@ var RendererComponent = /** @class */ (function () {
         }
         var renderTimer = this.clock.getTimer();
         this.onRender.emit(renderTimer);
+        this.mixer.forEach(function (mixer) {
+            mixer.update(renderTimer);
+        });
         interface_1.ThreeUtil.render(renderTimer);
         if (this.control !== null) {
             if (this.control instanceof OrbitControls_1.OrbitControls) {
@@ -256,6 +272,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: false })
     ], RendererComponent.prototype, "cameras");
+    __decorate([
+        core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: true })
+    ], RendererComponent.prototype, "mixer");
     __decorate([
         core_1.ViewChild('canvas')
     ], RendererComponent.prototype, "canvas");

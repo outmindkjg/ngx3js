@@ -30,6 +30,13 @@ ng g c three/shared
 ng g c three/translation
 ng g s three/local-storage-service
 ng g c three/composer
+ng g c three/mixer
+ng g c three/animation
+
+ng g c three/listener
+ng g c three/audio
+
+
 
 ng g c chapter08/page0801
 ng g c chapter08/page0802

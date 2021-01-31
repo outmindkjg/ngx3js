@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three';
+import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
 
 @Component({
   selector: 'app-page0502',
@@ -36,6 +36,6 @@ export class Page0502Component implements OnInit {
   onRender(timer: RendererTimer) {
     this.rotation.y += timer.delta * 20;
   }
- 
+
 
 }

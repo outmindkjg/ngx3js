@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, MeshComponent, RendererTimer } from 'src/app/three';
-import { CameraComponent } from 'src/app/three/camera/camera.component';
+import { GeometriesVector3, GuiControlParam, MeshComponent, RendererTimer } from './../../three';
+import { CameraComponent } from './../../three/camera/camera.component';
 import * as THREE from 'three';
 @Component({
   selector: 'app-page0902',
@@ -53,7 +53,7 @@ export class Page0902Component implements OnInit {
 
   lastMaterial : THREE.Material = null;
 
-  @HostListener('document:mousedown', ['$event']) 
+  @HostListener('document:mousedown', ['$event'])
   hasPressed(event) {
     if (this.camera !== null && this.camera !== undefined) {
       var v = this.camera.getRaycaster(event);
@@ -75,8 +75,8 @@ export class Page0902Component implements OnInit {
   }
 
   tubePoints : GeometriesVector3[] = null;
-  
-  @HostListener('document:mousemove', ['$event']) 
+
+  @HostListener('document:mousemove', ['$event'])
   hasReleased(event) {
     if (this.controls.showRay) {
       if (this.camera !== null && this.camera !== undefined) {
@@ -108,11 +108,11 @@ export class Page0902Component implements OnInit {
     x: 1, y: 1, z: 1
   }
 
-  onRender(timer: RendererTimer) {    
+  onRender(timer: RendererTimer) {
     if (this.controls.rotate) {
       this.rotation.y += this.controls.rotationSpeed * timer.delta * 250;
       this.rotation.x = this.rotation.z = this.rotation.y;
-      
+
       const step = this.controls.bouncingSpeed * timer.elapsedTime * 60;
       this.spherePosition.x = 20 + ( 10 * (Math.cos(step)));
       this.spherePosition.y = 2 + ( 10 * Math.abs(Math.sin(step)));

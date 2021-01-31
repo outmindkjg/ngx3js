@@ -19,7 +19,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.AbstractMeshComponent = exports.AbstractSvgGeometry = exports.AbstractGetGeometry = exports.AbstractThreeComponent = void 0;
+exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.AbstractMeshComponent = exports.AbstractSvgGeometry = exports.AbstractComposerComponent = exports.AbstractGetGeometry = exports.AbstractThreeComponent = void 0;
 var tween_component_1 = require("./tween/tween.component");
 var core_1 = require("@angular/core");
 var THREE = require("three");
@@ -58,7 +58,7 @@ var AbstractThreeComponent = /** @class */ (function () {
             });
             this.tweenTimer.onUpdate(function () {
             }).onComplete(function () {
-                console.log(_this.tweenTarget);
+                // console.log(this.tweenTarget);
             }).start();
         }
         else if (this.tweenTimer !== null) {
@@ -86,6 +86,14 @@ var AbstractGetGeometry = /** @class */ (function (_super) {
     return AbstractGetGeometry;
 }(AbstractThreeComponent));
 exports.AbstractGetGeometry = AbstractGetGeometry;
+var AbstractComposerComponent = /** @class */ (function (_super) {
+    __extends(AbstractComposerComponent, _super);
+    function AbstractComposerComponent() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return AbstractComposerComponent;
+}(AbstractThreeComponent));
+exports.AbstractComposerComponent = AbstractComposerComponent;
 var AbstractSvgGeometry = /** @class */ (function (_super) {
     __extends(AbstractSvgGeometry, _super);
     function AbstractSvgGeometry() {
@@ -111,6 +119,12 @@ exports.AbstractMeshComponent = AbstractMeshComponent;
 var ThreeUtil = /** @class */ (function () {
     function ThreeUtil() {
     }
+    ThreeUtil.setRenderer = function (lastRenderer) {
+        this.lastRenderer = lastRenderer;
+    };
+    ThreeUtil.getRenderer = function () {
+        return this.lastRenderer;
+    };
     ThreeUtil.render = function (renderTimer) {
         if (this.renderTimer !== renderTimer) {
             this.renderTimer = renderTimer;
@@ -203,6 +217,13 @@ var ThreeUtil = /** @class */ (function () {
         else {
             return undefined;
         }
+    };
+    ThreeUtil.getAngleSafe = function (angle, altangle) {
+        var defValue = this.getTypeSafe(angle, altangle);
+        if (this.isNotNull(defValue)) {
+            return defValue / 180 * Math.PI;
+        }
+        return undefined;
     };
     ThreeUtil.getVector2Safe = function (x, y, altValue) {
         var defValue = this.isNotNull(x) && this.isNotNull(y)

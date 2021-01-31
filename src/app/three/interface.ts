@@ -14,7 +14,7 @@ export interface LoadedObject {
   object? : THREE.Object3D;
   material? : THREE.Material;
   geometry? : THREE.Geometry | THREE.BufferGeometry;
-  animations? : THREE.AnimationClip;
+  clips? : THREE.AnimationClip[];
 }
 
 export interface AbstractEffectComposer {
@@ -236,7 +236,7 @@ export class ThreeUtil {
   }
 
   static getAngleSafe(
-    angle: number, 
+    angle: number,
     altangle?: number
   ): number {
     const defValue = this.getTypeSafe(angle, altangle);
@@ -245,7 +245,7 @@ export class ThreeUtil {
     }
     return undefined;
   }
- 
+
   static getVector2Safe<T>(
     x: number,
     y: number,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three';
+import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
 
 @Component({
   selector: 'app-page0901',
@@ -41,11 +41,11 @@ export class Page0901Component implements OnInit {
     x: 0, y: 0, z: 0
   }
 
-  onRender(timer: RendererTimer) {    
+  onRender(timer: RendererTimer) {
     if (this.controls.rotate) {
       this.rotation.y += this.controls.rotationSpeed * timer.delta * 250;
       this.rotation.x = this.rotation.z = this.rotation.y;
-      
+
       const step = this.controls.bouncingSpeed * timer.elapsedTime * 60;
       this.spherePosition.x = 20 + ( 10 * (Math.cos(step)));
       this.spherePosition.y = 2 + ( 10 * Math.abs(Math.sin(step)));

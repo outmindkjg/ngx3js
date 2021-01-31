@@ -121,13 +121,10 @@ export class LocalStorageService {
         this.gltfLoader = new GLTFLoader();
       }
       this.gltfLoader.load(key, (result: GLTF) => {
-        console.log(result);
         callBack({
-          object : result.scene
+          object : result.scene,
+          clips : result.animations
         });
-        // const mesh = new THREE.Mesh(gltf, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-        // callBack(mesh);
-        // todo
       }, null, (e) => {
         console.log(e);
       })
@@ -299,13 +296,13 @@ export class LocalStorageService {
     }
   }
 
-  public getObject(key: string, callBack: (mesh: THREE.Object3D) => void): void {
+  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[]) => void): void {
     this.getObjectFromKey(key, (result) => {
       if (result.object instanceof THREE.Object3D) {
-        callBack(result.object);
+        callBack(result.object, result.clips);
       } else {
-        const scene = new THREE.Scene();
-        scene.add(result.object); 
+        const scene = new THREE.Group();
+        scene.add(result.object);
         callBack(scene);
       }});
   }
@@ -320,10 +317,10 @@ export class LocalStorageService {
         callBack(result.object);
       } else {
         const scene = new THREE.Scene();
-        scene.add(result.object); 
+        scene.add(result.object);
         callBack(scene);
       }
-      
+
     });
   }
 

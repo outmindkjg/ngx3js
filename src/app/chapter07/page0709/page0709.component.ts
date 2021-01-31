@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, RendererTimer } from 'src/app/three';
+import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
 
 @Component({
   selector: 'app-page0709',
@@ -15,8 +15,8 @@ export class Page0709Component implements OnInit {
       const range = 200;
       for(let i = 0 ; i < this.controls.spriteCnt ; i++) {
         this.spritePosition.push({
-          x : Math.random() * range - range / 2, 
-          y : Math.random() * range - range / 2, 
+          x : Math.random() * range - range / 2,
+          y : Math.random() * range - range / 2,
           z : Math.random() * range - range / 2,
           size : 10,
           sprite : i % 5
@@ -45,11 +45,11 @@ export class Page0709Component implements OnInit {
     x: 0, y: 0, z: 0
   }
 
-  spritePosition : { 
-    x : number, 
-    y : number, 
-    z : number, 
-    size : number, 
+  spritePosition : {
+    x : number,
+    y : number,
+    z : number,
+    size : number,
     sprite : number
   }[] = [];
 

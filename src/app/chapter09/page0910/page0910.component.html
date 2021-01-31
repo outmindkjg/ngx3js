@@ -1,7 +1,7 @@
-<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xa0a0a0'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-        <three-position [x]="0" [y]="10" [z]="-20"></three-position>
-        <three-lookat [x]="0" [y]="-50" [z]="0"></three-lookat>
+        <three-position [x]="1" [y]="2" [z]="-5"></three-position>
+        <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
         <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
@@ -9,11 +9,35 @@
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="scene"></three-lookat>
         </three-mesh>
-        <three-mesh [type]="'storage'" [storageName]="'/assets/models/gltf/Soldier.glb'">
-            <three-position [x]="0" [y]="0" [z]="0"></three-position>
-            <three-scale [x]="5" [y]="5" [z]="5"></three-scale>
-            <three-geometry [type]="'box'" [width]="10" [height]="10" [depth]="10"></three-geometry>
-            <three-material type="meshlambert" [color]="'0xff0000'" [wireframe]="controls.wireframe"></three-material>
+        <three-mesh [type]="'storage'" [visible]="controls.model" [skeletonVisible]="controls.skeleton" [skeleton]="true" [storageName]="'/assets/models/gltf/Soldier.glb'">
+            <three-position [x]="-1" [y]="0" [z]="0"></three-position>
+            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
+            <three-mixer [action]="controls.action" [duration]="controls.duration">
+              <three-clip [name]="'Idle'"></three-clip>
+              <three-clip [name]="'Run'"></three-clip>
+              <three-clip [name]="'TPose'"></three-clip>
+              <three-clip [name]="'Walk'"></three-clip>
+            </three-mixer>
         </three-mesh>
+        <three-mesh [type]="'storage'" [visible]="controls.model" [skeletonVisible]="controls.skeleton" [skeleton]="true" [storageName]="'/assets/models/gltf/Xbot.glb'">
+          <three-position [x]="1" [y]="0" [z]="0"></three-position>
+          <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
+          <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
+          <three-mixer [action]="controls.actionxbot" [duration]="controls.duration">
+            <three-clip [name]="'idle'"></three-clip>
+            <three-clip [name]="'run'"></three-clip>
+            <three-clip [name]="'walk'"></three-clip>
+            <three-clip [weight]="controls.girl.agree" [additive]="true" [name]="'agree'"></three-clip>
+            <three-clip [weight]="controls.girl.headShake" [additive]="true" [name]="'headShake'"></three-clip>
+            <three-clip [weight]="controls.girl.sad_pose" [additive]="true" [subclip]="true" [name]="'sad_pose'"></three-clip>
+            <three-clip [weight]="controls.girl.sneak_pose" [additive]="true" [subclip]="true" [name]="'sneak_pose'"></three-clip>
+          </three-mixer>
+      </three-mesh>
+        <three-mesh [receiveShadow]="true">
+          <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-rotation [x]="-90"></three-rotation>
+          <three-geometry [type]="'Plane'" [width]="100" [height]="100"></three-geometry>
+          <three-material type="MeshPhong" [color]="'0x999999'" [depthWrite]="false"></three-material>
+      </three-mesh>
     </three-scene>
 </three-renderer>

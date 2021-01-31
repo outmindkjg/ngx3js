@@ -37,7 +37,7 @@ var Page1101Component = /** @class */ (function () {
     };
     Page1101Component.prototype.onRender = function (timer) {
         if (this.controls.rotate) {
-            this.rotation.y += timer.delta * 10;
+            this.rotation.y += timer.delta * 30;
             // this.rotation.x = this.rotation.z = this.rotation.y;
         }
     };
