@@ -77,7 +77,6 @@ import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 
 import { AbstractComposerComponent, AbstractEffectComposer, ThreeUtil } from '../interface';
-import { SceneComponent } from '../scene/scene.component';
 
 @Component({
   selector: 'three-pass',
@@ -126,7 +125,8 @@ export class PassComponent implements OnInit {
   @Input() radius: number = null;
   @Input() threshold: number = null;
   @Input() goWild: boolean = null;
-  
+  @Input() uniforms : { [key : string] : any } = null;
+
   constructor() { }
 
   private getEnabled(def?: boolean): boolean {
@@ -278,125 +278,197 @@ export class PassComponent implements OnInit {
 
   private getShader(def?: string): object {
     const shader = ThreeUtil.getTypeSafe(this.shader, def, '');
+    let shaderUniforms = null;
     switch (shader.toLowerCase()) {
       case 'afterimage':
-        return AfterimageShader;
+        shaderUniforms = AfterimageShader;
+        break;
       case 'basic':
-        return BasicShader;
+        shaderUniforms = BasicShader;
+        break;
       case 'bleachbypass':
-        return BleachBypassShader;
+        shaderUniforms = BleachBypassShader;
+        break;
       case 'blend':
-        return BlendShader;
+        shaderUniforms = BlendShader;
+        break;
       case 'bokeh':
-        return BokehShader;
+        shaderUniforms = BokehShader;
+        break;
       case 'bokeh':
-        return BokehShader;
+        shaderUniforms = BokehShader;
+        break;
       case 'brightnesscontrast':
-        return BrightnessContrastShader;
+        shaderUniforms = BrightnessContrastShader;
+        break;
       case 'colorcorrection':
-        return ColorCorrectionShader;
+        shaderUniforms = ColorCorrectionShader;
+        break;
       case 'colorify':
-        return ColorifyShader;
+        shaderUniforms = ColorifyShader;
+        break;
       case 'convolution':
-        return ConvolutionShader;
+        shaderUniforms = ConvolutionShader;
+        break;
       case 'copy':
-        return CopyShader;
+        shaderUniforms = CopyShader;
+        break;
       case 'depthlimitedblur':
-        return DepthLimitedBlurShader;
+        shaderUniforms = DepthLimitedBlurShader;
+        break;
       case 'digitalglitch':
-        return DigitalGlitch;
+        shaderUniforms = DigitalGlitch;
+        break;
       case 'dofmipmap':
-        return DOFMipMapShader;
+        shaderUniforms = DOFMipMapShader;
+        break;
       case 'dotscreen':
-        return DotScreenShader;
+        shaderUniforms = DotScreenShader;
+        break;
       case 'film':
-        return FilmShader;
+        shaderUniforms = FilmShader;
+        break;
       case 'focus':
-        return FocusShader;
+        shaderUniforms = FocusShader;
+        break;
       case 'freichen':
-        return FreiChenShader;
+        shaderUniforms = FreiChenShader;
+        break;
       case 'fresnel':
-        return FresnelShader;
+        shaderUniforms = FresnelShader;
+        break;
       case 'fxaa':
-        return FXAAShader;
+        shaderUniforms = FXAAShader;
+        break;
       case 'gammacorrection':
-        return GammaCorrectionShader;
+        shaderUniforms = GammaCorrectionShader;
+        break;
       case 'godraysdepthmask':
-        return GodRaysDepthMaskShader;
+        shaderUniforms = GodRaysDepthMaskShader;
+        break;
       case 'godraysgenerate':
-        return GodRaysGenerateShader;
+        shaderUniforms = GodRaysGenerateShader;
+        break;
       case 'godrayscombine':
-        return GodRaysCombineShader;
+        shaderUniforms = GodRaysCombineShader;
+        break;
       case 'godraysfakesun':
-        return GodRaysFakeSunShader;
+        shaderUniforms = GodRaysFakeSunShader;
+        break;
       case 'halftone':
-        return HalftoneShader;
+        shaderUniforms = HalftoneShader;
+        break;
       case 'horizontalblur':
-        return HorizontalBlurShader;
+        shaderUniforms = HorizontalBlurShader;
+        break;
       case 'horizontaltiltshift':
-        return HorizontalTiltShiftShader;
+        shaderUniforms = HorizontalTiltShiftShader;
+        break;
       case 'huesaturation':
-        return HueSaturationShader;
+        shaderUniforms = HueSaturationShader;
+        break;
       case 'kaleido':
-        return KaleidoShader;
+        shaderUniforms = KaleidoShader;
+        break;
       case 'luminosityhighpass':
-        return LuminosityHighPassShader;
+        shaderUniforms = LuminosityHighPassShader;
+        break;
       case 'luminosity':
-        return LuminosityShader;
+        shaderUniforms = LuminosityShader;
+        break;
       case 'mirror':
-        return MirrorShader;
+        shaderUniforms = MirrorShader;
+        break;
       case 'normalmap':
-        return NormalMapShader;
+        shaderUniforms = NormalMapShader;
+        break;
       case 'ocean':
-        return OceanShaders;
+        shaderUniforms = OceanShaders;
+        break;
       case 'parallax':
-        return ParallaxShader;
+        shaderUniforms = ParallaxShader;
+        break;
       case 'pixel':
-        return PixelShader;
+        shaderUniforms = PixelShader;
+        break;
       case 'rgbshift':
-        return RGBShiftShader;
+        shaderUniforms = RGBShiftShader;
+        break;
       case 'sao':
-        return SAOShader;
+        shaderUniforms = SAOShader;
+        break;
       case 'sepia':
-        return SepiaShader;
+        shaderUniforms = SepiaShader;
+        break;
       case 'smaaedges':
-        return SMAAEdgesShader;
+        shaderUniforms = SMAAEdgesShader;
+        break;
       case 'smaaweights':
-        return SMAAWeightsShader;
+        shaderUniforms = SMAAWeightsShader;
+        break;
       case 'smaablend':
-        return SMAABlendShader;
+        shaderUniforms = SMAABlendShader;
+        break;
       case 'sobeloperator':
-        return SobelOperatorShader;
+        shaderUniforms = SobelOperatorShader;
+        break;
       case 'ssao':
-        return SSAOShader;
+        shaderUniforms = SSAOShader;
+        break;
       case 'subsurfacescattering':
-        return SubsurfaceScatteringShader;
+        shaderUniforms = SubsurfaceScatteringShader;
+        break;
       case 'technicolor':
-        return TechnicolorShader;
+        shaderUniforms = TechnicolorShader;
+        break;
       case 'tonemap':
-        return ToneMapShader;
+        shaderUniforms = ToneMapShader;
+        break;
       case 'toon2':
-        return ToonShader1;
+        shaderUniforms = ToonShader1;
+        break;
       case 'toon1':
-        return ToonShader2;
+        shaderUniforms = ToonShader2;
+        break;
       case 'toondotted':
-        return ToonShaderDotted;
+        shaderUniforms = ToonShaderDotted;
+        break;
       case 'toonhatching':
-        return ToonShaderHatching;
+        shaderUniforms = ToonShaderHatching;
+        break;
       case 'triangleblur':
-        return TriangleBlurShader;
+        shaderUniforms = TriangleBlurShader;
+        break;
       case 'unpackdepthrgba':
-        return UnpackDepthRGBAShader;
+        shaderUniforms = UnpackDepthRGBAShader;
+        break;
       case 'verticalblur':
-        return VerticalBlurShader;
+        shaderUniforms = VerticalBlurShader;
+        break;
       case 'verticaltiltshift':
-        return VerticalTiltShiftShader;
+        shaderUniforms = VerticalTiltShiftShader;
+        break;
       case 'vignette':
-        return VignetteShader;
+        shaderUniforms = VignetteShader;
+        break;
       case 'volume':
-        return VolumeRenderShader1;
+        shaderUniforms = VolumeRenderShader1;
+        break;
       case 'waterrefraction':
-        return WaterRefractionShader;
+        shaderUniforms = WaterRefractionShader;
+        break;
+    }
+    if (shaderUniforms !== null) {
+      if (shaderUniforms.uniforms !== null && shaderUniforms.uniforms !== undefined && this.uniforms !== null && this.uniforms !== undefined) {
+        Object.entries(shaderUniforms.uniforms).forEach(([key, value]) => {
+          if (value['value'] !== null && value['value'] !== undefined) {
+            shaderUniforms.uniforms[key] = {
+              value : ThreeUtil.getTypeSafe(this.uniforms[key],value['value'], null)
+            }
+          }
+        })
+      }
+      return shaderUniforms;
     }
     return undefined;
   }
@@ -439,7 +511,7 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.goWild, def);
   }
 
-  
+
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -447,6 +519,7 @@ export class PassComponent implements OnInit {
       this.pass = null;
       if (this.cameraComponent !== null) {
         this.cameraComponent.resetEffectComposer();
+        console.log(this.pass);
       }
     }
   }

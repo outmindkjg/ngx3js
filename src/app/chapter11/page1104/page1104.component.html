@@ -1,4 +1,20 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-composer>
+      <three-pass [type]="'render'"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'BrightnessContrast'" [uniforms]="controlsValues.brightness" [enabled]="controlsValues.brightness.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'sepia'" [uniforms]="controlsValues.sepia" [enabled]="controlsValues.sepia.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'mirror'" [uniforms]="controlsValues.mirror" [enabled]="controlsValues.mirror.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'colorify'" [uniforms]="controlsValues.colorify" [enabled]="controlsValues.colorify.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'ColorCorrection'" [uniforms]="controlsValues.colorCorrection" [enabled]="controlsValues.colorCorrection.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'RGBShift'" [uniforms]="controlsValues.rgbShift" [enabled]="controlsValues.rgbShift.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'vignette'" [uniforms]="controlsValues.vignette" [enabled]="controlsValues.vignette.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'HueSaturation'" [uniforms]="controlsValues.hueSaturation" [enabled]="controlsValues.hueSaturation.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'Kaleido'" [uniforms]="controlsValues.kaleidoscope" [enabled]="controlsValues.kaleidoscope.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'Luminosity'" [uniforms]="controlsValues.luminosity" [enabled]="controlsValues.luminosity.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'Technicolor'" [uniforms]="controlsValues.technicolor" [enabled]="controlsValues.technicolor.enabled"></three-pass>
+      <three-pass [type]="'Shader'" [shader]="'UnpackDepthRGBA'" [uniforms]="controlsValues.unpackDepth" [enabled]="controlsValues.unpackDepth.enabled"></three-pass>
+      <three-pass [type]="'Copy'" [renderToScreen]="true"></three-pass>
+    </three-composer>
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
