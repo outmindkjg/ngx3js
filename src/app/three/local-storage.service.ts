@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
+
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { ColladaLoader, Collada } from 'three/examples/jsm/loaders/ColladaLoader';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
@@ -18,7 +19,40 @@ import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
 import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
+import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
+import { Rhino3dmLoader} from 'three/examples/jsm/loaders/3DMLoader';
+import { AMFLoader} from 'three/examples/jsm/loaders/AMFLoader';
+import { AssimpLoader} from 'three/examples/jsm/loaders/AssimpLoader';
+import { BVHLoader} from 'three/examples/jsm/loaders/BVHLoader';
+import { DDSLoader} from 'three/examples/jsm/loaders/DDSLoader';
+import { EXRLoader} from 'three/examples/jsm/loaders/EXRLoader';
+import { FBXLoader} from 'three/examples/jsm/loaders/FBXLoader';
+import { GCodeLoader} from 'three/examples/jsm/loaders/GCodeLoader';
+import { HDRCubeTextureLoader} from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
+import { KMZLoader} from 'three/examples/jsm/loaders/KMZLoader';
+import { KTX2Loader} from 'three/examples/jsm/loaders/KTX2Loader';
+import { KTXLoader} from 'three/examples/jsm/loaders/KTXLoader';
+import { LDrawLoader} from 'three/examples/jsm/loaders/LDrawLoader';
+import { LottieLoader} from 'three/examples/jsm/loaders/LottieLoader';
+import { LUT3dlLoader} from 'three/examples/jsm/loaders/LUT3dlLoader';
+import { LUTCubeLoader} from 'three/examples/jsm/loaders/LUTCubeLoader';
+import { LWOLoader} from 'three/examples/jsm/loaders/LWOLoader';
+import { MDDLoader} from 'three/examples/jsm/loaders/MDDLoader';
+import { NRRDLoader} from 'three/examples/jsm/loaders/NRRDLoader';
+import { PVRLoader} from 'three/examples/jsm/loaders/PVRLoader';
+import { RGBELoader} from 'three/examples/jsm/loaders/RGBELoader';
+import { TDSLoader} from 'three/examples/jsm/loaders/TDSLoader';
+import { TiltLoader} from 'three/examples/jsm/loaders/TiltLoader';
+import { TTFLoader} from 'three/examples/jsm/loaders/TTFLoader';
+import { VOXLoader} from 'three/examples/jsm/loaders/VOXLoader';
+import { VRMLLoader} from 'three/examples/jsm/loaders/VRMLLoader';
+import { VRMLoader} from 'three/examples/jsm/loaders/VRMLoader';
+import { XLoader} from 'three/examples/jsm/loaders/XLoader';
+import { XYZLoader} from 'three/examples/jsm/loaders/XYZLoader';
+
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+
+
 import { LoadedObject } from './interface';
 
 
@@ -48,7 +82,7 @@ export class LocalStorageService {
   private vtkLoader: VTKLoader = null;
   private pdbLoader: PDBLoader = null;
   private plyLoader: PLYLoader = null;
-  private rhino3dmLoader: ThreeMFLoader = null;
+  private rhino3dmLoader: Rhino3dmLoader = null;
   private basisTextureLoader: BasisTextureLoader = null;
   private dracoLoader: DRACOLoader = null;
   private gltfLoader: GLTFLoader = null;
@@ -60,7 +94,37 @@ export class LocalStorageService {
   private prwmLoader: PRWMLoader = null;
   private svgLoader: SVGLoader = null;
   private tgaLoader: TGALoader = null;
-
+  private md2Loader: MD2Loader = null;
+  private amfLoader: AMFLoader = null;
+  private assimpLoader: AssimpLoader = null;
+  private bvhLoader: BVHLoader = null;
+  private ddsLoader: DDSLoader = null;
+  private exrLoader: EXRLoader = null;
+  private fbxLoader: FBXLoader = null;
+  private gCodeLoader: GCodeLoader = null;
+  private hdrCubeTextureLoader: HDRCubeTextureLoader = null;
+  private kmzLoader: KMZLoader = null;
+  private ktx2Loader: KTX2Loader = null;
+  private ktxLoader: KTXLoader = null;
+  private lDrawLoader: LDrawLoader = null;
+  private lottieLoader: LottieLoader = null;
+  private lut3dlLoader: LUT3dlLoader = null;
+  private lutCubeLoader: LUTCubeLoader = null;
+  private lwoLoader: LWOLoader = null;
+  private mddLoader: MDDLoader = null;
+  private nrrdLoader: NRRDLoader = null;
+  private pvrLoader: PVRLoader = null;
+  private rgbeLoader: RGBELoader = null;
+  private tdsLoader: TDSLoader = null;
+  private tiltLoader: TiltLoader = null;
+  private ttfLoader: TTFLoader = null;
+  private voxLoader: VOXLoader = null;
+  private vrmlLoader: VRMLLoader = null;
+  private vrmLoader: VRMLoader = null;
+  private xLoader: XLoader = null;
+  private xyzLoader: XYZLoader = null;
+  private threeMFLoader: ThreeMFLoader = null;
+  
   public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void): void {
 
     if (key.endsWith('.dae')) {
@@ -69,7 +133,8 @@ export class LocalStorageService {
       }
       this.colladaLoader.load(key, (result: Collada) => {
         callBack({
-          object : result.scene
+          object : result.scene,
+          clips : result.scene.animations
         })
       }, null, (e) => {
         console.log(e);
@@ -87,7 +152,7 @@ export class LocalStorageService {
       })
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
-        this.rhino3dmLoader = new ThreeMFLoader();
+        this.rhino3dmLoader = new Rhino3dmLoader();
       }
       this.rhino3dmLoader.load(key, (result: THREE.Group) => {
         callBack({
@@ -198,6 +263,19 @@ export class LocalStorageService {
       }, null, (e) => {
         console.log(e);
       })
+    } else if (key.endsWith('.md2')) {
+      if (this.md2Loader === null) {
+        this.md2Loader = new MD2Loader();
+      }
+      this.md2Loader.load(key, (geometry: THREE.BufferGeometry) => {
+        callBack({
+          object : null,
+          clips : null,
+          geometry : geometry
+        })
+      }, null, (e) => {
+        console.log(e);
+      })
     } else if (key.endsWith('.pdb')) {
       if (this.pdbLoader === null) {
         this.pdbLoader = new PDBLoader();
@@ -279,8 +357,8 @@ export class LocalStorageService {
         key.endsWith('.js') ||
         key.endsWith('.json')
       ) {
-        this.objectLoader.load(key, () => {
-
+        this.objectLoader.load(key, (result) => {
+          console.log(result);
         }, null, (e) => {
           console.log(e);
         })
@@ -296,14 +374,28 @@ export class LocalStorageService {
     }
   }
 
-  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[]) => void): void {
+  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[], geometry?: THREE.Geometry | THREE.BufferGeometry) => void): void {
     this.getObjectFromKey(key, (result) => {
-      if (result.object instanceof THREE.Object3D) {
-        callBack(result.object, result.clips);
+      if (result.object !== null && result.object !== undefined) {
+        if (result.object instanceof THREE.Object3D) {
+          callBack(result.object, result.clips, result.geometry);
+        } else {
+          const scene = new THREE.Group();
+          scene.add(result.object);
+          callBack(scene);
+        }
       } else {
-        const scene = new THREE.Group();
-        scene.add(result.object);
-        callBack(scene);
+        callBack(result.object, result.clips, result.geometry);
+      }
+    });
+  }
+
+  public getGeometry(key: string, callBack: (mesh: THREE.Geometry | THREE.BufferGeometry ) => void): void {
+    this.getObjectFromKey(key, (result) => {
+      if (result.geometry instanceof THREE.Geometry || result.geometry instanceof THREE.BufferGeometry) {
+        callBack(result.geometry);
+      } else {
+        callBack(new THREE.Geometry());
       }});
   }
 

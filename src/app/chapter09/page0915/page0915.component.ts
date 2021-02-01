@@ -9,11 +9,18 @@ import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three
 export class Page0915Component implements OnInit {
 
   controls = {
+    action : "stand",
+    timeScale : 1,
     rotate: true,
     wireframe: false,
   }
 
   controlsParams: GuiControlParam[] = [
+    { name: "action", type: "select", select : [
+      "stand", "run", "attack", "paina", "painb", "painc", "jump", "flip", "salute_alt", "bumflop", "wavealt", "sniffsniff", 
+      "crattack", "crpain", "crdeath", "deatha", "deathb", "deathc", "boomhc"
+    ] },
+    { name: "timeScale", type: "number", min : 0, max : 3},
     { name: "rotate", type: "checkbox" },
     { name: "wireframe", type: "checkbox" },
   ]
@@ -31,7 +38,7 @@ export class Page0915Component implements OnInit {
   onRender(timer: RendererTimer) {
     if (this.controls.rotate) {
       this.rotation.y += timer.delta * 20;
-      this.rotation.x = this.rotation.z = this.rotation.y;
+      // this.rotation.x = this.rotation.z = this.rotation.y;
     }
 
   }

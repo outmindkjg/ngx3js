@@ -24,6 +24,7 @@
     "rxjs": "~6.6.0",
     "three": "^0.124.0",
     "three-csg-ts": "^2.2.0",
+    "three-legacyjsonloader": "^1.0.6",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

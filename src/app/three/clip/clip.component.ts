@@ -15,9 +15,13 @@ export class ClipComponent implements OnInit {
   @Input() subclip : boolean = false;
   @Input() startFrame: number = 2;
   @Input() endFrame: number = 3;
-  @Input() fps: number = 30;
+  @Input() fps: number = null;
   @Input() weight: number = 1;
   @Input() timeScale: number = 1;
+
+  private getFps(def?: number) : number {
+    return ThreeUtil.getTypeSafe(this.fps, def);
+  }
 
   constructor() { }
 
@@ -43,12 +47,23 @@ export class ClipComponent implements OnInit {
 
   private mixer : THREE.AnimationMixer = null;
   private clips : THREE.AnimationClip[] = null;
+  private clip : THREE.AnimationClip = null;
   public action : THREE.AnimationAction = null;
-  setMixer(mixer : THREE.AnimationMixer , clips : THREE.AnimationClip[]) {
+  setMixer(mixer : THREE.AnimationMixer , clips : THREE.AnimationClip[], fps? : number) {
     if (this.mixer !== mixer) {
       this.mixer = mixer;
       this.clips = clips;
       this.resetAnimation();
+    }
+    if (fps !== null && fps !== undefined) {
+      this.setFps(fps);
+    }
+  }
+
+  setFps(fps : number) {
+    if (this.action !== null && this.clip !== null) {
+      this.action.timeScale = ( this.clip.tracks.length * this.getFps(fps) ) / this.clip.duration;
+      console.log(this.action.timeScale);
     }
   }
 
@@ -62,25 +77,29 @@ export class ClipComponent implements OnInit {
         if (this.additive) {
           THREE.AnimationUtils.makeClipAdditive( clip );
           if (this.subclip) {
+            const subClip = THREE.AnimationUtils.subclip(
+              clip,
+              clip.name,
+              this.startFrame,
+              this.endFrame,
+              this.getFps()
+            )
             this.action = this.mixer.clipAction(
-              THREE.AnimationUtils.subclip(
-                clip,
-                clip.name,
-                this.startFrame,
-                this.endFrame,
-                this.fps
-              ),
+              subClip,
               null,
               this.getBlendMode()
             );
+            this.clip = subClip;
           } else {
             this.action = this.mixer.clipAction( clip, null, this.getBlendMode());
+            this.clip = clip;
           }
           this.action.enabled = true;
           this.action.setEffectiveTimeScale( this.timeScale );
           this.action.setEffectiveWeight( this.weight );
           this.action.play();
         } else {
+          this.clip = clip;
           this.action = this.mixer.clipAction( clip, null, this.getBlendMode());
         }
       } else {

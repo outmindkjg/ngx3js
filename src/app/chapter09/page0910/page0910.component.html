@@ -9,7 +9,7 @@
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [position]="scene"></three-lookat>
         </three-mesh>
-        <three-mesh [type]="'storage'" [visible]="controls.model" [skeletonVisible]="controls.skeleton" [skeleton]="true" [storageName]="'/assets/models/gltf/Soldier.glb'">
+        <three-mesh [type]="'storage'" [visible]="controls.model" [helperType]="'skeleton'" [helperVisible]="controls.skeleton" [storageName]="'/assets/models/gltf/Soldier.glb'">
             <three-position [x]="-1" [y]="0" [z]="0"></three-position>
             <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
             <three-mixer [action]="controls.action" [duration]="controls.duration">
@@ -19,7 +19,7 @@
               <three-clip [name]="'Walk'"></three-clip>
             </three-mixer>
         </three-mesh>
-        <three-mesh [type]="'storage'" [visible]="controls.model" [skeletonVisible]="controls.skeleton" [skeleton]="true" [storageName]="'/assets/models/gltf/Xbot.glb'">
+        <three-mesh [type]="'storage'" [visible]="controls.model" [helperType]="'skeleton'" [helperVisible]="controls.skeleton"  [storageName]="'/assets/models/gltf/Xbot.glb'">
           <three-position [x]="1" [y]="0" [z]="0"></three-position>
           <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
           <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>

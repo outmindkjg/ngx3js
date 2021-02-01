@@ -1,21 +1,17 @@
-import { AudioComponent } from './../audio/audio.component';
-import { ListenerComponent } from './../listener/listener.component';
-import { MixerComponent } from './../mixer/mixer.component';
 import {
   Component,
   ContentChildren,
   Input,
   OnInit,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
-import * as PHYSIJS from './../physijs/src';
 import * as THREE from 'three';
 import { CSG } from 'three-csg-ts';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import {
   Lensflare,
-  LensflareElement,
+  LensflareElement
 } from 'three/examples/jsm/objects/Lensflare';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
@@ -26,9 +22,15 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { SvgComponent } from '../svg/svg.component';
+import { TextureComponent } from '../texture/texture.component';
+import { AudioComponent } from './../audio/audio.component';
+import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
-import { TextureComponent } from '../texture/texture.component';
+import { MixerComponent } from './../mixer/mixer.component';
+import * as PHYSIJS from './../physijs/src';
+import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
+
 
 @Component({
   selector: 'three-mesh',
@@ -48,7 +50,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() skyboxSunX: number = 0;
   @Input() skyboxSunY: number = 0;
   @Input() skyboxSunZ: number = 0;
-  @Input() helperType: string = 'axis';
+  @Input() helperType: string = 'none';
   @Input() typeCsg: 'subtract' | 'intersect' | 'union' | 'none' = 'none';
   @Input() scaleStep: number = 1;
   @Input() visible: boolean = true;
@@ -81,13 +83,10 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() shadowCameraBottom: number = null;
   @Input() target: any = null;
   @Input() size: number = null;
-  @Input() skeleton: boolean = null;
-  @Input() skeletonVisible: boolean = null;
-
+  @Input() helperVisible: boolean = null;
   @Input() helperTarget: MeshComponent = null;
 
-  @ContentChildren(GeometryComponent, { descendants: false })
-  geometry: QueryList<GeometryComponent>;
+  @ContentChildren(GeometryComponent, { descendants: false }) geometry: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false })
   materials: QueryList<MaterialComponent>;
   @ContentChildren(MeshComponent, { descendants: false })
@@ -230,19 +229,15 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     }
   }
 
-  private getSkeleton(def?: boolean): boolean {
-    return ThreeUtil.getTypeSafe(this.skeleton, def);
-  }
-
-  private getSkeletonVisible(def?: boolean): boolean {
-    return ThreeUtil.getTypeSafe(this.skeletonVisible, def);
+  private getHelperVisible(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.helperVisible, def);
   }
 
   private getSize(def?: number): number {
     return ThreeUtil.getTypeSafe(this.size, def);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     if (this.mesh != null && this.refObject3d != null) {
@@ -254,7 +249,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     if (changes) {
       Object.entries(changes).forEach(([key, value]) => {
         switch (key) {
-          case 'skeletonVisible':
+          case 'helperVisible':
           case 'visible':
             break;
           default:
@@ -269,8 +264,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         if (changes.visible) {
           this.mesh.visible = this.visible;
         }
-        if (this.helper && changes.skeletonVisible) {
-          this.helper.visible = this.skeletonVisible;
+        if (this.helper && changes.helperVisible) {
+          this.helper.visible = this.getHelperVisible(true);
         }
       }
       this.resetMesh();
@@ -279,7 +274,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   private mesh: THREE.Object3D = null;
   private clips: THREE.AnimationClip[] = null;
-  private helper: THREE.LineSegments = null;
+  private clipMesh: THREE.Object3D = null;
+  private helper: THREE.Object3D = null;
 
   getPosition(): THREE.Vector3 {
     if (this.mesh !== null) {
@@ -446,9 +442,15 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             break;
           case 'mixer':
             if (this.clips !== null && this.clips !== undefined) {
-              this.mixer.forEach((mixer) => {
-                mixer.setModel(this.mesh, this.clips);
-              });
+              if (this.clipMesh !== null && this.clipMesh !== undefined) {
+                this.mixer.forEach((mixer) => {
+                  mixer.setModel(this.clipMesh, this.clips);
+                });
+              } else {
+                this.mixer.forEach((mixer) => {
+                  mixer.setModel(this.mesh, this.clips);
+                });
+              }
             }
             break;
           case 'listner':
@@ -620,91 +622,6 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               break;
           }
           break;
-        case 'helper':
-          switch (this.helperType.toLowerCase()) {
-            case 'arrow':
-              /**
-               * @param [dir=new THREE.Vector3( 0, 0, 1 )]
-               * @param [origin=new THREE.Vector3( 0, 0, 0 )]
-               * @param [length=1]
-               * @param [color=0xffff00]
-               * @param headLength
-               * @param headWidth
-               */
-              basemesh = new THREE.ArrowHelper(
-                null // dir: Vector3,
-                // origin?: Vector3,
-                // length?: number,
-                // color?: Color | string | number,
-                // headLength?: number,
-                // headWidth?: number
-              );
-              break;
-            case 'box':
-              /**
-               * @param object
-               * @param [color=0xffff00]
-               */
-              basemesh = new THREE.BoxHelper(
-                null, // object: Object3D,
-                null // color?: Color | string | number
-              );
-              break;
-            case 'box3':
-              basemesh = new THREE.Box3Helper(null);
-              break;
-            case 'camera':
-              basemesh = new THREE.CameraHelper(null);
-              break;
-            case 'directionallight':
-              basemesh = new THREE.DirectionalLightHelper(null);
-              break;
-            case 'grid':
-              basemesh = new THREE.GridHelper(0, 0); // todo
-              break;
-            case 'polargrid':
-              basemesh = new THREE.PolarGridHelper(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-              );
-              break;
-            case 'hemispherelight':
-              basemesh = new THREE.HemisphereLightHelper(
-                this.getHelperTarget() as THREE.HemisphereLight,
-                this.getSize(10),
-                this.getColor(0x000000)
-              );
-              break;
-            case 'plane':
-              basemesh = new THREE.PlaneHelper(
-                null
-                // this.getHelperTarget() as THREE.Plane
-              );
-              break;
-            case 'pointlight':
-              basemesh = new THREE.PointLightHelper(
-                this.getHelperTarget() as THREE.PointLight
-              );
-              break;
-            case 'skeleton':
-              basemesh = new THREE.SkeletonHelper(this.getHelperTarget());
-              break;
-            case 'spotlight':
-              basemesh = new THREE.SpotLightHelper(
-                this.getHelperTarget() as THREE.Light,
-                this.getColor(0xffffff)
-              );
-              break;
-            case 'axes':
-            default:
-              basemesh = new THREE.AxesHelper(this.getSize(5));
-              break;
-          }
-          break;
         case 'lensflare':
           const lensflare = new Lensflare();
           this.lensflareElements.forEach((lensflareElement) => {
@@ -750,20 +667,28 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             basemesh = new THREE.Object3D();
             this.localStorageService.getObject(
               this.storageName,
-              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
-                if (this.castShadow) {
-                  loadedMesh.traverse((object) => {
-                    if (object instanceof THREE.Mesh) {
-                      object.castShadow = true;
-                    }
-                  });
+              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry? : THREE.Geometry | THREE.BufferGeometry) => {
+                if (loadedMesh !== null && loadedMesh !== undefined) {
+                  if (this.castShadow) {
+                    loadedMesh.traverse((object) => {
+                      if (object instanceof THREE.Mesh) {
+                        object.castShadow = true;
+                      }
+                    });
+                  }
+                  this.mesh.add(loadedMesh);
+                } else if (geometry !== null){
+                  if (geometry['animations'] !== null && geometry['animations'] !== undefined && geometry['animations'].length > 0) {
+                    const morphAnim = new MorphAnimMesh(geometry, this.getMaterials()[0]);
+                    loadedMesh = morphAnim;
+                    this.mesh.add(loadedMesh);
+                    clips =  geometry['animations'];
+                  } else {
+                    loadedMesh = new THREE.Mesh(geometry, this.getMaterials()[0]);
+                    this.mesh.add(loadedMesh);
+                  }
                 }
-                if (this.getSkeleton(false)) {
-                  this.helper = new THREE.SkeletonHelper(loadedMesh);
-                  this.helper.visible = this.getSkeletonVisible(true);
-                  this.mesh.parent.add(this.helper);
-                }
-                this.mesh.add(loadedMesh);
+                
                 if (this.meshes) {
                   this.meshes.forEach((mesh) => {
                     if (
@@ -780,8 +705,10 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
                 }
                 if (clips !== null && clips !== undefined) {
                   this.clips = clips;
+                  this.clipMesh = loadedMesh;
                   this.synkObject3D(['mixer']);
                 }
+                this.resetHelper();
               }
             );
           } else {
@@ -991,7 +918,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         } else {
           this.helper = null;
         }
+      } 
+      if (this.helper == null) {
+        this.resetHelper();
       }
+
       this.synkObject3D([
         'position',
         'rotation',
@@ -1007,4 +938,107 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     }
     return this.mesh;
   }
+
+  resetHelper() {
+    if (this.refObject3d !== null) {
+      if (this.helper !== null && this.helper.parent !== null) {
+        this.helper.parent.remove(this.helper);
+      }
+      let basemesh : THREE.Object3D = null;
+      switch (this.helperType.toLowerCase()) {
+        case 'arrow':
+          /**
+           * @param [dir=new THREE.Vector3( 0, 0, 1 )]
+           * @param [origin=new THREE.Vector3( 0, 0, 0 )]
+           * @param [length=1]
+           * @param [color=0xffff00]
+           * @param headLength
+           * @param headWidth
+           */
+          basemesh = new THREE.ArrowHelper(
+            null // dir: Vector3,
+            // origin?: Vector3,
+            // length?: number,
+            // color?: Color | string | number,
+            // headLength?: number,
+            // headWidth?: number
+          );
+          break;
+        case 'box':
+          /**
+           * @param object
+           * @param [color=0xffff00]
+           */
+          basemesh = new THREE.BoxHelper(
+            null, // object: Object3D,
+            null // color?: Color | string | number
+          );
+          break;
+        case 'box3':
+          basemesh = new THREE.Box3Helper(null);
+          break;
+        case 'camera':
+          basemesh = new THREE.CameraHelper(null);
+          break;
+        case 'directionallight':
+          basemesh = new THREE.DirectionalLightHelper(null);
+          break;
+        case 'grid':
+          basemesh = new THREE.GridHelper(0, 0); // todo
+          break;
+        case 'polargrid':
+          basemesh = new THREE.PolarGridHelper(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          );
+          break;
+        case 'hemispherelight':
+          basemesh = new THREE.HemisphereLightHelper(
+            this.getHelperTarget() as THREE.HemisphereLight,
+            this.getSize(10),
+            this.getColor(0x000000)
+          );
+          break;
+        case 'plane':
+          basemesh = new THREE.PlaneHelper(
+            null
+            // this.getHelperTarget() as THREE.Plane
+          );
+          break;
+        case 'pointlight':
+          basemesh = new THREE.PointLightHelper(
+            this.getHelperTarget() as THREE.PointLight
+          );
+          break;
+        case 'skeleton':
+          if (this.clipMesh !== null) {
+            basemesh = new THREE.SkeletonHelper(this.clipMesh);
+          } else {
+            basemesh = new THREE.SkeletonHelper(this.mesh);
+          }
+          break;
+        case 'spotlight':
+          basemesh = new THREE.SpotLightHelper(
+            this.getHelperTarget() as THREE.Light,
+            this.getColor(0xffffff)
+          );
+          break;
+        case 'axes':
+          basemesh = new THREE.AxesHelper(this.getSize(5));
+          break;
+      }
+      if (basemesh !== null) {
+        this.helper = basemesh;
+        this.helper.visible = this.getHelperVisible(true);
+        this.refObject3d.add(this.helper);
+      } else {
+        this.helper = null;
+      }
+    }
+  }
+
 }

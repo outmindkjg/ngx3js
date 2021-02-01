@@ -13,8 +13,10 @@ import {
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
 import { AbstractGetGeometry, AbstractMeshComponent } from '../interface';
+import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
+import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
 
 
 export interface GeometriesParametric {
@@ -76,9 +78,14 @@ export interface GeometryParams {
 })
 export class GeometryComponent extends AbstractGetGeometry implements OnInit {
 
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
+
   @Input() visible: boolean = true;
   @Input() params: GeometryParams = null;
   @Input() type: string = 'sphere';
+  @Input() storageName: string = null;
   @Input() action: string = 'none';
   @Input() name: string = null;
   @Input() radius: number = null;
@@ -645,6 +652,13 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
   getGeometry(): THREE.Geometry | THREE.BufferGeometry {
     if (this.geometry === null) {
       switch (this.type.toLowerCase()) {
+        case 'storage':
+          this.geometry = new THREE.Geometry();
+          this.localStorageService.getGeometry(this.storageName, (geometry) => {
+            this.geometry = geometry;
+            this.resetGeometry();
+          })
+          break;
         case 'custom':
         case 'geometry':
           this.geometry = new THREE.Geometry();

@@ -22,9 +22,9 @@ export class Chapter09Component implements OnInit {
     { url : 'pg11', name : 'Manual morph targets'},
     { url : 'pg12', name : 'Load blender model'},
     { url : 'pg13', name : 'Animation from blender'},
-    { url : 'pg14', name : 'Animation from collada'},
-    { url : 'pg15', name : 'animation from md2'},
-    { url : 'pg16', name : 'animation from md2'}
+    { url : 'pg14', name : 'Animation from Collada'},
+    { url : 'pg15', name : 'Animation from md2'},
+    { url : 'pg16', name : 'Animation from Gltf'}
   ];
 
   constructor() { }
