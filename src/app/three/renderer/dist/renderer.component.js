@@ -35,7 +35,7 @@ var RendererComponent = /** @class */ (function () {
         this.guiControl = null;
         this.guiParams = [];
         this.onRender = new core_1.EventEmitter();
-        this.sizeSubject = new rxjs_1.Subject();
+        this._sizeSubject = new rxjs_1.Subject();
         this.renderListner = null;
         this.renderer = null;
         this.rendererWidth = 100;
@@ -111,15 +111,14 @@ var RendererComponent = /** @class */ (function () {
             this.cameras.forEach(function (camera) {
                 camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
             });
-            this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
+            this._sizeSubject.next(this.getSize());
         }
     };
     RendererComponent.prototype.sizeSubscribe = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.sizeSubject.next(new THREE.Vector2(_this.rendererWidth, _this.rendererHeight));
-        }, 1);
-        return this.sizeSubject.asObservable();
+        return this._sizeSubject.asObservable();
+    };
+    RendererComponent.prototype.getSize = function () {
+        return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
     };
     RendererComponent.prototype.ngAfterContentInit = function () {
         var _this = this;

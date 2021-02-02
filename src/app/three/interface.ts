@@ -298,7 +298,7 @@ export class ThreeUtil {
     }
     return undefined;
   }
-  
+
 
   static getClock(autoStart?: boolean): ThreeClock {
     return new ThreeClock(autoStart);
@@ -315,7 +315,7 @@ export class ThreeUtil {
     onFinishChange?: (value?: any) => void,
     onChange?: (value?: any) => void,
     listen?: boolean
-  ) {
+  ) : ThreeGuiController{
     if (listen != null && listen) {
       control.listen();
     }
@@ -325,13 +325,40 @@ export class ThreeUtil {
     if (onChange != null) {
       control.onChange(onChange);
     }
+    return control;
   }
 
-  static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]) {
+  static setGuiEnabled(params: GuiControlParam[], names : string[], isEnable : boolean = true) {
+    const control : ThreeGuiController = this.getGuiController(params, names);
+    if (control !== null && control !== undefined && control.domElement) {
+      console.log(control.domElement.classList);
+      if (isEnable) {
+        control.domElement.classList.add( 'no-pointer-events' );
+        control.domElement.classList.add( 'control-disabled' );
+      } else {
+        control.domElement.classList.remove( 'no-pointer-events' );
+        control.domElement.classList.remove( 'control-disabled' );
+      }
+    }
+  }
+
+  static getGuiController(params: GuiControlParam[], names : string[]) {
+    const name = names.shift().toLowerCase();
+    const param : GuiControlParam = params.find((param) => {
+      return name == param.name.toLowerCase();
+    })
+    if (names.length > 0 && param && param.children && param.children.length > 0) {
+      return this.getGuiController(param.children, names);
+    } else {
+      return param.controler;
+    }
+  }
+
+  static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]) : ThreeGuiController {
     params.forEach((param) => {
       switch (param.type) {
         case 'color':
-          this.setupGuiChange(
+          param.controler = this.setupGuiChange(
             gui.addColor(
               param.control ? control[param.control] : control,
               param.name
@@ -343,7 +370,7 @@ export class ThreeUtil {
           break;
         case 'folder':
           const folder = gui.addFolder(param.name);
-          this.setupGui(
+          param.controler = this.setupGui(
             param.control ? control[param.control] : control,
             folder,
             param.children
@@ -351,10 +378,9 @@ export class ThreeUtil {
           if (param.isOpen) {
             folder.open();
           }
-
           break;
         case 'number':
-          this.setupGuiChange(
+          param.controler = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name,
@@ -368,12 +394,12 @@ export class ThreeUtil {
           );
           break;
         case 'listen':
-          gui
+          param.controler = gui
             .add(param.control ? control[param.control] : control, param.name)
             .listen();
           break;
         case 'select':
-          this.setupGuiChange(
+          param.controler = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name,
@@ -386,7 +412,7 @@ export class ThreeUtil {
           break;
         case 'button':
         default:
-          this.setupGuiChange(
+          param.controler = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name
@@ -398,6 +424,7 @@ export class ThreeUtil {
           break;
       }
     });
+    return gui;
   }
 }
 
@@ -485,6 +512,7 @@ export interface GuiControlParam {
   change?: (value?: any) => void;
   finishChange?: (value?: any) => void;
   children?: GuiControlParam[];
+  controler? : ThreeGuiController;
 }
 
 export class ThreeGui implements ThreeGuiController {
@@ -571,9 +599,11 @@ export class ThreeGui implements ThreeGuiController {
   remove(controller): void {
     return this.gui.remove(controller);
   }
+
 }
 
 export interface ThreeGuiController {
+  domElement? : HTMLElement;
   add(object, property: string, min?: any, max?, step?): ThreeGuiController;
   addColor(object, property: string): ThreeGuiController;
   remove(controller): void;

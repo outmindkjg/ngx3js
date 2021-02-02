@@ -1,3 +1,4 @@
+import { ThreeUtil } from './../../three/interface';
 import { Component, OnInit } from '@angular/core';
 import {
   GeometriesVector3,
@@ -64,6 +65,8 @@ export class Page1104Component implements OnInit {
       this.controlsValues.kaleidoscope.enabled = false;
       this.controlsValues.luminosity.enabled = false;
       this.controlsValues.technicolor.enabled = false;
+      // ThreeUtil.setGuiEnabled(this.controlsParams, ['Brightness'], false);
+
       switch (this.controls.select) {
         case 'none':
           break;

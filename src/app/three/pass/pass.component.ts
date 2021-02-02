@@ -121,7 +121,7 @@ export class PassComponent implements OnInit {
   @Input() useNormals: boolean = null;
   @Input() renderTarget: THREE.WebGLRenderTarget = null;
   @Input() shader: string = null;
-  @Input() textureID: string = null;
+  @Input() textureId: string = null;
   @Input() map: THREE.Texture | any = null;
   @Input() radius: number = null;
   @Input() threshold: number = null;
@@ -465,8 +465,8 @@ export class PassComponent implements OnInit {
     return undefined;
   }
 
-  private getTextureID(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textureID, def);
+  private getTextureId(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.textureId, def);
   }
 
   private getMap(def?: THREE.Texture | any, mapType?: string): THREE.Texture {
@@ -647,16 +647,21 @@ export class PassComponent implements OnInit {
           case 'shader':
             const shaderPass = new ShaderPass(
               this.getShader(),
-              this.getTextureID()
+              this.getTextureId()
             );
             if (shaderPass.uniforms !== null && shaderPass.uniforms !== undefined && this.uniforms !== null && this.uniforms !== undefined) {
               Object.entries(shaderPass.uniforms).forEach(([key, value]) => {
                 switch (key) {
                   case 'color' :
-                    if (this.uniforms['color'] !== null || this.uniforms['color'] !== null || this.uniforms['color'] !== null) {
+                    if (this.uniforms['color'] !== null) {
                       shaderPass.uniforms[key].value = ThreeUtil.getColorSafe(this.uniforms['color'], shaderPass.uniforms[key].value);
                     }
                     break;
+                  case 'delta' :
+                      if (this.uniforms['deltaX'] !== null || this.uniforms['deltaY'] !== null) {
+                        shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(this.uniforms['deltaX'], this.uniforms['deltaY'], shaderPass.uniforms[key].value);
+                      }
+                      break;
                   case 'powRGB':
                     if (this.uniforms['powRGBx'] !== null || this.uniforms['powRGBy'] !== null || this.uniforms['powRGBz'] !== null) {
                       shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['powRGBx'], this.uniforms['powRGBy'], this.uniforms['powRGBz'], shaderPass.uniforms[key].value);

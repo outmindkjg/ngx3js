@@ -25,6 +25,8 @@ var core_1 = require("@angular/core");
 var THREE = require("three");
 var dat_gui_module_1 = require("three/examples/jsm/libs/dat.gui.module");
 var stats_module_1 = require("three/examples/jsm/libs/stats.module");
+var CHROMA = require("chroma-js");
+// chroma
 var TWEEN = require("@tweenjs/tween.js");
 var AbstractThreeComponent = /** @class */ (function () {
     function AbstractThreeComponent() {
@@ -119,6 +121,13 @@ exports.AbstractMeshComponent = AbstractMeshComponent;
 var ThreeUtil = /** @class */ (function () {
     function ThreeUtil() {
     }
+    ThreeUtil.getChromaScale = function () {
+        var scales = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            scales[_i] = arguments[_i];
+        }
+        return CHROMA.scale(scales);
+    };
     ThreeUtil.setRenderer = function (lastRenderer) {
         this.lastRenderer = lastRenderer;
     };
@@ -226,8 +235,8 @@ var ThreeUtil = /** @class */ (function () {
         return undefined;
     };
     ThreeUtil.getVector2Safe = function (x, y, altValue) {
-        var defValue = this.isNotNull(x) && this.isNotNull(y)
-            ? new THREE.Vector2(x, y)
+        var defValue = this.isNotNull(x) || this.isNotNull(y)
+            ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x))
             : altValue;
         if (this.isNotNull(defValue)) {
             return defValue;
@@ -235,8 +244,17 @@ var ThreeUtil = /** @class */ (function () {
         return undefined;
     };
     ThreeUtil.getVector3Safe = function (x, y, z, altValue) {
-        var defValue = this.isNotNull(x) && this.isNotNull(y) && this.isNotNull(z)
-            ? new THREE.Vector3(x, y, z)
+        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
+            ? new THREE.Vector3(this.getTypeSafe(x, y, z), this.getTypeSafe(y, x, z), this.getTypeSafe(z, x, y))
+            : altValue;
+        if (this.isNotNull(defValue)) {
+            return defValue;
+        }
+        return undefined;
+    };
+    ThreeUtil.getEulerSafe = function (x, y, z, altValue) {
+        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
+            ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x, y, z), 0), this.getAngleSafe(this.getTypeSafe(y, x, z), 0), this.getAngleSafe(this.getTypeSafe(z, x, y), 0))
             : altValue;
         if (this.isNotNull(defValue)) {
             return defValue;
@@ -259,38 +277,67 @@ var ThreeUtil = /** @class */ (function () {
         if (onChange != null) {
             control.onChange(onChange);
         }
+        return control;
+    };
+    ThreeUtil.setGuiEnabled = function (params, names, isEnable) {
+        if (isEnable === void 0) { isEnable = true; }
+        var control = this.getGuiController(params, names);
+        if (control !== null && control !== undefined && control.domElement) {
+            console.log(control.domElement.classList);
+            if (isEnable) {
+                control.domElement.classList.add('no-pointer-events');
+                control.domElement.classList.add('control-disabled');
+            }
+            else {
+                control.domElement.classList.remove('no-pointer-events');
+                control.domElement.classList.remove('control-disabled');
+            }
+        }
+    };
+    ThreeUtil.getGuiController = function (params, names) {
+        var name = names.shift().toLowerCase();
+        var param = params.find(function (param) {
+            return name == param.name.toLowerCase();
+        });
+        if (names.length > 0 && param && param.children && param.children.length > 0) {
+            return this.getGuiController(param.children, names);
+        }
+        else {
+            return param.controler;
+        }
     };
     ThreeUtil.setupGui = function (control, gui, params) {
         var _this = this;
         params.forEach(function (param) {
             switch (param.type) {
                 case 'color':
-                    _this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
+                    param.controler = _this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
                     break;
                 case 'folder':
                     var folder = gui.addFolder(param.name);
-                    _this.setupGui(param.control ? control[param.control] : control, folder, param.children);
+                    param.controler = _this.setupGui(param.control ? control[param.control] : control, folder, param.children);
                     if (param.isOpen) {
                         folder.open();
                     }
                     break;
                 case 'number':
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen);
+                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen);
                     break;
                 case 'listen':
-                    gui
+                    param.controler = gui
                         .add(param.control ? control[param.control] : control, param.name)
                         .listen();
                     break;
                 case 'select':
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen);
+                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen);
                     break;
                 case 'button':
                 default:
-                    _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
+                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen);
                     break;
             }
         });
+        return gui;
     };
     ThreeUtil.stats = null;
     return ThreeUtil;

@@ -21,18 +21,21 @@ var Page1104Component = /** @class */ (function () {
                 color: 0xffffff
             },
             colorCorrection: {
-                powRGB_R: 2,
-                mulRGB_R: 1,
-                powRGB_G: 2,
-                mulRGB_G: 1,
-                powRGB_B: 2,
-                mulRGB_B: 1
+                powRGBx: 2,
+                powRGBy: 2,
+                powRGBz: 2,
+                mulRGBx: 1,
+                mulRGBy: 1,
+                mulRGBz: 1,
+                addRGBx: 0,
+                addRGBy: 0,
+                addRGBz: 0
             },
             sepia: {
                 amount: 1
             },
             rgbShift: {
-                rgbAmount: 0.005,
+                amount: 0.005,
                 angle: 0.0
             },
             mirror: {
@@ -47,8 +50,8 @@ var Page1104Component = /** @class */ (function () {
                 saturation: 0.01
             },
             kaleidoscope: {
-                kalAngle: 0,
-                kalSides: 6
+                angle: 0,
+                side: 6
             },
             update: function () {
                 _this.controlsValues.colorify.enabled = false;
@@ -61,8 +64,12 @@ var Page1104Component = /** @class */ (function () {
                 _this.controlsValues.kaleidoscope.enabled = false;
                 _this.controlsValues.luminosity.enabled = false;
                 _this.controlsValues.technicolor.enabled = false;
+                // ThreeUtil.setGuiEnabled(this.controlsParams, ['Brightness'], false);
                 switch (_this.controls.select) {
                     case 'none':
+                        break;
+                    case 'brightness':
+                        _this.controlsValues.brightness = Object.assign({ enabled: true }, _this.controls.brightness);
                         break;
                     case 'colorify':
                         _this.controlsValues.colorify = Object.assign({ enabled: true }, _this.controls.colorify);
@@ -111,12 +118,15 @@ var Page1104Component = /** @class */ (function () {
             },
             colorCorrection: {
                 enabled: false,
-                powRGB_R: 2,
-                mulRGB_R: 1,
-                powRGB_G: 2,
-                mulRGB_G: 1,
-                powRGB_B: 2,
-                mulRGB_B: 1
+                powRGBx: 2,
+                powRGBy: 2,
+                powRGBz: 2,
+                mulRGBx: 1,
+                mulRGBy: 1,
+                mulRGBz: 1,
+                addRGBx: 0,
+                addRGBy: 0,
+                addRGBz: 0
             },
             sepia: {
                 enabled: false,
@@ -124,7 +134,7 @@ var Page1104Component = /** @class */ (function () {
             },
             rgbShift: {
                 enabled: false,
-                rgbAmount: 0.005,
+                amount: 0.005,
                 angle: 0.0
             },
             mirror: {
@@ -143,8 +153,8 @@ var Page1104Component = /** @class */ (function () {
             },
             kaleidoscope: {
                 enabled: false,
-                kalAngle: 0,
-                kalSides: 6
+                angle: 0,
+                side: 6
             },
             luminosity: {
                 enabled: false
@@ -184,52 +194,55 @@ var Page1104Component = /** @class */ (function () {
                     { name: 'brightness', type: 'number', min: -1, max: 1, finishChange: function (e) { _this.controls.update(); } },
                     { name: 'contrast', type: 'number', min: -1, max: 1, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'Colorify',
                 control: 'colorify',
                 type: 'folder',
                 children: [{ name: 'color', type: 'color', finishChange: function (e) { _this.controls.update(); } }],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'Color Correction',
                 control: 'colorCorrection',
                 type: 'folder',
                 children: [
-                    { name: 'powRGB_R', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'powRGB_G', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'powRGB_B', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'mulRGB_R', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'mulRGB_G', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'mulRGB_B', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'powRGBx', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'powRGBy', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'powRGBz', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'mulRGBx', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'mulRGBy', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'mulRGBz', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'addRGBx', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'addRGBy', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'addRGBz', type: 'number', min: 0, max: 5, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'Sepia',
                 control: 'sepia',
                 type: 'folder',
                 children: [{ name: 'amount', type: 'number', min: 0, max: 2, step: 0.1, finishChange: function (e) { _this.controls.update(); } }],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'RGB Shift',
                 control: 'rgbShift',
                 type: 'folder',
                 children: [
-                    { name: 'rgbAmount', type: 'number', min: 0, max: 1, step: 0.001, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'amount', type: 'number', min: 0, max: 1, step: 0.001, finishChange: function (e) { _this.controls.update(); } },
                     { name: 'angle', type: 'number', min: 1, max: 180, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'mirror',
                 control: 'mirror',
                 type: 'folder',
                 children: [{ name: 'side', type: 'number', min: 0, max: 3, step: 1, finishChange: function (e) { _this.controls.update(); } }],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'vignette',
@@ -239,7 +252,7 @@ var Page1104Component = /** @class */ (function () {
                     { name: 'darkness', type: 'number', min: 0, max: 2, finishChange: function (e) { _this.controls.update(); } },
                     { name: 'offset', type: 'number', min: 0, max: 2, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'hue and saturation',
@@ -249,17 +262,17 @@ var Page1104Component = /** @class */ (function () {
                     { name: 'hue', type: 'number', min: -1, max: 1, step: 0.01, finishChange: function (e) { _this.controls.update(); } },
                     { name: 'saturation', type: 'number', min: -1, max: 1, step: 0.01, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             {
                 name: 'Kaleidoscope',
                 control: 'kaleidoscope',
                 type: 'folder',
                 children: [
-                    { name: 'kalAngle', type: 'number', min: -360, max: 360, finishChange: function (e) { _this.controls.update(); } },
-                    { name: 'kalSides', type: 'number', min: 2, max: 20, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'angle', type: 'number', min: -360, max: 360, finishChange: function (e) { _this.controls.update(); } },
+                    { name: 'side', type: 'number', min: 2, max: 20, finishChange: function (e) { _this.controls.update(); } },
                 ],
-                isOpen: true
+                isOpen: false
             },
             { name: 'rotate', type: 'checkbox' },
             { name: 'wireframe', type: 'checkbox' },
@@ -273,8 +286,7 @@ var Page1104Component = /** @class */ (function () {
     Page1104Component.prototype.ngOnInit = function () { };
     Page1104Component.prototype.onRender = function (timer) {
         if (this.controls.rotate) {
-            this.rotation.y += timer.delta * 20;
-            this.rotation.x = this.rotation.z = this.rotation.y;
+            this.rotation.y += timer.delta * 10;
         }
     };
     Page1104Component = __decorate([
