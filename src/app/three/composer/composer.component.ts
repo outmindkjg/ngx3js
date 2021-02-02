@@ -127,7 +127,7 @@ export class ComposerComponent extends AbstractComposerComponent implements OnIn
     this.cameraWidth = width;
     this.cameraHeight = height;
   }
-
+  
   render(webGLRenderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
     if (this.effectComposer !== null) {
       if (this.clear) {
@@ -173,10 +173,7 @@ export class ComposerComponent extends AbstractComposerComponent implements OnIn
       const webGLRenderer = this.cameraComponent.getRenderer() as THREE.WebGLRenderer;
       this.effectComposer = new EffectComposer(webGLRenderer);
       this.pass.forEach(item => {
-        const pass = item.getPass(this.getScene(scene), this.getCamera(camera), this, this.cameraComponent);
-        if (pass !== null) {
-          this.effectComposer.addPass(pass);
-        }
+        item.getPass(this.getScene(scene), this.getCamera(camera), this.effectComposer);
       })
     }
     return this.effectComposer;

@@ -1,7 +1,7 @@
 <three-renderer>
     <three-camera>
         <three-position [x]="-30" [y]="40" [z]="30"></three-position>
-        <three-lookat [position]="scene"></three-lookat>
+        <three-lookat [refer]="scene"></three-lookat>
     </three-camera>
     <three-scene #scene>
         <three-mesh type="light" lightType="ambient"></three-mesh>

@@ -46,7 +46,7 @@
         <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>
         <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
             <three-position [x]="550" [y]="100" [z]="550"></three-position>
-            <three-lookat [position]="sceneEarth"></three-lookat>
+            <three-lookat [refer]="sceneEarth"></three-lookat>
         </three-mesh>
         <three-mesh>
             <three-position [x]="-10" [y]="0" [z]="0"></three-position>
@@ -63,7 +63,7 @@
         <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>
         <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
             <three-position [x]="550" [y]="100" [z]="550"></three-position>
-            <three-lookat [position]="sceneMars"></three-lookat>
+            <three-lookat [refer]="sceneMars"></three-lookat>
         </three-mesh>
         <three-mesh>
             <three-position [x]="10" [y]="0" [z]="0"></three-position>

@@ -143,10 +143,36 @@ export class LocalStorageService {
       if (this.objLoader === null) {
         this.objLoader = new OBJLoader();
       }
-      this.objLoader.load(key, (result: THREE.Group) => {
-        callBack({
-          object : result
+      if (key.indexOf('#') > 0) {
+        const [materialUrl, objUrl] = key.split('#');
+        this.getObjectFromKey(materialUrl, (result) => {
+          if (result.material !== null && result.material !== undefined) {
+            this.objLoader.setMaterials(result.material);
+          }
+          this.objLoader.load(objUrl, (result: THREE.Group) => {
+            callBack({
+              object : result
+            })
+          }, null, (e) => {
+            console.log(e);
+          })
         })
+      } else {
+        this.objLoader.load(key, (result: THREE.Group) => {
+          callBack({
+            object : result
+          })
+        }, null, (e) => {
+          console.log(e);
+        })
+      }
+    } else if (key.endsWith('.mtl')) {
+      if (this.mtlLoader === null) {
+        this.mtlLoader = new MTLLoader();
+      }
+      this.mtlLoader.load(key, (result: MTLLoader.MaterialCreator) => {
+        result.preload();
+        callBack( { material : result });
       }, null, (e) => {
         console.log(e);
       })
@@ -396,6 +422,13 @@ export class LocalStorageService {
         callBack(result.geometry);
       } else {
         callBack(new THREE.Geometry());
+      }});
+  }
+
+  public getMaterial(key: string, callBack: (material : THREE.Material) => void): void {
+    this.getObjectFromKey(key, (result) => {
+      if (result.material instanceof THREE.Material) {
+        callBack(result.material);
       }});
   }
 

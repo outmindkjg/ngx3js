@@ -6,7 +6,7 @@
     <three-scene #scene>
         <three-mesh type="light" lightType="directional" [color]="controls.pointColor" [intensity]="controls.intensity" [castShadow]="true" [visible]="true" [shadowCameraVisible]="false">
             <three-position [x]="30" [y]="10" [z]="-50"></three-position>
-            <three-lookat [position]="plane"></three-lookat>
+            <three-lookat [refer]="plane"></three-lookat>
             <three-mesh type="lensflare">
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare0.png'" [size]="350" [distance]="0" [color]="'0xffaacc'"></three-lensflareelement>
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="60" [distance]="0.6"></three-lensflareelement>

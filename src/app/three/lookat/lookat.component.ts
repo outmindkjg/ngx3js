@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-lookat',
@@ -9,10 +10,10 @@ import * as THREE from 'three';
 export class LookatComponent implements OnInit {
 
   @Input() visible : boolean = true;
-  @Input() x : number = 0;
-  @Input() y : number = 0;
-  @Input() z : number = 0;
-  @Input() position : any = null;
+  @Input() refer : any = null;
+  @Input() x : number = null;
+  @Input() y : number = null;
+  @Input() z : number = null;
   
 
   constructor() { }
@@ -21,7 +22,7 @@ export class LookatComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.position) {
+    if (changes.x || changes.y || changes.z || changes.refer) {
       this.lookat = null;
     }
     this.resetLookAt();
@@ -45,15 +46,17 @@ export class LookatComponent implements OnInit {
 
   getLookAt() : THREE.Vector3 {
     if (this.lookat === null) {
-        if (this.position !== null) {
-          if (this.position.getPosition) {
-            this.lookat = this.position.getPosition();
-          } else if (this.position instanceof THREE.Vector3) {
-            this.lookat = this.position;
+        if (this.refer !== null) {
+          if (this.refer.getPosition) {
+            this.lookat = this.refer.getPosition();
+          } else if (this.refer.getLookAt) {
+            this.lookat = this.refer.getLookAt();
+          } else if (this.refer instanceof THREE.Vector3) {
+            this.lookat = this.refer;
           }
         } 
         if (this.lookat === null) {
-          this.lookat = new THREE.Vector3(this.x, this.y, this.z);
+          this.lookat = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
         }
     }
     return this.lookat;

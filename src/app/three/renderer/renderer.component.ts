@@ -112,17 +112,18 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.cameras.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
-      this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
+      this._sizeSubject.next(this.getSize());
     }
   }
 
-  protected sizeSubject:Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
+  protected _sizeSubject:Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
 
   sizeSubscribe() : Observable<THREE.Vector2>{
-    setTimeout(() => {
-      this.sizeSubject.next(new THREE.Vector2(this.rendererWidth, this.rendererHeight));
-    },1)
-    return this.sizeSubject.asObservable();
+    return this._sizeSubject.asObservable();
+  }
+
+  getSize() : THREE.Vector2 {
+    return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
   }
 
   ngAfterContentInit() {

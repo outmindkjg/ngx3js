@@ -3,6 +3,8 @@ import { OnInit, SimpleChanges, OnChanges, AfterContentInit, OnDestroy, ContentC
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import * as CHROMA from 'chroma-js';
+// chroma
 import * as TWEEN from '@tweenjs/tween.js';
 import { CameraComponent } from './camera/camera.component';
 
@@ -12,7 +14,7 @@ export interface ApplyMatrix4 {
 
 export interface LoadedObject {
   object? : THREE.Object3D;
-  material? : THREE.Material;
+  material? : THREE.Material | any;
   geometry? : THREE.Geometry | THREE.BufferGeometry;
   clips? : THREE.AnimationClip[];
 }
@@ -101,6 +103,10 @@ export abstract class AbstractMeshComponent extends AbstractThreeComponent {
 }
 
 export class ThreeUtil {
+
+  static getChromaScale(...scales) : CHROMA.Scale {
+    return CHROMA.scale(scales)
+  }
 
   private static lastRenderer : THREE.Renderer ;
 
@@ -246,14 +252,14 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector2Safe<T>(
+  static getVector2Safe(
     x: number,
     y: number,
     altValue?: THREE.Vector2
   ): THREE.Vector2 {
     const defValue =
-      this.isNotNull(x) && this.isNotNull(y)
-        ? new THREE.Vector2(x, y)
+      this.isNotNull(x) || this.isNotNull(y)
+        ? new THREE.Vector2(this.getTypeSafe(x,y), this.getTypeSafe(y,x))
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -261,21 +267,38 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector3Safe<T>(
+  static getVector3Safe(
     x: number,
     y: number,
     z: number,
     altValue?: THREE.Vector3
   ): THREE.Vector3 {
     const defValue =
-      this.isNotNull(x) && this.isNotNull(y) && this.isNotNull(z)
-        ? new THREE.Vector3(x, y, z)
+      this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
+        ? new THREE.Vector3(this.getTypeSafe(x,y,z), this.getTypeSafe(y,x,z), this.getTypeSafe(z,x,y))
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
     }
     return undefined;
   }
+
+  static getEulerSafe(
+    x: number,
+    y: number,
+    z: number,
+    altValue?: THREE.Euler
+  ): THREE.Euler {
+    const defValue =
+      this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
+        ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x,y,z), 0), this.getAngleSafe(this.getTypeSafe(y,x,z), 0), this.getAngleSafe(this.getTypeSafe(z,x,y), 0))
+        : altValue;
+    if (this.isNotNull(defValue)) {
+      return defValue;
+    }
+    return undefined;
+  }
+  
 
   static getClock(autoStart?: boolean): ThreeClock {
     return new ThreeClock(autoStart);

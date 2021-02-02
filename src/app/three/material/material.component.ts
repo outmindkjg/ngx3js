@@ -1,7 +1,7 @@
 import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { Vector2 } from 'three';
 import { AbstractSvgGeometry, ThreeUtil } from '../interface';
+import { LocalStorageService } from '../local-storage.service';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -13,7 +13,9 @@ import { TextureComponent } from '../texture/texture.component';
 export class MaterialComponent implements OnInit, OnChanges {
 
   @Input() type: string = "lambert";
+  @Input() refer : any = null;
   @Input() materialType: string = "material";
+  @Input() storageName: string = null;
   @Input() color: string | number = null;
   @Input() opacity: number = null;
   @Input() alphaTest: number = null;
@@ -112,7 +114,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   @ContentChildren(TextureComponent) textures: QueryList<TextureComponent>;
   @ContentChildren(ShaderComponent) shaders: QueryList<ShaderComponent>;
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
   }
@@ -894,350 +896,365 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   getMaterial(): THREE.Material {
     if (this.material === null) {
-      switch (this.type.toLowerCase()) {
-        case 'linebasic':
-          const parametersLineBasicMaterial: THREE.LineBasicMaterialParameters = {
-            opacity: this.getOpacity(),
-            linewidth: this.getLinewidth(),
-            vertexColors: this.getVertexColors()
-          }
-          this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
-          break;
-        case 'linedashed':
-          const parametersLineDashedMaterial: THREE.LineDashedMaterialParameters = {
-            color: this.getColor(),
-            vertexColors: this.getVertexColors(),
-            dashSize: this.getDashSize(),
-            gapSize: this.getGapSize(),
-            scale: this.getScale()
-          }
-          this.material = new THREE.LineDashedMaterial(this.getMaterialParameters(parametersLineDashedMaterial));
-          break;
-        case 'meshbasic':
-          const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
-            color: this.getColor(),
-            opacity: this.getOpacity(),
-            aoMapIntensity: this.getAoMapIntensity(),
-            refractionRatio: this.getRefractionRatio(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            reflectivity: this.getReflectivity(),
-            combine: this.getCombine(),
-            wireframeLinecap: this.getWireframeLinecap(),
-            wireframeLinejoin: this.getWireframeLinejoin(),
-            map: this.getTexture('map'),
-            aoMap: this.getTexture('aoMap'),
-            specularMap: this.getTexture('specularMap'),
-            alphaMap: this.getTexture('alphaMap'),
-            envMap: this.getTexture('envMap'),
-          }
-          this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
-          break;
-        case 'meshdepth':
-          const parametersMeshDepthMaterial: THREE.MeshDepthMaterialParameters = {
-            map: this.getTexture('map'),
-            alphaMap: this.getTexture('alphaMap'),
-            // depthPacking: getDepthPackingStrategies(), todo
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-          }
-          this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
-          break;
-        case 'meshdistance':
-          const parametersMeshDistanceMaterial: THREE.MeshDistanceMaterialParameters = {
-            map: this.getTexture('map'),
-            alphaMap: this.getTexture('alphaMap'),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            farDistance: this.getFarDistance(),
-            nearDistance: this.getNearDistance(),
-            referencePosition: this.getReferencePosition()
-          }
-          this.material = new THREE.MeshDistanceMaterial(this.getMaterialParameters(parametersMeshDistanceMaterial));
-          break;
-        case 'meshmatcap':
-          const parametersMeshMatcapMaterial: THREE.MeshMatcapMaterialParameters = {
-            color: this.getColor(),
-            matcap: this.getTexture('matcap'),
-            map: this.getTexture('map'),
-            alphaMap: this.getTexture('alphaMap'),
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType(),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
-          break;
-        case 'meshnormal':
-          const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType(),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
-          break;
-        case 'meshphong':
-          const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
-            color: this.getColor(),
-            map: this.getTexture('map'),
-            lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(),
-            aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(),
-            emissive: this.getEmissive(),
-            emissiveIntensity: this.getEmissiveIntensity(),
-            emissiveMap: this.getTexture('emissiveMap'),
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            alphaMap: this.getTexture('alphaMap'),
-            envMap: this.getTexture('envMap'),
-            refractionRatio: this.getRefractionRatio(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals(),
-            reflectivity: this.getReflectivity(),
-            specular: this.getSpecular(),
-            shininess: this.getShininess(),
-            opacity: this.getOpacity(),
-            specularMap: this.getTexture('clearcoatNormalMap'),
-            combine: this.getCombine(),
-            wireframeLinecap: this.getWireframeLinecap(),
-            wireframeLinejoin: this.getWireframeLinejoin()
-          }
-          this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
-          break;
-        case 'meshphysical':
-          const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
-            color: this.getColor(),
-            roughness: this.getRoughness(),
-            metalness: this.getMetalness(),
-            map: this.getTexture('map'),
-            lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(),
-            aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(),
-            emissive: this.getEmissive(),
-            emissiveIntensity: this.getEmissiveIntensity(),
-            emissiveMap: this.getTexture('emissiveMap'),
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            roughnessMap: this.getTexture('roughnessMap'),
-            metalnessMap: this.getTexture('metalnessMap'),
-            alphaMap: this.getTexture('alphaMap'),
-            envMap: this.getTexture('envMap'),
-            envMapIntensity: this.getEnvMapIntensity(),
-            refractionRatio: this.getRefractionRatio(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            skinning: this.getSkinning(),
-            vertexTangents: this.getVertexTangents(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals(),
-            clearcoat: this.getClearcoat(),
-            // clearcoatMap: this.getTexture('clearcoatMap'),
-            clearcoatRoughness: this.getClearcoatRoughness(),
-            // clearcoatRoughnessMap: this.getTexture('clearcoatRoughnessMap'),
-            clearcoatNormalScale: this.getClearcoatNormalScale(),
-            clearcoatNormalMap: this.getTexture('clearcoatNormalMap'),
-            reflectivity: this.getReflectivity(),
-            // ior: this.getIor(),
-            sheen: this.getSheen(),
-            // transmission: this.getTransmission(),
-            // transmissionMap: this.getTexture('transmissionMap')
-          }
-          this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
-          break;
-        case 'meshstandard':
-          const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
-            color: this.getColor(),
-            roughness: this.getRoughness(),
-            metalness: this.getMetalness(),
-            map: this.getTexture('map'),
-            lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(),
-            aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(),
-            emissive: this.getEmissive(),
-            emissiveIntensity: this.getEmissiveIntensity(),
-            emissiveMap: this.getTexture('emissiveMap'),
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            roughnessMap: this.getTexture('roughnessMap'),
-            metalnessMap: this.getTexture('metalnessMap'),
-            alphaMap: this.getTexture('alphaMap'),
-            envMap: this.getTexture('envMap'),
-            envMapIntensity: this.getEnvMapIntensity(),
-            refractionRatio: this.getRefractionRatio(0.98),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            skinning: this.getSkinning(),
-            vertexTangents: this.getVertexTangents(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
-          break;
-        case 'meshtoon':
-          const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
-            color: this.getColor(),
-            opacity: this.getOpacity(),
-            gradientMap: this.getTexture('gradientMap'),
-            map: this.getTexture('map'),
-            lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(),
-            aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(),
-            emissive: this.getEmissive(),
-            emissiveIntensity: this.getEmissiveIntensity(),
-            emissiveMap: this.getTexture('emissiveMap'),
-            bumpMap: this.getTexture('bumpMap'),
-            bumpScale: this.getBumpScale(),
-            normalMap: this.getTexture('normalMap'),
-            normalMapType: this.getNormalMapType('tangentspace'),
-            normalScale: this.getNormalScale(),
-            displacementMap: this.getTexture('displacementMap'),
-            displacementScale: this.getDisplacementScale(),
-            displacementBias: this.getDisplacementBias(),
-            alphaMap: this.getTexture('alphaMap'),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            wireframeLinecap: this.getWireframeLinecap('round'),
-            wireframeLinejoin: this.getWireframeLinejoin('round'),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
-          break;
-        case 'points':
-          const parametersPointsMaterial: THREE.PointsMaterialParameters = {
-            color: this.getColor(),
-            map: this.getTexture('map'),
-            alphaMap: this.getTexture('alphaMap'),
-            size: this.getSize(),
-            sizeAttenuation: this.getSizeAttenuation(),
-            morphTargets: this.getMorphTargets(),
-          }
-          this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
-          break;
-        case 'rawshader':
-          const parametersRawShaderMaterial: THREE.ShaderMaterialParameters = {
-            uniforms: this.getUniforms({}),
-            vertexShader: this.getShader('x-shader/x-vertex'),
-            fragmentShader: this.getShader('x-shader/x-fragment'),
-            linewidth: this.getLinewidth(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            lights: this.getLights(),
-            clipping: this.getClipping(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
-          break;
-        case 'shader':
-          const parametersShaderMaterial: THREE.ShaderMaterialParameters = {
-            uniforms: this.getUniforms({}),
-            vertexShader: this.getShader('x-shader/x-vertex'),
-            fragmentShader: this.getShader('x-shader/x-fragment'),
-            linewidth: this.getLinewidth(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            lights: this.getLights(),
-            clipping: this.getClipping(),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
-          break;
-        case 'shadow':
-          this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
-            color: this.getColor()
-          }));
-          break;
-        case 'sprite':
-          const parametersSpriteMaterial: THREE.SpriteMaterialParameters = {
-            color: this.getColor(),
-            map: this.getTexture('map'),
-            alphaMap: this.getTexture('alphaMap'),
-            rotation: this.getRotation(),
-            sizeAttenuation: this.getSizeAttenuation()
-          }
-          this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
-          break;
-        case 'meshlambert':
-        default:
-          const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
-            color: this.getColor(),
-            emissive: this.getEmissive(),
-            emissiveIntensity: this.getEmissiveIntensity(),
-            emissiveMap: this.getTexture('emissiveMap'),
-            map: this.getTexture('map'),
-            lightMap: this.getTexture('lightMap'),
-            lightMapIntensity: this.getLightMapIntensity(),
-            aoMap: this.getTexture('aoMap'),
-            aoMapIntensity: this.getAoMapIntensity(),
-            specularMap: this.getTexture('specularMap'),
-            alphaMap: this.getTexture('alphaMap'),
-            envMap: this.getTexture('envMap'),
-            combine: this.getCombine('multiply'),
-            reflectivity: this.getReflectivity(),
-            refractionRatio: this.getRefractionRatio(),
-            wireframe: this.getWireframe(),
-            wireframeLinewidth: this.getWireframeLinewidth(),
-            wireframeLinecap: this.getWireframeLinecap('round'),
-            wireframeLinejoin: this.getWireframeLinejoin('round'),
-            skinning: this.getSkinning(),
-            morphTargets: this.getMorphTargets(),
-            morphNormals: this.getMorphNormals()
-          }
-          this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
-          break;
+      if (ThreeUtil.isNotNull(this.storageName)) {
+        this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters({}));
+        this.localStorageService.getMaterial(this.storageName, (material : THREE.Material) => {
+          this.material.copy(material);
+          this.resetMaterial();
+        })
+      } else if (this.refer !== null) {
+        if (this.refer.getMaterial) {
+          this.material = this.refer.getMaterial();
+        } else if (this.refer instanceof THREE.Material) {
+          this.material = this.refer;
+        }
+      }
+      if (this.material === null) {
+        switch (this.type.toLowerCase()) {
+          case 'linebasic':
+            const parametersLineBasicMaterial: THREE.LineBasicMaterialParameters = {
+              opacity: this.getOpacity(),
+              linewidth: this.getLinewidth(),
+              vertexColors: this.getVertexColors()
+            }
+            this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
+            break;
+          case 'linedashed':
+            const parametersLineDashedMaterial: THREE.LineDashedMaterialParameters = {
+              color: this.getColor(),
+              vertexColors: this.getVertexColors(),
+              dashSize: this.getDashSize(),
+              gapSize: this.getGapSize(),
+              scale: this.getScale()
+            }
+            this.material = new THREE.LineDashedMaterial(this.getMaterialParameters(parametersLineDashedMaterial));
+            break;
+          case 'meshbasic':
+            const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
+              color: this.getColor(),
+              opacity: this.getOpacity(),
+              aoMapIntensity: this.getAoMapIntensity(),
+              refractionRatio: this.getRefractionRatio(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              reflectivity: this.getReflectivity(),
+              combine: this.getCombine(),
+              wireframeLinecap: this.getWireframeLinecap(),
+              wireframeLinejoin: this.getWireframeLinejoin(),
+              map: this.getTexture('map'),
+              aoMap: this.getTexture('aoMap'),
+              specularMap: this.getTexture('specularMap'),
+              alphaMap: this.getTexture('alphaMap'),
+              envMap: this.getTexture('envMap'),
+            }
+            this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
+            break;
+          case 'meshdepth':
+            const parametersMeshDepthMaterial: THREE.MeshDepthMaterialParameters = {
+              map: this.getTexture('map'),
+              alphaMap: this.getTexture('alphaMap'),
+              // depthPacking: getDepthPackingStrategies(), todo
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+            }
+            this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
+            break;
+          case 'meshdistance':
+            const parametersMeshDistanceMaterial: THREE.MeshDistanceMaterialParameters = {
+              map: this.getTexture('map'),
+              alphaMap: this.getTexture('alphaMap'),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              farDistance: this.getFarDistance(),
+              nearDistance: this.getNearDistance(),
+              referencePosition: this.getReferencePosition()
+            }
+            this.material = new THREE.MeshDistanceMaterial(this.getMaterialParameters(parametersMeshDistanceMaterial));
+            break;
+          case 'meshmatcap':
+            const parametersMeshMatcapMaterial: THREE.MeshMatcapMaterialParameters = {
+              color: this.getColor(),
+              matcap: this.getTexture('matcap'),
+              map: this.getTexture('map'),
+              alphaMap: this.getTexture('alphaMap'),
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType(),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
+            break;
+          case 'meshnormal':
+            const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType(),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
+            break;
+          case 'meshphong':
+            const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
+              color: this.getColor(),
+              map: this.getTexture('map'),
+              lightMap: this.getTexture('lightMap'),
+              lightMapIntensity: this.getLightMapIntensity(),
+              aoMap: this.getTexture('aoMap'),
+              aoMapIntensity: this.getAoMapIntensity(),
+              emissive: this.getEmissive(),
+              emissiveIntensity: this.getEmissiveIntensity(),
+              emissiveMap: this.getTexture('emissiveMap'),
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType('tangentspace'),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              alphaMap: this.getTexture('alphaMap'),
+              envMap: this.getTexture('envMap'),
+              refractionRatio: this.getRefractionRatio(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals(),
+              reflectivity: this.getReflectivity(),
+              specular: this.getSpecular(),
+              shininess: this.getShininess(),
+              opacity: this.getOpacity(),
+              specularMap: this.getTexture('clearcoatNormalMap'),
+              combine: this.getCombine(),
+              wireframeLinecap: this.getWireframeLinecap(),
+              wireframeLinejoin: this.getWireframeLinejoin()
+            }
+            this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
+            break;
+          case 'meshphysical':
+            const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
+              color: this.getColor(),
+              roughness: this.getRoughness(),
+              metalness: this.getMetalness(),
+              map: this.getTexture('map'),
+              lightMap: this.getTexture('lightMap'),
+              lightMapIntensity: this.getLightMapIntensity(),
+              aoMap: this.getTexture('aoMap'),
+              aoMapIntensity: this.getAoMapIntensity(),
+              emissive: this.getEmissive(),
+              emissiveIntensity: this.getEmissiveIntensity(),
+              emissiveMap: this.getTexture('emissiveMap'),
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType('tangentspace'),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              roughnessMap: this.getTexture('roughnessMap'),
+              metalnessMap: this.getTexture('metalnessMap'),
+              alphaMap: this.getTexture('alphaMap'),
+              envMap: this.getTexture('envMap'),
+              envMapIntensity: this.getEnvMapIntensity(),
+              refractionRatio: this.getRefractionRatio(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              skinning: this.getSkinning(),
+              vertexTangents: this.getVertexTangents(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals(),
+              clearcoat: this.getClearcoat(),
+              // clearcoatMap: this.getTexture('clearcoatMap'),
+              clearcoatRoughness: this.getClearcoatRoughness(),
+              // clearcoatRoughnessMap: this.getTexture('clearcoatRoughnessMap'),
+              clearcoatNormalScale: this.getClearcoatNormalScale(),
+              clearcoatNormalMap: this.getTexture('clearcoatNormalMap'),
+              reflectivity: this.getReflectivity(),
+              // ior: this.getIor(),
+              sheen: this.getSheen(),
+              // transmission: this.getTransmission(),
+              // transmissionMap: this.getTexture('transmissionMap')
+            }
+            this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
+            break;
+          case 'meshstandard':
+            const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
+              color: this.getColor(),
+              roughness: this.getRoughness(),
+              metalness: this.getMetalness(),
+              map: this.getTexture('map'),
+              lightMap: this.getTexture('lightMap'),
+              lightMapIntensity: this.getLightMapIntensity(),
+              aoMap: this.getTexture('aoMap'),
+              aoMapIntensity: this.getAoMapIntensity(),
+              emissive: this.getEmissive(),
+              emissiveIntensity: this.getEmissiveIntensity(),
+              emissiveMap: this.getTexture('emissiveMap'),
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType('tangentspace'),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              roughnessMap: this.getTexture('roughnessMap'),
+              metalnessMap: this.getTexture('metalnessMap'),
+              alphaMap: this.getTexture('alphaMap'),
+              envMap: this.getTexture('envMap'),
+              envMapIntensity: this.getEnvMapIntensity(),
+              refractionRatio: this.getRefractionRatio(0.98),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              skinning: this.getSkinning(),
+              vertexTangents: this.getVertexTangents(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
+            break;
+          case 'meshtoon':
+            const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
+              color: this.getColor(),
+              opacity: this.getOpacity(),
+              gradientMap: this.getTexture('gradientMap'),
+              map: this.getTexture('map'),
+              lightMap: this.getTexture('lightMap'),
+              lightMapIntensity: this.getLightMapIntensity(),
+              aoMap: this.getTexture('aoMap'),
+              aoMapIntensity: this.getAoMapIntensity(),
+              emissive: this.getEmissive(),
+              emissiveIntensity: this.getEmissiveIntensity(),
+              emissiveMap: this.getTexture('emissiveMap'),
+              bumpMap: this.getTexture('bumpMap'),
+              bumpScale: this.getBumpScale(),
+              normalMap: this.getTexture('normalMap'),
+              normalMapType: this.getNormalMapType('tangentspace'),
+              normalScale: this.getNormalScale(),
+              displacementMap: this.getTexture('displacementMap'),
+              displacementScale: this.getDisplacementScale(),
+              displacementBias: this.getDisplacementBias(),
+              alphaMap: this.getTexture('alphaMap'),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              wireframeLinecap: this.getWireframeLinecap('round'),
+              wireframeLinejoin: this.getWireframeLinejoin('round'),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
+            break;
+          case 'points':
+            const parametersPointsMaterial: THREE.PointsMaterialParameters = {
+              color: this.getColor(),
+              map: this.getTexture('map'),
+              alphaMap: this.getTexture('alphaMap'),
+              size: this.getSize(),
+              sizeAttenuation: this.getSizeAttenuation(),
+              morphTargets: this.getMorphTargets(),
+            }
+            this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
+            break;
+          case 'rawshader':
+            const parametersRawShaderMaterial: THREE.ShaderMaterialParameters = {
+              uniforms: this.getUniforms({}),
+              vertexShader: this.getShader('x-shader/x-vertex'),
+              fragmentShader: this.getShader('x-shader/x-fragment'),
+              linewidth: this.getLinewidth(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              lights: this.getLights(),
+              clipping: this.getClipping(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
+            break;
+          case 'shader':
+            const parametersShaderMaterial: THREE.ShaderMaterialParameters = {
+              uniforms: this.getUniforms({}),
+              vertexShader: this.getShader('x-shader/x-vertex'),
+              fragmentShader: this.getShader('x-shader/x-fragment'),
+              linewidth: this.getLinewidth(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              lights: this.getLights(),
+              clipping: this.getClipping(),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
+            break;
+          case 'shadow':
+            this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
+              color: this.getColor()
+            }));
+            break;
+          case 'sprite':
+            const parametersSpriteMaterial: THREE.SpriteMaterialParameters = {
+              color: this.getColor(),
+              map: this.getTexture('map'),
+              alphaMap: this.getTexture('alphaMap'),
+              rotation: this.getRotation(),
+              sizeAttenuation: this.getSizeAttenuation()
+            }
+            this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
+            break;
+          case 'meshlambert':
+          default:
+            const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
+              color: this.getColor(),
+              emissive: this.getEmissive(),
+              emissiveIntensity: this.getEmissiveIntensity(),
+              emissiveMap: this.getTexture('emissiveMap'),
+              map: this.getTexture('map'),
+              lightMap: this.getTexture('lightMap'),
+              lightMapIntensity: this.getLightMapIntensity(),
+              aoMap: this.getTexture('aoMap'),
+              aoMapIntensity: this.getAoMapIntensity(),
+              specularMap: this.getTexture('specularMap'),
+              alphaMap: this.getTexture('alphaMap'),
+              envMap: this.getTexture('envMap'),
+              combine: this.getCombine('multiply'),
+              reflectivity: this.getReflectivity(),
+              refractionRatio: this.getRefractionRatio(),
+              wireframe: this.getWireframe(),
+              wireframeLinewidth: this.getWireframeLinewidth(),
+              wireframeLinecap: this.getWireframeLinecap('round'),
+              wireframeLinejoin: this.getWireframeLinejoin('round'),
+              skinning: this.getSkinning(),
+              morphTargets: this.getMorphTargets(),
+              morphNormals: this.getMorphNormals()
+            }
+            this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
+            break;
+        }
       }
     }
     return this.material;

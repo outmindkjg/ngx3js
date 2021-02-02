@@ -78,6 +78,36 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   private rendererScenes: QueryList<SceneComponent>;
   private effectComposer: EffectComposer = null;
 
+  getPosition(): THREE.Vector3 {
+    if (this.camera !== null) {
+      return this.camera.position;
+    } else if (this.position !== null && this.position.length > 0) {
+      return this.position.first.getPosition();
+    } else {
+      return new THREE.Vector3(0, 0, 0);
+    }
+  }
+
+  getScale(): THREE.Vector3 {
+    if (this.camera !== null) {
+      return this.camera.scale;
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.scale.first.getScale();
+    } else {
+      return new THREE.Vector3(1, 1, 1);
+    }
+  }
+
+  getRotation(): THREE.Euler {
+    if (this.camera !== null) {
+      return this.camera.rotation;
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.rotation.first.getRotation();
+    } else {
+      return new THREE.Euler(0, 0, 0);
+    }
+  }
+ 
   getRenderer(): THREE.Renderer {
     return this.renderer;
   }
@@ -109,15 +139,11 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
           this.renderer
         );
         this.pass.forEach((item) => {
-          const pass = item.getPass(
+          item.getPass(
             this.getScene(),
             this.getCamera(),
-            this,
-            this
+            effectComposer
           );
-          if (pass !== null) {
-            effectComposer.addPass(pass);
-          }
         });
         return effectComposer;
       }
@@ -317,15 +343,16 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
               renderer.autoClear = this.autoClear;
             }
           }
-          if (renderer instanceof THREE.WebGLRenderer) {
+          if (renderer instanceof THREE.WebGLRenderer && this.composer && this.composer.length > 0) {
             this.composer.forEach((composer) => {
               composer.render(renderer, renderTimer);
             });
-          }
-          if (this.effectComposer !== null) {
-            this.effectComposer.render(renderTimer.delta);
           } else {
-            renderer.render(scene, this.getCamera());
+            if (this.effectComposer !== null) {
+              this.effectComposer.render(renderTimer.delta);
+            } else {
+              renderer.render(scene, this.getCamera());
+            }
           }
         }
       });

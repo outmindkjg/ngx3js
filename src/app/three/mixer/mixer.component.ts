@@ -115,7 +115,6 @@ export class MixerComponent implements OnInit {
 
   update(timer : RendererTimer) {
     if (this.mixer !== null) {
-      // console.log(timer.delta);
       this.mixer.update( timer.delta );
     }
   }

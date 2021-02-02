@@ -53,9 +53,35 @@ export class SceneComponent implements OnInit {
   private scene: THREE.Scene = null;
 
   getPosition(): THREE.Vector3 {
-    return this.getScene().position;
+    if (this.scene !== null) {
+      return this.scene.position;
+    } else if (this.position !== null && this.position.length > 0) {
+      return this.position.first.getPosition();
+    } else {
+      return new THREE.Vector3(0, 0, 0);
+    }
   }
 
+  getScale(): THREE.Vector3 {
+    if (this.scene !== null) {
+      return this.scene.scale;
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.scale.first.getScale();
+    } else {
+      return new THREE.Vector3(1, 1, 1);
+    }
+  }
+
+  getRotation(): THREE.Euler {
+    if (this.scene !== null) {
+      return this.scene.rotation;
+    } else if (this.scale !== null && this.scale.length > 0) {
+      return this.rotation.first.getRotation();
+    } else {
+      return new THREE.Euler(0, 0, 0);
+    }
+  }
+  
   getObject3D(): THREE.Object3D {
     return this.getScene();
   }

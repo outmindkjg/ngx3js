@@ -85,6 +85,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() size: number = null;
   @Input() helperVisible: boolean = null;
   @Input() helperTarget: MeshComponent = null;
+  @Input() helperColor: string | number = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) geometry: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false })
@@ -144,7 +145,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   }
 
   getAngle(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.angle, def);
+    return ThreeUtil.getAngleSafe(this.angle, def);
   }
 
   getPenumbra(def?: number): number {
@@ -221,11 +222,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     return null;
   }
 
-  private getHelperTarget(): THREE.Object3D {
+  private getHelperTarget(target?: THREE.Object3D): THREE.Object3D {
     if (this.helperTarget !== null) {
       return this.helperTarget.getMesh();
     } else {
-      return new THREE.Object3D();
+      return target;
     }
   }
 
@@ -236,6 +237,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   private getSize(def?: number): number {
     return ThreeUtil.getTypeSafe(this.size, def);
   }
+
+  private getHelperColor(def?: number | string): THREE.Color {
+    return ThreeUtil.getColorSafe(this.helperColor, def);
+  }
+
 
   ngOnInit(): void { }
 
@@ -279,7 +285,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   getPosition(): THREE.Vector3 {
     if (this.mesh !== null) {
-      return this.getMesh().position;
+      return this.mesh.position;
     } else if (this.position !== null && this.position.length > 0) {
       return this.position.first.getPosition();
     } else {
@@ -289,7 +295,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   getScale(): THREE.Vector3 {
     if (this.mesh !== null) {
-      return this.getMesh().scale;
+      return this.mesh.scale;
     } else if (this.scale !== null && this.scale.length > 0) {
       return this.scale.first.getScale();
     } else {
@@ -299,7 +305,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   getRotation(): THREE.Euler {
     if (this.mesh !== null) {
-      return this.getMesh().rotation;
+      return this.mesh.rotation;
     } else if (this.scale !== null && this.scale.length > 0) {
       return this.rotation.first.getRotation();
     } else {
@@ -427,18 +433,27 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             this.meshes.forEach((mesh) => {
               mesh.setObject3D(this.mesh);
             });
+            break;
           case 'geometry':
             this.geometry.forEach((geometry) => {
               geometry.setObject3D(this.mesh);
             });
+            break;
           case 'svg':
             this.svg.forEach((svg) => {
               svg.setObject3D(this.mesh);
             });
+            break;
           case 'material':
-            this.materials.forEach((mesh, seqn) => {
-              mesh.setObject3D(this.mesh, seqn);
-            });
+            if (this.clipMesh !== null) {
+              this.materials.forEach((material) => {
+                material.setObject3D(this.clipMesh);
+              });
+            } else {
+              this.materials.forEach((material) => {
+                material.setObject3D(this.mesh);
+              });
+            }
             break;
           case 'mixer':
             if (this.clips !== null && this.clips !== undefined) {
@@ -588,8 +603,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               basemesh = new THREE.PointLight(
                 this.getColor(0xffffff),
                 this.getIntensity(1),
-                this.getDistance(0),
-                this.getDecay(1)
+                this.getDistance(),
+                this.getDecay()
               );
               basemesh.castShadow = this.castShadow;
               break;
@@ -606,10 +621,10 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               basemesh = new THREE.SpotLight(
                 this.getColor(0xffffff),
                 this.getIntensity(1),
-                this.getDistance(0),
-                this.getAngle(60),
-                this.getPenumbra(0),
-                this.getDecay(1)
+                this.getDistance(),
+                this.getAngle(),
+                this.getPenumbra(),
+                this.getDecay()
               );
               basemesh.castShadow = this.castShadow;
               break;
@@ -667,7 +682,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             basemesh = new THREE.Object3D();
             this.localStorageService.getObject(
               this.storageName,
-              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry? : THREE.Geometry | THREE.BufferGeometry) => {
+              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.Geometry | THREE.BufferGeometry) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
@@ -677,18 +692,18 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
                     });
                   }
                   this.mesh.add(loadedMesh);
-                } else if (geometry !== null){
+                } else if (geometry !== null) {
                   if (geometry['animations'] !== null && geometry['animations'] !== undefined && geometry['animations'].length > 0) {
                     const morphAnim = new MorphAnimMesh(geometry, this.getMaterials()[0]);
                     loadedMesh = morphAnim;
                     this.mesh.add(loadedMesh);
-                    clips =  geometry['animations'];
+                    clips = geometry['animations'];
                   } else {
                     loadedMesh = new THREE.Mesh(geometry, this.getMaterials()[0]);
                     this.mesh.add(loadedMesh);
                   }
                 }
-                
+
                 if (this.meshes) {
                   this.meshes.forEach((mesh) => {
                     if (
@@ -705,9 +720,9 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
                 }
                 if (clips !== null && clips !== undefined) {
                   this.clips = clips;
-                  this.clipMesh = loadedMesh;
-                  this.synkObject3D(['mixer']);
                 }
+                this.clipMesh = loadedMesh;
+                this.synkObject3D(['mixer', 'material']);
                 this.resetHelper();
               }
             );
@@ -872,32 +887,16 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           mesh.receiveShadow = this.receiveShadow;
         }
       } else if (this.mesh instanceof THREE.Light) {
-        if (this.mesh instanceof THREE.SpotLight) {
-          this.mesh.penumbra = this.exponent;
+        if (this.mesh instanceof THREE.SpotLight || this.mesh instanceof THREE.DirectionalLight) {
           const target = this.getTarget(null);
           if (target != null) {
             this.mesh.target = target;
-          }
-        } else if (this.mesh instanceof THREE.DirectionalLight) {
-          const target = this.getTarget(null);
-          if (target != null) {
-            this.mesh.target = target;
-          }
-        } else if (this.mesh instanceof THREE.RectAreaLight) {
-          if (this.shadowCameraVisible) {
-            const rectLightHelper = new RectAreaLightHelper(this.mesh);
-            this.mesh.add(rectLightHelper);
           }
         }
         if (this.mesh.shadow) {
-          this.mesh.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
-          this.mesh.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
+          this.mesh.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
+          this.mesh.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
           if (this.mesh.shadow.camera) {
-            if (this.shadowCameraVisible) {
-              this.helper = new THREE.CameraHelper(this.mesh.shadow.camera);
-            } else {
-              this.helper = null;
-            }
             if (this.mesh.shadow.camera instanceof THREE.PerspectiveCamera) {
               this.mesh.shadow.camera.near = this.getShadowCameraNear(0.1);
               this.mesh.shadow.camera.far = this.getShadowCameraFar(2000);
@@ -907,18 +906,15 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             ) {
               this.mesh.shadow.camera.near = this.getShadowCameraNear(0.1);
               this.mesh.shadow.camera.far = this.getShadowCameraFar(2000);
-              this.mesh.shadow.camera.left = this.getShadowCameraLeft(-50);
-              this.mesh.shadow.camera.right = this.getShadowCameraRight(50);
-              this.mesh.shadow.camera.top = this.getShadowCameraTop(50);
-              this.mesh.shadow.camera.bottom = this.getShadowCameraBottom(-50);
+              this.mesh.shadow.camera.left = this.getShadowCameraLeft(-1);
+              this.mesh.shadow.camera.right = this.getShadowCameraRight(1);
+              this.mesh.shadow.camera.top = this.getShadowCameraTop(1);
+              this.mesh.shadow.camera.bottom = this.getShadowCameraBottom(-1);
             }
-          } else {
-            this.helper = null;
           }
-        } else {
-          this.helper = null;
+         this.mesh.shadow.updateMatrices(this.mesh);
         }
-      } 
+      }
       if (this.helper == null) {
         this.resetHelper();
       }
@@ -944,7 +940,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
       if (this.helper !== null && this.helper.parent !== null) {
         this.helper.parent.remove(this.helper);
       }
-      let basemesh : THREE.Object3D = null;
+      let basemesh: THREE.Object3D = null;
       switch (this.helperType.toLowerCase()) {
         case 'arrow':
           /**
@@ -977,12 +973,6 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         case 'box3':
           basemesh = new THREE.Box3Helper(null);
           break;
-        case 'camera':
-          basemesh = new THREE.CameraHelper(null);
-          break;
-        case 'directionallight':
-          basemesh = new THREE.DirectionalLightHelper(null);
-          break;
         case 'grid':
           basemesh = new THREE.GridHelper(0, 0); // todo
           break;
@@ -996,22 +986,51 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             null
           );
           break;
+        case 'camera': {
+            let helperTarget = this.getHelperTarget(this.mesh);
+            if (helperTarget instanceof THREE.Light && helperTarget.shadow.camera) {
+              basemesh = new THREE.CameraHelper(helperTarget.shadow.camera);
+            } else if (helperTarget instanceof THREE.Camera) {
+              basemesh = new THREE.CameraHelper(helperTarget);
+            }
+          }
+          break;
+        case 'directionallight':
         case 'hemispherelight':
-          basemesh = new THREE.HemisphereLightHelper(
-            this.getHelperTarget() as THREE.HemisphereLight,
-            this.getSize(10),
-            this.getColor(0x000000)
-          );
+        case 'pointlight':
+        case 'spotlight':
+        case 'light': {
+            let helperTarget = this.getHelperTarget(this.mesh);
+            if (helperTarget instanceof THREE.DirectionalLight) {
+              basemesh = new THREE.DirectionalLightHelper(
+                helperTarget,
+                this.getSize(10),
+                this.getHelperColor(0xff0000)
+              );
+            } else if (helperTarget instanceof THREE.HemisphereLight) {
+              basemesh = new THREE.HemisphereLightHelper(
+                helperTarget,
+                this.getSize(10),
+                this.getHelperColor(0xff0000)
+              );
+            } else if (helperTarget instanceof THREE.PointLight) {
+              basemesh = new THREE.PointLightHelper(
+                helperTarget,
+                this.getSize(10),
+                this.getHelperColor(0xff0000)
+              );
+            } else if (helperTarget instanceof THREE.SpotLight) {
+              basemesh = new THREE.SpotLightHelper(
+                helperTarget,
+                this.getHelperColor(0xff0000)
+              );
+            }
+          }
           break;
         case 'plane':
           basemesh = new THREE.PlaneHelper(
             null
             // this.getHelperTarget() as THREE.Plane
-          );
-          break;
-        case 'pointlight':
-          basemesh = new THREE.PointLightHelper(
-            this.getHelperTarget() as THREE.PointLight
           );
           break;
         case 'skeleton':
@@ -1021,20 +1040,17 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             basemesh = new THREE.SkeletonHelper(this.mesh);
           }
           break;
-        case 'spotlight':
-          basemesh = new THREE.SpotLightHelper(
-            this.getHelperTarget() as THREE.Light,
-            this.getColor(0xffffff)
-          );
-          break;
         case 'axes':
-          basemesh = new THREE.AxesHelper(this.getSize(5));
+          basemesh = new THREE.AxesHelper(this.getSize(10));
+          this.mesh.add(basemesh);
           break;
       }
       if (basemesh !== null) {
         this.helper = basemesh;
         this.helper.visible = this.getHelperVisible(true);
-        this.refObject3d.add(this.helper);
+        if (this.refObject3d !== null && (this.helper.parent == null || this.helper.parent == undefined)) {
+          this.refObject3d.add(this.helper);
+        }
       } else {
         this.helper = null;
       }

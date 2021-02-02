@@ -1,7 +1,7 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" (onRender)="onRender($event)" [guiControl]="controls" [guiParams]="controlsParams">
     <three-camera type="perspective" [fov]="45" [near]="0.1" [far]="1000">
         <three-position [x]="-30" [y]="40" [z]="30"></three-position>
-        <three-lookat [position]="scene"></three-lookat>
+        <three-lookat [refer]="scene"></three-lookat>
     </three-camera>
     <three-scene #scene>
         <three-material type="meshlambert" [color]="'0xffffff'"></three-material>

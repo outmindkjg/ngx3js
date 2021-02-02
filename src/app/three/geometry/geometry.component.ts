@@ -6,6 +6,7 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import {
   ConvexBufferGeometry, ConvexGeometry
@@ -16,7 +17,6 @@ import { AbstractGetGeometry, AbstractMeshComponent } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
-import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
 
 
 export interface GeometriesParametric {
@@ -83,6 +83,8 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
   }
 
   @Input() visible: boolean = true;
+  @Input() refer: any = null;
+  @Input() referRef: boolean = true;
   @Input() params: GeometryParams = null;
   @Input() type: string = 'sphere';
   @Input() storageName: string = null;
@@ -459,7 +461,7 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterContentInit(): void {
     this.curves.changes.subscribe((e) => {
@@ -579,11 +581,34 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
     this.resetGeometry();
   }
 
+  private _geometrySubscribe: Subscription = null;
+
+  private _geometrySubject: Subject<THREE.Geometry | THREE.BufferGeometry> = new Subject<THREE.Geometry | THREE.BufferGeometry>();
+
+  geometrySubscribe(): Observable<THREE.Geometry | THREE.BufferGeometry> {
+    return this._geometrySubject.asObservable();
+  }
+
   resetGeometry(clearGeometry = false) {
     if (this.refObject3d !== null && this.visible) {
       if (this.refObject3d instanceof THREE.Mesh) {
         if (clearGeometry && this.geometry !== null) {
           this.geometry = null;
+        }
+        if (this._geometrySubscribe !== null) {
+          this._geometrySubscribe.unsubscribe();
+          this._geometrySubscribe = null;
+        }
+        if (this.refer !== null && this.referRef && this.refer.geometrySubscribe) {
+          this._geometrySubscribe = this.refer.geometrySubscribe().subscribe(geometry => {
+            if (this.refObject3d instanceof THREE.Mesh && this.visible) {
+              if (this.refObject3d.geometry !== geometry) {
+                this.refObject3d.geometry = geometry;
+              }
+            }
+          })
+        } else {
+          this.refObject3d.geometry = this.getGeometry();
         }
         this.refObject3d.geometry = this.getGeometry();
       } else if (this.refObject3d instanceof THREE.Points) {
@@ -597,6 +622,8 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
       } else if (this.refObject3d instanceof AbstractMeshComponent) {
         this.refObject3d.resetMesh(true);
       }
+    } else if (this.geometry === null && this.subGeometry !== null && this.subGeometry !== undefined) {
+      this.geometry = this.getGeometry();
     }
   }
 
@@ -621,7 +648,7 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
   }
 
   synkObject3D(synkTypes: string[]) {
-    if (this.geometry !== null) {
+    if (this.geometry !== null && this.subGeometry !== null && this.subGeometry !== undefined) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'geometry':
@@ -651,414 +678,424 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
 
   getGeometry(): THREE.Geometry | THREE.BufferGeometry {
     if (this.geometry === null) {
-      switch (this.type.toLowerCase()) {
-        case 'storage':
-          this.geometry = new THREE.Geometry();
-          this.localStorageService.getGeometry(this.storageName, (geometry) => {
-            this.geometry = geometry;
-            this.resetGeometry();
-          })
-          break;
-        case 'custom':
-        case 'geometry':
-          this.geometry = new THREE.Geometry();
-          this.geometry.vertices = this.getVertices([]);
-          this.geometry.faces = this.getFaces([]);
-          this.geometry.colors = this.getColors([]);
-          if (this.geometry.faces && this.geometry.faces.length > 0) {
-            this.geometry.computeFaceNormals();
-          }
-          break;
-        case 'boxbuffer':
-          this.geometry = new THREE.BoxBufferGeometry(
-            this.getWidth(1),
-            this.getHeight(1),
-            this.getDepth(1),
-            this.getWidthSegments(1),
-            this.getHeightSegments(1),
-            this.getDepthSegments(1)
-          );
-          break;
-        case 'box':
-          this.geometry = new THREE.BoxGeometry(
-            this.getWidth(1),
-            this.getHeight(1),
-            this.getDepth(1),
-            this.getWidthSegments(1),
-            this.getHeightSegments(1),
-            this.getDepthSegments(1)
-          );
-          break;
-        case 'circlebuffer':
-          this.geometry = new THREE.CircleBufferGeometry(
-            this.getRadius(1),
-            this.getSegments(8),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'circle':
-          this.geometry = new THREE.CircleGeometry(
-            this.getRadius(1),
-            this.getSegments(8),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'conebuffer':
-          this.geometry = new THREE.ConeBufferGeometry(
-            this.getRadius(1),
-            this.getHeight(1),
-            this.getRadialSegments(8),
-            this.getHeightSegments(1),
-            this.getOpenEnded(false),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'cone':
-          this.geometry = new THREE.ConeGeometry(
-            this.getRadius(1),
-            this.getHeight(1),
-            this.getRadialSegments(8),
-            this.getHeightSegments(1),
-            this.getOpenEnded(false),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'cylinderbuffer':
-          this.geometry = new THREE.CylinderBufferGeometry(
-            this.getRadiusTop(1),
-            this.getRadiusBottom(1),
-            this.getHeight(1),
-            this.getRadialSegments(8),
-            this.getHeightSegments(1),
-            this.getOpenEnded(false),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'cylinder':
-          this.geometry = new THREE.CylinderGeometry(
-            this.getRadiusTop(1),
-            this.getRadiusBottom(1),
-            this.getHeight(1),
-            this.getRadialSegments(8),
-            this.getHeightSegments(1),
-            this.getOpenEnded(false),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'dodecahedronbuffer':
-          this.geometry = new THREE.DodecahedronBufferGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'dodecahedron':
-          this.geometry = new THREE.DodecahedronGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'edges':
-          this.geometry = new THREE.EdgesGeometry(
-            this.getSubGeometry(),
-            this.getThresholdAngle(0)
-          );
-          break;
-        case 'extrudebuffer':
-          this.geometry = new THREE.ExtrudeBufferGeometry(this.getShapes(), {
-            curveSegments: this.getCurveSegments(12),
-            steps: this.getSteps(1),
-            depth: this.getDepth(100),
-            bevelEnabled: this.getBevelEnabled(true),
-            bevelThickness: this.getBevelThickness(6),
-            bevelSize: this.getBevelSize(0),
-            bevelOffset: this.getBevelOffset(0),
-            bevelSegments: this.getBevelSegments(3),
-            extrudePath: new THREE.Curve<THREE.Vector3>(),
-            UVGenerator: null // THREE.UVGenerator;
-          });
-          break;
-        case 'extrude':
-          this.geometry = new THREE.ExtrudeGeometry(this.getShapes(), {
-            curveSegments: this.getCurveSegments(12),
-            steps: this.getSteps(1),
-            depth: this.getDepth(100),
-            bevelEnabled: this.getBevelEnabled(true),
-            bevelThickness: this.getBevelThickness(6),
-            bevelSize: this.getBevelSize(0),
-            bevelOffset: this.getBevelOffset(0),
-            bevelSegments: this.getBevelSegments(3),
-            extrudePath: new THREE.Curve<THREE.Vector3>(),
-            UVGenerator: null // THREE.UVGenerator;
-          });
-          break;
-        case 'icosahedronbuffer':
-          this.geometry = new THREE.IcosahedronBufferGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'icosahedron':
-          this.geometry = new THREE.IcosahedronGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'lathebuffer':
-          this.geometry = new THREE.LatheBufferGeometry(
-            this.getPointsV2([]),
-            this.getSegments(12),
-            this.getPhiStart(0),
-            this.getPhiLength(360)
-          );
-          break;
-        case 'lathe':
-          this.geometry = new THREE.LatheGeometry(
-            this.getPointsV2([]),
-            this.getSegments(12),
-            this.getPhiStart(0),
-            this.getPhiLength(360)
-          );
-          break;
-        case 'octahedronbuffer':
-          this.geometry = new THREE.OctahedronBufferGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'octahedron':
-          this.geometry = new THREE.OctahedronGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'parametricbuffer':
-          this.geometry = new THREE.ParametricBufferGeometry(
-            this.getParametric('mobius3d'),
-            this.getSlices(20),
-            this.getStacks(10)
-          );
-          break;
-        case 'parametric':
-          this.geometry = new THREE.ParametricGeometry(
-            this.getParametric('mobius3d'),
-            this.getSlices(20),
-            this.getStacks(10)
-          );
-          break;
-        case 'planebuffer':
-          this.geometry = new THREE.PlaneBufferGeometry(
-            this.getWidth(1),
-            this.getHeight(1),
-            this.getWidthSegments(1),
-            this.getHeightSegments(1)
-          );
-          break;
-        case 'plane':
-          this.geometry = new THREE.PlaneGeometry(
-            this.getWidth(1),
-            this.getHeight(1),
-            this.getWidthSegments(1),
-            this.getHeightSegments(1)
-          );
-          break;
-        case 'polyhedronbuffer':
-          this.geometry = new THREE.PolyhedronBufferGeometry(
-            this.getPolyVertices([]),
-            this.getPolyIndices([]),
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'polyhedron':
-          this.geometry = new THREE.PolyhedronGeometry(
-            this.getPolyVertices([]),
-            this.getPolyIndices([]),
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'ringbuffer':
-          this.geometry = new THREE.RingBufferGeometry(
-            this.getInnerRadius(0.5),
-            this.getOuterRadius(1),
-            this.getThetaSegments(8),
-            this.getPhiSegments(1),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'ring':
-          this.geometry = new THREE.RingGeometry(
-            this.getInnerRadius(0.5),
-            this.getOuterRadius(1),
-            this.getThetaSegments(8),
-            this.getPhiSegments(1),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'shapebuffer':
-          this.geometry = new THREE.ShapeBufferGeometry(
-            this.getShapes(),
-            this.getCurveSegments(12)
-          );
-          break;
-        case 'shape':
-          this.geometry = new THREE.ShapeGeometry(
-            this.getShapes(),
-            this.getCurveSegments(12)
-          );
-          break;
-        case 'spherebuffer':
-          this.geometry = new THREE.SphereBufferGeometry(
-            this.getRadius(50),
-            this.getWidthSegments(8),
-            this.getHeightSegments(6),
-            this.getPhiStart(0),
-            this.getPhiLength(360),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'sphere':
-          this.geometry = new THREE.SphereGeometry(
-            this.getRadius(50),
-            this.getWidthSegments(8),
-            this.getHeightSegments(6),
-            this.getPhiStart(0),
-            this.getPhiLength(360),
-            this.getThetaStart(0),
-            this.getThetaLength(360)
-          );
-          break;
-        case 'tetrahedronbuffer':
-          this.geometry = new THREE.TetrahedronBufferGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'tetrahedron':
-          this.geometry = new THREE.TetrahedronGeometry(
-            this.getRadius(1),
-            this.getDetail(0)
-          );
-          break;
-        case 'textbuffer':
-        case 'text':
-          this.geometry = new THREE.Geometry();
-          this.getFont('helvetiker', (font: THREE.Font) => {
-            const textParameters: THREE.TextGeometryParameters = {
-              font: font,
-              size: this.getSize(1),
-              height: this.getHeight(1),
-              curveSegments: this.getCurveSegments(1),
-              bevelEnabled: this.getBevelEnabled(true),
-              bevelThickness: this.getBevelThickness(1),
-              bevelSize: this.getBevelSize(1),
-              bevelOffset: this.getBevelOffset(1),
-              bevelSegments: this.getBevelSegments(1),
-            };
-            switch (this.type.toLowerCase()) {
-              case 'textbuffer':
-                this.geometry = new THREE.TextBufferGeometry(
-                  this.getText('test'),
-                  textParameters
-                );
-                break;
-              case 'text':
-                this.geometry = new THREE.TextGeometry(
-                  this.getText('test'),
-                  textParameters
-                );
-                break;
+      if (this.refer !== null && this.refer !== undefined) {
+        if (this.refer.getGeometry) {
+          this.geometry = this.refer.getGeometry();
+        } else if (this.refer instanceof THREE.Geometry) {
+          this.geometry = this.refer;
+        }
+      }
+      if (this.geometry === null) {
+        switch (this.type.toLowerCase()) {
+          case 'storage':
+            this.geometry = new THREE.Geometry();
+            this.localStorageService.getGeometry(this.storageName, (geometry) => {
+              this.geometry = geometry;
+              this.resetGeometry();
+            })
+            break;
+          case 'custom':
+          case 'geometry':
+            this.geometry = new THREE.Geometry();
+            this.geometry.vertices = this.getVertices([]);
+            this.geometry.faces = this.getFaces([]);
+            this.geometry.colors = this.getColors([]);
+            if (this.geometry.faces && this.geometry.faces.length > 0) {
+              this.geometry.computeFaceNormals();
             }
-            this.resetGeometry();
-          });
-          break;
-        case 'torusbuffer':
-          this.geometry = new THREE.TorusBufferGeometry(
-            this.getRadius(1),
-            this.getTube(0.4),
-            this.getRadialSegments(8),
-            this.getTubularSegments(6),
-            this.getArc(360)
-          );
-          break;
-        case 'torus':
-          this.geometry = new THREE.TorusGeometry(
-            this.getRadius(1),
-            this.getTube(0.4),
-            this.getRadialSegments(8),
-            this.getTubularSegments(6),
-            this.getArc(360)
-          );
-          break;
-        case 'torusknotbuffer':
-          this.geometry = new THREE.TorusKnotBufferGeometry(
-            this.getRadius(1),
-            this.getTube(0.4),
-            this.getRadialSegments(64),
-            this.getTubularSegments(8),
-            this.getP(2),
-            this.getQ(3)
-          );
-          break;
-        case 'torusknot':
-          this.geometry = new THREE.TorusKnotGeometry(
-            this.getRadius(1),
-            this.getTube(0.4),
-            this.getRadialSegments(64),
-            this.getTubularSegments(8),
-            this.getP(2),
-            this.getQ(3)
-          );
-          break;
-        case 'tubebuffer':
-          this.geometry = new THREE.TubeBufferGeometry(
-            this.getCurve(),
-            this.getTubularSegments(64),
-            this.getRadius(1),
-            this.getRadiusSegments(8),
-            this.getClosed(false)
-          );
-          break;
-        case 'tube':
-          this.geometry = new THREE.TubeGeometry(
-            this.getCurve(),
-            this.getTubularSegments(64),
-            this.getRadius(1),
-            this.getRadiusSegments(8),
-            this.getClosed(false)
-          );
-          break;
-        case 'wireframe':
-          this.geometry = new THREE.WireframeGeometry(this.getSubGeometry());
-          break;
-        case 'convexbuffer':
-          this.geometry = new ConvexBufferGeometry(this.getPointsV3([]));
-          break;
-        case 'convex':
-          this.geometry = new ConvexGeometry(this.getPointsV3([]));
-          break;
-        default:
-          this.geometry = new THREE.PlaneGeometry(
-            this.getWidth(1),
-            this.getHeight(1),
-            this.getWidthSegments(1),
-            this.getHeightSegments(1)
-          );
-          break;
+            break;
+          case 'boxbuffer':
+            this.geometry = new THREE.BoxBufferGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getDepth(1),
+              this.getWidthSegments(1),
+              this.getHeightSegments(1),
+              this.getDepthSegments(1)
+            );
+            break;
+          case 'box':
+            this.geometry = new THREE.BoxGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getDepth(1),
+              this.getWidthSegments(1),
+              this.getHeightSegments(1),
+              this.getDepthSegments(1)
+            );
+            break;
+          case 'circlebuffer':
+            this.geometry = new THREE.CircleBufferGeometry(
+              this.getRadius(1),
+              this.getSegments(8),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'circle':
+            this.geometry = new THREE.CircleGeometry(
+              this.getRadius(1),
+              this.getSegments(8),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'conebuffer':
+            this.geometry = new THREE.ConeBufferGeometry(
+              this.getRadius(1),
+              this.getHeight(1),
+              this.getRadialSegments(8),
+              this.getHeightSegments(1),
+              this.getOpenEnded(false),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'cone':
+            this.geometry = new THREE.ConeGeometry(
+              this.getRadius(1),
+              this.getHeight(1),
+              this.getRadialSegments(8),
+              this.getHeightSegments(1),
+              this.getOpenEnded(false),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'cylinderbuffer':
+            this.geometry = new THREE.CylinderBufferGeometry(
+              this.getRadiusTop(1),
+              this.getRadiusBottom(1),
+              this.getHeight(1),
+              this.getRadialSegments(8),
+              this.getHeightSegments(1),
+              this.getOpenEnded(false),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'cylinder':
+            this.geometry = new THREE.CylinderGeometry(
+              this.getRadiusTop(1),
+              this.getRadiusBottom(1),
+              this.getHeight(1),
+              this.getRadialSegments(8),
+              this.getHeightSegments(1),
+              this.getOpenEnded(false),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'dodecahedronbuffer':
+            this.geometry = new THREE.DodecahedronBufferGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'dodecahedron':
+            this.geometry = new THREE.DodecahedronGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'edges':
+            this.geometry = new THREE.EdgesGeometry(
+              this.getSubGeometry(),
+              this.getThresholdAngle(0)
+            );
+            break;
+          case 'extrudebuffer':
+            this.geometry = new THREE.ExtrudeBufferGeometry(this.getShapes(), {
+              curveSegments: this.getCurveSegments(12),
+              steps: this.getSteps(1),
+              depth: this.getDepth(100),
+              bevelEnabled: this.getBevelEnabled(true),
+              bevelThickness: this.getBevelThickness(6),
+              bevelSize: this.getBevelSize(0),
+              bevelOffset: this.getBevelOffset(0),
+              bevelSegments: this.getBevelSegments(3),
+              extrudePath: new THREE.Curve<THREE.Vector3>(),
+              UVGenerator: null // THREE.UVGenerator;
+            });
+            break;
+          case 'extrude':
+            this.geometry = new THREE.ExtrudeGeometry(this.getShapes(), {
+              curveSegments: this.getCurveSegments(12),
+              steps: this.getSteps(1),
+              depth: this.getDepth(100),
+              bevelEnabled: this.getBevelEnabled(true),
+              bevelThickness: this.getBevelThickness(6),
+              bevelSize: this.getBevelSize(0),
+              bevelOffset: this.getBevelOffset(0),
+              bevelSegments: this.getBevelSegments(3),
+              extrudePath: new THREE.Curve<THREE.Vector3>(),
+              UVGenerator: null // THREE.UVGenerator;
+            });
+            break;
+          case 'icosahedronbuffer':
+            this.geometry = new THREE.IcosahedronBufferGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'icosahedron':
+            this.geometry = new THREE.IcosahedronGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'lathebuffer':
+            this.geometry = new THREE.LatheBufferGeometry(
+              this.getPointsV2([]),
+              this.getSegments(12),
+              this.getPhiStart(0),
+              this.getPhiLength(360)
+            );
+            break;
+          case 'lathe':
+            this.geometry = new THREE.LatheGeometry(
+              this.getPointsV2([]),
+              this.getSegments(12),
+              this.getPhiStart(0),
+              this.getPhiLength(360)
+            );
+            break;
+          case 'octahedronbuffer':
+            this.geometry = new THREE.OctahedronBufferGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'octahedron':
+            this.geometry = new THREE.OctahedronGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'parametricbuffer':
+            this.geometry = new THREE.ParametricBufferGeometry(
+              this.getParametric('mobius3d'),
+              this.getSlices(20),
+              this.getStacks(10)
+            );
+            break;
+          case 'parametric':
+            this.geometry = new THREE.ParametricGeometry(
+              this.getParametric('mobius3d'),
+              this.getSlices(20),
+              this.getStacks(10)
+            );
+            break;
+          case 'planebuffer':
+            this.geometry = new THREE.PlaneBufferGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getWidthSegments(1),
+              this.getHeightSegments(1)
+            );
+            break;
+          case 'plane':
+            this.geometry = new THREE.PlaneGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getWidthSegments(1),
+              this.getHeightSegments(1)
+            );
+            break;
+          case 'polyhedronbuffer':
+            this.geometry = new THREE.PolyhedronBufferGeometry(
+              this.getPolyVertices([]),
+              this.getPolyIndices([]),
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'polyhedron':
+            this.geometry = new THREE.PolyhedronGeometry(
+              this.getPolyVertices([]),
+              this.getPolyIndices([]),
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'ringbuffer':
+            this.geometry = new THREE.RingBufferGeometry(
+              this.getInnerRadius(0.5),
+              this.getOuterRadius(1),
+              this.getThetaSegments(8),
+              this.getPhiSegments(1),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'ring':
+            this.geometry = new THREE.RingGeometry(
+              this.getInnerRadius(0.5),
+              this.getOuterRadius(1),
+              this.getThetaSegments(8),
+              this.getPhiSegments(1),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'shapebuffer':
+            this.geometry = new THREE.ShapeBufferGeometry(
+              this.getShapes(),
+              this.getCurveSegments(12)
+            );
+            break;
+          case 'shape':
+            this.geometry = new THREE.ShapeGeometry(
+              this.getShapes(),
+              this.getCurveSegments(12)
+            );
+            break;
+          case 'spherebuffer':
+            this.geometry = new THREE.SphereBufferGeometry(
+              this.getRadius(50),
+              this.getWidthSegments(8),
+              this.getHeightSegments(6),
+              this.getPhiStart(0),
+              this.getPhiLength(360),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'sphere':
+            this.geometry = new THREE.SphereGeometry(
+              this.getRadius(50),
+              this.getWidthSegments(8),
+              this.getHeightSegments(6),
+              this.getPhiStart(0),
+              this.getPhiLength(360),
+              this.getThetaStart(0),
+              this.getThetaLength(360)
+            );
+            break;
+          case 'tetrahedronbuffer':
+            this.geometry = new THREE.TetrahedronBufferGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'tetrahedron':
+            this.geometry = new THREE.TetrahedronGeometry(
+              this.getRadius(1),
+              this.getDetail(0)
+            );
+            break;
+          case 'textbuffer':
+          case 'text':
+            this.geometry = new THREE.Geometry();
+            this.getFont('helvetiker', (font: THREE.Font) => {
+              const textParameters: THREE.TextGeometryParameters = {
+                font: font,
+                size: this.getSize(1),
+                height: this.getHeight(1),
+                curveSegments: this.getCurveSegments(1),
+                bevelEnabled: this.getBevelEnabled(true),
+                bevelThickness: this.getBevelThickness(1),
+                bevelSize: this.getBevelSize(1),
+                bevelOffset: this.getBevelOffset(1),
+                bevelSegments: this.getBevelSegments(1),
+              };
+              switch (this.type.toLowerCase()) {
+                case 'textbuffer':
+                  this.geometry = new THREE.TextBufferGeometry(
+                    this.getText('test'),
+                    textParameters
+                  );
+                  break;
+                case 'text':
+                  this.geometry = new THREE.TextGeometry(
+                    this.getText('test'),
+                    textParameters
+                  );
+                  break;
+              }
+              this.resetGeometry();
+            });
+            break;
+          case 'torusbuffer':
+            this.geometry = new THREE.TorusBufferGeometry(
+              this.getRadius(1),
+              this.getTube(0.4),
+              this.getRadialSegments(8),
+              this.getTubularSegments(6),
+              this.getArc(360)
+            );
+            break;
+          case 'torus':
+            this.geometry = new THREE.TorusGeometry(
+              this.getRadius(1),
+              this.getTube(0.4),
+              this.getRadialSegments(8),
+              this.getTubularSegments(6),
+              this.getArc(360)
+            );
+            break;
+          case 'torusknotbuffer':
+            this.geometry = new THREE.TorusKnotBufferGeometry(
+              this.getRadius(1),
+              this.getTube(0.4),
+              this.getRadialSegments(64),
+              this.getTubularSegments(8),
+              this.getP(2),
+              this.getQ(3)
+            );
+            break;
+          case 'torusknot':
+            this.geometry = new THREE.TorusKnotGeometry(
+              this.getRadius(1),
+              this.getTube(0.4),
+              this.getRadialSegments(64),
+              this.getTubularSegments(8),
+              this.getP(2),
+              this.getQ(3)
+            );
+            break;
+          case 'tubebuffer':
+            this.geometry = new THREE.TubeBufferGeometry(
+              this.getCurve(),
+              this.getTubularSegments(64),
+              this.getRadius(1),
+              this.getRadiusSegments(8),
+              this.getClosed(false)
+            );
+            break;
+          case 'tube':
+            this.geometry = new THREE.TubeGeometry(
+              this.getCurve(),
+              this.getTubularSegments(64),
+              this.getRadius(1),
+              this.getRadiusSegments(8),
+              this.getClosed(false)
+            );
+            break;
+          case 'wireframe':
+            this.geometry = new THREE.WireframeGeometry(this.getSubGeometry());
+            break;
+          case 'convexbuffer':
+            this.geometry = new ConvexBufferGeometry(this.getPointsV3([]));
+            break;
+          case 'convex':
+            this.geometry = new ConvexGeometry(this.getPointsV3([]));
+            break;
+          default:
+            this.geometry = new THREE.PlaneGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getWidthSegments(1),
+              this.getHeightSegments(1)
+            );
+            break;
+        }
+        if (this.name !== null) {
+          this.geometry.name = this.name;
+        }
+        this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
       }
-      if (this.name !== null) {
-        this.geometry.name = this.name;
-      }
-      this.synkObject3D(['geometry','shape','curve','translation']);
+      this._geometrySubject.next(this.geometry);
     }
     return this.geometry;
   }

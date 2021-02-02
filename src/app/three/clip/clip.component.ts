@@ -63,7 +63,6 @@ export class ClipComponent implements OnInit {
   setFps(fps : number) {
     if (this.action !== null && this.clip !== null) {
       this.action.timeScale = ( this.clip.tracks.length * this.getFps(fps) ) / this.clip.duration;
-      console.log(this.action.timeScale);
     }
   }
 

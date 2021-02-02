@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
-import { AbstractSvgGeometry } from '../interface';
+import { AbstractSvgGeometry, ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-scale',
@@ -12,9 +12,10 @@ export class ScaleComponent implements OnInit {
 
   @Input() visible: boolean = true;
   @Input() refer: any = null;
-  @Input() x: number = 1;
-  @Input() y: number = 1;
-  @Input() z: number = 1;
+  @Input() referRef: boolean = true;
+  @Input() x: number = null;
+  @Input() y: number = null;
+  @Input() z: number = null;
   @Input() scaleMode: string = "max";
 
   constructor() { }
@@ -47,8 +48,31 @@ export class ScaleComponent implements OnInit {
 
   resetScale() {
     if (this.refObject3d !== null && this.visible) {
+      if (this._scaleSubscribe !== null) {
+        this._scaleSubscribe.unsubscribe();
+        this._scaleSubscribe = null;
+      }
+      if (this._sizeSubscribe !== null) {
+        this._sizeSubscribe.unsubscribe();
+        this._sizeSubscribe = null;
+      }
       if (this.refObject3d instanceof THREE.Object3D) {
         this.refObject3d.scale.copy(this.getScale())
+        if (this.refer !== null && this.referRef) {
+          if (this.refer.sizeSubscribe) {
+            this._scaleSubscribe = this.refer.sizeSubscribe().subscribe(size => {
+              if (this.refObject3d instanceof THREE.Object3D && this.visible) {
+                this.refObject3d.scale.copy(this.getScaleFromSize(size));
+              }
+            })
+          } else if (this.refer.scaleSubscribe) {
+            this._scaleSubscribe = this.refer.scaleSubscribe().subscribe(scale => {
+              if (this.refObject3d instanceof THREE.Object3D && this.visible) {
+                this.refObject3d.scale.copy(scale);
+              }
+            })
+          }
+        }
       } else if (this.refObject3d instanceof AbstractSvgGeometry) {
         this.refObject3d.meshScales.forEach(scale => {
           scale.copy(this.getScale());
@@ -57,30 +81,33 @@ export class ScaleComponent implements OnInit {
     }
   }
 
-  _sizeSubscribe: Subscription = null;
+  private _sizeSubscribe: Subscription = null;
+  private _scaleSubscribe: Subscription = null;
+
+  private _scaleSubject:Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
+
+  scaleSubscribe() : Observable<THREE.Vector3>{
+    return this._scaleSubject.asObservable();
+  }
+
+  private getScaleFromSize( size: THREE.Vector2) : THREE.Vector3 {
+    switch (this.scaleMode) {
+      case "max":
+        const maxSize = Math.max(size.x, size.y);
+        return new THREE.Vector3(maxSize * this.x, maxSize * this.y, this.z);
+      case "min":
+        const minSize = Math.min(size.x, size.y);
+        return new THREE.Vector3(minSize * this.x, minSize * this.y, this.z);
+      default:
+        return new THREE.Vector3(size.x * this.x, size.y * this.y, this.z);
+    }
+  }
 
   getScale(): THREE.Vector3 {
     if (this.scale === null) {
       if (this.refer !== null && this.refer !== undefined) {
-        if (this.refer.sizeSubscribe) {
-          this.scale = new THREE.Vector3(1, 1, 1);
-          this._sizeSubscribe = this.refer.sizeSubscribe().subscribe((v: THREE.Vector2) => {
-            switch (this.scaleMode) {
-              case "max":
-                const maxSize = Math.max(v.x, v.y);
-                this.scale = new THREE.Vector3(maxSize * this.x, maxSize * this.y, this.z);
-                break;
-              case "min":
-                const minSize = Math.min(v.x, v.y);
-                this.scale = new THREE.Vector3(minSize * this.x, minSize * this.y, this.z);
-                break;
-              default:
-                this.scale = new THREE.Vector3(v.x * this.x, v.y * this.y, this.z);
-                break;
-            }
-            this.resetScale();
-            this._sizeSubscribe.unsubscribe();
-          });
+        if (this.refer.getSize) {
+          this.scale = this.getScaleFromSize(this.refer.getSize());
         } else if (this.refer.getScale) {
           this.scale = this.refer.getScale();
         } else if (this.refer instanceof THREE.Vector3) {
@@ -88,11 +115,9 @@ export class ScaleComponent implements OnInit {
         }
       }
       if (this.scale === null) {
-        if (this._sizeSubscribe !== null) {
-          this._sizeSubscribe.unsubscribe();
-        }
-        this.scale = new THREE.Vector3(this.x, this.y, this.z);
+        this.scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(this.x, this.y, this.z));
       }
+      this._scaleSubject.next(this.scale);
     }
     return this.scale;
   }
