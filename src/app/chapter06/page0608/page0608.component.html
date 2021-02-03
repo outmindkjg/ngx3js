@@ -12,7 +12,7 @@
         <three-mesh #result>
             <three-material [type]="'MeshNormal'" [side]="'front'" [transparent]="false" [opacity]="0.5"></three-material>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
-            <three-mesh [typeCsg]="'union'">
+            <three-mesh>
                 <three-position [x]="sphere1.x" [y]="sphere1.y" [z]="sphere1.z"></three-position>
                 <three-scale [x]="sphere1.scale" [y]="sphere1.scale" [z]="sphere1.scale"></three-scale>
                 <three-geometry [type]="'Sphere'" 
@@ -21,7 +21,7 @@
                     [heightSegments]="30"
                 ></three-geometry>
             </three-mesh>
-            <three-mesh [typeCsg]="sphere2.typeCsg">
+            <three-mesh>
                 <three-position [x]="sphere2.x" [y]="sphere2.y" [z]="sphere2.z"></three-position>
                 <three-scale [x]="sphere2.scale" [y]="sphere2.scale" [z]="sphere2.scale"></three-scale>
                 <three-geometry [type]="'Sphere'" 
@@ -30,7 +30,7 @@
                     [heightSegments]="30"
                 ></three-geometry>
             </three-mesh>
-            <three-mesh [typeCsg]="cube.typeCsg">
+            <three-mesh>
                 <three-position [x]="cube.x" [y]="cube.y" [z]="cube.z"></three-position>
                 <three-scale [x]="cube.scaleX" [y]="cube.scaleY" [z]="cube.scaleZ"></three-scale>
                 <three-geometry [type]="'Box'" 

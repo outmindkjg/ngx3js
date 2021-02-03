@@ -9,7 +9,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
-import * as PHYSIJS from './../physijs/src';
 import { MeshComponent } from './../mesh/mesh.component';
 import { FogComponent } from '../fog/fog.component';
 import { MaterialComponent } from '../material/material.component';
@@ -26,7 +25,6 @@ import { LookatComponent } from '../lookat/lookat.component';
 })
 export class SceneComponent implements OnInit {
   @Input() storageName: string = null;
-  @Input() physiType: string = 'none';
   @ContentChildren(MeshComponent, { descendants: false })
   meshes: QueryList<MeshComponent>;
   @ContentChildren(PositionComponent, { descendants: false })
@@ -105,7 +103,7 @@ export class SceneComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (changes.storageName || changes.physiType) {
+      if (changes.storageName) {
         this.scene = null;
       }
     }
@@ -209,24 +207,7 @@ export class SceneComponent implements OnInit {
           }
         );
       } else {
-        switch (this.physiType.toLowerCase()) {
-          case 'physi':
-            PHYSIJS.scripts.worker = '/assets/physijs_worker.js';
-            PHYSIJS.scripts.ammo = '/assets/ammo.js';
-            const scene = new PHYSIJS.Scene();
-            scene.setGravity(new THREE.Vector3(0, -50, 0));
-            scene.addEventListener('update', () => {
-              scene.simulate(undefined, 2);
-            });
-            scene.simulate();
-            this.scene.fog;
-            this.scene = scene;
-            break;
-          case 'none':
-          default:
-            this.scene = new THREE.Scene();
-            break;
-        }
+        this.scene = new THREE.Scene();
         this.synkObject3D([
           'position',
           'rotation',

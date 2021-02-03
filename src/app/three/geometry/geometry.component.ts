@@ -8,9 +8,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
-import {
-  ConvexBufferGeometry, ConvexGeometry
-} from 'three/examples/jsm/geometries/ConvexGeometry';
+import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
 import { AbstractGetGeometry, AbstractMeshComponent } from '../interface';
@@ -388,20 +386,20 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
     });
     return colors;
   }
-
-  private getFaces(def: GeometriesVector3[]): THREE.Face3[] {
-    const faces: THREE.Face3[] = [];
-    (this.faces === null ? def : this.faces).forEach((p) => {
-      faces.push(new THREE.Face3(p.a, p.b, p.c));
-    });
-    return faces;
-  }
-
+  /*
+   private getFaces(def: GeometriesVector3[]): THREE.Face3[] {
+     const faces: THREE.Face3[] = [];
+     (this.faces === null ? def : this.faces).forEach((p) => {
+       faces.push(new THREE.Face3(p.a, p.b, p.c));
+     });
+     return faces;
+   }
+ */
   private getThresholdAngle(def: number): number {
     return this.thresholdAngle === null ? def : this.thresholdAngle;
   }
 
-  private getSubGeometry(): THREE.Geometry | THREE.BufferGeometry {
+  private getSubGeometry(): THREE.BufferGeometry {
     if (this.subGeometry !== null && this.subGeometry.length > 0) {
       return this.subGeometry.first.getGeometry();
     } else {
@@ -583,9 +581,9 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
 
   private _geometrySubscribe: Subscription = null;
 
-  private _geometrySubject: Subject<THREE.Geometry | THREE.BufferGeometry> = new Subject<THREE.Geometry | THREE.BufferGeometry>();
+  private _geometrySubject: Subject<THREE.BufferGeometry> = new Subject<THREE.BufferGeometry>();
 
-  geometrySubscribe(): Observable<THREE.Geometry | THREE.BufferGeometry> {
+  geometrySubscribe(): Observable<THREE.BufferGeometry> {
     return this._geometrySubject.asObservable();
   }
 
@@ -627,7 +625,7 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
     }
   }
 
-  private geometry: THREE.Geometry | THREE.BufferGeometry = null;
+  private geometry: THREE.BufferGeometry = null;
 
   private refObject3d: THREE.Object3D | AbstractMeshComponent | GeometryComponent = null;
 
@@ -676,19 +674,19 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
     }
   }
 
-  getGeometry(): THREE.Geometry | THREE.BufferGeometry {
+  getGeometry(): THREE.BufferGeometry {
     if (this.geometry === null) {
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getGeometry) {
           this.geometry = this.refer.getGeometry();
-        } else if (this.refer instanceof THREE.Geometry) {
+        } else if (this.refer instanceof THREE.BufferGeometry) {
           this.geometry = this.refer;
         }
       }
       if (this.geometry === null) {
         switch (this.type.toLowerCase()) {
           case 'storage':
-            this.geometry = new THREE.Geometry();
+            this.geometry = new THREE.BufferGeometry();
             this.localStorageService.getGeometry(this.storageName, (geometry) => {
               this.geometry = geometry;
               this.resetGeometry();
@@ -696,13 +694,17 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             break;
           case 'custom':
           case 'geometry':
-            this.geometry = new THREE.Geometry();
+            this.geometry = new THREE.BufferGeometry();
+            /*
+            todo
+            this.geometry.setAttribute("vertices", this.getVertices([]));
             this.geometry.vertices = this.getVertices([]);
             this.geometry.faces = this.getFaces([]);
             this.geometry.colors = this.getColors([]);
             if (this.geometry.faces && this.geometry.faces.length > 0) {
               this.geometry.computeFaceNormals();
             }
+            */
             break;
           case 'boxbuffer':
             this.geometry = new THREE.BoxBufferGeometry(
@@ -986,7 +988,7 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             break;
           case 'textbuffer':
           case 'text':
-            this.geometry = new THREE.Geometry();
+            this.geometry = new THREE.BufferGeometry();
             this.getFont('helvetiker', (font: THREE.Font) => {
               const textParameters: THREE.TextGeometryParameters = {
                 font: font,
@@ -1076,8 +1078,6 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             this.geometry = new THREE.WireframeGeometry(this.getSubGeometry());
             break;
           case 'convexbuffer':
-            this.geometry = new ConvexBufferGeometry(this.getPointsV3([]));
-            break;
           case 'convex':
             this.geometry = new ConvexGeometry(this.getPointsV3([]));
             break;

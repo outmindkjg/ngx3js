@@ -13,8 +13,6 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { OBJLoader2 } from 'three/examples/jsm/loaders/OBJLoader2';
-import { OBJLoader2Parallel } from 'three/examples/jsm/loaders/OBJLoader2Parallel';
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
 import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
@@ -88,8 +86,6 @@ export class LocalStorageService {
   private gltfLoader: GLTFLoader = null;
   private mmdLoader: MMDLoader = null;
   private mtlLoader: MTLLoader = null;
-  private objLoader2: OBJLoader2 = null;
-  private objLoader2Parallel: OBJLoader2Parallel = null;
   private pcdLoader: PCDLoader = null;
   private prwmLoader: PRWMLoader = null;
   private svgLoader: SVGLoader = null;
@@ -200,7 +196,7 @@ export class LocalStorageService {
       if (this.dracoLoader === null) {
         this.dracoLoader = new DRACOLoader();
       }
-      this.dracoLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
+      this.dracoLoader.load(key, (geometry: THREE.BufferGeometry) => {
         callBack({
           geometry : geometry
         })
@@ -243,7 +239,7 @@ export class LocalStorageService {
       if (this.prwmLoader === null) {
         this.prwmLoader = new PRWMLoader();
       }
-      this.prwmLoader.load(key, (geometry: THREE.Geometry | THREE.BufferGeometry) => {
+      this.prwmLoader.load(key, (geometry: THREE.BufferGeometry) => {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
         //callBack(mesh);
       }, null, (e) => {
@@ -400,7 +396,7 @@ export class LocalStorageService {
     }
   }
 
-  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[], geometry?: THREE.Geometry | THREE.BufferGeometry) => void): void {
+  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => void): void {
     this.getObjectFromKey(key, (result) => {
       if (result.object !== null && result.object !== undefined) {
         if (result.object instanceof THREE.Object3D) {
@@ -416,12 +412,12 @@ export class LocalStorageService {
     });
   }
 
-  public getGeometry(key: string, callBack: (mesh: THREE.Geometry | THREE.BufferGeometry ) => void): void {
+  public getGeometry(key: string, callBack: (mesh: THREE.BufferGeometry ) => void): void {
     this.getObjectFromKey(key, (result) => {
-      if (result.geometry instanceof THREE.Geometry || result.geometry instanceof THREE.BufferGeometry) {
+      if (result.geometry instanceof THREE.BufferGeometry) {
         callBack(result.geometry);
       } else {
-        callBack(new THREE.Geometry());
+        callBack(new THREE.BufferGeometry());
       }});
   }
 

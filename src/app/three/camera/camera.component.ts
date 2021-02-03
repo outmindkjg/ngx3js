@@ -18,12 +18,9 @@ import { AbstractEffectComposer, RendererTimer } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
-/*
-ArrayCamera
-CubeCamera
-StereoCamera
-*/
 
 @Component({
   selector: 'three-camera',
@@ -75,6 +72,7 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   }
 
   private renderer: THREE.Renderer = null;
+  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererScenes: QueryList<SceneComponent>;
   private effectComposer: EffectComposer = null;
 
@@ -108,14 +106,18 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
     }
   }
  
-  getRenderer(): THREE.Renderer {
+  getRenderer(): THREE.Renderer{
     return this.renderer;
   }
 
   setRenderer(
-    renderer: THREE.Renderer,
+    renderer: THREE.Renderer ,
+    cssRenderer : CSS3DRenderer | CSS2DRenderer,
     rendererScenes: QueryList<SceneComponent>
   ) {
+    if (this.cssRenderer !== cssRenderer) {
+      this.cssRenderer = cssRenderer;
+    }
     if (this.renderer !== renderer) {
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
@@ -330,7 +332,8 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   }
 
   render(
-    renderer: THREE.Renderer,
+    renderer: THREE.Renderer ,
+    cssRenderer: CSS3DRenderer | CSS2DRenderer,
     scenes: QueryList<SceneComponent>,
     renderTimer: RendererTimer
   ) {
@@ -375,6 +378,21 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
           renderer.render(scene, this.getCamera());
         }
       }
+    }
+    if (cssRenderer !== null) {
+      if (this.scenes !== null && this.scenes.length > 0) {
+        this.scenes.forEach((sceneCom) => {
+          const scene = sceneCom.getScene();
+          if (scene !== null) {
+            cssRenderer.render(scene, this.getCamera());
+          }
+        });
+      } else {
+        const scene = this.getScene(scenes);
+        if (scene !== null) {
+          cssRenderer.render(scene, this.getCamera());
+        }
+      }      
     }
   }
 }

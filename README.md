@@ -35,6 +35,11 @@ ng g c three/animation
 
 ng g c three/listener
 ng g c three/audio
+ng g c three/plane
+ng g c three/canvas
+ng g c three/text
+ng g c three/button
+ng g c three/image
 
 
 
@@ -64,6 +69,14 @@ ng g c chapter11/page1104
 ng g c chapter11/page1105
 ng g c chapter11/page1106
 ng g c chapter11/page1107
+
+ng g c chapter12/page1201
+ng g c chapter12/page1202
+ng g c chapter12/page1203
+ng g c chapter12/page1204
+ng g c chapter12/page1205
+ng g c chapter12/page1206
+ng g c chapter12/page1207
 
 ng g c chapter09/page0901
 ng g c chapter09/page0902
@@ -127,3 +140,6 @@ ng g c chapter05/page0510
 ng g c chapter05/page0511
 
 "editor.wordWrapColumn": 100,
+
+
+node_modules\three\examples\jsm\utils\SceneUtils.d.ts

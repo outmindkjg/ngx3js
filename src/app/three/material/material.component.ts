@@ -2,6 +2,7 @@ import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, Simple
 import * as THREE from 'three';
 import { AbstractSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
+import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -27,7 +28,6 @@ export class MaterialComponent implements OnInit, OnChanges {
   @Input() blendSrc: string = null;
   @Input() blendSrcAlpha: number = null;
   @Input() clipIntersection: boolean = null;
-  @Input() clippingPlanes: string[] = null;
   @Input() clipShadows: boolean = null;
   @Input() colorWrite: boolean = null;
   @Input() defines: any = null;
@@ -58,6 +58,8 @@ export class MaterialComponent implements OnInit, OnChanges {
   @Input() stencilZPass: string = null;
   @Input() userData: any = null;
   @Input() uniforms: { [uniform: string]: THREE.IUniform } = null;
+  @Input() vertexShader: string = null;
+  @Input() fragmentShader: string = null;
   @Input() lights: boolean = null;
   @Input() clipping: boolean = null;
   @Input() transparent: boolean = false;
@@ -113,6 +115,7 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   @ContentChildren(TextureComponent) textures: QueryList<TextureComponent>;
   @ContentChildren(ShaderComponent) shaders: QueryList<ShaderComponent>;
+  @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -485,9 +488,16 @@ export class MaterialComponent implements OnInit, OnChanges {
     return ThreeUtil.getTypeSafe(this.clipIntersection, def);
   }
 
-  private getClippingPlanes(def?: string[]): THREE.Plane[] {
-    const clippingPlanes = ThreeUtil.getTypeSafe(this.clippingPlanes, def);
-    return undefined; // todo
+  private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
+    if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
+      const clippingPlanes : THREE.Plane[] = [];
+      this.clippingPlanes.forEach(plane => {
+        clippingPlanes.push(plane.getWorldPlane());
+      });
+      return clippingPlanes;
+    } else {
+      return def;
+    }
   }
 
   private getClipShadows(def?: boolean): boolean {
@@ -741,6 +751,15 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private getShader(type: string) {
+    if (type === 'x-shader/x-vertex') {
+      if (ThreeUtil.isNotNull(this.vertexShader)) {
+        return this.vertexShader;
+      }
+    } else if (type === 'x-shader/x-fragment') {
+      if (ThreeUtil.isNotNull(this.fragmentShader)) {
+        return this.fragmentShader;
+      }
+    }
     if (this.shaders != null && this.shaders.length > 0) {
       const foundShader = this.shaders.find((shader) => {
         return shader.type.toLowerCase() === type;
@@ -821,6 +840,16 @@ export class MaterialComponent implements OnInit, OnChanges {
 
   resetMaterial() {
     if (this.refObject3d !== null && this.getVisible(true)) {
+      if (this.refObject3d instanceof THREE.Object3D) {
+        if (this.clippingPlanes !== null && this.clippingPlanes !== undefined && this.clippingPlanes.length > 0) {
+          const matrixWorld = this.refObject3d.matrixWorld;
+          this.refObject3d.onBeforeRender = () => {
+            this.clippingPlanes.forEach(plane => {
+              plane.getWorldPlane(matrixWorld);
+            })
+          }
+        }
+      }
       const material = this.getMaterial();
       if (this.refObject3d instanceof THREE.Scene) {
         const map: THREE.Texture = (material['map'] && material['map'] instanceof THREE.Texture) ? material['map'] : null;

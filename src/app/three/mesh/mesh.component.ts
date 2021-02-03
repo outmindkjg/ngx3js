@@ -7,8 +7,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
-import { CSG } from 'three-csg-ts';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import {
   Lensflare,
   LensflareElement
@@ -28,7 +28,6 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
 import { MixerComponent } from './../mixer/mixer.component';
-import * as PHYSIJS from './../physijs/src';
 import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
 
 
@@ -39,9 +38,9 @@ import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
 })
 export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() type: string = 'mesh';
-  @Input() physiType: string = 'none';
   @Input() mass: number = null;
   @Input() lightType: string = 'spot';
+  @Input() css3dType: string = 'div';
   @Input() skyboxType: string = 'auto';
   @Input() skyboxRate: number = 100;
   @Input() skyboxImage: string = null;
@@ -51,7 +50,6 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() skyboxSunY: number = 0;
   @Input() skyboxSunZ: number = 0;
   @Input() helperType: string = 'none';
-  @Input() typeCsg: 'subtract' | 'intersect' | 'union' | 'none' = 'none';
   @Input() scaleStep: number = 1;
   @Input() visible: boolean = true;
   @Input() castShadow: boolean = true;
@@ -313,19 +311,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     }
   }
 
-  getGeometry(): THREE.Geometry | THREE.BufferGeometry {
+  getGeometry(): THREE.BufferGeometry {
     if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
       return this.mesh.geometry;
     } else if (this.geometry !== null && this.geometry.length > 0) {
       return this.geometry.first.getGeometry();
-    } else {
-      return null;
-    }
-  }
-
-  getPhysiMesh(): PHYSIJS.Mesh {
-    if (this.mesh !== null && this.mesh instanceof PHYSIJS.Mesh) {
-      return this.mesh;
     } else {
       return null;
     }
@@ -493,9 +483,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         this.helper.parent.remove(this.helper);
         this.helper = null;
       }
-      if (this.mesh === null && this.typeCsg == 'none') {
-        this.refObject3d.add(this.getMesh());
-      }
+      this.refObject3d.add(this.getMesh());
     }
   }
 
@@ -513,7 +501,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
 
   getMesh(): THREE.Object3D {
     if (this.mesh === null) {
-      let geometry: THREE.Geometry | THREE.BufferGeometry = null;
+      let geometry: THREE.BufferGeometry = null;
       if (this.geometry != null && this.geometry.length > 0) {
         geometry = this.getGeometry();
       }
@@ -539,7 +527,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             case 'box':
             case 'sphere':
             default:
-              let skyGeometry: THREE.Geometry | THREE.BufferGeometry = null;
+              let skyGeometry: THREE.BufferGeometry = null;
               let skyMaterial: THREE.Material = null;
               switch (this.skyboxType.toLowerCase()) {
                 case 'box':
@@ -582,6 +570,27 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               basemesh.castShadow = false;
               break;
           }
+          break;
+        case 'css3d' :
+          let element : HTMLElement = null;
+          switch(this.css3dType.toLowerCase()) {
+            case 'img' :
+              element = document.createElement( 'img' );
+              break;
+            case 'span' :
+              element = document.createElement( 'span' );
+              break;
+            case 'button' :
+              element = document.createElement( 'button' );
+              break;
+            case 'div' :
+            default :
+              element = document.createElement( 'div' );
+              break;
+          }
+          element.innerHTML = "test";
+          basemesh = new CSS3DObject(element);
+          console.log(element);
           break;
         case 'light':
           switch (this.lightType.toLowerCase()) {
@@ -647,7 +656,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         case 'multi':
         case 'multimaterial':
           basemesh = SceneUtils.createMultiMaterialObject(
-            geometry as THREE.Geometry,
+            geometry,
             this.getMaterials()
           );
           basemesh.children.forEach(function (e) {
@@ -682,7 +691,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             basemesh = new THREE.Object3D();
             this.localStorageService.getObject(
               this.storageName,
-              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.Geometry | THREE.BufferGeometry) => {
+              (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
@@ -743,135 +752,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           }
       }
       if (this.meshes && this.meshes.length > 0) {
-        const meshBSP: MeshComponent[] = [];
         this.meshes.forEach((mesh) => {
-          switch (mesh.typeCsg.toLowerCase()) {
-            case 'subtract':
-            case 'intersect':
-            case 'union':
-              meshBSP.push(mesh);
-              break;
-            default:
-              // mesh.setObject3D(basemesh);
-              break;
-          }
+            mesh.setObject3D(basemesh);
         });
-        if (basemesh instanceof THREE.Mesh) {
-          if (meshBSP.length > 0) {
-            basemesh.updateMatrix();
-            let sourceCsg: CSG =
-              geometry !== null ? CSG.fromMesh(basemesh) : null;
-            const matrix: THREE.Matrix4 = basemesh.matrix;
-            meshBSP.forEach((mesh) => {
-              const meshIns = mesh.getMesh();
-              if (meshIns instanceof THREE.Mesh) {
-                meshIns.updateMatrix();
-                const targetBsp: CSG = CSG.fromMesh(meshIns);
-                if (sourceCsg != null) {
-                  switch (mesh.typeCsg.toLowerCase()) {
-                    case 'subtract':
-                      sourceCsg = sourceCsg.subtract(targetBsp);
-                      break;
-                    case 'intersect':
-                      sourceCsg = sourceCsg.intersect(targetBsp);
-                      break;
-                    case 'union':
-                      sourceCsg = sourceCsg.union(targetBsp);
-                      break;
-                  }
-                } else {
-                  sourceCsg = targetBsp;
-                }
-              }
-            });
-            if (sourceCsg != null) {
-              const mesh = CSG.toMesh(sourceCsg, matrix);
-              const materials = this.getMaterials();
-              if (materials.length > 0) {
-                if (mesh.material instanceof Array) {
-                  mesh.material.forEach((material) => {
-                    material.copy(materials[0]);
-                  });
-                } else {
-                  mesh.material = materials[0];
-                }
-              }
-              basemesh = mesh;
-            }
-          }
-        }
       }
-      if (
-        basemesh instanceof THREE.Mesh &&
-        (basemesh.geometry instanceof THREE.Geometry ||
-          basemesh.geometry instanceof THREE.BufferGeometry) &&
-        basemesh.material instanceof THREE.Material
-      ) {
-        switch (this.physiType.toLowerCase()) {
-          case 'box':
-            this.mesh = new PHYSIJS.BoxMesh(
-              basemesh.geometry,
-              PHYSIJS.createMaterial(basemesh.material, 0.9, 0),
-              this.getMass(1)
-            );
-            break;
-          case 'sphere':
-            this.mesh = new PHYSIJS.SphereMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'cylinder':
-            this.mesh = new PHYSIJS.CylinderMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'capsule':
-            this.mesh = new PHYSIJS.CapsuleMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'cone':
-            this.mesh = new PHYSIJS.ConeMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'concave':
-            this.mesh = new PHYSIJS.ConcaveMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'convex':
-            this.mesh = new PHYSIJS.ConvexMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'capsule':
-            this.mesh = new PHYSIJS.CapsuleMesh(
-              basemesh.geometry,
-              basemesh.material,
-              this.getMass(1)
-            );
-            break;
-          case 'none':
-          default:
-            this.mesh = basemesh;
-        }
-      } else {
-        this.mesh = basemesh;
-      }
-
+      this.mesh = basemesh;
       if (this.name !== null) {
         this.mesh.name = this.name;
       }
@@ -997,6 +882,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           break;
         case 'directionallight':
         case 'hemispherelight':
+        case 'rectarealight' :
         case 'pointlight':
         case 'spotlight':
         case 'light': {
@@ -1024,14 +910,30 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
                 helperTarget,
                 this.getHelperColor(0xff0000)
               );
+            } else if (helperTarget instanceof THREE.RectAreaLight) {
+              basemesh = new RectAreaLightHelper(
+                helperTarget,
+                this.getHelperColor(0xff0000)
+              );
             }
           }
           break;
         case 'plane':
-          basemesh = new THREE.PlaneHelper(
-            null
-            // this.getHelperTarget() as THREE.Plane
-          );
+          if (this.mesh instanceof THREE.Mesh && this.mesh.material instanceof THREE.Material) {
+            basemesh = new THREE.Group();
+            const clippingPlanes : THREE.Plane[] = this.mesh.material.clippingPlanes;
+            if (clippingPlanes !== null && clippingPlanes !== undefined) {
+              clippingPlanes.forEach(clippingPlane => {
+                basemesh.add(new THREE.PlaneHelper(
+                  clippingPlane, 
+                  this.getSize(10), 
+                  this.getHelperColor(0xff0000).getHex()
+                ));
+              });
+            }
+          } else {
+            basemesh = null;
+          }
           break;
         case 'skeleton':
           if (this.clipMesh !== null) {

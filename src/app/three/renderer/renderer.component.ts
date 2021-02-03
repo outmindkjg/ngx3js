@@ -12,6 +12,9 @@ import { CameraComponent } from './../camera/camera.component';
 import { SceneComponent } from './../scene/scene.component';
 import { ThreeClock, ThreeStats, ThreeUtil, ThreeGui, GuiControlParam, RendererTimer } from '../interface';
 import { Observable, Subject } from 'rxjs';
+import { PlaneComponent } from '../plane/plane.component';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 @Component({
   selector: 'three-renderer',
@@ -22,10 +25,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
 
   @Input() type: string = "webgl";
+  @Input() css3dType: string = "none";
   @Input() controlType: string = "none";
   @Input() controlAutoRotate: boolean = false;
   @Input() shadowMapEnabled: boolean = true;
   @Input() clearColor: string | number = null;
+  @Input() localClippingEnabled: boolean = false;
 
   @Input() antialias: boolean = false;
   @Input() width: number = -1;
@@ -40,12 +45,25 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
+  @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
 
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
 
+  private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
+    if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
+      const clippingPlanes: THREE.Plane[] = [];
+      this.clippingPlanes.forEach(plane => {
+        clippingPlanes.push(plane.getWorldPlane());
+      });
+      return clippingPlanes;
+    } else {
+      return def;
+    }
+  }
+
   constructor() {
-    ThreeUtil.setupGui
+
   }
 
   ngOnInit(): void {
@@ -88,6 +106,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
         }
       }
+      if (changes.localClippingEnabled) {
+        if (this.renderer instanceof THREE.WebGLRenderer) {
+          this.renderer.localClippingEnabled = this.localClippingEnabled;
+        }
+      }
     }
   }
 
@@ -112,17 +135,20 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.cameras.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
+      if (this.cssRenderer !== null) {
+        this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
+      }
       this._sizeSubject.next(this.getSize());
     }
   }
 
-  protected _sizeSubject:Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
+  protected _sizeSubject: Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
 
-  sizeSubscribe() : Observable<THREE.Vector2>{
+  sizeSubscribe(): Observable<THREE.Vector2> {
     return this._sizeSubject.asObservable();
   }
 
-  getSize() : THREE.Vector2 {
+  getSize(): THREE.Vector2 {
     return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
   }
 
@@ -135,7 +161,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     });
   }
 
-  private renderListner : THREE.AudioListener = null;
+  private renderListner: THREE.AudioListener = null;
 
   synkObject3D(synkTypes: string[]) {
     if (this.renderer !== null) {
@@ -143,7 +169,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         switch (synkType) {
           case 'listner':
             this.listner.forEach((listner) => {
-              this.renderListner  = listner.getListener();
+              this.renderListner = listner.getListener();
             });
             break;
           case 'audio':
@@ -157,6 +183,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   private renderer: THREE.Renderer = null;
+  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererWidth: number = 100;
   private rendererHeight: number = 100;
 
@@ -165,10 +192,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private clock: ThreeClock = null;
   private control: any = null;
 
-  private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer): any {
+  private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer | CSS3DRenderer): any {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
-    let controlAutoRotate : boolean = this.controlAutoRotate;
+    let controlAutoRotate: boolean = this.controlAutoRotate;
     if (cameras !== null && cameras.length > 0) {
       cameraComp = cameras.find(camera => {
         if (camera.controlType.toLowerCase() !== 'none') {
@@ -206,9 +233,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private getStats(): ThreeStats {
     if (this.stats === null) {
       this.stats = ThreeUtil.getStats({
-        position : 'absolute',
-        left : '10px',
-        top : '25px'
+        position: 'absolute',
+        left: '10px',
+        top: '25px'
       });
       this.debug.nativeElement.appendChild(this.stats.dom);
     }
@@ -218,13 +245,17 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private getGui(): ThreeGui {
     if (this.gui == null) {
       this.gui = new ThreeGui({
-        position : 'absolute',
-        right : '0px',
-        top : '0px'
+        position: 'absolute',
+        right: '0px',
+        top: '0px'
       });
       this.debug.nativeElement.appendChild(this.gui.domElement);
     }
     return this.gui;
+  }
+
+  ngOnDestroy(): void {
+    this.renderer = null;
   }
 
   ngAfterViewInit() {
@@ -242,20 +273,30 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     this.renderer = this.getRenderer();
     this.cameras.forEach(camera => {
-      camera.setRenderer(this.renderer, this.scenes);
+      camera.setRenderer(this.renderer, this.cssRenderer, this.scenes);
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
-    this.control = this.getControls(this.cameras, this.renderer);
-    this.synkObject3D(['listner','audio']);
+    this.control = this.getControls(this.cameras, this.cssRenderer || this.renderer);
+    this.synkObject3D(['listner', 'audio']);
     this.render();
   }
 
   getRenderer(): THREE.Renderer {
     if (this.renderer === null) {
-      switch (this.type.toLowerCase()) {
-        case 'webgl':
+      switch (this.css3dType.toLowerCase()) {
+        case 'css3d':
+          this.cssRenderer = new CSS3DRenderer();
+          break;
+        case 'css2d':
+          this.cssRenderer = new CSS2DRenderer();
+          break;
         default:
-          this.renderer = new THREE.WebGLRenderer({ antialias: this.antialias });
+          this.cssRenderer = null;
+          break;
+      }
+      switch (this.type.toLowerCase()) {
+        default:
+          this.renderer = new THREE.WebGLRenderer({ alpha: this.cssRenderer !== null ? true : false , antialias: this.antialias });
           break;
       }
       const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
@@ -269,14 +310,29 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
+        this.renderer.localClippingEnabled = this.localClippingEnabled;
+        this.renderer.clippingPlanes = this.getClippingPlanes([]);
       }
-      this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      if (this.cssRenderer !== null) {
+        this.cssRenderer.domElement.style.position = 'absolute';
+        this.cssRenderer.domElement.style.top = '0px';
+        this.cssRenderer.domElement.style.left = '0px';
+        this.cssRenderer.setSize(width, height);
+        this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
+        this.renderer.domElement.style.position = 'relative';
+        this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      } else {
+        this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      }
       ThreeUtil.setRenderer(this.renderer);
     }
     return this.renderer;
   }
 
   render() {
+    if (this.renderer === null) {
+      return;
+    }
     if (this.stats != null) {
       this.stats.begin();
     }
@@ -297,8 +353,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.control.update();
       }
     }
+    // this.renderer.autoClear = false;
     this.cameras.forEach(camera => {
-      camera.render(this.renderer, this.scenes, renderTimer)
+      camera.render(this.renderer, this.cssRenderer ,this.scenes, renderTimer)
     });
     if (this.stats != null) {
       this.stats.end();

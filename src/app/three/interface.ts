@@ -4,9 +4,7 @@ import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import * as CHROMA from 'chroma-js';
-// chroma
 import * as TWEEN from '@tweenjs/tween.js';
-import { CameraComponent } from './camera/camera.component';
 
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
@@ -15,7 +13,7 @@ export interface ApplyMatrix4 {
 export interface LoadedObject {
   object? : THREE.Object3D;
   material? : THREE.Material | any;
-  geometry? : THREE.Geometry | THREE.BufferGeometry;
+  geometry? : THREE.BufferGeometry;
   clips? : THREE.AnimationClip[];
 }
 
@@ -77,15 +75,15 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
 }
 
 export abstract class AbstractGetGeometry extends AbstractThreeComponent {
-  abstract getGeometry(): THREE.Geometry | THREE.BufferGeometry;
+  abstract getGeometry(): THREE.BufferGeometry;
   abstract resetGeometry(clearGeometry: boolean);
 }
 
 export abstract class AbstractComposerComponent extends AbstractThreeComponent {
-  abstract getWriteBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
-  abstract getReadBuffer(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
-  abstract getRenderTarget1(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
-  abstract getRenderTarget2(cameraComponent: CameraComponent): THREE.WebGLRenderTarget;
+  abstract getWriteBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget;
+  abstract getReadBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget;
+  abstract getRenderTarget1(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget;
+  abstract getRenderTarget2(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget;
 }
 
 
@@ -94,7 +92,7 @@ export abstract class AbstractSvgGeometry extends AbstractThreeComponent {
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
   meshScales: THREE.Vector3[] = [];
-  meshTranslations: (THREE.Geometry | THREE.BufferGeometry)[] = [];
+  meshTranslations: (THREE.BufferGeometry)[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 }
 
@@ -104,6 +102,18 @@ export abstract class AbstractMeshComponent extends AbstractThreeComponent {
 
 export class ThreeUtil {
 
+  static cssInject( cssContent : string, indoc? : any ) {
+		var doc = indoc || document;
+		var injected = document.createElement( 'style' );
+		injected.type = 'text/css';
+		injected.innerHTML = cssContent;
+		var head = doc.getElementsByTagName( 'head' )[ 0 ];
+		try {
+			head.appendChild( injected );
+		} catch ( e ) {
+		}
+  } 
+  
   static getChromaScale(...scales) : CHROMA.Scale {
     return CHROMA.scale(scales)
   }
@@ -518,6 +528,7 @@ export interface GuiControlParam {
 export class ThreeGui implements ThreeGuiController {
   gui: GUI = null;
   domElement: HTMLElement;
+  static customCss : string = null;
 
   constructor(
     style?: object,
@@ -528,6 +539,7 @@ export class ThreeGui implements ThreeGuiController {
     }
   ) {
     this.gui = new GUI(pars);
+    console.log()
     this.domElement = this.gui.domElement;
     this.setStyle(style);
   }
@@ -539,6 +551,11 @@ export class ThreeGui implements ThreeGuiController {
         domElement.style[key] = value;
       });
     }
+    if (ThreeGui.customCss !== null) {
+      ThreeUtil.cssInject(ThreeGui.customCss);
+      ThreeGui.customCss = null;
+    }
+    
     return this;
   }
 

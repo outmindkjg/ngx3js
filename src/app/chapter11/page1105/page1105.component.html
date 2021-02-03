@@ -27,6 +27,7 @@
           [shader]="'TriangleBlur'"
           [enabled]="controls.triBlur"
           [uniforms]="{ deltaX : controls.deltaX, deltaY : controls.deltaY }"
+          [textureId]="'texture'"
         ></three-pass>
         <three-pass #effectCopy [type]="'Shader'" [shader]="'Copy'" [renderToScreen]="true"></three-pass>
     </three-camera>

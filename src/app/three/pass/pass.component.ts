@@ -469,8 +469,8 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.textureId, def);
   }
 
-  private getMap(def?: THREE.Texture | any, mapType?: string): THREE.Texture {
-    const map = ThreeUtil.getTypeSafe(this.map, def);
+  private getMap(effectComposer?: EffectComposer, camera? : THREE.Camera, scene? : THREE.Scene , mapType?: string): THREE.Texture {
+    const map = ThreeUtil.getTypeSafe(this.map, effectComposer);
     if (map !== null) {
       if (map instanceof EffectComposer) {
         switch ((mapType || '').toLowerCase()) {
@@ -487,14 +487,14 @@ export class PassComponent implements OnInit {
       } else if (map.getRenderTarget2 && map.getRenderTarget1 && map.getWriteBuffer && map.getReadBuffer) {
         switch ((mapType || '').toLowerCase()) {
           case 'target1':
-            return map.getRenderTarget1(this.effectCamera).texture;
+            return map.getRenderTarget1(effectComposer.renderer, camera, scene).texture;
           case 'write':
-            return map.getWriteBuffer(this.effectCamera).texture;
+            return map.getWriteBuffer(effectComposer.renderer, camera, scene).texture;
           case 'read':
-            return map.getReadBuffer(this.effectCamera).texture;
+            return map.getReadBuffer(effectComposer.renderer, camera, scene).texture;
           case 'target2':
           default:
-            return map.getRenderTarget2(this.effectCamera).texture;
+            return map.getRenderTarget2(effectComposer.renderer, camera, scene).texture;
         }
       } else {
         return map;
@@ -521,11 +521,9 @@ export class PassComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       if (this.pass !== null && this.effectComposer !== null) {
-        this.passIndex = this.effectComposer.passes.indexOf(this.pass);
-        this.effectComposer.removePass(this.pass);
-        this.pass = null;
+        this.needUpdate = true;
       }
-      if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && this.pass == null) {
+      if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && (this.pass === null || this.needUpdate)) {
         this.getPass(this.effectScene, this.effectCamera, this.effectComposer);
       }
     }
@@ -535,29 +533,31 @@ export class PassComponent implements OnInit {
   private effectScene: THREE.Scene = null;
   private effectCamera: THREE.Camera = null;
   private pass: Pass = null;
-  private passIndex: number = -1;
-
+  private needUpdate: boolean = false;
+  
   getPass(scene: THREE.Scene, camera: THREE.Camera, effectComposer: EffectComposer): Pass {
-    if (this.pass === null) {
+    if (this.pass === null || this.needUpdate) {
+      this.needUpdate = false;
       this.effectComposer = effectComposer;
       this.effectScene = scene;
       this.effectCamera = camera;
+      let pass : Pass = null;
       if (this.refer !== null && this.refer !== undefined) {
-        this.pass = this.refer.getPass(scene, camera, effectComposer);
+        pass = this.refer.getPass(scene, camera, effectComposer);
       }
-      if (this.pass === null) {
+      if (pass === null) {
         switch (this.type.toLowerCase()) {
           case 'adaptivetonemapping':
-            this.pass = new AdaptiveToneMappingPass(
+            pass = new AdaptiveToneMappingPass(
               this.getAdaptive(),
               this.getResolution()
             );
             break;
           case 'afterimage':
-            this.pass = new AfterimagePass(this.getDamp());
+            pass = new AfterimagePass(this.getDamp());
             break;
           case 'bloom':
-            this.pass = new BloomPass(
+            pass = new BloomPass(
               this.getStrength(),
               this.getKernelSize(),
               this.getSigma(),
@@ -565,28 +565,28 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'bokeh':
-            this.pass = new BokehPass(
+            pass = new BokehPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getParams()
             );
             break;
           case 'cubetexture':
-            this.pass = new CubeTexturePass(
+            pass = new CubeTexturePass(
               this.getCamera(camera) as THREE.PerspectiveCamera,
               this.getEnvMap(),
               this.getOpacity()
             );
             break;
           case 'dotscreen':
-            this.pass = new DotScreenPass(
+            pass = new DotScreenPass(
               this.getCenter(),
               this.getAngle(),
               this.getScale()
             );
             break;
           case 'film':
-            this.pass = new FilmPass(
+            pass = new FilmPass(
               this.getNoiseIntensity(),
               this.getScanlinesIntensity(),
               this.getScanlinesCount(),
@@ -594,27 +594,27 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'glitch':
-            const pass = new GlitchPass(
+            const glitchpass = new GlitchPass(
               this.getDtSize()
             );
-            pass.goWild = this.getGoWild(false);
-            this.pass = pass;
+            glitchpass.goWild = this.getGoWild(false);
+            pass = glitchpass;
             break;
           case 'halftone':
-            this.pass = new HalftonePass(
+            pass = new HalftonePass(
               this.getWidth(),
               this.getHeight(),
               null // this.getParams(null)
             );
             break;
           case 'mask':
-            this.pass = new MaskPass(
+            pass = new MaskPass(
               this.getScene(scene),
               this.getCamera(camera)
             );
             break;
           case 'outline':
-            this.pass = new OutlinePass(
+            pass = new OutlinePass(
               null, //this.getResolution(),
               this.getScene(scene),
               this.getCamera(camera),
@@ -622,7 +622,7 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'render':
-            this.pass = new RenderPass(
+            pass = new RenderPass(
               this.getScene(scene),
               this.getCamera(camera),
               //this.getOverrideMaterial(null),
@@ -631,7 +631,7 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'sao':
-            this.pass = new SAOPass(
+            pass = new SAOPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getDepthTexture(),
@@ -640,7 +640,7 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'save':
-            this.pass = new SavePass(
+            pass = new SavePass(
               this.getRenderTarget()
             );
             break;
@@ -685,16 +685,16 @@ export class PassComponent implements OnInit {
                 }
               })
             }
-            this.pass = shaderPass;
+            pass = shaderPass;
             break;
           case 'smaa':
-            this.pass = new SMAAPass(
+            pass = new SMAAPass(
               this.getWidth(),
               this.getHeight()
             );
             break;
           case 'ssaarender':
-            this.pass = new SSAARenderPass(
+            pass = new SSAARenderPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getClearColor(),
@@ -702,7 +702,7 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'ssao':
-            this.pass = new SSAOPass(
+            pass = new SSAOPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getWidth(),
@@ -710,7 +710,7 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'taarender':
-            this.pass = new TAARenderPass(
+            pass = new TAARenderPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getClearColor(),
@@ -718,13 +718,13 @@ export class PassComponent implements OnInit {
             );
             break;
           case 'texture':
-            this.pass = new TexturePass(
-              this.getMap(null),
+            pass = new TexturePass(
+              this.getMap(effectComposer,camera, scene),
               this.getOpacity()
             );
             break;
           case 'taarender':
-            this.pass = new UnrealBloomPass(
+            pass = new UnrealBloomPass(
               null, //this.getResolution(),
               this.getStrength(),
               this.getRadius(),
@@ -733,32 +733,34 @@ export class PassComponent implements OnInit {
             break;
           case 'clear':
           default:
-            this.pass = new ClearPass(
+            pass = new ClearPass(
               this.getClearColor(),
               this.getClearAlpha()
             );
             break;
         }
         if (ThreeUtil.isNotNull(this.enabled)) {
-          this.pass.enabled = this.getEnabled(true);
+          pass.enabled = this.getEnabled(true);
         }
         if (ThreeUtil.isNotNull(this.needsSwap)) {
-          this.pass.needsSwap = this.getNeedsSwap(true);
+          pass.needsSwap = this.getNeedsSwap(true);
         }
         if (ThreeUtil.isNotNull(this.clear)) {
-          this.pass.clear = this.getClear(false);
+          pass.clear = this.getClear(false);
         }
         if (ThreeUtil.isNotNull(this.renderToScreen)) {
-          this.pass.renderToScreen = this.getRenderToScreen(false);
+          pass.renderToScreen = this.getRenderToScreen(false);
         }
       }
-      if (this.pass !== null) {
-        if (this.passIndex > -1) {
-          this.effectComposer.insertPass(this.pass, this.passIndex);
-        } else {
-          this.effectComposer.addPass(this.pass);
-          this.passIndex = this.effectComposer.passes.indexOf(this.pass)
-        }
+      if (this.pass !== null && this.pass !== undefined) {
+        Object.assign(this.pass, pass);
+      } else {
+        this.pass = pass;
+      }
+    }
+    if (this.pass !== null && effectComposer !== null) {
+      if (effectComposer.passes.indexOf(this.pass) === -1) {
+        this.effectComposer.addPass(this.pass);
       }
     }
     return this.pass;

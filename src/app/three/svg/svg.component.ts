@@ -9,7 +9,7 @@ import { ScaleComponent } from '../scale/scale.component';
 import { TranslationComponent } from '../translation/translation.component';
 
 export interface SvgGeometry {
-  geometry: THREE.Geometry | THREE.BufferGeometry
+  geometry: THREE.BufferGeometry
   style?: {
     fill?: string
     fillOpacity?: number
@@ -215,7 +215,7 @@ export class SvgComponent extends AbstractSvgGeometry implements OnInit {
     const geometries: SvgGeometry[] = [];
     data.paths.forEach(path => {
       const shape = path.toShapes(this.getIsCCW(true), this.getNoHoles(false));
-      let geometry: THREE.Geometry | THREE.BufferGeometry = null;
+      let geometry: THREE.BufferGeometry = null;
       switch (this.type.toLowerCase()) {
         case 'extrudebuffer':
           geometry = new THREE.ExtrudeBufferGeometry(

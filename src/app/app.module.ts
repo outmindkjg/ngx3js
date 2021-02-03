@@ -117,6 +117,13 @@ import { Page1104Component } from './chapter11/page1104/page1104.component';
 import { Page1105Component } from './chapter11/page1105/page1105.component';
 import { Page1106Component } from './chapter11/page1106/page1106.component';
 import { Page1107Component } from './chapter11/page1107/page1107.component';
+import { Page1201Component } from './chapter12/page1201/page1201.component';
+import { Page1202Component } from './chapter12/page1202/page1202.component';
+import { Page1203Component } from './chapter12/page1203/page1203.component';
+import { Page1204Component } from './chapter12/page1204/page1204.component';
+import { Page1205Component } from './chapter12/page1205/page1205.component';
+import { Page1206Component } from './chapter12/page1206/page1206.component';
+import { Page1207Component } from './chapter12/page1207/page1207.component';
 
 import { SceneComponent } from './three/scene/scene.component';
 import { CameraComponent } from './three/camera/camera.component';
@@ -145,6 +152,7 @@ import { MixerComponent } from './three/mixer/mixer.component';
 import { ClipComponent } from './three/clip/clip.component';
 import { ListenerComponent } from './three/listener/listener.component';
 import { AudioComponent } from './three/audio/audio.component';
+import { PlaneComponent } from './three/plane/plane.component';
 
 @NgModule({
   declarations: [
@@ -289,7 +297,15 @@ import { AudioComponent } from './three/audio/audio.component';
     MixerComponent,
     ClipComponent,
     ListenerComponent,
-    AudioComponent
+    AudioComponent,
+    PlaneComponent,
+    Page1201Component,
+    Page1202Component,
+    Page1203Component,
+    Page1204Component,
+    Page1205Component,
+    Page1206Component,
+    Page1207Component
   ],
   imports: [
     BrowserModule,

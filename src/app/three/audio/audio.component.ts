@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -20,6 +20,9 @@ export class AudioComponent implements OnInit {
   @Input() coneInnerAngle: number = 1;
   @Input() coneOuterAngle: number = 1;
   @Input() coneOuterGain: number = 1;
+  @Input() fftSize: number = 128;
+  
+  @Output() onLoad: EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
 
   constructor() {}
 
@@ -86,6 +89,8 @@ export class AudioComponent implements OnInit {
     }
   }
 
+  private loadedUrl : string = null;
+
   resetAudio() {
     if (this.audio === null) {
       this.audio = this.getAudio();
@@ -102,10 +107,13 @@ export class AudioComponent implements OnInit {
           this.refObject3d.add(this.audio);
         }
       }
-      if (this.audio.buffer === null && this.url !== null) {
+      if (this.url !== null && this.loadedUrl !== this.url) {
+        this.loadedUrl = this.url;
         this.loadAudio(this.url, (buffer: AudioBuffer) => {
+          console.log('load : ' + this.url);
             this.audio.setBuffer(buffer);
             this.resetAudio();
+            this.onLoad.emit(this);
         });
       }
       if (!this.visible) {
@@ -136,18 +144,21 @@ export class AudioComponent implements OnInit {
           // this.audio.play();
         }
       }
-      if (this.play && !this.audio.isPlaying) {
-        this.audio.play();
-      } else if (!this.play && this.audio.isPlaying) {
-        this.audio.pause();
-      }
+      this.audio.loop = true;
+      if (this.audio.sourceType !== 'empty') {
+        if (this.play && !this.audio.isPlaying) {
+          this.audio.play();
+        } else if (!this.play && this.audio.isPlaying) {
+          this.audio.pause();
+        }
+      } 
       this.audio.visible = this.visible;
     }
   }
 
-  getAnalyser() : THREE.AudioAnalyser {
+  getAnalyser(fftSize? : number) : THREE.AudioAnalyser {
     if (this.analyser == null && this.audio !== null) {
-      this.analyser = new THREE.AudioAnalyser(this.audio);
+      this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
     }
     return this.analyser;
   }
@@ -163,7 +174,7 @@ export class AudioComponent implements OnInit {
           this.audio = new THREE.PositionalAudio(this.listener);
           break;
       }
-      this.audio.autoplay = false;
+      this.audio.autoplay = this.autoplay;
     }
     return this.audio;
   }

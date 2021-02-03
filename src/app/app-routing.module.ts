@@ -125,6 +125,14 @@ import { Page1105Component } from './chapter11/page1105/page1105.component';
 import { Page1106Component } from './chapter11/page1106/page1106.component';
 import { Page1107Component } from './chapter11/page1107/page1107.component';
 
+import { Page1201Component } from './chapter12/page1201/page1201.component';
+import { Page1202Component } from './chapter12/page1202/page1202.component';
+import { Page1203Component } from './chapter12/page1203/page1203.component';
+import { Page1204Component } from './chapter12/page1204/page1204.component';
+import { Page1205Component } from './chapter12/page1205/page1205.component';
+import { Page1206Component } from './chapter12/page1206/page1206.component';
+import { Page1207Component } from './chapter12/page1207/page1207.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
   {
@@ -298,6 +306,20 @@ const routes: Routes = [
       { path: 'pg05', component: Page1105Component },
       { path: 'pg06', component: Page1106Component },
       { path: 'pg07', component: Page1107Component }
+    ]
+  },
+  { 
+    path: 'ch12',
+    component: Chapter12Component,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'pg01' },
+      { path: 'pg01', component: Page1201Component },
+      { path: 'pg02', component: Page1202Component },
+      { path: 'pg03', component: Page1203Component },
+      { path: 'pg04', component: Page1204Component },
+      { path: 'pg05', component: Page1205Component },
+      { path: 'pg06', component: Page1206Component },
+      { path: 'pg07', component: Page1207Component }
     ]
   },
   { path: 'ch12', component: Chapter12Component },

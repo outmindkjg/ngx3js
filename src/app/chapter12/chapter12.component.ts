@@ -9,16 +9,13 @@ import { MenuVo } from '../common-interface';
 export class Chapter12Component implements OnInit {
 
   public menuList : MenuVo[] = [
-    { url : 'pg01', name : ''},
-    { url : 'pg02', name : ''},
-    { url : 'pg03', name : ''},
-    { url : 'pg04', name : ''},
-    { url : 'pg05', name : ''},
-    { url : 'pg06', name : ''},
-    { url : 'pg07', name : ''},
-    { url : 'pg08', name : ''},
-    { url : 'pg09', name : ''},
-    { url : 'pg10', name : ''}
+    { url : 'pg01', name : 'test1'},
+    { url : 'pg02', name : 'test2'},
+    { url : 'pg03', name : 'test3'},
+    { url : 'pg04', name : 'test4'},
+    { url : 'pg05', name : 'test5'},
+    { url : 'pg06', name : 'test6'},
+    { url : 'pg07', name : 'test7'}
   ];
  
   constructor() { }
