@@ -276,7 +276,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setRenderer(this.renderer, this.cssRenderer, this.scenes);
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
-    this.control = this.getControls(this.cameras, this.cssRenderer || this.renderer);
+    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
     this.synkObject3D(['listner', 'audio']);
     this.render();
   }
@@ -304,7 +304,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.rendererHeight = height;
       this.renderer.setSize(width, height);
       if (this.renderer instanceof THREE.WebGLRenderer) {
-        this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
+        // this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.shadowMap.enabled = true;
