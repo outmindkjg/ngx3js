@@ -588,9 +588,24 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               element = document.createElement( 'div' );
               break;
           }
-          element.innerHTML = "test";
-          basemesh = new CSS3DObject(element);
-          console.log(element);
+          element.style.width = this.getWidth(1) + 'px';
+          element.style.overflow = 'hidden';
+          element.classList.add('test')
+          element.innerHTML = "우리는민족중흥의";
+          const cssele = new CSS3DObject(element);
+          const cssgeo = new THREE.BoxGeometry(this.getWidth(1),this.getHeight(1),0.1);
+          const cssmat = new THREE.MeshPhongMaterial({
+            opacity	: 0.15,
+            transparent : true,
+            color	: new THREE.Color( 0x111111 ),
+            blending: THREE.NoBlending,
+            // side	: THREE.DoubleSide,
+          })
+          basemesh = new THREE.Mesh(cssgeo, cssmat);
+          basemesh.receiveShadow = true;
+          basemesh.castShadow = true;
+
+          basemesh.add(cssele);
           break;
         case 'light':
           switch (this.lightType.toLowerCase()) {
@@ -925,8 +940,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             if (clippingPlanes !== null && clippingPlanes !== undefined) {
               clippingPlanes.forEach(clippingPlane => {
                 basemesh.add(new THREE.PlaneHelper(
-                  clippingPlane, 
-                  this.getSize(10), 
+                  clippingPlane,
+                  this.getSize(10),
                   this.getHelperColor(0xff0000).getHex()
                 ));
               });

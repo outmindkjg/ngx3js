@@ -1,0 +1,11 @@
+:host-context {
+  ::ng-deep {
+    .canvas {
+      div.test {
+        font-size:1rem;
+        color : #000000;
+        text-align: center;
+      }
+    }
+  }
+}

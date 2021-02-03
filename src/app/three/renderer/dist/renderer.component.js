@@ -21,13 +21,18 @@ var camera_component_1 = require("./../camera/camera.component");
 var scene_component_1 = require("./../scene/scene.component");
 var interface_1 = require("../interface");
 var rxjs_1 = require("rxjs");
+var plane_component_1 = require("../plane/plane.component");
+var CSS3DRenderer_1 = require("three/examples/jsm/renderers/CSS3DRenderer");
+var CSS2DRenderer_1 = require("three/examples/jsm/renderers/CSS2DRenderer");
 var RendererComponent = /** @class */ (function () {
     function RendererComponent() {
         this.type = "webgl";
+        this.css3dType = "none";
         this.controlType = "none";
         this.controlAutoRotate = false;
         this.shadowMapEnabled = true;
         this.clearColor = null;
+        this.localClippingEnabled = false;
         this.antialias = false;
         this.width = -1;
         this.height = -1;
@@ -38,14 +43,26 @@ var RendererComponent = /** @class */ (function () {
         this._sizeSubject = new rxjs_1.Subject();
         this.renderListner = null;
         this.renderer = null;
+        this.cssRenderer = null;
         this.rendererWidth = 100;
         this.rendererHeight = 100;
         this.stats = null;
         this.gui = null;
         this.clock = null;
         this.control = null;
-        interface_1.ThreeUtil.setupGui;
     }
+    RendererComponent.prototype.getClippingPlanes = function (def) {
+        if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
+            var clippingPlanes_1 = [];
+            this.clippingPlanes.forEach(function (plane) {
+                clippingPlanes_1.push(plane.getWorldPlane());
+            });
+            return clippingPlanes_1;
+        }
+        else {
+            return def;
+        }
+    };
     RendererComponent.prototype.ngOnInit = function () {
     };
     RendererComponent.prototype.ngOnChanges = function (changes) {
@@ -86,6 +103,11 @@ var RendererComponent = /** @class */ (function () {
                     interface_1.ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
                 }
             }
+            if (changes.localClippingEnabled) {
+                if (this.renderer instanceof THREE.WebGLRenderer) {
+                    this.renderer.localClippingEnabled = this.localClippingEnabled;
+                }
+            }
         }
     };
     RendererComponent.prototype.getClearColor = function (def) {
@@ -111,6 +133,9 @@ var RendererComponent = /** @class */ (function () {
             this.cameras.forEach(function (camera) {
                 camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
             });
+            if (this.cssRenderer !== null) {
+                this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
+            }
             this._sizeSubject.next(this.getSize());
         }
     };
@@ -208,6 +233,9 @@ var RendererComponent = /** @class */ (function () {
         }
         return this.gui;
     };
+    RendererComponent.prototype.ngOnDestroy = function () {
+        this.renderer = null;
+    };
     RendererComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         if (this.guiControl != null) {
@@ -225,19 +253,30 @@ var RendererComponent = /** @class */ (function () {
         }
         this.renderer = this.getRenderer();
         this.cameras.forEach(function (camera) {
-            camera.setRenderer(_this.renderer, _this.scenes);
+            camera.setRenderer(_this.renderer, _this.cssRenderer, _this.scenes);
             camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
         });
         this.control = this.getControls(this.cameras, this.renderer);
+        //    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
         this.synkObject3D(['listner', 'audio']);
         this.render();
     };
     RendererComponent.prototype.getRenderer = function () {
         if (this.renderer === null) {
-            switch (this.type.toLowerCase()) {
-                case 'webgl':
+            switch (this.css3dType.toLowerCase()) {
+                case 'css3d':
+                    this.cssRenderer = new CSS3DRenderer_1.CSS3DRenderer();
+                    break;
+                case 'css2d':
+                    this.cssRenderer = new CSS2DRenderer_1.CSS2DRenderer();
+                    break;
                 default:
-                    this.renderer = new THREE.WebGLRenderer({ antialias: this.antialias });
+                    this.cssRenderer = null;
+                    break;
+            }
+            switch (this.type.toLowerCase()) {
+                default:
+                    this.renderer = new THREE.WebGLRenderer({ alpha: this.cssRenderer !== null ? true : false, antialias: this.antialias });
                     break;
             }
             var _a = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight], width = _a[0], height = _a[1];
@@ -245,20 +284,36 @@ var RendererComponent = /** @class */ (function () {
             this.rendererHeight = height;
             this.renderer.setSize(width, height);
             if (this.renderer instanceof THREE.WebGLRenderer) {
-                this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)));
+                this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)), 0);
                 this.renderer.setPixelRatio(window.devicePixelRatio);
                 this.renderer.shadowMap.enabled = this.shadowMapEnabled;
                 this.renderer.shadowMap.enabled = true;
                 this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-                this.renderer.outputEncoding = THREE.sRGBEncoding;
+                // this.renderer.outputEncoding = THREE.sRGBEncoding;
+                this.renderer.localClippingEnabled = this.localClippingEnabled;
+                this.renderer.clippingPlanes = this.getClippingPlanes([]);
             }
-            this.canvas.nativeElement.appendChild(this.renderer.domElement);
+            if (this.cssRenderer !== null) {
+                this.cssRenderer.domElement.style.position = 'absolute';
+                this.cssRenderer.domElement.style.top = '0px';
+                this.cssRenderer.domElement.style.left = '0px';
+                this.cssRenderer.setSize(width, height);
+                this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
+                this.renderer.domElement.style.position = 'relative';
+                this.canvas.nativeElement.appendChild(this.renderer.domElement);
+            }
+            else {
+                this.canvas.nativeElement.appendChild(this.renderer.domElement);
+            }
             interface_1.ThreeUtil.setRenderer(this.renderer);
         }
         return this.renderer;
     };
     RendererComponent.prototype.render = function () {
         var _this = this;
+        if (this.renderer === null) {
+            return;
+        }
         if (this.stats != null) {
             this.stats.begin();
         }
@@ -282,8 +337,9 @@ var RendererComponent = /** @class */ (function () {
                 this.control.update();
             }
         }
+        // this.renderer.autoClear = false;
         this.cameras.forEach(function (camera) {
-            camera.render(_this.renderer, _this.scenes, renderTimer);
+            camera.render(_this.renderer, _this.cssRenderer, _this.scenes, renderTimer);
         });
         if (this.stats != null) {
             this.stats.end();
@@ -300,6 +356,9 @@ var RendererComponent = /** @class */ (function () {
     ], RendererComponent.prototype, "type");
     __decorate([
         core_1.Input()
+    ], RendererComponent.prototype, "css3dType");
+    __decorate([
+        core_1.Input()
     ], RendererComponent.prototype, "controlType");
     __decorate([
         core_1.Input()
@@ -310,6 +369,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "clearColor");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "localClippingEnabled");
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "antialias");
@@ -346,6 +408,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: true })
     ], RendererComponent.prototype, "audio");
+    __decorate([
+        core_1.ContentChildren(plane_component_1.PlaneComponent)
+    ], RendererComponent.prototype, "clippingPlanes");
     __decorate([
         core_1.ViewChild('canvas')
     ], RendererComponent.prototype, "canvas");

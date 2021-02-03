@@ -142,4 +142,5 @@ ng g c chapter05/page0511
 "editor.wordWrapColumn": 100,
 
 
-node_modules\three\examples\jsm\utils\SceneUtils.d.ts
+node_modules/three/examples/jsm/misc/MorphAnimMesh.d.ts
+node_modules/three/examples/jsm/utils/SceneUtils.d.ts
