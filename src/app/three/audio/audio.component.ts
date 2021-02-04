@@ -1,5 +1,8 @@
+import { viewClassName } from '@angular/compiler';
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-audio',
@@ -9,6 +12,7 @@ import * as THREE from 'three';
 export class AudioComponent implements OnInit {
   @Input() type: string = 'position';
   @Input() url: string = null;
+  @Input() videoUrl: string = null;
   @Input() visible : boolean = true ;
   @Input() autoplay : boolean = true ;
   @Input() play : boolean = true ;
@@ -46,10 +50,14 @@ export class AudioComponent implements OnInit {
       if (this.audio.source !== null) {
         this.audio.stop();
       }
+      if (this.video !== null) {
+        this.video.pause();
+      }
     }
   }
 
   private audio: THREE.Audio<any> = null;
+  private video : HTMLVideoElement = null;
   private listener: THREE.AudioListener = null;
   private analyser: THREE.AudioAnalyser = null;
 
@@ -89,6 +97,21 @@ export class AudioComponent implements OnInit {
     }
   }
 
+  private _textureSubject:Subject<HTMLVideoElement> = new Subject<HTMLVideoElement>();
+
+  textureSubscribe() : Observable<HTMLVideoElement>{
+    return this._textureSubject.asObservable();
+  }
+
+  private loadedVideoTexture : THREE.VideoTexture = null;
+
+  getTexture():THREE.VideoTexture{
+    if (this.loadedVideoTexture === null && this.video !== null) {
+      this.loadedVideoTexture = new THREE.VideoTexture(this.video);
+    }
+    return this.loadedVideoTexture;
+  }
+
   private loadedUrl : string = null;
 
   resetAudio() {
@@ -109,12 +132,25 @@ export class AudioComponent implements OnInit {
       }
       if (this.url !== null && this.loadedUrl !== this.url) {
         this.loadedUrl = this.url;
-        this.loadAudio(this.url, (buffer: AudioBuffer) => {
-          console.log('load : ' + this.url);
+        this.loadedVideoTexture = null;
+        this.video = null;
+        if (ThreeUtil.isNotNull(this.videoUrl)) {
+          const video = document.createElement('video');
+          video.src = this.videoUrl;
+          video.loop = true;
+          video.play();
+          this.audio.setMediaElementSource(video);
+          this.video = video;
+          this.resetAudio();
+          this.onLoad.emit(this);
+          this._textureSubject.next(this.video);
+        } else {
+          this.loadAudio(this.url, (buffer: AudioBuffer) => {
             this.audio.setBuffer(buffer);
             this.resetAudio();
             this.onLoad.emit(this);
         });
+        }
       }
       if (!this.visible) {
         if (this.audio.parent !== null) {
@@ -145,13 +181,24 @@ export class AudioComponent implements OnInit {
         }
       }
       this.audio.loop = true;
-      if (this.audio.sourceType !== 'empty') {
-        if (this.play && !this.audio.isPlaying) {
-          this.audio.play();
-        } else if (!this.play && this.audio.isPlaying) {
-          this.audio.pause();
-        }
-      } 
+      if (this.video !== null) {
+        this.video.loop = true;
+        if (this.video.currentSrc) {
+          if (this.play && this.video.paused) {
+            this.video.play();
+          } else if (!this.play && !this.video.paused) {
+            this.video.pause();
+          }
+        } 
+      } else {
+        if (this.audio.sourceType !== 'empty') {
+          if (this.play && !this.audio.isPlaying) {
+            this.audio.play();
+          } else if (!this.play && this.audio.isPlaying) {
+            this.audio.pause();
+          }
+        } 
+      }
       this.audio.visible = this.visible;
     }
   }
@@ -165,6 +212,8 @@ export class AudioComponent implements OnInit {
 
   getAudio():THREE.Audio {
     if (this.audio === null && this.listener !== null) {
+      this.loadedVideoTexture = null;
+      this.video = null;
       switch (this.type.toLowerCase()) {
         case 'audio':
           this.audio = new THREE.Audio(this.listener);

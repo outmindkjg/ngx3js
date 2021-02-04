@@ -8,7 +8,9 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
-import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+
 import {
   Lensflare,
   LensflareElement
@@ -29,6 +31,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
+import { HtmlComponent, HtmlObject } from '../html/html.component';
 
 
 @Component({
@@ -40,7 +43,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() type: string = 'mesh';
   @Input() mass: number = null;
   @Input() lightType: string = 'spot';
-  @Input() css3dType: string = 'div';
+  @Input() cssStyle: string | HtmlObject = null;
   @Input() skyboxType: string = 'auto';
   @Input() skyboxRate: number = 100;
   @Input() skyboxImage: string = null;
@@ -108,6 +111,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false })
   audio: QueryList<AudioComponent>;
+  @ContentChildren(HtmlComponent, { descendants: false }) cssChildren: QueryList<HtmlComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -321,7 +325,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     }
   }
 
-  private getMaterials(): THREE.Material[] {
+  private getMaterials(parameters? : THREE.MeshBasicMaterialParameters): THREE.Material[] {
     const materials: THREE.Material[] = [];
     if (this.materials !== null && this.materials.length > 0) {
       this.materials.forEach((material) => {
@@ -329,7 +333,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
       });
     }
     if (materials.length == 0) {
-      materials.push(new THREE.MeshBasicMaterial());
+      materials.push(new THREE.MeshPhongMaterial(parameters));
     }
     return materials;
   }
@@ -392,6 +396,9 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     });
     this.audio.changes.subscribe(() => {
       this.synkObject3D(['audio']);
+    });
+    this.cssChildren.changes.subscribe(() => {
+      this.synkObject3D(['cssChildren']);
     });
   }
 
@@ -466,6 +473,11 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           case 'audio':
             this.audio.forEach((audio) => {
               audio.setObject3D(this.mesh);
+            });
+            break;
+          case 'cssChildren':
+            this.cssChildren.forEach((cssChild) => {
+              cssChild.setObject3D(this.mesh);
             });
             break;
         }
@@ -571,41 +583,54 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               break;
           }
           break;
-        case 'css3d' :
-          let element : HTMLElement = null;
-          switch(this.css3dType.toLowerCase()) {
-            case 'img' :
-              element = document.createElement( 'img' );
+        case 'css':
+        case 'css3d':
+        case 'css2d':
+          const cssElement: HTMLElement = document.createElement('div');
+          let cssGeometry: THREE.BufferGeometry = null;
+          let cssMaterials: THREE.Material[] = this.getMaterials({
+            opacity: 0.15,
+            transparent: true,
+            color: this.getGroundColor(0x111111),
+            blending: THREE.NoBlending,
+            side: THREE.DoubleSide,
+          });
+          if (geometry !== null) {
+            cssGeometry = geometry;
+          } else {
+            cssGeometry = new THREE.BoxGeometry(this.getWidth(1), this.getHeight(1), this.getDistance(0.1));
+          }
+          if (cssGeometry instanceof THREE.BoxGeometry || cssGeometry instanceof THREE.PlaneGeometry) {
+            HtmlComponent.applyHtmlStyle(cssElement, {
+              width: cssGeometry.parameters.width,
+              height: cssGeometry.parameters.height,
+              overflow: 'hidden'
+            });
+          } else if (cssGeometry instanceof THREE.CircleGeometry) {
+            HtmlComponent.applyHtmlStyle(cssElement, {
+              width: cssGeometry.parameters.radius,
+              height: cssGeometry.parameters.radius,
+              overflow: 'hidden'
+            });
+          }
+          if (ThreeUtil.isNotNull(this.cssStyle)) {
+            HtmlComponent.applyHtmlStyle(cssElement, this.cssStyle);
+          }
+          let cssObject: THREE.Object3D = null;
+          switch (this.type.toLowerCase()) {
+            case 'css2d':
+              cssObject = new CSS2DObject(cssElement);
               break;
-            case 'span' :
-              element = document.createElement( 'span' );
-              break;
-            case 'button' :
-              element = document.createElement( 'button' );
-              break;
-            case 'div' :
-            default :
-              element = document.createElement( 'div' );
+            case 'css3d':
+            case 'css':
+            default:
+              cssObject = new CSS3DObject(cssElement);
               break;
           }
-          element.style.width = this.getWidth(1) + 'px';
-          element.style.overflow = 'hidden';
-          element.classList.add('test')
-          element.innerHTML = "우리는민족중흥의";
-          const cssele = new CSS3DObject(element);
-          const cssgeo = new THREE.BoxGeometry(this.getWidth(1),this.getHeight(1),0.1);
-          const cssmat = new THREE.MeshPhongMaterial({
-            opacity	: 0.15,
-            transparent : true,
-            color	: new THREE.Color( 0x111111 ),
-            blending: THREE.NoBlending,
-            // side	: THREE.DoubleSide,
-          })
-          basemesh = new THREE.Mesh(cssgeo, cssmat);
-          basemesh.receiveShadow = true;
-          basemesh.castShadow = true;
-
-          basemesh.add(cssele);
+          cssObject.castShadow = this.castShadow;
+          cssObject.receiveShadow = this.receiveShadow;
+          basemesh = new THREE.Mesh(cssGeometry, cssMaterials[0]);
+          basemesh.add(cssObject);
           break;
         case 'light':
           switch (this.lightType.toLowerCase()) {
@@ -768,7 +793,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
       }
       if (this.meshes && this.meshes.length > 0) {
         this.meshes.forEach((mesh) => {
-            mesh.setObject3D(basemesh);
+          mesh.setObject3D(basemesh);
         });
       }
       this.mesh = basemesh;
@@ -812,7 +837,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
               this.mesh.shadow.camera.bottom = this.getShadowCameraBottom(-1);
             }
           }
-         this.mesh.shadow.updateMatrices(this.mesh);
+          this.mesh.shadow.updateMatrices(this.mesh);
         }
       }
       if (this.helper == null) {
@@ -829,7 +854,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
         'material',
         'svg',
         'listner',
-        'audio'
+        'audio',
+        'cssChildren'
       ]);
     }
     return this.mesh;
@@ -887,56 +913,56 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           );
           break;
         case 'camera': {
-            let helperTarget = this.getHelperTarget(this.mesh);
-            if (helperTarget instanceof THREE.Light && helperTarget.shadow.camera) {
-              basemesh = new THREE.CameraHelper(helperTarget.shadow.camera);
-            } else if (helperTarget instanceof THREE.Camera) {
-              basemesh = new THREE.CameraHelper(helperTarget);
-            }
+          let helperTarget = this.getHelperTarget(this.mesh);
+          if (helperTarget instanceof THREE.Light && helperTarget.shadow.camera) {
+            basemesh = new THREE.CameraHelper(helperTarget.shadow.camera);
+          } else if (helperTarget instanceof THREE.Camera) {
+            basemesh = new THREE.CameraHelper(helperTarget);
           }
+        }
           break;
         case 'directionallight':
         case 'hemispherelight':
-        case 'rectarealight' :
+        case 'rectarealight':
         case 'pointlight':
         case 'spotlight':
         case 'light': {
-            let helperTarget = this.getHelperTarget(this.mesh);
-            if (helperTarget instanceof THREE.DirectionalLight) {
-              basemesh = new THREE.DirectionalLightHelper(
-                helperTarget,
-                this.getSize(10),
-                this.getHelperColor(0xff0000)
-              );
-            } else if (helperTarget instanceof THREE.HemisphereLight) {
-              basemesh = new THREE.HemisphereLightHelper(
-                helperTarget,
-                this.getSize(10),
-                this.getHelperColor(0xff0000)
-              );
-            } else if (helperTarget instanceof THREE.PointLight) {
-              basemesh = new THREE.PointLightHelper(
-                helperTarget,
-                this.getSize(10),
-                this.getHelperColor(0xff0000)
-              );
-            } else if (helperTarget instanceof THREE.SpotLight) {
-              basemesh = new THREE.SpotLightHelper(
-                helperTarget,
-                this.getHelperColor(0xff0000)
-              );
-            } else if (helperTarget instanceof THREE.RectAreaLight) {
-              basemesh = new RectAreaLightHelper(
-                helperTarget,
-                this.getHelperColor(0xff0000)
-              );
-            }
+          let helperTarget = this.getHelperTarget(this.mesh);
+          if (helperTarget instanceof THREE.DirectionalLight) {
+            basemesh = new THREE.DirectionalLightHelper(
+              helperTarget,
+              this.getSize(10),
+              this.getHelperColor(0xff0000)
+            );
+          } else if (helperTarget instanceof THREE.HemisphereLight) {
+            basemesh = new THREE.HemisphereLightHelper(
+              helperTarget,
+              this.getSize(10),
+              this.getHelperColor(0xff0000)
+            );
+          } else if (helperTarget instanceof THREE.PointLight) {
+            basemesh = new THREE.PointLightHelper(
+              helperTarget,
+              this.getSize(10),
+              this.getHelperColor(0xff0000)
+            );
+          } else if (helperTarget instanceof THREE.SpotLight) {
+            basemesh = new THREE.SpotLightHelper(
+              helperTarget,
+              this.getHelperColor(0xff0000)
+            );
+          } else if (helperTarget instanceof THREE.RectAreaLight) {
+            basemesh = new RectAreaLightHelper(
+              helperTarget,
+              this.getHelperColor(0xff0000)
+            );
           }
+        }
           break;
         case 'plane':
           if (this.mesh instanceof THREE.Mesh && this.mesh.material instanceof THREE.Material) {
             basemesh = new THREE.Group();
-            const clippingPlanes : THREE.Plane[] = this.mesh.material.clippingPlanes;
+            const clippingPlanes: THREE.Plane[] = this.mesh.material.clippingPlanes;
             if (clippingPlanes !== null && clippingPlanes !== undefined) {
               clippingPlanes.forEach(clippingPlane => {
                 basemesh.add(new THREE.PlaneHelper(

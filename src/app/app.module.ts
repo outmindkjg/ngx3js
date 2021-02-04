@@ -153,6 +153,7 @@ import { ClipComponent } from './three/clip/clip.component';
 import { ListenerComponent } from './three/listener/listener.component';
 import { AudioComponent } from './three/audio/audio.component';
 import { PlaneComponent } from './three/plane/plane.component';
+import { HtmlComponent } from './three/html/html.component';
 
 @NgModule({
   declarations: [
@@ -305,7 +306,8 @@ import { PlaneComponent } from './three/plane/plane.component';
     Page1204Component,
     Page1205Component,
     Page1206Component,
-    Page1207Component
+    Page1207Component,
+    HtmlComponent
   ],
   imports: [
     BrowserModule,

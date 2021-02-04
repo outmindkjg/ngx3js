@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 
@@ -9,7 +10,7 @@ import { ThreeUtil } from '../interface';
 })
 export class TextureComponent implements OnInit {
 
-  @Input() link: TextureComponent = null;
+  @Input() refer: any = null;
   @Input() textureType: string = 'map';
   @Input() image: string = null;
   @Input() cubeImage: string[] = null;
@@ -298,12 +299,42 @@ export class TextureComponent implements OnInit {
     }
   }
 
+  private _textureSubscribe: Subscription = null;
+
+  setReferTexture(texture : any) {
+    if (texture instanceof HTMLVideoElement) {
+      this.texture = new THREE.VideoTexture(texture);
+    } else if (texture instanceof THREE.Texture) {
+      this.texture = texture;
+    }
+    if (texture !== null && this.texture !== null && this.refTexture !== null) {
+      this.refTexture.copy(this.getTexture())
+    }
+  }
+
   getTexture(changes?: SimpleChanges) {
     if (this.texture === null || (changes && (changes.image || changes.program))) {
-      if (this.link !== null) {
-        this.texture = this.getTextureImage(this.link.getImage(null), this.link.getCubeImage(null), this.link.getProgram(null));
-        this.texture.repeat.copy(this.link.getRepeat(1, 1));
-        this.texture.offset.copy(this.link.getOffset(0, 0));
+      if (this._textureSubscribe !== null) {
+        this._textureSubscribe.unsubscribe();
+        this._textureSubscribe = null;
+      }
+      if (this.refer !== null) {
+        if (this.refer instanceof TextureComponent) {
+          this.texture = this.getTextureImage(this.refer.getImage(null), this.refer.getCubeImage(null), this.refer.getProgram(null));
+          this.texture.repeat.copy(this.refer.getRepeat(1, 1));
+          this.texture.offset.copy(this.refer.getOffset(0, 0));
+        } else if (this.refer.getTexture && this.refer.textureSubscribe) {
+          this.setReferTexture(this.refer.getTexture());
+          this._textureSubscribe = this.refer.textureSubscribe().subscribe(texture => {
+            if (texture instanceof THREE.Texture) {
+              this.setReferTexture(texture);
+            } else {
+              this.setReferTexture(this.refer.getTexture());
+            }
+          });
+        } else {
+          this.texture = new THREE.Texture();
+        }
       } else {
         this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
       }

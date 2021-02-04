@@ -24,6 +24,11 @@ export class Page1203Component implements OnInit {
 
   }
 
+  imgClick(e, ele) {
+    console.log(e);
+    console.log(ele);
+  }
+
   rotation: GeometriesVector3 = {
     x: 0, y: 0, z: 0
   }

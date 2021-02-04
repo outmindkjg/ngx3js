@@ -15,14 +15,24 @@
             <three-geometry [type]="'box'" [width]="70" [height]="70" [depth]="70"></three-geometry>
             <three-material type="meshlambert" [color]="'0xff0000'" [flatShading]="false" [wireframe]="controls.wireframe"></three-material>
             <three-mesh type="css3d"
-              [css3dType]="'div'"
+              [cssStyle]="{ innerHTML : 'sdfsdfsdfsfs' , fontSize : '20px', color : 'red', textAlign : 'center'}"
               [castShadow]="true"
               [receiveShadow]="true"
               [width]="200"
-              [height]="30"
+              [height]="200"
             >
               <three-position [x]="0" [y]="0" [z]="-4"></three-position>
-            </three-mesh>
+              <three-html [type]="'img'" [src]="'https://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'" [style]="{ maxWidth : '200px', click : imgClick}">
+              </three-html>
+              <three-html [type]="'div'" [style]="{ color : '#000000', border : '1px solid blue', maxWidth : '200px', click : imgClick}">
+                sdasda
+                <p>sdfsdfs</p>
+                <three-tween [to]="{ color : '0x00ff00', fontSize : 15, padding : '15px' }" [yoyo]="true" [repeat]="10"></three-tween>
+              </three-html>
+              <three-html [type]="'table'" [style]="{ border : '1px solid red'}" [table]="[['111','222'],['111','222']]">
+              </three-html>
+
+          </three-mesh>
           </three-mesh>
     </three-scene>
 </three-renderer>

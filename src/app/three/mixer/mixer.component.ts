@@ -65,7 +65,6 @@ export class MixerComponent implements OnInit {
         this.clips.forEach(clip => {
           clipsNames.push(clip.name);
         })
-        console.log(clipsNames);
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {

@@ -1,5 +1,5 @@
 import { TweenComponent } from './tween/tween.component';
-import { OnInit, SimpleChanges, OnChanges, AfterContentInit, OnDestroy, ContentChildren, QueryList, Injectable, Component } from '@angular/core';
+import { OnInit, SimpleChanges, OnChanges, AfterContentInit, OnDestroy, ContentChildren, QueryList, Injectable, Component, Input } from '@angular/core';
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
@@ -26,6 +26,8 @@ export interface AbstractEffectComposer {
 })
 export abstract class AbstractThreeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy{
 
+  @Input() tweenStart : boolean = true;
+
   @ContentChildren(TweenComponent, { descendants: false }) tween: QueryList<TweenComponent>;
 
   ngOnInit(): void {
@@ -33,7 +35,9 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+    if(changes && changes.tweenStart && this.tweenTarget)  {
+      this.resetTween();
+    }
   }
 
   ngAfterContentInit(): void {
@@ -54,18 +58,54 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
   }
 
   resetTween() {
-    if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0) {
-      this.tweenTimer = new TWEEN.Tween(this.tweenTarget);
+    if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0 && this.tweenStart) {
+      let tweenTarget = {};
+      if (this.tweenTarget instanceof HTMLElement) {
+        Object.entries(this.tweenTarget.style).forEach(([key, value]) => {
+          if (value !== null && value != '' && typeof(key) == 'string') {
+            switch(key) {
+              case 'color' :
+              case 'backgroundColor' :
+                tweenTarget[key] = ThreeUtil.getColorSafe(value).getHex();
+                break;
+              default :
+                if (value.endsWith('px')) {
+                  tweenTarget[key] = parseFloat(value);
+                }
+                break;
+            }
+          }
+        });
+      } else {
+        tweenTarget = this.tweenTarget;
+      }
+      this.tweenTimer = new TWEEN.Tween(tweenTarget)
       this.tween.forEach(tween => {
-        tween.getTween(this.tweenTimer);
+        tween.getTween(this.tweenTimer, this);
       });
-      this.tweenTimer.onUpdate(() => {
+      this.tweenTimer.onUpdate((object: any, elapsed: number) => {
+        if (this.tweenTarget !== object && this.tweenTarget instanceof HTMLElement) {
+          const style = this.tweenTarget.style;
+          Object.entries(object).forEach(([key, value]) => {
+            if (ThreeUtil.isNotNull(value)) {
+              switch(key) {
+                case 'backgroundColor' :
+                case 'color' :
+                  style[key] = ThreeUtil.getColorSafe(value as number, 0).getStyle();
+                  break;
+                default :
+                  style[key] = value + 'px';
+                  break;
+              }
+            }
+          })
+        }
+      }).onComplete((object : any) => {
 
-      }).onComplete(() => {
-        // console.log(this.tweenTarget);
       }).start();
     } else if (this.tweenTimer !== null) {
       this.tweenTimer.stop();
+      this.tweenTimer = null;
     }
   }
 

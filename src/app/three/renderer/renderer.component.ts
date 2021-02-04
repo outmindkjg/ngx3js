@@ -276,8 +276,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setRenderer(this.renderer, this.cssRenderer, this.scenes);
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
-    this.control = this.getControls(this.cameras, this.renderer);
-//    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
+    // this.control = this.getControls(this.cameras, this.renderer);
+    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
     this.synkObject3D(['listner', 'audio']);
     this.render();
   }
@@ -321,6 +321,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.cssRenderer.setSize(width, height);
         this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
         this.renderer.domElement.style.position = 'relative';
+        this.renderer.domElement.style.pointerEvents = 'none';
         this.canvas.nativeElement.appendChild(this.renderer.domElement);
       } else {
         this.canvas.nativeElement.appendChild(this.renderer.domElement);

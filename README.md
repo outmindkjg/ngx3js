@@ -36,10 +36,7 @@ ng g c three/animation
 ng g c three/listener
 ng g c three/audio
 ng g c three/plane
-ng g c three/canvas
-ng g c three/text
-ng g c three/button
-ng g c three/image
+ng g c three/html
 
 
 
