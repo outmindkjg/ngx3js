@@ -1,20 +1,27 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import * as GSAP from 'gsap';
 
-import * as TWEEN from '@tweenjs/tween.js';
 import * as THREE from 'three';
 
 @Component({
   selector: 'three-tween',
   templateUrl: './tween.component.html',
-  styleUrls: ['./tween.component.scss']
+  styleUrls: ['./tween.component.scss'],
 })
 export class TweenComponent implements OnInit {
-
   @Input() to: any = null;
   @Input() duration: number = null;
   @Input() easing: string = null;
+  @Input() template: string = null;
   @Input() repeat: number = null;
   @Input() yoyo: boolean = null;
+  @Input() overshoot: number = null;
+  @Input() amplitude: number = null;
+  @Input() period: number = null;
+  @Input() linearRatio: number = null;
+  @Input() power: number = null;
+  @Input() yoyoMode: boolean = null;
+  @Input() steps: number = null;
 
   private isNull(value: any): boolean {
     return value === null || value === undefined;
@@ -36,9 +43,8 @@ export class TweenComponent implements OnInit {
     }
   }
 
-
   private getDuration(def?: number): number {
-    return this.getTypeSafe(this.duration, def, 1000);
+    return this.getTypeSafe(this.duration, def, 3);
   }
   private getRepeat(def?: number): number {
     return this.getTypeSafe(this.repeat, def, 1);
@@ -46,77 +52,157 @@ export class TweenComponent implements OnInit {
   private getYoyo(def?: boolean): boolean {
     return this.getTypeSafe(this.yoyo, def, false);
   }
-  private getEasing(def?: string): any {
-    const easing = this.getTypeSafe(this.easing, def, '');
+  private getOvershoot(def?: number): number {
+    return this.getTypeSafe(this.overshoot, def, 1);
+  }
+  private getAmplitude(def?: number): number {
+    return this.getTypeSafe(this.amplitude, def, 1);
+  }
+  private getPeriod(def?: number): number {
+    return this.getTypeSafe(this.period, def, 1);
+  }
+  private getLinearRatio(def?: number): number {
+    return this.getTypeSafe(this.linearRatio, def, 1);
+  }
+  private getPower(def?: number): number {
+    return this.getTypeSafe(this.power, def, 1);
+  }
+  private getYoyoMode(def?: boolean): boolean {
+    return this.getTypeSafe(this.yoyoMode, def, false);
+  }
+
+  private getSteps(def?: number): number {
+    return this.getTypeSafe(this.steps, def, 12);
+  }
+
+  private getEasing(def?: string, isTemplate?: boolean): any {
+    const easing = isTemplate
+      ? this.getTypeSafe(this.template, def, '')
+      : this.getTypeSafe(this.easing, def, '');
     switch (easing.toLowerCase()) {
-      case 'linear':
-      case 'linear-none':
-        return TWEEN.Easing.Linear.None;
-      case 'quadratic':
-      case 'quadratic-in':
-        return TWEEN.Easing.Quadratic.In;
-      case 'quadratic-out':
-        return TWEEN.Easing.Quadratic.Out;
-      case 'quadratic-inout':
-        return TWEEN.Easing.Quadratic.InOut;
-      case 'cubic':
-      case 'cubic-in':
-        return TWEEN.Easing.Cubic.In;
-      case 'cubic-out':
-        return TWEEN.Easing.Cubic.Out;
-      case 'cubic-inout':
-        return TWEEN.Easing.Cubic.InOut;
-      case 'quartic':
-      case 'quartic-in':
-        return TWEEN.Easing.Quartic.In;
-      case 'quartic-out':
-        return TWEEN.Easing.Quartic.Out;
-      case 'quartic-inout':
-        return TWEEN.Easing.Quartic.InOut;
-      case 'sinusoidal':
-      case 'sinusoidal-in':
-        return TWEEN.Easing.Sinusoidal.In;
-      case 'sinusoidal-out':
-        return TWEEN.Easing.Sinusoidal.Out;
-      case 'sinusoidal-inout':
-        return TWEEN.Easing.Sinusoidal.InOut;
-      case 'exponential':
-      case 'exponential-in':
-        return TWEEN.Easing.Exponential.In;
-      case 'exponential-out':
-        return TWEEN.Easing.Exponential.Out;
-      case 'exponential-inout':
-        return TWEEN.Easing.Exponential.InOut;
-      case 'circular':
-      case 'circular-in':
-        return TWEEN.Easing.Circular.In;
-      case 'circular-out':
-        return TWEEN.Easing.Circular.Out;
-      case 'circular-inout':
-        return TWEEN.Easing.Circular.InOut;
-      case 'elastic':
-      case 'elastic-in':
-        return TWEEN.Easing.Elastic.In;
-      case 'elastic-out':
-        return TWEEN.Easing.Elastic.Out;
-      case 'elastic-inout':
-        return TWEEN.Easing.Elastic.InOut;
-      case 'back':
-      case 'back-in':
-        return TWEEN.Easing.Back.In;
-      case 'back-out':
-        return TWEEN.Easing.Back.Out;
-      case 'back-inout':
-        return TWEEN.Easing.Back.InOut;
-      case 'bounce':
-      case 'bounce-in':
-        return TWEEN.Easing.Bounce.In;
-      case 'bounce-out':
-        return TWEEN.Easing.Bounce.Out;
-      case 'bounce-inout':
-        return TWEEN.Easing.Bounce.InOut;
+      case 'power1':
+      case 'power1.easein':
+        return GSAP.Power1.easeIn;
+      case 'Power1.easeInOut':
+        return GSAP.Power1.easeInOut;
+      case 'Power1.easeOut':
+        return GSAP.Power1.easeOut;
+      case 'Power2':
+      case 'Power2.easeIn':
+        return GSAP.Power2.easeIn;
+      case 'Power2.easeInOut':
+        return GSAP.Power2.easeInOut;
+      case 'Power2.easeOut':
+        return GSAP.Power2.easeOut;
+      case 'Power3':
+      case 'Power3.easeIn':
+        return GSAP.Power3.easeIn;
+      case 'Power3.easeInOut':
+        return GSAP.Power3.easeInOut;
+      case 'Power3.easeOut':
+        return GSAP.Power3.easeOut;
+      case 'Power4':
+      case 'Power4.easeIn':
+        return GSAP.Power4.easeIn;
+      case 'Power4.easeInOut':
+        return GSAP.Power4.easeInOut;
+      case 'Power4.easeOut':
+        return GSAP.Power4.easeOut;
+      case 'Back':
+      case 'Back.easeIn':
+        return GSAP.Back.easeIn.config(this.getOvershoot(1.7));
+      case 'Back.easeInOut':
+        return GSAP.Back.easeInOut.config(this.getOvershoot(1.7));
+      case 'Back.easeOut':
+        return GSAP.Back.easeOut.config(this.getOvershoot(1.7));
+      case 'Elastic':
+      case 'Elastic.easeIn':
+        return GSAP.Elastic.easeIn.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Elastic.easeInOut':
+        return GSAP.Elastic.easeInOut.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Elastic.easeOut':
+        return GSAP.Elastic.easeOut.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Bounce':
+      case 'Bounce.easeIn':
+        return GSAP.Bounce.easeIn;
+      case 'Bounce.easeInOut':
+        return GSAP.Bounce.easeInOut;
+      case 'Bounce.easeOut':
+        return GSAP.Bounce.easeOut;
+      case 'Rough':
+      case 'Rough.easeIn':
+      case 'Rough.easeInOut':
+      case 'Rough.easeOut':
+
+        /*
+        return GSAP.RoughEase.config({
+          template: this.getEasing(null, true),
+          strength: 1,
+          points: 20,
+          taper: 'none',
+          randomize: true,
+          clamp: false,
+        });
+        */
+      case 'SlowMo':
+      case 'SlowMo.easeIn':
+      case 'SlowMo.easeInOut':
+      case 'SlowMo.easeOut':
+        /*
+        return GSAP.SlowMo.ease.config(
+          this.getLinearRatio(0.7),
+          this.getPower(0.7),
+          this.getYoyoMode(false)
+        );
+        */
+      case 'Stepped':
+      case 'Stepped.easeIn':
+      case 'Stepped.easeInOut':
+      case 'Stepped.easeOut':
+      //  return GSAP.SteppedEase;
+       return GSAP.SteppedEase.config(this.getSteps(12));
+      case 'Circ':
+      case 'Circ.easeIn':
+        return GSAP.Circ.easeIn;
+      case 'Circ.easeInOut':
+        return GSAP.Circ.easeInOut;
+      case 'Circ.easeOut':
+        return GSAP.Circ.easeOut;
+      case 'Expo':
+      case 'Expo.easeIn':
+        return GSAP.Expo.easeIn;
+      case 'Expo.easeInOut':
+        return GSAP.Expo.easeInOut;
+      case 'Expo.easeOut':
+        return GSAP.Expo.easeOut;
+      case 'Sine':
+      case 'Sine.easeIn':
+        return GSAP.Sine.easeIn;
+      case 'Sine.easeInOut':
+        return GSAP.Sine.easeInOut;
+      case 'Sine.easeOut':
+        return GSAP.Sine.easeOut;
+      case 'Custom':
+      case 'Custom.easeIn':
+      case 'Custom.easeInOut':
+      case 'Custom.easeOut':
+        return GSAP.Power0.easeNone;
+      //  return GSAP.CustomEase.create();
+      case 'Power0':
+      case 'Power0.easeIn':
+      case 'Power0.easeInOut':
+      case 'Power0.easeOut':
       default:
-        return TWEEN.Easing.Linear.None;
+        return GSAP.Power0.easeNone;
     }
   }
 
@@ -134,31 +220,20 @@ export class TweenComponent implements OnInit {
 
   private getTo(def?: any): any {
     const to = this.getTypeSafe(this.to, def, {});
-    const result : { [key : string] : number } = {};
+    const result: { [key: string]: any } = {};
     Object.entries(to).forEach(([key, value]) => {
-      switch(key) {
-        case 'color' :
-          if (typeof(value) == 'string' || typeof(value) == 'number' || value instanceof THREE.Color) {
-            result[key] = this.getColor(value).getHex();
-          }
-          break;
-        default :
-          if (typeof(value) == 'string') {
-            result[key] = parseFloat(value);
-          } else if (typeof(value) == 'number') {
-            result[key] = value;
-          }
+      switch (key) {
+        default:
+          result[key] = value;
           break;
       }
     });
     return result;
   }
-  
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && this.parentEle !== null && this.parentEle.resetTween) {
@@ -166,16 +241,23 @@ export class TweenComponent implements OnInit {
     }
   }
 
-  private parentEle : any = null;
-  getTween(tween: TWEEN.Tween<any>, parentEle : any): TWEEN.Tween<any> {
+  private parentEle: any = null;
+  private tweenTarget: any = null;
+
+  getTween(tween: GSAP.TimelineLite | GSAP.TimelineMax, tweenTarget : any,  parentEle: any): any {
     this.parentEle = parentEle;
+    this.tweenTarget = tweenTarget;
     if (this.isNotNull(this.to)) {
-      tween.to(this.getTo(), this.getDuration())
-        .easing(this.getEasing())
-        .repeat(this.getRepeat())
-        .yoyo(this.getYoyo());
+      tween.to(
+        tweenTarget,
+        {
+          ...this.getTo(),
+          duration : this.getDuration(),
+          ease: this.getEasing(),
+          repeat: this.getRepeat(),
+          yoyo: this.getYoyo(),
+        });
     }
     return tween;
   }
-
 }

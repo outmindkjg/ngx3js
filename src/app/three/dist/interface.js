@@ -20,22 +20,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.AbstractMeshComponent = exports.AbstractSvgGeometry = exports.AbstractComposerComponent = exports.AbstractGetGeometry = exports.AbstractThreeComponent = void 0;
-var tween_component_1 = require("./tween/tween.component");
 var core_1 = require("@angular/core");
+var CHROMA = require("chroma-js");
+var GSAP = require("gsap");
 var THREE = require("three");
 var dat_gui_module_1 = require("three/examples/jsm/libs/dat.gui.module");
 var stats_module_1 = require("three/examples/jsm/libs/stats.module");
-var CHROMA = require("chroma-js");
-// chroma
-var TWEEN = require("@tweenjs/tween.js");
+var tween_component_1 = require("./tween/tween.component");
 var AbstractThreeComponent = /** @class */ (function () {
     function AbstractThreeComponent() {
+        this.tweenStart = true;
         this.tweenTarget = null;
         this.tweenTimer = null;
     }
     AbstractThreeComponent.prototype.ngOnInit = function () {
     };
     AbstractThreeComponent.prototype.ngOnChanges = function (changes) {
+        if (changes && changes.tweenStart && this.tweenTarget) {
+            this.resetTween();
+        }
     };
     AbstractThreeComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
@@ -53,22 +56,23 @@ var AbstractThreeComponent = /** @class */ (function () {
     };
     AbstractThreeComponent.prototype.resetTween = function () {
         var _this = this;
-        if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0) {
-            this.tweenTimer = new TWEEN.Tween(this.tweenTarget);
+        if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0 && this.tweenStart) {
+            this.tweenTimer = new GSAP.TimelineLite();
             this.tween.forEach(function (tween) {
-                tween.getTween(_this.tweenTimer);
+                tween.getTween(_this.tweenTimer, _this.tweenTarget, _this);
             });
-            this.tweenTimer.onUpdate(function () {
-            }).onComplete(function () {
-                // console.log(this.tweenTarget);
-            }).start();
+            this.tweenTimer.play();
         }
         else if (this.tweenTimer !== null) {
-            this.tweenTimer.stop();
+            this.tweenTimer.kill();
+            this.tweenTimer = null;
         }
     };
     AbstractThreeComponent.prototype.ngOnDestroy = function () {
     };
+    __decorate([
+        core_1.Input()
+    ], AbstractThreeComponent.prototype, "tweenStart");
     __decorate([
         core_1.ContentChildren(tween_component_1.TweenComponent, { descendants: false })
     ], AbstractThreeComponent.prototype, "tween");
@@ -121,6 +125,18 @@ exports.AbstractMeshComponent = AbstractMeshComponent;
 var ThreeUtil = /** @class */ (function () {
     function ThreeUtil() {
     }
+    ThreeUtil.cssInject = function (cssContent, indoc) {
+        var doc = indoc || document;
+        var injected = document.createElement('style');
+        injected.type = 'text/css';
+        injected.innerHTML = cssContent;
+        var head = doc.getElementsByTagName('head')[0];
+        try {
+            head.appendChild(injected);
+        }
+        catch (e) {
+        }
+    };
     ThreeUtil.getChromaScale = function () {
         var scales = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -137,7 +153,7 @@ var ThreeUtil = /** @class */ (function () {
     ThreeUtil.render = function (renderTimer) {
         if (this.renderTimer !== renderTimer) {
             this.renderTimer = renderTimer;
-            TWEEN.update(renderTimer.elapsedTime * 1000);
+            // GSAP.update(renderTimer.elapsedTime * 1000);
             // TWEEN.update();
         }
     };
@@ -401,6 +417,7 @@ var ThreeGui = /** @class */ (function () {
     function ThreeGui(style, pars) {
         this.gui = null;
         this.gui = new dat_gui_module_1.GUI(pars);
+        console.log();
         this.domElement = this.gui.domElement;
         this.setStyle(style);
     }
@@ -411,6 +428,10 @@ var ThreeGui = /** @class */ (function () {
                 var key = _a[0], value = _a[1];
                 domElement_1.style[key] = value;
             });
+        }
+        if (ThreeGui.customCss !== null) {
+            ThreeUtil.cssInject(ThreeGui.customCss);
+            ThreeGui.customCss = null;
         }
         return this;
     };
@@ -453,6 +474,7 @@ var ThreeGui = /** @class */ (function () {
     ThreeGui.prototype.remove = function (controller) {
         return this.gui.remove(controller);
     };
+    ThreeGui.customCss = null;
     return ThreeGui;
 }());
 exports.ThreeGui = ThreeGui;

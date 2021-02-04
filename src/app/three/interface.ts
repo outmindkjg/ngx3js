@@ -1,10 +1,11 @@
-import { TweenComponent } from './tween/tween.component';
-import { OnInit, SimpleChanges, OnChanges, AfterContentInit, OnDestroy, ContentChildren, QueryList, Injectable, Component, Input } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import * as CHROMA from 'chroma-js';
+import * as GSAP from "gsap";
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import * as CHROMA from 'chroma-js';
-import * as TWEEN from '@tweenjs/tween.js';
+import { TweenComponent } from './tween/tween.component';
+// import { ScrollTrigger, Draggable, MotionPathPlugin } from "gsap/all";
 
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
@@ -49,7 +50,7 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
   }
 
   private tweenTarget : any  = null;
-  private tweenTimer : TWEEN.Tween<any> = null;
+  private tweenTimer : GSAP.TimelineLite | GSAP.TimelineMax= null;
   setTweenTarget( tweenTarget : any) {
     if (this.tweenTarget !== tweenTarget) {
       this.tweenTarget = tweenTarget;
@@ -59,52 +60,13 @@ export abstract class AbstractThreeComponent implements OnInit, OnChanges, After
 
   resetTween() {
     if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0 && this.tweenStart) {
-      let tweenTarget = {};
-      if (this.tweenTarget instanceof HTMLElement) {
-        Object.entries(this.tweenTarget.style).forEach(([key, value]) => {
-          if (value !== null && value != '' && typeof(key) == 'string') {
-            switch(key) {
-              case 'color' :
-              case 'backgroundColor' :
-                tweenTarget[key] = ThreeUtil.getColorSafe(value).getHex();
-                break;
-              default :
-                if (value.endsWith('px')) {
-                  tweenTarget[key] = parseFloat(value);
-                }
-                break;
-            }
-          }
-        });
-      } else {
-        tweenTarget = this.tweenTarget;
-      }
-      this.tweenTimer = new TWEEN.Tween(tweenTarget)
+      this.tweenTimer = new GSAP.TimelineLite();
       this.tween.forEach(tween => {
-        tween.getTween(this.tweenTimer, this);
+        tween.getTween(this.tweenTimer, this.tweenTarget, this);
       });
-      this.tweenTimer.onUpdate((object: any, elapsed: number) => {
-        if (this.tweenTarget !== object && this.tweenTarget instanceof HTMLElement) {
-          const style = this.tweenTarget.style;
-          Object.entries(object).forEach(([key, value]) => {
-            if (ThreeUtil.isNotNull(value)) {
-              switch(key) {
-                case 'backgroundColor' :
-                case 'color' :
-                  style[key] = ThreeUtil.getColorSafe(value as number, 0).getStyle();
-                  break;
-                default :
-                  style[key] = value + 'px';
-                  break;
-              }
-            }
-          })
-        }
-      }).onComplete((object : any) => {
-
-      }).start();
+      this.tweenTimer.play();
     } else if (this.tweenTimer !== null) {
-      this.tweenTimer.stop();
+      this.tweenTimer.kill();
       this.tweenTimer = null;
     }
   }
@@ -152,8 +114,8 @@ export class ThreeUtil {
 			head.appendChild( injected );
 		} catch ( e ) {
 		}
-  } 
-  
+  }
+
   static getChromaScale(...scales) : CHROMA.Scale {
     return CHROMA.scale(scales)
   }
@@ -173,7 +135,7 @@ export class ThreeUtil {
   static render(renderTimer : RendererTimer) {
     if (this.renderTimer !== renderTimer) {
       this.renderTimer = renderTimer;
-      TWEEN.update(renderTimer.elapsedTime * 1000);
+      // GSAP.update(renderTimer.elapsedTime * 1000);
       // TWEEN.update();
     }
   }
@@ -595,7 +557,7 @@ export class ThreeGui implements ThreeGuiController {
       ThreeUtil.cssInject(ThreeGui.customCss);
       ThreeGui.customCss = null;
     }
-    
+
     return this;
   }
 
