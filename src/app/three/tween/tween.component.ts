@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
-
 import * as THREE from 'three';
 
 @Component({

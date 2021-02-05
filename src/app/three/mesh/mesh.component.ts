@@ -1,6 +1,7 @@
 import {
   Component,
   ContentChildren,
+  forwardRef,
   Input,
   OnInit,
   QueryList,
@@ -37,7 +38,7 @@ import { HtmlComponent, HtmlObject } from '../html/html.component';
 @Component({
   selector: 'three-mesh',
   templateUrl: './mesh.component.html',
-  styleUrls: ['./mesh.component.scss'],
+  styleUrls: ['./mesh.component.scss']
 })
 export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() type: string = 'mesh';

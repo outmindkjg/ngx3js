@@ -1,20 +1,22 @@
-import { AudioComponent } from './../audio/audio.component';
-import { ListenerComponent } from './../listener/listener.component';
-import { MixerComponent } from './../mixer/mixer.component';
-import { AfterContentInit, AfterViewInit, Component, QueryList, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild } from '@angular/core';
+import * as GSAP from 'gsap';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
-import { CameraComponent } from './../camera/camera.component';
-import { SceneComponent } from './../scene/scene.component';
-import { ThreeClock, ThreeStats, ThreeUtil, ThreeGui, GuiControlParam, RendererTimer } from '../interface';
-import { Observable, Subject } from 'rxjs';
-import { PlaneComponent } from '../plane/plane.component';
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { GuiControlParam, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
+import { PlaneComponent } from '../plane/plane.component';
+import { AudioComponent } from './../audio/audio.component';
+import { CameraComponent } from './../camera/camera.component';
+import { ListenerComponent } from './../listener/listener.component';
+import { MixerComponent } from './../mixer/mixer.component';
+import { SceneComponent } from './../scene/scene.component';
+
 
 @Component({
   selector: 'three-renderer',
@@ -279,11 +281,18 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     // this.control = this.getControls(this.cameras, this.renderer);
     this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
     this.synkObject3D(['listner', 'audio']);
-    this.render();
   }
 
   getRenderer(): THREE.Renderer {
     if (this.renderer === null) {
+      GSAP.gsap.ticker.fps(60);
+      if (this._renderCaller !== null) {
+        GSAP.gsap.ticker.remove(this._renderCaller);
+      }
+      this._renderCaller = () => {
+        this.render();
+      }
+      GSAP.gsap.ticker.add(this._renderCaller);
       switch (this.css3dType.toLowerCase()) {
         case 'css3d':
           this.cssRenderer = new CSS3DRenderer();
@@ -331,6 +340,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return this.renderer;
   }
 
+  private _renderCaller : (...args: any[]) => void = null;
+
   render() {
     if (this.renderer === null) {
       return;
@@ -362,7 +373,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.stats != null) {
       this.stats.end();
     }
-    requestAnimationFrame(() => { this.render(); });
+    // requestAnimationFrame(() => { this.render(); });
   }
 
   @HostListener('window:resize')
