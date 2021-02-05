@@ -102,6 +102,12 @@ export class HtmlComponent extends AbstractThreeComponent implements OnInit {
   }
 
   static applyHtmlStyle(ele: HTMLElement, style: string | HtmlObject): HTMLElement {
+    if (ThreeUtil.isNull(style) || typeof (style) === 'string' || ThreeUtil.isNull(style['click'])) {
+      ele.style.pointerEvents ='none'; 
+    } else {
+      ele.style.pointerEvents ='auto'; 
+    }
+
     if (ThreeUtil.isNull(style)) {
       ele.innerHTML = 'error';
     } else if (typeof (style) === 'string') {
