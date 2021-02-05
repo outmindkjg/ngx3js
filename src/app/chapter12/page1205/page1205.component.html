@@ -1,4 +1,35 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-canvas>
+        <three-transform 
+            [anchorSeparat]="controls.anchorSeparat"
+            [x]="controls.x"
+            [y]="controls.y"
+            [z]="controls.z"
+            [width]="controls.width"
+            [height]="controls.height"
+            [left]="controls.left"
+            [top]="controls.top"
+            [right]="controls.right"
+            [bottom]="controls.bottom"
+            [anchorMinX]="controls.anchors.min.x"
+            [anchorMinY]="controls.anchors.min.y"
+            [anchorMaxX]="controls.anchors.max.x"
+            [anchorMaxY]="controls.anchors.max.y"
+            [pivotX]="controls.pivot.x"
+            [pivotY]="controls.pivot.y"
+            [rotationX]="controls.rotation.x"
+            [rotationY]="controls.rotation.y"
+            [rotationZ]="controls.rotation.z"
+            [scaleX]="controls.scale.x"
+            [scaleY]="controls.scale.y"
+            [scaleZ]="controls.scale.z"
+        ></three-transform>
+        <three-background
+            [backgroundColor]="'0xff12ff'"
+            [border]="'3px solid red'"
+            
+        ></three-background>
+    </three-canvas>
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>

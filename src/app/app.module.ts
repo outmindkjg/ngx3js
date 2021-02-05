@@ -154,6 +154,10 @@ import { ListenerComponent } from './three/listener/listener.component';
 import { AudioComponent } from './three/audio/audio.component';
 import { PlaneComponent } from './three/plane/plane.component';
 import { HtmlComponent } from './three/html/html.component';
+import { CanvasComponent } from './three/canvas/canvas.component';
+import { VisualComponent } from './three/visual/visual.component';
+import { TransformComponent } from './three/transform/transform.component';
+import { BackgroundComponent } from './three/background/background.component';
 
 @NgModule({
   declarations: [
@@ -307,7 +311,11 @@ import { HtmlComponent } from './three/html/html.component';
     Page1205Component,
     Page1206Component,
     Page1207Component,
-    HtmlComponent
+    HtmlComponent,
+    CanvasComponent,
+    VisualComponent,
+    TransformComponent,
+    BackgroundComponent
   ],
   imports: [
     BrowserModule,

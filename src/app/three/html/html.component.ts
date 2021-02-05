@@ -152,6 +152,7 @@ export class HtmlComponent extends AbstractThreeComponent implements OnInit {
             }
             break;
           default:
+            // console.log(key, value);
             if (typeof (value) === 'string') {
               ele.style[key] = value;
             } else if (typeof (value) === 'number') {

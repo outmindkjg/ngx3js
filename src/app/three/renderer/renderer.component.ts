@@ -9,6 +9,8 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { CanvasComponent } from '../canvas/canvas.component';
+import { HtmlComponent } from '../html/html.component';
 import { GuiControlParam, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
@@ -48,6 +50,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
   @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
+  @ContentChildren(CanvasComponent) canvas2d: QueryList<CanvasComponent>;
 
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
@@ -140,7 +143,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       if (this.cssRenderer !== null) {
         this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
       }
-      this._sizeSubject.next(this.getSize());
+      const rendererSize = this.getSize();
+      this.canvas2d.forEach(canvas2d => {
+        canvas2d.setSize(rendererSize);
+      })
+      this._sizeSubject.next(rendererSize);
     }
   }
 
@@ -161,6 +168,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.audio.changes.subscribe(() => {
       this.synkObject3D(['audio']);
     });
+    this.canvas2d.changes.subscribe(() => {
+      this.synkObject3D(['canvas2d']);
+    });
   }
 
   private renderListner: THREE.AudioListener = null;
@@ -179,7 +189,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
               audio.setListener(this.renderListner);
             });
             break;
-        }
+          case 'canvas2d':
+            this.canvas2d.forEach((canvas2d) => {
+              canvas2d.setParentNode(this.canvas.nativeElement);
+            });
+            break;
+          }
       });
     }
   }
@@ -194,7 +209,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private clock: ThreeClock = null;
   private control: any = null;
 
-  private getControls(cameras: QueryList<CameraComponent>, renderer: THREE.Renderer | CSS3DRenderer): any {
+  private getControls(cameras: QueryList<CameraComponent>, domElement: HTMLElement): any {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
     let controlAutoRotate: boolean = this.controlAutoRotate;
@@ -216,17 +231,17 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       const camera: THREE.Camera = cameraComp.getCamera();
       switch (controlType.toLowerCase()) {
         case "orbit":
-          const controls = new OrbitControls(camera, renderer.domElement);
+          const controls = new OrbitControls(camera, domElement);
           controls.autoRotate = controlAutoRotate;
           return controls;
         case "fly":
-          return new FlyControls(camera, renderer.domElement);
+          return new FlyControls(camera, domElement);
         case "firstperson":
-          return new FirstPersonControls(camera, renderer.domElement);
+          return new FirstPersonControls(camera, domElement);
         case "transform":
-          return new TransformControls(camera, renderer.domElement);
+          return new TransformControls(camera, domElement);
         case "trackball":
-          return new TrackballControls(camera, renderer.domElement);
+          return new TrackballControls(camera, domElement);
       }
     }
     return null;
@@ -278,9 +293,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setRenderer(this.renderer, this.cssRenderer, this.scenes);
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
+    this.control = this.getControls(this.cameras, this.canvas.nativeElement);
     // this.control = this.getControls(this.cameras, this.renderer);
-    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
-    this.synkObject3D(['listner', 'audio']);
   }
 
   getRenderer(): THREE.Renderer {
@@ -292,7 +306,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this._renderCaller = () => {
         this.render();
       }
-      GSAP.gsap.ticker.add(this._renderCaller);
       switch (this.css3dType.toLowerCase()) {
         case 'css3d':
           this.cssRenderer = new CSS3DRenderer();
@@ -312,7 +325,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
       this.rendererWidth = width;
       this.rendererHeight = height;
-      this.renderer.setSize(width, height);
       if (this.renderer instanceof THREE.WebGLRenderer) {
         this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)), 0);
         this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -327,15 +339,16 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.cssRenderer.domElement.style.position = 'absolute';
         this.cssRenderer.domElement.style.top = '0px';
         this.cssRenderer.domElement.style.left = '0px';
-        this.cssRenderer.setSize(width, height);
+        this.cssRenderer.domElement.style.pointerEvents = 'none';
         this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
-        this.renderer.domElement.style.position = 'relative';
-        this.renderer.domElement.style.pointerEvents = 'none';
-        this.canvas.nativeElement.appendChild(this.renderer.domElement);
-      } else {
-        this.canvas.nativeElement.appendChild(this.renderer.domElement);
       }
+      this.renderer.domElement.style.position = 'relative';
+      this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      this.synkObject3D(['listner', 'audio','canvas2d']);
+      this.setSize(width, height);
       ThreeUtil.setRenderer(this.renderer);
+      // GSAP.gsap.ticker.add(this._renderCaller);
+      this._renderCaller();
     }
     return this.renderer;
   }
@@ -354,6 +367,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.mixer.forEach(mixer => {
       mixer.update(renderTimer);
     });
+    // console.log(renderTimer);
     ThreeUtil.render(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
@@ -373,7 +387,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.stats != null) {
       this.stats.end();
     }
-    // requestAnimationFrame(() => { this.render(); });
+    requestAnimationFrame(this._renderCaller);
   }
 
   @HostListener('window:resize')

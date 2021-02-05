@@ -37,6 +37,11 @@ ng g c three/listener
 ng g c three/audio
 ng g c three/plane
 ng g c three/html
+ng g c three/canvas
+ng g c three/visual
+ng g c three/transform
+
+
 
 
 
