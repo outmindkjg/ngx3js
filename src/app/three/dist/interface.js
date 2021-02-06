@@ -33,8 +33,7 @@ var AbstractThreeComponent = /** @class */ (function () {
         this.tweenTarget = null;
         this.tweenTimer = null;
     }
-    AbstractThreeComponent.prototype.ngOnInit = function () {
-    };
+    AbstractThreeComponent.prototype.ngOnInit = function () { };
     AbstractThreeComponent.prototype.ngOnChanges = function (changes) {
         if (changes && changes.tweenStart && this.tweenTarget) {
             this.resetTween();
@@ -56,7 +55,10 @@ var AbstractThreeComponent = /** @class */ (function () {
     };
     AbstractThreeComponent.prototype.resetTween = function () {
         var _this = this;
-        if (this.tweenTarget !== null && this.tween !== null && this.tween.length > 0 && this.tweenStart) {
+        if (this.tweenTarget !== null &&
+            this.tween !== null &&
+            this.tween.length > 0 &&
+            this.tweenStart) {
             this.tweenTimer = new GSAP.TimelineLite();
             this.tween.forEach(function (tween) {
                 tween.getTween(_this.tweenTimer, _this.tweenTarget, _this);
@@ -68,8 +70,7 @@ var AbstractThreeComponent = /** @class */ (function () {
             this.tweenTimer = null;
         }
     };
-    AbstractThreeComponent.prototype.ngOnDestroy = function () {
-    };
+    AbstractThreeComponent.prototype.ngOnDestroy = function () { };
     __decorate([
         core_1.Input()
     ], AbstractThreeComponent.prototype, "tweenStart");
@@ -125,17 +126,273 @@ exports.AbstractMeshComponent = AbstractMeshComponent;
 var ThreeUtil = /** @class */ (function () {
     function ThreeUtil() {
     }
-    ThreeUtil.cssInject = function (cssContent, indoc) {
+    ThreeUtil.cssInject = function (cssContent, id, indoc) {
         var doc = indoc || document;
-        var injected = document.createElement('style');
-        injected.type = 'text/css';
-        injected.innerHTML = cssContent;
-        var head = doc.getElementsByTagName('head')[0];
-        try {
-            head.appendChild(injected);
+        var cssParent = doc.getElementsByTagName('head')[0];
+        if (cssParent === null || cssParent == undefined) {
+            cssParent = doc.getElementsByTagName('body')[0];
         }
-        catch (e) {
+        if (cssParent !== null && cssParent !== undefined) {
+            if (id !== null && id !== undefined) {
+                var oldcss = doc.getElementById(id);
+                if (oldcss !== null && oldcss !== undefined) {
+                    oldcss.parentElement.removeChild(oldcss);
+                }
+            }
+            else {
+            }
+            try {
+                var injected = document.createElement('style');
+                injected.type = 'text/css';
+                if (id !== null && id !== undefined) {
+                    injected.id = id;
+                }
+                injected.innerHTML = cssContent;
+                cssParent.appendChild(injected);
+                return true;
+            }
+            catch (e) { }
         }
+        return false;
+    };
+    ThreeUtil.cssEject = function (id, indoc) {
+        var doc = indoc || document;
+        var oldcss = doc.getElementById(id);
+        if (oldcss !== null && oldcss !== undefined) {
+            oldcss.parentElement.removeChild(oldcss);
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    ThreeUtil.makeUUID = function (len, pre) {
+        var result = '';
+        var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        var maxLen = characters.length;
+        for (var i = 0; i < len; i++) {
+            result += characters.charAt(Math.floor(Math.random() * maxLen));
+        }
+        return (pre ? pre : 'tmp') + '_' + result;
+    };
+    ThreeUtil.camelCaseToDash = function (myStr) {
+        return myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    };
+    ThreeUtil.removeCssStyle = function (ele, clazzName) {
+        if (this.isNotNull(clazzName)) {
+            this.cssEject(clazzName);
+            if (ele.classList.contains(clazzName)) {
+                ele.classList.remove(clazzName);
+            }
+            if (this.isNotNull(this._elementEvents[clazzName])) {
+                var eleEvents = this._elementEvents[clazzName];
+                Object.entries(eleEvents).forEach(function (_a) {
+                    var key = _a[0], value = _a[1];
+                    ele.removeEventListener(key, value, false);
+                });
+                delete this._elementEvents[clazzName];
+            }
+        }
+        return true;
+    };
+    ThreeUtil.toggleCssStyle = function (ele, clazzName, isActive) {
+        if (this.isNotNull(clazzName)) {
+            if (!isActive) {
+                if (ele.classList.contains(clazzName)) {
+                    ele.classList.remove(clazzName);
+                }
+                if (this.isNotNull(this._elementEvents[clazzName])) {
+                    var eleEvents = this._elementEvents[clazzName];
+                    Object.entries(eleEvents).forEach(function (_a) {
+                        var key = _a[0], value = _a[1];
+                        ele.removeEventListener(key, value, false);
+                    });
+                }
+            }
+            else {
+                if (!ele.classList.contains(clazzName)) {
+                    ele.classList.add(clazzName);
+                }
+                if (this.isNotNull(this._elementEvents[clazzName])) {
+                    var eleEvents = this._elementEvents[clazzName];
+                    Object.entries(eleEvents).forEach(function (_a) {
+                        var key = _a[0], value = _a[1];
+                        ele.addEventListener(key, value, false);
+                    });
+                }
+            }
+        }
+        return true;
+    };
+    ThreeUtil.addCssStyle = function (ele, styles, clazzName, classPrefix, vertualClass) {
+        var _this = this;
+        if (clazzName == null || clazzName == undefined) {
+            clazzName = this.makeUUID(15, classPrefix);
+        }
+        var eventList = {};
+        var styleList = [];
+        Object.entries(styles).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            if (_this.isNotNull(value)) {
+                switch (key) {
+                    case 'change':
+                    case 'click':
+                    case 'focus':
+                    case 'keyup':
+                    case 'keydown':
+                    case 'load':
+                    case 'select':
+                    case 'mousedown':
+                    case 'mouseout':
+                    case 'mouseover':
+                    case 'mousemove':
+                    case 'mouseup':
+                        if (typeof value === 'function') {
+                            eventList[key] = value;
+                        }
+                        else {
+                            eventList[key] = null;
+                        }
+                        break;
+                    case 'innerHTML':
+                        ele.innerHTML = value;
+                        break;
+                    case 'innerText':
+                        ele.innerText = value;
+                        break;
+                    case 'textContent':
+                        ele.textContent = value;
+                        break;
+                    case 'opacity':
+                        if (typeof value == 'number') {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                        }
+                        else if (typeof value == 'string') {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + parseFloat(value) + '');
+                        }
+                        break;
+                    case 'color':
+                    case 'backgroundColor':
+                    case 'borderColor':
+                        if (typeof value == 'number' || typeof value == 'string') {
+                            styleList.push(_this.camelCaseToDash(key) +
+                                ': ' +
+                                _this.getColorSafe(value).getStyle() +
+                                '');
+                        }
+                        else if (value instanceof THREE.Color) {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + value.getStyle() + '');
+                        }
+                        else if (value instanceof THREE.Vector4) {
+                            styleList.push(_this.camelCaseToDash(key) +
+                                ': rgba(' +
+                                value.x +
+                                ',' +
+                                value.y +
+                                ',' +
+                                value.z +
+                                ',' +
+                                value.w +
+                                ')');
+                        }
+                        break;
+                    case 'transform':
+                        if (value instanceof Array) {
+                            if (value.length > 0) {
+                                styleList.push(_this.camelCaseToDash(key) + ': ' + value.join(' ') + '');
+                            }
+                        }
+                        else if (typeof (value) == 'string' && value !== '') {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                        }
+                        break;
+                    case 'backgroundImage':
+                    case 'borderImageSource':
+                        break;
+                    case 'width':
+                    case 'height':
+                    case 'left':
+                    case 'right':
+                    case 'top':
+                    case 'bottom':
+                    case 'borderWidth':
+                    case 'borderRadius':
+                    case 'backgroundRepeat':
+                    case 'backgroundRepeatX':
+                    case 'backgroundRepeatY':
+                    case 'backgroundPosition':
+                    case 'backgroundPositionX':
+                    case 'backgroundPositionY':
+                    case 'backgroundSize':
+                    case 'backgroundSizeX':
+                    case 'backgroundSizeY':
+                    case 'backgroundClip':
+                    case 'border':
+                    case 'borderStyle':
+                    case 'borderLeft':
+                    case 'borderTop':
+                    case 'borderRight':
+                    case 'borderBottom':
+                    case 'borderImage':
+                    case 'borderImageSlice':
+                    case 'borderImageOutset':
+                    case 'borderImageRepeat':
+                    case 'borderImageWidth':
+                    case 'fontFamily':
+                    case 'fontSize':
+                    case 'fontStyle':
+                    case 'fontWeight':
+                    case 'textAlign':
+                    case 'textTransform':
+                    case 'textDecoration':
+                    case 'letterSpacing':
+                    case 'textIndent':
+                    case 'textJustify':
+                    case 'textSizeAdjust':
+                    case 'whiteSpace':
+                    case 'wordBreak':
+                    case 'wordSpacing':
+                    case 'transformOrigin':
+                        if (typeof value == 'number') {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + 'px');
+                        }
+                        else if (typeof value == 'string') {
+                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                        }
+                        break;
+                }
+            }
+        });
+        this.cssInject('.' + clazzName + (vertualClass ? (':' + vertualClass) : '') + '{' + styleList.join(';') + '}', clazzName);
+        if (!ele.classList.contains(clazzName)) {
+            ele.classList.add(clazzName);
+        }
+        if (eventList != {}) {
+            var eleEvents_1 = null;
+            if (this.isNotNull(this._elementEvents[clazzName])) {
+                eleEvents_1 = this._elementEvents[clazzName];
+            }
+            else {
+                eleEvents_1 = this._elementEvents[clazzName] = {};
+            }
+            Object.entries(eventList).forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                var oldEvent = eleEvents_1[key];
+                if (_this.isNotNull(value) && oldEvent !== value) {
+                    if (_this.isNotNull(oldEvent)) {
+                        ele.removeEventListener(key, oldEvent, false);
+                    }
+                    ele.addEventListener(key, value, false);
+                    eleEvents_1[key] = value;
+                }
+                else if (_this.isNull(value) && _this.isNotNull(oldEvent)) {
+                    ele.removeEventListener(key, oldEvent, false);
+                    delete eleEvents_1[key];
+                }
+            });
+            this._elementEvents[clazzName] = eleEvents_1;
+        }
+        return clazzName;
     };
     ThreeUtil.getChromaScale = function () {
         var scales = [];
@@ -231,6 +488,21 @@ var ThreeUtil = /** @class */ (function () {
         }
         return undefined;
     };
+    ThreeUtil.getColorAlphaSafe = function (color, alpha, altColor) {
+        var defColor = this.getColorSafe(color, altColor);
+        if (this.isNotNull(defColor)) {
+            if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
+                return new THREE.Vector4(defColor.r, defColor.g, defColor.b, alpha);
+            }
+            else {
+                return defColor;
+            }
+        }
+        else if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
+            return new THREE.Vector4(0, 0, 0, alpha);
+        }
+        return undefined;
+    };
     ThreeUtil.getTypeSafe = function (value, altValue, nullValue) {
         var defValue = this.isNotNull(value) ? value : altValue;
         if (this.isNotNull(defValue)) {
@@ -246,7 +518,7 @@ var ThreeUtil = /** @class */ (function () {
     ThreeUtil.getAngleSafe = function (angle, altangle) {
         var defValue = this.getTypeSafe(angle, altangle);
         if (this.isNotNull(defValue)) {
-            return defValue / 180 * Math.PI;
+            return (defValue / 180) * Math.PI;
         }
         return undefined;
     };
@@ -315,7 +587,10 @@ var ThreeUtil = /** @class */ (function () {
         var param = params.find(function (param) {
             return name == param.name.toLowerCase();
         });
-        if (names.length > 0 && param && param.children && param.children.length > 0) {
+        if (names.length > 0 &&
+            param &&
+            param.children &&
+            param.children.length > 0) {
             return this.getGuiController(param.children, names);
         }
         else {
@@ -355,6 +630,7 @@ var ThreeUtil = /** @class */ (function () {
         });
         return gui;
     };
+    ThreeUtil._elementEvents = {};
     ThreeUtil.stats = null;
     return ThreeUtil;
 }());

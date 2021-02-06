@@ -1,8 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-
 import * as THREE from 'three';
-import { HtmlComponent } from '../html/html.component';
-import { ThreeUtil } from '../interface';
+import { CssStyle, ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-transform',
@@ -12,6 +10,7 @@ import { ThreeUtil } from '../interface';
 export class TransformComponent implements OnInit {
 
   @Input() visible: boolean = true;
+  @Input() virtualClass: string = null;
   @Input() anchorSeparat: boolean = false;
   @Input() x : number = null;
   @Input() y : number = null;
@@ -46,7 +45,7 @@ export class TransformComponent implements OnInit {
   getRight(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.right, def);
   }
-  
+
   getBottom(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.bottom, def);
   }
@@ -55,7 +54,7 @@ export class TransformComponent implements OnInit {
   getPosition(def? : THREE.Vector3) : THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.x, this.y, this.z, def);
   }
-  
+
   getSize(def? : THREE.Vector2) : THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.width, this.height, def);
   }
@@ -91,6 +90,16 @@ export class TransformComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.parentNode !== null) {
+      if (ThreeUtil.isNotNull(this.cssClazzName)) {
+        ThreeUtil.removeCssStyle(this.parentNode, this.cssClazzName);
+        this.cssClazzName = null;
+      }
+      this.parentNode = null;
+    }
+  }
+
   private parentNode : HTMLElement = null;
   private parentSize : THREE.Vector2 = null;
 
@@ -98,39 +107,32 @@ export class TransformComponent implements OnInit {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
-    this.parentSize = size; 
+    this.parentSize = size;
     this.applyHtmlStyle();
   }
 
-  applyHtmlStyle() {
-    if (this.parentNode !== null && this.parentSize !== null) {
-      const style : { [ key : string] : string } = {
-        width : '100px',
-        height : '100px',
-        left : 'auto',
-        right : 'auto',
-        top : 'auto',
-        bottom : 'auto'
-      }
+  getStyle() : CssStyle {
+    let style : CssStyle = {}
+    if (this.parentSize !== null) {
       const anchorMin = this.getAnchorMin(new THREE.Vector2(0, 0)).multiply(this.parentSize);
       const anchorMax = this.getAnchorMax(new THREE.Vector2(1, 1)).multiply(this.parentSize);
-
       if (this.anchorSeparat) {
         const left = this.getLeft(0);
         const top = this.getTop(0);
         const right = this.getRight(0);
         const bottom = this.getBottom(0);
         const size = anchorMax.clone().sub(anchorMin);
-        style.width = (size.x + left - right) + 'px';
-        style.height = (size.y + top - bottom) + 'px';
-        style.left = (anchorMin.x + left) + 'px';
-        style.top = (this.parentSize.y - anchorMax.y + top) + 'px';
+
+        style.width = (size.x + left - right);
+        style.height = (size.y + top - bottom);
+        style.left = (anchorMin.x + left);
+        style.top = (this.parentSize.y - anchorMax.y + top);
       } else {
         const size = this.getSize(this.parentSize);
-        style.width = size.x + 'px';
-        style.height = size.y + 'px';
-        style.left = anchorMin.x + 'px';
-        style.top = (this.parentSize.y - anchorMax.y) + 'px';
+        style.width = size.x;
+        style.height = size.y;
+        style.left = anchorMin.x;
+        style.top = (this.parentSize.y - anchorMax.y);
       }
       const transform : string[] = [];
       const scale = this.getScale(new THREE.Vector3(1,1,1));
@@ -144,14 +146,28 @@ export class TransformComponent implements OnInit {
         transform.push('rotate3d('+quaternion.x+','+quaternion.y+','+quaternion.z+','+quaternion.w+'rad)');
       }
       if (transform.length > 0) {
-        style.transform = transform.join(' ');
+        style.transform = transform;
       }
       const pivot = this.getPivot(new THREE.Vector2(0.5,0.5));
       if (pivot.x !== 0.5 || pivot.y !== 0.5) {
         style.transformOrigin = (pivot.x * 100) + '% '+(pivot.y * 100) + '%';
       }
-      HtmlComponent.applyHtmlStyle(this.parentNode, style);
+    }
+    return style;
+  }
+
+  applyHtmlStyle() {
+    if (this.parentNode !== null && this.parentSize !== null) {
+      if (this.visible) {
+        const style: CssStyle= this.getStyle();
+        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', this.virtualClass);
+      } else {
+        ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
+      }
     }
   }
+
+  private cssClazzName : string = null;
+
 
 }

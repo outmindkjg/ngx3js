@@ -1,3 +1,4 @@
+import { CssStyle, ThreeUtil } from './../interface';
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import { HtmlComponent } from '../html/html.component';
 import { VisualComponent } from '../visual/visual.component';
@@ -21,6 +22,19 @@ export class CanvasComponent implements OnInit {
 
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (this.canvas !== null) {
+      if (ThreeUtil.isNotNull(this.canvas.parentNode)) {
+        this.canvas.parentNode.removeChild(this.canvas);
+      }
+      if (ThreeUtil.isNotNull(this.cssClazzName)) {
+        ThreeUtil.removeCssStyle(this.canvas, this.cssClazzName);
+        this.cssClazzName = null;
+      }
+      this.canvas = null;
+    }
   }
 
   ngAfterContentInit() {
@@ -88,32 +102,32 @@ export class CanvasComponent implements OnInit {
     }
   }
 
+  getStyle() : CssStyle {
+    const style: CssStyle = {
+      width: '100%',
+      height: '100%',
+    }
+    if (this.canvasSize !== null) {
+      style.width = this.canvasSize.x;
+      style.height = this.canvasSize.y;
+    }
+    return style;
+  }
+
   applyHtmlStyle() {
     if (this.canvas !== null) {
-      const style: { [key: string]: string } = {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        right: 'auto',
-        bottom: 'auto',
-        pointerEvents: 'none',
-        backgroundColor: 'red',
-        opacity: '0.5'
-      }
-      if (this.canvasSize !== null) {
-        style.width = this.canvasSize.x + 'px';
-        style.height = this.canvasSize.y + 'px';
-      }
-      HtmlComponent.applyHtmlStyle(this.canvas, style);
+      const style: CssStyle= this.getStyle();
+      this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
       this.synkObject2D(['transform', 'background']);
     }
   }
 
+  private cssClazzName : string = null;
+
   getCanvas(): HTMLElement {
     if (this.canvas === null) {
       const canvas = document.createElement("div");
+      canvas.classList.add('three-canvas');
       if (this.canvas !== null && this.canvas.parentNode !== null) {
         this.canvas.parentNode.removeChild(this.canvas);
       }

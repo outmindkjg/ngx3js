@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { HtmlComponent } from '../html/html.component';
-import { ThreeUtil } from '../interface';
+import { CssStyle, ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-background',
@@ -11,6 +10,8 @@ import { ThreeUtil } from '../interface';
 export class BackgroundComponent implements OnInit {
 
   @Input() visible: boolean = true;
+
+  @Input() virtualClass: string = null;
   @Input() backgroundColor: string | number = null;
   @Input() backgroundOpacity: number = null;
   @Input() backgroundImage: string = null;
@@ -58,12 +59,8 @@ export class BackgroundComponent implements OnInit {
   @Input() wordBreak: string = null;
   @Input() wordSpacing: string = null;
 
-  private getBackgroundColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.backgroundColor, def);
-  }
-
-  private getBackgroundOpacity(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.backgroundOpacity, def);
+  private getBackgroundColor(def?: string | number): THREE.Color | THREE.Vector4 {
+    return ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundOpacity, def);
   }
 
   private getBackgroundImage(def?: string): string {
@@ -232,6 +229,16 @@ export class BackgroundComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.parentNode !== null) {
+      if (ThreeUtil.isNotNull(this.cssClazzName)) {
+        ThreeUtil.removeCssStyle(this.parentNode, this.cssClazzName);
+        this.cssClazzName = null;
+      }
+      this.parentNode = null;
+    }
+  }
+
   private parentNode: HTMLElement = null;
 
   setParentNode(parentNode: HTMLElement) {
@@ -241,205 +248,59 @@ export class BackgroundComponent implements OnInit {
     this.applyHtmlStyle();
   }
 
-  applyHtmlStyle() {
-    if (this.parentNode !== null) {
-      const style: { [key: string]: string } = {
-        fontSize: 'inherit',
-        color: 'inherit',
-      }
-      const backgroundColor = this.getBackgroundColor();
-      if (ThreeUtil.isNotNull(backgroundColor)) {
-        style.backgroundColor = backgroundColor.getStyle();
-      }
-
-      const backgroundOpacity = this.getBackgroundOpacity();
-      if (ThreeUtil.isNotNull(backgroundOpacity)) {
-        style.backgroundOpacity = backgroundOpacity.toString();
-      }
-
-      const backgroundImage = this.getBackgroundImage();
-      if (ThreeUtil.isNotNull(backgroundImage)) {
-        style.backgroundImage = backgroundImage;
-      }
-
-      const backgroundRepeat = this.getBackgroundRepeat();
-      if (ThreeUtil.isNotNull(backgroundRepeat)) {
-        style.backgroundRepeat = backgroundRepeat;
-      }
-
-      const backgroundPosition = this.getBackgroundPosition();
-      if (ThreeUtil.isNotNull(backgroundPosition)) {
-        style.backgroundPosition = backgroundPosition;
-      }
-
-      const backgroundSize = this.getBackgroundSize();
-      if (ThreeUtil.isNotNull(backgroundSize)) {
-        style.backgroundSize = backgroundSize;
-      }
-
-      const backgroundClip = this.getBackgroundClip();
-      if (ThreeUtil.isNotNull(backgroundClip)) {
-        style.backgroundClip = backgroundClip;
-      }
-
-      const border = this.getBorder();
-      if (ThreeUtil.isNotNull(border)) {
-        style.border = border;
-      }
-
-      const borderColor = this.getBorderColor();
-      if (ThreeUtil.isNotNull(borderColor)) {
-        style.borderColor = borderColor;
-      }
-
-      const borderStyle = this.getBorderStyle();
-      if (ThreeUtil.isNotNull(borderStyle)) {
-        style.borderStyle = borderStyle;
-      }
-
-      const borderWidth = this.getBorderWidth();
-      if (ThreeUtil.isNotNull(borderWidth)) {
-        style.borderWidth = borderWidth;
-      }
-
-      const borderRadius = this.getBorderRadius();
-      if (ThreeUtil.isNotNull(borderRadius)) {
-        style.borderRadius = borderRadius;
-      }
-
-      const borderLeft = this.getBorderLeft();
-      if (ThreeUtil.isNotNull(borderLeft)) {
-        style.borderLeft = borderLeft;
-      }
-
-      const borderTop = this.getBorderTop();
-      if (ThreeUtil.isNotNull(borderTop)) {
-        style.borderTop = borderTop;
-      }
-
-      const borderRight = this.getBorderRight();
-      if (ThreeUtil.isNotNull(borderRight)) {
-        style.borderRight = borderRight;
-      }
-
-      const borderBottom = this.getBorderBottom();
-      if (ThreeUtil.isNotNull(borderBottom)) {
-        style.borderBottom = borderBottom;
-      }
-
-      const borderImage = this.getBorderImage();
-      if (ThreeUtil.isNotNull(borderImage)) {
-        style.borderImage = borderImage;
-      }
-
-      const borderImageSource = this.getBorderImageSource();
-      if (ThreeUtil.isNotNull(borderImageSource)) {
-        style.borderImageSource = borderImageSource;
-      }
-
-      const borderImageSlice = this.getBorderImageSlice();
-      if (ThreeUtil.isNotNull(borderImageSlice)) {
-        style.borderImageSlice = borderImageSlice;
-      }
-
-      const borderImageOutset = this.getBorderImageOutset();
-      if (ThreeUtil.isNotNull(borderImageOutset)) {
-        style.borderImageOutset = borderImageOutset;
-      }
-
-      const borderImageRepeat = this.getBorderImageRepeat();
-      if (ThreeUtil.isNotNull(borderImageRepeat)) {
-        style.borderImageRepeat = borderImageRepeat;
-      }
-
-      const borderImageWidth = this.getBorderImageWidth();
-      if (ThreeUtil.isNotNull(borderImageWidth)) {
-        style.borderImageWidth = borderImageWidth;
-      }
-
-
-      const opacity = this.getOpacity();
-      if (ThreeUtil.isNotNull(opacity)) {
-        style.opacity = opacity.toString();
-      }
-
-      const color = this.getColor();
-      if (ThreeUtil.isNotNull(color)) {
-        style.color = color.getStyle();
-      }
-
-      const fontFamily = this.getFontFamily();
-      if (ThreeUtil.isNotNull(fontFamily)) {
-        style.fontFamily = fontFamily;
-      }
-
-      const fontSize = this.getFontSize();
-      if (ThreeUtil.isNotNull(fontSize)) {
-        style.fontSize = fontSize + 'px';
-      }
-
-      const fontStyle = this.getFontStyle();
-      if (ThreeUtil.isNotNull(fontStyle)) {
-        style.fontStyle = fontStyle;
-      }
-
-      const fontWeight = this.getFontWeight();
-      if (ThreeUtil.isNotNull(fontWeight)) {
-        style.fontWeight = fontWeight;
-      }
-
-      const textAlign = this.getTextAlign();
-      if (ThreeUtil.isNotNull(textAlign)) {
-        style.textAlign = textAlign;
-      }
-
-      const textTransform = this.getTextTransform();
-      if (ThreeUtil.isNotNull(textTransform)) {
-        style.textTransform = textTransform;
-      }
-
-      const textDecoration = this.getTextDecoration();
-      if (ThreeUtil.isNotNull(textDecoration)) {
-        style.textDecoration = textDecoration;
-      }
-
-      const letterSpacing = this.getLetterSpacing();
-      if (ThreeUtil.isNotNull(letterSpacing)) {
-        style.letterSpacing = letterSpacing;
-      }
-
-      const textIndent = this.getTextIndent();
-      if (ThreeUtil.isNotNull(textIndent)) {
-        style.textIndent = textIndent;
-      }
-
-      const textJustify = this.getTextJustify();
-      if (ThreeUtil.isNotNull(textJustify)) {
-        style.textJustify = textJustify;
-      }
-
-      const textSizeAdjust = this.getTextSizeAdjust();
-      if (ThreeUtil.isNotNull(textSizeAdjust)) {
-        style.textSizeAdjust = textSizeAdjust;
-      }
-
-      const whiteSpace = this.getWhiteSpace();
-      if (ThreeUtil.isNotNull(whiteSpace)) {
-        style.whiteSpace = whiteSpace;
-      }
-
-      const wordBreak = this.getWordBreak();
-      if (ThreeUtil.isNotNull(wordBreak)) {
-        style.wordBreak = wordBreak;
-      }
-
-      const wordSpacing = this.getWordSpacing();
-      if (ThreeUtil.isNotNull(wordSpacing)) {
-        style.wordSpacing = wordSpacing;
-      }
-      console.log(style);
-      HtmlComponent.applyHtmlStyle(this.parentNode, style);
-
+  getStyle() : CssStyle{
+    return {
+      backgroundColor  : this.getBackgroundColor(),
+      backgroundImage  : this.getBackgroundImage(),
+      backgroundRepeat  : this.getBackgroundRepeat(),
+      backgroundPosition  : this.getBackgroundPosition(),
+      backgroundSize  : this.getBackgroundSize(),
+      backgroundClip  : this.getBackgroundClip(),
+      border  : this.getBorder(),
+      borderColor  : this.getBorderColor(),
+      borderStyle  : this.getBorderStyle(),
+      borderWidth  : this.getBorderWidth(),
+      borderRadius  : this.getBorderRadius(),
+      borderLeft  : this.getBorderLeft(),
+      borderTop  : this.getBorderTop(),
+      borderRight  : this.getBorderRight(),
+      borderBottom  : this.getBorderBottom(),
+      borderImage  : this.getBorderImage(),
+      borderImageSource  : this.getBorderImageSource(),
+      borderImageSlice  : this.getBorderImageSlice(),
+      borderImageOutset  : this.getBorderImageOutset(),
+      borderImageRepeat  : this.getBorderImageRepeat(),
+      borderImageWidth  : this.getBorderImageWidth(),
+      opacity  : this.getOpacity(),
+      color  : this.getColor(),
+      fontFamily  : this.getFontFamily(),
+      fontSize  : this.getFontSize(),
+      fontStyle  : this.getFontStyle(),
+      fontWeight  : this.getFontWeight(),
+      textAlign  : this.getTextAlign(),
+      textTransform  : this.getTextTransform(),
+      textDecoration  : this.getTextDecoration(),
+      letterSpacing  : this.getLetterSpacing(),
+      textIndent  : this.getTextIndent(),
+      textJustify  : this.getTextJustify(),
+      textSizeAdjust  : this.getTextSizeAdjust(),
+      whiteSpace  : this.getWhiteSpace(),
+      wordBreak  : this.getWordBreak(),
+      wordSpacing  : this.getWordSpacing(),
     }
   }
+
+  applyHtmlStyle() {
+    if (this.parentNode !== null) {
+      if (this.visible) {
+        const style: CssStyle= this.getStyle();
+        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.virtualClass);
+      } else {
+        ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
+      }
+    }
+  }
+
+  private cssClazzName : string = null;
+
 }

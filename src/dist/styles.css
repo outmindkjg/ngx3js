@@ -1,28 +1,31 @@
 body {
-    margin: 0;
-    overflow: hidden;
+  margin: 0;
+  overflow: hidden;
 }
+
 a {
-    text-decoration: none;
-    color: blue;
+  text-decoration: none;
+  color: blue;
 }
 
 .debug {
   display: block;
   position: fixed;
-  left:0;
-  right:0;
-  top : 0;
-  height:0;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
   z-index: 10;
 }
+
 .canvas {
   display: inline-block;
 }
+
 .three-canvas {
   position: absolute;
-  left : 0;
-  top : 0;
+  left: 0;
+  top: 0;
   right: auto;
   bottom: auto;
 }
