@@ -264,6 +264,7 @@ var ThreeUtil = /** @class */ (function () {
                         ele.textContent = value;
                         break;
                     case 'opacity':
+                    case 'borderImageSlice':
                         if (typeof value == 'number') {
                             styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
                         }
@@ -286,11 +287,11 @@ var ThreeUtil = /** @class */ (function () {
                         else if (value instanceof THREE.Vector4) {
                             styleList.push(_this.camelCaseToDash(key) +
                                 ': rgba(' +
-                                value.x +
+                                value.x * 255 +
                                 ',' +
-                                value.y +
+                                value.y * 255 +
                                 ',' +
-                                value.z +
+                                value.z * 255 +
                                 ',' +
                                 value.w +
                                 ')');
@@ -302,12 +303,13 @@ var ThreeUtil = /** @class */ (function () {
                                 styleList.push(_this.camelCaseToDash(key) + ': ' + value.join(' ') + '');
                             }
                         }
-                        else if (typeof (value) == 'string' && value !== '') {
+                        else if (typeof value == 'string' && value !== '') {
                             styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
                         }
                         break;
                     case 'backgroundImage':
                     case 'borderImageSource':
+                        styleList.push(_this.camelCaseToDash(key) + ': url(' + value + ')');
                         break;
                     case 'width':
                     case 'height':
@@ -327,6 +329,16 @@ var ThreeUtil = /** @class */ (function () {
                     case 'backgroundSizeX':
                     case 'backgroundSizeY':
                     case 'backgroundClip':
+                    case 'padding':
+                    case 'paddingLeft':
+                    case 'paddingTop':
+                    case 'paddingRight':
+                    case 'paddingBottom':
+                    case 'margin':
+                    case 'marginLeft':
+                    case 'marginTop':
+                    case 'marginRight':
+                    case 'marginBottom':
                     case 'border':
                     case 'borderStyle':
                     case 'borderLeft':
@@ -334,7 +346,6 @@ var ThreeUtil = /** @class */ (function () {
                     case 'borderRight':
                     case 'borderBottom':
                     case 'borderImage':
-                    case 'borderImageSlice':
                     case 'borderImageOutset':
                     case 'borderImageRepeat':
                     case 'borderImageWidth':
@@ -363,7 +374,13 @@ var ThreeUtil = /** @class */ (function () {
                 }
             }
         });
-        this.cssInject('.' + clazzName + (vertualClass ? (':' + vertualClass) : '') + '{' + styleList.join(';') + '}', clazzName);
+        console.log(styleList);
+        this.cssInject('.' +
+            clazzName +
+            (vertualClass ? ':' + vertualClass : '') +
+            '{' +
+            styleList.join(';') +
+            '}', clazzName);
         if (!ele.classList.contains(clazzName)) {
             ele.classList.add(clazzName);
         }

@@ -1,6 +1,6 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-canvas>
-        <three-transform 
+        <three-transform
             [anchorSeparat]="controls.anchorSeparat"
             [x]="controls.x"
             [y]="controls.y"
@@ -25,10 +25,68 @@
             [scaleZ]="controls.scale.z"
         ></three-transform>
         <three-background
-            [backgroundColor]="'0xff12ff'"
-            [border]="'3px solid red'"
-            
+            [backgroundColor]="controls.background.backgroundColor"
+            [backgroundOpacity]="controls.background.backgroundOpacity"
+            [backgroundImage]="controls.background.backgroundImage"
+            [backgroundRepeat]="controls.background.backgroundRepeat"
+            [backgroundRepeatX]="controls.background.backgroundRepeatX"
+            [backgroundRepeatY]="controls.background.backgroundRepeatY"
+            [backgroundPosition]="controls.background.backgroundPosition"
+            [backgroundPositionX]="controls.background.backgroundPositionX"
+            [backgroundPositionY]="controls.background.backgroundPositionY"
+            [backgroundSize]="controls.background.backgroundSize"
+            [backgroundSizeX]="controls.background.backgroundSizeX"
+            [backgroundSizeY]="controls.background.backgroundSizeY"
+            [backgroundClip]="controls.background.backgroundClip"
+
+            [padding]="controls.padding.padding"
+            [paddingLeft]="controls.padding.paddingLeft"
+            [paddingTop]="controls.padding.paddingTop"
+            [paddingRight]="controls.padding.paddingRight"
+            [paddingBottom]="controls.padding.paddingBottom"
+
+            [margin]="controls.margin.margin"
+            [marginLeft]="controls.margin.marginLeft"
+            [marginTop]="controls.margin.marginTop"
+            [marginRight]="controls.margin.marginRight"
+            [marginBottom]="controls.margin.marginBottom"
+
+            [border]="controls.border.border"
+            [borderColor]="controls.border.borderColor"
+            [borderStyle]="controls.border.borderStyle"
+            [borderWidth]="controls.border.borderWidth"
+            [borderRadius]="controls.border.borderRadius"
+            [borderLeft]="controls.border.borderLeft"
+            [borderTop]="controls.border.borderTop"
+            [borderRight]="controls.border.borderRight"
+            [borderBottom]="controls.border.borderBottom"
+            [borderImage]="controls.border.borderImage"
+            [borderImageSource]="'/assets/textures/border/' +controls.border.borderImageSource"
+            [borderImageSlice]="controls.border.borderImageSlice"
+            [borderImageOutset]="controls.border.borderImageOutset"
+            [borderImageRepeat]="controls.border.borderImageRepeat"
+            [borderImageWidth]="controls.border.borderImageWidth"
+
+            [opacity]="controls.text.opacity"
+            [color]="controls.text.color"
+            [fontFamily]="controls.text.fontFamily"
+            [fontSize]="controls.text.fontSize"
+            [fontStyle]="controls.text.fontStyle"
+            [fontWeight]="controls.text.fontWeight"
+            [textAlign]="controls.text.textAlign"
+            [textTransform]="controls.text.textTransform"
+            [textDecoration]="controls.text.textDecoration"
+            [letterSpacing]="controls.text.letterSpacing"
+            [textIndent]="controls.text.textIndent"
+            [textJustify]="controls.text.textJustify"
+            [textSizeAdjust]="controls.text.textSizeAdjust"
+            [whiteSpace]="controls.text.whiteSpace"
+            [wordBreak]="controls.text.wordBreak"
+            [wordSpacing]="controls.text.wordSpacing"
+
         ></three-background>
+        <three-html [type]="'div'">우리는</three-html>
+        <three-html [type]="'img'" [src]="'https://upload.wikimedia.org/wikipedia/commons/7/7d/IU_MelOn_Music_Awards_2017_06.jpg'" [style]="{ maxWidth : '200px'}"></three-html>
     </three-canvas>
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="20" [y]="0" [z]="-20"></three-position>

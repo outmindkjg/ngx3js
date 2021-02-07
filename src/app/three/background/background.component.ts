@@ -26,11 +26,23 @@ export class BackgroundComponent implements OnInit {
   @Input() backgroundSizeY: string = null;
   @Input() backgroundClip: string = null;
 
+  @Input() padding: string = null;
+  @Input() paddingLeft: string = null;
+  @Input() paddingTop: string = null;
+  @Input() paddingRight: string = null;
+  @Input() paddingBottom: string = null;
+
+  @Input() margin: string = null;
+  @Input() marginLeft: string = null;
+  @Input() marginTop: string = null;
+  @Input() marginRight: string = null;
+  @Input() marginBottom: string = null;
+
   @Input() border: string = null;
   @Input() borderColor: string = null;
   @Input() borderStyle: string = null;
-  @Input() borderWidth: string = null;
-  @Input() borderRadius: string = null;
+  @Input() borderWidth: string | number = null;
+  @Input() borderRadius: string | number = null;
   @Input() borderLeft: string = null;
   @Input() borderTop: string = null;
   @Input() borderRight: string = null;
@@ -92,6 +104,45 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.backgroundClip, def);
   }
 
+  private getPadding(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.padding, def);
+  }
+
+  private getPaddingLeft(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.paddingLeft, def);
+  }
+
+  private getPaddingTop(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.paddingTop, def);
+  }
+
+  private getPaddingRight(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.paddingRight, def);
+  }
+
+  private getPaddingBottom(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.paddingBottom, def);
+  }
+
+  private getMargin(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.margin, def);
+  }
+
+  private getMarginLeft(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.marginLeft, def);
+  }
+
+  private getMarginTop(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.marginTop, def);
+  }
+
+  private getMarginRight(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.marginRight, def);
+  }
+
+  private getMarginBottom(def?: string | number): string | number {
+    return ThreeUtil.getTypeSafe(this.marginBottom, def);
+  }
 
   private getBorder(def?: string): string {
     return ThreeUtil.getTypeSafe(this.border, def);
@@ -105,11 +156,11 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.borderStyle, def);
   }
 
-  private getBorderWidth(def?: string): string {
+  private getBorderWidth(def?: string | number): string | number{
     return ThreeUtil.getTypeSafe(this.borderWidth, def);
   }
 
-  private getBorderRadius(def?: string): string {
+  private getBorderRadius(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderRadius, def);
   }
 
@@ -256,6 +307,16 @@ export class BackgroundComponent implements OnInit {
       backgroundPosition  : this.getBackgroundPosition(),
       backgroundSize  : this.getBackgroundSize(),
       backgroundClip  : this.getBackgroundClip(),
+      padding  : this.getPadding(),
+      paddingLeft  : this.getPaddingLeft(),
+      paddingTop  : this.getPaddingTop(),
+      paddingRight  : this.getPaddingRight(),
+      paddingBottom  : this.getPaddingBottom(),
+      margin  : this.getMargin(),
+      marginLeft  : this.getMarginLeft(),
+      marginTop  : this.getMarginTop(),
+      marginRight  : this.getMarginRight(),
+      marginBottom  : this.getMarginBottom(),
       border  : this.getBorder(),
       borderColor  : this.getBorderColor(),
       borderStyle  : this.getBorderStyle(),
@@ -294,6 +355,7 @@ export class BackgroundComponent implements OnInit {
     if (this.parentNode !== null) {
       if (this.visible) {
         const style: CssStyle= this.getStyle();
+        console.log(style.backgroundColor);
         this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.virtualClass);
       } else {
         ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);

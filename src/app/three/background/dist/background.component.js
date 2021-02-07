@@ -26,6 +26,16 @@ var BackgroundComponent = /** @class */ (function () {
         this.backgroundSizeX = null;
         this.backgroundSizeY = null;
         this.backgroundClip = null;
+        this.padding = null;
+        this.paddingLeft = null;
+        this.paddingTop = null;
+        this.paddingRight = null;
+        this.paddingBottom = null;
+        this.margin = null;
+        this.marginLeft = null;
+        this.marginTop = null;
+        this.marginRight = null;
+        this.marginBottom = null;
         this.border = null;
         this.borderColor = null;
         this.borderStyle = null;
@@ -86,6 +96,36 @@ var BackgroundComponent = /** @class */ (function () {
     };
     BackgroundComponent.prototype.getBackgroundClip = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.backgroundClip, def);
+    };
+    BackgroundComponent.prototype.getPadding = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.padding, def);
+    };
+    BackgroundComponent.prototype.getPaddingLeft = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.paddingLeft, def);
+    };
+    BackgroundComponent.prototype.getPaddingTop = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.paddingTop, def);
+    };
+    BackgroundComponent.prototype.getPaddingRight = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.paddingRight, def);
+    };
+    BackgroundComponent.prototype.getPaddingBottom = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.paddingBottom, def);
+    };
+    BackgroundComponent.prototype.getMargin = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.margin, def);
+    };
+    BackgroundComponent.prototype.getMarginLeft = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.marginLeft, def);
+    };
+    BackgroundComponent.prototype.getMarginTop = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.marginTop, def);
+    };
+    BackgroundComponent.prototype.getMarginRight = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.marginRight, def);
+    };
+    BackgroundComponent.prototype.getMarginBottom = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.marginBottom, def);
     };
     BackgroundComponent.prototype.getBorder = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.border, def);
@@ -210,6 +250,16 @@ var BackgroundComponent = /** @class */ (function () {
             backgroundPosition: this.getBackgroundPosition(),
             backgroundSize: this.getBackgroundSize(),
             backgroundClip: this.getBackgroundClip(),
+            padding: this.getPadding(),
+            paddingLeft: this.getPaddingLeft(),
+            paddingTop: this.getPaddingTop(),
+            paddingRight: this.getPaddingRight(),
+            paddingBottom: this.getPaddingBottom(),
+            margin: this.getMargin(),
+            marginLeft: this.getMarginLeft(),
+            marginTop: this.getMarginTop(),
+            marginRight: this.getMarginRight(),
+            marginBottom: this.getMarginBottom(),
             border: this.getBorder(),
             borderColor: this.getBorderColor(),
             borderStyle: this.getBorderStyle(),
@@ -247,6 +297,7 @@ var BackgroundComponent = /** @class */ (function () {
         if (this.parentNode !== null) {
             if (this.visible) {
                 var style = this.getStyle();
+                console.log(style.backgroundColor);
                 this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.virtualClass);
             }
             else {
@@ -299,6 +350,36 @@ var BackgroundComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], BackgroundComponent.prototype, "backgroundClip");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "padding");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "paddingLeft");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "paddingTop");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "paddingRight");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "paddingBottom");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "margin");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "marginLeft");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "marginTop");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "marginRight");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "marginBottom");
     __decorate([
         core_1.Input()
     ], BackgroundComponent.prototype, "border");

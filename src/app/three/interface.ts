@@ -149,15 +149,25 @@ export interface CssStyle {
   backgroundSizeX?: number | string;
   backgroundSizeY?: number | string;
   backgroundClip?: string;
+  padding?: number | string;
+  paddingLeft?: number | string;
+  paddingTop?: number | string;
+  paddingRight?: number | string;
+  paddingBottom?: number | string;
+  margin?: number | string;
+  marginLeft?: number | string;
+  marginTop?: number | string;
+  marginRight?: number | string;
+  marginBottom?: number | string;
   border?: number | string;
   borderColor?: string | number | THREE.Color | THREE.Vector4;
   borderStyle?: string;
   borderWidth?: number | string;
   borderRadius?: number | string;
-  borderLeft?: string;
-  borderTop?: string;
-  borderRight?: string;
-  borderBottom?: string;
+  borderLeft?: number | string;
+  borderTop?: number | string;
+  borderRight?: number | string;
+  borderBottom?: number | string;
   borderImage?: string;
   borderImageSource?: string;
   borderImageSlice?: string;
@@ -195,8 +205,8 @@ export interface CssStyle {
   innerHtml?: string;
   innerText?: string;
   className?: string;
-  transform? : string | string[],
-  transformOrigin? : string
+  transform?: string | string[];
+  transformOrigin?: string;
 }
 
 export class ThreeUtil {
@@ -253,10 +263,7 @@ export class ThreeUtil {
     return myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
   }
 
-  static removeCssStyle(
-    ele: HTMLElement,
-    clazzName?: string
-  ): boolean {
+  static removeCssStyle(ele: HTMLElement, clazzName?: string): boolean {
     if (this.isNotNull(clazzName)) {
       this.cssEject(clazzName);
       if (ele.classList.contains(clazzName)) {
@@ -266,7 +273,7 @@ export class ThreeUtil {
         const eleEvents = this._elementEvents[clazzName];
         Object.entries(eleEvents).forEach(([key, value]) => {
           ele.removeEventListener(key, value, false);
-        })
+        });
         delete this._elementEvents[clazzName];
       }
     }
@@ -275,7 +282,7 @@ export class ThreeUtil {
   static toggleCssStyle(
     ele: HTMLElement,
     clazzName?: string,
-    isActive ?: boolean
+    isActive?: boolean
   ): boolean {
     if (this.isNotNull(clazzName)) {
       if (!isActive) {
@@ -286,7 +293,7 @@ export class ThreeUtil {
           const eleEvents = this._elementEvents[clazzName];
           Object.entries(eleEvents).forEach(([key, value]) => {
             ele.removeEventListener(key, value, false);
-          })
+          });
         }
       } else {
         if (!ele.classList.contains(clazzName)) {
@@ -296,7 +303,7 @@ export class ThreeUtil {
           const eleEvents = this._elementEvents[clazzName];
           Object.entries(eleEvents).forEach(([key, value]) => {
             ele.addEventListener(key, value, false);
-          })
+          });
         }
       }
     }
@@ -348,6 +355,7 @@ export class ThreeUtil {
             ele.textContent = value;
             break;
           case 'opacity':
+          case 'borderImageSlice':
             if (typeof value == 'number') {
               styleList.push(this.camelCaseToDash(key) + ': ' + value + '');
             } else if (typeof value == 'string') {
@@ -374,32 +382,31 @@ export class ThreeUtil {
               styleList.push(
                 this.camelCaseToDash(key) +
                   ': rgba(' +
-                  value.x +
+                  value.x * 255 +
                   ',' +
-                  value.y +
+                  value.y * 255 +
                   ',' +
-                  value.z +
+                  value.z * 255 +
                   ',' +
                   value.w +
                   ')'
               );
             }
             break;
-          case 'transform' :
+          case 'transform':
             if (value instanceof Array) {
               if (value.length > 0) {
                 styleList.push(
                   this.camelCaseToDash(key) + ': ' + value.join(' ') + ''
                 );
               }
-            } else if (typeof(value) == 'string' && value !== ''){
-              styleList.push(
-                this.camelCaseToDash(key) + ': ' + value + ''
-              );
+            } else if (typeof value == 'string' && value !== '') {
+              styleList.push(this.camelCaseToDash(key) + ': ' + value + '');
             }
             break;
           case 'backgroundImage':
           case 'borderImageSource':
+            styleList.push(this.camelCaseToDash(key) + ': url(' + value + ')');
             break;
           case 'width':
           case 'height':
@@ -419,6 +426,16 @@ export class ThreeUtil {
           case 'backgroundSizeX':
           case 'backgroundSizeY':
           case 'backgroundClip':
+          case 'padding':
+          case 'paddingLeft':
+          case 'paddingTop':
+          case 'paddingRight':
+          case 'paddingBottom':
+          case 'margin':
+          case 'marginLeft':
+          case 'marginTop':
+          case 'marginRight':
+          case 'marginBottom':
           case 'border':
           case 'borderStyle':
           case 'borderLeft':
@@ -426,7 +443,6 @@ export class ThreeUtil {
           case 'borderRight':
           case 'borderBottom':
           case 'borderImage':
-          case 'borderImageSlice':
           case 'borderImageOutset':
           case 'borderImageRepeat':
           case 'borderImageWidth':
@@ -444,7 +460,7 @@ export class ThreeUtil {
           case 'whiteSpace':
           case 'wordBreak':
           case 'wordSpacing':
-          case 'transformOrigin' :
+          case 'transformOrigin':
             if (typeof value == 'number') {
               styleList.push(this.camelCaseToDash(key) + ': ' + value + 'px');
             } else if (typeof value == 'string') {
@@ -454,7 +470,16 @@ export class ThreeUtil {
         }
       }
     });
-    this.cssInject('.' + clazzName + (vertualClass ? (':' + vertualClass) : '') + '{' + styleList.join(';') + '}',clazzName);
+    console.log(styleList);
+    this.cssInject(
+      '.' +
+        clazzName +
+        (vertualClass ? ':' + vertualClass : '') +
+        '{' +
+        styleList.join(';') +
+        '}',
+      clazzName
+    );
     if (!ele.classList.contains(clazzName)) {
       ele.classList.add(clazzName);
     }
@@ -618,12 +643,12 @@ export class ThreeUtil {
     const defColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(defColor)) {
       if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
-        return new THREE.Vector4(defColor.r,defColor.g,defColor.b,alpha);
+        return new THREE.Vector4(defColor.r, defColor.g, defColor.b, alpha);
       } else {
         return defColor;
       }
     } else if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
-      return new THREE.Vector4(0,0,0,alpha);
+      return new THREE.Vector4(0, 0, 0, alpha);
     }
     return undefined;
   }
