@@ -40,6 +40,7 @@ ng g c three/html
 ng g c three/canvas
 ng g c three/visual
 ng g c three/transform
+ng g c three/controller
 
 
 
@@ -97,6 +98,14 @@ ng g c chapter09/page0914
 ng g c chapter09/page0915
 ng g c chapter09/page0916
 
+ng g c chapter13
+ng g c chapter13/page1301
+ng g c chapter13/page1302
+ng g c chapter13/page1303
+ng g c chapter13/page1304
+ng g c chapter13/page1305
+ng g c chapter13/page1306
+ng g c chapter13/page1307
 
 ng g c menu
 

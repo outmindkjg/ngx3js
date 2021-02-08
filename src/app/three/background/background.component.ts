@@ -11,9 +11,13 @@ export class BackgroundComponent implements OnInit {
 
   @Input() visible: boolean = true;
 
-  @Input() virtualClass: string = null;
+  @Input() pseudo: string = null;
+  
+  @Input() transition : string[] = null;
+
+  @Input() content: string = null;
   @Input() backgroundColor: string | number = null;
-  @Input() backgroundOpacity: number = null;
+  @Input() backgroundAlpha: number = null;
   @Input() backgroundImage: string = null;
   @Input() backgroundRepeat: string = null;
   @Input() backgroundRepeatX: string = null;
@@ -71,10 +75,15 @@ export class BackgroundComponent implements OnInit {
   @Input() wordBreak: string = null;
   @Input() wordSpacing: string = null;
 
-  private getBackgroundColor(def?: string | number): THREE.Color | THREE.Vector4 {
-    return ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundOpacity, def);
+  private getTransition(def?: string[]): string[] {
+    return ThreeUtil.getTypeSafe(this.transition, def);
   }
-
+  private getContent(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.content, def);
+  }
+  private getBackgroundColor(def?: string | number): THREE.Color | THREE.Vector4 {
+    return ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundAlpha, def);
+  }
   private getBackgroundImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.backgroundImage, def);
   }
@@ -301,6 +310,8 @@ export class BackgroundComponent implements OnInit {
 
   getStyle() : CssStyle{
     return {
+      content : this.getContent(),
+      transition : this.getTransition(),
       backgroundColor  : this.getBackgroundColor(),
       backgroundImage  : this.getBackgroundImage(),
       backgroundRepeat  : this.getBackgroundRepeat(),
@@ -355,8 +366,7 @@ export class BackgroundComponent implements OnInit {
     if (this.parentNode !== null) {
       if (this.visible) {
         const style: CssStyle= this.getStyle();
-        console.log(style.backgroundColor);
-        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.virtualClass);
+        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.pseudo);
       } else {
         ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
       }

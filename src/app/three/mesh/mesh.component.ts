@@ -18,7 +18,7 @@ import {
 } from 'three/examples/jsm/objects/Lensflare';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
-import { AbstractMeshComponent, ThreeUtil } from '../interface';
+import { AbstractMeshComponent, CssStyle, ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
@@ -32,8 +32,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { LookatComponent } from './../lookat/lookat.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
-import { HtmlComponent, HtmlObject } from '../html/html.component';
-
+import { HtmlComponent } from '../html/html.component';
 
 @Component({
   selector: 'three-mesh',
@@ -44,7 +43,7 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
   @Input() type: string = 'mesh';
   @Input() mass: number = null;
   @Input() lightType: string = 'spot';
-  @Input() cssStyle: string | HtmlObject = null;
+  @Input() cssStyle: string | CssStyle = null;
   @Input() skyboxType: string = 'auto';
   @Input() skyboxRate: number = 100;
   @Input() skyboxImage: string = null;
@@ -512,6 +511,8 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     return this.localStorageService.setObject(storageName, this.getMesh());
   }
 
+  private cssClazzName : string = null;
+
   getMesh(): THREE.Object3D {
     if (this.mesh === null) {
       let geometry: THREE.BufferGeometry = null;
@@ -602,20 +603,20 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
             cssGeometry = new THREE.BoxGeometry(this.getWidth(1), this.getHeight(1), this.getDistance(0.1));
           }
           if (cssGeometry instanceof THREE.BoxGeometry || cssGeometry instanceof THREE.PlaneGeometry) {
-            HtmlComponent.applyHtmlStyle(cssElement, {
+            this.cssClazzName = ThreeUtil.addCssStyle(cssElement, {
               width: cssGeometry.parameters.width,
               height: cssGeometry.parameters.height,
               overflow: 'hidden'
-            });
+            }, this.cssClazzName, 'mesh','inline');
           } else if (cssGeometry instanceof THREE.CircleGeometry) {
-            HtmlComponent.applyHtmlStyle(cssElement, {
+            this.cssClazzName = ThreeUtil.addCssStyle(cssElement, {
               width: cssGeometry.parameters.radius,
               height: cssGeometry.parameters.radius,
               overflow: 'hidden'
-            });
+            }, this.cssClazzName, 'mesh','inline');
           }
           if (ThreeUtil.isNotNull(this.cssStyle)) {
-            HtmlComponent.applyHtmlStyle(cssElement, this.cssStyle);
+            this.cssClazzName = ThreeUtil.addCssStyle(cssElement, this.cssStyle , this.cssClazzName, 'mesh','inline');
           }
           let cssObject: THREE.Object3D = null;
           switch (this.type.toLowerCase()) {
@@ -840,6 +841,9 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
           }
           this.mesh.shadow.updateMatrices(this.mesh);
         }
+      }
+      if (ThreeUtil.isNull(this.mesh.userData.component)) {
+        this.mesh.userData.component = this;
       }
       if (this.helper == null) {
         this.resetHelper();

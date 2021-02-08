@@ -158,6 +158,15 @@ import { CanvasComponent } from './three/canvas/canvas.component';
 import { VisualComponent } from './three/visual/visual.component';
 import { TransformComponent } from './three/transform/transform.component';
 import { BackgroundComponent } from './three/background/background.component';
+import { Chapter13Component } from './chapter13/chapter13.component';
+import { Page1301Component } from './chapter13/page1301/page1301.component';
+import { Page1302Component } from './chapter13/page1302/page1302.component';
+import { Page1303Component } from './chapter13/page1303/page1303.component';
+import { Page1304Component } from './chapter13/page1304/page1304.component';
+import { Page1305Component } from './chapter13/page1305/page1305.component';
+import { Page1306Component } from './chapter13/page1306/page1306.component';
+import { Page1307Component } from './chapter13/page1307/page1307.component';
+import { ControllerComponent } from './three/controller/controller.component';
 
 @NgModule({
   declarations: [
@@ -315,7 +324,16 @@ import { BackgroundComponent } from './three/background/background.component';
     CanvasComponent,
     VisualComponent,
     TransformComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    Chapter13Component,
+    Page1301Component,
+    Page1302Component,
+    Page1303Component,
+    Page1304Component,
+    Page1305Component,
+    Page1306Component,
+    Page1307Component,
+    ControllerComponent
   ],
   imports: [
     BrowserModule,

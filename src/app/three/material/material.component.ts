@@ -1285,6 +1285,9 @@ export class MaterialComponent implements OnInit, OnChanges {
             break;
         }
       }
+      if (ThreeUtil.isNull(this.material.userData.component)) {
+        this.material.userData.component = this;
+      }
     }
     return this.material;
   }

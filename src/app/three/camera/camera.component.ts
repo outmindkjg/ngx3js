@@ -14,7 +14,7 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { PassComponent } from '../pass/pass.component';
-import { AbstractEffectComposer, RendererTimer } from './../interface';
+import { AbstractEffectComposer, RendererTimer, ThreeUtil } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
@@ -29,6 +29,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 })
 export class CameraComponent implements OnInit, AbstractEffectComposer {
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
+  @Input() name: string = null;
   @Input() fov: number = 45;
   @Input() near: number = null;
   @Input() far: number = null;
@@ -313,6 +314,12 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
             this.getFar(2000)
           );
           break;
+      }
+      if (ThreeUtil.isNotNull(this.name)) {
+        this.camera.name = this.name;
+      }
+      if (ThreeUtil.isNull(this.camera.userData.component)) {
+        this.camera.userData.component = this;
       }
       this.synkObject3D(['position', 'rotation', 'scale', 'lookat','listner','audio']);
     }

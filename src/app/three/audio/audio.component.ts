@@ -224,6 +224,9 @@ export class AudioComponent implements OnInit {
           break;
       }
       this.audio.autoplay = this.autoplay;
+      if (ThreeUtil.isNull(this.audio.userData.component)) {
+        this.audio.userData.component = this;
+      }
     }
     return this.audio;
   }

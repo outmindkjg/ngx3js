@@ -133,6 +133,15 @@ import { Page1205Component } from './chapter12/page1205/page1205.component';
 import { Page1206Component } from './chapter12/page1206/page1206.component';
 import { Page1207Component } from './chapter12/page1207/page1207.component';
 
+import { Chapter13Component } from './chapter13/chapter13.component';
+import { Page1301Component } from './chapter13/page1301/page1301.component';
+import { Page1302Component } from './chapter13/page1302/page1302.component';
+import { Page1303Component } from './chapter13/page1303/page1303.component';
+import { Page1304Component } from './chapter13/page1304/page1304.component';
+import { Page1305Component } from './chapter13/page1305/page1305.component';
+import { Page1306Component } from './chapter13/page1306/page1306.component';
+import { Page1307Component } from './chapter13/page1307/page1307.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
   {
@@ -322,7 +331,20 @@ const routes: Routes = [
       { path: 'pg07', component: Page1207Component }
     ]
   },
-  { path: 'ch12', component: Chapter12Component },
+  { 
+    path: 'ch13',
+    component: Chapter13Component,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'pg01' },
+      { path: 'pg01', component: Page1301Component },
+      { path: 'pg02', component: Page1302Component },
+      { path: 'pg03', component: Page1303Component },
+      { path: 'pg04', component: Page1304Component },
+      { path: 'pg05', component: Page1305Component },
+      { path: 'pg06', component: Page1306Component },
+      { path: 'pg07', component: Page1307Component }
+    ]
+  }
 ];
 
 @NgModule({

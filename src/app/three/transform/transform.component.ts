@@ -10,7 +10,6 @@ import { CssStyle, ThreeUtil } from '../interface';
 export class TransformComponent implements OnInit {
 
   @Input() visible: boolean = true;
-  @Input() virtualClass: string = null;
   @Input() anchorSeparat: boolean = false;
   @Input() x : number = null;
   @Input() y : number = null;
@@ -102,12 +101,14 @@ export class TransformComponent implements OnInit {
 
   private parentNode : HTMLElement = null;
   private parentSize : THREE.Vector2 = null;
+  private eleSize: THREE.Vector2 = null;
 
-  setParentNode(parentNode : HTMLElement, size : THREE.Vector2) {
+  setParentNode(parentNode : HTMLElement, parentSize : THREE.Vector2, eleSize : THREE.Vector2) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
-    this.parentSize = size;
+    this.parentSize = parentSize;
+    this.eleSize = eleSize;
     this.applyHtmlStyle();
   }
 
@@ -122,15 +123,19 @@ export class TransformComponent implements OnInit {
         const right = this.getRight(0);
         const bottom = this.getBottom(0);
         const size = anchorMax.clone().sub(anchorMin);
-
-        style.width = (size.x + left - right);
-        style.height = (size.y + top - bottom);
+        this.eleSize.x = (size.x + left - right);
+        this.eleSize.y = (size.y + top - bottom);
+        style.width = this.eleSize.x;
+        style.height = this.eleSize.y;
         style.left = (anchorMin.x + left);
         style.top = (this.parentSize.y - anchorMax.y + top);
+        
       } else {
         const size = this.getSize(this.parentSize);
-        style.width = size.x;
-        style.height = size.y;
+        this.eleSize.x = size.x;
+        this.eleSize.y = size.y;
+        style.width = this.eleSize.x;
+        style.height = this.eleSize.y;
         style.left = anchorMin.x;
         style.top = (this.parentSize.y - anchorMax.y);
       }
@@ -160,7 +165,7 @@ export class TransformComponent implements OnInit {
     if (this.parentNode !== null && this.parentSize !== null) {
       if (this.visible) {
         const style: CssStyle= this.getStyle();
-        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', this.virtualClass);
+        this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', 'inline');
       } else {
         ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
       }

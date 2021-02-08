@@ -1,13 +1,8 @@
 import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { AbstractThreeComponent, ThreeUtil } from '../interface';
+import { AbstractThreeComponent, CssStyle, ThreeUtil } from '../interface';
 import * as THREE from 'three';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
-
-
-export interface HtmlObject {
-  [key: string]: string | number | Function;
-}
 
 @Component({
   selector: 'three-html',
@@ -19,14 +14,14 @@ export class HtmlComponent extends AbstractThreeComponent implements OnInit {
   @Input() type: string = 'div';
   @Input() childType: string = 'innerHTML';
   @Input() src: string = null;
-  @Input() style: (string | HtmlObject) = null;
-  @Input() list: (string | HtmlObject)[] = null;
-  @Input() table: (string | HtmlObject)[][] = null;
-  @Input() tableHead: (string | HtmlObject)[] = null;
-  @Input() tableFoot: (string | HtmlObject)[] = null;
+  @Input() style: (string | CssStyle) = null;
+  @Input() list: (string | CssStyle)[] = null;
+  @Input() table: (string | CssStyle)[][] = null;
+  @Input() tableHead: (string | CssStyle)[] = null;
+  @Input() tableFoot: (string | CssStyle)[] = null;
   @Input() dlList: {
-    dt?: (string | HtmlObject);
-    dd?: (string | HtmlObject);
+    dt?: (string | CssStyle);
+    dd?: (string | CssStyle);
   }[] = null;
 
   @ContentChildren(HtmlComponent, { descendants: false }) children: QueryList<HtmlComponent>;
@@ -97,73 +92,11 @@ export class HtmlComponent extends AbstractThreeComponent implements OnInit {
     }
   }
 
-  private applyHtmlStyle(ele: HTMLElement, style: string | HtmlObject): HTMLElement {
-    return HtmlComponent.applyHtmlStyle(ele, style);
+  private applyHtmlStyle(ele: HTMLElement, style: string | CssStyle): void {
+    this.cssClazzName = ThreeUtil.addCssStyle(ele, style, this.cssClazzName, 'html','inline');
   }
 
-  static applyHtmlStyle(ele: HTMLElement, style: string | HtmlObject): HTMLElement {
-    if (ThreeUtil.isNull(style) || typeof (style) === 'string' || ThreeUtil.isNull(style['click'])) {
-      ele.style.pointerEvents ='none'; 
-    } else {
-      ele.style.pointerEvents ='auto'; 
-    }
-
-    if (ThreeUtil.isNull(style)) {
-      ele.innerHTML = 'error';
-    } else if (typeof (style) === 'string') {
-      ele.innerHTML = style;
-    } else {
-      Object.entries(style).forEach(([key, value]) => {
-        switch (key.toLowerCase()) {
-          case 'change':
-          case 'click':
-          case 'focus':
-          case 'keyup':
-          case 'keydown':
-          case 'load':
-          case 'select':
-          case 'mousedown':
-          case 'mouseout':
-          case 'mouseover':
-          case 'mousemove':
-          case 'mouseup':
-            if (typeof (value) === 'function') {
-              ele.addEventListener(key, (e) => {
-                value(e, ele);
-              }, false);
-            }
-            break;
-          case 'innerhtml':
-            ele.innerHTML = value.toString();
-            break;
-          case 'innertext':
-            ele.innerText = value.toString();
-            break;
-          case 'class':
-          case 'classname':
-            ele.className = value.toString();
-            break;
-          case 'color':
-          case 'background':
-          case 'backgroundcolor':
-          case 'bordercolor':
-            if (typeof (value) === 'number' || typeof (value) === 'string') {
-              ele.style[key] = ThreeUtil.getColorSafe(value, 0x000000).getStyle();
-            }
-            break;
-          default:
-            // console.log(key, value);
-            if (typeof (value) === 'string') {
-              ele.style[key] = value;
-            } else if (typeof (value) === 'number') {
-              ele.style[key] = value + 'px';
-            }
-            break;
-        }
-      });
-    }
-    return ele;
-  }
+  private cssClazzName : string = null;
 
   private html: HTMLElement = null;
   private needUpdate: boolean = false;
@@ -258,41 +191,12 @@ export class HtmlComponent extends AbstractThreeComponent implements OnInit {
       if (html.tagName !== 'IMG' && html.tagName !== 'IFRAME' && html.innerHTML == '') {
         switch (this.childType.toLowerCase()) {
           case 'innerhtml': {
-            const ele: HTMLElement = this.ele.nativeElement.cloneNode(true);
-            ele.childNodes.forEach(child => {
-              switch (child.nodeType) {
-                case Node.ELEMENT_NODE:
-                  const childEle: HTMLElement = child as HTMLElement;
-                  switch (childEle.tagName) {
-                    case 'P':
-                    case 'DIV':
-                    case 'FONT':
-                    case 'SPAN':
-                    case 'IMG':
-                    case 'I':
-                    case 'B':
-                    case 'STRONG':
-                    case 'IFRAME':
-                    case 'H1':
-                    case 'H2':
-                    case 'H3':
-                    case 'H4':
-                    case 'H5':
-                      break;
-                    default:
-                      childEle.parentNode.removeChild(childEle);
-                      break;
-                  }
-                  break;
-                default:
-                  break;
-              }
-            })
+            const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
             html.innerHTML = ele.innerHTML;
           }
             break;
           case 'innertext': {
-            const ele: HTMLElement = this.ele.nativeElement;
+            const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
             html.innerText = ele.innerText;
           }
             break;

@@ -1,4 +1,3 @@
-import { HtmlComponent } from './html/html.component';
 import {
   AfterContentInit,
   Component,
@@ -15,6 +14,7 @@ import * as GSAP from 'gsap';
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import { SceneComponent } from './scene/scene.component';
 import { TweenComponent } from './tween/tween.component';
 
 // import { ScrollTrigger, Draggable, MotionPathPlugin } from "gsap/all";
@@ -30,6 +30,53 @@ export interface LoadedObject {
   clips?: THREE.AnimationClip[];
 }
 
+export abstract class AbstractThreeController{
+  constructor(protected refObject : THREE.Object3D) { 
+
+  }
+
+  get scene() : THREE.Scene {
+    if (this.refObject !== null) {
+      let lastObj: THREE.Object3D = this.refObject;
+      while(!(lastObj instanceof THREE.Scene) && lastObj.parent) {
+        lastObj = lastObj.parent;
+      }
+      if (lastObj instanceof THREE.Scene) {
+        return lastObj;
+      }
+    }
+    return null;
+  }
+
+  get camera() : THREE.Camera {
+    const scene = this.scene;
+    if (scene !== null) {
+      const sceneComp = scene.userData.component as SceneComponent;
+      return sceneComp.getRenderer().cameras.first.getCamera();
+    }
+    return null;
+  }
+
+  getCameraByName(name : string) : THREE.Camera {
+    const scene = this.scene;
+    if (scene !== null) {
+      const sceneComp = scene.userData.component as SceneComponent;
+      const camara = sceneComp.getRenderer().cameras.find(camera => {
+        return (camera.name == name) 
+      });
+      if (ThreeUtil.isNotNull(camara)) {
+        return camara.getCamera();
+      }
+    }
+    return null;
+  }
+
+  getObjectByName () {
+    this.scene.getObjectById();
+  }
+}
+
+
 export interface AbstractEffectComposer {
   resetEffectComposer(): void;
 }
@@ -44,7 +91,7 @@ export abstract class AbstractThreeComponent
   @ContentChildren(TweenComponent, { descendants: false })
   tween: QueryList<TweenComponent>;
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.tweenStart && this.tweenTarget) {
@@ -87,7 +134,7 @@ export abstract class AbstractThreeComponent
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 }
 
 export abstract class AbstractGetGeometry extends AbstractThreeComponent {
@@ -131,12 +178,22 @@ export abstract class AbstractMeshComponent extends AbstractThreeComponent {
 }
 
 export interface CssStyle {
+  content?: string;
+  position?: string;
+  pointerEvents?: string;
+  overflow?: string;
+  zIndex?: number;
   width?: number | string;
   height?: number | string;
+  minWidth?: number | string;
+  minHeight?: number | string;
+  maxWidth?: number | string;
+  maxHeight?: number | string;
   left?: number | string;
   right?: number | string;
   top?: number | string;
   bottom?: number | string;
+  transition? : string | string[];
   backgroundColor?: string | number | THREE.Color | THREE.Vector4;
   backgroundImage?: string;
   backgroundRepeat?: string;
@@ -192,6 +249,7 @@ export interface CssStyle {
   wordSpacing?: string;
   change?: (e?: any) => void;
   click?: (e?: any) => void;
+  dblclick?: (e?: any) => void;
   focus?: (e?: any) => void;
   keyup?: (e?: any) => void;
   keydown?: (e?: any) => void;
@@ -233,7 +291,7 @@ export class ThreeUtil {
         injected.innerHTML = cssContent;
         cssParent.appendChild(injected);
         return true;
-      } catch (e) {}
+      } catch (e) { }
     }
     return false;
   }
@@ -310,9 +368,47 @@ export class ThreeUtil {
     return true;
   }
 
+  static getChildElementSave(parentEle : HTMLElement):HTMLElement {
+    const ele: Node = parentEle.cloneNode(true);
+    const childNodes : Node[] = [];
+    ele.childNodes.forEach(child => {
+      childNodes.push(child);
+    });
+    childNodes.forEach(child => {
+      switch (child.nodeType) {
+        case Node.ELEMENT_NODE:
+          const childEle: HTMLElement = child as HTMLElement;
+          switch (childEle.tagName) {
+            case 'P':
+            case 'DIV':
+            case 'FONT':
+            case 'SPAN':
+            case 'IMG':
+            case 'I':
+            case 'B':
+            case 'STRONG':
+            case 'IFRAME':
+            case 'H1':
+            case 'H2':
+            case 'H3':
+            case 'H4':
+            case 'H5':
+              break;
+            default:
+              ele.removeChild(childEle);
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+    })
+    return ele as HTMLElement;
+  }
+
   static addCssStyle(
     ele: HTMLElement,
-    styles: CssStyle,
+    styles: string | CssStyle,
     clazzName?: string,
     classPrefix?: string,
     vertualClass?: string
@@ -320,15 +416,24 @@ export class ThreeUtil {
     if (clazzName == null || clazzName == undefined) {
       clazzName = this.makeUUID(15, classPrefix);
     }
+    if (typeof (styles) == 'string') {
+      styles = {
+        innerHtml: styles
+      }
+    }
+    if (styles === null || styles === undefined) {
+      styles = {};
+    }
 
     const eventList: { [key: string]: (e?: any) => void } = {};
-    const styleList: string[] = [];
+    const styleList: { [key: string]: string } = {};
 
     Object.entries(styles).forEach(([key, value]) => {
       if (this.isNotNull(value)) {
         switch (key) {
           case 'change':
           case 'click':
+          case 'dblclick' :
           case 'focus':
           case 'keyup':
           case 'keydown':
@@ -354,62 +459,68 @@ export class ThreeUtil {
           case 'textContent':
             ele.textContent = value;
             break;
+          case 'zIndex' :
           case 'opacity':
           case 'borderImageSlice':
             if (typeof value == 'number') {
-              styleList.push(this.camelCaseToDash(key) + ': ' + value + '');
+              styleList[key] = value.toString();
             } else if (typeof value == 'string') {
-              styleList.push(
-                this.camelCaseToDash(key) + ': ' + parseFloat(value) + ''
-              );
+              styleList[key] = parseFloat(value).toString();
+            }
+            break;
+          case 'transition' :
+            if (typeof(value) === 'string' && value != '') {
+              styleList[key] = value;
+            } else if (value instanceof Array && value.length  > 0 ) {
+              styleList[key] = value.join(', ');
             }
             break;
           case 'color':
           case 'backgroundColor':
           case 'borderColor':
             if (typeof value == 'number' || typeof value == 'string') {
-              styleList.push(
-                this.camelCaseToDash(key) +
-                  ': ' +
-                  this.getColorSafe(value).getStyle() +
-                  ''
-              );
+              styleList[key] = this.getColorSafe(value).getStyle();
             } else if (value instanceof THREE.Color) {
-              styleList.push(
-                this.camelCaseToDash(key) + ': ' + value.getStyle() + ''
-              );
+              styleList[key] = value.getStyle();
             } else if (value instanceof THREE.Vector4) {
-              styleList.push(
-                this.camelCaseToDash(key) +
-                  ': rgba(' +
-                  value.x * 255 +
-                  ',' +
-                  value.y * 255 +
-                  ',' +
-                  value.z * 255 +
-                  ',' +
-                  value.w +
-                  ')'
-              );
+              styleList[key] = 'rgba(' +
+                value.x * 255 +
+                ',' +
+                value.y * 255 +
+                ',' +
+                value.z * 255 +
+                ',' +
+                value.w +
+                ')';
             }
             break;
           case 'transform':
             if (value instanceof Array) {
               if (value.length > 0) {
-                styleList.push(
-                  this.camelCaseToDash(key) + ': ' + value.join(' ') + ''
-                );
+                styleList[key] = value.join(' ');
               }
             } else if (typeof value == 'string' && value !== '') {
-              styleList.push(this.camelCaseToDash(key) + ': ' + value + '');
+              styleList[key] = value;
             }
             break;
           case 'backgroundImage':
           case 'borderImageSource':
-            styleList.push(this.camelCaseToDash(key) + ': url(' + value + ')');
+            styleList[key] = 'url(' + value + ')';
             break;
+          case 'content' :
+            if (typeof value == 'string' && value !== '') {
+              styleList[key] = "'" + value + "'";
+            }
+            break;
+          case 'position':
+          case 'pointerEvents':
+          case 'overflow':
           case 'width':
           case 'height':
+          case 'minWidth':
+          case 'minHeight':
+          case 'maxWidth':
+          case 'maxHeight':
           case 'left':
           case 'right':
           case 'top':
@@ -462,26 +573,39 @@ export class ThreeUtil {
           case 'wordSpacing':
           case 'transformOrigin':
             if (typeof value == 'number') {
-              styleList.push(this.camelCaseToDash(key) + ': ' + value + 'px');
+              styleList[key] = value + 'px';
             } else if (typeof value == 'string') {
-              styleList.push(this.camelCaseToDash(key) + ': ' + value + '');
+              styleList[key] = value;
             }
             break;
         }
       }
     });
-    console.log(styleList);
-    this.cssInject(
-      '.' +
-        clazzName +
-        (vertualClass ? ':' + vertualClass : '') +
-        '{' +
-        styleList.join(';') +
-        '}',
-      clazzName
-    );
-    if (!ele.classList.contains(clazzName)) {
-      ele.classList.add(clazzName);
+    switch (vertualClass) {
+      case 'inline':
+        ele.removeAttribute('style');
+        Object.entries(styleList).forEach(([key, value]) => {
+          ele.style[key] = value;
+        });
+        break;
+      default:
+        const cssStyleList: string[] = [];
+        Object.entries(styleList).forEach(([key, value]) => {
+          cssStyleList.push(this.camelCaseToDash(key) + ': ' + value);
+        });
+        this.cssInject(
+          '.' +
+          clazzName +
+          (vertualClass ? ':' + vertualClass : '') +
+          '{' +
+          cssStyleList.join(';') +
+          '}',
+          clazzName
+        );
+        if (!ele.classList.contains(clazzName)) {
+          ele.classList.add(clazzName);
+        }
+        break;
     }
     if (eventList != {}) {
       let eleEvents: { [key: string]: any } = null;
@@ -697,10 +821,10 @@ export class ThreeUtil {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
         ? new THREE.Vector3(
-            this.getTypeSafe(x, y, z),
-            this.getTypeSafe(y, x, z),
-            this.getTypeSafe(z, x, y)
-          )
+          this.getTypeSafe(x, y, z),
+          this.getTypeSafe(y, x, z),
+          this.getTypeSafe(z, x, y)
+        )
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -717,10 +841,10 @@ export class ThreeUtil {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
         ? new THREE.Euler(
-            this.getAngleSafe(this.getTypeSafe(x, y, z), 0),
-            this.getAngleSafe(this.getTypeSafe(y, x, z), 0),
-            this.getAngleSafe(this.getTypeSafe(z, x, y), 0)
-          )
+          this.getAngleSafe(this.getTypeSafe(x, y, z), 0),
+          this.getAngleSafe(this.getTypeSafe(y, x, z), 0),
+          this.getAngleSafe(this.getTypeSafe(z, x, y), 0)
+        )
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -763,7 +887,6 @@ export class ThreeUtil {
   ) {
     const control: ThreeGuiController = this.getGuiController(params, names);
     if (control !== null && control !== undefined && control.domElement) {
-      console.log(control.domElement.classList);
       if (isEnable) {
         control.domElement.classList.add('no-pointer-events');
         control.domElement.classList.add('control-disabled');
@@ -933,16 +1056,16 @@ export class ThreeStats implements Stats {
 export interface GuiControlParam {
   name: string;
   type?:
-    | 'number'
-    | 'folder'
-    | 'select'
-    | 'folder'
-    | 'button'
-    | 'color'
-    | 'checkbox'
-    | 'input'
-    | 'listen'
-    | 'auto';
+  | 'number'
+  | 'folder'
+  | 'select'
+  | 'folder'
+  | 'button'
+  | 'color'
+  | 'checkbox'
+  | 'input'
+  | 'listen'
+  | 'auto';
   min?: number;
   max?: number;
   step?: number;
@@ -970,7 +1093,6 @@ export class ThreeGui implements ThreeGuiController {
     }
   ) {
     this.gui = new GUI(pars);
-    console.log();
     this.domElement = this.gui.domElement;
     this.setStyle(style);
   }

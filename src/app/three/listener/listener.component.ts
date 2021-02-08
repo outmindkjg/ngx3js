@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-listener',
@@ -66,6 +67,9 @@ export class ListenerComponent implements OnInit {
   getListener() : THREE.AudioListener {
     if (this.listener === null) {
       this.listener = new THREE.AudioListener();
+      if (ThreeUtil.isNull(this.listener.userData.component)) {
+        this.listener.userData.component = this;
+      }
     }
     return this.listener;
   }

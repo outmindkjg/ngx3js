@@ -11,7 +11,7 @@ import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
-import { AbstractGetGeometry, AbstractMeshComponent } from '../interface';
+import { AbstractGetGeometry, AbstractMeshComponent, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
@@ -1092,6 +1092,9 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
         }
         if (this.name !== null) {
           this.geometry.name = this.name;
+        }
+        if (ThreeUtil.isNull(this.geometry.userData.component)) {
+          this.geometry.userData.component = this;
         }
         this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
       }

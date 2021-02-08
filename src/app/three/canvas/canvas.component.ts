@@ -50,22 +50,22 @@ export class CanvasComponent implements OnInit {
     this.background.changes.subscribe(() => {
       this.synkObject2D(['background']);
     });
-
   }
 
   private canvas: HTMLElement = null;
   private parentNode: HTMLElement = null;
   private canvasSize: THREE.Vector2 = null;
+  private eleSize: THREE.Vector2 = null;
+  
   setSize(size: THREE.Vector2) {
     this.canvasSize = size;
-    console.log(this.canvasSize);
+    this.eleSize = new THREE.Vector2(this.canvasSize.x, this.canvasSize.y);
     this.applyHtmlStyle();
   }
 
   setParentNode(parentNode: HTMLElement) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
-      console.log(this.parentNode);
       this.getCanvas();
     }
   }
@@ -75,9 +75,11 @@ export class CanvasComponent implements OnInit {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'children':
-            this.children.forEach((child) => {
-              child.setParentNode(this.canvas);
-            });
+            if (this.eleSize !== null) {
+              this.children.forEach((child) => {
+                child.setParentNode(this.canvas, this.eleSize);
+              });
+            }
             break;
           case 'html':
             this.html.forEach((html) => {
@@ -87,7 +89,7 @@ export class CanvasComponent implements OnInit {
           case 'transform':
             if (this.canvasSize !== null) {
               this.transform.forEach((transform) => {
-                transform.setParentNode(this.canvas, this.canvasSize);
+                transform.setParentNode(this.canvas, this.canvasSize, this.eleSize);
               });
             }
             break;
@@ -118,7 +120,7 @@ export class CanvasComponent implements OnInit {
     if (this.canvas !== null) {
       const style: CssStyle= this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
-      this.synkObject2D(['transform', 'background']);
+      this.synkObject2D(['transform', 'background', 'children']);
     }
   }
 
@@ -132,7 +134,7 @@ export class CanvasComponent implements OnInit {
         this.canvas.parentNode.removeChild(this.canvas);
       }
       this.canvas = canvas;
-      this.synkObject2D(['html', 'children', 'transform', 'background']);
+      this.synkObject2D(['html', 'transform', 'background', 'children' ]);
     }
     if (this.parentNode !== null && this.canvas.parentNode !== this.parentNode) {
       this.parentNode.appendChild(this.canvas);

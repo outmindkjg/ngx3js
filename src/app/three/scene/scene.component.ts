@@ -17,6 +17,8 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { LookatComponent } from '../lookat/lookat.component';
+import { ThreeUtil } from '../interface';
+import { RendererComponent } from '../renderer/renderer.component';
 
 @Component({
   selector: 'three-scene',
@@ -80,6 +82,15 @@ export class SceneComponent implements OnInit {
     }
   }
   
+  private renderer : RendererComponent = null;
+  setRenderer(renderer : RendererComponent) {
+    this.renderer = renderer;
+  }
+
+  getRenderer():RendererComponent {
+    return this.renderer;
+  }
+
   getObject3D(): THREE.Object3D {
     return this.getScene();
   }
@@ -217,6 +228,9 @@ export class SceneComponent implements OnInit {
           'mesh',
           'fog',
         ]);
+      }
+      if (ThreeUtil.isNull(this.scene.userData.component)) {
+        this.scene.userData.component = this;
       }
     }
     return this.scene;

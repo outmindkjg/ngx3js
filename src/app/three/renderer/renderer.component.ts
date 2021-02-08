@@ -34,6 +34,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() controlAutoRotate: boolean = false;
   @Input() shadowMapEnabled: boolean = true;
   @Input() clearColor: string | number = null;
+  @Input() clearAlpha: number = null;
   @Input() localClippingEnabled: boolean = false;
 
   @Input() antialias: boolean = false;
@@ -119,17 +120,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
   }
 
-  getClearColor(def: string | number): string | number {
-    if (this.clearColor === null) {
-      return def;
-    } else {
-      const clearColor = this.clearColor.toString();
-      if (clearColor.startsWith('0x')) {
-        return parseInt(clearColor, 16);
-      } else {
-        return this.clearColor;
-      }
-    }
+  getClearColor(def: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.clearColor, def);
+  }
+
+  getClearAlpha(def: number): number {
+    return ThreeUtil.getTypeSafe(this.clearAlpha, def);
   }
 
   setSize(width: number, height: number) {
@@ -326,7 +322,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.rendererWidth = width;
       this.rendererHeight = height;
       if (this.renderer instanceof THREE.WebGLRenderer) {
-        this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)), 0);
+        this.renderer.setClearColor(this.getClearColor(0xEEEEEE));
+        this.renderer.setClearAlpha(this.getClearAlpha(1));
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.shadowMap.enabled = true;
@@ -380,7 +377,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.control.update();
       }
     }
-    // this.renderer.autoClear = false;
     this.cameras.forEach(camera => {
       camera.render(this.renderer, this.cssRenderer ,this.scenes, renderTimer)
     });

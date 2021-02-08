@@ -19,7 +19,8 @@ export class AppComponent {
     { url : 'ch09', name : '09. Animations and Moving the Camera'},
     { url : 'ch10', name : '10. Loading and Working with Textures'},
     { url : 'ch11', name : '11. Custom Shaders and Render Postprocessing'},
-    { url : 'ch12', name : '12. Adding Physics and Sounds to Your Scene'}
+    { url : 'ch12', name : '12. Adding Physics and Sounds to Your Scene'},
+    { url : 'ch13', name : '13. Canvas 2D'}
   ];
 
 }
