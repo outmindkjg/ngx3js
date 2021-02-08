@@ -71,8 +71,8 @@ export abstract class AbstractThreeController{
     return null;
   }
 
-  getObjectByName () {
-    this.scene.getObjectById();
+  getObjectByName (name: string) : THREE.Object3D{
+    return this.scene.getObjectByName(name);
   }
 }
 
