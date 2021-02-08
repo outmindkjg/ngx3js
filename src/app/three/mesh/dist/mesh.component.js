@@ -24,6 +24,7 @@ var core_1 = require("@angular/core");
 var THREE = require("three");
 var RectAreaLightHelper_js_1 = require("three/examples/jsm/helpers/RectAreaLightHelper.js");
 var CSS3DRenderer_js_1 = require("three/examples/jsm/renderers/CSS3DRenderer.js");
+var CSS2DRenderer_js_1 = require("three/examples/jsm/renderers/CSS2DRenderer.js");
 var Lensflare_1 = require("three/examples/jsm/objects/Lensflare");
 var SceneUtils_1 = require("three/examples/jsm/utils/SceneUtils");
 var geometry_component_1 = require("../geometry/geometry.component");
@@ -40,6 +41,7 @@ var listener_component_1 = require("./../listener/listener.component");
 var lookat_component_1 = require("./../lookat/lookat.component");
 var mixer_component_1 = require("./../mixer/mixer.component");
 var MorphAnimMesh_1 = require("three/examples/jsm/misc/MorphAnimMesh");
+var html_component_1 = require("../html/html.component");
 var MeshComponent = /** @class */ (function (_super) {
     __extends(MeshComponent, _super);
     function MeshComponent(localStorageService) {
@@ -48,7 +50,7 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.type = 'mesh';
         _this.mass = null;
         _this.lightType = 'spot';
-        _this.css3dType = 'div';
+        _this.cssStyle = null;
         _this.skyboxType = 'auto';
         _this.skyboxRate = 100;
         _this.skyboxImage = null;
@@ -95,7 +97,7 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.clips = null;
         _this.clipMesh = null;
         _this.helper = null;
-        _this.refObject3d = null;
+        _this.cssClazzName = null;
         return _this;
     }
     MeshComponent_1 = MeshComponent;
@@ -275,7 +277,7 @@ var MeshComponent = /** @class */ (function (_super) {
             return null;
         }
     };
-    MeshComponent.prototype.getMaterials = function () {
+    MeshComponent.prototype.getMaterials = function (parameters) {
         var materials = [];
         if (this.materials !== null && this.materials.length > 0) {
             this.materials.forEach(function (material) {
@@ -283,7 +285,7 @@ var MeshComponent = /** @class */ (function (_super) {
             });
         }
         if (materials.length == 0) {
-            materials.push(new THREE.MeshBasicMaterial());
+            materials.push(new THREE.MeshPhongMaterial(parameters));
         }
         return materials;
     };
@@ -345,6 +347,9 @@ var MeshComponent = /** @class */ (function (_super) {
         });
         this.audio.changes.subscribe(function () {
             _this.synkObject3D(['audio']);
+        });
+        this.cssChildren.changes.subscribe(function () {
+            _this.synkObject3D(['cssChildren']);
         });
     };
     MeshComponent.prototype.synkObject3D = function (synkTypes) {
@@ -421,6 +426,11 @@ var MeshComponent = /** @class */ (function (_super) {
                     case 'audio':
                         _this.audio.forEach(function (audio) {
                             audio.setObject3D(_this.mesh);
+                        });
+                        break;
+                    case 'cssChildren':
+                        _this.cssChildren.forEach(function (cssChild) {
+                            cssChild.setObject3D(_this.mesh);
                         });
                         break;
                 }
@@ -508,39 +518,56 @@ var MeshComponent = /** @class */ (function (_super) {
                             break;
                     }
                     break;
+                case 'css':
                 case 'css3d':
-                    var element = null;
-                    switch (this.css3dType.toLowerCase()) {
-                        case 'img':
-                            element = document.createElement('img');
-                            break;
-                        case 'span':
-                            element = document.createElement('span');
-                            break;
-                        case 'button':
-                            element = document.createElement('button');
-                            break;
-                        case 'div':
-                        default:
-                            element = document.createElement('div');
-                            break;
-                    }
-                    element.style.width = this.getWidth(1) + 'px';
-                    element.style.overflow = 'hidden';
-                    element.classList.add('test');
-                    element.innerHTML = "우리는민족중흥의";
-                    var cssele = new CSS3DRenderer_js_1.CSS3DObject(element);
-                    var cssgeo = new THREE.BoxGeometry(this.getWidth(1), this.getHeight(1), 0.1);
-                    var cssmat = new THREE.MeshPhongMaterial({
+                case 'css2d':
+                    var cssElement = document.createElement('div');
+                    var cssGeometry = null;
+                    var cssMaterials = this.getMaterials({
                         opacity: 0.15,
                         transparent: true,
-                        color: new THREE.Color(0x111111),
-                        blending: THREE.NoBlending
+                        color: this.getGroundColor(0x111111),
+                        blending: THREE.NoBlending,
+                        side: THREE.DoubleSide
                     });
-                    basemesh_1 = new THREE.Mesh(cssgeo, cssmat);
-                    basemesh_1.receiveShadow = true;
-                    basemesh_1.castShadow = true;
-                    basemesh_1.add(cssele);
+                    if (geometry !== null) {
+                        cssGeometry = geometry;
+                    }
+                    else {
+                        cssGeometry = new THREE.BoxGeometry(this.getWidth(1), this.getHeight(1), this.getDistance(0.1));
+                    }
+                    if (cssGeometry instanceof THREE.BoxGeometry || cssGeometry instanceof THREE.PlaneGeometry) {
+                        this.cssClazzName = interface_1.ThreeUtil.addCssStyle(cssElement, {
+                            width: cssGeometry.parameters.width,
+                            height: cssGeometry.parameters.height,
+                            overflow: 'hidden'
+                        }, this.cssClazzName, 'mesh', 'inline');
+                    }
+                    else if (cssGeometry instanceof THREE.CircleGeometry) {
+                        this.cssClazzName = interface_1.ThreeUtil.addCssStyle(cssElement, {
+                            width: cssGeometry.parameters.radius,
+                            height: cssGeometry.parameters.radius,
+                            overflow: 'hidden'
+                        }, this.cssClazzName, 'mesh', 'inline');
+                    }
+                    if (interface_1.ThreeUtil.isNotNull(this.cssStyle)) {
+                        this.cssClazzName = interface_1.ThreeUtil.addCssStyle(cssElement, this.cssStyle, this.cssClazzName, 'mesh', 'inline');
+                    }
+                    var cssObject = null;
+                    switch (this.type.toLowerCase()) {
+                        case 'css2d':
+                            cssObject = new CSS2DRenderer_js_1.CSS2DObject(cssElement);
+                            break;
+                        case 'css3d':
+                        case 'css':
+                        default:
+                            cssObject = new CSS3DRenderer_js_1.CSS3DObject(cssElement);
+                            break;
+                    }
+                    cssObject.castShadow = this.castShadow;
+                    cssObject.receiveShadow = this.receiveShadow;
+                    basemesh_1 = new THREE.Mesh(cssGeometry, cssMaterials[0]);
+                    basemesh_1.add(cssObject);
                     break;
                 case 'light':
                     switch (this.lightType.toLowerCase()) {
@@ -716,6 +743,9 @@ var MeshComponent = /** @class */ (function (_super) {
                     this.mesh.shadow.updateMatrices(this.mesh);
                 }
             }
+            if (interface_1.ThreeUtil.isNull(this.mesh.userData.component)) {
+                this.mesh.userData.component = this;
+            }
             if (this.helper == null) {
                 this.resetHelper();
             }
@@ -729,7 +759,8 @@ var MeshComponent = /** @class */ (function (_super) {
                 'material',
                 'svg',
                 'listner',
-                'audio'
+                'audio',
+                'cssChildren'
             ]);
         }
         return this.mesh;
@@ -864,7 +895,7 @@ var MeshComponent = /** @class */ (function (_super) {
     ], MeshComponent.prototype, "lightType");
     __decorate([
         core_1.Input()
-    ], MeshComponent.prototype, "css3dType");
+    ], MeshComponent.prototype, "cssStyle");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "skyboxType");
@@ -1027,6 +1058,9 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: false })
     ], MeshComponent.prototype, "audio");
+    __decorate([
+        core_1.ContentChildren(html_component_1.HtmlComponent, { descendants: false })
+    ], MeshComponent.prototype, "cssChildren");
     MeshComponent = MeshComponent_1 = __decorate([
         core_1.Component({
             selector: 'three-mesh',

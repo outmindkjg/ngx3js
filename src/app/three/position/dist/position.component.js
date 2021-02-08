@@ -23,20 +23,24 @@ exports.PositionComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
 var interface_1 = require("../interface");
+var rxjs_1 = require("rxjs");
 var PositionComponent = /** @class */ (function (_super) {
     __extends(PositionComponent, _super);
     function PositionComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.visible = true;
-        _this.x = 0;
-        _this.y = 0;
-        _this.z = 0;
+        _this.refer = null;
+        _this.referRef = true;
+        _this.x = null;
+        _this.y = null;
+        _this.z = null;
         _this.position = null;
-        _this.refObject3d = null;
+        _this._positionSubscribe = null;
+        _this._positionSubject = new rxjs_1.Subject();
         return _this;
     }
     PositionComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.x || changes.y || changes.z) {
+        if (changes.x || changes.y || changes.z || changes.refer) {
             this.position = null;
         }
         this.resetPosition();
@@ -54,11 +58,25 @@ var PositionComponent = /** @class */ (function (_super) {
             this.resetPosition();
         }
     };
+    PositionComponent.prototype.positionSubscribe = function () {
+        return this._positionSubject.asObservable();
+    };
     PositionComponent.prototype.resetPosition = function () {
         var _this = this;
         if (this.refObject3d !== null && this.visible) {
+            if (this._positionSubscribe !== null) {
+                this._positionSubscribe.unsubscribe();
+                this._positionSubscribe = null;
+            }
             if (this.refObject3d instanceof THREE.Object3D) {
                 this.refObject3d.position.copy(this.getPosition());
+                if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
+                    this._positionSubscribe = this.refer.positionSubscribe().subscribe(function (position) {
+                        if (_this.refObject3d instanceof THREE.Object3D && _this.visible) {
+                            _this.refObject3d.position.copy(position);
+                        }
+                    });
+                }
                 this.setTweenTarget(this.refObject3d.position);
             }
             else if (this.refObject3d instanceof interface_1.AbstractSvgGeometry) {
@@ -70,13 +88,30 @@ var PositionComponent = /** @class */ (function (_super) {
     };
     PositionComponent.prototype.getPosition = function () {
         if (this.position === null) {
-            this.position = new THREE.Vector3(this.x, this.y, this.z);
+            if (this.refer !== null && this.refer !== undefined) {
+                if (this.refer.getPosition) {
+                    this.position = this.refer.getPosition();
+                }
+                else if (this.refer instanceof THREE.Vector3) {
+                    this.position = this.refer;
+                }
+            }
+            if (this.position === null) {
+                this.position = interface_1.ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+            }
+            this._positionSubject.next(this.position);
         }
         return this.position;
     };
     __decorate([
         core_1.Input()
     ], PositionComponent.prototype, "visible");
+    __decorate([
+        core_1.Input()
+    ], PositionComponent.prototype, "refer");
+    __decorate([
+        core_1.Input()
+    ], PositionComponent.prototype, "referRef");
     __decorate([
         core_1.Input()
     ], PositionComponent.prototype, "x");

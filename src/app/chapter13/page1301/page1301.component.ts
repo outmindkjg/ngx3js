@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
+import { AbstractThreeController, GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
 
 @Component({
   selector: 'app-page1301',
@@ -7,6 +7,8 @@ import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three
   styleUrls: ['./page1301.component.scss']
 })
 export class Page1301Component implements OnInit {
+
+  controller = Page1301Controller;
 
   controls = {
     rotate: true,
@@ -39,4 +41,9 @@ export class Page1301Component implements OnInit {
     }
 
   }
+}
+
+
+export class Page1301Controller extends AbstractThreeController {
+
 }

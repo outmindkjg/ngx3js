@@ -26,7 +26,6 @@ export class PositionComponent extends AbstractThreeComponent implements OnInit 
   }
 
   private position: THREE.Vector3 = null;
-  private refObject3d: THREE.Object3D | AbstractSvgGeometry = null;
 
   setObject3D(refObject3d: THREE.Object3D | AbstractSvgGeometry, isRestore: boolean = false) {
     if (this.refObject3d !== refObject3d) {

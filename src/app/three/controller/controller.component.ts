@@ -9,11 +9,21 @@ import { AbstractThreeController, ThreeUtil } from './../interface';
 })
 export class ControllerComponent implements OnInit {
 
-  @Input() controller : AbstractThreeController;
+  @Input() controller : { new(ref : THREE.Object3D) : AbstractThreeController } = null;
   constructor() { }
 
-  
+
   ngOnInit(): void {
   }
 
+  private _controller : AbstractThreeController = null;
+  private refObject3d : THREE.Object3D;
+  setObject3D(refObject3d: THREE.Object3D) {
+    if (this.refObject3d !== refObject3d) {
+      this.refObject3d = refObject3d;
+      if (this.refObject3d !== null) {
+        this._controller = new this.controller(this.refObject3d);
+      }
+    }
+  }
 }

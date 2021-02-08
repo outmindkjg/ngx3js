@@ -1,3 +1,5 @@
+import { ControllerComponent } from './controller/controller.component';
+import { Geometry } from './../../../three.js-master/examples/jsm/deprecated/Geometry.d';
 import {
   AfterContentInit,
   Component,
@@ -30,15 +32,62 @@ export interface LoadedObject {
   clips?: THREE.AnimationClip[];
 }
 
-export abstract class AbstractThreeController{
-  constructor(protected refObject : THREE.Object3D) { 
+export abstract class AbstractThreeController {
+  protected refObject: THREE.Object3D = null;
 
+  constructor(refObject: THREE.Object3D) {
+    this.setObject3d(refObject);
   }
 
-  get scene() : THREE.Scene {
+  setObject3d(refObject: THREE.Object3D) {
+    this.refObject = refObject;
+  }
+
+  get position():THREE.Vector3 {
+    return this.refObject.position;
+  }
+
+  get scale():THREE.Vector3 {
+    return this.refObject.scale;
+  }
+
+  get rotation():THREE.Euler {
+    return this.refObject.rotation;
+  }
+
+  get material(): THREE.Material {
+    if (this.refObject instanceof THREE.Mesh) {
+      if (this.refObject.material instanceof Array) {
+        return this.refObject.material[0];
+      } else {
+        return this.refObject.material;
+      }
+    }
+    return undefined;
+  }
+
+  get materials(): THREE.Material[] {
+    if (this.refObject instanceof THREE.Mesh) {
+      if (this.refObject.material instanceof Array) {
+        return this.refObject.material;
+      } else {
+        return [this.refObject.material];
+      }
+    }
+    return undefined;
+  }
+
+  getGeometry(): THREE.BufferGeometry {
+    if (this.refObject instanceof THREE.Mesh) {
+        return this.refObject.geometry;
+    }
+    return undefined;
+  }
+
+  get scene(): THREE.Scene {
     if (this.refObject !== null) {
       let lastObj: THREE.Object3D = this.refObject;
-      while(!(lastObj instanceof THREE.Scene) && lastObj.parent) {
+      while (!(lastObj instanceof THREE.Scene) && lastObj.parent) {
         lastObj = lastObj.parent;
       }
       if (lastObj instanceof THREE.Scene) {
@@ -48,7 +97,7 @@ export abstract class AbstractThreeController{
     return null;
   }
 
-  get camera() : THREE.Camera {
+  get camera(): THREE.Camera {
     const scene = this.scene;
     if (scene !== null) {
       const sceneComp = scene.userData.component as SceneComponent;
@@ -57,12 +106,12 @@ export abstract class AbstractThreeController{
     return null;
   }
 
-  getCameraByName(name : string) : THREE.Camera {
+  getCameraByName(name: string): THREE.Camera {
     const scene = this.scene;
     if (scene !== null) {
       const sceneComp = scene.userData.component as SceneComponent;
-      const camara = sceneComp.getRenderer().cameras.find(camera => {
-        return (camera.name == name) 
+      const camara = sceneComp.getRenderer().cameras.find((camera) => {
+        return camera.name == name;
       });
       if (ThreeUtil.isNotNull(camara)) {
         return camara.getCamera();
@@ -71,11 +120,38 @@ export abstract class AbstractThreeController{
     return null;
   }
 
-  getObjectByName (name: string) : THREE.Object3D{
-    return this.scene.getObjectByName(name);
+  getObjectByName(name: string, fromTop : boolean = false): THREE.Object3D {
+    if (fromTop) {
+      return this.scene.getObjectByName(name);
+    } else {
+      return this.refObject.getObjectByName(name);
+    }
   }
-}
 
+  getObjectByProperty(name: string, value: string, fromTop : boolean = false): THREE.Object3D {
+    if (fromTop) {
+      return this.scene.getObjectByProperty(name, value);
+    } else {
+      return this.refObject.getObjectByProperty(name, value);
+    }
+  }
+
+  getObjectByFunction(name: string, fn : (arg : any) => boolean, fromTop : boolean = false, obj3d : THREE.Object3D = null): THREE.Object3D {
+    if (obj3d === null) {
+      obj3d = fromTop ? this.scene : this.refObject;
+    }
+		if ( fn(obj3d[ name ])) return obj3d;
+		for ( let i = 0, l = obj3d.children.length; i < l; i ++ ) {
+			const child = obj3d.children[ i ];
+			const object = this.getObjectByFunction( name, fn, false, child );
+			if ( object !== undefined ) {
+				return object;
+			}
+		}
+		return undefined;
+  }
+
+}
 
 export interface AbstractEffectComposer {
   resetEffectComposer(): void;
@@ -88,10 +164,10 @@ export abstract class AbstractThreeComponent
   implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   @Input() tweenStart: boolean = true;
 
-  @ContentChildren(TweenComponent, { descendants: false })
-  tween: QueryList<TweenComponent>;
+  @ContentChildren(TweenComponent, { descendants: false }) tween: QueryList<TweenComponent>;
+  @ContentChildren(ControllerComponent, { descendants: false }) controller: QueryList<ControllerComponent>;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.tweenStart && this.tweenTarget) {
@@ -105,7 +181,22 @@ export abstract class AbstractThreeComponent
         this.resetTween();
       });
     }
+    if (this.controller !== null && this.controller !== undefined) {
+      this.controller.changes.subscribe((e) => {
+        this.resetController();
+      });
+    }
   }
+
+  resetController() {
+    if (this.controller !== null && this.controller !== undefined && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+      this.controller.forEach((controller) => {
+        controller.setObject3D(this.refObject3d);
+      });
+    }
+  }
+
+  public refObject3d : THREE.Object3D | any = null;
 
   private tweenTarget: any = null;
   private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
@@ -134,7 +225,7 @@ export abstract class AbstractThreeComponent
     }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 }
 
 export abstract class AbstractGetGeometry extends AbstractThreeComponent {
@@ -193,7 +284,7 @@ export interface CssStyle {
   right?: number | string;
   top?: number | string;
   bottom?: number | string;
-  transition? : string | string[];
+  transition?: string | string[];
   backgroundColor?: string | number | THREE.Color | THREE.Vector4;
   backgroundImage?: string;
   backgroundRepeat?: string;
@@ -291,7 +382,7 @@ export class ThreeUtil {
         injected.innerHTML = cssContent;
         cssParent.appendChild(injected);
         return true;
-      } catch (e) { }
+      } catch (e) {}
     }
     return false;
   }
@@ -368,13 +459,13 @@ export class ThreeUtil {
     return true;
   }
 
-  static getChildElementSave(parentEle : HTMLElement):HTMLElement {
+  static getChildElementSave(parentEle: HTMLElement): HTMLElement {
     const ele: Node = parentEle.cloneNode(true);
-    const childNodes : Node[] = [];
-    ele.childNodes.forEach(child => {
+    const childNodes: Node[] = [];
+    ele.childNodes.forEach((child) => {
       childNodes.push(child);
     });
-    childNodes.forEach(child => {
+    childNodes.forEach((child) => {
       switch (child.nodeType) {
         case Node.ELEMENT_NODE:
           const childEle: HTMLElement = child as HTMLElement;
@@ -402,7 +493,7 @@ export class ThreeUtil {
         default:
           break;
       }
-    })
+    });
     return ele as HTMLElement;
   }
 
@@ -416,10 +507,10 @@ export class ThreeUtil {
     if (clazzName == null || clazzName == undefined) {
       clazzName = this.makeUUID(15, classPrefix);
     }
-    if (typeof (styles) == 'string') {
+    if (typeof styles == 'string') {
       styles = {
-        innerHtml: styles
-      }
+        innerHtml: styles,
+      };
     }
     if (styles === null || styles === undefined) {
       styles = {};
@@ -433,7 +524,7 @@ export class ThreeUtil {
         switch (key) {
           case 'change':
           case 'click':
-          case 'dblclick' :
+          case 'dblclick':
           case 'focus':
           case 'keyup':
           case 'keydown':
@@ -459,7 +550,7 @@ export class ThreeUtil {
           case 'textContent':
             ele.textContent = value;
             break;
-          case 'zIndex' :
+          case 'zIndex':
           case 'opacity':
           case 'borderImageSlice':
             if (typeof value == 'number') {
@@ -468,10 +559,10 @@ export class ThreeUtil {
               styleList[key] = parseFloat(value).toString();
             }
             break;
-          case 'transition' :
-            if (typeof(value) === 'string' && value != '') {
+          case 'transition':
+            if (typeof value === 'string' && value != '') {
               styleList[key] = value;
-            } else if (value instanceof Array && value.length  > 0 ) {
+            } else if (value instanceof Array && value.length > 0) {
               styleList[key] = value.join(', ');
             }
             break;
@@ -483,7 +574,8 @@ export class ThreeUtil {
             } else if (value instanceof THREE.Color) {
               styleList[key] = value.getStyle();
             } else if (value instanceof THREE.Vector4) {
-              styleList[key] = 'rgba(' +
+              styleList[key] =
+                'rgba(' +
                 value.x * 255 +
                 ',' +
                 value.y * 255 +
@@ -507,7 +599,7 @@ export class ThreeUtil {
           case 'borderImageSource':
             styleList[key] = 'url(' + value + ')';
             break;
-          case 'content' :
+          case 'content':
             if (typeof value == 'string' && value !== '') {
               styleList[key] = "'" + value + "'";
             }
@@ -595,11 +687,11 @@ export class ThreeUtil {
         });
         this.cssInject(
           '.' +
-          clazzName +
-          (vertualClass ? ':' + vertualClass : '') +
-          '{' +
-          cssStyleList.join(';') +
-          '}',
+            clazzName +
+            (vertualClass ? ':' + vertualClass : '') +
+            '{' +
+            cssStyleList.join(';') +
+            '}',
           clazzName
         );
         if (!ele.classList.contains(clazzName)) {
@@ -821,10 +913,10 @@ export class ThreeUtil {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
         ? new THREE.Vector3(
-          this.getTypeSafe(x, y, z),
-          this.getTypeSafe(y, x, z),
-          this.getTypeSafe(z, x, y)
-        )
+            this.getTypeSafe(x, y, z),
+            this.getTypeSafe(y, x, z),
+            this.getTypeSafe(z, x, y)
+          )
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -841,10 +933,10 @@ export class ThreeUtil {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
         ? new THREE.Euler(
-          this.getAngleSafe(this.getTypeSafe(x, y, z), 0),
-          this.getAngleSafe(this.getTypeSafe(y, x, z), 0),
-          this.getAngleSafe(this.getTypeSafe(z, x, y), 0)
-        )
+            this.getAngleSafe(this.getTypeSafe(x, y, z), 0),
+            this.getAngleSafe(this.getTypeSafe(y, x, z), 0),
+            this.getAngleSafe(this.getTypeSafe(z, x, y), 0)
+          )
         : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -1056,16 +1148,16 @@ export class ThreeStats implements Stats {
 export interface GuiControlParam {
   name: string;
   type?:
-  | 'number'
-  | 'folder'
-  | 'select'
-  | 'folder'
-  | 'button'
-  | 'color'
-  | 'checkbox'
-  | 'input'
-  | 'listen'
-  | 'auto';
+    | 'number'
+    | 'folder'
+    | 'select'
+    | 'folder'
+    | 'button'
+    | 'color'
+    | 'checkbox'
+    | 'input'
+    | 'listen'
+    | 'auto';
   min?: number;
   max?: number;
   step?: number;

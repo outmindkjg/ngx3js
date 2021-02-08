@@ -1,23 +1,23 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-canvas>
         <three-visual>
-            <three-transform 
+            <three-transform
                 [anchorSeparat]="true"
                 [anchorMaxX]="0.2"
                 [anchorMaxY]="0.8"
                 [anchorMinX]="0.05"
                 [anchorMinY]="0.1"
             ></three-transform>
-            <three-background 
-                [backgroundColor]="'0xffffff'" 
+            <three-background
+                [backgroundColor]="'0xffffff'"
                 [backgroundAlpha]="0.4"
                 [borderRadius]="10"
             ></three-background>
             <three-visual [type]="'button'"
                 (click)="buttonClick($event)"
-            > 
+            >
                 <b>Button</b> Text
-                <three-transform 
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -26,8 +26,8 @@
                     [top]="0"
                     [bottom]="-20"
                 ></three-transform>
-                <three-background 
-                    [backgroundColor]="'0xffffff'" 
+                <three-background
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -35,18 +35,18 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
             </three-visual>
             <three-visual [type]="'button'"
                 (mouseover)="buttonClick($event)"
-            > 
+            >
                 <b>Bu</b> T2
-                <three-transform 
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -55,9 +55,9 @@
                     [top]="25"
                     [bottom]="5"
                 ></three-transform>
-                <three-background 
+                <three-background
                     [textAlign]="'left'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -65,25 +65,25 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xff0000'" 
+                    [backgroundColor]="'0xff0000'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="':before'"
                     [content]="'some'"
-                    [backgroundColor]="'0xffff00'" 
+                    [backgroundColor]="'0xffff00'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
             </three-visual>
             <three-visual [type]="'checkbox'"
                 (change)="buttonClick($event)"
-            > 
+            >
                 <b>C</b>heck Box
-                <three-transform 
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -92,9 +92,9 @@
                     [top]="50"
                     [bottom]="30"
                 ></three-transform>
-                <three-background 
+                <three-background
                     [textAlign]="'left'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -102,19 +102,19 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xff0000'" 
+                    [backgroundColor]="'0xff0000'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
-            </three-visual>            
+            </three-visual>
             <three-visual [type]="'radio'"
                 (change)="buttonClick($event)"
                 [value]="'111'"
                 [radioValues]="[{ value : '111', text : '1111'},{ value : '2222', text : '3333'}]"
-            > 
-                <three-transform 
+            >
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -123,9 +123,9 @@
                     [top]="80"
                     [bottom]="-30"
                 ></three-transform>
-                <three-background 
+                <three-background
                     [textAlign]="'left'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -133,18 +133,18 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xff0000'" 
+                    [backgroundColor]="'0xff0000'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
-            </three-visual>            
+            </three-visual>
             <three-visual [type]="'textarea'"
                 (change)="buttonClick($event)"
                 [value]="'111'"
-            > 
-                <three-transform 
+            >
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -153,9 +153,9 @@
                     [top]="200"
                     [bottom]="100"
                 ></three-transform>
-                <three-background 
+                <three-background
                     [textAlign]="'left'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -163,18 +163,18 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xff0000'" 
+                    [backgroundColor]="'0xff0000'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
-            </three-visual>            
+            </three-visual>
             <three-visual [type]="'input'"
                 (change)="buttonClick($event)"
                 [value]="'111'"
-            > 
-                <three-transform 
+            >
+                <three-transform
                     [anchorSeparat]="true"
                     [anchorMaxX]="0.95"
                     [anchorMaxY]="0.9"
@@ -183,9 +183,9 @@
                     [top]="305"
                     [bottom]="250"
                 ></three-transform>
-                <three-background 
+                <three-background
                     [textAlign]="'left'"
-                    [backgroundColor]="'0xffffff'" 
+                    [backgroundColor]="'0xffffff'"
                     [backgroundAlpha]="1"
                     [borderRadius]="3"
                     [borderWidth]="2"
@@ -193,13 +193,13 @@
                     [borderColor]="'#d0d0d0'"
                     [transition]="['border-radius 3s', 'background-color 3s']"
                 ></three-background>
-                <three-background 
+                <three-background
                     [pseudo]="'hover'"
-                    [backgroundColor]="'0xff0000'" 
+                    [backgroundColor]="'0xff0000'"
                     [backgroundAlpha]="0.3"
                     [borderRadius]="7"
                 ></three-background>
-            </three-visual>            
+            </three-visual>
         </three-visual>
     </three-canvas>
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
@@ -213,6 +213,7 @@
             <three-lookat [refer]="scene"></three-lookat>
         </three-mesh>
         <three-mesh>
+            <three-controller [controller]="controller"></three-controller>
             <three-position [x]="0" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry [type]="'box'" [width]="10" [height]="10" [depth]="10"></three-geometry>

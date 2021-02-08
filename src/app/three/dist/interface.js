@@ -19,7 +19,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.AbstractMeshComponent = exports.AbstractSvgGeometry = exports.AbstractComposerComponent = exports.AbstractGetGeometry = exports.AbstractThreeComponent = void 0;
+exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.AbstractMeshComponent = exports.AbstractSvgGeometry = exports.AbstractComposerComponent = exports.AbstractGetGeometry = exports.AbstractThreeComponent = exports.AbstractThreeController = void 0;
+var controller_component_1 = require("./controller/controller.component");
 var core_1 = require("@angular/core");
 var CHROMA = require("chroma-js");
 var GSAP = require("gsap");
@@ -27,9 +28,154 @@ var THREE = require("three");
 var dat_gui_module_1 = require("three/examples/jsm/libs/dat.gui.module");
 var stats_module_1 = require("three/examples/jsm/libs/stats.module");
 var tween_component_1 = require("./tween/tween.component");
+var AbstractThreeController = /** @class */ (function () {
+    function AbstractThreeController(refObject) {
+        this.refObject = null;
+        this.setObject3d(refObject);
+    }
+    AbstractThreeController.prototype.setObject3d = function (refObject) {
+        this.refObject = refObject;
+    };
+    Object.defineProperty(AbstractThreeController.prototype, "position", {
+        get: function () {
+            return this.refObject.position;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AbstractThreeController.prototype, "scale", {
+        get: function () {
+            return this.refObject.scale;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AbstractThreeController.prototype, "rotation", {
+        get: function () {
+            return this.refObject.rotation;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AbstractThreeController.prototype, "material", {
+        get: function () {
+            if (this.refObject instanceof THREE.Mesh) {
+                if (this.refObject.material instanceof Array) {
+                    return this.refObject.material[0];
+                }
+                else {
+                    return this.refObject.material;
+                }
+            }
+            return undefined;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AbstractThreeController.prototype, "materials", {
+        get: function () {
+            if (this.refObject instanceof THREE.Mesh) {
+                if (this.refObject.material instanceof Array) {
+                    return this.refObject.material;
+                }
+                else {
+                    return [this.refObject.material];
+                }
+            }
+            return undefined;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    AbstractThreeController.prototype.getGeometry = function () {
+        if (this.refObject instanceof THREE.Mesh) {
+            return this.refObject.geometry;
+        }
+        return undefined;
+    };
+    Object.defineProperty(AbstractThreeController.prototype, "scene", {
+        get: function () {
+            if (this.refObject !== null) {
+                var lastObj = this.refObject;
+                while (!(lastObj instanceof THREE.Scene) && lastObj.parent) {
+                    lastObj = lastObj.parent;
+                }
+                if (lastObj instanceof THREE.Scene) {
+                    return lastObj;
+                }
+            }
+            return null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AbstractThreeController.prototype, "camera", {
+        get: function () {
+            var scene = this.scene;
+            if (scene !== null) {
+                var sceneComp = scene.userData.component;
+                return sceneComp.getRenderer().cameras.first.getCamera();
+            }
+            return null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    AbstractThreeController.prototype.getCameraByName = function (name) {
+        var scene = this.scene;
+        if (scene !== null) {
+            var sceneComp = scene.userData.component;
+            var camara = sceneComp.getRenderer().cameras.find(function (camera) {
+                return camera.name == name;
+            });
+            if (ThreeUtil.isNotNull(camara)) {
+                return camara.getCamera();
+            }
+        }
+        return null;
+    };
+    AbstractThreeController.prototype.getObjectByName = function (name, fromTop) {
+        if (fromTop === void 0) { fromTop = false; }
+        if (fromTop) {
+            return this.scene.getObjectByName(name);
+        }
+        else {
+            return this.refObject.getObjectByName(name);
+        }
+    };
+    AbstractThreeController.prototype.getObjectByProperty = function (name, value, fromTop) {
+        if (fromTop === void 0) { fromTop = false; }
+        if (fromTop) {
+            return this.scene.getObjectByProperty(name, value);
+        }
+        else {
+            return this.refObject.getObjectByProperty(name, value);
+        }
+    };
+    AbstractThreeController.prototype.getObjectByFunction = function (name, fn, fromTop, obj3d) {
+        if (fromTop === void 0) { fromTop = false; }
+        if (obj3d === void 0) { obj3d = null; }
+        if (obj3d === null) {
+            obj3d = fromTop ? this.scene : this.refObject;
+        }
+        if (fn(obj3d[name]))
+            return obj3d;
+        for (var i = 0, l = obj3d.children.length; i < l; i++) {
+            var child = obj3d.children[i];
+            var object = this.getObjectByFunction(name, fn, false, child);
+            if (object !== undefined) {
+                return object;
+            }
+        }
+        return undefined;
+    };
+    return AbstractThreeController;
+}());
+exports.AbstractThreeController = AbstractThreeController;
 var AbstractThreeComponent = /** @class */ (function () {
     function AbstractThreeComponent() {
         this.tweenStart = true;
+        this.refObject3d = null;
         this.tweenTarget = null;
         this.tweenTimer = null;
     }
@@ -44,6 +190,19 @@ var AbstractThreeComponent = /** @class */ (function () {
         if (this.tween !== null && this.tween !== undefined) {
             this.tween.changes.subscribe(function (e) {
                 _this.resetTween();
+            });
+        }
+        if (this.controller !== null && this.controller !== undefined) {
+            this.controller.changes.subscribe(function (e) {
+                _this.resetController();
+            });
+        }
+    };
+    AbstractThreeComponent.prototype.resetController = function () {
+        var _this = this;
+        if (this.controller !== null && this.controller !== undefined && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+            this.controller.forEach(function (controller) {
+                controller.setObject3D(_this.refObject3d);
             });
         }
     };
@@ -77,6 +236,9 @@ var AbstractThreeComponent = /** @class */ (function () {
     __decorate([
         core_1.ContentChildren(tween_component_1.TweenComponent, { descendants: false })
     ], AbstractThreeComponent.prototype, "tween");
+    __decorate([
+        core_1.ContentChildren(controller_component_1.ControllerComponent, { descendants: false })
+    ], AbstractThreeComponent.prototype, "controller");
     AbstractThreeComponent = __decorate([
         core_1.Component({
             template: ''
@@ -224,19 +386,65 @@ var ThreeUtil = /** @class */ (function () {
         }
         return true;
     };
+    ThreeUtil.getChildElementSave = function (parentEle) {
+        var ele = parentEle.cloneNode(true);
+        var childNodes = [];
+        ele.childNodes.forEach(function (child) {
+            childNodes.push(child);
+        });
+        childNodes.forEach(function (child) {
+            switch (child.nodeType) {
+                case Node.ELEMENT_NODE:
+                    var childEle = child;
+                    switch (childEle.tagName) {
+                        case 'P':
+                        case 'DIV':
+                        case 'FONT':
+                        case 'SPAN':
+                        case 'IMG':
+                        case 'I':
+                        case 'B':
+                        case 'STRONG':
+                        case 'IFRAME':
+                        case 'H1':
+                        case 'H2':
+                        case 'H3':
+                        case 'H4':
+                        case 'H5':
+                            break;
+                        default:
+                            ele.removeChild(childEle);
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+        return ele;
+    };
     ThreeUtil.addCssStyle = function (ele, styles, clazzName, classPrefix, vertualClass) {
         var _this = this;
         if (clazzName == null || clazzName == undefined) {
             clazzName = this.makeUUID(15, classPrefix);
         }
+        if (typeof styles == 'string') {
+            styles = {
+                innerHtml: styles
+            };
+        }
+        if (styles === null || styles === undefined) {
+            styles = {};
+        }
         var eventList = {};
-        var styleList = [];
+        var styleList = {};
         Object.entries(styles).forEach(function (_a) {
             var key = _a[0], value = _a[1];
             if (_this.isNotNull(value)) {
                 switch (key) {
                     case 'change':
                     case 'click':
+                    case 'dblclick':
                     case 'focus':
                     case 'keyup':
                     case 'keydown':
@@ -263,56 +471,74 @@ var ThreeUtil = /** @class */ (function () {
                     case 'textContent':
                         ele.textContent = value;
                         break;
+                    case 'zIndex':
                     case 'opacity':
                     case 'borderImageSlice':
                         if (typeof value == 'number') {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                            styleList[key] = value.toString();
                         }
                         else if (typeof value == 'string') {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + parseFloat(value) + '');
+                            styleList[key] = parseFloat(value).toString();
+                        }
+                        break;
+                    case 'transition':
+                        if (typeof value === 'string' && value != '') {
+                            styleList[key] = value;
+                        }
+                        else if (value instanceof Array && value.length > 0) {
+                            styleList[key] = value.join(', ');
                         }
                         break;
                     case 'color':
                     case 'backgroundColor':
                     case 'borderColor':
                         if (typeof value == 'number' || typeof value == 'string') {
-                            styleList.push(_this.camelCaseToDash(key) +
-                                ': ' +
-                                _this.getColorSafe(value).getStyle() +
-                                '');
+                            styleList[key] = _this.getColorSafe(value).getStyle();
                         }
                         else if (value instanceof THREE.Color) {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + value.getStyle() + '');
+                            styleList[key] = value.getStyle();
                         }
                         else if (value instanceof THREE.Vector4) {
-                            styleList.push(_this.camelCaseToDash(key) +
-                                ': rgba(' +
-                                value.x * 255 +
-                                ',' +
-                                value.y * 255 +
-                                ',' +
-                                value.z * 255 +
-                                ',' +
-                                value.w +
-                                ')');
+                            styleList[key] =
+                                'rgba(' +
+                                    value.x * 255 +
+                                    ',' +
+                                    value.y * 255 +
+                                    ',' +
+                                    value.z * 255 +
+                                    ',' +
+                                    value.w +
+                                    ')';
                         }
                         break;
                     case 'transform':
                         if (value instanceof Array) {
                             if (value.length > 0) {
-                                styleList.push(_this.camelCaseToDash(key) + ': ' + value.join(' ') + '');
+                                styleList[key] = value.join(' ');
                             }
                         }
                         else if (typeof value == 'string' && value !== '') {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                            styleList[key] = value;
                         }
                         break;
                     case 'backgroundImage':
                     case 'borderImageSource':
-                        styleList.push(_this.camelCaseToDash(key) + ': url(' + value + ')');
+                        styleList[key] = 'url(' + value + ')';
                         break;
+                    case 'content':
+                        if (typeof value == 'string' && value !== '') {
+                            styleList[key] = "'" + value + "'";
+                        }
+                        break;
+                    case 'position':
+                    case 'pointerEvents':
+                    case 'overflow':
                     case 'width':
                     case 'height':
+                    case 'minWidth':
+                    case 'minHeight':
+                    case 'maxWidth':
+                    case 'maxHeight':
                     case 'left':
                     case 'right':
                     case 'top':
@@ -365,24 +591,39 @@ var ThreeUtil = /** @class */ (function () {
                     case 'wordSpacing':
                     case 'transformOrigin':
                         if (typeof value == 'number') {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + 'px');
+                            styleList[key] = value + 'px';
                         }
                         else if (typeof value == 'string') {
-                            styleList.push(_this.camelCaseToDash(key) + ': ' + value + '');
+                            styleList[key] = value;
                         }
                         break;
                 }
             }
         });
-        console.log(styleList);
-        this.cssInject('.' +
-            clazzName +
-            (vertualClass ? ':' + vertualClass : '') +
-            '{' +
-            styleList.join(';') +
-            '}', clazzName);
-        if (!ele.classList.contains(clazzName)) {
-            ele.classList.add(clazzName);
+        switch (vertualClass) {
+            case 'inline':
+                ele.removeAttribute('style');
+                Object.entries(styleList).forEach(function (_a) {
+                    var key = _a[0], value = _a[1];
+                    ele.style[key] = value;
+                });
+                break;
+            default:
+                var cssStyleList_1 = [];
+                Object.entries(styleList).forEach(function (_a) {
+                    var key = _a[0], value = _a[1];
+                    cssStyleList_1.push(_this.camelCaseToDash(key) + ': ' + value);
+                });
+                this.cssInject('.' +
+                    clazzName +
+                    (vertualClass ? ':' + vertualClass : '') +
+                    '{' +
+                    cssStyleList_1.join(';') +
+                    '}', clazzName);
+                if (!ele.classList.contains(clazzName)) {
+                    ele.classList.add(clazzName);
+                }
+                break;
         }
         if (eventList != {}) {
             var eleEvents_1 = null;
@@ -588,7 +829,6 @@ var ThreeUtil = /** @class */ (function () {
         if (isEnable === void 0) { isEnable = true; }
         var control = this.getGuiController(params, names);
         if (control !== null && control !== undefined && control.domElement) {
-            console.log(control.domElement.classList);
             if (isEnable) {
                 control.domElement.classList.add('no-pointer-events');
                 control.domElement.classList.add('control-disabled');
@@ -710,7 +950,6 @@ var ThreeGui = /** @class */ (function () {
     function ThreeGui(style, pars) {
         this.gui = null;
         this.gui = new dat_gui_module_1.GUI(pars);
-        console.log();
         this.domElement = this.gui.domElement;
         this.setStyle(style);
     }

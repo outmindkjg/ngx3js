@@ -338,8 +338,6 @@ export class MeshComponent extends AbstractMeshComponent implements OnInit {
     return materials;
   }
 
-  private refObject3d: THREE.Object3D = null;
-
   setObject3D(refObject3d: THREE.Object3D, isRestore: boolean = false) {
     if (isRestore) {
       if (this.refObject3d !== refObject3d.parent) {
