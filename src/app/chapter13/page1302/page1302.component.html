@@ -2,6 +2,8 @@
     <three-canvas>
         <three-visual>
             <three-controller [controller]="scaleController" [params]="scaleParam"></three-controller>
+            <three-controller [controller]="rotationController" [params]="rotationParam"></three-controller>
+            <three-controller [controller]="positionController" [params]="positionParam"></three-controller>
             <three-transform
                 [anchorSeparat]="true"
                 [anchorMaxX]="0.2"

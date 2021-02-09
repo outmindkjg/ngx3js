@@ -24,6 +24,7 @@ a {
 
 .three-canvas {
   position: absolute;
+  perspective: 200px;
   left: 0;
   top: 0;
   right: auto;

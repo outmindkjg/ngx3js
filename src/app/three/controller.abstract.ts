@@ -1,5 +1,6 @@
 import { QueryList } from '@angular/core';
 import * as THREE from 'three';
+import * as GSAP from 'gsap';
 import { CameraComponent } from './camera/camera.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RendererTimer, ThreeUtil } from './interface';
@@ -9,19 +10,197 @@ import { SceneComponent } from './scene/scene.component';
 import { HtmlCollection, VisualComponent } from './visual/visual.component';
 
 export abstract class AbstractThreeController {
+	enable: boolean = true;
+  duration : number = 3;
+  easing: string = null;
+  template: string = null;
+  repeat: number = null;
+  yoyo: boolean = null;
+  overshoot: number = null;
+  amplitude: number = null;
+  period: number = null;
+  linearRatio: number = null;
+  power: number = null;
+  yoyoMode: boolean = null;
+  steps: number = null;
+
 	protected refObject: THREE.Object3D = null;
 	protected refObject2d: HtmlCollection = null;
+	protected _tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
 
 	constructor(refObject3D: THREE.Object3D, refObject2D: HtmlCollection) {
 		this.setObject3d(refObject3D);
 		this.setObject2d(refObject2D);
 	}
 
+  protected getDuration(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.duration, def, 3);
+  }
+  protected getRepeat(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.repeat, def, 0);
+  }
+  protected getYoyo(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.yoyo, def, false);
+  }
+  private getOvershoot(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.overshoot, def, 1);
+  }
+  private getAmplitude(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.amplitude, def, 1);
+  }
+  private getPeriod(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.period, def, 1);
+  }
+  private getLinearRatio(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.linearRatio, def, 1);
+  }
+  private getPower(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.power, def, 1);
+  }
+  private getYoyoMode(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.yoyoMode, def, false);
+  }
+
+  private getSteps(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.steps, def, 12);
+  }
+
+  protected getEasing(def?: string, isTemplate?: boolean): any {
+    const easing = isTemplate
+      ? ThreeUtil.getTypeSafe(this.template, def, '')
+      : ThreeUtil.getTypeSafe(this.easing, def, '');
+    switch (easing.toLowerCase()) {
+      case 'power1':
+      case 'power1.easein':
+        return GSAP.Power1.easeIn;
+      case 'Power1.easeInOut':
+        return GSAP.Power1.easeInOut;
+      case 'Power1.easeOut':
+        return GSAP.Power1.easeOut;
+      case 'Power2':
+      case 'Power2.easeIn':
+        return GSAP.Power2.easeIn;
+      case 'Power2.easeInOut':
+        return GSAP.Power2.easeInOut;
+      case 'Power2.easeOut':
+        return GSAP.Power2.easeOut;
+      case 'Power3':
+      case 'Power3.easeIn':
+        return GSAP.Power3.easeIn;
+      case 'Power3.easeInOut':
+        return GSAP.Power3.easeInOut;
+      case 'Power3.easeOut':
+        return GSAP.Power3.easeOut;
+      case 'Power4':
+      case 'Power4.easeIn':
+        return GSAP.Power4.easeIn;
+      case 'Power4.easeInOut':
+        return GSAP.Power4.easeInOut;
+      case 'Power4.easeOut':
+        return GSAP.Power4.easeOut;
+      case 'Back':
+      case 'Back.easeIn':
+        return GSAP.Back.easeIn.config(this.getOvershoot(1.7));
+      case 'Back.easeInOut':
+        return GSAP.Back.easeInOut.config(this.getOvershoot(1.7));
+      case 'Back.easeOut':
+        return GSAP.Back.easeOut.config(this.getOvershoot(1.7));
+      case 'Elastic':
+      case 'Elastic.easeIn':
+        return GSAP.Elastic.easeIn.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Elastic.easeInOut':
+        return GSAP.Elastic.easeInOut.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Elastic.easeOut':
+        return GSAP.Elastic.easeOut.config(
+          this.getAmplitude(1),
+          this.getPeriod(0.3)
+        );
+      case 'Bounce':
+      case 'Bounce.easeIn':
+        return GSAP.Bounce.easeIn;
+      case 'Bounce.easeInOut':
+        return GSAP.Bounce.easeInOut;
+      case 'Bounce.easeOut':
+        return GSAP.Bounce.easeOut;
+      case 'Rough':
+      case 'Rough.easeIn':
+      case 'Rough.easeInOut':
+      case 'Rough.easeOut':
+
+        /*
+        return GSAP.RoughEase.config({
+          template: this.getEasing(null, true),
+          strength: 1,
+          points: 20,
+          taper: 'none',
+          randomize: true,
+          clamp: false,
+        });
+        */
+      case 'SlowMo':
+      case 'SlowMo.easeIn':
+      case 'SlowMo.easeInOut':
+      case 'SlowMo.easeOut':
+        /*
+        return GSAP.SlowMo.ease.config(
+          this.getLinearRatio(0.7),
+          this.getPower(0.7),
+          this.getYoyoMode(false)
+        );
+        */
+      case 'Stepped':
+      case 'Stepped.easeIn':
+      case 'Stepped.easeInOut':
+      case 'Stepped.easeOut':
+      //  return GSAP.SteppedEase;
+       return GSAP.SteppedEase.config(this.getSteps(12));
+      case 'Circ':
+      case 'Circ.easeIn':
+        return GSAP.Circ.easeIn;
+      case 'Circ.easeInOut':
+        return GSAP.Circ.easeInOut;
+      case 'Circ.easeOut':
+        return GSAP.Circ.easeOut;
+      case 'Expo':
+      case 'Expo.easeIn':
+        return GSAP.Expo.easeIn;
+      case 'Expo.easeInOut':
+        return GSAP.Expo.easeInOut;
+      case 'Expo.easeOut':
+        return GSAP.Expo.easeOut;
+      case 'Sine':
+      case 'Sine.easeIn':
+        return GSAP.Sine.easeIn;
+      case 'Sine.easeInOut':
+        return GSAP.Sine.easeInOut;
+      case 'Sine.easeOut':
+        return GSAP.Sine.easeOut;
+      case 'Custom':
+      case 'Custom.easeIn':
+      case 'Custom.easeInOut':
+      case 'Custom.easeOut':
+        return GSAP.Power0.easeNone;
+      //  return GSAP.CustomEase.create();
+      case 'Power0':
+      case 'Power0.easeIn':
+      case 'Power0.easeInOut':
+      case 'Power0.easeOut':
+      default:
+        return GSAP.Power0.easeNone;
+    }
+  }
+
 	_renderer : THREE.Renderer = null;
 	_scenes : QueryList<SceneComponent> = null;
 	_cameras : QueryList<CameraComponent> = null;
 	_canvases : QueryList<CanvasComponent> = null;
-	
+
 	setRenderer(renderer : THREE.Renderer, scenes : QueryList<SceneComponent>, cameras : QueryList<CameraComponent>, canvases : QueryList<CanvasComponent>) {
 		this._renderer = renderer;
 		this._scenes = scenes;
@@ -37,7 +216,7 @@ export abstract class AbstractThreeController {
 			this._canvas = this._canvases.first.getCollection();
 		}
 	}
-	
+
 	_scene : THREE.Scene = null;
 	_camera : THREE.Camera = null;
 	_canvas : HtmlCollection = null;
@@ -48,7 +227,7 @@ export abstract class AbstractThreeController {
 	setCanvas(canvas : HtmlCollection) {
 		this._canvas = canvas;
 	}
-	
+
 
 	setObject3d(refObject: THREE.Object3D) {
 		this.refObject = refObject;
@@ -170,7 +349,7 @@ export abstract class AbstractThreeController {
 		if (obj3d === null) {
 			obj3d = fromTop ? this.scene : this.refObject;
 		}
-		if (fn(obj3d)) 
+		if (fn(obj3d))
 			result.push(obj3d);
 		for (let i = 0, l = obj3d.children.length; i < l; i++) {
 			const child = obj3d.children[i];
@@ -181,7 +360,7 @@ export abstract class AbstractThreeController {
 
 	getComponent(refObject? : THREE.Object3D): AbstractObject3dComponent {
 		const object3d = refObject || this.refObject;
-		if (ThreeUtil.isNotNull(object3d) && 
+		if (ThreeUtil.isNotNull(object3d) &&
 			ThreeUtil.isNotNull(object3d.userData.component) &&
 			object3d.userData.component instanceof AbstractObject3dComponent
 		) {
@@ -192,7 +371,7 @@ export abstract class AbstractThreeController {
 
 	getComponent2D(refObject? : HtmlCollection): VisualComponent {
 		const object2d = refObject || this.refObject2d;
-		if (ThreeUtil.isNotNull(object2d) && 
+		if (ThreeUtil.isNotNull(object2d) &&
 			ThreeUtil.isNotNull(object2d.component) &&
 			object2d.component instanceof VisualComponent
 		) {
@@ -203,7 +382,7 @@ export abstract class AbstractThreeController {
 
 	getHtmlElement(refObject? : HtmlCollection): HTMLElement {
 		const object2d = refObject || this.refObject2d;
-		if (ThreeUtil.isNotNull(object2d) && 
+		if (ThreeUtil.isNotNull(object2d) &&
 			ThreeUtil.isNotNull(object2d.html) &&
 			object2d.html instanceof HTMLElement
 		) {
@@ -214,11 +393,11 @@ export abstract class AbstractThreeController {
 
 	getMaterialComponent(refObject? : THREE.Object3D): MaterialComponent {
 		const object3d = refObject || this.refObject;
-		if (ThreeUtil.isNotNull(object3d) && 
+		if (ThreeUtil.isNotNull(object3d) &&
 			object3d instanceof THREE.Mesh &&
 			ThreeUtil.isNotNull(object3d.material)
 		) {
-			let materialComp : any = null; 
+			let materialComp : any = null;
 			if (
 				object3d.material instanceof THREE.Material &&
 				ThreeUtil.isNotNull(object3d.material.userData.component)
@@ -228,7 +407,7 @@ export abstract class AbstractThreeController {
 				object3d.material instanceof Array &&
 				object3d.material.length > 0
 			){
-				materialComp = object3d.material[0].userData.component; 
+				materialComp = object3d.material[0].userData.component;
 			}
 			if (ThreeUtil.isNotNull(materialComp) && materialComp instanceof MaterialComponent) {
 				return materialComp;
@@ -293,6 +472,12 @@ export abstract class AbstractThreeController {
 		}
 	}
 
+  get tweenTimer():GSAP.TimelineLite | GSAP.TimelineMax {
+    if (this._tweenTimer === null) {
+      this._tweenTimer = new GSAP.TimelineLite();
+    }
+    return this._tweenTimer;
+  }
 	onEnable(): void { }
 
 	reset(): void { }
@@ -315,148 +500,192 @@ export abstract class AbstractThreeController {
 }
 
 export class AutoRotationController extends AbstractThreeController {
-	enable: boolean = true;
 	x: number = 0;
 	y: number = 0;
 	z: number = 0;
 
-	private _rotation : THREE.Vector3 = null;
-
 	setVariables(variables: { [key: string]: any }) {
 		super.setVariables(variables);
 		if (this.enable) {
-			this._rotation = ThreeUtil.getVector3Safe(
-				ThreeUtil.getAngleSafe(this.x, 0), 
-				ThreeUtil.getAngleSafe(this.y, 0), 
-				ThreeUtil.getAngleSafe(this.z, 0) 
-			);
+      if (this.refObject !== null) {
+        const tweenTimer = this.tweenTimer;
+        if (tweenTimer !== null) {
+          tweenTimer.clear();
+        }
+        const rotation = this.rotation.clone();
+        tweenTimer.to(rotation,{
+            ...ThreeUtil.getEulerSafe(this.x, this.y, this.z),
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo(),
+            onUpdate : (e) => {
+              this.rotation.copy(rotation);
+            }
+        });
+        tweenTimer.play();
+      } else if (this.refObject2d !== null) {
+        const tweenTimer = this.tweenTimer;
+        if (tweenTimer !== null) {
+          tweenTimer.clear();
+        }
+        const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
+        tweenTimer.to(this.refObject2d.html,{
+            ...{ rotateX : target.x, rotateY : target.y, rotateZ : target.z },
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo()
+        });
+        tweenTimer.play();
+      }
 		} else {
-			this._rotation = null;
+      this.tweenTimer.pause();
 		}
-	}
-
-	update(rendererTimer: RendererTimer): void {
-		if (this._rotation !== null) {
-			if (this.refObject !== null) {
-				if (this._rotation.x !== 0) {
-					this.refObject.rotateX(this._rotation.x * rendererTimer.delta);
-				}
-				if (this._rotation.y !== 0) {
-					this.refObject.rotateY(this._rotation.y * rendererTimer.delta);
-				}
-				if (this._rotation.z !== 0) {
-					this.refObject.rotateZ(this._rotation.z * rendererTimer.delta);
-				}
-			}
-		}
-		super.update(rendererTimer);
 	}
 
 }
 
 export class AutoScaleController extends AbstractThreeController {
-	enable: boolean = true;
 	x: number = null;
 	y: number = null;
 	z: number = null;
 
-	private _scale : THREE.Vector3 = null;
-
 	setVariables(variables: { [key: string]: any }) {
 		super.setVariables(variables);
 		if (this.enable) {
-			this._scale = ThreeUtil.getVector3Safe(
-				this.x,
-				this.y,
-				this.z
-			, new THREE.Vector3(0,0,0));
+      if (this.refObject !== null) {
+        const tweenTimer = this.tweenTimer;
+        if (tweenTimer !== null) {
+          tweenTimer.clear();
+        }
+        const scale = this.scale.clone();
+        tweenTimer.to(scale,{
+            ...ThreeUtil.getVector3Safe(this.x, this.y, this.z),
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo(),
+            onUpdate : (e) => {
+              this.scale.copy(scale);
+            }
+        });
+        tweenTimer.play();
+      } else if (this.refObject2d !== null) {
+        const tweenTimer = this.tweenTimer;
+        if (tweenTimer !== null) {
+          tweenTimer.clear();
+        }
+        const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
+        tweenTimer.to(this.refObject2d.html,{
+            ...{ scaleX : target.x, scaleY : target.y },
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo()
+        });
+        tweenTimer.play();
+      }
 		} else {
-			this._scale = null;
+      this.tweenTimer.pause();
 		}
-	}
-
-	update(rendererTimer: RendererTimer): void {
-		if (this._scale !== null) {
-			if (this.refObject !== null) {
-				this.refObject.scale.add(this._scale.clone().multiplyScalar(rendererTimer.delta));
-			}
-		}
-		super.update(rendererTimer);
 	}
 
 }
 
 export class AutoPositionController extends AbstractThreeController {
-	enable: boolean = true;
 	x: number = null;
 	y: number = null;
 	z: number = null;
 
-	private _position : THREE.Vector3 = null;
-
 	setVariables(variables: { [key: string]: any }) {
 		super.setVariables(variables);
 		if (this.enable) {
-			this._position = ThreeUtil.getVector3Safe(
-				this.x,
-				this.y,
-				this.z
-			, new THREE.Vector3(0,0,0));
+      if (this.refObject !== null) {
+        const tweenTimer = this.tweenTimer;
+        tweenTimer.clear();
+        const position = this.position.clone();
+        tweenTimer.to(position,{
+            ...ThreeUtil.getVector3Safe(this.x, this.y, this.z),
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo(),
+            onUpdate : (e) => {
+              this.position.copy(position);
+            }
+        });
+        tweenTimer.play();
+      } else if (this.refObject2d !== null) {
+        const tweenTimer = this.tweenTimer;
+        tweenTimer.clear();
+        const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
+        tweenTimer.to(this.refObject2d.html,{
+            ...{ translateX : target.x, translateY : target.y,translateZ : target.z },
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo()
+        });
+        tweenTimer.play();
+      }
 		} else {
-			this._position = null;
+      this.tweenTimer.pause();
 		}
-	}
-
-	update(rendererTimer: RendererTimer): void {
-		if (this._position !== null) {
-			if (this.refObject !== null) {
-				this.refObject.position.add(this._position.clone().multiplyScalar(rendererTimer.delta));
-			}
-		}
-		super.update(rendererTimer);
-	}
+  }
 
 }
 
 export class AutoMaterialController extends AbstractThreeController {
-	enable: boolean = true;
 	color: number | string | THREE.Color = null;
 	opacity: number = null;
-	duration : number = 10;
-	private _color : THREE.Color = null;
-	private _colorLerp : number = 0; 
 	setVariables(variables: { [key: string]: any }) {
 		super.setVariables(variables);
 		if (this.enable) {
-			this._color = ThreeUtil.getColorSafe(
-				this.color
-			);
-			this._colorLerp = 0;
+      if (this.refObject !== null) {
+        const material = this.material;
+        if (
+          material instanceof THREE.MeshBasicMaterial ||
+          material instanceof THREE.MeshLambertMaterial
+        ) {
+          const tweenTimer = this.tweenTimer;
+          tweenTimer.clear();
+          const colorOpacity = {
+            materialColor : material.color.clone(),
+            materialOpacity : material.opacity
+          }
+          tweenTimer.to(colorOpacity,{
+              materialColor : ThreeUtil.getColorSafe(this.color),
+              materialOpacity : this.opacity,
+              duration : this.getDuration(),
+              ease: this.getEasing(),
+              repeat: this.getRepeat(),
+              yoyo: this.getYoyo(),
+              onUpdate : (e) => {
+                // material.color.setRGB(colorOpacity.materialColor.r,colorOpacity.materialColor.g,colorOpacity.materialColor.b);
+                material.opacity = colorOpacity.materialOpacity;
+              }
+          });
+          tweenTimer.play();
+        }
+      } else if (this.refObject2d !== null) {
+        /*
+        const tweenTimer = this.tweenTimer;
+        tweenTimer.clear();
+        const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
+        tweenTimer.to(this.refObject2d.html,{
+            ...{ translateX : target.x, translateY : target.y,translateZ : target.z },
+            duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo()
+        });
+        tweenTimer.play();
+        */
+      }
 		} else {
-			this._color = null;
+      this.tweenTimer.pause();
 		}
 	}
-
-	update(rendererTimer: RendererTimer): void {
-		if (this.enable && this._colorLerp <= 1) {
-			if (this.refObject !== null) {
-				const material = this.material;
-				if (this._color !== null) {
-					if (
-						this.material instanceof THREE.MeshBasicMaterial ||
-						this.material instanceof THREE.MeshLambertMaterial
-					) {
-						this.material.color.lerp(this._color, this._colorLerp);
-					}
-				}
-				if (ThreeUtil.isNotNull(this.opacity)) {
-					material.opacity = THREE.MathUtils.lerp(material.opacity, this.opacity, this._colorLerp);
-				}
-			}
-			this._colorLerp += rendererTimer.delta / this.duration;
-		}
-		super.update(rendererTimer);
-	}
-
 }
 

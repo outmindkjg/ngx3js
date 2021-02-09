@@ -23,12 +23,12 @@ export class Page1302Component implements OnInit {
   positionParam = {
     x: 0, y: 0, z: 0, enable: true
   }
-  
+
   materialController = AutoMaterialController;
   materialParam = {
     color: 0x000000, opacity : 0 , enable: true
   }
- 
+
   controls = {
     rotation: {
       x: 0, y: 0, z: 0, enable: true,
@@ -48,11 +48,11 @@ export class Page1302Component implements OnInit {
       }
     },
     scale: {
-      x: 0, y: 0, z: 0, enable: true,
+      x: 1, y: 1, z: 1, enable: true,
       reset: () => {
-        this.controls.scale.x = 0;
-        this.controls.scale.y = 0;
-        this.controls.scale.z = 0;
+        this.controls.scale.x = 1;
+        this.controls.scale.y = 1;
+        this.controls.scale.z = 1;
         this.controls.scaleApply();
       }
     },
@@ -122,9 +122,9 @@ export class Page1302Component implements OnInit {
     {
       name: "Position", type: "folder", control: 'position', children: [
         { name: "enable", type: "checkbox", change: () => (this.controls.positionApply()) },
-        { name: "x", type: "number", min: -0.3, max: 0.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
-        { name: "y", type: "number", min: -0.3, max: 0.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
-        { name: "z", type: "number", min: -0.3, max: 0.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
+        { name: "x", type: "number", min: -2.3, max: 2.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
+        { name: "y", type: "number", min: -2.3, max: 2.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
+        { name: "z", type: "number", min: -2.3, max: 2.3, step: 0.001, listen:true, change: () => (this.controls.positionApply()) },
         { name: "reset", type: "button"}
       ], isOpen: false
     },
