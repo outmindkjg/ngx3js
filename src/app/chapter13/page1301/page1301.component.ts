@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractThreeController, GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
+import { AbstractThreeController } from '../../three/controller.abstract';
+import { GeometriesVector3, GuiControlParam, RendererTimer } from './../../three';
 
 @Component({
   selector: 'app-page1301',

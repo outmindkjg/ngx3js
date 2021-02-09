@@ -1,6 +1,6 @@
 import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { AbstractSvgGeometry, ThreeUtil } from '../interface';
+import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
@@ -11,7 +11,7 @@ import { TextureComponent } from '../texture/texture.component';
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.scss']
 })
-export class MaterialComponent implements OnInit, OnChanges {
+export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometry {
 
   @Input() type: string = "lambert";
   @Input() refer : any = null;
@@ -112,6 +112,12 @@ export class MaterialComponent implements OnInit, OnChanges {
   @Input() rotation: number = null;
   @Input() size: number = null;
   @Input() sizeAttenuation: boolean = null;
+
+  meshPositions: THREE.Vector3[] = [];
+  meshRotations: THREE.Euler[] = [];
+  meshScales: THREE.Vector3[] = [];
+  meshTranslations: THREE.BufferGeometry[] = [];
+  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
   @ContentChildren(TextureComponent) textures: QueryList<TextureComponent>;
   @ContentChildren(ShaderComponent) shaders: QueryList<ShaderComponent>;
@@ -825,10 +831,10 @@ export class MaterialComponent implements OnInit, OnChanges {
   }
 
   private material: THREE.Material = null;
-  private refObject3d: THREE.Object3D | AbstractSvgGeometry = null;
+  private refObject3d: THREE.Object3D | any = null;
   private refSeqn: number = 0;
 
-  setObject3D(refObject3d: THREE.Object3D | AbstractSvgGeometry, refSeqn: number = 0) {
+  setObject3D(refObject3d: THREE.Object3D | any, refSeqn: number = 0) {
     this.refSeqn = refSeqn;
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
@@ -909,7 +915,7 @@ export class MaterialComponent implements OnInit, OnChanges {
           this.refObject3d.material.copy(material);
           this.refObject3d.material.needsUpdate = true;
         }
-      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+      } else if (this.refObject3d.meshMaterials) {
         if (this.refObject3d.meshMaterials.length > this.refSeqn) {
           const refMaterials = this.refObject3d.meshMaterials[this.refSeqn];
           if (refMaterials instanceof Array) {

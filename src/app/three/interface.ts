@@ -1,25 +1,7 @@
-import { ControllerComponent } from './controller/controller.component';
-import { Geometry } from './../../../three.js-master/examples/jsm/deprecated/Geometry.d';
-import {
-  AfterContentInit,
-  Component,
-  ContentChildren,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  SimpleChanges,
-} from '@angular/core';
 import * as CHROMA from 'chroma-js';
-import * as GSAP from 'gsap';
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import { SceneComponent } from './scene/scene.component';
-import { TweenComponent } from './tween/tween.component';
-
-// import { ScrollTrigger, Draggable, MotionPathPlugin } from "gsap/all";
 
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
@@ -32,240 +14,48 @@ export interface LoadedObject {
   clips?: THREE.AnimationClip[];
 }
 
-export abstract class AbstractThreeController {
-  protected refObject: THREE.Object3D = null;
-
-  constructor(refObject: THREE.Object3D) {
-    this.setObject3d(refObject);
-  }
-
-  setObject3d(refObject: THREE.Object3D) {
-    this.refObject = refObject;
-  }
-
-  get position():THREE.Vector3 {
-    return this.refObject.position;
-  }
-
-  get scale():THREE.Vector3 {
-    return this.refObject.scale;
-  }
-
-  get rotation():THREE.Euler {
-    return this.refObject.rotation;
-  }
-
-  get material(): THREE.Material {
-    if (this.refObject instanceof THREE.Mesh) {
-      if (this.refObject.material instanceof Array) {
-        return this.refObject.material[0];
-      } else {
-        return this.refObject.material;
-      }
-    }
-    return undefined;
-  }
-
-  get materials(): THREE.Material[] {
-    if (this.refObject instanceof THREE.Mesh) {
-      if (this.refObject.material instanceof Array) {
-        return this.refObject.material;
-      } else {
-        return [this.refObject.material];
-      }
-    }
-    return undefined;
-  }
-
-  getGeometry(): THREE.BufferGeometry {
-    if (this.refObject instanceof THREE.Mesh) {
-        return this.refObject.geometry;
-    }
-    return undefined;
-  }
-
-  get scene(): THREE.Scene {
-    if (this.refObject !== null) {
-      let lastObj: THREE.Object3D = this.refObject;
-      while (!(lastObj instanceof THREE.Scene) && lastObj.parent) {
-        lastObj = lastObj.parent;
-      }
-      if (lastObj instanceof THREE.Scene) {
-        return lastObj;
-      }
-    }
-    return null;
-  }
-
-  get camera(): THREE.Camera {
-    const scene = this.scene;
-    if (scene !== null) {
-      const sceneComp = scene.userData.component as SceneComponent;
-      return sceneComp.getRenderer().cameras.first.getCamera();
-    }
-    return null;
-  }
-
-  getCameraByName(name: string): THREE.Camera {
-    const scene = this.scene;
-    if (scene !== null) {
-      const sceneComp = scene.userData.component as SceneComponent;
-      const camara = sceneComp.getRenderer().cameras.find((camera) => {
-        return camera.name == name;
-      });
-      if (ThreeUtil.isNotNull(camara)) {
-        return camara.getCamera();
-      }
-    }
-    return null;
-  }
-
-  getObjectByName(name: string, fromTop : boolean = false): THREE.Object3D {
-    if (fromTop) {
-      return this.scene.getObjectByName(name);
-    } else {
-      return this.refObject.getObjectByName(name);
-    }
-  }
-
-  getObjectByProperty(name: string, value: string, fromTop : boolean = false): THREE.Object3D {
-    if (fromTop) {
-      return this.scene.getObjectByProperty(name, value);
-    } else {
-      return this.refObject.getObjectByProperty(name, value);
-    }
-  }
-
-  getObjectByFunction(name: string, fn : (arg : any) => boolean, fromTop : boolean = false, obj3d : THREE.Object3D = null): THREE.Object3D {
-    if (obj3d === null) {
-      obj3d = fromTop ? this.scene : this.refObject;
-    }
-		if ( fn(obj3d[ name ])) return obj3d;
-		for ( let i = 0, l = obj3d.children.length; i < l; i ++ ) {
-			const child = obj3d.children[ i ];
-			const object = this.getObjectByFunction( name, fn, false, child );
-			if ( object !== undefined ) {
-				return object;
-			}
-		}
-		return undefined;
-  }
-
-}
-
-export interface AbstractEffectComposer {
+export interface InterfaceEffectComposer {
   resetEffectComposer(): void;
 }
 
-@Component({
-  template: '',
-})
-export abstract class AbstractThreeComponent
-  implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-  @Input() tweenStart: boolean = true;
-
-  @ContentChildren(TweenComponent, { descendants: false }) tween: QueryList<TweenComponent>;
-  @ContentChildren(ControllerComponent, { descendants: false }) controller: QueryList<ControllerComponent>;
-
-  ngOnInit(): void {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.tweenStart && this.tweenTarget) {
-      this.resetTween();
-    }
-  }
-
-  ngAfterContentInit(): void {
-    if (this.tween !== null && this.tween !== undefined) {
-      this.tween.changes.subscribe((e) => {
-        this.resetTween();
-      });
-    }
-    if (this.controller !== null && this.controller !== undefined) {
-      this.controller.changes.subscribe((e) => {
-        this.resetController();
-      });
-    }
-  }
-
-  resetController() {
-    if (this.controller !== null && this.controller !== undefined && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
-      this.controller.forEach((controller) => {
-        controller.setObject3D(this.refObject3d);
-      });
-    }
-  }
-
-  public refObject3d : THREE.Object3D | any = null;
-
-  private tweenTarget: any = null;
-  private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
-  setTweenTarget(tweenTarget: any) {
-    if (this.tweenTarget !== tweenTarget) {
-      this.tweenTarget = tweenTarget;
-      this.resetTween();
-    }
-  }
-
-  resetTween() {
-    if (
-      this.tweenTarget !== null &&
-      this.tween !== null &&
-      this.tween.length > 0 &&
-      this.tweenStart
-    ) {
-      this.tweenTimer = new GSAP.TimelineLite();
-      this.tween.forEach((tween) => {
-        tween.getTween(this.tweenTimer, this.tweenTarget, this);
-      });
-      this.tweenTimer.play();
-    } else if (this.tweenTimer !== null) {
-      this.tweenTimer.kill();
-      this.tweenTimer = null;
-    }
-  }
-
-  ngOnDestroy(): void {}
+export interface InterfaceGetGeometry{
+  getGeometry(): THREE.BufferGeometry;
+  resetGeometry(clearGeometry: boolean);
 }
 
-export abstract class AbstractGetGeometry extends AbstractThreeComponent {
-  abstract getGeometry(): THREE.BufferGeometry;
-  abstract resetGeometry(clearGeometry: boolean);
-}
-
-export abstract class AbstractComposerComponent extends AbstractThreeComponent {
-  abstract getWriteBuffer(
+export interface InterfaceComposerComponent {
+  getWriteBuffer(
     webGLRenderer: THREE.WebGLRenderer,
     camera: THREE.Camera,
     scene: THREE.Scene
   ): THREE.WebGLRenderTarget;
-  abstract getReadBuffer(
+  getReadBuffer(
     webGLRenderer: THREE.WebGLRenderer,
     camera: THREE.Camera,
     scene: THREE.Scene
   ): THREE.WebGLRenderTarget;
-  abstract getRenderTarget1(
+  getRenderTarget1(
     webGLRenderer: THREE.WebGLRenderer,
     camera: THREE.Camera,
     scene: THREE.Scene
   ): THREE.WebGLRenderTarget;
-  abstract getRenderTarget2(
+  getRenderTarget2(
     webGLRenderer: THREE.WebGLRenderer,
     camera: THREE.Camera,
     scene: THREE.Scene
   ): THREE.WebGLRenderTarget;
 }
 
-export abstract class AbstractSvgGeometry extends AbstractThreeComponent {
-  meshPositions: THREE.Vector3[] = [];
-  meshRotations: THREE.Euler[] = [];
-  meshScales: THREE.Vector3[] = [];
-  meshTranslations: THREE.BufferGeometry[] = [];
-  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+export interface InterfaceSvgGeometry {
+  meshPositions: THREE.Vector3[];
+  meshRotations: THREE.Euler[];
+  meshScales: THREE.Vector3[];
+  meshTranslations: THREE.BufferGeometry[];
+  meshMaterials: (THREE.Material | THREE.Material[])[];
 }
 
-export abstract class AbstractMeshComponent extends AbstractThreeComponent {
-  abstract resetMesh(clearMesh: boolean): void;
+export interface InterfaceMeshComponent {
+  resetMesh(clearMesh: boolean): void;
 }
 
 export interface CssStyle {
@@ -914,7 +704,7 @@ export class ThreeUtil {
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
         ? new THREE.Vector3(
             this.getTypeSafe(x, y, z),
-            this.getTypeSafe(y, x, z),
+            this.getTypeSafe(y, z, x),
             this.getTypeSafe(z, x, y)
           )
         : altValue;

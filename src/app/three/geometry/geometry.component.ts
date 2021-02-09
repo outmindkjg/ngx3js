@@ -11,7 +11,7 @@ import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
-import { AbstractGetGeometry, AbstractMeshComponent, ThreeUtil } from '../interface';
+import { InterfaceGetGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
@@ -74,10 +74,9 @@ export interface GeometryParams {
   templateUrl: './geometry.component.html',
   styleUrls: ['./geometry.component.scss'],
 })
-export class GeometryComponent extends AbstractGetGeometry implements OnInit {
+export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   constructor(private localStorageService: LocalStorageService) {
-    super();
   }
 
   @Input() visible: boolean = true;
@@ -617,7 +616,7 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
             mesh.geometry = this.getGeometry();
           }
         });
-      } else if (this.refObject3d instanceof AbstractMeshComponent) {
+      } else if (this.refObject3d.resetMesh) {
         this.refObject3d.resetMesh(true);
       }
     } else if (this.geometry === null && this.subGeometry !== null && this.subGeometry !== undefined) {
@@ -627,9 +626,9 @@ export class GeometryComponent extends AbstractGetGeometry implements OnInit {
 
   private geometry: THREE.BufferGeometry = null;
 
-  private refObject3d: THREE.Object3D | AbstractMeshComponent | GeometryComponent = null;
+  private refObject3d: THREE.Object3D | any = null;
 
-  setObject3D(refObject3d: THREE.Object3D | AbstractMeshComponent | GeometryComponent, isRestore: boolean = false) {
+  setObject3D(refObject3d: THREE.Object3D | any, isRestore: boolean = false) {
     if (isRestore) {
       if (this.refObject3d !== refObject3d) {
         this.refObject3d = refObject3d;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
-import { AbstractGetGeometry, AbstractSvgGeometry, ApplyMatrix4 } from '../interface';
+import { ApplyMatrix4 } from '../interface';
 
 @Component({
   selector: 'three-translation',
@@ -20,9 +20,9 @@ export class TranslationComponent implements OnInit {
   }
 
   private translation : THREE.Matrix4 = null;
-  private refObject3d : THREE.Object3D | AbstractGetGeometry | AbstractSvgGeometry= null;
+  private refObject3d : THREE.Object3D | any = null;
 
-  setObject3D(refObject3d : THREE.Object3D | AbstractGetGeometry | AbstractSvgGeometry){
+  setObject3D(refObject3d : THREE.Object3D | any){
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
       this.resetTranslation();
@@ -34,9 +34,9 @@ export class TranslationComponent implements OnInit {
       const refTranslation:ApplyMatrix4[] = [];
       if (this.refObject3d instanceof THREE.BufferGeometry) {
         refTranslation.push(this.refObject3d);
-      } else if (this.refObject3d instanceof AbstractGetGeometry) {
+      } else if (this.refObject3d.getGeometry) {
         refTranslation.push(this.refObject3d.getGeometry());
-      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+      } else if (this.refObject3d.meshTranslations) {
         this.refObject3d.meshTranslations.forEach(translations => {
           refTranslation.push(translations);
         });

@@ -1,10 +1,11 @@
 import { CssStyle, ThreeUtil } from './../interface';
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import { HtmlComponent } from '../html/html.component';
-import { VisualComponent } from '../visual/visual.component';
+import { HtmlCollection, VisualComponent } from '../visual/visual.component';
 import * as THREE from 'three';
 import { TransformComponent } from '../transform/transform.component';
 import { BackgroundComponent } from '../background/background.component';
+import { ControllerComponent } from '../controller/controller.component';
 
 @Component({
   selector: 'three-canvas',
@@ -12,11 +13,19 @@ import { BackgroundComponent } from '../background/background.component';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements OnInit {
-
+  @Input() name: string = null;
   @ContentChildren(VisualComponent) children: QueryList<VisualComponent>;
   @ContentChildren(HtmlComponent) html: QueryList<HtmlComponent>;
   @ContentChildren(TransformComponent) transform: QueryList<TransformComponent>;
   @ContentChildren(BackgroundComponent) background: QueryList<BackgroundComponent>;
+	@ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
+
+  private collection : HtmlCollection = {
+    html : null,
+    name : null,
+    component : this,
+    children : []
+  };
 
   constructor() { }
 
@@ -77,7 +86,7 @@ export class CanvasComponent implements OnInit {
           case 'children':
             if (this.eleSize !== null) {
               this.children.forEach((child) => {
-                child.setParentNode(this.canvas, this.eleSize);
+                child.setParentNode(this.canvas, this.eleSize, this.collection);
               });
             }
             break;
@@ -98,10 +107,18 @@ export class CanvasComponent implements OnInit {
               background.setParentNode(this.canvas);
             });
             break;
-
+          case 'controller':
+            this.controller.forEach((controller) => {
+              controller.setCanvas(this.collection);
+            });
+            break;
         }
       });
     }
+  }
+
+  getCollection():HtmlCollection {
+    return this.collection;
   }
 
   getStyle() : CssStyle {
@@ -134,6 +151,10 @@ export class CanvasComponent implements OnInit {
         this.canvas.parentNode.removeChild(this.canvas);
       }
       this.canvas = canvas;
+      this.collection.html = this.canvas;
+      this.collection.children = [];
+      this.collection.component = this;
+      this.collection.name = this.name;
       this.synkObject2D(['html', 'transform', 'background', 'children' ]);
     }
     if (this.parentNode !== null && this.canvas.parentNode !== this.parentNode) {

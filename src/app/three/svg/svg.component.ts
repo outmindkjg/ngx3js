@@ -1,7 +1,7 @@
 import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
-import { AbstractSvgGeometry } from '../interface';
+import { InterfaceSvgGeometry } from '../interface';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
@@ -26,7 +26,7 @@ export interface SvgGeometry {
   templateUrl: './svg.component.html',
   styleUrls: ['./svg.component.scss']
 })
-export class SvgComponent extends AbstractSvgGeometry implements OnInit {
+export class SvgComponent implements OnInit, InterfaceSvgGeometry {
 
 
   @Input() type: string = 'shape';
@@ -53,8 +53,13 @@ export class SvgComponent extends AbstractSvgGeometry implements OnInit {
   @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
   @ContentChildren(TranslationComponent, { descendants: false }) translation: QueryList<TranslationComponent>;
 
+  meshPositions: THREE.Vector3[] = [];
+  meshRotations: THREE.Euler[] = [];
+  meshScales: THREE.Vector3[] = [];
+  meshTranslations: THREE.BufferGeometry[] = [];
+  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+ 
   constructor(private ele: ElementRef) { 
-    super();
   }
 
   private getCurveSegments(def: number): number {

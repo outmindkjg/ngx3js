@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
-import { AbstractSvgGeometry, ThreeUtil } from '../interface';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-rotation',
@@ -30,9 +30,9 @@ export class RotationComponent implements OnInit {
   }
 
   private rotation : THREE.Euler = null;
-  private refObject3d : THREE.Object3D | AbstractSvgGeometry = null;
+  private refObject3d : THREE.Object3D | any = null;
 
-  setObject3D(refObject3d : THREE.Object3D | AbstractSvgGeometry , isRestore : boolean = false){
+  setObject3D(refObject3d : THREE.Object3D | any , isRestore : boolean = false){
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
       if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
@@ -68,7 +68,7 @@ export class RotationComponent implements OnInit {
             }
           })
         }
-      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+      } else if (this.refObject3d.meshRotations) {
         this.refObject3d.meshRotations.forEach(rotation => {
           rotation.copy(this.getRotation());
         });

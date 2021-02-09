@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
-import { AbstractGetGeometry } from '../interface';
 
 @Component({
   selector: 'three-curve',
@@ -120,15 +119,15 @@ export class CurveComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.curve = null;
-      if (this.refObject3d !== null) {
+      if (this.refObject3d !== null && this.refObject3d.resetGeometry) {
         this.refObject3d.resetGeometry(true);
       }
     }
   }
 
-  private refObject3d : AbstractGetGeometry= null;
+  private refObject3d : any= null;
 
-  setObject3D(refObject3d : AbstractGetGeometry){
+  setObject3D(refObject3d : any){
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
     }

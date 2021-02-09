@@ -1,15 +1,16 @@
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { AbstractComposerComponent, AbstractEffectComposer, RendererTimer, ThreeUtil } from '../interface';
+import { InterfaceComposerComponent, InterfaceEffectComposer, RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
+import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
   selector: 'three-composer',
   templateUrl: './composer.component.html',
   styleUrls: ['./composer.component.scss']
 })
-export class ComposerComponent extends AbstractComposerComponent implements OnInit, AbstractEffectComposer {
+export class ComposerComponent extends AbstractTweenComponent implements OnInit, InterfaceEffectComposer, InterfaceComposerComponent {
 
   @Input() scene: THREE.Scene = null;
   @Input() camera: THREE.Camera = null;

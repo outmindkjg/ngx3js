@@ -1,15 +1,16 @@
 import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { AbstractThreeComponent, CssStyle, ThreeUtil } from '../interface';
 import * as THREE from 'three';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CssStyle, ThreeUtil } from '../interface';
+import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
   selector: 'three-html',
   templateUrl: './html.component.html',
   styleUrls: ['./html.component.scss']
 })
-export class HtmlComponent extends AbstractThreeComponent implements OnInit {
+export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
   @Input() type: string = 'div';
   @Input() childType: string = 'innerHTML';

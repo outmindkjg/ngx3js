@@ -4,6 +4,14 @@ import { HtmlComponent } from '../html/html.component';
 import { CssStyle, ThreeUtil } from '../interface';
 import { TransformComponent } from '../transform/transform.component';
 import * as THREE from 'three';
+import { ControllerComponent } from '../controller/controller.component';
+
+export interface HtmlCollection {
+  html : HTMLElement;
+  name : string;
+  component : VisualComponent | any;
+  children : HtmlCollection[];
+}
 
 @Component({
   selector: 'three-visual',
@@ -13,6 +21,7 @@ import * as THREE from 'three';
 export class VisualComponent implements OnInit {
 
   @Input() type: string = "div";
+  @Input() name: string = null;
   @Input() childType: string = 'innerHTML';
   @Input() src: string = null;
   @Input() value: string | number = '';
@@ -47,6 +56,14 @@ export class VisualComponent implements OnInit {
   @ContentChildren(HtmlComponent) html: QueryList<HtmlComponent>;
   @ContentChildren(TransformComponent) transform: QueryList<TransformComponent>;
   @ContentChildren(BackgroundComponent) background: QueryList<BackgroundComponent>;
+	@ContentChildren(ControllerComponent, { descendants: false }) controller: QueryList<ControllerComponent>;
+
+  private collection : HtmlCollection = {
+    html : null,
+    name : null,
+    component : this,
+    children : []
+  };
 
   constructor(private ele: ElementRef) { }
 
@@ -79,15 +96,29 @@ export class VisualComponent implements OnInit {
     this.background.changes.subscribe(() => {
       this.synkObject2D(['background']);
     });
+    this.controller.changes.subscribe(() => {
+      this.synkObject2D(['controller']);
+    });
   }
 
   private parentNode: HTMLElement = null;
   private parentSize: THREE.Vector2 = null;
   private eleSize: THREE.Vector2 = null;
+  private parentCollection : HtmlCollection = null;
 
-  setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2) {
+  setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, parentCollection : HtmlCollection) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
+    }
+    if (this.parentCollection !== parentCollection) {
+      if (this.parentCollection !== null) {
+        const idx = this.parentCollection.children.indexOf(this.collection);
+        if (idx > -1) this.parentCollection.children.splice(idx, 1);
+      }
+      this.parentCollection = parentCollection;
+    }
+    if (this.parentCollection !== null && this.parentCollection.children.indexOf(this.collection) === -1) {
+      this.parentCollection.children.push(this.collection);
     }
     this.parentSize = parentSize;
     this.eleSize = new THREE.Vector2(this.parentSize.x, this.parentSize.y);
@@ -100,7 +131,7 @@ export class VisualComponent implements OnInit {
         switch (synkType) {
           case 'children':
             this.children.forEach((child) => {
-              child.setParentNode(this.visual, this.eleSize);
+              child.setParentNode(this.visual, this.eleSize, this.collection);
             });
             break;
           case 'html':
@@ -120,9 +151,18 @@ export class VisualComponent implements OnInit {
               background.setParentNode(this.visual);
             });
             break;
+            case 'controller':
+              this.controller.forEach((controller) => {
+                controller.setObject2D(this.collection);
+              });
+              break;
         }
       });
     }
+  }
+
+  getCollection():HtmlCollection {
+    return this.collection;
   }
 
   getStyle(): CssStyle {
@@ -234,7 +274,7 @@ export class VisualComponent implements OnInit {
           }
       }
       this.cssClazzName = ThreeUtil.addCssStyle(this.visual, style, this.cssClazzName, 'visual');
-      this.synkObject2D(['transform', 'background', 'children']);
+      this.synkObject2D(['transform', 'background', 'children','controller']);
     }
   }
 
@@ -329,13 +369,17 @@ export class VisualComponent implements OnInit {
         this.visual.parentNode.removeChild(this.visual);
       }
       this.visual = visual;
+      this.collection.component = this;
+      this.collection.html = this.visual;
+      this.collection.name = this.name;
+      this.collection.children = [];
       this.visual.classList.add('three-visual');
     }
     if (this.parentNode !== null && this.visual.parentNode !== this.parentNode) {
       this.parentNode.appendChild(this.visual);
       this.applyHtmlStyle();
     }
-    this.synkObject2D(['html', 'transform', 'background', 'children']);
+    this.synkObject2D(['html', 'transform', 'background', 'children','controller']);
     return this.visual;
   }
 

@@ -19,68 +19,32 @@ import { ScaleComponent } from '../scale/scale.component';
 import { LookatComponent } from '../lookat/lookat.component';
 import { ThreeUtil } from '../interface';
 import { RendererComponent } from '../renderer/renderer.component';
+import { ControllerComponent } from '../controller/controller.component';
+import { AbstractObject3dComponent } from '../object3d.abstract';
 
 @Component({
   selector: 'three-scene',
   templateUrl: './scene.component.html',
   styleUrls: ['./scene.component.scss'],
 })
-export class SceneComponent implements OnInit {
+export class SceneComponent extends AbstractObject3dComponent implements OnInit {
   @Input() storageName: string = null;
-  @ContentChildren(MeshComponent, { descendants: false })
-  meshes: QueryList<MeshComponent>;
-  @ContentChildren(PositionComponent, { descendants: false })
-  position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false })
-  rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false })
-  scale: QueryList<ScaleComponent>;
-  @ContentChildren(LookatComponent, { descendants: false })
-  lookat: QueryList<LookatComponent>;
-  @ContentChildren(FogComponent, { descendants: false })
-  fog: QueryList<FogComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false })
-  materials: QueryList<MaterialComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  audio: QueryList<AudioComponent>;
+  @ContentChildren(MeshComponent, { descendants: false }) meshes: QueryList<MeshComponent>;
+  @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) sceneController: QueryList<ControllerComponent>;
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) {
+    super()
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   private scene: THREE.Scene = null;
-
-  getPosition(): THREE.Vector3 {
-    if (this.scene !== null) {
-      return this.scene.position;
-    } else if (this.position !== null && this.position.length > 0) {
-      return this.position.first.getPosition();
-    } else {
-      return new THREE.Vector3(0, 0, 0);
-    }
-  }
-
-  getScale(): THREE.Vector3 {
-    if (this.scene !== null) {
-      return this.scene.scale;
-    } else if (this.scale !== null && this.scale.length > 0) {
-      return this.scale.first.getScale();
-    } else {
-      return new THREE.Vector3(1, 1, 1);
-    }
-  }
-
-  getRotation(): THREE.Euler {
-    if (this.scene !== null) {
-      return this.scene.rotation;
-    } else if (this.scale !== null && this.scale.length > 0) {
-      return this.rotation.first.getRotation();
-    } else {
-      return new THREE.Euler(0, 0, 0);
-    }
-  }
   
   private renderer : RendererComponent = null;
   setRenderer(renderer : RendererComponent) {
@@ -118,6 +82,7 @@ export class SceneComponent implements OnInit {
         this.scene = null;
       }
     }
+    super.ngOnChanges(changes);
   }
 
   ngAfterContentInit(): void {
@@ -145,32 +110,16 @@ export class SceneComponent implements OnInit {
     this.audio.changes.subscribe(() => {
       this.synkObject3D(['audio']);
     });
+    this.sceneController.changes.subscribe(() => {
+      this.synkObject3D(['sceneController']);
+    });
+    super.ngAfterContentInit();
   }
 
   synkObject3D(synkTypes: string[]) {
     if (this.scene !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
-          case 'position':
-            this.position.forEach((position) => {
-              position.setObject3D(this.scene);
-            });
-            break;
-          case 'rotation':
-            this.rotation.forEach((rotation) => {
-              rotation.setObject3D(this.scene);
-            });
-            break;
-          case 'scale':
-            this.scale.forEach((scale) => {
-              scale.setObject3D(this.scene);
-            });
-            break;
-          case 'lookat':
-            this.lookat.forEach((lookat) => {
-              lookat.setObject3D(this.scene);
-            });
-            break;
           case 'mesh':
             this.meshes.forEach((mesh) => {
               mesh.setObject3D(this.scene);
@@ -190,9 +139,15 @@ export class SceneComponent implements OnInit {
               audio.setObject3D(this.scene);
             });
             break;
+          case 'sceneController':
+            this.sceneController.forEach((controller) => {
+              controller.setScene(this.scene);
+            });
+            break;
           }
       });
     }
+    super.synkObject3D(synkTypes);
   }
 
   getScene(): THREE.Scene {
@@ -227,11 +182,13 @@ export class SceneComponent implements OnInit {
           'materials',
           'mesh',
           'fog',
+          'sceneController'
         ]);
       }
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }
+      this.object3d = this.scene;
     }
     return this.scene;
   }

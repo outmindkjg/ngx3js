@@ -14,7 +14,7 @@ import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { PassComponent } from '../pass/pass.component';
-import { AbstractEffectComposer, RendererTimer, ThreeUtil } from './../interface';
+import { InterfaceEffectComposer, RendererTimer, ThreeUtil } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
@@ -27,7 +27,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent implements OnInit, AbstractEffectComposer {
+export class CameraComponent implements OnInit, InterfaceEffectComposer {
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
   @Input() name: string = null;
   @Input() fov: number = 45;
@@ -43,22 +43,14 @@ export class CameraComponent implements OnInit, AbstractEffectComposer {
   @Input() scene: SceneComponent = null;
   @Input() scenes: SceneComponent[] = null;
 
-  @ContentChildren(PositionComponent, { descendants: false })
-  position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false })
-  rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false })
-  scale: QueryList<ScaleComponent>;
-  @ContentChildren(LookatComponent, { descendants: false })
-  lookat: QueryList<LookatComponent>;
-  @ContentChildren(PassComponent, { descendants: false })
-  pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent, { descendants: false })
-  composer: QueryList<ComposerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  audio: QueryList<AudioComponent>;
+  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
+  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
 
   constructor() {}
 

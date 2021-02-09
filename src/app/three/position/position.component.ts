@@ -1,15 +1,16 @@
 import { TweenComponent } from './../tween/tween.component';
 import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList } from '@angular/core';
 import * as THREE from 'three';
-import { AbstractSvgGeometry, AbstractThreeComponent, ThreeUtil } from '../interface';
+import { ThreeUtil } from '../interface';
 import { Observable, Subject, Subscription } from 'rxjs';
+import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
   selector: 'three-position',
   templateUrl: './position.component.html',
   styleUrls: ['./position.component.scss']
 })
-export class PositionComponent extends AbstractThreeComponent implements OnInit {
+export class PositionComponent extends AbstractTweenComponent implements OnInit {
 
   @Input() visible: boolean = true;
   @Input() refer: any = null;
@@ -27,7 +28,7 @@ export class PositionComponent extends AbstractThreeComponent implements OnInit 
 
   private position: THREE.Vector3 = null;
 
-  setObject3D(refObject3d: THREE.Object3D | AbstractSvgGeometry, isRestore: boolean = false) {
+  setObject3D(refObject3d: THREE.Object3D | any, isRestore: boolean = false) {
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
       if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
@@ -64,7 +65,7 @@ export class PositionComponent extends AbstractThreeComponent implements OnInit 
           })
         }
         this.setTweenTarget(this.refObject3d.position);
-      } else if (this.refObject3d instanceof AbstractSvgGeometry) {
+      } else if (this.refObject3d.meshPositions) {
         this.refObject3d.meshPositions.forEach(position => {
           position.copy(this.getPosition());
         });

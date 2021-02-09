@@ -10,7 +10,7 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
-import { HtmlComponent } from '../html/html.component';
+import { ControllerComponent } from '../controller/controller.component';
 import { GuiControlParam, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
@@ -50,6 +50,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
+  
   @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
   @ContentChildren(CanvasComponent) canvas2d: QueryList<CanvasComponent>;
 
@@ -167,6 +169,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.canvas2d.changes.subscribe(() => {
       this.synkObject3D(['canvas2d']);
     });
+    this.controller.changes.subscribe(() => {
+      this.synkObject3D(['controller']);
+    });
   }
 
   private renderListner: THREE.AudioListener = null;
@@ -188,6 +193,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           case 'canvas2d':
             this.canvas2d.forEach((canvas2d) => {
               canvas2d.setParentNode(this.canvas.nativeElement);
+            });
+            break;
+          case 'controller':
+            this.controller.forEach((controller) => {
+              controller.setRenderer(this.renderer, this.scenes, this.cameras, this.canvas2d);
             });
             break;
           }
@@ -341,7 +351,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       }
       this.renderer.domElement.style.position = 'relative';
       this.canvas.nativeElement.appendChild(this.renderer.domElement);
-      this.synkObject3D(['listner', 'audio','canvas2d']);
+      this.synkObject3D(['listner', 'audio','canvas2d','controller']);
       this.setSize(width, height);
       ThreeUtil.setRenderer(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
@@ -361,6 +371,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     const renderTimer = this.clock.getTimer();
     this.onRender.emit(renderTimer);
+    this.controller.forEach(controller => {
+      controller.update(renderTimer);
+    });
     this.mixer.forEach(mixer => {
       mixer.update(renderTimer);
     });
