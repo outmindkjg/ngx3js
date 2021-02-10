@@ -2,6 +2,9 @@ import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef
 import * as GSAP from 'gsap';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
+
+import { Ammo } from 'three/examples/js/libs/ammo.wasm.js';
+import { AmmoPhysics } from 'three/examples/jsm/physics/AmmoPhysics';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -18,8 +21,6 @@ import { CameraComponent } from './../camera/camera.component';
 import { ListenerComponent } from './../listener/listener.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import { SceneComponent } from './../scene/scene.component';
-
-
 @Component({
   selector: 'three-renderer',
   templateUrl: './renderer.component.html',
@@ -64,6 +65,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.clippingPlanes.forEach(plane => {
         clippingPlanes.push(plane.getWorldPlane());
       });
+      // const physics = new AmmoPhysics();
+      // console.log(Ammo)
       return clippingPlanes;
     } else {
       return def;
@@ -155,6 +158,50 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return this._sizeSubject.asObservable();
   }
 
+  protected _userGestureSubject: Subject<boolean> = new Subject<boolean>();
+
+  userGestureSubscribe(): Observable<boolean> {
+    const observable = this._userGestureSubject.asObservable();
+    if (!this._userGestureShown) {
+      this._userGestureShown = true;
+      setTimeout(() => {
+        this.drawGesture();
+      }, 100)
+    }
+    return observable;
+  }
+
+  _userGestureShown : boolean = false;
+  drawGesture() {
+    this._userGestureShown = true;
+    const confirm = document.createElement('div');
+    confirm.style.position = 'absolute';
+    confirm.style.left = '0px';
+    confirm.style.top = '0px';
+    confirm.style.right = '0px';
+    confirm.style.bottom = '0px';
+    confirm.style.zIndex = '1000';
+    
+    confirm.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    const button = document.createElement('button');
+    button.style.position = 'absolute';
+    button.style.left = '50%';
+    button.style.top = '50%';
+    button.style.right = 'auto';
+    button.style.bottom = 'auto';
+    button.style.backgroundColor = 'black';
+    button.style.color = 'white';
+    button.innerHTML = '<b>P</b>lay';
+    button.addEventListener('click', () => {
+      this._userGestureSubject.next(true);
+      confirm.parentNode.removeChild(confirm);
+      this._userGestureShown = false;
+    })
+    confirm.append(button);
+    this.canvas.nativeElement.appendChild(confirm);
+
+  }
+
   getSize(): THREE.Vector2 {
     return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
   }
@@ -187,7 +234,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             break;
           case 'audio':
             this.audio.forEach((audio) => {
-              audio.setListener(this.renderListner);
+              audio.setListener(this.renderListner, this);
             });
             break;
           case 'canvas2d':

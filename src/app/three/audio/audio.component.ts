@@ -16,6 +16,7 @@ export class AudioComponent implements OnInit {
   @Input() visible : boolean = true ;
   @Input() autoplay : boolean = true ;
   @Input() play : boolean = true ;
+  @Input() loop : boolean = true ;
   @Input() volume: number = 1;
   @Input() refDistance: number = 1;
   @Input() rolloffFactor: number = 1;
@@ -76,14 +77,18 @@ export class AudioComponent implements OnInit {
       ( audioBuffer: AudioBuffer ) : void => {
         onLoad(audioBuffer);
       },
-      ( request: ProgressEvent ) : void => {},
-      ( event: ErrorEvent ) : void => {}
+      ( request: ProgressEvent ) : void => {
+      },
+      ( event: ErrorEvent ) : void => {
+      }
     );
   }
 
-  setListener(listener : THREE.AudioListener) {
+  private _renderer : any = null;
+  setListener(listener : THREE.AudioListener, renderer : any) {
     if (this.listener !== listener) {
       this.listener = listener;
+      this._renderer = renderer;
       this.resetAudio();
     }
   }
@@ -114,6 +119,30 @@ export class AudioComponent implements OnInit {
 
   private loadedUrl : string = null;
 
+  private checkAudioPlay() {
+    let hasError = false;
+    if (this.video !== null && this.play) {
+      if (this.video.played.length === 0) {
+        hasError = true;
+      }
+    } else if (this.audio !== null && this.play) {
+      if (this.audio.source.context.currentTime === 0) {
+        hasError = true;
+      }
+    }
+    if (hasError && this._renderer && this._renderer.userGestureSubscribe) {
+      const userGestureSubscribe : Subscription = this._renderer.userGestureSubscribe().subscribe((result : boolean) => {
+        if (result) {
+          this.video = null;
+          this.audio = null;
+          this.loadedUrl = null;
+          this.resetAudio();
+        }
+        userGestureSubscribe.unsubscribe();
+      })
+    }
+  }
+
   resetAudio() {
     if (this.audio === null) {
       this.audio = this.getAudio();
@@ -137,13 +166,25 @@ export class AudioComponent implements OnInit {
         if (ThreeUtil.isNotNull(this.videoUrl)) {
           const video = document.createElement('video');
           video.src = this.videoUrl;
-          video.loop = true;
-          video.play();
+          video.loop = this.loop;
+          video.autoplay = this.autoplay;
           this.audio.setMediaElementSource(video);
           this.video = video;
-          this.resetAudio();
-          this.onLoad.emit(this);
-          this._textureSubject.next(this.video);
+          if (this.autoplay || this.play) {
+            this.video.play().then(() => {
+              this.resetAudio();
+              this.onLoad.emit(this);
+              this._textureSubject.next(this.video);
+            }).catch(() => {
+              setTimeout(( ) => {
+                this.checkAudioPlay();
+              }, 1000)
+            })
+          } else {
+            this.resetAudio();
+            this.onLoad.emit(this);
+            this._textureSubject.next(this.video);
+          }
         } else {
           this.loadAudio(this.url, (buffer: AudioBuffer) => {
             this.audio.setBuffer(buffer);
@@ -182,13 +223,16 @@ export class AudioComponent implements OnInit {
       }
       this.audio.loop = true;
       if (this.video !== null) {
-        this.video.loop = true;
+        this.video.loop = this.loop;
         if (this.video.currentSrc) {
           if (this.play && this.video.paused) {
             this.video.play();
           } else if (!this.play && !this.video.paused) {
             this.video.pause();
           }
+          setTimeout(() => {
+            this.checkAudioPlay();
+          }, 1000);
         } 
       } else {
         if (this.audio.sourceType !== 'empty') {
@@ -197,7 +241,10 @@ export class AudioComponent implements OnInit {
           } else if (!this.play && this.audio.isPlaying) {
             this.audio.pause();
           }
-        } 
+          setTimeout(() => {
+            this.checkAudioPlay();
+          }, 1000);
+        }
       }
       this.audio.visible = this.visible;
     }

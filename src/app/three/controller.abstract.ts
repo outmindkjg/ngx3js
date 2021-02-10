@@ -461,7 +461,7 @@ export abstract class AbstractThreeController {
 	}
 
 	awake(): void {
-		console.log(this.getComponent2D());
+		// console.log(this.getComponent2D());
 		if (this.refObject !== null && this.refObject.visible) {
 			this.onEnable();
 		}
@@ -621,7 +621,7 @@ export class AutoPositionController extends AbstractThreeController {
         tweenTimer.clear();
         const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
         tweenTimer.to(this.refObject2d.html,{
-            ...{ translateX : target.x, translateY : target.y,translateZ : target.z },
+            ...{ left : target.x, top : target.y },
             duration : this.getDuration(),
             ease: this.getEasing(),
             repeat: this.getRepeat(),
@@ -651,37 +651,35 @@ export class AutoMaterialController extends AbstractThreeController {
           const tweenTimer = this.tweenTimer;
           tweenTimer.clear();
           const colorOpacity = {
-            materialColor : material.color.clone(),
+            ...material.color.clone(),
             materialOpacity : material.opacity
           }
           tweenTimer.to(colorOpacity,{
-              materialColor : ThreeUtil.getColorSafe(this.color),
+              ...ThreeUtil.getColorSafe(this.color),
               materialOpacity : this.opacity,
               duration : this.getDuration(),
               ease: this.getEasing(),
               repeat: this.getRepeat(),
               yoyo: this.getYoyo(),
               onUpdate : (e) => {
-                // material.color.setRGB(colorOpacity.materialColor.r,colorOpacity.materialColor.g,colorOpacity.materialColor.b);
+                this.material['color'].setRGB(colorOpacity.r,colorOpacity.g,colorOpacity.b);
                 material.opacity = colorOpacity.materialOpacity;
               }
           });
           tweenTimer.play();
         }
       } else if (this.refObject2d !== null) {
-        /*
         const tweenTimer = this.tweenTimer;
         tweenTimer.clear();
-        const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
         tweenTimer.to(this.refObject2d.html,{
-            ...{ translateX : target.x, translateY : target.y,translateZ : target.z },
+            backgroundColor : ThreeUtil.getColorSafe(this.color).getStyle(),
+            opacity : this.opacity,
             duration : this.getDuration(),
             ease: this.getEasing(),
             repeat: this.getRepeat(),
             yoyo: this.getYoyo()
         });
         tweenTimer.play();
-        */
       }
 		} else {
       this.tweenTimer.pause();

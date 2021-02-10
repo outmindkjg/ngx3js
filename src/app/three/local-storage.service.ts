@@ -121,7 +121,7 @@ export class LocalStorageService {
   private xyzLoader: XYZLoader = null;
   private threeMFLoader: ThreeMFLoader = null;
   
-  public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void): void {
+  public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options : any): void {
 
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
@@ -139,21 +139,22 @@ export class LocalStorageService {
       if (this.objLoader === null) {
         this.objLoader = new OBJLoader();
       }
-      if (key.indexOf('#') > 0) {
-        const [materialUrl, objUrl] = key.split('#');
+      const materialUrl:string = (options && options.material) ? options.material : null;
+      if (materialUrl !== null && materialUrl.length > 0) {
         this.getObjectFromKey(materialUrl, (result) => {
           if (result.material !== null && result.material !== undefined) {
             this.objLoader.setMaterials(result.material);
           }
-          this.objLoader.load(objUrl, (result: THREE.Group) => {
+          this.objLoader.load(key, (result: THREE.Group) => {
             callBack({
               object : result
             })
           }, null, (e) => {
             console.log(e);
           })
-        })
+        }, null)
       } else {
+        this.objLoader.setMaterials(null);
         this.objLoader.load(key, (result: THREE.Group) => {
           callBack({
             object : result
@@ -396,7 +397,7 @@ export class LocalStorageService {
     }
   }
 
-  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => void): void {
+  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips? : THREE.AnimationClip[], geometry?: THREE.BufferGeometry, options? : any) => void, options? : any): void {
     this.getObjectFromKey(key, (result) => {
       if (result.object !== null && result.object !== undefined) {
         if (result.object instanceof THREE.Object3D) {
@@ -409,30 +410,30 @@ export class LocalStorageService {
       } else {
         callBack(result.object, result.clips, result.geometry);
       }
-    });
+    }, options);
   }
 
-  public getGeometry(key: string, callBack: (mesh: THREE.BufferGeometry ) => void): void {
+  public getGeometry(key: string, callBack: (mesh: THREE.BufferGeometry ) => void, options? : any): void {
     this.getObjectFromKey(key, (result) => {
       if (result.geometry instanceof THREE.BufferGeometry) {
         callBack(result.geometry);
       } else {
         callBack(new THREE.BufferGeometry());
-      }});
+      }}, options);
   }
 
-  public getMaterial(key: string, callBack: (material : THREE.Material) => void): void {
+  public getMaterial(key: string, callBack: (material : THREE.Material) => void, options? : any): void {
     this.getObjectFromKey(key, (result) => {
       if (result.material instanceof THREE.Material) {
         callBack(result.material);
-      }});
+      }}, options);
   }
 
   public setScene(key: string, scene: THREE.Scene) {
     this.setItem(key, JSON.stringify(scene.toJSON()));
   }
 
-  public getScene(key: string, callBack: (mesh: THREE.Scene) => void): void {
+  public getScene(key: string, callBack: (mesh: THREE.Scene) => void, options? : any): void {
     this.getObjectFromKey(key, (result) => {
       if (result.object instanceof THREE.Scene) {
         callBack(result.object);
@@ -441,8 +442,7 @@ export class LocalStorageService {
         scene.add(result.object);
         callBack(scene);
       }
-
-    });
+    }, options);
   }
 
   public removeItem(key: string) {

@@ -465,7 +465,7 @@ export class ThreeUtil {
     });
     switch (vertualClass) {
       case 'inline':
-        ele.removeAttribute('style');
+        // ele.removeAttribute('style');
         Object.entries(styleList).forEach(([key, value]) => {
           ele.style[key] = value;
         });
