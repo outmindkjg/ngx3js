@@ -11,7 +11,7 @@ import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader';
+import { MMDLoader, MMDLoaderAnimationObject } from 'three/examples/jsm/loaders/MMDLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
 import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
@@ -120,7 +120,7 @@ export class LocalStorageService {
   private xLoader: XLoader = null;
   private xyzLoader: XYZLoader = null;
   private threeMFLoader: ThreeMFLoader = null;
-  
+
   public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options : any): void {
 
     if (key.endsWith('.dae')) {
@@ -216,17 +216,44 @@ export class LocalStorageService {
       }, null, (e) => {
         console.log(e);
       })
-    } else if (key.endsWith('.pmd') || key.endsWith('.pmx')) {
+    } else if (key.endsWith('.pmd') || key.endsWith('.pmx') || key.endsWith('.vmd') || key.endsWith('.vpd')) {
       if (this.mmdLoader === null) {
         this.mmdLoader = new MMDLoader();
       }
-      this.mmdLoader.load(key, (result: THREE.SkinnedMesh) => {
-        callBack({
-          object : result
+      const vmdUrl = (options && options.vmdUrl) ? options.vmdUrl: null;
+      if (vmdUrl !== null) {
+        this.mmdLoader.loadWithAnimation(key, vmdUrl, (result: MMDLoaderAnimationObject) => {
+          callBack({
+            object : result.mesh,
+            clips : result.animation ? [result.animation] : null
+          })
+        }, null, (e) => {
+          console.log(e);
         })
-      }, null, (e) => {
-        console.log(e);
-      })
+      } else if (key.endsWith('.vmd') ) {
+        const object : THREE.SkinnedMesh | THREE.Camera = options.object;
+        this.mmdLoader.loadAnimation(key, object, (result: THREE.SkinnedMesh | THREE.AnimationClip) => {
+          if (result instanceof THREE.SkinnedMesh) {
+            callBack({
+              object : result
+            })
+          } else {
+            callBack({
+              clips : [ result ]
+            })
+          }
+        }, null, (e) => {
+          console.log(e);
+        })
+      } else {
+        this.mmdLoader.load(key, (result: THREE.SkinnedMesh) => {
+          callBack({
+            object : result
+          })
+        }, null, (e) => {
+          console.log(e);
+        })
+      }
     } else if (key.endsWith('.pcd')) {
       if (this.pcdLoader === null) {
         this.pcdLoader = new PCDLoader();

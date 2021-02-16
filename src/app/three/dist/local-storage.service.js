@@ -15,15 +15,17 @@ var STLLoader_1 = require("three/examples/jsm/loaders/STLLoader");
 var VTKLoader_1 = require("three/examples/jsm/loaders/VTKLoader");
 var PLYLoader_1 = require("three/examples/jsm/loaders/PLYLoader");
 var PDBLoader_1 = require("three/examples/jsm/loaders/PDBLoader");
-var _3MFLoader_1 = require("three/examples/jsm/loaders/3MFLoader");
 var BasisTextureLoader_1 = require("three/examples/jsm/loaders/BasisTextureLoader");
 var DRACOLoader_1 = require("three/examples/jsm/loaders/DRACOLoader");
 var GLTFLoader_1 = require("three/examples/jsm/loaders/GLTFLoader");
 var MMDLoader_1 = require("three/examples/jsm/loaders/MMDLoader");
+var MTLLoader_1 = require("three/examples/jsm/loaders/MTLLoader");
 var PCDLoader_1 = require("three/examples/jsm/loaders/PCDLoader");
 var PRWMLoader_1 = require("three/examples/jsm/loaders/PRWMLoader");
 var SVGLoader_1 = require("three/examples/jsm/loaders/SVGLoader");
 var TGALoader_1 = require("three/examples/jsm/loaders/TGALoader");
+var MD2Loader_1 = require("three/examples/jsm/loaders/MD2Loader");
+var _3DMLoader_1 = require("three/examples/jsm/loaders/3DMLoader");
 var CSS2DRenderer_js_1 = require("three/examples/jsm/renderers/CSS2DRenderer.js");
 var LocalStorageService = /** @class */ (function () {
     function LocalStorageService() {
@@ -40,12 +42,40 @@ var LocalStorageService = /** @class */ (function () {
         this.gltfLoader = null;
         this.mmdLoader = null;
         this.mtlLoader = null;
-        this.objLoader2 = null;
-        this.objLoader2Parallel = null;
         this.pcdLoader = null;
         this.prwmLoader = null;
         this.svgLoader = null;
         this.tgaLoader = null;
+        this.md2Loader = null;
+        this.amfLoader = null;
+        this.assimpLoader = null;
+        this.bvhLoader = null;
+        this.ddsLoader = null;
+        this.exrLoader = null;
+        this.fbxLoader = null;
+        this.gCodeLoader = null;
+        this.hdrCubeTextureLoader = null;
+        this.kmzLoader = null;
+        this.ktx2Loader = null;
+        this.ktxLoader = null;
+        this.lDrawLoader = null;
+        this.lottieLoader = null;
+        this.lut3dlLoader = null;
+        this.lutCubeLoader = null;
+        this.lwoLoader = null;
+        this.mddLoader = null;
+        this.nrrdLoader = null;
+        this.pvrLoader = null;
+        this.rgbeLoader = null;
+        this.tdsLoader = null;
+        this.tiltLoader = null;
+        this.ttfLoader = null;
+        this.voxLoader = null;
+        this.vrmlLoader = null;
+        this.vrmLoader = null;
+        this.xLoader = null;
+        this.xyzLoader = null;
+        this.threeMFLoader = null;
     }
     LocalStorageService.prototype.setItem = function (key, value) {
         localStorage.setItem(key, value);
@@ -56,14 +86,16 @@ var LocalStorageService = /** @class */ (function () {
     LocalStorageService.prototype.setObject = function (key, mesh) {
         this.setItem(key, JSON.stringify(mesh.toJSON()));
     };
-    LocalStorageService.prototype.getObjectFromKey = function (key, callBack) {
+    LocalStorageService.prototype.getObjectFromKey = function (key, callBack, options) {
+        var _this = this;
         if (key.endsWith('.dae')) {
             if (this.colladaLoader === null) {
                 this.colladaLoader = new ColladaLoader_1.ColladaLoader();
             }
             this.colladaLoader.load(key, function (result) {
                 callBack({
-                    object: result.scene
+                    object: result.scene,
+                    clips: result.scene.animations
                 });
             }, null, function (e) {
                 console.log(e);
@@ -73,17 +105,46 @@ var LocalStorageService = /** @class */ (function () {
             if (this.objLoader === null) {
                 this.objLoader = new OBJLoader_1.OBJLoader();
             }
-            this.objLoader.load(key, function (result) {
-                callBack({
-                    object: result
+            var materialUrl = (options && options.material) ? options.material : null;
+            if (materialUrl !== null && materialUrl.length > 0) {
+                this.getObjectFromKey(materialUrl, function (result) {
+                    if (result.material !== null && result.material !== undefined) {
+                        _this.objLoader.setMaterials(result.material);
+                    }
+                    _this.objLoader.load(key, function (result) {
+                        callBack({
+                            object: result
+                        });
+                    }, null, function (e) {
+                        console.log(e);
+                    });
+                }, null);
+            }
+            else {
+                this.objLoader.setMaterials(null);
+                this.objLoader.load(key, function (result) {
+                    callBack({
+                        object: result
+                    });
+                }, null, function (e) {
+                    console.log(e);
                 });
+            }
+        }
+        else if (key.endsWith('.mtl')) {
+            if (this.mtlLoader === null) {
+                this.mtlLoader = new MTLLoader_1.MTLLoader();
+            }
+            this.mtlLoader.load(key, function (result) {
+                result.preload();
+                callBack({ material: result });
             }, null, function (e) {
                 console.log(e);
             });
         }
         else if (key.endsWith('.3dm')) {
             if (this.rhino3dmLoader === null) {
-                this.rhino3dmLoader = new _3MFLoader_1.ThreeMFLoader();
+                this.rhino3dmLoader = new _3DMLoader_1.Rhino3dmLoader();
             }
             this.rhino3dmLoader.load(key, function (result) {
                 callBack({
@@ -128,17 +189,47 @@ var LocalStorageService = /** @class */ (function () {
                 console.log(e);
             });
         }
-        else if (key.endsWith('.pmd') || key.endsWith('.pmx')) {
+        else if (key.endsWith('.pmd') || key.endsWith('.pmx') || key.endsWith('.vmd') || key.endsWith('.vpd')) {
             if (this.mmdLoader === null) {
                 this.mmdLoader = new MMDLoader_1.MMDLoader();
             }
-            this.mmdLoader.load(key, function (result) {
-                callBack({
-                    object: result
+            var vmdUrl = (options && options.vmdUrl) ? options.vmdUrl : null;
+            if (vmdUrl !== null) {
+                this.mmdLoader.loadWithAnimation(key, vmdUrl, function (result) {
+                    callBack({
+                        object: result.mesh,
+                        clips: result.animation ? [result.animation] : null
+                    });
+                }, null, function (e) {
+                    console.log(e);
                 });
-            }, null, function (e) {
-                console.log(e);
-            });
+            }
+            else if (key.endsWith('.vmd')) {
+                var object = options.object;
+                this.mmdLoader.loadAnimation(key, object, function (result) {
+                    if (result instanceof THREE.SkinnedMesh) {
+                        callBack({
+                            object: result
+                        });
+                    }
+                    else {
+                        callBack({
+                            clips: [result]
+                        });
+                    }
+                }, null, function (e) {
+                    console.log(e);
+                });
+            }
+            else {
+                this.mmdLoader.load(key, function (result) {
+                    callBack({
+                        object: result
+                    });
+                }, null, function (e) {
+                    console.log(e);
+                });
+            }
         }
         else if (key.endsWith('.pcd')) {
             if (this.pcdLoader === null) {
@@ -200,6 +291,20 @@ var LocalStorageService = /** @class */ (function () {
             this.vtkLoader.load(key, function (geometry) {
                 var mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
                 // callBack(mesh);
+            }, null, function (e) {
+                console.log(e);
+            });
+        }
+        else if (key.endsWith('.md2')) {
+            if (this.md2Loader === null) {
+                this.md2Loader = new MD2Loader_1.MD2Loader();
+            }
+            this.md2Loader.load(key, function (geometry) {
+                callBack({
+                    object: null,
+                    clips: null,
+                    geometry: geometry
+                });
             }, null, function (e) {
                 console.log(e);
             });
@@ -284,7 +389,8 @@ var LocalStorageService = /** @class */ (function () {
             }
             if (key.endsWith('.js') ||
                 key.endsWith('.json')) {
-                this.objectLoader.load(key, function () {
+                this.objectLoader.load(key, function (result) {
+                    console.log(result);
                 }, null, function (e) {
                     console.log(e);
                 });
@@ -301,22 +407,44 @@ var LocalStorageService = /** @class */ (function () {
             }
         }
     };
-    LocalStorageService.prototype.getObject = function (key, callBack) {
+    LocalStorageService.prototype.getObject = function (key, callBack, options) {
         this.getObjectFromKey(key, function (result) {
-            if (result.object instanceof THREE.Object3D) {
-                callBack(result.object, result.clips);
+            if (result.object !== null && result.object !== undefined) {
+                if (result.object instanceof THREE.Object3D) {
+                    callBack(result.object, result.clips, result.geometry);
+                }
+                else {
+                    var scene = new THREE.Group();
+                    scene.add(result.object);
+                    callBack(scene);
+                }
             }
             else {
-                var scene = new THREE.Group();
-                scene.add(result.object);
-                callBack(scene);
+                callBack(result.object, result.clips, result.geometry);
             }
-        });
+        }, options);
+    };
+    LocalStorageService.prototype.getGeometry = function (key, callBack, options) {
+        this.getObjectFromKey(key, function (result) {
+            if (result.geometry instanceof THREE.BufferGeometry) {
+                callBack(result.geometry);
+            }
+            else {
+                callBack(new THREE.BufferGeometry());
+            }
+        }, options);
+    };
+    LocalStorageService.prototype.getMaterial = function (key, callBack, options) {
+        this.getObjectFromKey(key, function (result) {
+            if (result.material instanceof THREE.Material) {
+                callBack(result.material);
+            }
+        }, options);
     };
     LocalStorageService.prototype.setScene = function (key, scene) {
         this.setItem(key, JSON.stringify(scene.toJSON()));
     };
-    LocalStorageService.prototype.getScene = function (key, callBack) {
+    LocalStorageService.prototype.getScene = function (key, callBack, options) {
         this.getObjectFromKey(key, function (result) {
             if (result.object instanceof THREE.Scene) {
                 callBack(result.object);
@@ -326,7 +454,7 @@ var LocalStorageService = /** @class */ (function () {
                 scene.add(result.object);
                 callBack(scene);
             }
-        });
+        }, options);
     };
     LocalStorageService.prototype.removeItem = function (key) {
         localStorage.removeItem(key);

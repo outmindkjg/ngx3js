@@ -1,26 +1,26 @@
-import { AudioComponent } from './../audio/audio.component';
-import { ListenerComponent } from './../listener/listener.component';
+import { RendererTimer } from './../interface';
+import { MixerComponent } from './../mixer/mixer.component';
 import {
   Component,
   ContentChildren,
   Input,
   OnInit,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
-import { MeshComponent } from './../mesh/mesh.component';
-import { FogComponent } from '../fog/fog.component';
-import { MaterialComponent } from '../material/material.component';
-import { LocalStorageService } from './../local-storage.service';
-import { PositionComponent } from '../position/position.component';
-import { RotationComponent } from '../rotation/rotation.component';
-import { ScaleComponent } from '../scale/scale.component';
-import { LookatComponent } from '../lookat/lookat.component';
-import { ThreeUtil } from '../interface';
-import { RendererComponent } from '../renderer/renderer.component';
 import { ControllerComponent } from '../controller/controller.component';
+import { FogComponent } from '../fog/fog.component';
+import { ThreeUtil } from '../interface';
+import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
+import { PhysicsComponent } from '../physics/physics.component';
+import { RendererComponent } from '../renderer/renderer.component';
+import { AudioComponent } from './../audio/audio.component';
+import { ListenerComponent } from './../listener/listener.component';
+import { LocalStorageService } from './../local-storage.service';
+import { MeshComponent } from './../mesh/mesh.component';
+import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 
 @Component({
   selector: 'three-scene',
@@ -30,11 +30,15 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 export class SceneComponent extends AbstractObject3dComponent implements OnInit {
   @Input() storageName: string = null;
   @ContentChildren(MeshComponent, { descendants: false }) meshes: QueryList<MeshComponent>;
+  @ContentChildren(PhysicsComponent, { descendants: false }) physics: QueryList<PhysicsComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: true }) rigidbody: QueryList<RigidbodyComponent>;
   @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
   @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) sceneController: QueryList<ControllerComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
+
 
   constructor(private localStorageService: LocalStorageService) {
     super()
@@ -45,7 +49,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   private scene: THREE.Scene = null;
-  
+
   private renderer : RendererComponent = null;
   setRenderer(renderer : RendererComponent) {
     this.renderer = renderer;
@@ -113,8 +117,19 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.sceneController.changes.subscribe(() => {
       this.synkObject3D(['sceneController']);
     });
+    this.mixer.changes.subscribe(() => {
+      this.synkObject3D(['mixer']);
+    });
+    this.physics.changes.subscribe(() => {
+      this.synkObject3D(['physics']);
+    });
+    this.rigidbody.changes.subscribe(() => {
+      this.synkObject3D(['rigidbody']);
+    });
     super.ngAfterContentInit();
   }
+
+  private _physics : PhysicsComponent = null;
 
   synkObject3D(synkTypes: string[]) {
     if (this.scene !== null) {
@@ -124,6 +139,18 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             this.meshes.forEach((mesh) => {
               mesh.setObject3D(this.scene);
             });
+            break;
+          case 'rigidbody' :
+          case 'physics' :
+          case 'mixer' :
+            this._physics = this.physics.first;
+            this.rigidbody.forEach(rigidbody => {
+              rigidbody.setPhysics(this._physics);
+            });
+            this.mixer.forEach(mixer => {
+              mixer.setPhysics(this._physics);
+            });
+            break;
           case 'materials':
             this.materials.forEach((material) => {
               material.setObject3D(this.scene);
@@ -148,6 +175,18 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       });
     }
     super.synkObject3D(synkTypes);
+  }
+
+  update(timer : RendererTimer) {
+    this.mixer.forEach(mixer => {
+      mixer.update(timer);
+    });
+    this.physics.forEach(physics => {
+      physics.update(timer);
+    });
+    this.rigidbody.forEach(rigidbody => {
+      rigidbody.update(timer);
+    });
   }
 
   getScene(): THREE.Scene {
@@ -181,6 +220,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           'lookat',
           'materials',
           'mesh',
+          'physics',
           'fog',
           'sceneController'
         ]);

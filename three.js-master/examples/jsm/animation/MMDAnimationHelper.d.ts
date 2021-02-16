@@ -1,3 +1,4 @@
+import { Vector3 } from './../../../src/math/Vector3.d';
 import {
 	AnimationClip,
 	Audio,

@@ -7,23 +7,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.RendererComponent = void 0;
-var audio_component_1 = require("./../audio/audio.component");
-var listener_component_1 = require("./../listener/listener.component");
-var mixer_component_1 = require("./../mixer/mixer.component");
 var core_1 = require("@angular/core");
+var GSAP = require("gsap");
+var rxjs_1 = require("rxjs");
 var THREE = require("three");
-var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
-var FlyControls_1 = require("three/examples/jsm/controls/FlyControls");
 var FirstPersonControls_1 = require("three/examples/jsm/controls/FirstPersonControls");
+var FlyControls_1 = require("three/examples/jsm/controls/FlyControls");
+var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
 var TrackballControls_1 = require("three/examples/jsm/controls/TrackballControls");
 var TransformControls_1 = require("three/examples/jsm/controls/TransformControls");
-var camera_component_1 = require("./../camera/camera.component");
-var scene_component_1 = require("./../scene/scene.component");
-var interface_1 = require("../interface");
-var rxjs_1 = require("rxjs");
-var plane_component_1 = require("../plane/plane.component");
-var CSS3DRenderer_1 = require("three/examples/jsm/renderers/CSS3DRenderer");
 var CSS2DRenderer_1 = require("three/examples/jsm/renderers/CSS2DRenderer");
+var CSS3DRenderer_1 = require("three/examples/jsm/renderers/CSS3DRenderer");
+var canvas_component_1 = require("../canvas/canvas.component");
+var controller_component_1 = require("../controller/controller.component");
+var interface_1 = require("../interface");
+var plane_component_1 = require("../plane/plane.component");
+var audio_component_1 = require("./../audio/audio.component");
+var camera_component_1 = require("./../camera/camera.component");
+var listener_component_1 = require("./../listener/listener.component");
+var scene_component_1 = require("./../scene/scene.component");
 var RendererComponent = /** @class */ (function () {
     function RendererComponent() {
         this.type = "webgl";
@@ -32,6 +34,7 @@ var RendererComponent = /** @class */ (function () {
         this.controlAutoRotate = false;
         this.shadowMapEnabled = true;
         this.clearColor = null;
+        this.clearAlpha = null;
         this.localClippingEnabled = false;
         this.antialias = false;
         this.width = -1;
@@ -41,6 +44,8 @@ var RendererComponent = /** @class */ (function () {
         this.guiParams = [];
         this.onRender = new core_1.EventEmitter();
         this._sizeSubject = new rxjs_1.Subject();
+        this._userGestureSubject = new rxjs_1.Subject();
+        this._userGestureShown = false;
         this.renderListner = null;
         this.renderer = null;
         this.cssRenderer = null;
@@ -50,6 +55,7 @@ var RendererComponent = /** @class */ (function () {
         this.gui = null;
         this.clock = null;
         this.control = null;
+        this._renderCaller = null;
     }
     RendererComponent.prototype.getClippingPlanes = function (def) {
         if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
@@ -111,18 +117,10 @@ var RendererComponent = /** @class */ (function () {
         }
     };
     RendererComponent.prototype.getClearColor = function (def) {
-        if (this.clearColor === null) {
-            return def;
-        }
-        else {
-            var clearColor = this.clearColor.toString();
-            if (clearColor.startsWith('0x')) {
-                return parseInt(clearColor, 16);
-            }
-            else {
-                return this.clearColor;
-            }
-        }
+        return interface_1.ThreeUtil.getColorSafe(this.clearColor, def);
+    };
+    RendererComponent.prototype.getClearAlpha = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.clearAlpha, def);
     };
     RendererComponent.prototype.setSize = function (width, height) {
         var _this = this;
@@ -136,11 +134,54 @@ var RendererComponent = /** @class */ (function () {
             if (this.cssRenderer !== null) {
                 this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
             }
-            this._sizeSubject.next(this.getSize());
+            var rendererSize_1 = this.getSize();
+            this.canvas2d.forEach(function (canvas2d) {
+                canvas2d.setSize(rendererSize_1);
+            });
+            this._sizeSubject.next(rendererSize_1);
         }
     };
     RendererComponent.prototype.sizeSubscribe = function () {
         return this._sizeSubject.asObservable();
+    };
+    RendererComponent.prototype.userGestureSubscribe = function () {
+        var _this = this;
+        var observable = this._userGestureSubject.asObservable();
+        if (!this._userGestureShown) {
+            this._userGestureShown = true;
+            setTimeout(function () {
+                _this.drawGesture();
+            }, 100);
+        }
+        return observable;
+    };
+    RendererComponent.prototype.drawGesture = function () {
+        var _this = this;
+        this._userGestureShown = true;
+        var confirm = document.createElement('div');
+        confirm.style.position = 'absolute';
+        confirm.style.left = '0px';
+        confirm.style.top = '0px';
+        confirm.style.right = '0px';
+        confirm.style.bottom = '0px';
+        confirm.style.zIndex = '1000';
+        confirm.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        var button = document.createElement('button');
+        button.style.position = 'absolute';
+        button.style.left = '50%';
+        button.style.top = '50%';
+        button.style.right = 'auto';
+        button.style.bottom = 'auto';
+        button.style.backgroundColor = 'black';
+        button.style.color = 'white';
+        button.innerHTML = '<b>P</b>lay';
+        button.addEventListener('click', function () {
+            _this._userGestureSubject.next(true);
+            confirm.parentNode.removeChild(confirm);
+            _this._userGestureShown = false;
+        });
+        confirm.append(button);
+        this.canvas.nativeElement.appendChild(confirm);
     };
     RendererComponent.prototype.getSize = function () {
         return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
@@ -152,6 +193,12 @@ var RendererComponent = /** @class */ (function () {
         });
         this.audio.changes.subscribe(function () {
             _this.synkObject3D(['audio']);
+        });
+        this.canvas2d.changes.subscribe(function () {
+            _this.synkObject3D(['canvas2d']);
+        });
+        this.controller.changes.subscribe(function () {
+            _this.synkObject3D(['controller']);
         });
     };
     RendererComponent.prototype.synkObject3D = function (synkTypes) {
@@ -166,14 +213,24 @@ var RendererComponent = /** @class */ (function () {
                         break;
                     case 'audio':
                         _this.audio.forEach(function (audio) {
-                            audio.setListener(_this.renderListner);
+                            audio.setListener(_this.renderListner, _this);
+                        });
+                        break;
+                    case 'canvas2d':
+                        _this.canvas2d.forEach(function (canvas2d) {
+                            canvas2d.setParentNode(_this.canvas.nativeElement);
+                        });
+                        break;
+                    case 'controller':
+                        _this.controller.forEach(function (controller) {
+                            controller.setRenderer(_this.renderer, _this.scenes, _this.cameras, _this.canvas2d);
                         });
                         break;
                 }
             });
         }
     };
-    RendererComponent.prototype.getControls = function (cameras, renderer) {
+    RendererComponent.prototype.getControls = function (cameras, domElement) {
         var cameraComp = null;
         var controlType = this.controlType.toLowerCase();
         var controlAutoRotate = this.controlAutoRotate;
@@ -196,17 +253,17 @@ var RendererComponent = /** @class */ (function () {
             var camera = cameraComp.getCamera();
             switch (controlType.toLowerCase()) {
                 case "orbit":
-                    var controls = new OrbitControls_1.OrbitControls(camera, renderer.domElement);
+                    var controls = new OrbitControls_1.OrbitControls(camera, domElement);
                     controls.autoRotate = controlAutoRotate;
                     return controls;
                 case "fly":
-                    return new FlyControls_1.FlyControls(camera, renderer.domElement);
+                    return new FlyControls_1.FlyControls(camera, domElement);
                 case "firstperson":
-                    return new FirstPersonControls_1.FirstPersonControls(camera, renderer.domElement);
+                    return new FirstPersonControls_1.FirstPersonControls(camera, domElement);
                 case "transform":
-                    return new TransformControls_1.TransformControls(camera, renderer.domElement);
+                    return new TransformControls_1.TransformControls(camera, domElement);
                 case "trackball":
-                    return new TrackballControls_1.TrackballControls(camera, renderer.domElement);
+                    return new TrackballControls_1.TrackballControls(camera, domElement);
             }
         }
         return null;
@@ -256,13 +313,19 @@ var RendererComponent = /** @class */ (function () {
             camera.setRenderer(_this.renderer, _this.cssRenderer, _this.scenes);
             camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
         });
-        this.control = this.getControls(this.cameras, this.renderer);
-        //    this.control = this.getControls(this.cameras, this.cssRenderer  !== null ? this.cssRenderer : this.renderer);
-        this.synkObject3D(['listner', 'audio']);
-        this.render();
+        this.control = this.getControls(this.cameras, this.canvas.nativeElement);
+        // this.control = this.getControls(this.cameras, this.renderer);
     };
     RendererComponent.prototype.getRenderer = function () {
+        var _this = this;
         if (this.renderer === null) {
+            GSAP.gsap.ticker.fps(60);
+            if (this._renderCaller !== null) {
+                GSAP.gsap.ticker.remove(this._renderCaller);
+            }
+            this._renderCaller = function () {
+                _this.render();
+            };
             switch (this.css3dType.toLowerCase()) {
                 case 'css3d':
                     this.cssRenderer = new CSS3DRenderer_1.CSS3DRenderer();
@@ -282,9 +345,9 @@ var RendererComponent = /** @class */ (function () {
             var _a = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight], width = _a[0], height = _a[1];
             this.rendererWidth = width;
             this.rendererHeight = height;
-            this.renderer.setSize(width, height);
             if (this.renderer instanceof THREE.WebGLRenderer) {
-                this.renderer.setClearColor(new THREE.Color(this.getClearColor(0xEEEEEE)), 0);
+                this.renderer.setClearColor(this.getClearColor(0xEEEEEE));
+                this.renderer.setClearAlpha(this.getClearAlpha(1));
                 this.renderer.setPixelRatio(window.devicePixelRatio);
                 this.renderer.shadowMap.enabled = this.shadowMapEnabled;
                 this.renderer.shadowMap.enabled = true;
@@ -297,15 +360,16 @@ var RendererComponent = /** @class */ (function () {
                 this.cssRenderer.domElement.style.position = 'absolute';
                 this.cssRenderer.domElement.style.top = '0px';
                 this.cssRenderer.domElement.style.left = '0px';
-                this.cssRenderer.setSize(width, height);
+                this.cssRenderer.domElement.style.pointerEvents = 'none';
                 this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
-                this.renderer.domElement.style.position = 'relative';
-                this.canvas.nativeElement.appendChild(this.renderer.domElement);
             }
-            else {
-                this.canvas.nativeElement.appendChild(this.renderer.domElement);
-            }
+            this.renderer.domElement.style.position = 'relative';
+            this.canvas.nativeElement.appendChild(this.renderer.domElement);
+            this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller']);
+            this.setSize(width, height);
             interface_1.ThreeUtil.setRenderer(this.renderer);
+            // GSAP.gsap.ticker.add(this._renderCaller);
+            this._renderCaller();
         }
         return this.renderer;
     };
@@ -319,8 +383,11 @@ var RendererComponent = /** @class */ (function () {
         }
         var renderTimer = this.clock.getTimer();
         this.onRender.emit(renderTimer);
-        this.mixer.forEach(function (mixer) {
-            mixer.update(renderTimer);
+        this.controller.forEach(function (controller) {
+            controller.update(renderTimer);
+        });
+        this.scenes.forEach(function (scene) {
+            scene.update(renderTimer);
         });
         interface_1.ThreeUtil.render(renderTimer);
         if (this.control !== null) {
@@ -337,14 +404,13 @@ var RendererComponent = /** @class */ (function () {
                 this.control.update();
             }
         }
-        // this.renderer.autoClear = false;
         this.cameras.forEach(function (camera) {
             camera.render(_this.renderer, _this.cssRenderer, _this.scenes, renderTimer);
         });
         if (this.stats != null) {
             this.stats.end();
         }
-        requestAnimationFrame(function () { _this.render(); });
+        requestAnimationFrame(this._renderCaller);
     };
     RendererComponent.prototype.resizeRender = function (e) {
         if (this.width <= 0 || this.height <= 0) {
@@ -369,6 +435,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "clearColor");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "clearAlpha");
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "localClippingEnabled");
@@ -400,17 +469,20 @@ var RendererComponent = /** @class */ (function () {
         core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: false })
     ], RendererComponent.prototype, "cameras");
     __decorate([
-        core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: true })
-    ], RendererComponent.prototype, "mixer");
-    __decorate([
         core_1.ContentChildren(listener_component_1.ListenerComponent, { descendants: true })
     ], RendererComponent.prototype, "listner");
     __decorate([
         core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: true })
     ], RendererComponent.prototype, "audio");
     __decorate([
+        core_1.ContentChildren(controller_component_1.ControllerComponent, { descendants: true })
+    ], RendererComponent.prototype, "controller");
+    __decorate([
         core_1.ContentChildren(plane_component_1.PlaneComponent)
     ], RendererComponent.prototype, "clippingPlanes");
+    __decorate([
+        core_1.ContentChildren(canvas_component_1.CanvasComponent)
+    ], RendererComponent.prototype, "canvas2d");
     __decorate([
         core_1.ViewChild('canvas')
     ], RendererComponent.prototype, "canvas");

@@ -461,7 +461,6 @@ export abstract class AbstractThreeController {
 	}
 
 	awake(): void {
-		// console.log(this.getComponent2D());
 		if (this.refObject !== null && this.refObject.visible) {
 			this.onEnable();
 		}

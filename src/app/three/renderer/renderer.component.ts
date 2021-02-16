@@ -1,10 +1,8 @@
+
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild } from '@angular/core';
 import * as GSAP from 'gsap';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
-
-import { Ammo } from 'three/examples/js/libs/ammo.wasm.js';
-import { AmmoPhysics } from 'three/examples/jsm/physics/AmmoPhysics';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -27,8 +25,6 @@ import { SceneComponent } from './../scene/scene.component';
   styleUrls: ['./renderer.component.scss']
 })
 export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
-
-
   @Input() type: string = "webgl";
   @Input() css3dType: string = "none";
   @Input() controlType: string = "none";
@@ -48,11 +44,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
-  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
-  
+
   @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
   @ContentChildren(CanvasComponent) canvas2d: QueryList<CanvasComponent>;
 
@@ -65,8 +60,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.clippingPlanes.forEach(plane => {
         clippingPlanes.push(plane.getWorldPlane());
       });
-      // const physics = new AmmoPhysics();
-      // console.log(Ammo)
       return clippingPlanes;
     } else {
       return def;
@@ -74,7 +67,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   constructor() {
-
   }
 
   ngOnInit(): void {
@@ -181,7 +173,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     confirm.style.right = '0px';
     confirm.style.bottom = '0px';
     confirm.style.zIndex = '1000';
-    
+
     confirm.style.backgroundColor = 'rgba(0,0,0,0.7)';
     const button = document.createElement('button');
     button.style.position = 'absolute';
@@ -421,10 +413,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.controller.forEach(controller => {
       controller.update(renderTimer);
     });
-    this.mixer.forEach(mixer => {
-      mixer.update(renderTimer);
-    });
-    // console.log(renderTimer);
+    this.scenes.forEach(scene => {
+      scene.update(renderTimer);
+    })
     ThreeUtil.render(renderTimer);
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {

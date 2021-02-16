@@ -167,6 +167,8 @@ import { Page1305Component } from './chapter13/page1305/page1305.component';
 import { Page1306Component } from './chapter13/page1306/page1306.component';
 import { Page1307Component } from './chapter13/page1307/page1307.component';
 import { ControllerComponent } from './three/controller/controller.component';
+import { PhysicsComponent } from './three/physics/physics.component';
+import { RigidbodyComponent } from './three/rigidbody/rigidbody.component';
 
 @NgModule({
   declarations: [
@@ -333,7 +335,9 @@ import { ControllerComponent } from './three/controller/controller.component';
     Page1305Component,
     Page1306Component,
     Page1307Component,
-    ControllerComponent
+    ControllerComponent,
+    PhysicsComponent,
+    RigidbodyComponent
   ],
   imports: [
     BrowserModule,

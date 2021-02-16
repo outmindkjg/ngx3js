@@ -41,6 +41,9 @@ ng g c three/canvas
 ng g c three/visual
 ng g c three/transform
 ng g c three/controller
+ng g c three/physics
+ng g c three/rigidbody
+
 
 
 
@@ -155,3 +158,8 @@ ng g c chapter05/page0511
 
 node_modules/three/examples/jsm/misc/MorphAnimMesh.d.ts
 node_modules/three/examples/jsm/utils/SceneUtils.d.ts
+
+
+node_modules/ammojs-typed/ammo/ammo.d.ts
+line 7 :
+function castObject(obj1 : any, obj2 : any) : btCollisionObject;

@@ -1,3 +1,5 @@
+import { LocalStorageService } from './../local-storage.service';
+import { MixerComponent } from './../mixer/mixer.component';
 import { AudioComponent } from './../audio/audio.component';
 import {
   Component,
@@ -9,10 +11,6 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { LookatComponent } from '../lookat/lookat.component';
-import { PositionComponent } from '../position/position.component';
-import { RotationComponent } from '../rotation/rotation.component';
-import { ScaleComponent } from '../scale/scale.component';
 import { PassComponent } from '../pass/pass.component';
 import { InterfaceEffectComposer, RendererTimer, ThreeUtil } from './../interface';
 import { SceneComponent } from './../scene/scene.component';
@@ -20,6 +18,7 @@ import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { AbstractObject3dComponent } from '../object3d.abstract';
 
 
 @Component({
@@ -27,7 +26,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent implements OnInit, InterfaceEffectComposer {
+export class CameraComponent extends AbstractObject3dComponent implements OnInit, InterfaceEffectComposer {
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
   @Input() name: string = null;
   @Input() fov: number = 45;
@@ -42,26 +41,28 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
   @Input() controlAutoRotate: boolean = null;
   @Input() scene: SceneComponent = null;
   @Input() scenes: SceneComponent[] = null;
+  @Input() storageName: string = null;
 
-  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
-  @ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
   @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
   @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
   @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
 
-  constructor() {}
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   private camera: THREE.Camera = null;
+  private clips: THREE.AnimationClip[] = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.type) {
       this.camera = null;
     }
+    super.ngOnChanges(changes);
   }
 
   private renderer: THREE.Renderer = null;
@@ -69,36 +70,6 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
   private rendererScenes: QueryList<SceneComponent>;
   private effectComposer: EffectComposer = null;
 
-  getPosition(): THREE.Vector3 {
-    if (this.camera !== null) {
-      return this.camera.position;
-    } else if (this.position !== null && this.position.length > 0) {
-      return this.position.first.getPosition();
-    } else {
-      return new THREE.Vector3(0, 0, 0);
-    }
-  }
-
-  getScale(): THREE.Vector3 {
-    if (this.camera !== null) {
-      return this.camera.scale;
-    } else if (this.scale !== null && this.scale.length > 0) {
-      return this.scale.first.getScale();
-    } else {
-      return new THREE.Vector3(1, 1, 1);
-    }
-  }
-
-  getRotation(): THREE.Euler {
-    if (this.camera !== null) {
-      return this.camera.rotation;
-    } else if (this.scale !== null && this.scale.length > 0) {
-      return this.rotation.first.getRotation();
-    } else {
-      return new THREE.Euler(0, 0, 0);
-    }
-  }
- 
   getRenderer(): THREE.Renderer{
     return this.renderer;
   }
@@ -147,50 +118,22 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
   }
 
   ngAfterContentInit(): void {
-    this.position.changes.subscribe(() => {
-      this.synkObject3D(['position']);
-    });
-    this.rotation.changes.subscribe(() => {
-      this.synkObject3D(['rotation']);
-    });
-    this.scale.changes.subscribe(() => {
-      this.synkObject3D(['scale']);
-    });
-    this.lookat.changes.subscribe(() => {
-      this.synkObject3D(['lookat']);
-    });
     this.listner.changes.subscribe(() => {
       this.synkObject3D(['listner']);
     });
     this.audio.changes.subscribe(() => {
       this.synkObject3D(['audio']);
     });
+    this.mixer.changes.subscribe(() => {
+      this.synkObject3D(['mixer']);
+    });
+    super.ngAfterContentInit();
   }
 
   synkObject3D(synkTypes: string[]) {
     if (this.camera !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
-          case 'position':
-            this.position.forEach((position) => {
-              position.setObject3D(this.camera);
-            });
-            break;
-          case 'rotation':
-            this.rotation.forEach((rotation) => {
-              rotation.setObject3D(this.camera);
-            });
-            break;
-          case 'scale':
-            this.scale.forEach((scale) => {
-              scale.setObject3D(this.camera);
-            });
-            break;
-          case 'lookat':
-            this.lookat.forEach((lookat) => {
-              lookat.setObject3D(this.camera);
-            });
-            break;
           case 'listner':
             this.listner.forEach((listner) => {
               listner.setObject3D(this.camera);
@@ -201,8 +144,16 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
               audio.setObject3D(this.camera);
             });
             break;
+          case 'mixer' :
+            if (this.clips !== null && this.clips.length > 0) {
+              this.mixer.forEach((mixer) => {
+                mixer.setModel(this.camera, this.clips);
+              });
+            }
+            break;
         }
       });
+      super.synkObject3D(synkTypes);
     }
   }
 
@@ -313,7 +264,18 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
       if (ThreeUtil.isNull(this.camera.userData.component)) {
         this.camera.userData.component = this;
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','listner','audio']);
+      this.object3d = this.camera;
+      if (ThreeUtil.isNotNull(this.storageName)) {
+        this.localStorageService.getObject(
+          this.storageName,
+          (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => {
+            this.clips = clips;
+            this.synkObject3D(['mixer']);
+          },
+          { object : this.camera }
+        );
+      }
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','listner','audio', 'mixer']);
     }
     return this.camera;
   }
@@ -391,7 +353,7 @@ export class CameraComponent implements OnInit, InterfaceEffectComposer {
         if (scene !== null) {
           cssRenderer.render(scene, this.getCamera());
         }
-      }      
+      }
     }
   }
 }

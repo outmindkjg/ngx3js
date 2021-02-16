@@ -28,6 +28,8 @@ import { AudioComponent } from './../audio/audio.component';
 import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
+import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
+
 
 @Component({
   selector: 'three-mesh',
@@ -36,7 +38,6 @@ import { MixerComponent } from './../mixer/mixer.component';
 })
 export class MeshComponent extends AbstractObject3dComponent implements OnInit, InterfaceMeshComponent {
   @Input() type: string = 'mesh';
-  @Input() mass: number = null;
   @Input() lightType: string = 'spot';
   @Input() cssStyle: string | CssStyle = null;
   @Input() skyboxType: string = 'auto';
@@ -53,6 +54,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
   @Input() receiveShadow: boolean = false;
   @Input() name: string = null;
   @Input() storageName: string = null;
+  @Input() storageOption : any = null;
   @Input() color: string | number = null;
   @Input() skyColor: string | number = null;
   @Input() groundColor: string | number = null;
@@ -65,6 +67,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
   @Input() width: number = null;
   @Input() height: number = null;
   @Input() exponent: number = null;
+  @Input() count: number = null;
 
   @Input() shadowCameraVisible: boolean = false;
   @Input() shadowCameraNear: number = null;
@@ -81,6 +84,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
   @Input() helperVisible: boolean = null;
   @Input() helperTarget: MeshComponent = null;
   @Input() helperColor: string | number = null;
+  @Input() radius: number = null;
+  @Input() radials: number = null;
+  @Input() circles: number = null;
+  @Input() divisions: number = null;
+  @Input() color1: string | number = null;
+  @Input() color2: string | number = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) geometry: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
@@ -91,13 +100,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
   @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
   @ContentChildren(HtmlComponent, { descendants: false }) cssChildren: QueryList<HtmlComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: false }) rigidbody: QueryList<RigidbodyComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
-  }
-
-  getMass(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.mass, def);
   }
 
   getSkyboxSize(def?: number): number {
@@ -143,6 +149,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
 
   getHeight(def?: number): number {
     return ThreeUtil.getTypeSafe(this.height, def);
+  }
+
+  getCount(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.count, def);
   }
 
   getColor(def?: string | number): THREE.Color {
@@ -223,6 +233,30 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
     return ThreeUtil.getColorSafe(this.helperColor, def);
   }
 
+  private getRadius(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radius, def);
+  }
+
+  private getRadials(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radials, def);
+  }
+
+  private getCircles(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.circles, def);
+  }
+
+  private getDivisions(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.divisions, def);
+  }
+
+  private getColor1(def?: string | number | THREE.Color ): THREE.Color {
+    return ThreeUtil.getColorSafe(this.color1, def);
+  }
+
+  private getColor2(def?: string | number | THREE.Color ): THREE.Color {
+    return ThreeUtil.getColorSafe(this.color2, def);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       Object.entries(changes).forEach(([key, value]) => {
@@ -289,7 +323,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
           'rotation',
           'scale',
           'lookat',
+          'rigidbody',
           'mesh',
+          'rigidbody',
           'geometry',
           'material',
           'svg',
@@ -322,6 +358,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
     this.meshes.changes.subscribe((e) => {
       this.synkObject3D(['mesh']);
     });
+    this.rigidbody.changes.subscribe((e) => {
+      this.synkObject3D(['rigidbody']);
+    });
     this.geometry.changes.subscribe((e) => {
       this.synkObject3D(['geometry']);
     });
@@ -350,6 +389,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
           case 'mesh':
             this.meshes.forEach((mesh) => {
               mesh.setObject3D(this.object3d);
+            });
+            break;
+          case 'rigidbody':
+            this.rigidbody.forEach((rigidbody) => {
+              rigidbody.setObject3D(this.object3d);
             });
             break;
           case 'geometry':
@@ -617,6 +661,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
           });
           basemesh = lensflare;
           break;
+        case 'instanced' :
+          basemesh = new THREE.InstancedMesh(geometry, this.getMaterials(), this.getCount(1));
+          break;
         case 'multi':
         case 'multimaterial':
           basemesh = SceneUtils.createMultiMaterialObject(
@@ -665,18 +712,27 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
                     });
                   }
                   this.object3d.add(loadedMesh);
+                  if (this.castShadow) {
+                    loadedMesh.castShadow = this.castShadow;
+                    loadedMesh.receiveShadow = this.receiveShadow;
+                    loadedMesh.children.forEach(child => {
+                      child.castShadow = this.castShadow;
+                      child.receiveShadow = this.receiveShadow;
+                    });
+                  }
                 } else if (geometry !== null) {
                   if (geometry['animations'] !== null && geometry['animations'] !== undefined && geometry['animations'].length > 0) {
                     const morphAnim = new MorphAnimMesh(geometry, this.getMaterials()[0]);
                     loadedMesh = morphAnim;
                     this.object3d.add(loadedMesh);
-                    clips = geometry['animations'];
+                    if (geometry['animations'] !== null) {
+                      clips = geometry['animations'];
+                    }
                   } else {
                     loadedMesh = new THREE.Mesh(geometry, this.getMaterials()[0]);
                     this.object3d.add(loadedMesh);
                   }
                 }
-
                 if (this.meshes) {
                   this.meshes.forEach((mesh) => {
                     if (
@@ -697,7 +753,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
                 this.clipMesh = loadedMesh;
                 this.synkObject3D(['mixer', 'material']);
                 this.resetHelper();
-              }
+              },
+              this.storageOption
             );
           } else {
             const materials = this.getMaterials();
@@ -776,6 +833,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
         'rotation',
         'scale',
         'lookat',
+        'rigidbody',
         'mesh',
         'geometry',
         'material',
@@ -832,13 +890,15 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
           break;
         case 'polargrid':
           basemesh = new THREE.PolarGridHelper(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            this.getRadius(10),
+            this.getRadials(16),
+            this.getCircles(8),
+            this.getDivisions(64),
+            this.getColor1(0x444444),
+            this.getColor2(0x888888),
           );
+          basemesh.receiveShadow = true;
+          this.object3d.add(basemesh);
           break;
         case 'camera': {
           let helperTarget = this.getHelperTarget(this.object3d);

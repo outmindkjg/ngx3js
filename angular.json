@@ -18,8 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies" : [
-              "three-csg-ts",
-              "physijs"
+              "ammojs-typed"
             ],
             "outputPath": "dist/three-sample",
             "index": "src/index.html",

@@ -481,7 +481,6 @@ var AbstractThreeController = /** @class */ (function () {
         }
     };
     AbstractThreeController.prototype.awake = function () {
-        console.log(this.getComponent2D());
         if (this.refObject !== null && this.refObject.visible) {
             this.onEnable();
         }
@@ -623,7 +622,7 @@ var AutoPositionController = /** @class */ (function (_super) {
                 var tweenTimer = this.tweenTimer;
                 tweenTimer.clear();
                 var target = interface_1.ThreeUtil.getVector3Safe(this.x, this.y, this.z);
-                tweenTimer.to(this.refObject2d.html, __assign({ translateX: target.x, translateY: target.y, translateZ: target.z }, { duration: this.getDuration(), ease: this.getEasing(), repeat: this.getRepeat(), yoyo: this.getYoyo() }));
+                tweenTimer.to(this.refObject2d.html, __assign({ left: target.x, top: target.y }, { duration: this.getDuration(), ease: this.getEasing(), repeat: this.getRepeat(), yoyo: this.getYoyo() }));
                 tweenTimer.play();
             }
         }
@@ -643,6 +642,7 @@ var AutoMaterialController = /** @class */ (function (_super) {
         return _this;
     }
     AutoMaterialController.prototype.setVariables = function (variables) {
+        var _this = this;
         _super.prototype.setVariables.call(this, variables);
         if (this.enable) {
             if (this.refObject !== null) {
@@ -651,39 +651,26 @@ var AutoMaterialController = /** @class */ (function (_super) {
                     material_1 instanceof THREE.MeshLambertMaterial) {
                     var tweenTimer = this.tweenTimer;
                     tweenTimer.clear();
-                    var colorOpacity_1 = {
-                        materialColor: material_1.color.clone(),
-                        materialOpacity: material_1.opacity
-                    };
-                    tweenTimer.to(colorOpacity_1, {
-                        materialColor: interface_1.ThreeUtil.getColorSafe(this.color),
-                        materialOpacity: this.opacity,
-                        duration: this.getDuration(),
-                        ease: this.getEasing(),
-                        repeat: this.getRepeat(),
-                        yoyo: this.getYoyo(),
-                        onUpdate: function (e) {
-                            // material.color.setRGB(colorOpacity.materialColor.r,colorOpacity.materialColor.g,colorOpacity.materialColor.b);
+                    var colorOpacity_1 = __assign(__assign({}, material_1.color.clone()), { materialOpacity: material_1.opacity });
+                    tweenTimer.to(colorOpacity_1, __assign(__assign({}, interface_1.ThreeUtil.getColorSafe(this.color)), { materialOpacity: this.opacity, duration: this.getDuration(), ease: this.getEasing(), repeat: this.getRepeat(), yoyo: this.getYoyo(), onUpdate: function (e) {
+                            _this.material['color'].setRGB(colorOpacity_1.r, colorOpacity_1.g, colorOpacity_1.b);
                             material_1.opacity = colorOpacity_1.materialOpacity;
-                        }
-                    });
+                        } }));
                     tweenTimer.play();
                 }
             }
             else if (this.refObject2d !== null) {
-                /*
-                const tweenTimer = this.tweenTimer;
+                var tweenTimer = this.tweenTimer;
                 tweenTimer.clear();
-                const target = ThreeUtil.getVector3Safe(this.x, this.y, this.z);
-                tweenTimer.to(this.refObject2d.html,{
-                    ...{ translateX : target.x, translateY : target.y,translateZ : target.z },
-                    duration : this.getDuration(),
+                tweenTimer.to(this.refObject2d.html, {
+                    backgroundColor: interface_1.ThreeUtil.getColorSafe(this.color).getStyle(),
+                    opacity: this.opacity,
+                    duration: this.getDuration(),
                     ease: this.getEasing(),
                     repeat: this.getRepeat(),
                     yoyo: this.getYoyo()
                 });
                 tweenTimer.play();
-                */
             }
         }
         else {

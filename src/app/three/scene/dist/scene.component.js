@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,28 +20,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.SceneComponent = void 0;
-var audio_component_1 = require("./../audio/audio.component");
-var listener_component_1 = require("./../listener/listener.component");
+var mixer_component_1 = require("./../mixer/mixer.component");
 var core_1 = require("@angular/core");
 var THREE = require("three");
-var PHYSIJS = require("./../physijs/src");
-var mesh_component_1 = require("./../mesh/mesh.component");
+var controller_component_1 = require("../controller/controller.component");
 var fog_component_1 = require("../fog/fog.component");
+var interface_1 = require("../interface");
 var material_component_1 = require("../material/material.component");
-var position_component_1 = require("../position/position.component");
-var rotation_component_1 = require("../rotation/rotation.component");
-var scale_component_1 = require("../scale/scale.component");
-var lookat_component_1 = require("../lookat/lookat.component");
-var SceneComponent = /** @class */ (function () {
+var object3d_abstract_1 = require("../object3d.abstract");
+var physics_component_1 = require("../physics/physics.component");
+var audio_component_1 = require("./../audio/audio.component");
+var listener_component_1 = require("./../listener/listener.component");
+var mesh_component_1 = require("./../mesh/mesh.component");
+var rigidbody_component_1 = require("./../rigidbody/rigidbody.component");
+var SceneComponent = /** @class */ (function (_super) {
+    __extends(SceneComponent, _super);
     function SceneComponent(localStorageService) {
-        this.localStorageService = localStorageService;
-        this.storageName = null;
-        this.physiType = 'none';
-        this.scene = null;
+        var _this = _super.call(this) || this;
+        _this.localStorageService = localStorageService;
+        _this.storageName = null;
+        _this.scene = null;
+        _this.renderer = null;
+        _this._physics = null;
+        return _this;
     }
-    SceneComponent.prototype.ngOnInit = function () { };
-    SceneComponent.prototype.getPosition = function () {
-        return this.getScene().position;
+    SceneComponent.prototype.ngOnInit = function () {
+        _super.prototype.ngOnInit.call(this);
+    };
+    SceneComponent.prototype.setRenderer = function (renderer) {
+        this.renderer = renderer;
+    };
+    SceneComponent.prototype.getRenderer = function () {
+        return this.renderer;
     };
     SceneComponent.prototype.getObject3D = function () {
         return this.getScene();
@@ -50,10 +73,11 @@ var SceneComponent = /** @class */ (function () {
     };
     SceneComponent.prototype.ngOnChanges = function (changes) {
         if (changes) {
-            if (changes.storageName || changes.physiType) {
+            if (changes.storageName) {
                 this.scene = null;
             }
         }
+        _super.prototype.ngOnChanges.call(this, changes);
     };
     SceneComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
@@ -81,36 +105,41 @@ var SceneComponent = /** @class */ (function () {
         this.audio.changes.subscribe(function () {
             _this.synkObject3D(['audio']);
         });
+        this.sceneController.changes.subscribe(function () {
+            _this.synkObject3D(['sceneController']);
+        });
+        this.mixer.changes.subscribe(function () {
+            _this.synkObject3D(['mixer']);
+        });
+        this.physics.changes.subscribe(function () {
+            _this.synkObject3D(['physics']);
+        });
+        this.rigidbody.changes.subscribe(function () {
+            _this.synkObject3D(['rigidbody']);
+        });
+        _super.prototype.ngAfterContentInit.call(this);
     };
     SceneComponent.prototype.synkObject3D = function (synkTypes) {
         var _this = this;
         if (this.scene !== null) {
             synkTypes.forEach(function (synkType) {
                 switch (synkType) {
-                    case 'position':
-                        _this.position.forEach(function (position) {
-                            position.setObject3D(_this.scene);
-                        });
-                        break;
-                    case 'rotation':
-                        _this.rotation.forEach(function (rotation) {
-                            rotation.setObject3D(_this.scene);
-                        });
-                        break;
-                    case 'scale':
-                        _this.scale.forEach(function (scale) {
-                            scale.setObject3D(_this.scene);
-                        });
-                        break;
-                    case 'lookat':
-                        _this.lookat.forEach(function (lookat) {
-                            lookat.setObject3D(_this.scene);
-                        });
-                        break;
                     case 'mesh':
                         _this.meshes.forEach(function (mesh) {
                             mesh.setObject3D(_this.scene);
                         });
+                        break;
+                    case 'rigidbody':
+                    case 'physics':
+                    case 'mixer':
+                        _this._physics = _this.physics.first;
+                        _this.rigidbody.forEach(function (rigidbody) {
+                            rigidbody.setPhysics(_this._physics);
+                        });
+                        _this.mixer.forEach(function (mixer) {
+                            mixer.setPhysics(_this._physics);
+                        });
+                        break;
                     case 'materials':
                         _this.materials.forEach(function (material) {
                             material.setObject3D(_this.scene);
@@ -126,9 +155,26 @@ var SceneComponent = /** @class */ (function () {
                             audio.setObject3D(_this.scene);
                         });
                         break;
+                    case 'sceneController':
+                        _this.sceneController.forEach(function (controller) {
+                            controller.setScene(_this.scene);
+                        });
+                        break;
                 }
             });
         }
+        _super.prototype.synkObject3D.call(this, synkTypes);
+    };
+    SceneComponent.prototype.update = function (timer) {
+        this.mixer.forEach(function (mixer) {
+            mixer.update(timer);
+        });
+        this.physics.forEach(function (physics) {
+            physics.update(timer);
+        });
+        this.rigidbody.forEach(function (rigidbody) {
+            rigidbody.update(timer);
+        });
     };
     SceneComponent.prototype.getScene = function () {
         var _this = this;
@@ -150,24 +196,7 @@ var SceneComponent = /** @class */ (function () {
                 });
             }
             else {
-                switch (this.physiType.toLowerCase()) {
-                    case 'physi':
-                        PHYSIJS.scripts.worker = '/assets/physijs_worker.js';
-                        PHYSIJS.scripts.ammo = '/assets/ammo.js';
-                        var scene_1 = new PHYSIJS.Scene();
-                        scene_1.setGravity(new THREE.Vector3(0, -50, 0));
-                        scene_1.addEventListener('update', function () {
-                            scene_1.simulate(undefined, 2);
-                        });
-                        scene_1.simulate();
-                        this.scene.fog;
-                        this.scene = scene_1;
-                        break;
-                    case 'none':
-                    default:
-                        this.scene = new THREE.Scene();
-                        break;
-                }
+                this.scene = new THREE.Scene();
                 this.synkObject3D([
                     'position',
                     'rotation',
@@ -175,9 +204,15 @@ var SceneComponent = /** @class */ (function () {
                     'lookat',
                     'materials',
                     'mesh',
+                    'physics',
                     'fog',
+                    'sceneController'
                 ]);
             }
+            if (interface_1.ThreeUtil.isNull(this.scene.userData.component)) {
+                this.scene.userData.component = this;
+            }
+            this.object3d = this.scene;
         }
         return this.scene;
     };
@@ -185,23 +220,14 @@ var SceneComponent = /** @class */ (function () {
         core_1.Input()
     ], SceneComponent.prototype, "storageName");
     __decorate([
-        core_1.Input()
-    ], SceneComponent.prototype, "physiType");
-    __decorate([
         core_1.ContentChildren(mesh_component_1.MeshComponent, { descendants: false })
     ], SceneComponent.prototype, "meshes");
     __decorate([
-        core_1.ContentChildren(position_component_1.PositionComponent, { descendants: false })
-    ], SceneComponent.prototype, "position");
+        core_1.ContentChildren(physics_component_1.PhysicsComponent, { descendants: false })
+    ], SceneComponent.prototype, "physics");
     __decorate([
-        core_1.ContentChildren(rotation_component_1.RotationComponent, { descendants: false })
-    ], SceneComponent.prototype, "rotation");
-    __decorate([
-        core_1.ContentChildren(scale_component_1.ScaleComponent, { descendants: false })
-    ], SceneComponent.prototype, "scale");
-    __decorate([
-        core_1.ContentChildren(lookat_component_1.LookatComponent, { descendants: false })
-    ], SceneComponent.prototype, "lookat");
+        core_1.ContentChildren(rigidbody_component_1.RigidbodyComponent, { descendants: true })
+    ], SceneComponent.prototype, "rigidbody");
     __decorate([
         core_1.ContentChildren(fog_component_1.FogComponent, { descendants: false })
     ], SceneComponent.prototype, "fog");
@@ -214,6 +240,12 @@ var SceneComponent = /** @class */ (function () {
     __decorate([
         core_1.ContentChildren(audio_component_1.AudioComponent, { descendants: false })
     ], SceneComponent.prototype, "audio");
+    __decorate([
+        core_1.ContentChildren(controller_component_1.ControllerComponent, { descendants: true })
+    ], SceneComponent.prototype, "sceneController");
+    __decorate([
+        core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: true })
+    ], SceneComponent.prototype, "mixer");
     SceneComponent = __decorate([
         core_1.Component({
             selector: 'three-scene',
@@ -222,5 +254,5 @@ var SceneComponent = /** @class */ (function () {
         })
     ], SceneComponent);
     return SceneComponent;
-}());
+}(object3d_abstract_1.AbstractObject3dComponent));
 exports.SceneComponent = SceneComponent;

@@ -318,7 +318,7 @@
 				transform.setRotation( new Ammo.btQuaternion( quat.x, quat.y, quat.z, quat.w ) );
 				const motionState = new Ammo.btDefaultMotionState( transform );
 
-				const localInertia = new Ammo.btVector3( 0, 0, 0 );
+				const localInertia = new Ammo.btVector3( 0, 0.2, 0 );
 				physicsShape.calculateLocalInertia( mass, localInertia );
 
 				const rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, physicsShape, localInertia );

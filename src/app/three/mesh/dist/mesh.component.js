@@ -23,32 +23,29 @@ exports.MeshComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
 var RectAreaLightHelper_js_1 = require("three/examples/jsm/helpers/RectAreaLightHelper.js");
-var CSS3DRenderer_js_1 = require("three/examples/jsm/renderers/CSS3DRenderer.js");
-var CSS2DRenderer_js_1 = require("three/examples/jsm/renderers/CSS2DRenderer.js");
+var MorphAnimMesh_1 = require("three/examples/jsm/misc/MorphAnimMesh");
 var Lensflare_1 = require("three/examples/jsm/objects/Lensflare");
+var CSS2DRenderer_js_1 = require("three/examples/jsm/renderers/CSS2DRenderer.js");
+var CSS3DRenderer_js_1 = require("three/examples/jsm/renderers/CSS3DRenderer.js");
 var SceneUtils_1 = require("three/examples/jsm/utils/SceneUtils");
 var geometry_component_1 = require("../geometry/geometry.component");
+var html_component_1 = require("../html/html.component");
 var interface_1 = require("../interface");
 var lensflareelement_component_1 = require("../lensflareelement/lensflareelement.component");
 var material_component_1 = require("../material/material.component");
-var position_component_1 = require("../position/position.component");
-var rotation_component_1 = require("../rotation/rotation.component");
-var scale_component_1 = require("../scale/scale.component");
+var object3d_abstract_1 = require("../object3d.abstract");
 var svg_component_1 = require("../svg/svg.component");
 var texture_component_1 = require("../texture/texture.component");
 var audio_component_1 = require("./../audio/audio.component");
 var listener_component_1 = require("./../listener/listener.component");
-var lookat_component_1 = require("./../lookat/lookat.component");
 var mixer_component_1 = require("./../mixer/mixer.component");
-var MorphAnimMesh_1 = require("three/examples/jsm/misc/MorphAnimMesh");
-var html_component_1 = require("../html/html.component");
+var rigidbody_component_1 = require("./../rigidbody/rigidbody.component");
 var MeshComponent = /** @class */ (function (_super) {
     __extends(MeshComponent, _super);
     function MeshComponent(localStorageService) {
         var _this = _super.call(this) || this;
         _this.localStorageService = localStorageService;
         _this.type = 'mesh';
-        _this.mass = null;
         _this.lightType = 'spot';
         _this.cssStyle = null;
         _this.skyboxType = 'auto';
@@ -61,11 +58,11 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.skyboxSunZ = 0;
         _this.helperType = 'none';
         _this.scaleStep = 1;
-        _this.visible = true;
         _this.castShadow = true;
         _this.receiveShadow = false;
         _this.name = null;
         _this.storageName = null;
+        _this.storageOption = null;
         _this.color = null;
         _this.skyColor = null;
         _this.groundColor = null;
@@ -78,6 +75,7 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.width = null;
         _this.height = null;
         _this.exponent = null;
+        _this.count = null;
         _this.shadowCameraVisible = false;
         _this.shadowCameraNear = null;
         _this.shadowMapSizeWidth = null;
@@ -93,7 +91,12 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.helperVisible = null;
         _this.helperTarget = null;
         _this.helperColor = null;
-        _this.mesh = null;
+        _this.radius = null;
+        _this.radials = null;
+        _this.circles = null;
+        _this.divisions = null;
+        _this.color1 = null;
+        _this.color2 = null;
         _this.clips = null;
         _this.clipMesh = null;
         _this.helper = null;
@@ -101,9 +104,6 @@ var MeshComponent = /** @class */ (function (_super) {
         return _this;
     }
     MeshComponent_1 = MeshComponent;
-    MeshComponent.prototype.getMass = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.mass, def);
-    };
     MeshComponent.prototype.getSkyboxSize = function (def) {
         var skyboxSize = interface_1.ThreeUtil.getTypeSafe(this.distance, def, 10000);
         if (interface_1.ThreeUtil.isNotNull(skyboxSize)) {
@@ -136,6 +136,9 @@ var MeshComponent = /** @class */ (function (_super) {
     };
     MeshComponent.prototype.getHeight = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.height, def);
+    };
+    MeshComponent.prototype.getCount = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.count, def);
     };
     MeshComponent.prototype.getColor = function (def) {
         return interface_1.ThreeUtil.getColorSafe(this.color, def);
@@ -199,11 +202,23 @@ var MeshComponent = /** @class */ (function (_super) {
     MeshComponent.prototype.getHelperColor = function (def) {
         return interface_1.ThreeUtil.getColorSafe(this.helperColor, def);
     };
-    MeshComponent.prototype.ngOnInit = function () { };
-    MeshComponent.prototype.ngOnDestroy = function () {
-        if (this.mesh != null && this.refObject3d != null) {
-            this.refObject3d.remove(this.mesh);
-        }
+    MeshComponent.prototype.getRadius = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.radius, def);
+    };
+    MeshComponent.prototype.getRadials = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.radials, def);
+    };
+    MeshComponent.prototype.getCircles = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.circles, def);
+    };
+    MeshComponent.prototype.getDivisions = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.divisions, def);
+    };
+    MeshComponent.prototype.getColor1 = function (def) {
+        return interface_1.ThreeUtil.getColorSafe(this.color1, def);
+    };
+    MeshComponent.prototype.getColor2 = function (def) {
+        return interface_1.ThreeUtil.getColorSafe(this.color2, def);
     };
     MeshComponent.prototype.ngOnChanges = function (changes) {
         var _this = this;
@@ -215,16 +230,16 @@ var MeshComponent = /** @class */ (function (_super) {
                     case 'visible':
                         break;
                     default:
-                        if (_this.refObject3d !== null && _this.mesh !== null) {
-                            _this.refObject3d.remove(_this.mesh);
-                            _this.mesh = null;
+                        if (_this.refObject3d !== null && _this.object3d !== null) {
+                            _this.refObject3d.remove(_this.object3d);
+                            _this.object3d = null;
                         }
                         break;
                 }
             });
-            if (this.mesh) {
+            if (this.object3d) {
                 if (changes.visible) {
-                    this.mesh.visible = this.visible;
+                    this.object3d.visible = this.visible;
                 }
                 if (this.helper && changes.helperVisible) {
                     this.helper.visible = this.getHelperVisible(true);
@@ -232,43 +247,11 @@ var MeshComponent = /** @class */ (function (_super) {
             }
             this.resetMesh();
         }
-    };
-    MeshComponent.prototype.getPosition = function () {
-        if (this.mesh !== null) {
-            return this.mesh.position;
-        }
-        else if (this.position !== null && this.position.length > 0) {
-            return this.position.first.getPosition();
-        }
-        else {
-            return new THREE.Vector3(0, 0, 0);
-        }
-    };
-    MeshComponent.prototype.getScale = function () {
-        if (this.mesh !== null) {
-            return this.mesh.scale;
-        }
-        else if (this.scale !== null && this.scale.length > 0) {
-            return this.scale.first.getScale();
-        }
-        else {
-            return new THREE.Vector3(1, 1, 1);
-        }
-    };
-    MeshComponent.prototype.getRotation = function () {
-        if (this.mesh !== null) {
-            return this.mesh.rotation;
-        }
-        else if (this.scale !== null && this.scale.length > 0) {
-            return this.rotation.first.getRotation();
-        }
-        else {
-            return new THREE.Euler(0, 0, 0);
-        }
+        _super.prototype.ngOnChanges.call(this, changes);
     };
     MeshComponent.prototype.getGeometry = function () {
-        if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
-            return this.mesh.geometry;
+        if (this.object3d !== null && this.object3d instanceof THREE.Mesh) {
+            return this.object3d.geometry;
         }
         else if (this.geometry !== null && this.geometry.length > 0) {
             return this.geometry.first.getGeometry();
@@ -294,18 +277,21 @@ var MeshComponent = /** @class */ (function (_super) {
         if (isRestore) {
             if (this.refObject3d !== refObject3d.parent) {
                 this.refObject3d = refObject3d.parent;
-                this.mesh = refObject3d;
+                this.object3d = refObject3d;
                 this.synkObject3D([
                     'position',
                     'rotation',
                     'scale',
                     'lookat',
+                    'rigidbody',
                     'mesh',
+                    'rigidbody',
                     'geometry',
                     'material',
                     'svg',
                     'listner',
-                    'audio'
+                    'audio',
+                    'controller'
                 ]);
             }
         }
@@ -333,6 +319,9 @@ var MeshComponent = /** @class */ (function (_super) {
         this.meshes.changes.subscribe(function (e) {
             _this.synkObject3D(['mesh']);
         });
+        this.rigidbody.changes.subscribe(function (e) {
+            _this.synkObject3D(['rigidbody']);
+        });
         this.geometry.changes.subscribe(function (e) {
             _this.synkObject3D(['geometry']);
         });
@@ -351,45 +340,31 @@ var MeshComponent = /** @class */ (function (_super) {
         this.cssChildren.changes.subscribe(function () {
             _this.synkObject3D(['cssChildren']);
         });
+        _super.prototype.ngAfterContentInit.call(this);
     };
     MeshComponent.prototype.synkObject3D = function (synkTypes) {
         var _this = this;
-        if (this.mesh !== null) {
+        if (this.object3d !== null) {
             synkTypes.forEach(function (synkType) {
                 switch (synkType) {
-                    case 'position':
-                        _this.position.forEach(function (position) {
-                            position.setObject3D(_this.mesh);
-                        });
-                        break;
-                    case 'rotation':
-                        _this.rotation.forEach(function (rotation) {
-                            rotation.setObject3D(_this.mesh);
-                        });
-                        break;
-                    case 'scale':
-                        _this.scale.forEach(function (scale) {
-                            scale.setObject3D(_this.mesh);
-                        });
-                        break;
-                    case 'lookat':
-                        _this.lookat.forEach(function (lookat) {
-                            lookat.setObject3D(_this.mesh);
-                        });
-                        break;
                     case 'mesh':
                         _this.meshes.forEach(function (mesh) {
-                            mesh.setObject3D(_this.mesh);
+                            mesh.setObject3D(_this.object3d);
+                        });
+                        break;
+                    case 'rigidbody':
+                        _this.rigidbody.forEach(function (rigidbody) {
+                            rigidbody.setObject3D(_this.object3d);
                         });
                         break;
                     case 'geometry':
                         _this.geometry.forEach(function (geometry) {
-                            geometry.setObject3D(_this.mesh);
+                            geometry.setObject3D(_this.object3d);
                         });
                         break;
                     case 'svg':
                         _this.svg.forEach(function (svg) {
-                            svg.setObject3D(_this.mesh);
+                            svg.setObject3D(_this.object3d);
                         });
                         break;
                     case 'material':
@@ -400,7 +375,7 @@ var MeshComponent = /** @class */ (function (_super) {
                         }
                         else {
                             _this.materials.forEach(function (material) {
-                                material.setObject3D(_this.mesh);
+                                material.setObject3D(_this.object3d);
                             });
                         }
                         break;
@@ -413,36 +388,37 @@ var MeshComponent = /** @class */ (function (_super) {
                             }
                             else {
                                 _this.mixer.forEach(function (mixer) {
-                                    mixer.setModel(_this.mesh, _this.clips);
+                                    mixer.setModel(_this.object3d, _this.clips);
                                 });
                             }
                         }
                         break;
                     case 'listner':
                         _this.listner.forEach(function (listner) {
-                            listner.setObject3D(_this.mesh);
+                            listner.setObject3D(_this.object3d);
                         });
                         break;
                     case 'audio':
                         _this.audio.forEach(function (audio) {
-                            audio.setObject3D(_this.mesh);
+                            audio.setObject3D(_this.object3d);
                         });
                         break;
                     case 'cssChildren':
                         _this.cssChildren.forEach(function (cssChild) {
-                            cssChild.setObject3D(_this.mesh);
+                            cssChild.setObject3D(_this.object3d);
                         });
                         break;
                 }
             });
+            _super.prototype.synkObject3D.call(this, synkTypes);
         }
     };
     MeshComponent.prototype.resetMesh = function (clearMesh) {
         if (clearMesh === void 0) { clearMesh = false; }
         if (this.refObject3d !== null) {
-            if (clearMesh && this.mesh !== null && this.mesh.parent) {
-                this.mesh.parent.remove(this.mesh);
-                this.mesh = null;
+            if (clearMesh && this.object3d !== null && this.object3d.parent) {
+                this.object3d.parent.remove(this.object3d);
+                this.object3d = null;
             }
             if (clearMesh && this.helper != null && this.helper.parent != null) {
                 this.helper.parent.remove(this.helper);
@@ -462,7 +438,7 @@ var MeshComponent = /** @class */ (function (_super) {
     };
     MeshComponent.prototype.getMesh = function () {
         var _this = this;
-        if (this.mesh === null) {
+        if (this.object3d === null) {
             var geometry = null;
             if (this.geometry != null && this.geometry.length > 0) {
                 geometry = this.getGeometry();
@@ -603,6 +579,9 @@ var MeshComponent = /** @class */ (function (_super) {
                     });
                     basemesh_1 = lensflare_2;
                     break;
+                case 'instanced':
+                    basemesh_1 = new THREE.InstancedMesh(geometry, this.getMaterials(), this.getCount(1));
+                    break;
                 case 'multi':
                 case 'multimaterial':
                     basemesh_1 = SceneUtils_1.SceneUtils.createMultiMaterialObject(geometry, this.getMaterials());
@@ -643,18 +622,28 @@ var MeshComponent = /** @class */ (function (_super) {
                                         }
                                     });
                                 }
-                                _this.mesh.add(loadedMesh);
+                                _this.object3d.add(loadedMesh);
+                                if (_this.castShadow) {
+                                    loadedMesh.castShadow = _this.castShadow;
+                                    loadedMesh.receiveShadow = _this.receiveShadow;
+                                    loadedMesh.children.forEach(function (child) {
+                                        child.castShadow = _this.castShadow;
+                                        child.receiveShadow = _this.receiveShadow;
+                                    });
+                                }
                             }
                             else if (geometry !== null) {
                                 if (geometry['animations'] !== null && geometry['animations'] !== undefined && geometry['animations'].length > 0) {
                                     var morphAnim = new MorphAnimMesh_1.MorphAnimMesh(geometry, _this.getMaterials()[0]);
                                     loadedMesh = morphAnim;
-                                    _this.mesh.add(loadedMesh);
-                                    clips = geometry['animations'];
+                                    _this.object3d.add(loadedMesh);
+                                    if (geometry['animations'] !== null) {
+                                        clips = geometry['animations'];
+                                    }
                                 }
                                 else {
                                     loadedMesh = new THREE.Mesh(geometry, _this.getMaterials()[0]);
-                                    _this.mesh.add(loadedMesh);
+                                    _this.object3d.add(loadedMesh);
                                 }
                             }
                             if (_this.meshes) {
@@ -675,7 +664,7 @@ var MeshComponent = /** @class */ (function (_super) {
                             _this.clipMesh = loadedMesh;
                             _this.synkObject3D(['mixer', 'material']);
                             _this.resetHelper();
-                        });
+                        }, this.storageOption);
                     }
                     else {
                         var materials = this.getMaterials();
@@ -701,50 +690,50 @@ var MeshComponent = /** @class */ (function (_super) {
                     mesh.setObject3D(basemesh_1);
                 });
             }
-            this.mesh = basemesh_1;
+            this.object3d = basemesh_1;
             if (this.name !== null) {
-                this.mesh.name = this.name;
+                this.object3d.name = this.name;
             }
-            this.mesh.visible = this.visible;
-            if (this.mesh instanceof THREE.Mesh ||
-                this.mesh instanceof THREE.Points ||
-                this.mesh instanceof THREE.Sprite) {
-                var mesh = this.mesh;
-                if (this.mesh instanceof THREE.Mesh) {
+            this.object3d.visible = this.visible;
+            if (this.object3d instanceof THREE.Mesh ||
+                this.object3d instanceof THREE.Points ||
+                this.object3d instanceof THREE.Sprite) {
+                var mesh = this.object3d;
+                if (this.object3d instanceof THREE.Mesh) {
                     mesh.castShadow = this.castShadow;
                     mesh.receiveShadow = this.receiveShadow;
                 }
             }
-            else if (this.mesh instanceof THREE.Light) {
-                if (this.mesh instanceof THREE.SpotLight || this.mesh instanceof THREE.DirectionalLight) {
+            else if (this.object3d instanceof THREE.Light) {
+                if (this.object3d instanceof THREE.SpotLight || this.object3d instanceof THREE.DirectionalLight) {
                     var target = this.getTarget(null);
                     if (target != null) {
-                        this.mesh.target = target;
+                        this.object3d.target = target;
                     }
                 }
-                if (this.mesh.shadow) {
-                    this.mesh.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
-                    this.mesh.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
-                    if (this.mesh.shadow.camera) {
-                        if (this.mesh.shadow.camera instanceof THREE.PerspectiveCamera) {
-                            this.mesh.shadow.camera.near = this.getShadowCameraNear(0.1);
-                            this.mesh.shadow.camera.far = this.getShadowCameraFar(2000);
-                            this.mesh.shadow.camera.fov = this.getShadowCameraFov(50);
+                if (this.object3d.shadow) {
+                    this.object3d.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
+                    this.object3d.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
+                    if (this.object3d.shadow.camera) {
+                        if (this.object3d.shadow.camera instanceof THREE.PerspectiveCamera) {
+                            this.object3d.shadow.camera.near = this.getShadowCameraNear(0.1);
+                            this.object3d.shadow.camera.far = this.getShadowCameraFar(2000);
+                            this.object3d.shadow.camera.fov = this.getShadowCameraFov(50);
                         }
-                        else if (this.mesh.shadow.camera instanceof THREE.OrthographicCamera) {
-                            this.mesh.shadow.camera.near = this.getShadowCameraNear(0.1);
-                            this.mesh.shadow.camera.far = this.getShadowCameraFar(2000);
-                            this.mesh.shadow.camera.left = this.getShadowCameraLeft(-1);
-                            this.mesh.shadow.camera.right = this.getShadowCameraRight(1);
-                            this.mesh.shadow.camera.top = this.getShadowCameraTop(1);
-                            this.mesh.shadow.camera.bottom = this.getShadowCameraBottom(-1);
+                        else if (this.object3d.shadow.camera instanceof THREE.OrthographicCamera) {
+                            this.object3d.shadow.camera.near = this.getShadowCameraNear(0.1);
+                            this.object3d.shadow.camera.far = this.getShadowCameraFar(2000);
+                            this.object3d.shadow.camera.left = this.getShadowCameraLeft(-1);
+                            this.object3d.shadow.camera.right = this.getShadowCameraRight(1);
+                            this.object3d.shadow.camera.top = this.getShadowCameraTop(1);
+                            this.object3d.shadow.camera.bottom = this.getShadowCameraBottom(-1);
                         }
                     }
-                    this.mesh.shadow.updateMatrices(this.mesh);
+                    this.object3d.shadow.updateMatrices(this.object3d);
                 }
             }
-            if (interface_1.ThreeUtil.isNull(this.mesh.userData.component)) {
-                this.mesh.userData.component = this;
+            if (interface_1.ThreeUtil.isNull(this.object3d.userData.component)) {
+                this.object3d.userData.component = this;
             }
             if (this.helper == null) {
                 this.resetHelper();
@@ -754,16 +743,18 @@ var MeshComponent = /** @class */ (function (_super) {
                 'rotation',
                 'scale',
                 'lookat',
+                'rigidbody',
                 'mesh',
                 'geometry',
                 'material',
                 'svg',
                 'listner',
                 'audio',
-                'cssChildren'
+                'cssChildren',
+                'controller'
             ]);
         }
-        return this.mesh;
+        return this.object3d;
     };
     MeshComponent.prototype.resetHelper = function () {
         var _this = this;
@@ -806,11 +797,13 @@ var MeshComponent = /** @class */ (function (_super) {
                     basemesh_2 = new THREE.GridHelper(0, 0); // todo
                     break;
                 case 'polargrid':
-                    basemesh_2 = new THREE.PolarGridHelper(null, null, null, null, null, null);
+                    basemesh_2 = new THREE.PolarGridHelper(this.getRadius(10), this.getRadials(16), this.getCircles(8), this.getDivisions(64), this.getColor1(0x444444), this.getColor2(0x888888));
+                    basemesh_2.receiveShadow = true;
+                    this.object3d.add(basemesh_2);
                     break;
                 case 'camera':
                     {
-                        var helperTarget = this.getHelperTarget(this.mesh);
+                        var helperTarget = this.getHelperTarget(this.object3d);
                         if (helperTarget instanceof THREE.Light && helperTarget.shadow.camera) {
                             basemesh_2 = new THREE.CameraHelper(helperTarget.shadow.camera);
                         }
@@ -826,7 +819,7 @@ var MeshComponent = /** @class */ (function (_super) {
                 case 'spotlight':
                 case 'light':
                     {
-                        var helperTarget = this.getHelperTarget(this.mesh);
+                        var helperTarget = this.getHelperTarget(this.object3d);
                         if (helperTarget instanceof THREE.DirectionalLight) {
                             basemesh_2 = new THREE.DirectionalLightHelper(helperTarget, this.getSize(10), this.getHelperColor(0xff0000));
                         }
@@ -845,9 +838,9 @@ var MeshComponent = /** @class */ (function (_super) {
                     }
                     break;
                 case 'plane':
-                    if (this.mesh instanceof THREE.Mesh && this.mesh.material instanceof THREE.Material) {
+                    if (this.object3d instanceof THREE.Mesh && this.object3d.material instanceof THREE.Material) {
                         basemesh_2 = new THREE.Group();
-                        var clippingPlanes = this.mesh.material.clippingPlanes;
+                        var clippingPlanes = this.object3d.material.clippingPlanes;
                         if (clippingPlanes !== null && clippingPlanes !== undefined) {
                             clippingPlanes.forEach(function (clippingPlane) {
                                 basemesh_2.add(new THREE.PlaneHelper(clippingPlane, _this.getSize(10), _this.getHelperColor(0xff0000).getHex()));
@@ -863,12 +856,12 @@ var MeshComponent = /** @class */ (function (_super) {
                         basemesh_2 = new THREE.SkeletonHelper(this.clipMesh);
                     }
                     else {
-                        basemesh_2 = new THREE.SkeletonHelper(this.mesh);
+                        basemesh_2 = new THREE.SkeletonHelper(this.object3d);
                     }
                     break;
                 case 'axes':
                     basemesh_2 = new THREE.AxesHelper(this.getSize(10));
-                    this.mesh.add(basemesh_2);
+                    this.object3d.add(basemesh_2);
                     break;
             }
             if (basemesh_2 !== null) {
@@ -887,9 +880,6 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "type");
-    __decorate([
-        core_1.Input()
-    ], MeshComponent.prototype, "mass");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "lightType");
@@ -928,9 +918,6 @@ var MeshComponent = /** @class */ (function (_super) {
     ], MeshComponent.prototype, "scaleStep");
     __decorate([
         core_1.Input()
-    ], MeshComponent.prototype, "visible");
-    __decorate([
-        core_1.Input()
     ], MeshComponent.prototype, "castShadow");
     __decorate([
         core_1.Input()
@@ -941,6 +928,9 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "storageName");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "storageOption");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "color");
@@ -977,6 +967,9 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "exponent");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "count");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "shadowCameraVisible");
@@ -1023,6 +1016,24 @@ var MeshComponent = /** @class */ (function (_super) {
         core_1.Input()
     ], MeshComponent.prototype, "helperColor");
     __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "radius");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "radials");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "circles");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "divisions");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "color1");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "color2");
+    __decorate([
         core_1.ContentChildren(geometry_component_1.GeometryComponent, { descendants: false })
     ], MeshComponent.prototype, "geometry");
     __decorate([
@@ -1034,18 +1045,6 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(lensflareelement_component_1.LensflareelementComponent, { descendants: false })
     ], MeshComponent.prototype, "lensflareElements");
-    __decorate([
-        core_1.ContentChildren(position_component_1.PositionComponent, { descendants: false })
-    ], MeshComponent.prototype, "position");
-    __decorate([
-        core_1.ContentChildren(rotation_component_1.RotationComponent, { descendants: false })
-    ], MeshComponent.prototype, "rotation");
-    __decorate([
-        core_1.ContentChildren(scale_component_1.ScaleComponent, { descendants: false })
-    ], MeshComponent.prototype, "scale");
-    __decorate([
-        core_1.ContentChildren(lookat_component_1.LookatComponent, { descendants: false })
-    ], MeshComponent.prototype, "lookat");
     __decorate([
         core_1.ContentChildren(svg_component_1.SvgComponent, { descendants: false })
     ], MeshComponent.prototype, "svg");
@@ -1061,6 +1060,9 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(html_component_1.HtmlComponent, { descendants: false })
     ], MeshComponent.prototype, "cssChildren");
+    __decorate([
+        core_1.ContentChildren(rigidbody_component_1.RigidbodyComponent, { descendants: false })
+    ], MeshComponent.prototype, "rigidbody");
     MeshComponent = MeshComponent_1 = __decorate([
         core_1.Component({
             selector: 'three-mesh',
@@ -1069,5 +1071,5 @@ var MeshComponent = /** @class */ (function (_super) {
         })
     ], MeshComponent);
     return MeshComponent;
-}(interface_1.AbstractMeshComponent));
+}(object3d_abstract_1.AbstractObject3dComponent));
 exports.MeshComponent = MeshComponent;

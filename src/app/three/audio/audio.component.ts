@@ -1,5 +1,6 @@
+import { MixerComponent } from './../mixer/mixer.component';
 import { viewClassName } from '@angular/compiler';
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -26,8 +27,10 @@ export class AudioComponent implements OnInit {
   @Input() coneOuterAngle: number = 1;
   @Input() coneOuterGain: number = 1;
   @Input() fftSize: number = 128;
-  
+
   @Output() onLoad: EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
+
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
 
   constructor() {}
 
@@ -140,6 +143,8 @@ export class AudioComponent implements OnInit {
         }
         userGestureSubscribe.unsubscribe();
       })
+    } else {
+      this.synkObject3D(['mixer'])
     }
   }
 
@@ -233,7 +238,7 @@ export class AudioComponent implements OnInit {
           setTimeout(() => {
             this.checkAudioPlay();
           }, 1000);
-        } 
+        }
       } else {
         if (this.audio.sourceType !== 'empty') {
           if (this.play && !this.audio.isPlaying) {
@@ -257,6 +262,25 @@ export class AudioComponent implements OnInit {
     return this.analyser;
   }
 
+  ngAfterContentInit(): void {
+    this.mixer.changes.subscribe(() => {
+      this.synkObject3D(['mixer']);
+    });
+  }
+
+  synkObject3D(synkTypes: string[]) {
+    if (this.audio !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'mixer' :
+            this.mixer.forEach((mixer) => {
+              mixer.setModel(this.audio, null);
+            });
+            break;
+        }
+      });
+    }
+  }
   getAudio():THREE.Audio {
     if (this.audio === null && this.listener !== null) {
       this.loadedVideoTexture = null;
