@@ -1,7 +1,9 @@
 import {
   Component,
   ContentChildren,
+  EventEmitter,
   Input,
+  Output,
   OnInit,
   QueryList,
   SimpleChanges
@@ -136,6 +138,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() bevelOffset: number = null;
   @Input() bevelSegments: number = null;
   @Input() closed: boolean = null;
+  @Output() onLoad: EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 
   @ContentChildren(GeometryComponent, { descendants: false }) subGeometry: QueryList<GeometryComponent>;
   @ContentChildren(ShapeComponent, { descendants: false }) shapes: QueryList<ShapeComponent>;
@@ -1092,11 +1095,13 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         if (this.name !== null) {
           this.geometry.name = this.name;
         }
+
         if (ThreeUtil.isNull(this.geometry.userData.component)) {
           this.geometry.userData.component = this;
         }
         this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
       }
+      this.onLoad.emit(this);
       this._geometrySubject.next(this.geometry);
     }
     return this.geometry;

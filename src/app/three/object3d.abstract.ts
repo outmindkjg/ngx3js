@@ -1,3 +1,4 @@
+import { ThreeUtil } from './interface';
 import {
 	AfterContentInit,
 	Component,
@@ -70,6 +71,23 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		}
 	}
 
+  setPosition(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      if (x === null) {
+        x = this.object3d.position.x;
+      }
+      if (y === null) {
+        y = this.object3d.position.y;
+      }
+      if (z === null) {
+        z = this.object3d.position.z;
+      }
+      const position = ThreeUtil.getVector3Safe(x, y, z);
+      this.object3d.position.copy(position);
+    }
+    return this;
+  }
+
 	getScale(): THREE.Vector3 {
 		if (this.object3d !== null) {
 			return this.object3d.scale;
@@ -80,6 +98,23 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		}
 	}
 
+  setScale(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      if (x === null) {
+        x = this.object3d.scale.x;
+      }
+      if (y === null) {
+        y = this.object3d.scale.y;
+      }
+      if (z === null) {
+        z = this.object3d.scale.z;
+      }
+      const scale = ThreeUtil.getVector3Safe(x, y, z);
+      this.object3d.scale.copy(scale);
+    }
+    return this;
+  }
+
 	getRotation(): THREE.Euler {
 		if (this.object3d !== null) {
 			return this.object3d.rotation;
@@ -89,6 +124,55 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 			return new THREE.Euler(0, 0, 0);
 		}
 	}
+
+  setRotation(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      if (x === null) {
+        x = this.object3d.rotation.x / Math.PI * 180;
+      }
+      if (y === null) {
+        y = this.object3d.rotation.y / Math.PI * 180;
+      }
+      if (z === null) {
+        z = this.object3d.rotation.z / Math.PI * 180;
+      }
+      const rotation = ThreeUtil.getEulerSafe(x, y, z);
+      this.object3d.rotation.copy(rotation);
+    }
+    return this;
+  }
+
+  addRotation(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      x += this.object3d.rotation.x / Math.PI * 180;
+      y += this.object3d.rotation.y / Math.PI * 180;
+      z += this.object3d.rotation.z / Math.PI * 180;
+      const rotation = ThreeUtil.getEulerSafe(x, y, z);
+      this.object3d.rotation.copy(rotation);
+    }
+    return this;
+  }
+
+  getObjectByName( name : string ): THREE.Object3D | undefined {
+    if (this.object3d !== null) {
+      return this.object3d.getObjectByName(name);
+    }
+    return null;
+  }
+
+  getObjectById( id : number ): THREE.Object3D | undefined {
+    if (this.object3d !== null) {
+      return this.object3d.getObjectById(id);
+    }
+    return null;
+  }
+
+  getObjectByProperty( name: string, value: string ): THREE.Object3D | undefined {
+    if (this.object3d !== null) {
+      return this.object3d.getObjectByProperty(name, value);
+    }
+    return null;
+  }
 
 	protected object3d: THREE.Object3D = null;
 

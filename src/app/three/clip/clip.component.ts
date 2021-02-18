@@ -10,6 +10,7 @@ import * as THREE from 'three';
 export class ClipComponent implements OnInit {
 
   @Input() name : string = "";
+  @Input() index : number = -1;
   @Input() blendMode : string = "";
   @Input() additive : boolean = false;
   @Input() subclip : boolean = false;
@@ -18,9 +19,39 @@ export class ClipComponent implements OnInit {
   @Input() fps: number = null;
   @Input() weight: number = 1;
   @Input() timeScale: number = 1;
+  @Input() clampWhenFinished : boolean = false;
+  @Input() loop : string = null;
+
+  private getBlendMode(def? : string) : THREE.AnimationBlendMode {
+    const blendMode = ThreeUtil.getTypeSafe(this.blendMode, def, '');
+    switch(blendMode.toLowerCase()) {
+      case 'normal' :
+        return THREE.NormalAnimationBlendMode;
+      case 'additive' :
+        return THREE.AdditiveAnimationBlendMode;
+    }
+    return undefined;
+  }
 
   private getFps(def?: number) : number {
     return ThreeUtil.getTypeSafe(this.fps, def);
+  }
+
+  private getClampWhenFinished(def?: boolean) : boolean {
+    return ThreeUtil.getTypeSafe(this.clampWhenFinished, def);
+  }
+
+  private getLoop(def?: string) : THREE.AnimationActionLoopStyles {
+    const loop = ThreeUtil.getTypeSafe(this.loop, def, '');
+    switch(loop.toLowerCase()) {
+      case 'once' :
+        return THREE.LoopOnce;
+        case 'pingpong' :
+          return THREE.LoopPingPong;
+          case 'repeat' :
+          default :
+            return THREE.LoopRepeat;
+        }
   }
 
   constructor() { }
@@ -34,16 +65,6 @@ export class ClipComponent implements OnInit {
     }
   }
 
-  private getBlendMode(def? : string) : THREE.AnimationBlendMode {
-    const blendMode = ThreeUtil.getTypeSafe(this.blendMode, def, '');
-    switch(blendMode.toLowerCase()) {
-      case 'normal' :
-        return THREE.NormalAnimationBlendMode;
-      case 'additive' :
-        return THREE.AdditiveAnimationBlendMode;
-    }
-    return undefined;
-  }
 
   private mixer : THREE.AnimationMixer = null;
   private clips : THREE.AnimationClip[] = null;
@@ -68,7 +89,7 @@ export class ClipComponent implements OnInit {
 
   resetAnimation() {
     if (this.clips !== null) {
-      const clip = THREE.AnimationClip.findByName( this.clips, this.name );
+      const clip = (this.index > -1) ? this.clips[this.index] : THREE.AnimationClip.findByName( this.clips, this.name );
       if (clip !== null) {
         if (this.action !== null) {
           this.action.stop();
@@ -101,6 +122,10 @@ export class ClipComponent implements OnInit {
           this.clip = clip;
           this.action = this.mixer.clipAction( clip, null, this.getBlendMode());
         }
+        if (this.getClampWhenFinished(false)) {
+          this.action.clampWhenFinished = true;
+        }
+        this.action.loop = this.getLoop('repeat');
       } else {
         this.action = null;
       }

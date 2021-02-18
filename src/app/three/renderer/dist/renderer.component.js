@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.RendererComponent = void 0;
+var lookat_component_1 = require("./../lookat/lookat.component");
 var core_1 = require("@angular/core");
 var GSAP = require("gsap");
 var rxjs_1 = require("rxjs");
@@ -36,7 +37,10 @@ var RendererComponent = /** @class */ (function () {
         this.clearColor = null;
         this.clearAlpha = null;
         this.localClippingEnabled = false;
+        this.enablePan = true;
+        this.enableDamping = false;
         this.antialias = false;
+        this.sizeType = 'auto';
         this.width = -1;
         this.height = -1;
         this.statsMode = -1;
@@ -255,6 +259,8 @@ var RendererComponent = /** @class */ (function () {
                 case "orbit":
                     var controls = new OrbitControls_1.OrbitControls(camera, domElement);
                     controls.autoRotate = controlAutoRotate;
+                    controls.enableDamping = this.enableDamping;
+                    controls.enablePan = this.enablePan;
                     return controls;
                 case "fly":
                     return new FlyControls_1.FlyControls(camera, domElement);
@@ -272,8 +278,8 @@ var RendererComponent = /** @class */ (function () {
         if (this.stats === null) {
             this.stats = interface_1.ThreeUtil.getStats({
                 position: 'absolute',
-                left: '10px',
-                top: '25px'
+                left: '0px',
+                top: '0px'
             });
             this.debug.nativeElement.appendChild(this.stats.dom);
         }
@@ -283,6 +289,7 @@ var RendererComponent = /** @class */ (function () {
         if (this.gui == null) {
             this.gui = new interface_1.ThreeGui({
                 position: 'absolute',
+                marginRight: '0px',
                 right: '0px',
                 top: '0px'
             });
@@ -314,6 +321,12 @@ var RendererComponent = /** @class */ (function () {
             camera.setCameraSize(_this.rendererWidth, _this.rendererHeight);
         });
         this.control = this.getControls(this.cameras, this.canvas.nativeElement);
+        if (this.control !== null) {
+            this.lookat.forEach(function (lookat) {
+                lookat.setObject3D(_this.control);
+            });
+        }
+        this.resizeRender(null);
         // this.control = this.getControls(this.cameras, this.renderer);
     };
     RendererComponent.prototype.getRenderer = function () {
@@ -414,8 +427,15 @@ var RendererComponent = /** @class */ (function () {
     };
     RendererComponent.prototype.resizeRender = function (e) {
         if (this.width <= 0 || this.height <= 0) {
-            this.setSize(window.innerWidth, window.innerHeight);
+            if (this.sizeType === 'auto') {
+                this.setSize(this._renderer.nativeElement.clientWidth, this._renderer.nativeElement.clientHeight);
+            }
+            else {
+                this.setSize(window.innerWidth, window.innerHeight);
+            }
         }
+    };
+    RendererComponent.prototype.resizeCanvas = function () {
     };
     __decorate([
         core_1.Input()
@@ -443,7 +463,16 @@ var RendererComponent = /** @class */ (function () {
     ], RendererComponent.prototype, "localClippingEnabled");
     __decorate([
         core_1.Input()
+    ], RendererComponent.prototype, "enablePan");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "enableDamping");
+    __decorate([
+        core_1.Input()
     ], RendererComponent.prototype, "antialias");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "sizeType");
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "width");
@@ -478,6 +507,9 @@ var RendererComponent = /** @class */ (function () {
         core_1.ContentChildren(controller_component_1.ControllerComponent, { descendants: true })
     ], RendererComponent.prototype, "controller");
     __decorate([
+        core_1.ContentChildren(lookat_component_1.LookatComponent, { descendants: false })
+    ], RendererComponent.prototype, "lookat");
+    __decorate([
         core_1.ContentChildren(plane_component_1.PlaneComponent)
     ], RendererComponent.prototype, "clippingPlanes");
     __decorate([
@@ -489,6 +521,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('debug')
     ], RendererComponent.prototype, "debug");
+    __decorate([
+        core_1.ViewChild('renderer')
+    ], RendererComponent.prototype, "_renderer");
     __decorate([
         core_1.HostListener('window:resize')
     ], RendererComponent.prototype, "resizeRender");

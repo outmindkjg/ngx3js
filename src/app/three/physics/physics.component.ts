@@ -93,7 +93,6 @@ export class PhysicsComponent implements OnInit {
           let contactManifold = dispatcher.getManifoldByIndexInternal(i);
           const body0 = this.getCollisionObject(contactManifold.getBody0());
           const body1 = this.getCollisionObject(contactManifold.getBody1());
-          console.log(body0.name + ' => ' + body1.name );
           let numContacts = contactManifold.getNumContacts();
           const contactPoints : Ammo.btManifoldPoint[] = [];
           for (let j = 0; j < numContacts; j++) {

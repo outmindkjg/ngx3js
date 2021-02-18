@@ -24,6 +24,7 @@ var core_1 = require("@angular/core");
 var THREE = require("three");
 var interface_1 = require("../interface");
 var rxjs_1 = require("rxjs");
+var tween_abstract_1 = require("../tween.abstract");
 var PositionComponent = /** @class */ (function (_super) {
     __extends(PositionComponent, _super);
     function PositionComponent() {
@@ -34,6 +35,7 @@ var PositionComponent = /** @class */ (function (_super) {
         _this.x = null;
         _this.y = null;
         _this.z = null;
+        _this.multiply = null;
         _this.position = null;
         _this._positionSubscribe = null;
         _this._positionSubject = new rxjs_1.Subject();
@@ -79,7 +81,7 @@ var PositionComponent = /** @class */ (function (_super) {
                 }
                 this.setTweenTarget(this.refObject3d.position);
             }
-            else if (this.refObject3d instanceof interface_1.AbstractSvgGeometry) {
+            else if (this.refObject3d.meshPositions) {
                 this.refObject3d.meshPositions.forEach(function (position) {
                     position.copy(_this.getPosition());
                 });
@@ -98,6 +100,9 @@ var PositionComponent = /** @class */ (function (_super) {
             }
             if (this.position === null) {
                 this.position = interface_1.ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+                if (this.multiply !== null) {
+                    this.position.multiplyScalar(this.multiply);
+                }
             }
             this._positionSubject.next(this.position);
         }
@@ -121,6 +126,9 @@ var PositionComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], PositionComponent.prototype, "z");
+    __decorate([
+        core_1.Input()
+    ], PositionComponent.prototype, "multiply");
     PositionComponent = __decorate([
         core_1.Component({
             selector: 'three-position',
@@ -129,5 +137,5 @@ var PositionComponent = /** @class */ (function (_super) {
         })
     ], PositionComponent);
     return PositionComponent;
-}(interface_1.AbstractThreeComponent));
+}(tween_abstract_1.AbstractTweenComponent));
 exports.PositionComponent = PositionComponent;

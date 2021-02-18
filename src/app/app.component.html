@@ -1,2 +1,48 @@
-<app-menu [menuList]="menuList" menuType="top"></app-menu>
-<router-outlet></router-outlet>
+<div id="example">
+  <div id="panel" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
+    <div id="contentWrapper">
+      <div id="inputWrapper">
+        <input
+          #search
+          placeholder=""
+          type="text"
+          id="filterInput"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          (keyup)="searchKeyUp()"
+          (focus)="searchFocus()"
+          (blur)="searchBlur()"
+        />
+        <div id="exitSearchButton" (click)="searchClear()"></div>
+      </div>
+
+      <div id="content" [ngClass]="minimal ? 'minimal' : 'maximal'">
+        <img
+          id="previewsToggler"
+          src="/assets/examples/files/thumbnails.svg"
+          width="20"
+          height="20"
+          (click)="toggleMinimal()"
+        />
+        <div *ngFor="let item of searchMenu" class="menu-item">
+          <h2>{{ item.name }}</h2>
+          <div *ngFor="let child of item.children" class="card" [ngClass]="child.selected ? 'selected' : 'unselected'" >
+            <a href="#" [routerLink]="child.id">
+              <div class="cover">
+                <img [src]="child.image" loading="lazy">
+              </div>
+              <div class="title">{{ child.tags }}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="viewer">
+    <div id="viewer-inner">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <a id="button" target="_blank" href="https://github.com/mrdoob/three.js/blob/master/examples/webgl_animation_cloth.html" title="View source code for animation / cloth on GitHub"><img src="/assets/examples/files/ic_code_black_24dp.svg"></a>
+</div>

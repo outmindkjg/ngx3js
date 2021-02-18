@@ -110,6 +110,16 @@ ng g c chapter13/page1305
 ng g c chapter13/page1306
 ng g c chapter13/page1307
 
+ng g c examples
+ng g c examples/webgl_animation_cloth
+ng g c examples/webgl_animation_keyframes
+ng g c examples/webgl_animation_skinning_blending
+ng g c examples/webgl_animation_skinning_additive_blending
+ng g c examples/under_construction
+ng g c examples/webgl_animation_skinning_morph
+ng g c examples/webgl_animation_multiple
+
+
 ng g c menu
 
 .+ ([a-zA-Z]+): .+;

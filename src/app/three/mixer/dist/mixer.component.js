@@ -31,6 +31,7 @@ var MixerComponent = /** @class */ (function () {
         this.gravity = null;
         this.delayTime = null;
         this.animationHelper = null;
+        this.onLoad = new core_1.EventEmitter();
         this.mixer = null;
         this.helper = null;
         this.model = null;
@@ -107,6 +108,7 @@ var MixerComponent = /** @class */ (function () {
                 this.clips.forEach(function (clip) {
                     clipsNames_1.push(clip.name);
                 });
+                console.log(clipsNames_1);
             }
             this.resetMixer();
             if (this.lastAction !== this.action) {
@@ -117,21 +119,37 @@ var MixerComponent = /** @class */ (function () {
     MixerComponent.prototype.setPhysics = function (physics) {
         var _this = this;
         this._physics = physics;
-        var _physics = this._physics.getPhysics();
-        if (_physics !== null) {
-            this._ammo = this._physics.getAmmo();
-            this.synkAnimationHelper(this.helper);
-        }
-        else {
-            var subscribe_1 = this._physics.physicsSubscribe().subscribe(function () {
-                _this._ammo = _this._physics.getAmmo();
-                _this.synkAnimationHelper(_this.helper);
-                subscribe_1.unsubscribe();
-            });
+        if (this._physics !== null && this._physics !== undefined) {
+            var _physics = this._physics.getPhysics();
+            if (_physics !== null) {
+                this._ammo = this._physics.getAmmo();
+                this.synkAnimationHelper(this.helper);
+            }
+            else {
+                var subscribe_1 = this._physics.physicsSubscribe().subscribe(function () {
+                    _this._ammo = _this._physics.getAmmo();
+                    _this.synkAnimationHelper(_this.helper);
+                    subscribe_1.unsubscribe();
+                });
+            }
         }
     };
     MixerComponent.prototype.animationHelperSubscribe = function () {
         return this._animationHelperSubject.asObservable();
+    };
+    MixerComponent.prototype.fadeToAction = function (endAction, duration, restoreAction, restoreDuration) {
+        var _this = this;
+        if (this.mixer !== null) {
+            if (this.play(endAction, duration)) {
+                if (interface_1.ThreeUtil.isNotNull(restoreAction)) {
+                    var listener_1 = function () {
+                        _this.mixer.removeEventListener('finished', listener_1);
+                        _this.play(restoreAction, restoreDuration);
+                    };
+                    this.mixer.addEventListener('finished', listener_1);
+                }
+            }
+        }
     };
     MixerComponent.prototype.synkAnimationHelper = function (helper) {
         var _this = this;
@@ -188,6 +206,7 @@ var MixerComponent = /** @class */ (function () {
                             this.synkAnimationHelper(this.animationHelper.helper);
                         }
                     }
+                    this.onLoad.emit(this);
                 }
                 break;
             case 'mixer':
@@ -199,13 +218,16 @@ var MixerComponent = /** @class */ (function () {
                     this.clip.forEach(function (clip) {
                         clip.setMixer(_this.mixer, _this.clips, fps_2);
                     });
+                    this.onLoad.emit(this);
                 }
                 break;
         }
     };
-    MixerComponent.prototype.play = function (name) {
+    MixerComponent.prototype.play = function (name, duration) {
         var _this = this;
+        if (duration === void 0) { duration = this.duration; }
         if (this.mixer !== null && this.clip !== null && this.clip !== undefined && this.clip.length > 0) {
+            duration = interface_1.ThreeUtil.getTypeSafe(duration, this.duration);
             this.lastAction = name.toLowerCase();
             var foundAction_1 = null;
             this.clip.forEach(function (clip) {
@@ -218,16 +240,20 @@ var MixerComponent = /** @class */ (function () {
             });
             if (this.lastPlayedClip !== null) {
                 if (foundAction_1 !== null) {
-                    this.lastPlayedClip.crossFadeTo(foundAction_1, this.duration);
+                    this.lastPlayedClip.crossFadeTo(foundAction_1, duration);
                 }
                 else {
-                    this.lastPlayedClip.fadeOut(this.duration);
+                    this.lastPlayedClip.fadeOut(duration);
                 }
             }
             else if (foundAction_1 !== null) {
-                foundAction_1.fadeIn(this.duration);
+                foundAction_1.fadeIn(duration);
             }
             this.lastPlayedClip = foundAction_1;
+            return true;
+        }
+        else {
+            return false;
         }
     };
     MixerComponent.prototype.update = function (timer) {
@@ -286,6 +312,9 @@ var MixerComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], MixerComponent.prototype, "animationHelper");
+    __decorate([
+        core_1.Output()
+    ], MixerComponent.prototype, "onLoad");
     __decorate([
         core_1.ContentChildren(clip_component_1.ClipComponent, { descendants: false })
     ], MixerComponent.prototype, "clip");

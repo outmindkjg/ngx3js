@@ -3,7 +3,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { ClipComponent } from './../clip/clip.component';
-import { Component, OnInit, ContentChildren, QueryList, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ContentChildren, QueryList, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -30,6 +30,8 @@ export class MixerComponent implements OnInit {
   @Input() gravity: number = null;
   @Input() delayTime: number = null;
   @Input() animationHelper : MixerComponent = null;
+
+  @Output() onLoad: EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
 
   @ContentChildren(ClipComponent, { descendants: false }) clip: QueryList<ClipComponent>;
 
@@ -117,6 +119,7 @@ export class MixerComponent implements OnInit {
         this.clips.forEach(clip => {
           clipsNames.push(clip.name);
         })
+        console.log(clipsNames);
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {
@@ -136,21 +139,37 @@ export class MixerComponent implements OnInit {
   private _ammo : any = null;
   setPhysics(physics : PhysicsComponent) {
     this._physics = physics;
-    const _physics = this._physics.getPhysics();
-    if (_physics !== null) {
-      this._ammo = this._physics.getAmmo();
-      this.synkAnimationHelper(this.helper);
-    } else {
-      const subscribe = this._physics.physicsSubscribe().subscribe(() => {
+    if (this._physics !== null && this._physics !== undefined) {
+      const _physics = this._physics.getPhysics();
+      if (_physics !== null) {
         this._ammo = this._physics.getAmmo();
         this.synkAnimationHelper(this.helper);
-        subscribe.unsubscribe();
-      });
+      } else {
+        const subscribe = this._physics.physicsSubscribe().subscribe(() => {
+          this._ammo = this._physics.getAmmo();
+          this.synkAnimationHelper(this.helper);
+          subscribe.unsubscribe();
+        });
+      }
     }
   }
 
   animationHelperSubscribe() : Observable<MMDAnimationHelper>{
     return this._animationHelperSubject.asObservable();
+  }
+
+  fadeToAction(endAction : string , duration? : number, restoreAction? : string, restoreDuration? : number ) {
+    if (this.mixer !== null) {
+      if (this.play(endAction, duration )) {
+        if (ThreeUtil.isNotNull(restoreAction)) {
+          const listener = () => {
+            this.mixer.removeEventListener('finished', listener);
+            this.play(restoreAction, restoreDuration );
+          }
+          this.mixer.addEventListener('finished', listener);
+        }
+      }
+    }
   }
 
   private isAdded : boolean = false;
@@ -213,6 +232,7 @@ export class MixerComponent implements OnInit {
                 this.synkAnimationHelper(this.animationHelper.helper);
               }
             }
+            this.onLoad.emit(this);
         }
         break;
       case 'mixer' :
@@ -224,14 +244,16 @@ export class MixerComponent implements OnInit {
           this.clip.forEach(clip => {
             clip.setMixer(this.mixer, this.clips, fps);
           });
+          this.onLoad.emit(this);
         }
         break;
     }
   }
 
   lastPlayedClip : ClipComponent = null;
-  play(name : string) {
+  play(name : string, duration : number = this.duration): boolean {
     if (this.mixer !== null && this.clip !== null && this.clip !== undefined && this.clip.length > 0) {
+      duration = ThreeUtil.getTypeSafe(duration, this.duration);
       this.lastAction = name.toLowerCase();
       let foundAction:ClipComponent = null;
       this.clip.forEach(clip => {
@@ -244,14 +266,17 @@ export class MixerComponent implements OnInit {
       });
       if (this.lastPlayedClip !== null) {
         if (foundAction !== null) {
-          this.lastPlayedClip.crossFadeTo(foundAction, this.duration);
+          this.lastPlayedClip.crossFadeTo(foundAction, duration);
         } else {
-          this.lastPlayedClip.fadeOut(this.duration);
+          this.lastPlayedClip.fadeOut(duration);
         }
       } else if (foundAction !== null){
-        foundAction.fadeIn(this.duration);
+        foundAction.fadeIn(duration);
       }
       this.lastPlayedClip = foundAction;
+      return true;
+    } else {
+      return false;
     }
   }
 

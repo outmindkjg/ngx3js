@@ -1,3 +1,4 @@
+import { ThreeUtil } from './../interface';
 import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
 
@@ -13,24 +14,15 @@ export class FogComponent implements OnInit {
   @Input() density : number = 0.00025;
   @Input() near : number = 1;
   @Input() far : number = 1000;
-  
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  getColor(def : number) : number{
-    if (this.color === null) {
-      return def;
-    } else {
-      const color = this.color.toString();
-      if (color.startsWith('0x')) {
-        return parseInt(color, 16);
-      } else {
-        return def;
-      }
-    }
+  getColor(def? : number | string) : THREE.Color{
+    return ThreeUtil.getColorSafe(this.color, def);
   }
 
   private fog : THREE.IFog = null;
@@ -49,17 +41,18 @@ export class FogComponent implements OnInit {
         case 'exp2' :
         case 'fogexp2' :
           this.fog = new THREE.FogExp2(
-            this.getColor(0xffffff), 
+            this.getColor(0xffffff).getHexString(),
             this.density
           );
           break;
         case 'fog' :
         default :
           this.fog = new THREE.Fog(
-            this.getColor(0xffffff), this.near, 
+            this.getColor(0xffffff),
+            this.near,
             this.far
           );
-          break; 
+          break;
       }
     }
     return this.fog;

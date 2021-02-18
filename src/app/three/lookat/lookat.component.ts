@@ -14,7 +14,7 @@ export class LookatComponent implements OnInit {
   @Input() x : number = null;
   @Input() y : number = null;
   @Input() z : number = null;
-  
+
 
   constructor() { }
 
@@ -30,8 +30,8 @@ export class LookatComponent implements OnInit {
 
   private lookat : THREE.Vector3 = null;
 
-  private refObject3d : THREE.Object3D = null;
-  setObject3D(refObject3d : THREE.Object3D){
+  private refObject3d : THREE.Object3D | any = null;
+  setObject3D(refObject3d : THREE.Object3D | any){
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
       this.resetLookAt();
@@ -39,8 +39,12 @@ export class LookatComponent implements OnInit {
   }
 
   resetLookAt() {
-    if (this.refObject3d != null && this.visible) {
-      this.refObject3d.lookAt(this.getLookAt());
+    if (this.refObject3d !== null && this.visible) {
+      if (this.refObject3d instanceof  THREE.Object3D) {
+        this.refObject3d.lookAt(this.getLookAt());
+      } else if (this.refObject3d['target']) {
+        this.refObject3d['target'] = this.getLookAt();
+      }
     }
   }
 
@@ -54,7 +58,7 @@ export class LookatComponent implements OnInit {
           } else if (this.refer instanceof THREE.Vector3) {
             this.lookat = this.refer;
           }
-        } 
+        }
         if (this.lookat === null) {
           this.lookat = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
         }

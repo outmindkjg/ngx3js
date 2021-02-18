@@ -1,3 +1,4 @@
+import { LookatComponent } from './../lookat/lookat.component';
 
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild } from '@angular/core';
 import * as GSAP from 'gsap';
@@ -17,7 +18,6 @@ import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
 import { ListenerComponent } from './../listener/listener.component';
-import { MixerComponent } from './../mixer/mixer.component';
 import { SceneComponent } from './../scene/scene.component';
 @Component({
   selector: 'three-renderer',
@@ -33,8 +33,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() clearColor: string | number = null;
   @Input() clearAlpha: number = null;
   @Input() localClippingEnabled: boolean = false;
+  @Input() enablePan: boolean = true;
+  @Input() enableDamping: boolean = false;
 
   @Input() antialias: boolean = false;
+  @Input() sizeType: string = 'auto';
   @Input() width: number = -1;
   @Input() height: number = -1;
   @Input() statsMode: number = -1;
@@ -47,12 +50,14 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
+	@ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
 
   @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
   @ContentChildren(CanvasComponent) canvas2d: QueryList<CanvasComponent>;
 
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('debug') debug: ElementRef;
+  @ViewChild('renderer') _renderer: ElementRef;
 
   private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
@@ -278,6 +283,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         case "orbit":
           const controls = new OrbitControls(camera, domElement);
           controls.autoRotate = controlAutoRotate;
+          controls.enableDamping = this.enableDamping;
+          controls.enablePan = this.enablePan;
           return controls;
         case "fly":
           return new FlyControls(camera, domElement);
@@ -296,8 +303,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.stats === null) {
       this.stats = ThreeUtil.getStats({
         position: 'absolute',
-        left: '10px',
-        top: '25px'
+        left: '0px',
+        top: '0px'
       });
       this.debug.nativeElement.appendChild(this.stats.dom);
     }
@@ -308,6 +315,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (this.gui == null) {
       this.gui = new ThreeGui({
         position: 'absolute',
+        marginRight : '0px',
         right: '0px',
         top: '0px'
       });
@@ -339,6 +347,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
     this.control = this.getControls(this.cameras, this.canvas.nativeElement);
+    if (this.control !== null) {
+      this.lookat.forEach((lookat) => {
+        lookat.setObject3D(this.control);
+      });
+    }
+    this.resizeRender(null);
     // this.control = this.getControls(this.cameras, this.renderer);
   }
 
@@ -440,7 +454,14 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @HostListener('window:resize')
   resizeRender(e: any) {
     if (this.width <= 0 || this.height <= 0) {
-      this.setSize(window.innerWidth, window.innerHeight);
+      if (this.sizeType === 'auto') {
+        this.setSize(this._renderer.nativeElement.clientWidth, this._renderer.nativeElement.clientHeight);
+      } else {
+        this.setSize(window.innerWidth, window.innerHeight);
+      }
     }
+  }
+
+  resizeCanvas() {
   }
 }

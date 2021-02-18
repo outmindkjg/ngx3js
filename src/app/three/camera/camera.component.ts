@@ -275,7 +275,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           { object : this.camera }
         );
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','listner','audio', 'mixer']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner','audio', 'mixer']);
     }
     return this.camera;
   }

@@ -1,0 +1,174 @@
+<div id="info">
+  Simple Cloth Simulation<br />
+  Verlet integration with relaxed constraints<br />
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [statsMode]="0"
+  [antialias]="true"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+>
+  <three-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
+    <three-position [x]="1000" [y]="50" [z]="1500"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene [background]="'0xcce0ff'">
+    <three-fog [color]="'0xcce0ff'" [near]="500" [far]="10000"></three-fog>
+    <three-mesh
+      type="light"
+      lightType="ambient"
+      [color]="'0x666666'"
+    ></three-mesh>
+    <three-mesh
+      type="light"
+      lightType="directional"
+      [color]="'0xdfebff'"
+      [intensity]="1"
+      [castShadow]="true"
+      [shadowMapSizeWidth]="1024"
+      [shadowMapSizeHeight]="1024"
+      [shadowCameraLeft]="-300"
+      [shadowCameraRight]="300"
+      [shadowCameraTop]="300"
+      [shadowCameraBottom]="-300"
+      [shadowCameraFar]="1000"
+    >
+      <three-position
+        [x]="50"
+        [y]="200"
+        [z]="100"
+        [multiply]="1.3"
+      ></three-position>
+      <three-lookat [refer]="scene"></three-lookat>
+    </three-mesh>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh [name]="'cloth'" [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'parametricbuffer'"
+          [parametric]="clothFunction"
+          [slices]="10"
+          [stacks]="10"
+          (onLoad)="setClothGeometry($event)"
+        ></three-geometry>
+        <three-material type="MeshLambert" [side]="'Double'" [alphaTest]="0.5">
+          <three-texture
+            [image]="'/assets/examples/textures/patterns/circuit_pattern.png'"
+            [anisotropy]="16"
+          ></three-texture>
+        </three-material>
+        <three-material
+          type="MeshDepth"
+          [materialType]="'customDepth'"
+          [depthPacking]="'RGBA'"
+          [alphaTest]="0.5"
+        >
+          <three-texture
+            [image]="'/assets/examples/textures/patterns/circuit_pattern.png'"
+            [anisotropy]="16"
+          ></three-texture>
+        </three-material>
+      </three-mesh>
+      <three-mesh
+        (onLoad)="setSphere($event)"
+        [name]="'ball'"
+        [receiveShadow]="true"
+        [castShadow]="true"
+      >
+        <three-position [x]="0" [y]="-45" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Sphere'"
+          [radialSegments]="60"
+          [widthSegments]="32"
+          [heightSegments]="16"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+      <three-mesh [name]="'pole1'" [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="-125" [y]="-62" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Box'"
+          [width]="5"
+          [height]="375"
+          [depth]="5"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+      <three-mesh [name]="'pole2'" [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="125" [y]="-62" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Box'"
+          [width]="5"
+          [height]="375"
+          [depth]="5"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+      <three-mesh
+        [name]="'pole_top'"
+        [receiveShadow]="true"
+        [castShadow]="true"
+      >
+        <three-position [x]="0" [y]="-250 + 750 / 2" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Box'"
+          [width]="255"
+          [height]="5"
+          [depth]="5"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+      <three-mesh
+        [name]="'right_bottom_box'"
+        [receiveShadow]="true"
+        [castShadow]="true"
+      >
+        <three-position [x]="125" [y]="-250" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Box'"
+          [width]="10"
+          [height]="10"
+          [depth]="10"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+      <three-mesh
+        [name]="'left_bottom_box'"
+        [receiveShadow]="true"
+        [castShadow]="true"
+      >
+        <three-position [x]="-125" [y]="-250" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Box'"
+          [width]="10"
+          [height]="10"
+          [depth]="10"
+        ></three-geometry>
+        <three-material type="meshlambert"> </three-material>
+      </three-mesh>
+    </three-mesh>
+    <three-mesh [receiveShadow]="true">
+      <three-position [x]="0" [y]="-250" [z]="0"></three-position>
+      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+      <three-geometry
+        [type]="'Plane'"
+        [width]="20000"
+        [height]="20000"
+      ></three-geometry>
+      <three-material type="meshlambert">
+        <three-texture
+          [image]="'/assets/examples/textures/terrain/grasslight-big.jpg'"
+          [encoding]="'srgb'"
+          [anisotropy]="16"
+          [repeatX]="25"
+          [repeatY]="25"
+          [wrapS]="'Repeat'"
+          [wrapT]="'Repeat'"
+        ></three-texture>
+      </three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

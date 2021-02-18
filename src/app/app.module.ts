@@ -169,6 +169,14 @@ import { Page1307Component } from './chapter13/page1307/page1307.component';
 import { ControllerComponent } from './three/controller/controller.component';
 import { PhysicsComponent } from './three/physics/physics.component';
 import { RigidbodyComponent } from './three/rigidbody/rigidbody.component';
+import { ExamplesComponent } from './examples/examples.component';
+import { WebglAnimationClothComponent } from './examples/webgl-animation-cloth/webgl-animation-cloth.component';
+import { WebglAnimationKeyframesComponent } from './examples/webgl-animation-keyframes/webgl-animation-keyframes.component';
+import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component';
+import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webgl-animation-skinning-additive-blending/webgl-animation-skinning-additive-blending.component';
+import { UnderConstructionComponent } from './examples/under-construction/under-construction.component';
+import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
+import { WebglAnimationMultipleComponent } from './examples/webgl-animation-multiple/webgl-animation-multiple.component';
 
 @NgModule({
   declarations: [
@@ -337,7 +345,15 @@ import { RigidbodyComponent } from './three/rigidbody/rigidbody.component';
     Page1307Component,
     ControllerComponent,
     PhysicsComponent,
-    RigidbodyComponent
+    RigidbodyComponent,
+    ExamplesComponent,
+    WebglAnimationClothComponent,
+    WebglAnimationKeyframesComponent,
+    WebglAnimationSkinningBlendingComponent,
+    WebglAnimationSkinningAdditiveBlendingComponent,
+    UnderConstructionComponent,
+    WebglAnimationSkinningMorphComponent,
+    WebglAnimationMultipleComponent
   ],
   imports: [
     BrowserModule,

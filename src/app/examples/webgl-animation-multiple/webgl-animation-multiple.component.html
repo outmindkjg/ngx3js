@@ -1,0 +1,80 @@
+<div id="info">
+  This demo shows how clone a skinned 3d model using <strong>SkeletonUtils.clone()</strong><br/>
+  Soldier model from <a href="https://www.mixamo.com" target="_blank" rel="noopener">https://www.mixamo.com</a>.
+</div>
+<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
+      <three-position [x]="3" [y]="6" [z]="-10"></three-position>
+      <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene [background]="'0xe0e0e0'">
+      <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
+      <three-mesh type="light" lightType="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+        <three-position [x]="0" [y]="20" [z]="0"></three-position>
+      </three-mesh>
+      <three-mesh type="light" lightType="directional"
+        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
+        [shadowCameraTop]="5"
+        [shadowCameraBottom]="-5"
+        [shadowCameraLeft]="-5"
+        [shadowCameraRight]="5"
+        [shadowCameraNear]="0.1"
+        [shadowCameraFar]="40"
+      >
+          <three-position [x]="0" [y]="20" [z]="10"></three-position>
+      </three-mesh>
+
+      <three-mesh (onLoad)="setMesh($event)">
+          <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
+            <three-mixer [action]="'Idle'">
+              <three-clip [name]="'Idle'"></three-clip>
+            </three-mixer>
+          </three-mesh>
+          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
+            <three-position [x]="3" [y]="0" [z]="0"></three-position>
+            <three-scale [x]="2" [y]="2" [z]="2"></three-scale>
+            <three-mixer [action]="'Walk'">
+              <three-clip [name]="'Walk'"></three-clip>
+            </three-mixer>
+          </three-mesh>
+          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
+            <three-position [x]="1" [y]="0" [z]="0"></three-position>
+            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
+            <three-mixer [action]="'Run'">
+              <three-clip [name]="'Run'"></three-clip>
+            </three-mixer>
+          </three-mesh>
+          <three-mesh [storageName]="'/assets/examples/models/gltf/Parrot.glb'">
+            <three-position [x]="-4" [y]="1" [z]="0"></three-position>
+            <three-scale [x]="0.01" [y]="0.01" [z]="0.01"></three-scale>
+            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
+            <three-mixer [action]="'parrot_A_'">
+              <three-clip [name]="'parrot_A_'"></three-clip>
+            </three-mixer>
+          </three-mesh>
+          <three-mesh [storageName]="'/assets/examples/models/gltf/Parrot.glb'">
+            <three-position [x]="-2" [y]="1" [z]="0"></three-position>
+            <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
+            <three-scale [x]="0.02" [y]="0.02" [z]="0.02"></three-scale>
+          </three-mesh>
+      </three-mesh>
+      <three-mesh
+        [receiveShadow]="true"
+        [helperType]="'grid'"
+        [size]="200"
+        [divisions]="40"
+        [color1]="'0x000000'"
+        [color2]="'0x000000'"
+        [helperOpacity]="0.2"
+      >
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+        <three-geometry [type]="'Plane'" [width]="2000" [height]="2000"></three-geometry>
+        <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

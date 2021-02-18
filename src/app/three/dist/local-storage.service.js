@@ -180,6 +180,17 @@ var LocalStorageService = /** @class */ (function () {
             if (this.gltfLoader === null) {
                 this.gltfLoader = new GLTFLoader_1.GLTFLoader();
             }
+            if (options) {
+                if (options.useDraco) {
+                    if (this.dracoLoader === null) {
+                        this.dracoLoader = new DRACOLoader_1.DRACOLoader();
+                    }
+                    if (options.decoderPath) {
+                        this.dracoLoader.setDecoderPath(options.decoderPath);
+                    }
+                    this.gltfLoader.setDRACOLoader(this.dracoLoader);
+                }
+            }
             this.gltfLoader.load(key, function (result) {
                 callBack({
                     object: result.scene,

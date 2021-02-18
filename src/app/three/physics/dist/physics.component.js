@@ -77,7 +77,6 @@ var PhysicsComponent = /** @class */ (function () {
                     var contactManifold = dispatcher.getManifoldByIndexInternal(i);
                     var body0 = this.getCollisionObject(contactManifold.getBody0());
                     var body1 = this.getCollisionObject(contactManifold.getBody1());
-                    console.log(body0.name + ' => ' + body1.name);
                     var numContacts = contactManifold.getNumContacts();
                     var contactPoints = [];
                     for (var j = 0; j < numContacts; j++) {

@@ -18,6 +18,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   @Input() x: number = null;
   @Input() y: number = null;
   @Input() z: number = null;
+  @Input() multiply: number = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer) {
@@ -84,6 +85,9 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       }
       if (this.position === null) {
         this.position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+        if (this.multiply !== null) {
+          this.position.multiplyScalar(this.multiply);
+        }
       }
       this._positionSubject.next(this.position);
     }

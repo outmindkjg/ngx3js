@@ -2,8 +2,10 @@ import {
   Component,
   ContentChildren,
   Input,
+  Output,
   OnInit,
   QueryList,
+  EventEmitter,
   SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
@@ -90,6 +92,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
   @Input() divisions: number = null;
   @Input() color1: string | number = null;
   @Input() color2: string | number = null;
+  @Input() helperOpacity: number = null;
+
+  @Output() onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
 
   @ContentChildren(GeometryComponent, { descendants: false }) geometry: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
@@ -257,6 +262,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
     return ThreeUtil.getColorSafe(this.color2, def);
   }
 
+  private getHelperOpacity(def?: number ): number {
+    return ThreeUtil.getTypeSafe(this.helperOpacity, def);
+  }
+
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       Object.entries(changes).forEach(([key, value]) => {
@@ -287,7 +297,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
 
   private clips: THREE.AnimationClip[] = null;
   private clipMesh: THREE.Object3D = null;
-  private helper: THREE.Object3D = null;
+  public helper: THREE.Object3D = null;
 
 
   getGeometry(): THREE.BufferGeometry {
@@ -304,7 +314,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
     const materials: THREE.Material[] = [];
     if (this.materials !== null && this.materials.length > 0) {
       this.materials.forEach((material) => {
-        materials.push(material.getMaterial());
+        if (material.materialType === 'material') {
+          materials.push(material.getMaterial());
+        }
       });
     }
     if (materials.length == 0) {
@@ -380,6 +392,27 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
       this.synkObject3D(['cssChildren']);
     });
     super.ngAfterContentInit();
+  }
+
+  setWireFrame(wireframe : boolean, child : THREE.Object3D = null) {
+    if (child === null) {
+      child = this.object3d;
+    }
+    if (child instanceof THREE.Mesh && child.material instanceof THREE.Material && child.material['wireframe'] !== undefined) {
+      child.material['wireframe'] = wireframe;
+    }
+    child.children.forEach(obj => {
+      this.setWireFrame(wireframe, obj);
+    });
+  }
+
+  setVisible(visible : boolean, helperVisible : boolean = null) {
+    if (visible !== null && visible !== undefined) {
+      this.object3d.visible = visible;
+    }
+    if (this.helper !== null && helperVisible !== null && helperVisible !== undefined) {
+      this.helper.visible = helperVisible;
+    }
   }
 
   synkObject3D(synkTypes: string[]) {
@@ -843,6 +876,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
         'cssChildren',
         'controller'
       ]);
+      this.onLoad.emit(this);
     }
     return this.object3d;
   }
@@ -886,7 +920,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
           basemesh = new THREE.Box3Helper(null);
           break;
         case 'grid':
-          basemesh = new THREE.GridHelper(0, 0); // todo
+          basemesh = new THREE.GridHelper(
+            this.getSize(10),
+            this.getDivisions(10),
+            this.getColor1(0x444444),
+            this.getColor2(0x888888)
+          );
           break;
         case 'polargrid':
           basemesh = new THREE.PolarGridHelper(
@@ -978,6 +1017,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit, 
       }
       if (basemesh !== null) {
         this.helper = basemesh;
+        if (this.helper instanceof THREE.Line && ThreeUtil.isNotNull(this.helper.material) && this.helper.material instanceof THREE.Material) {
+          const opacity = this.getHelperOpacity(1);
+          if (opacity >= 0 && opacity < 1) {
+            this.helper.material.opacity = opacity;
+            this.helper.material.transparent = true;
+          }
+        }
         this.helper.visible = this.getHelperVisible(true);
         if (this.refObject3d !== null && (this.helper.parent == null || this.helper.parent == undefined)) {
           this.refObject3d.add(this.helper);

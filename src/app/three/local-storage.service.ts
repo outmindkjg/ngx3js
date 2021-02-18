@@ -208,6 +208,17 @@ export class LocalStorageService {
       if (this.gltfLoader === null) {
         this.gltfLoader = new GLTFLoader();
       }
+      if (options) {
+        if (options.useDraco) {
+          if (this.dracoLoader === null) {
+            this.dracoLoader = new DRACOLoader();
+          }
+          if (options.decoderPath) {
+            this.dracoLoader.setDecoderPath( options.decoderPath );
+          }
+          this.gltfLoader.setDRACOLoader( this.dracoLoader );
+        }
+      }
       this.gltfLoader.load(key, (result: GLTF) => {
         callBack({
           object : result.scene,

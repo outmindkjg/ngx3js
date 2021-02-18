@@ -1,25 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { Chapter01Component } from './chapter01/chapter01.component';
-import { Chapter02Component } from './chapter02/chapter02.component';
-import { Chapter03Component } from './chapter03/chapter03.component';
-import { Chapter04Component } from './chapter04/chapter04.component';
-import { Chapter05Component } from './chapter05/chapter05.component';
-import { Chapter06Component } from './chapter06/chapter06.component';
-import { Chapter07Component } from './chapter07/chapter07.component';
-import { Chapter08Component } from './chapter08/chapter08.component';
-import { Chapter09Component } from './chapter09/chapter09.component';
-import { Chapter10Component } from './chapter10/chapter10.component';
-import { Chapter11Component } from './chapter11/chapter11.component';
-import { Chapter12Component } from './chapter12/chapter12.component';
-
 import { Page0101Component } from './chapter01/page0101/page0101.component';
 import { Page0102Component } from './chapter01/page0102/page0102.component';
 import { Page0103Component } from './chapter01/page0103/page0103.component';
 import { Page0104Component } from './chapter01/page0104/page0104.component';
 import { Page0105Component } from './chapter01/page0105/page0105.component';
 import { Page0106Component } from './chapter01/page0106/page0106.component';
+import { Chapter02Component } from './chapter02/chapter02.component';
 import { Page0201Component } from './chapter02/page0201/page0201.component';
 import { Page0202Component } from './chapter02/page0202/page0202.component';
 import { Page0203Component } from './chapter02/page0203/page0203.component';
@@ -28,7 +16,7 @@ import { Page0205Component } from './chapter02/page0205/page0205.component';
 import { Page0206Component } from './chapter02/page0206/page0206.component';
 import { Page0207Component } from './chapter02/page0207/page0207.component';
 import { Page0208Component } from './chapter02/page0208/page0208.component';
-
+import { Chapter03Component } from './chapter03/chapter03.component';
 import { Page0301Component } from './chapter03/page0301/page0301.component';
 import { Page0302Component } from './chapter03/page0302/page0302.component';
 import { Page0303Component } from './chapter03/page0303/page0303.component';
@@ -36,7 +24,7 @@ import { Page0304Component } from './chapter03/page0304/page0304.component';
 import { Page0305Component } from './chapter03/page0305/page0305.component';
 import { Page0306Component } from './chapter03/page0306/page0306.component';
 import { Page0307Component } from './chapter03/page0307/page0307.component';
-
+import { Chapter04Component } from './chapter04/chapter04.component';
 import { Page0401Component } from './chapter04/page0401/page0401.component';
 import { Page0402Component } from './chapter04/page0402/page0402.component';
 import { Page0403Component } from './chapter04/page0403/page0403.component';
@@ -47,7 +35,7 @@ import { Page0407Component } from './chapter04/page0407/page0407.component';
 import { Page0408Component } from './chapter04/page0408/page0408.component';
 import { Page0409Component } from './chapter04/page0409/page0409.component';
 import { Page0410Component } from './chapter04/page0410/page0410.component';
-
+import { Chapter05Component } from './chapter05/chapter05.component';
 import { Page0501Component } from './chapter05/page0501/page0501.component';
 import { Page0502Component } from './chapter05/page0502/page0502.component';
 import { Page0503Component } from './chapter05/page0503/page0503.component';
@@ -59,7 +47,7 @@ import { Page0508Component } from './chapter05/page0508/page0508.component';
 import { Page0509Component } from './chapter05/page0509/page0509.component';
 import { Page0510Component } from './chapter05/page0510/page0510.component';
 import { Page0511Component } from './chapter05/page0511/page0511.component';
-
+import { Chapter06Component } from './chapter06/chapter06.component';
 import { Page0601Component } from './chapter06/page0601/page0601.component';
 import { Page0602Component } from './chapter06/page0602/page0602.component';
 import { Page0603Component } from './chapter06/page0603/page0603.component';
@@ -68,7 +56,7 @@ import { Page0605Component } from './chapter06/page0605/page0605.component';
 import { Page0606Component } from './chapter06/page0606/page0606.component';
 import { Page0607Component } from './chapter06/page0607/page0607.component';
 import { Page0608Component } from './chapter06/page0608/page0608.component';
-
+import { Chapter07Component } from './chapter07/chapter07.component';
 import { Page0701Component } from './chapter07/page0701/page0701.component';
 import { Page0702Component } from './chapter07/page0702/page0702.component';
 import { Page0703Component } from './chapter07/page0703/page0703.component';
@@ -80,7 +68,7 @@ import { Page0707Component } from './chapter07/page0707/page0707.component';
 import { Page0708Component } from './chapter07/page0708/page0708.component';
 import { Page0709Component } from './chapter07/page0709/page0709.component';
 import { Page0710Component } from './chapter07/page0710/page0710.component';
-
+import { Chapter08Component } from './chapter08/chapter08.component';
 import { Page0801Component } from './chapter08/page0801/page0801.component';
 import { Page0802Component } from './chapter08/page0802/page0802.component';
 import { Page0803Component } from './chapter08/page0803/page0803.component';
@@ -98,7 +86,7 @@ import { Page0814Component } from './chapter08/page0814/page0814.component';
 import { Page0815Component } from './chapter08/page0815/page0815.component';
 import { Page0816Component } from './chapter08/page0816/page0816.component';
 import { Page0817Component } from './chapter08/page0817/page0817.component';
-
+import { Chapter09Component } from './chapter09/chapter09.component';
 import { Page0901Component } from './chapter09/page0901/page0901.component';
 import { Page0902Component } from './chapter09/page0902/page0902.component';
 import { Page0903Component } from './chapter09/page0903/page0903.component';
@@ -115,7 +103,8 @@ import { Page0913Component } from './chapter09/page0913/page0913.component';
 import { Page0914Component } from './chapter09/page0914/page0914.component';
 import { Page0915Component } from './chapter09/page0915/page0915.component';
 import { Page0916Component } from './chapter09/page0916/page0916.component';
-
+import { Chapter10Component } from './chapter10/chapter10.component';
+import { Chapter11Component } from './chapter11/chapter11.component';
 import { Page1101Component } from './chapter11/page1101/page1101.component';
 import { Page1102Component } from './chapter11/page1102/page1102.component';
 import { Page1103aComponent } from './chapter11/page1103a/page1103a.component';
@@ -124,7 +113,7 @@ import { Page1104Component } from './chapter11/page1104/page1104.component';
 import { Page1105Component } from './chapter11/page1105/page1105.component';
 import { Page1106Component } from './chapter11/page1106/page1106.component';
 import { Page1107Component } from './chapter11/page1107/page1107.component';
-
+import { Chapter12Component } from './chapter12/chapter12.component';
 import { Page1201Component } from './chapter12/page1201/page1201.component';
 import { Page1202Component } from './chapter12/page1202/page1202.component';
 import { Page1203Component } from './chapter12/page1203/page1203.component';
@@ -132,7 +121,6 @@ import { Page1204Component } from './chapter12/page1204/page1204.component';
 import { Page1205Component } from './chapter12/page1205/page1205.component';
 import { Page1206Component } from './chapter12/page1206/page1206.component';
 import { Page1207Component } from './chapter12/page1207/page1207.component';
-
 import { Chapter13Component } from './chapter13/chapter13.component';
 import { Page1301Component } from './chapter13/page1301/page1301.component';
 import { Page1302Component } from './chapter13/page1302/page1302.component';
@@ -141,6 +129,15 @@ import { Page1304Component } from './chapter13/page1304/page1304.component';
 import { Page1305Component } from './chapter13/page1305/page1305.component';
 import { Page1306Component } from './chapter13/page1306/page1306.component';
 import { Page1307Component } from './chapter13/page1307/page1307.component';
+import { ExamplesComponent } from './examples/examples.component';
+import { UnderConstructionComponent } from './examples/under-construction/under-construction.component';
+import { WebglAnimationClothComponent } from './examples/webgl-animation-cloth/webgl-animation-cloth.component';
+import { WebglAnimationKeyframesComponent } from './examples/webgl-animation-keyframes/webgl-animation-keyframes.component';
+import { WebglAnimationMultipleComponent } from './examples/webgl-animation-multiple/webgl-animation-multiple.component';
+import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webgl-animation-skinning-additive-blending/webgl-animation-skinning-additive-blending.component';
+import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component';
+import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
+
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
@@ -186,7 +183,7 @@ const routes: Routes = [
       { path: 'pg07', component: Page0307Component }
     ]
   },
-  { 
+  {
     path: 'ch04',
     component: Chapter04Component,
     children: [
@@ -203,7 +200,7 @@ const routes: Routes = [
       { path: 'pg10', component: Page0410Component }
     ]
   },
-  { 
+  {
     path: 'ch05',
     component: Chapter05Component,
     children: [
@@ -221,7 +218,7 @@ const routes: Routes = [
       { path: 'pg11', component: Page0511Component }
     ]
   },
-  { 
+  {
     path: 'ch06',
     component: Chapter06Component,
     children: [
@@ -236,7 +233,7 @@ const routes: Routes = [
       { path: 'pg08', component: Page0608Component }
     ]
   },
-  { 
+  {
     path: 'ch07',
     component: Chapter07Component,
     children: [
@@ -254,7 +251,7 @@ const routes: Routes = [
       { path: 'pg10', component: Page0710Component }
     ]
   },
-  { 
+  {
     path: 'ch08',
     component: Chapter08Component,
     children: [
@@ -278,7 +275,7 @@ const routes: Routes = [
       { path: 'pg17', component: Page0817Component }
     ]
   },
-  { 
+  {
     path: 'ch09',
     component: Chapter09Component,
     children: [
@@ -302,7 +299,7 @@ const routes: Routes = [
     ]
   },
   { path: 'ch10', component: Chapter10Component },
-  { 
+  {
     path: 'ch11',
     component: Chapter11Component,
     children: [
@@ -317,7 +314,7 @@ const routes: Routes = [
       { path: 'pg07', component: Page1107Component }
     ]
   },
-  { 
+  {
     path: 'ch12',
     component: Chapter12Component,
     children: [
@@ -331,7 +328,7 @@ const routes: Routes = [
       { path: 'pg07', component: Page1207Component }
     ]
   },
-  { 
+  {
     path: 'ch13',
     component: Chapter13Component,
     children: [
@@ -344,8 +341,26 @@ const routes: Routes = [
       { path: 'pg06', component: Page1306Component },
       { path: 'pg07', component: Page1307Component }
     ]
+  },
+  {
+    path: 'examples',
+    component: ExamplesComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'webgl_animation_cloth' },
+      { path: 'webgl_animation_cloth', component: WebglAnimationClothComponent },
+      { path: 'webgl_animation_keyframes', component: WebglAnimationKeyframesComponent },
+      { path: 'webgl_animation_skinning_blending', component: WebglAnimationSkinningBlendingComponent },
+      { path: 'webgl_animation_skinning_additive_blending', component: WebglAnimationSkinningAdditiveBlendingComponent },
+      { path: 'webgl_animation_skinning_morph', component: WebglAnimationSkinningMorphComponent },
+      { path: 'webgl_animation_multiple', component: WebglAnimationMultipleComponent },
+      { path: '**', component: UnderConstructionComponent }
+    ]
   }
 ];
+
+
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

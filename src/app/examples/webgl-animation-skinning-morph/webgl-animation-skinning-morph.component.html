@@ -1,0 +1,67 @@
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - skinning and morphing<br />
+  <p>
+    The animation system allows clips to be played individually, looped, or crossfaded with other clips. <br>
+    This example shows a character looping in one of several base animation states, then transitioning smoothly to one-time actions. <br>
+    Facial expressions are controlled independently with morph targets.
+  </p>
+  Model by
+  <a href="https://www.patreon.com/quaternius" target="_blank" rel="noopener">Tomás Laulhé</a>,
+  modifications by <a href="https://donmccurdy.com/" target="_blank" rel="noopener">Don McCurdy</a>. CC0.<br />
+</div>
+<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
+      <three-position [x]="-5" [y]="3" [z]="10"></three-position>
+      <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene [background]="'0xe0e0e0'">
+      <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
+      <three-mesh type="light" lightType="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+        <three-position [x]="0" [y]="20" [z]="0"></three-position>
+      </three-mesh>
+      <three-mesh type="light" lightType="directional"
+        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
+        [shadowCameraTop]="5"
+        [shadowCameraBottom]="-5"
+        [shadowCameraLeft]="-5"
+        [shadowCameraRight]="5"
+        [shadowCameraNear]="0.1"
+        [shadowCameraFar]="40"
+      >
+          <three-position [x]="0" [y]="20" [z]="10"></three-position>
+      </three-mesh>
+      <three-mesh (onLoad)="setMesh($event)" [helperType]="'skeleton'" [storageName]="'/assets/examples/models/gltf/RobotExpressive/RobotExpressive.glb'">
+          <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-mixer [action]="controls.status" (onLoad)="setMixer($event)">
+            <three-clip [name]="'Idle'" ></three-clip>
+            <three-clip [name]="'Walking'"></three-clip>
+            <three-clip [name]="'Running'"></three-clip>
+            <three-clip [name]="'Dance'"></three-clip>
+            <three-clip [name]="'Death'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Sitting'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Standing'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Jump'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Yes'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'No'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Wave'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'Punch'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+            <three-clip [name]="'ThumbsUp'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
+          </three-mixer>
+      </three-mesh>
+      <three-mesh
+        [receiveShadow]="true"
+        [helperType]="'grid'"
+        [size]="200"
+        [divisions]="40"
+        [color1]="'0x000000'"
+        [color2]="'0x000000'"
+        [helperOpacity]="0.2"
+      >
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+        <three-geometry [type]="'Plane'" [width]="2000" [height]="2000"></three-geometry>
+        <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

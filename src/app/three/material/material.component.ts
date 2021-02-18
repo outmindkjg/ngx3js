@@ -300,8 +300,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.gapSize, def);
   }
 
-  private getDepthPacking(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.depthPacking, def);
+  private getDepthPacking(def?: string): THREE.DepthPackingStrategies {
+    const depthPacking = ThreeUtil.getTypeSafe(this.depthPacking, def, '');
+    switch(depthPacking.toLowerCase()) {
+      case 'rgba' :
+          return THREE.RGBADepthPacking;
+      case 'basic' :
+      default :
+          return THREE.BasicDepthPacking;
+    }
   }
 
   private getFarDistance(def?: number): number {
@@ -906,14 +913,21 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
             break;
         }
       } else if (this.refObject3d instanceof THREE.Mesh) {
-        if (this.refObject3d.material instanceof Array) {
-          if (this.refObject3d.material.length > this.refSeqn) {
-            this.refObject3d.material[this.refSeqn].copy(material)
-            this.refObject3d.material[this.refSeqn].needsUpdate = true;
-          }
-        } else if (this.refObject3d.material != material) {
-          this.refObject3d.material.copy(material);
-          this.refObject3d.material.needsUpdate = true;
+        switch (this.materialType.toLowerCase()) {
+          case 'customdepth' :
+            this.refObject3d.customDepthMaterial = material;
+            break;
+          default :
+            if (this.refObject3d.material instanceof Array) {
+              if (this.refObject3d.material.length > this.refSeqn) {
+                this.refObject3d.material[this.refSeqn].copy(material)
+                this.refObject3d.material[this.refSeqn].needsUpdate = true;
+              }
+            } else if (this.refObject3d.material != material) {
+              this.refObject3d.material.copy(material);
+              this.refObject3d.material.needsUpdate = true;
+            }
+            break
         }
       } else if (this.refObject3d.meshMaterials) {
         if (this.refObject3d.meshMaterials.length > this.refSeqn) {
@@ -990,7 +1004,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
             const parametersMeshDepthMaterial: THREE.MeshDepthMaterialParameters = {
               map: this.getTexture('map'),
               alphaMap: this.getTexture('alphaMap'),
-              // depthPacking: getDepthPackingStrategies(), todo
+              depthPacking: this.getDepthPacking(),
               displacementMap: this.getTexture('displacementMap'),
               displacementScale: this.getDisplacementScale(),
               displacementBias: this.getDisplacementBias(),

@@ -97,6 +97,8 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.divisions = null;
         _this.color1 = null;
         _this.color2 = null;
+        _this.helperOpacity = null;
+        _this.onLoad = new core_1.EventEmitter();
         _this.clips = null;
         _this.clipMesh = null;
         _this.helper = null;
@@ -220,6 +222,9 @@ var MeshComponent = /** @class */ (function (_super) {
     MeshComponent.prototype.getColor2 = function (def) {
         return interface_1.ThreeUtil.getColorSafe(this.color2, def);
     };
+    MeshComponent.prototype.getHelperOpacity = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.helperOpacity, def);
+    };
     MeshComponent.prototype.ngOnChanges = function (changes) {
         var _this = this;
         if (changes) {
@@ -264,7 +269,9 @@ var MeshComponent = /** @class */ (function (_super) {
         var materials = [];
         if (this.materials !== null && this.materials.length > 0) {
             this.materials.forEach(function (material) {
-                materials.push(material.getMaterial());
+                if (material.materialType === 'material') {
+                    materials.push(material.getMaterial());
+                }
             });
         }
         if (materials.length == 0) {
@@ -341,6 +348,28 @@ var MeshComponent = /** @class */ (function (_super) {
             _this.synkObject3D(['cssChildren']);
         });
         _super.prototype.ngAfterContentInit.call(this);
+    };
+    MeshComponent.prototype.setWireFrame = function (wireframe, child) {
+        var _this = this;
+        if (child === void 0) { child = null; }
+        if (child === null) {
+            child = this.object3d;
+        }
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.Material && child.material['wireframe'] !== undefined) {
+            child.material['wireframe'] = wireframe;
+        }
+        child.children.forEach(function (obj) {
+            _this.setWireFrame(wireframe, obj);
+        });
+    };
+    MeshComponent.prototype.setVisible = function (visible, helperVisible) {
+        if (helperVisible === void 0) { helperVisible = null; }
+        if (visible !== null && visible !== undefined) {
+            this.object3d.visible = visible;
+        }
+        if (this.helper !== null && helperVisible !== null && helperVisible !== undefined) {
+            this.helper.visible = helperVisible;
+        }
     };
     MeshComponent.prototype.synkObject3D = function (synkTypes) {
         var _this = this;
@@ -753,6 +782,7 @@ var MeshComponent = /** @class */ (function (_super) {
                 'cssChildren',
                 'controller'
             ]);
+            this.onLoad.emit(this);
         }
         return this.object3d;
     };
@@ -794,7 +824,7 @@ var MeshComponent = /** @class */ (function (_super) {
                     basemesh_2 = new THREE.Box3Helper(null);
                     break;
                 case 'grid':
-                    basemesh_2 = new THREE.GridHelper(0, 0); // todo
+                    basemesh_2 = new THREE.GridHelper(this.getSize(10), this.getDivisions(10), this.getColor1(0x444444), this.getColor2(0x888888));
                     break;
                 case 'polargrid':
                     basemesh_2 = new THREE.PolarGridHelper(this.getRadius(10), this.getRadials(16), this.getCircles(8), this.getDivisions(64), this.getColor1(0x444444), this.getColor2(0x888888));
@@ -866,6 +896,13 @@ var MeshComponent = /** @class */ (function (_super) {
             }
             if (basemesh_2 !== null) {
                 this.helper = basemesh_2;
+                if (this.helper instanceof THREE.Line && interface_1.ThreeUtil.isNotNull(this.helper.material) && this.helper.material instanceof THREE.Material) {
+                    var opacity = this.getHelperOpacity(1);
+                    if (opacity >= 0 && opacity < 1) {
+                        this.helper.material.opacity = opacity;
+                        this.helper.material.transparent = true;
+                    }
+                }
                 this.helper.visible = this.getHelperVisible(true);
                 if (this.refObject3d !== null && (this.helper.parent == null || this.helper.parent == undefined)) {
                     this.refObject3d.add(this.helper);
@@ -1033,6 +1070,12 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "color2");
+    __decorate([
+        core_1.Input()
+    ], MeshComponent.prototype, "helperOpacity");
+    __decorate([
+        core_1.Output()
+    ], MeshComponent.prototype, "onLoad");
     __decorate([
         core_1.ContentChildren(geometry_component_1.GeometryComponent, { descendants: false })
     ], MeshComponent.prototype, "geometry");

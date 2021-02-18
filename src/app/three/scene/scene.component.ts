@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
   QueryList,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
 import { ControllerComponent } from '../controller/controller.component';
@@ -27,21 +27,33 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
   templateUrl: './scene.component.html',
   styleUrls: ['./scene.component.scss'],
 })
-export class SceneComponent extends AbstractObject3dComponent implements OnInit {
+export class SceneComponent
+  extends AbstractObject3dComponent
+  implements OnInit {
   @Input() storageName: string = null;
-  @ContentChildren(MeshComponent, { descendants: false }) meshes: QueryList<MeshComponent>;
-  @ContentChildren(PhysicsComponent, { descendants: false }) physics: QueryList<PhysicsComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: true }) rigidbody: QueryList<RigidbodyComponent>;
-  @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true }) sceneController: QueryList<ControllerComponent>;
-  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
+  @Input() background: string | number = null;
 
+  @ContentChildren(MeshComponent, { descendants: false })
+  meshes: QueryList<MeshComponent>;
+  @ContentChildren(PhysicsComponent, { descendants: false })
+  physics: QueryList<PhysicsComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: true })
+  rigidbody: QueryList<RigidbodyComponent>;
+  @ContentChildren(FogComponent, { descendants: false })
+  fog: QueryList<FogComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false })
+  materials: QueryList<MaterialComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false })
+  listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false })
+  audio: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true })
+  sceneController: QueryList<ControllerComponent>;
+  @ContentChildren(MixerComponent, { descendants: true })
+  mixer: QueryList<MixerComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
-    super()
+    super();
   }
 
   ngOnInit(): void {
@@ -50,12 +62,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   private scene: THREE.Scene = null;
 
-  private renderer : RendererComponent = null;
-  setRenderer(renderer : RendererComponent) {
+  private renderer: RendererComponent = null;
+  setRenderer(renderer: RendererComponent) {
     this.renderer = renderer;
   }
 
-  getRenderer():RendererComponent {
+  getRenderer(): RendererComponent {
     return this.renderer;
   }
 
@@ -129,7 +141,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
-  private _physics : PhysicsComponent = null;
+  private _physics: PhysicsComponent = null;
 
   synkObject3D(synkTypes: string[]) {
     if (this.scene !== null) {
@@ -140,14 +152,14 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               mesh.setObject3D(this.scene);
             });
             break;
-          case 'rigidbody' :
-          case 'physics' :
-          case 'mixer' :
+          case 'rigidbody':
+          case 'physics':
+          case 'mixer':
             this._physics = this.physics.first;
-            this.rigidbody.forEach(rigidbody => {
+            this.rigidbody.forEach((rigidbody) => {
               rigidbody.setPhysics(this._physics);
             });
-            this.mixer.forEach(mixer => {
+            this.mixer.forEach((mixer) => {
               mixer.setPhysics(this._physics);
             });
             break;
@@ -166,25 +178,30 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               audio.setObject3D(this.scene);
             });
             break;
+          case 'fog':
+            this.fog.forEach((fog) => {
+              fog.setScene(this.scene);
+            });
+            break;
           case 'sceneController':
             this.sceneController.forEach((controller) => {
               controller.setScene(this.scene);
             });
             break;
-          }
+        }
       });
     }
     super.synkObject3D(synkTypes);
   }
 
-  update(timer : RendererTimer) {
-    this.mixer.forEach(mixer => {
+  update(timer: RendererTimer) {
+    this.mixer.forEach((mixer) => {
       mixer.update(timer);
     });
-    this.physics.forEach(physics => {
+    this.physics.forEach((physics) => {
       physics.update(timer);
     });
-    this.rigidbody.forEach(rigidbody => {
+    this.rigidbody.forEach((rigidbody) => {
       rigidbody.update(timer);
     });
   }
@@ -222,8 +239,14 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           'mesh',
           'physics',
           'fog',
-          'sceneController'
+          'sceneController',
         ]);
+      }
+      if (ThreeUtil.isNotNull(this.background)) {
+        this.scene.background = ThreeUtil.getColorSafe(
+          this.background,
+          0xffffff
+        );
       }
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;

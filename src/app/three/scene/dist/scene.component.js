@@ -39,6 +39,7 @@ var SceneComponent = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.localStorageService = localStorageService;
         _this.storageName = null;
+        _this.background = null;
         _this.scene = null;
         _this.renderer = null;
         _this._physics = null;
@@ -155,6 +156,11 @@ var SceneComponent = /** @class */ (function (_super) {
                             audio.setObject3D(_this.scene);
                         });
                         break;
+                    case 'fog':
+                        _this.fog.forEach(function (fog) {
+                            fog.setScene(_this.scene);
+                        });
+                        break;
                     case 'sceneController':
                         _this.sceneController.forEach(function (controller) {
                             controller.setScene(_this.scene);
@@ -206,8 +212,11 @@ var SceneComponent = /** @class */ (function (_super) {
                     'mesh',
                     'physics',
                     'fog',
-                    'sceneController'
+                    'sceneController',
                 ]);
+            }
+            if (interface_1.ThreeUtil.isNotNull(this.background)) {
+                this.scene.background = interface_1.ThreeUtil.getColorSafe(this.background, 0xffffff);
             }
             if (interface_1.ThreeUtil.isNull(this.scene.userData.component)) {
                 this.scene.userData.component = this;
@@ -219,6 +228,9 @@ var SceneComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], SceneComponent.prototype, "storageName");
+    __decorate([
+        core_1.Input()
+    ], SceneComponent.prototype, "background");
     __decorate([
         core_1.ContentChildren(mesh_component_1.MeshComponent, { descendants: false })
     ], SceneComponent.prototype, "meshes");

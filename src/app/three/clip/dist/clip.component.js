@@ -13,25 +13,22 @@ var THREE = require("three");
 var ClipComponent = /** @class */ (function () {
     function ClipComponent() {
         this.name = "";
+        this.index = -1;
         this.blendMode = "";
         this.additive = false;
         this.subclip = false;
         this.startFrame = 2;
         this.endFrame = 3;
-        this.fps = 30;
+        this.fps = null;
         this.weight = 1;
         this.timeScale = 1;
+        this.clampWhenFinished = false;
+        this.loop = null;
         this.mixer = null;
         this.clips = null;
+        this.clip = null;
         this.action = null;
     }
-    ClipComponent.prototype.ngOnInit = function () {
-    };
-    ClipComponent.prototype.ngOnChanges = function (changes) {
-        if (changes) {
-            this.resetAnimation();
-        }
-    };
     ClipComponent.prototype.getBlendMode = function (def) {
         var blendMode = interface_1.ThreeUtil.getTypeSafe(this.blendMode, def, '');
         switch (blendMode.toLowerCase()) {
@@ -42,16 +39,49 @@ var ClipComponent = /** @class */ (function () {
         }
         return undefined;
     };
-    ClipComponent.prototype.setMixer = function (mixer, clips) {
+    ClipComponent.prototype.getFps = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.fps, def);
+    };
+    ClipComponent.prototype.getClampWhenFinished = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.clampWhenFinished, def);
+    };
+    ClipComponent.prototype.getLoop = function (def) {
+        var loop = interface_1.ThreeUtil.getTypeSafe(this.loop, def, '');
+        switch (loop.toLowerCase()) {
+            case 'once':
+                return THREE.LoopOnce;
+            case 'pingpong':
+                return THREE.LoopPingPong;
+            case 'repeat':
+            default:
+                return THREE.LoopRepeat;
+        }
+    };
+    ClipComponent.prototype.ngOnInit = function () {
+    };
+    ClipComponent.prototype.ngOnChanges = function (changes) {
+        if (changes) {
+            this.resetAnimation();
+        }
+    };
+    ClipComponent.prototype.setMixer = function (mixer, clips, fps) {
         if (this.mixer !== mixer) {
             this.mixer = mixer;
             this.clips = clips;
             this.resetAnimation();
         }
+        if (fps !== null && fps !== undefined) {
+            this.setFps(fps);
+        }
+    };
+    ClipComponent.prototype.setFps = function (fps) {
+        if (this.action !== null && this.clip !== null) {
+            this.action.timeScale = (this.clip.tracks.length * this.getFps(fps)) / this.clip.duration;
+        }
     };
     ClipComponent.prototype.resetAnimation = function () {
         if (this.clips !== null) {
-            var clip = THREE.AnimationClip.findByName(this.clips, this.name);
+            var clip = (this.index > -1) ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name);
             if (clip !== null) {
                 if (this.action !== null) {
                     this.action.stop();
@@ -59,10 +89,13 @@ var ClipComponent = /** @class */ (function () {
                 if (this.additive) {
                     THREE.AnimationUtils.makeClipAdditive(clip);
                     if (this.subclip) {
-                        this.action = this.mixer.clipAction(THREE.AnimationUtils.subclip(clip, clip.name, this.startFrame, this.endFrame, this.fps), null, this.getBlendMode());
+                        var subClip = THREE.AnimationUtils.subclip(clip, clip.name, this.startFrame, this.endFrame, this.getFps());
+                        this.action = this.mixer.clipAction(subClip, null, this.getBlendMode());
+                        this.clip = subClip;
                     }
                     else {
                         this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
+                        this.clip = clip;
                     }
                     this.action.enabled = true;
                     this.action.setEffectiveTimeScale(this.timeScale);
@@ -70,8 +103,13 @@ var ClipComponent = /** @class */ (function () {
                     this.action.play();
                 }
                 else {
+                    this.clip = clip;
                     this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
                 }
+                if (this.getClampWhenFinished(false)) {
+                    this.action.clampWhenFinished = true;
+                }
+                this.action.loop = this.getLoop('repeat');
             }
             else {
                 this.action = null;
@@ -126,6 +164,9 @@ var ClipComponent = /** @class */ (function () {
     ], ClipComponent.prototype, "name");
     __decorate([
         core_1.Input()
+    ], ClipComponent.prototype, "index");
+    __decorate([
+        core_1.Input()
     ], ClipComponent.prototype, "blendMode");
     __decorate([
         core_1.Input()
@@ -148,6 +189,12 @@ var ClipComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], ClipComponent.prototype, "timeScale");
+    __decorate([
+        core_1.Input()
+    ], ClipComponent.prototype, "clampWhenFinished");
+    __decorate([
+        core_1.Input()
+    ], ClipComponent.prototype, "loop");
     ClipComponent = __decorate([
         core_1.Component({
             selector: 'three-clip',
