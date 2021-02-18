@@ -20,10 +20,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AbstractObject3dComponent = void 0;
-var interface_1 = require("./interface");
 var core_1 = require("@angular/core");
 var THREE = require("three");
 var controller_component_1 = require("./controller/controller.component");
+var interface_1 = require("./interface");
 var lookat_component_1 = require("./lookat/lookat.component");
 var position_component_1 = require("./position/position.component");
 var rotation_component_1 = require("./rotation/rotation.component");
@@ -34,6 +34,7 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
     function AbstractObject3dComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.visible = true;
+        _this.name = "";
         _this.object3d = null;
         return _this;
     }
@@ -60,8 +61,11 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
         _super.prototype.ngAfterContentInit.call(this);
     };
     AbstractObject3dComponent.prototype.ngOnDestroy = function () {
-        if (this.object3d != null && this.refObject3d != null) {
-            this.refObject3d.remove(this.object3d);
+        if (this.object3d != null) {
+            if (this.object3d.parent !== null) {
+                this.object3d.parent.remove(this.object3d);
+                this.object3d = null;
+            }
         }
         _super.prototype.ngOnDestroy.call(this);
     };
@@ -174,6 +178,21 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
         }
         return null;
     };
+    AbstractObject3dComponent.prototype.setObject3D = function (object3d) {
+        if (this.object3d !== object3d) {
+            if (this.object3d !== null && this.object3d.parent !== null) {
+                this.object3d.parent.remove(this.object3d);
+            }
+            this.object3d = object3d;
+            if (this.object3d !== null) {
+                this.object3d.name = this.name;
+                this.object3d.visible = this.visible;
+            }
+            if (this.parent !== null && this.parent instanceof THREE.Object3D) {
+                this.parent.add(this.object3d);
+            }
+        }
+    };
     AbstractObject3dComponent.prototype.synkObject3D = function (synkTypes) {
         var _this = this;
         if (this.object3d !== null) {
@@ -181,27 +200,27 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
                 switch (synkType) {
                     case 'position':
                         _this.position.forEach(function (position) {
-                            position.setObject3D(_this.object3d);
+                            position.setParent(_this.object3d);
                         });
                         break;
                     case 'rotation':
                         _this.rotation.forEach(function (rotation) {
-                            rotation.setObject3D(_this.object3d);
+                            rotation.setParent(_this.object3d);
                         });
                         break;
                     case 'scale':
                         _this.scale.forEach(function (scale) {
-                            scale.setObject3D(_this.object3d);
+                            scale.setParent(_this.object3d);
                         });
                         break;
                     case 'lookat':
                         _this.lookat.forEach(function (lookat) {
-                            lookat.setObject3D(_this.object3d);
+                            lookat.setParent(_this.object3d);
                         });
                         break;
                     case 'controller':
                         _this.controller.forEach(function (controller) {
-                            controller.setObject3D(_this.object3d);
+                            controller.setParent(_this.object3d);
                         });
                         break;
                 }
@@ -211,6 +230,9 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], AbstractObject3dComponent.prototype, "visible");
+    __decorate([
+        core_1.Input()
+    ], AbstractObject3dComponent.prototype, "name");
     __decorate([
         core_1.ContentChildren(controller_component_1.ControllerComponent, { descendants: false })
     ], AbstractObject3dComponent.prototype, "controller");

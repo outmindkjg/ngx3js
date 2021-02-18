@@ -9,12 +9,13 @@ exports.__esModule = true;
 exports.ListenerComponent = void 0;
 var core_1 = require("@angular/core");
 var THREE = require("three");
+var interface_1 = require("../interface");
 var ListenerComponent = /** @class */ (function () {
     function ListenerComponent() {
         this.volume = 1;
         this.visible = true;
         this.listener = null;
-        this.refObject3d = null;
+        this.parent = null;
     }
     ListenerComponent.prototype.ngOnInit = function () {
     };
@@ -28,9 +29,9 @@ var ListenerComponent = /** @class */ (function () {
             this.resetListener();
         }
     };
-    ListenerComponent.prototype.setObject3D = function (refObject3d) {
-        if (this.refObject3d !== refObject3d) {
-            this.refObject3d = refObject3d;
+    ListenerComponent.prototype.setParent = function (parent) {
+        if (this.parent !== parent) {
+            this.parent = parent;
             this.resetListener();
         }
     };
@@ -38,18 +39,18 @@ var ListenerComponent = /** @class */ (function () {
         if (this.listener === null) {
             this.listener = this.getListener();
         }
-        if (this.listener !== null && this.refObject3d !== null) {
+        if (this.listener !== null && this.parent !== null) {
             this.listener.setMasterVolume(this.volume);
             if (!this.visible && this.listener.parent !== null) {
                 this.listener.parent.remove(this.listener);
                 this.listener.setMasterVolume(0);
             }
             else if (this.visible && this.listener.parent === null) {
-                if (this.listener.parent !== this.refObject3d) {
+                if (this.listener.parent !== this.parent) {
                     if (this.listener.parent !== null && this.listener.parent !== undefined) {
                         this.listener.parent.remove(this.listener);
                     }
-                    this.refObject3d.add(this.listener);
+                    this.parent.add(this.listener);
                 }
                 this.listener.setMasterVolume(this.volume);
             }
@@ -59,6 +60,9 @@ var ListenerComponent = /** @class */ (function () {
     ListenerComponent.prototype.getListener = function () {
         if (this.listener === null) {
             this.listener = new THREE.AudioListener();
+            if (interface_1.ThreeUtil.isNull(this.listener.userData.component)) {
+                this.listener.userData.component = this;
+            }
         }
         return this.listener;
     };

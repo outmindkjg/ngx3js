@@ -80,7 +80,7 @@ var GeometryComponent = /** @class */ (function () {
         this._geometrySubscribe = null;
         this._geometrySubject = new rxjs_1.Subject();
         this.geometry = null;
-        this.refObject3d = null;
+        this.parent = null;
     }
     GeometryComponent_1 = GeometryComponent;
     GeometryComponent.prototype.getRadius = function (def) {
@@ -495,8 +495,8 @@ var GeometryComponent = /** @class */ (function () {
     GeometryComponent.prototype.resetGeometry = function (clearGeometry) {
         var _this = this;
         if (clearGeometry === void 0) { clearGeometry = false; }
-        if (this.refObject3d !== null && this.visible) {
-            if (this.refObject3d instanceof THREE.Mesh) {
+        if (this.parent !== null && this.visible) {
+            if (this.parent instanceof THREE.Mesh) {
                 if (clearGeometry && this.geometry !== null) {
                     this.geometry = null;
                 }
@@ -506,49 +506,49 @@ var GeometryComponent = /** @class */ (function () {
                 }
                 if (this.refer !== null && this.referRef && this.refer.geometrySubscribe) {
                     this._geometrySubscribe = this.refer.geometrySubscribe().subscribe(function (geometry) {
-                        if (_this.refObject3d instanceof THREE.Mesh && _this.visible) {
-                            if (_this.refObject3d.geometry !== geometry) {
-                                _this.refObject3d.geometry = geometry;
+                        if (_this.parent instanceof THREE.Mesh && _this.visible) {
+                            if (_this.parent.geometry !== geometry) {
+                                _this.parent.geometry = geometry;
                             }
                         }
                     });
                 }
                 else {
-                    this.refObject3d.geometry = this.getGeometry();
+                    this.parent.geometry = this.getGeometry();
                 }
-                this.refObject3d.geometry = this.getGeometry();
+                this.parent.geometry = this.getGeometry();
             }
-            else if (this.refObject3d instanceof THREE.Points) {
-                this.refObject3d.geometry = this.getGeometry();
+            else if (this.parent instanceof THREE.Points) {
+                this.parent.geometry = this.getGeometry();
             }
-            else if (this.refObject3d instanceof THREE.Group) {
-                this.refObject3d.children.forEach(function (mesh) {
+            else if (this.parent instanceof THREE.Group) {
+                this.parent.children.forEach(function (mesh) {
                     if (mesh instanceof THREE.Mesh) {
                         mesh.geometry = _this.getGeometry();
                     }
                 });
             }
-            else if (this.refObject3d.resetMesh) {
-                this.refObject3d.resetMesh(true);
+            else if (this.parent.resetMesh) {
+                this.parent.resetMesh(true);
             }
         }
         else if (this.geometry === null && this.subGeometry !== null && this.subGeometry !== undefined) {
             this.geometry = this.getGeometry();
         }
     };
-    GeometryComponent.prototype.setObject3D = function (refObject3d, isRestore) {
+    GeometryComponent.prototype.setParent = function (parent, isRestore) {
         if (isRestore === void 0) { isRestore = false; }
         if (isRestore) {
-            if (this.refObject3d !== refObject3d) {
-                this.refObject3d = refObject3d;
-                if (this.refObject3d instanceof THREE.Mesh) {
-                    this.geometry = this.refObject3d.geometry;
+            if (this.parent !== parent) {
+                this.parent = parent;
+                if (this.parent instanceof THREE.Mesh) {
+                    this.geometry = this.parent.geometry;
                 }
             }
         }
         else {
-            if (this.refObject3d !== refObject3d) {
-                this.refObject3d = refObject3d;
+            if (this.parent !== parent) {
+                this.parent = parent;
                 this.resetGeometry();
             }
         }
@@ -560,22 +560,22 @@ var GeometryComponent = /** @class */ (function () {
                 switch (synkType) {
                     case 'geometry':
                         _this.subGeometry.forEach(function (subGeometry) {
-                            subGeometry.setObject3D(_this);
+                            subGeometry.setParent(_this);
                         });
                         break;
                     case 'shape':
                         _this.shapes.forEach(function (shape) {
-                            shape.setObject3D(_this);
+                            shape.setParent(_this);
                         });
                         break;
                     case 'curve':
                         _this.curves.forEach(function (curve) {
-                            curve.setObject3D(_this);
+                            curve.setParent(_this);
                         });
                         break;
                     case 'translation':
                         _this.translation.forEach(function (translation) {
-                            translation.setObject3D(_this);
+                            translation.setParent(_this);
                         });
                         break;
                 }

@@ -58,8 +58,8 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   meshScales: THREE.Vector3[] = [];
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
- 
-  constructor(private ele: ElementRef) { 
+
+  constructor(private ele: ElementRef) {
   }
 
   private getCurveSegments(def: number): number {
@@ -117,9 +117,9 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (this.refObject3d !== null && this.meshes !== null ) {
+      if (this.parent !== null && this.meshes !== null ) {
         this.meshes.forEach(mesh => {
-          this.refObject3d.remove(mesh);
+          this.parent.remove(mesh);
         })
       }
       this.meshes = null;
@@ -145,48 +145,48 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
         switch (synkType) {
           case 'position':
             this.position.forEach((position) => {
-              position.setObject3D(this);
+              position.setParent(this);
             });
             break;
           case 'rotation':
             this.rotation.forEach((rotation) => {
-              rotation.setObject3D(this);
+              rotation.setParent(this);
             });
             break;
           case 'scale':
             this.scale.forEach((scale) => {
-              scale.setObject3D(this);
+              scale.setParent(this);
             });
             break;
           case 'material':
             this.materials.forEach((material, seqn) => {
-              material.setObject3D(this, seqn);
+              material.setParent(this, seqn);
             });
             break;
             case 'translation':
-              this.translation.forEach((translation, seqn) => {
-                translation.setObject3D(this);
+              this.translation.forEach((translation) => {
+                translation.setParent(this);
               });
               break;
-              
+
         }
       })
     }
   }
- 
-  private meshes : THREE.Mesh[] = null;
-  private refObject3d: THREE.Object3D = null;
 
-  setObject3D(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  private meshes : THREE.Mesh[] = null;
+  private parent: THREE.Object3D = null;
+
+  setParent(parent: THREE.Object3D) {
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.meshes = null;
       this.resetMeshes();
     }
   }
- 
+
   resetMeshes() {
-    if (this.refObject3d !== null && this.meshes === null) {
+    if (this.parent !== null && this.meshes === null) {
       this.getPaths((result : SvgGeometry[]) => {
         this.meshes = [];
         this.meshPositions = [];
@@ -209,7 +209,7 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
           this.meshTranslations.push(geom);
           this.meshMaterials.push(meshMaterial);
           this.meshes.push(mesh);
-          this.refObject3d.add(mesh);
+          this.parent.add(mesh);
         })
         this.synkObject3D(['translation', 'position','rotation','scale','material']);
       });

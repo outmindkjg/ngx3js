@@ -119,17 +119,17 @@ export class CurveComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.curve = null;
-      if (this.refObject3d !== null && this.refObject3d.resetGeometry) {
-        this.refObject3d.resetGeometry(true);
+      if (this.parent !== null && this.parent.resetGeometry) {
+        this.parent.resetGeometry(true);
       }
     }
   }
 
-  private refObject3d : any= null;
+  private parent : any= null;
 
-  setObject3D(refObject3d : any){
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  setParent(parent : any){
+    if (this.parent !== parent) {
+      this.parent = parent;
     }
   }
 
@@ -222,7 +222,7 @@ export class CurveComponent implements OnInit {
             this.getPointsV2([], 1)
           );
           break;
-  
+
       }
     }
     return this.curve;

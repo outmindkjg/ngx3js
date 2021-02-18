@@ -4,10 +4,6 @@
 </div>
 <three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
-      <three-position [x]="3" [y]="6" [z]="-10"></three-position>
-      <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
   <three-scene #scene [background]="'0xe0e0e0'">
       <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
       <three-mesh type="light" lightType="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
@@ -27,6 +23,10 @@
 
       <three-mesh (onLoad)="setMesh($event)">
           <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
+            <three-position [x]="3" [y]="6" [z]="-10"></three-position>
+            <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+          </three-camera>
           <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
             <three-position [x]="0" [y]="0" [z]="0"></three-position>
             <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
@@ -76,5 +76,7 @@
         <three-geometry [type]="'Plane'" [width]="2000" [height]="2000"></three-geometry>
         <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
     </three-mesh>
+    <three-helper></three-helper>
+
   </three-scene>
 </three-renderer>

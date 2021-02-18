@@ -149,7 +149,7 @@ export class SceneComponent
         switch (synkType) {
           case 'mesh':
             this.meshes.forEach((mesh) => {
-              mesh.setObject3D(this.scene);
+              mesh.setParent(this.scene);
             });
             break;
           case 'rigidbody':
@@ -165,17 +165,17 @@ export class SceneComponent
             break;
           case 'materials':
             this.materials.forEach((material) => {
-              material.setObject3D(this.scene);
+              material.setParent(this.scene);
             });
             break;
           case 'listner':
             this.listner.forEach((listner) => {
-              listner.setObject3D(this.scene);
+              listner.setParent(this.scene);
             });
             break;
           case 'audio':
             this.audio.forEach((audio) => {
-              audio.setObject3D(this.scene);
+              audio.setParent(this.scene);
             });
             break;
           case 'fog':
@@ -222,14 +222,16 @@ export class SceneComponent
               ) {
                 const foundMesh = this.scene.getObjectByName(mesh.name);
                 if (foundMesh !== null && foundMesh !== undefined) {
-                  mesh.setObject3D(foundMesh, true);
+                  mesh.setParent(foundMesh, true);
                 }
               }
             });
           }
         );
+        this.setObject3D(this.scene);
       } else {
         this.scene = new THREE.Scene();
+        this.setObject3D(this.scene);
         this.synkObject3D([
           'position',
           'rotation',
@@ -251,7 +253,6 @@ export class SceneComponent
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }
-      this.object3d = this.scene;
     }
     return this.scene;
   }

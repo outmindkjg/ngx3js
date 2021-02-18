@@ -129,12 +129,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   ngOnDestroy(): void {
-    if (this.refObject3d !== null) {
+    if (this.parent !== null) {
 
-      if (this.refObject3d instanceof THREE.Scene) {
+      if (this.parent instanceof THREE.Scene) {
         const material = this.getMaterial();
-        if (material === this.refObject3d.overrideMaterial) {
-          this.refObject3d.overrideMaterial = null;
+        if (material === this.parent.overrideMaterial) {
+          this.parent.overrideMaterial = null;
         }
       }
     }
@@ -838,13 +838,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private material: THREE.Material = null;
-  private refObject3d: THREE.Object3D | any = null;
+  private parent: THREE.Object3D | any = null;
   private refSeqn: number = 0;
 
-  setObject3D(refObject3d: THREE.Object3D | any, refSeqn: number = 0) {
+  setParent(parent: THREE.Object3D | any, refSeqn: number = 0) {
     this.refSeqn = refSeqn;
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.resetMaterial();
     }
   }
@@ -852,11 +852,11 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   private backgroundangularTryOutCnt: number = 0;
 
   resetMaterial() {
-    if (this.refObject3d !== null && this.getVisible(true)) {
-      if (this.refObject3d instanceof THREE.Object3D) {
+    if (this.parent !== null && this.getVisible(true)) {
+      if (this.parent instanceof THREE.Object3D) {
         if (this.clippingPlanes !== null && this.clippingPlanes !== undefined && this.clippingPlanes.length > 0) {
-          const matrixWorld = this.refObject3d.matrixWorld;
-          this.refObject3d.onBeforeRender = () => {
+          const matrixWorld = this.parent.matrixWorld;
+          this.parent.onBeforeRender = () => {
             this.clippingPlanes.forEach(plane => {
               plane.getWorldPlane(matrixWorld);
             })
@@ -864,24 +864,24 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
         }
       }
       const material = this.getMaterial();
-      if (this.refObject3d instanceof THREE.Scene) {
+      if (this.parent instanceof THREE.Scene) {
         const map: THREE.Texture = (material['map'] && material['map'] instanceof THREE.Texture) ? material['map'] : null;
         const color: THREE.Color = (material['color'] && material['color'] instanceof THREE.Color) ? material['color'] : null;
         switch (this.materialType.toLowerCase()) {
           case 'environment':
             if (map !== null) {
-              this.refObject3d.environment = map;
+              this.parent.environment = map;
             } else {
-              this.refObject3d.environment = null;
+              this.parent.environment = null;
             }
             break;
           case 'background':
             if (map !== null) {
-              this.refObject3d.background = map;
+              this.parent.background = map;
             } else if (color !== null) {
-              this.refObject3d.background = color;
+              this.parent.background = color;
             } else {
-              this.refObject3d.background = null;
+              this.parent.background = null;
             }
             break;
           case 'background-angular':
@@ -891,7 +891,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
                 this.backgroundangularTryOutCnt = 0;
                 const rt = new THREE.WebGLCubeRenderTarget(map.image.height);
                 rt.fromEquirectangularTexture(ThreeUtil.getRenderer() as THREE.WebGLRenderer, map);
-                this.refObject3d['background'] = rt;
+                this.parent['background'] = rt;
               } else {
                 if (this.backgroundangularTryOutCnt < 10) {
                   setTimeout(() => {
@@ -901,37 +901,37 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
                 }
               }
             } else if (color !== null) {
-              this.refObject3d.background = color;
+              this.parent.background = color;
             } else {
-              this.refObject3d.background = null;
+              this.parent.background = null;
             }
             break;
           case 'material':
           case 'overrideMaterial':
-            this.refObject3d.overrideMaterial = material;
-            this.refObject3d.overrideMaterial.needsUpdate = true;
+            this.parent.overrideMaterial = material;
+            this.parent.overrideMaterial.needsUpdate = true;
             break;
         }
-      } else if (this.refObject3d instanceof THREE.Mesh) {
+      } else if (this.parent instanceof THREE.Mesh) {
         switch (this.materialType.toLowerCase()) {
           case 'customdepth' :
-            this.refObject3d.customDepthMaterial = material;
+            this.parent.customDepthMaterial = material;
             break;
           default :
-            if (this.refObject3d.material instanceof Array) {
-              if (this.refObject3d.material.length > this.refSeqn) {
-                this.refObject3d.material[this.refSeqn].copy(material)
-                this.refObject3d.material[this.refSeqn].needsUpdate = true;
+            if (this.parent.material instanceof Array) {
+              if (this.parent.material.length > this.refSeqn) {
+                this.parent.material[this.refSeqn].copy(material)
+                this.parent.material[this.refSeqn].needsUpdate = true;
               }
-            } else if (this.refObject3d.material != material) {
-              this.refObject3d.material.copy(material);
-              this.refObject3d.material.needsUpdate = true;
+            } else if (this.parent.material != material) {
+              this.parent.material.copy(material);
+              this.parent.material.needsUpdate = true;
             }
             break
         }
-      } else if (this.refObject3d.meshMaterials) {
-        if (this.refObject3d.meshMaterials.length > this.refSeqn) {
-          const refMaterials = this.refObject3d.meshMaterials[this.refSeqn];
+      } else if (this.parent.meshMaterials) {
+        if (this.parent.meshMaterials.length > this.refSeqn) {
+          const refMaterials = this.parent.meshMaterials[this.refSeqn];
           if (refMaterials instanceof Array) {
 
           } else {

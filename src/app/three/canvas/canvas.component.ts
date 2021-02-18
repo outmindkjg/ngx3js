@@ -65,7 +65,7 @@ export class CanvasComponent implements OnInit {
   private parentNode: HTMLElement = null;
   private canvasSize: THREE.Vector2 = null;
   private eleSize: THREE.Vector2 = null;
-  
+
   setSize(size: THREE.Vector2) {
     this.canvasSize = size;
     this.eleSize = new THREE.Vector2(this.canvasSize.x, this.canvasSize.y);
@@ -92,7 +92,7 @@ export class CanvasComponent implements OnInit {
             break;
           case 'html':
             this.html.forEach((html) => {
-              html.setObject3D(this.canvas);
+              html.setParent(this.canvas);
             });
             break;
           case 'transform':

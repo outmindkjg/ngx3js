@@ -30,20 +30,22 @@ export class LookatComponent implements OnInit {
 
   private lookat : THREE.Vector3 = null;
 
-  private refObject3d : THREE.Object3D | any = null;
-  setObject3D(refObject3d : THREE.Object3D | any){
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  private parent : THREE.Object3D | any = null;
+  setParent(parent : THREE.Object3D | any) : boolean{
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.resetLookAt();
+      return true;
     }
+    return false;
   }
 
   resetLookAt() {
-    if (this.refObject3d !== null && this.visible) {
-      if (this.refObject3d instanceof  THREE.Object3D) {
-        this.refObject3d.lookAt(this.getLookAt());
-      } else if (this.refObject3d['target']) {
-        this.refObject3d['target'] = this.getLookAt();
+    if (this.parent !== null && this.visible) {
+      if (this.parent instanceof  THREE.Object3D) {
+        this.parent.lookAt(this.getLookAt());
+      } else if (this.parent['target']) {
+        this.parent['target'] = this.getLookAt();
       }
     }
   }

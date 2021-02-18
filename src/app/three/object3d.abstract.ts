@@ -1,17 +1,17 @@
-import { ThreeUtil } from './interface';
 import {
-	AfterContentInit,
-	Component,
-	ContentChildren,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	QueryList,
-	SimpleChanges
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
 import { ControllerComponent } from './controller/controller.component';
+import { ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
 import { PositionComponent } from './position/position.component';
 import { RotationComponent } from './rotation/rotation.component';
@@ -24,6 +24,7 @@ import { AbstractTweenComponent } from './tween.abstract';
 export abstract class AbstractObject3dComponent extends AbstractTweenComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
 
 	@Input() visible: boolean = true;
+  @Input() name: string = "";
 	@ContentChildren(ControllerComponent, { descendants: false }) controller: QueryList<ControllerComponent>;
 	@ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
 	@ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
@@ -55,8 +56,11 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	}
 
 	ngOnDestroy(): void {
-		if (this.object3d != null && this.refObject3d != null) {
-			this.refObject3d.remove(this.object3d);
+		if (this.object3d != null) {
+      if (this.object3d.parent !== null) {
+        this.object3d.parent.remove(this.object3d);
+        this.object3d = null;
+      }
 		}
 		super.ngOnDestroy();
 	}
@@ -176,33 +180,49 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	protected object3d: THREE.Object3D = null;
 
+  setObject3D(object3d : THREE.Object3D) {
+    if (this.object3d !== object3d) {
+      if (this.object3d !== null && this.object3d.parent !== null) {
+        this.object3d.parent.remove(this.object3d);
+      }
+      this.object3d = object3d;
+      if (this.object3d !== null) {
+        this.object3d.name = this.name;
+        this.object3d.visible = this.visible;
+      }
+      if (this.parent !== null && this.parent instanceof THREE.Object3D) {
+        this.parent.add(this.object3d);
+      }
+    }
+  }
+
 	synkObject3D(synkTypes: string[]) {
 		if (this.object3d !== null) {
 			synkTypes.forEach((synkType) => {
 				switch (synkType) {
 					case 'position':
 						this.position.forEach((position) => {
-							position.setObject3D(this.object3d);
+							position.setParent(this.object3d);
 						});
 						break;
 					case 'rotation':
 						this.rotation.forEach((rotation) => {
-							rotation.setObject3D(this.object3d);
+							rotation.setParent(this.object3d);
 						});
 						break;
 					case 'scale':
 						this.scale.forEach((scale) => {
-							scale.setObject3D(this.object3d);
+							scale.setParent(this.object3d);
 						});
 						break;
 					case 'lookat':
 						this.lookat.forEach((lookat) => {
-							lookat.setObject3D(this.object3d);
+							lookat.setParent(this.object3d);
 						});
 						break;
 					case 'controller' :
 						this.controller.forEach((controller) => {
-							controller.setObject3D(this.object3d);
+							controller.setParent(this.object3d);
 						});
 						break;
 				}

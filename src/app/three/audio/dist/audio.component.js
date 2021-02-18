@@ -36,7 +36,7 @@ var AudioComponent = /** @class */ (function () {
         this.listener = null;
         this.analyser = null;
         this._renderer = null;
-        this.refObject3d = null;
+        this.parent = null;
         this._textureSubject = new rxjs_1.Subject();
         this.loadedVideoTexture = null;
         this.loadedUrl = null;
@@ -85,9 +85,9 @@ var AudioComponent = /** @class */ (function () {
             this.resetAudio();
         }
     };
-    AudioComponent.prototype.setObject3D = function (refObject3d) {
-        if (this.refObject3d !== refObject3d) {
-            this.refObject3d = refObject3d;
+    AudioComponent.prototype.setParent = function (parent) {
+        if (this.parent !== parent) {
+            this.parent = parent;
             this.resetAudio();
         }
     };
@@ -137,12 +137,12 @@ var AudioComponent = /** @class */ (function () {
             if (this.audio.listener !== this.listener) {
                 this.audio.listener = this.listener;
             }
-            if (this.refObject3d !== null) {
-                if (this.audio.parent !== this.refObject3d) {
+            if (this.parent !== null) {
+                if (this.audio.parent !== this.parent) {
                     if (this.audio.parent !== null) {
                         this.audio.parent.remove(this.audio);
                     }
-                    this.refObject3d.add(this.audio);
+                    this.parent.add(this.audio);
                 }
             }
             if (this.url !== null && this.loadedUrl !== this.url) {
@@ -188,11 +188,11 @@ var AudioComponent = /** @class */ (function () {
                 this.audio.setVolume(0);
             }
             else if (this.visible) {
-                if (this.audio.parent === null && this.audio.parent !== this.refObject3d) {
+                if (this.audio.parent === null && this.audio.parent !== this.parent) {
                     if (this.audio.parent !== null && this.audio.parent !== undefined) {
                         this.audio.parent.remove(this.audio);
                     }
-                    this.refObject3d.add(this.audio);
+                    this.parent.add(this.audio);
                 }
                 this.audio.setVolume(this.volume);
                 if (this.audio instanceof THREE.PositionalAudio) {

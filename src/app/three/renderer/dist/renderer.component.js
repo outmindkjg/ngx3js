@@ -323,7 +323,7 @@ var RendererComponent = /** @class */ (function () {
         this.control = this.getControls(this.cameras, this.canvas.nativeElement);
         if (this.control !== null) {
             this.lookat.forEach(function (lookat) {
-                lookat.setObject3D(_this.control);
+                lookat.setParent(_this.control);
             });
         }
         this.resizeRender(null);
@@ -495,7 +495,7 @@ var RendererComponent = /** @class */ (function () {
         core_1.ContentChildren(scene_component_1.SceneComponent, { descendants: false })
     ], RendererComponent.prototype, "scenes");
     __decorate([
-        core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: false })
+        core_1.ContentChildren(camera_component_1.CameraComponent, { descendants: true })
     ], RendererComponent.prototype, "cameras");
     __decorate([
         core_1.ContentChildren(listener_component_1.ListenerComponent, { descendants: true })

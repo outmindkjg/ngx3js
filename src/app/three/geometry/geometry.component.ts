@@ -590,8 +590,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   resetGeometry(clearGeometry = false) {
-    if (this.refObject3d !== null && this.visible) {
-      if (this.refObject3d instanceof THREE.Mesh) {
+    if (this.parent !== null && this.visible) {
+      if (this.parent instanceof THREE.Mesh) {
         if (clearGeometry && this.geometry !== null) {
           this.geometry = null;
         }
@@ -601,26 +601,26 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         }
         if (this.refer !== null && this.referRef && this.refer.geometrySubscribe) {
           this._geometrySubscribe = this.refer.geometrySubscribe().subscribe(geometry => {
-            if (this.refObject3d instanceof THREE.Mesh && this.visible) {
-              if (this.refObject3d.geometry !== geometry) {
-                this.refObject3d.geometry = geometry;
+            if (this.parent instanceof THREE.Mesh && this.visible) {
+              if (this.parent.geometry !== geometry) {
+                this.parent.geometry = geometry;
               }
             }
           })
         } else {
-          this.refObject3d.geometry = this.getGeometry();
+          this.parent.geometry = this.getGeometry();
         }
-        this.refObject3d.geometry = this.getGeometry();
-      } else if (this.refObject3d instanceof THREE.Points) {
-        this.refObject3d.geometry = this.getGeometry();
-      } else if (this.refObject3d instanceof THREE.Group) {
-        this.refObject3d.children.forEach(mesh => {
+        this.parent.geometry = this.getGeometry();
+      } else if (this.parent instanceof THREE.Points) {
+        this.parent.geometry = this.getGeometry();
+      } else if (this.parent instanceof THREE.Group) {
+        this.parent.children.forEach(mesh => {
           if (mesh instanceof THREE.Mesh) {
             mesh.geometry = this.getGeometry();
           }
         });
-      } else if (this.refObject3d.resetMesh) {
-        this.refObject3d.resetMesh(true);
+      } else if (this.parent.resetMesh) {
+        this.parent.resetMesh(true);
       }
     } else if (this.geometry === null && this.subGeometry !== null && this.subGeometry !== undefined) {
       this.geometry = this.getGeometry();
@@ -629,19 +629,19 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private geometry: THREE.BufferGeometry = null;
 
-  private refObject3d: THREE.Object3D | any = null;
+  private parent: THREE.Object3D | any = null;
 
-  setObject3D(refObject3d: THREE.Object3D | any, isRestore: boolean = false) {
+  setParent(parent: THREE.Object3D | any, isRestore: boolean = false) {
     if (isRestore) {
-      if (this.refObject3d !== refObject3d) {
-        this.refObject3d = refObject3d;
-        if (this.refObject3d instanceof THREE.Mesh) {
-          this.geometry = this.refObject3d.geometry;
+      if (this.parent !== parent) {
+        this.parent = parent;
+        if (this.parent instanceof THREE.Mesh) {
+          this.geometry = this.parent.geometry;
         }
       }
     } else {
-      if (this.refObject3d !== refObject3d) {
-        this.refObject3d = refObject3d;
+      if (this.parent !== parent) {
+        this.parent = parent;
         this.resetGeometry();
       }
     }
@@ -653,22 +653,22 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         switch (synkType) {
           case 'geometry':
             this.subGeometry.forEach((subGeometry) => {
-              subGeometry.setObject3D(this);
+              subGeometry.setParent(this);
             });
             break;
           case 'shape':
             this.shapes.forEach((shape) => {
-              shape.setObject3D(this);
+              shape.setParent(this);
             });
             break;
           case 'curve':
             this.curves.forEach((curve) => {
-              curve.setObject3D(this);
+              curve.setParent(this);
             });
             break;
           case 'translation':
             this.translation.forEach((translation) => {
-              translation.setObject3D(this);
+              translation.setParent(this);
             });
             break;
         }

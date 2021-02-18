@@ -46,7 +46,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Output() onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
   @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) cameras: QueryList<CameraComponent>;
+  @ContentChildren(CameraComponent, { descendants: true }) cameras: QueryList<CameraComponent>;
   @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
@@ -349,7 +349,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.control = this.getControls(this.cameras, this.canvas.nativeElement);
     if (this.control !== null) {
       this.lookat.forEach((lookat) => {
-        lookat.setObject3D(this.control);
+        lookat.setParent(this.control);
       });
     }
     this.resizeRender(null);

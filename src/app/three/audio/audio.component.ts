@@ -96,11 +96,11 @@ export class AudioComponent implements OnInit {
     }
   }
 
-  private refObject3d: THREE.Object3D = null;
+  private parent: THREE.Object3D = null;
 
-  setObject3D(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  setParent(parent: THREE.Object3D) {
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.resetAudio();
     }
   }
@@ -156,12 +156,12 @@ export class AudioComponent implements OnInit {
       if (this.audio.listener !== this.listener) {
         this.audio.listener = this.listener;
       }
-      if (this.refObject3d !== null) {
-        if (this.audio.parent !== this.refObject3d) {
+      if (this.parent !== null) {
+        if (this.audio.parent !== this.parent) {
           if (this.audio.parent !== null) {
             this.audio.parent.remove(this.audio);
           }
-          this.refObject3d.add(this.audio);
+          this.parent.add(this.audio);
         }
       }
       if (this.url !== null && this.loadedUrl !== this.url) {
@@ -204,11 +204,11 @@ export class AudioComponent implements OnInit {
         }
         this.audio.setVolume(0);
       } else if (this.visible) {
-        if (this.audio.parent === null && this.audio.parent !== this.refObject3d) {
+        if (this.audio.parent === null && this.audio.parent !== this.parent) {
           if (this.audio.parent !== null && this.audio.parent !== undefined) {
             this.audio.parent.remove(this.audio);
           }
-          this.refObject3d.add(this.audio);
+          this.parent.add(this.audio);
         }
         this.audio.setVolume(this.volume);
         if (this.audio instanceof THREE.PositionalAudio) {

@@ -31,23 +31,25 @@ export class ScaleComponent implements OnInit {
   }
 
   private scale: THREE.Vector3 = null;
-  private refObject3d: THREE.Object3D | any = null;
+  private parent: THREE.Object3D | any = null;
 
-  setObject3D(refObject3d: THREE.Object3D | any, isRestore: boolean = false) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
-      if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+  setParent(parent: THREE.Object3D | any, isRestore: boolean = false) : boolean {
+    if (this.parent !== parent) {
+      this.parent = parent;
+      if (isRestore && this.parent !== null && this.parent instanceof THREE.Object3D) {
         this.scale = null;
-        this.x = this.refObject3d.scale.x;
-        this.y = this.refObject3d.scale.y;
-        this.z = this.refObject3d.scale.z;
+        this.x = this.parent.scale.x;
+        this.y = this.parent.scale.y;
+        this.z = this.parent.scale.z;
       }
       this.resetScale();
+      return true;
     }
+    return false;
   }
 
   resetScale() {
-    if (this.refObject3d !== null && this.visible) {
+    if (this.parent !== null && this.visible) {
       if (this._scaleSubscribe !== null) {
         this._scaleSubscribe.unsubscribe();
         this._scaleSubscribe = null;
@@ -56,25 +58,25 @@ export class ScaleComponent implements OnInit {
         this._sizeSubscribe.unsubscribe();
         this._sizeSubscribe = null;
       }
-      if (this.refObject3d instanceof THREE.Object3D) {
-        this.refObject3d.scale.copy(this.getScale())
+      if (this.parent instanceof THREE.Object3D) {
+        this.parent.scale.copy(this.getScale())
         if (this.refer !== null && this.referRef) {
           if (this.refer.sizeSubscribe) {
             this._scaleSubscribe = this.refer.sizeSubscribe().subscribe(size => {
-              if (this.refObject3d instanceof THREE.Object3D && this.visible) {
-                this.refObject3d.scale.copy(this.getScaleFromSize(size));
+              if (this.parent instanceof THREE.Object3D && this.visible) {
+                this.parent.scale.copy(this.getScaleFromSize(size));
               }
             })
           } else if (this.refer.scaleSubscribe) {
             this._scaleSubscribe = this.refer.scaleSubscribe().subscribe(scale => {
-              if (this.refObject3d instanceof THREE.Object3D && this.visible) {
-                this.refObject3d.scale.copy(scale);
+              if (this.parent instanceof THREE.Object3D && this.visible) {
+                this.parent.scale.copy(scale);
               }
             })
           }
         }
-      } else if (this.refObject3d.meshScales) {
-        this.refObject3d.meshScales.forEach(scale => {
+      } else if (this.parent.meshScales) {
+        this.parent.meshScales.forEach(scale => {
           scale.copy(this.getScale());
         });
       }

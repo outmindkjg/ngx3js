@@ -27,7 +27,7 @@ export class VisualComponent implements OnInit {
   @Input() value: string | number = '';
   @Input() inputType: string | number = 'text';
   @Input() checked: string | number = 'false';
-  
+
   @Input() radioValues: {
     value? : string;
     text? : string;
@@ -136,7 +136,7 @@ export class VisualComponent implements OnInit {
             break;
           case 'html':
             this.html.forEach((html) => {
-              html.setObject3D(this.visual);
+              html.setParent(this.visual);
             });
             break;
           case 'transform':

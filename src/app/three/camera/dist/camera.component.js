@@ -59,6 +59,30 @@ var CameraComponent = /** @class */ (function (_super) {
         _this.cameraHeight = 0;
         return _this;
     }
+    CameraComponent.prototype.getFov = function (def) {
+        return this.fov === null ? def : this.fov;
+    };
+    CameraComponent.prototype.getNear = function (def) {
+        return this.near === null ? def : this.near;
+    };
+    CameraComponent.prototype.getFar = function (def) {
+        return this.far === null ? def : this.far;
+    };
+    CameraComponent.prototype.getLeft = function (width) {
+        return width * this.left;
+    };
+    CameraComponent.prototype.getRight = function (width) {
+        return width * this.right;
+    };
+    CameraComponent.prototype.getTop = function (height) {
+        return height * this.top;
+    };
+    CameraComponent.prototype.getBottom = function (height) {
+        return height * this.bottom;
+    };
+    CameraComponent.prototype.getAspect = function (width, height) {
+        return width > 0 && height > 0 ? width / height : 1;
+    };
     CameraComponent.prototype.ngOnInit = function () { };
     CameraComponent.prototype.ngOnChanges = function (changes) {
         if (changes.type) {
@@ -84,6 +108,34 @@ var CameraComponent = /** @class */ (function (_super) {
                 });
             }
         }
+    };
+    CameraComponent.prototype.setParent = function (parent, isRestore) {
+        if (isRestore === void 0) { isRestore = false; }
+        if (_super.prototype.setParent.call(this, parent, isRestore)) {
+            if (isRestore) {
+                this.object3d = parent;
+                this.synkObject3D([
+                    'position',
+                    'rotation',
+                    'scale',
+                    'lookat',
+                    'rigidbody',
+                    'mesh',
+                    'rigidbody',
+                    'geometry',
+                    'material',
+                    'svg',
+                    'listner',
+                    'audio',
+                    'controller',
+                ]);
+            }
+            else {
+                this.resetCamera(true);
+            }
+            return true;
+        }
+        return false;
     };
     CameraComponent.prototype.resetEffectComposer = function () {
         this.effectComposer = this.getEffectComposer();
@@ -121,12 +173,12 @@ var CameraComponent = /** @class */ (function (_super) {
                 switch (synkType) {
                     case 'listner':
                         _this.listner.forEach(function (listner) {
-                            listner.setObject3D(_this.camera);
+                            listner.setParent(_this.camera);
                         });
                         break;
                     case 'audio':
                         _this.audio.forEach(function (audio) {
-                            audio.setObject3D(_this.camera);
+                            audio.setParent(_this.camera);
                         });
                         break;
                     case 'mixer':
@@ -140,30 +192,6 @@ var CameraComponent = /** @class */ (function (_super) {
             });
             _super.prototype.synkObject3D.call(this, synkTypes);
         }
-    };
-    CameraComponent.prototype.getFov = function (def) {
-        return this.fov === null ? def : this.fov;
-    };
-    CameraComponent.prototype.getNear = function (def) {
-        return this.near === null ? def : this.near;
-    };
-    CameraComponent.prototype.getFar = function (def) {
-        return this.far === null ? def : this.far;
-    };
-    CameraComponent.prototype.getLeft = function (width) {
-        return width * this.left;
-    };
-    CameraComponent.prototype.getRight = function (width) {
-        return width * this.right;
-    };
-    CameraComponent.prototype.getTop = function (height) {
-        return height * this.top;
-    };
-    CameraComponent.prototype.getBottom = function (height) {
-        return height * this.bottom;
-    };
-    CameraComponent.prototype.getAspect = function (width, height) {
-        return width > 0 && height > 0 ? width / height : 1;
     };
     CameraComponent.prototype.getObject3D = function () {
         return this.getCamera();
@@ -198,6 +226,16 @@ var CameraComponent = /** @class */ (function (_super) {
             });
         }
     };
+    CameraComponent.prototype.resetCamera = function (clearCamera) {
+        if (clearCamera === void 0) { clearCamera = false; }
+        if (this.parent !== null) {
+            if (clearCamera && this.camera !== null && this.camera.parent) {
+                this.camera.parent.remove(this.camera);
+                this.camera = null;
+            }
+            this.parent.add(this.getCamera());
+        }
+    };
     CameraComponent.prototype.getCamera = function () {
         var _this = this;
         if (this.camera === null) {
@@ -218,14 +256,22 @@ var CameraComponent = /** @class */ (function (_super) {
             if (interface_1.ThreeUtil.isNull(this.camera.userData.component)) {
                 this.camera.userData.component = this;
             }
-            this.object3d = this.camera;
+            this.setObject3D(this.camera);
             if (interface_1.ThreeUtil.isNotNull(this.storageName)) {
                 this.localStorageService.getObject(this.storageName, function (loadedMesh, clips, geometry) {
                     _this.clips = clips;
                     _this.synkObject3D(['mixer']);
                 }, { object: this.camera });
             }
-            this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'audio', 'mixer']);
+            this.synkObject3D([
+                'position',
+                'rotation',
+                'scale',
+                'lookat',
+                'listner',
+                'audio',
+                'mixer',
+            ]);
         }
         return this.camera;
     };
@@ -254,7 +300,9 @@ var CameraComponent = /** @class */ (function (_super) {
                             renderer.autoClear = _this.autoClear;
                         }
                     }
-                    if (renderer instanceof THREE.WebGLRenderer && _this.composer && _this.composer.length > 0) {
+                    if (renderer instanceof THREE.WebGLRenderer &&
+                        _this.composer &&
+                        _this.composer.length > 0) {
                         _this.composer.forEach(function (composer) {
                             composer.render(renderer, renderTimer);
                         });

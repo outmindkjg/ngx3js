@@ -47,42 +47,43 @@ var PositionComponent = /** @class */ (function (_super) {
         }
         this.resetPosition();
     };
-    PositionComponent.prototype.setObject3D = function (refObject3d, isRestore) {
+    PositionComponent.prototype.setParent = function (parent, isRestore) {
         if (isRestore === void 0) { isRestore = false; }
-        if (this.refObject3d !== refObject3d) {
-            this.refObject3d = refObject3d;
-            if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+        if (_super.prototype.setParent.call(this, parent, isRestore)) {
+            if (isRestore && parent instanceof THREE.Object3D) {
                 this.position = null;
-                this.x = this.refObject3d.position.x;
-                this.y = this.refObject3d.position.y;
-                this.z = this.refObject3d.position.z;
+                this.x = this.parent.position.x;
+                this.y = this.parent.position.y;
+                this.z = this.parent.position.z;
             }
             this.resetPosition();
+            return true;
         }
+        return false;
     };
     PositionComponent.prototype.positionSubscribe = function () {
         return this._positionSubject.asObservable();
     };
     PositionComponent.prototype.resetPosition = function () {
         var _this = this;
-        if (this.refObject3d !== null && this.visible) {
+        if (this.parent !== null && this.visible) {
             if (this._positionSubscribe !== null) {
                 this._positionSubscribe.unsubscribe();
                 this._positionSubscribe = null;
             }
-            if (this.refObject3d instanceof THREE.Object3D) {
-                this.refObject3d.position.copy(this.getPosition());
+            if (this.parent instanceof THREE.Object3D) {
+                this.parent.position.copy(this.getPosition());
                 if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
                     this._positionSubscribe = this.refer.positionSubscribe().subscribe(function (position) {
-                        if (_this.refObject3d instanceof THREE.Object3D && _this.visible) {
-                            _this.refObject3d.position.copy(position);
+                        if (_this.parent instanceof THREE.Object3D && _this.visible) {
+                            _this.parent.position.copy(position);
                         }
                     });
                 }
-                this.setTweenTarget(this.refObject3d.position);
+                this.setTweenTarget(this.parent.position);
             }
-            else if (this.refObject3d.meshPositions) {
-                this.refObject3d.meshPositions.forEach(function (position) {
+            else if (this.parent.meshPositions) {
+                this.parent.meshPositions.forEach(function (position) {
                     position.copy(_this.getPosition());
                 });
             }

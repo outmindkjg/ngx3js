@@ -127,7 +127,7 @@ var SceneComponent = /** @class */ (function (_super) {
                 switch (synkType) {
                     case 'mesh':
                         _this.meshes.forEach(function (mesh) {
-                            mesh.setObject3D(_this.scene);
+                            mesh.setParent(_this.scene);
                         });
                         break;
                     case 'rigidbody':
@@ -143,17 +143,17 @@ var SceneComponent = /** @class */ (function (_super) {
                         break;
                     case 'materials':
                         _this.materials.forEach(function (material) {
-                            material.setObject3D(_this.scene);
+                            material.setParent(_this.scene);
                         });
                         break;
                     case 'listner':
                         _this.listner.forEach(function (listner) {
-                            listner.setObject3D(_this.scene);
+                            listner.setParent(_this.scene);
                         });
                         break;
                     case 'audio':
                         _this.audio.forEach(function (audio) {
-                            audio.setObject3D(_this.scene);
+                            audio.setParent(_this.scene);
                         });
                         break;
                     case 'fog':
@@ -195,14 +195,16 @@ var SceneComponent = /** @class */ (function (_super) {
                             mesh.name !== '') {
                             var foundMesh = _this.scene.getObjectByName(mesh.name);
                             if (foundMesh !== null && foundMesh !== undefined) {
-                                mesh.setObject3D(foundMesh, true);
+                                mesh.setParent(foundMesh, true);
                             }
                         }
                     });
                 });
+                this.setObject3D(this.scene);
             }
             else {
                 this.scene = new THREE.Scene();
+                this.setObject3D(this.scene);
                 this.synkObject3D([
                     'position',
                     'rotation',
@@ -221,7 +223,6 @@ var SceneComponent = /** @class */ (function (_super) {
             if (interface_1.ThreeUtil.isNull(this.scene.userData.component)) {
                 this.scene.userData.component = this;
             }
-            this.object3d = this.scene;
         }
         return this.scene;
     };

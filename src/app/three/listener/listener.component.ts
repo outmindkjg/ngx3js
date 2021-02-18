@@ -32,11 +32,11 @@ export class ListenerComponent implements OnInit {
 
   private listener : THREE.AudioListener = null;
 
-  private refObject3d: THREE.Object3D = null;
+  private parent: THREE.Object3D = null;
 
-  setObject3D(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  setParent(parent: THREE.Object3D) {
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.resetListener();
     }
   }
@@ -45,17 +45,17 @@ export class ListenerComponent implements OnInit {
     if (this.listener === null) {
       this.listener = this.getListener();
     }
-    if (this.listener !== null && this.refObject3d !== null) {
+    if (this.listener !== null && this.parent !== null) {
       this.listener.setMasterVolume(this.volume);
       if (!this.visible && this.listener.parent !== null) {
         this.listener.parent.remove(this.listener);
         this.listener.setMasterVolume(0);
       } else if (this.visible && this.listener.parent === null) {
-        if (this.listener.parent !== this.refObject3d) {
+        if (this.listener.parent !== this.parent) {
           if (this.listener.parent !== null && this.listener.parent !== undefined) {
             this.listener.parent.remove(this.listener);
           }
-          this.refObject3d.add(this.listener);
+          this.parent.add(this.listener);
         }
         this.listener.setMasterVolume(this.volume);
       }

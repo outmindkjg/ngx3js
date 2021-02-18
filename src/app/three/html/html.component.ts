@@ -27,7 +27,7 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
   @ContentChildren(HtmlComponent, { descendants: false }) children: QueryList<HtmlComponent>;
 
-  constructor(private ele: ElementRef) { 
+  constructor(private ele: ElementRef) {
     super();
   }
 
@@ -56,7 +56,7 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
         switch (synkType) {
           case 'children':
             this.children.forEach((child) => {
-              child.setObject3D(this.html);
+              child.setParent(this.html);
             });
             break;
           case 'tween' :
@@ -69,28 +69,32 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
   private parentElement: HTMLElement = null;
 
-  setObject3D(refObject3d: THREE.Object3D | HTMLElement) {
-    let parentElement: HTMLElement = null;
-    if (refObject3d instanceof CSS3DObject || refObject3d instanceof CSS2DObject) {
-      parentElement = refObject3d.element;
-    } else if (refObject3d instanceof THREE.Mesh) {
-      refObject3d.children.forEach(child => {
-        if (child instanceof CSS3DObject || child instanceof CSS2DObject) {
-          parentElement = child.element;
+  setParent(refObject3d: THREE.Object3D | HTMLElement | any, isRestore: boolean = false) : boolean {
+    if (super.setParent(refObject3d, isRestore)) {
+      let parentElement: HTMLElement = null;
+      if (refObject3d instanceof CSS3DObject || refObject3d instanceof CSS2DObject) {
+        parentElement = refObject3d.element;
+      } else if (refObject3d instanceof THREE.Mesh) {
+        refObject3d.children.forEach(child => {
+          if (child instanceof CSS3DObject || child instanceof CSS2DObject) {
+            parentElement = child.element;
+          }
+        });
+      } else if (refObject3d instanceof HTMLElement) {
+        parentElement = refObject3d;
+      }
+      if (this.parentElement !== parentElement) {
+        if (this.parentElement !== null && this.html !== null && this.html.parentNode !== null) {
+          this.html.parentNode.removeChild(this.html);
         }
-      });
-    } else if (refObject3d instanceof HTMLElement) {
-      parentElement = refObject3d;
-    }
-    if (this.parentElement !== parentElement) {
-      if (this.parentElement !== null && this.html !== null && this.html.parentNode !== null) {
-        this.html.parentNode.removeChild(this.html);
+        this.parentElement = parentElement;
+        if (this.parentElement !== null) {
+          this.getHtml();
+        }
       }
-      this.parentElement = parentElement;
-      if (this.parentElement !== null) {
-        this.getHtml();
-      }
+      return true;
     }
+    return false;
   }
 
   private applyHtmlStyle(ele: HTMLElement, style: string | CssStyle): void {

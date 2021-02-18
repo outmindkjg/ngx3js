@@ -29,7 +29,7 @@ var RigidbodyComponent = /** @class */ (function () {
         this.linDamping = null;
         this.angDamping = null;
         this.onLoad = new core_1.EventEmitter();
-        this.object3d = null;
+        this.parent = null;
         this.physics = null;
         this._ammo = null;
         this._physics = null;
@@ -111,9 +111,11 @@ var RigidbodyComponent = /** @class */ (function () {
         }
     };
     RigidbodyComponent.prototype.ngOnInit = function () { };
-    RigidbodyComponent.prototype.setObject3D = function (object3d) {
-        this.object3d = object3d;
-        this.resetRigidBody();
+    RigidbodyComponent.prototype.setParent = function (parent) {
+        if (this.parent !== parent) {
+            this.parent = parent;
+            this.resetRigidBody();
+        }
     };
     RigidbodyComponent.prototype.setPhysics = function (physics) {
         var _this = this;
@@ -240,13 +242,13 @@ var RigidbodyComponent = /** @class */ (function () {
         if (this.rigidBody !== null) {
             var transform = new this._ammo.btTransform();
             transform.setIdentity();
-            var quaternion = this.object3d.quaternion;
+            var quaternion = this.parent.quaternion;
             var relRotation = interface_1.ThreeUtil.getEulerSafe(rx, ry, rz);
             if (interface_1.ThreeUtil.isNotNull(relRotation)) {
                 quaternion.setFromEuler(relRotation);
             }
             transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-            var position = this.object3d.position;
+            var position = this.parent.position;
             var relPosition = interface_1.ThreeUtil.getVector3Safe(x, y, z);
             if (interface_1.ThreeUtil.isNotNull(relPosition)) {
                 position.copy(relPosition);
@@ -263,7 +265,7 @@ var RigidbodyComponent = /** @class */ (function () {
             var quaternion = new THREE.Quaternion();
             quaternion.setFromEuler(interface_1.ThreeUtil.getEulerSafe(x, y, z));
             transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-            var position = this.object3d.position;
+            var position = this.parent.position;
             transform.setOrigin(new this._ammo.btVector3(position.x, position.y, position.z));
             var motionState = new this._ammo.btDefaultMotionState(transform);
             this.setMotionState(motionState);
@@ -293,15 +295,15 @@ var RigidbodyComponent = /** @class */ (function () {
     };
     RigidbodyComponent.prototype.resetRigidBody = function () {
         if (this.rigidBody === null &&
-            this.object3d !== null &&
+            this.parent !== null &&
             this._physics !== null &&
             interface_1.ThreeUtil.isNotNull(this._ammo) &&
             interface_1.ThreeUtil.isNotNull(this._physics)) {
             var shape = null;
             var type = this.type;
             var geometry = null;
-            if (this.object3d instanceof THREE.Mesh) {
-                geometry = this.object3d.geometry;
+            if (this.parent instanceof THREE.Mesh) {
+                geometry = this.parent.geometry;
             }
             else {
                 type = 'empty';
@@ -449,7 +451,7 @@ var RigidbodyComponent = /** @class */ (function () {
                     shape = new this._ammo.btEmptyShape();
                     break;
             }
-            var scale = this.object3d.scale;
+            var scale = this.parent.scale;
             shape.setLocalScaling(new this._ammo.btVector3(scale.x, scale.y, scale.z));
             shape.setMargin(this.getMargin(0.05));
             var mass = this.getMass();
@@ -457,9 +459,9 @@ var RigidbodyComponent = /** @class */ (function () {
             shape.calculateLocalInertia(mass, localInertia);
             var transform = new this._ammo.btTransform();
             transform.setIdentity();
-            var quaternion = this.object3d.quaternion;
+            var quaternion = this.parent.quaternion;
             transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-            var pos = this.object3d.position;
+            var pos = this.parent.position;
             transform.setOrigin(new this._ammo.btVector3(pos.x, pos.y, pos.z));
             var motionState = new this._ammo.btDefaultMotionState(transform);
             var rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
@@ -471,13 +473,13 @@ var RigidbodyComponent = /** @class */ (function () {
             body.setRollingFriction(this.getRollingFriction(0));
             body.setRestitution(this.getRestitution(0));
             body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
-            body['object3d'] = this.object3d;
+            body['object3d'] = this.parent;
             this.transformAux = new this._ammo.btTransform();
             this.rigidBody = body;
             this._physics.addRigidBody(body);
-            this.object3d.userData.physicsBody = body;
-            this.object3d.userData.physicsComponent = this;
-            this.object3d.addEventListener('collision', function (e) {
+            this.parent.userData.physicsBody = body;
+            this.parent.userData.physicsComponent = this;
+            this.parent.addEventListener('collision', function (e) {
                 console.log('collision', e);
             });
             this.onLoad.emit(this);
@@ -486,7 +488,7 @@ var RigidbodyComponent = /** @class */ (function () {
     };
     RigidbodyComponent.prototype.update = function (timer) {
         if (this.rigidBody !== null) {
-            var objThree = this.object3d;
+            var objThree = this.parent;
             var objPhys = this.rigidBody;
             var ms = objPhys.getMotionState();
             if (ms) {

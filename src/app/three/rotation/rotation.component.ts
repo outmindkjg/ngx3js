@@ -16,7 +16,7 @@ export class RotationComponent implements OnInit {
   @Input() x : number = 0;
   @Input() y : number = 0;
   @Input() z : number = 0;
- 
+
   constructor() { }
 
   ngOnInit(): void {
@@ -30,21 +30,23 @@ export class RotationComponent implements OnInit {
   }
 
   private rotation : THREE.Euler = null;
-  private refObject3d : THREE.Object3D | any = null;
+  private parent : THREE.Object3D | any = null;
 
-  setObject3D(refObject3d : THREE.Object3D | any , isRestore : boolean = false){
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
-      if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+  setParent(parent : THREE.Object3D | any , isRestore : boolean = false) : boolean {
+    if (this.parent !== parent) {
+      this.parent = parent;
+      if (isRestore && this.parent !== null && this.parent instanceof THREE.Object3D) {
         this.rotation = null;
-        this.x = this.refObject3d.rotation.x;
-        this.y = this.refObject3d.rotation.y;
-        this.z = this.refObject3d.rotation.z;
+        this.x = this.parent.rotation.x;
+        this.y = this.parent.rotation.y;
+        this.z = this.parent.rotation.z;
       }
       this.resetRotation();
+      return true;
     }
+    return false;
   }
- 
+
   private _rotationSubscribe: Subscription = null;
 
   private _rotationSubject:Subject<THREE.Euler> = new Subject<THREE.Euler>();
@@ -54,22 +56,22 @@ export class RotationComponent implements OnInit {
   }
 
   resetRotation() {
-    if (this.refObject3d !== null && this.visible) {
-      if (this.refObject3d instanceof THREE.Object3D) {
+    if (this.parent !== null && this.visible) {
+      if (this.parent instanceof THREE.Object3D) {
         if (this._rotationSubscribe !== null) {
           this._rotationSubscribe.unsubscribe();
           this._rotationSubscribe = null;
         }
-        this.refObject3d.rotation.copy(this.getRotation())
+        this.parent.rotation.copy(this.getRotation())
         if (this.refer !== null && this.referRef && this.refer.rotationSubscribe) {
           this._rotationSubscribe = this.refer.rotationSubscribe().subscribe(rotation => {
-            if (this.refObject3d instanceof THREE.Object3D && this.visible) {
-              this.refObject3d.rotation.copy(rotation);
+            if (this.parent instanceof THREE.Object3D && this.visible) {
+              this.parent.rotation.copy(rotation);
             }
           })
         }
-      } else if (this.refObject3d.meshRotations) {
-        this.refObject3d.meshRotations.forEach(rotation => {
+      } else if (this.parent.meshRotations) {
+        this.parent.meshRotations.forEach(rotation => {
           rotation.copy(this.getRotation());
         });
       }
@@ -77,7 +79,7 @@ export class RotationComponent implements OnInit {
       this.rotation = this.getRotation();
     }
   }
- 
+
   getRotation() : THREE.Euler {
     if (this.rotation === null) {
       if (this.refer !== null && this.refer !== undefined) {

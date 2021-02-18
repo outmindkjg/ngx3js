@@ -127,10 +127,12 @@ export class RigidbodyComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  private object3d: THREE.Object3D = null;
-  setObject3D(object3d: THREE.Object3D) {
-    this.object3d = object3d;
-    this.resetRigidBody();
+  private parent: THREE.Object3D = null;
+  setParent(parent: THREE.Object3D) {
+    if (this.parent !== parent) {
+      this.parent = parent;
+      this.resetRigidBody();
+    }
   }
 
   private physics: PhysicsComponent = null;
@@ -258,13 +260,13 @@ export class RigidbodyComponent implements OnInit {
     if (this.rigidBody !== null) {
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
-      const quaternion = this.object3d.quaternion;
+      const quaternion = this.parent.quaternion;
       const relRotation = ThreeUtil.getEulerSafe(rx, ry, rz);
       if (ThreeUtil.isNotNull(relRotation)) {
         quaternion.setFromEuler(relRotation);
       }
       transform.setRotation( new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-      const position = this.object3d.position;
+      const position = this.parent.position;
       const relPosition = ThreeUtil.getVector3Safe(x, y, z);
       if (ThreeUtil.isNotNull(relPosition)) {
         position.copy(relPosition);
@@ -282,7 +284,7 @@ export class RigidbodyComponent implements OnInit {
       const quaternion : THREE.Quaternion = new THREE.Quaternion();
       quaternion.setFromEuler(ThreeUtil.getEulerSafe(x, y, z));
       transform.setRotation( new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-      const position = this.object3d.position;
+      const position = this.parent.position;
       transform.setOrigin(new this._ammo.btVector3(position.x, position.y, position.z));
       const motionState = new this._ammo.btDefaultMotionState(transform);
       this.setMotionState(motionState);
@@ -312,7 +314,7 @@ export class RigidbodyComponent implements OnInit {
   resetRigidBody() : Ammo.btRigidBody {
     if (
       this.rigidBody === null &&
-      this.object3d !== null &&
+      this.parent !== null &&
       this._physics !== null &&
       ThreeUtil.isNotNull(this._ammo) &&
       ThreeUtil.isNotNull(this._physics)
@@ -320,8 +322,8 @@ export class RigidbodyComponent implements OnInit {
       let shape: Ammo.btCollisionShape = null;
       let type : string = this.type;
       let geometry : THREE.BufferGeometry = null;
-      if (this.object3d instanceof THREE.Mesh) {
-        geometry = this.object3d.geometry;
+      if (this.parent instanceof THREE.Mesh) {
+        geometry = this.parent.geometry;
       } else {
         type = 'empty';
       }
@@ -500,7 +502,7 @@ export class RigidbodyComponent implements OnInit {
             shape = new this._ammo.btEmptyShape();
             break;
       }
-      const scale = this.object3d.scale;
+      const scale = this.parent.scale;
       shape.setLocalScaling(new this._ammo.btVector3(scale.x, scale.y, scale.z));
       shape.setMargin(this.getMargin(0.05));
       const mass = this.getMass();
@@ -508,9 +510,9 @@ export class RigidbodyComponent implements OnInit {
       shape.calculateLocalInertia(mass, localInertia);
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
-      const quaternion = this.object3d.quaternion;
+      const quaternion = this.parent.quaternion;
       transform.setRotation( new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-      const pos = this.object3d.position;
+      const pos = this.parent.position;
       transform.setOrigin(new this._ammo.btVector3(pos.x, pos.y, pos.z));
       const motionState = new this._ammo.btDefaultMotionState(transform);
       const rbInfo = new this._ammo.btRigidBodyConstructionInfo(
@@ -530,13 +532,13 @@ export class RigidbodyComponent implements OnInit {
         this.getLinDamping(0),
         this.getAngDamping(0)
       );
-      body['object3d'] = this.object3d;
+      body['object3d'] = this.parent;
       this.transformAux = new this._ammo.btTransform();
       this.rigidBody = body;
       this._physics.addRigidBody(body);
-      this.object3d.userData.physicsBody = body;
-      this.object3d.userData.physicsComponent = this;
-      this.object3d.addEventListener('collision' , (e) => {
+      this.parent.userData.physicsBody = body;
+      this.parent.userData.physicsComponent = this;
+      this.parent.addEventListener('collision' , (e) => {
         console.log('collision', e);
       })
       this.onLoad.emit(this);
@@ -548,7 +550,7 @@ export class RigidbodyComponent implements OnInit {
 
   update(timer : RendererTimer) {
     if (this.rigidBody !== null) {
-      const objThree = this.object3d;
+      const objThree = this.parent;
       const objPhys : Ammo.btRigidBody = this.rigidBody;
       const ms = objPhys.getMotionState();
       if ( ms ) {

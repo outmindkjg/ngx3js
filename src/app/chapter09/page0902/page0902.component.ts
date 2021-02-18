@@ -40,13 +40,13 @@ export class Page0902Component implements OnInit {
   getObjects(): THREE.Object3D[] {
     const objects : THREE.Object3D[] = [];
     if (this.cylinder !== null && this.cylinder !== undefined) {
-      objects.push(this.cylinder.getObject3D());
+      // objects.push(this.cylinder.getObject3D());
     }
     if (this.sphere !== null && this.sphere !== undefined) {
-      objects.push(this.sphere.getObject3D());
+      // objects.push(this.sphere.getObject3D());
     }
     if (this.box !== null && this.box !== undefined) {
-      objects.push(this.box.getObject3D());
+      // objects.push(this.box.getObject3D());
     }
     return objects;
   }

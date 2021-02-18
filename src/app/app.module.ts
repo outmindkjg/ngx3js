@@ -177,6 +177,8 @@ import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webg
 import { UnderConstructionComponent } from './examples/under-construction/under-construction.component';
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
 import { WebglAnimationMultipleComponent } from './examples/webgl-animation-multiple/webgl-animation-multiple.component';
+import { LightComponent } from './three/light/light.component';
+import { HelperComponent } from './three/helper/helper.component';
 
 @NgModule({
   declarations: [
@@ -353,7 +355,9 @@ import { WebglAnimationMultipleComponent } from './examples/webgl-animation-mult
     WebglAnimationSkinningAdditiveBlendingComponent,
     UnderConstructionComponent,
     WebglAnimationSkinningMorphComponent,
-    WebglAnimationMultipleComponent
+    WebglAnimationMultipleComponent,
+    LightComponent,
+    HelperComponent
   ],
   imports: [
     BrowserModule,

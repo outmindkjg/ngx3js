@@ -139,14 +139,14 @@ export class ShapeComponent implements OnInit {
     return holes;
   }
 
-  private refObject3d : GeometryComponent= null;
+  private parent : GeometryComponent= null;
 
-  setObject3D(refObject3d : GeometryComponent){
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  setParent(parent : GeometryComponent){
+    if (this.parent !== parent) {
+      this.parent = parent;
     }
   }
- 
+
   getShape(shape: THREE.Shape | THREE.Path): THREE.Shape | THREE.Path{
     switch (this.type.toLowerCase()) {
       case 'frompoints':
@@ -160,9 +160,9 @@ export class ShapeComponent implements OnInit {
         break;
       case 'quadraticcurveto':
         shape.quadraticCurveTo(
-          this.getACPx(0), 
-          this.getACPy(0), 
-          this.getAX(0), 
+          this.getACPx(0),
+          this.getACPy(0),
+          this.getAX(0),
           this.getAY(0)
         );
         break;

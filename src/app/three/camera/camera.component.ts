@@ -12,21 +12,25 @@ import {
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { PassComponent } from '../pass/pass.component';
-import { InterfaceEffectComposer, RendererTimer, ThreeUtil } from './../interface';
-import { SceneComponent } from './../scene/scene.component';
+import {
+  InterfaceEffectComposer,
+  RendererTimer,
+  ThreeUtil,
+} from './../interface';
 import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
-
 @Component({
   selector: 'three-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent extends AbstractObject3dComponent implements OnInit, InterfaceEffectComposer {
+export class CameraComponent
+  extends AbstractObject3dComponent
+  implements OnInit, InterfaceEffectComposer {
   @Input() type: 'perspective' | 'orthographic' = 'perspective';
   @Input() name: string = null;
   @Input() fov: number = 45;
@@ -39,15 +43,52 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() autoClear: boolean = null;
   @Input() controlType: string = 'none';
   @Input() controlAutoRotate: boolean = null;
-  @Input() scene: SceneComponent = null;
-  @Input() scenes: SceneComponent[] = null;
+  @Input() scene: any = null;
+  @Input() scenes: any[] = null;
   @Input() storageName: string = null;
 
-  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
-  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(PassComponent, { descendants: false })
+  pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent, { descendants: false })
+  composer: QueryList<ComposerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false })
+  listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false })
+  audio: QueryList<AudioComponent>;
+  @ContentChildren(MixerComponent, { descendants: false })
+  mixer: QueryList<MixerComponent>;
+
+  getFov(def?: number): number {
+    return this.fov === null ? def : this.fov;
+  }
+
+  getNear(def?: number): number {
+    return this.near === null ? def : this.near;
+  }
+
+  getFar(def?: number): number {
+    return this.far === null ? def : this.far;
+  }
+
+  getLeft(width?: number): number {
+    return width * this.left;
+  }
+
+  getRight(width?: number): number {
+    return width * this.right;
+  }
+
+  getTop(height?: number): number {
+    return height * this.top;
+  }
+
+  getBottom(height?: number): number {
+    return height * this.bottom;
+  }
+
+  getAspect(width?: number, height?: number): number {
+    return width > 0 && height > 0 ? width / height : 1;
+  }
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -67,17 +108,17 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
-  private rendererScenes: QueryList<SceneComponent>;
+  private rendererScenes: QueryList<any>;
   private effectComposer: EffectComposer = null;
 
-  getRenderer(): THREE.Renderer{
+  getRenderer(): THREE.Renderer {
     return this.renderer;
   }
 
   setRenderer(
-    renderer: THREE.Renderer ,
-    cssRenderer : CSS3DRenderer | CSS2DRenderer,
-    rendererScenes: QueryList<SceneComponent>
+    renderer: THREE.Renderer,
+    cssRenderer: CSS3DRenderer | CSS2DRenderer,
+    rendererScenes: QueryList<any>
   ) {
     if (this.cssRenderer !== cssRenderer) {
       this.cssRenderer = cssRenderer;
@@ -94,6 +135,33 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
+    if (super.setParent(parent, isRestore)) {
+      if (isRestore) {
+        this.object3d = parent;
+        this.synkObject3D([
+          'position',
+          'rotation',
+          'scale',
+          'lookat',
+          'rigidbody',
+          'mesh',
+          'rigidbody',
+          'geometry',
+          'material',
+          'svg',
+          'listner',
+          'audio',
+          'controller',
+        ]);
+      } else {
+        this.resetCamera(true);
+      }
+      return true;
+    }
+    return false;
+  }
+
   resetEffectComposer() {
     this.effectComposer = this.getEffectComposer();
   }
@@ -105,11 +173,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           this.renderer
         );
         this.pass.forEach((item) => {
-          item.getPass(
-            this.getScene(),
-            this.getCamera(),
-            effectComposer
-          );
+          item.getPass(this.getScene(), this.getCamera(), effectComposer);
         });
         return effectComposer;
       }
@@ -136,15 +200,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         switch (synkType) {
           case 'listner':
             this.listner.forEach((listner) => {
-              listner.setObject3D(this.camera);
+              listner.setParent(this.camera);
             });
             break;
           case 'audio':
             this.audio.forEach((audio) => {
-              audio.setObject3D(this.camera);
+              audio.setParent(this.camera);
             });
             break;
-          case 'mixer' :
+          case 'mixer':
             if (this.clips !== null && this.clips.length > 0) {
               this.mixer.forEach((mixer) => {
                 mixer.setModel(this.camera, this.clips);
@@ -155,38 +219,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       });
       super.synkObject3D(synkTypes);
     }
-  }
-
-  getFov(def: number): number {
-    return this.fov === null ? def : this.fov;
-  }
-
-  getNear(def: number): number {
-    return this.near === null ? def : this.near;
-  }
-
-  getFar(def: number): number {
-    return this.far === null ? def : this.far;
-  }
-
-  getLeft(width: number): number {
-    return width * this.left;
-  }
-
-  getRight(width: number): number {
-    return width * this.right;
-  }
-
-  getTop(height: number): number {
-    return height * this.top;
-  }
-
-  getBottom(height: number): number {
-    return height * this.bottom;
-  }
-
-  getAspect(width: number, height: number): number {
-    return width > 0 && height > 0 ? width / height : 1;
   }
 
   private cameraWidth: number = 0;
@@ -233,6 +265,16 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  resetCamera(clearCamera: boolean = false) {
+    if (this.parent !== null) {
+      if (clearCamera && this.camera !== null && this.camera.parent) {
+        this.camera.parent.remove(this.camera);
+        this.camera = null;
+      }
+      this.parent.add(this.getCamera());
+    }
+  }
+
   getCamera(): THREE.Camera {
     if (this.camera === null) {
       const width = this.cameraWidth;
@@ -264,23 +306,35 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (ThreeUtil.isNull(this.camera.userData.component)) {
         this.camera.userData.component = this;
       }
-      this.object3d = this.camera;
+      this.setObject3D(this.camera);
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
-          (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => {
+          (
+            loadedMesh: THREE.Object3D,
+            clips?: THREE.AnimationClip[],
+            geometry?: THREE.BufferGeometry
+          ) => {
             this.clips = clips;
             this.synkObject3D(['mixer']);
           },
-          { object : this.camera }
+          { object: this.camera }
         );
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner','audio', 'mixer']);
+      this.synkObject3D([
+        'position',
+        'rotation',
+        'scale',
+        'lookat',
+        'listner',
+        'audio',
+        'mixer',
+      ]);
     }
     return this.camera;
   }
 
-  getScene(scenes?: QueryList<SceneComponent>): THREE.Scene {
+  getScene(scenes?: QueryList<any>): THREE.Scene {
     if (this.scene !== null) {
       return this.scene.getScene();
     } else if (scenes && scenes.length > 0) {
@@ -293,9 +347,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   render(
-    renderer: THREE.Renderer ,
+    renderer: THREE.Renderer,
     cssRenderer: CSS3DRenderer | CSS2DRenderer,
-    scenes: QueryList<SceneComponent>,
+    scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
     if (this.scenes !== null && this.scenes.length > 0) {
@@ -307,7 +361,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
               renderer.autoClear = this.autoClear;
             }
           }
-          if (renderer instanceof THREE.WebGLRenderer && this.composer && this.composer.length > 0) {
+          if (
+            renderer instanceof THREE.WebGLRenderer &&
+            this.composer &&
+            this.composer.length > 0
+          ) {
             this.composer.forEach((composer) => {
               composer.render(renderer, renderTimer);
             });

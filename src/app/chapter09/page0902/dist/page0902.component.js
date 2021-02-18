@@ -48,13 +48,13 @@ var Page0902Component = /** @class */ (function () {
     Page0902Component.prototype.getObjects = function () {
         var objects = [];
         if (this.cylinder !== null && this.cylinder !== undefined) {
-            objects.push(this.cylinder.getObject3D());
+            // objects.push(this.cylinder.getObject3D());
         }
         if (this.sphere !== null && this.sphere !== undefined) {
-            objects.push(this.sphere.getObject3D());
+            // objects.push(this.sphere.getObject3D());
         }
         if (this.box !== null && this.box !== undefined) {
-            objects.push(this.box.getObject3D());
+            // objects.push(this.box.getObject3D());
         }
         return objects;
     };

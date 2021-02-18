@@ -18,7 +18,7 @@ var LookatComponent = /** @class */ (function () {
         this.y = null;
         this.z = null;
         this.lookat = null;
-        this.refObject3d = null;
+        this.parent = null;
     }
     LookatComponent.prototype.ngOnInit = function () {
     };
@@ -28,19 +28,21 @@ var LookatComponent = /** @class */ (function () {
         }
         this.resetLookAt();
     };
-    LookatComponent.prototype.setObject3D = function (refObject3d) {
-        if (this.refObject3d !== refObject3d) {
-            this.refObject3d = refObject3d;
+    LookatComponent.prototype.setParent = function (parent) {
+        if (this.parent !== parent) {
+            this.parent = parent;
             this.resetLookAt();
+            return true;
         }
+        return false;
     };
     LookatComponent.prototype.resetLookAt = function () {
-        if (this.refObject3d !== null && this.visible) {
-            if (this.refObject3d instanceof THREE.Object3D) {
-                this.refObject3d.lookAt(this.getLookAt());
+        if (this.parent !== null && this.visible) {
+            if (this.parent instanceof THREE.Object3D) {
+                this.parent.lookAt(this.getLookAt());
             }
-            else if (this.refObject3d['target']) {
-                this.refObject3d['target'] = this.getLookAt();
+            else if (this.parent['target']) {
+                this.parent['target'] = this.getLookAt();
             }
         }
     };

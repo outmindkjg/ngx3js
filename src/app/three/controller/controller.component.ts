@@ -33,12 +33,12 @@ export class ControllerComponent implements OnInit {
   }
 
   private _controller : AbstractThreeController = null;
-  private refObject3d : THREE.Object3D = null;
+  private parent : THREE.Object3D = null;
   private refObject2d : HtmlCollection = null;
 
-  setObject3D(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
+  setParent(parent: THREE.Object3D) {
+    if (this.parent !== parent) {
+      this.parent = parent;
       this.resetController();
     }
   }
@@ -56,7 +56,7 @@ export class ControllerComponent implements OnInit {
   private _canvas2ds : QueryList<CanvasComponent> = null;
   private _scene : THREE.Scene = null;
   private _canvas : HtmlCollection = null;
-	
+
   setRenderer(renderer : THREE.Renderer, scenes : QueryList<SceneComponent>, cameras : QueryList<CameraComponent>, canvas2ds : QueryList<CanvasComponent>) {
 		this._renderer = renderer;
 		this._scenes = scenes;
@@ -84,7 +84,7 @@ export class ControllerComponent implements OnInit {
       if (this._canvas !== null) {
         this._controller.setCanvas(this._canvas);
       }
-      
+
     }
   }
 
@@ -94,8 +94,8 @@ export class ControllerComponent implements OnInit {
   }
 
   getController() : AbstractThreeController {
-    if ((this.refObject3d !== null || this.refObject2d)&& this._controller === null) {
-      this._controller = new this.controller(this.refObject3d, this.refObject2d);
+    if ((this.parent !== null || this.refObject2d)&& this._controller === null) {
+      this._controller = new this.controller(this.parent, this.refObject2d);
       this.resetRenderer();
       this._controller.setVariables(this.params);
       this._controller.awake();

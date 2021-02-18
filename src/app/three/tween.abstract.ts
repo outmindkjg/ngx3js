@@ -37,9 +37,25 @@ export abstract class AbstractTweenComponent implements OnInit, OnChanges, After
 		}
 	}
 
-	protected refObject3d: THREE.Object3D | any = null;
+	protected parent: THREE.Object3D | any = null;
 	private tweenTarget: any = null;
 	private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
+
+  setParent(parent : THREE.Object3D | any, isRestore: boolean = false) : boolean {
+    if (isRestore) {
+      if (this.parent !== parent.parent) {
+        this.parent = parent.parent;
+        return true;
+      } else {
+        return false;
+      }
+    } else if (this.parent !== parent) {
+      this.parent = parent;
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 	setTweenTarget(tweenTarget: any) {
 		if (this.tweenTarget !== tweenTarget) {

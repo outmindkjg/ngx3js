@@ -121,18 +121,18 @@ var MaterialComponent = /** @class */ (function () {
         this.meshTranslations = [];
         this.meshMaterials = [];
         this.material = null;
-        this.refObject3d = null;
+        this.parent = null;
         this.refSeqn = 0;
         this.backgroundangularTryOutCnt = 0;
     }
     MaterialComponent.prototype.ngOnInit = function () {
     };
     MaterialComponent.prototype.ngOnDestroy = function () {
-        if (this.refObject3d !== null) {
-            if (this.refObject3d instanceof THREE.Scene) {
+        if (this.parent !== null) {
+            if (this.parent instanceof THREE.Scene) {
                 var material = this.getMaterial();
-                if (material === this.refObject3d.overrideMaterial) {
-                    this.refObject3d.overrideMaterial = null;
+                if (material === this.parent.overrideMaterial) {
+                    this.parent.overrideMaterial = null;
                 }
             }
         }
@@ -740,21 +740,21 @@ var MaterialComponent = /** @class */ (function () {
         });
         return materialParametersSafe;
     };
-    MaterialComponent.prototype.setObject3D = function (refObject3d, refSeqn) {
+    MaterialComponent.prototype.setParent = function (parent, refSeqn) {
         if (refSeqn === void 0) { refSeqn = 0; }
         this.refSeqn = refSeqn;
-        if (this.refObject3d !== refObject3d) {
-            this.refObject3d = refObject3d;
+        if (this.parent !== parent) {
+            this.parent = parent;
             this.resetMaterial();
         }
     };
     MaterialComponent.prototype.resetMaterial = function () {
         var _this = this;
-        if (this.refObject3d !== null && this.getVisible(true)) {
-            if (this.refObject3d instanceof THREE.Object3D) {
+        if (this.parent !== null && this.getVisible(true)) {
+            if (this.parent instanceof THREE.Object3D) {
                 if (this.clippingPlanes !== null && this.clippingPlanes !== undefined && this.clippingPlanes.length > 0) {
-                    var matrixWorld_1 = this.refObject3d.matrixWorld;
-                    this.refObject3d.onBeforeRender = function () {
+                    var matrixWorld_1 = this.parent.matrixWorld;
+                    this.parent.onBeforeRender = function () {
                         _this.clippingPlanes.forEach(function (plane) {
                             plane.getWorldPlane(matrixWorld_1);
                         });
@@ -762,27 +762,27 @@ var MaterialComponent = /** @class */ (function () {
                 }
             }
             var material = this.getMaterial();
-            if (this.refObject3d instanceof THREE.Scene) {
+            if (this.parent instanceof THREE.Scene) {
                 var map = (material['map'] && material['map'] instanceof THREE.Texture) ? material['map'] : null;
                 var color = (material['color'] && material['color'] instanceof THREE.Color) ? material['color'] : null;
                 switch (this.materialType.toLowerCase()) {
                     case 'environment':
                         if (map !== null) {
-                            this.refObject3d.environment = map;
+                            this.parent.environment = map;
                         }
                         else {
-                            this.refObject3d.environment = null;
+                            this.parent.environment = null;
                         }
                         break;
                     case 'background':
                         if (map !== null) {
-                            this.refObject3d.background = map;
+                            this.parent.background = map;
                         }
                         else if (color !== null) {
-                            this.refObject3d.background = color;
+                            this.parent.background = color;
                         }
                         else {
-                            this.refObject3d.background = null;
+                            this.parent.background = null;
                         }
                         break;
                     case 'background-angular':
@@ -792,7 +792,7 @@ var MaterialComponent = /** @class */ (function () {
                                 this.backgroundangularTryOutCnt = 0;
                                 var rt = new THREE.WebGLCubeRenderTarget(map.image.height);
                                 rt.fromEquirectangularTexture(interface_1.ThreeUtil.getRenderer(), map);
-                                this.refObject3d['background'] = rt;
+                                this.parent['background'] = rt;
                             }
                             else {
                                 if (this.backgroundangularTryOutCnt < 10) {
@@ -804,41 +804,41 @@ var MaterialComponent = /** @class */ (function () {
                             }
                         }
                         else if (color !== null) {
-                            this.refObject3d.background = color;
+                            this.parent.background = color;
                         }
                         else {
-                            this.refObject3d.background = null;
+                            this.parent.background = null;
                         }
                         break;
                     case 'material':
                     case 'overrideMaterial':
-                        this.refObject3d.overrideMaterial = material;
-                        this.refObject3d.overrideMaterial.needsUpdate = true;
+                        this.parent.overrideMaterial = material;
+                        this.parent.overrideMaterial.needsUpdate = true;
                         break;
                 }
             }
-            else if (this.refObject3d instanceof THREE.Mesh) {
+            else if (this.parent instanceof THREE.Mesh) {
                 switch (this.materialType.toLowerCase()) {
                     case 'customdepth':
-                        this.refObject3d.customDepthMaterial = material;
+                        this.parent.customDepthMaterial = material;
                         break;
                     default:
-                        if (this.refObject3d.material instanceof Array) {
-                            if (this.refObject3d.material.length > this.refSeqn) {
-                                this.refObject3d.material[this.refSeqn].copy(material);
-                                this.refObject3d.material[this.refSeqn].needsUpdate = true;
+                        if (this.parent.material instanceof Array) {
+                            if (this.parent.material.length > this.refSeqn) {
+                                this.parent.material[this.refSeqn].copy(material);
+                                this.parent.material[this.refSeqn].needsUpdate = true;
                             }
                         }
-                        else if (this.refObject3d.material != material) {
-                            this.refObject3d.material.copy(material);
-                            this.refObject3d.material.needsUpdate = true;
+                        else if (this.parent.material != material) {
+                            this.parent.material.copy(material);
+                            this.parent.material.needsUpdate = true;
                         }
                         break;
                 }
             }
-            else if (this.refObject3d.meshMaterials) {
-                if (this.refObject3d.meshMaterials.length > this.refSeqn) {
-                    var refMaterials = this.refObject3d.meshMaterials[this.refSeqn];
+            else if (this.parent.meshMaterials) {
+                if (this.parent.meshMaterials.length > this.refSeqn) {
+                    var refMaterials = this.parent.meshMaterials[this.refSeqn];
                     if (refMaterials instanceof Array) {
                     }
                     else {

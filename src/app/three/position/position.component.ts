@@ -29,17 +29,18 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 
   private position: THREE.Vector3 = null;
 
-  setObject3D(refObject3d: THREE.Object3D | any, isRestore: boolean = false) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
-      if (isRestore && this.refObject3d !== null && this.refObject3d instanceof THREE.Object3D) {
+  setParent(parent: THREE.Object3D | any, isRestore: boolean = false) : boolean {
+    if (super.setParent(parent, isRestore)) {
+      if (isRestore && parent instanceof THREE.Object3D) {
         this.position = null;
-        this.x = this.refObject3d.position.x;
-        this.y = this.refObject3d.position.y;
-        this.z = this.refObject3d.position.z;
+        this.x = this.parent.position.x;
+        this.y = this.parent.position.y;
+        this.z = this.parent.position.z;
       }
       this.resetPosition();
+      return true;
     }
+    return false;
   }
 
   private _positionSubscribe: Subscription = null;
@@ -51,23 +52,23 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   }
 
   resetPosition() {
-    if (this.refObject3d !== null && this.visible) {
+    if (this.parent !== null && this.visible) {
       if (this._positionSubscribe !== null) {
         this._positionSubscribe.unsubscribe();
         this._positionSubscribe = null;
       }
-      if (this.refObject3d instanceof THREE.Object3D) {
-        this.refObject3d.position.copy(this.getPosition());
+      if (this.parent instanceof THREE.Object3D) {
+        this.parent.position.copy(this.getPosition());
         if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
           this._positionSubscribe = this.refer.positionSubscribe().subscribe(position => {
-            if (this.refObject3d instanceof THREE.Object3D && this.visible) {
-              this.refObject3d.position.copy(position);
+            if (this.parent instanceof THREE.Object3D && this.visible) {
+              this.parent.position.copy(position);
             }
           })
         }
-        this.setTweenTarget(this.refObject3d.position);
-      } else if (this.refObject3d.meshPositions) {
-        this.refObject3d.meshPositions.forEach(position => {
+        this.setTweenTarget(this.parent.position);
+      } else if (this.parent.meshPositions) {
+        this.parent.meshPositions.forEach(position => {
           position.copy(this.getPosition());
         });
       }
