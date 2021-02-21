@@ -12,9 +12,11 @@ var interface_1 = require("../interface");
 var BackgroundComponent = /** @class */ (function () {
     function BackgroundComponent() {
         this.visible = true;
-        this.virtualClass = null;
+        this.pseudo = null;
+        this.transition = null;
+        this.content = null;
         this.backgroundColor = null;
-        this.backgroundOpacity = null;
+        this.backgroundAlpha = null;
         this.backgroundImage = null;
         this.backgroundRepeat = null;
         this.backgroundRepeatX = null;
@@ -70,8 +72,14 @@ var BackgroundComponent = /** @class */ (function () {
         this.parentNode = null;
         this.cssClazzName = null;
     }
+    BackgroundComponent.prototype.getTransition = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.transition, def);
+    };
+    BackgroundComponent.prototype.getContent = function (def) {
+        return interface_1.ThreeUtil.getTypeSafe(this.content, def);
+    };
     BackgroundComponent.prototype.getBackgroundColor = function (def) {
-        return interface_1.ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundOpacity, def);
+        return interface_1.ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundAlpha, def);
     };
     BackgroundComponent.prototype.getBackgroundImage = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.backgroundImage, def);
@@ -244,6 +252,8 @@ var BackgroundComponent = /** @class */ (function () {
     };
     BackgroundComponent.prototype.getStyle = function () {
         return {
+            content: this.getContent(),
+            transition: this.getTransition(),
             backgroundColor: this.getBackgroundColor(),
             backgroundImage: this.getBackgroundImage(),
             backgroundRepeat: this.getBackgroundRepeat(),
@@ -297,8 +307,7 @@ var BackgroundComponent = /** @class */ (function () {
         if (this.parentNode !== null) {
             if (this.visible) {
                 var style = this.getStyle();
-                console.log(style.backgroundColor);
-                this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.virtualClass);
+                this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.pseudo);
             }
             else {
                 interface_1.ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
@@ -310,13 +319,19 @@ var BackgroundComponent = /** @class */ (function () {
     ], BackgroundComponent.prototype, "visible");
     __decorate([
         core_1.Input()
-    ], BackgroundComponent.prototype, "virtualClass");
+    ], BackgroundComponent.prototype, "pseudo");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "transition");
+    __decorate([
+        core_1.Input()
+    ], BackgroundComponent.prototype, "content");
     __decorate([
         core_1.Input()
     ], BackgroundComponent.prototype, "backgroundColor");
     __decorate([
         core_1.Input()
-    ], BackgroundComponent.prototype, "backgroundOpacity");
+    ], BackgroundComponent.prototype, "backgroundAlpha");
     __decorate([
         core_1.Input()
     ], BackgroundComponent.prototype, "backgroundImage");

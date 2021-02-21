@@ -82,18 +82,6 @@ var SceneComponent = /** @class */ (function (_super) {
     };
     SceneComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this.position.changes.subscribe(function () {
-            _this.synkObject3D(['position']);
-        });
-        this.rotation.changes.subscribe(function () {
-            _this.synkObject3D(['rotation']);
-        });
-        this.scale.changes.subscribe(function () {
-            _this.synkObject3D(['scale']);
-        });
-        this.lookat.changes.subscribe(function () {
-            _this.synkObject3D(['lookat']);
-        });
         this.meshes.changes.subscribe(function (e) {
             _this.synkObject3D(['mesh']);
         });

@@ -9,71 +9,71 @@ import { CssStyle, ThreeUtil } from '../interface';
 })
 export class BackgroundComponent implements OnInit {
 
-  @Input() visible: boolean = true;
+  @Input() private visible:boolean = true;
 
-  @Input() pseudo: string = null;
-  
-  @Input() transition : string[] = null;
+  @Input() private pseudo:string = null;
 
-  @Input() content: string = null;
-  @Input() backgroundColor: string | number = null;
-  @Input() backgroundAlpha: number = null;
-  @Input() backgroundImage: string = null;
-  @Input() backgroundRepeat: string = null;
-  @Input() backgroundRepeatX: string = null;
-  @Input() backgroundRepeatY: string = null;
-  @Input() backgroundPosition: string = null;
-  @Input() backgroundPositionX: string = null;
-  @Input() backgroundPositionY: string = null;
-  @Input() backgroundSize: string = null;
-  @Input() backgroundSizeX: string = null;
-  @Input() backgroundSizeY: string = null;
-  @Input() backgroundClip: string = null;
+  @Input() private transition:string[] = null;
 
-  @Input() padding: string = null;
-  @Input() paddingLeft: string = null;
-  @Input() paddingTop: string = null;
-  @Input() paddingRight: string = null;
-  @Input() paddingBottom: string = null;
+  @Input() private content:string = null;
+  @Input() private backgroundColor:string | number = null;
+  @Input() private backgroundAlpha:number = null;
+  @Input() private backgroundImage:string = null;
+  @Input() private backgroundRepeat:string = null;
+  @Input() private backgroundRepeatX:string = null;
+  @Input() private backgroundRepeatY:string = null;
+  @Input() private backgroundPosition:string = null;
+  @Input() private backgroundPositionX:string = null;
+  @Input() private backgroundPositionY:string = null;
+  @Input() private backgroundSize:string = null;
+  @Input() private backgroundSizeX:string = null;
+  @Input() private backgroundSizeY:string = null;
+  @Input() private backgroundClip:string = null;
 
-  @Input() margin: string = null;
-  @Input() marginLeft: string = null;
-  @Input() marginTop: string = null;
-  @Input() marginRight: string = null;
-  @Input() marginBottom: string = null;
+  @Input() private padding:string = null;
+  @Input() private paddingLeft:string = null;
+  @Input() private paddingTop:string = null;
+  @Input() private paddingRight:string = null;
+  @Input() private paddingBottom:string = null;
 
-  @Input() border: string = null;
-  @Input() borderColor: string = null;
-  @Input() borderStyle: string = null;
-  @Input() borderWidth: string | number = null;
-  @Input() borderRadius: string | number = null;
-  @Input() borderLeft: string = null;
-  @Input() borderTop: string = null;
-  @Input() borderRight: string = null;
-  @Input() borderBottom: string = null;
-  @Input() borderImage: string = null;
-  @Input() borderImageSource: string = null;
-  @Input() borderImageSlice: string = null;
-  @Input() borderImageOutset: string = null;
-  @Input() borderImageRepeat: string = null;
-  @Input() borderImageWidth: string = null;
+  @Input() private margin:string = null;
+  @Input() private marginLeft:string = null;
+  @Input() private marginTop:string = null;
+  @Input() private marginRight:string = null;
+  @Input() private marginBottom:string = null;
 
-  @Input() opacity: number = null;
-  @Input() color: string | number = null;
-  @Input() fontFamily: string = null;
-  @Input() fontSize: number = null;
-  @Input() fontStyle: string = null;
-  @Input() fontWeight: string = null;
-  @Input() textAlign: string = null;
-  @Input() textTransform: string = null;
-  @Input() textDecoration: string = null;
-  @Input() letterSpacing: string = null;
-  @Input() textIndent: string = null;
-  @Input() textJustify: string = null;
-  @Input() textSizeAdjust: string = null;
-  @Input() whiteSpace: string = null;
-  @Input() wordBreak: string = null;
-  @Input() wordSpacing: string = null;
+  @Input() private border:string = null;
+  @Input() private borderColor:string = null;
+  @Input() private borderStyle:string = null;
+  @Input() private borderWidth:string | number = null;
+  @Input() private borderRadius:string | number = null;
+  @Input() private borderLeft:string = null;
+  @Input() private borderTop:string = null;
+  @Input() private borderRight:string = null;
+  @Input() private borderBottom:string = null;
+  @Input() private borderImage:string = null;
+  @Input() private borderImageSource:string = null;
+  @Input() private borderImageSlice:string = null;
+  @Input() private borderImageOutset:string = null;
+  @Input() private borderImageRepeat:string = null;
+  @Input() private borderImageWidth:string = null;
+
+  @Input() private opacity:number = null;
+  @Input() private color:string | number = null;
+  @Input() private fontFamily:string = null;
+  @Input() private fontSize:number = null;
+  @Input() private fontStyle:string = null;
+  @Input() private fontWeight:string = null;
+  @Input() private textAlign:string = null;
+  @Input() private textTransform:string = null;
+  @Input() private textDecoration:string = null;
+  @Input() private letterSpacing:string = null;
+  @Input() private textIndent:string = null;
+  @Input() private textJustify:string = null;
+  @Input() private textSizeAdjust:string = null;
+  @Input() private whiteSpace:string = null;
+  @Input() private wordBreak:string = null;
+  @Input() private wordSpacing:string = null;
 
   private getTransition(def?: string[]): string[] {
     return ThreeUtil.getTypeSafe(this.transition, def);

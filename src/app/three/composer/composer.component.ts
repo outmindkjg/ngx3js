@@ -12,18 +12,18 @@ import { AbstractTweenComponent } from '../tween.abstract';
 })
 export class ComposerComponent extends AbstractTweenComponent implements OnInit, InterfaceEffectComposer, InterfaceComposerComponent {
 
-  @Input() scene: THREE.Scene = null;
-  @Input() camera: THREE.Camera = null;
-  @Input() clear: boolean = false;
-  @Input() viewport: boolean = false;
-  @Input() x: number | string = 0;
-  @Input() y: number | string = 0;
-  @Input() width: number | string = '100%';
-  @Input() height: number | string = '100%';
+  @Input() private scene:THREE.Scene = null;
+  @Input() private camera:THREE.Camera = null;
+  @Input() private clear:boolean = false;
+  @Input() private viewport:boolean = false;
+  @Input() private x:number | string = 0;
+  @Input() private y:number | string = 0;
+  @Input() private width:number | string = '100%';
+  @Input() private height:number | string = '100%';
 
-  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
+  @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
-  constructor() { 
+  constructor() {
     super();
   }
 
@@ -129,7 +129,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
     this.cameraWidth = width;
     this.cameraHeight = height;
   }
-  
+
   render(webGLRenderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
     if (this.effectComposer !== null) {
       if (this.clear) {
@@ -154,19 +154,19 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
   private effectComposer: EffectComposer = null;
 
   getWriteBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).writeBuffer;  
+    return this.getEffectComposer(webGLRenderer, camera, scene).writeBuffer;
   }
 
   getReadBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).readBuffer;  
+    return this.getEffectComposer(webGLRenderer, camera, scene).readBuffer;
   }
 
   getRenderTarget1(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget1;  
+    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget1;
   }
- 
+
   getRenderTarget2(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;  
+    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;
   }
 
   getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): EffectComposer {

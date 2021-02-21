@@ -17,9 +17,9 @@ import { TweenComponent } from './tween/tween.component';
 })
 export abstract class AbstractTweenComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
 
-	@Input() tweenStart: boolean = true;
+	@Input() protected tweenStart:boolean = true;
 
-	@ContentChildren(TweenComponent, { descendants: false }) tween: QueryList<TweenComponent>;
+	@ContentChildren(TweenComponent, { descendants: false }) private tween: QueryList<TweenComponent>;
 
 	ngOnInit(): void { }
 

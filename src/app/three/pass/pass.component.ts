@@ -85,48 +85,48 @@ import { ThreeUtil } from '../interface';
   styleUrls: ['./pass.component.scss'],
 })
 export class PassComponent implements OnInit {
-  @Input() type: string = '';
-  @Input() refer: PassComponent = null;
-  @Input() enabled: boolean = null;
-  @Input() needsSwap: boolean = null;
-  @Input() clear: boolean = null;
-  @Input() renderToScreen: boolean = null;
-  @Input() adaptive: boolean = null;
-  @Input() resolution: number = null;
-  @Input() damp: number = null;
-  @Input() strength: number = null;
-  @Input() kernelSize: number = null;
-  @Input() sigma: number = null;
-  @Input() scene: any = null;
-  @Input() camera: any = null;
-  @Input() params: BokehPassParamters = null;
-  @Input() clearColor: THREE.Color | string | number = null;
-  @Input() clearAlpha: number = null;
-  @Input() envMap: THREE.CubeTexture = null;
-  @Input() opacity: number = null;
-  @Input() centerX: number = null;
-  @Input() centerY: number = null;
-  @Input() angle: number = null;
-  @Input() scale: number = null;
-  @Input() noiseIntensity: number = null;
-  @Input() scanlinesIntensity: number = null;
-  @Input() scanlinesCount: number = null;
-  @Input() grayscale: number = null;
-  @Input() dtSize: number = null;
-  @Input() width: number = null;
-  @Input() height: number = null;
-  @Input() selectedObjects: THREE.Object3D[] = null;
-  @Input() overrideMaterial: THREE.Material = null;
-  @Input() depthTexture: boolean = null;
-  @Input() useNormals: boolean = null;
-  @Input() renderTarget: THREE.WebGLRenderTarget = null;
-  @Input() shader: string = null;
-  @Input() textureId: string = null;
-  @Input() map: THREE.Texture | any = null;
-  @Input() radius: number = null;
-  @Input() threshold: number = null;
-  @Input() goWild: boolean = null;
-  @Input() uniforms: { [key: string]: any } = null;
+  @Input() public type:string = '';
+  @Input() private refer:PassComponent = null;
+  @Input() private enabled:boolean = null;
+  @Input() private needsSwap:boolean = null;
+  @Input() private clear:boolean = null;
+  @Input() private renderToScreen:boolean = null;
+  @Input() private adaptive:boolean = null;
+  @Input() private resolution:number = null;
+  @Input() private damp:number = null;
+  @Input() private strength:number = null;
+  @Input() private kernelSize:number = null;
+  @Input() private sigma:number = null;
+  @Input() private scene:any = null;
+  @Input() private camera:any = null;
+  @Input() private params:BokehPassParamters = null;
+  @Input() private clearColor:THREE.Color | string | number = null;
+  @Input() private clearAlpha:number = null;
+  @Input() private envMap:THREE.CubeTexture = null;
+  @Input() private opacity:number = null;
+  @Input() private centerX:number = null;
+  @Input() private centerY:number = null;
+  @Input() private angle:number = null;
+  @Input() private scale:number = null;
+  @Input() private noiseIntensity:number = null;
+  @Input() private scanlinesIntensity:number = null;
+  @Input() private scanlinesCount:number = null;
+  @Input() private grayscale:number = null;
+  @Input() private dtSize:number = null;
+  @Input() private width:number = null;
+  @Input() private height:number = null;
+  @Input() private selectedObjects:THREE.Object3D[] = null;
+  @Input() private overrideMaterial:THREE.Material = null;
+  @Input() private depthTexture:boolean = null;
+  @Input() private useNormals:boolean = null;
+  @Input() private renderTarget:THREE.WebGLRenderTarget = null;
+  @Input() private shader:string = null;
+  @Input() private textureId:string = null;
+  @Input() private map:THREE.Texture | any = null;
+  @Input() private radius:number = null;
+  @Input() private threshold:number = null;
+  @Input() private goWild:boolean = null;
+  @Input() private uniforms:{ [key: string]: any } = null;
 
   constructor() { }
 
@@ -534,7 +534,7 @@ export class PassComponent implements OnInit {
   private effectCamera: THREE.Camera = null;
   private pass: Pass = null;
   private needUpdate: boolean = false;
-  
+
   getPass(scene: THREE.Scene, camera: THREE.Camera, effectComposer: EffectComposer): Pass {
     if (this.pass === null || this.needUpdate) {
       this.needUpdate = false;

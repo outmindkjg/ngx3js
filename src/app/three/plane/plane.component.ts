@@ -10,11 +10,11 @@ import { ThreeUtil } from '../interface';
 })
 export class PlaneComponent implements OnInit {
 
-  @Input() x : number = null;
-  @Input() y : number = null;
-  @Input() z : number = null;
-  @Input() w : number = null;
-  
+  @Input() private x: number = null;
+  @Input() private y: number = null;
+  @Input() private z: number = null;
+  @Input() private w: number = null;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class PlaneComponent implements OnInit {
     if (changes) {
       this.needUpdate = true;
       this.getPlane();
-    }  
+    }
   }
 
   private plane : THREE.Plane = null;

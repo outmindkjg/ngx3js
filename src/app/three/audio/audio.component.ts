@@ -11,26 +11,26 @@ import { ThreeUtil } from '../interface';
   styleUrls: ['./audio.component.scss'],
 })
 export class AudioComponent implements OnInit {
-  @Input() type: string = 'position';
-  @Input() url: string = null;
-  @Input() videoUrl: string = null;
-  @Input() visible : boolean = true ;
-  @Input() autoplay : boolean = true ;
-  @Input() play : boolean = true ;
-  @Input() loop : boolean = true ;
-  @Input() volume: number = 1;
-  @Input() refDistance: number = 1;
-  @Input() rolloffFactor: number = 1;
-  @Input() distanceModel: string = "";
-  @Input() maxDistance: number = 1;
-  @Input() coneInnerAngle: number = 1;
-  @Input() coneOuterAngle: number = 1;
-  @Input() coneOuterGain: number = 1;
-  @Input() fftSize: number = 128;
+  @Input() public type:string = 'position';
+  @Input() private url:string = null;
+  @Input() private videoUrl:string = null;
+  @Input() private visible:boolean = true ;
+  @Input() private autoplay:boolean = true ;
+  @Input() private play:boolean = true ;
+  @Input() private loop:boolean = true ;
+  @Input() private volume:number = 1;
+  @Input() private refDistance:number = 1;
+  @Input() private rolloffFactor:number = 1;
+  @Input() private distanceModel:string = "";
+  @Input() private maxDistance:number = 1;
+  @Input() private coneInnerAngle:number = 1;
+  @Input() private coneOuterAngle:number = 1;
+  @Input() private coneOuterGain:number = 1;
+  @Input() private fftSize:number = 128;
 
-  @Output() onLoad: EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
+  @Output() private onLoad:EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
 
-  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) private mixer: QueryList<MixerComponent>;
 
   constructor() {}
 

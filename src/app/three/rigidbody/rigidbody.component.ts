@@ -10,24 +10,24 @@ import * as THREE from 'three';
   styleUrls: ['./rigidbody.component.scss'],
 })
 export class RigidbodyComponent implements OnInit {
-  @Input() type: string = 'auto';
-  @Input() width: number = null;
-  @Input() height: number = null;
-  @Input() depth: number = null;
-  @Input() radius: number = null;
-  @Input() mass: number = null;
-  @Input() margin: number = null;
-  @Input() friction: number = null;
-  @Input() rollingFriction: number = null;
-  @Input() restitution: number = null;
-  @Input() inertia : number = null;
-  @Input() inertiaX : number = null;
-  @Input() inertiaY : number = null;
-  @Input() inertiaZ : number = null;
-  @Input() linDamping : number = null;
-  @Input() angDamping : number = null;
+  @Input() public type:string = 'auto';
+  @Input() private width:number = null;
+  @Input() private height:number = null;
+  @Input() private depth:number = null;
+  @Input() private radius:number = null;
+  @Input() private mass:number = null;
+  @Input() private margin:number = null;
+  @Input() private friction:number = null;
+  @Input() private rollingFriction:number = null;
+  @Input() private restitution:number = null;
+  @Input() private inertia:number = null;
+  @Input() private inertiaX:number = null;
+  @Input() private inertiaY:number = null;
+  @Input() private inertiaZ:number = null;
+  @Input() private linDamping:number = null;
+  @Input() private angDamping:number = null;
 
-  @Output() onLoad: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private onLoad:EventEmitter<any> = new EventEmitter<any>();
 
   private getBoxHalfExtents(geometry : THREE.BufferGeometry, def? : THREE.Vector3 ) : Ammo.btVector3 {
     let boxHalfExtents = ThreeUtil.getVector3Safe(this.width, this.height, this.depth);

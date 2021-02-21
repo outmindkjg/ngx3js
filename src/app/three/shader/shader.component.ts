@@ -7,8 +7,8 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 })
 export class ShaderComponent implements OnInit {
 
-  @Input() type : string = 'x-shader/x-fragment';
-  @Input() refShader : ShaderComponent = null;
+  @Input() public type:string = 'x-shader/x-fragment';
+  @Input() private refShader:ShaderComponent = null;
 
   constructor(private ele : ElementRef) { }
 
@@ -16,7 +16,7 @@ export class ShaderComponent implements OnInit {
   }
 
   private shader : string = null;
-  
+
   getShader() : string {
     if (this.shader === null) {
       if (this.refShader !== null) {

@@ -25,39 +25,39 @@ import { SceneComponent } from './../scene/scene.component';
   styleUrls: ['./renderer.component.scss']
 })
 export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
-  @Input() type: string = "webgl";
-  @Input() css3dType: string = "none";
-  @Input() controlType: string = "none";
-  @Input() controlAutoRotate: boolean = false;
-  @Input() shadowMapEnabled: boolean = true;
-  @Input() clearColor: string | number = null;
-  @Input() clearAlpha: number = null;
-  @Input() localClippingEnabled: boolean = false;
-  @Input() enablePan: boolean = true;
-  @Input() enableDamping: boolean = false;
+  @Input() public type:string = "webgl";
+  @Input() private css3dType:string = "none";
+  @Input() private controlType:string = "none";
+  @Input() private controlAutoRotate:boolean = false;
+  @Input() private shadowMapEnabled:boolean = true;
+  @Input() private clearColor:string | number = null;
+  @Input() private clearAlpha:number = null;
+  @Input() private localClippingEnabled:boolean = false;
+  @Input() private enablePan:boolean = true;
+  @Input() private enableDamping:boolean = false;
 
-  @Input() antialias: boolean = false;
-  @Input() sizeType: string = 'auto';
-  @Input() width: number = -1;
-  @Input() height: number = -1;
-  @Input() statsMode: number = -1;
-  @Input() guiControl: any = null;
-  @Input() guiParams: GuiControlParam[] = [];
-  @Output() onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
+  @Input() private antialias:boolean = false;
+  @Input() public sizeType:string = 'auto';
+  @Input() private width:number = -1;
+  @Input() private height:number = -1;
+  @Input() private statsMode:number = -1;
+  @Input() private guiControl:any = null;
+  @Input() private guiParams:GuiControlParam[] = [];
+  @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
-  @ContentChildren(SceneComponent, { descendants: false }) scenes: QueryList<SceneComponent>;
-  @ContentChildren(CameraComponent, { descendants: true }) cameras: QueryList<CameraComponent>;
-  @ContentChildren(ListenerComponent, { descendants: true }) listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: true }) audio: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
-	@ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+  @ContentChildren(SceneComponent, { descendants: false }) private scenes: QueryList<SceneComponent>;
+  @ContentChildren(CameraComponent, { descendants: true }) private cameras: QueryList<CameraComponent>;
+  @ContentChildren(ListenerComponent, { descendants: true }) private listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: true }) private audio: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) private controller: QueryList<ControllerComponent>;
+	@ContentChildren(LookatComponent, { descendants: false }) private lookat: QueryList<LookatComponent>;
 
-  @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
-  @ContentChildren(CanvasComponent) canvas2d: QueryList<CanvasComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
+  @ContentChildren(CanvasComponent) private canvas2d: QueryList<CanvasComponent>;
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @ViewChild('debug') debug: ElementRef;
-  @ViewChild('renderer') _renderer: ElementRef;
+  @ViewChild('canvas') private canvas: ElementRef;
+  @ViewChild('debug') private debug: ElementRef;
+  @ViewChild('renderer') private _renderer: ElementRef;
 
   private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
@@ -122,11 +122,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
   }
 
-  getClearColor(def: string | number): THREE.Color {
+  private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
   }
 
-  getClearAlpha(def: number): number {
+  private getClearAlpha(def?: number): number {
     return ThreeUtil.getTypeSafe(this.clearAlpha, def);
   }
 

@@ -17,8 +17,10 @@ var MaterialComponent = /** @class */ (function () {
     function MaterialComponent(localStorageService) {
         this.localStorageService = localStorageService;
         this.type = "lambert";
-        this.refer = null;
+        this.name = null;
+        this.visible = null;
         this.materialType = "material";
+        this.refer = null;
         this.storageName = null;
         this.color = null;
         this.opacity = null;
@@ -38,7 +40,6 @@ var MaterialComponent = /** @class */ (function () {
         this.depthTest = null;
         this.depthWrite = null;
         this.fog = null;
-        this.name = null;
         this.polygonOffset = null;
         this.polygonOffsetFactor = null;
         this.polygonOffsetUnits = null;
@@ -50,7 +51,6 @@ var MaterialComponent = /** @class */ (function () {
         this.shadowSide = null;
         this.toneMapped = null;
         this.vertexColors = null;
-        this.visible = null;
         this.stencilWrite = null;
         this.stencilFunc = null;
         this.stencilRef = null;
@@ -1223,10 +1223,16 @@ var MaterialComponent = /** @class */ (function () {
     ], MaterialComponent.prototype, "type");
     __decorate([
         core_1.Input()
-    ], MaterialComponent.prototype, "refer");
+    ], MaterialComponent.prototype, "name");
+    __decorate([
+        core_1.Input()
+    ], MaterialComponent.prototype, "visible");
     __decorate([
         core_1.Input()
     ], MaterialComponent.prototype, "materialType");
+    __decorate([
+        core_1.Input()
+    ], MaterialComponent.prototype, "refer");
     __decorate([
         core_1.Input()
     ], MaterialComponent.prototype, "storageName");
@@ -1286,9 +1292,6 @@ var MaterialComponent = /** @class */ (function () {
     ], MaterialComponent.prototype, "fog");
     __decorate([
         core_1.Input()
-    ], MaterialComponent.prototype, "name");
-    __decorate([
-        core_1.Input()
     ], MaterialComponent.prototype, "polygonOffset");
     __decorate([
         core_1.Input()
@@ -1320,9 +1323,6 @@ var MaterialComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], MaterialComponent.prototype, "vertexColors");
-    __decorate([
-        core_1.Input()
-    ], MaterialComponent.prototype, "visible");
     __decorate([
         core_1.Input()
     ], MaterialComponent.prototype, "stencilWrite");

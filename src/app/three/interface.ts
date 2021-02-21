@@ -246,7 +246,7 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
       this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
       const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
       if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)){
-        this.controls.meshShape.visible = this.mesh.visible;
+        this.controls.meshShape.visible = this.mesh.getMesh().visible;
         const helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
         const helper = this.mesh.helper;
         if (ThreeUtil.isNotNull(helper)) {

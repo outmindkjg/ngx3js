@@ -20,6 +20,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.MeshComponent = void 0;
+var light_component_1 = require("./../light/light.component");
 var helper_component_1 = require("./../helper/helper.component");
 var camera_component_1 = require("./../camera/camera.component");
 var core_1 = require("@angular/core");
@@ -66,7 +67,6 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.color = null;
         _this.skyColor = null;
         _this.groundColor = null;
-        _this.onlyShadow = null;
         _this.intensity = null;
         _this.distance = null;
         _this.angle = null;
@@ -74,9 +74,7 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.decay = null;
         _this.width = null;
         _this.height = null;
-        _this.exponent = null;
         _this.count = null;
-        _this.shadowCameraVisible = false;
         _this.shadowCameraNear = null;
         _this.shadowMapSizeWidth = null;
         _this.shadowMapSizeHeight = null;
@@ -89,8 +87,6 @@ var MeshComponent = /** @class */ (function (_super) {
         _this.target = null;
         _this.size = null;
         _this.helperVisible = null;
-        _this.helperTarget = null;
-        _this.helperColor = null;
         _this.radius = null;
         _this.radials = null;
         _this.circles = null;
@@ -128,20 +124,8 @@ var MeshComponent = /** @class */ (function (_super) {
     MeshComponent.prototype.getSkySunPosition = function () {
         return new THREE.Euler(interface_1.ThreeUtil.getAngleSafe(this.skyboxSunX, 0), interface_1.ThreeUtil.getAngleSafe(this.skyboxSunY, 0), interface_1.ThreeUtil.getAngleSafe(this.skyboxSunZ, 0));
     };
-    MeshComponent.prototype.getIntensity = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.intensity, def);
-    };
     MeshComponent.prototype.getDistance = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.distance, def);
-    };
-    MeshComponent.prototype.getAngle = function (def) {
-        return interface_1.ThreeUtil.getAngleSafe(this.angle, def);
-    };
-    MeshComponent.prototype.getPenumbra = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.penumbra, def);
-    };
-    MeshComponent.prototype.getDecay = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.decay, def);
     };
     MeshComponent.prototype.getWidth = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.width, def);
@@ -161,79 +145,11 @@ var MeshComponent = /** @class */ (function (_super) {
     MeshComponent.prototype.getGroundColor = function (def) {
         return interface_1.ThreeUtil.getColorSafe(this.groundColor, def);
     };
-    MeshComponent.prototype.getShadowMapSizeWidth = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowMapSizeWidth, def);
-    };
-    MeshComponent.prototype.getShadowMapSizeHeight = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, def);
-    };
-    MeshComponent.prototype.getShadowCameraNear = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraNear, def);
-    };
-    MeshComponent.prototype.getShadowCameraFar = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraFar, def);
-    };
-    MeshComponent.prototype.getShadowCameraFov = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraFov, def);
-    };
-    MeshComponent.prototype.getShadowCameraLeft = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraLeft, def);
-    };
-    MeshComponent.prototype.getShadowCameraRight = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraRight, def);
-    };
-    MeshComponent.prototype.getShadowCameraTop = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraTop, def);
-    };
-    MeshComponent.prototype.getShadowCameraBottom = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
-    };
-    MeshComponent.prototype.getTarget = function (def) {
-        var target = interface_1.ThreeUtil.getTypeSafe(this.target, def);
-        if (target !== null && target !== undefined) {
-            if (target.getObject3D) {
-                return target.getObject3D();
-            }
-        }
-        return null;
-    };
-    MeshComponent.prototype.getHelperTarget = function (target) {
-        if (this.helperTarget !== null) {
-            return this.helperTarget.getMesh();
-        }
-        else {
-            return target;
-        }
-    };
     MeshComponent.prototype.getHelperVisible = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.helperVisible, def);
     };
     MeshComponent.prototype.getSize = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.size, def);
-    };
-    MeshComponent.prototype.getHelperColor = function (def) {
-        return interface_1.ThreeUtil.getColorSafe(this.helperColor, def);
-    };
-    MeshComponent.prototype.getRadius = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.radius, def);
-    };
-    MeshComponent.prototype.getRadials = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.radials, def);
-    };
-    MeshComponent.prototype.getCircles = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.circles, def);
-    };
-    MeshComponent.prototype.getDivisions = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.divisions, def);
-    };
-    MeshComponent.prototype.getColor1 = function (def) {
-        return interface_1.ThreeUtil.getColorSafe(this.color1, def);
-    };
-    MeshComponent.prototype.getColor2 = function (def) {
-        return interface_1.ThreeUtil.getColorSafe(this.color2, def);
-    };
-    MeshComponent.prototype.getHelperOpacity = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.helperOpacity, def);
     };
     MeshComponent.prototype.ngOnChanges = function (changes) {
         var _this = this;
@@ -303,6 +219,7 @@ var MeshComponent = /** @class */ (function (_super) {
                     'meshes',
                     'cameras',
                     'helpers',
+                    'lights',
                     'geometry',
                     'material',
                     'svg',
@@ -320,18 +237,6 @@ var MeshComponent = /** @class */ (function (_super) {
     };
     MeshComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this.position.changes.subscribe(function () {
-            _this.synkObject3D(['position']);
-        });
-        this.rotation.changes.subscribe(function () {
-            _this.synkObject3D(['rotation']);
-        });
-        this.scale.changes.subscribe(function () {
-            _this.synkObject3D(['scale']);
-        });
-        this.lookat.changes.subscribe(function () {
-            _this.synkObject3D(['lookat']);
-        });
         this.meshes.changes.subscribe(function (e) {
             _this.synkObject3D(['meshes']);
         });
@@ -340,6 +245,9 @@ var MeshComponent = /** @class */ (function (_super) {
         });
         this.helpers.changes.subscribe(function (e) {
             _this.synkObject3D(['helpers']);
+        });
+        this.lights.changes.subscribe(function (e) {
+            _this.synkObject3D(['lights']);
         });
         this.rigidbody.changes.subscribe(function (e) {
             _this.synkObject3D(['rigidbody']);
@@ -408,6 +316,11 @@ var MeshComponent = /** @class */ (function (_super) {
                     case 'helpers':
                         _this.helpers.forEach(function (helper) {
                             helper.setParent(_this.mesh);
+                        });
+                        break;
+                    case 'lights':
+                        _this.lights.forEach(function (light) {
+                            light.setParent(_this.mesh);
                         });
                         break;
                     case 'rigidbody':
@@ -603,31 +516,34 @@ var MeshComponent = /** @class */ (function (_super) {
                     basemesh_1.add(cssObject);
                     break;
                 case 'light':
-                    switch (this.lightType.toLowerCase()) {
-                        case 'directional':
-                            object3d = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
-                            object3d.castShadow = this.castShadow;
-                            break;
-                        case 'hemisphere':
-                            object3d = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
-                            break;
-                        case 'point':
-                            object3d = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
-                            object3d.castShadow = this.castShadow;
-                            break;
-                        case 'area':
-                        case 'rectarea':
-                            object3d = new THREE.RectAreaLight(this.getColor(0xffffff), this.getIntensity(1), this.getWidth(10), this.getHeight(10));
-                            break;
-                        case 'spot':
-                            object3d = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getAngle(), this.getPenumbra(), this.getDecay());
-                            object3d.castShadow = this.castShadow;
-                            break;
-                        case 'ambient':
-                        default:
-                            object3d = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
-                            break;
-                    }
+                    var light = new light_component_1.LightComponent();
+                    light.setLightParams({
+                        name: this.name,
+                        visible: this.visible,
+                        type: this.lightType,
+                        color: this.color,
+                        skyColor: this.skyColor,
+                        groundColor: this.groundColor,
+                        intensity: this.intensity,
+                        distance: this.distance,
+                        angle: this.angle,
+                        penumbra: this.penumbra,
+                        decay: this.decay,
+                        width: this.width,
+                        height: this.height,
+                        castShadow: this.castShadow,
+                        shadowCameraNear: this.shadowCameraNear,
+                        shadowMapSizeWidth: this.shadowMapSizeWidth,
+                        shadowMapSizeHeight: this.shadowMapSizeHeight,
+                        shadowCameraFar: this.shadowCameraFar,
+                        shadowCameraFov: this.shadowCameraFov,
+                        shadowCameraLeft: this.shadowCameraLeft,
+                        shadowCameraRight: this.shadowCameraRight,
+                        shadowCameraTop: this.shadowCameraTop,
+                        shadowCameraBottom: this.shadowCameraBottom,
+                        target: this.target
+                    });
+                    object3d = light.getLight();
                     break;
                 case 'lensflare':
                     var lensflare_2 = new Lensflare_1.Lensflare();
@@ -679,7 +595,7 @@ var MeshComponent = /** @class */ (function (_super) {
                                         }
                                     });
                                 }
-                                _this.object3d.add(loadedMesh);
+                                _this.mesh.add(loadedMesh);
                                 if (_this.castShadow) {
                                     loadedMesh.castShadow = _this.castShadow;
                                     loadedMesh.receiveShadow = _this.receiveShadow;
@@ -695,14 +611,14 @@ var MeshComponent = /** @class */ (function (_super) {
                                     geometry['animations'].length > 0) {
                                     var morphAnim = new MorphAnimMesh_1.MorphAnimMesh(geometry, _this.getMaterials()[0]);
                                     loadedMesh = morphAnim;
-                                    _this.object3d.add(loadedMesh);
+                                    _this.mesh.add(loadedMesh);
                                     if (geometry['animations'] !== null) {
                                         clips = geometry['animations'];
                                     }
                                 }
                                 else {
                                     loadedMesh = new THREE.Mesh(geometry, _this.getMaterials()[0]);
-                                    _this.object3d.add(loadedMesh);
+                                    _this.mesh.add(loadedMesh);
                                 }
                             }
                             if (_this.meshes) {
@@ -768,35 +684,6 @@ var MeshComponent = /** @class */ (function (_super) {
                     mesh.receiveShadow = this.receiveShadow;
                 }
             }
-            else if (this.object3d instanceof THREE.Light) {
-                if (this.object3d instanceof THREE.SpotLight ||
-                    this.object3d instanceof THREE.DirectionalLight) {
-                    var target = this.getTarget(null);
-                    if (target != null) {
-                        this.object3d.target = target;
-                    }
-                }
-                if (this.object3d.shadow) {
-                    this.object3d.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
-                    this.object3d.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
-                    if (this.object3d.shadow.camera) {
-                        if (this.object3d.shadow.camera instanceof THREE.PerspectiveCamera) {
-                            this.object3d.shadow.camera.near = this.getShadowCameraNear(0.1);
-                            this.object3d.shadow.camera.far = this.getShadowCameraFar(2000);
-                            this.object3d.shadow.camera.fov = this.getShadowCameraFov(50);
-                        }
-                        else if (this.object3d.shadow.camera instanceof THREE.OrthographicCamera) {
-                            this.object3d.shadow.camera.near = this.getShadowCameraNear(0.1);
-                            this.object3d.shadow.camera.far = this.getShadowCameraFar(2000);
-                            this.object3d.shadow.camera.left = this.getShadowCameraLeft(-1);
-                            this.object3d.shadow.camera.right = this.getShadowCameraRight(1);
-                            this.object3d.shadow.camera.top = this.getShadowCameraTop(1);
-                            this.object3d.shadow.camera.bottom = this.getShadowCameraBottom(-1);
-                        }
-                    }
-                    this.object3d.shadow.updateMatrices(this.object3d);
-                }
-            }
             if (interface_1.ThreeUtil.isNull(this.object3d.userData.component)) {
                 this.object3d.userData.component = this;
             }
@@ -853,7 +740,8 @@ var MeshComponent = /** @class */ (function (_super) {
                     originZ: this.originZ,
                     length: this.length,
                     headLength: this.headLength,
-                    headWidth: this.headWidth
+                    headWidth: this.headWidth,
+                    parent: this.mesh
                 });
                 basemesh = helper.getHelper();
             }
@@ -933,9 +821,6 @@ var MeshComponent = /** @class */ (function (_super) {
     ], MeshComponent.prototype, "groundColor");
     __decorate([
         core_1.Input()
-    ], MeshComponent.prototype, "onlyShadow");
-    __decorate([
-        core_1.Input()
     ], MeshComponent.prototype, "intensity");
     __decorate([
         core_1.Input()
@@ -957,13 +842,7 @@ var MeshComponent = /** @class */ (function (_super) {
     ], MeshComponent.prototype, "height");
     __decorate([
         core_1.Input()
-    ], MeshComponent.prototype, "exponent");
-    __decorate([
-        core_1.Input()
     ], MeshComponent.prototype, "count");
-    __decorate([
-        core_1.Input()
-    ], MeshComponent.prototype, "shadowCameraVisible");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "shadowCameraNear");
@@ -1000,12 +879,6 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "helperVisible");
-    __decorate([
-        core_1.Input()
-    ], MeshComponent.prototype, "helperTarget");
-    __decorate([
-        core_1.Input()
-    ], MeshComponent.prototype, "helperColor");
     __decorate([
         core_1.Input()
     ], MeshComponent.prototype, "radius");
@@ -1093,6 +966,9 @@ var MeshComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(helper_component_1.HelperComponent, { descendants: false })
     ], MeshComponent.prototype, "helpers");
+    __decorate([
+        core_1.ContentChildren(light_component_1.LightComponent, { descendants: false })
+    ], MeshComponent.prototype, "lights");
     MeshComponent = MeshComponent_1 = __decorate([
         core_1.Component({
             selector: 'three-mesh',

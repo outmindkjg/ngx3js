@@ -5,22 +5,22 @@
     </three-camera>
     <three-scene #scene>
         <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" [shadowCameraVisible]="true">
+        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [refer]="baseGeo"></three-lookat>
         </three-mesh>
         <three-mesh #baseGeo>
             <three-position [x]="0" [y]="3" [z]="2"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
-            <three-geometry 
-                [type]="controls.selectedMesh" 
-                [radius]="14" 
+            <three-geometry
+                [type]="controls.selectedMesh"
+                [radius]="14"
                 [widthSegments]="20"
                 [heightSegments]="20"
                 [depthSegments]="20"
-                [width]="15" 
-                [height]="15" 
-                [depth]="15" 
+                [width]="15"
+                [height]="15"
+                [depth]="15"
             ></three-geometry>
             <three-material type="MeshLambert"
                 [color]="controls.color"

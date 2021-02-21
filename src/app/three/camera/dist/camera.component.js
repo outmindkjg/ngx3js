@@ -36,7 +36,6 @@ var CameraComponent = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.localStorageService = localStorageService;
         _this.type = 'perspective';
-        _this.name = null;
         _this.fov = 45;
         _this.near = null;
         _this.far = null;
@@ -359,9 +358,6 @@ var CameraComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], CameraComponent.prototype, "type");
-    __decorate([
-        core_1.Input()
-    ], CameraComponent.prototype, "name");
     __decorate([
         core_1.Input()
     ], CameraComponent.prototype, "fov");

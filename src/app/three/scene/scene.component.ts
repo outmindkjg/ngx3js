@@ -30,8 +30,8 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 export class SceneComponent
   extends AbstractObject3dComponent
   implements OnInit {
-  @Input() storageName: string = null;
-  @Input() background: string | number = null;
+  @Input() private storageName:string = null;
+  @Input() private background:string | number = null;
 
   @ContentChildren(MeshComponent, { descendants: false })
   meshes: QueryList<MeshComponent>;
@@ -102,18 +102,6 @@ export class SceneComponent
   }
 
   ngAfterContentInit(): void {
-    this.position.changes.subscribe(() => {
-      this.synkObject3D(['position']);
-    });
-    this.rotation.changes.subscribe(() => {
-      this.synkObject3D(['rotation']);
-    });
-    this.scale.changes.subscribe(() => {
-      this.synkObject3D(['scale']);
-    });
-    this.lookat.changes.subscribe(() => {
-      this.synkObject3D(['lookat']);
-    });
     this.meshes.changes.subscribe((e) => {
       this.synkObject3D(['mesh']);
     });

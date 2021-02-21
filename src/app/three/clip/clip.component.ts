@@ -9,18 +9,18 @@ import * as THREE from 'three';
 })
 export class ClipComponent implements OnInit {
 
-  @Input() name : string = "";
-  @Input() index : number = -1;
-  @Input() blendMode : string = "";
-  @Input() additive : boolean = false;
-  @Input() subclip : boolean = false;
-  @Input() startFrame: number = 2;
-  @Input() endFrame: number = 3;
-  @Input() fps: number = null;
-  @Input() weight: number = 1;
-  @Input() timeScale: number = 1;
-  @Input() clampWhenFinished : boolean = false;
-  @Input() loop : string = null;
+  @Input() public name:string = "";
+  @Input() private index:number = -1;
+  @Input() private blendMode:string = "";
+  @Input() private additive:boolean = false;
+  @Input() private subclip:boolean = false;
+  @Input() private startFrame:number = 2;
+  @Input() private endFrame:number = 3;
+  @Input() private fps:number = null;
+  @Input() private weight:number = 1;
+  @Input() private timeScale:number = 1;
+  @Input() private clampWhenFinished:boolean = false;
+  @Input() private loop:string = null;
 
   private getBlendMode(def? : string) : THREE.AnimationBlendMode {
     const blendMode = ThreeUtil.getTypeSafe(this.blendMode, def, '');

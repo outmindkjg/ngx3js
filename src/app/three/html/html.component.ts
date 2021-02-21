@@ -12,20 +12,20 @@ import { AbstractTweenComponent } from '../tween.abstract';
 })
 export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
-  @Input() type: string = 'div';
-  @Input() childType: string = 'innerHTML';
-  @Input() src: string = null;
-  @Input() style: (string | CssStyle) = null;
-  @Input() list: (string | CssStyle)[] = null;
-  @Input() table: (string | CssStyle)[][] = null;
-  @Input() tableHead: (string | CssStyle)[] = null;
-  @Input() tableFoot: (string | CssStyle)[] = null;
-  @Input() dlList: {
+  @Input() public type:string = 'div';
+  @Input() private childType:string = 'innerHTML';
+  @Input() private src:string = null;
+  @Input() private style:(string | CssStyle) = null;
+  @Input() private list:(string | CssStyle)[] = null;
+  @Input() private table:(string | CssStyle)[][] = null;
+  @Input() private tableHead:(string | CssStyle)[] = null;
+  @Input() private tableFoot:(string | CssStyle)[] = null;
+  @Input() private dlList:{
     dt?: (string | CssStyle);
     dd?: (string | CssStyle);
   }[] = null;
 
-  @ContentChildren(HtmlComponent, { descendants: false }) children: QueryList<HtmlComponent>;
+  @ContentChildren(HtmlComponent, { descendants: false }) private children: QueryList<HtmlComponent>;
 
   constructor(private ele: ElementRef) {
     super();

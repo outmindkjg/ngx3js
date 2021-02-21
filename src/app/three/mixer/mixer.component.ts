@@ -13,27 +13,27 @@ import * as THREE from 'three';
 })
 export class MixerComponent implements OnInit {
 
-  @Input() type : string = "mixer";
-  @Input() action : string = "";
-  @Input() fps: number = null;
-  @Input() duration : number = 0.5;
-  @Input() timeScale : number = 1;
-  @Input() debug: boolean = false;
+  @Input() public type: string = "mixer";
+  @Input() private action: string = "";
+  @Input() private fps:number = null;
+  @Input() private duration: number = 0.5;
+  @Input() private timeScale: number = 1;
+  @Input() private debug:boolean = false;
 
-  @Input() sync: boolean = null;
-	@Input() afterglow: number = null;
-	@Input() resetPhysicsOnLoop: boolean = null;
-  @Input() physics: boolean = null;
-  @Input() warmup: number = null;
-  @Input() unitStep: number = null;
-  @Input() maxStepNum: number = null;
-  @Input() gravity: number = null;
-  @Input() delayTime: number = null;
-  @Input() animationHelper : MixerComponent = null;
+  @Input() private sync:boolean = null;
+	@Input() private afterglow:number = null;
+	@Input() private resetPhysicsOnLoop:boolean = null;
+  @Input() private physics:boolean = null;
+  @Input() private warmup:number = null;
+  @Input() private unitStep:number = null;
+  @Input() private maxStepNum:number = null;
+  @Input() private gravity:number = null;
+  @Input() private delayTime:number = null;
+  @Input() private animationHelper: MixerComponent = null;
 
-  @Output() onLoad: EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
+  @Output() private onLoad:EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
 
-  @ContentChildren(ClipComponent, { descendants: false }) clip: QueryList<ClipComponent>;
+  @ContentChildren(ClipComponent, { descendants: false }) private clip: QueryList<ClipComponent>;
 
   private getFps(def?: number) : number {
     return ThreeUtil.getTypeSafe(this.fps, def);
@@ -52,7 +52,7 @@ export class MixerComponent implements OnInit {
   }
 
   private getResetPhysicsOnLoop(def?: boolean) : boolean {
-    return ThreeUtil.getTypeSafe(this.sync, def);
+    return ThreeUtil.getTypeSafe(this.resetPhysicsOnLoop, def);
   }
 
   private getPhysics(def?: boolean) : boolean {

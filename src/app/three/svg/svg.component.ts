@@ -29,29 +29,29 @@ export interface SvgGeometry {
 export class SvgComponent implements OnInit, InterfaceSvgGeometry {
 
 
-  @Input() type: string = 'shape';
-  @Input() visible: boolean = true;
-  @Input() castShadow: boolean = true;
-  @Input() receiveShadow: boolean = false;
-  @Input() name: string = null;
-  @Input() url: string = null;
-  @Input() curveSegments: number = null;
-  @Input() depth: number = null;
-  @Input() steps: number = null;
-  @Input() bevelEnabled: boolean = null;
-  @Input() bevelThickness: number = null;
-  @Input() bevelSize: number = null;
-  @Input() bevelOffset: number = null;
-  @Input() bevelSegments: number = null;
-  @Input() closed: boolean = null;
-  @Input() isCCW: boolean = null;
-  @Input() noHoles: boolean = null;
+  @Input() public type:string = 'shape';
+  @Input() private visible:boolean = true;
+  @Input() private castShadow:boolean = true;
+  @Input() private receiveShadow:boolean = false;
+  @Input() public name:string = null;
+  @Input() private url:string = null;
+  @Input() private curveSegments:number = null;
+  @Input() private depth:number = null;
+  @Input() private steps:number = null;
+  @Input() private bevelEnabled:boolean = null;
+  @Input() private bevelThickness:number = null;
+  @Input() private bevelSize:number = null;
+  @Input() private bevelOffset:number = null;
+  @Input() private bevelSegments:number = null;
+  @Input() private closed:boolean = null;
+  @Input() private isCCW:boolean = null;
+  @Input() private noHoles:boolean = null;
 
-  @ContentChildren(MaterialComponent,{descendants: false}) materials: QueryList<MaterialComponent>;
-  @ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
-  @ContentChildren(TranslationComponent, { descendants: false }) translation: QueryList<TranslationComponent>;
+  @ContentChildren(MaterialComponent,{descendants: false}) private materials: QueryList<MaterialComponent>;
+  @ContentChildren(PositionComponent, { descendants: false }) private position: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) private rotation: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) private scale: QueryList<ScaleComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) private translation: QueryList<TranslationComponent>;
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];

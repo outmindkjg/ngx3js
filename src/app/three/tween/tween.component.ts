@@ -8,19 +8,19 @@ import * as THREE from 'three';
   styleUrls: ['./tween.component.scss'],
 })
 export class TweenComponent implements OnInit {
-  @Input() to: any = null;
-  @Input() duration: number = null;
-  @Input() easing: string = null;
-  @Input() template: string = null;
-  @Input() repeat: number = null;
-  @Input() yoyo: boolean = null;
-  @Input() overshoot: number = null;
-  @Input() amplitude: number = null;
-  @Input() period: number = null;
-  @Input() linearRatio: number = null;
-  @Input() power: number = null;
-  @Input() yoyoMode: boolean = null;
-  @Input() steps: number = null;
+  @Input() private to:any = null;
+  @Input() private duration:number = null;
+  @Input() private easing:string = null;
+  @Input() private template:string = null;
+  @Input() private repeat:number = null;
+  @Input() private yoyo:boolean = null;
+  @Input() private overshoot:number = null;
+  @Input() private amplitude:number = null;
+  @Input() private period:number = null;
+  @Input() private linearRatio:number = null;
+  @Input() private power:number = null;
+  @Input() private yoyoMode:boolean = null;
+  @Input() private steps:number = null;
 
   private isNull(value: any): boolean {
     return value === null || value === undefined;

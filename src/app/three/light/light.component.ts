@@ -17,10 +17,8 @@ import { MixerComponent } from './../mixer/mixer.component';
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
 })
-export class LightComponent
-  extends AbstractObject3dComponent
-  implements OnInit {
-  @Input() private type: string = 'spot';
+export class LightComponent extends AbstractObject3dComponent implements OnInit {
+  @Input() public type: string = 'spot';
   @Input() private color: string | number = null;
   @Input() private skyColor: string | number = null;
   @Input() private groundColor: string | number = null;
@@ -43,10 +41,8 @@ export class LightComponent
   @Input() private shadowCameraBottom: number = null;
   @Input() private target: any = null;
 
-  @Output()
-  private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
-  @ContentChildren(MixerComponent, { descendants: false })
-  mixer: QueryList<MixerComponent>;
+  @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
@@ -140,6 +136,14 @@ export class LightComponent
 
   ngOnInit(): void {}
 
+  setLightParams(params : { [key : string] : any } ) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (this[key] !== undefined) {
+        this[key] = value;
+      }
+    });
+  }
+
   setParent(parent: THREE.Object3D, isRestore: boolean = false) : boolean {
     if (super.setParent(parent)) {
       this.resetLight(true);
@@ -165,7 +169,7 @@ export class LightComponent
   }
 
   private light: THREE.Light = null;
-  private getLight(): THREE.Light {
+  getLight(): THREE.Light {
     if (this.light === null) {
       let basemesh: THREE.Light = null;
       switch (this.type.toLowerCase()) {

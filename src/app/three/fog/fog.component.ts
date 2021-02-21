@@ -9,11 +9,11 @@ import * as THREE from 'three';
 })
 export class FogComponent implements OnInit {
 
-  @Input() type : string = "fog";
-  @Input() color : string | number = null;
-  @Input() density : number = 0.00025;
-  @Input() near : number = 1;
-  @Input() far : number = 1000;
+  @Input() public type:string = "fog";
+  @Input() private color:string | number = null;
+  @Input() private density:number = 0.00025;
+  @Input() private near:number = 1;
+  @Input() private far:number = 1000;
 
 
   constructor() { }
@@ -21,7 +21,7 @@ export class FogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getColor(def? : number | string) : THREE.Color{
+  private getColor(def? : number | string) : THREE.Color{
     return ThreeUtil.getColorSafe(this.color, def);
   }
 

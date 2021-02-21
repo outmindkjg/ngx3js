@@ -13,105 +13,105 @@ import { TextureComponent } from '../texture/texture.component';
 })
 export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometry {
 
-  @Input() type: string = "lambert";
-  @Input() refer : any = null;
-  @Input() materialType: string = "material";
-  @Input() storageName: string = null;
-  @Input() color: string | number = null;
-  @Input() opacity: number = null;
-  @Input() alphaTest: number = null;
-  @Input() blendDst: string = null;
-  @Input() blendDstAlpha: number = null;
-  @Input() blendEquation: string = null;
-  @Input() blendEquationAlpha: number = null;
-  @Input() blending: string = null;
-  @Input() blendSrc: string = null;
-  @Input() blendSrcAlpha: number = null;
-  @Input() clipIntersection: boolean = null;
-  @Input() clipShadows: boolean = null;
-  @Input() colorWrite: boolean = null;
-  @Input() defines: any = null;
-  @Input() depthFunc: string = null;
-  @Input() depthTest: boolean = null;
-  @Input() depthWrite: boolean = null;
-  @Input() fog: boolean = null;
-  @Input() name: string = null;
-  @Input() polygonOffset: boolean = null;
-  @Input() polygonOffsetFactor: number = null;
-  @Input() polygonOffsetUnits: number = null;
-  @Input() precision: string = null;
-  @Input() premultipliedAlpha: boolean = null;
-  @Input() dithering: boolean = null;
-  @Input() flatShading: boolean = null;
-  @Input() side: string = null;
-  @Input() shadowSide: string = null;
-  @Input() toneMapped: boolean = null;
-  @Input() vertexColors: boolean = null;
-  @Input() visible: boolean = null;
-  @Input() stencilWrite: boolean = null;
-  @Input() stencilFunc: string = null;
-  @Input() stencilRef: number = null;
-  @Input() stencilWriteMask: number = null;
-  @Input() stencilFuncMask: number = null;
-  @Input() stencilFail: string = null;
-  @Input() stencilZFail: string = null;
-  @Input() stencilZPass: string = null;
-  @Input() userData: any = null;
-  @Input() uniforms: { [uniform: string]: THREE.IUniform } = null;
-  @Input() vertexShader: string = null;
-  @Input() fragmentShader: string = null;
-  @Input() lights: boolean = null;
-  @Input() clipping: boolean = null;
-  @Input() transparent: boolean = false;
-  @Input() wireframe: boolean = false;
-  @Input() shading: string = null;
-  @Input() specular: number | string = null;
-  @Input() shininess: number = null;
-  @Input() lightMapIntensity: number = null;
-  @Input() aoMapIntensity: number = null;
-  @Input() emissive: string | number = null;
-  @Input() emissiveIntensity: number = null;
-  @Input() bumpScale: number = null;
-  @Input() normalMapType: string = null;
-  @Input() normalScaleX: number = null;
-  @Input() normalScaleY: number = null;
-  @Input() displacementScale: number = null;
-  @Input() displacementBias: number = null;
-  @Input() combine: string = null;
-  @Input() reflectivity: number = null;
-  @Input() refractionRatio: number = null;
-  @Input() wireframeLinewidth: number = null;
-  @Input() wireframeLinecap: string = null;
-  @Input() wireframeLinejoin: string = null;
-  @Input() skinning: boolean = null;
-  @Input() morphTargets: boolean = null;
-  @Input() morphNormals: boolean = null;
-  @Input() linewidth: number = null;
-  @Input() linecap: string = null;
-  @Input() linejoin: string = null;
-  @Input() scale: number = null;
-  @Input() dashSize: number = null;
-  @Input() gapSize: number = null;
-  @Input() depthPacking: string = null;
-  @Input() farDistance: number = null;
-  @Input() nearDistance: number = null;
-  @Input() referencePositionX: number = null;
-  @Input() referencePositionY: number = null;
-  @Input() referencePositionZ: number = null;
-  @Input() clearcoat: number = null;
-  @Input() clearcoatRoughness: number = null;
-  @Input() clearcoatNormalScaleX: number = null;
-  @Input() clearcoatNormalScaleY: number = null;
-  @Input() ior: number = null;
-  @Input() sheen: string = null;
-  @Input() transmission: number = null;
-  @Input() roughness: number = null;
-  @Input() metalness: number = null;
-  @Input() envMapIntensity: number = null;
-  @Input() vertexTangents: boolean = null;
-  @Input() rotation: number = null;
-  @Input() size: number = null;
-  @Input() sizeAttenuation: boolean = null;
+  @Input() public type:string = "lambert";
+  @Input() public name:string = null;
+  @Input() public visible:boolean = null;
+  @Input() public materialType:string = "material";
+  @Input() private refer:any = null;
+  @Input() private storageName:string = null;
+  @Input() private color:string | number = null;
+  @Input() private opacity:number = null;
+  @Input() private alphaTest:number = null;
+  @Input() private blendDst:string = null;
+  @Input() private blendDstAlpha:number = null;
+  @Input() private blendEquation:string = null;
+  @Input() private blendEquationAlpha:number = null;
+  @Input() private blending:string = null;
+  @Input() private blendSrc:string = null;
+  @Input() private blendSrcAlpha:number = null;
+  @Input() private clipIntersection:boolean = null;
+  @Input() private clipShadows:boolean = null;
+  @Input() private colorWrite:boolean = null;
+  @Input() private defines:any = null;
+  @Input() private depthFunc:string = null;
+  @Input() private depthTest:boolean = null;
+  @Input() private depthWrite:boolean = null;
+  @Input() private fog:boolean = null;
+  @Input() private polygonOffset:boolean = null;
+  @Input() private polygonOffsetFactor:number = null;
+  @Input() private polygonOffsetUnits:number = null;
+  @Input() private precision:string = null;
+  @Input() private premultipliedAlpha:boolean = null;
+  @Input() private dithering:boolean = null;
+  @Input() private flatShading:boolean = null;
+  @Input() private side:string = null;
+  @Input() private shadowSide:string = null;
+  @Input() private toneMapped:boolean = null;
+  @Input() private vertexColors:boolean = null;
+  @Input() private stencilWrite:boolean = null;
+  @Input() private stencilFunc:string = null;
+  @Input() private stencilRef:number = null;
+  @Input() private stencilWriteMask:number = null;
+  @Input() private stencilFuncMask:number = null;
+  @Input() private stencilFail:string = null;
+  @Input() private stencilZFail:string = null;
+  @Input() private stencilZPass:string = null;
+  @Input() private userData:any = null;
+  @Input() private uniforms:{ [uniform: string]: THREE.IUniform } = null;
+  @Input() private vertexShader:string = null;
+  @Input() private fragmentShader:string = null;
+  @Input() private lights:boolean = null;
+  @Input() private clipping:boolean = null;
+  @Input() private transparent:boolean = false;
+  @Input() private wireframe:boolean = false;
+  @Input() private shading:string = null;
+  @Input() private specular:number | string = null;
+  @Input() private shininess:number = null;
+  @Input() private lightMapIntensity:number = null;
+  @Input() private aoMapIntensity:number = null;
+  @Input() private emissive:string | number = null;
+  @Input() private emissiveIntensity:number = null;
+  @Input() private bumpScale:number = null;
+  @Input() private normalMapType:string = null;
+  @Input() private normalScaleX:number = null;
+  @Input() private normalScaleY:number = null;
+  @Input() private displacementScale:number = null;
+  @Input() private displacementBias:number = null;
+  @Input() private combine:string = null;
+  @Input() private reflectivity:number = null;
+  @Input() private refractionRatio:number = null;
+  @Input() private wireframeLinewidth:number = null;
+  @Input() private wireframeLinecap:string = null;
+  @Input() private wireframeLinejoin:string = null;
+  @Input() private skinning:boolean = null;
+  @Input() private morphTargets:boolean = null;
+  @Input() private morphNormals:boolean = null;
+  @Input() private linewidth:number = null;
+  @Input() private linecap:string = null;
+  @Input() private linejoin:string = null;
+  @Input() private scale:number = null;
+  @Input() private dashSize:number = null;
+  @Input() private gapSize:number = null;
+  @Input() private depthPacking:string = null;
+  @Input() private farDistance:number = null;
+  @Input() private nearDistance:number = null;
+  @Input() private referencePositionX:number = null;
+  @Input() private referencePositionY:number = null;
+  @Input() private referencePositionZ:number = null;
+  @Input() private clearcoat:number = null;
+  @Input() private clearcoatRoughness:number = null;
+  @Input() private clearcoatNormalScaleX:number = null;
+  @Input() private clearcoatNormalScaleY:number = null;
+  @Input() private ior:number = null;
+  @Input() private sheen:string = null;
+  @Input() private transmission:number = null;
+  @Input() private roughness:number = null;
+  @Input() private metalness:number = null;
+  @Input() private envMapIntensity:number = null;
+  @Input() private vertexTangents:boolean = null;
+  @Input() private rotation:number = null;
+  @Input() private size:number = null;
+  @Input() private sizeAttenuation:boolean = null;
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -119,9 +119,9 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
-  @ContentChildren(TextureComponent) textures: QueryList<TextureComponent>;
-  @ContentChildren(ShaderComponent) shaders: QueryList<ShaderComponent>;
-  @ContentChildren(PlaneComponent) clippingPlanes: QueryList<PlaneComponent>;
+  @ContentChildren(TextureComponent) private textures: QueryList<TextureComponent>;
+  @ContentChildren(ShaderComponent) private shaders: QueryList<ShaderComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -153,7 +153,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     this.resetMaterial();
   }
 
-  getColor(def?: string | number): THREE.Color {
+  private getColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
@@ -169,7 +169,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.wireframe, def);
   }
 
-  getShading(def?: string): THREE.Shading {
+  private getShading(def?: string): THREE.Shading {
     const shading = ThreeUtil.getTypeSafe(this.shading, def, '');
     switch (shading.toLowerCase()) {
       case 'smooth':

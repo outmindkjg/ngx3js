@@ -23,13 +23,13 @@ import { AbstractTweenComponent } from './tween.abstract';
 })
 export abstract class AbstractObject3dComponent extends AbstractTweenComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
 
-	@Input() visible: boolean = true;
-  @Input() name: string = "";
-	@ContentChildren(ControllerComponent, { descendants: false }) controller: QueryList<ControllerComponent>;
-	@ContentChildren(PositionComponent, { descendants: false }) position: QueryList<PositionComponent>;
-	@ContentChildren(RotationComponent, { descendants: false }) rotation: QueryList<RotationComponent>;
-	@ContentChildren(ScaleComponent, { descendants: false }) scale: QueryList<ScaleComponent>;
-	@ContentChildren(LookatComponent, { descendants: false }) lookat: QueryList<LookatComponent>;
+	@Input() public visible:boolean = true;
+  @Input() public name:string = "";
+	@ContentChildren(ControllerComponent, { descendants: false }) public controller: QueryList<ControllerComponent>;
+	@ContentChildren(PositionComponent, { descendants: false }) private position: QueryList<PositionComponent>;
+	@ContentChildren(RotationComponent, { descendants: false }) private rotation: QueryList<RotationComponent>;
+	@ContentChildren(ScaleComponent, { descendants: false }) private scale: QueryList<ScaleComponent>;
+	@ContentChildren(LookatComponent, { descendants: false }) private lookat: QueryList<LookatComponent>;
 
 	ngOnInit(): void {
 		super.ngOnInit();

@@ -13,12 +13,12 @@ import { ControllerComponent } from '../controller/controller.component';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements OnInit {
-  @Input() name: string = null;
-  @ContentChildren(VisualComponent) children: QueryList<VisualComponent>;
-  @ContentChildren(HtmlComponent) html: QueryList<HtmlComponent>;
-  @ContentChildren(TransformComponent) transform: QueryList<TransformComponent>;
-  @ContentChildren(BackgroundComponent) background: QueryList<BackgroundComponent>;
-	@ContentChildren(ControllerComponent, { descendants: true }) controller: QueryList<ControllerComponent>;
+  @Input() public name:string = null;
+  @ContentChildren(VisualComponent) private children: QueryList<VisualComponent>;
+  @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
+  @ContentChildren(TransformComponent) private transform: QueryList<TransformComponent>;
+  @ContentChildren(BackgroundComponent) private background: QueryList<BackgroundComponent>;
+	@ContentChildren(ControllerComponent, { descendants: true }) private controller: QueryList<ControllerComponent>;
 
   private collection : HtmlCollection = {
     html : null,

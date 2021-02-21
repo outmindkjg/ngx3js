@@ -9,8 +9,8 @@ import { ThreeUtil } from '../interface';
 })
 export class ListenerComponent implements OnInit {
 
-  @Input() volume : number = 1 ;
-  @Input() visible : boolean = true ;
+  @Input() private volume:number = 1 ;
+  @Input() public visible:boolean = true ;
 
   constructor() { }
 

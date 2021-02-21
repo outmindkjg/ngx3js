@@ -12,13 +12,13 @@ import { AbstractTweenComponent } from '../tween.abstract';
 })
 export class PositionComponent extends AbstractTweenComponent implements OnInit {
 
-  @Input() visible: boolean = true;
-  @Input() refer: any = null;
-  @Input() referRef: boolean = true;
-  @Input() x: number = null;
-  @Input() y: number = null;
-  @Input() z: number = null;
-  @Input() multiply: number = null;
+  @Input() private visible:boolean = true;
+  @Input() private refer:any = null;
+  @Input() private referRef:boolean = true;
+  @Input() private x:number = null;
+  @Input() private y:number = null;
+  @Input() private z:number = null;
+  @Input() private multiply:number = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer) {

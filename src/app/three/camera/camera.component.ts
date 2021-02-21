@@ -31,21 +31,20 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
-  @Input() type: 'perspective' | 'orthographic' = 'perspective';
-  @Input() name: string = null;
-  @Input() fov: number = 45;
-  @Input() near: number = null;
-  @Input() far: number = null;
-  @Input() left: number = -0.5;
-  @Input() right: number = 0.5;
-  @Input() top: number = 0.5;
-  @Input() bottom: number = -0.5;
-  @Input() autoClear: boolean = null;
-  @Input() controlType: string = 'none';
-  @Input() controlAutoRotate: boolean = null;
-  @Input() scene: any = null;
-  @Input() scenes: any[] = null;
-  @Input() storageName: string = null;
+  @Input() public type:'perspective' | 'orthographic' = 'perspective';
+  @Input() private fov:number = 45;
+  @Input() private near:number = null;
+  @Input() private far:number = null;
+  @Input() private left:number = -0.5;
+  @Input() private right:number = 0.5;
+  @Input() private top:number = 0.5;
+  @Input() private bottom:number = -0.5;
+  @Input() private autoClear:boolean = null;
+  @Input() public controlType:string = 'none';
+  @Input() public controlAutoRotate:boolean = null;
+  @Input() private scene:any = null;
+  @Input() private scenes:any[] = null;
+  @Input() private storageName:string = null;
 
   @ContentChildren(PassComponent, { descendants: false })
   pass: QueryList<PassComponent>;
@@ -58,15 +57,15 @@ export class CameraComponent
   @ContentChildren(MixerComponent, { descendants: false })
   mixer: QueryList<MixerComponent>;
 
-  getFov(def?: number): number {
+  private getFov(def?: number): number {
     return this.fov === null ? def : this.fov;
   }
 
-  getNear(def?: number): number {
+  private getNear(def?: number): number {
     return this.near === null ? def : this.near;
   }
 
-  getFar(def?: number): number {
+  private getFar(def?: number): number {
     return this.far === null ? def : this.far;
   }
 

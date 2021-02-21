@@ -12,7 +12,7 @@ import * as THREE from 'three';
 })
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
 
-  @Input() private type: string = 'spot';
+  @Input() public type: string = 'spot';
   @Input() private color: string | number = null;
   @Input() private target: any = null;
   @Input() private size: number = null;
@@ -161,7 +161,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           break;
         case 'box':
           basemesh = new THREE.BoxHelper(
-            this.getTarget(this.object3d),
+            this.getTarget(this.parent),
             this.getColor(0xffff00)
           );
           break;
@@ -186,10 +186,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             this.getColor2(0x888888),
           );
           basemesh.receiveShadow = true;
-          this.object3d.add(basemesh);
           break;
         case 'camera':
-          let cameraTarget = this.getTarget(this.object3d);
+          let cameraTarget = this.getTarget(this.parent);
           if (cameraTarget instanceof THREE.Light && cameraTarget.shadow.camera) {
             basemesh = new THREE.CameraHelper(cameraTarget.shadow.camera);
           } else if (cameraTarget instanceof THREE.Camera) {
@@ -202,7 +201,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'pointlight':
         case 'spotlight':
         case 'light':
-          let liightTarget = this.getTarget(this.object3d);
+          let liightTarget = this.getTarget(this.parent);
           if (liightTarget instanceof THREE.DirectionalLight) {
             basemesh = new THREE.DirectionalLightHelper(
               liightTarget,
@@ -234,9 +233,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           }
           break;
         case 'plane':
-          if (this.object3d instanceof THREE.Mesh && this.object3d.material instanceof THREE.Material) {
+          if (this.parent instanceof THREE.Mesh && this.parent.material instanceof THREE.Material) {
             basemesh = new THREE.Group();
-            const clippingPlanes: THREE.Plane[] = this.object3d.material.clippingPlanes;
+            const clippingPlanes: THREE.Plane[] = this.parent.material.clippingPlanes;
             if (clippingPlanes !== null && clippingPlanes !== undefined) {
               clippingPlanes.forEach(clippingPlane => {
                 basemesh.add(new THREE.PlaneHelper(
@@ -251,11 +250,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           }
           break;
         case 'skeleton':
-          basemesh = new THREE.SkeletonHelper(this.getTarget());
+          basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));
           break;
         case 'axes':
           basemesh = new THREE.AxesHelper(this.getSize(10));
-          this.object3d.add(basemesh);
+          this.parent.add(basemesh);
           break;
       }
       if (basemesh !== null) {

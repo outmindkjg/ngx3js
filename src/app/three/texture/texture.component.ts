@@ -10,26 +10,26 @@ import { ThreeUtil } from '../interface';
 })
 export class TextureComponent implements OnInit {
 
-  @Input() refer: any = null;
-  @Input() textureType: string = 'map';
-  @Input() image: string = null;
-  @Input() cubeImage: string[] = null;
-  @Input() program: (ctx: CanvasRenderingContext2D) => void = null;
-  @Input() mapping: string = null;
-  @Input() wrapS: string = null;
-  @Input() wrapT: string = null;
-  @Input() magFilter: string = null;
-  @Input() minFilter: string = null;
-  @Input() format: string = null;
-  @Input() type: string = null;
-  @Input() anisotropy: number = null;
-  @Input() encoding: string = null;
-  @Input() repeatX: number = null;
-  @Input() repeatY: number = null;
-  @Input() offsetX: number = null;
-  @Input() offsetY: number = null;
-  @Input() textureWidth: number = null;
-  @Input() textureHeight: number = null;
+  @Input() private refer:any = null;
+  @Input() public textureType:string = 'map';
+  @Input() private image:string = null;
+  @Input() private cubeImage:string[] = null;
+  @Input() private program:(ctx: CanvasRenderingContext2D) => void = null;
+  @Input() private mapping:string = null;
+  @Input() private wrapS:string = null;
+  @Input() private wrapT:string = null;
+  @Input() private magFilter:string = null;
+  @Input() private minFilter:string = null;
+  @Input() private format:string = null;
+  @Input() public type:string = null;
+  @Input() private anisotropy:number = null;
+  @Input() private encoding:string = null;
+  @Input() private repeatX:number = null;
+  @Input() private repeatY:number = null;
+  @Input() private offsetX:number = null;
+  @Input() private offsetY:number = null;
+  @Input() private textureWidth:number = null;
+  @Input() private textureHeight:number = null;
 
 
   constructor() { }

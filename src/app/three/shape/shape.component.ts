@@ -9,27 +9,27 @@ import { GeometriesVector3, GeometryComponent } from '../geometry/geometry.compo
 })
 export class ShapeComponent implements OnInit {
 
-  @Input() type: string = 'fromPoints';
-  @Input() points: GeometriesVector3[] = null;
-  @Input() x: number = null;
-  @Input() y: number = null;
-  @Input() aCPx: number = null;
-  @Input() aCPy: number = null;
-  @Input() aX: number = null;
-  @Input() aY: number = null;
-  @Input() aCP1x: number = null;
-  @Input() aCP1y: number = null;
-  @Input() aCP2x: number = null;
-  @Input() aCP2y: number = null;
-  @Input() aRadius: number = null;
-  @Input() aStartAngle: number = null;
-  @Input() aEndAngle: number = null;
-  @Input() aClockwise: boolean = null;
-  @Input() xRadius: number = null; n
-  @Input() yRadius: number = null;
-  @Input() aRotation: number = null;
+  @Input() public type:string = 'fromPoints';
+  @Input() private points:GeometriesVector3[] = null;
+  @Input() private x:number = null;
+  @Input() private y:number = null;
+  @Input() private aCPx:number = null;
+  @Input() private aCPy:number = null;
+  @Input() private aX:number = null;
+  @Input() private aY:number = null;
+  @Input() private aCP1x:number = null;
+  @Input() private aCP1y:number = null;
+  @Input() private aCP2x:number = null;
+  @Input() private aCP2y:number = null;
+  @Input() private aRadius:number = null;
+  @Input() private aStartAngle:number = null;
+  @Input() private aEndAngle:number = null;
+  @Input() private aClockwise:boolean = null;
+  @Input() private xRadius:number = null; n
+  @Input() private yRadius:number = null;
+  @Input() private aRotation:number = null;
 
-  @ContentChildren(ShapeComponent,{descendants: false}) holes: QueryList<ShapeComponent>;
+  @ContentChildren(ShapeComponent,{descendants: false}) private holes: QueryList<ShapeComponent>;
 
   constructor() { }
 

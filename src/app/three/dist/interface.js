@@ -68,7 +68,7 @@ var BaseComponent = /** @class */ (function () {
             this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
             var controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
             if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)) {
-                this.controls.meshShape.visible = this.mesh.visible;
+                this.controls.meshShape.visible = this.mesh.getMesh().visible;
                 var helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
                 var helper = this.mesh.helper;
                 if (ThreeUtil.isNotNull(helper)) {

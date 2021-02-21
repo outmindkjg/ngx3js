@@ -10,12 +10,12 @@ import { ThreeUtil } from '../interface';
 })
 export class RotationComponent implements OnInit {
 
-  @Input() visible : boolean = true;
-  @Input() refer: any = null;
-  @Input() referRef: boolean = true;
-  @Input() x : number = 0;
-  @Input() y : number = 0;
-  @Input() z : number = 0;
+  @Input() private visible:boolean = true;
+  @Input() private refer:any = null;
+  @Input() private referRef:boolean = true;
+  @Input() private x:number = 0;
+  @Input() private y:number = 0;
+  @Input() private z:number = 0;
 
   constructor() { }
 

@@ -57,7 +57,7 @@ var MixerComponent = /** @class */ (function () {
         return interface_1.ThreeUtil.getTypeSafe(this.afterglow, def);
     };
     MixerComponent.prototype.getResetPhysicsOnLoop = function (def) {
-        return interface_1.ThreeUtil.getTypeSafe(this.sync, def);
+        return interface_1.ThreeUtil.getTypeSafe(this.resetPhysicsOnLoop, def);
     };
     MixerComponent.prototype.getPhysics = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.physics, def);

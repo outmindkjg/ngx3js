@@ -9,21 +9,20 @@ import { GeometriesVector3 } from '../geometry/geometry.component';
 })
 export class CurveComponent implements OnInit {
 
-  @Input() type: string = 'spline';
-  @Input() aX: number = null;
-  @Input() aY: number = null;
-  @Input() aRadius: number = null;
-  @Input() aStartAngle: number = null;
-  @Input() aEndAngle: number = null;
-  @Input() aClockwise: boolean = null;
-  @Input() points: GeometriesVector3[] = null;
-  @Input() closed: boolean = null;
-  @Input() curveType: string = null;
-  @Input() tension: number = null;
-  @Input() xRadius: number = null;
-  @Input() yRadius: number = null;
-  @Input() aRotation: number = null;
-
+  @Input() public type:string = 'spline';
+  @Input() private aX:number = null;
+  @Input() private aY:number = null;
+  @Input() private aRadius:number = null;
+  @Input() private aStartAngle:number = null;
+  @Input() private aEndAngle:number = null;
+  @Input() private aClockwise:boolean = null;
+  @Input() private points:GeometriesVector3[] = null;
+  @Input() private closed:boolean = null;
+  @Input() private curveType:string = null;
+  @Input() private tension:number = null;
+  @Input() private xRadius:number = null;
+  @Input() private yRadius:number = null;
+  @Input() private aRotation:number = null;
 
   private getAX(def: number): number {
     const aX = this.aX === null ? def : this.aX;

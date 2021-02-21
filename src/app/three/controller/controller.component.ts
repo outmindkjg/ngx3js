@@ -14,8 +14,8 @@ import { HtmlCollection } from '../visual/visual.component';
 })
 export class ControllerComponent implements OnInit {
 
-  @Input() controller : { new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } = null;
-  @Input() params : { [key : string] : any} = null;
+  @Input() private controller:{ new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } = null;
+  @Input() private params:{ [key : string] : any} = null;
   constructor() { }
 
 

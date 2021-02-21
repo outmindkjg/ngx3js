@@ -10,10 +10,10 @@ import { TextureComponent } from '../texture/texture.component';
 })
 export class LensflareelementComponent implements OnInit {
 
-  @Input() image: string = null;
-  @Input() size: number = null;
-  @Input() distance: number = null;
-  @Input() color: string | number = null;
+  @Input() private image:string = null;
+  @Input() private size:number = null;
+  @Input() private distance:number = null;
+  @Input() private color:string | number = null;
 
 
   constructor() { }

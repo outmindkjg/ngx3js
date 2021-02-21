@@ -131,7 +131,7 @@ var PassComponent = /** @class */ (function () {
         this.effectScene = null;
         this.effectCamera = null;
         this.pass = null;
-        this.passIndex = -1;
+        this.needUpdate = false;
     }
     PassComponent.prototype.getEnabled = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.enabled, def);
@@ -441,8 +441,8 @@ var PassComponent = /** @class */ (function () {
     PassComponent.prototype.getTextureId = function (def) {
         return interface_1.ThreeUtil.getTypeSafe(this.textureId, def);
     };
-    PassComponent.prototype.getMap = function (def, mapType) {
-        var map = interface_1.ThreeUtil.getTypeSafe(this.map, def);
+    PassComponent.prototype.getMap = function (effectComposer, camera, scene, mapType) {
+        var map = interface_1.ThreeUtil.getTypeSafe(this.map, effectComposer);
         if (map !== null) {
             if (map instanceof EffectComposer_1.EffectComposer) {
                 switch ((mapType || '').toLowerCase()) {
@@ -460,14 +460,14 @@ var PassComponent = /** @class */ (function () {
             else if (map.getRenderTarget2 && map.getRenderTarget1 && map.getWriteBuffer && map.getReadBuffer) {
                 switch ((mapType || '').toLowerCase()) {
                     case 'target1':
-                        return map.getRenderTarget1(this.effectCamera).texture;
+                        return map.getRenderTarget1(effectComposer.renderer, camera, scene).texture;
                     case 'write':
-                        return map.getWriteBuffer(this.effectCamera).texture;
+                        return map.getWriteBuffer(effectComposer.renderer, camera, scene).texture;
                     case 'read':
-                        return map.getReadBuffer(this.effectCamera).texture;
+                        return map.getReadBuffer(effectComposer.renderer, camera, scene).texture;
                     case 'target2':
                     default:
-                        return map.getRenderTarget2(this.effectCamera).texture;
+                        return map.getRenderTarget2(effectComposer.renderer, camera, scene).texture;
                 }
             }
             else {
@@ -489,73 +489,73 @@ var PassComponent = /** @class */ (function () {
     PassComponent.prototype.ngOnChanges = function (changes) {
         if (changes) {
             if (this.pass !== null && this.effectComposer !== null) {
-                this.passIndex = this.effectComposer.passes.indexOf(this.pass);
-                this.effectComposer.removePass(this.pass);
-                this.pass = null;
+                this.needUpdate = true;
             }
-            if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && this.pass == null) {
+            if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && (this.pass === null || this.needUpdate)) {
                 this.getPass(this.effectScene, this.effectCamera, this.effectComposer);
             }
         }
     };
     PassComponent.prototype.getPass = function (scene, camera, effectComposer) {
         var _this = this;
-        if (this.pass === null) {
+        if (this.pass === null || this.needUpdate) {
+            this.needUpdate = false;
             this.effectComposer = effectComposer;
             this.effectScene = scene;
             this.effectCamera = camera;
+            var pass = null;
             if (this.refer !== null && this.refer !== undefined) {
-                this.pass = this.refer.getPass(scene, camera, effectComposer);
+                pass = this.refer.getPass(scene, camera, effectComposer);
             }
-            if (this.pass === null) {
+            if (pass === null) {
                 switch (this.type.toLowerCase()) {
                     case 'adaptivetonemapping':
-                        this.pass = new AdaptiveToneMappingPass_1.AdaptiveToneMappingPass(this.getAdaptive(), this.getResolution());
+                        pass = new AdaptiveToneMappingPass_1.AdaptiveToneMappingPass(this.getAdaptive(), this.getResolution());
                         break;
                     case 'afterimage':
-                        this.pass = new AfterimagePass_1.AfterimagePass(this.getDamp());
+                        pass = new AfterimagePass_1.AfterimagePass(this.getDamp());
                         break;
                     case 'bloom':
-                        this.pass = new BloomPass_1.BloomPass(this.getStrength(), this.getKernelSize(), this.getSigma(), this.getResolution());
+                        pass = new BloomPass_1.BloomPass(this.getStrength(), this.getKernelSize(), this.getSigma(), this.getResolution());
                         break;
                     case 'bokeh':
-                        this.pass = new BokehPass_1.BokehPass(this.getScene(scene), this.getCamera(camera), this.getParams());
+                        pass = new BokehPass_1.BokehPass(this.getScene(scene), this.getCamera(camera), this.getParams());
                         break;
                     case 'cubetexture':
-                        this.pass = new CubeTexturePass_1.CubeTexturePass(this.getCamera(camera), this.getEnvMap(), this.getOpacity());
+                        pass = new CubeTexturePass_1.CubeTexturePass(this.getCamera(camera), this.getEnvMap(), this.getOpacity());
                         break;
                     case 'dotscreen':
-                        this.pass = new DotScreenPass_1.DotScreenPass(this.getCenter(), this.getAngle(), this.getScale());
+                        pass = new DotScreenPass_1.DotScreenPass(this.getCenter(), this.getAngle(), this.getScale());
                         break;
                     case 'film':
-                        this.pass = new FilmPass_1.FilmPass(this.getNoiseIntensity(), this.getScanlinesIntensity(), this.getScanlinesCount(), this.getGrayscale());
+                        pass = new FilmPass_1.FilmPass(this.getNoiseIntensity(), this.getScanlinesIntensity(), this.getScanlinesCount(), this.getGrayscale());
                         break;
                     case 'glitch':
-                        var pass = new GlitchPass_1.GlitchPass(this.getDtSize());
-                        pass.goWild = this.getGoWild(false);
-                        this.pass = pass;
+                        var glitchpass = new GlitchPass_1.GlitchPass(this.getDtSize());
+                        glitchpass.goWild = this.getGoWild(false);
+                        pass = glitchpass;
                         break;
                     case 'halftone':
-                        this.pass = new HalftonePass_1.HalftonePass(this.getWidth(), this.getHeight(), null // this.getParams(null)
+                        pass = new HalftonePass_1.HalftonePass(this.getWidth(), this.getHeight(), null // this.getParams(null)
                         );
                         break;
                     case 'mask':
-                        this.pass = new MaskPass_1.MaskPass(this.getScene(scene), this.getCamera(camera));
+                        pass = new MaskPass_1.MaskPass(this.getScene(scene), this.getCamera(camera));
                         break;
                     case 'outline':
-                        this.pass = new OutlinePass_1.OutlinePass(null, //this.getResolution(),
+                        pass = new OutlinePass_1.OutlinePass(null, //this.getResolution(),
                         this.getScene(scene), this.getCamera(camera), null // this.getSelectedObjects()
                         );
                         break;
                     case 'render':
-                        this.pass = new RenderPass_1.RenderPass(this.getScene(scene), this.getCamera(camera));
+                        pass = new RenderPass_1.RenderPass(this.getScene(scene), this.getCamera(camera));
                         break;
                     case 'sao':
-                        this.pass = new SAOPass_1.SAOPass(this.getScene(scene), this.getCamera(camera), this.getDepthTexture(), this.getUseNormals(), null // this.getResolution()
+                        pass = new SAOPass_1.SAOPass(this.getScene(scene), this.getCamera(camera), this.getDepthTexture(), this.getUseNormals(), null // this.getResolution()
                         );
                         break;
                     case 'save':
-                        this.pass = new SavePass_1.SavePass(this.getRenderTarget());
+                        pass = new SavePass_1.SavePass(this.getRenderTarget());
                         break;
                     case 'shader':
                         var shaderPass_1 = new ShaderPass_1.ShaderPass(this.getShader(), this.getTextureId());
@@ -596,53 +596,55 @@ var PassComponent = /** @class */ (function () {
                                 }
                             });
                         }
-                        this.pass = shaderPass_1;
+                        pass = shaderPass_1;
                         break;
                     case 'smaa':
-                        this.pass = new SMAAPass_1.SMAAPass(this.getWidth(), this.getHeight());
+                        pass = new SMAAPass_1.SMAAPass(this.getWidth(), this.getHeight());
                         break;
                     case 'ssaarender':
-                        this.pass = new SSAARenderPass_1.SSAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
+                        pass = new SSAARenderPass_1.SSAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
                         break;
                     case 'ssao':
-                        this.pass = new SSAOPass_1.SSAOPass(this.getScene(scene), this.getCamera(camera), this.getWidth(), this.getHeight());
+                        pass = new SSAOPass_1.SSAOPass(this.getScene(scene), this.getCamera(camera), this.getWidth(), this.getHeight());
                         break;
                     case 'taarender':
-                        this.pass = new TAARenderPass_1.TAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
+                        pass = new TAARenderPass_1.TAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
                         break;
                     case 'texture':
-                        this.pass = new TexturePass_1.TexturePass(this.getMap(null), this.getOpacity());
+                        pass = new TexturePass_1.TexturePass(this.getMap(effectComposer, camera, scene), this.getOpacity());
                         break;
                     case 'taarender':
-                        this.pass = new UnrealBloomPass_1.UnrealBloomPass(null, //this.getResolution(),
+                        pass = new UnrealBloomPass_1.UnrealBloomPass(null, //this.getResolution(),
                         this.getStrength(), this.getRadius(), this.getThreshold());
                         break;
                     case 'clear':
                     default:
-                        this.pass = new ClearPass_1.ClearPass(this.getClearColor(), this.getClearAlpha());
+                        pass = new ClearPass_1.ClearPass(this.getClearColor(), this.getClearAlpha());
                         break;
                 }
                 if (interface_1.ThreeUtil.isNotNull(this.enabled)) {
-                    this.pass.enabled = this.getEnabled(true);
+                    pass.enabled = this.getEnabled(true);
                 }
                 if (interface_1.ThreeUtil.isNotNull(this.needsSwap)) {
-                    this.pass.needsSwap = this.getNeedsSwap(true);
+                    pass.needsSwap = this.getNeedsSwap(true);
                 }
                 if (interface_1.ThreeUtil.isNotNull(this.clear)) {
-                    this.pass.clear = this.getClear(false);
+                    pass.clear = this.getClear(false);
                 }
                 if (interface_1.ThreeUtil.isNotNull(this.renderToScreen)) {
-                    this.pass.renderToScreen = this.getRenderToScreen(false);
+                    pass.renderToScreen = this.getRenderToScreen(false);
                 }
             }
-            if (this.pass !== null) {
-                if (this.passIndex > -1) {
-                    this.effectComposer.insertPass(this.pass, this.passIndex);
-                }
-                else {
-                    this.effectComposer.addPass(this.pass);
-                    this.passIndex = this.effectComposer.passes.indexOf(this.pass);
-                }
+            if (this.pass !== null && this.pass !== undefined) {
+                Object.assign(this.pass, pass);
+            }
+            else {
+                this.pass = pass;
+            }
+        }
+        if (this.pass !== null && effectComposer !== null) {
+            if (effectComposer.passes.indexOf(this.pass) === -1) {
+                this.effectComposer.addPass(this.pass);
             }
         }
         return this.pass;

@@ -13,7 +13,6 @@ var interface_1 = require("../interface");
 var TransformComponent = /** @class */ (function () {
     function TransformComponent() {
         this.visible = true;
-        this.virtualClass = null;
         this.anchorSeparat = false;
         this.x = null;
         this.y = null;
@@ -38,6 +37,7 @@ var TransformComponent = /** @class */ (function () {
         this.scaleZ = null;
         this.parentNode = null;
         this.parentSize = null;
+        this.eleSize = null;
         this.cssClazzName = null;
     }
     TransformComponent.prototype.getLeft = function (def) {
@@ -89,11 +89,12 @@ var TransformComponent = /** @class */ (function () {
             this.parentNode = null;
         }
     };
-    TransformComponent.prototype.setParentNode = function (parentNode, size) {
+    TransformComponent.prototype.setParentNode = function (parentNode, parentSize, eleSize) {
         if (this.parentNode !== parentNode) {
             this.parentNode = parentNode;
         }
-        this.parentSize = size;
+        this.parentSize = parentSize;
+        this.eleSize = eleSize;
         this.applyHtmlStyle();
     };
     TransformComponent.prototype.getStyle = function () {
@@ -107,15 +108,19 @@ var TransformComponent = /** @class */ (function () {
                 var right = this.getRight(0);
                 var bottom = this.getBottom(0);
                 var size = anchorMax.clone().sub(anchorMin);
-                style.width = (size.x + left - right);
-                style.height = (size.y + top - bottom);
+                this.eleSize.x = (size.x + left - right);
+                this.eleSize.y = (size.y + top - bottom);
+                style.width = this.eleSize.x;
+                style.height = this.eleSize.y;
                 style.left = (anchorMin.x + left);
                 style.top = (this.parentSize.y - anchorMax.y + top);
             }
             else {
                 var size = this.getSize(this.parentSize);
-                style.width = size.x;
-                style.height = size.y;
+                this.eleSize.x = size.x;
+                this.eleSize.y = size.y;
+                style.width = this.eleSize.x;
+                style.height = this.eleSize.y;
                 style.left = anchorMin.x;
                 style.top = (this.parentSize.y - anchorMax.y);
             }
@@ -144,7 +149,7 @@ var TransformComponent = /** @class */ (function () {
         if (this.parentNode !== null && this.parentSize !== null) {
             if (this.visible) {
                 var style = this.getStyle();
-                this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', this.virtualClass);
+                this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', 'inline');
             }
             else {
                 interface_1.ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
@@ -154,9 +159,6 @@ var TransformComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], TransformComponent.prototype, "visible");
-    __decorate([
-        core_1.Input()
-    ], TransformComponent.prototype, "virtualClass");
     __decorate([
         core_1.Input()
     ], TransformComponent.prototype, "anchorSeparat");

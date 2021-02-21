@@ -9,72 +9,72 @@ import { CssStyle, ThreeUtil } from '../interface';
 })
 export class TransformComponent implements OnInit {
 
-  @Input() visible: boolean = true;
-  @Input() anchorSeparat: boolean = false;
-  @Input() x : number = null;
-  @Input() y : number = null;
-  @Input() z : number = null;
-  @Input() width : number = null;
-  @Input() height : number = null;
-  @Input() left : number = null;
-  @Input() top : number = null;
-  @Input() right : number = null;
-  @Input() bottom : number = null;
-  @Input() anchorMinX : number = null;
-  @Input() anchorMinY : number = null;
-  @Input() anchorMaxX : number = null;
-  @Input() anchorMaxY : number = null;
-  @Input() pivotX : number = null;
-  @Input() pivotY : number = null;
-  @Input() rotationX : number = null;
-  @Input() rotationY : number = null;
-  @Input() rotationZ : number = null;
-  @Input() scaleX : number = null;
-  @Input() scaleY : number = null;
-  @Input() scaleZ : number = null;
+  @Input() private visible:boolean = true;
+  @Input() private anchorSeparat:boolean = false;
+  @Input() private x:number = null;
+  @Input() private y:number = null;
+  @Input() private z:number = null;
+  @Input() private width:number = null;
+  @Input() private height:number = null;
+  @Input() private left:number = null;
+  @Input() private top:number = null;
+  @Input() private right:number = null;
+  @Input() private bottom:number = null;
+  @Input() private anchorMinX:number = null;
+  @Input() private anchorMinY:number = null;
+  @Input() private anchorMaxX:number = null;
+  @Input() private anchorMaxY:number = null;
+  @Input() private pivotX:number = null;
+  @Input() private pivotY:number = null;
+  @Input() private rotationX:number = null;
+  @Input() private rotationY:number = null;
+  @Input() private rotationZ:number = null;
+  @Input() private scaleX:number = null;
+  @Input() private scaleY:number = null;
+  @Input() private scaleZ:number = null;
 
-  getLeft(def? : number) : number {
+  private getLeft(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.left, def);
   }
 
-  getTop(def? : number) : number {
+  private getTop(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.top, def);
   }
 
-  getRight(def? : number) : number {
+  private getRight(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.right, def);
   }
 
-  getBottom(def? : number) : number {
+  private getBottom(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.bottom, def);
   }
 
 
-  getPosition(def? : THREE.Vector3) : THREE.Vector3 {
+  private getPosition(def? : THREE.Vector3) : THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.x, this.y, this.z, def);
   }
 
-  getSize(def? : THREE.Vector2) : THREE.Vector2 {
+  private getSize(def? : THREE.Vector2) : THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.width, this.height, def);
   }
 
-  getAnchorMin(def? : THREE.Vector2) : THREE.Vector2 {
+  private getAnchorMin(def? : THREE.Vector2) : THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.anchorMinX, this.anchorMinY, def);
   }
 
-  getAnchorMax(def? : THREE.Vector2) : THREE.Vector2 {
+  private getAnchorMax(def? : THREE.Vector2) : THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.anchorMaxX, this.anchorMaxY, def);
   }
 
-  getPivot(def? : THREE.Vector2) : THREE.Vector2 {
+  private getPivot(def? : THREE.Vector2) : THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.pivotX, this.pivotY, def);
   }
 
-  getRotation(def? : THREE.Euler) : THREE.Euler {
+  private getRotation(def? : THREE.Euler) : THREE.Euler {
     return ThreeUtil.getEulerSafe(this.rotationX, this.rotationY, this.rotationZ, def);
   }
 
-  getScale(def? : THREE.Vector3) : THREE.Vector3 {
+  private getScale(def? : THREE.Vector3) : THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.scaleX, this.scaleY, this.scaleZ, def);
   }
 
@@ -129,7 +129,7 @@ export class TransformComponent implements OnInit {
         style.height = this.eleSize.y;
         style.left = (anchorMin.x + left);
         style.top = (this.parentSize.y - anchorMax.y + top);
-        
+
       } else {
         const size = this.getSize(this.parentSize);
         this.eleSize.x = size.x;

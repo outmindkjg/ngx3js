@@ -9,10 +9,10 @@ import Ammo from 'ammojs-typed';
   styleUrls: ['./physics.component.scss'],
 })
 export class PhysicsComponent implements OnInit {
-  @Input() gravity: number = null;
-  @Input() gravityX: number = null;
-  @Input() gravityY: number = null;
-  @Input() gravityZ: number = null;
+  @Input() private gravity:number = null;
+  @Input() private gravityX:number = null;
+  @Input() private gravityY:number = null;
+  @Input() private gravityZ:number = null;
 
   private getGravity(def?: number): Ammo.btVector3 {
     const gravity = ThreeUtil.getTypeSafe(this.gravity, def);

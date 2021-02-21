@@ -122,6 +122,15 @@ var LightComponent = /** @class */ (function (_super) {
         return null;
     };
     LightComponent.prototype.ngOnInit = function () { };
+    LightComponent.prototype.setLightParams = function (params) {
+        var _this = this;
+        Object.entries(params).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            if (_this[key] !== undefined) {
+                _this[key] = value;
+            }
+        });
+    };
     LightComponent.prototype.setParent = function (parent, isRestore) {
         if (isRestore === void 0) { isRestore = false; }
         if (_super.prototype.setParent.call(this, parent)) {

@@ -151,7 +151,7 @@ var HelperComponent = /** @class */ (function (_super) {
                     basemesh_1 = new THREE.ArrowHelper(this.getDir(new THREE.Vector3(0, 0, 1)), this.getOrigin(new THREE.Vector3(0, 0, 0)), this.getLength(1), this.getColor(0xffff00), this.getHeadLength(), this.getHeadWidth());
                     break;
                 case 'box':
-                    basemesh_1 = new THREE.BoxHelper(this.getTarget(this.object3d), this.getColor(0xffff00));
+                    basemesh_1 = new THREE.BoxHelper(this.getTarget(this.parent), this.getColor(0xffff00));
                     break;
                 case 'box3':
                     basemesh_1 = new THREE.Box3Helper(null);
@@ -162,10 +162,9 @@ var HelperComponent = /** @class */ (function (_super) {
                 case 'polargrid':
                     basemesh_1 = new THREE.PolarGridHelper(this.getRadius(10), this.getRadials(16), this.getCircles(8), this.getDivisions(64), this.getColor1(0x444444), this.getColor2(0x888888));
                     basemesh_1.receiveShadow = true;
-                    this.object3d.add(basemesh_1);
                     break;
                 case 'camera':
-                    var cameraTarget = this.getTarget(this.object3d);
+                    var cameraTarget = this.getTarget(this.parent);
                     if (cameraTarget instanceof THREE.Light && cameraTarget.shadow.camera) {
                         basemesh_1 = new THREE.CameraHelper(cameraTarget.shadow.camera);
                     }
@@ -179,7 +178,7 @@ var HelperComponent = /** @class */ (function (_super) {
                 case 'pointlight':
                 case 'spotlight':
                 case 'light':
-                    var liightTarget = this.getTarget(this.object3d);
+                    var liightTarget = this.getTarget(this.parent);
                     if (liightTarget instanceof THREE.DirectionalLight) {
                         basemesh_1 = new THREE.DirectionalLightHelper(liightTarget, this.getSize(10), this.getColor(0xff0000));
                     }
@@ -197,9 +196,9 @@ var HelperComponent = /** @class */ (function (_super) {
                     }
                     break;
                 case 'plane':
-                    if (this.object3d instanceof THREE.Mesh && this.object3d.material instanceof THREE.Material) {
+                    if (this.parent instanceof THREE.Mesh && this.parent.material instanceof THREE.Material) {
                         basemesh_1 = new THREE.Group();
-                        var clippingPlanes = this.object3d.material.clippingPlanes;
+                        var clippingPlanes = this.parent.material.clippingPlanes;
                         if (clippingPlanes !== null && clippingPlanes !== undefined) {
                             clippingPlanes.forEach(function (clippingPlane) {
                                 basemesh_1.add(new THREE.PlaneHelper(clippingPlane, _this.getSize(10), _this.getColor(0xff0000).getHex()));
@@ -211,11 +210,11 @@ var HelperComponent = /** @class */ (function (_super) {
                     }
                     break;
                 case 'skeleton':
-                    basemesh_1 = new THREE.SkeletonHelper(this.getTarget());
+                    basemesh_1 = new THREE.SkeletonHelper(this.getTarget(this.parent));
                     break;
                 case 'axes':
                     basemesh_1 = new THREE.AxesHelper(this.getSize(10));
-                    this.object3d.add(basemesh_1);
+                    this.parent.add(basemesh_1);
                     break;
             }
             if (basemesh_1 !== null) {

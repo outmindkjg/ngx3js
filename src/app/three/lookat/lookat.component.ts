@@ -9,11 +9,11 @@ import { ThreeUtil } from '../interface';
 })
 export class LookatComponent implements OnInit {
 
-  @Input() visible : boolean = true;
-  @Input() refer : any = null;
-  @Input() x : number = null;
-  @Input() y : number = null;
-  @Input() z : number = null;
+  @Input() public visible:boolean = true;
+  @Input() private refer:any = null;
+  @Input() private x:number = null;
+  @Input() private y:number = null;
+  @Input() private z:number = null;
 
 
   constructor() { }

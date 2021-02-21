@@ -10,13 +10,13 @@ import { ThreeUtil } from '../interface';
 })
 export class ScaleComponent implements OnInit {
 
-  @Input() visible: boolean = true;
-  @Input() refer: any = null;
-  @Input() referRef: boolean = true;
-  @Input() x: number = null;
-  @Input() y: number = null;
-  @Input() z: number = null;
-  @Input() scaleMode: string = "max";
+  @Input() private visible:boolean = true;
+  @Input() private refer:any = null;
+  @Input() private referRef:boolean = true;
+  @Input() private x:number = null;
+  @Input() private y:number = null;
+  @Input() private z:number = null;
+  @Input() private scaleMode:string = "max";
 
   constructor() { }
 
