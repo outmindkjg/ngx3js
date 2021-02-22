@@ -146,6 +146,7 @@ var webgl_animation_multiple_component_1 = require("./examples/webgl-animation-m
 var webgl_animation_skinning_additive_blending_component_1 = require("./examples/webgl-animation-skinning-additive-blending/webgl-animation-skinning-additive-blending.component");
 var webgl_animation_skinning_blending_component_1 = require("./examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component");
 var webgl_animation_skinning_morph_component_1 = require("./examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component");
+var webgl_camera_component_1 = require("./examples/webgl-camera/webgl-camera.component");
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'ch01' },
     {
@@ -360,6 +361,7 @@ var routes = [
             { path: 'webgl_animation_skinning_additive_blending', component: webgl_animation_skinning_additive_blending_component_1.WebglAnimationSkinningAdditiveBlendingComponent },
             { path: 'webgl_animation_skinning_morph', component: webgl_animation_skinning_morph_component_1.WebglAnimationSkinningMorphComponent },
             { path: 'webgl_animation_multiple', component: webgl_animation_multiple_component_1.WebglAnimationMultipleComponent },
+            { path: 'webgl_camera', component: webgl_camera_component_1.WebglCameraComponent },
             { path: '**', component: under_construction_component_1.UnderConstructionComponent }
         ]
     }

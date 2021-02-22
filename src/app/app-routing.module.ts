@@ -137,6 +137,7 @@ import { WebglAnimationMultipleComponent } from './examples/webgl-animation-mult
 import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webgl-animation-skinning-additive-blending/webgl-animation-skinning-additive-blending.component';
 import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component';
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
+import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
 
 
 const routes: Routes = [
@@ -353,6 +354,7 @@ const routes: Routes = [
       { path: 'webgl_animation_skinning_additive_blending', component: WebglAnimationSkinningAdditiveBlendingComponent },
       { path: 'webgl_animation_skinning_morph', component: WebglAnimationSkinningMorphComponent },
       { path: 'webgl_animation_multiple', component: WebglAnimationMultipleComponent },
+      { path: 'webgl_camera', component: WebglCameraComponent },
       { path: '**', component: UnderConstructionComponent }
     ]
   }

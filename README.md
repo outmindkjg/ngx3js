@@ -118,6 +118,8 @@ ng g c examples/webgl_animation_skinning_additive_blending
 ng g c examples/under_construction
 ng g c examples/webgl_animation_skinning_morph
 ng g c examples/webgl_animation_multiple
+ng g c examples/webgl_camera
+
 
 
 ng g c menu
@@ -173,3 +175,5 @@ node_modules/three/examples/jsm/utils/SceneUtils.d.ts
 node_modules/ammojs-typed/ammo/ammo.d.ts
 line 7 :
 function castObject(obj1 : any, obj2 : any) : btCollisionObject;
+
+D7PNK-JWYGX-9GWDH-4WG8W-82QDV

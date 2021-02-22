@@ -158,6 +158,9 @@ import { CanvasComponent } from './three/canvas/canvas.component';
 import { VisualComponent } from './three/visual/visual.component';
 import { TransformComponent } from './three/transform/transform.component';
 import { BackgroundComponent } from './three/background/background.component';
+import { LightComponent } from './three/light/light.component';
+import { HelperComponent } from './three/helper/helper.component';
+
 import { Chapter13Component } from './chapter13/chapter13.component';
 import { Page1301Component } from './chapter13/page1301/page1301.component';
 import { Page1302Component } from './chapter13/page1302/page1302.component';
@@ -177,8 +180,7 @@ import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webg
 import { UnderConstructionComponent } from './examples/under-construction/under-construction.component';
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
 import { WebglAnimationMultipleComponent } from './examples/webgl-animation-multiple/webgl-animation-multiple.component';
-import { LightComponent } from './three/light/light.component';
-import { HelperComponent } from './three/helper/helper.component';
+import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
 
 @NgModule({
   declarations: [
@@ -357,7 +359,8 @@ import { HelperComponent } from './three/helper/helper.component';
     WebglAnimationSkinningMorphComponent,
     WebglAnimationMultipleComponent,
     LightComponent,
-    HelperComponent
+    HelperComponent,
+    WebglCameraComponent
   ],
   imports: [
     BrowserModule,
