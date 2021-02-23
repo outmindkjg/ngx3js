@@ -171,6 +171,9 @@ var HelperComponent = /** @class */ (function (_super) {
                     else if (cameraTarget instanceof THREE.Camera) {
                         basemesh_1 = new THREE.CameraHelper(cameraTarget);
                     }
+                    else {
+                        basemesh_1 = new THREE.AxesHelper(this.getSize(10));
+                    }
                     break;
                 case 'directionallight':
                 case 'hemispherelight':
@@ -213,6 +216,7 @@ var HelperComponent = /** @class */ (function (_super) {
                     basemesh_1 = new THREE.SkeletonHelper(this.getTarget(this.parent));
                     break;
                 case 'axes':
+                default:
                     basemesh_1 = new THREE.AxesHelper(this.getSize(10));
                     this.parent.add(basemesh_1);
                     break;

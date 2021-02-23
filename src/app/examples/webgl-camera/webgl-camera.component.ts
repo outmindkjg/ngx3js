@@ -43,6 +43,12 @@ export class WebglCameraComponent extends BaseComponent<{}> {
     this.sphere3 = sphere3;
   }
 
+  public cameraRig : MeshComponent = null;
+
+  setCameraRig(cameraRig : MeshComponent) {
+    this.cameraRig = cameraRig;
+  }
+
   onRender(timer: RendererTimer) {
     super.onRender(timer);
     const r = timer.elapsedTime * 0.5;
@@ -59,6 +65,10 @@ export class WebglCameraComponent extends BaseComponent<{}> {
         150,
         70 * Math.sin( r )
       )
+    }
+    if (this.cameraRig !== null && this.sphere1 !== null) {
+      const sphere1Position = this.sphere1.getPosition();
+      this.cameraRig.setLookat(sphere1Position.x, sphere1Position.y, sphere1Position.z);
     }
   }
 }

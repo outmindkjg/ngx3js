@@ -20,6 +20,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.CameraComponent = void 0;
+var helper_component_1 = require("./../helper/helper.component");
 var mixer_component_1 = require("./../mixer/mixer.component");
 var audio_component_1 = require("./../audio/audio.component");
 var core_1 = require("@angular/core");
@@ -54,6 +55,7 @@ var CameraComponent = /** @class */ (function (_super) {
         _this.y = 0;
         _this.width = '100%';
         _this.height = '100%';
+        _this.onLoad = new core_1.EventEmitter();
         _this.camera = null;
         _this.clips = null;
         _this.renderer = null;
@@ -206,6 +208,7 @@ var CameraComponent = /** @class */ (function (_super) {
                     'svg',
                     'listner',
                     'audio',
+                    'helpers',
                     'controller',
                 ]);
             }
@@ -243,6 +246,9 @@ var CameraComponent = /** @class */ (function (_super) {
         this.mixer.changes.subscribe(function () {
             _this.synkObject3D(['mixer']);
         });
+        this.helpers.changes.subscribe(function () {
+            _this.synkObject3D(['helpers']);
+        });
         _super.prototype.ngAfterContentInit.call(this);
     };
     CameraComponent.prototype.synkObject3D = function (synkTypes) {
@@ -266,6 +272,11 @@ var CameraComponent = /** @class */ (function (_super) {
                                 mixer.setModel(_this.camera, _this.clips);
                             });
                         }
+                        break;
+                    case 'helpers':
+                        _this.helpers.forEach(function (helper) {
+                            helper.setParent(_this.camera);
+                        });
                         break;
                 }
             });
@@ -348,9 +359,11 @@ var CameraComponent = /** @class */ (function (_super) {
                 'scale',
                 'lookat',
                 'listner',
+                'helpers',
                 'audio',
                 'mixer',
             ]);
+            this.onLoad.emit(this);
         }
         return this.camera;
     };
@@ -370,7 +383,7 @@ var CameraComponent = /** @class */ (function (_super) {
     };
     CameraComponent.prototype.render = function (renderer, cssRenderer, scenes, renderTimer) {
         var _this = this;
-        if (this.scenes !== null && this.scenes.length > 0) {
+        if (this.scenes !== null && this.scenes.length > 0 && this.visible) {
             this.scenes.forEach(function (sceneCom) {
                 var scene = sceneCom.getScene();
                 if (scene !== null) {
@@ -499,6 +512,9 @@ var CameraComponent = /** @class */ (function (_super) {
         core_1.Input()
     ], CameraComponent.prototype, "height");
     __decorate([
+        core_1.Output()
+    ], CameraComponent.prototype, "onLoad");
+    __decorate([
         core_1.ContentChildren(pass_component_1.PassComponent, { descendants: false })
     ], CameraComponent.prototype, "pass");
     __decorate([
@@ -513,6 +529,9 @@ var CameraComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.ContentChildren(mixer_component_1.MixerComponent, { descendants: false })
     ], CameraComponent.prototype, "mixer");
+    __decorate([
+        core_1.ContentChildren(helper_component_1.HelperComponent, { descendants: false })
+    ], CameraComponent.prototype, "helpers");
     CameraComponent = __decorate([
         core_1.Component({
             selector: 'three-camera',

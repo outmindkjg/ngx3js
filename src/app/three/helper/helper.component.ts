@@ -193,6 +193,8 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             basemesh = new THREE.CameraHelper(cameraTarget.shadow.camera);
           } else if (cameraTarget instanceof THREE.Camera) {
             basemesh = new THREE.CameraHelper(cameraTarget);
+          } else {
+            basemesh = new THREE.AxesHelper(this.getSize(10));
           }
           break;
         case 'directionallight':
@@ -253,6 +255,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));
           break;
         case 'axes':
+        default :
           basemesh = new THREE.AxesHelper(this.getSize(10));
           this.parent.add(basemesh);
           break;

@@ -160,6 +160,22 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
         }
         return this;
     };
+    AbstractObject3dComponent.prototype.setLookat = function (x, y, z) {
+        if (this.object3d !== null) {
+            if (x === null) {
+                x = this.object3d.position.x;
+            }
+            if (y === null) {
+                y = this.object3d.position.y;
+            }
+            if (z === null) {
+                z = this.object3d.position.z;
+            }
+            var position = interface_1.ThreeUtil.getVector3Safe(x, y, z);
+            this.object3d.lookAt(position);
+        }
+        return this;
+    };
     AbstractObject3dComponent.prototype.getObjectByName = function (name) {
         if (this.object3d !== null) {
             return this.object3d.getObjectByName(name);

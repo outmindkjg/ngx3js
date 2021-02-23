@@ -1,3 +1,4 @@
+import { HelperComponent } from './../helper/helper.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { AudioComponent } from './../audio/audio.component';
@@ -5,6 +6,8 @@ import {
   Component,
   ContentChildren,
   Input,
+  Output,
+  EventEmitter,
   OnInit,
   QueryList,
   SimpleChanges,
@@ -50,12 +53,14 @@ export class CameraComponent
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
   @Input() private height:number | string = '100%';
+  @Output() private onLoad:EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
   @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
   @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
   @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
 
   private getFov(def?: number): number {
     return this.fov === null ? def : this.fov;
@@ -221,6 +226,7 @@ export class CameraComponent
           'svg',
           'listner',
           'audio',
+          'helpers',
           'controller',
         ]);
       } else {
@@ -260,6 +266,9 @@ export class CameraComponent
     this.mixer.changes.subscribe(() => {
       this.synkObject3D(['mixer']);
     });
+    this.helpers.changes.subscribe(() => {
+      this.synkObject3D(['helpers']);
+    });
     super.ngAfterContentInit();
   }
 
@@ -283,6 +292,11 @@ export class CameraComponent
                 mixer.setModel(this.camera, this.clips);
               });
             }
+            break;
+          case 'helpers':
+            this.helpers.forEach((helper) => {
+              helper.setParent(this.camera);
+            });
             break;
         }
       });
@@ -396,9 +410,11 @@ export class CameraComponent
         'scale',
         'lookat',
         'listner',
+        'helpers',
         'audio',
         'mixer',
       ]);
+      this.onLoad.emit(this);
     }
     return this.camera;
   }
@@ -421,7 +437,7 @@ export class CameraComponent
     scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
-    if (this.scenes !== null && this.scenes.length > 0) {
+    if (this.scenes !== null && this.scenes.length > 0 && this.visible) {
       this.scenes.forEach((sceneCom) => {
         const scene = sceneCom.getScene();
         if (scene !== null) {

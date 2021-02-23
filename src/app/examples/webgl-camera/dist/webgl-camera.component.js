@@ -31,6 +31,7 @@ var WebglCameraComponent = /** @class */ (function (_super) {
         _this.sphere1 = null;
         _this.sphere2 = null;
         _this.sphere3 = null;
+        _this.cameraRig = null;
         return _this;
     }
     WebglCameraComponent.prototype.ngOnInit = function () {
@@ -50,6 +51,9 @@ var WebglCameraComponent = /** @class */ (function (_super) {
     WebglCameraComponent.prototype.setSphere3 = function (sphere3) {
         this.sphere3 = sphere3;
     };
+    WebglCameraComponent.prototype.setCameraRig = function (cameraRig) {
+        this.cameraRig = cameraRig;
+    };
     WebglCameraComponent.prototype.onRender = function (timer) {
         _super.prototype.onRender.call(this, timer);
         var r = timer.elapsedTime * 0.5;
@@ -58,6 +62,10 @@ var WebglCameraComponent = /** @class */ (function (_super) {
         }
         if (this.sphere2 !== null) {
             this.sphere2.setPosition(70 * Math.cos(2 * r), 150, 70 * Math.sin(r));
+        }
+        if (this.cameraRig !== null && this.sphere1 !== null) {
+            var sphere1Position = this.sphere1.getPosition();
+            this.cameraRig.setLookat(sphere1Position.x, sphere1Position.y, sphere1Position.z);
         }
     };
     WebglCameraComponent = __decorate([

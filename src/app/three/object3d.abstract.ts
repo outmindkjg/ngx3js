@@ -67,9 +67,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	getPosition(): THREE.Vector3 {
 		if (this.object3d !== null) {
-			return this.object3d.position;
+      return this.object3d.position;
 		} else if (this.position !== null && this.position.length > 0) {
-			return this.position.first.getPosition();
+      return this.position.first.getPosition();
 		} else {
 			return new THREE.Vector3(0, 0, 0);
 		}
@@ -153,6 +153,23 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       z += this.object3d.rotation.z / Math.PI * 180;
       const rotation = ThreeUtil.getEulerSafe(x, y, z);
       this.object3d.rotation.copy(rotation);
+    }
+    return this;
+  }
+
+  setLookat(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      if (x === null) {
+        x = this.object3d.position.x;
+      }
+      if (y === null) {
+        y = this.object3d.position.y;
+      }
+      if (z === null) {
+        z = this.object3d.position.z;
+      }
+      const position = ThreeUtil.getVector3Safe(x, y, z);
+      this.object3d.lookAt(position);
     }
     return this;
   }
