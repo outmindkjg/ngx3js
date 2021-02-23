@@ -76,6 +76,8 @@ var GeometryComponent = /** @class */ (function () {
         this.bevelOffset = null;
         this.bevelSegments = null;
         this.closed = null;
+        this.position = null;
+        this.itemSize = null;
         this.onLoad = new core_1.EventEmitter();
         this._geometrySubscribe = null;
         this._geometrySubject = new rxjs_1.Subject();
@@ -369,6 +371,11 @@ var GeometryComponent = /** @class */ (function () {
         }
         return new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0));
     };
+    GeometryComponent.prototype.getPosition = function (def) {
+        var position = interface_1.ThreeUtil.getTypeSafe(this.position, def);
+        var itemSize = interface_1.ThreeUtil.getTypeSafe(this.itemSize, 3);
+        return new THREE.Float32BufferAttribute(position, itemSize);
+    };
     GeometryComponent.prototype.ngOnInit = function () { };
     GeometryComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
@@ -605,6 +612,9 @@ var GeometryComponent = /** @class */ (function () {
                     case 'custom':
                     case 'geometry':
                         this.geometry = new THREE.BufferGeometry();
+                        if (interface_1.ThreeUtil.isNotNull(this.position)) {
+                            this.geometry.setAttribute("position", this.getPosition([]));
+                        }
                         /*
                         todo
                         this.geometry.setAttribute("vertices", this.getVertices([]));
@@ -977,6 +987,12 @@ var GeometryComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], GeometryComponent.prototype, "closed");
+    __decorate([
+        core_1.Input()
+    ], GeometryComponent.prototype, "position");
+    __decorate([
+        core_1.Input()
+    ], GeometryComponent.prototype, "itemSize");
     __decorate([
         core_1.Output()
     ], GeometryComponent.prototype, "onLoad");

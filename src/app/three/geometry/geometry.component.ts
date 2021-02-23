@@ -138,6 +138,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private bevelOffset:number = null;
   @Input() private bevelSegments:number = null;
   @Input() private closed:boolean = null;
+  @Input() private position:number[] = null;
+  @Input() private itemSize : number = null;
+
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 
   @ContentChildren(GeometryComponent, { descendants: false }) private subGeometry: QueryList<GeometryComponent>;
@@ -461,6 +464,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     );
   }
 
+  private getPosition(def? : number[]): THREE.Float32BufferAttribute {
+    const position = ThreeUtil.getTypeSafe(this.position, def);
+    const itemSize = ThreeUtil.getTypeSafe(this.itemSize, 3);
+    return new THREE.Float32BufferAttribute( position, itemSize )
+  }
+
+
+
   ngOnInit(): void { }
 
   ngAfterContentInit(): void {
@@ -697,6 +708,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           case 'custom':
           case 'geometry':
             this.geometry = new THREE.BufferGeometry();
+            if (ThreeUtil.isNotNull(this.position)) {
+              this.geometry.setAttribute("position", this.getPosition([]));
+            }
             /*
             todo
             this.geometry.setAttribute("vertices", this.getVertices([]));

@@ -41,6 +41,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private width:number = -1;
   @Input() private height:number = -1;
   @Input() private statsMode:number = -1;
+  @Input() private autoClear:boolean=true;
   @Input() private guiControl:any = null;
   @Input() private guiParams:GuiControlParam[] = [];
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
@@ -391,6 +392,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+        this.renderer.autoClear = this.autoClear;
         // this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.localClippingEnabled = this.localClippingEnabled;
         this.renderer.clippingPlanes = this.getClippingPlanes([]);

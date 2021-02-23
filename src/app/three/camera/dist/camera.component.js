@@ -49,6 +49,11 @@ var CameraComponent = /** @class */ (function (_super) {
         _this.scene = null;
         _this.scenes = null;
         _this.storageName = null;
+        _this.viewport = false;
+        _this.x = 0;
+        _this.y = 0;
+        _this.width = '100%';
+        _this.height = '100%';
         _this.camera = null;
         _this.clips = null;
         _this.renderer = null;
@@ -80,7 +85,82 @@ var CameraComponent = /** @class */ (function (_super) {
         return height * this.bottom;
     };
     CameraComponent.prototype.getAspect = function (width, height) {
-        return width > 0 && height > 0 ? width / height : 1;
+        if (this.viewport) {
+            var cWidth = this.getWidth();
+            var cHeight = this.getHeight();
+            return cWidth / cHeight;
+        }
+        else {
+            return width > 0 && height > 0 ? width / height : 0.5;
+        }
+    };
+    CameraComponent.prototype.getX = function (def) {
+        var x = interface_1.ThreeUtil.getTypeSafe(this.x, def);
+        if (interface_1.ThreeUtil.isNotNull(x)) {
+            if (typeof (x) == 'string') {
+                if (x.endsWith('%')) {
+                    return this.cameraWidth * parseFloat(x.slice(0, -1)) / 100;
+                }
+                else {
+                    return parseFloat(x);
+                }
+            }
+            else {
+                return x;
+            }
+        }
+        return 0;
+    };
+    CameraComponent.prototype.getY = function (def) {
+        var y = interface_1.ThreeUtil.getTypeSafe(this.y, def);
+        if (interface_1.ThreeUtil.isNotNull(y)) {
+            if (typeof (y) == 'string') {
+                if (y.endsWith('%')) {
+                    return this.cameraHeight * parseFloat(y.slice(0, -1)) / 100;
+                }
+                else {
+                    return parseFloat(y);
+                }
+            }
+            else {
+                return y;
+            }
+        }
+        return 0;
+    };
+    CameraComponent.prototype.getWidth = function (def) {
+        var width = interface_1.ThreeUtil.getTypeSafe(this.width, def);
+        if (interface_1.ThreeUtil.isNotNull(width)) {
+            if (typeof (width) == 'string') {
+                if (width.endsWith('%')) {
+                    return this.cameraWidth * parseFloat(width.slice(0, -1)) / 100;
+                }
+                else {
+                    return parseFloat(width);
+                }
+            }
+            else {
+                return width;
+            }
+        }
+        return 0;
+    };
+    CameraComponent.prototype.getHeight = function (def) {
+        var height = interface_1.ThreeUtil.getTypeSafe(this.height, def);
+        if (interface_1.ThreeUtil.isNotNull(height)) {
+            if (typeof (height) == 'string') {
+                if (height.endsWith('%')) {
+                    return this.cameraHeight * parseFloat(height.slice(0, -1)) / 100;
+                }
+                else {
+                    return parseFloat(height);
+                }
+            }
+            else {
+                return height;
+            }
+        }
+        return 0;
     };
     CameraComponent.prototype.ngOnInit = function () { };
     CameraComponent.prototype.ngOnChanges = function (changes) {
@@ -311,6 +391,9 @@ var CameraComponent = /** @class */ (function (_super) {
                             _this.effectComposer.render(renderTimer.delta);
                         }
                         else {
+                            if (renderer instanceof THREE.WebGLRenderer && _this.viewport) {
+                                renderer.setViewport(_this.getX(), _this.getY(), _this.getWidth(), _this.getHeight());
+                            }
                             renderer.render(scene, _this.getCamera());
                         }
                     }
@@ -334,6 +417,9 @@ var CameraComponent = /** @class */ (function (_super) {
                     this.effectComposer.render(renderTimer.delta);
                 }
                 else {
+                    if (renderer instanceof THREE.WebGLRenderer && this.viewport) {
+                        renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+                    }
                     renderer.render(scene, this.getCamera());
                 }
             }
@@ -397,6 +483,21 @@ var CameraComponent = /** @class */ (function (_super) {
     __decorate([
         core_1.Input()
     ], CameraComponent.prototype, "storageName");
+    __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "viewport");
+    __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "x");
+    __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "y");
+    __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "width");
+    __decorate([
+        core_1.Input()
+    ], CameraComponent.prototype, "height");
     __decorate([
         core_1.ContentChildren(pass_component_1.PassComponent, { descendants: false })
     ], CameraComponent.prototype, "pass");

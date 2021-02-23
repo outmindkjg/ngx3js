@@ -45,17 +45,17 @@ export class CameraComponent
   @Input() private scene:any = null;
   @Input() private scenes:any[] = null;
   @Input() private storageName:string = null;
+  @Input() private viewport:boolean = false;
+  @Input() private x:number | string = 0;
+  @Input() private y:number | string = 0;
+  @Input() private width:number | string = '100%';
+  @Input() private height:number | string = '100%';
 
-  @ContentChildren(PassComponent, { descendants: false })
-  pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent, { descendants: false })
-  composer: QueryList<ComposerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  audio: QueryList<AudioComponent>;
-  @ContentChildren(MixerComponent, { descendants: false })
-  mixer: QueryList<MixerComponent>;
+  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
 
   private getFov(def?: number): number {
     return this.fov === null ? def : this.fov;
@@ -69,24 +69,94 @@ export class CameraComponent
     return this.far === null ? def : this.far;
   }
 
-  getLeft(width?: number): number {
+  private getLeft(width?: number): number {
     return width * this.left;
   }
 
-  getRight(width?: number): number {
+  private getRight(width?: number): number {
     return width * this.right;
   }
 
-  getTop(height?: number): number {
+  private getTop(height?: number): number {
     return height * this.top;
   }
 
-  getBottom(height?: number): number {
+  private getBottom(height?: number): number {
     return height * this.bottom;
   }
 
-  getAspect(width?: number, height?: number): number {
-    return width > 0 && height > 0 ? width / height : 1;
+  private getAspect(width?: number, height?: number): number {
+    if (this.viewport) {
+      const cWidth = this.getWidth();
+      const cHeight = this.getHeight();
+      return cWidth / cHeight;
+    } else {
+      return width > 0 && height > 0 ? width / height : 0.5;
+    }
+  }
+
+  private getX(def?: number | string): number {
+    const x = ThreeUtil.getTypeSafe(this.x, def);
+    if (ThreeUtil.isNotNull(x)) {
+      if (typeof (x) == 'string') {
+        if (x.endsWith('%')) {
+          return this.cameraWidth * parseFloat(x.slice(0, -1)) / 100
+        } else {
+          return parseFloat(x)
+        }
+      } else {
+        return x;
+      }
+    }
+    return 0;
+  }
+
+  private getY(def?: number | string): number {
+    const y = ThreeUtil.getTypeSafe(this.y, def);
+    if (ThreeUtil.isNotNull(y)) {
+      if (typeof (y) == 'string') {
+        if (y.endsWith('%')) {
+          return this.cameraHeight * parseFloat(y.slice(0, -1)) / 100
+        } else {
+          return parseFloat(y);
+        }
+      } else {
+        return y;
+      }
+    }
+    return 0;
+  }
+
+  private getWidth(def?: number | string): number {
+    const width = ThreeUtil.getTypeSafe(this.width, def);
+    if (ThreeUtil.isNotNull(width)) {
+      if (typeof (width) == 'string') {
+        if (width.endsWith('%')) {
+          return this.cameraWidth * parseFloat(width.slice(0, -1)) / 100
+        } else {
+          return parseFloat(width)
+        }
+      } else {
+        return width;
+      }
+    }
+    return 0;
+  }
+
+  private getHeight(def?: number | string): number {
+    const height = ThreeUtil.getTypeSafe(this.height, def);
+    if (ThreeUtil.isNotNull(height)) {
+      if (typeof (height) == 'string') {
+        if (height.endsWith('%')) {
+          return this.cameraHeight * parseFloat(height.slice(0, -1)) / 100
+        } else {
+          return parseFloat(height)
+        }
+      } else {
+        return height;
+      }
+    }
+    return 0;
   }
 
   constructor(private localStorageService: LocalStorageService) {
@@ -372,6 +442,15 @@ export class CameraComponent
             if (this.effectComposer !== null) {
               this.effectComposer.render(renderTimer.delta);
             } else {
+
+              if (renderer instanceof THREE.WebGLRenderer && this.viewport) {
+                renderer.setViewport(
+                  this.getX(),
+                  this.getY(),
+                  this.getWidth(),
+                  this.getHeight()
+                );
+              }
               renderer.render(scene, this.getCamera());
             }
           }
@@ -393,6 +472,14 @@ export class CameraComponent
         if (this.effectComposer !== null) {
           this.effectComposer.render(renderTimer.delta);
         } else {
+          if (renderer instanceof THREE.WebGLRenderer && this.viewport) {
+            renderer.setViewport(
+              this.getX(),
+              this.getY(),
+              this.getWidth(),
+              this.getHeight()
+            );
+          }
           renderer.render(scene, this.getCamera());
         }
       }

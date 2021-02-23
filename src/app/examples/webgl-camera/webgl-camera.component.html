@@ -2,82 +2,33 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras<br/>
   <b>O</b> orthographic <b>P</b> perspective
 </div>
-<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0xe0e0e0'">
-      <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
-      <three-mesh type="light" lightType="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
-        <three-position [x]="0" [y]="20" [z]="0"></three-position>
+<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)" [autoClear]="true">
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'"  [fov]="50" [near]="1" [far]="10000" [autoClear]="true" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'100%'">
+    <three-position [x]="0" [y]="0" [z]="2500"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh (onLoad)="setSphere1($event)">
+        <three-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [wireframe]="true"></three-material>
       </three-mesh>
-      <three-mesh type="light" lightType="directional"
-        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
-        [shadowCameraTop]="5"
-        [shadowCameraBottom]="-5"
-        [shadowCameraLeft]="-5"
-        [shadowCameraRight]="5"
-        [shadowCameraNear]="0.1"
-        [shadowCameraFar]="40"
-      >
-          <three-position [x]="0" [y]="20" [z]="10"></three-position>
+      <three-mesh (onLoad)="setSphere2($event)">
+        <three-position [x]="0" [y]="150" [z]="0"></three-position>
+        <three-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0x00ff00'" [wireframe]="true"></three-material>
       </three-mesh>
-
-      <three-mesh (onLoad)="setMesh($event)">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
-            <three-position [x]="3" [y]="6" [z]="-10"></three-position>
-            <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-          </three-camera>
-          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
-            <three-position [x]="0" [y]="0" [z]="0"></three-position>
-            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-            <three-mixer [action]="'Idle'">
-              <three-clip [name]="'Idle'"></three-clip>
-            </three-mixer>
-          </three-mesh>
-          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
-            <three-position [x]="3" [y]="0" [z]="0"></three-position>
-            <three-scale [x]="2" [y]="2" [z]="2"></three-scale>
-            <three-mixer [action]="'Walk'">
-              <three-clip [name]="'Walk'"></three-clip>
-            </three-mixer>
-          </three-mesh>
-          <three-mesh [storageName]="'/assets/examples/models/gltf/Soldier.glb'">
-            <three-position [x]="1" [y]="0" [z]="0"></three-position>
-            <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-            <three-mixer [action]="'Run'">
-              <three-clip [name]="'Run'"></three-clip>
-            </three-mixer>
-          </three-mesh>
-          <three-mesh [storageName]="'/assets/examples/models/gltf/Parrot.glb'">
-            <three-position [x]="-4" [y]="1" [z]="0"></three-position>
-            <three-scale [x]="0.01" [y]="0.01" [z]="0.01"></three-scale>
-            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
-            <three-mixer [action]="'parrot_A_'">
-              <three-clip [name]="'parrot_A_'"></three-clip>
-            </three-mixer>
-          </three-mesh>
-          <three-mesh [storageName]="'/assets/examples/models/gltf/Parrot.glb'">
-            <three-position [x]="-2" [y]="1" [z]="0"></three-position>
-            <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
-            <three-scale [x]="0.02" [y]="0.02" [z]="0.02"></three-scale>
-          </three-mesh>
+      <three-mesh (onLoad)="setSphere3($event)">
+        <three-position [x]="0" [y]="0" [z]="150"></three-position>
+        <three-geometry [type]="'sphere'" [radius]="5" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0x0000ff'" [wireframe]="true"></three-material>
       </three-mesh>
-      <three-mesh
-        [receiveShadow]="true"
-      >
-        <three-helper
-          [type]="'grid'"
-          [size]="50"
-          [divisions]="40"
-          [color1]="'0x000000'"
-          [color2]="'0x000000'"
-          [opacity]="0.2"
-        ></three-helper>
+      <three-mesh [type]="'Points'">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-geometry [type]="'Plane'" [width]="2000" [height]="2000"></three-geometry>
-        <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
+        <three-geometry  [type]="'geometry'" [position]="vertices"></three-geometry>
+        <three-material [type]="'Points'" [color]="'0x888888'"></three-material>
+      </three-mesh>
     </three-mesh>
-
   </three-scene>
 </three-renderer>

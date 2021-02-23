@@ -44,6 +44,7 @@ var RendererComponent = /** @class */ (function () {
         this.width = -1;
         this.height = -1;
         this.statsMode = -1;
+        this.autoClear = true;
         this.guiControl = null;
         this.guiParams = [];
         this.onRender = new core_1.EventEmitter();
@@ -365,6 +366,7 @@ var RendererComponent = /** @class */ (function () {
                 this.renderer.shadowMap.enabled = this.shadowMapEnabled;
                 this.renderer.shadowMap.enabled = true;
                 this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                this.renderer.autoClear = this.autoClear;
                 // this.renderer.outputEncoding = THREE.sRGBEncoding;
                 this.renderer.localClippingEnabled = this.localClippingEnabled;
                 this.renderer.clippingPlanes = this.getClippingPlanes([]);
@@ -482,6 +484,9 @@ var RendererComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "statsMode");
+    __decorate([
+        core_1.Input()
+    ], RendererComponent.prototype, "autoClear");
     __decorate([
         core_1.Input()
     ], RendererComponent.prototype, "guiControl");
