@@ -315,15 +315,17 @@ export class MeshComponent
   }
 
   setVisible(visible: boolean, helperVisible: boolean = null) {
-    if (visible !== null && visible !== undefined) {
-      this.object3d.visible = visible;
-    }
+    super.setVisible(visible);
     if (
       this.helper !== null &&
       helperVisible !== null &&
       helperVisible !== undefined
     ) {
       this.helper.visible = helperVisible;
+      this.helpers.forEach(helper => {
+        helper.setVisible(helperVisible);
+      })
+      this.helperVisible = helperVisible;
     }
   }
 

@@ -237,6 +237,34 @@ export class CameraComponent
     return false;
   }
 
+  setCameraParams(params : {[key : string] : any}) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (this[key] !== undefined) {
+        this[key] = value;
+      }
+    });
+    if (this.camera !== null) {
+      if (this.camera instanceof THREE.OrthographicCamera) {
+        this.camera.left = this.getLeft(this.cameraWidth);
+        this.camera.right = this.getRight(this.cameraWidth);
+        this.camera.top = this.getTop(this.cameraHeight);
+        this.camera.bottom = this.getBottom(this.cameraHeight);
+        this.camera.near = this.getNear(-200);
+        this.camera.far = this.getFar(2000);
+        this.camera.updateProjectionMatrix();
+      } else if (this.camera instanceof THREE.PerspectiveCamera) {
+        this.camera.aspect = this.getAspect(this.cameraWidth, this.cameraHeight);
+        this.camera.fov = this.getFov(50);
+        this.camera.near = this.getNear(0.1);
+        this.camera.far = this.getFar(2000);
+        this.camera.updateProjectionMatrix();
+      }
+      this.helpers.forEach(helper => {
+        helper.setUpdate()
+      });
+    }
+
+  }
   resetEffectComposer() {
     this.effectComposer = this.getEffectComposer();
   }
@@ -270,6 +298,18 @@ export class CameraComponent
       this.synkObject3D(['helpers']);
     });
     super.ngAfterContentInit();
+  }
+
+  setVisible(visible: boolean, helperVisible: boolean = null) {
+    super.setVisible(visible);
+    if (
+      helperVisible !== null &&
+      helperVisible !== undefined
+    ) {
+      this.helpers.forEach(helper => {
+        helper.setVisible(helperVisible);
+      })
+    }
   }
 
   synkObject3D(synkTypes: string[]) {
@@ -437,7 +477,10 @@ export class CameraComponent
     scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
-    if (this.scenes !== null && this.scenes.length > 0 && this.visible) {
+    if (!this.visible) {
+      return ;
+    }
+    if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {
         const scene = sceneCom.getScene();
         if (scene !== null) {

@@ -126,6 +126,14 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return false;
   }
 
+  setUpdate() {
+    if (this.helper !== null) {
+      if (this.helper instanceof THREE.CameraHelper) {
+        this.helper.update();
+      }
+    }
+  }
+
   resetHelper(clearMesh: boolean = false) {
     if (this.parent !== null) {
       if (clearMesh && this.helper !== null && this.helper.parent) {
@@ -134,7 +142,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       }
       if (this.parent instanceof THREE.Object3D) {
         if (this.parent.parent !== null) {
-          this.parent.parent.add(this.getHelper());
+          if (this.parent.parent.parent !== null) {
+            this.parent.parent.parent.add(this.getHelper());
+          } else {
+            this.parent.parent.add(this.getHelper());
+          }
         } else {
           this.parent.add(this.getHelper());
         }

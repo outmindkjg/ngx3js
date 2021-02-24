@@ -5,46 +5,42 @@
 <three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)" [autoClear]="true">
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-scene #scene>
-    <three-camera [type]="'perspective'"  [fov]="50" [near]="1" [far]="10000" [autoClear]="true" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'100%'">
+    <three-camera (onLoad)="setCameraMain($event)" [type]="'perspective'"  [fov]="50" [near]="1" [far]="10000" [autoClear]="true" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'100%'">
       <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
       <three-position [x]="0" [y]="0" [z]="2500"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-mesh name="cameraRig" (onLoad)="setCameraRig($event)">
       <three-lookat [refer]="main_mesh"></three-lookat>
-      <three-camera [visible]="true" [type]="'perspective'"  [fov]="50" [near]="1" [far]="10000" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
+      <three-camera (onLoad)="setCameraPerspective($event)" [visible]="true" [type]="'perspective'"  [fov]="50" [near]="150" [far]="1000" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
         <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
         <three-helper type="camera"></three-helper>
       </three-camera>
-      <three-camera [visible]="false" [type]="'Orthographic'"  [left]="-0.5" [top]="1" [right]="0.5" [bottom]="-1" [fov]="50" [near]="1" [far]="10000" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
+      <three-camera (onLoad)="setCameraOrthographic($event)" [visible]="false" [type]="'Orthographic'" [near]="150" [far]="1000" [left]="-0.5" [top]="1" [right]="0.5" [bottom]="-1" [fov]="50" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
         <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
         <three-helper [visible]="false" type="camera"></three-helper>
       </three-camera>
-      <three-mesh (onLoad)="setSphere3($event)">
+      <three-mesh>
         <three-position [x]="0" [y]="0" [z]="150"></three-position>
         <three-geometry [type]="'sphere'" [radius]="5" [widthSegments]="16" [heightSegments]="16"></three-geometry>
         <three-material [type]="'MeshBasic'" [color]="'0x0000ff'" [wireframe]="true"></three-material>
       </three-mesh>
     </three-mesh>
-    <three-mesh #main_mesh (onLoad)="setMesh($event)">
+    <three-mesh  #main_mesh (onLoad)="setMesh($event)">
+      <three-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+      <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [wireframe]="true"></three-material>
       <three-mesh (onLoad)="setSphere1($event)">
-        <three-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="16"></three-geometry>
-        <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [wireframe]="true"></three-material>
-        <three-mesh (onLoad)="setSphere2($event)">
-          <three-position [x]="0" [y]="150" [z]="0"></three-position>
-          <three-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="16"></three-geometry>
-          <three-material [type]="'MeshBasic'" [color]="'0x00ff00'" [wireframe]="true"></three-material>
-        </three-mesh>
+        <three-position [x]="0" [y]="150" [z]="0"></three-position>
+        <three-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0x00ff00'" [wireframe]="true"></three-material>
       </three-mesh>
-      <three-mesh [type]="'Points'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry  [type]="'geometry'" [position]="vertices"></three-geometry>
-        <three-material [type]="'Points'" [color]="'0x888888'"></three-material>
-      </three-mesh>
+    </three-mesh>
+    <three-mesh [type]="'Points'">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-geometry  [type]="'geometry'" [position]="vertices"></three-geometry>
+      <three-material [type]="'Points'" [color]="'0x888888'"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -174,6 +174,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  setVisible(visible: boolean, helperVisible: boolean = null) {
+    if (this.object3d !== null && visible !== null && visible !== undefined) {
+      this.object3d.visible = visible;
+      this.visible = visible;
+    }
+  }
+
   getObjectByName( name : string ): THREE.Object3D | undefined {
     if (this.object3d !== null) {
       return this.object3d.getObjectByName(name);
