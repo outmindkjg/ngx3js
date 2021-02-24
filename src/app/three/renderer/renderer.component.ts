@@ -136,6 +136,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.rendererWidth = width;
       this.rendererHeight = height;
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
+      console.log(width, height);
       this.cameras.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
@@ -390,7 +391,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.setClearAlpha(this.getClearAlpha(1));
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
-        this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.autoClear = this.autoClear;
         // this.renderer.outputEncoding = THREE.sRGBEncoding;

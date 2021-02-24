@@ -44,6 +44,7 @@ export class LookatComponent implements OnInit {
     if (this.parent !== null && this.visible) {
       if (this.parent instanceof  THREE.Object3D) {
         this.parent.lookAt(this.getLookAt());
+        this.parent.updateMatrixWorld();
       } else if (this.parent['target']) {
         this.parent['target'] = this.getLookAt();
       }

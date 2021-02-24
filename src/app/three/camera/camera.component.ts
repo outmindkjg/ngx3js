@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 import { PassComponent } from '../pass/pass.component';
 import {
   InterfaceEffectComposer,
@@ -34,7 +35,7 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
-  @Input() public type:'perspective' | 'orthographic' = 'perspective';
+  @Input() public type:'perspective' | 'orthographic' | 'array' | 'cinematic' = 'perspective';
   @Input() private fov:number = 45;
   @Input() private near:number = null;
   @Input() private far:number = null;
@@ -49,6 +50,7 @@ export class CameraComponent
   @Input() private scenes:any[] = null;
   @Input() private storageName:string = null;
   @Input() private viewport:boolean = false;
+  @Input() private viewportType:string = "renderer";
   @Input() private x:number | string = 0;
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
@@ -61,6 +63,7 @@ export class CameraComponent
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
 
   private getFov(def?: number): number {
     return this.fov === null ? def : this.fov;
@@ -105,7 +108,7 @@ export class CameraComponent
     if (ThreeUtil.isNotNull(x)) {
       if (typeof (x) == 'string') {
         if (x.endsWith('%')) {
-          return this.cameraWidth * parseFloat(x.slice(0, -1)) / 100
+          return Math.floor(this.cameraWidth * parseFloat(x.slice(0, -1)) / 100);
         } else {
           return parseFloat(x)
         }
@@ -121,7 +124,7 @@ export class CameraComponent
     if (ThreeUtil.isNotNull(y)) {
       if (typeof (y) == 'string') {
         if (y.endsWith('%')) {
-          return this.cameraHeight * parseFloat(y.slice(0, -1)) / 100
+          return Math.floor(this.cameraHeight * parseFloat(y.slice(0, -1)) / 100);
         } else {
           return parseFloat(y);
         }
@@ -137,7 +140,7 @@ export class CameraComponent
     if (ThreeUtil.isNotNull(width)) {
       if (typeof (width) == 'string') {
         if (width.endsWith('%')) {
-          return this.cameraWidth * parseFloat(width.slice(0, -1)) / 100
+          return Math.ceil(this.cameraWidth * parseFloat(width.slice(0, -1)) / 100);
         } else {
           return parseFloat(width)
         }
@@ -153,7 +156,7 @@ export class CameraComponent
     if (ThreeUtil.isNotNull(height)) {
       if (typeof (height) == 'string') {
         if (height.endsWith('%')) {
-          return this.cameraHeight * parseFloat(height.slice(0, -1)) / 100
+          return Math.ceil(this.cameraHeight * parseFloat(height.slice(0, -1)) / 100);
         } else {
           return parseFloat(height)
         }
@@ -297,6 +300,9 @@ export class CameraComponent
     this.helpers.changes.subscribe(() => {
       this.synkObject3D(['helpers']);
     });
+    this.cameras.changes.subscribe(() => {
+      this.synkObject3D(['cameras']);
+    });
     super.ngAfterContentInit();
   }
 
@@ -338,7 +344,12 @@ export class CameraComponent
               helper.setParent(this.camera);
             });
             break;
-        }
+          case 'cameras':
+            this.cameras.forEach((camera) => {
+              camera.setParent(this.camera);
+            });
+            break;
+          }
       });
       super.synkObject3D(synkTypes);
     }
@@ -367,8 +378,13 @@ export class CameraComponent
   }
 
   setCameraSize(width: number, height: number) {
-    this.cameraWidth = width;
-    this.cameraHeight = height;
+    if (this.isCameraChild) {
+      this.cameraWidth = width * window.devicePixelRatio;
+      this.cameraHeight = height * window.devicePixelRatio;
+    } else {
+      this.cameraWidth = width;
+      this.cameraHeight = height;
+    }
     if (this.camera !== null) {
       if (this.camera instanceof THREE.OrthographicCamera) {
         this.camera.left = this.getLeft(width);
@@ -378,6 +394,14 @@ export class CameraComponent
         this.camera.updateProjectionMatrix();
       } else if (this.camera instanceof THREE.PerspectiveCamera) {
         this.camera.aspect = this.getAspect(width, height);
+        if (this.viewport && this.viewportType === 'camera') {
+          this.camera['viewport'] = new THREE.Vector4(
+            this.getX(),
+            this.getY(),
+            this.getWidth(),
+            this.getHeight()
+          );
+        }
         this.camera.updateProjectionMatrix();
       }
     }
@@ -388,13 +412,20 @@ export class CameraComponent
     }
   }
 
+  isCameraChild : boolean = false;
   resetCamera(clearCamera: boolean = false) {
     if (this.parent !== null) {
       if (clearCamera && this.camera !== null && this.camera.parent) {
         this.camera.parent.remove(this.camera);
         this.camera = null;
       }
-      this.parent.add(this.getCamera());
+      if (this.parent instanceof THREE.ArrayCamera) {
+        this.isCameraChild = true;
+        this.parent.cameras.push(this.getCamera() as THREE.PerspectiveCamera);
+      } else {
+        this.isCameraChild = false;
+        this.parent.add(this.getCamera());
+      }
     }
   }
 
@@ -403,6 +434,17 @@ export class CameraComponent
       const width = this.cameraWidth;
       const height = this.cameraHeight;
       switch (this.type.toLowerCase()) {
+        case 'array' :
+          this.camera = new THREE.ArrayCamera();
+          break;
+        case 'cinematic':
+          this.camera = new CinematicCamera(
+            this.getFov(50),
+            this.getAspect(width, height),
+            this.getNear(0.1),
+            this.getFar(2000)
+          );
+          break;
         case 'orthographic':
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
@@ -415,12 +457,21 @@ export class CameraComponent
           break;
         case 'perspective':
         default:
-          this.camera = new THREE.PerspectiveCamera(
+          const perspectiveCamera = new THREE.PerspectiveCamera(
             this.getFov(50),
             this.getAspect(width, height),
             this.getNear(0.1),
             this.getFar(2000)
           );
+          if (this.viewport && this.viewportType === 'camera') {
+            perspectiveCamera['viewport'] = new THREE.Vector4(
+              this.getX(),
+              this.getY(),
+              this.getWidth(),
+              this.getHeight()
+            );
+          }
+          this.camera = perspectiveCamera;
           break;
       }
       if (ThreeUtil.isNotNull(this.name)) {
@@ -429,7 +480,7 @@ export class CameraComponent
       if (ThreeUtil.isNull(this.camera.userData.component)) {
         this.camera.userData.component = this;
       }
-      this.setObject3D(this.camera);
+      this.setObject3D(this.camera, this.isCameraChild ? false : true);
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
@@ -451,6 +502,7 @@ export class CameraComponent
         'lookat',
         'listner',
         'helpers',
+        'cameras',
         'audio',
         'mixer',
       ]);
@@ -477,7 +529,7 @@ export class CameraComponent
     scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
-    if (!this.visible) {
+    if (!this.visible || this.isCameraChild) {
       return ;
     }
     if (this.scenes !== null && this.scenes.length > 0) {
@@ -501,8 +553,7 @@ export class CameraComponent
             if (this.effectComposer !== null) {
               this.effectComposer.render(renderTimer.delta);
             } else {
-
-              if (renderer instanceof THREE.WebGLRenderer && this.viewport) {
+              if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
                 renderer.setViewport(
                   this.getX(),
                   this.getY(),
@@ -531,7 +582,7 @@ export class CameraComponent
         if (this.effectComposer !== null) {
           this.effectComposer.render(renderTimer.delta);
         } else {
-          if (renderer instanceof THREE.WebGLRenderer && this.viewport) {
+          if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
             renderer.setViewport(
               this.getX(),
               this.getY(),

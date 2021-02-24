@@ -170,6 +170,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       }
       const position = ThreeUtil.getVector3Safe(x, y, z);
       this.object3d.lookAt(position);
+      this.object3d.updateMatrixWorld();
     }
     return this;
   }
@@ -204,7 +205,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	protected object3d: THREE.Object3D = null;
 
-  setObject3D(object3d : THREE.Object3D) {
+  setObject3D(object3d : THREE.Object3D, add2Parent : boolean = true) {
     if (this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
         this.object3d.parent.remove(this.object3d);
@@ -214,7 +215,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
         this.object3d.name = this.name;
         this.object3d.visible = this.visible;
       }
-      if (this.parent !== null && this.parent instanceof THREE.Object3D) {
+      if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
         this.parent.add(this.object3d);
       }
     }

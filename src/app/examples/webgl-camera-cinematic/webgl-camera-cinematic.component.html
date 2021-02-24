@@ -1,0 +1,26 @@
+<div id="info">
+    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes
+</div>
+<three-renderer [controlType]="'orb1it'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+    <three-camera (onLoad)="setCamera($event)" [type]="'Cinematic'" [fov]="60" [near]="1" [far]="1000">
+        <three-position [x]="2" [y]="1" [z]="500"></three-position>
+        <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+    </three-camera>
+    <three-scene #scene [background]="'0xf0f0f0'">
+        <three-light type="directional"
+            [color]="'0xffffff'" [intensity]="0.35" [castShadow]="true"
+        >
+            <three-position [x]="1" [y]="1" [z]="1"></three-position>
+        </three-light>
+        <three-mesh (onLoad)="setMesh($event)">
+            <three-position [x]="0" [y]="0" [z]="0"></three-position>
+            <three-mesh *ngFor="let box of boxes">
+                <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
+                <three-geometry [type]="'box'" [width]="20" [height]="20" [depth]="20"></three-geometry>
+                <three-material type="meshlambert" [color]="box.color"></three-material>
+            </three-mesh>
+        </three-mesh>
+    </three-scene>
+</three-renderer>
+  

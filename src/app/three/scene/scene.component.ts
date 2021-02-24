@@ -21,6 +21,7 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MeshComponent } from './../mesh/mesh.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
+import { LightComponent } from '../light/light.component';
 
 @Component({
   selector: 'three-scene',
@@ -33,24 +34,16 @@ export class SceneComponent
   @Input() private storageName:string = null;
   @Input() private background:string | number = null;
 
-  @ContentChildren(MeshComponent, { descendants: false })
-  meshes: QueryList<MeshComponent>;
-  @ContentChildren(PhysicsComponent, { descendants: false })
-  physics: QueryList<PhysicsComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: true })
-  rigidbody: QueryList<RigidbodyComponent>;
-  @ContentChildren(FogComponent, { descendants: false })
-  fog: QueryList<FogComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false })
-  materials: QueryList<MaterialComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  audio: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true })
-  sceneController: QueryList<ControllerComponent>;
-  @ContentChildren(MixerComponent, { descendants: true })
-  mixer: QueryList<MixerComponent>;
+  @ContentChildren(MeshComponent, { descendants: false }) meshes: QueryList<MeshComponent>;
+  @ContentChildren(PhysicsComponent, { descendants: false }) physics: QueryList<PhysicsComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: true }) rigidbody: QueryList<RigidbodyComponent>;
+  @ContentChildren(FogComponent, { descendants: false }) fog: QueryList<FogComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) materials: QueryList<MaterialComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) sceneController: QueryList<ControllerComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lights: QueryList<LightComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -126,6 +119,9 @@ export class SceneComponent
     this.rigidbody.changes.subscribe(() => {
       this.synkObject3D(['rigidbody']);
     });
+    this.lights.changes.subscribe(() => {
+      this.synkObject3D(['lights']);
+    });
     super.ngAfterContentInit();
   }
 
@@ -138,6 +134,11 @@ export class SceneComponent
           case 'mesh':
             this.meshes.forEach((mesh) => {
               mesh.setParent(this.scene);
+            });
+            break;
+          case 'lights':
+            this.lights.forEach((light) => {
+              light.setParent(this.scene);
             });
             break;
           case 'rigidbody':
@@ -176,7 +177,7 @@ export class SceneComponent
               controller.setScene(this.scene);
             });
             break;
-        }
+          }
       });
     }
     super.synkObject3D(synkTypes);
@@ -227,6 +228,7 @@ export class SceneComponent
           'lookat',
           'materials',
           'mesh',
+          'lights',
           'physics',
           'fog',
           'sceneController',

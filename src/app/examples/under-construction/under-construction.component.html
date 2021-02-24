@@ -11,10 +11,10 @@
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
       <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
-      <three-mesh type="light" lightType="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+      <three-light type="Hemisphere" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
         <three-position [x]="0" [y]="20" [z]="0"></three-position>
-      </three-mesh>
-      <three-mesh type="light" lightType="directional"
+      </three-light>
+      <three-light type="directional"
         [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
         [shadowCameraTop]="2"
         [shadowCameraBottom]="-2"
@@ -24,7 +24,7 @@
         [shadowCameraFar]="40"
       >
           <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-      </three-mesh>
+      </three-light>
       <three-mesh (onLoad)="setMesh($event)">
           <three-position [x]="0" [y]="1" [z]="0"></three-position>
           <three-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></three-geometry>

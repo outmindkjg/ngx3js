@@ -39,6 +39,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private shadowCameraRight: number = null;
   @Input() private shadowCameraTop: number = null;
   @Input() private shadowCameraBottom: number = null;
+  @Input() private shadowCameraZoom: number = null;
   @Input() private target: any = null;
 
   @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
@@ -120,6 +121,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
   }
 
+  private getShadowCameraZoom(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowCameraZoom, def);
+  }
+  
   private getTarget(def?: number): THREE.Object3D {
     const target = ThreeUtil.getTypeSafe(this.target, def);
     if (target !== null && target !== undefined) {
@@ -243,18 +248,20 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
         if (this.light.shadow.camera) {
           if (this.light.shadow.camera instanceof THREE.PerspectiveCamera) {
-            this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
-            this.light.shadow.camera.far = this.getShadowCameraFar(2000);
             this.light.shadow.camera.fov = this.getShadowCameraFov(50);
+            this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+            this.light.shadow.camera.far = this.getShadowCameraFar(500);
+            this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
           } else if (
             this.light.shadow.camera instanceof THREE.OrthographicCamera
           ) {
-            this.light.shadow.camera.near = this.getShadowCameraNear(0.1);
-            this.light.shadow.camera.far = this.getShadowCameraFar(2000);
-            this.light.shadow.camera.left = this.getShadowCameraLeft(-1);
-            this.light.shadow.camera.right = this.getShadowCameraRight(1);
-            this.light.shadow.camera.top = this.getShadowCameraTop(1);
-            this.light.shadow.camera.bottom = this.getShadowCameraBottom(-1);
+            this.light.shadow.camera.left = this.getShadowCameraLeft(-5);
+            this.light.shadow.camera.right = this.getShadowCameraRight(5);
+            this.light.shadow.camera.top = this.getShadowCameraTop(5);
+            this.light.shadow.camera.bottom = this.getShadowCameraBottom(-5);
+            this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+            this.light.shadow.camera.far = this.getShadowCameraFar(500);
+            this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
           }
         }
         this.light.shadow.updateMatrices(this.light);
@@ -262,8 +269,8 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       if (ThreeUtil.isNull(this.light.userData.component)) {
         this.light.userData.component = this;
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
       this.setObject3D(this.light);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
       this.onLoad.emit(this);
     }
     return this.light;

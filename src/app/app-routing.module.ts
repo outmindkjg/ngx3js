@@ -137,6 +137,8 @@ import { WebglAnimationMultipleComponent } from './examples/webgl-animation-mult
 import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webgl-animation-skinning-additive-blending/webgl-animation-skinning-additive-blending.component';
 import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component';
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
+import { WebglCameraArrayComponent } from './examples/webgl-camera-array/webgl-camera-array.component';
+import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic/webgl-camera-cinematic.component';
 import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
 
 
@@ -355,13 +357,12 @@ const routes: Routes = [
       { path: 'webgl_animation_skinning_morph', component: WebglAnimationSkinningMorphComponent },
       { path: 'webgl_animation_multiple', component: WebglAnimationMultipleComponent },
       { path: 'webgl_camera', component: WebglCameraComponent },
+      { path: 'webgl_camera_array', component: WebglCameraArrayComponent },
+      { path: 'webgl_camera_cinematic', component: WebglCameraCinematicComponent },
       { path: '**', component: UnderConstructionComponent }
     ]
   }
 ];
-
-
-
 
 
 @NgModule({
