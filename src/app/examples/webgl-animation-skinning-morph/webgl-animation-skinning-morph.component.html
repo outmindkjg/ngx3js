@@ -49,15 +49,15 @@
             <three-clip [name]="'ThumbsUp'" [clampWhenFinished]="true" [loop]="'once'"></three-clip>
           </three-mixer>
       </three-mesh>
-      <three-mesh
-        [receiveShadow]="true"
-        [helperType]="'grid'"
-        [size]="200"
-        [divisions]="40"
-        [color1]="'0x000000'"
-        [color2]="'0x000000'"
-        [helperOpacity]="0.2"
-      >
+      <three-mesh [receiveShadow]="true">
+        <three-helper 
+          [type]="'grid'"
+          [size]="200"
+          [divisions]="40"
+          [color1]="'0x000000'"
+          [color2]="'0x000000'"
+          [opacity]="0.2"
+        ></three-helper>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
         <three-geometry [type]="'Plane'" [width]="2000" [height]="2000"></three-geometry>

@@ -121,6 +121,9 @@ ng g c examples/webgl_animation_multiple
 ng g c examples/webgl_camera
 ng g c examples/webgl_camera_array
 ng g c examples/webgl_camera_cinematic
+ng g c examples/webgl_camera_logarithmicdepthbuffer
+ng g c examples/webgl_clipping
+ng g c examples/webgl_clipping_advanced
 
 ng g c menu
 

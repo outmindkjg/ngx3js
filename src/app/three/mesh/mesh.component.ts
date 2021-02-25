@@ -99,10 +99,12 @@ export class MeshComponent
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
+  @Input() private geometry: GeometryComponent = null;
+  @Input() private material: MaterialComponent = null;
 
   @Output() private onLoad:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
 
-  @ContentChildren(GeometryComponent, { descendants: false }) private geometry: QueryList<GeometryComponent>;
+  @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) private materials: QueryList<MaterialComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElements: QueryList<LensflareelementComponent>;
   @ContentChildren(SvgComponent, { descendants: false }) private svg: QueryList<SvgComponent>;
@@ -208,8 +210,10 @@ export class MeshComponent
   getGeometry(): THREE.BufferGeometry {
     if (this.object3d !== null && this.object3d instanceof THREE.Mesh) {
       return this.object3d.geometry;
-    } else if (this.geometry !== null && this.geometry.length > 0) {
-      return this.geometry.first.getGeometry();
+    } else if (this.geometry !== null) {
+      return this.geometry.getGeometry();
+    } else if (this.geometryList !== null && this.geometryList.length > 0) {
+      return this.geometryList.first.getGeometry();
     } else {
       return null;
     }
@@ -219,7 +223,9 @@ export class MeshComponent
     parameters?: THREE.MeshBasicMaterialParameters
   ): THREE.Material[] {
     const materials: THREE.Material[] = [];
-    if (this.materials !== null && this.materials.length > 0) {
+    if (this.material !== null && this.material !== undefined) {
+      materials.push(this.material.getMaterial());
+    } else if (this.materials !== null && this.materials.length > 0) {
       this.materials.forEach((material) => {
         if (material.materialType === 'material') {
           materials.push(material.getMaterial());
@@ -277,7 +283,7 @@ export class MeshComponent
     this.rigidbody.changes.subscribe((e) => {
       this.synkObject3D(['rigidbody']);
     });
-    this.geometry.changes.subscribe((e) => {
+    this.geometryList.changes.subscribe((e) => {
       this.synkObject3D(['geometry']);
     });
     this.svg.changes.subscribe((e) => {
@@ -359,7 +365,7 @@ export class MeshComponent
             });
             break;
           case 'geometry':
-            this.geometry.forEach((geometry) => {
+            this.geometryList.forEach((geometry) => {
               geometry.setParent(this.mesh);
             });
             break;
@@ -440,7 +446,7 @@ export class MeshComponent
   getMesh(): THREE.Mesh | THREE.Group {
     if (this.mesh === null) {
       let geometry: THREE.BufferGeometry = null;
-      if (this.geometry != null && this.geometry.length > 0) {
+      if ((this.geometryList != null && this.geometryList.length > 0) || this.geometry !== null) {
         geometry = this.getGeometry();
       }
       let basemesh: THREE.Mesh | THREE.Group = null;

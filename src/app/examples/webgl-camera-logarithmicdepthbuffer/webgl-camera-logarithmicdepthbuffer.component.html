@@ -1,0 +1,61 @@
+<div id="info">
+    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras - logarithmic depth buffer<br/>
+    mousewheel to dolly out
+</div>
+<three-renderer
+  [controlType]="'or1bit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0x000000'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  [logarithmicDepthBuffer]="controls.logarithmicDepthBuffer"
+  (onRender)="onRender($event)"
+  (onLoad)="setRenderer($event)"
+>
+  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'">
+  </three-camera>
+  <three-scene #scene>
+    <three-light type="Ambient" [color]="'0x222222'"></three-light>
+    <three-light type="directional" [color]="'0xffffff'" [intensity]="1">
+      <three-position [x]="100" [y]="100" [z]="100"></three-position>
+    </three-light>
+    <three-geometry
+      #geometry
+      [type]="'Sphere'"
+      [radius]="0.5"
+      [widthSegments]="24"
+      [heightSegments]="24"
+    ></three-geometry>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let label of labelData">
+        <three-position [x]="0" [y]="0" [z]="label.size * label.scale * -1"></three-position>
+        <three-mesh>
+          <three-position [x]="0" [y]="label.size / 4 * label.scale" [z]=" - label.size * label.scale"></three-position>
+          <three-scale [x]="label.scale" [y]="label.scale" [z]="label.scale"></three-scale>
+          <three-geometry [type]="'text'" [font]="'helvetiker'" [textAlign]="'center'" [text]="label.label" [size]="label.size" [height]="label.size/2"></three-geometry>
+          <three-material type="MeshPhong" 
+            [color]="label.color"
+            [specular]="'0x050505'"
+            [shininess]="50"
+            [emissive]="'0x000000'"
+          ></three-material>
+        </three-mesh>
+        <three-mesh [geometry]="geometry">
+          <three-position [x]="0" [y]="- label.size / 4 * label.scale" [z]="0"></three-position>
+          <three-scale [x]="label.scale * label.size" [y]="label.scale * label.size" [z]="label.scale * label.size"></three-scale>
+          <three-material type="MeshPhong" 
+            [color]="label.color"
+            [specular]="'0x050505'"
+            [shininess]="50"
+            [emissive]="'0x000000'"
+          ></three-material>
+        </three-mesh>
+      </three-mesh>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

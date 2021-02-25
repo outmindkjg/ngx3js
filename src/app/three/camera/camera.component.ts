@@ -36,9 +36,9 @@ export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
   @Input() public type:'perspective' | 'orthographic' | 'array' | 'cinematic' = 'perspective';
-  @Input() private fov:number = 45;
-  @Input() private near:number = null;
-  @Input() private far:number = null;
+  @Input() private fov:number|string = 45;
+  @Input() private near:number|string = null;
+  @Input() private far:number|string = null;
   @Input() private left:number = -0.5;
   @Input() private right:number = 0.5;
   @Input() private top:number = 0.5;
@@ -65,16 +65,31 @@ export class CameraComponent
   @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
 
-  private getFov(def?: number): number {
-    return this.fov === null ? def : this.fov;
+  private getFov(def?: number | string): number {
+    const fov = ThreeUtil.getTypeSafe(this.fov,def);
+    if (typeof fov === 'string') {
+      return parseFloat(fov);
+    } else {
+      return fov;
+    }
   }
 
-  private getNear(def?: number): number {
-    return this.near === null ? def : this.near;
+  private getNear(def?: number | string): number {
+    const near = ThreeUtil.getTypeSafe(this.near,def);
+    if (typeof near === 'string') {
+      return parseFloat(near);
+    } else {
+      return near;
+    }
   }
 
-  private getFar(def?: number): number {
-    return this.far === null ? def : this.far;
+  private getFar(def?: number | string): number {
+    const far = ThreeUtil.getTypeSafe(this.far,def);
+    if (typeof far === 'string') {
+      return parseFloat(far);
+    } else {
+      return far;
+    }
   }
 
   private getLeft(width?: number): number {
@@ -463,6 +478,7 @@ export class CameraComponent
             this.getNear(0.1),
             this.getFar(2000)
           );
+          console.log(this.getNear(0.1), this.getFar(2000));
           if (this.viewport && this.viewportType === 'camera') {
             perspectiveCamera['viewport'] = new THREE.Vector4(
               this.getX(),

@@ -1,0 +1,116 @@
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+  Skeletal Animation Blending (model from
+  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
+  >)<br />
+  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
+  or (0,0,1)
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0x000000'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  [globalClippingEnabled]="controls.globalClipping.enabled"
+  [localClippingEnabled]="controls.localClipping.enabled"
+  (onRender)="onRender($event)"
+  (onLoad)="setRenderer($event)"
+>
+  <three-shared>
+    <three-material
+      #boxmaterial
+      (onLoad)="setMaterial($event)"
+      type="MeshPhong"
+      [color]="'0xee0a10'"
+      [shininess]="100"
+      [side]="'double'"
+      [clipShadows]="true"
+    >
+      <three-plane
+        *ngFor="let plane of localPlanes"
+        [x]="plane.x"
+        [y]="plane.y"
+        [z]="plane.z"
+        [w]="plane.w"
+      ></three-plane>
+    </three-material>
+    <three-geometry
+      #boxgeometry
+      [type]="'Box'"
+      [width]="0.18"
+      [height]="0.18"
+      [depth]="0.18"
+    ></three-geometry>
+  </three-shared>
+  <three-plane
+    *ngFor="let plane of globalPlanes"
+    [x]="plane.x"
+    [y]="plane.y"
+    [z]="plane.z"
+    [w]="plane.w"
+  ></three-plane>
+  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
+    <three-position [x]="0" [y]="1.3" [z]="3"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene>
+    <three-light type="Ambient" [color]="'0x505050'"> </three-light>
+    <three-light
+      type="Spot"
+      [color]="'0xffffff'"
+      [angle]="36"
+      [penumbra]="0.2"
+      [castShadow]="true"
+      [shadowCameraNear]="3"
+      [shadowCameraFar]="10"
+      [shadowMapSizeWidth]="1024"
+      [shadowMapSizeHeight]="1024"
+    >
+      <three-position [x]="2" [y]="3" [z]="3"></three-position>
+    </three-light>
+    <three-light
+      type="directional"
+      [color]="'0x55505a'"
+      [intensity]="1"
+      [castShadow]="true"
+      [shadowCameraTop]="1"
+      [shadowCameraBottom]="-1"
+      [shadowCameraLeft]="-1"
+      [shadowCameraRight]="1"
+      [shadowCameraNear]="1"
+      [shadowCameraFar]="10"
+    >
+      <three-position [x]="0" [y]="3" [z]="0"></three-position>
+    </three-light>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0.8" [z]="0"></three-position>
+      <three-mesh
+        *ngFor="let box of boxes"
+        [geometry]="boxgeometry"
+        [material]="boxmaterial"
+      >
+        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
+      </three-mesh>
+    </three-mesh>
+    <three-mesh [receiveShadow]="true">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+      <three-geometry
+        [type]="'Plane'"
+        [width]="9"
+        [height]="9"
+      ></three-geometry>
+      <three-material
+        [type]="'MeshPhong'"
+        [color]="'0xa0adaf'"
+        [shininess]="150"
+      ></three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

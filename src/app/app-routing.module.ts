@@ -139,7 +139,10 @@ import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animat
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
 import { WebglCameraArrayComponent } from './examples/webgl-camera-array/webgl-camera-array.component';
 import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic/webgl-camera-cinematic.component';
+import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
 import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
+import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
+import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
 
 
 const routes: Routes = [
@@ -359,6 +362,9 @@ const routes: Routes = [
       { path: 'webgl_camera', component: WebglCameraComponent },
       { path: 'webgl_camera_array', component: WebglCameraArrayComponent },
       { path: 'webgl_camera_cinematic', component: WebglCameraCinematicComponent },
+      { path: 'webgl_camera_logarithmicdepthbuffer', component: WebglCameraLogarithmicdepthbufferComponent },
+      { path: 'webgl_clipping', component: WebglClippingComponent },
+      { path: 'webgl_clipping_advanced', component: WebglClippingAdvancedComponent },
       { path: '**', component: UnderConstructionComponent }
     ]
   }

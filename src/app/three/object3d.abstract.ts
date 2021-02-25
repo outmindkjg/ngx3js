@@ -119,6 +119,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  setScaleScalar(scalar: number): this {
+    if (this.object3d !== null) {
+      this.object3d.scale.setScalar(scalar);
+    }
+    return this;
+  }
+
 	getRotation(): THREE.Euler {
 		if (this.object3d !== null) {
 			return this.object3d.rotation;
@@ -159,15 +166,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   setLookat(x : number, y : number , z : number): this {
     if (this.object3d !== null) {
-      if (x === null) {
-        x = this.object3d.position.x;
-      }
-      if (y === null) {
-        y = this.object3d.position.y;
-      }
-      if (z === null) {
-        z = this.object3d.position.z;
-      }
       const position = ThreeUtil.getVector3Safe(x, y, z);
       this.object3d.lookAt(position);
       this.object3d.updateMatrixWorld();
@@ -226,29 +224,39 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 			synkTypes.forEach((synkType) => {
 				switch (synkType) {
 					case 'position':
-						this.position.forEach((position) => {
-							position.setParent(this.object3d);
-						});
+            if (this.position !== null && this.position !== undefined) {
+              this.position.forEach((position) => {
+                position.setParent(this.object3d);
+              });
+            }
 						break;
 					case 'rotation':
-						this.rotation.forEach((rotation) => {
-							rotation.setParent(this.object3d);
-						});
+						if (this.rotation !== null && this.rotation !== undefined) {
+              this.rotation.forEach((rotation) => {
+							  rotation.setParent(this.object3d);
+						  });
+            }
 						break;
 					case 'scale':
-						this.scale.forEach((scale) => {
-							scale.setParent(this.object3d);
-						});
+						if (this.scale !== null && this.scale !== undefined) {
+              this.scale.forEach((scale) => {
+							  scale.setParent(this.object3d);
+						  });
+            }
 						break;
 					case 'lookat':
-						this.lookat.forEach((lookat) => {
-							lookat.setParent(this.object3d);
-						});
+            if (this.lookat !== null && this.lookat !== undefined) {
+              this.lookat.forEach((lookat) => {
+							  lookat.setParent(this.object3d);
+						  });
+            }
 						break;
 					case 'controller' :
-						this.controller.forEach((controller) => {
-							controller.setParent(this.object3d);
-						});
+            if (this.controller !== null && this.controller !== undefined) {
+              this.controller.forEach((controller) => {
+							  controller.setParent(this.object3d);
+						  });
+            }
 						break;
 				}
 			});

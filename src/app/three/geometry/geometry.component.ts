@@ -121,6 +121,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private slices:number = null;
   @Input() private stacks:number = null;
   @Input() private text:string = null;
+  @Input() private textAlign:string = null;
+  
   @Input() private font:string = null;
   @Input() private size:number = null;
   @Input() private weight:number = null;
@@ -148,101 +150,130 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @ContentChildren(CurveComponent, { descendants: false }) private curves: QueryList<CurveComponent>;
   @ContentChildren(TranslationComponent, { descendants: false }) private translation: QueryList<TranslationComponent>;
 
-  private getRadius(def: number): number {
-    return this.radius === null ? def : this.radius;
-  }
-  private getRadiusSegments(def: number): number {
-    return this.radiusSegments === null ? def : this.radiusSegments;
-  }
-  private getRadialSegments(def: number): number {
-    return this.radialSegments === null ? def : this.radialSegments;
-  }
-  private getWidth(def: number): number {
-    return this.width === null ? def : this.width;
-  }
-  private getWidthSegments(def: number): number {
-    return this.widthSegments === null ? def : this.widthSegments;
-  }
-  private getHeight(def: number): number {
-    return this.height === null ? def : this.height;
-  }
-  private getHeightSegments(def: number): number {
-    return this.heightSegments === null ? def : this.heightSegments;
-  }
-  private getDepth(def: number): number {
-    return this.depth === null ? def : this.depth;
-  }
-  private getDepthSegments(def: number): number {
-    return this.depthSegments === null ? def : this.depthSegments;
-  }
-  private getThetaStart(def: number): number {
-    return ((this.thetaStart === null ? def : this.thetaStart) / 180) * Math.PI;
-  }
-  private getThetaLength(def: number): number {
-    return (
-      ((this.thetaLength === null ? def : this.thetaLength) / 180) * Math.PI
-    );
-  }
-  private getThetaSegments(def: number): number {
-    return this.thetaSegments === null ? def : this.thetaSegments;
-  }
-  private getRadiusTop(def: number): number {
-    return this.radiusTop === null ? def : this.radiusTop;
-  }
-  private getRadiusBottom(def: number): number {
-    return this.radiusBottom === null ? def : this.radiusBottom;
-  }
-  private getDetail(def: number): number {
-    return this.detail === null ? def : this.detail;
-  }
-  private getInnerRadius(def: number): number {
-    return this.innerRadius === null ? def : this.innerRadius;
-  }
-  private getOuterRadius(def: number): number {
-    return this.outerRadius === null ? def : this.outerRadius;
-  }
-  private getOpenEnded(def: boolean): boolean {
-    return this.openEnded === null ? def : this.openEnded;
-  }
-  private getPhiStart(def: number): number {
-    return ((this.phiStart === null ? def : this.phiStart) / 180) * Math.PI;
-  }
-  private getPhiLength(def: number): number {
-    return ((this.phiLength === null ? def : this.phiLength) / 180) * Math.PI;
-  }
-  private getSegments(def: number): number {
-    return this.segments === null ? def : this.segments;
-  }
-  private getPhiSegments(def: number): number {
-    return this.phiSegments === null ? def : this.phiSegments;
-  }
-  private getTube(def: number): number {
-    return this.tube === null ? def : this.tube;
-  }
-  private getTubularSegments(def: number): number {
-    return this.tubularSegments === null ? def : this.tubularSegments;
-  }
-  private getArc(def: number): number {
-    return ((this.arc === null ? def : this.arc) / 180) * Math.PI;
-  }
-  private getP(def: number): number {
-    return this.p === null ? def : this.p;
-  }
-  private getQ(def: number): number {
-    return this.q === null ? def : this.q;
-  }
-  private getSlices(def: number): number {
-    return this.slices === null ? def : this.slices;
-  }
-  private getStacks(def: number): number {
-    return this.stacks === null ? def : this.stacks;
+  private getRadius(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radius , def);
   }
 
-  private getText(def: string): string {
-    return this.text === null ? def : this.text;
+  private getRadiusSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radiusSegments , def);
   }
 
-  private getFont(def: string, callBack: (font: THREE.Font) => void) {
+  private getRadialSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radialSegments , def);
+  }
+
+  private getWidth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.width , def);
+  }
+
+  private getWidthSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.widthSegments , def);
+  }
+
+  private getHeight(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.height , def);
+  }
+
+  private getHeightSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.heightSegments , def);
+  }
+
+  private getDepth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.depth , def);
+  }
+
+  private getDepthSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.depthSegments , def);
+  }
+
+  private getThetaStart(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.thetaStart , def);
+  }
+
+  private getThetaLength(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.thetaLength , def);
+  }
+
+  private getThetaSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.thetaSegments , def);
+  }
+
+  private getRadiusTop(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radiusTop , def);
+  }
+
+  private getRadiusBottom(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.radiusBottom , def);
+  }
+
+  private getDetail(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.detail , def);
+  }
+
+  private getInnerRadius(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.innerRadius , def);
+  }
+
+  private getOuterRadius(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.outerRadius , def);
+  }
+
+  private getOpenEnded(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.openEnded , def);
+  }
+
+  private getPhiStart(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.phiStart , def);
+  }
+
+  private getPhiLength(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.phiLength , def);
+  }
+
+  private getSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.segments , def);
+  }
+
+  private getPhiSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.phiSegments , def);
+  }
+
+  private getTube(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.tube , def);
+  }
+
+  private getTubularSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.tubularSegments , def);
+  }
+
+  private getArc(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.arc , def);
+  }
+
+  private getP(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.p , def);
+  }
+  
+  private getQ(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.q , def);
+  }
+
+  private getSlices(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.slices , def);
+  }
+  private getStacks(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.stacks , def);
+  }
+
+  private getText(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.text , def);
+  }
+
+  private getTextAlign(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.textAlign , def);
+  }
+
+  private getFont(def?: string, callBack?: (font: THREE.Font) => void) {
     const font = this.font === null ? def : this.font;
     const weight = this.weight === null ? '' : this.weight;
     let fontPath: string = '';
@@ -314,7 +345,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     });
   }
 
-  private getSize(def: number): number {
+  private getSize(def?: number): number {
     return this.size === null ? def : this.size;
   }
 
@@ -328,7 +359,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return points;
   }
 
-  private getPointsV2(def: GeometriesVector3[]): THREE.Vector2[] {
+  private getPointsV2(def?: GeometriesVector3[]): THREE.Vector2[] {
     const points: THREE.Vector2[] = [];
     (this.points === null ? def : this.points).forEach((p) => {
       points.push(new THREE.Vector2(p.x, p.y));
@@ -360,7 +391,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return ParametricGeometries.klein;
   }
 
-  private getVertices(def: GeometriesVector3[]): THREE.Vector3[] {
+  private getVertices(def?: GeometriesVector3[]): THREE.Vector3[] {
     const vertices: THREE.Vector3[] = [];
     (this.vertices === null ? def : this.vertices).forEach((p) => {
       vertices.push(new THREE.Vector3(p.x, p.y, p.z));
@@ -368,7 +399,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return vertices;
   }
 
-  private getPolyVertices(def: number[]): number[] {
+  private getPolyVertices(def?: number[]): number[] {
     const vertices: number[] = [];
     (this.polyVertices === null ? def : this.polyVertices).forEach((p) => {
       vertices.push(p);
@@ -376,7 +407,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return vertices;
   }
 
-  private getPolyIndices(def: number[]): number[] {
+  private getPolyIndices(def?: number[]): number[] {
     const indices: number[] = [];
     (this.polyIndices === null ? def : this.polyIndices).forEach((p) => {
       indices.push(p);
@@ -384,7 +415,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return indices;
   }
 
-  private getColors(def: (string | number)[]): THREE.Color[] {
+  private getColors(def?: (string | number)[]): THREE.Color[] {
     const colors: THREE.Color[] = [];
     (this.colors === null ? def : this.colors).forEach((c) => {
       colors.push(new THREE.Color(c));
@@ -392,7 +423,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return colors;
   }
   /*
-   private getFaces(def: GeometriesVector3[]): THREE.Face3[] {
+   private getFaces(def?: GeometriesVector3[]): THREE.Face3[] {
      const faces: THREE.Face3[] = [];
      (this.faces === null ? def : this.faces).forEach((p) => {
        faces.push(new THREE.Face3(p.a, p.b, p.c));
@@ -400,7 +431,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
      return faces;
    }
  */
-  private getThresholdAngle(def: number): number {
+  private getThresholdAngle(def?: number): number {
     return this.thresholdAngle === null ? def : this.thresholdAngle;
   }
 
@@ -412,31 +443,31 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     }
   }
 
-  private getCurveSegments(def: number): number {
+  private getCurveSegments(def?: number): number {
     return this.curveSegments === null ? def : this.curveSegments;
   }
 
-  private getSteps(def: number): number {
+  private getSteps(def?: number): number {
     return this.steps === null ? def : this.steps;
   }
 
-  private getBevelEnabled(def: boolean): boolean {
+  private getBevelEnabled(def?: boolean): boolean {
     return this.bevelEnabled === null ? def : this.bevelEnabled;
   }
 
-  private getBevelThickness(def: number): number {
+  private getBevelThickness(def?: number): number {
     return this.bevelThickness === null ? def : this.bevelThickness;
   }
 
-  private getBevelSize(def: number): number {
+  private getBevelSize(def?: number): number {
     return this.bevelSize === null ? def : this.bevelSize;
   }
 
-  private getBevelOffset(def: number): number {
+  private getBevelOffset(def?: number): number {
     return this.bevelOffset === null ? def : this.bevelOffset;
   }
 
-  private getBevelSegments(def: number): number {
+  private getBevelSegments(def?: number): number {
     return this.bevelSegments === null ? def : this.bevelSegments;
   }
 
@@ -450,7 +481,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return shape;
   }
 
-  private getClosed(def: boolean): boolean {
+  private getClosed(def?: boolean): boolean {
     return this.closed === null ? def : this.closed;
   }
 
@@ -1008,14 +1039,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             this.getFont('helvetiker', (font: THREE.Font) => {
               const textParameters: THREE.TextGeometryParameters = {
                 font: font,
-                size: this.getSize(1),
-                height: this.getHeight(1),
-                curveSegments: this.getCurveSegments(1),
-                bevelEnabled: this.getBevelEnabled(true),
-                bevelThickness: this.getBevelThickness(1),
-                bevelSize: this.getBevelSize(1),
-                bevelOffset: this.getBevelOffset(1),
-                bevelSegments: this.getBevelSegments(1),
+                size: this.getSize(),
+                height: this.getHeight(),
+                curveSegments: this.getCurveSegments(),
+                bevelEnabled: this.getBevelEnabled(),
+                bevelThickness: this.getBevelThickness(),
+                bevelSize: this.getBevelSize(),
+                bevelOffset: this.getBevelOffset(),
+                bevelSegments: this.getBevelSegments(),
               };
               switch (this.type.toLowerCase()) {
                 case 'textbuffer':
@@ -1031,7 +1062,20 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                   );
                   break;
               }
+              switch(this.getTextAlign('left')) {
+                case 'left' :
+                  break;
+                case 'center' :
+                  this.geometry.computeBoundingSphere();
+                  this.geometry.translate( - this.geometry.boundingSphere.radius, 0, 0 )
+                  break;
+                case 'right' :
+                  this.geometry.computeBoundingSphere();
+                  this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0 )
+                  break;
+              }
               this.resetGeometry();
+              this.onLoad.emit(this);
             });
             break;
           case 'torusbuffer':

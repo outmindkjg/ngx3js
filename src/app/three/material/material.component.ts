@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, Output, EventEmitter ,OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -112,6 +112,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private rotation:number = null;
   @Input() private size:number = null;
   @Input() private sizeAttenuation:boolean = null;
+  @Output() private onLoad:EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -1308,6 +1309,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       if (ThreeUtil.isNull(this.material.userData.component)) {
         this.material.userData.component = this;
       }
+      this.onLoad.emit(this);
     }
     return this.material;
   }

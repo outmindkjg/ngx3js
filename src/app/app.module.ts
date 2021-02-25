@@ -180,6 +180,9 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { VisualComponent } from './three/visual/visual.component';
 import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic/webgl-camera-cinematic.component';
+import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
+import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
+import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
 
 @NgModule({
   declarations: [
@@ -361,7 +364,10 @@ import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic
     HelperComponent,
     WebglCameraComponent,
     WebglCameraArrayComponent,
-    WebglCameraCinematicComponent
+    WebglCameraCinematicComponent,
+    WebglCameraLogarithmicdepthbufferComponent,
+    WebglClippingComponent,
+    WebglClippingAdvancedComponent
   ],
   imports: [
     BrowserModule,

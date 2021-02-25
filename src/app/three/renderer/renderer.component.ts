@@ -33,6 +33,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private clearColor:string | number = null;
   @Input() private clearAlpha:number = null;
   @Input() private localClippingEnabled:boolean = false;
+  @Input() private globalClippingEnabled:boolean = true;
   @Input() private enablePan:boolean = true;
   @Input() private enableDamping:boolean = false;
 
@@ -43,8 +44,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private statsMode:number = -1;
   @Input() private autoClear:boolean=true;
   @Input() private guiControl:any = null;
+  @Input() private logarithmicDepthBuffer:boolean = false;
   @Input() private guiParams:GuiControlParam[] = [];
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
+  @Output() private onLoad:EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
 
   @ContentChildren(SceneComponent, { descendants: false }) private scenes: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: true }) private cameras: QueryList<CameraComponent>;
@@ -80,7 +83,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.type && this.renderer) {
+    if ((changes.type || changes.logarithmicDepthBuffer ) && this.renderer) {
       this.canvas.nativeElement.removeChild(this.renderer.domElement);
       this.renderer = null;
       this.renderer = this.getRenderer();
@@ -118,6 +121,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       if (changes.localClippingEnabled) {
         if (this.renderer instanceof THREE.WebGLRenderer) {
           this.renderer.localClippingEnabled = this.localClippingEnabled;
+        }
+      }
+      if (changes.globalClippingEnabled) {
+        if (this.renderer instanceof THREE.WebGLRenderer) {
+          this.renderer.clippingPlanes = (!this.globalClippingEnabled) ? [] : this.getClippingPlanes();
         }
       }
     }
@@ -253,8 +261,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
-  private rendererWidth: number = 100;
-  private rendererHeight: number = 100;
+  private rendererWidth: number = null;
+  private rendererHeight: number = null;
 
   private stats: ThreeStats = null;
   private gui: ThreeGui = null;
@@ -380,12 +388,16 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       }
       switch (this.type.toLowerCase()) {
         default:
-          this.renderer = new THREE.WebGLRenderer({ alpha: this.cssRenderer !== null ? true : false , antialias: this.antialias });
+          this.renderer = new THREE.WebGLRenderer({ alpha: this.cssRenderer !== null ? true : false , antialias: this.antialias, logarithmicDepthBuffer : this.logarithmicDepthBuffer });
           break;
       }
-      const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
-      this.rendererWidth = width;
-      this.rendererHeight = height;
+      if (this.rendererWidth === null || this.rendererHeight === null) {
+        const [width, height] = (this.width > 0 && this.height > 0) ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
+        this.rendererWidth = width;
+        this.rendererHeight = height;
+      }
+      const width = this.rendererWidth;
+      const height = this.rendererHeight;
       if (this.renderer instanceof THREE.WebGLRenderer) {
         this.renderer.setClearColor(this.getClearColor(0xEEEEEE));
         this.renderer.setClearAlpha(this.getClearAlpha(1));
@@ -395,7 +407,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.autoClear = this.autoClear;
         // this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.localClippingEnabled = this.localClippingEnabled;
-        this.renderer.clippingPlanes = this.getClippingPlanes([]);
+        this.renderer.clippingPlanes = (!this.globalClippingEnabled) ? [] : this.getClippingPlanes();
       }
       if (this.cssRenderer !== null) {
         this.cssRenderer.domElement.style.position = 'absolute';
@@ -411,6 +423,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       ThreeUtil.setRenderer(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
       this._renderCaller();
+      this.onLoad.emit(this);
     }
     return this.renderer;
   }
