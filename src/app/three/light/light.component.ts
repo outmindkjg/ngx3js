@@ -8,6 +8,7 @@ import {
   QueryList,
 } from '@angular/core';
 import * as THREE from 'three';
+import { HelperComponent } from '../helper/helper.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { ThreeUtil } from './../interface';
 import { MixerComponent } from './../mixer/mixer.component';
@@ -44,6 +45,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
@@ -156,9 +158,23 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
     return false;
   }
+  ngAfterContentInit(): void {
+    this.helpers.changes.subscribe((e) => {
+      this.synkObject3D(['helpers']);
+    });
+  }
 
   synkObject3D(synkTypes: string[]) {
     if (this.light !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'helpers':
+            this.helpers.forEach((helper) => {
+              helper.setParent(this.light);
+            });
+            break;
+        }
+      });
       super.synkObject3D(synkTypes);
     }
   }
@@ -270,7 +286,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         this.light.userData.component = this;
       }
       this.setObject3D(this.light);
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','helpers']);
       this.onLoad.emit(this);
     }
     return this.light;

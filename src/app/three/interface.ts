@@ -244,6 +244,23 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
       this.controls.meshRotate.x = this.controls.meshRotateOrg.x;
       this.controls.meshRotate.y = this.controls.meshRotateOrg.y;
       this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
+      if (this.controls.meshScale.x !== 1) {
+        const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Scale');
+        const minScale = this.controls.meshScale.x * 0.01;
+        const maxScale = this.controls.meshScale.x * 1.5;
+        const stepScale = (maxScale - minScale) / 30;
+        controlsParams.children.forEach(child => {
+          if (ThreeUtil.isNotNull(child.controler['min'])) {
+            child.controler['min'](minScale);
+          }
+          if (ThreeUtil.isNotNull(child.controler['max'])) {
+            child.controler['max'](maxScale);
+          }
+          if (ThreeUtil.isNotNull(child.controler['step'])) {
+            child.controler['step'](stepScale);
+          }
+        })
+      }
       const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
       if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)){
         this.controls.meshShape.visible = this.mesh.getMesh().visible;
@@ -1189,6 +1206,19 @@ export class ThreeUtil {
 export interface RendererTimer {
   delta: number;
   elapsedTime: number;
+}
+
+export interface RendererEvent {
+  type: string;
+  clientX? : number;
+  clientY? : number;
+  offsetX? : number;
+  offsetY? : number;
+  rateX? : number;
+  rateY? : number;
+  width? : number;
+  height? : number;
+  event : any;
 }
 
 export class ThreeClock extends THREE.Clock {

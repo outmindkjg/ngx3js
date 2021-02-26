@@ -49,6 +49,7 @@ export class PlaneComponent implements OnInit {
     this.getPlane();
     if (this.worldPlane !== null) {
       this.worldPlane.copy(this.plane);
+      console.log(this.worldPlane);
     }
   }
 

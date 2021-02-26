@@ -30,6 +30,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private blendSrc:string = null;
   @Input() private blendSrcAlpha:number = null;
   @Input() private clipIntersection:boolean = null;
+  @Input() private clippingPlanes : PlaneComponent[] | THREE.Plane[] = null;
   @Input() private clipShadows:boolean = null;
   @Input() private colorWrite:boolean = null;
   @Input() private defines:any = null;
@@ -122,7 +123,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   @ContentChildren(TextureComponent) private textures: QueryList<TextureComponent>;
   @ContentChildren(ShaderComponent) private shaders: QueryList<ShaderComponent>;
-  @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -377,7 +378,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   getTexture(type: string): THREE.Texture {
-    if (this.textures !== null && this.textures.length > 0) {
+    if (ThreeUtil.isNotNull(this.textures) && this.textures.length > 0) {
       type = type.toLowerCase();
       const foundTexture = this.textures.find((texture) => {
         return texture.textureType.toLowerCase() === type;
@@ -506,6 +507,16 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
       const clippingPlanes : THREE.Plane[] = [];
       this.clippingPlanes.forEach(plane => {
+        if (plane instanceof PlaneComponent) {
+          clippingPlanes.push(plane.getWorldPlane());
+        } else {
+          clippingPlanes.push(plane);
+        }
+      });
+      return clippingPlanes;
+    } else if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined) {
+      const clippingPlanes : THREE.Plane[] = [];
+      this.clippingPlanesList.forEach(plane => {
         clippingPlanes.push(plane.getWorldPlane());
       });
       return clippingPlanes;
@@ -852,13 +863,21 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   private backgroundangularTryOutCnt: number = 0;
 
+  setMaterialParams(params : { [key : string] : any } ) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (this[key] !== undefined) {
+        this[key] = value;
+      }
+    });
+  }
+
   resetMaterial() {
     if (this.parent !== null && this.getVisible(true)) {
       if (this.parent instanceof THREE.Object3D) {
-        if (this.clippingPlanes !== null && this.clippingPlanes !== undefined && this.clippingPlanes.length > 0) {
+        if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined && this.clippingPlanesList.length > 0) {
           const matrixWorld = this.parent.matrixWorld;
           this.parent.onBeforeRender = () => {
-            this.clippingPlanes.forEach(plane => {
+            this.clippingPlanesList.forEach(plane => {
               plane.getWorldPlane(matrixWorld);
             })
           }

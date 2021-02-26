@@ -56,7 +56,6 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
                 if (this.material !== null) {
                   const material = this.material.getMaterial();
                   material.clipShadows = this.controls.localClipping.shadow;
-                  console.log(material);
                 }
               },
             },
@@ -149,9 +148,11 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
     this.globalPlane = globalPlane;
   }
 
-  localPlane: PlaneComponent = null;
+  localPlane: PlaneComponent[] = [];
   setLocalPlane(localPlane: PlaneComponent) {
-    this.localPlane = localPlane;
+    if (this.localPlane.indexOf(localPlane) === -1) {
+      this.localPlane.push(localPlane);
+    }
   }
 
   renderer: RendererComponent = null;
@@ -170,11 +171,17 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
       if (!this.controls.meshRotate.autoRotate) {
         this.mesh.setRotation(
           null,
-          timer.elapsedTime * 90,
-          timer.elapsedTime * 36
+          timer.elapsedTime * 45,
+          timer.elapsedTime * 15
         );
       }
-      this.mesh.setScaleScalar(Math.cos(timer.elapsedTime) * 0.125 + 0.875);
+      // this.mesh.setScaleScalar(Math.cos(timer.elapsedTime) * 0.125 + 0.875);
+    }
+    if (this.localPlane.length > 0) {
+      const bouncy = Math.cos( timer.elapsedTime * .5 ) * 0.3 + 0.4;
+      this.localPlane.forEach(plane => {
+        plane.setPlane(null, null, null, bouncy);
+      })
     }
   }
 }

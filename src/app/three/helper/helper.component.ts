@@ -1,4 +1,3 @@
-import { LightComponent } from './../light/light.component';
 import { ThreeUtil } from './../interface';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AbstractObject3dComponent } from '../object3d.abstract';
@@ -33,7 +32,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
 
-  @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
+  @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
 
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     if (this.target !== null) {
@@ -215,33 +214,33 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'pointlight':
         case 'spotlight':
         case 'light':
-          let liightTarget = this.getTarget(this.parent);
-          if (liightTarget instanceof THREE.DirectionalLight) {
+          let lightTarget = this.getTarget(this.parent);
+          if (lightTarget instanceof THREE.DirectionalLight) {
             basemesh = new THREE.DirectionalLightHelper(
-              liightTarget,
+              lightTarget,
               this.getSize(10),
               this.getColor(0xff0000)
             );
-          } else if (liightTarget instanceof THREE.HemisphereLight) {
+          } else if (lightTarget instanceof THREE.HemisphereLight) {
             basemesh = new THREE.HemisphereLightHelper(
-              liightTarget,
+              lightTarget,
               this.getSize(10),
               this.getColor(0xff0000)
             );
-          } else if (liightTarget instanceof THREE.PointLight) {
+          } else if (lightTarget instanceof THREE.PointLight) {
             basemesh = new THREE.PointLightHelper(
-              liightTarget,
+              lightTarget,
               this.getSize(10),
               this.getColor(0xff0000)
             );
-          } else if (liightTarget instanceof THREE.SpotLight) {
+          } else if (lightTarget instanceof THREE.SpotLight) {
             basemesh = new THREE.SpotLightHelper(
-              liightTarget,
+              lightTarget,
               this.getColor(0xff0000)
             );
-          } else if (liightTarget instanceof THREE.RectAreaLight) {
+          } else if (lightTarget instanceof THREE.RectAreaLight) {
             basemesh = new RectAreaLightHelper(
-              liightTarget,
+              lightTarget,
               this.getColor(0xff0000)
             );
           }
@@ -282,7 +281,8 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           }
         }
         this.helper.visible = this.getVisible(true);
-        this.setObject3D(this.helper);
+        this.setObject3D(this.helper, false);
+        this.onLoad.emit(this);
       } else {
         this.helper = null;
       }

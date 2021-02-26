@@ -1,0 +1,60 @@
+<div id="info">
+    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - decal splatter<br/>
+    click to shoot
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [minDistance]="50"
+  [maxDistance]="200"
+  [antialias]="true"
+  [clearColor]="'0x000000'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  [useEvent]="['1change','pointerdown', '1pointerup','1pointermove']"
+  (eventListener)="setEventListener($event)"
+  (onRender)="onRender($event)"
+>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <three-position [x]="0" [y]="0" [z]="120"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene>
+    <three-light
+      type="Ambient"
+      [color]="'0x443333'"
+    >
+      <three-position [x]="0" [y]="20" [z]="0"></three-position>
+    </three-light>
+    <three-light
+      type="directional"
+      [color]="'0xffddcc'"
+      [intensity]="1"
+    >
+      <three-position [x]="1" [y]="0.75" [z]="0.5"></three-position>
+    </three-light>
+    <three-light
+      type="directional"
+      [color]="'0xccccff'"
+      [intensity]="1"
+    >
+      <three-position [x]="-1" [y]="0.75" [z]="-0.5"></three-position>
+    </three-light>
+   <three-mesh (onLoad)="setMesh($event)" [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
+      <three-material type="MeshPhong" 
+        [specular]="'0x111111'"
+        [shininess]="25"
+      >
+        <three-texture [textureType]="'map'" [image]="'/assets/models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>  
+        <three-texture [textureType]="'specularMap'" [image]="'/assets/models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>  
+        <three-texture [textureType]="'normalMap'" [image]="'/assets/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>  
+      </three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

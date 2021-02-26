@@ -219,6 +219,14 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  getObjectTop() : THREE.Object3D {
+    let parent : THREE.Object3D = this.parent;
+    while(parent.parent !== null) {
+      parent = parent.parent;
+    }
+    return parent;
+  }
+
 	synkObject3D(synkTypes: string[]) {
 		if (this.object3d !== null) {
 			synkTypes.forEach((synkType) => {

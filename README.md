@@ -124,6 +124,9 @@ ng g c examples/webgl_camera_cinematic
 ng g c examples/webgl_camera_logarithmicdepthbuffer
 ng g c examples/webgl_clipping
 ng g c examples/webgl_clipping_advanced
+ng g c examples/webgl_clipping_intersection
+ng g c examples/webgl_clipping_stencil
+ng g c examples/webgl_decals
 
 ng g c menu
 

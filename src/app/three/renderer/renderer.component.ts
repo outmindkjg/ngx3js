@@ -13,7 +13,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ControllerComponent } from '../controller/controller.component';
-import { GuiControlParam, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
+import { GuiControlParam, RendererEvent, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
@@ -30,12 +30,29 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private controlType:string = "none";
   @Input() private controlAutoRotate:boolean = false;
   @Input() private shadowMapEnabled:boolean = true;
+  @Input() private minDistance:number = null;
+  @Input() private maxDistance:number = null;
   @Input() private clearColor:string | number = null;
   @Input() private clearAlpha:number = null;
   @Input() private localClippingEnabled:boolean = false;
   @Input() private globalClippingEnabled:boolean = true;
   @Input() private enablePan:boolean = true;
   @Input() private enableDamping:boolean = false;
+  @Input() private movementSpeed:number = null;
+  @Input() private rollSpeed:number = null;
+  @Input() private dragToLook:boolean = null;
+  @Input() private autoForward:boolean = null;
+  @Input() private lookSpeed:number = null;
+  @Input() private lookVertical:boolean = null;
+  @Input() private activeLook:boolean = null;
+  @Input() private heightSpeed:boolean = null;
+  @Input() private heightCoef:number = null;
+  @Input() private heightMin:number = null;
+  @Input() private heightMax:number = null;
+  @Input() private constrainVertical:boolean = null;
+  @Input() private verticalMin:number = null;
+  @Input() private verticalMax:number = null;
+  @Input() private mouseDragOn:boolean = null;
 
   @Input() private antialias:boolean = false;
   @Input() public sizeType:string = 'auto';
@@ -46,8 +63,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private guiControl:any = null;
   @Input() private logarithmicDepthBuffer:boolean = false;
   @Input() private guiParams:GuiControlParam[] = [];
+  @Input() private useEvent : string[] = null;
+
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
   @Output() private onLoad:EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
+  @Output() private eventListener:EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
 
   @ContentChildren(SceneComponent, { descendants: false }) private scenes: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: true }) private cameras: QueryList<CameraComponent>;
@@ -129,7 +149,73 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         }
       }
     }
+    if (changes.useEvent) {
+      const useEvent = (ThreeUtil.isNotNull(this.useEvent)) ? this.useEvent : [];
+      if (useEvent.indexOf('change') > -1) {
+        this.eventChange = this.addWindowEvent('change', this.eventChange);
+      } else {
+        this.eventChange = this.removeWindowEvent('change', this.eventChange);
+      }
+      if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
+        this.eventChange = this.addWindowEvent('pointerdown', this.eventPointerDown);
+      } else {
+        this.eventChange = this.removeWindowEvent('pointerdown', this.eventPointerDown);
+      }
+      if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1) {
+        this.eventChange = this.addWindowEvent('pointerup', this.eventPointerUp);
+      } else {
+        this.eventChange = this.removeWindowEvent('pointerup', this.eventPointerUp);
+      }
+      if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
+        this.eventChange = this.addWindowEvent('pointermove', this.eventPointerMove);
+      } else {
+        this.eventChange = this.removeWindowEvent('pointermove', this.eventPointerMove);
+      }
+    }
   }
+
+  removeWindowEvent(type : string, listener : any) {
+    if (listener !== null) {
+      window.removeEventListener(type, listener);
+    } 
+    return null;
+  }
+
+  addWindowEvent(type : string, listener : any) {
+    if (listener === null) {
+      listener = (event) => {
+        if (ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
+          const offsetTop = this._renderer.nativeElement.offsetTop;
+          const offsetLeft = this._renderer.nativeElement.offsetLeft;
+          const offsetRight = offsetLeft + this.rendererWidth;
+          const offsetBottom = offsetTop + this.rendererHeight;
+          if (event.clientX >= offsetLeft && event.clientX <= offsetRight && event.clientY >= offsetTop && event.clientY <= offsetBottom) {
+            const offsetX  = event.clientX - offsetLeft;
+            const offsetY = event.clientY - offsetTop;
+            this.eventListener.emit({ 
+              type : type, 
+              clientX : event.clientX,
+              clientY : event.clientY,
+              offsetX : offsetX,
+              offsetY : offsetY,
+              rateX : offsetX / this.rendererWidth,
+              rateY : offsetY / this.rendererHeight,
+              width : this.rendererWidth,
+              height : this.rendererHeight,
+              event : event
+            });
+          }
+        }
+      }
+      window.addEventListener(type, listener);
+    } 
+    return listener;
+  }
+
+  private eventChange : (event : any) => void = null;
+  private eventPointerDown : (event : any) => void = null;
+  private eventPointerUp : (event : any) => void = null;
+  private eventPointerMove : (event : any) => void = null;
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -144,7 +230,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.rendererWidth = width;
       this.rendererHeight = height;
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
-      console.log(width, height);
       this.cameras.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
@@ -226,6 +311,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.controller.changes.subscribe(() => {
       this.synkObject3D(['controller']);
     });
+
   }
 
   private renderListner: THREE.AudioListener = null;
@@ -291,19 +377,80 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       const camera: THREE.Camera = cameraComp.getCamera();
       switch (controlType.toLowerCase()) {
         case "orbit":
-          const controls = new OrbitControls(camera, domElement);
-          controls.autoRotate = controlAutoRotate;
-          controls.enableDamping = this.enableDamping;
-          controls.enablePan = this.enablePan;
-          return controls;
+          const orbitControls = new OrbitControls(camera, domElement);
+          orbitControls.autoRotate = controlAutoRotate;
+          orbitControls.enableDamping = this.enableDamping;
+          orbitControls.enablePan = this.enablePan;
+          if (ThreeUtil.isNotNull(this.minDistance)) {
+            orbitControls.minDistance = this.minDistance;
+          }
+          if (ThreeUtil.isNotNull(this.maxDistance)) {
+            orbitControls.maxDistance = this.maxDistance;
+          }
+          return orbitControls;
         case "fly":
-          return new FlyControls(camera, domElement);
+          const flyControls = new FlyControls(camera, domElement);
+          if (ThreeUtil.isNotNull(this.movementSpeed)) {
+            flyControls.movementSpeed = this.movementSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.rollSpeed)) {
+            flyControls.rollSpeed = this.rollSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.dragToLook)) {
+            flyControls.dragToLook = this.dragToLook;
+          }
+          if (ThreeUtil.isNotNull(this.autoForward)) {
+            flyControls.autoForward = this.autoForward;
+          }
+          return flyControls;
         case "firstperson":
-          return new FirstPersonControls(camera, domElement);
+          const firstPersonControls = new FirstPersonControls(camera, domElement);
+          if (ThreeUtil.isNotNull(this.movementSpeed)) {
+            firstPersonControls.movementSpeed = this.movementSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.lookSpeed)) {
+            firstPersonControls.lookSpeed = this.lookSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.lookVertical)) {
+            firstPersonControls.lookVertical = this.lookVertical;
+          }
+          if (ThreeUtil.isNotNull(this.autoForward)) {
+            firstPersonControls.autoForward = this.autoForward;
+          }
+          if (ThreeUtil.isNotNull(this.activeLook)) {
+            firstPersonControls.activeLook = this.activeLook;
+          }
+          if (ThreeUtil.isNotNull(this.heightSpeed)) {
+            firstPersonControls.heightSpeed = this.heightSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.heightCoef)) {
+            firstPersonControls.heightCoef = this.heightCoef;
+          }
+          if (ThreeUtil.isNotNull(this.heightMin)) {
+            firstPersonControls.heightMin = this.heightMin;
+          }
+          if (ThreeUtil.isNotNull(this.heightMax)) {
+            firstPersonControls.heightMax = this.heightMax;
+          }
+          if (ThreeUtil.isNotNull(this.constrainVertical)) {
+            firstPersonControls.constrainVertical = this.constrainVertical;
+          }
+          if (ThreeUtil.isNotNull(this.verticalMin)) {
+            firstPersonControls.verticalMin = this.verticalMin;
+          }
+          if (ThreeUtil.isNotNull(this.verticalMax)) {
+            firstPersonControls.verticalMax = this.verticalMax;
+          }
+          if (ThreeUtil.isNotNull(this.mouseDragOn)) {
+            firstPersonControls.mouseDragOn = this.mouseDragOn;
+          }
+          return firstPersonControls;
         case "transform":
-          return new TransformControls(camera, domElement);
+          const transformControls =  new TransformControls(camera, domElement);
+          return transformControls;
         case "trackball":
-          return new TrackballControls(camera, domElement);
+          const trackballControls = new TrackballControls(camera, domElement);
+          return trackballControls;
       }
     }
     return null;

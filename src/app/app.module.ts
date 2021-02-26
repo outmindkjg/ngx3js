@@ -183,6 +183,9 @@ import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic
 import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
 import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
 import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
+import { WebglClippingIntersectionComponent } from './examples/webgl-clipping-intersection/webgl-clipping-intersection.component';
+import { WebglClippingStencilComponent } from './examples/webgl-clipping-stencil/webgl-clipping-stencil.component';
+import { WebglDecalsComponent } from './examples/webgl-decals/webgl-decals.component';
 
 @NgModule({
   declarations: [
@@ -367,7 +370,10 @@ import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanc
     WebglCameraCinematicComponent,
     WebglCameraLogarithmicdepthbufferComponent,
     WebglClippingComponent,
-    WebglClippingAdvancedComponent
+    WebglClippingAdvancedComponent,
+    WebglClippingIntersectionComponent,
+    WebglClippingStencilComponent,
+    WebglDecalsComponent
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,7 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
+import { on } from 'events';
 
 @Component({
   selector: 'three-mesh',
@@ -56,6 +57,8 @@ export class MeshComponent
   @Input() private helperType:string = 'none';
   @Input() private scaleStep:number = 1;
   @Input() private castShadow:boolean = true;
+  @Input() private renderOrder:number = null;
+  @Input() private usePlaneStencil:boolean = false;
   @Input() private receiveShadow:boolean = false;
   @Input() private storageName:string = null;
   @Input() private storageOption:any = null;
@@ -64,6 +67,8 @@ export class MeshComponent
   @Input() private groundColor:string | number = null;
   @Input() private intensity:number = null;
   @Input() private distance:number = null;
+  @Input() private metalness:number = null;
+  @Input() private roughness:number = null;
   @Input() private angle:number = null;
   @Input() private penumbra:number = null;
   @Input() private decay:number = null;
@@ -143,6 +148,14 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.distance, def);
   }
 
+  private getMetalness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.metalness, def);
+  }
+
+  private getRoughness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.roughness, def);
+  }
+
   private getWidth(def?: number): number {
     return ThreeUtil.getTypeSafe(this.width, def);
   }
@@ -155,7 +168,7 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.count, def);
   }
 
-  private getColor(def?: string | number): THREE.Color {
+  private getColor(def?: string | number | THREE.Color): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
@@ -678,6 +691,7 @@ export class MeshComponent
                 geometry?: THREE.BufferGeometry
               ) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
+                  console.log(loadedMesh);
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
                       if (object instanceof THREE.Mesh) {
@@ -717,6 +731,17 @@ export class MeshComponent
                     this.mesh.add(loadedMesh);
                   }
                 }
+                if (ThreeUtil.isNotNull(this.materials) && this.materials.length > 0) {
+                  const loadedMeshed : THREE.Object3D[] = (loadedMesh instanceof THREE.Group) ? loadedMesh.children : [ loadedMesh ];
+                  const materials = this.getMaterials();
+                  materials.forEach((material, idx) => {
+                    if (loadedMeshed.length > idx && loadedMeshed[idx] instanceof THREE.Mesh) {
+                      const childMesh = loadedMeshed[idx] as THREE.Mesh;
+                      childMesh.material = material;
+                    }
+                  })
+                }
+
                 if (this.meshes) {
                   this.meshes.forEach((mesh) => {
                     if (
@@ -780,7 +805,69 @@ export class MeshComponent
         if (this.object3d instanceof THREE.Mesh) {
           mesh.castShadow = this.castShadow;
           mesh.receiveShadow = this.receiveShadow;
+          if (this.usePlaneStencil && mesh.material instanceof THREE.Material) {
+            const clippingMaterial = mesh.material;
+            const clippingPlanes = clippingMaterial.clippingPlanes as THREE.Plane[];
+            if (clippingPlanes !== null && clippingPlanes.length > 0) {
+              const planeGeom = new THREE.PlaneGeometry( 4, 4 );
+              const poGroup = new THREE.Group();
+              const object = new THREE.Group();
+              const meshStandardMaterialParameters = {
+                type : 'MeshStandard',
+                color: this.getColor(0x0000ff),
+                metalness: this.getMetalness(0.1),
+                roughness: this.getRoughness(0.75),
+                clippingPlanes: [],
+                stencilWrite: true,
+                stencilRef: 0,
+                stencilFunc: 'notequal',
+                stencilFail: 'replace',
+                stencilZFail: 'replace',
+                stencilZPass: 'replace',
+              }
+              if (clippingMaterial['color'] !== undefined) {
+                meshStandardMaterialParameters.color = this.getColor(clippingMaterial['color'])
+              }
+              if (clippingMaterial['metalness'] !== undefined) {
+                meshStandardMaterialParameters.metalness = this.getMetalness(clippingMaterial['metalness'])
+              }
+              if (clippingMaterial['roughness'] !== undefined) {
+                meshStandardMaterialParameters.roughness = this.getRoughness(clippingMaterial['roughness'])
+              }
+              clippingPlanes.forEach((plane, idx) => {
+                const group =this.createPlaneStencilGroup(mesh.geometry, plane, idx + 1);
+                object.add(group);
+                const materialComponent = new MaterialComponent(null);
+                materialComponent.setMaterialParams(Object.assign(meshStandardMaterialParameters, {
+                  clippingPlanes: clippingPlanes.filter( p => p !== plane )
+                }));
+                const planeMat = materialComponent.getMaterial();
+                const po = new THREE.Mesh( planeGeom, planeMat );
+                po.onBeforeRender = () => {
+                  plane.coplanarPoint( po.position );
+                  const position = po.position;
+                  po.lookAt(
+                    position.x - plane.normal.x,
+                    position.y - plane.normal.y,
+                    position.z - plane.normal.z,
+                  );
+                }
+                po.onAfterRender = ( renderer ) => {
+                  renderer.clearStencil();
+                };
+                po.renderOrder = idx + 1.1;
+                poGroup.add(po);
+              });
+              if (poGroup.children.length > 0) {
+                mesh.add(poGroup);
+                mesh.add(object);
+              }
+            }
+          }
         }
+      }
+      if (this.renderOrder !== null) {
+        this.object3d.renderOrder = this.renderOrder;
       }
       if (ThreeUtil.isNull(this.object3d.userData.component)) {
         this.object3d.userData.component = this;
@@ -808,6 +895,35 @@ export class MeshComponent
       this.onLoad.emit(this);
     }
     return this.mesh;
+  }
+
+  private createPlaneStencilGroup( geometry : THREE.BufferGeometry, plane : THREE.Plane, renderOrder : number ): THREE.Group {
+    const group = new THREE.Group();
+    const baseMat = new THREE.MeshBasicMaterial();
+    baseMat.depthWrite = false;
+    baseMat.depthTest = false;
+    baseMat.colorWrite = false;
+    baseMat.stencilWrite = true;
+    baseMat.stencilFunc = THREE.AlwaysStencilFunc;
+    const mat0 = baseMat.clone();
+    mat0.side = THREE.BackSide;
+    mat0.clippingPlanes = [ plane ];
+    mat0.stencilFail = THREE.IncrementWrapStencilOp;
+    mat0.stencilZFail = THREE.IncrementWrapStencilOp;
+    mat0.stencilZPass = THREE.IncrementWrapStencilOp;
+    const mesh0 = new THREE.Mesh( geometry, mat0 );
+    mesh0.renderOrder = renderOrder;
+    group.add( mesh0 );
+    const mat1 = baseMat.clone();
+    mat1.side = THREE.FrontSide;
+    mat1.clippingPlanes = [ plane ];
+    mat1.stencilFail = THREE.DecrementWrapStencilOp;
+    mat1.stencilZFail = THREE.DecrementWrapStencilOp;
+    mat1.stencilZPass = THREE.DecrementWrapStencilOp;
+    const mesh1 = new THREE.Mesh( geometry, mat1 );
+    mesh1.renderOrder = renderOrder;
+    group.add( mesh1 );
+    return group;
   }
 
   resetHelper() {

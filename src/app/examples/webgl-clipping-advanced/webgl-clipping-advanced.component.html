@@ -32,6 +32,7 @@
       [clipShadows]="true"
     >
       <three-plane
+        (onLoad)="setLocalPlane($event)"
         *ngFor="let plane of localPlanes"
         [x]="plane.x"
         [y]="plane.y"
@@ -54,7 +55,7 @@
     [z]="plane.z"
     [w]="plane.w"
   ></three-plane>
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0.3" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
     <three-position [x]="0" [y]="1.3" [z]="3"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
@@ -89,7 +90,22 @@
       <three-position [x]="0" [y]="3" [z]="0"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0.8" [z]="0"></three-position>
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-mesh [visible]="controls.localClipping.visualize" [castShadow]="false" [receiveShadow]="false">
+        <three-helper [visible]="controls.localClipping.visualize" [type]="'plane'" [size]="1" [color]="'0xffffff'">
+        </three-helper>
+        <three-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></three-geometry>
+        <three-material [opacity]="0.3" [transparent]="true" [color]="'0xffffff'">
+          <three-plane
+            (onLoad)="setLocalPlane($event)"
+            *ngFor="let plane of localPlanes"
+            [x]="plane.x"
+            [y]="plane.y"
+            [z]="plane.z"
+            [w]="plane.w"
+          ></three-plane>
+        </three-material>
+      </three-mesh>
       <three-mesh
         *ngFor="let box of boxes"
         [geometry]="boxgeometry"
@@ -99,7 +115,7 @@
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-position [x]="0" [y]="-1" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
         [type]="'Plane'"

@@ -478,7 +478,6 @@ export class CameraComponent
             this.getNear(0.1),
             this.getFar(2000)
           );
-          console.log(this.getNear(0.1), this.getFar(2000));
           if (this.viewport && this.viewportType === 'camera') {
             perspectiveCamera['viewport'] = new THREE.Vector4(
               this.getX(),

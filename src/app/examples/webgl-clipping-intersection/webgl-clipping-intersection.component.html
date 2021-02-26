@@ -1,0 +1,87 @@
+<three-renderer
+  [controlType]="'orbit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0x000000'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [localClippingEnabled]="true"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+>
+  <three-shared>
+    <three-plane #plane1 (onLoad)="setLocalPlane($event)" [x]="1" [y]="0" [z]="0" [w]="0"></three-plane>
+    <three-plane #plane2 (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0"></three-plane>
+    <three-plane #plane3 (onLoad)="setLocalPlane($event)" [x]="0" [y]="0" [z]="-1" [w]="0"></three-plane>
+  </three-shared>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="200">
+    <three-position [x]="-1.5" [y]="2.5" [z]="3"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene #scene>
+    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
+    <three-light
+      type="Hemisphere"
+      [skyColor]="'0xffffff'"
+      [groundColor]="'0x444444'"
+    >
+      <three-position [x]="0" [y]="20" [z]="0"></three-position>
+    </three-light>
+    <three-light
+      type="directional"
+      [color]="'0xffffff'"
+      [intensity]="1"
+      [castShadow]="true"
+      [shadowCameraTop]="2"
+      [shadowCameraBottom]="-2"
+      [shadowCameraLeft]="-2"
+      [shadowCameraRight]="2"
+      [shadowCameraNear]="0.1"
+      [shadowCameraFar]="40"
+    >
+      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+    </three-light>
+    <three-mesh
+      (onLoad)="setMesh($event)"
+      [receiveShadow]="false"
+      [castShadow]="false"
+    >
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-helper [type]="'plane'" [visible]="controls.showHelpers" [size]="2"></three-helper>
+      <three-geometry
+        [type]="'Sphere'"
+        [radius]="1.1"
+        [widthSegments]="48"
+        [heightSegments]="48"
+      ></three-geometry>
+      <three-material
+        type="meshlambert"
+        [color]="'0xffffff'"
+        [transparent]="true"
+        [opacity]="0"
+        [clippingPlanes]="[plane1, plane2, plane3]"
+      ></three-material>
+      <three-mesh
+        *ngFor="let sphere of sphereInfos"
+        [receiveShadow]="false"
+        [castShadow]="false"
+      >
+        <three-geometry
+          [type]="'Sphere'"
+          [radius]="sphere.radius"
+          [widthSegments]="48"
+          [heightSegments]="48"
+        ></three-geometry>
+        <three-material
+          type="meshlambert"
+          [color]="sphere.color"
+          [clipIntersection]="true"
+          [clippingPlanes]="[plane1, plane2, plane3]"
+        ></three-material>
+      </three-mesh>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

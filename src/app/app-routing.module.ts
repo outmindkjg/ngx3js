@@ -142,8 +142,10 @@ import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic
 import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
 import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
 import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
+import { WebglClippingIntersectionComponent } from './examples/webgl-clipping-intersection/webgl-clipping-intersection.component';
+import { WebglClippingStencilComponent } from './examples/webgl-clipping-stencil/webgl-clipping-stencil.component';
 import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
-
+import { WebglDecalsComponent } from './examples/webgl-decals/webgl-decals.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
@@ -365,6 +367,9 @@ const routes: Routes = [
       { path: 'webgl_camera_logarithmicdepthbuffer', component: WebglCameraLogarithmicdepthbufferComponent },
       { path: 'webgl_clipping', component: WebglClippingComponent },
       { path: 'webgl_clipping_advanced', component: WebglClippingAdvancedComponent },
+      { path: 'webgl_clipping_intersection', component: WebglClippingIntersectionComponent },
+      { path: 'webgl_clipping_stencil', component: WebglClippingStencilComponent },
+      { path: 'webgl_decals', component: WebglDecalsComponent },
       { path: '**', component: UnderConstructionComponent }
     ]
   }
