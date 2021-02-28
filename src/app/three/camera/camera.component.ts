@@ -377,7 +377,7 @@ export class CameraComponent
     return this.getCamera();
   }
 
-  getRaycaster(event): THREE.Raycaster {
+  getRaycaster(event? : any): THREE.Raycaster {
     const vector = new THREE.Vector3(
       (event.clientX / this.cameraWidth) * 2 - 1,
       -(event.clientY / this.cameraHeight) * 2 + 1,
@@ -390,6 +390,29 @@ export class CameraComponent
       v.sub(camera.position).normalize()
     );
     return raycaster;
+  }
+
+  private raycaster : THREE.Raycaster = null;
+  private intersects : THREE.Intersection[] = [];
+  getIntersections(mouse : THREE.Vector2, mesh : THREE.Object3D | THREE.Object3D[], recursive : boolean = false ): THREE.Intersection[] {
+    if (this.raycaster === null) {
+      this.raycaster = new THREE.Raycaster();
+    }
+    this.raycaster.setFromCamera( mouse, this.getCamera());
+    if (mesh instanceof THREE.Object3D) {
+      return this.raycaster.intersectObject( mesh, recursive, this.intersects );
+    } else { 
+      return this.raycaster.intersectObjects( mesh, recursive, this.intersects );
+    }
+  }
+
+  getIntersection(mouse : THREE.Vector2, mesh : THREE.Object3D | THREE.Object3D[], recursive : boolean = false ): THREE.Intersection {
+    const intersects = this.getIntersections(mouse, mesh, recursive);
+    if (intersects !== null && intersects.length > 0) {
+      return intersects[0];
+    } else {
+      return null;
+    }
   }
 
   setCameraSize(width: number, height: number) {

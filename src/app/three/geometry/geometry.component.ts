@@ -742,16 +742,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             if (ThreeUtil.isNotNull(this.position)) {
               this.geometry.setAttribute("position", this.getPosition([]));
             }
-            /*
-            todo
-            this.geometry.setAttribute("vertices", this.getVertices([]));
-            this.geometry.vertices = this.getVertices([]);
-            this.geometry.faces = this.getFaces([]);
-            this.geometry.colors = this.getColors([]);
-            if (this.geometry.faces && this.geometry.faces.length > 0) {
-              this.geometry.computeFaceNormals();
+            if (ThreeUtil.isNotNull(this.points)) {
+              this.geometry.setFromPoints(this.getPointsV3([]));
             }
-            */
             break;
           case 'boxbuffer':
             this.geometry = new THREE.BoxBufferGeometry(

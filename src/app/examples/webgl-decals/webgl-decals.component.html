@@ -14,12 +14,12 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['1change','pointerdown', '1pointerup','1pointermove']"
-  (eventListener)="setEventListener($event)"
+  [useEvent]="['change','pointerdown', 'pointerup','pointermove']"
+  [eventListener]="eventListener"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+  <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="0" [z]="120"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
@@ -44,6 +44,14 @@
     >
       <three-position [x]="-1" [y]="0.75" [z]="-0.5"></three-position>
     </three-light>
+    <three-mesh (onLoad)="setMouseHelper($event)" [visible]="true">
+      <three-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></three-geometry>
+      <three-material [type]="'MeshNormal'" [color]="'0xff0000'"></three-material>
+    </three-mesh>
+    <three-mesh type="line" (onLoad)="setMouseLine($event)" [visible]="true">
+      <three-geometry [type]="'geometry'" [points]="[{x : 0, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></three-geometry>
+      <three-material [type]="'LineBasic'" [color]="'0xff0000'"></three-material>
+    </three-mesh>
    <three-mesh (onLoad)="setMesh($event)" [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [x]="10" [y]="10" [z]="10"></three-scale>

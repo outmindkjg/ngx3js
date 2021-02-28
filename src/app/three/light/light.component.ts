@@ -169,9 +169,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'helpers':
-            this.helpers.forEach((helper) => {
-              helper.setParent(this.light);
-            });
+            if (this.helpers !== null && this.helpers !== undefined) {
+              this.helpers.forEach((helper) => {
+                helper.setParent(this.light);
+              });
+            }
             break;
         }
       });

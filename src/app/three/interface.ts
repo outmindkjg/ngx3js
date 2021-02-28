@@ -4,6 +4,9 @@ import * as CHROMA from 'chroma-js';
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import { CameraComponent } from './camera/camera.component';
+import { RendererComponent } from './renderer/renderer.component';
+import { SceneComponent } from './scene/scene.component';
 
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
@@ -210,6 +213,24 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
 
   ngAfterViewInit(): void {
     this.controls.meshRotate.applyAutoRotate();
+  }
+
+  public renderer : RendererComponent = null;
+
+  setRender(renderer : RendererComponent) {
+    this.renderer = renderer;
+  }
+
+  public scene : SceneComponent = null;
+
+  setScene(scene : SceneComponent) {
+    this.scene = scene;
+  }
+
+  public camera : CameraComponent = null;
+
+  setCamera(camera : CameraComponent) {
+    this.camera = camera;
   }
 
   public mesh : MeshComponent = null;
@@ -1218,6 +1239,7 @@ export interface RendererEvent {
   rateY? : number;
   width? : number;
   height? : number;
+  mouse? : THREE.Vector2;
   event : any;
 }
 
