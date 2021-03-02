@@ -1,6 +1,6 @@
 <div id="info">
     <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - decal splatter<br/>
-    click to shoot
+    click to shoot1
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -69,8 +69,8 @@
         <three-texture [textureType]="'map'" [image]="'/assets/examples/textures/decal/decal-diffuse.png'"></three-texture>
         <three-texture [textureType]="'normalMap'" [image]="'/assets/examples/textures/decal/decal-normal.jpg'"></three-texture>
       </three-material>
-      <three-geometry 
-        [type]="'decal'" 
+      <three-geometry
+        [type]="'decal'"
         [positionX]="decal.position.x"
         [positionY]="decal.position.y"
         [positionZ]="decal.position.z"
@@ -86,13 +86,13 @@
     <three-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
-      <three-material type="MeshPhong" 
+      <three-material type="MeshPhong"
         [specular]="'0x111111'"
         [shininess]="25"
       >
-        <three-texture [textureType]="'map'" [image]="'/assets/models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>  
-        <three-texture [textureType]="'specularMap'" [image]="'/assets/models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>  
-        <three-texture [textureType]="'normalMap'" [image]="'/assets/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>  
+        <three-texture [textureType]="'map'" [image]="'/assets/models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>
+        <three-texture [textureType]="'specularMap'" [image]="'/assets/models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>
+        <three-texture [textureType]="'normalMap'" [image]="'/assets/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>
       </three-material>
     </three-mesh>
   </three-scene>
