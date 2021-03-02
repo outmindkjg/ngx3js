@@ -1,6 +1,8 @@
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+
+
 import { InterfaceComposerComponent, InterfaceEffectComposer, RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
 import { AbstractTweenComponent } from '../tween.abstract';
@@ -12,6 +14,7 @@ import { AbstractTweenComponent } from '../tween.abstract';
 })
 export class ComposerComponent extends AbstractTweenComponent implements OnInit, InterfaceEffectComposer, InterfaceComposerComponent {
 
+  @Input() private type:string = 'composer';
   @Input() private scene:THREE.Scene = null;
   @Input() private camera:THREE.Camera = null;
   @Input() private clear:boolean = false;
@@ -128,6 +131,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
   setCameraSize(width: number, height: number) {
     this.cameraWidth = width;
     this.cameraHeight = height;
+
   }
 
   render(webGLRenderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
@@ -171,10 +175,14 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
 
   getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): EffectComposer {
     if (this.effectComposer === null) {
-      this.effectComposer = new EffectComposer(webGLRenderer);
-      this.pass.forEach(item => {
-        item.getPass(this.getScene(scene), this.getCamera(camera), this.effectComposer);
-      })
+      switch(this.type.toLowerCase()) {
+        default :
+          this.effectComposer = new EffectComposer(webGLRenderer);
+          this.pass.forEach(item => {
+            item.getPass(this.getScene(scene), this.getCamera(camera), this.effectComposer);
+          })
+          break;
+      }
     }
     return this.effectComposer;
   }

@@ -11,6 +11,7 @@ import {
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
@@ -142,7 +143,17 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private closed:boolean = null;
   @Input() private position:number[] = null;
   @Input() private itemSize : number = null;
-
+  @Input() private mesh : THREE.Mesh | any = null;
+  @Input() private positionX : number = null;
+  @Input() private positionY : number = null;
+  @Input() private positionZ : number = null;
+  @Input() private orientationX : number = null;
+  @Input() private orientationY : number = null;
+  @Input() private orientationZ : number = null;
+  @Input() private sizeX : number = null;
+  @Input() private sizeY : number = null;
+  @Input() private sizeZ : number = null;
+ 
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 
   @ContentChildren(GeometryComponent, { descendants: false }) private subGeometry: QueryList<GeometryComponent>;
@@ -501,7 +512,38 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return new THREE.Float32BufferAttribute( position, itemSize )
   }
 
+  private getMesh(def? : THREE.Mesh | any): THREE.Mesh {
+    let value = ThreeUtil.getTypeSafe(this.mesh, def);
+    let mesh : THREE.Object3D = null;
+    if (value.getMesh) {
+      mesh = value.getMesh();
+    } else {
+      mesh = value;
+    }
+    while(mesh instanceof THREE.Group) {
+      mesh = mesh.children[0];
+    }
+    console.log(mesh);
+    if (mesh instanceof THREE.Mesh) {
+      return mesh;
+    } else if (mesh.children.length > 0 && mesh.children[0] instanceof THREE.Mesh){
+      return mesh.children[0] as THREE.Mesh;
+    } else {
+      return null;
+    }
+  }
 
+  private getPositionV3(def? : THREE.Vector3): THREE.Vector3 {
+    return ThreeUtil.getVector3Safe(this.positionX, this.positionY, this.positionZ, def);
+  }
+
+  private getOrientation(def? : THREE.Euler): THREE.Euler {
+    return ThreeUtil.getEulerSafe(this.orientationX, this.orientationY, this.orientationZ, def);
+  }
+
+  private getSizeV3(def? : THREE.Vector3): THREE.Vector3 {
+    return ThreeUtil.getVector3Safe(this.sizeX, this.sizeY, this.sizeZ, def);
+  }
 
   ngOnInit(): void { }
 
@@ -1133,6 +1175,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           case 'convexbuffer':
           case 'convex':
             this.geometry = new ConvexGeometry(this.getPointsV3([]));
+            break;
+          case 'decal' :
+            this.geometry = new DecalGeometry(
+              this.getMesh(this.parent), this.getPositionV3(), this.getOrientation(), this.getSizeV3()
+            );
             break;
           default:
             this.geometry = new THREE.PlaneGeometry(

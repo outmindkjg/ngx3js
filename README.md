@@ -127,6 +127,144 @@ ng g c examples/webgl_clipping_advanced
 ng g c examples/webgl_clipping_intersection
 ng g c examples/webgl_clipping_stencil
 ng g c examples/webgl_decals
+ng g c examples/webgl_depth_texture
+
+ng g c examples/webgl_effects_anaglyph
+ng g c examples/webgl_effects_ascii
+ng g c examples/webgl_effects_parallaxbarrier
+ng g c examples/webgl_effects_peppersghost
+ng g c examples/webgl_effects_stereo
+ng g c examples/webgl_framebuffer_texture
+ng g c examples/webgl_geometries
+ng g c examples/webgl_geometries_parametric
+ng g c examples/webgl_geometry_colors
+ng g c examples/webgl_geometry_colors_lookuptable
+ng g c examples/webgl_geometry_convex
+ng g c examples/webgl_geometry_cube
+ng g c examples/webgl_geometry_dynamic
+ng g c examples/webgl_geometry_extrude_shapes
+ng g c examples/webgl_geometry_extrude_shapes2
+ng g c examples/webgl_geometry_extrude_splines
+ng g c examples/webgl_geometry_hierarchy
+ng g c examples/webgl_geometry_hierarchy2
+ng g c examples/webgl_geometry_minecraft
+ng g c examples/webgl_geometry_minecraft_ao
+ng g c examples/webgl_geometry_normals
+ng g c examples/webgl_geometry_nurbs
+ng g c examples/webgl_geometry_shapes
+ng g c examples/webgl_geometry_spline_editor
+ng g c examples/webgl_geometry_teapot
+ng g c examples/webgl_geometry_terrain
+ng g c examples/webgl_geometry_terrain_fog
+ng g c examples/webgl_geometry_terrain_raycast
+ng g c examples/webgl_geometry_text
+ng g c examples/webgl_geometry_text_shapes
+ng g c examples/webgl_geometry_text_stroke
+ng g c examples/webgl_helpers
+ng g c examples/webgl_instancing_dynamic
+ng g c examples/webgl_instancing_performance
+ng g c examples/webgl_instancing_raycast
+ng g c examples/webgl_instancing_scatter
+ng g c examples/webgl_interactive_buffergeometry
+ng g c examples/webgl_interactive_cubes
+ng g c examples/webgl_interactive_cubes_gpu
+ng g c examples/webgl_interactive_cubes_ortho
+ng g c examples/webgl_interactive_lines
+ng g c examples/webgl_interactive_points
+ng g c examples/webgl_interactive_raycasting_points
+ng g c examples/webgl_interactive_voxelpainter
+ng g c examples/webgl_layers
+ng g c examples/webgl_lensflares
+ng g c examples/webgl_lightprobe
+ng g c examples/webgl_lightprobe_cubecamera
+ng g c examples/webgl_lights_hemisphere
+ng g c examples/webgl_lights_physical
+ng g c examples/webgl_lights_pointlights
+ng g c examples/webgl_lights_pointlights2
+ng g c examples/webgl_lights_spotlight
+ng g c examples/webgl_lights_spotlights
+ng g c examples/webgl_lights_rectarealight
+ng g c examples/webgl_lines_colors
+ng g c examples/webgl_lines_dashed
+ng g c examples/webgl_lines_fat
+ng g c examples/webgl_lines_fat_wireframe
+ng g c examples/webgl_lines_sphere
+
+
+ng g c examples/webgl_loader_dm3
+ng g c examples/webgl_loader_ds3
+ng g c examples/webgl_loader_mf3
+ng g c examples/webgl_loader_mf3_materials
+ng g c examples/webgl_loader_amf
+ng g c examples/webgl_loader_assimp
+ng g c examples/webgl_loader_bvh
+ng g c examples/webgl_loader_collada
+ng g c examples/webgl_loader_collada_kinematics
+ng g c examples/webgl_loader_collada_skinning
+ng g c examples/webgl_loader_draco
+ng g c examples/webgl_loader_fbx
+ng g c examples/webgl_loader_fbx_nurbs
+ng g c examples/webgl_loader_gcode
+ng g c examples/webgl_loader_gltf
+ng g c examples/webgl_loader_gltf_compressed
+ng g c examples/webgl_loader_gltf_extensions
+ng g c examples/webgl_loader_gltf_variants
+ng g c examples/webgl_loader_imagebitmap
+ng g c examples/webgl_loader_kmz
+ng g c examples/webgl_loader_ldraw
+ng g c examples/webgl_loader_lwo
+ng g c examples/webgl_loader_md2
+ng g c examples/webgl_loader_md2_control
+ng g c examples/webgl_loader_mdd
+ng g c examples/webgl_loader_mmd
+ng g c examples/webgl_loader_mmd_pose
+ng g c examples/webgl_loader_mmd_audio
+ng g c examples/webgl_loader_nrrd
+ng g c examples/webgl_loader_obj
+ng g c examples/webgl_loader_obj_mtl
+ng g c examples/webgl_loader_pcd
+ng g c examples/webgl_loader_pdb
+ng g c examples/webgl_loader_ply
+ng g c examples/webgl_loader_prwm
+ng g c examples/webgl_loader_stl
+ng g c examples/webgl_loader_svg
+ng g c examples/webgl_loader_tilt
+ng g c examples/webgl_loader_texture_basis
+ng g c examples/webgl_loader_texture_dds
+ng g c examples/webgl_loader_texture_exr
+ng g c examples/webgl_loader_texture_hdr
+ng g c examples/webgl_loader_texture_ktx
+ng g c examples/webgl_loader_texture_ktx2
+ng g c examples/webgl_loader_texture_lottie
+ng g c examples/webgl_loader_texture_pvrtc
+ng g c examples/webgl_loader_texture_rgbm
+ng g c examples/webgl_loader_texture_tga
+ng g c examples/webgl_loader_ttf
+ng g c examples/webgl_loader_vox
+ng g c examples/webgl_loader_vrm
+ng g c examples/webgl_loader_vrml
+ng g c examples/webgl_loader_vtk
+ng g c examples/webgl_loader_x
+ng g c examples/webgl_loader_xyz
+ng g c examples/webgl_lod
+ng g c examples/webgl_marchingcubes
+ng g c examples/webgl_materials
+ng g c examples/webgl_materials_blending
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ng g c menu
 

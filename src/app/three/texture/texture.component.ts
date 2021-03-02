@@ -65,7 +65,7 @@ export class TextureComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
 
-  private getMapping(def: string): THREE.Mapping {
+  private getMapping(def?: string): THREE.Mapping {
     const mapping = ThreeUtil.getTypeSafe(this.mapping, def, '');
     switch (mapping.toLowerCase()) {
       case 'uv':
@@ -337,6 +337,7 @@ export class TextureComponent implements OnInit {
         }
       } else {
         this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
+        this.texture.mapping = this.getMapping();
       }
     }
     if (this.texture != null && changes) {

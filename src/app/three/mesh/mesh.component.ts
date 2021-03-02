@@ -691,7 +691,6 @@ export class MeshComponent
                 geometry?: THREE.BufferGeometry
               ) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
-                  console.log(loadedMesh);
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
                       if (object instanceof THREE.Mesh) {

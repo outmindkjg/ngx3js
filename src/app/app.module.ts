@@ -140,7 +140,134 @@ import { WebglAnimationSkinningAdditiveBlendingComponent } from './examples/webg
 import { WebglAnimationSkinningBlendingComponent } from './examples/webgl-animation-skinning-blending/webgl-animation-skinning-blending.component';
 import { WebglAnimationSkinningMorphComponent } from './examples/webgl-animation-skinning-morph/webgl-animation-skinning-morph.component';
 import { WebglCameraArrayComponent } from './examples/webgl-camera-array/webgl-camera-array.component';
+import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic/webgl-camera-cinematic.component';
+import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
 import { WebglCameraComponent } from './examples/webgl-camera/webgl-camera.component';
+import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
+import { WebglClippingIntersectionComponent } from './examples/webgl-clipping-intersection/webgl-clipping-intersection.component';
+import { WebglClippingStencilComponent } from './examples/webgl-clipping-stencil/webgl-clipping-stencil.component';
+import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
+import { WebglDecalsComponent } from './examples/webgl-decals/webgl-decals.component';
+import { WebglDepthTextureComponent } from './examples/webgl-depth-texture/webgl-depth-texture.component';
+import { WebglEffectsAnaglyphComponent } from './examples/webgl-effects-anaglyph/webgl-effects-anaglyph.component';
+import { WebglEffectsAsciiComponent } from './examples/webgl-effects-ascii/webgl-effects-ascii.component';
+import { WebglEffectsParallaxbarrierComponent } from './examples/webgl-effects-parallaxbarrier/webgl-effects-parallaxbarrier.component';
+import { WebglEffectsPeppersghostComponent } from './examples/webgl-effects-peppersghost/webgl-effects-peppersghost.component';
+import { WebglEffectsStereoComponent } from './examples/webgl-effects-stereo/webgl-effects-stereo.component';
+import { WebglFramebufferTextureComponent } from './examples/webgl-framebuffer-texture/webgl-framebuffer-texture.component';
+import { WebglGeometriesParametricComponent } from './examples/webgl-geometries-parametric/webgl-geometries-parametric.component';
+import { WebglGeometriesComponent } from './examples/webgl-geometries/webgl-geometries.component';
+import { WebglGeometryColorsLookuptableComponent } from './examples/webgl-geometry-colors-lookuptable/webgl-geometry-colors-lookuptable.component';
+import { WebglGeometryColorsComponent } from './examples/webgl-geometry-colors/webgl-geometry-colors.component';
+import { WebglGeometryConvexComponent } from './examples/webgl-geometry-convex/webgl-geometry-convex.component';
+import { WebglGeometryCubeComponent } from './examples/webgl-geometry-cube/webgl-geometry-cube.component';
+import { WebglGeometryDynamicComponent } from './examples/webgl-geometry-dynamic/webgl-geometry-dynamic.component';
+import { WebglGeometryExtrudeShapesComponent } from './examples/webgl-geometry-extrude-shapes/webgl-geometry-extrude-shapes.component';
+import { WebglGeometryExtrudeShapes2Component } from './examples/webgl-geometry-extrude-shapes2/webgl-geometry-extrude-shapes2.component';
+import { WebglGeometryExtrudeSplinesComponent } from './examples/webgl-geometry-extrude-splines/webgl-geometry-extrude-splines.component';
+import { WebglGeometryHierarchyComponent } from './examples/webgl-geometry-hierarchy/webgl-geometry-hierarchy.component';
+import { WebglGeometryHierarchy2Component } from './examples/webgl-geometry-hierarchy2/webgl-geometry-hierarchy2.component';
+import { WebglGeometryMinecraftAoComponent } from './examples/webgl-geometry-minecraft-ao/webgl-geometry-minecraft-ao.component';
+import { WebglGeometryMinecraftComponent } from './examples/webgl-geometry-minecraft/webgl-geometry-minecraft.component';
+import { WebglGeometryNormalsComponent } from './examples/webgl-geometry-normals/webgl-geometry-normals.component';
+import { WebglGeometryNurbsComponent } from './examples/webgl-geometry-nurbs/webgl-geometry-nurbs.component';
+import { WebglGeometryShapesComponent } from './examples/webgl-geometry-shapes/webgl-geometry-shapes.component';
+import { WebglGeometrySplineEditorComponent } from './examples/webgl-geometry-spline-editor/webgl-geometry-spline-editor.component';
+import { WebglGeometryTeapotComponent } from './examples/webgl-geometry-teapot/webgl-geometry-teapot.component';
+import { WebglGeometryTerrainFogComponent } from './examples/webgl-geometry-terrain-fog/webgl-geometry-terrain-fog.component';
+import { WebglGeometryTerrainRaycastComponent } from './examples/webgl-geometry-terrain-raycast/webgl-geometry-terrain-raycast.component';
+import { WebglGeometryTerrainComponent } from './examples/webgl-geometry-terrain/webgl-geometry-terrain.component';
+import { WebglGeometryTextShapesComponent } from './examples/webgl-geometry-text-shapes/webgl-geometry-text-shapes.component';
+import { WebglGeometryTextStrokeComponent } from './examples/webgl-geometry-text-stroke/webgl-geometry-text-stroke.component';
+import { WebglGeometryTextComponent } from './examples/webgl-geometry-text/webgl-geometry-text.component';
+import { WebglHelpersComponent } from './examples/webgl-helpers/webgl-helpers.component';
+import { WebglInstancingDynamicComponent } from './examples/webgl-instancing-dynamic/webgl-instancing-dynamic.component';
+import { WebglInstancingPerformanceComponent } from './examples/webgl-instancing-performance/webgl-instancing-performance.component';
+import { WebglInstancingRaycastComponent } from './examples/webgl-instancing-raycast/webgl-instancing-raycast.component';
+import { WebglInstancingScatterComponent } from './examples/webgl-instancing-scatter/webgl-instancing-scatter.component';
+import { WebglInteractiveBuffergeometryComponent } from './examples/webgl-interactive-buffergeometry/webgl-interactive-buffergeometry.component';
+import { WebglInteractiveCubesGpuComponent } from './examples/webgl-interactive-cubes-gpu/webgl-interactive-cubes-gpu.component';
+import { WebglInteractiveCubesOrthoComponent } from './examples/webgl-interactive-cubes-ortho/webgl-interactive-cubes-ortho.component';
+import { WebglInteractiveCubesComponent } from './examples/webgl-interactive-cubes/webgl-interactive-cubes.component';
+import { WebglInteractiveLinesComponent } from './examples/webgl-interactive-lines/webgl-interactive-lines.component';
+import { WebglInteractivePointsComponent } from './examples/webgl-interactive-points/webgl-interactive-points.component';
+import { WebglInteractiveRaycastingPointsComponent } from './examples/webgl-interactive-raycasting-points/webgl-interactive-raycasting-points.component';
+import { WebglInteractiveVoxelpainterComponent } from './examples/webgl-interactive-voxelpainter/webgl-interactive-voxelpainter.component';
+import { WebglLayersComponent } from './examples/webgl-layers/webgl-layers.component';
+import { WebglLensflaresComponent } from './examples/webgl-lensflares/webgl-lensflares.component';
+import { WebglLightprobeCubecameraComponent } from './examples/webgl-lightprobe-cubecamera/webgl-lightprobe-cubecamera.component';
+import { WebglLightprobeComponent } from './examples/webgl-lightprobe/webgl-lightprobe.component';
+import { WebglLightsHemisphereComponent } from './examples/webgl-lights-hemisphere/webgl-lights-hemisphere.component';
+import { WebglLightsPhysicalComponent } from './examples/webgl-lights-physical/webgl-lights-physical.component';
+import { WebglLightsPointlightsComponent } from './examples/webgl-lights-pointlights/webgl-lights-pointlights.component';
+import { WebglLightsPointlights2Component } from './examples/webgl-lights-pointlights2/webgl-lights-pointlights2.component';
+import { WebglLightsRectarealightComponent } from './examples/webgl-lights-rectarealight/webgl-lights-rectarealight.component';
+import { WebglLightsSpotlightComponent } from './examples/webgl-lights-spotlight/webgl-lights-spotlight.component';
+import { WebglLightsSpotlightsComponent } from './examples/webgl-lights-spotlights/webgl-lights-spotlights.component';
+import { WebglLinesColorsComponent } from './examples/webgl-lines-colors/webgl-lines-colors.component';
+import { WebglLinesDashedComponent } from './examples/webgl-lines-dashed/webgl-lines-dashed.component';
+import { WebglLinesFatWireframeComponent } from './examples/webgl-lines-fat-wireframe/webgl-lines-fat-wireframe.component';
+import { WebglLinesFatComponent } from './examples/webgl-lines-fat/webgl-lines-fat.component';
+import { WebglLinesSphereComponent } from './examples/webgl-lines-sphere/webgl-lines-sphere.component';
+import { WebglLoaderAmfComponent } from './examples/webgl-loader-amf/webgl-loader-amf.component';
+import { WebglLoaderAssimpComponent } from './examples/webgl-loader-assimp/webgl-loader-assimp.component';
+import { WebglLoaderBvhComponent } from './examples/webgl-loader-bvh/webgl-loader-bvh.component';
+import { WebglLoaderColladaKinematicsComponent } from './examples/webgl-loader-collada-kinematics/webgl-loader-collada-kinematics.component';
+import { WebglLoaderColladaSkinningComponent } from './examples/webgl-loader-collada-skinning/webgl-loader-collada-skinning.component';
+import { WebglLoaderColladaComponent } from './examples/webgl-loader-collada/webgl-loader-collada.component';
+import { WebglLoaderDm3Component } from './examples/webgl-loader-dm3/webgl-loader-dm3.component';
+import { WebglLoaderDracoComponent } from './examples/webgl-loader-draco/webgl-loader-draco.component';
+import { WebglLoaderDs3Component } from './examples/webgl-loader-ds3/webgl-loader-ds3.component';
+import { WebglLoaderFbxNurbsComponent } from './examples/webgl-loader-fbx-nurbs/webgl-loader-fbx-nurbs.component';
+import { WebglLoaderFbxComponent } from './examples/webgl-loader-fbx/webgl-loader-fbx.component';
+import { WebglLoaderGcodeComponent } from './examples/webgl-loader-gcode/webgl-loader-gcode.component';
+import { WebglLoaderGltfCompressedComponent } from './examples/webgl-loader-gltf-compressed/webgl-loader-gltf-compressed.component';
+import { WebglLoaderGltfExtensionsComponent } from './examples/webgl-loader-gltf-extensions/webgl-loader-gltf-extensions.component';
+import { WebglLoaderGltfVariantsComponent } from './examples/webgl-loader-gltf-variants/webgl-loader-gltf-variants.component';
+import { WebglLoaderGltfComponent } from './examples/webgl-loader-gltf/webgl-loader-gltf.component';
+import { WebglLoaderImagebitmapComponent } from './examples/webgl-loader-imagebitmap/webgl-loader-imagebitmap.component';
+import { WebglLoaderKmzComponent } from './examples/webgl-loader-kmz/webgl-loader-kmz.component';
+import { WebglLoaderLdrawComponent } from './examples/webgl-loader-ldraw/webgl-loader-ldraw.component';
+import { WebglLoaderLwoComponent } from './examples/webgl-loader-lwo/webgl-loader-lwo.component';
+import { WebglLoaderMd2ControlComponent } from './examples/webgl-loader-md2-control/webgl-loader-md2-control.component';
+import { WebglLoaderMd2Component } from './examples/webgl-loader-md2/webgl-loader-md2.component';
+import { WebglLoaderMddComponent } from './examples/webgl-loader-mdd/webgl-loader-mdd.component';
+import { WebglLoaderMf3MaterialsComponent } from './examples/webgl-loader-mf3-materials/webgl-loader-mf3-materials.component';
+import { WebglLoaderMf3Component } from './examples/webgl-loader-mf3/webgl-loader-mf3.component';
+import { WebglLoaderMmdAudioComponent } from './examples/webgl-loader-mmd-audio/webgl-loader-mmd-audio.component';
+import { WebglLoaderMmdPoseComponent } from './examples/webgl-loader-mmd-pose/webgl-loader-mmd-pose.component';
+import { WebglLoaderMmdComponent } from './examples/webgl-loader-mmd/webgl-loader-mmd.component';
+import { WebglLoaderNrrdComponent } from './examples/webgl-loader-nrrd/webgl-loader-nrrd.component';
+import { WebglLoaderObjMtlComponent } from './examples/webgl-loader-obj-mtl/webgl-loader-obj-mtl.component';
+import { WebglLoaderObjComponent } from './examples/webgl-loader-obj/webgl-loader-obj.component';
+import { WebglLoaderPcdComponent } from './examples/webgl-loader-pcd/webgl-loader-pcd.component';
+import { WebglLoaderPdbComponent } from './examples/webgl-loader-pdb/webgl-loader-pdb.component';
+import { WebglLoaderPlyComponent } from './examples/webgl-loader-ply/webgl-loader-ply.component';
+import { WebglLoaderPrwmComponent } from './examples/webgl-loader-prwm/webgl-loader-prwm.component';
+import { WebglLoaderStlComponent } from './examples/webgl-loader-stl/webgl-loader-stl.component';
+import { WebglLoaderSvgComponent } from './examples/webgl-loader-svg/webgl-loader-svg.component';
+import { WebglLoaderTextureBasisComponent } from './examples/webgl-loader-texture-basis/webgl-loader-texture-basis.component';
+import { WebglLoaderTextureDdsComponent } from './examples/webgl-loader-texture-dds/webgl-loader-texture-dds.component';
+import { WebglLoaderTextureExrComponent } from './examples/webgl-loader-texture-exr/webgl-loader-texture-exr.component';
+import { WebglLoaderTextureHdrComponent } from './examples/webgl-loader-texture-hdr/webgl-loader-texture-hdr.component';
+import { WebglLoaderTextureKtxComponent } from './examples/webgl-loader-texture-ktx/webgl-loader-texture-ktx.component';
+import { WebglLoaderTextureKtx2Component } from './examples/webgl-loader-texture-ktx2/webgl-loader-texture-ktx2.component';
+import { WebglLoaderTextureLottieComponent } from './examples/webgl-loader-texture-lottie/webgl-loader-texture-lottie.component';
+import { WebglLoaderTexturePvrtcComponent } from './examples/webgl-loader-texture-pvrtc/webgl-loader-texture-pvrtc.component';
+import { WebglLoaderTextureRgbmComponent } from './examples/webgl-loader-texture-rgbm/webgl-loader-texture-rgbm.component';
+import { WebglLoaderTextureTgaComponent } from './examples/webgl-loader-texture-tga/webgl-loader-texture-tga.component';
+import { WebglLoaderTiltComponent } from './examples/webgl-loader-tilt/webgl-loader-tilt.component';
+import { WebglLoaderTtfComponent } from './examples/webgl-loader-ttf/webgl-loader-ttf.component';
+import { WebglLoaderVoxComponent } from './examples/webgl-loader-vox/webgl-loader-vox.component';
+import { WebglLoaderVrmComponent } from './examples/webgl-loader-vrm/webgl-loader-vrm.component';
+import { WebglLoaderVrmlComponent } from './examples/webgl-loader-vrml/webgl-loader-vrml.component';
+import { WebglLoaderVtkComponent } from './examples/webgl-loader-vtk/webgl-loader-vtk.component';
+import { WebglLoaderXComponent } from './examples/webgl-loader-x/webgl-loader-x.component';
+import { WebglLoaderXyzComponent } from './examples/webgl-loader-xyz/webgl-loader-xyz.component';
+import { WebglLodComponent } from './examples/webgl-lod/webgl-lod.component';
+import { WebglMarchingcubesComponent } from './examples/webgl-marchingcubes/webgl-marchingcubes.component';
+import { WebglMaterialsBlendingComponent } from './examples/webgl-materials-blending/webgl-materials-blending.component';
+import { WebglMaterialsComponent } from './examples/webgl-materials/webgl-materials.component';
 import { MenuComponent } from './menu/menu.component';
 import { AudioComponent } from './three/audio/audio.component';
 import { BackgroundComponent } from './three/background/background.component';
@@ -179,13 +306,6 @@ import { TransformComponent } from './three/transform/transform.component';
 import { TranslationComponent } from './three/translation/translation.component';
 import { TweenComponent } from './three/tween/tween.component';
 import { VisualComponent } from './three/visual/visual.component';
-import { WebglCameraCinematicComponent } from './examples/webgl-camera-cinematic/webgl-camera-cinematic.component';
-import { WebglCameraLogarithmicdepthbufferComponent } from './examples/webgl-camera-logarithmicdepthbuffer/webgl-camera-logarithmicdepthbuffer.component';
-import { WebglClippingComponent } from './examples/webgl-clipping/webgl-clipping.component';
-import { WebglClippingAdvancedComponent } from './examples/webgl-clipping-advanced/webgl-clipping-advanced.component';
-import { WebglClippingIntersectionComponent } from './examples/webgl-clipping-intersection/webgl-clipping-intersection.component';
-import { WebglClippingStencilComponent } from './examples/webgl-clipping-stencil/webgl-clipping-stencil.component';
-import { WebglDecalsComponent } from './examples/webgl-decals/webgl-decals.component';
 
 @NgModule({
   declarations: [
@@ -373,7 +493,127 @@ import { WebglDecalsComponent } from './examples/webgl-decals/webgl-decals.compo
     WebglClippingAdvancedComponent,
     WebglClippingIntersectionComponent,
     WebglClippingStencilComponent,
-    WebglDecalsComponent
+    WebglDecalsComponent,
+    WebglDepthTextureComponent,
+    WebglEffectsAnaglyphComponent,
+    WebglEffectsAsciiComponent,
+    WebglEffectsParallaxbarrierComponent,
+    WebglEffectsPeppersghostComponent,
+    WebglEffectsStereoComponent,
+    WebglFramebufferTextureComponent,
+    WebglGeometriesComponent,
+    WebglGeometriesParametricComponent,
+    WebglGeometryColorsComponent,
+    WebglGeometryColorsLookuptableComponent,
+    WebglGeometryConvexComponent,
+    WebglGeometryCubeComponent,
+    WebglGeometryDynamicComponent,
+    WebglGeometryExtrudeShapesComponent,
+    WebglGeometryExtrudeShapes2Component,
+    WebglGeometryExtrudeSplinesComponent,
+    WebglGeometryHierarchyComponent,
+    WebglGeometryHierarchy2Component,
+    WebglGeometryMinecraftComponent,
+    WebglGeometryMinecraftAoComponent,
+    WebglGeometryNormalsComponent,
+    WebglGeometryNurbsComponent,
+    WebglGeometryShapesComponent,
+    WebglGeometrySplineEditorComponent,
+    WebglGeometryTeapotComponent,
+    WebglGeometryTerrainComponent,
+    WebglGeometryTerrainFogComponent,
+    WebglGeometryTerrainRaycastComponent,
+    WebglGeometryTextComponent,
+    WebglGeometryTextShapesComponent,
+    WebglGeometryTextStrokeComponent,
+    WebglHelpersComponent,
+    WebglInstancingDynamicComponent,
+    WebglInstancingPerformanceComponent,
+    WebglInstancingRaycastComponent,
+    WebglInstancingScatterComponent,
+    WebglInteractiveBuffergeometryComponent,
+    WebglInteractiveCubesComponent,
+    WebglInteractiveCubesGpuComponent,
+    WebglInteractiveCubesOrthoComponent,
+    WebglInteractiveLinesComponent,
+    WebglInteractivePointsComponent,
+    WebglInteractiveRaycastingPointsComponent,
+    WebglInteractiveVoxelpainterComponent,
+    WebglLayersComponent,
+    WebglLensflaresComponent,
+    WebglLightprobeComponent,
+    WebglLightprobeCubecameraComponent,
+    WebglLightsHemisphereComponent,
+    WebglLightsPhysicalComponent,
+    WebglLightsPointlightsComponent,
+    WebglLightsPointlights2Component,
+    WebglLightsSpotlightComponent,
+    WebglLightsSpotlightsComponent,
+    WebglLightsRectarealightComponent,
+    WebglLinesColorsComponent,
+    WebglLinesDashedComponent,
+    WebglLinesFatComponent,
+    WebglLinesFatWireframeComponent,
+    WebglLinesSphereComponent,
+    WebglMaterialsBlendingComponent,
+    WebglMaterialsComponent,
+    WebglMarchingcubesComponent,
+    WebglLodComponent,
+    WebglLoaderXyzComponent,
+    WebglLoaderXComponent,
+    WebglLoaderVtkComponent,
+    WebglLoaderVrmlComponent,
+    WebglLoaderVrmComponent,
+    WebglLoaderVoxComponent,
+    WebglLoaderTtfComponent,
+    WebglLoaderTextureTgaComponent,
+    WebglLoaderTextureRgbmComponent,
+    WebglLoaderTexturePvrtcComponent,
+    WebglLoaderTextureLottieComponent,
+    WebglLoaderTextureKtx2Component,
+    WebglLoaderTextureKtxComponent,
+    WebglLoaderTextureHdrComponent,
+    WebglLoaderTextureExrComponent,
+    WebglLoaderTextureDdsComponent,
+    WebglLoaderTextureBasisComponent,
+    WebglLoaderTiltComponent,
+    WebglLoaderSvgComponent,
+    WebglLoaderStlComponent,
+    WebglLoaderPrwmComponent,
+    WebglLoaderPlyComponent,
+    WebglLoaderPdbComponent,
+    WebglLoaderPcdComponent,
+    WebglLoaderObjMtlComponent,
+    WebglLoaderObjComponent,
+    WebglLoaderNrrdComponent,
+    WebglLoaderMmdAudioComponent,
+    WebglLoaderMmdPoseComponent,
+    WebglLoaderMmdComponent,
+    WebglLoaderMddComponent,
+    WebglLoaderMd2ControlComponent,
+    WebglLoaderMd2Component,
+    WebglLoaderLwoComponent,
+    WebglLoaderLdrawComponent,
+    WebglLoaderKmzComponent,
+    WebglLoaderImagebitmapComponent,
+    WebglLoaderGltfVariantsComponent,
+    WebglLoaderGltfExtensionsComponent,
+    WebglLoaderGltfCompressedComponent,
+    WebglLoaderGltfComponent,
+    WebglLoaderGcodeComponent,
+    WebglLoaderFbxNurbsComponent,
+    WebglLoaderFbxComponent,
+    WebglLoaderDracoComponent,
+    WebglLoaderColladaSkinningComponent,
+    WebglLoaderColladaKinematicsComponent,
+    WebglLoaderColladaComponent,
+    WebglLoaderBvhComponent,
+    WebglLoaderAssimpComponent,
+    WebglLoaderAmfComponent,
+    WebglLoaderMf3MaterialsComponent,
+    WebglLoaderMf3Component,
+    WebglLoaderDs3Component,
+    WebglLoaderDm3Component
   ],
   imports: [
     BrowserModule,

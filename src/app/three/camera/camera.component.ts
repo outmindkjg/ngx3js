@@ -25,6 +25,9 @@ import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
+import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect.js';
+
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
 @Component({
@@ -36,6 +39,9 @@ export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
   @Input() public type:'perspective' | 'orthographic' | 'array' | 'cinematic' = 'perspective';
+  @Input() private effectType:string = null;
+  @Input() private cameraDistance:number = null;
+  @Input() private reflectFromAbove:boolean = null;
   @Input() private fov:number|string = 45;
   @Input() private near:number|string = null;
   @Input() private far:number|string = null;
@@ -182,6 +188,16 @@ export class CameraComponent
     return 0;
   }
 
+  private getCameraDistance(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.cameraDistance, def);
+  }
+
+  private getReflectFromAbove(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.reflectFromAbove, def);
+  }
+  
+
+
   constructor(private localStorageService: LocalStorageService) {
     super();
   }
@@ -201,7 +217,7 @@ export class CameraComponent
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererScenes: QueryList<any>;
-  private effectComposer: EffectComposer = null;
+  private effectComposer: EffectComposer | any = null;
 
   getRenderer(): THREE.Renderer {
     return this.renderer;
@@ -287,8 +303,8 @@ export class CameraComponent
     this.effectComposer = this.getEffectComposer();
   }
 
-  getEffectComposer(): EffectComposer {
-    if (this.pass != null && this.pass.length > 0) {
+  getEffectComposer(): EffectComposer | any {
+    if (this.pass !== null && this.pass.length > 0) {
       if (this.renderer instanceof THREE.WebGLRenderer) {
         const effectComposer: EffectComposer = new EffectComposer(
           this.renderer
@@ -297,6 +313,20 @@ export class CameraComponent
           item.getPass(this.getScene(), this.getCamera(), effectComposer);
         });
         return effectComposer;
+      }
+    } else if (this.effectType !== null) {
+      if (this.renderer instanceof THREE.WebGLRenderer) {
+        switch(this.effectType.toLowerCase()) {
+          case 'peppersghost' :
+            const peppersGhostEffect =  new PeppersGhostEffect(this.renderer);
+            peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
+            peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(false);
+            return peppersGhostEffect;
+          case 'parallaxbarrier' :
+          default :
+            return new ParallaxBarrierEffect(this.renderer);
+            
+        } 
       }
     }
     return null;
@@ -399,6 +429,7 @@ export class CameraComponent
       this.raycaster = new THREE.Raycaster();
     }
     this.raycaster.setFromCamera( mouse, this.getCamera());
+    this.intersects.length = 0;
     if (mesh instanceof THREE.Object3D) {
       return this.raycaster.intersectObject( mesh, recursive, this.intersects );
     } else { 
@@ -447,6 +478,13 @@ export class CameraComponent
       this.composer.forEach((composer) => {
         composer.setCameraSize(this.cameraWidth, this.cameraHeight);
       });
+    }
+    if (this.effectComposer !== null) {
+      if (this.effectComposer instanceof EffectComposer) {
+        this.effectComposer.setSize(width, height);
+      } else if (this.effectComposer.setSize) {
+        this.effectComposer.setSize(width, height);
+      }
     }
   }
 
@@ -589,6 +627,7 @@ export class CameraComponent
             });
           } else {
             if (this.effectComposer !== null) {
+
               this.effectComposer.render(renderTimer.delta);
             } else {
               if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
@@ -618,7 +657,11 @@ export class CameraComponent
           });
         }
         if (this.effectComposer !== null) {
-          this.effectComposer.render(renderTimer.delta);
+          if (this.effectComposer instanceof EffectComposer) {
+            this.effectComposer.render(renderTimer.delta);
+          } else {
+            this.effectComposer.render(scene, this.getCamera());
+          }
         } else {
           if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
             renderer.setViewport(

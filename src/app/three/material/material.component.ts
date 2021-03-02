@@ -113,6 +113,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private rotation:number = null;
   @Input() private size:number = null;
   @Input() private sizeAttenuation:boolean = null;
+  @Input() private envMap:TextureComponent = null;
+  @Input() private map:TextureComponent = null;
+  @Input() private specularMap:TextureComponent = null;
+  @Input() private alphaMap:TextureComponent = null;
+  @Input() private bumpMap:TextureComponent = null;
+  @Input() private normalMap:TextureComponent = null;
+
   @Output() private onLoad:EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
   meshPositions: THREE.Vector3[] = [];
@@ -149,10 +156,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
+    if (changes && this.parent !== null) {
       this.material = null;
     }
     this.resetMaterial();
+    if (changes.refractionRatio) {
+      if (this.material instanceof THREE.MeshBasicMaterial) {
+        this.material.refractionRatio = this.getRefractionRatio();
+      }
+    }
   }
 
   private getColor(def?: string | number): THREE.Color {
@@ -378,6 +390,38 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   getTexture(type: string): THREE.Texture {
+    switch(type.toLowerCase()) {
+      case 'envmap' :
+        if (ThreeUtil.isNotNull(this.envMap)) {
+          return this.envMap.getTexture();
+        }
+        break;
+      case 'map' :
+        if (ThreeUtil.isNotNull(this.map)) {
+          return this.map.getTexture();
+        }
+        break;
+      case 'specularmap' :
+        if (ThreeUtil.isNotNull(this.specularMap)) {
+          return this.specularMap.getTexture();
+        }
+        break;
+      case 'alphamap' :
+        if (ThreeUtil.isNotNull(this.alphaMap)) {
+          return this.alphaMap.getTexture();
+        }
+        break;
+      case 'bumpmap' :
+        if (ThreeUtil.isNotNull(this.bumpMap)) {
+          return this.bumpMap.getTexture();
+        }
+        break;
+      case 'normalmap' :
+        if (ThreeUtil.isNotNull(this.normalMap)) {
+          return this.normalMap.getTexture();
+        }
+        break;
+      }
     if (ThreeUtil.isNotNull(this.textures) && this.textures.length > 0) {
       type = type.toLowerCase();
       const foundTexture = this.textures.find((texture) => {
@@ -850,6 +894,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private material: THREE.Material = null;
+  private refMaterial: THREE.Material = null;
   private parent: THREE.Object3D | any = null;
   private refSeqn: number = 0;
 
@@ -1195,7 +1240,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               alphaMap: this.getTexture('alphaMap'),
               envMap: this.getTexture('envMap'),
               envMapIntensity: this.getEnvMapIntensity(),
-              refractionRatio: this.getRefractionRatio(0.98),
+              refractionRatio: this.getRefractionRatio(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
               skinning: this.getSkinning(),
@@ -1327,6 +1372,11 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       }
       if (ThreeUtil.isNull(this.material.userData.component)) {
         this.material.userData.component = this;
+      }
+      if (this.refMaterial === null) {
+        this.refMaterial = this.material;
+      } else {
+        this.refMaterial.copy(this.material);
       }
       this.onLoad.emit(this);
     }

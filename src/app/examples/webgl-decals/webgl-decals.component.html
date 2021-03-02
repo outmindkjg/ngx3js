@@ -52,7 +52,38 @@
       <three-geometry [type]="'geometry'" [points]="[{x : 0, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></three-geometry>
       <three-material [type]="'LineBasic'" [color]="'0xff0000'"></three-material>
     </three-mesh>
-   <three-mesh (onLoad)="setMesh($event)" [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
+    <three-mesh *ngFor="let decal of decals">
+      <three-material [type]="'MeshPhong'"
+        [color]="decal.color"
+        [specular]="'0x444444'"
+        [normalScaleX]="1"
+        [normalScaleY]="1"
+        [shininess]="30"
+        [transparent]="true"
+        [depthTest]="true"
+        [depthWrite]="true"
+        [polygonOffset]="true"
+        [polygonOffsetFactor]="-4"
+        [wireframe]="false"
+      >
+        <three-texture [textureType]="'map'" [image]="'/assets/examples/textures/decal/decal-diffuse.png'"></three-texture>
+        <three-texture [textureType]="'normalMap'" [image]="'/assets/examples/textures/decal/decal-normal.jpg'"></three-texture>
+      </three-material>
+      <three-geometry 
+        [type]="'decal'" 
+        [positionX]="decal.position.x"
+        [positionY]="decal.position.y"
+        [positionZ]="decal.position.z"
+        [orientationX]="decal.orientation.x"
+        [orientationY]="decal.orientation.y"
+        [orientationZ]="decal.orientation.z"
+        [sizeX]="decal.scale"
+        [sizeY]="decal.scale"
+        [sizeZ]="decal.scale"
+        [mesh]="mesh"
+      ></three-geometry>
+    </three-mesh>
+    <three-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
       <three-material type="MeshPhong" 

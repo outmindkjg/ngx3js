@@ -1,0 +1,59 @@
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> webgl - depth texture<br/>
+  Stores render target depth in a texture attachment.<br/>
+  Created by <a href="http://twitter.com/mattdesl" target="_blank" rel="noopener">@mattdesl</a>.
+
+  <div id="error" style="display: none;">
+  Your browser does not support <strong>WEBGL_depth_texture</strong>.<br/><br/>
+  This demo will not work.
+  </div>
+</div>
+<three-renderer
+[controlType]="'orbit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0xffffff'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+>
+  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
+    <three-position [x]="0" [y]="0" [z]="4"></three-position>
+    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  </three-camera>
+  <three-scene>
+    <three-light
+      type="directional"
+      [color]="'0xffffff'"
+      [intensity]="1"
+      [castShadow]="true"
+      [shadowCameraTop]="2"
+      [shadowCameraBottom]="-2"
+      [shadowCameraLeft]="-2"
+      [shadowCameraRight]="2"
+      [shadowCameraNear]="0.1"
+      [shadowCameraFar]="40"
+    >
+      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+    </three-light>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-mesh *ngFor="let model of models">
+        <three-position [x]="model.position.x" [y]="model.position.y" [z]="model.position.z"></three-position>
+        <three-rotation [x]="model.rotation.x" [y]="model.rotation.y" [z]="model.rotation.z"></three-rotation>
+        <three-geometry
+          [type]="'TorusKnot'"
+          [radius]="1"
+          [tube]="0.3"
+          [radialSegments]="128"
+          [tubularSegments]="64"
+        ></three-geometry>
+        <three-material type="MeshBasic" [color]="'blue'"></three-material>
+      </three-mesh>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

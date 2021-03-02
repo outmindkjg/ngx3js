@@ -7,10 +7,11 @@ import * as THREE from 'three';
   templateUrl: './webgl-decals.component.html',
   styleUrls: ['./webgl-decals.component.scss']
 })
-export class WebglDecalsComponent extends BaseComponent<{ minScale : number, maxScale : number, clear : () => void}> {
+export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minScale : number, maxScale : number, clear : () => void}> {
 
   constructor() {
     super({
+      rotate : true,
       minScale : 10,
       maxScale : 20,
       clear : () => {
@@ -19,6 +20,7 @@ export class WebglDecalsComponent extends BaseComponent<{ minScale : number, max
     },[
       { name : 'minScale', type : 'number', min : 1, max : 30 },
       { name : 'maxScale', type : 'number', min : 1, max : 30 },
+      { name : 'rotate', type : 'checkbox' },
       { name : 'clear', type : 'button' },
     ]);
   }
@@ -48,9 +50,9 @@ export class WebglDecalsComponent extends BaseComponent<{ minScale : number, max
           }
           break;
         case 'pointermove' :
-          //if ( event.event.isPrimary ) {
+          if ( event.event.isPrimary ) {
             this.checkIntersection(event.mouse);
-          // }
+          }
           break;
       }
       this.underProcess = false;
@@ -65,10 +67,13 @@ export class WebglDecalsComponent extends BaseComponent<{ minScale : number, max
     position.copy( intersection.point );
     const mouseHelper = this.mouseHelper.getMesh();
     orientation.copy( mouseHelper.rotation );
-    // if ( params.rotate ) orientation.z = Math.random() * 2 * Math.PI;
+    if ( this.controls.rotate ) orientation.z = Math.random() * 2 * Math.PI;
     const scale = this.controls.minScale + Math.random() * ( this.controls.maxScale - this.controls.minScale );
-    this.decals.push( { scale : scale, color : Math.random() * 0xffffff, orientation : orientation, position : position } );
-    console.log(this.decals);
+    this.decals.push( { scale : scale, color : Math.random() * 0xffffff, orientation : {
+      x : orientation.x / Math.PI * 180,
+      y : orientation.y / Math.PI * 180,
+      z : orientation.z / Math.PI * 180,
+    }, position : position } );
   }
 
   checkIntersection( mouse : THREE.Vector2 ):THREE.Intersection {
@@ -90,10 +95,6 @@ export class WebglDecalsComponent extends BaseComponent<{ minScale : number, max
       positions.setXYZ( 0, p.x, p.y, p.z );
       positions.setXYZ( 1, n.x, n.y, n.z );
       positions.needsUpdate = true;
-      // intersection.intersects = true;
-      // intersects.length = 0;
-    } else {
-      // console.log(mouse);
     }
     return intersection;
   }
