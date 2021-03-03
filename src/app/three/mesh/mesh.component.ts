@@ -33,7 +33,7 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
-import { on } from 'events';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'three-mesh',
@@ -110,18 +110,18 @@ export class MeshComponent
   @Output() private onLoad:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
 
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) private materials: QueryList<MaterialComponent>;
-  @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElements: QueryList<LensflareelementComponent>;
-  @ContentChildren(SvgComponent, { descendants: false }) private svg: QueryList<SvgComponent>;
-  @ContentChildren(MixerComponent, { descendants: false }) private mixer: QueryList<MixerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) private listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) private audio: QueryList<AudioComponent>;
-  @ContentChildren(HtmlComponent, { descendants: false }) private cssChildren: QueryList<HtmlComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbody: QueryList<RigidbodyComponent>;
-  @ContentChildren(MeshComponent, { descendants: false }) private meshes: QueryList<MeshComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
-  @ContentChildren(LightComponent, { descendants: false }) private lights: QueryList<LightComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
+  @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
+  @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
+  @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
+  @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -216,6 +216,15 @@ export class MeshComponent
     super.ngOnChanges(changes);
   }
 
+  private _materialSubscribe: Subscription[] = [];
+  private _geometrySubscribe: Subscription[] = [];
+
+	ngOnDestroy(): void {
+    this._materialSubscribe = this.unSubscription(this._materialSubscribe);
+    this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
+		super.ngOnDestroy();
+	}
+
   private clips: THREE.AnimationClip[] = null;
   private clipMesh: THREE.Object3D = null;
   public helper: THREE.Object3D = null;
@@ -237,9 +246,12 @@ export class MeshComponent
   ): THREE.Material[] {
     const materials: THREE.Material[] = [];
     if (this.material !== null && this.material !== undefined) {
-      materials.push(this.material.getMaterial());
-    } else if (this.materials !== null && this.materials.length > 0) {
-      this.materials.forEach((material) => {
+      if (this.material.materialType === 'material') {
+        materials.push(this.material.getMaterial());
+      }
+    } 
+    if (this.materialList !== null && this.materialList.length > 0) {
+      this.materialList.forEach((material) => {
         if (material.materialType === 'material') {
           materials.push(material.getMaterial());
         }
@@ -281,42 +293,117 @@ export class MeshComponent
   }
 
   ngAfterContentInit(): void {
-    this.meshes.changes.subscribe((e) => {
+    this.meshList.changes.subscribe((e) => {
       this.synkObject3D(['meshes']);
     });
-    this.cameras.changes.subscribe((e) => {
+    this.cameraList.changes.subscribe((e) => {
       this.synkObject3D(['cameras']);
     });
-    this.helpers.changes.subscribe((e) => {
+    this.helperList.changes.subscribe((e) => {
       this.synkObject3D(['helpers']);
     });
-    this.lights.changes.subscribe((e) => {
+    this.lightList.changes.subscribe((e) => {
       this.synkObject3D(['lights']);
     });
-    this.rigidbody.changes.subscribe((e) => {
+    this.rigidbodyList.changes.subscribe((e) => {
       this.synkObject3D(['rigidbody']);
     });
-    this.geometryList.changes.subscribe((e) => {
-      this.synkObject3D(['geometry']);
-    });
-    this.svg.changes.subscribe((e) => {
+    this.svgList.changes.subscribe((e) => {
       this.synkObject3D(['svg']);
     });
-    this.materials.changes.subscribe((e) => {
-      this.synkObject3D(['material']);
-    });
-    this.listner.changes.subscribe(() => {
+    this.listnerList.changes.subscribe(() => {
       this.synkObject3D(['listner']);
     });
-    this.audio.changes.subscribe(() => {
+    this.audioList.changes.subscribe(() => {
       this.synkObject3D(['audio']);
     });
-    this.cssChildren.changes.subscribe(() => {
+    this.cssChildrenList.changes.subscribe(() => {
       this.synkObject3D(['cssChildren']);
     });
+    if (this.geometryList !== null && this.geometryList !== undefined) {
+      this.setGeometrySubscribe();
+      this.geometryList.changes.subscribe((e) => {
+        this.setGeometrySubscribe();
+      });
+		}
+    if (this.materialList !== null && this.materialList !== undefined) {
+      this.setMaterialSubscribe();
+      this.materialList.changes.subscribe((e) => {
+        this.setMaterialSubscribe();
+      });
+		}
     super.ngAfterContentInit();
   }
 
+  setGeometry(geometry : GeometryComponent) {
+    const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
+    if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
+      const mainGeometry = meshGeometry.geometry;
+      const geometryClone = geometry.getGeometry();
+      if (mainGeometry !== geometryClone ) {
+        mainGeometry.copy(geometryClone);
+      }
+    }
+  }
+
+  setGeometrySubscribe() {
+		if (this.geometryList !== null && this.geometryList !== undefined) {
+      this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
+      if (this.geometry !== null) {
+        this._geometrySubscribe.push(this.geometry.geometrySubscribe().subscribe(() => {
+          if (this.geometry.visible) {
+            this.setGeometry(this.geometry);
+          }
+        }));
+      }
+      this.geometryList.forEach(geometry => {
+        this._geometrySubscribe.push(geometry.geometrySubscribe().subscribe(() => {
+          if (geometry.visible) {
+            this.setGeometry(geometry);
+          }
+        }));
+      });
+    }
+  }
+
+  setMaterial(material : MaterialComponent, seqn : number) {
+    if (this.mesh instanceof THREE.Mesh) {
+      const materialClone = material.getMaterial();
+      switch (material.materialType.toLowerCase()) {
+        case 'customdepth' :
+          this.mesh.customDepthMaterial = materialClone;
+          break;
+        default :
+          if (this.mesh.material instanceof Array) {
+            if (this.mesh.material.length > seqn && this.mesh.material[seqn] !== materialClone) {
+              this.mesh.material[seqn] = materialClone;
+              this.mesh.material[seqn].needsUpdate = true;
+            }
+          } else if (this.mesh.material !== materialClone) {
+            this.mesh.material = materialClone;
+            this.mesh.material.needsUpdate = true;
+          }
+          break
+      }
+    }
+  }
+
+  setMaterialSubscribe() {
+		if (this.materialList !== null && this.materialList !== undefined) {
+      this._materialSubscribe = this.unSubscription(this._materialSubscribe);
+      if (this.material !== null) {
+        this._materialSubscribe.push(this.material.materialSubscribe().subscribe((e) => {
+          this.setMaterial(this.material, 0);
+        }));
+      }
+      this.materialList.forEach((material, idx) => {
+        this._materialSubscribe.push(material.materialSubscribe().subscribe(() => {
+          this.setMaterial(material, idx);
+        }));
+      });
+    }
+  }
+ 
   setWireFrame(wireframe: boolean, child: THREE.Object3D = null) {
     if (child === null) {
       child = this.object3d;
@@ -341,7 +428,7 @@ export class MeshComponent
       helperVisible !== undefined
     ) {
       this.helper.visible = helperVisible;
-      this.helpers.forEach(helper => {
+      this.helperList.forEach(helper => {
         helper.setVisible(helperVisible);
       })
       this.helperVisible = helperVisible;
@@ -353,78 +440,88 @@ export class MeshComponent
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'meshes':
-            this.meshes.forEach((mesh) => {
+            this.meshList.forEach((mesh) => {
               mesh.setParent(this.mesh);
             });
             break;
           case 'cameras':
-            this.cameras.forEach((camera) => {
+            this.cameraList.forEach((camera) => {
               camera.setParent(this.mesh);
             });
             break;
           case 'helpers':
-            this.helpers.forEach((helper) => {
+            this.helperList.forEach((helper) => {
               helper.setParent(this.mesh);
             });
             break;
           case 'lights':
-            this.lights.forEach((light) => {
+            this.lightList.forEach((light) => {
               light.setParent(this.mesh);
             });
             break;
           case 'rigidbody':
-            this.rigidbody.forEach((rigidbody) => {
+            this.rigidbodyList.forEach((rigidbody) => {
               rigidbody.setParent(this.mesh);
             });
             break;
-          case 'geometry':
-            this.geometryList.forEach((geometry) => {
-              geometry.setParent(this.mesh);
-            });
-            break;
           case 'svg':
-            this.svg.forEach((svg) => {
+            this.svgList.forEach((svg) => {
               svg.setParent(this.mesh);
             });
-            break;
-          case 'material':
-            if (this.clipMesh !== null) {
-              this.materials.forEach((material) => {
-                material.setParent(this.clipMesh);
-              });
-            } else {
-              this.materials.forEach((material) => {
-                material.setParent(this.mesh);
-              });
-            }
             break;
           case 'mixer':
             if (this.clips !== null && this.clips !== undefined) {
               if (this.clipMesh !== null && this.clipMesh !== undefined) {
-                this.mixer.forEach((mixer) => {
+                this.mixerList.forEach((mixer) => {
                   mixer.setModel(this.clipMesh, this.clips);
                 });
               } else {
-                this.mixer.forEach((mixer) => {
+                this.mixerList.forEach((mixer) => {
                   mixer.setModel(this.mesh, this.clips);
                 });
               }
             }
             break;
           case 'listner':
-            this.listner.forEach((listner) => {
+            this.listnerList.forEach((listner) => {
               listner.setParent(this.mesh);
             });
             break;
           case 'audio':
-            this.audio.forEach((audio) => {
+            this.audioList.forEach((audio) => {
               audio.setParent(this.mesh);
             });
             break;
           case 'cssChildren':
-            this.cssChildren.forEach((cssChild) => {
+            this.cssChildrenList.forEach((cssChild) => {
               cssChild.setParent(this.mesh);
             });
+            break;
+          case 'material':
+            if (this.material !== null && this.material.visible) {
+              this.setMaterial(this.material, 0);
+            } else {
+              this.materialList.forEach((material, idx) => {
+                if (material.visible) {
+                  this.setMaterial(material, idx);
+                }
+              });
+            }
+            break;
+          case 'geometry':
+            const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
+            if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
+              const mainGeometry = meshGeometry.geometry;
+              if (this.geometry !== null && this.geometry.visible) {
+                this.setGeometry(this.geometry);
+              } else {
+                this.geometryList.forEach((geometry) => {
+                  if (geometry.visible) {
+                    this.setGeometry(geometry);
+                  }
+                });
+              }
+            }
             break;
         }
       });
@@ -635,7 +732,7 @@ export class MeshComponent
           break;
         case 'lensflare':
           const lensflare = new Lensflare();
-          this.lensflareElements.forEach((lensflareElement) => {
+          this.lensflareElementList.forEach((lensflareElement) => {
             lensflareElement.setLensflare(lensflare);
           });
           basemesh = lensflare;
@@ -730,7 +827,7 @@ export class MeshComponent
                     this.mesh.add(loadedMesh);
                   }
                 }
-                if (ThreeUtil.isNotNull(this.materials) && this.materials.length > 0) {
+                if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
                   const loadedMeshed : THREE.Object3D[] = (loadedMesh instanceof THREE.Group) ? loadedMesh.children : [ loadedMesh ];
                   const materials = this.getMaterials();
                   materials.forEach((material, idx) => {
@@ -741,8 +838,8 @@ export class MeshComponent
                   })
                 }
 
-                if (this.meshes) {
-                  this.meshes.forEach((mesh) => {
+                if (this.meshList) {
+                  this.meshList.forEach((mesh) => {
                     if (
                       mesh.name !== null &&
                       mesh.name !== undefined &&
@@ -785,8 +882,8 @@ export class MeshComponent
         basemesh.add(object3d);
       }
       this.mesh = basemesh;
-      if (this.meshes && this.meshes.length > 0) {
-        this.meshes.forEach((mesh) => {
+      if (this.meshList && this.meshList.length > 0) {
+        this.meshList.forEach((mesh) => {
           mesh.setParent(basemesh);
         });
       }

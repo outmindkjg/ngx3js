@@ -24,16 +24,16 @@
       </three-camera>
       <three-mesh>
         <three-position [x]="0" [y]="0" [z]="150"></three-position>
-        <three-geometry [type]="'sphere'" [radius]="5" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-geometry [type]="'sphere'" [radius]="5" [widthSegments]="16" [heightSegments]="8"></three-geometry>
         <three-material [type]="'MeshBasic'" [color]="'0x0000ff'" [wireframe]="true"></three-material>
       </three-mesh>
     </three-mesh>
     <three-mesh  #main_mesh (onLoad)="setMesh($event)">
-      <three-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+      <three-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="8"></three-geometry>
       <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [wireframe]="true"></three-material>
       <three-mesh (onLoad)="setSphere1($event)">
         <three-position [x]="0" [y]="150" [z]="0"></three-position>
-        <three-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="16"></three-geometry>
+        <three-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="8"></three-geometry>
         <three-material [type]="'MeshBasic'" [color]="'0x00ff00'" [wireframe]="true"></three-material>
       </three-mesh>
     </three-mesh>

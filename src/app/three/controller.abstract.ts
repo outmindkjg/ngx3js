@@ -418,8 +418,8 @@ export abstract class AbstractThreeController {
 
 	getController<T extends AbstractThreeController>(type : { new(obj : any ) : T}, refObject? : THREE.Object3D):T {
 		const component = this.getComponent(refObject);
-		if (ThreeUtil.isNotNull(component.controller)) {
-			const controller = component.controller.find(controller => {
+		if (ThreeUtil.isNotNull(component.controllerList)) {
+			const controller = component.controllerList.find(controller => {
 				return controller.getController() instanceof type;
 			})
 			if (ThreeUtil.isNotNull(controller)) {
@@ -432,8 +432,8 @@ export abstract class AbstractThreeController {
 	getControllers<T extends AbstractThreeController>(type : { new(obj : any ) : T} = null, refObject? : THREE.Object3D):T[] {
 		const controllers : T[] = [];
 		const component = this.getComponent(refObject);
-		if (ThreeUtil.isNotNull(component.controller)) {
-			const controller = component.controller.filter(controller => {
+		if (ThreeUtil.isNotNull(component.controllerList)) {
+			const controller = component.controllerList.filter(controller => {
 				if (type == null) {
 					return true;
 				} else {

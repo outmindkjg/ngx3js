@@ -1,4 +1,5 @@
 import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { InterfaceSvgGeometry } from '../interface';
@@ -47,17 +48,23 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   @Input() private isCCW:boolean = null;
   @Input() private noHoles:boolean = null;
 
-  @ContentChildren(MaterialComponent,{descendants: false}) private materials: QueryList<MaterialComponent>;
-  @ContentChildren(PositionComponent, { descendants: false }) private position: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false }) private rotation: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false }) private scale: QueryList<ScaleComponent>;
-  @ContentChildren(TranslationComponent, { descendants: false }) private translation: QueryList<TranslationComponent>;
+  @Input() private material : MaterialComponent = null;
+  @Input() private position : PositionComponent = null;
+  @Input() private rotation : RotationComponent = null;
+  @Input() private scale : ScaleComponent = null;
+  @Input() private translation : TranslationComponent = null;
+
+  @ContentChildren(MaterialComponent,{descendants: false}) private materialList: QueryList<MaterialComponent>;
+  @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
   meshScales: THREE.Vector3[] = [];
   meshTranslations: THREE.BufferGeometry[] = [];
-  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+  meshMaterials: THREE.Material[] = [];
 
   constructor(private ele: ElementRef) {
   }
@@ -104,8 +111,8 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
 
   private getMaterials():THREE.Material[] {
     const materials: THREE.Material[] = [];
-    if (this.materials !== null && this.materials.length > 0) {
-      this.materials.forEach(material => {
+    if (this.materialList !== null && this.materialList.length > 0) {
+      this.materialList.forEach(material => {
         materials.push(material.getMaterial())
       });
     }
@@ -127,47 +134,248 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
     this.resetMeshes();
   }
 
+  ngOnDestroy() {
+    this._materialSubscribe = this.unSubscription(this._materialSubscribe);
+    this._positionSubscribe = this.unSubscription(this._positionSubscribe);
+    this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
+    this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
+    this._translationSubscribe = this.unSubscription(this._translationSubscribe);
+  }
+
   ngAfterContentInit(): void {
-    this.position.changes.subscribe(() => {
-      this.resetMeshes();
-    });
-    this.rotation.changes.subscribe(() => {
-      this.resetMeshes();
-    });
-    this.scale.changes.subscribe(() => {
-      this.resetMeshes();
-    });
+    
+    if (this.materialList !== null && this.materialList !== undefined) {
+      this.setMaterialSubscribe();
+      this.materialList.changes.subscribe((e) => {
+        this.setMaterialSubscribe();
+      });
+		}
+		if (this.positionList !== null && this.positionList !== undefined) {
+      this.setPositionSubscribe();
+      this.positionList.changes.subscribe((e) => {
+        this.setPositionSubscribe();
+      });
+		}
+		if (this.rotationList !== null && this.rotationList !== undefined) {
+      this.setRotationSubscribe();
+      this.rotationList.changes.subscribe((e) => {
+        this.setRotationSubscribe();
+      });
+		}
+		if (this.scaleList !== null && this.scaleList !== undefined) {
+      this.setScaleSubscribe();
+      this.scaleList.changes.subscribe((e) => {
+        this.setScaleSubscribe();
+      });
+		}
+    if (this.translationList !== null && this.translationList !== undefined) {
+      this.setTranslationSubscribe();
+      this.translationList.changes.subscribe((e) => {
+        this.setTranslationSubscribe();
+      });
+		}
+  }
+
+  private _materialSubscribe: Subscription[] = [];
+  private _positionSubscribe: Subscription[] = [];
+  private _rotationSubscribe: Subscription[] = [];
+  private _scaleSubscribe: Subscription[] = [];
+  private _translationSubscribe: Subscription[] = [];
+
+  unSubscription(subscriptions : Subscription[]) : Subscription[] {
+    if (subscriptions !== null && subscriptions.length > 0) {
+      subscriptions.forEach(subscription => {
+        subscription.unsubscribe();
+      })
+    }
+    return [];
+  }
+
+  setMaterialSubscribe() {
+		if (this.materialList !== null && this.materialList !== undefined) {
+      this._materialSubscribe = this.unSubscription(this._materialSubscribe);
+      if (this.material !== null) {
+        this._materialSubscribe.push(this.material.materialSubscribe().subscribe((mat) => {
+          this.meshMaterials.forEach(material => {
+            material.copy(mat);
+          });
+        }));
+      }
+      this.materialList.forEach((material, idx) => {
+        this._materialSubscribe.push(material.materialSubscribe().subscribe((mat) => {
+          if (this.meshMaterials && this.meshMaterials.length > idx) {
+            this.meshMaterials[idx].copy(mat);
+          };
+        }));
+      });
+    }
+  }
+
+  setPositionSubscribe() {
+		if (this.positionList !== null && this.positionList !== undefined) {
+      this._positionSubscribe = this.unSubscription(this._positionSubscribe);
+      if (this.position !== null) {
+        this._positionSubscribe.push(this.position.positionSubscribe().subscribe((pos) => {
+          this.meshPositions.forEach(position => {
+            position.copy(pos);
+          });
+        }));
+      }
+      this.positionList.forEach(position => {
+        this._positionSubscribe.push(position.positionSubscribe().subscribe((pos) => {
+          this.meshPositions.forEach(position => {
+            position.copy(pos);
+          });
+        }));
+      });
+    }
+  }
+
+  setRotationSubscribe() {
+		if (this.rotationList !== null && this.rotationList !== undefined) {
+      this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
+      if (this.rotation !== null) {
+        this._rotationSubscribe.push(this.rotation.rotationSubscribe().subscribe((rot) => {
+          this.meshRotations.forEach(rotation => {
+            rotation.copy(rot);
+          });
+        }));
+      }
+      this.rotationList.forEach(rotation => {
+        this._rotationSubscribe.push(rotation.rotationSubscribe().subscribe((rot) => {
+          this.meshRotations.forEach(rotation => {
+            rotation.copy(rot);
+          });
+        }));
+      });
+    }
+  }
+
+  setScaleSubscribe() {
+		if (this.scaleList !== null && this.scaleList !== undefined) {
+      this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
+      if (this.scale !== null) {
+        this._scaleSubscribe.push(this.scale.scaleSubscribe().subscribe((sca) => {
+          this.meshScales.forEach(scale => {
+            scale.copy(sca);
+          });
+        }));
+      }
+      this.scaleList.forEach(scale => {
+        this._scaleSubscribe.push(scale.scaleSubscribe().subscribe((sca) => {
+          this.meshScales.forEach(scale => {
+            scale.copy(sca);
+          });
+        }));
+      });
+    }
+  }
+
+  setTranslationSubscribe() {
+		if (this.translationList !== null && this.translationList !== undefined) {
+      this._translationSubscribe = this.unSubscription(this._translationSubscribe);
+      if (this.translation !== null) {
+        this._translationSubscribe.push(this.translation.translationSubscribe().subscribe((tra) => {
+          this.meshTranslations.forEach(translation => {
+            translation.applyMatrix4(tra);
+          });
+        }));
+      }
+      this.translationList.forEach(translation => {
+        this._translationSubscribe.push(translation.translationSubscribe().subscribe((tra) => {
+          this.meshTranslations.forEach(translation => {
+            translation.applyMatrix4(tra);
+          });
+        }));
+      });
+    }
   }
 
   synkObject3D(synkTypes: string[]) {
     if (this.meshes !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
-          case 'position':
-            this.position.forEach((position) => {
-              position.setParent(this);
-            });
-            break;
-          case 'rotation':
-            this.rotation.forEach((rotation) => {
-              rotation.setParent(this);
-            });
-            break;
-          case 'scale':
-            this.scale.forEach((scale) => {
-              scale.setParent(this);
-            });
+					case 'position':
+            if (this.position !== null && this.position.visible) {
+              this.meshPositions.forEach(position => {
+                position.copy(this.position.getPosition());
+              });
+            }
+            if (this.positionList !== null && this.positionList !== undefined) {
+              this.positionList.forEach((pos) => {
+                if (pos.visible) {
+                  this.meshPositions.forEach(position => {
+                    position.copy(pos.getPosition());
+                  });
+                }
+              });
+            }
+						break;
+					case 'rotation':
+            if (this.rotation !== null && this.rotation.visible) {
+              this.meshRotations.forEach(rotation => {
+                rotation.copy(this.rotation.getRotation());
+              });
+            }
+            if (this.rotationList !== null && this.rotationList !== undefined) {
+              this.rotationList.forEach((rot) => {
+                if (rot.visible) {
+                  this.meshRotations.forEach(rotation => {
+                    rotation.copy(rot.getRotation());
+                  });
+                }
+              });
+            }
+						break;
+					case 'scale':
+            if (this.scale !== null && this.scale.visible) {
+              this.meshScales.forEach(scale => {
+                scale.copy(this.scale.getScale());
+              });
+            }
+            if (this.scaleList !== null && this.scaleList !== undefined) {
+              this.scaleList.forEach((sca) => {
+                if (sca.visible) {
+                  this.meshScales.forEach(scale => {
+                    scale.copy(sca.getScale());
+                  });
+                }
+              });
+            }
             break;
           case 'material':
-            this.materials.forEach((material, seqn) => {
-              material.setParent(this, seqn);
-            });
-            break;
-            case 'translation':
-              this.translation.forEach((translation) => {
-                translation.setParent(this);
+            const mainMaterials = this.meshMaterials;
+            if (this.material !== null && this.material.visible) {
+              const materialClone = this.material.getMaterial();
+              mainMaterials.forEach(material => {
+                if (material !== materialClone) {
+                  material.copy(materialClone);
+                }
+              })
+            } else {
+              this.materialList.forEach((material,idx) => {
+                if (material.visible && mainMaterials.length > idx) {
+                  const materialClone = material.getMaterial();
+                  if (mainMaterials[idx] !== materialClone) {
+                    mainMaterials[idx].copy(materialClone);
+                  }
+                }
               });
-              break;
+            }
+            break;
+          case 'translation':
+            if (this.translation !== null) {
+              this.meshTranslations.forEach(translation => {
+                translation.applyMatrix4(this.translation.getTranslation());
+              });
+            } else {
+              this.translationList.forEach((translation, idx) => {
+                if (this.meshTranslations.length > idx) {
+                  this.meshTranslations[idx].applyMatrix4(translation.getTranslation());
+                } 
+              });
+            }
+            break;
 
         }
       })

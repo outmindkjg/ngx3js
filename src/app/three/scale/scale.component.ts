@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -10,13 +10,14 @@ import { ThreeUtil } from '../interface';
 })
 export class ScaleComponent implements OnInit {
 
-  @Input() private visible:boolean = true;
+  @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
   @Input() private x:number = null;
   @Input() private y:number = null;
   @Input() private z:number = null;
   @Input() private scaleMode:string = "max";
+  @Output() private onLoad:EventEmitter<ScaleComponent> = new EventEmitter<ScaleComponent>();
 
   constructor() { }
 
@@ -89,6 +90,9 @@ export class ScaleComponent implements OnInit {
   private _scaleSubject:Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
 
   scaleSubscribe() : Observable<THREE.Vector3>{
+    if (this.scale === null) {
+      this.scale = this.getScale();
+    }
     return this._scaleSubject.asObservable();
   }
 
@@ -119,7 +123,10 @@ export class ScaleComponent implements OnInit {
       if (this.scale === null) {
         this.scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(this.x, this.y, this.z));
       }
-      this._scaleSubject.next(this.scale);
+      if (this.visible) {
+        this._scaleSubject.next(this.scale);
+      }
+      this.onLoad.emit(this);
     }
     return this.scale;
   }

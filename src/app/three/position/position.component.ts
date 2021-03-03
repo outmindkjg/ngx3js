@@ -1,5 +1,5 @@
 import { TweenComponent } from './../tween/tween.component';
-import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -12,13 +12,14 @@ import { AbstractTweenComponent } from '../tween.abstract';
 })
 export class PositionComponent extends AbstractTweenComponent implements OnInit {
 
-  @Input() private visible:boolean = true;
+  @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
   @Input() private x:number = null;
   @Input() private y:number = null;
   @Input() private z:number = null;
   @Input() private multiply:number = null;
+  @Output() private onLoad:EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer) {
@@ -90,7 +91,10 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
           this.position.multiplyScalar(this.multiply);
         }
       }
-      this._positionSubject.next(this.position);
+      if (this.visible) {
+        this._positionSubject.next(this.position);
+      }
+      this.onLoad.emit(this);
     }
     return this.position;
   }

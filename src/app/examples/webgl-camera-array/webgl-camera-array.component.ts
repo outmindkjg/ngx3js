@@ -36,7 +36,6 @@ export class WebglCameraArrayComponent extends BaseComponent<{}> {
         });
       }
     }
-    console.log(this.cameraInfos);
   }
 
   onRender(timer: RendererTimer) {

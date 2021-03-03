@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 
@@ -14,8 +15,9 @@ export class LookatComponent implements OnInit {
   @Input() private x:number = null;
   @Input() private y:number = null;
   @Input() private z:number = null;
+  @Output() private onLoad:EventEmitter<LookatComponent> = new EventEmitter<LookatComponent>();
 
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -40,6 +42,15 @@ export class LookatComponent implements OnInit {
     return false;
   }
 
+  private _lookatSubject:Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
+
+  lookatSubscribe() : Observable<THREE.Vector3>{
+    if (this.lookat === null) {
+      this.lookat = this.getLookAt();
+    }
+    return this._lookatSubject.asObservable();
+  }
+ 
   resetLookAt() {
     if (this.parent !== null && this.visible) {
       if (this.parent instanceof  THREE.Object3D) {
@@ -65,6 +76,10 @@ export class LookatComponent implements OnInit {
         if (this.lookat === null) {
           this.lookat = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
         }
+        if (this.visible) {
+          this._lookatSubject.next(this.lookat);
+        }
+        this.onLoad.emit(this);
     }
     return this.lookat;
   }

@@ -1,4 +1,5 @@
 import { Component, ContentChildren, Input, Output, EventEmitter ,OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -15,7 +16,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   @Input() public type:string = "lambert";
   @Input() public name:string = null;
-  @Input() public visible:boolean = null;
+  @Input() public visible:boolean = true;
   @Input() public materialType:string = "material";
   @Input() private refer:any = null;
   @Input() private storageName:string = null;
@@ -128,8 +129,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
-  @ContentChildren(TextureComponent) private textures: QueryList<TextureComponent>;
-  @ContentChildren(ShaderComponent) private shaders: QueryList<ShaderComponent>;
+  @ContentChildren(TextureComponent) private textureList: QueryList<TextureComponent>;
+  @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
   @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
 
   constructor(private localStorageService: LocalStorageService) { }
@@ -138,32 +139,20 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   ngOnDestroy(): void {
-    if (this.parent !== null) {
-
-      if (this.parent instanceof THREE.Scene) {
-        const material = this.getMaterial();
-        if (material === this.parent.overrideMaterial) {
-          this.parent.overrideMaterial = null;
-        }
-      }
-    }
   }
 
   ngAfterContentInit(): void {
-    this.textures.changes.subscribe((e) => {
+    this.textureList.changes.subscribe((e) => {
 
     });
   }
 
+  private _needUpdate : boolean = true;
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.parent !== null) {
-      this.material = null;
-    }
-    this.resetMaterial();
-    if (changes.refractionRatio) {
-      if (this.material instanceof THREE.MeshBasicMaterial) {
-        this.material.refractionRatio = this.getRefractionRatio();
-      }
+    if (changes && this.material !== null) {
+      this._needUpdate = true;
+      this.getMaterial();
     }
   }
 
@@ -421,10 +410,10 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           return this.normalMap.getTexture();
         }
         break;
-      }
-    if (ThreeUtil.isNotNull(this.textures) && this.textures.length > 0) {
+    }
+    if (ThreeUtil.isNotNull(this.textureList) && this.textureList.length > 0) {
       type = type.toLowerCase();
-      const foundTexture = this.textures.find((texture) => {
+      const foundTexture = this.textureList.find((texture) => {
         return texture.textureType.toLowerCase() === type;
       });
       if (foundTexture !== null && foundTexture !== undefined) {
@@ -829,8 +818,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
         return this.fragmentShader;
       }
     }
-    if (this.shaders != null && this.shaders.length > 0) {
-      const foundShader = this.shaders.find((shader) => {
+    if (this.shaderList != null && this.shaderList.length > 0) {
+      const foundShader = this.shaderList.find((shader) => {
         return shader.type.toLowerCase() === type;
       });
       if (foundShader !== null && foundShader !== undefined) {
@@ -894,19 +883,6 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private material: THREE.Material = null;
-  private refMaterial: THREE.Material = null;
-  private parent: THREE.Object3D | any = null;
-  private refSeqn: number = 0;
-
-  setParent(parent: THREE.Object3D | any, refSeqn: number = 0) {
-    this.refSeqn = refSeqn;
-    if (this.parent !== parent) {
-      this.parent = parent;
-      this.resetMaterial();
-    }
-  }
-
-  private backgroundangularTryOutCnt: number = 0;
 
   setMaterialParams(params : { [key : string] : any } ) {
     Object.entries(params).forEach(([key, value]) => {
@@ -916,105 +892,38 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     });
   }
 
-  resetMaterial() {
-    if (this.parent !== null && this.getVisible(true)) {
-      if (this.parent instanceof THREE.Object3D) {
-        if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined && this.clippingPlanesList.length > 0) {
-          const matrixWorld = this.parent.matrixWorld;
-          this.parent.onBeforeRender = () => {
-            this.clippingPlanesList.forEach(plane => {
-              plane.getWorldPlane(matrixWorld);
-            })
-          }
-        }
-      }
-      const material = this.getMaterial();
-      if (this.parent instanceof THREE.Scene) {
-        const map: THREE.Texture = (material['map'] && material['map'] instanceof THREE.Texture) ? material['map'] : null;
-        const color: THREE.Color = (material['color'] && material['color'] instanceof THREE.Color) ? material['color'] : null;
-        switch (this.materialType.toLowerCase()) {
-          case 'environment':
-            if (map !== null) {
-              this.parent.environment = map;
-            } else {
-              this.parent.environment = null;
-            }
-            break;
-          case 'background':
-            if (map !== null) {
-              this.parent.background = map;
-            } else if (color !== null) {
-              this.parent.background = color;
-            } else {
-              this.parent.background = null;
-            }
-            break;
-          case 'background-angular':
-          case 'backgroundangular':
-            if (map !== null) {
-              if (map.image !== null && map.image !== undefined) {
-                this.backgroundangularTryOutCnt = 0;
-                const rt = new THREE.WebGLCubeRenderTarget(map.image.height);
-                rt.fromEquirectangularTexture(ThreeUtil.getRenderer() as THREE.WebGLRenderer, map);
-                this.parent['background'] = rt;
-              } else {
-                if (this.backgroundangularTryOutCnt < 10) {
-                  setTimeout(() => {
-                    this.backgroundangularTryOutCnt++;
-                    this.resetMaterial();
-                  }, 200);
-                }
-              }
-            } else if (color !== null) {
-              this.parent.background = color;
-            } else {
-              this.parent.background = null;
-            }
-            break;
-          case 'material':
-          case 'overrideMaterial':
-            this.parent.overrideMaterial = material;
-            this.parent.overrideMaterial.needsUpdate = true;
-            break;
-        }
-      } else if (this.parent instanceof THREE.Mesh) {
-        switch (this.materialType.toLowerCase()) {
-          case 'customdepth' :
-            this.parent.customDepthMaterial = material;
-            break;
-          default :
-            if (this.parent.material instanceof Array) {
-              if (this.parent.material.length > this.refSeqn) {
-                this.parent.material[this.refSeqn].copy(material)
-                this.parent.material[this.refSeqn].needsUpdate = true;
-              }
-            } else if (this.parent.material != material) {
-              this.parent.material.copy(material);
-              this.parent.material.needsUpdate = true;
-            }
-            break
-        }
-      } else if (this.parent.meshMaterials) {
-        if (this.parent.meshMaterials.length > this.refSeqn) {
-          const refMaterials = this.parent.meshMaterials[this.refSeqn];
-          if (refMaterials instanceof Array) {
+  private _materialSubject:Subject<THREE.Material> = new Subject<THREE.Material>();
 
-          } else {
-            refMaterials.copy(material)
-            refMaterials.needsUpdate = true;
-          }
-        }
+  materialSubscribe() : Observable<THREE.Material>{
+    return this._materialSubject.asObservable();
+  }
+
+  setTexture(texture : TextureComponent) {
+    if (this.material !== null) {
+      const materialClone = texture.getTexture();
+      switch(texture.textureType.toLowerCase()) {
+        case 'map' :
+          this.material['map'] = materialClone;
+          break;
+        case 'envmap' :
+          this.material['envMap'] = materialClone;
+          break;  
       }
     }
   }
 
   getMaterial(): THREE.Material {
-    if (this.material === null) {
+    if (this.material === null || this._needUpdate) {
+      this._needUpdate = false;
+      this.material = null;
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters({}));
         this.localStorageService.getMaterial(this.storageName, (material : THREE.Material) => {
-          this.material.copy(material);
-          this.resetMaterial();
+          this.material = material;
+          if (this.getVisible(true)) {
+            this._materialSubject.next(this.material);
+          }
+          this.onLoad.emit(this);
         })
       } else if (this.refer !== null) {
         if (this.refer.getMaterial) {
@@ -1370,13 +1279,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
             break;
         }
       }
-      if (ThreeUtil.isNull(this.material.userData.component)) {
-        this.material.userData.component = this;
-      }
-      if (this.refMaterial === null) {
-        this.refMaterial = this.material;
-      } else {
-        this.refMaterial.copy(this.material);
+      if (this.getVisible(true)) {
+        this._materialSubject.next(this.material);
       }
       this.onLoad.emit(this);
     }

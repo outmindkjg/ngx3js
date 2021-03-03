@@ -55,7 +55,7 @@
         [type]="'Sphere'"
         [radius]="1.1"
         [widthSegments]="48"
-        [heightSegments]="48"
+        [heightSegments]="24"
       ></three-geometry>
       <three-material
         type="meshlambert"
@@ -73,12 +73,13 @@
           [type]="'Sphere'"
           [radius]="sphere.radius"
           [widthSegments]="48"
-          [heightSegments]="48"
+          [heightSegments]="24"
         ></three-geometry>
         <three-material
           type="meshlambert"
           [color]="sphere.color"
           [clipIntersection]="true"
+          [side]="'double'"
           [clippingPlanes]="[plane1, plane2, plane3]"
         ></three-material>
       </three-mesh>

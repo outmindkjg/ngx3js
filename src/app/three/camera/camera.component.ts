@@ -29,6 +29,7 @@ import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrie
 import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect.js';
 
 import { AbstractObject3dComponent } from '../object3d.abstract';
+import { LightComponent } from '../light/light.component';
 
 @Component({
   selector: 'three-camera',
@@ -70,6 +71,7 @@ export class CameraComponent
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lights: QueryList<LightComponent>;
 
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov,def);
@@ -261,6 +263,7 @@ export class CameraComponent
           'listner',
           'audio',
           'helpers',
+          'lights',
           'controller',
         ]);
       } else {
@@ -345,6 +348,9 @@ export class CameraComponent
     this.helpers.changes.subscribe(() => {
       this.synkObject3D(['helpers']);
     });
+    this.lights.changes.subscribe(() => {
+      this.synkObject3D(['lights']);
+    });
     this.cameras.changes.subscribe(() => {
       this.synkObject3D(['cameras']);
     });
@@ -387,6 +393,11 @@ export class CameraComponent
           case 'helpers':
             this.helpers.forEach((helper) => {
               helper.setParent(this.camera);
+            });
+            break;
+          case 'lights':
+            this.lights.forEach((light) => {
+              light.setParent(this.camera);
             });
             break;
           case 'cameras':
@@ -578,6 +589,7 @@ export class CameraComponent
         'lookat',
         'listner',
         'helpers',
+        'lights',
         'cameras',
         'audio',
         'mixer',

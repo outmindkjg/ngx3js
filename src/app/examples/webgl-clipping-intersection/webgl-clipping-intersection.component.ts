@@ -28,7 +28,6 @@ export class WebglClippingIntersectionComponent extends BaseComponent<{
       }},
       { name : 'planeConstant', type : 'number', min : -1, max : 1, step : 0.01, finishChange : () => {
         if (this.localPlane.length > 0) {
-          console.log(this.localPlane);
           this.localPlane.forEach(plane => {
             plane.setPlane(null, null, null, this.controls.planeConstant);
           });

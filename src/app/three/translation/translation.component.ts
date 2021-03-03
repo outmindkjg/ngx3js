@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { ApplyMatrix4 } from '../interface';
 
@@ -29,6 +30,15 @@ export class TranslationComponent implements OnInit {
     }
   }
 
+  private _translationSubject:Subject<THREE.Matrix4> = new Subject<THREE.Matrix4>();
+
+  translationSubscribe() : Observable<THREE.Matrix4>{
+    if (this.translation === null) {
+      this.translation = this.getTranslation();
+    }
+    return this._translationSubject.asObservable();
+  }
+
   resetTranslation(){
     if (this.parent !== null && this.visible) {
       const refTranslation:ApplyMatrix4[] = [];
@@ -52,7 +62,8 @@ export class TranslationComponent implements OnInit {
 
   getTranslation() : THREE.Matrix4{
     if (this.translation === null) {
-      this.translation = new THREE.Matrix4().makeTranslation(this.x, this.y, this.z)
+      this.translation = new THREE.Matrix4().makeTranslation(this.x, this.y, this.z);
+      this._translationSubject.next(this.translation);
     }
     return this.translation;
   }

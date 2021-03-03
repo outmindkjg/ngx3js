@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -10,12 +10,13 @@ import { ThreeUtil } from '../interface';
 })
 export class RotationComponent implements OnInit {
 
-  @Input() private visible:boolean = true;
+  @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
   @Input() private x:number = 0;
   @Input() private y:number = 0;
   @Input() private z:number = 0;
+  @Output() private onLoad:EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
 
   constructor() { }
 
@@ -52,7 +53,24 @@ export class RotationComponent implements OnInit {
   private _rotationSubject:Subject<THREE.Euler> = new Subject<THREE.Euler>();
 
   rotationSubscribe() : Observable<THREE.Euler>{
+    if (this.rotation === null) {
+      this.rotation = this.getRotation();
+    }
     return this._rotationSubject.asObservable();
+  }
+
+  setRotation(x : number, y : number, z : number) {
+    if (ThreeUtil.isNotNull(x)) {
+      this.x = x;
+    }
+    if (ThreeUtil.isNotNull(y)) {
+      this.y = y;
+    }
+    if (ThreeUtil.isNotNull(z)) {
+      this.z = z;
+    }
+    this.rotation = null;
+    this.rotation = this.getRotation();
   }
 
   resetRotation() {
@@ -92,7 +110,10 @@ export class RotationComponent implements OnInit {
       if (this.rotation === null) {
         this.rotation = ThreeUtil.getEulerSafe(this.x,this.y,this.z,new THREE.Euler(0,0,0));
       }
-      this._rotationSubject.next(this.rotation);
+      if (this.visible) {
+        this._rotationSubject.next(this.rotation);
+      }
+      this.onLoad.emit(this);
     }
     return this.rotation;
   }

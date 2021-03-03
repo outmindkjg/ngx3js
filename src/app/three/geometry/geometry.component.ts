@@ -12,6 +12,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
+import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
@@ -82,7 +83,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   constructor(private localStorageService: LocalStorageService) {
   }
 
-  @Input() private visible:boolean = true;
+  @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
   @Input() private params:GeometryParams = null;
@@ -153,13 +154,15 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeX : number = null;
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
+  @Input() private curve : string = null;
+  @Input() private onInit : (geometry : THREE.BufferGeometry) => null = null;
  
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 
-  @ContentChildren(GeometryComponent, { descendants: false }) private subGeometry: QueryList<GeometryComponent>;
-  @ContentChildren(ShapeComponent, { descendants: false }) private shapes: QueryList<ShapeComponent>;
-  @ContentChildren(CurveComponent, { descendants: false }) private curves: QueryList<CurveComponent>;
-  @ContentChildren(TranslationComponent, { descendants: false }) private translation: QueryList<TranslationComponent>;
+  @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
+  @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
+  @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   private getRadius(def?: number): number {
     return ThreeUtil.getTypeSafe(this.radius , def);
@@ -388,7 +391,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       case 'klein':
         return ParametricGeometries.klein;
       case 'plane':
-        return ParametricGeometries.plane;
+        return ParametricGeometries.plane(this.getWidth(10), this.getHeight(10), null) as any;
       case 'mobius':
         return ParametricGeometries.mobius;
       default:
@@ -447,8 +450,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getSubGeometry(): THREE.BufferGeometry {
-    if (this.subGeometry !== null && this.subGeometry.length > 0) {
-      return this.subGeometry.first.getGeometry();
+    if (this.geometryList !== null && this.geometryList.length > 0) {
+      return this.geometryList.first.getGeometry();
     } else {
       return new THREE.PlaneGeometry(1, 1, 1, 1);
     }
@@ -484,8 +487,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private getShapes(): THREE.Shape {
     const shape = new THREE.Shape();
-    if (this.shapes != null && this.shapes.length > 0) {
-      this.shapes.forEach((path) => {
+    if (this.shapeList != null && this.shapeList.length > 0) {
+      this.shapeList.forEach((path) => {
         path.getShape(shape);
       });
     }
@@ -496,9 +499,46 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return this.closed === null ? def : this.closed;
   }
 
-  private getCurve(): THREE.Curve<THREE.Vector3> {
-    if (this.curves !== null && this.curves.length > 0) {
-      return this.curves.first.getCurve() as THREE.Curve<THREE.Vector3>;
+  private getCurve(def?:string): THREE.Curve<THREE.Vector3> {
+    const curve = ThreeUtil.getTypeSafe(this.curve,def, '');
+    switch(curve.toLowerCase()) {
+      case 'grannyknot' :
+        return new Curves.GrannyKnot();
+      case 'heartcurve' :
+        return new Curves.HeartCurve();
+      case 'vivianicurve' :
+        return new Curves.VivianiCurve();
+      case 'knotcurve' :
+        return new Curves.KnotCurve();
+      case 'helixcurve' :
+        return new Curves.HelixCurve();
+      case 'helixcurve' :
+        return new Curves.HelixCurve();
+      case 'trefoilknot' :
+        return new Curves.TrefoilKnot();
+      case 'torusknot' :
+        return new Curves.TorusKnot();
+      case 'torusknot' :
+        return new Curves.TorusKnot();
+      case 'cinquefoilknot' :
+        return new Curves.CinquefoilKnot();
+      case 'trefoilpolynomialknot' :
+        return new Curves.TrefoilPolynomialKnot();
+      case 'decoratedtorusknot4b' :
+        return new Curves.DecoratedTorusKnot4b();
+      case 'decoratedtorusknot4a' :
+        return new Curves.DecoratedTorusKnot4a();
+      case 'figureeightpolynomialknot' :
+        return new Curves.FigureEightPolynomialKnot();
+      case 'decoratedtorusknot5a' :
+        return new Curves.DecoratedTorusKnot5a();
+      case 'decoratedtorusknot5c' :
+        return new Curves.DecoratedTorusKnot5c();
+      default :
+        if (this.curveList !== null && this.curveList.length > 0) {
+          return this.curveList.first.getCurve() as THREE.Curve<THREE.Vector3>;
+        }
+        break;
     }
     return new THREE.LineCurve3(
       new THREE.Vector3(0, 0, 0),
@@ -523,7 +563,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     while(mesh instanceof THREE.Group) {
       mesh = mesh.children[0];
     }
-    console.log(mesh);
     if (mesh instanceof THREE.Mesh) {
       return mesh;
     } else if (mesh.children.length > 0 && mesh.children[0] instanceof THREE.Mesh){
@@ -548,7 +587,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   ngOnInit(): void { }
 
   ngAfterContentInit(): void {
-    this.curves.changes.subscribe((e) => {
+    this.curveList.changes.subscribe((e) => {
       this.resetGeometry(true);
     });
   }
@@ -670,6 +709,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   private _geometrySubject: Subject<THREE.BufferGeometry> = new Subject<THREE.BufferGeometry>();
 
   geometrySubscribe(): Observable<THREE.BufferGeometry> {
+    if (this.geometry === null) {
+      this.geometry = this.getGeometry();
+    }
     return this._geometrySubject.asObservable();
   }
 
@@ -706,7 +748,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       } else if (this.parent.resetMesh) {
         this.parent.resetMesh(true);
       }
-    } else if (this.geometry === null && this.subGeometry !== null && this.subGeometry !== undefined) {
+    } else if (this.geometry === null && this.geometryList !== null && this.geometryList !== undefined) {
       this.geometry = this.getGeometry();
     }
   }
@@ -732,26 +774,26 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   synkObject3D(synkTypes: string[]) {
-    if (this.geometry !== null && this.subGeometry !== null && this.subGeometry !== undefined) {
+    if (this.geometry !== null && this.geometryList !== null && this.geometryList !== undefined) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'geometry':
-            this.subGeometry.forEach((subGeometry) => {
+            this.geometryList.forEach((subGeometry) => {
               subGeometry.setParent(this);
             });
             break;
           case 'shape':
-            this.shapes.forEach((shape) => {
+            this.shapeList.forEach((shape) => {
               shape.setParent(this);
             });
             break;
           case 'curve':
-            this.curves.forEach((curve) => {
+            this.curveList.forEach((curve) => {
               curve.setParent(this);
             });
             break;
           case 'translation':
-            this.translation.forEach((translation) => {
+            this.translationList.forEach((translation) => {
               translation.setParent(this);
             });
             break;
@@ -956,6 +998,32 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
               this.getDetail(0)
             );
             break;
+          case 'parametrictorusknot':
+            this.geometry = new ParametricGeometries.TorusKnotGeometry( 
+              this.getRadius(1),
+              this.getTube(0.4),
+              this.getRadialSegments(64),
+              this.getTubularSegments(8),
+              this.getP(2),
+              this.getQ(3)
+            ) as any;
+            break;
+          case 'parametricsphere':
+            this.geometry = new ParametricGeometries.SphereGeometry( 
+              this.getRadius(1),
+              this.getWidthSegments(8),
+              this.getHeightSegments(6)
+            ) as any;
+            break;
+          case 'parametrictube':
+            this.geometry = new ParametricGeometries.TubeGeometry(
+              this.getCurve(),
+              this.getTubularSegments(64),
+              this.getRadius(1),
+              this.getRadiusSegments(8),
+              this.getClosed(false)
+            ) as any;
+            break;
           case 'parametricbuffer':
             this.geometry = new THREE.ParametricBufferGeometry(
               this.getParametric('mobius3d'),
@@ -1036,24 +1104,25 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             break;
           case 'spherebuffer':
             this.geometry = new THREE.SphereBufferGeometry(
-              this.getRadius(50),
+              this.getRadius(1),
               this.getWidthSegments(8),
               this.getHeightSegments(6),
               this.getPhiStart(0),
               this.getPhiLength(360),
               this.getThetaStart(0),
-              this.getThetaLength(360)
+              this.getThetaLength(180)
             );
             break;
           case 'sphere':
+            // radius = 1, widthSegments = 8, heightSegments = 6, phiStart = 0, phiLength = Math.PI * 2, thetaStart = 0, thetaLength = Math.PI
             this.geometry = new THREE.SphereGeometry(
-              this.getRadius(50),
+              this.getRadius(1),
               this.getWidthSegments(8),
               this.getHeightSegments(6),
               this.getPhiStart(0),
               this.getPhiLength(360),
               this.getThetaStart(0),
-              this.getThetaLength(360)
+              this.getThetaLength(180)
             );
             break;
           case 'tetrahedronbuffer':
@@ -1110,6 +1179,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                   break;
               }
               this.resetGeometry();
+              if (this.visible) {
+                this._geometrySubject.next(this.geometry);
+              }
               this.onLoad.emit(this);
             });
             break;
@@ -1190,6 +1262,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             );
             break;
         }
+        if (ThreeUtil.isNotNull(this.onInit)) {
+          this.onInit(this.geometry);
+        }
         if (this.name !== null) {
           this.geometry.name = this.name;
         }
@@ -1200,7 +1275,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
       }
       this.onLoad.emit(this);
-      this._geometrySubject.next(this.geometry);
+      if (this.visible) {
+        this._geometrySubject.next(this.geometry);
+      }
     }
     return this.geometry;
   }

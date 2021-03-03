@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
@@ -88,10 +89,17 @@ export class ControllerComponent implements OnInit {
     }
   }
 
+  private _controllerSubject:Subject<ControllerComponent> = new Subject<ControllerComponent>();
+
+  controllerSubscribe() : Observable<ControllerComponent>{
+    return this._controllerSubject.asObservable();
+  }
+
   resetController() {
     this._controller = null;
     this.getController();
   }
+
 
   getController() : AbstractThreeController {
     if ((this.parent !== null || this.refObject2d)&& this._controller === null) {
