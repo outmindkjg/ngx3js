@@ -230,15 +230,37 @@ export class MeshComponent
   public helper: THREE.Object3D = null;
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.object3d !== null && this.object3d instanceof THREE.Mesh) {
-      return this.object3d.geometry;
-    } else if (this.geometry !== null) {
+    if (this.mesh !== null && this.object3d instanceof THREE.Mesh) {
+      const mesh = this.getRealMesh();
+      if (mesh !== null) {
+        return mesh.geometry;
+      }
+    } 
+    if (this.geometry !== null) {
       return this.geometry.getGeometry();
-    } else if (this.geometryList !== null && this.geometryList.length > 0) {
+    } 
+    if (this.geometryList !== null && this.geometryList.length > 0) {
       return this.geometryList.first.getGeometry();
-    } else {
-      return null;
     }
+    return null;
+  }
+
+  getMaterial(): THREE.Material {
+    if (this.mesh !== null && this.object3d instanceof THREE.Mesh) {
+      const mesh = this.getRealMesh();
+      if (mesh !== null) {
+        if (mesh.material instanceof THREE.Material) {
+          return mesh.material;
+        }
+      }
+    } 
+    if (this.material !== null) {
+      return this.material.getMaterial();
+    } 
+    if (this.materialList !== null && this.materialList.length > 0) {
+      return this.materialList.first.getMaterial();
+    }
+    return null;
   }
 
   private getMaterials(
@@ -338,10 +360,11 @@ export class MeshComponent
   setGeometry(geometry : GeometryComponent) {
     const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
     if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
-      const mainGeometry = meshGeometry.geometry;
       const geometryClone = geometry.getGeometry();
-      if (mainGeometry !== geometryClone ) {
-        mainGeometry.copy(geometryClone);
+      if (meshGeometry.geometry !== geometryClone ) {
+        meshGeometry.geometry = geometryClone;
+        console.log('meshGeometry');
+        this.onLoad.emit(this);
       }
     }
   }
@@ -382,6 +405,8 @@ export class MeshComponent
           } else if (this.mesh.material !== materialClone) {
             this.mesh.material = materialClone;
             this.mesh.material.needsUpdate = true;
+            console.log('materialClone');
+            this.onLoad.emit(this);
           }
           break
       }
@@ -553,6 +578,21 @@ export class MeshComponent
 
   private cssClazzName: string = null;
   private mesh: THREE.Mesh | THREE.Group = null;
+  
+  getRealMesh(): THREE.Mesh {
+    if (this.mesh instanceof THREE.Mesh) {
+      return this.mesh;
+    }
+    let mesh : THREE.Object3D = this.mesh;
+    while(mesh.children && mesh.children.length > 0) {
+      mesh = mesh.children[0];
+      if (mesh instanceof THREE.Mesh) {
+        return mesh;
+      }
+    }
+    return null;
+  }
+
   getMesh(): THREE.Mesh | THREE.Group {
     if (this.mesh === null) {
       let geometry: THREE.BufferGeometry = null;
@@ -772,9 +812,9 @@ export class MeshComponent
           object3d = new THREE.Points(geometry, this.getMaterials()[0]);
           break;
         case 'line':
-          const mesh = new THREE.Line(geometry, this.getMaterials()[0]);
-          mesh.computeLineDistances();
-          object3d = mesh;
+          const line = new THREE.Line(geometry, this.getMaterials()[0]);
+          line.computeLineDistances();
+          object3d = line;
           break;
         case 'mesh':
         default:

@@ -37,7 +37,7 @@ export class FogComponent implements OnInit {
 
   getFog() : THREE.IFog{
     if (this.fog === null) {
-      switch(this.type) {
+      switch(this.type.toLowerCase()) {
         case 'exp2' :
         case 'fogexp2' :
           this.fog = new THREE.FogExp2(

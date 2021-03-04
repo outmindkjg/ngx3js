@@ -32,6 +32,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private shadowMapEnabled:boolean = true;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private maxPolarAngle:number = null;
   @Input() private clearColor:string | number = null;
   @Input() private clearAlpha:number = null;
   @Input() private localClippingEnabled:boolean = false;
@@ -390,6 +391,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           if (ThreeUtil.isNotNull(this.maxDistance)) {
             orbitControls.maxDistance = this.maxDistance;
           }
+          if (ThreeUtil.isNotNull(this.maxPolarAngle)) {
+            orbitControls.maxPolarAngle = ThreeUtil.getAngleSafe(this.maxPolarAngle, 180);
+          }
           return orbitControls;
         case "fly":
           const flyControls = new FlyControls(camera, domElement);
@@ -549,8 +553,14 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       const width = this.rendererWidth;
       const height = this.rendererHeight;
       if (this.renderer instanceof THREE.WebGLRenderer) {
-        this.renderer.setClearColor(this.getClearColor(0xEEEEEE));
-        this.renderer.setClearAlpha(this.getClearAlpha(1));
+        const clearColor = this.getClearColor();
+        if (ThreeUtil.isNotNull(clearColor)) {
+          this.renderer.setClearColor(clearColor);
+        }
+        const clearAlpha = this.getClearAlpha();
+        if (ThreeUtil.isNotNull(clearAlpha)) {
+          this.renderer.setClearAlpha(clearAlpha);
+        }
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { Lut } from 'three/examples/jsm/math/Lut';
 
 @Component({
   selector: 'three-texture',
@@ -15,6 +16,7 @@ export class TextureComponent implements OnInit {
   @Input() private image:string = null;
   @Input() private cubeImage:string[] = null;
   @Input() private program:(ctx: CanvasRenderingContext2D) => void = null;
+  @Input() private canvas:string = null;
   @Input() private mapping:string = null;
   @Input() private wrapS:string = null;
   @Input() private wrapT:string = null;
@@ -28,8 +30,8 @@ export class TextureComponent implements OnInit {
   @Input() private repeatY:number = null;
   @Input() private offsetX:number = null;
   @Input() private offsetY:number = null;
-  @Input() private textureWidth:number = null;
-  @Input() private textureHeight:number = null;
+  @Input() private width:number = null;
+  @Input() private height:number = null;
 
 
   constructor() { }
@@ -53,17 +55,28 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  private getImage(def: string): string {
+  private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
   }
 
-  private getCubeImage(def: string[]): string[] {
+  private getCubeImage(def?: string[]): string[] {
     return ThreeUtil.getTypeSafe(this.cubeImage, def);
   }
 
-  private getProgram(def: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
+  private getProgram(def?: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
+
+  private getCanvas(def?: string): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
+    const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '');
+    switch(canvas.toLowerCase()) {
+      case 'lut' :
+      default :
+        return new Lut().createCanvas();
+    }
+  }
+  
+  
 
   private getMapping(def?: string): THREE.Mapping {
     const mapping = ThreeUtil.getTypeSafe(this.mapping, def, '');
@@ -259,28 +272,34 @@ export class TextureComponent implements OnInit {
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
 
   getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
-    return TextureComponent.getTextureImage(image, cubeImage, program, this.textureWidth, this.textureHeight);
+    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height);
   }
 
   static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number): THREE.Texture {
-    if (cubeImage !== null && cubeImage !== undefined && cubeImage.length > 0) {
+    if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       if (this.cubeTextureLoader === null) {
         this.cubeTextureLoader = new THREE.CubeTextureLoader();
       }
-      if (image !== null && image !== '') {
+      if (ThreeUtil.isNotNull(image) && image !== '') {
+        if (!image.startsWith('/')) {
+          image = '/assets/examples/' + image;
+        }
         this.cubeTextureLoader.setPath(image);
       }
       return this.cubeTextureLoader.load(cubeImage);
-    } else if (image !== null && image !== '') {
+    } else if (ThreeUtil.isNotNull(image) && image !== '') {
       if (this.textureLoader === null) {
         this.textureLoader = new THREE.TextureLoader();
+      }
+      if (!image.startsWith('/')) {
+        image = '/assets/examples/' + image;
       }
       return this.textureLoader.load(image);
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
       canvas.width = canvasWidth ? canvasWidth : 35;
       canvas.height = canvasHeight ? canvasHeight : 35;
-      if (program !== null && program !== undefined) {
+      if (ThreeUtil.isNotNull(program)) {
         const _context = canvas.getContext('2d', {
           alpha: true
         })
@@ -336,8 +355,23 @@ export class TextureComponent implements OnInit {
           this.texture = new THREE.Texture();
         }
       } else {
-        this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
+        if (ThreeUtil.isNotNull(this.canvas)) {
+          this.texture = new THREE.CanvasTexture( this.getCanvas() );
+        } else {
+          this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
+        }
         this.texture.mapping = this.getMapping();
+      }
+      if (ThreeUtil.isNotNull(changes)) {
+        changes = {
+          wrapS : null,
+          wrapT : null,
+          magFilter : null,
+          minFilter : null,
+          format : null,
+          type : null,
+          anisotropy : null
+        };
       }
     }
     if (this.texture != null && changes) {

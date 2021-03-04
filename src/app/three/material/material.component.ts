@@ -19,6 +19,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() public visible:boolean = true;
   @Input() public materialType:string = "material";
   @Input() private refer:any = null;
+  @Input() private referOverride:boolean = false;
   @Input() private storageName:string = null;
   @Input() private color:string | number = null;
   @Input() private opacity:number = null;
@@ -64,8 +65,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private fragmentShader:string = null;
   @Input() private lights:boolean = null;
   @Input() private clipping:boolean = null;
-  @Input() private transparent:boolean = false;
-  @Input() private wireframe:boolean = false;
+  @Input() private transparent:boolean = null;
+  @Input() private wireframe:boolean = null;
   @Input() private shading:string = null;
   @Input() private specular:number | string = null;
   @Input() private shininess:number = null;
@@ -930,6 +931,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           this.material = this.refer.getMaterial();
         } else if (this.refer instanceof THREE.Material) {
           this.material = this.refer;
+        }
+        if (this.material !== null && this.referOverride) {
+          this.material = this.material.clone();
+          const materialParameters = this.getMaterialParameters({});
+          console.log(materialParameters);
+          if (ThreeUtil.isNotNull(this.side)) {
+
+            this.material.side = this.getSide();
+          }
         }
       }
       if (this.material === null) {

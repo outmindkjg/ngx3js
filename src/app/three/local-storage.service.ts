@@ -74,6 +74,7 @@ export class LocalStorageService {
   }
 
   private objectLoader: THREE.ObjectLoader = null;
+  private geometryLoader: THREE.BufferGeometryLoader = null;
   private objLoader: OBJLoader = null;
   private colladaLoader: ColladaLoader = null;
   private stlLoader: STLLoader = null;
@@ -411,18 +412,30 @@ export class LocalStorageService {
         console.log(e);
       })
     } else {
-      if (this.objectLoader === null) {
-        this.objectLoader = new THREE.ObjectLoader();
-      }
       if (
         key.endsWith('.js') ||
         key.endsWith('.json')
       ) {
-        this.objectLoader.load(key, (result) => {
-          console.log(result);
-        }, null, (e) => {
-          console.log(e);
-        })
+        const isGeometryLoader = (options && options.geometry) ? true : false;
+        if (!isGeometryLoader) {
+          if (this.objectLoader === null) {
+            this.objectLoader = new THREE.ObjectLoader();
+          }
+          this.objectLoader.load(key, (result) => {
+            console.log(result);
+          }, null, (e) => {
+            console.log(e);
+          })
+        } else {
+          if (this.geometryLoader === null) {
+            this.geometryLoader = new THREE.BufferGeometryLoader();
+          }
+          this.geometryLoader.load( key, ( geometry ) => {
+            callBack({ geometry : geometry });
+          }, null, (e) => {
+            console.log(e);
+          })
+        }
       } else {
         const json = this.getItem(key);
         const loadedGeometry = JSON.parse(json);
@@ -457,7 +470,7 @@ export class LocalStorageService {
         callBack(result.geometry);
       } else {
         callBack(new THREE.BufferGeometry());
-      }}, options);
+      }}, Object.assign(options || {} , { geometry : true }));
   }
 
   public getMaterial(key: string, callBack: (material : THREE.Material) => void, options? : any): void {

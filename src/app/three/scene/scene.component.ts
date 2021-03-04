@@ -24,6 +24,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { LightComponent } from '../light/light.component';
 import { CameraComponent } from '../camera/camera.component';
 import { Subscription } from 'rxjs';
+import { HelperComponent } from '../helper/helper.component';
 
 @Component({
   selector: 'three-scene',
@@ -45,6 +46,7 @@ export class SceneComponent
   @ContentChildren(AudioComponent, { descendants: false }) audioList: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) sceneControllerList: QueryList<ControllerComponent>;
   @ContentChildren(MixerComponent, { descendants: true }) mixerList: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
 
@@ -121,6 +123,9 @@ export class SceneComponent
     });
     this.lightList.changes.subscribe(() => {
       this.synkObject3D(['lights']);
+    });
+    this.helperList.changes.subscribe(() => {
+      this.synkObject3D(['helpers']);
     });
     this.cameraList.changes.subscribe(() => {
       this.synkObject3D(['cameras']);
@@ -223,6 +228,11 @@ export class SceneComponent
               light.setParent(this.scene);
             });
             break;
+          case 'helpers':
+            this.helperList.forEach((helper) => {
+              helper.setParent(this.scene);
+            });
+            break;
           case 'rigidbody':
           case 'physics':
           case 'mixer':
@@ -313,6 +323,7 @@ export class SceneComponent
           'materials',
           'mesh',
           'lights',
+          'helpers',
           'cameras',
           'physics',
           'fog',
