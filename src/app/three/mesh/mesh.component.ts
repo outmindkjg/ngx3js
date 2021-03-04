@@ -434,11 +434,18 @@ export class MeshComponent
       child = this.object3d;
     }
     if (
-      child instanceof THREE.Mesh &&
-      child.material instanceof THREE.Material &&
-      child.material['wireframe'] !== undefined
+      child instanceof THREE.Mesh
     ) {
-      child.material['wireframe'] = wireframe;
+      if (child.material instanceof THREE.Material && child.material['wireframe'] !== undefined) {
+        child.material['wireframe'] = wireframe;
+      } else if (child.material instanceof Array) {
+        child.material.forEach(material => {
+          if (material['wireframe'] !== undefined) {
+            material['wireframe'] = wireframe;
+          }
+        });
+      }
+    
     }
     child.children.forEach((obj) => {
       this.setWireFrame(wireframe, obj);

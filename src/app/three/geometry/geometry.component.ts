@@ -120,6 +120,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private p:number = null;
   @Input() private q:number = null;
   @Input() private points:GeometriesVector3[] = null;
+  @Input() private shapes:GeometriesVector3[] = null;
+  @Input() private extrudePath:GeometriesVector3[] = null;
+  @Input() private extrudePathType:string = null;
+  @Input() private curveType:string = null;
+
+  @Input() private uVGenerator:string = null;
   @Input() private pointsGeometry:GeometryComponent = null;
   @Input() private parametric:string | GeometriesParametric = null;
   @Input() private slices:number = null;
@@ -505,13 +511,52 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private getShapes(): THREE.Shape {
     const shape = new THREE.Shape();
-    if (this.shapeList != null && this.shapeList.length > 0) {
-      this.shapeList.forEach((path) => {
-        path.getShape(shape);
-      });
+    if (ThreeUtil.isNotNull(this.shapes)) {
+      const vectors : THREE.Vector2[] = [];
+      this.shapes.forEach(p => {
+        vectors.push(new THREE.Vector2( p.x, p.y));
+      })
+      shape.setFromPoints(vectors);
+    } else {
+      if (this.shapeList != null && this.shapeList.length > 0) {
+        this.shapeList.forEach((path) => {
+          path.getShape(shape);
+        });
+      }
     }
     return shape;
   }
+
+  private getExtrudePath(): THREE.Curve<THREE.Vector3> {
+    if (ThreeUtil.isNotNull(this.extrudePath)) {
+      const vectors : THREE.Vector3[] = [];
+      this.extrudePath.forEach(p => {
+        vectors.push(new THREE.Vector3( p.x, p.y, p.z));
+      })
+      switch(ThreeUtil.getTypeSafe(this.extrudePathType,'catmullrom').toLowerCase()) {
+        case 'catmullromcurve3' :
+        default :
+          return new THREE.CatmullRomCurve3(
+            vectors , 
+            this.getClosed(false), 
+            ThreeUtil.getTypeSafe(this.curveType, 'catmullrom')
+          );
+          break;
+      }
+    }
+    return undefined;
+  }
+
+  private getUVGenerator(def? : string): THREE.UVGenerator {
+    const uVGenerator = ThreeUtil.getTypeSafe(this.uVGenerator, def, '');
+    switch(uVGenerator.toLowerCase()) {
+      case 'world' :
+        // return THREE.WorldUVGenerator;
+        break;
+    }
+    return undefined;
+  }
+  
 
   private getClosed(def?: boolean): boolean {
     return this.closed === null ? def : this.closed;
@@ -989,8 +1034,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
               bevelSize: this.getBevelSize(0),
               bevelOffset: this.getBevelOffset(0),
               bevelSegments: this.getBevelSegments(3),
-              extrudePath: new THREE.Curve<THREE.Vector3>(),
-              UVGenerator: null // THREE.UVGenerator;
+              extrudePath: this.getExtrudePath(),
+              UVGenerator: this.getUVGenerator()
             });
             break;
           case 'extrude':
@@ -1003,8 +1048,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
               bevelSize: this.getBevelSize(0),
               bevelOffset: this.getBevelOffset(0),
               bevelSegments: this.getBevelSegments(3),
-              extrudePath: new THREE.Curve<THREE.Vector3>(),
-              UVGenerator: null // THREE.UVGenerator;
+              extrudePath: this.getExtrudePath(),
+              UVGenerator: this.getUVGenerator()
             });
             break;
           case 'icosahedronbuffer':

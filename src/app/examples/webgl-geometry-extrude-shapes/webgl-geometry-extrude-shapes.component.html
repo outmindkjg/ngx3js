@@ -30,14 +30,44 @@
     >
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="150"
-        [height]="150"
-        [depth]="150"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+      <three-mesh>
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Extrude'"
+          [shapes]="shapes1"
+          [steps]="100"
+          [bevelEnabled]="false"
+          [extrudePath]="extrudePath"
+          [closed]="true"
+          ></three-geometry>
+        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
+      </three-mesh>
+      <three-mesh>
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Extrude'"
+          [shapes]="shapes2"
+          [steps]="200"
+          [bevelEnabled]="false"
+          [extrudePath]="randomPoints"
+          ></three-geometry>
+        <three-material type="meshlambert" [color]="'0xff8000'" [wireframe]="false"></three-material>
+      </three-mesh>
+      <three-mesh>
+        <three-position [x]="50" [y]="100" [z]="50"></three-position>
+        <three-geometry
+          [type]="'Extrude'"
+          [shapes]="shapes2"
+          [steps]="1"
+          [bevelEnabled]="true"
+          [bevelThickness]="2"
+          [bevelSize]="4"
+          [bevelSegments]="1"
+        ></three-geometry>
+        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
+        <three-material type="meshlambert" [color]="'0xff8000'" [wireframe]="false"></three-material>
+        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>
