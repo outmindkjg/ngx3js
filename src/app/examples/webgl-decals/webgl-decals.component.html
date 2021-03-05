@@ -15,7 +15,7 @@
   [guiControl]="controls"
   [guiParams]="controlsParams"
   [useEvent]="['change','pointerdown', 'pointerup','pointermove']"
-  [eventListener]="eventListener"
+  (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>

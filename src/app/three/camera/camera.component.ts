@@ -40,6 +40,7 @@ export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
   @Input() public type:'perspective' | 'orthographic' | 'array' | 'cinematic' = 'perspective';
+  @Input() private active:boolean = true;
   @Input() private effectType:string = null;
   @Input() private cameraDistance:number = null;
   @Input() private reflectFromAbove:boolean = null;
@@ -617,7 +618,7 @@ export class CameraComponent
     scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
-    if (!this.visible || this.isCameraChild) {
+    if (!this.visible || !this.active || this.isCameraChild) {
       return ;
     }
     if (this.scenes !== null && this.scenes.length > 0) {

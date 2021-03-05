@@ -65,8 +65,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private logarithmicDepthBuffer:boolean = false;
   @Input() private guiParams:GuiControlParam[] = [];
   @Input() private useEvent : string[] = null;
-  @Input() private eventListener:(event : RendererEvent) => any = null;
 
+  @Output() private eventListener:EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
   @Output() private onLoad:EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
 
@@ -185,7 +185,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   addWindowEvent(type : string, listener : any) {
     if (listener === null) {
       listener = (event) => {
-        if (ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
+        if (event.isPrimary && ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
           const offsetTop = this._renderer.nativeElement.offsetTop;
           const offsetLeft = this._renderer.nativeElement.offsetLeft;
           const offsetRight = offsetLeft + this.rendererWidth;
@@ -193,21 +193,19 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           if (event.clientX >= offsetLeft && event.clientX <= offsetRight && event.clientY >= offsetTop && event.clientY <= offsetBottom) {
             const offsetX  = event.clientX - offsetLeft;
             const offsetY = event.clientY - offsetTop;
-            if (this.eventListener !== null) {
-              this.eventListener({ 
-                type : type, 
-                clientX : event.clientX,
-                clientY : event.clientY,
-                offsetX : offsetX,
-                offsetY : offsetY,
-                rateX : offsetX / this.rendererWidth,
-                rateY : offsetY / this.rendererHeight,
-                width : this.rendererWidth,
-                height : this.rendererHeight,
-                mouse : new THREE.Vector2( (offsetX / this.rendererWidth ) * 2 - 1, - ( offsetY / this.rendererHeight ) * 2 + 1),
-                event : event
-              });
-            }
+            this.eventListener.emit({ 
+              type : type, 
+              clientX : event.clientX,
+              clientY : event.clientY,
+              offsetX : offsetX,
+              offsetY : offsetY,
+              rateX : offsetX / this.rendererWidth,
+              rateY : offsetY / this.rendererHeight,
+              width : this.rendererWidth,
+              height : this.rendererHeight,
+              mouse : new THREE.Vector2( (offsetX / this.rendererWidth ) * 2 - 1, - ( offsetY / this.rendererHeight ) * 2 + 1),
+              event : event
+            });
           }
         }
       }

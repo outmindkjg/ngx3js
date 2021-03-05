@@ -19,17 +19,19 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   @Input() private y:number = null;
   @Input() private z:number = null;
   @Input() private multiply:number = null;
+  @Input() private normalize:boolean = false;
+  
   @Output() private onLoad:EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.refer) {
-      this.position = null;
+    if (changes.x || changes.y || changes.z || changes.refer || changes.multiply) {
+      this.needUpdate = true;
     }
     this.resetPosition();
   }
 
   private position: THREE.Vector3 = null;
-
+  private needUpdate : boolean = true;
   setParent(parent: THREE.Object3D | any, isRestore: boolean = false) : boolean {
     if (super.setParent(parent, isRestore)) {
       if (isRestore && parent instanceof THREE.Object3D) {
@@ -73,11 +75,15 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
           position.copy(this.getPosition());
         });
       }
+    } else if (this.needUpdate && this.position !== null) {
+      this.getPosition();
     }
   }
 
   getPosition(): THREE.Vector3 {
-    if (this.position === null) {
+    if (this.position === null || this.needUpdate) {
+      this.needUpdate = false;
+      this.position = null;
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getPosition) {
           this.position = this.refer.getPosition();
@@ -89,6 +95,9 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
         this.position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
         if (this.multiply !== null) {
           this.position.multiplyScalar(this.multiply);
+        }
+        if (this.normalize) {
+          this.position.normalize();
         }
       }
       if (this.visible) {

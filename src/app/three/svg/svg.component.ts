@@ -2,7 +2,7 @@ import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, Simpl
 import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
-import { InterfaceSvgGeometry } from '../interface';
+import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { MaterialComponent } from '../material/material.component';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
@@ -36,6 +36,7 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   @Input() private receiveShadow:boolean = false;
   @Input() public name:string = null;
   @Input() private url:string = null;
+  @Input() private path:string = null;
   @Input() private curveSegments:number = null;
   @Input() private depth:number = null;
   @Input() private steps:number = null;
@@ -487,16 +488,45 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   }
 
   getPaths(onload : (geometry : SvgGeometry[]) => void){
+    this.getSVGResult((data : SVGResult) => {
+      onload(this.getGeometries(data));
+    });
+  }
+
+  getSVGResult(onload : (data : SVGResult) => void){
     const loader = new SVGLoader();
-    if (this.url !== null) {
+    if (ThreeUtil.isNotNull(this.url)) {
       loader.load(this.url, (data: SVGResult) => {
-        onload(this.getGeometries(data));
+        onload(data);
       })
+    } else if (ThreeUtil.isNotNull(this.path) && this.path != '') {
+      const svgContents : string[] = [];
+      svgContents.push('<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1152px" height="1152px" xml:space="preserve">');
+      svgContents.push('<g>');
+      svgContents.push('<path d="'+this.path+'"/>');
+      svgContents.push('</g>');
+      svgContents.push('</svg>');
+      onload(loader.parse(svgContents.join('')));
     } else {
       const svgs = this.ele.nativeElement.getElementsByTagName('svg');
       if (svgs.length > 0) {
-        onload(this.getGeometries(loader.parse(svgs[0].innerHTML.trim())));
+        onload(loader.parse(svgs[0].innerHTML.trim()));
       }
     }
   }
+
+  getShapes(onload : (data : THREE.Shape[]) => void){
+    this.getSVGResult((data : SVGResult) => {
+      if (data.paths.length > 0) {
+        const shapes : THREE.Shape[] = [];
+        data.paths.forEach(path => {
+          path.toShapes(this.getIsCCW(true), this.getNoHoles(false)).forEach(shape => {
+            shapes.push(shape);
+          });
+        });
+        onload(shapes);
+      }
+    });
+  }
+
 }

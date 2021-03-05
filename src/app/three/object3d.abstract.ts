@@ -227,6 +227,26 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  addPosition(x : number, y : number , z : number): this {
+    if (this.object3d !== null) {
+      if (x === null) {
+        x = 0;
+      }
+      if (y === null) {
+        y = 0;
+      }
+      if (z === null) {
+        z = 0;
+      }
+      x += this.object3d.position.x;
+      y += this.object3d.position.y;
+      z += this.object3d.position.z;
+      const position = ThreeUtil.getVector3Safe(x, y, z);
+      this.object3d.position.copy(position);
+    }
+    return this;
+  }
+
 	getScale(): THREE.Vector3 {
 		if (this.object3d !== null) {
 			return this.object3d.scale;

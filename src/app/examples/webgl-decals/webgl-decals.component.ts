@@ -25,10 +25,6 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
     ]);
   }
 
-  eventListener = (event : RendererEvent) => {
-    this.setEventListener(event);
-  }
-
   private move : boolean = false;
   private underProcess : boolean = false;
   setEventListener( event : RendererEvent ) {

@@ -13,9 +13,10 @@ export class ScaleComponent implements OnInit {
   @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
-  @Input() private x:number = null;
-  @Input() private y:number = null;
-  @Input() private z:number = null;
+  @Input() private x:number = 1;
+  @Input() private y:number = 1;
+  @Input() private z:number = 1;
+  @Input() private multiply:number = null;
   @Input() private scaleMode:string = "max";
   @Output() private onLoad:EventEmitter<ScaleComponent> = new EventEmitter<ScaleComponent>();
 
@@ -25,13 +26,14 @@ export class ScaleComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z) {
-      this.scale = null;
+    if (changes.x || changes.y || changes.z || changes.multiply || changes.refer || changes.multiply) {
+      this.needUpdate = true;
     }
     this.resetScale();
   }
 
   private scale: THREE.Vector3 = null;
+  private needUpdate: boolean = true;
   private parent: THREE.Object3D | any = null;
 
   setParent(parent: THREE.Object3D | any, isRestore: boolean = false) : boolean {
@@ -81,6 +83,8 @@ export class ScaleComponent implements OnInit {
           scale.copy(this.getScale());
         });
       }
+    } else if (this.scale !== null && this.needUpdate) {
+      this.getScale();
     }
   }
 
@@ -90,9 +94,6 @@ export class ScaleComponent implements OnInit {
   private _scaleSubject:Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
 
   scaleSubscribe() : Observable<THREE.Vector3>{
-    if (this.scale === null) {
-      this.scale = this.getScale();
-    }
     return this._scaleSubject.asObservable();
   }
 
@@ -110,7 +111,9 @@ export class ScaleComponent implements OnInit {
   }
 
   getScale(): THREE.Vector3 {
-    if (this.scale === null) {
+    if (this.scale === null || this.needUpdate) {
+      this.needUpdate = false;
+      this.scale = null;
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getSize) {
           this.scale = this.getScaleFromSize(this.refer.getSize());
@@ -121,7 +124,10 @@ export class ScaleComponent implements OnInit {
         }
       }
       if (this.scale === null) {
-        this.scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(this.x, this.y, this.z));
+        this.scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(1, 1, 1));
+      }
+      if (ThreeUtil.isNotNull(this.multiply)) {
+        this.scale.multiplyScalar(this.multiply);
       }
       if (this.visible) {
         this._scaleSubject.next(this.scale);
@@ -130,5 +136,4 @@ export class ScaleComponent implements OnInit {
     }
     return this.scale;
   }
-
 }

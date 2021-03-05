@@ -1024,7 +1024,7 @@ export class ThreeUtil {
           component.mesh.setWireFrame(component.controls.meshShape.wireframe);
         }
       }},
-    ], isOpen : true});
+    ], isOpen : false});
     params.push({ name: 'Mesh Rotation', type: 'folder', control : 'meshRotate',children : [
       { name: 'x', type: 'number', min : -360, max : 360, step : 5, listen : true, change : () => {
         component.controls.meshRotate.update();

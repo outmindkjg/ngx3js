@@ -53,9 +53,6 @@ export class RotationComponent implements OnInit {
   private _rotationSubject:Subject<THREE.Euler> = new Subject<THREE.Euler>();
 
   rotationSubscribe() : Observable<THREE.Euler>{
-    if (this.rotation === null) {
-      this.rotation = this.getRotation();
-    }
     return this._rotationSubject.asObservable();
   }
 

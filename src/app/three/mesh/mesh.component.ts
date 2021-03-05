@@ -363,7 +363,6 @@ export class MeshComponent
       const geometryClone = geometry.getGeometry();
       if (meshGeometry.geometry !== geometryClone ) {
         meshGeometry.geometry = geometryClone;
-        console.log('meshGeometry');
         this.onLoad.emit(this);
       }
     }
