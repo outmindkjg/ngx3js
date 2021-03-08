@@ -1,13 +1,11 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - <a href="http://www.minecraft.net/" target="_blank" rel="noopener">minecraft</a> demo. featuring <a href="http://painterlypack.net/" target="_blank" rel="noopener">painterly pack</a><br />(left click: forward, right click: backward)
 </div>
 <three-renderer
-  [controlType]="'orbit'"
+  [controlType]="'FirstPerson'"
+  [movementSpeed]="1000"
+  [lookSpeed]="0.125"
+  [lookVertical]="true"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
@@ -18,57 +16,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="20000">
+    <three-position [x]="0" [y]="1000" [z]="-100"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
+  <three-scene #scene [background]="'0xbfd1e5'">
     <three-light
-      type="Hemisphere"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+      type="Ambient"
+      [color]="'0xcccccc'"
+    ></three-light>
     <three-light
       type="directional"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [intensity]="2"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="1" [y]="1" [z]="0.5" [normalize]="true"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
-        [type]="'Plane'"
+        [type]="'perlin'"
+        [perlinType]="'minecraft_ao'"
         [width]="100"
         [height]="100"
+        [depth]="100"
+        [widthSegments]="128"
+        [depthSegments]="128"
+        [quality]="2"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-material type="meshlambert" [side]="'double'" [vertexColors]="true">
+        <three-texture [image]="'textures/minecraft/atlas.png'" [magFilter]="'nearest'"></three-texture>
+      </three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

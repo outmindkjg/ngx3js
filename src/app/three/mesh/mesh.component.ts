@@ -820,6 +820,7 @@ export class MeshComponent
         case 'line':
           const line = new THREE.Line(geometry, this.getMaterials()[0]);
           line.computeLineDistances();
+          line.castShadow = this.castShadow;
           object3d = line;
           break;
         case 'mesh':

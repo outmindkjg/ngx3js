@@ -1,7 +1,9 @@
 import { ThreeUtil } from './../interface';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
+import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
+
 import * as THREE from 'three';
 
 @Component({
@@ -109,6 +111,15 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   ngOnInit(): void {
   }
 
+  private needsUpdate : boolean = true;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      this.needsUpdate = true;
+      this.resetHelper();
+    }
+    super.ngOnChanges(changes);
+  }
+
   setHelperParams(params : { [key : string] : any } ) {
     Object.entries(params).forEach(([key, value]) => {
       if (this[key] !== undefined) {
@@ -150,6 +161,8 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           this.parent.add(this.getHelper());
         }
       }
+    } else if (this.needsUpdate && this.helper !== null) {
+      this.getHelper();
     }
   }
 
@@ -157,7 +170,12 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   private helper : THREE.Object3D = null;
 
   public getHelper(): THREE.Object3D {
-    if (this.helper === null) {
+    if (this.helper === null || this.needsUpdate) {
+      this.needsUpdate = false;
+      if (this.helper !== null && this.helper.parent) {
+        this.helper.parent.remove(this.helper);
+      }
+      this.helper = null;
       let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
         case 'arrow':
@@ -261,6 +279,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           } else {
             basemesh = null;
           }
+          break;
+        case 'vertexnormals' :
+          basemesh = new VertexNormalsHelper(this.getTarget(this.parent), this.getSize(), this.getColor(0xff0000).getHex());
           break;
         case 'skeleton':
           basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));

@@ -21,10 +21,11 @@ import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
 import { SvgComponent } from '../svg/svg.component';
+import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 
 
 export interface GeometriesParametric {
-  (u: number, v: number): GeometriesVector3;
+  (u: number, v: number, target? : any): GeometriesVector3;
 }
 
 export interface GeometriesVector3 {
@@ -92,10 +93,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() public type:string = 'sphere';
   @Input() private storageName:string = null;
   @Input() private action:string = 'none';
+  @Input() private perlinType:string = 'minecraft';
+  @Input() private light:string|number = null;
+  @Input() private shadow:string|number = null;
   @Input() public name:string = null;
   @Input() private radius:number = null;
-  @Input() private geometries:THREE.BufferGeometry[] = null;
-  
   @Input() private radiusSegments:number = null;
   @Input() private radialSegments:number = null;
   @Input() private width:number = null;
@@ -104,6 +106,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private heightSegments:number = null;
   @Input() private depth:number = null;
   @Input() private depthSegments:number = null;
+  @Input() private quality:number = null;
   @Input() private thetaStart:number = null;
   @Input() private thetaLength:number = null;
   @Input() private thetaSegments:number = null;
@@ -132,7 +135,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   @Input() private uVGenerator:string = null;
   @Input() private pointsGeometry:GeometryComponent = null;
-  @Input() private parametric:string | GeometriesParametric = null;
+  @Input() private parametric:string | GeometriesParametric | any = null;
   @Input() private slices:number = null;
   @Input() private stacks:number = null;
   @Input() private text:string = null;
@@ -159,6 +162,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private bevelSegments:number = null;
   @Input() private closed:boolean = null;
   @Input() private scale:number = null;
+  @Input() private sphereScale:number = null;
   @Input() private position:number[] = null;
   @Input() private itemSize : number = null;
   @Input() private mesh : THREE.Mesh | any = null;
@@ -216,6 +220,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private getDepthSegments(def?: number): number {
     return ThreeUtil.getTypeSafe(this.depthSegments , def);
+  }
+
+  private getQuality(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.quality , def);
   }
 
   private getThetaStart(def?: number): number {
@@ -426,11 +434,22 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       case 'mobius':
         return ParametricGeometries.mobius;
       default:
-        if (parametric !== null && typeof parametric === 'function') {
-          return (u: number, v: number, dest: THREE.Vector3) => {
-            const ov = parametric(u, v);
-            dest.set(ov.x, ov.y, ov.z);
-          };
+        if (parametric !== null) {
+          if (typeof parametric === 'function') {
+            return (u: number, v: number, dest: THREE.Vector3) => {
+              const ov = parametric(u, v, dest);
+              if (ov !== null && ov !== undefined) {
+                dest.set(ov.x, ov.y, ov.z);
+              }
+            };
+          } else if (typeof parametric.getPoint === 'function') {
+            return (u: number, v: number, dest: THREE.Vector3) => {
+              const ov = parametric.getPoint(u, v, dest);
+              if (ov !== null && ov !== undefined) {
+                dest.set(ov.x, ov.y, ov.z);
+              }
+            };
+          }
         }
     }
     return ParametricGeometries.klein;
@@ -516,7 +535,15 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return ThreeUtil.getTypeSafe(this.bevelSegments, def);
   }
 
-  private getShapes(onload :(data : THREE.Shape[]) => void): void {
+  private getLight(def?: number | string): THREE.Color {
+    return ThreeUtil.getColorSafe(this.light, def);
+  }
+
+  private getShadow(def?: number | string): THREE.Color {
+    return ThreeUtil.getColorSafe(this.shadow, def);
+  }
+
+  private getShapes(onload :(data : THREE.Shape[] | THREE.Shape) => void): void {
     if (ThreeUtil.isNotNull(this.svgList) && this.svgList.length > 0) {
       this.svgList.forEach(svg => {
         svg.getShapes((shapes) => {
@@ -524,15 +551,19 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         })
       });
     } else if (ThreeUtil.isNotNull(this.shapes)) {
-      const shapes :THREE.Shape[] = [];
-      const shape = new THREE.Shape();
-      const vectors : THREE.Vector2[] = [];
-      this.shapes.forEach(p => {
-        vectors.push(new THREE.Vector2( p.x, p.y));
-      })
-      shape.setFromPoints(vectors);
-      shapes.push(shape);
-      onload(shapes);
+      if (this.shapes instanceof THREE.Shape) {
+        onload(this.shapes);
+      } else {
+        const shapes :THREE.Shape[] = [];
+        const shape = new THREE.Shape();
+        const vectors : THREE.Vector2[] = [];
+        this.shapes.forEach(p => {
+          vectors.push(new THREE.Vector2( p.x, p.y));
+        })
+        shape.setFromPoints(vectors);
+        shapes.push(shape);
+        onload(shapes);
+      }
     } else {
       const shapes :THREE.Shape[] = [];
       if (this.shapeList != null && this.shapeList.length > 0) {
@@ -590,6 +621,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   private getScale(def?: number): number {
     return ThreeUtil.getTypeSafe(this.scale, def);
   }
+
+  private getSphereScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.sphereScale, def);
+  }
+  
 
   private getCurve(def?:string): THREE.Curve<THREE.Vector3> {
     const curve = ThreeUtil.getTypeSafe(this.curve,def, '');
@@ -914,6 +950,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       if (ThreeUtil.isNull(this.geometry.userData.component)) {
         this.geometry.userData.component = this;
       }
+      const sphereScale = this.getSphereScale();
+      if (ThreeUtil.isNotNull(sphereScale) && sphereScale > 0) {
+        this.geometry.computeBoundingSphere();
+        const scaleFactor = sphereScale / geometry.boundingSphere.radius;
+        this.geometry.scale( scaleFactor, scaleFactor, scaleFactor );
+      }
       this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
       if (this.name !== null) {
         this.geometry.name = this.name;
@@ -945,9 +987,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         this.localStorageService.getGeometry(this.storageName, (geometry) => {
           this.setGeometry(geometry);
         })
-      } else if (ThreeUtil.isNotNull(this.geometries)) {
-        geometry = BufferGeometryUtils.mergeBufferGeometries( this.geometries );
-        geometry.computeBoundingSphere();
       }
       if (geometry === null) {
         switch (this.type.toLowerCase()) {
@@ -962,8 +1001,34 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             const points = this.getPointsV3([]);
             if (ThreeUtil.isNotNull(points) && points.length > 0) {
               geometry.setFromPoints(points);
+            } else {
+              const curve = this.getCurve();
+              const curveSegments = this.getCurveSegments(10);
+              geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( curveSegments * 3 ), 3 ) );
+              const position = geometry.attributes.position;
+              const point = new THREE.Vector3();
+              for ( let i = 0; i < curveSegments; i ++ ) {
+                const t = i / ( curveSegments - 1 );
+                curve.getPoint( t, point );
+                position.setXYZ( i, point.x, point.y, point.z );
+              }
+              position.needsUpdate = true;
             }
             break;
+          case 'perlin':
+            const planePerlin = new PlanePerlinGeometry(this.getWidthSegments(128),this.getDepthSegments(128),this.getQuality(2));
+            switch(this.perlinType.toLowerCase()) {
+              case 'minecraftao' :
+              case 'minecraft_ao' :
+                geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getLight(0xffffff), this.getShadow(0x505050));
+                break;
+              case 'minecraft' :
+              default :
+                geometry = planePerlin.getMinecraft(this.getWidth(100), this.getHeight(100), this.getDepth(100));
+                break;
+            }
+            geometry.computeBoundingSphere();
+            break;                
           case 'boxbuffer':
           case 'box':
             geometry = new THREE.BoxGeometry(
@@ -1031,10 +1096,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                 this.getCurveSegments()
               );
               this.getShapes((shapes) => {
+                console.log(shapes);
+                let shapeGeometry : THREE.BufferGeometry = null;
                 switch (this.type.toLowerCase()) {
                   case 'shapebuffer':
                   case 'shape':
-                    geometry = new THREE.ShapeGeometry(
+                    shapeGeometry = new THREE.ShapeGeometry(
                       shapes,
                       this.getCurveSegments()
                     );
@@ -1042,7 +1109,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                   case 'extrudebuffer':
                   case 'extrude':
                   default :
-                    geometry = new THREE.ExtrudeGeometry(shapes, {
+                    shapeGeometry = new THREE.ExtrudeGeometry(shapes, {
                       curveSegments: this.getCurveSegments(),
                       steps: this.getSteps(),
                       depth: this.getDepth(),
@@ -1080,6 +1147,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             geometry = new THREE.OctahedronGeometry(
               this.getRadius(1),
               this.getDetail(0)
+            );
+            break;
+            case 'parametric' :
+            case 'parametricbuffer' :
+            geometry = new THREE.ParametricBufferGeometry(
+              this.getParametric('mobius3d'),
+              this.getSlices(20),
+              this.getStacks(20)
             );
             break;
           case 'parametrictorusknot':
@@ -1265,4 +1340,288 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     }
     return this.geometry;
   }
+}
+
+
+class PlanePerlinGeometry {
+
+  data : number[] = [];
+  constructor(private worldWidth : number, private worldDepth : number, private quality = 2) {
+    this.data = this.generateHeight(this.worldWidth, this.worldDepth, this.quality);
+  }
+
+  getY( x, z ) { 
+    return ( this.data[ x + z * this.worldWidth ] * 0.2 ) | 0;
+  }
+
+  generateHeight( width : number, height : number, quality : number = 2 ):number[] {
+    const data : number[] = [], perlin = new ImprovedNoise(),
+      size = width * height, z = Math.random() * 100;
+    for ( let j = 0; j < 4; j ++ ) {
+      if ( j === 0 ) for ( let i = 0; i < size; i ++ ) data[ i ] = 0;
+      for ( let i = 0; i < size; i ++ ) {
+        const x = i % width, y = ( i / width ) | 0;
+        data[ i ] += perlin.noise( x / quality, y / quality, z ) * quality;
+      }
+      quality *= 4;
+    }
+    return data;
+  } 
+
+  getMinecraft(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
+    const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth);
+    const geometry : {
+      px : THREE.BufferGeometry,
+      nx : THREE.BufferGeometry,
+      py : THREE.BufferGeometry,
+      pz : THREE.BufferGeometry,
+      nz : THREE.BufferGeometry,
+    } = {
+      px : this.getGeometry(
+        planeGeometry, 
+        [1,3],
+        {x : 0, y : Math.PI / 2, z : 0},
+        {x : 50, y : 0, z : 0}
+      ),
+      nx : this.getGeometry(
+        planeGeometry, 
+        [1,3],
+        {x : 0, y : -Math.PI/2, z : 0},
+        {x : -50, y : 0, z : 0}
+      ),
+      py : this.getGeometry(
+        planeGeometry, 
+        [5,7],
+        {x : - Math.PI / 2, y : 0, z : 0},
+        {x : 0, y : 50, z : 0}
+      ),
+      pz : this.getGeometry(
+        planeGeometry, 
+        [1,3],
+        {x : 0, y : 0, z : 0},
+        {x : 0, y : 0, z : 50}
+      ),
+      nz : this.getGeometry(
+        planeGeometry, 
+        [1,3],
+        {x : 0, y : Math.PI, z : 0},
+        {x : 0, y : 0, z : -50}
+      )
+    }
+    const geometries : THREE.BufferGeometry[] = [];
+    const worldDepth = this.worldDepth;
+    const worldWidth = this.worldWidth;
+    const worldHalfWidth = worldWidth / 2;
+    const worldHalfDepth = worldDepth / 2;
+    const matrix = new THREE.Matrix4();
+    for ( let z = 0; z < worldDepth; z ++ ) {
+      for ( let x = 0; x < worldWidth; x ++ ) {
+        const h = this.getY( x, z );
+        matrix.makeTranslation(
+          x * planeWidth - worldHalfWidth * planeWidth,
+          h * planeHeight,
+          z * planeDepth - worldHalfDepth * planeDepth
+        );
+        const px = this.getY( x + 1, z );
+        const nx = this.getY( x - 1, z );
+        const pz = this.getY( x, z + 1 );
+        const nz = this.getY( x, z - 1 );
+        geometries.push( geometry.py.clone().applyMatrix4( matrix ) );
+        if ( ( px !== h && px !== h + 1 ) || x === 0 ) {
+          geometries.push( geometry.px.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( nx !== h && nx !== h + 1 ) || x === worldWidth - 1 ) {
+          geometries.push( geometry.nx.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( pz !== h && pz !== h + 1 ) || z === worldDepth - 1 ) {
+          geometries.push( geometry.pz.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( nz !== h && nz !== h + 1 ) || z === 0 ) {
+          geometries.push( geometry.nz.clone().applyMatrix4( matrix ) );
+        }
+      }
+    }
+    return BufferGeometryUtils.mergeBufferGeometries( geometries );
+  }
+
+  getMinecraftAo(planeWidth : number, planeHeight : number, planeDepth : number, light : THREE.Color, shadow : THREE.Color ) : THREE.BufferGeometry {
+    const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth).toNonIndexed();
+    planeGeometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
+    const geometry : {
+      px : THREE.BufferGeometry,
+      nx : THREE.BufferGeometry,
+      py : THREE.BufferGeometry,
+      py2 : THREE.BufferGeometry,
+      pz : THREE.BufferGeometry,
+      nz : THREE.BufferGeometry,
+    } = {
+      px : this.getGeometry(
+        planeGeometry, 
+        [1,5,11],
+        {x : 0, y : Math.PI / 2, z : 0},
+        {x : 50, y : 0, z : 0},
+        [ light, shadow, light, shadow, shadow, light ]
+      ),
+      nx : this.getGeometry(
+        planeGeometry, 
+        [1,5,11],
+        {x : 0, y : -Math.PI/2, z : 0},
+        {x : -50, y : 0, z : 0},
+        [ light, shadow, light, shadow, shadow, light ]
+      ),
+      py : this.getGeometry(
+        planeGeometry, 
+        [3,7,9],
+        {x : - Math.PI / 2, y : 0, z : 0},
+        {x : 0, y : 50, z : 0},
+        [ light, light, light, light, light, light ]
+      ),
+      py2 : this.getGeometry(
+        planeGeometry, 
+        [3,7,9],
+        {x : - Math.PI / 2, y : Math.PI / 2, z : 0},
+        {x : 0, y : 50, z : 0},
+        [ light, light, light, light, light, light ]
+      ),
+      pz : this.getGeometry(
+        planeGeometry, 
+        [1,5,11],
+        {x : 0, y : 0, z : 0},
+        {x : 0, y : 0, z : 50},
+        [ light, shadow, light, shadow, shadow, light ]
+      ),
+      nz : this.getGeometry(
+        planeGeometry, 
+        [1,5,11],
+        {x : 0, y : Math.PI, z : 0},
+        {x : 0, y : 0, z : -50},
+        [ light, shadow, light, shadow, shadow, light ]
+      )
+    }
+    const geometries : THREE.BufferGeometry[] = [];
+    const worldDepth = this.worldDepth;
+    const worldWidth = this.worldWidth;
+    const worldHalfWidth = worldWidth / 2;
+    const worldHalfDepth = worldDepth / 2;
+    const matrix = new THREE.Matrix4();
+    for ( let z = 0; z < worldDepth; z ++ ) {
+      for ( let x = 0; x < worldWidth; x ++ ) {
+        const h = this.getY( x, z );
+        matrix.makeTranslation(
+          x * planeWidth - worldHalfWidth * planeWidth,
+          h * planeHeight,
+          z * planeDepth - worldHalfDepth * planeDepth
+        );
+        const px = this.getY( x + 1, z );
+        const nx = this.getY( x - 1, z );
+        const pz = this.getY( x, z + 1 );
+        const nz = this.getY( x, z - 1 );
+        const pxpz = this.getY( x + 1, z + 1 );
+        const nxpz = this.getY( x - 1, z + 1 );
+        const pxnz = this.getY( x + 1, z - 1 );
+        const nxnz = this.getY( x - 1, z - 1 );
+        const a = nx > h || nz > h || nxnz > h ? 0 : 1;
+        const b = nx > h || pz > h || nxpz > h ? 0 : 1;
+        const c = px > h || pz > h || pxpz > h ? 0 : 1;
+        const d = px > h || nz > h || pxnz > h ? 0 : 1;
+        if ( a + c > b + d ) {
+          const colors = [];
+          colors[ 0 ] = b === 0 ? shadow : light;
+          colors[ 1 ] = c === 0 ? shadow : light;
+          colors[ 2 ] = a === 0 ? shadow : light;
+          colors[ 3 ] = c === 0 ? shadow : light;
+          colors[ 4 ] = d === 0 ? shadow : light;
+          colors[ 5 ] = a === 0 ? shadow : light;
+          const color = geometry.py2.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.py2.clone().applyMatrix4( matrix ) );
+        } else {
+          const colors = [];
+          colors[ 0 ] = a === 0 ? shadow : light;
+          colors[ 1 ] = b === 0 ? shadow : light;
+          colors[ 2 ] = d === 0 ? shadow : light;
+          colors[ 3 ] = b === 0 ? shadow : light;
+          colors[ 4 ] = c === 0 ? shadow : light;
+          colors[ 5 ] = d === 0 ? shadow : light;
+          const color = geometry.py.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.py.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( px != h && px != h + 1 ) || x == 0 ) {
+          const colors = [];
+          colors[ 0 ] = pxpz > px && x > 0 ? shadow : light;
+          colors[ 1 ] = shadow;
+          colors[ 2 ] = pxnz > px && x > 0 ? shadow : light;
+          colors[ 3 ] = shadow;
+          colors[ 4 ] = shadow;
+          colors[ 5 ] = pxnz > px && x > 0 ? shadow : light;
+          const color = geometry.px.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.px.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( nx != h && nx != h + 1 ) || x == worldWidth - 1 ) {
+          const colors = [];
+          colors[ 0 ] = nxnz > nx && x < worldWidth - 1 ? shadow : light;
+          colors[ 1 ] = shadow;
+          colors[ 2 ] = nxpz > nx && x < worldWidth - 1 ? shadow : light;
+          colors[ 3 ] = shadow;
+          colors[ 4 ] = shadow;
+          colors[ 5 ] = nxpz > nx && x < worldWidth - 1 ? shadow : light;
+          const color = geometry.nx.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.nx.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( pz != h && pz != h + 1 ) || z == worldDepth - 1 ) {
+          const colors = [];
+          colors[ 0 ] = nxpz > pz && z < worldDepth - 1 ? shadow : light;
+          colors[ 1 ] = shadow;
+          colors[ 2 ] = pxpz > pz && z < worldDepth - 1 ? shadow : light;
+          colors[ 3 ] = shadow;
+          colors[ 4 ] = shadow;
+          colors[ 5 ] = pxpz > pz && z < worldDepth - 1 ? shadow : light;
+          const color = geometry.pz.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.pz.clone().applyMatrix4( matrix ) );
+        }
+        if ( ( nz != h && nz != h + 1 ) || z == 0 ) {
+          const colors = [];
+          colors[ 0 ] = pxnz > nz && z > 0 ? shadow : light;
+          colors[ 1 ] = shadow;
+          colors[ 2 ] = nxnz > nz && z > 0 ? shadow : light;
+          colors[ 3 ] = shadow;
+          colors[ 4 ] = shadow;
+          colors[ 5 ] = nxnz > nz && z > 0 ? shadow : light;
+          const color = geometry.nz.attributes.color as any;
+          color.copyColorsArray( colors );
+          geometries.push( geometry.nz.clone().applyMatrix4( matrix ) );
+        }
+      }
+    }
+    return BufferGeometryUtils.mergeBufferGeometries( geometries );
+  }
+
+  getGeometry(planeGeometry : THREE.BufferGeometry, uv : number[], rotate : { x : number, y : number, z : number}, translate : { x : number, y : number, z : number}, colors ? : THREE.Color[]): THREE.PlaneGeometry {
+    const geometry = planeGeometry.clone() as THREE.PlaneGeometry;
+    if (colors !== null && colors !== undefined && colors.length > 0) {
+      geometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
+      const color = geometry.attributes.color as any;
+      color.copyColorsArray( colors);
+    }
+    const attributesUv = geometry.attributes.uv as any;
+    uv.forEach(idx => {
+      attributesUv.array[ idx ] = 0.5;
+    });
+    if (rotate.x !== 0) {
+      geometry.rotateX( rotate.x );
+    }
+    if (rotate.y !== 0) {
+      geometry.rotateY( rotate.y );
+    }
+    if (rotate.z !== 0) {
+      geometry.rotateZ( rotate.z );
+    }
+    geometry.translate(translate.x,translate.y,translate.z);
+    return geometry;
+  }
+
 }

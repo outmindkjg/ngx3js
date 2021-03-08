@@ -31,6 +31,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private width: number = null;
   @Input() private height: number = null;
   @Input() private castShadow: boolean = true;
+  @Input() private shadowBias: number = null;
   @Input() private shadowCameraNear: number = null;
   @Input() private shadowMapSizeWidth: number = null;
   @Input() private shadowMapSizeHeight: number = null;
@@ -127,6 +128,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return ThreeUtil.getTypeSafe(this.shadowCameraZoom, def);
   }
   
+  private getShadowBias(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowBias, def);
+  }
+
   private getTarget(def?: number): THREE.Object3D {
     const target = ThreeUtil.getTypeSafe(this.target, def);
     if (target !== null && target !== undefined) {
@@ -262,6 +267,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         }
       }
       if (this.light.shadow) {
+        this.light.shadow.bias = this.getShadowBias(0);
         this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
         this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
         if (this.light.shadow.camera) {

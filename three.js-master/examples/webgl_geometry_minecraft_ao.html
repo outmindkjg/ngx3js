@@ -63,7 +63,6 @@
 				const shadow = new THREE.Color( 0x505050 );
 
 				const matrix = new THREE.Matrix4();
-
 				const pxGeometry = new THREE.PlaneGeometry( 100, 100 ).toNonIndexed();
 				pxGeometry.setAttribute( 'color', pxGeometry.attributes.position.clone() );
 				pxGeometry.attributes.color.copyColorsArray( [ light, shadow, light, shadow, shadow, light ] );

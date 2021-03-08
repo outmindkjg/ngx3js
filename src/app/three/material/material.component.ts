@@ -946,9 +946,11 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
         switch (this.type.toLowerCase()) {
           case 'linebasic':
             const parametersLineBasicMaterial: THREE.LineBasicMaterialParameters = {
-              opacity: this.getOpacity(),
+              color: this.getColor(),
               linewidth: this.getLinewidth(),
-              vertexColors: this.getVertexColors()
+              linecap: this.getLinecap(),
+              linejoin: this.getLinejoin(),
+              morphTargets: this.getMorphTargets()
             }
             this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
             break;

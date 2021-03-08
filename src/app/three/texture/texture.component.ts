@@ -370,6 +370,7 @@ export class TextureComponent implements OnInit {
           minFilter : null,
           format : null,
           type : null,
+          repeat : null,
           anisotropy : null
         };
       }
@@ -401,10 +402,12 @@ export class TextureComponent implements OnInit {
           case 'encoding':
             this.texture.encoding = this.getEncoding('linear');
             break;
+          case 'repeat':
           case 'repeatX':
           case 'repeatY':
             this.texture.repeat.copy(this.getRepeat(1, 1));
             break;
+          case 'offset':
           case 'offsetX':
           case 'offsetY':
             this.texture.offset.copy(this.getOffset(0, 0));

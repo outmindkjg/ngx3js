@@ -1,10 +1,5 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  Simple procedurally-generated shapes
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -18,57 +13,98 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
-    <three-light
-      type="Hemisphere"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      type="directional"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+  <three-lookat [x]="0" [y]="150" [z]="0"></three-lookat>
+  <three-scene #scene [background]="'0xf0f0f0'">
+    <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+      <three-position [x]="0" [y]="150" [z]="500"></three-position>
+      <three-lookat [x]="0" [y]="150" [z]="0"></three-lookat>
+      <three-light
+        type="Point"
+        [color]="'0xffffff'"
+        [intensity]="0.8"
+      ></three-light>
+    </three-camera>
+    <three-shared>
       <three-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
       ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="50" [z]="0"></three-position>
+      <three-mesh *ngFor="let shapesInfo of shapesInfos">
+        <three-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></three-position>
+        <three-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></three-rotation>
+        <three-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></three-scale>
+        <three-mesh>
+          <three-position [x]="0" [y]="0" [z]="-175"></three-position>
+          <three-geometry
+            [type]="'Shape'"
+            [shapes]="shapesInfo.shape"
+          ></three-geometry>
+          <three-material type="MeshPhong" [side]="'double'">
+            <three-texture [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [repeatX]="0.008" [repeatY]="0.008"></three-texture>
+          </three-material>
+        </three-mesh>
+        <three-mesh>
+          <three-position [x]="0" [y]="0" [z]="-125"></three-position>
+          <three-geometry
+            [type]="'Shape'"
+            [shapes]="shapesInfo.shape"
+          ></three-geometry>
+          <three-material type="MeshPhong" [side]="'double'" [color]="shapesInfo.color">
+          </three-material>
+        </three-mesh>
+        <three-mesh>
+          <three-position [x]="0" [y]="0" [z]="-75"></three-position>
+          <three-geometry
+            [type]="'Extrude'"
+            [shapes]="shapesInfo.shape"
+            [params]="shapesInfo.extrudeSettings"
+          ></three-geometry>
+          <three-material type="MeshPhong" [color]="shapesInfo.color">
+          </three-material>
+        </three-mesh>
+      </three-mesh>
+      <three-mesh *ngFor="let shapesInfo of lineShapesInfos">
+        <three-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></three-position>
+        <three-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></three-rotation>
+        <three-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></three-scale>
+        <three-mesh [type]="'Line'">
+          <three-position [x]="0" [y]="0" [z]="-25"></three-position>
+          <three-geometry
+            [type]="'Buffer'"
+            [points]="shapesInfo.points"
+          ></three-geometry>
+          <three-material type="LineBasic" [color]="shapesInfo.color"></three-material>
+        </three-mesh>
+        <three-mesh [type]="'Line'">
+          <three-position [x]="0" [y]="0" [z]="25"></three-position>
+          <three-geometry
+            [type]="'Buffer'"
+            [points]="shapesInfo.spacedPoints"
+          ></three-geometry>
+          <three-material type="LineBasic" [color]="shapesInfo.color"></three-material>
+        </three-mesh>
+        <three-mesh [type]="'Points'">
+          <three-position [x]="0" [y]="0" [z]="75"></three-position>
+          <three-geometry
+            [type]="'Buffer'"
+            [points]="shapesInfo.points"
+          ></three-geometry>
+          <three-material type="Points" [color]="shapesInfo.color" [size]="4"></three-material>
+        </three-mesh>
+        <three-mesh [type]="'Points'">
+          <three-position [x]="0" [y]="0" [z]="125"></three-position>
+          <three-geometry
+            [type]="'Buffer'"
+            [points]="shapesInfo.spacedPoints"
+          ></three-geometry>
+          <three-material type="Points" [color]="shapesInfo.color" [size]="4"></three-material>
+        </three-mesh>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>
