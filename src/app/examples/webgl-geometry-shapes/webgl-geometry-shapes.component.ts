@@ -72,6 +72,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
   ngOnInit() {
     this.shapesInfos = [];
+    this.lineShapesInfos = [];
     const californiaPts = [];
     californiaPts.push( new THREE.Vector2( 610, 320 ) );
     californiaPts.push( new THREE.Vector2( 450, 300 ) );
@@ -249,14 +250,10 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
     this.addShape( smileyShape, extrudeSettings, 0xf000f0, - 200, 250, 0, 0, 0, Math.PI, 1 );
     this.addShape( arcShape, extrudeSettings, 0x804000, 150, 0, 0, 0, 0, 0, 1 );
     this.addShape( splineShape, extrudeSettings, 0x808080, - 50, - 100, 0, 0, 0, 0, 1 );
-
     this.addLineShape( arcShape.holes[ 0 ], 0x804000, 150, 0, 0, 0, 0, 0, 1 );
-
     for ( let i = 0; i < smileyShape.holes.length; i += 1 ) {
-
       this.addLineShape( smileyShape.holes[ i ], 0xf000f0, - 200, 250, 0, 0, 0, Math.PI, 1 );
-
     }
-
+    console.log(this.shapesInfos);
   }
 }

@@ -35,7 +35,7 @@ export class SceneComponent
   extends AbstractObject3dComponent
   implements OnInit {
   @Input() private storageName:string = null;
-  @Input() private background:string | number = null;
+  @Input() private background:string | number | MaterialComponent = null;
 
   @ContentChildren(MeshComponent, { descendants: false }) meshList: QueryList<MeshComponent>;
   @ContentChildren(PhysicsComponent, { descendants: false }) physicsList: QueryList<PhysicsComponent>;
@@ -92,7 +92,7 @@ export class SceneComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (changes.storageName) {
+      if (changes.storageName || changes.background) {
         this.scene = null;
       }
     }
@@ -331,10 +331,14 @@ export class SceneComponent
         ]);
       }
       if (ThreeUtil.isNotNull(this.background)) {
-        this.scene.background = ThreeUtil.getColorSafe(
-          this.background,
-          0xffffff
-        );
+        if (this.background instanceof MaterialComponent) {
+          this.setMaterial(this.background);
+        } else {
+          this.scene.background = ThreeUtil.getColorSafe(
+            this.background,
+            0xffffff
+          );
+        }
       }
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;

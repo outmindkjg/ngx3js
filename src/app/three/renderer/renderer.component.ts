@@ -1,24 +1,20 @@
-import { LookatComponent } from './../lookat/lookat.component';
-
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild } from '@angular/core';
 import * as GSAP from 'gsap';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
-import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
-import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
+import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
 import { GuiControlParam, RendererEvent, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
 import { ListenerComponent } from './../listener/listener.component';
+import { LookatComponent } from './../lookat/lookat.component';
 import { SceneComponent } from './../scene/scene.component';
+
 @Component({
   selector: 'three-renderer',
   templateUrl: './renderer.component.html',
@@ -70,12 +66,13 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
   @Output() private onLoad:EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
 
-  @ContentChildren(SceneComponent, { descendants: false }) private scenes: QueryList<SceneComponent>;
-  @ContentChildren(CameraComponent, { descendants: true }) private cameras: QueryList<CameraComponent>;
-  @ContentChildren(ListenerComponent, { descendants: true }) private listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: true }) private audio: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true }) private controller: QueryList<ControllerComponent>;
-	@ContentChildren(LookatComponent, { descendants: false }) private lookat: QueryList<LookatComponent>;
+  @ContentChildren(SceneComponent, { descendants: false }) private sceneList: QueryList<SceneComponent>;
+  @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(ListenerComponent, { descendants: true }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: true }) private audioList: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+	@ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+	@ContentChildren(ControlComponent, { descendants: false }) private controlList: QueryList<ControlComponent>;
 
   @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
   @ContentChildren(CanvasComponent) private canvas2d: QueryList<CanvasComponent>;
@@ -232,7 +229,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.rendererWidth = width;
       this.rendererHeight = height;
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
-      this.cameras.forEach(camera => {
+      this.cameraList.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
       if (this.cssRenderer !== null) {
@@ -301,16 +298,16 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   ngAfterContentInit() {
-    this.listner.changes.subscribe(() => {
+    this.listnerList.changes.subscribe(() => {
       this.synkObject3D(['listner']);
     });
-    this.audio.changes.subscribe(() => {
+    this.audioList.changes.subscribe(() => {
       this.synkObject3D(['audio']);
     });
     this.canvas2d.changes.subscribe(() => {
       this.synkObject3D(['canvas2d']);
     });
-    this.controller.changes.subscribe(() => {
+    this.controllerList.changes.subscribe(() => {
       this.synkObject3D(['controller']);
     });
 
@@ -323,12 +320,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'listner':
-            this.listner.forEach((listner) => {
+            this.listnerList.forEach((listner) => {
               this.renderListner = listner.getListener();
             });
             break;
           case 'audio':
-            this.audio.forEach((audio) => {
+            this.audioList.forEach((audio) => {
               audio.setListener(this.renderListner, this);
             });
             break;
@@ -338,8 +335,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             });
             break;
           case 'controller':
-            this.controller.forEach((controller) => {
-              controller.setRenderer(this.renderer, this.scenes, this.cameras, this.canvas2d);
+            this.controllerList.forEach((controller) => {
+              controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2d);
             });
             break;
           }
@@ -355,110 +352,76 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private stats: ThreeStats = null;
   private gui: ThreeGui = null;
   private clock: ThreeClock = null;
-  private control: any = null;
+  private controls: ControlComponent[] = null;
 
-  private getControls(cameras: QueryList<CameraComponent>, domElement: HTMLElement): any {
+  private getControls(cameras: QueryList<CameraComponent>, scenes : QueryList<SceneComponent>, domElement: HTMLElement): ControlComponent[] {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
     let controlAutoRotate: boolean = this.controlAutoRotate;
     if (cameras !== null && cameras.length > 0) {
+      let cameraCompFounded : boolean = false; 
       cameraComp = cameras.find(camera => {
         if (camera.controlType.toLowerCase() !== 'none') {
           controlType = camera.controlType;
+          cameraCompFounded = true;
           if (camera.controlAutoRotate !== null && camera.controlAutoRotate !== undefined) {
             controlAutoRotate = camera.controlAutoRotate;
           }
           return true;
-        } else if (controlType !== 'none') {
+        } else if (!cameraCompFounded) {
+          cameraCompFounded = true;
           return true;
         }
         return false;
       })
     }
+    let controls : ControlComponent[] = [];
     if (cameraComp !== null && cameraComp !== undefined) {
       const camera: THREE.Camera = cameraComp.getCamera();
+      const scene : THREE.Scene = scenes.first.getScene();
       switch (controlType.toLowerCase()) {
         case "orbit":
-          const orbitControls = new OrbitControls(camera, domElement);
-          orbitControls.autoRotate = controlAutoRotate;
-          orbitControls.enableDamping = this.enableDamping;
-          orbitControls.enablePan = this.enablePan;
-          if (ThreeUtil.isNotNull(this.minDistance)) {
-            orbitControls.minDistance = this.minDistance;
-          }
-          if (ThreeUtil.isNotNull(this.maxDistance)) {
-            orbitControls.maxDistance = this.maxDistance;
-          }
-          if (ThreeUtil.isNotNull(this.maxPolarAngle)) {
-            orbitControls.maxPolarAngle = ThreeUtil.getAngleSafe(this.maxPolarAngle, 180);
-          }
-          return orbitControls;
         case "fly":
-          const flyControls = new FlyControls(camera, domElement);
-          if (ThreeUtil.isNotNull(this.movementSpeed)) {
-            flyControls.movementSpeed = this.movementSpeed;
-          }
-          if (ThreeUtil.isNotNull(this.rollSpeed)) {
-            flyControls.rollSpeed = this.rollSpeed;
-          }
-          if (ThreeUtil.isNotNull(this.dragToLook)) {
-            flyControls.dragToLook = this.dragToLook;
-          }
-          if (ThreeUtil.isNotNull(this.autoForward)) {
-            flyControls.autoForward = this.autoForward;
-          }
-          return flyControls;
         case "firstperson":
-          const firstPersonControls = new FirstPersonControls(camera, domElement);
-          if (ThreeUtil.isNotNull(this.movementSpeed)) {
-            firstPersonControls.movementSpeed = this.movementSpeed;
-          }
-          if (ThreeUtil.isNotNull(this.lookSpeed)) {
-            firstPersonControls.lookSpeed = this.lookSpeed;
-          }
-          if (ThreeUtil.isNotNull(this.lookVertical)) {
-            firstPersonControls.lookVertical = this.lookVertical;
-          }
-          if (ThreeUtil.isNotNull(this.autoForward)) {
-            firstPersonControls.autoForward = this.autoForward;
-          }
-          if (ThreeUtil.isNotNull(this.activeLook)) {
-            firstPersonControls.activeLook = this.activeLook;
-          }
-          if (ThreeUtil.isNotNull(this.heightSpeed)) {
-            firstPersonControls.heightSpeed = this.heightSpeed;
-          }
-          if (ThreeUtil.isNotNull(this.heightCoef)) {
-            firstPersonControls.heightCoef = this.heightCoef;
-          }
-          if (ThreeUtil.isNotNull(this.heightMin)) {
-            firstPersonControls.heightMin = this.heightMin;
-          }
-          if (ThreeUtil.isNotNull(this.heightMax)) {
-            firstPersonControls.heightMax = this.heightMax;
-          }
-          if (ThreeUtil.isNotNull(this.constrainVertical)) {
-            firstPersonControls.constrainVertical = this.constrainVertical;
-          }
-          if (ThreeUtil.isNotNull(this.verticalMin)) {
-            firstPersonControls.verticalMin = this.verticalMin;
-          }
-          if (ThreeUtil.isNotNull(this.verticalMax)) {
-            firstPersonControls.verticalMax = this.verticalMax;
-          }
-          if (ThreeUtil.isNotNull(this.mouseDragOn)) {
-            firstPersonControls.mouseDragOn = this.mouseDragOn;
-          }
-          return firstPersonControls;
         case "transform":
-          const transformControls =  new TransformControls(camera, domElement);
-          return transformControls;
         case "trackball":
-          const trackballControls = new TrackballControls(camera, domElement);
-          return trackballControls;
+          const control = new ControlComponent();
+          control.setControlParams({
+            type : controlType,
+            autoRotate : controlAutoRotate,
+            minDistance : this.minDistance,
+            maxDistance : this.maxDistance,
+            maxPolarAngle : this.maxPolarAngle,
+            enablePan : this.enablePan,
+            enableDamping : this.enableDamping,
+            movementSpeed : this.movementSpeed,
+            rollSpeed : this.rollSpeed,
+            dragToLook : this.dragToLook,
+            autoForward : this.autoForward,
+            lookSpeed : this.lookSpeed,
+            lookVertical : this.lookVertical,
+            activeLook : this.activeLook,
+            heightSpeed : this.heightSpeed,
+            heightCoef : this.heightCoef,
+            heightMin : this.heightMin,
+            heightMax : this.heightMax,
+            constrainVertical : this.constrainVertical,
+            verticalMin : this.verticalMin,
+            verticalMax : this.verticalMax,
+            mouseDragOn : this.mouseDragOn,
+            lookatList : this.lookatList
+          });
+          control.setCameraDomElement(camera, domElement, scene);
+          controls.push(control);
+      }
+      if (this.controlList !== null && this.controlList !== undefined) {
+        this.controlList.forEach(control => {
+          control.setCameraDomElement(camera, domElement, scene);
+          controls.push(control);
+        })
       }
     }
-    return null;
+    return controls;
   }
 
   private getStats(): ThreeStats {
@@ -504,18 +467,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.stats = null;
     }
     this.renderer = this.getRenderer();
-    this.cameras.forEach(camera => {
-      camera.setRenderer(this.renderer, this.cssRenderer, this.scenes);
+    this.cameraList.forEach(camera => {
+      camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
       camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
-    this.control = this.getControls(this.cameras, this.canvas.nativeElement);
-    if (this.control !== null) {
-      this.lookat.forEach((lookat) => {
-        lookat.setParent(this.control);
-      });
-    }
+    this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
     this.resizeRender(null);
-    // this.control = this.getControls(this.cameras, this.renderer);
   }
 
   getRenderer(): THREE.Renderer {
@@ -597,26 +554,20 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
     const renderTimer = this.clock.getTimer();
     this.onRender.emit(renderTimer);
-    this.controller.forEach(controller => {
+    this.controllerList.forEach(controller => {
       controller.update(renderTimer);
     });
-    this.scenes.forEach(scene => {
+    this.sceneList.forEach(scene => {
       scene.update(renderTimer);
     })
     ThreeUtil.render(renderTimer);
-    if (this.control !== null) {
-      if (this.control instanceof OrbitControls) {
-        this.control.update();
-      } else if (this.control instanceof FlyControls) {
-        this.control.update(renderTimer.delta);
-      } else if (this.control instanceof FirstPersonControls) {
-        this.control.update(renderTimer.delta);
-      } else if (this.control instanceof TrackballControls) {
-        this.control.update();
-      }
+    if (this.controls !== null) {
+      this.controls.forEach(control => {
+        control.render(renderTimer);
+      })
     }
-    this.cameras.forEach(camera => {
-      camera.render(this.renderer, this.cssRenderer ,this.scenes, renderTimer)
+    this.cameraList.forEach(camera => {
+      camera.render(this.renderer, this.cssRenderer ,this.sceneList, renderTimer)
     });
     if (this.stats != null) {
       this.stats.end();

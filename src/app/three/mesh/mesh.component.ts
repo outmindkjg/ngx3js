@@ -104,11 +104,11 @@ export class MeshComponent
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
-  @Input() private geometry: GeometryComponent = null;
+  @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent = null;
 
   @Output() private onLoad:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
-
+  @Output() private onDestory:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
@@ -196,20 +196,16 @@ export class MeshComponent
           case 'visible':
             break;
           default:
-            if (this.parent !== null && this.object3d !== null) {
-              this.parent.remove(this.object3d);
+            if (this.object3d !== null && this.object3d.parent !== null) {
+              this.object3d.parent.remove(this.object3d);
               this.object3d = null;
+              this.mesh = null;
             }
             break;
         }
       });
-      if (this.object3d) {
-        if (changes.visible) {
-          this.object3d.visible = this.visible;
-        }
-        if (this.helper && changes.helperVisible) {
-          this.helper.visible = this.getHelperVisible(true);
-        }
+      if (this.helper !== null && changes.helperVisible) {
+        this.helper.visible = this.getHelperVisible(true);
       }
       this.resetMesh();
     }
@@ -223,6 +219,7 @@ export class MeshComponent
     this._materialSubscribe = this.unSubscription(this._materialSubscribe);
     this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
 		super.ngOnDestroy();
+    this.onDestory.emit(this);
 	}
 
   private clips: THREE.AnimationClip[] = null;
@@ -237,7 +234,11 @@ export class MeshComponent
       }
     } 
     if (this.geometry !== null) {
-      return this.geometry.getGeometry();
+      if (this.geometry instanceof THREE.BufferGeometry) {
+        return this.geometry;
+      } else {
+        return this.geometry.getGeometry();
+      }
     } 
     if (this.geometryList !== null && this.geometryList.length > 0) {
       return this.geometryList.first.getGeometry();
@@ -357,10 +358,10 @@ export class MeshComponent
     super.ngAfterContentInit();
   }
 
-  setGeometry(geometry : GeometryComponent) {
+  setGeometry(geometry : GeometryComponent | THREE.BufferGeometry) {
     const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
     if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
-      const geometryClone = geometry.getGeometry();
+      const geometryClone = (geometry instanceof THREE.BufferGeometry) ? geometry : geometry.getGeometry();
       if (meshGeometry.geometry !== geometryClone ) {
         meshGeometry.geometry = geometryClone;
         this.onLoad.emit(this);
@@ -371,9 +372,9 @@ export class MeshComponent
   setGeometrySubscribe() {
 		if (this.geometryList !== null && this.geometryList !== undefined) {
       this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
-      if (this.geometry !== null) {
+      if (this.geometry !== null && this.geometry instanceof GeometryComponent) {
         this._geometrySubscribe.push(this.geometry.geometrySubscribe().subscribe(() => {
-          if (this.geometry.visible) {
+          if (this.geometry instanceof GeometryComponent && this.geometry.visible) {
             this.setGeometry(this.geometry);
           }
         }));
@@ -404,7 +405,6 @@ export class MeshComponent
           } else if (this.mesh.material !== materialClone) {
             this.mesh.material = materialClone;
             this.mesh.material.needsUpdate = true;
-            console.log('materialClone');
             this.onLoad.emit(this);
           }
           break
@@ -542,8 +542,9 @@ export class MeshComponent
           case 'geometry':
             const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
             if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
-              const mainGeometry = meshGeometry.geometry;
-              if (this.geometry !== null && this.geometry.visible) {
+              if (this.geometry !== null && this.geometry instanceof THREE.BufferGeometry) {
+                this.setGeometry(this.geometry);
+              } else if (this.geometry !== null && this.geometry instanceof GeometryComponent && this.geometry.visible) {
                 this.setGeometry(this.geometry);
               } else {
                 this.geometryList.forEach((geometry) => {

@@ -2,20 +2,26 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - geometry - catmull spline editor
 </div>
 <three-renderer
-  [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['pointerdown','pointerup','pointermove']"
+  (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
+  <three-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></three-control>
+  <three-control
+    [type]="'orbit'"
+    [enablePan]="false"
+    [enableDamping]="true"
+    (onLoad)="setOrbitControl($event)"
+  ></three-control>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-scene #scene [background]="'0xf0f0f0'">
-    <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10000">
+    <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
       <three-position [x]="0" [y]="250" [z]="1000"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
@@ -44,12 +50,13 @@
         <three-geometry
           [type]="'geometry'"
           [curveSegments]="200"
+          [tension]="curve.tension"
           [curvePath]="curve.curvePath"
           [curveType]="curve.curveType"
         ></three-geometry>
         <three-material type="LineBasic" [opacity]="0.35" [color]="curve.color"></three-material>
       </three-mesh>
-      <three-mesh *ngFor="let box of positions">
+      <three-mesh *ngFor="let box of positions" (onLoad)="setPointMesh($event)" (onDestory)="unsetPointMesh($event)">
         <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
         <three-geometry
           [type]="'box'"

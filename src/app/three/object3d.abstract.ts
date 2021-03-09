@@ -42,9 +42,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes) {
-			if (this.object3d) {
+			if (this.object3d !== null) {
 				if (changes.visible) {
 					this.object3d.visible = this.visible;
+				}
+				if (changes.name) {
+					this.object3d.name = this.name;
 				}
 			}
 		}
@@ -180,6 +183,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		if (this.object3d != null) {
       if (this.object3d.parent !== null) {
         this.object3d.parent.remove(this.object3d);
+        this.object3d.parent = null;
         this.object3d = null;
       }
 		}
@@ -357,6 +361,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
 	protected object3d: THREE.Object3D = null;
+
+  getObject3D():THREE.Object3D{
+    return this.object3d;
+  }
 
   setObject3D(object3d : THREE.Object3D, add2Parent : boolean = true) {
     if (this.object3d !== object3d) {

@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
 import { HelperComponent } from '../helper/helper.component';
@@ -148,6 +149,17 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   ngOnInit(): void {}
 
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes) {
+			if (this.light !== null) {
+        this.needsUpdate = true;
+			}
+      this.resetLight();
+		}
+		super.ngOnChanges(changes);
+	}
+
+
   setLightParams(params : { [key : string] : any } ) {
     Object.entries(params).forEach(([key, value]) => {
       if (this[key] !== undefined) {
@@ -163,10 +175,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
     return false;
   }
+
   ngAfterContentInit(): void {
     this.helpers.changes.subscribe((e) => {
       this.synkObject3D(['helpers']);
     });
+    super.ngAfterContentInit();
   }
 
   synkObject3D(synkTypes: string[]) {
@@ -193,12 +207,21 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         this.light = null;
       }
       this.parent.add(this.getLight());
+    } else if (this.light !== null && this.needsUpdate) {
+      this.getLight();
     }
   }
 
   private light: THREE.Light = null;
+  private needsUpdate : boolean = true;
+
   getLight(): THREE.Light {
-    if (this.light === null) {
+    if (this.light === null || this.needsUpdate) {
+      if (this.light !== null && this.light.parent !== null) {
+        this.light.parent.remove(this.light);
+      }
+      this.light = null;
+      this.needsUpdate = false;
       let basemesh: THREE.Light = null;
       switch (this.type.toLowerCase()) {
         case 'directional':

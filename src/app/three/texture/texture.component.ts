@@ -32,7 +32,12 @@ export class TextureComponent implements OnInit {
   @Input() private offsetY:number = null;
   @Input() private width:number = null;
   @Input() private height:number = null;
-
+  @Input() private perlin:any = null;
+  @Input() private sunX:number = null;
+  @Input() private sunY:number = null;
+  @Input() private sunZ:number = null;
+  @Input() private color:number|string = null;
+  @Input() private add:number|string = null;
 
   constructor() { }
 
@@ -75,8 +80,6 @@ export class TextureComponent implements OnInit {
         return new Lut().createCanvas();
     }
   }
-  
-  
 
   private getMapping(def?: string): THREE.Mapping {
     const mapping = ThreeUtil.getTypeSafe(this.mapping, def, '');
@@ -357,6 +360,12 @@ export class TextureComponent implements OnInit {
       } else {
         if (ThreeUtil.isNotNull(this.canvas)) {
           this.texture = new THREE.CanvasTexture( this.getCanvas() );
+        } else if (ThreeUtil.isNotNull(this.perlin) && this.perlin.getPerlinGeometry) {
+          this.texture = new THREE.CanvasTexture( this.perlin.getPerlinGeometry().getTexture(
+            ThreeUtil.getVector3Safe(this.sunX, this.sunY, this.sunZ, new THREE.Vector3(1,1,1)),
+            ThreeUtil.getColorSafe(this.color, 0x602000),
+            ThreeUtil.getColorSafe(this.add, 0xe08060)
+          ));
         } else {
           this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
         }

@@ -34,6 +34,7 @@
               </div>
               <div class="title">{{ child.tags }}</div>
             </a>
+            <div *ngIf="child.selected"> {{ child.id.replace('_','-').replace('_','-').replace('_','-')}}</div>
           </div>
         </div>
       </div>

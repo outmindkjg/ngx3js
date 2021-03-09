@@ -43,6 +43,7 @@ ng g c three/transform
 ng g c three/controller
 ng g c three/physics
 ng g c three/rigidbody
+ng g c three/control
 
 
 

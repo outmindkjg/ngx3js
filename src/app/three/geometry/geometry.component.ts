@@ -21,7 +21,8 @@ import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
 import { SvgComponent } from '../svg/svg.component';
-import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
+import { PlanePerlinGeometry } from './plane-perlin-geometry';
+
 
 
 export interface GeometriesParametric {
@@ -154,6 +155,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private faces:GeometriesFace3[] = null;
   @Input() private thresholdAngle:number = null;
   @Input() private curveSegments:number = null;
+  @Input() private tension:number = null;
   @Input() private steps:number = null;
   @Input() private bevelEnabled:boolean = null;
   @Input() private bevelThickness:number = null;
@@ -596,7 +598,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           return new THREE.CatmullRomCurve3(
             vectors , 
             this.getClosed(false), 
-            ThreeUtil.getTypeSafe(this.curveType, 'catmullrom')
+            ThreeUtil.getTypeSafe(this.curveType, 'catmullrom'),
+            ThreeUtil.getTypeSafe(this.tension, 0.5)
           );
       }
     }
@@ -973,6 +976,15 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     }
   }
 
+  private perlinGeometry : PlanePerlinGeometry = null;
+
+  getPerlinGeometry():PlanePerlinGeometry {
+    if (this.perlinGeometry === null) {
+      this.perlinGeometry = new PlanePerlinGeometry(this.getWidthSegments(128),this.getDepthSegments(128),this.getQuality(2));
+    }
+    return this.perlinGeometry;
+  }
+
   getGeometry(): THREE.BufferGeometry {
     if (this.geometry === null) {
       let geometry : THREE.BufferGeometry = null;
@@ -1016,11 +1028,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             }
             break;
           case 'perlin':
-            const planePerlin = new PlanePerlinGeometry(this.getWidthSegments(128),this.getDepthSegments(128),this.getQuality(2));
+            const planePerlin = this.getPerlinGeometry();
             switch(this.perlinType.toLowerCase()) {
               case 'minecraftao' :
               case 'minecraft_ao' :
                 geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getLight(0xffffff), this.getShadow(0x505050));
+                break;
+              case 'terrain' :
+                geometry = planePerlin.getTerrain(this.getWidth(100), this.getHeight(100), this.getDepth(100));
                 break;
               case 'minecraft' :
               default :
@@ -1096,7 +1111,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                 this.getCurveSegments()
               );
               this.getShapes((shapes) => {
-                console.log(shapes);
                 let shapeGeometry : THREE.BufferGeometry = null;
                 switch (this.type.toLowerCase()) {
                   case 'shapebuffer':
@@ -1342,286 +1356,3 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 }
 
-
-class PlanePerlinGeometry {
-
-  data : number[] = [];
-  constructor(private worldWidth : number, private worldDepth : number, private quality = 2) {
-    this.data = this.generateHeight(this.worldWidth, this.worldDepth, this.quality);
-  }
-
-  getY( x, z ) { 
-    return ( this.data[ x + z * this.worldWidth ] * 0.2 ) | 0;
-  }
-
-  generateHeight( width : number, height : number, quality : number = 2 ):number[] {
-    const data : number[] = [], perlin = new ImprovedNoise(),
-      size = width * height, z = Math.random() * 100;
-    for ( let j = 0; j < 4; j ++ ) {
-      if ( j === 0 ) for ( let i = 0; i < size; i ++ ) data[ i ] = 0;
-      for ( let i = 0; i < size; i ++ ) {
-        const x = i % width, y = ( i / width ) | 0;
-        data[ i ] += perlin.noise( x / quality, y / quality, z ) * quality;
-      }
-      quality *= 4;
-    }
-    return data;
-  } 
-
-  getMinecraft(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
-    const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth);
-    const geometry : {
-      px : THREE.BufferGeometry,
-      nx : THREE.BufferGeometry,
-      py : THREE.BufferGeometry,
-      pz : THREE.BufferGeometry,
-      nz : THREE.BufferGeometry,
-    } = {
-      px : this.getGeometry(
-        planeGeometry, 
-        [1,3],
-        {x : 0, y : Math.PI / 2, z : 0},
-        {x : 50, y : 0, z : 0}
-      ),
-      nx : this.getGeometry(
-        planeGeometry, 
-        [1,3],
-        {x : 0, y : -Math.PI/2, z : 0},
-        {x : -50, y : 0, z : 0}
-      ),
-      py : this.getGeometry(
-        planeGeometry, 
-        [5,7],
-        {x : - Math.PI / 2, y : 0, z : 0},
-        {x : 0, y : 50, z : 0}
-      ),
-      pz : this.getGeometry(
-        planeGeometry, 
-        [1,3],
-        {x : 0, y : 0, z : 0},
-        {x : 0, y : 0, z : 50}
-      ),
-      nz : this.getGeometry(
-        planeGeometry, 
-        [1,3],
-        {x : 0, y : Math.PI, z : 0},
-        {x : 0, y : 0, z : -50}
-      )
-    }
-    const geometries : THREE.BufferGeometry[] = [];
-    const worldDepth = this.worldDepth;
-    const worldWidth = this.worldWidth;
-    const worldHalfWidth = worldWidth / 2;
-    const worldHalfDepth = worldDepth / 2;
-    const matrix = new THREE.Matrix4();
-    for ( let z = 0; z < worldDepth; z ++ ) {
-      for ( let x = 0; x < worldWidth; x ++ ) {
-        const h = this.getY( x, z );
-        matrix.makeTranslation(
-          x * planeWidth - worldHalfWidth * planeWidth,
-          h * planeHeight,
-          z * planeDepth - worldHalfDepth * planeDepth
-        );
-        const px = this.getY( x + 1, z );
-        const nx = this.getY( x - 1, z );
-        const pz = this.getY( x, z + 1 );
-        const nz = this.getY( x, z - 1 );
-        geometries.push( geometry.py.clone().applyMatrix4( matrix ) );
-        if ( ( px !== h && px !== h + 1 ) || x === 0 ) {
-          geometries.push( geometry.px.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( nx !== h && nx !== h + 1 ) || x === worldWidth - 1 ) {
-          geometries.push( geometry.nx.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( pz !== h && pz !== h + 1 ) || z === worldDepth - 1 ) {
-          geometries.push( geometry.pz.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( nz !== h && nz !== h + 1 ) || z === 0 ) {
-          geometries.push( geometry.nz.clone().applyMatrix4( matrix ) );
-        }
-      }
-    }
-    return BufferGeometryUtils.mergeBufferGeometries( geometries );
-  }
-
-  getMinecraftAo(planeWidth : number, planeHeight : number, planeDepth : number, light : THREE.Color, shadow : THREE.Color ) : THREE.BufferGeometry {
-    const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth).toNonIndexed();
-    planeGeometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
-    const geometry : {
-      px : THREE.BufferGeometry,
-      nx : THREE.BufferGeometry,
-      py : THREE.BufferGeometry,
-      py2 : THREE.BufferGeometry,
-      pz : THREE.BufferGeometry,
-      nz : THREE.BufferGeometry,
-    } = {
-      px : this.getGeometry(
-        planeGeometry, 
-        [1,5,11],
-        {x : 0, y : Math.PI / 2, z : 0},
-        {x : 50, y : 0, z : 0},
-        [ light, shadow, light, shadow, shadow, light ]
-      ),
-      nx : this.getGeometry(
-        planeGeometry, 
-        [1,5,11],
-        {x : 0, y : -Math.PI/2, z : 0},
-        {x : -50, y : 0, z : 0},
-        [ light, shadow, light, shadow, shadow, light ]
-      ),
-      py : this.getGeometry(
-        planeGeometry, 
-        [3,7,9],
-        {x : - Math.PI / 2, y : 0, z : 0},
-        {x : 0, y : 50, z : 0},
-        [ light, light, light, light, light, light ]
-      ),
-      py2 : this.getGeometry(
-        planeGeometry, 
-        [3,7,9],
-        {x : - Math.PI / 2, y : Math.PI / 2, z : 0},
-        {x : 0, y : 50, z : 0},
-        [ light, light, light, light, light, light ]
-      ),
-      pz : this.getGeometry(
-        planeGeometry, 
-        [1,5,11],
-        {x : 0, y : 0, z : 0},
-        {x : 0, y : 0, z : 50},
-        [ light, shadow, light, shadow, shadow, light ]
-      ),
-      nz : this.getGeometry(
-        planeGeometry, 
-        [1,5,11],
-        {x : 0, y : Math.PI, z : 0},
-        {x : 0, y : 0, z : -50},
-        [ light, shadow, light, shadow, shadow, light ]
-      )
-    }
-    const geometries : THREE.BufferGeometry[] = [];
-    const worldDepth = this.worldDepth;
-    const worldWidth = this.worldWidth;
-    const worldHalfWidth = worldWidth / 2;
-    const worldHalfDepth = worldDepth / 2;
-    const matrix = new THREE.Matrix4();
-    for ( let z = 0; z < worldDepth; z ++ ) {
-      for ( let x = 0; x < worldWidth; x ++ ) {
-        const h = this.getY( x, z );
-        matrix.makeTranslation(
-          x * planeWidth - worldHalfWidth * planeWidth,
-          h * planeHeight,
-          z * planeDepth - worldHalfDepth * planeDepth
-        );
-        const px = this.getY( x + 1, z );
-        const nx = this.getY( x - 1, z );
-        const pz = this.getY( x, z + 1 );
-        const nz = this.getY( x, z - 1 );
-        const pxpz = this.getY( x + 1, z + 1 );
-        const nxpz = this.getY( x - 1, z + 1 );
-        const pxnz = this.getY( x + 1, z - 1 );
-        const nxnz = this.getY( x - 1, z - 1 );
-        const a = nx > h || nz > h || nxnz > h ? 0 : 1;
-        const b = nx > h || pz > h || nxpz > h ? 0 : 1;
-        const c = px > h || pz > h || pxpz > h ? 0 : 1;
-        const d = px > h || nz > h || pxnz > h ? 0 : 1;
-        if ( a + c > b + d ) {
-          const colors = [];
-          colors[ 0 ] = b === 0 ? shadow : light;
-          colors[ 1 ] = c === 0 ? shadow : light;
-          colors[ 2 ] = a === 0 ? shadow : light;
-          colors[ 3 ] = c === 0 ? shadow : light;
-          colors[ 4 ] = d === 0 ? shadow : light;
-          colors[ 5 ] = a === 0 ? shadow : light;
-          const color = geometry.py2.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.py2.clone().applyMatrix4( matrix ) );
-        } else {
-          const colors = [];
-          colors[ 0 ] = a === 0 ? shadow : light;
-          colors[ 1 ] = b === 0 ? shadow : light;
-          colors[ 2 ] = d === 0 ? shadow : light;
-          colors[ 3 ] = b === 0 ? shadow : light;
-          colors[ 4 ] = c === 0 ? shadow : light;
-          colors[ 5 ] = d === 0 ? shadow : light;
-          const color = geometry.py.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.py.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( px != h && px != h + 1 ) || x == 0 ) {
-          const colors = [];
-          colors[ 0 ] = pxpz > px && x > 0 ? shadow : light;
-          colors[ 1 ] = shadow;
-          colors[ 2 ] = pxnz > px && x > 0 ? shadow : light;
-          colors[ 3 ] = shadow;
-          colors[ 4 ] = shadow;
-          colors[ 5 ] = pxnz > px && x > 0 ? shadow : light;
-          const color = geometry.px.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.px.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( nx != h && nx != h + 1 ) || x == worldWidth - 1 ) {
-          const colors = [];
-          colors[ 0 ] = nxnz > nx && x < worldWidth - 1 ? shadow : light;
-          colors[ 1 ] = shadow;
-          colors[ 2 ] = nxpz > nx && x < worldWidth - 1 ? shadow : light;
-          colors[ 3 ] = shadow;
-          colors[ 4 ] = shadow;
-          colors[ 5 ] = nxpz > nx && x < worldWidth - 1 ? shadow : light;
-          const color = geometry.nx.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.nx.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( pz != h && pz != h + 1 ) || z == worldDepth - 1 ) {
-          const colors = [];
-          colors[ 0 ] = nxpz > pz && z < worldDepth - 1 ? shadow : light;
-          colors[ 1 ] = shadow;
-          colors[ 2 ] = pxpz > pz && z < worldDepth - 1 ? shadow : light;
-          colors[ 3 ] = shadow;
-          colors[ 4 ] = shadow;
-          colors[ 5 ] = pxpz > pz && z < worldDepth - 1 ? shadow : light;
-          const color = geometry.pz.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.pz.clone().applyMatrix4( matrix ) );
-        }
-        if ( ( nz != h && nz != h + 1 ) || z == 0 ) {
-          const colors = [];
-          colors[ 0 ] = pxnz > nz && z > 0 ? shadow : light;
-          colors[ 1 ] = shadow;
-          colors[ 2 ] = nxnz > nz && z > 0 ? shadow : light;
-          colors[ 3 ] = shadow;
-          colors[ 4 ] = shadow;
-          colors[ 5 ] = nxnz > nz && z > 0 ? shadow : light;
-          const color = geometry.nz.attributes.color as any;
-          color.copyColorsArray( colors );
-          geometries.push( geometry.nz.clone().applyMatrix4( matrix ) );
-        }
-      }
-    }
-    return BufferGeometryUtils.mergeBufferGeometries( geometries );
-  }
-
-  getGeometry(planeGeometry : THREE.BufferGeometry, uv : number[], rotate : { x : number, y : number, z : number}, translate : { x : number, y : number, z : number}, colors ? : THREE.Color[]): THREE.PlaneGeometry {
-    const geometry = planeGeometry.clone() as THREE.PlaneGeometry;
-    if (colors !== null && colors !== undefined && colors.length > 0) {
-      geometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
-      const color = geometry.attributes.color as any;
-      color.copyColorsArray( colors);
-    }
-    const attributesUv = geometry.attributes.uv as any;
-    uv.forEach(idx => {
-      attributesUv.array[ idx ] = 0.5;
-    });
-    if (rotate.x !== 0) {
-      geometry.rotateX( rotate.x );
-    }
-    if (rotate.y !== 0) {
-      geometry.rotateY( rotate.y );
-    }
-    if (rotate.z !== 0) {
-      geometry.rotateZ( rotate.z );
-    }
-    geometry.translate(translate.x,translate.y,translate.z);
-    return geometry;
-  }
-
-}
