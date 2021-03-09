@@ -20,57 +20,57 @@ export interface LoadedObject {
 }
 
 export interface GuiBaseControl {
-  meshShape ? : {
-    visible : boolean;
-    helperVisible : boolean;
-    wireframe : boolean;
-  },
-  meshRotateOrg? : {
-    x : number;
-    y : number;
-    z : number;
-  },
-  meshRotate? : {
-    x : number;
-    y : number;
-    z : number;
-    autoRotate : boolean;
-    speed : number;
-    reset : () => void;
-    applyAutoRotate : () => void;
-    update : () => void;
-  },
-  meshPositionOrg? : {
-    x : number;
-    y : number;
-    z : number;
-  },
-  meshPosition? : {
-    x : number;
-    y : number;
-    z : number;
-    reset : () => void;
-    update : () => void;
-  },
-  meshScaleOrg? : {
-    x : number;
-    y : number;
-    z : number;
-  },
-  meshScale? : {
-    x : number;
-    y : number;
-    z : number;
-    reset : () => void;
-    update : () => void;
-  }
+  meshShape?: {
+    visible: boolean;
+    helperVisible: boolean;
+    wireframe: boolean;
+  };
+  meshRotateOrg?: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  meshRotate?: {
+    x: number;
+    y: number;
+    z: number;
+    autoRotate: boolean;
+    speed: number;
+    reset: () => void;
+    applyAutoRotate: () => void;
+    update: () => void;
+  };
+  meshPositionOrg?: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  meshPosition?: {
+    x: number;
+    y: number;
+    z: number;
+    reset: () => void;
+    update: () => void;
+  };
+  meshScaleOrg?: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  meshScale?: {
+    x: number;
+    y: number;
+    z: number;
+    reset: () => void;
+    update: () => void;
+  };
 }
 
 export interface InterfaceEffectComposer {
   resetEffectComposer(): void;
 }
 
-export interface InterfaceGetGeometry{
+export interface InterfaceGetGeometry {
   getGeometry(): THREE.BufferGeometry;
   resetGeometry(clearGeometry: boolean);
 }
@@ -201,10 +201,10 @@ export interface CssStyle {
 }
 
 @Injectable()
-export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
-  controls : T & GuiBaseControl;
+export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
+  controls: T & GuiBaseControl;
   controlsParams: GuiControlParam[];
-  constructor(controls : T , controlsParams : GuiControlParam[] = []) {
+  constructor(controls: T, controlsParams: GuiControlParam[] = []) {
     this.controls = ThreeUtil.getControls(controls, this);
     this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
   }
@@ -215,62 +215,65 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
     this.controls.meshRotate.applyAutoRotate();
   }
 
-  public renderer : RendererComponent = null;
+  public renderer: RendererComponent = null;
 
-  setRender(renderer : RendererComponent) {
+  setRender(renderer: RendererComponent) {
     this.renderer = renderer;
   }
 
-  public scene : SceneComponent = null;
+  public scene: SceneComponent = null;
 
-  setScene(scene : SceneComponent) {
+  setScene(scene: SceneComponent) {
     this.scene = scene;
   }
 
-  public camera : CameraComponent = null;
+  public camera: CameraComponent = null;
 
-  setCamera(camera : CameraComponent) {
+  setCamera(camera: CameraComponent) {
     this.camera = camera;
   }
 
-  public mesh : MeshComponent = null;
+  public mesh: MeshComponent = null;
 
-  setMesh(mesh : MeshComponent) {
+  setMesh(mesh: MeshComponent) {
     this.mesh = mesh;
     if (this.mesh !== null) {
       const position = this.mesh.getPosition();
       this.controls.meshPositionOrg = {
-        x : position.x,
-        y : position.y,
-        z : position.z,
+        x: position.x,
+        y: position.y,
+        z: position.z,
       };
       this.controls.meshPosition.x = this.controls.meshPositionOrg.x;
       this.controls.meshPosition.y = this.controls.meshPositionOrg.y;
       this.controls.meshPosition.z = this.controls.meshPositionOrg.z;
       const scale = this.mesh.getScale();
       this.controls.meshScaleOrg = {
-        x : scale.x,
-        y : scale.y,
-        z : scale.z,
+        x: scale.x,
+        y: scale.y,
+        z: scale.z,
       };
       this.controls.meshScale.x = this.controls.meshScaleOrg.x;
       this.controls.meshScale.y = this.controls.meshScaleOrg.y;
       this.controls.meshScale.z = this.controls.meshScaleOrg.z;
       const rotation = this.mesh.getRotation();
       this.controls.meshRotateOrg = {
-        x : rotation.x / Math.PI * 180,
-        y : rotation.y / Math.PI * 180,
-        z : rotation.z / Math.PI * 180,
+        x: (rotation.x / Math.PI) * 180,
+        y: (rotation.y / Math.PI) * 180,
+        z: (rotation.z / Math.PI) * 180,
       };
       this.controls.meshRotate.x = this.controls.meshRotateOrg.x;
       this.controls.meshRotate.y = this.controls.meshRotateOrg.y;
       this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
       if (this.controls.meshScale.x !== 1) {
-        const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Scale');
+        const controlsParams = ThreeUtil.getGuiControlParam(
+          this.controlsParams,
+          'Mesh Scale'
+        );
         const minScale = this.controls.meshScale.x * 0.01;
         const maxScale = this.controls.meshScale.x * 1.5;
         const stepScale = (maxScale - minScale) / 30;
-        controlsParams.children.forEach(child => {
+        controlsParams.children.forEach((child) => {
           if (ThreeUtil.isNotNull(child.controler['min'])) {
             child.controler['min'](minScale);
           }
@@ -280,12 +283,21 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
           if (ThreeUtil.isNotNull(child.controler['step'])) {
             child.controler['step'](stepScale);
           }
-        })
+        });
       }
-      const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
-      if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)){
+      const controlsParams = ThreeUtil.getGuiControlParam(
+        this.controlsParams,
+        'Mesh Visible'
+      );
+      if (
+        ThreeUtil.isNotNull(controlsParams) &&
+        ThreeUtil.isNotNull(this.controls.meshShape)
+      ) {
         this.controls.meshShape.visible = this.mesh.getMesh().visible;
-        const helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
+        const helperParams = ThreeUtil.getGuiControlParam(
+          controlsParams.children,
+          'helperVisible'
+        );
         const helper = this.mesh.helper;
         if (ThreeUtil.isNotNull(helper)) {
           if (helper instanceof THREE.SkeletonHelper) {
@@ -299,7 +311,6 @@ export abstract class BaseComponent<T> implements OnInit,AfterViewInit {
           this.controls.meshShape.helperVisible = false;
           helperParams.controler.name('Not Supported');
           ThreeUtil.setGuiEnabled(helperParams.controler, false);
-
         }
       }
     }
@@ -906,32 +917,45 @@ export class ThreeUtil {
     return new ThreeStats(style);
   }
 
-  static getControls<T>(param : T, component : { mesh? : MeshComponent , controls? : any, controlsParams? : any }) : T & GuiBaseControl{
-    const baseControl : GuiBaseControl = {
-      meshShape : {
-        visible : true,
-        helperVisible : false,
-        wireframe : false
+  static getControls<T>(
+    param: T,
+    component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }
+  ): T & GuiBaseControl {
+    const baseControl: GuiBaseControl = {
+      meshShape: {
+        visible: true,
+        helperVisible: false,
+        wireframe: false,
       },
-      meshRotate : {
-        x : 0,
-        y : 0,
-        z : 0,
-        autoRotate : false,
-        speed : 10,
-        reset : () => {
-          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshRotate) && this.isNotNull(component.controls.meshRotateOrg)) {
-            component.controls.meshRotate.x = component.controls.meshRotateOrg.x;
-            component.controls.meshRotate.y = component.controls.meshRotateOrg.y;
-            component.controls.meshRotate.z = component.controls.meshRotateOrg.z;
+      meshRotate: {
+        x: 0,
+        y: 0,
+        z: 0,
+        autoRotate: false,
+        speed: 10,
+        reset: () => {
+          if (
+            this.isNotNull(component.controls) &&
+            this.isNotNull(component.controls.meshRotate) &&
+            this.isNotNull(component.controls.meshRotateOrg)
+          ) {
+            component.controls.meshRotate.x =
+              component.controls.meshRotateOrg.x;
+            component.controls.meshRotate.y =
+              component.controls.meshRotateOrg.y;
+            component.controls.meshRotate.z =
+              component.controls.meshRotateOrg.z;
             component.controls.meshRotate.autoRotate = true;
             component.controls.meshRotate.applyAutoRotate();
             component.controls.meshRotate.update();
           }
         },
-        applyAutoRotate : () => {
+        applyAutoRotate: () => {
           if (this.isNotNull(component.controlsParams)) {
-            const controlsParams = this.getGuiControlParam(component.controlsParams, 'Mesh Rotation');
+            const controlsParams = this.getGuiControlParam(
+              component.controlsParams,
+              'Mesh Rotation'
+            );
             if (this.isNotNull(controlsParams)) {
               if (component.controls.meshRotate.autoRotate) {
                 this.setGuiEnabled(controlsParams.children[1].controler, false);
@@ -939,9 +963,12 @@ export class ThreeUtil {
               } else {
                 if (this.isNotNull(component.mesh)) {
                   const meshRotate = component.mesh.getRotation();
-                  component.controls.meshRotate.x = (meshRotate.x / Math.PI * 180) % 360;
-                  component.controls.meshRotate.y = (meshRotate.y / Math.PI * 180) % 360;
-                  component.controls.meshRotate.z = (meshRotate.z / Math.PI * 180) % 360;
+                  component.controls.meshRotate.x =
+                    ((meshRotate.x / Math.PI) * 180) % 360;
+                  component.controls.meshRotate.y =
+                    ((meshRotate.y / Math.PI) * 180) % 360;
+                  component.controls.meshRotate.z =
+                    ((meshRotate.z / Math.PI) * 180) % 360;
                 }
                 this.setGuiEnabled(controlsParams.children[1].controler, true);
                 this.setGuiEnabled(controlsParams.children[4].controler, false);
@@ -949,129 +976,301 @@ export class ThreeUtil {
             }
           }
         },
-        update : () => {
-          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshRotate)) {
+        update: () => {
+          if (
+            this.isNotNull(component.mesh) &&
+            this.isNotNull(component.controls.meshRotate)
+          ) {
             component.mesh.setRotation(
               component.controls.meshRotate.x,
-              (component.controls.meshRotate.autoRotate) ? null : component.controls.meshRotate.y,
+              component.controls.meshRotate.autoRotate
+                ? null
+                : component.controls.meshRotate.y,
               component.controls.meshRotate.z
-            )
+            );
           }
-        }
+        },
       },
-      meshPosition : {
-        x : 0,
-        y : 0,
-        z : 0,
-        reset : () => {
-          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshPosition) && this.isNotNull(component.controls.meshPositionOrg)) {
-            component.controls.meshPosition.x = component.controls.meshPositionOrg.x;
-            component.controls.meshPosition.y = component.controls.meshPositionOrg.y;
-            component.controls.meshPosition.z = component.controls.meshPositionOrg.z;
+      meshPosition: {
+        x: 0,
+        y: 0,
+        z: 0,
+        reset: () => {
+          if (
+            this.isNotNull(component.controls) &&
+            this.isNotNull(component.controls.meshPosition) &&
+            this.isNotNull(component.controls.meshPositionOrg)
+          ) {
+            component.controls.meshPosition.x =
+              component.controls.meshPositionOrg.x;
+            component.controls.meshPosition.y =
+              component.controls.meshPositionOrg.y;
+            component.controls.meshPosition.z =
+              component.controls.meshPositionOrg.z;
             component.controls.meshPosition.update();
           }
         },
-        update : () => {
-          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshPosition)) {
+        update: () => {
+          if (
+            this.isNotNull(component.mesh) &&
+            this.isNotNull(component.controls.meshPosition)
+          ) {
             component.mesh.setPosition(
               component.controls.meshPosition.x,
               component.controls.meshPosition.y,
               component.controls.meshPosition.z
-            )
+            );
           }
-        }
+        },
       },
-      meshScale : {
-        x : 1,
-        y : 1,
-        z : 1,
-        reset : () => {
-          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshScale) && this.isNotNull(component.controls.meshScaleOrg)) {
+      meshScale: {
+        x: 1,
+        y: 1,
+        z: 1,
+        reset: () => {
+          if (
+            this.isNotNull(component.controls) &&
+            this.isNotNull(component.controls.meshScale) &&
+            this.isNotNull(component.controls.meshScaleOrg)
+          ) {
             component.controls.meshScale.x = component.controls.meshScaleOrg.x;
             component.controls.meshScale.y = component.controls.meshScaleOrg.y;
             component.controls.meshScale.z = component.controls.meshScaleOrg.z;
             component.controls.meshScale.update();
           }
         },
-        update : () => {
-          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshScale)) {
+        update: () => {
+          if (
+            this.isNotNull(component.mesh) &&
+            this.isNotNull(component.controls.meshScale)
+          ) {
             component.mesh.setScale(
               component.controls.meshScale.x,
               component.controls.meshScale.y,
               component.controls.meshScale.z
-            )
+            );
           }
-        }
-      }
-    }
+        },
+      },
+    };
     return Object.assign(param, baseControl);
   }
 
-  static getControlsParams(params : GuiControlParam[], component : { mesh? : MeshComponent , controls? : any, controlsParams? : any }) : GuiControlParam[] {
-    params.push({ name: 'Mesh Visible', type: 'folder', control : 'meshShape',children : [
-      { name: 'visible', type: 'checkbox', listen : true, change : () => {
-        if (this.isNotNull(component.mesh)) {
-          component.mesh.setVisible(component.controls.meshShape.visible, null);
-        }
-      }},
-      { name: 'helperVisible', type: 'checkbox', listen : true, change : () => {
-        if (this.isNotNull(component.mesh)) {
-          component.mesh.setVisible(null, component.controls.meshShape.helperVisible);
-        }
-      }},
-      { name: 'wireframe', type: 'checkbox', listen : true, change : () => {
-        if (this.isNotNull(component.mesh)) {
-          component.mesh.setWireFrame(component.controls.meshShape.wireframe);
-        }
-      }},
-    ], isOpen : false});
-    params.push({ name: 'Mesh Rotation', type: 'folder', control : 'meshRotate',children : [
-      { name: 'x', type: 'number', min : -360, max : 360, step : 5, listen : true, change : () => {
-        component.controls.meshRotate.update();
-      }},
-      { name: 'y', type: 'number', min : -360, max : 360, step : 5, listen : true, change : () => {
-        component.controls.meshRotate.update();
-      }},
-      { name: 'z', type: 'number', min : -360, max : 360, step : 5, listen : true, change : () => {
-        component.controls.meshRotate.update();
-      }},
-      { name: 'autoRotate', type: 'checkbox', title: 'Auto Rotation', listen : true, change : () => {
-        component.controls.meshRotate.applyAutoRotate();
-      }},
-      { name: 'speed', type: 'number', min : -90, max : 90, step : 1, listen : true, title : 'Auto DegPSec'},
-      { name: 'reset', type: 'button', title: 'Reset Rotation' }
-    ], isOpen : false});
-    params.push({ name: 'Mesh Position', type: 'folder', control : 'meshPosition',children : [
-      { name: 'x', type: 'number', min : -3, max : 3, step : 0.01, listen : true, change : () => {
-        component.controls.meshPosition.update();
-      }},
-      { name: 'y', type: 'number', min : -3, max : 3, step : 0.01, listen : true, change : () => {
-        component.controls.meshPosition.update();
-      }},
-      { name: 'z', type: 'number', min : -3, max : 3, step : 0.01, listen : true, change : () => {
-        component.controls.meshPosition.update();
-      }},
-      { name: 'reset', type: 'button', title: 'Reset Position' }
-    ], isOpen : false});
-    params.push({ name: 'Mesh Scale', type: 'folder', control : 'meshScale',children : [
-      { name: 'x', type: 'number', min : 0.001, max : 5, step : 0.001, listen : true, change : () => {
-        component.controls.meshScale.update();
-      }},
-      { name: 'y', type: 'number', min : 0.001, max : 5, step : 0.001, listen : true, change : () => {
-        component.controls.meshScale.update();
-      }},
-      { name: 'z', type: 'number', min : 0.001, max : 5, step : 0.001, listen : true, change : () => {
-        component.controls.meshScale.update();
-      }},
-      { name: 'reset', type: 'button', title: 'Reset Scale' }
-    ], isOpen : false});
+  static getControlsParams(
+    params: GuiControlParam[],
+    component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }
+  ): GuiControlParam[] {
+    params.push({
+      name: 'Mesh Visible',
+      type: 'folder',
+      control: 'meshShape',
+      children: [
+        {
+          name: 'visible',
+          type: 'checkbox',
+          listen: true,
+          change: () => {
+            if (this.isNotNull(component.mesh)) {
+              component.mesh.setVisible(
+                component.controls.meshShape.visible,
+                null
+              );
+            }
+          },
+        },
+        {
+          name: 'helperVisible',
+          type: 'checkbox',
+          listen: true,
+          change: () => {
+            if (this.isNotNull(component.mesh)) {
+              component.mesh.setVisible(
+                null,
+                component.controls.meshShape.helperVisible
+              );
+            }
+          },
+        },
+        {
+          name: 'wireframe',
+          type: 'checkbox',
+          listen: true,
+          change: () => {
+            if (this.isNotNull(component.mesh)) {
+              component.mesh.setWireFrame(
+                component.controls.meshShape.wireframe
+              );
+            }
+          },
+        },
+      ],
+      isOpen: false,
+    });
+    params.push({
+      name: 'Mesh Rotation',
+      type: 'folder',
+      control: 'meshRotate',
+      children: [
+        {
+          name: 'x',
+          type: 'number',
+          min: -360,
+          max: 360,
+          step: 5,
+          listen: true,
+          change: () => {
+            component.controls.meshRotate.update();
+          },
+        },
+        {
+          name: 'y',
+          type: 'number',
+          min: -360,
+          max: 360,
+          step: 5,
+          listen: true,
+          change: () => {
+            component.controls.meshRotate.update();
+          },
+        },
+        {
+          name: 'z',
+          type: 'number',
+          min: -360,
+          max: 360,
+          step: 5,
+          listen: true,
+          change: () => {
+            component.controls.meshRotate.update();
+          },
+        },
+        {
+          name: 'autoRotate',
+          type: 'checkbox',
+          title: 'Auto Rotation',
+          listen: true,
+          change: () => {
+            component.controls.meshRotate.applyAutoRotate();
+          },
+        },
+        {
+          name: 'speed',
+          type: 'number',
+          min: -90,
+          max: 90,
+          step: 1,
+          listen: true,
+          title: 'Auto DegPSec',
+        },
+        { name: 'reset', type: 'button', title: 'Reset Rotation' },
+      ],
+      isOpen: false,
+    });
+    params.push({
+      name: 'Mesh Position',
+      type: 'folder',
+      control: 'meshPosition',
+      children: [
+        {
+          name: 'x',
+          type: 'number',
+          min: -3,
+          max: 3,
+          step: 0.01,
+          listen: true,
+          change: () => {
+            component.controls.meshPosition.update();
+          },
+        },
+        {
+          name: 'y',
+          type: 'number',
+          min: -3,
+          max: 3,
+          step: 0.01,
+          listen: true,
+          change: () => {
+            component.controls.meshPosition.update();
+          },
+        },
+        {
+          name: 'z',
+          type: 'number',
+          min: -3,
+          max: 3,
+          step: 0.01,
+          listen: true,
+          change: () => {
+            component.controls.meshPosition.update();
+          },
+        },
+        { name: 'reset', type: 'button', title: 'Reset Position' },
+      ],
+      isOpen: false,
+    });
+    params.push({
+      name: 'Mesh Scale',
+      type: 'folder',
+      control: 'meshScale',
+      children: [
+        {
+          name: 'x',
+          type: 'number',
+          min: 0.001,
+          max: 5,
+          step: 0.001,
+          listen: true,
+          change: () => {
+            component.controls.meshScale.update();
+          },
+        },
+        {
+          name: 'y',
+          type: 'number',
+          min: 0.001,
+          max: 5,
+          step: 0.001,
+          listen: true,
+          change: () => {
+            component.controls.meshScale.update();
+          },
+        },
+        {
+          name: 'z',
+          type: 'number',
+          min: 0.001,
+          max: 5,
+          step: 0.001,
+          listen: true,
+          change: () => {
+            component.controls.meshScale.update();
+          },
+        },
+        { name: 'reset', type: 'button', title: 'Reset Scale' },
+      ],
+      isOpen: false,
+    });
     return params;
   }
 
-  static getControlsOnRender(timer: RendererTimer, component : { mesh? : MeshComponent , controls? : GuiBaseControl, controlsParams? : any }) {
+  static getControlsOnRender(
+    timer: RendererTimer,
+    component: {
+      mesh?: MeshComponent;
+      controls?: GuiBaseControl;
+      controlsParams?: any;
+    }
+  ) {
     if (this.isNotNull(component.controls) && this.isNotNull(component.mesh)) {
-      if (component.controls.meshRotate.autoRotate && component.controls.meshRotate.speed !== 0) {
-        component.mesh.addRotation( 0, component.controls.meshRotate.speed * timer.delta , 0);
+      if (
+        component.controls.meshRotate.autoRotate &&
+        component.controls.meshRotate.speed !== 0
+      ) {
+        component.mesh.addRotation(
+          0,
+          component.controls.meshRotate.speed * timer.delta,
+          0
+        );
       }
     }
   }
@@ -1081,9 +1280,9 @@ export class ThreeUtil {
     onFinishChange?: (value?: any) => void,
     onChange?: (value?: any) => void,
     listen?: boolean,
-    title?:string
+    title?: string
   ): ThreeGuiController {
-    if (listen != null  && listen !== undefined && listen) {
+    if (listen != null && listen !== undefined && listen) {
       control.listen();
     }
     if (onFinishChange != null && onFinishChange !== undefined) {
@@ -1099,26 +1298,23 @@ export class ThreeUtil {
     return control;
   }
 
-  static setGuiEnabled(
-    control: ThreeGuiController,
-    isEnable: boolean = true
-  ) {
+  static setGuiEnabled(control: ThreeGuiController, isEnable: boolean = true) {
     if (control !== null && control !== undefined && control.domElement) {
       const parentElement = control.domElement.parentElement.parentElement;
       const previousElementSibling = control.domElement.previousElementSibling;
       if (isEnable) {
         if (parentElement) {
-          parentElement.classList.remove( 'no-pointer-events' );
+          parentElement.classList.remove('no-pointer-events');
         }
         if (previousElementSibling) {
-          previousElementSibling.classList.remove( 'control-disabled' );
+          previousElementSibling.classList.remove('control-disabled');
         }
       } else {
         if (parentElement) {
-          parentElement.classList.add( 'no-pointer-events' );
+          parentElement.classList.add('no-pointer-events');
         }
         if (previousElementSibling) {
-          previousElementSibling.classList.add( 'control-disabled' );
+          previousElementSibling.classList.add('control-disabled');
         }
       }
     } else {
@@ -1126,13 +1322,20 @@ export class ThreeUtil {
     }
   }
 
-  static getGuiControlParam(children : GuiControlParam[], name : string):GuiControlParam {
-    for (let i = 0 ; i < children.length ; i++) {
+  static getGuiControlParam(
+    children: GuiControlParam[],
+    name: string
+  ): GuiControlParam {
+    for (let i = 0; i < children.length; i++) {
       const child = children[i];
       if (child.name === name) {
         return child;
       }
-      if (child.type === 'folder' && child.children && child.children.length > 0) {
+      if (
+        child.type === 'folder' &&
+        child.children &&
+        child.children.length > 0
+      ) {
         const foundChild = this.getGuiControlParam(child.children, name);
         if (foundChild !== null) {
           return foundChild;
@@ -1231,16 +1434,16 @@ export interface RendererTimer {
 
 export interface RendererEvent {
   type: string;
-  clientX? : number;
-  clientY? : number;
-  offsetX? : number;
-  offsetY? : number;
-  rateX? : number;
-  rateY? : number;
-  width? : number;
-  height? : number;
-  mouse? : THREE.Vector2;
-  event : any;
+  clientX?: number;
+  clientY?: number;
+  offsetX?: number;
+  offsetY?: number;
+  rateX?: number;
+  rateY?: number;
+  width?: number;
+  height?: number;
+  mouse?: THREE.Vector2;
+  event: any;
 }
 
 export class ThreeClock extends THREE.Clock {
@@ -1319,7 +1522,7 @@ export interface GuiControlParam {
   control?: string;
   listen?: boolean;
   isOpen?: boolean;
-  title?:string;
+  title?: string;
   change?: (value?: any) => void;
   finishChange?: (value?: any) => void;
   children?: GuiControlParam[];
@@ -1329,7 +1532,8 @@ export interface GuiControlParam {
 export class ThreeGui implements ThreeGuiController {
   gui: GUI = null;
   domElement: HTMLElement;
-  static customCss: string = ".no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}";
+  static customCss: string =
+    '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
 
   constructor(
     style?: any,
@@ -1386,7 +1590,7 @@ export class ThreeGui implements ThreeGuiController {
     return this;
   }
 
-  removeFolder(folder):this {
+  removeFolder(folder): this {
     this.gui.removeFolder(folder);
     return this;
   }
@@ -1396,8 +1600,8 @@ export class ThreeGui implements ThreeGuiController {
     return this;
   }
 
-  name(name : string): this {
-    this.gui.name( name );
+  name(name: string): this {
+    this.gui.name(name);
     return this;
   }
 
@@ -1448,7 +1652,7 @@ export interface ThreeGuiController {
   listen(): this;
   onFinishChange(callBack: (e: any) => void): this;
   onChange(callBack: (e: any) => void): this;
-  name(name : string): this;
+  name(name: string): this;
   open(): this;
   close(): this;
   hide(): this;
