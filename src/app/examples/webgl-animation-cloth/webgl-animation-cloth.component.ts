@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
-import {
-  RendererTimer
-} from './../../three';
+import { RendererTimer } from './../../three';
 import { GeometryComponent } from './../../three/geometry/geometry.component';
 import { BaseComponent } from './../../three/interface';
 import { MeshComponent } from './../../three/mesh/mesh.component';
@@ -12,20 +10,28 @@ import { MeshComponent } from './../../three/mesh/mesh.component';
   templateUrl: './webgl-animation-cloth.component.html',
   styleUrls: ['./webgl-animation-cloth.component.scss'],
 })
-export class WebglAnimationClothComponent extends BaseComponent<{enableWind : boolean, showBall : boolean, togglePins : () => void;}> implements OnInit {
-
+export class WebglAnimationClothComponent
+  extends BaseComponent<{
+    enableWind: boolean;
+    showBall: boolean;
+    togglePins: () => void;
+  }>
+  implements OnInit {
   constructor() {
-    super({
-      enableWind: true,
-      showBall: false,
-      togglePins: () => {
-        this.togglePins();
-      }
-    }, [
-      { name: 'enableWind', type: 'checkbox', title: 'Enable wind' },
-      { name: 'showBall', type: 'checkbox', title: 'Show ball' },
-      { name: 'togglePins', type: 'button', title: 'Toggle pins' },
-    ]);
+    super(
+      {
+        enableWind: true,
+        showBall: false,
+        togglePins: () => {
+          this.togglePins();
+        },
+      },
+      [
+        { name: 'enableWind', type: 'checkbox', title: 'Enable wind' },
+        { name: 'showBall', type: 'checkbox', title: 'Show ball' },
+        { name: 'togglePins', type: 'button', title: 'Toggle pins' },
+      ]
+    );
   }
 
   DAMPING = 0.03;
@@ -98,12 +104,11 @@ export class WebglAnimationClothComponent extends BaseComponent<{enableWind : bo
   cloth: Cloth = null;
   clothFunction: any = null;
   getPlane(width, height) {
-    return (u, v, target = null ) => {
+    return (u, v, target = null) => {
       const x = (u - 0.5) * width;
       const y = (v + 0.5) * height;
       const z = 0;
-      if (target)
-        target.set( x, y, z );
+      if (target) target.set(x, y, z);
       return { x: x, y: y, z: z };
     };
   }
