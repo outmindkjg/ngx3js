@@ -6,10 +6,48 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-geometry-text.component.html',
   styleUrls: ['./webgl-geometry-text.component.scss']
 })
-export class WebglGeometryTextComponent extends BaseComponent<{}> {
-
+export class WebglGeometryTextComponent extends BaseComponent<{
+  color : number,
+  height : number,
+  size : number,
+  hover : number,
+  curveSegments : number,
+  bevelThickness : number,
+  bevelSize : number,
+  text : string,
+  bevelEnabled : boolean,
+  fontName : string,
+  fontWeight : string
+}> {
   constructor() {
-    super({},[]);
+    super({
+      color : 0xc56b1a,
+      height : 20,
+      size : 70,
+      hover : 30,
+      curveSegments : 4,
+      bevelThickness : 2,
+      bevelSize : 1.5,
+      text : "three.js",
+      bevelEnabled : true,
+      fontName : "optimer",
+      fontWeight : "bold"
+    },[
+      { name : 'color', type : 'color' , title : 'Light Color'},
+      { name : 'fontName', type : 'select' , title : 'Font Name' , select : [
+        "helvetiker",
+        "optimer",
+        "gentilis",
+        "droid_sans",
+        "droid_serif"
+      ]},
+      { name : 'fontWeight', type : 'select' , title : 'Font Weight' , select : [
+        "regular",
+        "bold"
+      ]},
+      { name : 'bevelEnabled', type : 'checkbox', title : 'Bevel Enabled'}
+    ]);
   }
+
 
 }

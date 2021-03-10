@@ -22,8 +22,8 @@ import { ShapeComponent } from '../shape/shape.component';
 import { TranslationComponent } from '../translation/translation.component';
 import { SvgComponent } from '../svg/svg.component';
 import { PlanePerlinGeometry } from './plane-perlin-geometry';
-
-
+import { ScaleComponent } from '../scale/scale.component';
+import { RotationComponent } from '../rotation/rotation.component';
 
 export interface GeometriesParametric {
   (u: number, v: number, target? : any): GeometriesVector3;
@@ -141,13 +141,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private stacks:number = null;
   @Input() private text:string = null;
   @Input() private textAlign:string = null;
+  @Input() private align:string = null;
   
   @Input() private center:boolean = false;
   @Input() private computeVertexNormals:boolean = false;
 
   @Input() private font:string = null;
   @Input() private size:number = null;
-  @Input() private weight:number = null;
+  @Input() private weight:string = null;
   @Input() private vertices:GeometriesVector3[] = null;
   @Input() private polyVertices:number[] = null;
   @Input() private polyIndices:number[] = null;
@@ -186,6 +187,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
 
   private getRadius(def?: number): number {
@@ -312,79 +315,13 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getTextAlign(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textAlign , def);
+    return ThreeUtil.getTypeSafe(this.textAlign , this.align, def);
   }
 
   private getFont(def?: string, callBack?: (font: THREE.Font) => void) {
-    const font = this.font === null ? def : this.font;
-    const weight = this.weight === null ? '' : this.weight;
-    let fontPath: string = '';
-    switch ((font + '_' + weight).toLowerCase()) {
-      case 'helvetiker_':
-      case 'helvetiker_regular':
-        fontPath = '/assets/fonts/helvetiker_regular.typeface.json';
-        break;
-      case 'helvetiker_bold':
-        fontPath = '/assets/fonts/helvetiker_bold.typeface.json';
-        break;
-      case 'gentilis_':
-      case 'gentilis_regular':
-        fontPath = '/assets/fonts/gentilis_regular.typeface.json';
-        break;
-      case 'gentilis_bold':
-        fontPath = '/assets/fonts/gentilis_bold.typeface.json';
-        break;
-      case 'optimer_':
-      case 'optimer_regular':
-        fontPath = '/assets/fonts/optimer_regular.typeface.json';
-        break;
-      case 'optimer_bold':
-        fontPath = '/assets/fonts/optimer_bold.typeface.json';
-        break;
-      case 'sans_bold':
-      case 'droid_sans_bold':
-        fontPath = '/assets/fonts/droid/droid_sans_bold.typeface.json';
-        break;
-      case 'sans_mono_':
-      case 'sans_mono_regular':
-      case 'sans_mono_bold':
-      case 'droid_sans_mono_':
-      case 'droid_sans_mono_regular':
-      case 'droid_sans_mono_bold':
-        fontPath = '/assets/fonts/droid/droid_sans_mono_regular.typeface.json';
-        break;
-      case 'serif_':
-      case 'serif_regular':
-      case 'droid_serif_':
-      case 'droid_serif_regular':
-        fontPath = '/assets/fonts/droid/droid_serif_regular.typeface.json';
-        break;
-      case 'serif_bold':
-      case 'droid_serif_bold':
-        fontPath = '/assets/fonts/droid/droid_serif_bold.typeface.json';
-        break;
-      case 'nanumgothic_':
-      case 'nanumgothic_regular':
-      case 'nanumgothic_bold':
-        fontPath = '/assets/fonts/nanum/nanumgothic_regular.typeface.json';
-        break;
-      case 'do_hyeon_':
-      case 'do_hyeon_regular':
-      case 'do_hyeon_bold':
-        fontPath = '/assets/fonts/nanum/do_hyeon_regular.typeface.json';
-        break;
-      case 'sans_':
-      case 'sans_regular':
-      case 'droid_sans_':
-      case 'droid_sans_regular':
-      default:
-        fontPath = '/assets/fonts/droid/droid_sans_regular.typeface.json';
-        break;
-    }
-    const loader = new THREE.FontLoader();
-    loader.load(fontPath, (responseFont: THREE.Font) => {
-      callBack(responseFont);
-    });
+    const font = ThreeUtil.getTypeSafe(this.font,def,'helvetiker');
+    const weight = ThreeUtil.getTypeSafe(this.weight,'');
+    this.localStorageService.getFont(callBack, font, weight);
   }
 
   private getSize(def?: number): number {
@@ -406,6 +343,29 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         vertex.fromBufferAttribute( positionAttribute, i );
         points.push( vertex );
       }
+    } else if (ThreeUtil.isNotNull(this.text)) {
+      points.push(new THREE.Vector3(0, 0, 0));
+      points.push(new THREE.Vector3(0, 0, 0));
+      this.getFont('helvetiker', (font: THREE.Font) => {
+        const shapes = font.generateShapes( this.getText('test'), this.getSize(100));
+        const points : THREE.Vector2[] = [];
+        shapes.forEach(shape => {
+          shape.getPoints().forEach(p => {
+            points.push(p);
+          });
+          if ( shape.holes && shape.holes.length > 0 ) {
+            shape.holes.forEach(hole => {
+              hole.getPoints().forEach(p => {
+                points.push(p);
+              })
+            });
+          }
+        });
+        if (this.geometry !== null) {
+          this.geometry.setFromPoints(points);
+          this.applyTextAlign();          
+        }
+      });
     } else {
       (this.points === null ? def : this.points).forEach((p) => {
         points.push(new THREE.Vector3(p.x, p.y, p.z));
@@ -566,6 +526,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         shapes.push(shape);
         onload(shapes);
       }
+    } else if (ThreeUtil.isNotNull(this.text)) {
+      this.getFont('helvetiker', (font: THREE.Font) => {
+        const shapes = font.generateShapes( this.getText('test'), this.getSize(100));
+        onload(shapes);
+      });
     } else {
       const shapes :THREE.Shape[] = [];
       if (this.shapeList != null && this.shapeList.length > 0) {
@@ -616,7 +581,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return undefined;
   }
   
-
   private getClosed(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.closed, def);
   }
@@ -629,7 +593,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return ThreeUtil.getTypeSafe(this.sphereScale, def);
   }
   
-
   private getCurve(def?:string): THREE.Curve<THREE.Vector3> {
     const curve = ThreeUtil.getTypeSafe(this.curve,def, '');
     switch(curve.toLowerCase()) {
@@ -930,11 +893,43 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             break;
           case 'translation':
             this.translationList.forEach((translation) => {
-              translation.setParent(this);
+              const trans = translation.getTranslation();
+              this.geometry.applyMatrix4(trans);
+            });
+            break;
+          case 'rotation':
+            this.rotationList.forEach((rotation) => {
+              const rotat = rotation.getRotation();
+              this.geometry.rotateX(rotat.x);
+              this.geometry.rotateY(rotat.y);
+              this.geometry.rotateZ(rotat.z);
+            });
+            break;
+          case 'scale':
+            this.scaleList.forEach((scale) => {
+              const sca = scale.getScale();
+              this.geometry.scale(sca.x, sca.y, sca.z);
             });
             break;
         }
       })
+    }
+  }
+
+  applyTextAlign(def : string = 'left') {
+    if (this.geometry !== null) {
+      switch(this.getTextAlign(def)) {
+        case 'left' :
+          break;
+        case 'center' :
+          this.geometry.computeBoundingSphere();
+          this.geometry.translate( - this.geometry.boundingSphere.radius, 0, 0 )
+          break;
+        case 'right' :
+          this.geometry.computeBoundingSphere();
+          this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0 )
+          break;
+      }
     }
   }
 
@@ -959,7 +954,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         const scaleFactor = sphereScale / geometry.boundingSphere.radius;
         this.geometry.scale( scaleFactor, scaleFactor, scaleFactor );
       }
-      this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
+      this.applyTextAlign();
+      this.synkObject3D(['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale']);
       if (this.name !== null) {
         this.geometry.name = this.name;
       }
@@ -1009,22 +1005,23 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             const position = this.getPosition([]);
             if (ThreeUtil.isNotNull(position) && position.count > 0) {
               geometry.setAttribute("position", position);
-            }
-            const points = this.getPointsV3([]);
-            if (ThreeUtil.isNotNull(points) && points.length > 0) {
-              geometry.setFromPoints(points);
             } else {
-              const curve = this.getCurve();
-              const curveSegments = this.getCurveSegments(10);
-              geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( curveSegments * 3 ), 3 ) );
-              const position = geometry.attributes.position;
-              const point = new THREE.Vector3();
-              for ( let i = 0; i < curveSegments; i ++ ) {
-                const t = i / ( curveSegments - 1 );
-                curve.getPoint( t, point );
-                position.setXYZ( i, point.x, point.y, point.z );
+              const points = this.getPointsV3([]);
+              if (ThreeUtil.isNotNull(points) && points.length > 0) {
+                geometry.setFromPoints(points);
+              } else {
+                const curve = this.getCurve();
+                const curveSegments = this.getCurveSegments(10);
+                geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( curveSegments * 3 ), 3 ) );
+                const position = geometry.attributes.position;
+                const point = new THREE.Vector3();
+                for ( let i = 0; i < curveSegments; i ++ ) {
+                  const t = i / ( curveSegments - 1 );
+                  curve.getPoint( t, point );
+                  position.setXYZ( i, point.x, point.y, point.z );
+                }
+                position.needsUpdate = true;
               }
-              position.needsUpdate = true;
             }
             break;
           case 'perlin':
@@ -1137,7 +1134,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                     });
                     break;
                 }
-                this.setGeometry(geometry);
+                this.setGeometry(shapeGeometry);
               });
               break;
           case 'icosahedronbuffer':
@@ -1278,23 +1275,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                   );
                   break;
               }
-              switch(this.getTextAlign('left')) {
-                case 'left' :
-                  break;
-                case 'center' :
-                  geometry.computeBoundingSphere();
-                  geometry.translate( - geometry.boundingSphere.radius, 0, 0 )
-                  break;
-                case 'right' :
-                  geometry.computeBoundingSphere();
-                  geometry.translate(geometry.boundingSphere.radius * 2, 0, 0 )
-                  break;
-              }
-              this.resetGeometry();
-              if (this.visible) {
-                this._geometrySubject.next(geometry);
-              }
-              this.onLoad.emit(this);
+              this.setGeometry(geometry);
             });
             break;
           case 'torusbuffer':
