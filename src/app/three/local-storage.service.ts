@@ -496,6 +496,99 @@ export class LocalStorageService {
     }, options);
   }
 
+  public getFont(callBack: (font: THREE.Font) => void, fontName : string = 'helvetiker', fontWeight : string = '')  {
+    let fontPath: string = '';
+    switch (fontName.toLowerCase()) {
+      case 'helvetiker':
+        switch(fontWeight.toLowerCase()) {
+          case 'bold':
+            fontPath = '/assets/fonts/helvetiker_bold.typeface.json';
+            break;
+          case 'regular' :
+          default :
+            fontPath = '/assets/fonts/helvetiker_regular.typeface.json';
+            break;
+        }
+        break;
+      case 'gentilis':
+        switch(fontWeight.toLowerCase()) {
+          case 'bold':
+            fontPath = '/assets/fonts/gentilis_bold.typeface.json';
+            break;
+          case 'regular' :
+          default :
+            fontPath = '/assets/fonts/gentilis_regular.typeface.json';
+          break;
+        }
+        break;
+      case 'optimer':
+        switch(fontWeight.toLowerCase()) {
+          case 'bold':
+            fontPath = '/assets/fonts/optimer_bold.typeface.json';
+            break;
+          case 'regular' :
+          default :
+            fontPath = '/assets/fonts/optimer_regular.typeface.json';
+          break;
+        }
+        break;
+      case 'sans':
+      case 'droid_sans':
+        switch(fontWeight.toLowerCase()) {
+          case 'bold':
+            fontPath = '/assets/fonts/droid/droid_sans_bold.typeface.json';
+            break;
+          case 'regular' :
+          default :
+            fontPath = '/assets/fonts/droid/droid_sans_regular.typeface.json';
+          break;
+        }
+        break;
+      case 'sans_mono':
+      case 'droid_sans_mono':
+        fontPath = '/assets/fonts/droid/droid_sans_mono_regular.typeface.json';
+        break;
+      case 'serif':
+      case 'droid_serif':
+        switch(fontWeight.toLowerCase()) {
+          case 'bold':
+            fontPath = '/assets/fonts/droid/droid_serif_bold.typeface.json';
+            break;
+          case 'regular' :
+          default :
+            fontPath = '/assets/fonts/droid/droid_serif_regular.typeface.json';
+          break;
+        }
+        break;
+      case 'nanumgothic':
+        fontPath = '/assets/fonts/nanum/nanumgothic_regular.typeface.json';
+        break;
+      case 'dohyeon':
+      case 'do_hyeon':
+        fontPath = '/assets/fonts/nanum/do_hyeon_regular.typeface.json';
+        break;
+      default:
+        if (fontName.startsWith('/') || fontName.startsWith('http://') || fontName.startsWith('https://')) {
+          if (fontName.endsWith('.json')) {
+            fontPath = fontName;
+          } else {
+            fontPath = fontName + '_'+ fontWeight +'.typeface.json';
+          }
+        } else {
+          fontPath = '/assets/fonts/helvetiker_regular.typeface.json';
+        }
+        break;
+    }
+    if (this.fontLoader === null) {
+      this.fontLoader = new THREE.FontLoader();
+    }
+    this.fontLoader.load(fontPath, (responseFont: THREE.Font) => {
+      callBack(responseFont);
+    });    
+  }
+
+  fontLoader : THREE.FontLoader = null;
+
   public removeItem(key: string) {
     localStorage.removeItem(key);
   }

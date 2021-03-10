@@ -182,7 +182,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   addWindowEvent(type : string, listener : any) {
     if (listener === null) {
       listener = (event) => {
-        if (event.isPrimary && ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
+        if (ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
           const offsetTop = this._renderer.nativeElement.offsetTop;
           const offsetLeft = this._renderer.nativeElement.offsetLeft;
           const offsetRight = offsetLeft + this.rendererWidth;

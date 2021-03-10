@@ -3,11 +3,19 @@ import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
+import { LocalStorageService } from '../local-storage.service';
 import { MaterialComponent } from '../material/material.component';
+import { AbstractObject3dComponent } from '../object3d.abstract';
 import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { TranslationComponent } from '../translation/translation.component';
+
+export interface GeometriesVector3 {
+  x: number;
+  y: number;
+  z?: number;
+}
 
 export interface SvgGeometry {
   geometry: THREE.BufferGeometry
@@ -27,11 +35,10 @@ export interface SvgGeometry {
   templateUrl: './svg.component.html',
   styleUrls: ['./svg.component.scss']
 })
-export class SvgComponent implements OnInit, InterfaceSvgGeometry {
+export class SvgComponent extends AbstractObject3dComponent {
 
-
-  @Input() public type:string = 'shape';
-  @Input() private visible:boolean = true;
+  @Input() public type:string = 'mesh';
+  @Input() public geometryType:string = 'shape';
   @Input() private castShadow:boolean = true;
   @Input() private receiveShadow:boolean = false;
   @Input() public name:string = null;
@@ -50,15 +57,33 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   @Input() private noHoles:boolean = null;
 
   @Input() private material : MaterialComponent = null;
-  @Input() private position : PositionComponent = null;
-  @Input() private rotation : RotationComponent = null;
-  @Input() private scale : ScaleComponent = null;
   @Input() private translation : TranslationComponent = null;
+  @Input() private text:string = null;
+  @Input() private textAlign:string = null;
+  @Input() private align:string = null;
+  @Input() private center:boolean = false;
+  @Input() private computeVertexNormals:boolean = false;
+  @Input() private font:string = null;
+  @Input() private size:number = null;
+  @Input() private weight:string = null;
+
+  @Input() private color:string | number = null;
+  @Input() private opacity:number = null;
+  @Input() private transparent:boolean = null;
+  @Input() private wireframe:boolean = null;
+  @Input() private shininess:number = null;
+  @Input() private stroke:number = null;
+  
+  @Input() private extrudePath:GeometriesVector3[] = null;
+  @Input() private extrudePathType:string = null;
+  @Input() private curvePath:GeometriesVector3[] = null;
+  @Input() private curvePathType:string = null;
+  @Input() private curveType:string = null;
+  @Input() private tension:number = null;
+
+  @Input() private uVGenerator:string = null;
 
   @ContentChildren(MaterialComponent,{descendants: false}) private materialList: QueryList<MaterialComponent>;
-  @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
-  @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   meshPositions: THREE.Vector3[] = [];
@@ -67,47 +92,127 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: THREE.Material[] = [];
 
-  constructor(private ele: ElementRef) {
+  constructor(private ele: ElementRef, private localStorageService: LocalStorageService) {
+    super();
   }
 
-  private getCurveSegments(def: number): number {
-    return this.curveSegments === null ? def : this.curveSegments;
+  private getCurveSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.curveSegments,def);
   }
 
-  private getDepth(def: number): number {
-    return this.depth === null ? def : this.depth;
+  private getDepth(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.depth,def);
   }
 
-  private getSteps(def: number): number {
-    return this.steps === null ? def : this.steps;
+  private getSteps(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.steps,def);
   }
 
-  private getBevelEnabled(def: boolean): boolean {
-    return this.bevelEnabled === null ? def : this.bevelEnabled;
+  private getBevelEnabled(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.bevelEnabled,def);
   }
 
-  private getBevelThickness(def: number): number {
-    return this.bevelThickness === null ? def : this.bevelThickness;
+  private getBevelThickness(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.bevelThickness,def);
   }
 
-  private getBevelSize(def: number): number {
-    return this.bevelSize === null ? def : this.bevelSize;
+  private getBevelSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.bevelSize,def);
   }
 
-  private getBevelOffset(def: number): number {
-    return this.bevelOffset === null ? def : this.bevelOffset;
+  private getBevelOffset(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.bevelOffset,def);
   }
 
-  private getBevelSegments(def: number): number {
-    return this.bevelSegments === null ? def : this.bevelSegments;
+  private getBevelSegments(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.bevelSegments,def);
   }
 
-  private getIsCCW(def: boolean): boolean {
-    return this.isCCW === null ? def : this.isCCW;
+  private getIsCCW(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.isCCW,def);
   }
 
-  private getNoHoles(def: boolean): boolean {
-    return this.noHoles === null ? def : this.noHoles;
+  private getNoHoles(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.noHoles,def);
+  }
+
+  private getText(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.text , def);
+  }
+
+  private getTextAlign(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.textAlign , this.align, def);
+  }
+
+  private getFont(def?: string, callBack?: (font: THREE.Font) => void) {
+    const font = ThreeUtil.getTypeSafe(this.font,def,'helvetiker');
+    const weight = ThreeUtil.getTypeSafe(this.weight,'');
+    this.localStorageService.getFont(callBack, font, weight);
+  }
+
+  private getSize(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.size, def);
+  }
+
+  private getClosed(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.closed, def);
+  }
+
+  private getShininess(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shininess, def);
+  }
+
+  private getColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.color, def);
+  }
+
+  private getOpacity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.opacity, def);
+  }
+
+  private getTransparent(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.transparent, def);
+  }
+
+  private getWireframe(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.wireframe, def);
+  }
+
+  private getExtrudePath(): THREE.Curve<THREE.Vector3> {
+    if (ThreeUtil.isNotNull(this.extrudePath) || ThreeUtil.isNotNull(this.curvePath)) {
+      const vectors : THREE.Vector3[] = [];
+      if (ThreeUtil.isNotNull(this.extrudePath)) {
+        this.extrudePath.forEach(p => {
+          vectors.push(new THREE.Vector3( p.x, p.y, p.z));
+        })
+      }
+      if (ThreeUtil.isNotNull(this.curvePath)) {
+        this.curvePath.forEach(p => {
+          vectors.push(new THREE.Vector3( p.x, p.y, p.z));
+        })
+      }
+      switch(ThreeUtil.getTypeSafe(this.extrudePathType,this.curvePathType,'catmullromcurve3').toLowerCase()) {
+        case 'catmullromcurve3' :
+        default :
+          return new THREE.CatmullRomCurve3(
+            vectors , 
+            this.getClosed(false), 
+            ThreeUtil.getTypeSafe(this.curveType, 'catmullrom'),
+            ThreeUtil.getTypeSafe(this.tension, 0.5)
+          );
+      }
+    }
+    return undefined;
+  }
+
+  private getUVGenerator(def? : string): THREE.UVGenerator {
+    const uVGenerator = ThreeUtil.getTypeSafe(this.uVGenerator, def, '');
+    switch(uVGenerator.toLowerCase()) {
+      case 'world' :
+        // return THREE.WorldUVGenerator;
+        break;
+    }
+    return undefined;
   }
 
   private getMaterials():THREE.Material[] {
@@ -116,6 +221,40 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
       this.materialList.forEach(material => {
         materials.push(material.getMaterial())
       });
+    }
+    if (materials.length === 0) {
+      switch(this.type.toLowerCase()) {
+        case 'sprite' :
+          materials.push(new THREE.SpriteMaterial({
+            color: this.getColor(),
+            opacity : this.getOpacity(),
+            transparent : this.getTransparent(),
+						side: THREE.DoubleSide
+          }));
+        case 'points' :
+          materials.push(new THREE.PointsMaterial({
+            color: this.getColor(),
+            opacity : this.getOpacity(),
+            transparent : this.getTransparent(),
+						side: THREE.DoubleSide
+          }));
+          break;
+        case 'line' :
+          materials.push(new THREE.MeshBasicMaterial( {
+            color: this.getColor(),
+            opacity : this.getOpacity(),
+						side: THREE.DoubleSide
+					}));
+          break;
+        default :
+          materials.push(new THREE.MeshPhongMaterial({
+            color: this.getColor(0x333333), 
+            shininess: this.getShininess(100),
+            opacity : this.getOpacity(),
+            transparent : this.getTransparent(),
+            wireframe : this.getWireframe()
+          }));
+      }
     }
     return materials;
   }
@@ -137,36 +276,15 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
 
   ngOnDestroy() {
     this._materialSubscribe = this.unSubscription(this._materialSubscribe);
-    this._positionSubscribe = this.unSubscription(this._positionSubscribe);
-    this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
-    this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
     this._translationSubscribe = this.unSubscription(this._translationSubscribe);
+    super.ngOnDestroy();
   }
 
   ngAfterContentInit(): void {
-    
     if (this.materialList !== null && this.materialList !== undefined) {
       this.setMaterialSubscribe();
       this.materialList.changes.subscribe((e) => {
         this.setMaterialSubscribe();
-      });
-		}
-		if (this.positionList !== null && this.positionList !== undefined) {
-      this.setPositionSubscribe();
-      this.positionList.changes.subscribe((e) => {
-        this.setPositionSubscribe();
-      });
-		}
-		if (this.rotationList !== null && this.rotationList !== undefined) {
-      this.setRotationSubscribe();
-      this.rotationList.changes.subscribe((e) => {
-        this.setRotationSubscribe();
-      });
-		}
-		if (this.scaleList !== null && this.scaleList !== undefined) {
-      this.setScaleSubscribe();
-      this.scaleList.changes.subscribe((e) => {
-        this.setScaleSubscribe();
       });
 		}
     if (this.translationList !== null && this.translationList !== undefined) {
@@ -175,12 +293,10 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
         this.setTranslationSubscribe();
       });
 		}
+    super.ngAfterContentInit();
   }
 
   private _materialSubscribe: Subscription[] = [];
-  private _positionSubscribe: Subscription[] = [];
-  private _rotationSubscribe: Subscription[] = [];
-  private _scaleSubscribe: Subscription[] = [];
   private _translationSubscribe: Subscription[] = [];
 
   unSubscription(subscriptions : Subscription[]) : Subscription[] {
@@ -212,66 +328,6 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
     }
   }
 
-  setPositionSubscribe() {
-		if (this.positionList !== null && this.positionList !== undefined) {
-      this._positionSubscribe = this.unSubscription(this._positionSubscribe);
-      if (this.position !== null) {
-        this._positionSubscribe.push(this.position.positionSubscribe().subscribe((pos) => {
-          this.meshPositions.forEach(position => {
-            position.copy(pos);
-          });
-        }));
-      }
-      this.positionList.forEach(position => {
-        this._positionSubscribe.push(position.positionSubscribe().subscribe((pos) => {
-          this.meshPositions.forEach(position => {
-            position.copy(pos);
-          });
-        }));
-      });
-    }
-  }
-
-  setRotationSubscribe() {
-		if (this.rotationList !== null && this.rotationList !== undefined) {
-      this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
-      if (this.rotation !== null) {
-        this._rotationSubscribe.push(this.rotation.rotationSubscribe().subscribe((rot) => {
-          this.meshRotations.forEach(rotation => {
-            rotation.copy(rot);
-          });
-        }));
-      }
-      this.rotationList.forEach(rotation => {
-        this._rotationSubscribe.push(rotation.rotationSubscribe().subscribe((rot) => {
-          this.meshRotations.forEach(rotation => {
-            rotation.copy(rot);
-          });
-        }));
-      });
-    }
-  }
-
-  setScaleSubscribe() {
-		if (this.scaleList !== null && this.scaleList !== undefined) {
-      this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
-      if (this.scale !== null) {
-        this._scaleSubscribe.push(this.scale.scaleSubscribe().subscribe((sca) => {
-          this.meshScales.forEach(scale => {
-            scale.copy(sca);
-          });
-        }));
-      }
-      this.scaleList.forEach(scale => {
-        this._scaleSubscribe.push(scale.scaleSubscribe().subscribe((sca) => {
-          this.meshScales.forEach(scale => {
-            scale.copy(sca);
-          });
-        }));
-      });
-    }
-  }
-
   setTranslationSubscribe() {
 		if (this.translationList !== null && this.translationList !== undefined) {
       this._translationSubscribe = this.unSubscription(this._translationSubscribe);
@@ -296,54 +352,6 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
     if (this.meshes !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
-					case 'position':
-            if (this.position !== null && this.position.visible) {
-              this.meshPositions.forEach(position => {
-                position.copy(this.position.getPosition());
-              });
-            }
-            if (this.positionList !== null && this.positionList !== undefined) {
-              this.positionList.forEach((pos) => {
-                if (pos.visible) {
-                  this.meshPositions.forEach(position => {
-                    position.copy(pos.getPosition());
-                  });
-                }
-              });
-            }
-						break;
-					case 'rotation':
-            if (this.rotation !== null && this.rotation.visible) {
-              this.meshRotations.forEach(rotation => {
-                rotation.copy(this.rotation.getRotation());
-              });
-            }
-            if (this.rotationList !== null && this.rotationList !== undefined) {
-              this.rotationList.forEach((rot) => {
-                if (rot.visible) {
-                  this.meshRotations.forEach(rotation => {
-                    rotation.copy(rot.getRotation());
-                  });
-                }
-              });
-            }
-						break;
-					case 'scale':
-            if (this.scale !== null && this.scale.visible) {
-              this.meshScales.forEach(scale => {
-                scale.copy(this.scale.getScale());
-              });
-            }
-            if (this.scaleList !== null && this.scaleList !== undefined) {
-              this.scaleList.forEach((sca) => {
-                if (sca.visible) {
-                  this.meshScales.forEach(scale => {
-                    scale.copy(sca.getScale());
-                  });
-                }
-              });
-            }
-            break;
           case 'material':
             const mainMaterials = this.meshMaterials;
             if (this.material !== null && this.material.visible) {
@@ -381,21 +389,26 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
         }
       })
     }
+    super.synkObject3D(synkTypes);
   }
 
-  private meshes : THREE.Mesh[] = null;
-  private parent: THREE.Object3D = null;
+  private meshes : THREE.Object3D[] = null;
 
-  setParent(parent: THREE.Object3D) {
-    if (this.parent !== parent) {
-      this.parent = parent;
+  setParent(parent: THREE.Object3D, isRestore: boolean = false) : boolean {
+    if (super.setParent(parent, isRestore)) {
       this.meshes = null;
       this.resetMeshes();
+      return true;
+    } else {
+      return false;
     }
   }
 
+  private svgMesh : THREE.Group = null;
+
   resetMeshes() {
-    if (this.parent !== null && this.meshes === null) {
+    if (this.parent !== null && this.svgMesh === null) {
+      this.svgMesh = new THREE.Group();
       this.getPaths((result : SvgGeometry[]) => {
         this.meshes = [];
         this.meshPositions = [];
@@ -403,94 +416,195 @@ export class SvgComponent implements OnInit, InterfaceSvgGeometry {
         this.meshScales = [];
         this.meshTranslations = [];
         this.meshMaterials = [];
+
         const materials = this.getMaterials();
+        const materialList : THREE.Material[] = [];
+        for(let i = 0 ; i < result.length; i++) {
+          materialList.push(materials[i % materials.length]);
+        }
         result.forEach((data, idx) => {
-          const geom = data.geometry;
-          var meshMaterial = (materials.length > idx) ? materials[idx] : new THREE.MeshPhongMaterial({color: 0x333333, shininess: 100});
-          var mesh = new THREE.Mesh(geom, meshMaterial);
-          if (this.name !== null) {
-            mesh.name = this.name;
+          const geometry = data.geometry;
+          let mesh : THREE.Object3D = null;
+          const meshMaterial : THREE.Material = materialList[idx];
+          switch (this.type.toLowerCase()) {
+            case 'points':
+              mesh = new THREE.Points(geometry, meshMaterial);
+              break;
+            case 'line':
+              const line = new THREE.Line(geometry, meshMaterial);
+              line.computeLineDistances();
+              line.castShadow = this.castShadow;
+              mesh = line;
+              break;
+            default :
+              mesh = new THREE.Mesh(geometry, meshMaterial);
+              line.castShadow = this.castShadow;
+            break;
           }
-          mesh.receiveShadow = this.receiveShadow;
           this.meshPositions.push(mesh.position);
           this.meshRotations.push(mesh.rotation);
           this.meshScales.push(mesh.scale);
-          this.meshTranslations.push(geom);
+          this.meshTranslations.push(geometry);
           this.meshMaterials.push(meshMaterial);
           this.meshes.push(mesh);
-          this.parent.add(mesh);
+          this.svgMesh.add(mesh);
         })
-        this.synkObject3D(['translation', 'position','rotation','scale','material']);
       });
+      this.synkObject3D(['translation', 'position','rotation','scale','material']);
+      this.setObject3D(this.svgMesh);
     }
   }
 
-  private getGeometries(data: SVGResult) : SvgGeometry[] {
-    const geometries: SvgGeometry[] = [];
-    data.paths.forEach(path => {
-      const shape = path.toShapes(this.getIsCCW(true), this.getNoHoles(false));
-      let geometry: THREE.BufferGeometry = null;
-      switch (this.type.toLowerCase()) {
-        case 'extrudebuffer':
-          geometry = new THREE.ExtrudeBufferGeometry(
-            shape,
-            {
-              curveSegments: this.getCurveSegments(12),
-              steps: this.getSteps(1),
-              depth: this.getDepth(100),
-              bevelEnabled: this.getBevelEnabled(true),
-              bevelThickness: this.getBevelThickness(6),
-              bevelSize: this.getBevelSize(0),
-              bevelOffset: this.getBevelOffset(0),
-              bevelSegments: this.getBevelSegments(3),
-              // extrudePath: new THREE.Curve<THREE.Vector3>(),
-              // UVGenerator: null // THREE.UVGenerator;
-            }
-          );
+  applyTextAlign(geometry : THREE.BufferGeometry, boundingSphere : THREE.Sphere, def : string = 'left'): THREE.BufferGeometry {
+    if (geometry !== null && boundingSphere !== null) {
+      switch(this.getTextAlign(def)) {
+        case 'left' :
           break;
+        case 'center' :
+          geometry.translate( - boundingSphere.radius, 0, 0 )
+          break;
+        case 'right' :
+          geometry.translate( boundingSphere.radius * 2, 0, 0 )
+          break;
+      }
+    }
+    return geometry;
+  }
+
+  private getGeometries(data: SVGResult | THREE.Shape[], boundingSphere : THREE.Sphere) : SvgGeometry[] {
+    const geometries: SvgGeometry[] = [];
+    const shapes : {
+      shape : THREE.Shape | THREE.Shape[] ,
+      userData : any
+    } [] = [];
+    if (data instanceof Array) {
+      data.forEach(shape => {
+        shapes.push({
+          shape : shape,
+          userData : null
+        });
+      })
+    } else if (data.paths) {
+      data.paths.forEach(path => {
+        shapes.push({
+          shape : path.toShapes(this.getIsCCW(true), this.getNoHoles(false)),
+          userData : path['userData'] ? path['userData'] : null
+        })
+      })
+    }
+    shapes.forEach(shape => {
+      let geometry: THREE.BufferGeometry = null;
+      switch (this.geometryType.toLowerCase()) {
+        case 'extrudebuffer':
         case 'extrude':
           geometry = new THREE.ExtrudeGeometry(
-            shape,
+            shape.shape,
             {
-              curveSegments: this.getCurveSegments(12),
-              steps: this.getSteps(1),
-              depth: this.getDepth(100),
-              bevelEnabled: this.getBevelEnabled(true),
-              bevelThickness: this.getBevelThickness(6),
-              bevelSize: this.getBevelSize(0),
-              bevelOffset: this.getBevelOffset(0),
-              bevelSegments: this.getBevelSegments(3),
-              // extrudePath: new THREE.Curve<THREE.Vector3>(),
-              // UVGenerator: null // THREE.UVGenerator;
+              curveSegments: this.getCurveSegments(),
+              steps: this.getSteps(),
+              depth: this.getDepth(),
+              bevelEnabled: this.getBevelEnabled(),
+              bevelThickness: this.getBevelThickness(),
+              bevelSize: this.getBevelSize(),
+              bevelOffset: this.getBevelOffset(),
+              bevelSegments: this.getBevelSegments(),
+              extrudePath: this.getExtrudePath(),
+              UVGenerator: this.getUVGenerator()
             }
           );
           break;
+        case 'custom':
+        case 'geometry':
+        case 'buffer':
+            const points : THREE.Vector2[] = [];
+            const holes : THREE.Vector2[] = [];
+            const bufferShapes : THREE.Shape[] = [];
+            if (shape.shape instanceof THREE.Shape) {
+              bufferShapes.push(shape.shape);
+            } else {
+              shape.shape.forEach(sh => {
+                bufferShapes.push(sh);
+              })
+            }
+            bufferShapes.forEach(sh => {
+              sh.getPoints().forEach(p => {
+                points.push(p);
+              });
+              if ( sh.holes && sh.holes.length > 0 ) {
+                sh.holes.forEach(hole => {
+                  hole.getPoints().forEach(p => {
+                    holes.push(p);
+                  })
+                });
+              }
+            });
+            if (ThreeUtil.isNotNull(this.stroke)) {
+              const style = SVGLoader.getStrokeStyle( this.stroke, this.getColor('red').getStyle() );
+
+              // const geometry = SVGLoader.pointsToStroke( points, style );
+            } else {
+              let outlineGeometry = new THREE.BufferGeometry();
+              outlineGeometry.setFromPoints(points);
+              geometries.push({
+                geometry: this.applyTextAlign(outlineGeometry, boundingSphere),
+                style: shape.userData
+              });
+              if (holes.length > 0) {
+                const holegeometry = new THREE.BufferGeometry();
+                holegeometry.setFromPoints(holes);
+                geometries.push({
+                  geometry: this.applyTextAlign(holegeometry, boundingSphere),
+                  style: shape.userData
+                });
+              }
+            }
+            break;
         case 'shapebuffer':
-          geometry = new THREE.ShapeBufferGeometry(
-            shape,
-            this.getCurveSegments(12),
-          );
-          break;
         case 'shape':
         default:
           geometry = new THREE.ShapeGeometry(
-            shape,
+            shape.shape,
             this.getCurveSegments(12),
           );
           break;
       }
-      geometries.push({
-        geometry: geometry,
-        style: path['userData'] ? path['userData'] : null
-      });
+      if (geometry !== null) {
+        geometries.push({
+          geometry: this.applyTextAlign(geometry, boundingSphere),
+          style: shape.userData
+        });
+      }
     });
     return geometries;
   }
 
   getPaths(onload : (geometry : SvgGeometry[]) => void){
-    this.getSVGResult((data : SVGResult) => {
-      onload(this.getGeometries(data));
-    });
+    if (ThreeUtil.isNotNull(this.text) && this.text != '') {
+      this.getFont('helvetiker', (font: THREE.Font) => {
+        const shapes = font.generateShapes( this.getText('test'), this.getSize(100));
+        const geometry = new THREE.ShapeGeometry(
+          shapes,
+          this.getCurveSegments(12),
+        );
+        geometry.computeBoundingSphere();
+        onload(this.getGeometries(shapes, geometry.boundingSphere));
+      });
+    } else {
+      this.getSVGResult((data : SVGResult) => {
+        const shapes : THREE.Shape[] = [];
+        data.paths.forEach(path => {
+          path.toShapes(this.getIsCCW(true), this.getNoHoles(false)).forEach(shape => {
+            shapes.push(shape);
+          });
+        })
+        const geometry = new THREE.ShapeGeometry(
+          shapes,
+          this.getCurveSegments(12),
+        );
+        geometry.computeBoundingSphere();
+        onload(this.getGeometries(data, null));
+      });
+    }
   }
 
   getSVGResult(onload : (data : SVGResult) => void){

@@ -25,8 +25,21 @@ export class FogComponent implements OnInit {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
+  private getDensity(def? : number) : number{
+    return ThreeUtil.getTypeSafe(this.density, def);
+  }
+  
+  private getNear(def? : number) : number{
+    return ThreeUtil.getTypeSafe(this.near, def);
+  }
+
+  private getFar(def? : number) : number{
+    return ThreeUtil.getTypeSafe(this.far, def);
+  }
+
   private fog : THREE.IFog = null;
   private refScene : THREE.Scene = null;
+
 
   setScene(refScene : THREE.Scene) {
     if (this.refScene !== refScene) {
@@ -41,16 +54,16 @@ export class FogComponent implements OnInit {
         case 'exp2' :
         case 'fogexp2' :
           this.fog = new THREE.FogExp2(
-            this.getColor(0xffffff).getHexString(),
-            this.density
+            this.getColor(0xffffff).getHex(),
+            this.getDensity()
           );
           break;
         case 'fog' :
         default :
           this.fog = new THREE.Fog(
             this.getColor(0xffffff),
-            this.near,
-            this.far
+            this.getNear(),
+            this.getFar()
           );
           break;
       }
