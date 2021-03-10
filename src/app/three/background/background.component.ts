@@ -30,33 +30,33 @@ export class BackgroundComponent implements OnInit {
   @Input() private backgroundSizeY:string = null;
   @Input() private backgroundClip:string = null;
 
-  @Input() private padding:string = null;
-  @Input() private paddingLeft:string = null;
-  @Input() private paddingTop:string = null;
-  @Input() private paddingRight:string = null;
-  @Input() private paddingBottom:string = null;
+  @Input() private padding:string | number= null;
+  @Input() private paddingLeft:string | number = null;
+  @Input() private paddingTop:string | number = null;
+  @Input() private paddingRight:string | number = null;
+  @Input() private paddingBottom:string | number = null;
 
-  @Input() private margin:string = null;
-  @Input() private marginLeft:string = null;
-  @Input() private marginTop:string = null;
-  @Input() private marginRight:string = null;
-  @Input() private marginBottom:string = null;
+  @Input() private margin:string | number = null;
+  @Input() private marginLeft:string | number = null;
+  @Input() private marginTop:string | number = null;
+  @Input() private marginRight:string | number = null;
+  @Input() private marginBottom:string | number = null;
 
-  @Input() private border:string = null;
-  @Input() private borderColor:string = null;
+  @Input() private border:string | number = null;
+  @Input() private borderColor:string | number = null;
   @Input() private borderStyle:string = null;
   @Input() private borderWidth:string | number = null;
   @Input() private borderRadius:string | number = null;
-  @Input() private borderLeft:string = null;
-  @Input() private borderTop:string = null;
-  @Input() private borderRight:string = null;
-  @Input() private borderBottom:string = null;
+  @Input() private borderLeft:string | number = null;
+  @Input() private borderTop:string | number = null;
+  @Input() private borderRight:string | number = null;
+  @Input() private borderBottom:string | number = null;
   @Input() private borderImage:string = null;
   @Input() private borderImageSource:string = null;
-  @Input() private borderImageSlice:string = null;
-  @Input() private borderImageOutset:string = null;
+  @Input() private borderImageSlice:string | number = null;
+  @Input() private borderImageOutset:string | number = null;
   @Input() private borderImageRepeat:string = null;
-  @Input() private borderImageWidth:string = null;
+  @Input() private borderImageWidth:string | number = null;
 
   @Input() private opacity:number = null;
   @Input() private color:string | number = null;
@@ -153,11 +153,11 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.marginBottom, def);
   }
 
-  private getBorder(def?: string): string {
+  private getBorder(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.border, def);
   }
 
-  private getBorderColor(def?: string): string {
+  private getBorderColor(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderColor, def);
   }
 
@@ -173,19 +173,19 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.borderRadius, def);
   }
 
-  private getBorderLeft(def?: string): string {
+  private getBorderLeft(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderLeft, def);
   }
 
-  private getBorderTop(def?: string): string {
+  private getBorderTop(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderTop, def);
   }
 
-  private getBorderRight(def?: string): string {
+  private getBorderRight(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderRight, def);
   }
 
-  private getBorderBottom(def?: string): string {
+  private getBorderBottom(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderBottom, def);
   }
 
@@ -197,11 +197,11 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.borderImageSource, def);
   }
 
-  private getBorderImageSlice(def?: string): string {
+  private getBorderImageSlice(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderImageSlice, def);
   }
 
-  private getBorderImageOutset(def?: string): string {
+  private getBorderImageOutset(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderImageOutset, def);
   }
 
@@ -209,10 +209,9 @@ export class BackgroundComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.borderImageRepeat, def);
   }
 
-  private getBorderImageWidth(def?: string): string {
+  private getBorderImageWidth(def?: string | number): string | number {
     return ThreeUtil.getTypeSafe(this.borderImageWidth, def);
   }
-
 
   private getOpacity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.opacity, def);

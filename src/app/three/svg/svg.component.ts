@@ -438,7 +438,7 @@ export class SvgComponent extends AbstractObject3dComponent {
               break;
             default :
               mesh = new THREE.Mesh(geometry, meshMaterial);
-              line.castShadow = this.castShadow;
+              mesh.castShadow = this.castShadow;
             break;
           }
           this.meshPositions.push(mesh.position);
@@ -474,16 +474,14 @@ export class SvgComponent extends AbstractObject3dComponent {
   private getGeometries(data: SVGResult | THREE.Shape[], boundingSphere : THREE.Sphere) : SvgGeometry[] {
     const geometries: SvgGeometry[] = [];
     const shapes : {
-      shape : THREE.Shape | THREE.Shape[] ,
+      shape : THREE.Shape[] ,
       userData : any
     } [] = [];
     if (data instanceof Array) {
-      data.forEach(shape => {
-        shapes.push({
-          shape : shape,
-          userData : null
-        });
-      })
+      shapes.push({
+        shape : data,
+        userData : null
+      });
     } else if (data.paths) {
       data.paths.forEach(path => {
         shapes.push({
@@ -516,47 +514,38 @@ export class SvgComponent extends AbstractObject3dComponent {
         case 'custom':
         case 'geometry':
         case 'buffer':
-            const points : THREE.Vector2[] = [];
-            const holes : THREE.Vector2[] = [];
+            const holeShape : THREE.Path[] = [];
             const bufferShapes : THREE.Shape[] = [];
-            if (shape.shape instanceof THREE.Shape) {
-              bufferShapes.push(shape.shape);
-            } else {
-              shape.shape.forEach(sh => {
-                bufferShapes.push(sh);
-              })
-            }
+            shape.shape.forEach(sh => {
+              bufferShapes.push(sh);
+            })
             bufferShapes.forEach(sh => {
-              sh.getPoints().forEach(p => {
-                points.push(p);
-              });
               if ( sh.holes && sh.holes.length > 0 ) {
                 sh.holes.forEach(hole => {
-                  hole.getPoints().forEach(p => {
-                    holes.push(p);
-                  })
+                  holeShape.push(hole);
                 });
               }
             });
+            const sumShapes : THREE.Shape[] = shape.shape;
+            sumShapes.push.apply( shape.shape, holeShape );
             if (ThreeUtil.isNotNull(this.stroke)) {
-              const style = SVGLoader.getStrokeStyle( this.stroke, this.getColor('red').getStyle() );
-
-              // const geometry = SVGLoader.pointsToStroke( points, style );
-            } else {
-              let outlineGeometry = new THREE.BufferGeometry();
-              outlineGeometry.setFromPoints(points);
-              geometries.push({
-                geometry: this.applyTextAlign(outlineGeometry, boundingSphere),
-                style: shape.userData
-              });
-              if (holes.length > 0) {
-                const holegeometry = new THREE.BufferGeometry();
-                holegeometry.setFromPoints(holes);
+              const style = SVGLoader.getStrokeStyle( this.stroke, this.getColor(0x006699).getStyle() );
+              sumShapes.forEach(shape => {
+                const outlineGeometry = SVGLoader.pointsToStroke( shape.getPoints(), style );
                 geometries.push({
-                  geometry: this.applyTextAlign(holegeometry, boundingSphere),
-                  style: shape.userData
+                  geometry: this.applyTextAlign(outlineGeometry, boundingSphere),
+                  style: null
                 });
-              }
+              });
+            } else {
+              sumShapes.forEach(shape => {
+                let outlineGeometry = new THREE.BufferGeometry();
+                outlineGeometry.setFromPoints(shape.getPoints());
+                geometries.push({
+                  geometry: this.applyTextAlign(outlineGeometry, boundingSphere),
+                  style: null
+                });
+              })
             }
             break;
         case 'shapebuffer':

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { SceneComponent } from './../../three/scene/scene.component';
+import { GuiControlParam } from './../../three/interface';
 
 @Component({
   selector: 'app-page0403',
@@ -56,7 +57,7 @@ export class Page0403Component implements OnInit {
     }, 100);
   }
 
-  controlsParams = [
+  controlsParams : GuiControlParam[]= [
     { name : 'color', type : 'color'},
     { name : 'rotationSpeed', type : 'number', min : 0, max : 0.5},
     { name : 'addCube', type : 'button'},

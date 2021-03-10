@@ -127,7 +127,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private p:number = null;
   @Input() private q:number = null;
   @Input() private points:GeometriesVector3[] = null;
-  @Input() private shapes:GeometriesVector3[] = null;
+  @Input() private shapes:GeometriesVector3[]| THREE.Shape = null;
   @Input() private extrudePath:GeometriesVector3[] = null;
   @Input() private extrudePathType:string = null;
   @Input() private curvePath:GeometriesVector3[] = null;
@@ -153,6 +153,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private polyVertices:number[] = null;
   @Input() private polyIndices:number[] = null;
   @Input() private colors:(string | number)[] = null;
+
   @Input() private faces:GeometriesFace3[] = null;
   @Input() private thresholdAngle:number = null;
   @Input() private curveSegments:number = null;
@@ -179,7 +180,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
-  @Input() private onInit : (geometry : THREE.BufferGeometry) => null = null;
+  @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
  
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 

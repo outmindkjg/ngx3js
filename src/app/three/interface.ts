@@ -111,6 +111,7 @@ export interface InterfaceMeshComponent {
 }
 
 export interface CssStyle {
+  innerHTML? : string; 
   content?: string;
   position?: string;
   pointerEvents?: string;
@@ -160,8 +161,8 @@ export interface CssStyle {
   borderBottom?: number | string;
   borderImage?: string;
   borderImageSource?: string;
-  borderImageSlice?: string;
-  borderImageOutset?: string;
+  borderImageSlice?: string | number;
+  borderImageOutset?: string | number;
   borderImageRepeat?: string;
   borderImageWidth?: number | string;
   opacity?: number;

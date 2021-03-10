@@ -39,7 +39,7 @@ import { LightComponent } from '../light/light.component';
 export class CameraComponent
   extends AbstractObject3dComponent
   implements OnInit, InterfaceEffectComposer {
-  @Input() public type:'perspective' | 'orthographic' | 'array' | 'cinematic' = 'perspective';
+  @Input() public type: string = 'perspective';
   @Input() private active:boolean = true;
   @Input() private effectType:string = null;
   @Input() private cameraDistance:number = null;

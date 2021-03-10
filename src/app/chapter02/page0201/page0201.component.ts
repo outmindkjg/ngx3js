@@ -3,6 +3,7 @@ import { GeometryComponent } from './../../three/geometry/geometry.component';
 import { MeshComponent } from './../../three/mesh/mesh.component';
 import { SceneComponent } from './../../three/scene/scene.component';
 import * as THREE from 'three';
+import { GuiControlParam } from '../../three';
 
 @Component({
   selector: 'app-page0201',
@@ -57,7 +58,7 @@ export class Page0201Component implements OnInit {
     }, 100);
   }
 
-  controlsParams = [
+  controlsParams : GuiControlParam[] = [
     { name : 'rotationSpeed', type : 'number', min : 0, max : 0.5},
     { name : 'addCube', type : 'button'},
     { name : 'removeCube', type : 'button'},

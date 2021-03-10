@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { GuiControlParam } from '../../three';
 import { MeshComponent } from './../../three/mesh/mesh.component';
 
 @Component({
@@ -16,7 +17,7 @@ export class Page0105Component implements OnInit {
     bouncingSpeed : 0.03
   }
 
-  controlsParams = [
+  controlsParams : GuiControlParam[] = [
     { name : 'rotationSpeed', type : 'number', min : 0, max : 0.5},
     { name : 'bouncingSpeed', type : 'number', min : 0, max : 0.5}
   ]

@@ -111,7 +111,7 @@ export class PassComponent implements OnInit {
   @Input() private noiseIntensity:number = null;
   @Input() private scanlinesIntensity:number = null;
   @Input() private scanlinesCount:number = null;
-  @Input() private grayscale:number = null;
+  @Input() private grayscale:boolean = null;
   @Input() private dtSize:number = null;
   @Input() private width:number = null;
   @Input() private height:number = null;
@@ -241,8 +241,12 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.scanlinesCount, def);
   }
 
-  private getGrayscale(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.grayscale, def);
+  private getGrayscale(def?: boolean): number {
+    if (ThreeUtil.getTypeSafe(this.grayscale, def)) {
+      return 1 ;
+    } else {
+      return 0;
+    }
   }
 
   private getDtSize(def?: number): number {
