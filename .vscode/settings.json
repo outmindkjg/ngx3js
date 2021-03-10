@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Python39\\python.exe",
+    "python.pythonPath": "/usr/bin/python3",
     "editor.wordWrapColumn": 580,
     "compile-hero.disable-compile-files-on-did-save-code": false,
     "git.ignoreLimitWarning": true,
