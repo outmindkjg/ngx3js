@@ -28,7 +28,7 @@ export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
 
   updateColors() {
     if (this.mesh !== null) {
-      const mesh = this.mesh.getRealMesh();
+      const mesh = this.mesh.getRealMesh() as THREE.Mesh;
       if (mesh !== null) {
         const geometry = mesh.geometry;
         if (geometry && geometry.attributes.pressure && geometry.attributes.color) {

@@ -25,13 +25,30 @@
     <three-helper [type]="'Grid'" [size]="400" [divisions]="40" [color1]="'0x444444'" [color2]="'0x888888'">
       <three-position [x]="-150" [y]="-150" [z]="0"></three-position>
     </three-helper>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-scale [x]="1" [y]="1" [z]="1" [multiply]="30"></three-scale>
+    <three-helper [type]="'PolarGrid'" [radius]="200" [radials]="16" [circles]="8" [divisions]="64" [color1]="'0x0000ff'" [color2]="'0x808080'">
+      <three-position [x]="200" [y]="-150" [z]="0"></three-position>
+    </three-helper>
+    <three-mesh #mainMesh (onLoad)="setMesh($event)">
+      <three-scale [multiply]="30"></three-scale>
       <three-mesh #baseMesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'" [storageOption]="{ onLoad : selectStoreMesh }">
       </three-mesh>
       <three-helper [type]="'VertexNormals'" [size]="5" [target]="baseMesh"></three-helper>
       <three-helper [type]="'VertexTangents'" [size]="5" [target]="baseMesh"></three-helper>
       <three-helper [type]="'box'" [target]="baseMesh"></three-helper>
+      <three-mesh [type]="'linesegments'">
+        <three-helper [type]="'box'"></three-helper>
+        <three-position [x]="4" [y]="0" [z]="0"></three-position>
+        <three-geometry [type]="'Wireframe'" [refGeometry]="baseMesh"></three-geometry>
+        <three-material type="line" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
+        <three-helper [type]="'box'"></three-helper>
+      </three-mesh>
+      <three-mesh [type]="'linesegments'">
+        <three-position [x]="-4" [y]="0" [z]="0"></three-position>
+        <three-geometry [type]="'Edges'" [refGeometry]="baseMesh"></three-geometry>
+        <three-material type="line" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
+        <three-helper [type]="'box'"></three-helper>
+      </three-mesh>
     </three-mesh>
+    <three-helper [type]="'box'" [target]="mainMesh"></three-helper>
   </three-scene>
 </three-renderer>

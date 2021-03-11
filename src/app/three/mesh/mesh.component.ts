@@ -233,7 +233,7 @@ export class MeshComponent
   public helper: THREE.Object3D = null;
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.mesh !== null && this.object3d instanceof THREE.Mesh) {
+    if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
       const mesh = this.getRealMesh();
       if (mesh !== null) {
         return mesh.geometry;
@@ -366,13 +366,18 @@ export class MeshComponent
 
   setGeometry(geometry : GeometryComponent | THREE.BufferGeometry) {
     const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
-    if (meshGeometry !== null && meshGeometry instanceof THREE.Mesh) {
+    if (meshGeometry !== null) {
       const geometryClone = (geometry instanceof THREE.BufferGeometry) ? geometry : geometry.getGeometry();
-      if (meshGeometry.geometry !== geometryClone ) {
-        meshGeometry.geometry = geometryClone;
-        this.onLoad.emit(this);
+      if ((meshGeometry instanceof THREE.Mesh || meshGeometry instanceof THREE.Line || meshGeometry instanceof THREE.LineSegments ) && meshGeometry.geometry !== geometryClone ) {
+        if (meshGeometry instanceof THREE.Mesh) {
+          meshGeometry.geometry = geometryClone;
+          console.log(this.type);
+          this.onLoad.emit(this);
+        } else {
+          this.resetMesh(true);
+        }
       }
-    }
+    } 
   }
 
   setGeometrySubscribe() {
@@ -605,8 +610,8 @@ export class MeshComponent
     let mesh : THREE.Object3D = this.mesh;
     while(mesh.children && mesh.children.length > 0) {
       mesh = mesh.children[0];
-      if (mesh instanceof THREE.Mesh) {
-        return mesh;
+      if (mesh instanceof THREE.Mesh || mesh instanceof THREE.LineSegments || mesh instanceof THREE.Line) {
+        return mesh as THREE.Mesh;
       }
     }
     return null;
@@ -836,6 +841,12 @@ export class MeshComponent
           line.castShadow = this.castShadow;
           object3d = line;
           break;
+        case 'linesegments':
+          const lineSegments = new THREE.LineSegments(geometry, this.getMaterials()[0]);
+          lineSegments.computeLineDistances();
+          lineSegments.castShadow = this.castShadow;
+          object3d = lineSegments;
+          break;
         case 'mesh':
         default:
           if (ThreeUtil.isNotNull(this.storageName)) {
@@ -850,7 +861,6 @@ export class MeshComponent
                 geometry?: THREE.BufferGeometry
               ) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
-                  console.log(loadedMesh.scale);
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
                       if (object instanceof THREE.Mesh) {
@@ -1034,8 +1044,9 @@ export class MeshComponent
       if (ThreeUtil.isNull(this.object3d.userData.component)) {
         this.object3d.userData.component = this;
       }
-      if (this.mesh instanceof THREE.Mesh) {
-        this._meshSubject.next(this.mesh);
+      const realMesh = this.getRealMesh();
+      if (realMesh instanceof THREE.Mesh) {
+        this._meshSubject.next(realMesh);
       }
       if (this.helper == null) {
         this.resetHelper();

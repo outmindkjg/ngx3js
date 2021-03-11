@@ -15,14 +15,14 @@ export class WebglGeometryTerrainRaycastComponent extends BaseComponent<{}> {
 
   helper : THREE.Mesh = null;
   setHelper(helper : MeshComponent) {
-    this.helper = helper.getRealMesh();
+    this.helper = helper.getRealMesh() as THREE.Mesh;
   }
 
   meshObject3d : THREE.Mesh = null;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     if (this.mesh !== null) {
-      this.meshObject3d = this.mesh.getRealMesh();
+      this.meshObject3d = this.mesh.getRealMesh() as THREE.Mesh;
     }
   }
 

@@ -180,6 +180,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
+  @Input() private refGeometry : any = null;
+  
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
  
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
@@ -462,12 +464,21 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return ThreeUtil.getTypeSafe(this.thresholdAngle, def);
   }
 
+  private targetMesh : THREE.Mesh = null;
   private getSubGeometry(): THREE.BufferGeometry {
-    if (this.geometryList !== null && this.geometryList.length > 0) {
+    if (this.targetMesh !== null) {
+      return this.targetMesh.geometry;
+    } else if (this.refGeometry !== null) {
+      if (this.refGeometry.getGeometry) {
+        const geometry = this.refGeometry.getGeometry();
+        if (geometry !== null) {
+          return geometry;
+        }
+      }
+    } else if (this.geometryList !== null && this.geometryList.length > 0) {
       return this.geometryList.first.getGeometry();
-    } else {
-      return new THREE.PlaneGeometry(1, 1, 1, 1);
     }
+    return new THREE.PlaneGeometry(1, 1, 1, 1);
   }
 
   private getCurveSegments(def?: number): number {
@@ -694,7 +705,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      this.geometry = null;
+      this.needUpdate = true;
+      if (changes.refGeometry && this.refGeometry !== null && this.refGeometry.meshSubscribe) {
+        this.refGeometry.meshSubscribe().subscribe((mesh) => {
+          this.targetMesh = mesh;
+          this.needUpdate = true;
+          this.resetGeometry();
+        })
+      }
     }
     if (changes.params) {
       Object.entries(this.params).forEach(([key, value]) => {
@@ -850,9 +868,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       }
     } else if (this.geometry === null && this.geometryList !== null && this.geometryList !== undefined) {
       this.geometry = this.getGeometry();
+    } else if (this.geometry !== null && this.needUpdate === true) {
+      this.geometry = this.getGeometry();
     }
   }
 
+  private needUpdate: boolean = true;
   private geometry: THREE.BufferGeometry = null;
 
   private parent: THREE.Object3D | any = null;
@@ -983,7 +1004,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.geometry === null) {
+    if (this.geometry === null || this.needUpdate) {
+      this.needUpdate = false;
       let geometry : THREE.BufferGeometry = null;
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getGeometry) {
