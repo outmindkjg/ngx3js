@@ -8,6 +8,8 @@ import { CameraComponent } from './camera/camera.component';
 import { RendererComponent } from './renderer/renderer.component';
 import { SceneComponent } from './scene/scene.component';
 
+export { THREE };
+
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
 }

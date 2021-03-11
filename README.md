@@ -322,3 +322,11 @@ line 7 :
 function castObject(obj1 : any, obj2 : any) : btCollisionObject;
 
 D7PNK-JWYGX-9GWDH-4WG8W-82QDV
+
+
+node_modules\three\examples\jsm\loaders\SVGLoader.d.ts
+Line 6 :
+	Vector2
+Line 40
+	static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
+	static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;

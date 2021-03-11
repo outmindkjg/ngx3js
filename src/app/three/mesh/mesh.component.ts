@@ -33,7 +33,7 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'three-mesh',
@@ -210,6 +210,12 @@ export class MeshComponent
       this.resetMesh();
     }
     super.ngOnChanges(changes);
+  }
+
+  private _meshSubject:Subject<THREE.Mesh> = new Subject<THREE.Mesh>();
+
+  meshSubscribe() : Observable<THREE.Mesh>{
+    return this._meshSubject.asObservable();
   }
 
   private _materialSubscribe: Subscription[] = [];
@@ -481,9 +487,15 @@ export class MeshComponent
             });
             break;
           case 'helpers':
-            this.helperList.forEach((helper) => {
-              helper.setParent(this.mesh);
-            });
+            if (this.clipMesh !== null) {
+              this.helperList.forEach((helper) => {
+                helper.setParent(this.clipMesh);
+              });
+            } else {
+              this.helperList.forEach((helper) => {
+                helper.setParent(this.mesh);
+              });
+            }
             break;
           case 'lights':
             this.lightList.forEach((light) => {
@@ -828,6 +840,8 @@ export class MeshComponent
         default:
           if (ThreeUtil.isNotNull(this.storageName)) {
             basemesh = new THREE.Group();
+            basemesh.updateMatrixWorld( true );
+
             this.localStorageService.getObject(
               this.storageName,
               (
@@ -836,6 +850,7 @@ export class MeshComponent
                 geometry?: THREE.BufferGeometry
               ) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
+                  console.log(loadedMesh.scale);
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
                       if (object instanceof THREE.Mesh) {
@@ -904,8 +919,11 @@ export class MeshComponent
                   this.clips = clips;
                 }
                 this.clipMesh = loadedMesh;
-                this.synkObject3D(['mixer', 'material']);
                 this.resetHelper();
+                this.synkObject3D(['mixer', 'material','helpers']);
+                if (loadedMesh instanceof THREE.Mesh) {
+                  this._meshSubject.next(loadedMesh);
+                }
               },
               this.storageOption
             );
@@ -1015,6 +1033,9 @@ export class MeshComponent
       }
       if (ThreeUtil.isNull(this.object3d.userData.component)) {
         this.object3d.userData.component = this;
+      }
+      if (this.mesh instanceof THREE.Mesh) {
+        this._meshSubject.next(this.mesh);
       }
       if (this.helper == null) {
         this.resetHelper();

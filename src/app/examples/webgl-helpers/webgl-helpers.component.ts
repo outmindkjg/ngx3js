@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, THREE } from '../../three';
 
 @Component({
   selector: 'app-webgl-helpers',
@@ -12,4 +12,11 @@ export class WebglHelpersComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  selectStoreMesh(object : THREE.Object3D): THREE.Object3D {
+    const mesh = object.children[ 0 ] as THREE.Mesh;
+    if (mesh.geometry){
+      mesh.geometry.computeTangents();
+    }
+    return mesh;
+  }
 }

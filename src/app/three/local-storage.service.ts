@@ -128,6 +128,24 @@ export class LocalStorageService {
   private xyzLoader: XYZLoader = null;
   private threeMFLoader: ThreeMFLoader = null;
 
+  private getStoreUrl(url : string) {
+    if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    } else {
+      return '/assets/examples/' + url;
+    }
+  }
+
+  private getStoreObject(object : THREE.Object3D, options : any = null) :THREE.Object3D {
+    if (object !== null && options !== null && options.onLoad !== null && typeof options.onLoad  === 'function') {
+      const result = options.onLoad(object);
+      if (result !== null && result instanceof THREE.Object3D) {
+        return result;
+      }
+    }
+    return object;
+  }
+  
   public getObjectFromKey(
     key: string,
     callBack: (mesh: LoadedObject) => void,
@@ -138,7 +156,7 @@ export class LocalStorageService {
         this.colladaLoader = new ColladaLoader();
       }
       this.colladaLoader.load(
-        key,
+        this.getStoreUrl(key),
         (result: Collada) => {
           callBack({
             object: result.scene,
@@ -158,7 +176,7 @@ export class LocalStorageService {
         options && options.material ? options.material : null;
       if (materialUrl !== null && materialUrl.length > 0) {
         this.getObjectFromKey(
-          materialUrl,
+          this.getStoreUrl(materialUrl),
           (result) => {
             if (result.material !== null && result.material !== undefined) {
               this.objLoader.setMaterials(result.material);
@@ -167,7 +185,7 @@ export class LocalStorageService {
               key,
               (result: THREE.Group) => {
                 callBack({
-                  object: result,
+                  object: this.getStoreObject(result, options),
                 });
               },
               null,
@@ -181,7 +199,7 @@ export class LocalStorageService {
       } else {
         this.objLoader.setMaterials(null);
         this.objLoader.load(
-          key,
+          this.getStoreUrl(key),
           (result: THREE.Group) => {
             callBack({
               object: result,
@@ -198,7 +216,7 @@ export class LocalStorageService {
         this.mtlLoader = new MTLLoader();
       }
       this.mtlLoader.load(
-        key,
+        this.getStoreUrl(key),
         (result: MTLLoader.MaterialCreator) => {
           result.preload();
           callBack({ material: result });
@@ -213,7 +231,7 @@ export class LocalStorageService {
         this.rhino3dmLoader = new Rhino3dmLoader();
       }
       this.rhino3dmLoader.load(
-        key,
+        this.getStoreUrl(key),
         (result: THREE.Group) => {
           callBack({
             object: result,
@@ -229,7 +247,7 @@ export class LocalStorageService {
         this.basisTextureLoader = new BasisTextureLoader();
       }
       this.basisTextureLoader.load(
-        key,
+        this.getStoreUrl(key),
         () => {
           // todo
         },
@@ -243,7 +261,7 @@ export class LocalStorageService {
         this.dracoLoader = new DRACOLoader();
       }
       this.dracoLoader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           callBack({
             geometry: geometry,
@@ -270,10 +288,10 @@ export class LocalStorageService {
         }
       }
       this.gltfLoader.load(
-        key,
+        this.getStoreUrl(key),
         (result: GLTF) => {
           callBack({
-            object: result.scene,
+            object: this.getStoreObject(result.scene, options),
             clips: result.animations,
           });
         },
@@ -294,11 +312,11 @@ export class LocalStorageService {
       const vmdUrl = options && options.vmdUrl ? options.vmdUrl : null;
       if (vmdUrl !== null) {
         this.mmdLoader.loadWithAnimation(
-          key,
-          vmdUrl,
+          this.getStoreUrl(key),
+          this.getStoreUrl(vmdUrl),
           (result: MMDLoaderAnimationObject) => {
             callBack({
-              object: result.mesh,
+              object: this.getStoreObject(result.mesh, options),
               clips: result.animation ? [result.animation] : null,
             });
           },
@@ -310,12 +328,12 @@ export class LocalStorageService {
       } else if (key.endsWith('.vmd')) {
         const object: THREE.SkinnedMesh | THREE.Camera = options.object;
         this.mmdLoader.loadAnimation(
-          key,
+          this.getStoreUrl(key),
           object,
           (result: THREE.SkinnedMesh | THREE.AnimationClip) => {
             if (result instanceof THREE.SkinnedMesh) {
               callBack({
-                object: result,
+                object: this.getStoreObject(result, options),
               });
             } else {
               callBack({
@@ -330,10 +348,10 @@ export class LocalStorageService {
         );
       } else {
         this.mmdLoader.load(
-          key,
+          this.getStoreUrl(key),
           (result: THREE.SkinnedMesh) => {
             callBack({
-              object: result,
+              object: this.getStoreObject(result, options),
             });
           },
           null,
@@ -347,7 +365,7 @@ export class LocalStorageService {
         this.pcdLoader = new PCDLoader();
       }
       this.pcdLoader.load(
-        key,
+        this.getStoreUrl(key),
         () => {},
         null,
         (e) => {
@@ -359,7 +377,7 @@ export class LocalStorageService {
         this.prwmLoader = new PRWMLoader();
       }
       this.prwmLoader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           const mesh = new THREE.Mesh(
             geometry,
@@ -377,7 +395,7 @@ export class LocalStorageService {
         this.tgaLoader = new TGALoader();
       }
       this.tgaLoader.load(
-        key,
+        this.getStoreUrl(key),
         (texture: THREE.Texture) => {
           // const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
           // callBack(mesh);
@@ -392,7 +410,7 @@ export class LocalStorageService {
         this.svgLoader = new SVGLoader();
       }
       this.svgLoader.load(
-        key,
+        this.getStoreUrl(key),
         (data: SVGResult) => {
           // const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
           // callBack(mesh);
@@ -407,7 +425,7 @@ export class LocalStorageService {
         this.plyLoader = new PLYLoader();
       }
       this.plyLoader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           const mesh = new THREE.Mesh(
             geometry,
@@ -425,7 +443,7 @@ export class LocalStorageService {
         this.vtkLoader = new VTKLoader();
       }
       this.vtkLoader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           const mesh = new THREE.Mesh(
             geometry,
@@ -443,7 +461,7 @@ export class LocalStorageService {
         this.md2Loader = new MD2Loader();
       }
       this.md2Loader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           callBack({
             object: null,
@@ -461,7 +479,7 @@ export class LocalStorageService {
         this.pdbLoader = new PDBLoader();
       }
       this.pdbLoader.load(
-        key,
+        this.getStoreUrl(key),
         (pdb: PDB) => {
           const geometryAtoms = pdb.geometryAtoms;
           const geometryBonds = pdb.geometryBonds;
@@ -530,7 +548,7 @@ export class LocalStorageService {
         this.stlLoader = new STLLoader();
       }
       this.stlLoader.load(
-        key,
+        this.getStoreUrl(key),
         (geometry: THREE.BufferGeometry) => {
           const mesh = new THREE.Mesh();
           mesh.geometry = geometry;
@@ -550,7 +568,7 @@ export class LocalStorageService {
             this.objectLoader = new THREE.ObjectLoader();
           }
           this.objectLoader.load(
-            key,
+            this.getStoreUrl(key),
             (result) => {
               console.log(result);
             },
@@ -564,7 +582,7 @@ export class LocalStorageService {
             this.geometryLoader = new THREE.BufferGeometryLoader();
           }
           this.geometryLoader.load(
-            key,
+            this.getStoreUrl(key),
             (geometry) => {
               callBack({ geometry: geometry });
             },
@@ -601,7 +619,11 @@ export class LocalStorageService {
       (result) => {
         if (result.object !== null && result.object !== undefined) {
           if (result.object instanceof THREE.Object3D) {
-            callBack(result.object, result.clips, result.geometry);
+            callBack(
+              result.object,
+              result.clips, 
+              result.geometry
+            );
           } else {
             const scene = new THREE.Group();
             scene.add(result.object);

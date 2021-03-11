@@ -3,6 +3,8 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
+import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 import * as THREE from 'three';
 
@@ -37,8 +39,10 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
 
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
-    if (this.target !== null) {
-      return this.target.getMesh();
+    if (this.targetMesh !== null) {
+      return this.targetMesh;
+    } else if (this.target !== null) {
+      this.target.getMesh();
     } else {
       return target;
     }
@@ -54,6 +58,15 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 
   private getColor(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
+  }
+
+  private getColorHex(def?: number | string): number {
+    const color = this.getColor(def);
+    if (ThreeUtil.isNotNull(color)) {
+      return color.getHex();
+    } else {
+      return undefined;
+    }
   }
 
   private getRadius(def?: number): number {
@@ -111,9 +124,18 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   ngOnInit(): void {
   }
 
+  private targetMesh : THREE.Mesh = null;
+
   private needsUpdate : boolean = true;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
+      if (changes.target && this.target !== null && this.target.meshSubscribe) {
+        this.target.meshSubscribe().subscribe((mesh) => {
+          this.targetMesh = mesh;
+          this.needsUpdate = true;
+          this.resetHelper();
+        })
+      }
       this.needsUpdate = true;
       this.resetHelper();
     }
@@ -174,6 +196,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       this.needsUpdate = false;
       if (this.helper !== null && this.helper.parent) {
         this.helper.parent.remove(this.helper);
+      }
+      if (this.parent !== null) {
+        this.parent.updateMatrixWorld( true );
       }
       this.helper = null;
       let basemesh: THREE.Object3D = null;
@@ -272,7 +297,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
                 basemesh.add(new THREE.PlaneHelper(
                   clippingPlane,
                   this.getSize(10),
-                  this.getColor(0xff0000).getHex()
+                  this.getColorHex()
                 ));
               });
             }
@@ -280,9 +305,24 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             basemesh = null;
           }
           break;
-        case 'vertexnormals' :
-          basemesh = new VertexNormalsHelper(this.getTarget(this.parent), this.getSize(), this.getColor(0xff0000).getHex());
-          break;
+
+          case 'vertexnormals' :
+          case 'vertextangents' :
+            const vertexMesh = this.getTarget(this.parent);
+            if (vertexMesh instanceof THREE.Mesh && vertexMesh.geometry instanceof THREE.BufferGeometry && vertexMesh.geometry.attributes.normal) {
+              switch (this.type.toLowerCase()) {
+                case 'vertextangents' :
+                  basemesh = new VertexTangentsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
+                  break;
+                case 'vertexnormals' :
+                default :
+                  basemesh = new VertexNormalsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
+                  break;
+              }
+            } else {
+              basemesh = new THREE.AxesHelper(this.getSize(10));
+            }
+            break;
         case 'skeleton':
           basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));
           break;
