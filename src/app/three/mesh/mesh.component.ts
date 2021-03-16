@@ -365,19 +365,18 @@ export class MeshComponent
   }
 
   setGeometry(geometry : GeometryComponent | THREE.BufferGeometry) {
-    const meshGeometry = (this.mesh instanceof THREE.Group) ? this.mesh.children[0] : this.mesh;
-    if (meshGeometry !== null) {
-      const geometryClone = (geometry instanceof THREE.BufferGeometry) ? geometry : geometry.getGeometry();
-      if ((meshGeometry instanceof THREE.Mesh || meshGeometry instanceof THREE.Line || meshGeometry instanceof THREE.LineSegments ) && meshGeometry.geometry !== geometryClone ) {
-        if (meshGeometry instanceof THREE.Mesh) {
+    if (this.object3d !== null) {
+      const meshGeometry = this.getRealMesh();
+      if (meshGeometry !== null) {
+        const geometryClone = (geometry instanceof THREE.BufferGeometry) ? geometry : geometry.getGeometry();
+        if (meshGeometry.geometry !== geometryClone) {
           meshGeometry.geometry = geometryClone;
-          console.log(this.type);
           this.onLoad.emit(this);
-        } else {
-          this.resetMesh(true);
         }
+      } else {
+        this.resetMesh(true);
       }
-    } 
+    }
   }
 
   setGeometrySubscribe() {
@@ -603,8 +602,8 @@ export class MeshComponent
   private cssClazzName: string = null;
   private mesh: THREE.Mesh | THREE.Group = null;
   
-  getRealMesh(): THREE.Mesh {
-    if (this.mesh instanceof THREE.Mesh) {
+  getRealMesh(): THREE.Mesh | THREE.LineSegments | THREE.Line{
+    if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.LineSegments || this.mesh instanceof THREE.Line) {
       return this.mesh;
     }
     let mesh : THREE.Object3D = this.mesh;
@@ -852,7 +851,6 @@ export class MeshComponent
           if (ThreeUtil.isNotNull(this.storageName)) {
             basemesh = new THREE.Group();
             basemesh.updateMatrixWorld( true );
-
             this.localStorageService.getObject(
               this.storageName,
               (
@@ -910,7 +908,6 @@ export class MeshComponent
                     }
                   })
                 }
-
                 if (this.meshList) {
                   this.meshList.forEach((mesh) => {
                     if (

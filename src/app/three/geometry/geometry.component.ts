@@ -519,14 +519,18 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private getShapes(onload :(data : THREE.Shape[] | THREE.Shape) => void): void {
     if (ThreeUtil.isNotNull(this.svgList) && this.svgList.length > 0) {
-      this.svgList.forEach(svg => {
-        svg.getShapes((shapes) => {
-          onload(shapes);
-        })
-      });
-    } else if (ThreeUtil.isNotNull(this.shapes)) {
+      setTimeout(() => {
+        this.svgList.forEach(svg => {
+          svg.getShapes((shapes) => {
+            onload(shapes);
+          })
+        });
+      }, 1);
+  } else if (ThreeUtil.isNotNull(this.shapes)) {
       if (this.shapes instanceof THREE.Shape) {
-        onload(this.shapes);
+        setTimeout(() => {
+          onload(this.shapes as THREE.Shape);
+        }, 1);
       } else {
         const shapes :THREE.Shape[] = [];
         const shape = new THREE.Shape();
@@ -536,7 +540,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         })
         shape.setFromPoints(vectors);
         shapes.push(shape);
-        onload(shapes);
+        setTimeout(() => {
+          onload(shapes);
+        }, 1);
       }
     } else if (ThreeUtil.isNotNull(this.text)) {
       this.getFont('helvetiker', (font: THREE.Font) => {
@@ -552,7 +558,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         });
         shapes.push(shape);
       }
-      onload(shapes);
+      setTimeout(() => {
+        onload(shapes);
+      }, 1);
     }
   }
 
@@ -827,9 +835,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   private _geometrySubject: Subject<THREE.BufferGeometry> = new Subject<THREE.BufferGeometry>();
 
   geometrySubscribe(): Observable<THREE.BufferGeometry> {
-    if (this.geometry === null) {
-      this.geometry = this.getGeometry();
-    }
     return this._geometrySubject.asObservable();
   }
 
@@ -1006,6 +1011,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   getGeometry(): THREE.BufferGeometry {
     if (this.geometry === null || this.needUpdate) {
       this.needUpdate = false;
+      this.geometry = null;
       let geometry : THREE.BufferGeometry = null;
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getGeometry) {

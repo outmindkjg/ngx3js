@@ -50,7 +50,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
   addShape(shape : THREE.Shape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
     this.shapesInfos.push({
-      shape : shape,
+      shape : shape.clone() as THREE.Shape,
       extrudeSettings : extrudeSettings,
       color : color, x: x, y : y, z : z, rx : rx / Math.PI * 180, ry : ry  / Math.PI * 180, rz : rz  / Math.PI * 180, s : s
     });
@@ -254,6 +254,5 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
     for ( let i = 0; i < smileyShape.holes.length; i += 1 ) {
       this.addLineShape( smileyShape.holes[ i ], 0xf000f0, - 200, 250, 0, 0, 0, Math.PI, 1 );
     }
-    console.log(this.shapesInfos);
   }
 }
