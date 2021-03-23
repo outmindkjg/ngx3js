@@ -133,6 +133,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private curvePath:GeometriesVector3[] = null;
   @Input() private curvePathType:string = null;
   @Input() private curveType:string = null;
+  @Input() private addGroup:boolean = null;
 
   @Input() private uVGenerator:string = null;
   @Input() private pointsGeometry:GeometryComponent = null;
@@ -145,7 +146,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   
   @Input() private center:boolean = false;
   @Input() private computeVertexNormals:boolean = false;
-
+  @Input() private computeBoundingBox:boolean = false;
+  @Input() private computeBoundingSphere:boolean = false;
+  
   @Input() private font:string = null;
   @Input() private size:number = null;
   @Input() private weight:string = null;
@@ -166,9 +169,16 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private bevelSegments:number = null;
   @Input() private closed:boolean = null;
   @Input() private scale:number = null;
+  @Input() private geometryScale:number = null;
   @Input() private sphereScale:number = null;
-  @Input() private position:number[] = null;
-  @Input() private itemSize : number = null;
+  @Input() private attributes : { [key : string] : number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute } = null;
+  @Input() private position: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private normal: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private color: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private customColor: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private customSize:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private index:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  
   @Input() private mesh : THREE.Mesh | any = null;
   @Input() private positionX : number = null;
   @Input() private positionY : number = null;
@@ -180,6 +190,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
+
+  @Input() private toNonIndexed : boolean = null;
+  
+
   @Input() private refGeometry : any = null;
   
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
@@ -451,6 +465,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     });
     return colors;
   }
+
+
   /*
    private getFaces(def?: GeometriesVector3[]): THREE.Face3[] {
      const faces: THREE.Face3[] = [];
@@ -613,6 +629,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     return ThreeUtil.getTypeSafe(this.sphereScale, def);
   }
   
+  private getGeometryScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.geometryScale, def);
+  }
+
   private getCurve(def?:string): THREE.Curve<THREE.Vector3> {
     const curve = ThreeUtil.getTypeSafe(this.curve,def, '');
     switch(curve.toLowerCase()) {
@@ -630,8 +650,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         return new Curves.HelixCurve();
       case 'trefoilknot' :
         return new Curves.TrefoilKnot(this.getScale());
-      case 'torusknot' :
-        return new Curves.TorusKnot(this.getScale());
       case 'torusknot' :
         return new Curves.TorusKnot(this.getScale());
       case 'cinquefoilknot' :
@@ -665,10 +683,73 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     );
   }
 
-  private getPosition(def? : number[]): THREE.Float32BufferAttribute {
-    const position = ThreeUtil.getTypeSafe(this.position, def);
-    const itemSize = ThreeUtil.getTypeSafe(this.itemSize, 3);
-    return new THREE.Float32BufferAttribute( position, itemSize )
+  private getAttribute(value : number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute , itemSize : number): THREE.BufferAttribute {
+    const attribute = ThreeUtil.getTypeSafe(value, []);
+    if (attribute instanceof THREE.BufferAttribute) {
+      return attribute;
+    } else if (attribute instanceof Int8Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Int16Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Int32Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Uint8Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Uint16Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Uint32Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Float32Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else if (attribute instanceof Float64Array ) {
+      return new THREE.BufferAttribute( attribute, itemSize )
+    } else {
+      const floatArray = new Float32Array( attribute.length );
+      attribute.forEach((v,i) => {
+        floatArray[i] = v;
+      });
+      return new THREE.BufferAttribute( floatArray, itemSize );
+    }
+  }
+  
+  private getAttributes(): { key : string, value : THREE.BufferAttribute}[] {
+      const attributes = [];
+      if (ThreeUtil.isNotNull(this.position)) {
+        attributes.push({ key : 'position', value : this.getAttribute(this.position, 3)})
+      }
+      if (ThreeUtil.isNotNull(this.color)) {
+        attributes.push({ key : 'color', value : this.getAttribute(this.color, 3)})
+      }
+      if (ThreeUtil.isNotNull(this.normal)) {
+        attributes.push({ key : 'normal', value : this.getAttribute(this.normal, 3)})
+      }
+      if (ThreeUtil.isNotNull(this.customColor)) {
+        attributes.push({ key : 'customColor', value : this.getAttribute(this.customColor, 3)})
+      }
+      if (ThreeUtil.isNotNull(this.customSize)) {
+        attributes.push({ key : 'size', value : this.getAttribute(this.customSize, 1)})
+      }
+      if (ThreeUtil.isNotNull(this.index)) {
+        attributes.push({ key : 'index', value : this.getAttribute(this.index, 1)})
+      }
+      if (ThreeUtil.isNotNull(this.attributes)) {
+        Object.entries(this.attributes).forEach(([key, value]) => {
+          switch(key) {
+            case 'size' :
+            case 'index' :
+                attributes.push({ key : key, value : this.getAttribute(value, 1)})
+              break;
+            case 'position' :
+            case 'color' :
+            case 'normal' :
+            case 'customColor' :
+            default :
+              attributes.push({ key : key, value : this.getAttribute(value, 3)})
+              break;
+          }
+        });
+      }
+      return attributes;
   }
 
   private getMesh(def? : THREE.Mesh | any): THREE.Mesh {
@@ -945,17 +1026,26 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   applyTextAlign(def : string = 'left') {
     if (this.geometry !== null) {
-      switch(this.getTextAlign(def)) {
-        case 'left' :
-          break;
-        case 'center' :
-          this.geometry.computeBoundingSphere();
-          this.geometry.translate( - this.geometry.boundingSphere.radius, 0, 0 )
-          break;
-        case 'right' :
-          this.geometry.computeBoundingSphere();
-          this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0 )
-          break;
+      if (this.computeBoundingSphere) {
+        this.geometry.computeBoundingSphere();
+      }
+      if (this.geometry.boundingSphere !== null) {
+        const sphereScale = this.getSphereScale();
+        if (ThreeUtil.isNotNull(sphereScale) && sphereScale > 0) {
+          const scaleFactor = sphereScale / this.geometry.boundingSphere.radius;
+          this.geometry.scale( scaleFactor, scaleFactor, scaleFactor );
+        }
+        switch(this.getTextAlign(def)) {
+          case 'left' :
+            break;
+          case 'center' :
+            this.geometry.translate( - this.geometry.boundingSphere.radius, 0, 0 )
+            break;
+          case 'right' :
+            this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0 )
+            break;
+        }
+
       }
     }
   }
@@ -972,14 +1062,19 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       if (this.computeVertexNormals) {
         this.geometry.computeVertexNormals();
       }
-      if (ThreeUtil.isNull(this.geometry.userData.component)) {
-        this.geometry.userData.component = this;
+      if (this.computeBoundingBox) {
+        this.geometry.computeBoundingBox();
       }
-      const sphereScale = this.getSphereScale();
-      if (ThreeUtil.isNotNull(sphereScale) && sphereScale > 0) {
-        this.geometry.computeBoundingSphere();
-        const scaleFactor = sphereScale / geometry.boundingSphere.radius;
-        this.geometry.scale( scaleFactor, scaleFactor, scaleFactor );
+      if (this.toNonIndexed) {
+        this.geometry.toNonIndexed();
+      }
+      
+      if (ThreeUtil.isNull(this.geometry.userData.component)) {
+        // this.geometry.userData.component = this;
+      }
+      const geometryScale = this.getGeometryScale();
+      if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
+        this.geometry.scale( geometryScale, geometryScale, geometryScale );
       }
       this.applyTextAlign();
       this.synkObject3D(['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale']);
@@ -991,7 +1086,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       }
       this.onLoad.emit(this);
       if (ThreeUtil.isNull(this.geometry.userData.component)) {
-        this.geometry.userData.component = this;
+        // this.geometry.userData.component = this;
       }
       if (this.visible) {
         this._geometrySubject.next(this.geometry);
@@ -1031,9 +1126,22 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           case 'geometry':
           case 'buffer':
             geometry = new THREE.BufferGeometry();
-            const position = this.getPosition([]);
-            if (ThreeUtil.isNotNull(position) && position.count > 0) {
-              geometry.setAttribute("position", position);
+            const attributes = this.getAttributes();
+            if (ThreeUtil.isNotNull(attributes) && attributes.length > 0) {
+              attributes.forEach(attribute => {
+                switch(attribute.key.toLowerCase()) {
+                  case 'index' :
+                    geometry.setIndex(attribute.value);
+                    if (this.addGroup) {
+                      geometry.addGroup(0, attribute.value.count);
+                    }
+                    break;
+                  default :
+                    attribute.value.needsUpdate = true;
+                    geometry.setAttribute(attribute.key, attribute.value);
+                    break;
+                }
+              })
             } else {
               const points = this.getPointsV3([]);
               if (ThreeUtil.isNotNull(points) && points.length > 0) {
@@ -1068,7 +1176,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                 geometry = planePerlin.getMinecraft(this.getWidth(100), this.getHeight(100), this.getDepth(100));
                 break;
             }
-            geometry.computeBoundingSphere();
             break;                
           case 'boxbuffer':
           case 'box':

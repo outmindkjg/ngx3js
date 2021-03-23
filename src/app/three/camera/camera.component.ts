@@ -63,6 +63,8 @@ export class CameraComponent
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
   @Input() private height:number | string = '100%';
+  @Input() private raycasterThreshold:number = null;
+  
   @Output() private onLoad:EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
   @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
@@ -435,17 +437,18 @@ export class CameraComponent
   }
 
   private raycaster : THREE.Raycaster = null;
-  private intersects : THREE.Intersection[] = [];
   getIntersections(mouse : THREE.Vector2, mesh : THREE.Object3D | THREE.Object3D[], recursive : boolean = false ): THREE.Intersection[] {
     if (this.raycaster === null) {
       this.raycaster = new THREE.Raycaster();
+      if (ThreeUtil.isNotNull(this.raycasterThreshold)) {
+        this.raycaster.params.Points.threshold = this.raycasterThreshold;
+      }
     }
     this.raycaster.setFromCamera( mouse, this.getCamera());
-    this.intersects.length = 0;
     if (mesh instanceof THREE.Object3D) {
-      return this.raycaster.intersectObject( mesh, recursive, this.intersects );
+      return this.raycaster.intersectObject( mesh, recursive);
     } else { 
-      return this.raycaster.intersectObjects( mesh, recursive, this.intersects );
+      return this.raycaster.intersectObjects( mesh, recursive);
     }
   }
 
@@ -534,6 +537,7 @@ export class CameraComponent
           );
           break;
         case 'orthographic':
+          console.log(this.getLeft(width));
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
             this.getRight(width),

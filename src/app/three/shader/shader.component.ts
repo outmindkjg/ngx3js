@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-shader',

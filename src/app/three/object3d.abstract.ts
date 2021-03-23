@@ -26,6 +26,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	@Input() public visible:boolean = true;
   @Input() public name:string = "";
+  @Input() private layers : number[] = null;
   @Input() private position : PositionComponent = null;
   @Input() private rotation : RotationComponent = null;
   @Input() private scale : ScaleComponent = null;
@@ -373,11 +374,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       }
       this.object3d = object3d;
       if (this.object3d !== null) {
+        if (ThreeUtil.isNotNull(this.layers) && this.layers.length > 0) {
+          if (this.layers.length == 1) {
+            this.object3d.layers.set(this.layers[0]);
+          } else {
+            this.layers.forEach(layer => {
+              this.object3d.layers.enable(layer);
+            });
+          }
+        }
         this.object3d.name = this.name;
         this.object3d.visible = this.visible;
-      }
-      if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
-        this.parent.add(this.object3d);
+        if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
+          this.parent.add(this.object3d);
+        }
       }
     }
   }

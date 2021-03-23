@@ -159,7 +159,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       } else {
         this.eventChange = this.removeWindowEvent('pointerdown', this.eventPointerDown);
       }
-      if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1) {
+      if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
         this.eventChange = this.addWindowEvent('pointerup', this.eventPointerUp);
       } else {
         this.eventChange = this.removeWindowEvent('pointerup', this.eventPointerUp);

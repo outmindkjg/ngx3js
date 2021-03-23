@@ -1,6 +1,7 @@
 import { Component, ContentChildren, Input, Output, EventEmitter ,OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
+import { Object3D } from 'three';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
@@ -60,7 +61,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private stencilZFail:string = null;
   @Input() private stencilZPass:string = null;
   @Input() private userData:any = null;
-  @Input() private uniforms:{ [uniform: string]: THREE.IUniform } = null;
+  @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any } | THREE.IUniform) } = null;
   @Input() private vertexShader:string = null;
   @Input() private fragmentShader:string = null;
   @Input() private lights:boolean = null;
@@ -798,7 +799,20 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private getUniforms(def?: any): { [uniform: string]: THREE.IUniform } {
-    return ThreeUtil.getTypeSafe(this.uniforms, def);
+    const uniforms = ThreeUtil.getTypeSafe(this.uniforms, def);
+    Object.entries(uniforms).forEach(([key, value]) => {
+      if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+        switch(value['type'].toLowerCase()) {
+          case 'color' :
+            uniforms[key] = { value: new THREE.Color( value['value'] ) }
+            break;
+          case 'texture' :
+            uniforms[key] = { value: TextureComponent.getTextureImage( value['value'] ) }
+            break;
+        }
+      }
+    })
+    return uniforms;
   }
 
   private getLights(def?: any): any {
@@ -934,10 +948,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
         }
         if (this.material !== null && this.referOverride) {
           this.material = this.material.clone();
-          const materialParameters = this.getMaterialParameters({});
-          console.log(materialParameters);
           if (ThreeUtil.isNotNull(this.side)) {
-
             this.material.side = this.getSide();
           }
         }

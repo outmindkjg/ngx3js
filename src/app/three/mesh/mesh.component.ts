@@ -20,6 +20,7 @@ import {
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, InterfaceMeshComponent, ThreeUtil } from '../interface';
@@ -104,9 +105,11 @@ export class MeshComponent
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
+  @Input() private usage: string = null;
+  @Input() private makeMatrix: (mat : THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
-  @Input() private material: MaterialComponent = null;
-
+  @Input() private material: MaterialComponent | THREE.Material= null;
+  
   @Output() private onLoad:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @Output() private onDestory:EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
@@ -188,6 +191,32 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.size, def);
   }
 
+  private getUsage(def?: string): THREE.Usage {
+    const usage = ThreeUtil.getTypeSafe(this.usage, def, '');
+    switch(usage.toLowerCase()) {
+      case 'staticdraw' :
+        return THREE.StaticDrawUsage;
+      case 'dynamicdraw' :
+        return THREE.DynamicDrawUsage;
+      case 'streamdraw' :
+        return THREE.StreamDrawUsage;
+      case 'staticread' :
+        return THREE.StaticReadUsage;
+      case 'dynamicread' :
+        return THREE.DynamicReadUsage;
+      case 'streamread' :
+        return THREE.StreamReadUsage;
+      case 'staticcopy' :
+        return THREE.StaticCopyUsage;
+      case 'dynamiccopy' :
+        return THREE.DynamicCopyUsage;
+      case 'streamcopy' :
+        return THREE.StreamCopyUsage;
+    }
+  }
+  
+
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       Object.entries(changes).forEach(([key, value]) => {
@@ -261,8 +290,12 @@ export class MeshComponent
         }
       }
     } 
-    if (this.material !== null) {
-      return this.material.getMaterial();
+    if (this.material !== null ) {
+      if (this.material instanceof MaterialComponent) {
+        return this.material.getMaterial();
+      } else if(this.material instanceof THREE.Material) {
+        return this.material;
+      }
     } 
     if (this.materialList !== null && this.materialList.length > 0) {
       return this.materialList.first.getMaterial();
@@ -275,8 +308,10 @@ export class MeshComponent
   ): THREE.Material[] {
     const materials: THREE.Material[] = [];
     if (this.material !== null && this.material !== undefined) {
-      if (this.material.materialType === 'material') {
+      if (this.material instanceof MaterialComponent && this.material.materialType === 'material') {
         materials.push(this.material.getMaterial());
+      } else if (this.material instanceof THREE.Material) {
+        materials.push(this.material);
       }
     } 
     if (this.materialList !== null && this.materialList.length > 0) {
@@ -425,9 +460,11 @@ export class MeshComponent
   setMaterialSubscribe() {
 		if (this.materialList !== null && this.materialList !== undefined) {
       this._materialSubscribe = this.unSubscription(this._materialSubscribe);
-      if (this.material !== null) {
+      if (this.material !== null && this.material instanceof MaterialComponent) {
         this._materialSubscribe.push(this.material.materialSubscribe().subscribe((e) => {
-          this.setMaterial(this.material, 0);
+          if (this.material instanceof MaterialComponent) {
+            this.setMaterial(this.material, 0);
+          }
         }));
       }
       this.materialList.forEach((material, idx) => {
@@ -545,8 +582,10 @@ export class MeshComponent
             });
             break;
           case 'material':
-            if (this.material !== null && this.material.visible) {
-              this.setMaterial(this.material, 0);
+            if (this.material !== null) {
+              if (this.material instanceof MaterialComponent && this.material.visible) {
+                this.setMaterial(this.material, 0);
+              }
             } else {
               this.materialList.forEach((material, idx) => {
                 if (material.visible) {
@@ -801,11 +840,54 @@ export class MeshComponent
           basemesh = lensflare;
           break;
         case 'instanced':
-          basemesh = new THREE.InstancedMesh(
+          const instanced = new THREE.InstancedMesh(
             geometry,
-            this.getMaterials(),
+            this.getMaterials()[0],
             this.getCount(1)
           );
+          if (ThreeUtil.isNotNull(this.usage)) {
+            instanced.instanceMatrix.setUsage( this.getUsage('dynamicdraw'));
+          }
+          if (ThreeUtil.isNotNull(this.makeMatrix)) {
+            const matrix = new THREE.Matrix4();
+            for ( let i = 0; i < instanced.count; i ++ ) {
+              this.makeMatrix( matrix );
+              instanced.setMatrixAt( i, matrix );
+            }
+          }
+          basemesh = instanced;
+          break;
+        case 'merged': {
+            const geometries = [];
+            const count = this.getCount(1);
+            for ( let i = 0; i < count; i ++ ) {
+              const instanceGeometry = geometry.clone();
+              if (ThreeUtil.isNotNull(this.makeMatrix)) {
+                const matrix = new THREE.Matrix4();
+                this.makeMatrix( matrix );
+                instanceGeometry.applyMatrix4( matrix );
+              }
+              geometries.push( instanceGeometry );
+            }
+            const materials = this.getMaterials()[0];
+            const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries( geometries );
+            basemesh = new THREE.Mesh( mergedGeometry, materials);
+          }
+          break;
+        case 'naive': {
+            object3d = new THREE.Group();
+            const matrix = new THREE.Matrix4();
+            const material = this.getMaterials()[0];
+            const count = this.getCount(1);
+            for ( let i = 0; i < count; i ++ ) {
+              if (ThreeUtil.isNotNull(this.makeMatrix)) {
+                this.makeMatrix( matrix );
+              }
+              const mesh = new THREE.Mesh( geometry, material );
+              mesh.applyMatrix4( matrix );
+              object3d.add( mesh );
+            }
+          }
           break;
         case 'multi':
         case 'multimaterial':
@@ -858,6 +940,7 @@ export class MeshComponent
                 clips?: THREE.AnimationClip[],
                 geometry?: THREE.BufferGeometry
               ) => {
+                console.log(loadedMesh);
                 if (loadedMesh !== null && loadedMesh !== undefined) {
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {
@@ -931,6 +1014,7 @@ export class MeshComponent
                 if (loadedMesh instanceof THREE.Mesh) {
                   this._meshSubject.next(loadedMesh);
                 }
+                this.onLoad.emit(this);
               },
               this.storageOption
             );

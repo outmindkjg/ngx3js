@@ -1,10 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - voxel painter - webgl<br>
+  <strong>click</strong>: add voxel, <strong>shift + click</strong>: remove voxel
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -16,22 +12,20 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['move','click']"
+  (eventListener)="onMouseEvent($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
+    <three-position [x]="500" [y]="800" [z]="1300"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
+  <three-scene #scene [background]="'0xf0f0f0'">
     <three-light
-      type="Hemisphere"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+      type="Ambient"
+      [color]="'0x606060'"
+    ></three-light>
     <three-light
       type="directional"
       [color]="'0xffffff'"
@@ -44,29 +38,52 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="1" [y]="0.75" [z]="0.5" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-helper type="grid" [size]="1000" [divisions]="20"></three-helper>
+    <three-mesh (onLoad)="setRollOver($event)">
+      <three-position [x]="50" [y]="25" [z]="0"></three-position>
       <three-geometry
         [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [width]="50"
+        [height]="50"
+        [depth]="50"
       ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+      <three-material type="MeshBasic" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-shared>
+      <three-geometry
+        #boxGeometry
+        [type]="'box'"
+        [width]="50"
+        [height]="50"
+        [depth]="50"
+      ></three-geometry>
+      <three-material 
+        #boxMaterial
+        type="MeshLambert" 
+        [color]="'0xfeb74c'"
+      >
+        <three-texture [image]="'textures/square-outline-textured.png'"></three-texture>
+      </three-material>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-mesh *ngFor="let pos of cubePositions" [geometry]="boxGeometry" [material]="boxMaterial">
+        <three-position [x]="pos.x" [y]="pos.y" [z]="pos.z"></three-position>
+      </three-mesh>
+    </three-mesh>
+    <three-mesh [receiveShadow]="true" (onLoad)="setPlane($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
         [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        [width]="1000"
+        [height]="1000"
       ></three-geometry>
       <three-material
         [type]="'MeshPhong'"
-        [color]="'0x999999'"
+        [color]="'0xa0a0a0'"
         [depthWrite]="false"
       ></three-material>
     </three-mesh>
