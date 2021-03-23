@@ -38,7 +38,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
       }
     }
     this.indexedWithOffsetPointcloud.index = indexedWithOffsetPointcloudIndices;
-    for(let i = 0 ; i < 40 ; i++) {
+    for(let i = 0 ; i < 140 ; i++) {
       this.sphereIndex.push(i);
     }
   }
@@ -75,10 +75,12 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
   sphereMesh : THREE.Object3D = null;
   setSphere(mesh : MeshComponent) {
     this.sphereMesh = mesh.getMesh();
-    this.spheres = [];
-    this.sphereMesh.children.forEach(child => {
-      this.spheres.push(child);
-    });
+    setTimeout(() => {
+      this.spheres = [];
+      this.sphereMesh.children.forEach(child => {
+        this.spheres.push(child);
+      });
+    }, 1000);
   }
 
   meshChildren : THREE.Object3D[] = null;
@@ -87,15 +89,14 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
     setTimeout(() => {
       this.meshChildren = [];
       mesh.getMesh().children.forEach(child => {
-        this.meshChildren.push(child.children[0]);
+        this.meshChildren.push(child);
       });
-      console.log(this.meshChildren);
     }, 1000);
   }
 
   toggle = 0;
   spheresIndex = 0;
-  spheres : THREE.Object3D[] = [];
+  spheres : THREE.Object3D[] = null;
 
   onMouseMove(event : RendererEvent) {
     if (this.sphereMesh !== null && this.camera !== null && this.meshChildren !== null) {
@@ -109,7 +110,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
     super.onRender(timer);
     if (this.sphereMesh !== null && this.camera !== null && this.meshChildren !== null && this.mouseEvent !== null) {
       const intersection = this.camera.getIntersection(this.mouseEvent, this.meshChildren);
-      if ( this.toggle > 0.02 && intersection !== null ) {
+      if ( this.toggle > 0.06 && intersection !== null ) {
         const spheres = this.spheres;
         spheres[ this.spheresIndex ].position.copy( intersection.point );
         spheres[ this.spheresIndex ].scale.set( 1, 1, 1 );
@@ -118,8 +119,8 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
       }
       for ( let i = 0; i < this.spheres.length; i ++ ) {
         const sphere = this.spheres[ i ];
-        sphere.scale.multiplyScalar( 0.98 );
-        sphere.scale.clampScalar( 0.01, 1 );
+        sphere.scale.multiplyScalar( 0.995 );
+        sphere.scale.clampScalar( 0.1, 1 );
       }
       this.toggle += timer.delta;
     }

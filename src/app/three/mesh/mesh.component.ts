@@ -639,7 +639,7 @@ export class MeshComponent
   }
 
   private cssClazzName: string = null;
-  private mesh: THREE.Mesh | THREE.Group = null;
+  private mesh: THREE.Object3D = null;
   
   getRealMesh(): THREE.Mesh | THREE.LineSegments | THREE.Line{
     if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.LineSegments || this.mesh instanceof THREE.Line) {
@@ -655,14 +655,13 @@ export class MeshComponent
     return null;
   }
 
-  getMesh(): THREE.Mesh | THREE.Group {
+  getMesh(): THREE.Object3D {
     if (this.mesh === null) {
       let geometry: THREE.BufferGeometry = null;
       if ((this.geometryList != null && this.geometryList.length > 0) || this.geometry !== null) {
         geometry = this.getGeometry();
       }
-      let basemesh: THREE.Mesh | THREE.Group = null;
-      let object3d: THREE.Object3D = null;
+      let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
         case 'skybox':
           const skyboxSize = this.getSkyboxSize(1500);
@@ -830,7 +829,7 @@ export class MeshComponent
             shadowCameraBottom: this.shadowCameraBottom,
             target: this.target
           });
-          object3d = light.getLight();
+          basemesh = light.getLight();
           break;
         case 'lensflare':
           const lensflare = new Lensflare();
@@ -875,7 +874,7 @@ export class MeshComponent
           }
           break;
         case 'naive': {
-            object3d = new THREE.Group();
+            basemesh = new THREE.Group();
             const matrix = new THREE.Matrix4();
             const material = this.getMaterials()[0];
             const count = this.getCount(1);
@@ -885,7 +884,7 @@ export class MeshComponent
               }
               const mesh = new THREE.Mesh( geometry, material );
               mesh.applyMatrix4( matrix );
-              object3d.add( mesh );
+              basemesh.add( mesh );
             }
           }
           break;
@@ -909,24 +908,24 @@ export class MeshComponent
           }
           break;
         case 'sprite':
-          object3d = new THREE.Sprite(
+          basemesh = new THREE.Sprite(
             this.getMaterials()[0] as THREE.SpriteMaterial
           );
           break;
         case 'points':
-          object3d = new THREE.Points(geometry, this.getMaterials()[0]);
+          basemesh = new THREE.Points(geometry, this.getMaterials()[0]);
           break;
         case 'line':
           const line = new THREE.Line(geometry, this.getMaterials()[0]);
           line.computeLineDistances();
           line.castShadow = this.castShadow;
-          object3d = line;
+          basemesh = line;
           break;
         case 'linesegments':
           const lineSegments = new THREE.LineSegments(geometry, this.getMaterials()[0]);
           lineSegments.computeLineDistances();
           lineSegments.castShadow = this.castShadow;
-          object3d = lineSegments;
+          basemesh = lineSegments;
           break;
         case 'mesh':
         default:
@@ -1033,10 +1032,6 @@ export class MeshComponent
             }
             basemesh.castShadow = this.castShadow;
           }
-      }
-      if (ThreeUtil.isNotNull(object3d)) {
-        basemesh = new THREE.Group();
-        basemesh.add(object3d);
       }
       this.mesh = basemesh;
       if (this.meshList && this.meshList.length > 0) {
