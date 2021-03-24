@@ -266,32 +266,48 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'light':
           let lightTarget = this.getTarget(this.parent);
           if (lightTarget instanceof THREE.DirectionalLight) {
-            basemesh = new THREE.DirectionalLightHelper(
+            const directionalLightHelper = new THREE.DirectionalLightHelper(
               lightTarget,
               this.getSize(10),
-              this.getColor(0xff0000)
+              this.getColor()
             );
+            setTimeout(() => {
+              directionalLightHelper.update();
+            },100);
+            basemesh = directionalLightHelper;
           } else if (lightTarget instanceof THREE.HemisphereLight) {
-            basemesh = new THREE.HemisphereLightHelper(
+            const hemisphereLightHelper = new THREE.HemisphereLightHelper(
               lightTarget,
               this.getSize(10),
-              this.getColor(0xff0000)
+              this.getColor()
             );
+            setTimeout(() => {
+              hemisphereLightHelper.update();
+            },100);
+            basemesh = hemisphereLightHelper;
           } else if (lightTarget instanceof THREE.PointLight) {
-            basemesh = new THREE.PointLightHelper(
+            const pointLightHelper = new THREE.PointLightHelper(
               lightTarget,
               this.getSize(10),
-              this.getColor(0xff0000)
+              this.getColor()
             );
+            setTimeout(() => {
+              pointLightHelper.update();
+            },100);
+            basemesh = pointLightHelper;
           } else if (lightTarget instanceof THREE.SpotLight) {
-            basemesh = new THREE.SpotLightHelper(
+            const spotLightHelper = new THREE.SpotLightHelper(
               lightTarget,
-              this.getColor(0xff0000)
+              this.getColor()
             );
+            setTimeout(() => {
+              spotLightHelper.update();
+            },100);
+            basemesh = spotLightHelper;
           } else if (lightTarget instanceof THREE.RectAreaLight) {
             basemesh = new RectAreaLightHelper(
               lightTarget,
-              this.getColor(0xff0000)
+              this.getColor()
             );
           } else if (lightTarget instanceof THREE.LightProbe) {
             basemesh = new LightProbeHelper(

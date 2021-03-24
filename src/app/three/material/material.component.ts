@@ -804,7 +804,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
         switch(value['type'].toLowerCase()) {
           case 'color' :
-            uniforms[key] = { value: new THREE.Color( value['value'] ) }
+            uniforms[key] = { value: ThreeUtil.getColorSafe( value['value'] , 0xffffff) }
             break;
           case 'texture' :
             uniforms[key] = { value: TextureComponent.getTextureImage( value['value'] ) }

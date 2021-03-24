@@ -290,7 +290,6 @@ export class LocalStorageService {
       this.gltfLoader.load(
         this.getStoreUrl(key),
         (result: GLTF) => {
-          console.log(result.scene);
           callBack({
             object: this.getStoreObject(result.scene, options),
             clips: result.animations,

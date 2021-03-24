@@ -151,14 +151,15 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   }
   
 
-  private getTarget(def?: number): THREE.Object3D {
-    const target = ThreeUtil.getTypeSafe(this.target, def);
-    if (target !== null && target !== undefined) {
-      if (target.getObject3D) {
-        return target.getObject3D();
+  private getTarget(): THREE.Object3D {
+    if (ThreeUtil.isNotNull(this.target)) {
+      if (this.target.getObject3D) {
+        return this.target.getObject3D();
+      } else if (this.target instanceof THREE.Object3D) {
+        return this.target;
       }
     }
-    return null;
+    return undefined;
   }
 
   getThreeRenderer(): THREE.Renderer {
@@ -332,12 +333,17 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       }
       this.light.visible = this.visible;
       if (
-        this.object3d instanceof THREE.SpotLight ||
-        this.object3d instanceof THREE.DirectionalLight
+        this.light instanceof THREE.SpotLight ||
+        this.light instanceof THREE.DirectionalLight
       ) {
-        const target = this.getTarget(null);
-        if (target != null) {
-          this.object3d.target = target;
+        const target = this.getTarget();
+        if (ThreeUtil.isNotNull(target)) {
+          this.light.target = target;
+        }
+        if (ThreeUtil.isNotNull(this.light.target) ) {
+          if (this.parent !== null && this.light.target.parent == null && this.parent !== this.light.target) {
+            this.parent.add(this.light.target);
+          }
         }
       }
       if (this.light.shadow) {

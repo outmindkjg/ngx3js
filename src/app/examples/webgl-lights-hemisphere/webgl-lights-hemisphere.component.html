@@ -1,12 +1,11 @@
 <div id="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl hemisphere light example<br/>
   flamingo by <a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from <a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br/><br/>
-  <button id="hemisphereButton">toggle hemisphere light</button>
-  <button id="directionalButton">toggle directional light</button>
 </div>
 <three-renderer
   [controlType]="'orbit'"
   [enablePan]="false"
+  [autoRotate]="true"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
