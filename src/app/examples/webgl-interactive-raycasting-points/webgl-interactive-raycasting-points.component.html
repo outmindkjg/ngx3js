@@ -4,7 +4,7 @@
 <three-renderer
   [controlType]="'orbit'"
   [enablePan]="false"
-  [controlAutoRotate]="true"
+  [autoRotate]="true"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
@@ -16,9 +16,7 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100000" 
-    [raycasterThreshold]="0.1"
-    (onLoad)="setCamera($event)">
+  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100000" (onLoad)="setCamera($event)">
     <three-position [x]="10" [y]="10" [z]="10"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>

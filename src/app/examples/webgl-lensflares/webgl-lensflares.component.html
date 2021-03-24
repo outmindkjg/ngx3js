@@ -1,41 +1,34 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - lensflares<br/>
+  textures from <a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br/>
+  fly with WASD/RF/QE + mouse
 </div>
 <three-renderer
-  [controlType]="'orbit'"
+  [controlType]="'fly'"
+  [movementSpeed]="250"
+  [rollSpeed]="5"
+  [autoForward]="false"
+  [dragToLook]="false"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="15000">
+    <three-position [x]="0" [y]="0" [z]="250"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
-    <three-light
-      type="Hemisphere"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+  <three-scene #scene [background]="'0x010303'">
+    <three-fog [color]="'0x010303'" [near]="3500"  [far]="15000"></three-fog>
     <three-light
       type="directional"
-      [color]="'0xffffff'"
-      [intensity]="1"
+      [color]="'0xd89126'"
+      [intensity]="0.05"
       [castShadow]="true"
       [shadowCameraTop]="2"
       [shadowCameraBottom]="-2"
@@ -44,31 +37,65 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="0" [y]="-1" [z]="0" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+    <three-mesh *ngFor="let light of lightInfo" type="light" 
+      [lightType]="'Point'" 
+      [color]="light.color"
+      [intensity]="1.5"
+      [distance]="2000"
+    >
+      <three-position [x]="light.x" [y]="light.x" [z]="light.z"></three-position>
+      <three-mesh [type]="'lensflare'">
+        <three-lensflareelement
+          [image]="'textures/lensflare/lensflare0.png'"
+          [size]="700"
+          [distance]="0"
+          [color]="light.color"
+        ></three-lensflareelement>
+        <three-lensflareelement
+          [image]="'textures/lensflare/lensflare3.png'"
+          [size]="60"
+          [distance]="0.6"
+        ></three-lensflareelement>
+        <three-lensflareelement
+          [image]="'textures/lensflare/lensflare3.png'"
+          [size]="70"
+          [distance]="0.7"
+        ></three-lensflareelement>
+        <three-lensflareelement
+          [image]="'textures/lensflare/lensflare3.png'"
+          [size]="120"
+          [distance]="0.9"
+        ></three-lensflareelement>
+        <three-lensflareelement
+          [image]="'textures/lensflare/lensflare3.png'"
+          [size]="70"
+          [distance]="1"
+        ></three-lensflareelement>
+      </three-mesh>      
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+    <three-shared>
       <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        #boxGeometry
+        [type]="'box'"
+        [width]="250"
+        [height]="250"
+        [depth]="250"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
+      <three-material 
+        #boxMaterial
+        type="MeshPhong" 
+        [color]="'0xffffff'"
+        [specular]="'0xffffff'"
+        [shininess]="50"
       ></three-material>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let box of boxInfo" [geometry]="boxGeometry" [material]="boxMaterial">
+        <three-position [x]="box.position.x" [y]="box.position.y" [z]="box.position.z"></three-position>
+        <three-rotation [x]="box.rotation.x" [y]="box.rotation.y" [z]="box.rotation.z"></three-rotation>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

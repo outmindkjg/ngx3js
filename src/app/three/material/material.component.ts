@@ -809,6 +809,9 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           case 'texture' :
             uniforms[key] = { value: TextureComponent.getTextureImage( value['value'] ) }
             break;
+          case 'number' :
+            uniforms[key] = { value: parseFloat(value['value'])}
+            break;
         }
       }
     })

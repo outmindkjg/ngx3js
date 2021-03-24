@@ -9,8 +9,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
+import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 import { HelperComponent } from '../helper/helper.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
+import { TextureComponent } from '../texture/texture.component';
 import { ThreeUtil } from './../interface';
 import { MixerComponent } from './../mixer/mixer.component';
 
@@ -43,8 +45,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private shadowCameraTop: number = null;
   @Input() private shadowCameraBottom: number = null;
   @Input() private shadowCameraZoom: number = null;
+  @Input() private sh: string = null;
+  @Input() private texture: TextureComponent = null;
   @Input() private target: any = null;
-
+  @Input() private renderer: any = null;
+  @Input() private renderTarget: any = null;
+  
   @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
@@ -133,6 +139,18 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return ThreeUtil.getTypeSafe(this.shadowBias, def);
   }
 
+  private getSh(def?: string): THREE.SphericalHarmonics3 {
+    const sh = ThreeUtil.getTypeSafe(this.sh, def, '');
+    if (ThreeUtil.isNotNull(sh) && sh != '') {
+      switch(sh.toLowerCase()) {
+        case 'harmonics3' : 
+          return new THREE.SphericalHarmonics3();
+      }
+    }
+    return undefined;
+  }
+  
+
   private getTarget(def?: number): THREE.Object3D {
     const target = ThreeUtil.getTypeSafe(this.target, def);
     if (target !== null && target !== undefined) {
@@ -141,6 +159,14 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       }
     }
     return null;
+  }
+
+  getThreeRenderer(): THREE.Renderer {
+    if (ThreeUtil.isNotNull(this.renderer) && ThreeUtil.isNotNull(this.renderer.getRenderer)) {
+      return this.renderer.getRenderer();
+    } else {
+      return ThreeUtil.getRenderer()
+    }
   }
 
   constructor() {
@@ -237,6 +263,31 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
             this.getGroundColor(0xffffff),
             this.getIntensity(1)
           );
+          break;
+        case 'lightprobe':
+        case 'probe':
+          basemesh = new THREE.LightProbe(this.getSh(), this.getIntensity(1));
+          if (ThreeUtil.isNotNull(this.texture)) {
+            const texture = this.texture.getTexture();
+            if (texture instanceof THREE.CubeTexture) {
+              TextureComponent.checkTextureImage(texture, () => {
+                basemesh.copy( LightProbeGenerator.fromCubeTexture( texture ) );
+              });
+            }
+          } else if (ThreeUtil.isNotNull(this.renderTarget)){
+            const renderer = this.getThreeRenderer();
+            let renderTarget = null;
+            if (ThreeUtil.isNotNull(this.renderTarget.getTool)) {
+              renderTarget = this.renderTarget.getTool();
+            } else if (ThreeUtil.isNotNull(this.renderTarget.getCubeRenderTarget)) {
+              renderTarget = this.renderTarget.getCubeRenderTarget();
+            } else {
+              renderTarget = this.renderTarget;
+            }
+            if (renderer instanceof THREE.WebGLRenderer && renderTarget instanceof THREE.WebGLCubeRenderTarget) {
+              basemesh.copy( LightProbeGenerator.fromCubeRenderTarget( renderer, renderTarget ));
+            }
+          }
           break;
         case 'point':
           basemesh = new THREE.PointLight(

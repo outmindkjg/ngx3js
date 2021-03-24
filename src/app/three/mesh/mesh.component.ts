@@ -939,7 +939,6 @@ export class MeshComponent
                 clips?: THREE.AnimationClip[],
                 geometry?: THREE.BufferGeometry
               ) => {
-                console.log(loadedMesh);
                 if (loadedMesh !== null && loadedMesh !== undefined) {
                   if (this.castShadow) {
                     loadedMesh.traverse((object) => {

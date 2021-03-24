@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
 import * as THREE from 'three';
+import { CameraComponent } from '../../three/camera/camera.component';
 
 @Component({
   selector: 'app-webgl-interactive-raycasting-points',
@@ -92,6 +93,12 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
         this.meshChildren.push(child);
       });
     }, 1000);
+  }
+
+  setCamera(camera : CameraComponent) {
+    super.setCamera(camera);
+    const raycaster = camera.getRaycaster();
+    raycaster.params.Points.threshold = 0.1;
   }
 
   toggle = 0;

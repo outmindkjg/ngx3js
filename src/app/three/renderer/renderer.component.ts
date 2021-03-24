@@ -24,7 +24,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() public type:string = "webgl";
   @Input() private css3dType:string = "none";
   @Input() private controlType:string = "none";
-  @Input() private controlAutoRotate:boolean = false;
+  @Input() private autoRotate:boolean = false;
   @Input() private shadowMapEnabled:boolean = true;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
@@ -272,7 +272,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     confirm.style.right = '0px';
     confirm.style.bottom = '0px';
     confirm.style.zIndex = '1000';
-
     confirm.style.backgroundColor = 'rgba(0,0,0,0.7)';
     const button = document.createElement('button');
     button.style.position = 'absolute';
@@ -357,15 +356,15 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private getControls(cameras: QueryList<CameraComponent>, scenes : QueryList<SceneComponent>, domElement: HTMLElement): ControlComponent[] {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
-    let controlAutoRotate: boolean = this.controlAutoRotate;
+    let autoRotate: boolean = this.autoRotate;
     if (cameras !== null && cameras.length > 0) {
       let cameraCompFounded : boolean = false; 
       cameraComp = cameras.find(camera => {
         if (camera.controlType.toLowerCase() !== 'none') {
           controlType = camera.controlType;
           cameraCompFounded = true;
-          if (camera.controlAutoRotate !== null && camera.controlAutoRotate !== undefined) {
-            controlAutoRotate = camera.controlAutoRotate;
+          if (camera.autoRotate !== null && camera.autoRotate !== undefined) {
+            autoRotate = camera.autoRotate;
           }
           return true;
         } else if (!cameraCompFounded) {
@@ -388,7 +387,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           const control = new ControlComponent();
           control.setControlParams({
             type : controlType,
-            autoRotate : controlAutoRotate,
+            autoRotate : autoRotate,
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
             maxPolarAngle : this.maxPolarAngle,
@@ -469,10 +468,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     this.renderer = this.getRenderer();
     this.cameraList.forEach(camera => {
       camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
-      camera.setCameraSize(this.rendererWidth, this.rendererHeight);
     });
+    this.setSize(this.rendererWidth, this.rendererHeight);
+    this.synkObject3D(['listner', 'audio','canvas2d','controller']);
     this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
     this.resizeRender(null);
+    this._renderCaller();
   }
 
   getRenderer(): THREE.Renderer {
@@ -505,8 +506,6 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.rendererWidth = width;
         this.rendererHeight = height;
       }
-      const width = this.rendererWidth;
-      const height = this.rendererHeight;
       if (this.renderer instanceof THREE.WebGLRenderer) {
         const clearColor = this.getClearColor();
         if (ThreeUtil.isNotNull(clearColor)) {
@@ -533,11 +532,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       }
       this.renderer.domElement.style.position = 'relative';
       this.canvas.nativeElement.appendChild(this.renderer.domElement);
-      this.synkObject3D(['listner', 'audio','canvas2d','controller']);
-      this.setSize(width, height);
       ThreeUtil.setRenderer(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
-      this._renderCaller();
       this.onLoad.emit(this);
     }
     return this.renderer;

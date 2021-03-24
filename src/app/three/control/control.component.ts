@@ -89,7 +89,7 @@ export class ControlComponent implements OnInit {
             flyControls.movementSpeed = this.movementSpeed;
           }
           if (ThreeUtil.isNotNull(this.rollSpeed)) {
-            flyControls.rollSpeed = this.rollSpeed;
+            flyControls.rollSpeed = ThreeUtil.getAngleSafe(this.rollSpeed, 0);
           }
           if (ThreeUtil.isNotNull(this.dragToLook)) {
             flyControls.dragToLook = this.dragToLook;

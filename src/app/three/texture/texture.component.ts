@@ -65,7 +65,18 @@ export class TextureComponent implements OnInit {
   }
 
   private getCubeImage(def?: string[]): string[] {
-    return ThreeUtil.getTypeSafe(this.cubeImage, def);
+    const cubeImage = ThreeUtil.getTypeSafe(this.cubeImage, def);
+    if (cubeImage !== null && cubeImage.length !== 6 && cubeImage.length >= 1) {
+      const prefix = cubeImage[0];
+      const postfix = cubeImage[1] || 'png';
+      return [
+        prefix + 'px' + postfix, prefix + 'nx' + postfix,
+        prefix + 'py' + postfix, prefix + 'ny' + postfix,
+        prefix + 'pz' + postfix, prefix + 'nz' + postfix
+      ];
+    } else {
+      return cubeImage;
+    }
   }
 
   private getProgram(def?: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
@@ -313,6 +324,25 @@ export class TextureComponent implements OnInit {
       return new THREE.CanvasTexture(canvas);
     }
   }
+
+  static checkTextureImage(texture: THREE.Texture , callback : () => void, tryout = 0) {
+    if (ThreeUtil.isNotNull(texture.image)) {
+      if (texture instanceof THREE.CubeTexture && texture.image.length === 6) {
+        callback();
+        return ;
+      } else if (ThreeUtil.isNotNull(texture.image.width) && texture.image.width > 0 ) {
+        callback();
+        return ;
+      }
+    }
+    if (tryout < 30) {
+      setTimeout(() => {
+        this.checkTextureImage(texture, callback, tryout+1);
+      }, 200);
+    } else {
+      console.error('timeout');
+    }
+}
 
   setTexture(refTexture: THREE.Texture) {
     if (this.refTexture !== refTexture) {

@@ -810,6 +810,20 @@ export class ThreeUtil {
         const colorStr: string = defColor;
         if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
+        } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
+          let [type,val1,val2,val3] = (colorStr + ',,,').replace('(',',').replace(':',',').replace(/[^A-Z\-0-9\.,]/g,'').split(',');
+          switch(type.toLowerCase()) {
+            case 'hsl' :
+              const h = parseFloat(val1);
+              const s = parseFloat(val2);
+              const l = parseFloat(val3);
+              return new THREE.Color().setHSL(h, s, l);
+            case 'rgb' :
+              const r = parseFloat(val1);
+              const g = parseFloat(val2);
+              const b = parseFloat(val3);
+              return new THREE.Color(r,g,b);
+          }
         }
       }
       return new THREE.Color(defColor);

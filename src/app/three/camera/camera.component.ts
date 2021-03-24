@@ -30,6 +30,7 @@ import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffec
 
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { LightComponent } from '../light/light.component';
+import { ToolsComponent } from '../tools/tools.component';
 
 @Component({
   selector: 'three-camera',
@@ -53,7 +54,7 @@ export class CameraComponent
   @Input() private bottom:number = -0.5;
   @Input() private autoClear:boolean = null;
   @Input() public controlType:string = 'none';
-  @Input() public controlAutoRotate:boolean = null;
+  @Input() public autoRotate:boolean = null;
   @Input() private scene:any = null;
   @Input() private scenes:any[] = null;
   @Input() private storageName:string = null;
@@ -63,7 +64,6 @@ export class CameraComponent
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
   @Input() private height:number | string = '100%';
-  @Input() private raycasterThreshold:number = null;
   
   @Output() private onLoad:EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
@@ -201,8 +201,6 @@ export class CameraComponent
     return ThreeUtil.getTypeSafe(this.reflectFromAbove, def);
   }
   
-
-
   constructor(private localStorageService: LocalStorageService) {
     super();
   }
@@ -303,8 +301,8 @@ export class CameraComponent
         helper.setUpdate()
       });
     }
-
   }
+
   resetEffectComposer() {
     this.effectComposer = this.getEffectComposer();
   }
@@ -421,34 +419,30 @@ export class CameraComponent
     return this.getCamera();
   }
 
-  getRaycaster(event? : any): THREE.Raycaster {
-    const vector = new THREE.Vector3(
-      (event.clientX / this.cameraWidth) * 2 - 1,
-      -(event.clientY / this.cameraHeight) * 2 + 1,
-      0.5
-    );
-    const camera = this.getCamera();
-    const v = vector.unproject(camera);
-    const raycaster = new THREE.Raycaster(
-      camera.position,
-      v.sub(camera.position).normalize()
-    );
-    return raycaster;
-  }
-
   private raycaster : THREE.Raycaster = null;
-  getIntersections(mouse : THREE.Vector2, mesh : THREE.Object3D | THREE.Object3D[], recursive : boolean = false ): THREE.Intersection[] {
+
+  getRaycaster(event : any = null): THREE.Raycaster {
     if (this.raycaster === null) {
       this.raycaster = new THREE.Raycaster();
-      if (ThreeUtil.isNotNull(this.raycasterThreshold)) {
-        this.raycaster.params.Points.threshold = this.raycasterThreshold;
-      }
     }
-    this.raycaster.setFromCamera( mouse, this.getCamera());
+    if (event !== null) {
+      const mouse = new THREE.Vector2(
+        (event.clientX / this.cameraWidth) * 2 - 1,
+        -(event.clientY / this.cameraHeight) * 2 + 1,
+      );
+      this.raycaster.setFromCamera( mouse, this.getCamera());
+    }
+    return this.raycaster;
+  }
+
+  
+  getIntersections(mouse : THREE.Vector2, mesh : THREE.Object3D | THREE.Object3D[], recursive : boolean = false ): THREE.Intersection[] {
+    const raycaster = this.getRaycaster(); 
+    raycaster.setFromCamera( mouse, this.getCamera());
     if (mesh instanceof THREE.Object3D) {
-      return this.raycaster.intersectObject( mesh, recursive);
+      return raycaster.intersectObject( mesh, recursive);
     } else { 
-      return this.raycaster.intersectObjects( mesh, recursive);
+      return raycaster.intersectObjects( mesh, recursive);
     }
   }
 
@@ -520,6 +514,16 @@ export class CameraComponent
     }
   }
 
+  getCubeRenderTarget() : THREE.WebGLCubeRenderTarget  {
+    if (this.camera === null) {
+      this.getCamera();
+    }
+    if (this.camera instanceof THREE.CubeCamera) {
+      return this.camera.renderTarget;
+    }
+    return undefined;
+  }
+
   getCamera(): THREE.Camera {
     if (this.camera === null) {
       const width = this.cameraWidth;
@@ -527,6 +531,25 @@ export class CameraComponent
       switch (this.type.toLowerCase()) {
         case 'array' :
           this.camera = new THREE.ArrayCamera();
+          break;
+        case 'cube' :
+          const cubeCamera  = new THREE.CubeCamera(
+            this.getNear(0.1),
+            this.getFar(2000),
+            new THREE.WebGLCubeRenderTarget( 256, {
+              encoding: THREE.sRGBEncoding,
+              format: THREE.RGBAFormat
+            })
+          );
+          let scene : THREE.Scene = null;
+          if (this.rendererScenes !== null && this.rendererScenes.length > 0) {
+            scene = this.rendererScenes.first.getScene();
+          }
+          if (scene !== null && this.renderer !== null && this.renderer instanceof THREE.WebGLRenderer) {
+            const renderer = this.renderer;
+            cubeCamera.update( renderer , scene );
+          }
+          this.camera = cubeCamera as any;
           break;
         case 'cinematic':
           this.camera = new CinematicCamera(
@@ -537,7 +560,6 @@ export class CameraComponent
           );
           break;
         case 'orthographic':
-          console.log(this.getLeft(width));
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
             this.getRight(width),
@@ -622,9 +644,10 @@ export class CameraComponent
     scenes: QueryList<any>,
     renderTimer: RendererTimer
   ) {
-    if (!this.visible || !this.active || this.isCameraChild) {
+    if (!this.visible || !this.active || this.isCameraChild || this.type === 'cube') {
       return ;
     }
+    const camera = this.getCamera();
     if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {
         const scene = sceneCom.getScene();
@@ -655,7 +678,7 @@ export class CameraComponent
                   this.getHeight()
                 );
               }
-              renderer.render(scene, this.getCamera());
+              renderer.render(scene, camera);
             }
           }
         }
@@ -677,7 +700,7 @@ export class CameraComponent
           if (this.effectComposer instanceof EffectComposer) {
             this.effectComposer.render(renderTimer.delta);
           } else {
-            this.effectComposer.render(scene, this.getCamera());
+            this.effectComposer.render(scene, camera);
           }
         } else {
           if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
@@ -688,7 +711,7 @@ export class CameraComponent
               this.getHeight()
             );
           }
-          renderer.render(scene, this.getCamera());
+          renderer.render(scene, camera);
         }
       }
     }

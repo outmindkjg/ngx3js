@@ -4,7 +4,7 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
 import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
 
 import * as THREE from 'three';
 
@@ -41,11 +41,16 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     if (this.targetMesh !== null) {
       return this.targetMesh;
-    } else if (this.target !== null) {
-      this.target.getMesh();
-    } else {
-      return target;
+    } else if (ThreeUtil.isNotNull(this.target)) {
+      if (ThreeUtil.isNotNull(this.target.getMesh)) {
+        return this.target.getMesh();
+      } else if (ThreeUtil.isNotNull(this.target.getLight)) {
+        return this.target.getLight();
+      } else if (ThreeUtil.isNotNull(this.target.getHelper)) {
+        return this.target.getHelper();
+      }
     }
+    return target;
   }
 
   private getVisible(def?: boolean): boolean {
@@ -181,6 +186,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           }
         } else {
           this.parent.add(this.getHelper());
+          console.log(this.parent);
         }
       }
     } else if (this.needsUpdate && this.helper !== null) {
@@ -256,6 +262,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'rectarealight':
         case 'pointlight':
         case 'spotlight':
+        case 'lightprobe' :
         case 'light':
           let lightTarget = this.getTarget(this.parent);
           if (lightTarget instanceof THREE.DirectionalLight) {
@@ -286,6 +293,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
               lightTarget,
               this.getColor(0xff0000)
             );
+          } else if (lightTarget instanceof THREE.LightProbe) {
+            basemesh = new LightProbeHelper(
+              lightTarget,
+              this.getSize(10),
+            );
           }
           break;
         case 'plane':
@@ -305,7 +317,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             basemesh = null;
           }
           break;
-
           case 'vertexnormals' :
           case 'vertextangents' :
             const vertexMesh = this.getTarget(this.parent);

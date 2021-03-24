@@ -307,6 +307,7 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { VisualComponent } from './three/visual/visual.component';
 import { ControlComponent } from './three/control/control.component';
+import { ToolsComponent } from './three/tools/tools.component';
 
 @NgModule({
   declarations: [
@@ -615,7 +616,8 @@ import { ControlComponent } from './three/control/control.component';
     WebglLoaderMf3Component,
     WebglLoaderDs3Component,
     WebglLoaderDm3Component,
-    ControlComponent
+    ControlComponent,
+    ToolsComponent
   ],
   imports: [
     BrowserModule,

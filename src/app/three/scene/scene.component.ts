@@ -25,6 +25,7 @@ import { LightComponent } from '../light/light.component';
 import { CameraComponent } from '../camera/camera.component';
 import { Subscription } from 'rxjs';
 import { HelperComponent } from '../helper/helper.component';
+import { TextureComponent } from '../texture/texture.component';
 
 @Component({
   selector: 'three-scene',
@@ -67,6 +68,14 @@ export class SceneComponent
 
   getRenderer(): RendererComponent {
     return this.renderer;
+  }
+
+  getThreeRenderer(): THREE.Renderer {
+    if (ThreeUtil.isNotNull(this.renderer)) {
+      return this.renderer.getRenderer();
+    } else {
+      return ThreeUtil.getRenderer()
+    }
   }
 
   getObject3D(): THREE.Object3D {
@@ -168,19 +177,11 @@ export class SceneComponent
         case 'background-angular':
         case 'backgroundangular':
           if (map !== null) {
-            if (map.image !== null && map.image !== undefined) {
-              this.backgroundangularTryOutCnt = 0;
+            TextureComponent.checkTextureImage(map, () => {
               const rt = new THREE.WebGLCubeRenderTarget(map.image.height);
-              rt.fromEquirectangularTexture(ThreeUtil.getRenderer() as THREE.WebGLRenderer, map);
+              rt.fromEquirectangularTexture(this.getThreeRenderer() as THREE.WebGLRenderer, map);
               this.scene.background = rt;
-            } else {
-              if (this.backgroundangularTryOutCnt < 10) {
-                setTimeout(() => {
-                  this.backgroundangularTryOutCnt++;
-                  this.setMaterial(material);
-                }, 200);
-              }
-            }
+            })
           } else if (color !== null) {
             this.scene.background = color;
           } else {
