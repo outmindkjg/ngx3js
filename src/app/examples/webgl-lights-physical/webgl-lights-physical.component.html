@@ -33,7 +33,7 @@
       (onLoad)="setBulbLight($event)"
     >
       <three-position [x]="0" [y]="2" [z]="0"></three-position>
-      <three-mesh>
+      <three-mesh [castShadow]="false" [receiveShadow]="false">
         <three-geometry
           [type]="'Sphere'"
           [radius]="0.02"
