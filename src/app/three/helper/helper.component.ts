@@ -164,10 +164,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   }
 
   setUpdate() {
-    if (this.helper !== null) {
-      if (this.helper instanceof THREE.CameraHelper) {
-        this.helper.update();
-      }
+    const helper : any = this.helper;
+    if (ThreeUtil.isNotNull(helper.update)) {
+      setTimeout(() => {
+        helper.update();
+      },100);
     }
   }
 
@@ -178,19 +179,16 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         this.helper = null;
       }
       if (this.parent instanceof THREE.Object3D) {
-        if (this.parent.parent !== null) {
-          if (this.parent.parent.parent !== null) {
-            this.parent.parent.parent.add(this.getHelper());
-          } else {
-            this.parent.parent.add(this.getHelper());
-          }
-        } else {
-          this.parent.add(this.getHelper());
-          console.log(this.parent);
+        let parent = this.parent;
+        while(parent.parent) {
+          parent = parent.parent;
         }
+        parent.add(this.getHelper());
+        this.setUpdate();
       }
     } else if (this.needsUpdate && this.helper !== null) {
       this.getHelper();
+      this.setUpdate();
     }
   }
 
@@ -266,44 +264,28 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'light':
           let lightTarget = this.getTarget(this.parent);
           if (lightTarget instanceof THREE.DirectionalLight) {
-            const directionalLightHelper = new THREE.DirectionalLightHelper(
+            basemesh = new THREE.DirectionalLightHelper(
               lightTarget,
               this.getSize(10),
               this.getColor()
             );
-            setTimeout(() => {
-              directionalLightHelper.update();
-            },100);
-            basemesh = directionalLightHelper;
           } else if (lightTarget instanceof THREE.HemisphereLight) {
-            const hemisphereLightHelper = new THREE.HemisphereLightHelper(
+            basemesh = new THREE.HemisphereLightHelper(
               lightTarget,
               this.getSize(10),
               this.getColor()
             );
-            setTimeout(() => {
-              hemisphereLightHelper.update();
-            },100);
-            basemesh = hemisphereLightHelper;
           } else if (lightTarget instanceof THREE.PointLight) {
-            const pointLightHelper = new THREE.PointLightHelper(
+            basemesh = new THREE.PointLightHelper(
               lightTarget,
               this.getSize(10),
               this.getColor()
             );
-            setTimeout(() => {
-              pointLightHelper.update();
-            },100);
-            basemesh = pointLightHelper;
           } else if (lightTarget instanceof THREE.SpotLight) {
-            const spotLightHelper = new THREE.SpotLightHelper(
+            basemesh = new THREE.SpotLightHelper(
               lightTarget,
               this.getColor()
             );
-            setTimeout(() => {
-              spotLightHelper.update();
-            },100);
-            basemesh = spotLightHelper;
           } else if (lightTarget instanceof THREE.RectAreaLight) {
             basemesh = new RectAreaLightHelper(
               lightTarget,

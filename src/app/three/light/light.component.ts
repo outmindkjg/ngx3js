@@ -21,7 +21,9 @@ import { MixerComponent } from './../mixer/mixer.component';
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
 })
-export class LightComponent extends AbstractObject3dComponent implements OnInit {
+export class LightComponent
+  extends AbstractObject3dComponent
+  implements OnInit {
   @Input() public type: string = 'spot';
   @Input() private color: string | number = null;
   @Input() private skyColor: string | number = null;
@@ -50,10 +52,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private target: any = null;
   @Input() private renderer: any = null;
   @Input() private renderTarget: any = null;
-  
-  @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
-  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
+
+  @Output()
+  private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
+  @ContentChildren(MixerComponent, { descendants: false })
+  mixer: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false })
+  private helpers: QueryList<HelperComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
@@ -134,7 +139,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   private getShadowCameraZoom(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowCameraZoom, def);
   }
-  
+
   private getShadowBias(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowBias, def);
   }
@@ -142,14 +147,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   private getSh(def?: string): THREE.SphericalHarmonics3 {
     const sh = ThreeUtil.getTypeSafe(this.sh, def, '');
     if (ThreeUtil.isNotNull(sh) && sh != '') {
-      switch(sh.toLowerCase()) {
-        case 'harmonics3' : 
+      switch (sh.toLowerCase()) {
+        case 'harmonics3':
           return new THREE.SphericalHarmonics3();
       }
     }
     return undefined;
   }
-  
 
   private getTarget(): THREE.Object3D {
     if (ThreeUtil.isNotNull(this.target)) {
@@ -163,10 +167,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   getThreeRenderer(): THREE.Renderer {
-    if (ThreeUtil.isNotNull(this.renderer) && ThreeUtil.isNotNull(this.renderer.getRenderer)) {
+    if (
+      ThreeUtil.isNotNull(this.renderer) &&
+      ThreeUtil.isNotNull(this.renderer.getRenderer)
+    ) {
       return this.renderer.getRenderer();
     } else {
-      return ThreeUtil.getRenderer()
+      return ThreeUtil.getRenderer();
     }
   }
 
@@ -176,18 +183,17 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   ngOnInit(): void {}
 
-	ngOnChanges(changes: SimpleChanges): void {
-		if (changes) {
-			if (this.light !== null) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      if (this.light !== null) {
         this.needsUpdate = true;
-			}
+      }
       this.resetLight();
-		}
-		super.ngOnChanges(changes);
-	}
+    }
+    super.ngOnChanges(changes);
+  }
 
-
-  setLightParams(params : { [key : string] : any } ) {
+  setLightParams(params: { [key: string]: any }) {
     Object.entries(params).forEach(([key, value]) => {
       if (this[key] !== undefined) {
         this[key] = value;
@@ -195,7 +201,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     });
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false) : boolean {
+  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
     if (super.setParent(parent)) {
       this.resetLight(true);
       return true;
@@ -240,7 +246,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   private light: THREE.Light = null;
-  private needsUpdate : boolean = true;
+  private needsUpdate: boolean = true;
 
   getLight(): THREE.Light {
     if (this.light === null || this.needsUpdate) {
@@ -272,21 +278,28 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
             const texture = this.texture.getTexture();
             if (texture instanceof THREE.CubeTexture) {
               TextureComponent.checkTextureImage(texture, () => {
-                basemesh.copy( LightProbeGenerator.fromCubeTexture( texture ) );
+                basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
               });
             }
-          } else if (ThreeUtil.isNotNull(this.renderTarget)){
+          } else if (ThreeUtil.isNotNull(this.renderTarget)) {
             const renderer = this.getThreeRenderer();
             let renderTarget = null;
             if (ThreeUtil.isNotNull(this.renderTarget.getTool)) {
               renderTarget = this.renderTarget.getTool();
-            } else if (ThreeUtil.isNotNull(this.renderTarget.getCubeRenderTarget)) {
+            } else if (
+              ThreeUtil.isNotNull(this.renderTarget.getCubeRenderTarget)
+            ) {
               renderTarget = this.renderTarget.getCubeRenderTarget();
             } else {
               renderTarget = this.renderTarget;
             }
-            if (renderer instanceof THREE.WebGLRenderer && renderTarget instanceof THREE.WebGLCubeRenderTarget) {
-              basemesh.copy( LightProbeGenerator.fromCubeRenderTarget( renderer, renderTarget ));
+            if (
+              renderer instanceof THREE.WebGLRenderer &&
+              renderTarget instanceof THREE.WebGLCubeRenderTarget
+            ) {
+              basemesh.copy(
+                LightProbeGenerator.fromCubeRenderTarget(renderer, renderTarget)
+              );
             }
           }
           break;
@@ -340,41 +353,73 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         if (ThreeUtil.isNotNull(target)) {
           this.light.target = target;
         }
-        if (ThreeUtil.isNotNull(this.light.target) ) {
-          if (this.parent !== null && this.light.target.parent == null && this.parent !== this.light.target) {
+        if (ThreeUtil.isNotNull(this.light.target)) {
+          if (
+            this.parent !== null &&
+            this.light.target.parent == null &&
+            this.parent !== this.light.target
+          ) {
             this.parent.add(this.light.target);
           }
         }
       }
       if (this.light.shadow) {
-        this.light.shadow.bias = this.getShadowBias(0);
-        this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(512);
-        this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(512);
+        if (ThreeUtil.isNotNull(this.shadowBias)) {
+          this.light.shadow.bias = this.getShadowBias(0);
+        }
+        if (ThreeUtil.isNotNull(this.shadowMapSizeWidth)) {
+          this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
+        }
+        if (ThreeUtil.isNotNull(this.shadowMapSizeHeight)) {
+          this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
+        }
         if (this.light.shadow.camera) {
           if (this.light.shadow.camera instanceof THREE.PerspectiveCamera) {
-            this.light.shadow.camera.fov = this.getShadowCameraFov(50);
-            this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
-            this.light.shadow.camera.far = this.getShadowCameraFar(500);
-            this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+            if (ThreeUtil.isNotNull(this.shadowCameraFov)) {
+              this.light.shadow.camera.fov = this.getShadowCameraFov(50);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraNear)) {
+              this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraFar)) {
+              this.light.shadow.camera.far = this.getShadowCameraFar(500);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraZoom)) {
+              this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+            }
           } else if (
             this.light.shadow.camera instanceof THREE.OrthographicCamera
           ) {
-            this.light.shadow.camera.left = this.getShadowCameraLeft(-5);
-            this.light.shadow.camera.right = this.getShadowCameraRight(5);
-            this.light.shadow.camera.top = this.getShadowCameraTop(5);
-            this.light.shadow.camera.bottom = this.getShadowCameraBottom(-5);
-            this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
-            this.light.shadow.camera.far = this.getShadowCameraFar(500);
-            this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+            if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
+              this.light.shadow.camera.left = this.getShadowCameraLeft(-5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraRight)) {
+              this.light.shadow.camera.right = this.getShadowCameraRight(5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraTop)) {
+              this.light.shadow.camera.top = this.getShadowCameraTop(5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraBottom)) {
+              this.light.shadow.camera.bottom = this.getShadowCameraBottom(-5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraNear)) {
+              this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraFar)) {
+              this.light.shadow.camera.far = this.getShadowCameraFar(500);
+            }
+            if (ThreeUtil.isNotNull(this.shadowCameraZoom)) {
+              this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+            }
           }
         }
-        this.light.shadow.updateMatrices(this.light);
+        // this.light.shadow.updateMatrices(this.light);
       }
       if (ThreeUtil.isNull(this.light.userData.component)) {
         this.light.userData.component = this;
       }
       this.setObject3D(this.light);
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat','helpers']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helpers']);
       this.onLoad.emit(this);
     }
     return this.light;

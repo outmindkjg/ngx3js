@@ -66,7 +66,7 @@ export class TextureComponent implements OnInit {
 
   private getCubeImage(def?: string[]): string[] {
     const cubeImage = ThreeUtil.getTypeSafe(this.cubeImage, def);
-    if (cubeImage !== null && cubeImage.length !== 6 && cubeImage.length >= 1) {
+    if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length !== 6 && cubeImage.length >= 1) {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
       return [
