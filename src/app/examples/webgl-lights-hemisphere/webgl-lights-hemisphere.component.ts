@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '../../three';
-import * as THREE from 'three';
 import { LightComponent } from '../../three/light/light.component';
 import { HelperComponent } from '../../three/helper/helper.component';
 

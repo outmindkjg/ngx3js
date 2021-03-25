@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private subscription: Subscription;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private ele : ElementRef) {
     this.subscription = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         this.changeRouter(event.urlAfterRedirects || event.url);
@@ -55,8 +55,25 @@ export class AppComponent implements OnInit, AfterViewInit {
   changeRouter(url: string) {
     this.menuId = url;
     if (this.menuId !== null && this.menuId !== undefined) {
-      this.searchMenu = this.checkSearchMenuSelected(this.searchMenu);
+      this.checkSearchMenuSelected(this.searchMenu);
+      this.setFocus(this.menuId);
     }
+  }
+
+  setFocus(menuId : string) {
+    setTimeout(() => {
+      const links : HTMLAnchorElement[] = this.ele.nativeElement.getElementsByTagName('a');
+      let selected : HTMLAnchorElement = null;
+      for(let i = 0; i < links.length ; i++) {
+        if (links[i].getAttribute('href') == menuId) {
+          selected = links[i];
+          break;
+        }
+      }
+      if (selected !== null) {
+        selected.scrollIntoView({ block: "nearest" , behavior : 'smooth'});
+      }
+    },1000);
   }
 
   ngAfterViewInit() {}
@@ -113,41 +130,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   checkSearchMenuSelected(searchMenu : SearchMenuTop[]) : SearchMenuTop[] {
-    let selectedTop : SearchMenuTop = null;
     searchMenu.forEach(menu => {
-      let selectedChild : SearchMenu = null;
       menu.children.forEach(child => {
         child.selected = child.id === this.menuId;
-        if (child.selected) {
-          selectedChild = child;
-        }
       });
-      if (selectedChild !== null) {
-        selectedTop = menu;
-        const children : SearchMenu[] = [];
-        children.push(selectedChild);
-        let isFounded : boolean = false;
-        menu.children.forEach(child => {
-          if (isFounded) {
-            children.push(child);
-          }
-          if (child === selectedChild) {
-            isFounded = true;
-          }
-        });
-        isFounded = false;
-        menu.children.forEach(child => {
-          if (child === selectedChild) {
-            isFounded = true;
-          }
-          if (!isFounded) {
-            children.push(child);
-          }
-        });
-        selectedTop.children = children;
-      }
     })
-
     return searchMenu;
   }
 
