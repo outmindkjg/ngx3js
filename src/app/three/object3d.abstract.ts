@@ -12,7 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ControllerComponent } from './controller/controller.component';
-import { ThreeUtil } from './interface';
+import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
 import { PositionComponent } from './position/position.component';
 import { RotationComponent } from './rotation/rotation.component';
@@ -365,6 +365,18 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   getObject3D():THREE.Object3D{
     return this.object3d;
+  }
+
+  getTagAttributeObject3d(tagAttributes: TagAttributes) {
+    if (tagAttributes.options.position !== null && this.positionList && this.positionList.length > 0) {
+      tagAttributes.options.position = this.object3d.position;
+      tagAttributes.children.push(this.positionList.first);
+    }
+    if (tagAttributes.options.rotation !== null && this.rotationList && this.rotationList.length > 0) {
+      tagAttributes.options.rotation = this.object3d.rotation;
+      tagAttributes.children.push(this.rotationList.first);
+    }
+    
   }
 
   setObject3D(object3d : THREE.Object3D, add2Parent : boolean = true) {

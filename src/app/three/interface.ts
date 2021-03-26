@@ -112,6 +112,13 @@ export interface InterfaceMeshComponent {
   resetMesh(clearMesh: boolean): void;
 }
 
+export interface TagAttributes {
+  tag : string ;
+  attributes : {name : string, value : any}[],
+  children? : {getTagAttribute : (options? : any) => TagAttributes }[],
+  options? : any
+}
+
 export interface CssStyle {
   innerHTML? : string; 
   content?: string;
@@ -723,6 +730,38 @@ export class ThreeUtil {
     return !this.isNull(value);
   }
 
+  static getHtmlCode(info : TagAttributes, preTab: string = ''): string  {
+      const tag = info.tag;
+      const attributes = info.attributes;
+      const tags:string[] = [];
+      tags.push(preTab + '<' + tag);
+      attributes.forEach(attr => {
+        const key = attr.name;
+        const value = attr.value;
+        if (this.isNotNull(value)) {
+            if (value instanceof THREE.Color) {
+              tags.push(preTab + '\t[' + key + ']="\'#'+value.getHexString()+'\'"');
+            } else if (typeof(value) == 'number') {
+              if (Math.round(value) !== value) { 
+                tags.push(preTab + '\t[' + key + ']="'+parseFloat(value.toFixed(4))+'"');
+              } else {
+                tags.push(preTab + '\t[' + key + ']="'+value+'"');
+              }
+            } else if (typeof(value) == 'string') {
+              tags.push(preTab + '\t[' + key + ']="\''+value+'\'"');
+            } 
+        }
+      })
+      tags.push(preTab + '>');
+      if (info.children && info.children.length > 0) {
+        info.children.forEach(child => {
+          tags.push(this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t'));
+        });
+      }
+      tags.push(preTab + '</' + tag + '>');
+      return tags.join('\n');
+  }
+
   static getColor(color: string | number | THREE.Color): THREE.Color {
     if (this.isNotNull(color)) {
       const colorStr = color.toString();
@@ -868,6 +907,15 @@ export class ThreeUtil {
     }
     return undefined;
   }
+
+  static getRadian2AngleSafe(angle: number, altangle?: number): number {
+    const defValue = this.getTypeSafe(angle, altangle);
+    if (this.isNotNull(defValue)) {
+      return (defValue / Math.PI ) * 180;
+    }
+    return undefined;
+  }
+
 
   static getVector2Safe(
     x: number,

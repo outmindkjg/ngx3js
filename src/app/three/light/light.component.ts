@@ -13,7 +13,7 @@ import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerat
 import { HelperComponent } from '../helper/helper.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TextureComponent } from '../texture/texture.component';
-import { ThreeUtil } from './../interface';
+import { TagAttributes, ThreeUtil } from './../interface';
 import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
@@ -37,6 +37,7 @@ export class LightComponent
   @Input() private height: number = null;
   @Input() private castShadow: boolean = true;
   @Input() private shadowBias: number = null;
+  @Input() private shadowFocus: number = null;
   @Input() private shadowCameraNear: number = null;
   @Input() private shadowMapSizeWidth: number = null;
   @Input() private shadowMapSizeHeight: number = null;
@@ -144,6 +145,10 @@ export class LightComponent
     return ThreeUtil.getTypeSafe(this.shadowBias, def);
   }
 
+  private getShadowFocus(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowFocus, def);
+  }
+
   private getSh(def?: string): THREE.SphericalHarmonics3 {
     const sh = ThreeUtil.getTypeSafe(this.sh, def, '');
     if (ThreeUtil.isNotNull(sh) && sh != '') {
@@ -199,6 +204,172 @@ export class LightComponent
         this[key] = value;
       }
     });
+  }
+
+  getTagAttribute(options : any = {}) {
+    const tagAttributes: TagAttributes = {
+      tag: 'three-light',
+      attributes: [],
+      options : options,
+      children : []
+    };
+    super.getTagAttributeObject3d(tagAttributes);
+    const attributesKeys: string[] = [
+      'type',
+      'color',
+      'skyColor',
+      'groundColor',
+      'intensity',
+      'distance',
+      'angle',
+      'penumbra',
+      'decay',
+      'width',
+      'height',
+      'castShadow',
+      'shadowBias',
+      'shadowFocus',
+      'shadowCameraNear',
+      'shadowMapSizeWidth',
+      'shadowMapSizeHeight',
+      'shadowCameraFar',
+      'shadowCameraFov',
+      'shadowCameraLeft',
+      'shadowCameraRight',
+      'shadowCameraTop',
+      'shadowCameraBottom',
+      'shadowCameraZoom',
+      'sh',
+      'texture',
+      'target',
+      'renderer',
+      'renderTarget',
+    ];
+    const light = this.light;
+    if (ThreeUtil.isNotNull(light)) {
+      attributesKeys.forEach((key) => {
+        if (ThreeUtil.isNotNull(this[key])) {
+          switch (key) {
+            case 'shadowBias':
+            case 'shadowFocus':
+              if (ThreeUtil.isNotNull(light['shadow'])) {
+                switch (key) {
+                  case 'shadowBias':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['bias'],
+                    });
+                    break;
+                  case 'shadowFocus':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['focus'],
+                    });
+                    break;
+                }
+              }
+              break;
+            case 'shadowMapSizeWidth':
+            case 'shadowMapSizeHeight':
+              if (
+                ThreeUtil.isNotNull(light['shadow']) &&
+                ThreeUtil.isNotNull(light['shadow']['mapSize'])
+              ) {
+                switch (key) {
+                  case 'shadowMapSizeWidth':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['mapSize']['width'],
+                    });
+                    break;
+                  case 'shadowMapSizeHeight':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['mapSize']['height'],
+                    });
+                    break;
+                }
+              }
+              break;
+            case 'angle' :
+              if (ThreeUtil.isNotNull(light[key])) {
+                tagAttributes.attributes.push({ name: key, value: ThreeUtil.getRadian2AngleSafe(light[key])});
+              }
+              break;
+            case 'shadowCameraNear':
+            case 'shadowCameraFar':
+            case 'shadowCameraFov':
+            case 'shadowCameraLeft':
+            case 'shadowCameraRight':
+            case 'shadowCameraTop':
+            case 'shadowCameraBottom':
+            case 'shadowCameraZoom':
+              if (
+                ThreeUtil.isNotNull(light['shadow']) &&
+                ThreeUtil.isNotNull(light['shadow']['camera'])
+              ) {
+                switch (key) {
+                  case 'shadowCameraNear':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['near'],
+                    });
+                    break;
+                  case 'shadowCameraFar':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['far'],
+                    });
+                    break;
+                  case 'shadowCameraFov':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['fov'],
+                    });
+                    break;
+                  case 'shadowCameraLeft':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['left'],
+                    });
+                    break;
+                  case 'shadowCameraRight':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['right'],
+                    });
+                    break;
+                  case 'shadowCameraTop':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['top'],
+                    });
+                    break;
+                  case 'shadowCameraBottom':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['bottom'],
+                    });
+                    break;
+                  case 'shadowCameraZoom':
+                    tagAttributes.attributes.push({
+                      name: key,
+                      value: light['shadow']['camera']['zoom'],
+                    });
+                    break;
+                }
+              }
+              break;
+            default:
+              if (ThreeUtil.isNotNull(light[key])) {
+                tagAttributes.attributes.push({ name: key, value: light[key] });
+              }
+              break;
+          }
+        }
+      });
+    }
+    return tagAttributes;
   }
 
   setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
@@ -322,7 +493,7 @@ export class LightComponent
           );
           break;
         case 'spot':
-          basemesh = new THREE.SpotLight(
+          const spotLight = new THREE.SpotLight(
             this.getColor(0xffffff),
             this.getIntensity(1),
             this.getDistance(),
@@ -330,7 +501,12 @@ export class LightComponent
             this.getPenumbra(),
             this.getDecay()
           );
-          basemesh.castShadow = this.castShadow;
+          spotLight.castShadow = this.castShadow;
+          if (ThreeUtil.isNotNull(this.shadowFocus)) {
+            spotLight.shadow.focus = this.getShadowFocus(1);
+          }
+          basemesh = spotLight;
+
           break;
         case 'ambient':
         default:

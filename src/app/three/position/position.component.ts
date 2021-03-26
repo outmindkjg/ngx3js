@@ -1,7 +1,7 @@
 import { TweenComponent } from './../tween/tween.component';
 import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import * as THREE from 'three';
-import { ThreeUtil } from '../interface';
+import { TagAttributes, ThreeUtil } from '../interface';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AbstractTweenComponent } from '../tween.abstract';
 
@@ -78,6 +78,23 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     } else if (this.needUpdate && this.position !== null) {
       this.getPosition();
     }
+  }
+
+  getTagAttribute(options? : any) : TagAttributes {
+    const tagAttributes: TagAttributes = {
+      tag: 'three-position',
+      attributes: [],
+    };
+    if (ThreeUtil.isNotNull(options.position)) {
+      tagAttributes.attributes.push({ name : 'x', value : options.position.x });
+      tagAttributes.attributes.push({ name : 'y', value : options.position.y });
+      tagAttributes.attributes.push({ name : 'z', value : options.position.z });
+    } else {
+      tagAttributes.attributes.push({ name : 'x', value : this.x });
+      tagAttributes.attributes.push({ name : 'y', value : this.y });
+      tagAttributes.attributes.push({ name : 'z', value : this.z });
+    }
+    return tagAttributes;
   }
 
   getPosition(): THREE.Vector3 {

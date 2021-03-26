@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
-import { ThreeUtil } from '../interface';
+import { TagAttributes, ThreeUtil } from '../interface';
 
 @Component({
   selector: 'three-rotation',
@@ -32,6 +32,23 @@ export class RotationComponent implements OnInit {
 
   private rotation : THREE.Euler = null;
   private parent : THREE.Object3D | any = null;
+
+  getTagAttribute(options? : any) : TagAttributes {
+    const tagAttributes: TagAttributes = {
+      tag: 'three-rotation',
+      attributes: [],
+    };
+    if (ThreeUtil.isNotNull(options.rotation)) {
+      tagAttributes.attributes.push({ name : 'x', value : ThreeUtil.getRadian2AngleSafe(options.rotation.x) });
+      tagAttributes.attributes.push({ name : 'y', value : ThreeUtil.getRadian2AngleSafe(options.rotation.y) });
+      tagAttributes.attributes.push({ name : 'z', value : ThreeUtil.getRadian2AngleSafe(options.rotation.z) });
+    } else {
+      tagAttributes.attributes.push({ name : 'x', value : this.x });
+      tagAttributes.attributes.push({ name : 'y', value : this.y });
+      tagAttributes.attributes.push({ name : 'z', value : this.z });
+    }
+    return tagAttributes;
+  }
 
   setParent(parent : THREE.Object3D | any , isRestore : boolean = false) : boolean {
     if (this.parent !== parent) {
