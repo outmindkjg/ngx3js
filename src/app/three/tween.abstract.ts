@@ -10,6 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as GSAP from 'gsap';
+import { ThreeUtil } from './interface';
 import { TweenComponent } from './tween/tween.component';
 
 @Component({
@@ -67,8 +68,8 @@ export abstract class AbstractTweenComponent
 
   resetTween() {
     if (
-      this.tweenTarget !== null &&
-      this.tweenList !== null &&
+      ThreeUtil.isNotNull(this.tweenTarget) &&
+      ThreeUtil.isNotNull(this.tweenList) &&
       this.tweenList.length > 0 &&
       this.tweenStart
     ) {
