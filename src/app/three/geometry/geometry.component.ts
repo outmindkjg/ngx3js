@@ -14,7 +14,8 @@ import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -172,9 +173,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private geometryScale:number = null;
   @Input() private sphereScale:number = null;
   @Input() private attributes : { [key : string] : number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute } = null;
-  @Input() private position: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
-  @Input() private normal: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
-  @Input() private color: number[] | number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private position: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private normal: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private color: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private customColor: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private customSize:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private index:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
@@ -1176,7 +1177,17 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                 geometry = planePerlin.getMinecraft(this.getWidth(100), this.getHeight(100), this.getDepth(100));
                 break;
             }
-            break;                
+            break;
+          case 'line' :
+            const lineGeometry = new LineGeometry();
+            if (this.position instanceof Float32Array || this.position instanceof Array) {
+              lineGeometry.setPositions( this.position );
+            }
+            if (this.color instanceof Float32Array || this.color instanceof Array) {
+              lineGeometry.setColors( this.color );
+            }
+            geometry = lineGeometry;
+            break;
           case 'boxbuffer':
           case 'box':
             geometry = new THREE.BoxGeometry(

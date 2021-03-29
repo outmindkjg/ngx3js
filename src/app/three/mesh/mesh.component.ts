@@ -17,10 +17,14 @@ import {
   Lensflare,
   LensflareElement,
 } from 'three/examples/jsm/objects/Lensflare';
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, InterfaceMeshComponent, ThreeUtil } from '../interface';
@@ -921,7 +925,20 @@ export class MeshComponent
           line.castShadow = this.castShadow;
           basemesh = line;
           break;
-        case 'linesegments':
+        case 'line2':
+          const lineMaterial = this.getMaterials()[0];
+          if (geometry instanceof LineGeometry && lineMaterial instanceof LineMaterial) {
+            const line2 = new Line2(geometry, lineMaterial);
+            line2.computeLineDistances();
+            line2.scale.set( 1, 1, 1 );
+            basemesh = line2;
+          } else {
+            console.log(geometry);
+            console.log(lineMaterial);
+            
+          }
+          break;
+          case 'linesegments':
           const lineSegments = new THREE.LineSegments(geometry, this.getMaterials()[0]);
           lineSegments.computeLineDistances();
           lineSegments.castShadow = this.castShadow;

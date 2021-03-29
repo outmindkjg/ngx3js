@@ -1,12 +1,12 @@
 import { Component, ContentChildren, Input, Output, EventEmitter ,OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
-import { Object3D } from 'three';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 @Component({
   selector: 'three-material',
@@ -122,6 +122,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private alphaMap:TextureComponent = null;
   @Input() private bumpMap:TextureComponent = null;
   @Input() private normalMap:TextureComponent = null;
+  @Input() private dashed:boolean = null;
+  @Input() private dashScale:number = null;
+  @Input() private dashOffset:number = null;
+  @Input() private resolutionX:number = null;
+  @Input() private resolutionY:number = null;
+
 
   @Output() private onLoad:EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
@@ -826,6 +832,22 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.clipping, def);
   }
 
+  private getDashed(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.dashed, def);
+  }
+
+  private getDashScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.dashScale, def);
+  }
+
+  private getDashOffset(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.dashOffset, def);
+  }
+
+  private getResolution(def?: THREE.Vector2): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(this.resolutionX, this.resolutionY, def);
+  }
+
   private getShader(type: string) {
     if (type === 'x-shader/x-vertex') {
       if (ThreeUtil.isNotNull(this.vertexShader)) {
@@ -1263,6 +1285,18 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           case 'shadow':
             this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
               color: this.getColor()
+            }));
+            break;
+          case 'line' :
+            this.material = new LineMaterial(this.getMaterialParameters({
+              color: this.getColor(),
+              dashed: this.getDashed(),
+              dashScale: this.getDashScale(),
+              dashSize: this.getDashSize(),
+              dashOffset: this.getDashOffset(),
+              gapSize: this.getGapSize(),
+              linewidth: this.getLinewidth(),
+              resolution: this.getResolution()
             }));
             break;
           case 'sprite':
