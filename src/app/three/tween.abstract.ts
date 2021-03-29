@@ -19,8 +19,8 @@ export abstract class AbstractTweenComponent
   implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   @Input() protected tweenStart: boolean = true;
 
-  @ContentChildren(TweenComponent, { descendants: false })
-  private tween: QueryList<TweenComponent>;
+  @ContentChildren(TweenComponent, { descendants: false }) private tweenList: QueryList<TweenComponent>;
+
 
   ngOnInit(): void {}
 
@@ -31,8 +31,8 @@ export abstract class AbstractTweenComponent
   }
 
   ngAfterContentInit(): void {
-    if (this.tween !== null && this.tween !== undefined) {
-      this.tween.changes.subscribe((e) => {
+    if (this.tweenList !== null && this.tweenList !== undefined) {
+      this.tweenList.changes.subscribe((e) => {
         this.resetTween();
       });
     }
@@ -68,12 +68,12 @@ export abstract class AbstractTweenComponent
   resetTween() {
     if (
       this.tweenTarget !== null &&
-      this.tween !== null &&
-      this.tween.length > 0 &&
+      this.tweenList !== null &&
+      this.tweenList.length > 0 &&
       this.tweenStart
     ) {
       this.tweenTimer = new GSAP.TimelineLite();
-      this.tween.forEach((tween) => {
+      this.tweenList.forEach((tween) => {
         tween.getTween(this.tweenTimer, this.tweenTarget, this);
       });
       this.tweenTimer.play();

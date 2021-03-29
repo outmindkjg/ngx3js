@@ -54,12 +54,9 @@ export class LightComponent
   @Input() private renderer: any = null;
   @Input() private renderTarget: any = null;
 
-  @Output()
-  private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
-  @ContentChildren(MixerComponent, { descendants: false })
-  mixer: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false })
-  private helpers: QueryList<HelperComponent>;
+  @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);

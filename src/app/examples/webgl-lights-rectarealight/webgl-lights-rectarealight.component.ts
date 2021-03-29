@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-lights-rectarealight',
@@ -12,4 +12,10 @@ export class WebglLightsRectarealightComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  onRender(timer : RendererTimer) {
+    super.onRender(timer);
+    if (!this.controls.meshRotate.autoRotate) {
+      this.mesh.setRotation(null, timer.elapsedTime * 60, null);
+    }
+  }
 }
