@@ -16,6 +16,7 @@ import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -1458,6 +1459,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             break;
           case 'wireframe':
             geometry = new THREE.WireframeGeometry(this.getSubGeometry());
+            break;
+          case 'wireframe2':
+          case 'wireframegeometry2':
+            geometry = new WireframeGeometry2(this.getSubGeometry());
             break;
           case 'convexbuffer':
           case 'convex':

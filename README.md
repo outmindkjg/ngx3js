@@ -332,3 +332,20 @@ Line 6 :
 Line 40
 	static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
 	static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
+
+node_modules/three/examples/jsm/lines/WireframeGeometry2.d.ts
+
+import {
+	BufferGeometry
+} from '../../../src/Three';
+
+import { LineSegmentsGeometry } from './LineSegmentsGeometry';
+
+export class WireframeGeometry2 extends LineSegmentsGeometry {
+
+	constructor( geometry: BufferGeometry );
+	readonly sWireframeGeometry2: boolean;
+
+}
+
+----------------------
