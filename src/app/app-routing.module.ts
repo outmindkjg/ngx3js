@@ -607,10 +607,10 @@ const routes: Routes = [
       { path: 'webgl_loader_bvh', component: WebglLoaderBvhComponent },
       { path: 'webgl_loader_assimp', component: WebglLoaderAssimpComponent },
       { path: 'webgl_loader_amf', component: WebglLoaderAmfComponent },
-      { path: 'webgl_loader_mf3_materials', component: WebglLoaderMf3MaterialsComponent },
-      { path: 'webgl_loader_mf3', component: WebglLoaderMf3Component },
-      { path: 'webgl_loader_ds3', component: WebglLoaderDs3Component },
-      { path: 'webgl_loader_dm3', component: WebglLoaderDm3Component },
+      { path: 'webgl_loader_3mf_materials', component: WebglLoaderMf3MaterialsComponent },
+      { path: 'webgl_loader_3mf', component: WebglLoaderMf3Component },
+      { path: 'webgl_loader_3ds', component: WebglLoaderDs3Component },
+      { path: 'webgl_loader_3dm', component: WebglLoaderDm3Component },
       { path: '**', component: UnderConstructionComponent }
     ]
   }

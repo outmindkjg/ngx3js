@@ -226,9 +226,22 @@ export class LocalStorageService {
           console.log(e);
         }
       );
+    } else if (key.endsWith('.3ds')) {
+      if (this.tdsLoader === null) {
+        this.tdsLoader = new TDSLoader();
+      }
+      if (options.resourcePath) {
+        this.tdsLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.tdsLoader.load( this.getStoreUrl(key) , ( object : THREE.Group) => {
+        callBack({
+          object: object,
+        });
+      });
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
         this.rhino3dmLoader = new Rhino3dmLoader();
+        this.rhino3dmLoader.setLibraryPath( '/assets/libs/rhino3dm/' )
       }
       this.rhino3dmLoader.load(
         this.getStoreUrl(key),
@@ -259,6 +272,9 @@ export class LocalStorageService {
     } else if (key.endsWith('.drc')) {
       if (this.dracoLoader === null) {
         this.dracoLoader = new DRACOLoader();
+      }
+      if (options.resourcePath) {
+        this.tdsLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
       }
       this.dracoLoader.load(
         this.getStoreUrl(key),

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererInfo, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-lines-fat-wireframe',

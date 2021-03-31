@@ -7,7 +7,7 @@ import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
-import { GuiControlParam, RendererEvent, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
+import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
@@ -61,7 +61,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private logarithmicDepthBuffer:boolean = false;
   @Input() private guiParams:GuiControlParam[] = [];
   @Input() private useEvent : string[] = null;
-
+  @Input() private beforeRender : (info : RendererInfo) => boolean = null;
   @Output() private eventListener:EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
   @Output() private onRender:EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
   @Output() private onLoad:EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
@@ -541,6 +541,33 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   private _renderCaller : (...args: any[]) => void = null;
 
+  private _cameras : THREE.Camera[] = null;
+  private _scenes : THREE.Scene[] = null;
+  
+  private getRenderInfo(timer : RendererTimer) : RendererInfo {
+    if (this._cameras === null) {
+      this._cameras = [];
+      this.cameraList.forEach(camera => {
+        this._cameras.push(camera.getCamera());
+      })
+    }
+    if (this._scenes === null) {
+      this._scenes = [];
+      this.sceneList.forEach(scene => {
+        this._scenes.push(scene.getScene());
+      });
+    }
+    return {
+      timer: timer,
+      innerWidth : this.rendererWidth,
+      innerHeight : this.rendererHeight,
+      renderer: this.renderer,
+      cssRenderer : this.cssRenderer,
+      cameras: this._cameras,
+      scenes : this._scenes
+    }
+  }
+
   render() {
     if (this.renderer === null) {
       return;
@@ -562,9 +589,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         control.render(renderTimer);
       })
     }
-    this.cameraList.forEach(camera => {
-      camera.render(this.renderer, this.cssRenderer ,this.sceneList, renderTimer)
-    });
+    if (ThreeUtil.isNull(this.beforeRender) || ! this.beforeRender(this.getRenderInfo(renderTimer))) {
+      this.cameraList.forEach(camera => {
+        camera.render(this.renderer, this.cssRenderer ,this.sceneList, renderTimer)
+      });
+    }
     if (this.stats != null) {
       this.stats.end();
     }

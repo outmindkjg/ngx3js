@@ -314,10 +314,12 @@ ng g c chapter05/page0511
 
 "editor.wordWrapColumn": 100,
 
+----------------------
 
 node_modules/three/examples/jsm/misc/MorphAnimMesh.d.ts
 node_modules/three/examples/jsm/utils/SceneUtils.d.ts
 
+----------------------
 
 node_modules/ammojs-typed/ammo/ammo.d.ts
 line 7 :
@@ -325,6 +327,7 @@ function castObject(obj1 : any, obj2 : any) : btCollisionObject;
 
 D7PNK-JWYGX-9GWDH-4WG8W-82QDV
 
+----------------------
 
 node_modules\three\examples\jsm\loaders\SVGLoader.d.ts
 Line 6 :
@@ -332,6 +335,8 @@ Line 6 :
 Line 40
 	static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
 	static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
+
+----------------------
 
 node_modules/three/examples/jsm/lines/WireframeGeometry2.d.ts
 

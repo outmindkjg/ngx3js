@@ -15,8 +15,22 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [autoClear]="false" [fov]="40" [near]="1" [far]="1000">
+  <three-camera [type]="'perspective'" 
+    #mainCamera
+    [autoClear]="false" [fov]="40" [near]="1" [far]="1000"
+    [viewport]="true" [x]="0" [y]="0" [width]="'100%'" [height]="'100%'"
+  >
     <three-position [x]="-40" [y]="0" [z]="60"></three-position>
+    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-camera [type]="'perspective'" 
+    [clearColor]="'0x222222'" [clearAlpha]="1" [clearDepth]="true" 
+    [fov]="40" [near]="1" [far]="1000" 
+    [viewport]="true" [x]="20" [y]="20" [width]="'25%'" [height]="'width'"
+    [scissorTest]="true" [scissorX]="'x'" [scissorY]="'y'" [scissorWidth]="'width'" [scissorHeight]="'height'"
+    [referObject3d]="mainCamera"
+  >
+    <three-position [x]="-40" [y]="0" [z]="50"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
   <three-scene #scene>

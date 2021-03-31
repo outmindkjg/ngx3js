@@ -1497,6 +1497,16 @@ export interface RendererTimer {
   elapsedTime: number;
 }
 
+export interface RendererInfo {
+  timer: RendererTimer;
+  innerWidth : number,
+  innerHeight : number,
+  renderer: THREE.Renderer;
+  cssRenderer : any;
+  cameras: THREE.Camera[];
+  scenes : THREE.Scene[];
+}
+
 export interface RendererEvent {
   type: string;
   clientX?: number;
