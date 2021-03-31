@@ -6,10 +6,21 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-loader-mf3.component.html',
   styleUrls: ['./webgl-loader-mf3.component.scss']
 })
-export class WebglLoaderMf3Component extends BaseComponent<{}> {
+export class WebglLoaderMf3Component extends BaseComponent<{
+  assets : string
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      assets : 'cube_gears'
+    },[
+      { name : 'assets', type : 'select', select : [
+				'cube_gears',
+				'facecolors',
+				'multipletextures',
+				'vertexcolors'
+      ]}
+    ]);
   }
 
 }
