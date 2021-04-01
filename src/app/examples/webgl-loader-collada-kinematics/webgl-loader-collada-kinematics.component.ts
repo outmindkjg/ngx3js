@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, MeshComponent } from '../../three';
 
 @Component({
   selector: 'app-webgl-loader-collada-kinematics',
@@ -12,4 +12,13 @@ export class WebglLoaderColladaKinematicsComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  setMesh(mesh : MeshComponent) {
+    super.setMesh(mesh);
+    const dae = mesh.getMesh();
+    dae.traverse( ( child:any  ) => {
+      if ( child.isMesh ) {
+        child.material.flatShading = true;
+      }
+    });
+  }
 }

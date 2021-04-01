@@ -180,6 +180,7 @@ export class LocalStorageService {
       this.colladaLoader.load(
         key,
         (result: Collada) => {
+          // result.kinematics;
           callBack({
             object: result.scene,
             clips: result.scene.animations,

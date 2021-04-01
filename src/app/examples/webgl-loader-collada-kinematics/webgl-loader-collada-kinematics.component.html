@@ -1,10 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader - kinematics<br/>
+  robot from <a href="https://github.com/rdiankov/collada_robots" target="_blank" rel="noopener">collada robots</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -12,63 +8,46 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="5" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+    <three-position [x]="20" [y]="10" [z]="0"></three-position>
+    <three-lookat [x]="0" [y]="5" [z]="0"></three-lookat>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [far]="50" [near]="10"></three-fog>
+  <three-scene #scene >
     <three-light
       type="Hemisphere"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
+      [skyColor]="'0xffeeee'"
+      [groundColor]="'0x111122'"
     >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
     </three-light>
     <three-light
       type="directional"
       [color]="'0xffffff'"
-      [intensity]="1"
+      [intensity]="0.8"
       [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="1" [y]="1" [z]="0" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+    <three-helper [type]="'Grid'" [size]="20" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></three-helper>
+    <three-mesh>
+      <three-position [x]="300" [y]="400" [z]="0"></three-position>
+      <three-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="8" [heightSegments]="8"></three-geometry>
+      <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
+      <three-light
+        [type]="'Point'"
+        [color]="'0xffffff'"
+        [intensity]="1"
+      >
+      </three-light>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/abb_irb52_7_120.dae'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
     </three-mesh>
   </three-scene>
 </three-renderer>
