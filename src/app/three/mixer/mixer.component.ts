@@ -33,7 +33,7 @@ export class MixerComponent implements OnInit {
 
   @Output() private onLoad:EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
 
-  @ContentChildren(ClipComponent, { descendants: false }) private clip: QueryList<ClipComponent>;
+  @ContentChildren(ClipComponent, { descendants: false }) private clipList: QueryList<ClipComponent>;
 
   private getFps(def?: number) : number {
     return ThreeUtil.getTypeSafe(this.fps, def);
@@ -90,7 +90,7 @@ export class MixerComponent implements OnInit {
     }
     if (changes.fps && this.mixer !== null) {
       const fps = this.getFps(20);
-      this.clip.forEach(clip => {
+      this.clipList.forEach(clip => {
         clip.setMixer(this.mixer, this.clips, fps);
       });
     }
@@ -108,18 +108,19 @@ export class MixerComponent implements OnInit {
   private mixer : THREE.AnimationMixer = null;
   private helper : MMDAnimationHelper = null;
   private model : THREE.Object3D | THREE.AnimationObjectGroup = null;
-  private clips : THREE.AnimationClip[] = null;
+  private clips : THREE.AnimationClip[] | any = null;
 
-  setModel(model: THREE.Object3D | THREE.AnimationObjectGroup , clips: THREE.AnimationClip[]) {
+  setModel(model: THREE.Object3D | THREE.AnimationObjectGroup , clips: THREE.AnimationClip[] | any) {
     if (this.model !== model) {
       this.model = model;
       this.clips = clips;
       if (this.debug) {
         const clipsNames = [];
-        this.clips.forEach(clip => {
-          clipsNames.push(clip.name);
-        })
-        console.log(clipsNames);
+        if (this.clips.forEach) {
+          this.clips.forEach(clip => {
+            clipsNames.push(clip.name);
+          })
+        }
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {
@@ -236,27 +237,29 @@ export class MixerComponent implements OnInit {
         }
         break;
       case 'mixer' :
-      default :
         if (this.mixer == null) {
           this.mixer = new THREE.AnimationMixer(this.model);
           this.mixer.timeScale = this.getTimeScale(1);
           const fps = this.getFps();
-          this.clip.forEach(clip => {
+          this.clipList.forEach(clip => {
             clip.setMixer(this.mixer, this.clips, fps);
           });
           this.onLoad.emit(this);
         }
         break;
-    }
+      case 'virtulous' :
+      default :
+          break;
+      }
   }
 
   lastPlayedClip : ClipComponent = null;
   play(name : string, duration : number = this.duration): boolean {
-    if (this.mixer !== null && this.clip !== null && this.clip !== undefined && this.clip.length > 0) {
+    if (this.mixer !== null && this.clipList !== null && this.clipList !== undefined && this.clipList.length > 0) {
       duration = ThreeUtil.getTypeSafe(duration, this.duration);
       this.lastAction = name.toLowerCase();
       let foundAction:ClipComponent = null;
-      this.clip.forEach(clip => {
+      this.clipList.forEach(clip => {
         if (clip.isPlayable()) {
           clip.action.paused = false;
           if (clip.name.toLowerCase() == this.lastAction) {
@@ -285,6 +288,8 @@ export class MixerComponent implements OnInit {
       this.helper.update( timer.delta );
     } else if (this.mixer !== null) {
       this.mixer.update( timer.delta );
+    } else if (this.clips !== null && this.clips.setTime) {
+      this.clips.setTime(timer.elapsedTime * this.timeScale);
     }
   }
 }

@@ -1,10 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - BVH Loader<br/>
+  animation from <a href="http://mocap.cs.cmu.edu/">http://mocap.cs.cmu.edu/</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -46,15 +42,9 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/bvh/pirouette.bvh'">
+      <!-- three-mixer [debug]="true" [timeScale]="1"></!-->
+      <!-- three-helper [type]="'skeleton'"></!-->
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>

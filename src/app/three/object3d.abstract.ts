@@ -424,7 +424,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             if (this.positionList !== null && this.positionList !== undefined) {
               this.positionList.forEach((position) => {
                 if (position.visible) {
-                  this.object3d.position.copy(position.getPosition());
+                  switch(position.type) {
+                    case 'up' :
+                      this.object3d.up.copy(position.getPosition());
+                      break;
+                    default :
+                      this.object3d.position.copy(position.getPosition());
+                  }
                 }
               });
             }

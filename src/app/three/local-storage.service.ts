@@ -26,8 +26,8 @@ import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader';
 import { AMFLoader } from 'three/examples/jsm/loaders/AMFLoader';
-import { AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
-import { BVHLoader } from 'three/examples/jsm/loaders/BVHLoader';
+import { AssimpLoader, Assimp } from 'three/examples/jsm/loaders/AssimpLoader';
+import { BVHLoader, BVH } from 'three/examples/jsm/loaders/BVHLoader';
 import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
@@ -259,6 +259,48 @@ export class LocalStorageService {
         callBack({
           object: object,
         });
+      });
+    } else if (key.endsWith('.amf')) {
+      if (this.amfLoader === null) {
+        this.amfLoader = new AMFLoader();
+      }
+      if (options.resourcePath) {
+        this.amfLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.amfLoader.load( key , ( object : THREE.Group) => {
+        callBack({
+          object: object,
+        });
+      });
+    } else if (key.endsWith('.assimp')) {
+      if (this.assimpLoader === null) {
+        this.assimpLoader = new AssimpLoader();
+      }
+      if (options.resourcePath) {
+        this.assimpLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.assimpLoader.load( key , ( object : Assimp) => {
+        callBack({
+          object: object.object,
+          clips : object.animation
+        });
+      });
+    } else if (key.endsWith('.bvh')) {
+      if (this.bvhLoader === null) {
+        this.bvhLoader = new BVHLoader();
+      }
+      if (options.resourcePath) {
+        this.bvhLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.bvhLoader.load( key , ( object : BVH) => {
+        if (object.skeleton && object.skeleton.bones && object.skeleton.bones.length > 0) {
+          const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
+          mesh.skeleton = object.skeleton;
+          // callBack({
+            // object: mesh,
+            // clips : object.clip ? [object.clip] : null
+          // });
+        }
       });
     } else if (key.endsWith('.3mf')) {
       if (this.threeMFLoader === null) {

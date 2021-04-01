@@ -13,6 +13,7 @@ import { AbstractTweenComponent } from '../tween.abstract';
 export class PositionComponent extends AbstractTweenComponent implements OnInit {
 
   @Input() public visible:boolean = true;
+  @Input() public type:string = "position";
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
   @Input() private x:number = null;
