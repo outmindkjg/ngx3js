@@ -26,6 +26,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private controlType:string = "none";
   @Input() private autoRotate:boolean = false;
   @Input() private shadowMapEnabled:boolean = true;
+  @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
   @Input() private maxPolarAngle:number = null;
@@ -388,6 +389,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           control.setControlParams({
             type : controlType,
             autoRotate : autoRotate,
+            screenSpacePanning : this.screenSpacePanning,
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
             maxPolarAngle : this.maxPolarAngle,

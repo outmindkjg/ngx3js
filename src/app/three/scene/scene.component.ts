@@ -150,14 +150,12 @@ export class SceneComponent
 
   private _materialSubscribe: Subscription[] = [];
 
-  private backgroundangularTryOutCnt: number = 0;
-
   setMaterial(material : MaterialComponent) {
     if (this.scene !== null) {
       const materialClone = material.getMaterial();
       const map: THREE.Texture = (materialClone['map'] && materialClone['map'] instanceof THREE.Texture) ? materialClone['map'] : null;
       const color: THREE.Color = (materialClone['color'] && materialClone['color'] instanceof THREE.Color) ? materialClone['color'] : null;
-      switch(material.materialType) {
+      switch(material.materialType.toLowerCase()) {
         case 'environment':
           if (map !== null) {
             this.scene.environment = map;
@@ -178,9 +176,35 @@ export class SceneComponent
         case 'backgroundangular':
           if (map !== null) {
             TextureComponent.checkTextureImage(map, () => {
-              const rt = new THREE.WebGLCubeRenderTarget(map.image.height);
-              rt.fromEquirectangularTexture(this.getThreeRenderer() as THREE.WebGLRenderer, map);
-              this.scene.background = rt;
+              const envMap = this.getTextureEquirectangular(map );
+              this.scene.background = envMap;
+            })
+          } else if (color !== null) {
+            this.scene.background = color;
+          } else {
+            this.scene.background = null;
+          }
+          break;
+        case 'environment-angular':
+        case 'environmentangular':
+          if (map !== null) {
+            TextureComponent.checkTextureImage(map, () => {
+              const envMap = this.getTextureEquirectangular(map );
+              this.scene.environment = envMap;
+            })
+          } else {
+            this.scene.environment = null;
+          }
+          break;
+        case 'background-environment-angular' :
+        case 'environment-background-angular' :
+        case 'backgroundenvironmentangular' :
+        case 'environmentbackgroundangular' :
+          if (map !== null) {
+            TextureComponent.checkTextureImage(map, () => {
+              const envMap = this.getTextureEquirectangular(map );
+              this.scene.background = envMap;
+              this.scene.environment = envMap;
             })
           } else if (color !== null) {
             this.scene.background = color;
@@ -195,6 +219,15 @@ export class SceneComponent
           break;              
       }
     }
+  }
+  _pmremGenerator : THREE.PMREMGenerator = null;
+
+  getTextureEquirectangular(map : THREE.Texture) {
+    if (this._pmremGenerator == null) {
+      this._pmremGenerator = new THREE.PMREMGenerator( this.getThreeRenderer() as THREE.WebGLRenderer );
+      this._pmremGenerator.compileEquirectangularShader();
+    }
+    return this._pmremGenerator.fromEquirectangular( map ).texture;
   }
 
   setMaterialSubscribe() {

@@ -121,6 +121,7 @@ export class MixerComponent implements OnInit {
             clipsNames.push(clip.name);
           })
         }
+        console.log(clipsNames);
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {

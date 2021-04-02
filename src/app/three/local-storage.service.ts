@@ -303,6 +303,50 @@ export class LocalStorageService {
           // });
         }
       });
+    } else if (key.endsWith('.fbx')) {
+      if (this.fbxLoader === null) {
+        this.fbxLoader = new FBXLoader();
+      }
+      if (options.resourcePath) {
+        this.fbxLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.fbxLoader.load( key , ( object : THREE.Group) => {
+        callBack({
+          object: object,
+          clips : object.animations
+        });
+      });
+    } else if (key.endsWith('.gcode')) {
+      if (this.gCodeLoader === null) {
+        this.gCodeLoader = new GCodeLoader();
+      }
+      if (options.resourcePath) {
+        this.gCodeLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.gCodeLoader.load( key , ( object : THREE.Group) => {
+        callBack({
+          object: object,
+          clips : object.animations
+        });
+      });
+    } else if (key.endsWith('.hdr')) {
+      if (this.rgbeLoader === null) {
+        this.rgbeLoader = new RGBELoader();
+      }
+      if (options.path) {
+        this.rgbeLoader.setPath(this.getStoreUrl(options.path));
+      }
+      if (options.resourcePath) {
+        this.rgbeLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.rgbeLoader.load( key , ( texture : THREE.Texture) => {
+        callBack({
+          material : new THREE.MeshBasicMaterial({
+            map : texture
+          })
+        });
+      });
+      
     } else if (key.endsWith('.3mf')) {
       if (this.threeMFLoader === null) {
         this.threeMFLoader = new ThreeMFLoader();
@@ -326,6 +370,7 @@ export class LocalStorageService {
         (result: THREE.Group) => {
           callBack({
             object: result,
+            clips : result.animations
           });
         },
         null,
@@ -352,8 +397,10 @@ export class LocalStorageService {
         this.dracoLoader = new DRACOLoader();
       }
       if (options.resourcePath) {
-        this.tdsLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+        this.dracoLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
       }
+      this.dracoLoader.setDecoderPath( this.getStoreUrl('js/libs/draco/'));
+      this.dracoLoader.setDecoderConfig( { type: 'js' } );
       this.dracoLoader.load(
         key,
         (geometry: THREE.BufferGeometry) => {

@@ -16,6 +16,7 @@ export class ControlComponent implements OnInit {
 
   @Input() type : string = "orbit";
   @Input() private autoRotate:boolean = false;
+  @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
   @Input() private maxPolarAngle:number = null;
@@ -165,6 +166,9 @@ export class ControlComponent implements OnInit {
           orbitControls.autoRotate = this.autoRotate;
           orbitControls.enableDamping = this.enableDamping;
           orbitControls.enablePan = this.enablePan;
+          if (ThreeUtil.isNotNull(this.screenSpacePanning)) {
+            orbitControls.screenSpacePanning = this.screenSpacePanning;
+          }
           if (ThreeUtil.isNotNull(this.minDistance)) {
             orbitControls.minDistance = this.minDistance;
           }

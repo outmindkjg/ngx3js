@@ -1036,23 +1036,9 @@ export class MeshComponent
                 geometry?: THREE.BufferGeometry
               ) => {
                 if (loadedMesh !== null && loadedMesh !== undefined) {
-                  if (this.castShadow) {
-                    loadedMesh.traverse((object) => {
-                      if (object instanceof THREE.Mesh) {
-                        object.castShadow = true;
-                      }
-                    });
-                  }
                   this.mesh.add(loadedMesh);
-                  if (this.castShadow) {
-                    loadedMesh.castShadow = this.castShadow;
-                    loadedMesh.receiveShadow = this.receiveShadow;
-                    loadedMesh.children.forEach((child) => {
-                      child.castShadow = this.castShadow;
-                      child.receiveShadow = this.receiveShadow;
-                    });
-                  }
                 } else if (geometry !== null) {
+                  geometry.computeVertexNormals();
                   if (
                     geometry['animations'] !== null &&
                     geometry['animations'] !== undefined &&
@@ -1074,6 +1060,14 @@ export class MeshComponent
                     );
                     this.mesh.add(loadedMesh);
                   }
+                }
+                if (this.castShadow && loadedMesh) {
+                  loadedMesh.traverse((object) => {
+                    if (object instanceof THREE.Mesh) {
+                      object.castShadow = this.castShadow;
+                      object.receiveShadow = this.receiveShadow;
+                    }
+                  });
                 }
                 if (
                   ThreeUtil.isNotNull(this.materialList) &&
