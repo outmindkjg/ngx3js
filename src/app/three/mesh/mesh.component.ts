@@ -23,6 +23,8 @@ import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
+
 import { Wireframe } from 'three/examples/jsm/lines/Wireframe';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
@@ -40,6 +42,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { Observable, Subject, Subscription } from 'rxjs';
+import { config } from 'process';
 
 @Component({
   selector: 'three-mesh',
@@ -114,37 +117,23 @@ export class MeshComponent
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
-
-  @Output()
-  private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
-  @Output()
-  private onDestory: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
-  @ContentChildren(GeometryComponent, { descendants: false })
-  private geometryList: QueryList<GeometryComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false })
-  private materialList: QueryList<MaterialComponent>;
-  @ContentChildren(LensflareelementComponent, { descendants: false })
-  private lensflareElementList: QueryList<LensflareelementComponent>;
-  @ContentChildren(SvgComponent, { descendants: false })
-  private svgList: QueryList<SvgComponent>;
-  @ContentChildren(MixerComponent, { descendants: false })
-  private mixerList: QueryList<MixerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  private listnerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  private audioList: QueryList<AudioComponent>;
-  @ContentChildren(HtmlComponent, { descendants: false })
-  private cssChildrenList: QueryList<HtmlComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: false })
-  private rigidbodyList: QueryList<RigidbodyComponent>;
-  @ContentChildren(MeshComponent, { descendants: false })
-  private meshList: QueryList<MeshComponent>;
-  @ContentChildren(CameraComponent, { descendants: false })
-  private cameraList: QueryList<CameraComponent>;
-  @ContentChildren(HelperComponent, { descendants: false })
-  private helperList: QueryList<HelperComponent>;
-  @ContentChildren(LightComponent, { descendants: false })
-  private lightList: QueryList<LightComponent>;
+  @Input() private shareParts: MeshComponent = null;
+  
+  @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
+  @Output() private onDestory: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
+  @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
+  @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
+  @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
+  @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
+  @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -259,9 +248,9 @@ export class MeshComponent
     super.ngOnChanges(changes);
   }
 
-  private _meshSubject: Subject<THREE.Mesh> = new Subject<THREE.Mesh>();
+  private _meshSubject: Subject<THREE.Object3D> = new Subject<THREE.Object3D>();
 
-  meshSubscribe(): Observable<THREE.Mesh> {
+  meshSubscribe(): Observable<THREE.Object3D> {
     return this._meshSubject.asObservable();
   }
 
@@ -275,7 +264,7 @@ export class MeshComponent
     this.onDestory.emit(this);
   }
 
-  private clips: THREE.AnimationClip[] = null;
+  private clips: THREE.AnimationClip[] | any = null;
   private clipMesh: THREE.Object3D = null;
   public helper: THREE.Object3D = null;
 
@@ -720,6 +709,10 @@ export class MeshComponent
     return null;
   }
 
+  getClips() : THREE.AnimationClip[] | any{
+    return this.clips;
+  }
+
   getMesh(): THREE.Object3D {
     if (this.mesh === null) {
       let geometry: THREE.BufferGeometry = null;
@@ -1009,9 +1002,6 @@ export class MeshComponent
             line2.computeLineDistances();
             line2.scale.set(1, 1, 1);
             basemesh = line2;
-          } else {
-            console.log(geometry);
-            console.log(lineMaterial);
           }
           break;
         case 'linesegments':
@@ -1023,6 +1013,36 @@ export class MeshComponent
           lineSegments.castShadow = this.castShadow;
           basemesh = lineSegments;
           break;
+        case 'md2charactercomplex' :
+          basemesh = new THREE.Group();
+          if (this.shareParts != null) {
+            const loadShareParts = () => {
+              const shareParts = this.shareParts.getClips();
+              if (shareParts instanceof MD2CharacterComplex) {
+                const character = new MD2CharacterComplex();
+                character.shareParts( shareParts );
+                if (this.receiveShadow) {
+                  character.enableShadows( this.receiveShadow );
+                }
+                basemesh.children.forEach(child => {
+                  child.parent.remove(child);
+                });
+                basemesh.add(character.root);
+                this.clipMesh = character.root;
+                this.clips = character;
+                this.resetHelper();
+                this.synkObject3D(['mixer', 'material', 'helpers']);
+                this._meshSubject.next(character.root);
+                this.onLoad.emit(this);
+              }
+            }
+            this.shareParts.meshSubscribe().subscribe(() => {
+              loadShareParts();
+            }); 
+            this.shareParts.getMesh();
+            loadShareParts();
+          }
+          break;
         case 'mesh':
         default:
           if (ThreeUtil.isNotNull(this.storageName)) {
@@ -1032,12 +1052,15 @@ export class MeshComponent
               this.storageName,
               (
                 loadedMesh: THREE.Object3D,
-                clips?: THREE.AnimationClip[],
-                geometry?: THREE.BufferGeometry
+                clips?: THREE.AnimationClip[] | any,
+                geometry?: THREE.BufferGeometry,
+                morphTargets? : THREE.BufferAttribute[] 
               ) => {
-                if (loadedMesh !== null && loadedMesh !== undefined) {
+                let assignMaterial = true;
+
+                if (ThreeUtil.isNotNull(loadedMesh)) {
                   this.mesh.add(loadedMesh);
-                } else if (geometry !== null) {
+                } else if (ThreeUtil.isNotNull(geometry )) {
                   geometry.computeVertexNormals();
                   if (
                     geometry['animations'] !== null &&
@@ -1060,6 +1083,12 @@ export class MeshComponent
                     );
                     this.mesh.add(loadedMesh);
                   }
+                } else if (ThreeUtil.isNotNull(morphTargets)) {
+                  const baseGeometry = this.getGeometry();
+                  baseGeometry.morphAttributes.position = morphTargets;
+                  loadedMesh = new THREE.Mesh( baseGeometry, this.getMaterials()[0]);
+                  this.mesh.add(loadedMesh);
+                  assignMaterial = false;
                 }
                 if (this.castShadow && loadedMesh) {
                   loadedMesh.traverse((object) => {
@@ -1070,6 +1099,7 @@ export class MeshComponent
                   });
                 }
                 if (
+                  assignMaterial &&
                   ThreeUtil.isNotNull(this.materialList) &&
                   this.materialList.length > 0
                 ) {
@@ -1107,10 +1137,8 @@ export class MeshComponent
                 }
                 this.clipMesh = loadedMesh;
                 this.resetHelper();
-                this.synkObject3D(['mixer', 'material', 'helpers']);
-                if (loadedMesh instanceof THREE.Mesh) {
-                  this._meshSubject.next(loadedMesh);
-                }
+                this.synkObject3D(['mixer', 'helpers']);
+                this._meshSubject.next(loadedMesh);
                 this.onLoad.emit(this);
               },
               this.storageOption
@@ -1231,9 +1259,7 @@ export class MeshComponent
         this.object3d.userData.component = this;
       }
       const realMesh = this.getRealMesh();
-      if (realMesh instanceof THREE.Mesh) {
-        this._meshSubject.next(realMesh);
-      }
+      this._meshSubject.next(realMesh);
       if (this.helper == null) {
         this.resetHelper();
       }

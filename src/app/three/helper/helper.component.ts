@@ -5,6 +5,7 @@ import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHel
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
 import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
 import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
+import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 
 import * as THREE from 'three';
 
@@ -35,6 +36,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
+  @Input() private children: any[] = null;
 
   @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
 
@@ -180,10 +182,13 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       }
       if (this.parent instanceof THREE.Object3D) {
         let parent = this.parent;
-        while(parent.parent) {
-          parent = parent.parent;
+        const helper = this.getHelper();
+        if (helper.parent === null) {
+          while(parent.parent) {
+            parent = parent.parent;
+          }
+          parent.add(helper);
         }
-        parent.add(this.getHelper());
         this.setUpdate();
       }
     } else if (this.needsUpdate && this.helper !== null) {
@@ -207,6 +212,24 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       this.helper = null;
       let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
+        case 'gyroscope' :
+					const gyroscope = new Gyroscope();
+          if (ThreeUtil.isNotNull(this.children)) {
+            this.children.forEach(child => {
+              if (child.getMesh) {
+                gyroscope.add(child.getMesh());
+              } else if (child.getLight) {
+                gyroscope.add(child.getLight());
+              } else if (child.getCamera) {
+                gyroscope.add(child.getCamera());
+              }
+            });
+          }
+          basemesh = gyroscope;
+          if (this.parent !== null && this.parent instanceof THREE.Object3D) {
+            this.parent.add(basemesh);
+          }
+          break;
         case 'arrow':
           basemesh = new THREE.ArrowHelper(
             this.getDir(new THREE.Vector3( 0, 0, 1 )),

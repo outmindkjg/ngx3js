@@ -30,7 +30,10 @@ export class MixerComponent implements OnInit {
   @Input() private gravity:number = null;
   @Input() private delayTime:number = null;
   @Input() private animationHelper: MixerComponent = null;
-
+  @Input() private skin: number = null;
+  @Input() private weapon: number = null;
+  @Input() private controls: any = null;
+  @Input() private mmdHelpers : string[] = null;
   @Output() private onLoad:EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
 
   @ContentChildren(ClipComponent, { descendants: false }) private clipList: QueryList<ClipComponent>;
@@ -93,6 +96,16 @@ export class MixerComponent implements OnInit {
       this.clipList.forEach(clip => {
         clip.setMixer(this.mixer, this.clips, fps);
       });
+    } 
+    if (changes.weapon) {
+      if (this.clips !== null && this.clips.setWeapon) {
+        this.clips.setWeapon(this.weapon);
+      }
+    }
+    if (changes.skin) {
+      if (this.clips !== null && this.clips.setSkin) {
+        this.clips.setSkin(this.skin);
+      }
     }
   }
 
@@ -114,14 +127,18 @@ export class MixerComponent implements OnInit {
     if (this.model !== model) {
       this.model = model;
       this.clips = clips;
+      this.helper = null;
       if (this.debug) {
         const clipsNames = [];
         if (this.clips.forEach) {
           this.clips.forEach(clip => {
             clipsNames.push(clip.name);
           })
+        } else if (this.clips.meshBody && this.clips.meshBody.geometry&& this.clips.meshBody.geometry.animations) {
+          this.clips.meshBody.geometry.animations.forEach(clip => {
+            clipsNames.push(clip.name);
+          })
         }
-        console.log(clipsNames);
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {
@@ -175,6 +192,12 @@ export class MixerComponent implements OnInit {
   }
 
   private isAdded : boolean = false;
+  private mmdAnimationHelpers : THREE.Object3D[] = [];
+
+  getMmdAnimationHelpers() {
+    return this.mmdAnimationHelpers;
+  }
+
   synkAnimationHelper(helper : MMDAnimationHelper) {
     if (helper !== null && !this.isAdded) {
       if (this.model instanceof THREE.SkinnedMesh || this.model instanceof THREE.Camera) {
@@ -201,6 +224,37 @@ export class MixerComponent implements OnInit {
           if (ThreeUtil.isNotNull(oldParent)) {
             oldParent.add(skinnedMesh);
           }
+          this.mmdAnimationHelpers.forEach(mmdHelper => {
+            if (mmdHelper.parent) {
+              mmdHelper.parent.remove(mmdHelper);
+            }
+          });
+          this.mmdAnimationHelpers = [];
+          if (ThreeUtil.isNotNull(this.mmdHelpers)) {
+            let rootObject3d: THREE.Object3D = skinnedMesh;
+            while(rootObject3d.parent) {
+              rootObject3d = rootObject3d.parent;
+            }
+            let objectsHelper:any = helper['objects'].get( skinnedMesh );
+            this.mmdHelpers.forEach(mmdHelper => {
+              switch(mmdHelper.toLowerCase()) {
+                case 'iksolver' :
+                  if (objectsHelper.ikSolver) {
+                    this.mmdAnimationHelpers.push(objectsHelper.ikSolver.createHelper());
+                  }
+                  break;
+                case 'physics' :
+                  if (objectsHelper.physics) {
+                    this.mmdAnimationHelpers.push(objectsHelper.physics.createHelper());
+                  }
+                  break;
+              }
+            })
+            this.mmdAnimationHelpers.forEach(mmdAnimationHelper => {
+              rootObject3d.add(mmdAnimationHelper);
+            });
+          }
+          this.onLoad.emit(this);
           this.isAdded = true;
         }
       } else if (this.model instanceof THREE.Audio) {
@@ -223,7 +277,6 @@ export class MixerComponent implements OnInit {
                 afterglow: this.getAfterglow(),
                 resetPhysicsOnLoop: this.getResetPhysicsOnLoop()
               });
-              // this.helper.sharedPhysics = true;
               this.synkAnimationHelper(this.helper);
               this._animationHelperSubject.next(this.helper);
             } else {
@@ -250,13 +303,24 @@ export class MixerComponent implements OnInit {
         break;
       case 'virtulous' :
       default :
-          break;
+        if (this.clips !== null) {
+          if (ThreeUtil.isNotNull(this.weapon) && this.clips.setWeapon) {
+            this.clips.setWeapon(this.weapon);
+          }
+          if (ThreeUtil.isNotNull(this.skin) && this.clips.setSkin) {
+            this.clips.setSkin(this.skin);
+          }
+          if (ThreeUtil.isNotNull(this.controls) && this.clips.controls !== undefined) {
+            this.clips.controls = this.controls;
+          }
+        }
+        break;
       }
   }
 
   lastPlayedClip : ClipComponent = null;
   play(name : string, duration : number = this.duration): boolean {
-    if (this.mixer !== null && this.clipList !== null && this.clipList !== undefined && this.clipList.length > 0) {
+    if (ThreeUtil.isNotNull(name) && name !== '' && this.mixer !== null && this.clipList !== null && this.clipList !== undefined && this.clipList.length > 0) {
       duration = ThreeUtil.getTypeSafe(duration, this.duration);
       this.lastAction = name.toLowerCase();
       let foundAction:ClipComponent = null;
@@ -279,6 +343,9 @@ export class MixerComponent implements OnInit {
       }
       this.lastPlayedClip = foundAction;
       return true;
+    } else if (this.clips && this.clips.setAnimation) {
+      this.clips.setAnimation(name);
+      return true;
     } else {
       return false;
     }
@@ -289,8 +356,14 @@ export class MixerComponent implements OnInit {
       this.helper.update( timer.delta );
     } else if (this.mixer !== null) {
       this.mixer.update( timer.delta );
-    } else if (this.clips !== null && this.clips.setTime) {
-      this.clips.setTime(timer.elapsedTime * this.timeScale);
+    } else if (this.clips !== null) {
+      if (this.clips.setTime) {
+        this.clips.setTime(timer.elapsedTime * this.timeScale);
+      } else if (this.clips.update) {
+        try {
+          this.clips.update(timer.delta * this.timeScale);
+        } catch(ex) {}
+      }
     }
   }
 }

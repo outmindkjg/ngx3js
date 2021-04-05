@@ -40,8 +40,8 @@ import { LDrawLoader } from 'three/examples/jsm/loaders/LDrawLoader';
 import { LottieLoader } from 'three/examples/jsm/loaders/LottieLoader';
 import { LUT3dlLoader } from 'three/examples/jsm/loaders/LUT3dlLoader';
 import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
-import { LWOLoader } from 'three/examples/jsm/loaders/LWOLoader';
-import { MDDLoader } from 'three/examples/jsm/loaders/MDDLoader';
+import { LWOLoader, LWO } from 'three/examples/jsm/loaders/LWOLoader';
+import { MDDLoader, MDD } from 'three/examples/jsm/loaders/MDDLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { PVRLoader } from 'three/examples/jsm/loaders/PVRLoader';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
@@ -53,13 +53,15 @@ import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { XLoader } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
+import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
+import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 
 import {
   CSS2DRenderer,
   CSS2DObject,
 } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
-import { LoadedObject } from './interface';
+import { LoadedObject, ThreeUtil } from './interface';
 
 @Injectable({
   providedIn: 'root',
@@ -316,6 +318,46 @@ export class LocalStorageService {
           clips : object.animations
         });
       });
+    } else if (key.endsWith('.kmz')) {
+      if (this.kmzLoader === null) {
+        this.kmzLoader = new KMZLoader();
+      }
+      if (options.resourcePath) {
+        this.kmzLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.kmzLoader.load( key , ( object : Collada) => {
+        callBack({
+          object: object.scene,
+        });
+      });
+    } else if (key.endsWith('.lwo')) {
+      if (this.lwoLoader === null) {
+        this.lwoLoader = new LWOLoader();
+      }
+      if (options.resourcePath) {
+        this.lwoLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.lwoLoader.load( key , ( object : LWO) => {
+        const mesh = new THREE.Group();
+        object.meshes.forEach(obj => {
+          mesh.add(obj);
+        })
+        callBack({
+          object: mesh,
+        });
+      });
+    } else if (key.endsWith('.mpd')) {
+      if (this.lDrawLoader === null) {
+        this.lDrawLoader = new LDrawLoader();
+      }
+      if (options.resourcePath) {
+        this.lDrawLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+      }
+      this.lDrawLoader.load( key , ( object : THREE.Group) => {
+        callBack({
+          object: object,
+        });
+      });
     } else if (key.endsWith('.gcode')) {
       if (this.gCodeLoader === null) {
         this.gCodeLoader = new GCodeLoader();
@@ -427,6 +469,13 @@ export class LocalStorageService {
           }
           this.gltfLoader.setDRACOLoader(this.dracoLoader);
         }
+        if (options.useDds) {
+          if (this.ddsLoader === null) {
+            this.ddsLoader = new DDSLoader();
+          }
+          this.gltfLoader.setDDSLoader(this.ddsLoader);
+        }
+        
       }
       this.gltfLoader.load(
         key,
@@ -597,17 +646,18 @@ export class LocalStorageService {
           console.log(e);
         }
       );
-    } else if (key.endsWith('.md2')) {
-      if (this.md2Loader === null) {
-        this.md2Loader = new MD2Loader();
+    } else if (key.endsWith('.mdd')) {
+      if (this.mddLoader === null) {
+        this.mddLoader = new MDDLoader();
       }
-      this.md2Loader.load(
+      this.mddLoader.load(
         key,
-        (geometry: THREE.BufferGeometry) => {
+        (mdd: MDD) => {
           callBack({
-            object: null,
-            clips: null,
-            geometry: geometry,
+            object : null,
+            clips: [mdd.clip],
+            geometry: null,
+            morphTargets: mdd.morphTargets,
           });
         },
         null,
@@ -615,6 +665,55 @@ export class LocalStorageService {
           console.log(e);
         }
       );
+    } else if (key.endsWith('.md2')) {
+      const optionType = (options.type || '').toLowerCase();
+      if (optionType === 'md2character') {
+        const character = new MD2Character();
+        options.baseUrl = this.getStoreUrl(options.baseUrl);
+        if (ThreeUtil.isNull(options.body)) {
+          options.body = key;
+        }
+				character.loadParts( options );
+				character.onLoadComplete = function () {
+          callBack({
+            object: character.root,
+            clips: character,
+            geometry: null,
+          });
+				};
+      } else if (optionType === 'md2charactercomplex') {
+        const character = new MD2CharacterComplex();
+        options.baseUrl = this.getStoreUrl(options.baseUrl);
+        if (ThreeUtil.isNull(options.body)) {
+          options.body = key;
+        }
+        character.loadParts( options );
+        character.onLoadComplete = function () {
+          callBack({
+            object: character.root,
+            clips: character,
+            geometry: null,
+          });
+        };
+      } else {
+        if (this.md2Loader === null) {
+          this.md2Loader = new MD2Loader();
+        }
+        this.md2Loader.load(
+          key,
+          (geometry: THREE.BufferGeometry) => {
+            callBack({
+              object: null,
+              clips: null,
+              geometry: geometry,
+            });
+          },
+          null,
+          (e) => {
+            console.log(e);
+          }
+        );
+      }
     } else if (key.endsWith('.pdb')) {
       if (this.pdbLoader === null) {
         this.pdbLoader = new PDBLoader();
@@ -771,7 +870,7 @@ export class LocalStorageService {
             callBack(scene);
           }
         } else {
-          callBack(result.object, result.clips, result.geometry);
+          callBack(result.object, result.clips, result.geometry, result.morphTargets);
         }
       },
       options

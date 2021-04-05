@@ -13,6 +13,7 @@ export class TextureComponent implements OnInit {
 
   @Input() private refer:any = null;
   @Input() public textureType:string = 'map';
+  @Input() private loaderType:string = null;
   @Input() private image:string = null;
   @Input() private cubeImage:string[] = null;
   @Input() private program:(ctx: CanvasRenderingContext2D) => void = null;
@@ -284,12 +285,12 @@ export class TextureComponent implements OnInit {
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
-
+  static imageBitmapLoader: THREE.ImageBitmapLoader = null;
   getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
-    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height);
+    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height, this.loaderType);
   }
 
-  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number): THREE.Texture {
+  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number, loadType? : string): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       if (this.cubeTextureLoader === null) {
         this.cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -302,13 +303,18 @@ export class TextureComponent implements OnInit {
       }
       return this.cubeTextureLoader.load(cubeImage);
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
-      if (this.textureLoader === null) {
-        this.textureLoader = new THREE.TextureLoader();
+     switch((loadType || 'texture').toLowerCase()) {
+        case 'imagebitmap' :
+        case 'image' :
+        default :
+          if (this.textureLoader === null) {
+            this.textureLoader = new THREE.TextureLoader();
+          }
+          if (!image.startsWith('/')) {
+            image = '/assets/examples/' + image;
+          }
+          return this.textureLoader.load(image);
       }
-      if (!image.startsWith('/')) {
-        image = '/assets/examples/' + image;
-      }
-      return this.textureLoader.load(image);
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
       canvas.width = canvasWidth ? canvasWidth : 35;

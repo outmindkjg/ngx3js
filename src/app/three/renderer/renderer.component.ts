@@ -35,6 +35,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private localClippingEnabled:boolean = false;
   @Input() private globalClippingEnabled:boolean = true;
   @Input() private enablePan:boolean = true;
+  @Input() private enableKeys:boolean = true;
   @Input() private enableDamping:boolean = false;
   @Input() private movementSpeed:number = null;
   @Input() private rollSpeed:number = null;
@@ -156,19 +157,29 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.eventChange = this.removeWindowEvent('change', this.eventChange);
       }
       if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
-        this.eventChange = this.addWindowEvent('pointerdown', this.eventPointerDown);
+        this.eventPointerDown = this.addWindowEvent('pointerdown', this.eventPointerDown);
       } else {
-        this.eventChange = this.removeWindowEvent('pointerdown', this.eventPointerDown);
+        this.eventPointerDown = this.removeWindowEvent('pointerdown', this.eventPointerDown);
       }
       if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
-        this.eventChange = this.addWindowEvent('pointerup', this.eventPointerUp);
+        this.eventPointerUp = this.addWindowEvent('pointerup', this.eventPointerUp);
       } else {
-        this.eventChange = this.removeWindowEvent('pointerup', this.eventPointerUp);
+        this.eventPointerUp = this.removeWindowEvent('pointerup', this.eventPointerUp);
       }
       if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
-        this.eventChange = this.addWindowEvent('pointermove', this.eventPointerMove);
+        this.eventPointerMove = this.addWindowEvent('pointermove', this.eventPointerMove);
       } else {
-        this.eventChange = this.removeWindowEvent('pointermove', this.eventPointerMove);
+        this.eventPointerMove = this.removeWindowEvent('pointermove', this.eventPointerMove);
+      }
+      if (useEvent.indexOf('keydown') > -1) {
+        this.eventKeyDown = this.addWindowEvent('keydown', this.eventKeyDown);
+      } else {
+        this.eventKeyDown = this.removeWindowEvent('keydown', this.eventKeyDown);
+      }
+      if (useEvent.indexOf('keyup') > -1) {
+        this.eventKeyUp = this.addWindowEvent('keyup', this.eventKeyUp);
+      } else {
+        this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
       }
     }
   }
@@ -188,6 +199,13 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           const offsetLeft = this._renderer.nativeElement.offsetLeft;
           const offsetRight = offsetLeft + this.rendererWidth;
           const offsetBottom = offsetTop + this.rendererHeight;
+          switch(type) {
+            case 'keydown' :
+            case 'keyup' :
+              event.clientX = offsetLeft;
+              event.clientY = offsetTop;
+              break;
+          }
           if (event.clientX >= offsetLeft && event.clientX <= offsetRight && event.clientY >= offsetTop && event.clientY <= offsetBottom) {
             const offsetX  = event.clientX - offsetLeft;
             const offsetY = event.clientY - offsetTop;
@@ -216,6 +234,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private eventPointerDown : (event : any) => void = null;
   private eventPointerUp : (event : any) => void = null;
   private eventPointerMove : (event : any) => void = null;
+  private eventKeyDown : (event : any) => void = null;
+  private eventKeyUp : (event : any) => void = null;
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -393,7 +413,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
             maxPolarAngle : this.maxPolarAngle,
-            enablePan : this.enablePan,
+            enablePan : this.enablePan, 
+            enableKeys : this.enableKeys,
             enableDamping : this.enableDamping,
             movementSpeed : this.movementSpeed,
             rollSpeed : this.rollSpeed,
