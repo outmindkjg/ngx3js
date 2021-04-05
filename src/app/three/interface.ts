@@ -18,7 +18,8 @@ export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;
   geometry?: THREE.BufferGeometry;
-  clips?: THREE.AnimationClip[];
+  morphTargets?: THREE.BufferAttribute[];
+  clips?: THREE.AnimationClip[] | any;
 }
 
 export interface GuiBaseControl {
