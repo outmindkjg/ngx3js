@@ -709,7 +709,7 @@ export class ThreeUtil {
     this.lastRenderer = lastRenderer;
   }
 
-  static getRenderer() {
+  static getRenderer(): THREE.Renderer{
     return this.lastRenderer;
   }
 
