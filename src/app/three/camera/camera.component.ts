@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
+import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { PassComponent } from '../pass/pass.component';
 import {
   InterfaceEffectComposer,
@@ -25,8 +25,9 @@ import { ComposerComponent } from '../composer/composer.component';
 import { ListenerComponent } from '../listener/listener.component';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
-import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect.js';
+import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect';
+import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect';
+import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { LightComponent } from '../light/light.component';
@@ -76,22 +77,14 @@ export class CameraComponent
   @Output()
   private onLoad: EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
-  @ContentChildren(PassComponent, { descendants: false })
-  pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent, { descendants: false })
-  composer: QueryList<ComposerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false })
-  listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false })
-  audio: QueryList<AudioComponent>;
-  @ContentChildren(MixerComponent, { descendants: false })
-  mixer: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false })
-  private helpers: QueryList<HelperComponent>;
-  @ContentChildren(CameraComponent, { descendants: false })
-  private cameras: QueryList<CameraComponent>;
-  @ContentChildren(LightComponent, { descendants: false })
-  private lights: QueryList<LightComponent>;
+  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
+  @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lights: QueryList<LightComponent>;
 
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
@@ -345,37 +338,47 @@ export class CameraComponent
   }
 
   resetEffectComposer() {
+    this.effectComposer = null;
     this.effectComposer = this.getEffectComposer();
   }
 
-  getEffectComposer(): EffectComposer | any {
-    if (this.pass !== null && this.pass.length > 0) {
-      if (this.renderer instanceof THREE.WebGLRenderer) {
-        const effectComposer: EffectComposer = new EffectComposer(
-          this.renderer
-        );
-        this.pass.forEach((item) => {
-          item.getPass(this.getScene(), this.getCamera(), effectComposer);
-        });
-        return effectComposer;
-      }
-    } else if (this.effectType !== null) {
-      if (this.renderer instanceof THREE.WebGLRenderer) {
-        switch (this.effectType.toLowerCase()) {
-          case 'peppersghost':
-            const peppersGhostEffect = new PeppersGhostEffect(this.renderer);
-            peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
-            peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(
-              false
-            );
-            return peppersGhostEffect;
-          case 'parallaxbarrier':
-          default:
-            return new ParallaxBarrierEffect(this.renderer);
+  getEffectComposer(): EffectComposer {
+    if (this.effectComposer == null) {
+      if (this.pass !== null && this.pass.length > 0) {
+        if (this.renderer instanceof THREE.WebGLRenderer) {
+          const effectComposer: EffectComposer = new EffectComposer(
+            this.renderer
+          );
+          this.pass.forEach((item) => {
+            item.getPass(this.getScene(), this.getCamera(), effectComposer);
+          });
+          this.effectComposer = effectComposer;
+        }
+      } else if (this.effectType !== null) {
+        if (this.renderer instanceof THREE.WebGLRenderer) {
+          switch (this.effectType.toLowerCase()) {
+            case 'peppersghost':
+              const peppersGhostEffect = new PeppersGhostEffect(this.renderer);
+              peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
+              peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(
+                false
+              );
+              this.effectComposer = peppersGhostEffect;
+              break;
+            case 'outline' :
+              const outlineEffect = new OutlineEffect(this.renderer, {
+              });
+              this.effectComposer = outlineEffect;
+              break;
+            case 'parallaxbarrier':
+            default:
+              this.effectComposer = new ParallaxBarrierEffect(this.renderer);
+              break;
+          }
         }
       }
     }
-    return null;
+    return this.effectComposer;
   }
 
   ngAfterContentInit(): void {
@@ -731,7 +734,17 @@ export class CameraComponent
       });
     }
     if (this.effectComposer !== null) {
-      this.effectComposer.render(renderTimer.delta);
+      if (this.effectComposer instanceof EffectComposer) {
+        this.effectComposer.render(renderTimer.delta);
+      } else if (this.effectComposer instanceof OutlineEffect) {
+        this.effectComposer.render(this.getScene(scenes), camera);
+      } else if (this.effectComposer instanceof PeppersGhostEffect) {
+        this.effectComposer.render(this.getScene(scenes), camera);
+      } else if (this.effectComposer instanceof ParallaxBarrierEffect) {
+        this.effectComposer.render(this.getScene(scenes), camera);
+      } else {
+        this.effectComposer.render(this.getScene(scenes), camera);
+      }
     } else if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {
         this.renderWithScene(renderer, camera, sceneCom.getScene());

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '../../three';
 import { MixerComponent } from '../../three/mixer/mixer.component';
+import * as THREE from 'three';
+import { CameraComponent } from '../../three/camera/camera.component';
 
 @Component({
   selector: 'app-webgl-loader-mmd',
@@ -24,12 +26,57 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
       'physics': true,
       'showIKBones': false,
       'showRigidBodies': false
-    },[]);
+    },[
+      { name : 'animation' , type : 'checkbox', change : () => {
+        this.setHelperEnable('animation', this.controls.animation);
+      }},
+      { name : 'ik' , type : 'checkbox', change : () => {
+        this.setHelperEnable('ik', this.controls.ik);
+      }},
+      { name : 'outline' , type : 'checkbox', change : () => {
+        if (this.effect !== null) {
+          this.effect.enabled = this.controls.outline;
+        }
+      }},
+      { name : 'physics' , type : 'checkbox', change : () => {
+        this.setHelperEnable('physics', this.controls.physics);
+      }},
+      { name : 'showIKBones' , type : 'checkbox', change : () => {
+        if (this.mmdAnimationHelpers && this.mmdAnimationHelpers.length >= 2) {
+          this.mmdAnimationHelpers[0].visible = this.controls.showIKBones;
+        }
+      }},
+      { name : 'showRigidBodies' , type : 'checkbox', change : () => {
+        if (this.mmdAnimationHelpers && this.mmdAnimationHelpers.length >= 2) {
+          this.mmdAnimationHelpers[1].visible = this.controls.showRigidBodies;
+        }
+      }},
+
+    ]);
   }
 
+  effect : any = null;
+  setCamera(camera : CameraComponent) {
+    super.setCamera(camera);
+    this.effect = camera.getEffectComposer();
+  }
 
+  setHelperEnable(name, enable) {
+    if (this.mmdAnimationHelper !== null) { 
+      this.mmdAnimationHelper.enable( name, enable );
+    }
+  }
+
+  mmdAnimationHelpers : THREE.Object3D[] = [];
+  mmdAnimationHelper : any = null;
   setMixer(mixer : MixerComponent) {
-    console.log(mixer.getMmdAnimationHelpers());
+    this.mmdAnimationHelper = mixer.getMmdAnimationHelper();
+    this.mmdAnimationHelpers = mixer.getMmdAnimationHelperObject3D();
+    if (this.mmdAnimationHelpers && this.mmdAnimationHelpers.length == 2) {
+      this.mmdAnimationHelpers[0].visible = false;
+      this.mmdAnimationHelpers[1].visible = false;
+    }
+    
   }
 
 }

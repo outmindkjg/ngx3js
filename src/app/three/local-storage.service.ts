@@ -131,6 +131,18 @@ export class LocalStorageService {
   private xyzLoader: XYZLoader = null;
   private threeMFLoader: ThreeMFLoader = null;
 
+  private getStoreUrlList(url: string | string[]) {
+    if (typeof(url) === 'string') {
+      return this.getStoreUrl(url);
+    } else {
+      const modUrl = [];
+      url.forEach(path => {
+        modUrl.push(this.getStoreUrl(path));
+      });
+      return modUrl;
+    }
+  }
+
   private getStoreUrl(url: string) {
     if (
       url.startsWith('/') ||
@@ -524,7 +536,7 @@ export class LocalStorageService {
       if (vmdUrl !== null) {
         this.mmdLoader.loadWithAnimation(
           key,
-          this.getStoreUrl(vmdUrl),
+          this.getStoreUrlList(vmdUrl),
           (result: MMDLoaderAnimationObject) => {
             callBack({
               object: this.getStoreObject(result.mesh, options),

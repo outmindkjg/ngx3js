@@ -107,6 +107,11 @@ export class MixerComponent implements OnInit {
         this.clips.setSkin(this.skin);
       }
     }
+    if (changes.pose) {
+      if (this.model instanceof THREE.SkinnedMesh) {
+        // this.helper.pose(this.model, null);
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -194,7 +199,12 @@ export class MixerComponent implements OnInit {
   private isAdded : boolean = false;
   private mmdAnimationHelpers : THREE.Object3D[] = [];
 
-  getMmdAnimationHelpers() {
+  
+  getMmdAnimationHelper() : MMDAnimationHelper {
+    return this.helper;
+  }
+
+  getMmdAnimationHelperObject3D() : THREE.Object3D[]{
     return this.mmdAnimationHelpers;
   }
 
