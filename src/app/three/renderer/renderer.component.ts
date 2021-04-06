@@ -29,6 +29,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private rotateSpeed:number = null;
+  @Input() private zoomSpeed:number = null;
+  @Input() private panSpeed:number = null;
   @Input() private maxPolarAngle:number = null;
   @Input() private clearColor:string | number = null;
   @Input() private clearAlpha:number = null;
@@ -412,6 +415,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             screenSpacePanning : this.screenSpacePanning,
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
+            rotateSpeed : this.rotateSpeed,
+            zoomSpeed : this.zoomSpeed,
+            panSpeed : this.panSpeed,
             maxPolarAngle : this.maxPolarAngle,
             enablePan : this.enablePan, 
             enableKeys : this.enableKeys,

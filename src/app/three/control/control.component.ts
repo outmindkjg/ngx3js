@@ -19,6 +19,9 @@ export class ControlComponent implements OnInit {
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private rotateSpeed:number = null;
+  @Input() private zoomSpeed:number = null;
+  @Input() private panSpeed:number = null;
   @Input() private maxPolarAngle:number = null;
   @Input() private enableKeys:boolean = true;
   @Input() private enablePan:boolean = true;
@@ -176,6 +179,15 @@ export class ControlComponent implements OnInit {
           }
           if (ThreeUtil.isNotNull(this.maxDistance)) {
             orbitControls.maxDistance = this.maxDistance;
+          }
+          if (ThreeUtil.isNotNull(this.rotateSpeed)) {
+            orbitControls.rotateSpeed = this.rotateSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.zoomSpeed)) {
+            orbitControls.zoomSpeed = this.zoomSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.panSpeed)) {
+            orbitControls.panSpeed = this.panSpeed;
           }
           if (ThreeUtil.isNotNull(this.maxPolarAngle)) {
             orbitControls.maxPolarAngle = ThreeUtil.getAngleSafe(this.maxPolarAngle, 180);

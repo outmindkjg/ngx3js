@@ -192,16 +192,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
-
+  @Input() private refSize : any = null;
   @Input() private toNonIndexed : boolean = null;
-  
-
   @Input() private refGeometry : any = null;
-  
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
- 
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
-
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
@@ -804,6 +799,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           this.resetGeometry();
         })
       }
+      if (changes.refSize && this.refSize !== null) {
+        if (this.refSize.getMesh && this.refSize.meshSubscribe) {
+          this.refSize.meshSubscribe().subscribe(() => {
+            this.needUpdate = true;
+            this.resetGeometry();
+          });
+        }
+      }
     }
     if (changes.params) {
       Object.entries(this.params).forEach(([key, value]) => {
@@ -1047,7 +1050,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0 )
             break;
         }
-
       }
     }
   }

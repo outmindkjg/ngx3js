@@ -44,6 +44,7 @@ import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { LWOLoader, LWO } from 'three/examples/jsm/loaders/LWOLoader';
 import { MDDLoader, MDD } from 'three/examples/jsm/loaders/MDDLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
+import { Volume } from 'three/examples/jsm/misc/Volume';
 import { PVRLoader } from 'three/examples/jsm/loaders/PVRLoader';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
@@ -698,6 +699,23 @@ export class LocalStorageService {
             clips: [mdd.clip],
             geometry: null,
             morphTargets: mdd.morphTargets,
+            source : mdd
+          });
+        },
+        null,
+        (e) => {
+          console.log(e);
+        }
+      );
+    } else if (key.endsWith('.nrrd')) {
+      if (this.nrrdLoader === null) {
+        this.nrrdLoader = new NRRDLoader();
+      }
+      this.nrrdLoader.load(
+        key,
+        (group: Volume) => {
+          callBack({
+            source : group
           });
         },
         null,
@@ -713,28 +731,28 @@ export class LocalStorageService {
         if (ThreeUtil.isNull(options.body)) {
           options.body = key;
         }
-				character.loadParts( options );
 				character.onLoadComplete = function () {
           callBack({
             object: character.root,
             clips: character,
-            geometry: null,
+            source : character
           });
 				};
+				character.loadParts( options );
       } else if (optionType === 'md2charactercomplex') {
         const character = new MD2CharacterComplex();
         options.baseUrl = this.getStoreUrl(options.baseUrl);
         if (ThreeUtil.isNull(options.body)) {
           options.body = key;
         }
-        character.loadParts( options );
         character.onLoadComplete = function () {
           callBack({
             object: character.root,
             clips: character,
-            geometry: null,
+            source : character
           });
         };
+        character.loadParts( options );
       } else {
         if (this.md2Loader === null) {
           this.md2Loader = new MD2Loader();
@@ -743,9 +761,8 @@ export class LocalStorageService {
           key,
           (geometry: THREE.BufferGeometry) => {
             callBack({
-              object: null,
-              clips: null,
               geometry: geometry,
+              source : geometry
             });
           },
           null,
@@ -835,7 +852,10 @@ export class LocalStorageService {
           const mesh = new THREE.Mesh();
           mesh.geometry = geometry;
           mesh.material = new THREE.MeshLambertMaterial({ color: 0x7777ff });
-          // callBack(mesh);
+          callBack({
+            object : mesh,
+            source : geometry
+          });
         },
         null,
         (e) => {
@@ -853,6 +873,9 @@ export class LocalStorageService {
           this.objectLoader.load(
             key,
             (result) => {
+              callBack({
+
+              })
               console.log(result);
             },
             null,
@@ -868,7 +891,7 @@ export class LocalStorageService {
           this.geometryLoader.load(
             key,
             (geometry) => {
-              callBack({ geometry: geometry });
+              callBack({ geometry: geometry, source : geometry });
             },
             null,
             (e) => {
@@ -894,7 +917,8 @@ export class LocalStorageService {
       mesh: THREE.Object3D,
       clips?: THREE.AnimationClip[],
       geometry?: THREE.BufferGeometry,
-      options?: any
+      morphTargets?: any,
+      source? : any
     ) => void,
     options?: any
   ): void {
@@ -910,7 +934,7 @@ export class LocalStorageService {
             callBack(scene);
           }
         } else {
-          callBack(result.object, result.clips, result.geometry, result.morphTargets);
+          callBack(result.object, result.clips, result.geometry, result.morphTargets, result.source);
         }
       },
       options
@@ -919,14 +943,14 @@ export class LocalStorageService {
 
   public getGeometry(
     key: string,
-    callBack: (mesh: THREE.BufferGeometry) => void,
+    callBack: (mesh: THREE.BufferGeometry, source? : any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
       key,
       (result) => {
         if (result.geometry instanceof THREE.BufferGeometry) {
-          callBack(result.geometry);
+          callBack(result.geometry, result.source);
         } else {
           callBack(new THREE.BufferGeometry());
         }
@@ -937,14 +961,14 @@ export class LocalStorageService {
 
   public getMaterial(
     key: string,
-    callBack: (material: THREE.Material) => void,
+    callBack: (material: THREE.Material, source? : any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
       key,
       (result) => {
         if (result.material instanceof THREE.Material) {
-          callBack(result.material);
+          callBack(result.material, result.source);
         }
       },
       options
@@ -957,18 +981,18 @@ export class LocalStorageService {
 
   public getScene(
     key: string,
-    callBack: (mesh: THREE.Scene) => void,
+    callBack: (mesh: THREE.Scene, source? : any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
       key,
       (result) => {
         if (result.object instanceof THREE.Scene) {
-          callBack(result.object);
+          callBack(result.object, result.source);
         } else {
           const scene = new THREE.Scene();
           scene.add(result.object);
-          callBack(scene);
+          callBack(scene, result.source);
         }
       },
       options
