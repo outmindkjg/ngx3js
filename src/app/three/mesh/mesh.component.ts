@@ -1,33 +1,29 @@
-import { LightComponent } from './../light/light.component';
-import { HelperComponent } from './../helper/helper.component';
-import { CameraComponent } from './../camera/camera.component';
 import {
   Component,
   ContentChildren,
-  Input,
-  Output,
-  OnInit,
+  EventEmitter, Input,
+  OnInit, Output,
   QueryList,
-  EventEmitter,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
-import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
-import {
-  Lensflare,
-  LensflareElement,
-} from 'three/examples/jsm/objects/Lensflare';
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
-
-import { Wireframe } from 'three/examples/jsm/lines/Wireframe';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
+import { Wireframe } from 'three/examples/jsm/lines/Wireframe';
+import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
+import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
+import { Volume } from 'three/examples/jsm/misc/Volume';
+import {
+  Lensflare,
+  LensflareElement
+} from 'three/examples/jsm/objects/Lensflare';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, InterfaceMeshComponent, ThreeUtil } from '../interface';
@@ -37,12 +33,14 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 import { SvgComponent } from '../svg/svg.component';
 import { TextureComponent } from '../texture/texture.component';
 import { AudioComponent } from './../audio/audio.component';
+import { CameraComponent } from './../camera/camera.component';
+import { HelperComponent } from './../helper/helper.component';
+import { LightComponent } from './../light/light.component';
 import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { config } from 'process';
+
 
 @Component({
   selector: 'three-mesh',
@@ -84,7 +82,9 @@ export class MeshComponent
   @Input() private width: number = null;
   @Input() private height: number = null;
   @Input() private count: number = null;
-
+  @Input() private volume: Volume = null;
+  @Input() private axis: string = null;
+  @Input() private index: number = null;
   @Input() private shadowCameraNear: number = null;
   @Input() private shadowMapSizeWidth: number = null;
   @Input() private shadowMapSizeHeight: number = null;
@@ -180,6 +180,15 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.count, def);
   }
 
+  private getAxis(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.axis, def);
+  }
+
+  private getIndex(baseSize : number , def: number): number {
+    const index = ThreeUtil.getTypeSafe(this.index, def);
+    return Math.floor(baseSize * index);
+  }
+
   private getColor(def?: string | number | THREE.Color): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
@@ -232,9 +241,7 @@ export class MeshComponent
           case 'visible':
             break;
           default:
-            if (this.object3d !== null && this.object3d.parent !== null) {
-              this.object3d.parent.remove(this.object3d);
-              this.object3d = null;
+            if (this.mesh !== null) {
               this.mesh = null;
             }
             break;
@@ -266,7 +273,11 @@ export class MeshComponent
 
   private clips: THREE.AnimationClip[] | any = null;
   private clipMesh: THREE.Object3D = null;
+  public storageSource : any = null;
   public helper: THREE.Object3D = null;
+  getStorageSource(): any {
+    return this.storageSource;
+  }
 
   getGeometry(): THREE.BufferGeometry {
     if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
@@ -419,6 +430,7 @@ export class MeshComponent
             : geometry.getGeometry();
         if (meshGeometry.geometry !== geometryClone) {
           meshGeometry.geometry = geometryClone;
+          this._meshSubject.next(meshGeometry);
           this.onLoad.emit(this);
         }
       } else {
@@ -665,7 +677,6 @@ export class MeshComponent
   resetMesh(clearMesh: boolean = false) {
     if (this.parent !== null) {
       if (clearMesh && this.mesh !== null && this.mesh.parent) {
-        this.mesh.parent.remove(this.mesh);
         this.mesh = null;
       }
       if (clearMesh && this.helper != null && this.helper.parent != null) {
@@ -715,6 +726,23 @@ export class MeshComponent
 
   getMesh(): THREE.Object3D {
     if (this.mesh === null) {
+      if (this.object3d !== null && this.object3d !== undefined && this.object3d.parent !== null) {
+        if (this.clipMesh !== null) {
+          while(this.clipMesh.children.length > 0) {
+            const object = this.clipMesh.children[ 0 ];
+            object.parent.remove( object );
+          }
+          this.clipMesh.parent.remove(this.clipMesh);
+        }
+        while(this.object3d.children.length > 0) {
+          const object = this.object3d.children[ 0 ];
+          object.parent.remove( object );
+        }
+        this.object3d.parent.remove(this.object3d);
+        this.object3d = null;
+        this.clipMesh = null;
+      }
+
       let geometry: THREE.BufferGeometry = null;
       if (
         (this.geometryList != null && this.geometryList.length > 0) ||
@@ -899,6 +927,25 @@ export class MeshComponent
           });
           basemesh = lensflare;
           break;
+        case 'volume' :
+          if (ThreeUtil.isNotNull(this.volume)) {
+            switch(this.getAxis('z').toLowerCase()) {
+              case 'x' :
+                this.storageSource = this.volume.extractSlice('x', this.getIndex(this.volume['RASDimensions'][ 0 ], 0.5));
+                break;
+              case 'y' :
+                this.storageSource = this.volume.extractSlice('y', this.getIndex(this.volume['RASDimensions'][ 1 ], 0.5));
+                break;
+              case 'z' :
+              default :
+                this.storageSource = this.volume.extractSlice('z', this.getIndex(this.volume['RASDimensions'][ 2 ], 0.5));
+                break;
+            }
+            basemesh = this.storageSource.mesh; 
+          } else {
+            basemesh = new THREE.Group();
+          }
+          break;
         case 'instanced':
           const instanced = new THREE.InstancedMesh(
             geometry,
@@ -1054,7 +1101,8 @@ export class MeshComponent
                 loadedMesh: THREE.Object3D,
                 clips?: THREE.AnimationClip[] | any,
                 geometry?: THREE.BufferGeometry,
-                morphTargets? : THREE.BufferAttribute[] 
+                morphTargets? : THREE.BufferAttribute[],
+                source? : any 
               ) => {
                 let assignMaterial = true;
 
@@ -1103,20 +1151,28 @@ export class MeshComponent
                   ThreeUtil.isNotNull(this.materialList) &&
                   this.materialList.length > 0
                 ) {
-                  const loadedMeshed: THREE.Object3D[] =
-                    loadedMesh instanceof THREE.Group
-                      ? loadedMesh.children
-                      : [loadedMesh];
-                  const materials = this.getMaterials();
-                  materials.forEach((material, idx) => {
-                    if (
-                      loadedMeshed.length > idx &&
-                      loadedMeshed[idx] instanceof THREE.Mesh
-                    ) {
-                      const childMesh = loadedMeshed[idx] as THREE.Mesh;
-                      childMesh.material = material;
-                    }
-                  });
+                  const materialType:string = (this.storageOption?.materialType || 'seqn');
+                  switch(materialType.toLowerCase()) {
+                    case 'map' :
+                      const texture = this.getMaterials()[0]['map'];
+                      loadedMesh.traverse( child  => {
+                        if ( child['isMesh']) child['material'].map = texture;
+                      });
+                      break;
+                    default :
+                      const loadedMeshed: THREE.Object3D[] = loadedMesh instanceof THREE.Group ? loadedMesh.children : [loadedMesh];
+                      const materials = this.getMaterials();
+                      materials.forEach((material, idx) => {
+                        if (
+                          loadedMeshed.length > idx &&
+                          loadedMeshed[idx] instanceof THREE.Mesh
+                        ) {
+                          const childMesh = loadedMeshed[idx] as THREE.Mesh;
+                          childMesh.material = material;
+                        }
+                      });
+                      break;
+                  }
                 }
                 if (this.meshList) {
                   this.meshList.forEach((mesh) => {
@@ -1136,6 +1192,7 @@ export class MeshComponent
                   this.clips = clips;
                 }
                 this.clipMesh = loadedMesh;
+                this.storageSource = source;
                 this.resetHelper();
                 this.synkObject3D(['mixer', 'helpers']);
                 this._meshSubject.next(loadedMesh);

@@ -38,18 +38,28 @@
       <three-position [x]="200" [y]="200" [z]="200"></three-position>
     </three-light>
     <three-shared>
-      <three-mesh #nrrd [storageName]="'models/nrrd/I.nrrd'"></three-mesh>
+      <three-mesh #nrrd [storageName]="'models/nrrd/I.nrrd'" (onLoad)="setVolume($event)"></three-mesh>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [refSize]="nrrd"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+      <three-mesh [visible]="false" #hiddenBox>
+        <three-position [x]="0" [y]="1" [z]="0"></three-position>
+        <three-geometry
+          [type]="'box'"
+          [refGeometry]="nrrd"
+          [refType]="'size'"
+          [width]="1"
+          [height]="1"
+          [depth]="1"
+        ></three-geometry>
+        <three-material type="MeshBasic" [color]="'0x00ff00'"></three-material>
+        <three-helper [type]="'box'" [target]="hiddenBox" [matrix]="nrrd.storageSource?.matrix"></three-helper>
+      </three-mesh>
+      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'x'" [index]="controls.indexX"></three-mesh>
+      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'y'" [index]="controls.indexY"></three-mesh>
+      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'z'" [index]="controls.indexZ"></three-mesh>
+      <three-mesh [storageName]="'models/vtk/liver.vtk'" [visible]="controls.modelVisible">
+        <three-material type="MeshLambert" [color]="'0xff0000'" [wireframe]="false" [morphTargets]="false" [side]="'double'"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

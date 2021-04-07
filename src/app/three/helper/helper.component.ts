@@ -36,6 +36,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
+  @Input() private matrix: THREE.Matrix4 = null;
   @Input() private children: any[] = null;
 
   @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
@@ -241,10 +242,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           );
           break;
         case 'box':
-          basemesh = new THREE.BoxHelper(
+          const boxHelper = new THREE.BoxHelper(
             this.getTarget(this.parent),
             this.getColor(0xffff00)
           );
+          basemesh = boxHelper;
           break;
         case 'box3':
           basemesh = new THREE.Box3Helper(null);
@@ -373,6 +375,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             this.helper.material.transparent = true;
           }
         }
+        if (ThreeUtil.isNotNull(this.matrix)) {
+          this.helper.applyMatrix4(this.matrix);
+        } 
         this.helper.visible = this.getVisible(true);
         this.setObject3D(this.helper, false);
         this.synkObject3D([

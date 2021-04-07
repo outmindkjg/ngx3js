@@ -133,11 +133,11 @@ export class LocalStorageService {
   private threeMFLoader: ThreeMFLoader = null;
 
   private getStoreUrlList(url: string | string[]) {
-    if (typeof(url) === 'string') {
+    if (typeof url === 'string') {
       return this.getStoreUrl(url);
     } else {
       const modUrl = [];
-      url.forEach(path => {
+      url.forEach((path) => {
         modUrl.push(this.getStoreUrl(path));
       });
       return modUrl;
@@ -154,6 +154,17 @@ export class LocalStorageService {
     } else {
       return '/assets/examples/' + url;
     }
+  }
+
+  onProgress(xhr) {
+    if (xhr.lengthComputable) {
+      const percentComplete = (xhr.loaded / xhr.total) * 100;
+      console.log(Math.round(percentComplete * 100) / 100 + '% downloaded');
+    }
+  }
+
+  onError(event: ErrorEvent) {
+    console.log(event);
   }
 
   private getStoreObject(
@@ -173,40 +184,62 @@ export class LocalStorageService {
     }
     return object;
   }
+  private _manager: THREE.LoadingManager = null;
+
+  private getLoadingManager(): THREE.LoadingManager {
+    if (this._manager === null) {
+      this._manager = new THREE.LoadingManager(
+        () => {
+          console.log('loaded');
+        },
+        (url: string, loaded: number, total: number) => {
+          console.log(url, loaded, total);
+        },
+        (url: string) => {
+          console.error(url);
+        }
+      );
+      this._manager.addHandler( /\.dds$/i, new DDSLoader() );
+    }
+    return this._manager;
+  }
+
   public getObjectFromKey(
     key: string,
     callBack: (mesh: LoadedObject) => void,
     options: any
   ): void {
     options = options || {};
+    let safeKey = '';
+    if (ThreeUtil.isNotNull(options.path)) {
+      safeKey = key.substr(key.lastIndexOf('/') + 1);
+    } else {
+      safeKey = this.getStoreUrl(key);
+    }
     this._getObjectFromKey(
-      this.getStoreUrl(key),
-      (mesh: LoadedObject) => {
-        if (options.autoCenter && mesh.object) {
-          const object = mesh.object;
+      safeKey,
+      (result: LoadedObject) => {
+        if (options.autoCenter && result.object) {
+          const object = result.object;
           const aabb = new THREE.Box3().setFromObject(object);
           const center = aabb.getCenter(new THREE.Vector3());
           object.position.x += object.position.x - center.x;
           object.position.y += object.position.y - center.y;
           object.position.z += object.position.z - center.z;
         }
-        callBack(mesh);
+        callBack(result);
       },
       options
     );
   }
 
-  public setLoaderWithOption(loader : THREE.Loader, options : any) {
+  public setLoaderWithOption(loader: THREE.Loader, options: any) {
     if (ThreeUtil.isNotNull(options)) {
       if (ThreeUtil.isNotNull(options.resourcePath)) {
-        loader.setResourcePath(
-          this.getStoreUrl(options.resourcePath)
-        );
+        loader.setResourcePath(this.getStoreUrl(options.resourcePath));
       }
       if (ThreeUtil.isNotNull(options.path)) {
-        loader.setPath(
-          this.getStoreUrl(options.path)
-        );
+        loader.setPath(this.getStoreUrl(options.path));
       }
     }
     return loader;
@@ -219,33 +252,25 @@ export class LocalStorageService {
   ): void {
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
-        this.colladaLoader = new ColladaLoader();
+        this.colladaLoader = new ColladaLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.colladaLoader, options);
-      this.colladaLoader.load(
-        key,
-        (result: Collada) => {
-          // result.kinematics;
-          callBack({
-            object: result.scene,
-            clips: result.scene.animations,
-          });
-        },
-        null,
-        (e) => {
-          console.log(e);
-        }
-      );
+      this.colladaLoader.load(key, (result: Collada) => {
+        callBack({
+          object: result.scene,
+          clips: result.scene.animations,
+          source: result,
+        });
+      });
     } else if (key.endsWith('.obj')) {
       if (this.objLoader === null) {
-        this.objLoader = new OBJLoader();
+        this.objLoader = new OBJLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.objLoader, options);
-      const materialUrl: string =
-        options && options.material ? options.material : null;
+      const materialUrl: string = options.material ? options.material : null;
       if (materialUrl !== null && materialUrl.length > 0) {
         this.getObjectFromKey(
-          this.getStoreUrl(materialUrl),
+          materialUrl,
           (result) => {
             if (result.material !== null && result.material !== undefined) {
               this.objLoader.setMaterials(result.material);
@@ -255,15 +280,14 @@ export class LocalStorageService {
               (result: THREE.Group) => {
                 callBack({
                   object: this.getStoreObject(result, options),
+                  source: result,
                 });
               },
-              null,
-              (e) => {
-                console.log(e);
-              }
+              this.onProgress,
+              this.onError
             );
           },
-          null
+          options
         );
       } else {
         this.objLoader.setMaterials(null);
@@ -272,201 +296,264 @@ export class LocalStorageService {
           (result: THREE.Group) => {
             callBack({
               object: result,
+              source: result,
             });
           },
-          null,
-          (e) => {
-            console.log(e);
-          }
+          this.onProgress,
+          this.onError
         );
       }
     } else if (key.endsWith('.mtl')) {
       if (this.mtlLoader === null) {
-        this.mtlLoader = new MTLLoader();
+        this.mtlLoader = new MTLLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.mtlLoader, options);
       this.mtlLoader.load(
         key,
-        (result: MTLLoader.MaterialCreator) => {
-          result.preload();
-          callBack({ material: result });
+        (materials: MTLLoader.MaterialCreator) => {
+          materials.preload();
+          callBack({
+            material: materials,
+            source: materials,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.3ds')) {
       if (this.tdsLoader === null) {
-        this.tdsLoader = new TDSLoader();
+        this.tdsLoader = new TDSLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.tdsLoader, options);
-      this.tdsLoader.load(key, (object: THREE.Group) => {
-        callBack({
-          object: object,
-        });
-      });
+      this.tdsLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.amf')) {
       if (this.amfLoader === null) {
-        this.amfLoader = new AMFLoader();
+        this.amfLoader = new AMFLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.amfLoader, options);
-      this.amfLoader.load(key, (object: THREE.Group) => {
-        callBack({
-          object: object,
-        });
-      });
+      this.amfLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.assimp')) {
       if (this.assimpLoader === null) {
-        this.assimpLoader = new AssimpLoader();
+        this.assimpLoader = new AssimpLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.assimpLoader, options);
-      this.assimpLoader.load(key, (object: Assimp) => {
-        callBack({
-          object: object.object,
-          clips: object.animation,
-        });
-      });
+      this.assimpLoader.load(
+        key,
+        (object: Assimp) => {
+          callBack({
+            object: object.object,
+            clips: object.animation,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.bvh')) {
       if (this.bvhLoader === null) {
-        this.bvhLoader = new BVHLoader();
+        this.bvhLoader = new BVHLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.bvhLoader, options);
-      this.bvhLoader.load(key, (object: BVH) => {
-        if (
-          object.skeleton &&
-          object.skeleton.bones &&
-          object.skeleton.bones.length > 0
-        ) {
-          const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
-          mesh.skeleton = object.skeleton;
-          // callBack({
-          // object: mesh,
-          // clips : object.clip ? [object.clip] : null
-          // });
-        }
-      });
+      this.bvhLoader.load(
+        key,
+        (object: BVH) => {
+          if (
+            object.skeleton &&
+            object.skeleton.bones &&
+            object.skeleton.bones.length > 0
+          ) {
+            const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
+            mesh.skeleton = object.skeleton;
+            callBack({
+              object: mesh,
+              source: object,
+            });
+          }
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.fbx')) {
       if (this.fbxLoader === null) {
-        this.fbxLoader = new FBXLoader();
+        this.fbxLoader = new FBXLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.fbxLoader, options);
-      this.fbxLoader.load(key, (object: THREE.Group) => {
-        callBack({
-          object: object,
-          clips: object.animations,
-        });
-      });
+      this.fbxLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            clips: object.animations,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.kmz')) {
       if (this.kmzLoader === null) {
-        this.kmzLoader = new KMZLoader();
+        this.kmzLoader = new KMZLoader(this.getLoadingManager());
       }
       if (options.resourcePath) {
         this.kmzLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
       }
-      this.kmzLoader.load( key , ( object : Collada) => {
-        callBack({
-          object: object.scene,
-        });
-      });
+      this.kmzLoader.load(
+        key,
+        (object: Collada) => {
+          callBack({
+            object: object.scene,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.lwo')) {
       if (this.lwoLoader === null) {
-        this.lwoLoader = new LWOLoader();
+        this.lwoLoader = new LWOLoader(this.getLoadingManager());
       }
       if (options.resourcePath) {
         this.lwoLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
       }
-      this.lwoLoader.load( key , ( object : LWO) => {
-        const mesh = new THREE.Group();
-        object.meshes.forEach(obj => {
-          mesh.add(obj);
-        })
-        callBack({
-          object: mesh,
-        });
-      });
+      this.lwoLoader.load(
+        key,
+        (object: LWO) => {
+          const mesh = new THREE.Group();
+          object.meshes.forEach((obj) => {
+            mesh.add(obj);
+          });
+          callBack({
+            object: mesh,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.mpd')) {
       if (this.lDrawLoader === null) {
-        this.lDrawLoader = new LDrawLoader();
+        this.lDrawLoader = new LDrawLoader(this.getLoadingManager());
       }
       if (options.resourcePath) {
-        this.lDrawLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+        this.lDrawLoader.setResourcePath(
+          this.getStoreUrl(options.resourcePath)
+        );
       }
-      this.lDrawLoader.load( key , ( object : THREE.Group) => {
-        callBack({
-          object: object,
-        });
-      });
+      this.lDrawLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.gcode')) {
       if (this.gCodeLoader === null) {
-        this.gCodeLoader = new GCodeLoader();
+        this.gCodeLoader = new GCodeLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.gCodeLoader, options);
-      this.gCodeLoader.load(key, (object: THREE.Group) => {
-        callBack({
-          object: object,
-          clips: object.animations,
-        });
-      });
+      this.gCodeLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            clips: object.animations,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.hdr')) {
       if (this.rgbeLoader === null) {
-        this.rgbeLoader = new RGBELoader();
+        this.rgbeLoader = new RGBELoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.rgbeLoader, options);
-      this.rgbeLoader.load(key, (texture: THREE.Texture) => {
-        callBack({
-          material: new THREE.MeshBasicMaterial({
-            map: texture,
-          }),
-        });
-      });
+      this.rgbeLoader.load(
+        key,
+        (texture: THREE.Texture) => {
+          callBack({
+            material: new THREE.MeshBasicMaterial({
+              map: texture,
+            }),
+            source: texture,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.3mf')) {
       if (this.threeMFLoader === null) {
-        this.threeMFLoader = new ThreeMFLoader();
+        this.threeMFLoader = new ThreeMFLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.threeMFLoader, options);
-      this.threeMFLoader.load(key, (object: THREE.Group) => {
-        callBack({
-          object: object,
-        });
-      });
+      this.threeMFLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
-        this.rhino3dmLoader = new Rhino3dmLoader();
+        this.rhino3dmLoader = new Rhino3dmLoader(this.getLoadingManager());
         this.rhino3dmLoader.setLibraryPath('/assets/libs/rhino3dm/');
       }
       this.setLoaderWithOption(this.rhino3dmLoader, options);
-      this.rhino3dmLoader.load(
-        key,
-        (result: THREE.Group) => {
-          callBack({
-            object: result,
-            clips: result.animations,
-          });
-        },
-        null,
-        (e) => {
-          console.log(e);
-        }
-      );
+      this.rhino3dmLoader.load(key, (result: THREE.Group) => {
+        callBack({
+          object: result,
+          clips: result.animations,
+          source: result,
+        });
+      });
     } else if (key.endsWith('.basis')) {
       if (this.basisTextureLoader === null) {
-        this.basisTextureLoader = new BasisTextureLoader();
+        this.basisTextureLoader = new BasisTextureLoader(
+          this.getLoadingManager()
+        );
       }
       this.setLoaderWithOption(this.basisTextureLoader, options);
       this.basisTextureLoader.load(
         key,
-        () => {
-          // todo
+        (texture: THREE.CompressedTexture) => {
+          callBack({
+            source: texture,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.drc')) {
       if (this.dracoLoader === null) {
-        this.dracoLoader = new DRACOLoader();
+        this.dracoLoader = new DRACOLoader(this.getLoadingManager());
         this.dracoLoader.setDecoderPath(this.getStoreUrl('js/libs/draco/'));
         this.dracoLoader.setDecoderConfig({ type: 'js' });
       }
@@ -478,19 +565,17 @@ export class LocalStorageService {
             geometry: geometry,
           });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.gltf') || key.endsWith('.glb')) {
       if (this.gltfLoader === null) {
-        this.gltfLoader = new GLTFLoader();
+        this.gltfLoader = new GLTFLoader(this.getLoadingManager());
       }
       if (options) {
         if (options.useDraco) {
           if (this.dracoLoader === null) {
-            this.dracoLoader = new DRACOLoader();
+            this.dracoLoader = new DRACOLoader(this.getLoadingManager());
           }
           if (options.decoderPath) {
             this.dracoLoader.setDecoderPath(options.decoderPath);
@@ -499,9 +584,13 @@ export class LocalStorageService {
         }
         if (options.useKtx2) {
           if (this.ktx2Loader === null) {
-            this.ktx2Loader = new KTX2Loader();
-            this.ktx2Loader.setTranscoderPath(this.getStoreUrl('js/libs/basis/'));
-            this.ktx2Loader.detectSupport(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
+            this.ktx2Loader = new KTX2Loader(this.getLoadingManager());
+            this.ktx2Loader.setTranscoderPath(
+              this.getStoreUrl('js/libs/basis/')
+            );
+            this.ktx2Loader.detectSupport(
+              ThreeUtil.getRenderer() as THREE.WebGLRenderer
+            );
           }
           this.gltfLoader.setKTX2Loader(this.ktx2Loader);
         }
@@ -518,10 +607,8 @@ export class LocalStorageService {
             clips: result.animations,
           });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (
       key.endsWith('.pmd') ||
@@ -530,7 +617,7 @@ export class LocalStorageService {
       key.endsWith('.vpd')
     ) {
       if (this.mmdLoader === null) {
-        this.mmdLoader = new MMDLoader();
+        this.mmdLoader = new MMDLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.mmdLoader, options);
       const vmdUrl = options && options.vmdUrl ? options.vmdUrl : null;
@@ -544,10 +631,8 @@ export class LocalStorageService {
               clips: result.animation ? [result.animation] : null,
             });
           },
-          null,
-          (e) => {
-            console.log(e);
-          }
+          this.onProgress,
+          this.onError
         );
       } else if (key.endsWith('.vmd')) {
         const object: THREE.SkinnedMesh | THREE.Camera = options.object;
@@ -558,17 +643,17 @@ export class LocalStorageService {
             if (result instanceof THREE.SkinnedMesh) {
               callBack({
                 object: this.getStoreObject(result, options),
+                source: result,
               });
             } else {
               callBack({
                 clips: [result],
+                source: result,
               });
             }
           },
-          null,
-          (e) => {
-            console.log(e);
-          }
+          this.onProgress,
+          this.onError
         );
       } else {
         this.mmdLoader.load(
@@ -578,150 +663,129 @@ export class LocalStorageService {
               object: this.getStoreObject(result, options),
             });
           },
-          null,
-          (e) => {
-            console.log(e);
-          }
+          this.onProgress,
+          this.onError
         );
       }
     } else if (key.endsWith('.pcd')) {
       if (this.pcdLoader === null) {
-        this.pcdLoader = new PCDLoader();
+        this.pcdLoader = new PCDLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.pcdLoader, options);
       this.pcdLoader.load(
         key,
-        () => {},
-        null,
-        (e) => {
-          console.log(e);
-        }
+        (points: THREE.Points) => {
+          callBack({
+            object : points,
+            source: points,
+          });
+        },
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.prwm')) {
       if (this.prwmLoader === null) {
-        this.prwmLoader = new PRWMLoader();
+        this.prwmLoader = new PRWMLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.prwmLoader, options);
       this.prwmLoader.load(
         key,
         (geometry: THREE.BufferGeometry) => {
-          const mesh = new THREE.Mesh(
-            geometry,
-            new THREE.MeshLambertMaterial({ color: 0xaaffaa })
-          );
-          //callBack(mesh);
+          callBack({
+            geometry: geometry,
+            source: geometry,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.tga')) {
       if (this.tgaLoader === null) {
-        this.tgaLoader = new TGALoader();
+        this.tgaLoader = new TGALoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.tgaLoader, options);
-      this.tgaLoader.load(
-        key,
-        (texture: THREE.Texture) => {
-          // const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-          // callBack(mesh);
-        },
-        null,
-        (e) => {
-          console.log(e);
-        }
-      );
+      this.tgaLoader.load(key, (texture: THREE.Texture) => {
+        callBack({
+          source: texture,
+        });
+      });
     } else if (key.endsWith('.svg')) {
       if (this.svgLoader === null) {
-        this.svgLoader = new SVGLoader();
+        this.svgLoader = new SVGLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.svgLoader, options);
       this.svgLoader.load(
         key,
         (data: SVGResult) => {
-          // const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xaaffaa }));
-          // callBack(mesh);
+          callBack({
+            source: data,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.ply')) {
       if (this.plyLoader === null) {
-        this.plyLoader = new PLYLoader();
+        this.plyLoader = new PLYLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.plyLoader, options);
       this.plyLoader.load(
         key,
         (geometry: THREE.BufferGeometry) => {
-          const mesh = new THREE.Mesh(
-            geometry,
-            new THREE.MeshLambertMaterial({ color: 0xaaffaa })
-          );
-          // callBack(mesh);
+          callBack({
+            geometry: geometry,
+            source: geometry,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.vtk')) {
       if (this.vtkLoader === null) {
-        this.vtkLoader = new VTKLoader();
+        this.vtkLoader = new VTKLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.vtkLoader, options);
       this.vtkLoader.load(
         key,
         (geometry: THREE.BufferGeometry) => {
-          const mesh = new THREE.Mesh(
-            geometry,
-            new THREE.MeshLambertMaterial({ color: 0xaaffaa })
-          );
-          // callBack(mesh);
+          callBack({
+            geometry: geometry,
+            source: geometry,
+          });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.mdd')) {
       if (this.mddLoader === null) {
-        this.mddLoader = new MDDLoader();
+        this.mddLoader = new MDDLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.mddLoader, options);
       this.mddLoader.load(
         key,
         (mdd: MDD) => {
           callBack({
-            object : null,
             clips: [mdd.clip],
-            geometry: null,
             morphTargets: mdd.morphTargets,
-            source : mdd
+            source: mdd,
           });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.nrrd')) {
       if (this.nrrdLoader === null) {
-        this.nrrdLoader = new NRRDLoader();
+        this.nrrdLoader = new NRRDLoader(this.getLoadingManager());
       }
       this.nrrdLoader.load(
         key,
         (group: Volume) => {
           callBack({
-            source : group
+            source: group,
           });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.md2')) {
       const optionType = (options.type || '').toLowerCase();
@@ -731,14 +795,14 @@ export class LocalStorageService {
         if (ThreeUtil.isNull(options.body)) {
           options.body = key;
         }
-				character.onLoadComplete = function () {
+        character.onLoadComplete = function () {
           callBack({
             object: character.root,
             clips: character,
-            source : character
+            source: character,
           });
-				};
-				character.loadParts( options );
+        };
+        character.loadParts(options);
       } else if (optionType === 'md2charactercomplex') {
         const character = new MD2CharacterComplex();
         options.baseUrl = this.getStoreUrl(options.baseUrl);
@@ -749,101 +813,95 @@ export class LocalStorageService {
           callBack({
             object: character.root,
             clips: character,
-            source : character
+            source: character,
           });
         };
-        character.loadParts( options );
+        character.loadParts(options);
       } else {
         if (this.md2Loader === null) {
-          this.md2Loader = new MD2Loader();
+          this.md2Loader = new MD2Loader(this.getLoadingManager());
         }
         this.md2Loader.load(
           key,
           (geometry: THREE.BufferGeometry) => {
             callBack({
               geometry: geometry,
-              source : geometry
+              source: geometry,
             });
           },
-          null,
-          (e) => {
-            console.log(e);
-          }
+          this.onProgress,
+          this.onError
         );
       }
     } else if (key.endsWith('.pdb')) {
       if (this.pdbLoader === null) {
-        this.pdbLoader = new PDBLoader();
+        this.pdbLoader = new PDBLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.pdbLoader, options);
-      this.pdbLoader.load(
-        key,
-        (pdb: PDB) => {
-          const geometryAtoms = pdb.geometryAtoms;
-          const geometryBonds = pdb.geometryBonds;
-          const json = pdb.json;
-          const group = new THREE.Mesh();
-          const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
-          const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
-          let positions = geometryAtoms.getAttribute('position');
-          const colors = geometryAtoms.getAttribute('color');
-          const position = new THREE.Vector3();
-          const color = new THREE.Color();
-          for (let i = 0; i < positions.count; i++) {
-            position.x = positions.getX(i);
-            position.y = positions.getY(i);
-            position.z = positions.getZ(i);
-            color.r = colors.getX(i);
-            color.g = colors.getY(i);
-            color.b = colors.getZ(i);
-            const material = new THREE.MeshPhongMaterial({ color: color });
-            const object = new THREE.Mesh(sphereGeometry, material);
-            object.position.copy(position);
-            object.position.multiplyScalar(75);
-            object.scale.multiplyScalar(25);
-            group.add(object);
-            const atom = json.atoms[i];
-            const text = document.createElement('div');
-            text.className = 'label';
-            text.style.color =
-              'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
-            text.textContent = atom[4];
-            const label = new CSS2DObject(text);
-            label.position.copy(object.position);
-            group.add(label);
-          }
-          positions = geometryBonds.getAttribute('position');
-          const start = new THREE.Vector3();
-          const end = new THREE.Vector3();
-          for (let i = 0; i < positions.count; i += 2) {
-            start.x = positions.getX(i);
-            start.y = positions.getY(i);
-            start.z = positions.getZ(i);
-            end.x = positions.getX(i + 1);
-            end.y = positions.getY(i + 1);
-            end.z = positions.getZ(i + 1);
-            start.multiplyScalar(75);
-            end.multiplyScalar(75);
-            const object = new THREE.Mesh(
-              boxGeometry,
-              new THREE.MeshPhongMaterial({ color: 0xffffff })
-            );
-            object.position.copy(start);
-            object.position.lerp(end, 0.5);
-            object.scale.set(5, 5, start.distanceTo(end));
-            object.lookAt(end);
-            group.add(object);
-          }
-          // callBack(group);
-        },
-        null,
-        (e) => {
-          console.log(e);
+      this.pdbLoader.load(key, (pdb: PDB) => {
+        const geometryAtoms = pdb.geometryAtoms;
+        const geometryBonds = pdb.geometryBonds;
+        const json = pdb.json;
+        const group = new THREE.Mesh();
+        const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
+        const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
+        let positions = geometryAtoms.getAttribute('position');
+        const colors = geometryAtoms.getAttribute('color');
+        const position = new THREE.Vector3();
+        const color = new THREE.Color();
+        for (let i = 0; i < positions.count; i++) {
+          position.x = positions.getX(i);
+          position.y = positions.getY(i);
+          position.z = positions.getZ(i);
+          color.r = colors.getX(i);
+          color.g = colors.getY(i);
+          color.b = colors.getZ(i);
+          const material = new THREE.MeshPhongMaterial({ color: color });
+          const object = new THREE.Mesh(sphereGeometry, material);
+          object.position.copy(position);
+          object.position.multiplyScalar(75);
+          object.scale.multiplyScalar(25);
+          group.add(object);
+          const atom = json.atoms[i];
+          const text = document.createElement('div');
+          text.className = 'label';
+          text.style.color =
+            'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
+          text.textContent = atom[4];
+          const label = new CSS2DObject(text);
+          label.position.copy(object.position);
+          group.add(label);
         }
+        positions = geometryBonds.getAttribute('position');
+        const start = new THREE.Vector3();
+        const end = new THREE.Vector3();
+        for (let i = 0; i < positions.count; i += 2) {
+          start.x = positions.getX(i);
+          start.y = positions.getY(i);
+          start.z = positions.getZ(i);
+          end.x = positions.getX(i + 1);
+          end.y = positions.getY(i + 1);
+          end.z = positions.getZ(i + 1);
+          start.multiplyScalar(75);
+          end.multiplyScalar(75);
+          const object = new THREE.Mesh(
+            boxGeometry,
+            new THREE.MeshPhongMaterial({ color: 0xffffff })
+          );
+          object.position.copy(start);
+          object.position.lerp(end, 0.5);
+          object.scale.set(5, 5, start.distanceTo(end));
+          object.lookAt(end);
+          group.add(object);
+        }
+        callBack({ object : group, geometry: null, source: pdb });
+      },
+      this.onProgress,
+      this.onError
       );
     } else if (key.endsWith('.stl')) {
       if (this.stlLoader === null) {
-        this.stlLoader = new STLLoader();
+        this.stlLoader = new STLLoader(this.getLoadingManager());
       }
       this.setLoaderWithOption(this.stlLoader, options);
       this.stlLoader.load(
@@ -853,50 +911,47 @@ export class LocalStorageService {
           mesh.geometry = geometry;
           mesh.material = new THREE.MeshLambertMaterial({ color: 0x7777ff });
           callBack({
-            object : mesh,
-            source : geometry
+            object: mesh,
+            source: geometry,
           });
         },
-        null,
-        (e) => {
-          console.log(e);
-        }
+        this.onProgress,
+        this.onError
       );
     } else {
       if (key.endsWith('.js') || key.endsWith('.json')) {
         const isGeometryLoader = options && options.geometry ? true : false;
         if (!isGeometryLoader) {
           if (this.objectLoader === null) {
-            this.objectLoader = new THREE.ObjectLoader();
+            this.objectLoader = new THREE.ObjectLoader(
+              this.getLoadingManager()
+            );
           }
           this.setLoaderWithOption(this.objectLoader, options);
           this.objectLoader.load(
             key,
             (result) => {
               callBack({
-
-              })
-              console.log(result);
+                source: result,
+              });
             },
-            null,
-            (e) => {
-              console.log(e);
-            }
+            this.onProgress,
+            this.onError
           );
         } else {
           if (this.geometryLoader === null) {
-            this.geometryLoader = new THREE.BufferGeometryLoader();
+            this.geometryLoader = new THREE.BufferGeometryLoader(
+              this.getLoadingManager()
+            );
           }
           this.setLoaderWithOption(this.geometryLoader, options);
           this.geometryLoader.load(
             key,
             (geometry) => {
-              callBack({ geometry: geometry, source : geometry });
+              callBack({ geometry: geometry, source: geometry });
             },
-            null,
-            (e) => {
-              console.log(e);
-            }
+            this.onProgress,
+            this.onError
           );
         }
       } else {
@@ -918,24 +973,14 @@ export class LocalStorageService {
       clips?: THREE.AnimationClip[],
       geometry?: THREE.BufferGeometry,
       morphTargets?: any,
-      source? : any
+      source?: any
     ) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
       key,
       (result) => {
-        if (result.object !== null && result.object !== undefined) {
-          if (result.object instanceof THREE.Object3D) {
-            callBack(result.object, result.clips, result.geometry);
-          } else {
-            const scene = new THREE.Group();
-            scene.add(result.object);
-            callBack(scene);
-          }
-        } else {
-          callBack(result.object, result.clips, result.geometry, result.morphTargets, result.source);
-        }
+        callBack(result.object, result.clips, result.geometry, result.morphTargets, result.source);
       },
       options
     );
@@ -943,7 +988,7 @@ export class LocalStorageService {
 
   public getGeometry(
     key: string,
-    callBack: (mesh: THREE.BufferGeometry, source? : any) => void,
+    callBack: (mesh: THREE.BufferGeometry, source?: any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
@@ -961,7 +1006,7 @@ export class LocalStorageService {
 
   public getMaterial(
     key: string,
-    callBack: (material: THREE.Material, source? : any) => void,
+    callBack: (material: THREE.Material, source?: any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
@@ -981,7 +1026,7 @@ export class LocalStorageService {
 
   public getScene(
     key: string,
-    callBack: (mesh: THREE.Scene, source? : any) => void,
+    callBack: (mesh: THREE.Scene, source?: any) => void,
     options?: any
   ): void {
     this.getObjectFromKey(
@@ -1091,7 +1136,7 @@ export class LocalStorageService {
         break;
     }
     if (this.fontLoader === null) {
-      this.fontLoader = new THREE.FontLoader();
+      this.fontLoader = new THREE.FontLoader(this.getLoadingManager());
     }
     this.fontLoader.load(fontPath, (responseFont: THREE.Font) => {
       callBack(responseFont);

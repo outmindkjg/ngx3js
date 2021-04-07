@@ -19,6 +19,7 @@ export class ControlComponent implements OnInit {
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private staticMoving:boolean = null;
   @Input() private rotateSpeed:number = null;
   @Input() private zoomSpeed:number = null;
   @Input() private panSpeed:number = null;
@@ -162,6 +163,9 @@ export class ControlComponent implements OnInit {
           break;
         case "trackball":
           const trackballControls = new TrackballControls(camera, domElement);
+          if (ThreeUtil.isNotNull(this.staticMoving)) {
+            trackballControls.staticMoving = this.staticMoving;
+          }
           control = trackballControls;
           break;
         case "orbit":

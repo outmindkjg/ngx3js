@@ -30,6 +30,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
   @Input() private rotateSpeed:number = null;
+  @Input() private staticMoving:boolean = null;
   @Input() private zoomSpeed:number = null;
   @Input() private panSpeed:number = null;
   @Input() private maxPolarAngle:number = null;
@@ -184,6 +185,12 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       } else {
         this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
       }
+      if (useEvent.indexOf('keypress') > -1) {
+        this.eventKeyPress = this.addWindowEvent('keypress', this.eventKeyPress);
+      } else {
+        this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
+      }
+      
     }
   }
 
@@ -205,6 +212,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           switch(type) {
             case 'keydown' :
             case 'keyup' :
+            case 'keypress' :
               event.clientX = offsetLeft;
               event.clientY = offsetTop;
               break;
@@ -239,6 +247,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private eventPointerMove : (event : any) => void = null;
   private eventKeyDown : (event : any) => void = null;
   private eventKeyUp : (event : any) => void = null;
+  private eventKeyPress : (event : any) => void = null;
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -416,6 +425,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
             rotateSpeed : this.rotateSpeed,
+            staticMoving : this.staticMoving,
             zoomSpeed : this.zoomSpeed,
             panSpeed : this.panSpeed,
             maxPolarAngle : this.maxPolarAngle,

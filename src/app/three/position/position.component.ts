@@ -61,16 +61,18 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
         this._positionSubscribe.unsubscribe();
         this._positionSubscribe = null;
       }
-      if (this.parent instanceof THREE.Object3D) {
-        this.parent.position.copy(this.getPosition());
-        if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
-          this._positionSubscribe = this.refer.positionSubscribe().subscribe(position => {
-            if (this.parent instanceof THREE.Object3D && this.visible) {
-              this.parent.position.copy(position);
-            }
-          })
+      if (this.parent instanceof THREE.Object3D ) {
+        if (this.type === 'position') {
+          this.parent.position.copy(this.getPosition());
+          if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
+            this._positionSubscribe = this.refer.positionSubscribe().subscribe(position => {
+              if (this.parent instanceof THREE.Object3D && this.visible) {
+                this.parent.position.copy(position);
+              }
+            })
+          }
+          this.setTweenTarget(this.parent.position);
         }
-        this.setTweenTarget(this.parent.position);
       } else if (this.parent.meshPositions) {
         this.parent.meshPositions.forEach(position => {
           position.copy(this.getPosition());

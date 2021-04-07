@@ -26,6 +26,7 @@ import { SvgComponent } from '../svg/svg.component';
 import { PlanePerlinGeometry } from './plane-perlin-geometry';
 import { ScaleComponent } from '../scale/scale.component';
 import { RotationComponent } from '../rotation/rotation.component';
+import { Volume } from 'three/examples/jsm/misc/Volume';
 
 export interface GeometriesParametric {
   (u: number, v: number, target? : any): GeometriesVector3;
@@ -192,9 +193,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeY : number = null;
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
-  @Input() private refSize : any = null;
   @Input() private toNonIndexed : boolean = null;
   @Input() private refGeometry : any = null;
+  @Input() private refType : string = 'targetMesh';
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
@@ -479,9 +480,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private targetMesh : THREE.Mesh = null;
   private getSubGeometry(): THREE.BufferGeometry {
-    if (this.targetMesh !== null) {
+    if (this.targetMesh !== null && this.targetMesh.geometry) {
       return this.targetMesh.geometry;
-    } else if (this.refGeometry !== null) {
+    } else if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
       if (this.refGeometry.getGeometry) {
         const geometry = this.refGeometry.getGeometry();
         if (geometry !== null) {
@@ -789,23 +790,40 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     });
   }
 
+  _refGeometrySubscribe : Subscription = null;
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.needUpdate = true;
-      if (changes.refGeometry && this.refGeometry !== null && this.refGeometry.meshSubscribe) {
-        this.refGeometry.meshSubscribe().subscribe((mesh) => {
-          this.targetMesh = mesh;
-          this.needUpdate = true;
-          this.resetGeometry();
-        })
-      }
-      if (changes.refSize && this.refSize !== null) {
-        if (this.refSize.getMesh && this.refSize.meshSubscribe) {
-          this.refSize.meshSubscribe().subscribe(() => {
-            this.needUpdate = true;
-            this.resetGeometry();
-          });
+      if (changes.refGeometry && this.refGeometry !== null) {
+        if (this._refGeometrySubscribe !== null) {
+          this._refGeometrySubscribe.unsubscribe();
         }
+        if (this.refGeometry.meshSubscribe) {
+          this._refGeometrySubscribe = this.refGeometry.meshSubscribe().subscribe((mesh) => {
+            switch(this.refType.toLowerCase()) {
+              case 'size' :
+                if (this.refGeometry.getStorageSource) {
+                  const source = this.refGeometry.getStorageSource();
+                  if (source !== null && source instanceof Volume) {
+                    this.width = source.xLength;
+                    this.height = source.yLength;
+                    this.depth = source.zLength;
+                    this.needUpdate = true;
+                    this.resetGeometry();
+                  }
+                }
+                break;
+              case 'target' :
+              case 'targetmesh' :
+              default :
+                this.targetMesh = mesh;
+                this.needUpdate = true;
+                this.resetGeometry();
+                break;
+            }
+          })
+        } 
       }
     }
     if (changes.params) {

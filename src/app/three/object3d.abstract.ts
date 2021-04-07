@@ -430,6 +430,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                       break;
                     default :
                       this.object3d.position.copy(position.getPosition());
+                      break;
                   }
                 }
               });
