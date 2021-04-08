@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { Lut } from 'three/examples/jsm/math/Lut';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'three-texture',
@@ -16,6 +17,8 @@ export class TextureComponent implements OnInit {
   @Input() private loaderType:string = null;
   @Input() private image:string = null;
   @Input() private cubeImage:string[] = null;
+  @Input() private storageName: string = null;
+  @Input() private storageOption: any = null;
   @Input() private program:(ctx: CanvasRenderingContext2D) => void = null;
   @Input() private canvas:string = null;
   @Input() private mapping:string = null;
@@ -40,7 +43,7 @@ export class TextureComponent implements OnInit {
   @Input() private color:number|string = null;
   @Input() private add:number|string = null;
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
   }
@@ -348,7 +351,7 @@ export class TextureComponent implements OnInit {
     } else {
       console.error('timeout');
     }
-}
+  }
 
   setTexture(refTexture: THREE.Texture) {
     if (this.refTexture !== refTexture) {
@@ -393,6 +396,14 @@ export class TextureComponent implements OnInit {
         } else {
           this.texture = new THREE.Texture();
         }
+      } else if (ThreeUtil.isNotNull(this.storageName)) {
+        this.texture = new THREE.Texture();
+        this.localStorageService.getTexture(this.storageName, (texture) => {
+          if (texture !== null) {
+            texture.encoding = this.getEncoding('sRGB');
+            this.texture.copy(texture);
+          }
+        }, this.storageOption)
       } else {
         if (ThreeUtil.isNotNull(this.canvas)) {
           this.texture = new THREE.CanvasTexture( this.getCanvas() );

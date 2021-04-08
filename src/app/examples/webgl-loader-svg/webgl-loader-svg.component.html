@@ -3,6 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
+  [autoRotate]="true"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
@@ -17,20 +18,13 @@
     <three-position [x]="0" [y]="0" [z]="200"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
-  <three-helper [type]="'grid'" [size]="160" [divisions]="10">
-    <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
-  </three-helper>
   <three-scene #scene [background]="'0xb0b0b0'">
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="-70" [y]="70" [z]="0"></three-position>
-      <three-scale [x]="0.25" [y]="-0.25" [z]="0.25"></three-scale>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xff0000'"></three-material>
+    <three-helper [type]="'grid'" [size]="160" [divisions]="10">
+      <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
+    </three-helper>
+    <three-mesh (onLoad)="setMesh($event)" [storageName]="controls.currentURL" [storageOption]="{ drawFillShapes : controls.drawFillShapes , drawStrokes : controls.drawStrokes, fillShapesWireframe : controls.fillShapesWireframe, strokesWireframe : controls.strokesWireframe }">
+      <three-position [x]="-70" [y]="70" [z]="2"></three-position>
+      <three-scale [x]="1" [y]="-1" [z]="1" [multiply]="0.25"></three-scale>
     </three-mesh>
   </three-scene>
 </three-renderer>

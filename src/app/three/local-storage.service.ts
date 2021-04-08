@@ -336,6 +336,23 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+    } else if (key.endsWith('.tilt')) {
+      if (this.tiltLoader === null) {
+        this.tiltLoader = new TiltLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.tiltLoader, options);
+      this.tiltLoader.load(
+        key,
+        (object: THREE.Group) => {
+          callBack({
+            object: object,
+            source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+      
     } else if (key.endsWith('.amf')) {
       if (this.amfLoader === null) {
         this.amfLoader = new AMFLoader(this.getLoadingManager());
@@ -539,12 +556,17 @@ export class LocalStorageService {
         this.basisTextureLoader = new BasisTextureLoader(
           this.getLoadingManager()
         );
+				this.basisTextureLoader.detectSupport( new THREE.WebGLRenderer() );
+      }
+      if (options.transcoderPath) {
+        this.basisTextureLoader.setTranscoderPath( this.getStoreUrl('js/libs/basis/') );
       }
       this.setLoaderWithOption(this.basisTextureLoader, options);
       this.basisTextureLoader.load(
         key,
         (texture: THREE.CompressedTexture) => {
           callBack({
+            texture : texture,
             source: texture,
           });
         },
@@ -717,7 +739,51 @@ export class LocalStorageService {
       this.svgLoader.load(
         key,
         (data: SVGResult) => {
+					const paths = data.paths;
+					const group = new THREE.Group();
+          const drawFillShapes = options.drawFillShapes || false;
+          const drawStrokes = options.drawStrokes || false;
+          const fillShapesWireframe = options.fillShapesWireframe || false;
+          const strokesWireframe = options.strokesWireframe || false;
+          paths.forEach(path => {
+						const fillColor = path.userData.style.fill;
+						if ( drawFillShapes && fillColor !== undefined && fillColor !== 'none' ) {
+							const material = new THREE.MeshBasicMaterial( {
+								color: new THREE.Color().setStyle( fillColor ),
+								opacity: path.userData.style.fillOpacity,
+								transparent: path.userData.style.fillOpacity < 1,
+								side: THREE.DoubleSide,
+								depthWrite: false,
+								wireframe: fillShapesWireframe
+							} );
+							const shapes = path.toShapes( true );
+              shapes.forEach(shape => {
+								const geometry = new THREE.ShapeGeometry( shape );
+								const mesh = new THREE.Mesh( geometry, material );
+								group.add( mesh );
+							});
+						}
+						const strokeColor = path.userData.style.stroke;
+						if ( drawStrokes && strokeColor !== undefined && strokeColor !== 'none' ) {
+							const material = new THREE.MeshBasicMaterial( {
+								color: new THREE.Color().setStyle( strokeColor ),
+								opacity: path.userData.style.strokeOpacity,
+								transparent: path.userData.style.strokeOpacity < 1,
+								side: THREE.DoubleSide,
+								depthWrite: false,
+								wireframe: strokesWireframe
+							} );
+              path.subPaths.forEach(subPath => {
+								const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+								if ( geometry ) {
+									const mesh = new THREE.Mesh( geometry, material );
+									group.add( mesh );
+								}
+							});
+						}
+					});
           callBack({
+            object : group,
             source: data,
           });
         },
@@ -1004,6 +1070,24 @@ export class LocalStorageService {
     );
   }
 
+  public getTexture(
+    key: string,
+    callBack: (texture: THREE.Texture, source?: any) => void,
+    options?: any
+  ): void {
+    this.getObjectFromKey(
+      key,
+      (result) => {
+        if (result.texture instanceof THREE.Texture) {
+          callBack(result.texture, result.source);
+        } else {
+          callBack(new THREE.Texture());
+        }
+      },
+      Object.assign(options || {}, { texture: true })
+    );
+  }
+  
   public getMaterial(
     key: string,
     callBack: (material: THREE.Material, source?: any) => void,

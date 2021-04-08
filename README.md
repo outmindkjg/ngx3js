@@ -354,3 +354,11 @@ export class WireframeGeometry2 extends LineSegmentsGeometry {
 }
 
 ----------------------
+
+
+node_modules/three/examples/jsm/loaders/TiltLoader.js
+
+const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
+
+----------------------
+

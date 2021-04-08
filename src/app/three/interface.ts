@@ -18,6 +18,7 @@ export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;
   geometry?: THREE.BufferGeometry;
+  texture?: THREE.Texture,
   clips?: THREE.AnimationClip[] | any;
   morphTargets?: THREE.BufferAttribute[];
   source?: any;
@@ -1595,7 +1596,7 @@ export interface GuiControlParam {
   min?: number;
   max?: number;
   step?: number;
-  select?: any[];
+  select?: string[] | { [ key : string] : any };
   control?: string;
   listen?: boolean;
   isOpen?: boolean;
