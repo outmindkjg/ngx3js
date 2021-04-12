@@ -141,29 +141,6 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
   @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
 
-  constructor(private localStorageService: LocalStorageService) { }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-  }
-
-  ngAfterContentInit(): void {
-    this.textureList.changes.subscribe((e) => {
-
-    });
-  }
-
-  private _needUpdate : boolean = true;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.material !== null) {
-      this._needUpdate = true;
-      this.getMaterial();
-    }
-  }
-
   private getColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
@@ -932,6 +909,69 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     });
   }
 
+  constructor(private localStorageService: LocalStorageService) { }
+
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  ngAfterContentInit(): void {
+    this.textureList.changes.subscribe((e) => {
+      this.textureList.forEach(texture => {
+        texture.textureSubscribe().subscribe(() => {
+          this.setTexture(texture);
+        })
+      })
+    });
+    this.textureList.forEach(texture => {
+      texture.textureSubscribe().subscribe(() => {
+        this.setTexture(texture);
+      })
+    })
+}
+
+  private _needUpdate : boolean = true;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && this.material !== null) {
+      this._needUpdate = true;
+      this.getMaterial();
+    }
+    if (this.map !== null) {
+      this.map.textureSubscribe().subscribe(() => {
+        this.setTexture(this.map);
+      })
+    }
+    if (this.envMap !== null) {
+      this.envMap.textureSubscribe().subscribe(() => {
+        this.setTexture(this.envMap);
+      })
+    }
+    if (this.specularMap !== null) {
+      this.specularMap.textureSubscribe().subscribe(() => {
+        this.setTexture(this.specularMap);
+      })
+    }
+    if (this.alphaMap !== null) {
+      this.alphaMap.textureSubscribe().subscribe(() => {
+        this.setTexture(this.alphaMap);
+      })
+    }
+    if (this.bumpMap !== null) {
+      this.bumpMap.textureSubscribe().subscribe(() => {
+        this.setTexture(this.bumpMap);
+      })
+    }
+    if (this.normalMap !== null) {
+      this.normalMap.textureSubscribe().subscribe(() => {
+        this.setTexture(this.normalMap);
+      })
+    }
+  }
+
+
   private _materialSubject:Subject<THREE.Material> = new Subject<THREE.Material>();
 
   materialSubscribe() : Observable<THREE.Material>{
@@ -948,7 +988,36 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
         case 'envmap' :
           this.material['envMap'] = materialClone;
           break;  
+        case 'aomap' :
+          this.material['aoMap'] = materialClone;
+          break;  
+        case 'specularmap' :
+          this.material['specularMap'] = materialClone;
+          break;  
+        case 'alphamap' :
+          this.material['alphaMap'] = materialClone;
+          break;
+        case 'displacementmap' :
+          this.material['displacementMap'] = materialClone;
+          break;  
+        case 'matcap' :
+          this.material['matcap'] = materialClone;
+          break;  
+        case 'bumpmap' :
+          this.material['bumpMap'] = materialClone;
+          break;  
+        case 'normalmap' :
+          this.material['normalMap'] = materialClone;
+          break;  
+        case 'lightmap' :
+          this.material['lightMap'] = materialClone;
+          break;  
+        case 'emissivemap' :
+          this.material['emissiveMap'] = materialClone;
+          break;  
       }
+      this.material.needsUpdate = true;
+      this._materialSubject.next(this.material);
     }
   }
 

@@ -27,6 +27,7 @@ import { PlanePerlinGeometry } from './plane-perlin-geometry';
 import { ScaleComponent } from '../scale/scale.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { Volume } from 'three/examples/jsm/misc/Volume';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
 export interface GeometriesParametric {
   (u: number, v: number, target? : any): GeometriesVector3;
@@ -194,6 +195,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private sizeZ : number = null;
   @Input() private curve : string = null;
   @Input() private toNonIndexed : boolean = null;
+  @Input() private flipY : boolean = null;
   @Input() private refGeometry : any = null;
   @Input() private refType : string = 'targetMesh';
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
@@ -1090,7 +1092,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       if (this.toNonIndexed) {
         this.geometry.toNonIndexed();
       }
-      
+      if (this.flipY) {
+        const uv = this.geometry.attributes.uv;
+        for ( let i = 0; i < uv.count; i ++ ) {
+          uv.setY( i, 1 - uv.getY( i ) );
+        }
+      }   
       if (ThreeUtil.isNull(this.geometry.userData.component)) {
         // this.geometry.userData.component = this;
       }
@@ -1208,6 +1215,17 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
               lineGeometry.setColors( this.color );
             }
             geometry = lineGeometry;
+            break;
+            
+          case 'roundedboxbuffer':
+          case 'roundedbox':
+            geometry = new RoundedBoxGeometry(
+              this.getWidth(1),
+              this.getHeight(1),
+              this.getDepth(1),
+              this.getSegments(2),
+              this.getRadius(0.1)
+            );
             break;
           case 'boxbuffer':
           case 'box':
@@ -1507,5 +1525,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     }
     return this.geometry;
   }
+
 }
 

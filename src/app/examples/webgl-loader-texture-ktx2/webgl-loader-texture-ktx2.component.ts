@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, MeshComponent } from '../../three';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-webgl-loader-texture-ktx2',

@@ -14,6 +14,8 @@ import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import * as LOTTE_CANVAS from 'three/examples/js/libs/lottie_canvas.js';
+
 import {
   MMDLoader,
   MMDLoaderAnimationObject,
@@ -56,12 +58,12 @@ import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { XLoader } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
-import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
+import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
 
+import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 import {
-  CSS2DRenderer,
-  CSS2DObject,
-} from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+  CSS2DObject
+} from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import { LoadedObject, ThreeUtil } from './interface';
 
@@ -124,6 +126,7 @@ export class LocalStorageService {
   private rgbeLoader: RGBELoader = null;
   private tdsLoader: TDSLoader = null;
   private tiltLoader: TiltLoader = null;
+  private rgbmLoader: RGBMLoader = null;
   private ttfLoader: TTFLoader = null;
   private voxLoader: VOXLoader = null;
   private vrmlLoader: VRMLLoader = null;
@@ -386,6 +389,92 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+      
+    } else if (key.endsWith('.exr')) {
+      if (this.exrLoader === null) {
+        this.exrLoader = new EXRLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.exrLoader, options);
+      this.exrLoader.load(
+        key,
+        (dataTexture: THREE.DataTexture) => {
+          callBack({
+            texture : dataTexture,
+            source: dataTexture
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.hdr')) {
+      if (this.rgbeLoader === null) {
+        this.rgbeLoader = new RGBELoader(this.getLoadingManager());
+        this.rgbeLoader.setDataType( THREE.UnsignedByteType )
+      }
+      this.setLoaderWithOption(this.rgbeLoader, options);
+      this.rgbeLoader.load(
+        key,
+        (dataTexture: THREE.DataTexture) => {
+          callBack({
+            texture : dataTexture,
+            source: dataTexture
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.ktx')) {
+      if (this.ktxLoader === null) {
+        this.ktxLoader = new KTXLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.ktxLoader, options);
+      this.ktxLoader.load(
+        key,
+        (texture: THREE.CompressedTexture) => {
+          callBack({
+            texture : texture,
+            source: texture
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.ktx2')) {
+      if (this.ktx2Loader === null) {
+        this.ktx2Loader = new KTX2Loader(this.getLoadingManager());
+				this.ktx2Loader.detectSupport( new THREE.WebGLRenderer() );
+      }
+      if (options.transcoderPath) {
+        this.ktx2Loader.setTranscoderPath( this.getStoreUrl(options.transcoderPath) );
+      }
+      this.setLoaderWithOption(this.ktx2Loader, options);
+      this.ktx2Loader.load(
+        key,
+        (texture: THREE.CompressedTexture) => {
+          callBack({
+            texture : texture,
+            source: texture
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.dds')) {
+      if (this.ddsLoader === null) {
+        this.ddsLoader = new DDSLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.ddsLoader, options);
+      this.ddsLoader.load(
+        key,
+        (texture: THREE.CompressedTexture) => {
+          callBack({
+            texture : texture,
+            source: texture
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.bvh')) {
       if (this.bvhLoader === null) {
         this.bvhLoader = new BVHLoader(this.getLoadingManager());
@@ -559,7 +648,7 @@ export class LocalStorageService {
 				this.basisTextureLoader.detectSupport( new THREE.WebGLRenderer() );
       }
       if (options.transcoderPath) {
-        this.basisTextureLoader.setTranscoderPath( this.getStoreUrl('js/libs/basis/') );
+        this.basisTextureLoader.setTranscoderPath( this.getStoreUrl(options.transcoderPath) );
       }
       this.setLoaderWithOption(this.basisTextureLoader, options);
       this.basisTextureLoader.load(
@@ -728,6 +817,7 @@ export class LocalStorageService {
       this.setLoaderWithOption(this.tgaLoader, options);
       this.tgaLoader.load(key, (texture: THREE.Texture) => {
         callBack({
+          texture : texture,
           source: texture,
         });
       });
@@ -984,26 +1074,73 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+    } else if (key.endsWith('.png') || key.endsWith('.jpg') || key.endsWith('.jpeg')) {
+      if (this.rgbmLoader === null) {
+        this.rgbmLoader = new RGBMLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.rgbmLoader, options);
+      this.rgbmLoader.load(
+        key,
+        (dataTexture: THREE.DataTexture) => {
+          callBack({
+            texture: dataTexture,
+            source: dataTexture,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else {
       if (key.endsWith('.js') || key.endsWith('.json')) {
-        const isGeometryLoader = options && options.geometry ? true : false;
+        const isGeometryLoader = options.geometry ? true : false;
         if (!isGeometryLoader) {
-          if (this.objectLoader === null) {
-            this.objectLoader = new THREE.ObjectLoader(
-              this.getLoadingManager()
-            );
+          const loaderType = options.loaderType || '';
+          switch(loaderType.toLowerCase()) {
+            case 'lottie' :
+              if (this.lottieLoader === null) {
+                this.lottieLoader = new LottieLoader(
+                  this.getLoadingManager()
+                );
+                window['bodymovin'] = LOTTE_CANVAS;
+              }
+              if (ThreeUtil.isNull(options.quality)) {
+                this.lottieLoader.setQuality(options.quality);
+              }
+              this.setLoaderWithOption(this.lottieLoader, options);
+              this.lottieLoader.load(
+                key,
+                (texture: THREE.CanvasTexture) => {
+                  callBack({
+                    texture : texture,
+                    source: texture,
+                  });
+                  setTimeout(() => {
+                    texture['animation'].play();
+                  }, 1000);
+                },
+                this.onProgress,
+                this.onError
+              );
+              break;
+            default :
+              if (this.objectLoader === null) {
+                this.objectLoader = new THREE.ObjectLoader(
+                  this.getLoadingManager()
+                );
+              }
+              this.setLoaderWithOption(this.objectLoader, options);
+              this.objectLoader.load(
+                key,
+                (result) => {
+                  callBack({
+                    source: result,
+                  });
+                },
+                this.onProgress,
+                this.onError
+              );
+              break;
           }
-          this.setLoaderWithOption(this.objectLoader, options);
-          this.objectLoader.load(
-            key,
-            (result) => {
-              callBack({
-                source: result,
-              });
-            },
-            this.onProgress,
-            this.onError
-          );
         } else {
           if (this.geometryLoader === null) {
             this.geometryLoader = new THREE.BufferGeometryLoader(
@@ -1207,9 +1344,13 @@ export class LocalStorageService {
         if (
           fontName.startsWith('/') ||
           fontName.startsWith('http://') ||
-          fontName.startsWith('https://')
+          fontName.startsWith('https://') ||
+          fontName.endsWith('.json') ||
+          fontName.endsWith('.ttf') 
         ) {
           if (fontName.endsWith('.json')) {
+            fontPath = fontName;
+          } else if (fontName.endsWith('.ttf')) {
             fontPath = fontName;
           } else {
             fontPath = fontName + '_' + fontWeight + '.typeface.json';
@@ -1219,13 +1360,31 @@ export class LocalStorageService {
         }
         break;
     }
-    if (this.fontLoader === null) {
-      this.fontLoader = new THREE.FontLoader(this.getLoadingManager());
+    if (ThreeUtil.isNotNull(this._loadedFonts[fontPath])) {
+      callBack(this._loadedFonts[fontPath]);
+    } else {
+      if (fontPath.endsWith('.ttf')) {
+        if (this.ttfLoader === null) {
+          this.ttfLoader = new TTFLoader(this.getLoadingManager());
+        }
+        this.ttfLoader.load(this.getStoreUrl(fontPath), (json: any) => {
+          this._loadedFonts[fontPath] = new THREE.Font( json );
+          callBack(this._loadedFonts[fontPath]);
+        });
+      } else {
+        if (this.fontLoader === null) {
+          this.fontLoader = new THREE.FontLoader(this.getLoadingManager());
+        }
+        this.fontLoader.load(this.getStoreUrl(fontPath), (responseFont: THREE.Font) => {
+          this._loadedFonts[fontPath] = responseFont;
+          callBack(this._loadedFonts[fontPath]);
+        });
+      }
     }
-    this.fontLoader.load(fontPath, (responseFont: THREE.Font) => {
-      callBack(responseFont);
-    });
   }
+  _loadedFonts : {
+    [key : string] : THREE.Font
+  } = {}
 
   fontLoader: THREE.FontLoader = null;
 

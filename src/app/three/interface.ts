@@ -856,14 +856,14 @@ export class ThreeUtil {
           let [type,val1,val2,val3] = (colorStr + ',,,').replace('(',',').replace(':',',').replace(/[^A-Z\-0-9\.,]/g,'').split(',');
           switch(type.toLowerCase()) {
             case 'hsl' :
-              const h = parseFloat(val1);
-              const s = parseFloat(val2);
-              const l = parseFloat(val3);
+              const h = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random();
+              const s = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random();
+              const l = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random();
               return new THREE.Color().setHSL(h, s, l);
             case 'rgb' :
-              const r = parseFloat(val1);
-              const g = parseFloat(val2);
-              const b = parseFloat(val3);
+              const r = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random();
+              const g = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random();
+              const b = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random();
               return new THREE.Color(r,g,b);
           }
         }

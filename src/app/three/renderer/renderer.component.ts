@@ -35,6 +35,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private panSpeed:number = null;
   @Input() private maxPolarAngle:number = null;
   @Input() private clearColor:string | number = null;
+  @Input() private toneMapping:string = null;
+  @Input() private toneMappingExposure:number = null;
   @Input() private clearAlpha:number = null;
   @Input() private localClippingEnabled:boolean = false;
   @Input() private globalClippingEnabled:boolean = true;
@@ -546,13 +548,17 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.rendererHeight = height;
       }
       if (this.renderer instanceof THREE.WebGLRenderer) {
-        const clearColor = this.getClearColor();
-        if (ThreeUtil.isNotNull(clearColor)) {
-          this.renderer.setClearColor(clearColor);
+        if (ThreeUtil.isNotNull(this.clearColor)) {
+          this.renderer.setClearColor(this.getClearColor());
         }
-        const clearAlpha = this.getClearAlpha();
-        if (ThreeUtil.isNotNull(clearAlpha)) {
-          this.renderer.setClearAlpha(clearAlpha);
+        if (ThreeUtil.isNotNull(this.clearAlpha)) {
+          this.renderer.setClearAlpha(this.getClearAlpha());
+        }
+        if (ThreeUtil.isNotNull(this.toneMapping)) {
+          this.renderer.toneMapping = THREE.ReinhardToneMapping;
+        }
+        if (ThreeUtil.isNotNull(this.toneMappingExposure)) {
+          this.renderer.toneMappingExposure = this.toneMappingExposure;
         }
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
