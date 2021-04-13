@@ -14,7 +14,7 @@ import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import * as LOTTE_CANVAS from 'three/examples/js/libs/lottie_canvas.js';
+import * as LOTTE_CANVAS from 'three/examples/js/libs/lottie_canvas';
 
 import {
   MMDLoader,
@@ -1127,8 +1127,22 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-
-
+    } else if (key.endsWith('.xyz')) {
+      if (this.xyzLoader === null) {
+        this.xyzLoader = new XYZLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.xyzLoader, options);
+      this.xyzLoader.load(
+        key,
+        (geometry: THREE.BufferGeometry) => {
+          callBack({
+            geometry: geometry,
+            source: geometry,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
     } else if (key.endsWith('.vrm')) {
       if (this.vrmLoader === null) {
         this.vrmLoader = new VRMLoader(this.getLoadingManager());

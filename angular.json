@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies" : [
-              "ammojs-typed"
+              "ammojs-typed",
+              "three/examples/js/libs/lottie_canvas"
             ],
             "outputPath": "dist/three-sample",
             "index": "src/index.html",

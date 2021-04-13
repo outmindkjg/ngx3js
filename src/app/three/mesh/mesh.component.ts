@@ -676,7 +676,10 @@ export class MeshComponent
 
   resetMesh(clearMesh: boolean = false) {
     if (this.parent !== null) {
-      if (clearMesh && this.mesh !== null && this.mesh.parent) {
+      if (clearMesh && this.mesh !== null) {
+        if (this.mesh.parent) {
+          this.mesh.parent.remove(this.mesh);
+        }
         this.mesh = null;
       }
       if (clearMesh && this.helper != null && this.helper.parent != null) {
@@ -742,7 +745,6 @@ export class MeshComponent
         this.object3d = null;
         this.clipMesh = null;
       }
-
       let geometry: THREE.BufferGeometry = null;
       if (
         (this.geometryList != null && this.geometryList.length > 0) ||
