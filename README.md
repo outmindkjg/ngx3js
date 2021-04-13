@@ -362,3 +362,8 @@ const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush
 
 ----------------------
 
+node_modules\three\examples\jsm\loaders\VOXLoader.d.ts
+
+export class VOXMesh extends Mesh {
+	constructor( chunk );
+}

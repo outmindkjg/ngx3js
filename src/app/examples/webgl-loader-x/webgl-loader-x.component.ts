@@ -6,10 +6,20 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-loader-x.component.html',
   styleUrls: ['./webgl-loader-x.component.scss']
 })
-export class WebglLoaderXComponent extends BaseComponent<{}> {
+export class WebglLoaderXComponent extends BaseComponent<{
+  anime : string
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      anime : 'stand'
+    },[
+      { name :'anime', type : 'select' , select : {
+        Stand : 'stand',
+        Walk : 'wark',
+        Attack : 'attack',
+      }}
+    ]);
   }
 
 }

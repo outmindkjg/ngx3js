@@ -52,10 +52,10 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
 import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
-import { VOXLoader } from 'three/examples/jsm/loaders/VOXLoader';
+import { VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
-import { XLoader } from 'three/examples/jsm/loaders/XLoader';
+import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
@@ -896,7 +896,7 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-    } else if (key.endsWith('.vtk')) {
+    } else if (key.endsWith('.vtk') || key.endsWith('.vtp')) {
       if (this.vtkLoader === null) {
         this.vtkLoader = new VTKLoader(this.getLoadingManager());
       }
@@ -907,6 +907,23 @@ export class LocalStorageService {
           callBack({
             geometry: geometry,
             source: geometry,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.x')) {
+      if (this.xLoader === null) {
+        this.xLoader = new XLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.xLoader, options);
+      this.xLoader.load(
+        key,
+        (object: XResult) => {
+          console.log(object.models);
+          callBack({
+            object: object.models[0],
+            source: object,
           });
         },
         this.onProgress,
@@ -1074,6 +1091,88 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+    } else if (key.endsWith('.vox')) {
+      if (this.voxLoader === null) {
+        this.voxLoader = new VOXLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.voxLoader, options);
+      this.voxLoader.load(
+        key,
+        (chunks: any[]) => {
+          const group = new THREE.Group();
+          chunks.forEach(chunk => {
+            group.add(new VOXMesh(chunk));
+          })
+          callBack({
+            object: group,
+            source: chunks,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.wrl')) {
+      if (this.vrmlLoader === null) {
+        this.vrmlLoader = new VRMLLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.vrmlLoader, options);
+      this.vrmlLoader.load(
+        key,
+        (scene: THREE.Scene) => {
+          callBack({
+            object: scene,
+            source: scene,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+
+
+    } else if (key.endsWith('.vrm')) {
+      if (this.vrmLoader === null) {
+        this.vrmLoader = new VRMLoader(this.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.vrmLoader, options);
+      this.vrmLoader.load(
+        key,
+        (vrm: GLTF) => {
+					vrm.scene.traverse( object => {
+						if ( object instanceof THREE.Mesh && object.material ) {
+							if ( Array.isArray( object.material ) ) {
+								for ( let i = 0, il = object.material.length; i < il; i ++ ) {
+                  const objectMaterial = object.material[i];
+									const material = new THREE.MeshPhongMaterial();
+									THREE.Material.prototype.copy.call( material, object.material[ i ] );
+									material.color.copy( objectMaterial['color']);
+									material.map = objectMaterial['map'];
+									material.skinning = objectMaterial['skinning'];
+									material.morphTargets = objectMaterial['morphTargets'];
+									material.morphNormals = objectMaterial['morphNormals'];
+									object.material[ i ] = material;
+								}
+							} else {
+                const objectMaterial = object.material;
+								const material = new THREE.MeshPhongMaterial();
+								THREE.Material.prototype.copy.call( material, object.material );
+								material.color.copy( objectMaterial['color'] );
+								material.map = objectMaterial['map'];
+								material.skinning = objectMaterial['skinning'];
+								material.morphTargets = objectMaterial['morphTargets'];
+								material.morphNormals = objectMaterial['morphNormals'];
+								object.material = material;
+							}
+						}
+					});          
+          callBack({
+            object: vrm.scene,
+            source: vrm,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+      
     } else if (key.endsWith('.png') || key.endsWith('.jpg') || key.endsWith('.jpeg')) {
       if (this.rgbmLoader === null) {
         this.rgbmLoader = new RGBMLoader(this.getLoadingManager());
@@ -1090,6 +1189,7 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+      
     } else {
       if (key.endsWith('.js') || key.endsWith('.json')) {
         const isGeometryLoader = options.geometry ? true : false;
