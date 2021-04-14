@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  <a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
-  <div id="description"></div>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
+  <a [href]="'https://github.com/KhronosGroup/glTF'" [target]="'_blank'" [rel]="'noopener'">glTF</a> 2.0 loader<br />
+  <div [id]="'description'"></div>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -24,7 +24,7 @@
     <three-material [materialType]="'background'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'">
     </three-material>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"

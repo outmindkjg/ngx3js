@@ -24,14 +24,14 @@
   <three-scene #scene>
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x444444'"
     >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -58,7 +58,7 @@
         [heightSegments]="24"
       ></three-geometry>
       <three-material
-        type="meshlambert"
+        [type]="'meshlambert'"
         [color]="'0xffffff'"
         [transparent]="true"
         [opacity]="0"
@@ -76,7 +76,7 @@
           [heightSegments]="24"
         ></three-geometry>
         <three-material
-          type="meshlambert"
+          [type]="'meshlambert'"
           [color]="sphere.color"
           [clipIntersection]="true"
           [side]="'double'"

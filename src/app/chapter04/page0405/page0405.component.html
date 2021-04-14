@@ -4,8 +4,8 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x0c0c0c'"></three-mesh>
-        <three-mesh type="light" lightType="spot" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x0c0c0c'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'spot'" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
         </three-mesh>
         <three-mesh>
@@ -13,26 +13,26 @@
             <three-rotation [x]="0" [y]="rotationY" [z]="0"></three-rotation>
             <three-mesh *ngFor="let cube of cubePosition">
                 <three-position [x]="cube.x" [y]="cube.y" [z]="cube.z"></three-position>
-                <three-geometry type="box" [width]="2.9" [height]="2.9" [depth]="2.9"></three-geometry>
-                <three-material type="MeshBasic" [color]="'0x009e60'"></three-material>
-                <three-material type="MeshBasic" [color]="'0x009e60'"></three-material>
-                <three-material type="MeshBasic" [color]="'0x0051ba'"></three-material>
-                <three-material type="MeshBasic" [color]="'0x0051ba'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xffd500'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xffd500'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xff5800'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xff5800'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xC41E3A'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xC41E3A'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xffffff'"></three-material>
-                <three-material type="MeshBasic" [color]="'0xffffff'"></three-material>
+                <three-geometry [type]="'box'" [width]="2.9" [height]="2.9" [depth]="2.9"></three-geometry>
+                <three-material [type]="'MeshBasic'" [color]="'0x009e60'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0x009e60'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0x0051ba'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0x0051ba'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xffd500'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xffd500'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xff5800'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xff5800'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xC41E3A'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xC41E3A'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
+                <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
             </three-mesh>
         </three-mesh>
         <three-mesh #plane [receiveShadow]="true">
             <three-position [x]="0" [y]="-2" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-            <three-geometry type="plane" [width]="60" [height]="40"></three-geometry>
-            <three-material type="MeshLambert" [color]="'0xffffff'"></three-material>
+            <three-geometry [type]="'plane'" [width]="60" [height]="40"></three-geometry>
+            <three-material [type]="'MeshLambert'" [color]="'0xffffff'"></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

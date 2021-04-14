@@ -4,8 +4,8 @@
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x121212'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [refer]="baseGeo"></three-lookat>
         </three-mesh>
@@ -34,9 +34,9 @@
                 [height]="20" 
                 [depth]="20" 
             ></three-geometry>
-            <three-material type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     precision highp float;
                     uniform float time;
                     uniform float alpha;
@@ -81,9 +81,9 @@
                     }
                 ]]></pre></three-shader>
             </three-material>
-            <three-material name="shader02" type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [name]="'shader02'" [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     // from http://glsl.heroku.com/e#7906.0
 
 
@@ -166,9 +166,9 @@
                 
                 ]]></pre></three-shader>
             </three-material>
-            <three-material name="shader03" type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [name]="'shader03'" [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     uniform vec2 resolution;
                     uniform float time;
                 
@@ -211,9 +211,9 @@
                     }
                 ]]></pre></three-shader>
             </three-material>
-            <three-material name="shader04" type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [name]="'shader04'" [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     uniform float time;
                     uniform vec2 resolution;
                 
@@ -261,9 +261,9 @@
                     }
                 ]]></pre></three-shader>
             </three-material>
-            <three-material name="shader05" type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [name]="'shader05'" [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     uniform float time;
                     uniform vec2 resolution;
                 
@@ -291,9 +291,9 @@
                 
                 ]]></pre></three-shader>
             </three-material>
-            <three-material name="shader06" type="shader" [uniforms]="uniforms" >
-                <three-shader type="x-shader/x-vertex" [refShader]="vertexShader"></three-shader>
-                <three-shader  type="x-shader/x-fragment"><pre><![CDATA[
+            <three-material [name]="'shader06'" [type]="'shader'" [uniforms]="uniforms" >
+                <three-shader [type]="'x-shader/x-vertex'" [refShader]="vertexShader"></three-shader>
+                <three-shader  [type]="'x-shader/x-fragment'"><pre><![CDATA[
                     uniform float time;
                     uniform vec2 resolution;
                 
@@ -329,8 +329,8 @@
         <three-mesh #plane [receiveShadow]="true">
             <three-position [x]="0" [y]="-20" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-            <three-geometry type="plane" [width]="100" [height]="100"></three-geometry>
-            <three-material type="MeshBasic" [color]="'0x555555'"></three-material>
+            <three-geometry [type]="'plane'" [width]="100" [height]="100"></three-geometry>
+            <three-material [type]="'MeshBasic'" [color]="'0x555555'"></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

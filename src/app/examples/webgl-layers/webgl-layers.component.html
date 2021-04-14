@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl layers
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - webgl layers
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -25,7 +25,7 @@
       <three-position [x]="0" [y]="0" [z]="100"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="1"
         [layers]="[0,1,2]"
@@ -46,7 +46,7 @@
         <three-position [x]="box.position.x" [y]="box.position.y" [z]="box.position.z"></three-position>
         <three-rotation [x]="box.rotation.x" [y]="box.rotation.y" [z]="box.rotation.z"></three-rotation>
         <three-scale [x]="box.scale.x" [y]="box.scale.y" [z]="box.scale.z"></three-scale>
-        <three-material type="meshlambert" [color]="box.color"></three-material>
+        <three-material [type]="'meshlambert'" [color]="box.color"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

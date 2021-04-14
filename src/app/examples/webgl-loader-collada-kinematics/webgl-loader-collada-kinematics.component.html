@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader - kinematics<br/>
-  robot from <a href="https://github.com/rdiankov/collada_robots" target="_blank" rel="noopener">collada robots</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> collada loader - kinematics<br/>
+  robot from <a [href]="'https://github.com/rdiankov/collada_robots'" [target]="'_blank'" [rel]="'noopener'">collada robots</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,13 +20,13 @@
   </three-camera>
   <three-scene #scene >
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xffeeee'"
       [groundColor]="'0x111122'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.8"
       [castShadow]="true"

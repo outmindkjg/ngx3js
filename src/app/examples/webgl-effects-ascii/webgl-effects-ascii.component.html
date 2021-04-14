@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - ascii
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - effects - ascii
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,13 +20,13 @@
   </three-camera>
   <three-scene #scene [background]="'0x000000'">
     <three-light
-      type="Point"
+      [type]="'Point'"
       [color]="'0xffffff'"
     >
       <three-position [x]="500" [y]="500" [z]="500"></three-position>
     </three-light>
     <three-light
-      type="Point"
+      [type]="'Point'"
       [color]="'0xffffff'"
       [intensity]="0.25"
     >
@@ -40,7 +40,7 @@
         [widthSegments]="20"
         [heightSegments]="10"
       ></three-geometry>
-      <three-material type="MeshPhong" [flatShading]="true"></three-material>
+      <three-material [type]="'MeshPhong'" [flatShading]="true"></three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="-200" [z]="0"></three-position>

@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - color lines<br/>
-  <a href="http://en.wikipedia.org/wiki/Hilbert_curve">Hilbert curve</a> thanks to <a href="http://www.openprocessing.org/visuals/?visualID=15599">Thomas Diewald</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - color lines<br/>
+  <a [href]="'http://en.wikipedia.org/wiki/Hilbert_curve'">Hilbert curve</a> thanks to <a [href]="'http://www.openprocessing.org/visuals/?visualID=15599'">Thomas Diewald</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -29,7 +29,7 @@
           [position]="line.position"
           [color]="line.color"
         ></three-geometry>
-        <three-material type="LineBasic" [color]="'0xffffff'" [vertexColors]="true"></three-material>
+        <three-material [type]="'LineBasic'" [color]="'0xffffff'" [vertexColors]="true"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

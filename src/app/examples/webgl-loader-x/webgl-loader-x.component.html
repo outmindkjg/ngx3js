@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank">three.js</a> - X-File Loader <br>
-  <a href="https://github.com/adrs2002/threeXfileLoader" target="_new">see more info and samples</a> <br /><br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'">three.js</a> - X-File Loader <br>
+  <a [href]="'https://github.com/adrs2002/threeXfileLoader'" [target]="'_new'">see more info and samples</a> <br /><br/>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -25,14 +25,14 @@
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >
       <three-position [x]="10" [y]="100" [z]="-10" [normalize]="true"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0x777666'"
       [intensity]="1"
     >

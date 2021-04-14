@@ -4,8 +4,8 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x181818'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x181818'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="0.6" [castShadow]="true" >
             <three-position [x]="550" [y]="100" [z]="550"></three-position>
         </three-mesh>
         <three-mesh>
@@ -14,7 +14,7 @@
                 <three-position [x]="0" [y]="0" [z]="0"></three-position>
                 <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
                 <three-geometry [type]="'Sphere'" [radius]="10" [widthSegments]="60" [heightSegments]="60"></three-geometry>
-                <three-material type="MeshPhong" [specular]="'0x4444aa'" [wireframe]="controls.wireframe" [shininess]="160">
+                <three-material [type]="'MeshPhong'" [specular]="'0x4444aa'" [wireframe]="controls.wireframe" [shininess]="160">
                     <three-texture [textureType]="'map'" [image]="'/assets/textures/planets/Earth.png'"></three-texture>
                     <three-texture [textureType]="'specularMap'" [image]="'/assets/textures/planets/EarthSpec.png'"></three-texture>
                     <three-texture [textureType]="'normalMap'" [image]="'/assets/textures/planets/EarthNormal.png'"></three-texture>

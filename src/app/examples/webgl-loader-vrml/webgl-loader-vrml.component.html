@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - VRML loader
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - VRML loader
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -21,13 +21,13 @@
       <three-position [x]="-10" [y]="5" [z]="10"></three-position>
     </three-camera>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x000000'"
       [intensity]="1"
     ></three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >

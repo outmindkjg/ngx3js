@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - particles
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - interactive - particles
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -29,7 +29,7 @@
         [customColor]="colors"
         [customSize]="sizes"
       ></three-geometry>
-      <three-material type="Shader" [alphaTest]="0.9"
+      <three-material [type]="'Shader'" [alphaTest]="0.9"
         [uniforms]="uniforms"
         [vertexShader]="shaderVertex"
         [fragmentShader]="shaderFragment"

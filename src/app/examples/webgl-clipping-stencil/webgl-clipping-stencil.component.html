@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
   Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
+  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
   >)<br />
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
   or (0,0,1)
@@ -33,13 +33,13 @@
   </three-camera>
   <three-scene>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -63,7 +63,7 @@
         [radialSegments]="220"
         [tubularSegments]="60"
       ></three-geometry>
-      <three-material type="MeshStandard" 
+      <three-material [type]="'MeshStandard'" 
         [color]="'0xFFC107'"
         [metalness]="0.1"
         [roughness]="0.75"

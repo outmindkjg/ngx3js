@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - lines WebGL demo
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - lines WebGL demo
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -31,7 +31,7 @@
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-scale [x]="info.scale" [y]="info.scale" [z]="info.scale"></three-scale>
         <three-rotation [x]="0" [y]="info.rotation" [z]="0"></three-rotation>
-        <three-material type="LineBasic" [color]="info.color" [opacity]="info.opacity"></three-material>
+        <three-material [type]="'LineBasic'" [color]="info.color" [opacity]="info.opacity"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - procedural 3D text by <a href="http://www.lab4games.net/zz85/blog" target="_blank" rel="noopener">zz85</a> &amp; alteredq<br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - procedural 3D text by <a [href]="'http://www.lab4games.net/zz85/blog'" [target]="'_blank'" [rel]="'noopener'">zz85</a> &amp; alteredq<br/>
   type to enter new text, drag to spin the text<br/>
 </div>
 <three-renderer
@@ -22,14 +22,14 @@
   <three-scene #scene [background]="'0x000000'">
     <three-fog [color]="'0x000000'" [near]="250" [far]="1400" ></three-fog>
     <three-light
-      type="Directional"
+      [type]="'Directional'"
       [color]="'0xffffff'"
       [intensity]="0.125"
     >
       <three-position [x]="0" [y]="0" [z]="1" [normalize]="true"></three-position>
     </three-light>
     <three-light
-      type="Point"
+      [type]="'Point'"
       [color]="controls.color"
       [intensity]="1.5"
     >
@@ -56,14 +56,14 @@
       <three-mesh [geometry]="geometry">
         <three-position [x]="0" [y]="controls.hover" [z]="0"></three-position>
         <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
-        <three-material type="MeshPhong" [color]="'0xffffff'" [flatShading]="true"></three-material>
-        <three-material type="MeshPhong" [color]="'0xffffff'"></three-material>
+        <three-material [type]="'MeshPhong'" [color]="'0xffffff'" [flatShading]="true"></three-material>
+        <three-material [type]="'MeshPhong'" [color]="'0xffffff'"></three-material>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="0" [y]="-controls.hover" [z]="controls.height"></three-position>
         <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
-        <three-material type="MeshPhong" [color]="'0xffffff'" [flatShading]="true"></three-material>
-        <three-material type="MeshPhong" [color]="'0xffffff'"></three-material>
+        <three-material [type]="'MeshPhong'" [color]="'0xffffff'" [flatShading]="true"></three-material>
+        <three-material [type]="'MeshPhong'" [color]="'0xffffff'"></three-material>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">

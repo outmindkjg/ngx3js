@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Texture loader using ImageBitmap
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - Texture loader using ImageBitmap
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,10 +20,10 @@
   </three-camera>
   <three-scene #scene>
     <three-shared>
-      <three-material #material1 type="MeshBasic">
+      <three-material #material1 [type]="'MeshBasic'">
         <three-texture [loaderType]="'image'" [image]="'textures/planets/earth_atmos_2048.jpg'"></three-texture>
       </three-material>
-      <three-material #material2 type="MeshBasic" [color]="'0xff8888'">
+      <three-material #material2 [type]="'MeshBasic'" [color]="'0xff8888'">
         <three-texture [loaderType]="'ImageBitmap'" [image]="'textures/planets/earth_atmos_2048.jpg'"></three-texture>
       </three-material>
     </three-shared>

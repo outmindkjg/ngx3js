@@ -4,15 +4,15 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x111111'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="1.5" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x111111'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="1.5" [castShadow]="true" >
             <three-position [x]="-20" [y]="30" [z]="40"></three-position>
         </three-mesh>
         <three-mesh>
             <three-position [x]="0" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-geometry [type]="'Sphere'" [radius]="20" [widthSegments]="40" [heightSegments]="40"></three-geometry>
-            <three-material type="meshphong" [wireframe]="controls.wireframe">
+            <three-material [type]="'meshphong'" [wireframe]="controls.wireframe">
                 <three-texture [textureType]="'map'" [image]="'/assets/textures/planets/mars_1k_color.jpg'"></three-texture>
                 <three-texture [textureType]="'bumpMap'" [image]="'/assets/textures/planets/mars_1k_normal.jpg'"></three-texture>
             </three-material>

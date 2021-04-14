@@ -4,10 +4,10 @@
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="directional" [color]="controls.pointColor" [intensity]="controls.intensity" [castShadow]="true" [visible]="true">
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="controls.pointColor" [intensity]="controls.intensity" [castShadow]="true" [visible]="true">
             <three-position [x]="30" [y]="10" [z]="-50"></three-position>
             <three-lookat [refer]="plane"></three-lookat>
-            <three-mesh type="lensflare">
+            <three-mesh [type]="'lensflare'">
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare0.png'" [size]="350" [distance]="0" [color]="'0xffaacc'"></three-lensflareelement>
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="60" [distance]="0.6"></three-lensflareelement>
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="70" [distance]="0.7"></three-lensflareelement>
@@ -15,23 +15,23 @@
                 <three-lensflareelement [image]="'/assets/textures/lensflare/lensflare3.png'" [size]="70" [distance]="1"></three-lensflareelement>
             </three-mesh>
         </three-mesh>
-        <three-mesh type="light" lightType="ambient" [color]="controls.ambientColor"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="controls.ambientColor"></three-mesh>
         <three-mesh #cube [castShadow]="true">
             <three-position [x]="-4" [y]="3" [z]="0"></three-position>
             <three-rotation [x]="boxRotation.x" [y]="boxRotation.y" [z]="boxRotation.z"></three-rotation>
-            <three-geometry type="box" [width]="4" [height]="4" [depth]="4"></three-geometry>
-            <three-material type="meshlambert" [color]="'0xff3333'"></three-material>
+            <three-geometry [type]="'box'" [width]="4" [height]="4" [depth]="4"></three-geometry>
+            <three-material [type]="'meshlambert'" [color]="'0xff3333'"></three-material>
         </three-mesh>
         <three-mesh #sphere [castShadow]="true">
             <three-position [x]="spherePosition.x" [y]="spherePosition.y" [z]="spherePosition.z"></three-position>
-            <three-geometry type="Sphere" [radius]="4" [widthSegments]="25" [heightSegments]="25"></three-geometry>
-            <three-material type="meshlambert" [color]="'0x7777ff'"></three-material>
+            <three-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="25" [heightSegments]="25"></three-geometry>
+            <three-material [type]="'meshlambert'" [color]="'0x7777ff'"></three-material>
         </three-mesh>
         <three-mesh #plane [receiveShadow]="true">
             <three-position [x]="15" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-            <three-geometry #planeGeometry type="plane" [width]="1000" [height]="200" [widthSegments]="20" [heightSegments]="20"></three-geometry>
-            <three-material type="meshlambert" [color]="'0xffffff'">
+            <three-geometry #planeGeometry [type]="'plane'" [width]="1000" [height]="200" [widthSegments]="20" [heightSegments]="20"></three-geometry>
+            <three-material [type]="'meshlambert'" [color]="'0xffffff'">
                 <three-texture
                     [image]="'/assets/textures/ground/grasslight-big.jpg'"
                     [wrapS]="'repeat'"

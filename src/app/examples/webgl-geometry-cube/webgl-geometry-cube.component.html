@@ -1,4 +1,4 @@
-<div id="info">
+<div [id]="'info'">
 
 </div>
 <three-renderer
@@ -19,7 +19,7 @@
   </three-camera>
   <three-scene #scene>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -40,7 +40,7 @@
         [height]="200"
         [depth]="200"
       ></three-geometry>
-      <three-material type="MeshBasic">
+      <three-material [type]="'MeshBasic'">
         <three-texture [image]="'textures/crate.gif'"></three-texture>
       </three-material>
     </three-mesh>

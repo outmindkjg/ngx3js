@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - voxel painter - webgl<br>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - voxel painter - webgl<br>
   <strong>click</strong>: add voxel, <strong>shift + click</strong>: remove voxel
 </div>
 <three-renderer
@@ -23,11 +23,11 @@
   </three-camera>
   <three-scene #scene [background]="'0xf0f0f0'">
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x606060'"
     ></three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -40,7 +40,7 @@
     >
       <three-position [x]="1" [y]="0.75" [z]="0.5" [normalize]="true"></three-position>
     </three-light>
-    <three-helper type="grid" [size]="1000" [divisions]="20"></three-helper>
+    <three-helper [type]="'grid'" [size]="1000" [divisions]="20"></three-helper>
     <three-mesh (onLoad)="setRollOver($event)">
       <three-position [x]="50" [y]="25" [z]="0"></three-position>
       <three-geometry
@@ -49,7 +49,7 @@
         [height]="50"
         [depth]="50"
       ></three-geometry>
-      <three-material type="MeshBasic" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
+      <three-material [type]="'MeshBasic'" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
     </three-mesh>
     <three-shared>
       <three-geometry
@@ -61,7 +61,7 @@
       ></three-geometry>
       <three-material 
         #boxMaterial
-        type="MeshLambert" 
+        [type]="'MeshLambert'" 
         [color]="'0xfeb74c'"
       >
         <three-texture [image]="'textures/square-outline-textured.png'"></three-texture>

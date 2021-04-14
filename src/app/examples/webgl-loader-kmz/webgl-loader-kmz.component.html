@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  <a href="https://developers.google.com/kml/documentation/kmzarchives" target="_blank" rel="noopener">KMZ</a> loader
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
+  <a [href]="'https://developers.google.com/kml/documentation/kmzarchives'" [target]="'_blank'" [rel]="'noopener'">KMZ</a> loader
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -21,7 +21,7 @@
   </three-camera>
   <three-scene #scene [background]="'0x999999'">
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
     >
       <three-position [x]="0.5" [y]="1.0" [z]="0.5" [normalize]="true"></three-position>

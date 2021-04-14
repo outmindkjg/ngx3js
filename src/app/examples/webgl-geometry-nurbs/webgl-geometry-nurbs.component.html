@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - NURBS curve and surface example
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - NURBS curve and surface example
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,11 +20,11 @@
   </three-camera>
   <three-scene #scene [background]="'0xf0f0f0'">
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x808080'"
     ></three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >

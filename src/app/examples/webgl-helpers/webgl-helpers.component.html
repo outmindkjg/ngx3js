@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - helpers
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - helpers
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -17,7 +17,7 @@
   </three-camera>
   <three-scene #scene>
     <three-light
-      type="Point"
+      [type]="'Point'"
     >
       <three-position [x]="200" [y]="100" [z]="150"></three-position>
       <three-helper [type]="'light'" [size]="15"></three-helper>
@@ -39,13 +39,13 @@
         <three-helper [type]="'box'"></three-helper>
         <three-position [x]="4" [y]="0" [z]="0"></three-position>
         <three-geometry [type]="'Wireframe'" [refGeometry]="baseMesh"></three-geometry>
-        <three-material type="line" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
+        <three-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
         <three-helper [type]="'box'"></three-helper>
       </three-mesh>
       <three-mesh [type]="'linesegments'">
         <three-position [x]="-4" [y]="0" [z]="0"></three-position>
         <three-geometry [type]="'Edges'" [refGeometry]="baseMesh"></three-geometry>
-        <three-material type="line" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
+        <three-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></three-material>
         <three-helper [type]="'box'"></three-helper>
       </three-mesh>
     </three-mesh>

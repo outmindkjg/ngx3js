@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - geometry - catmull spline editor
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - geometry - catmull spline editor
 </div>
 <three-renderer
   [statsMode]="0"
@@ -26,12 +26,12 @@
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xf0f0f0'"
     >
     </three-light>
     <three-light
-      type="Spot"
+      [type]="'Spot'"
       [color]="'0xffffff'"
       [intensity]="1.5"
       [castShadow]="true"
@@ -46,7 +46,7 @@
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let curve of catmullRomCurves" type="line" [visible]="curve.visible" [castShadow]="true">
+      <three-mesh *ngFor="let curve of catmullRomCurves" [type]="'line'" [visible]="curve.visible" [castShadow]="true">
         <three-geometry
           [type]="'geometry'"
           [curveSegments]="200"
@@ -54,7 +54,7 @@
           [curvePath]="curve.curvePath"
           [curveType]="curve.curveType"
         ></three-geometry>
-        <three-material type="LineBasic" [opacity]="0.35" [color]="curve.color"></three-material>
+        <three-material [type]="'LineBasic'" [opacity]="0.35" [color]="curve.color"></three-material>
       </three-mesh>
       <three-mesh *ngFor="let box of positions" (onLoad)="setPointMesh($event)" (onDestory)="unsetPointMesh($event)">
         <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
@@ -64,7 +64,7 @@
           [height]="20"
           [depth]="20"
         ></three-geometry>
-        <three-material type="meshlambert" [color]="box.color"></three-material>
+        <three-material [type]="'meshlambert'" [color]="box.color"></three-material>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">

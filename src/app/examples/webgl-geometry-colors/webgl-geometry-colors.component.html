@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - vertex colors
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - vertex colors
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,7 +20,7 @@
   </three-camera>
   <three-scene #scene [background]="'0xffffff'">
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
     >
       <three-position [x]="0" [y]="0" [z]="1"></three-position>

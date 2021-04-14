@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  PLY loader test by <a href="https://github.com/menway" target="_blank" rel="noopener">Wei Meng</a>.<br/>
-  Image from <a href="http://people.sc.fsu.edu/~jburkardt/data/ply/ply.html">John Burkardt</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
+  PLY loader test by <a [href]="'https://github.com/menway'" [target]="'_blank'" [rel]="'noopener'">Wei Meng</a>.<br/>
+  Image from <a [href]="'http://people.sc.fsu.edu/~jburkardt/data/ply/ply.html'">John Burkardt</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -22,13 +22,13 @@
   <three-scene #scene [background]="'0x72645b'">
     <three-fog [color]="'0x72645b'" [near]="2" [far]="15"></three-fog>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1.35"
       [castShadow]="true"
@@ -44,7 +44,7 @@
       <three-position [x]="1" [y]="1" [z]="1"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffaa00'"
       [intensity]="1"
       [castShadow]="true"

@@ -4,12 +4,12 @@
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x121212'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [refer]="scene"></three-lookat>
         </three-mesh>
-        <three-mesh type="group">
+        <three-mesh [type]="'group'">
             <three-position [x]="0" [y]="3" [z]="2"></three-position>
             <three-rotation [x]="rotation.x" [y]="rotation.y" [z]="rotation.z"></three-rotation>
             <three-mesh>
@@ -20,7 +20,7 @@
                     [phiStart]="controls.phiStart"
                     [phiLength]="controls.phiLength"
                 ></three-geometry>
-                <three-material type="MeshNormal"
+                <three-material [type]="'MeshNormal'"
                     [color]="'0x00ff00'"
                     [opacity]="0.7"
                     [transparent]="false"
@@ -34,7 +34,7 @@
                     [type]="'Sphere'" 
                     [radius]="0.2" 
                 ></three-geometry>
-                <three-material type="MeshBasic"
+                <three-material [type]="'MeshBasic'"
                     [color]="'0xff0000'"
                     [transparent]="true"
                 ></three-material>

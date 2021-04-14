@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  STL loader test by <a href="https://github.com/aleeper" target="_blank" rel="noopener">aleeper</a>.<br/>
-  PR2 head from <a href="http://www.ros.org/wiki/pr2_description">www.ros.org</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
+  STL loader test by <a [href]="'https://github.com/aleeper'" [target]="'_blank'" [rel]="'noopener'">aleeper</a>.<br/>
+  PR2 head from <a [href]="'http://www.ros.org/wiki/pr2_description'">www.ros.org</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -23,13 +23,13 @@
   <three-scene #scene [background]="'0x72645b'">
     <three-fog [color]="'0x72645b'" [near]="2" [far]="15"></three-fog>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1.35"
       [castShadow]="true"
@@ -44,7 +44,7 @@
       <three-position [x]="1" [y]="1" [z]="1"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffaa00'"
       [intensity]="1"
       [castShadow]="true"
@@ -59,7 +59,7 @@
       <three-position [x]="0.5" [y]="1" [z]="-1"></three-position>
     </three-light>
     <three-shared>
-      <three-material #material type="MeshPhong" [color]="'0xAAAAAA'" [specular]="'0x111111'" [shininess]="200"></three-material>
+      <three-material #material [type]="'MeshPhong'" [color]="'0xAAAAAA'" [specular]="'0x111111'" [shininess]="200"></three-material>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
@@ -67,7 +67,7 @@
         <three-position [x]="0" [y]="-0.25" [z]="0.6"></three-position>
         <three-rotation [x]="0" [y]="-90" [z]="0"></three-rotation>
         <three-scale [multiply]="0.5"></three-scale>
-        <three-material type="MeshPhong" [color]="'0xff5533'" [specular]="'0x111111'" [shininess]="200"></three-material>
+        <three-material [type]="'MeshPhong'" [color]="'0xff5533'" [specular]="'0x111111'" [shininess]="200"></three-material>
       </three-mesh>
       <three-mesh [material]="material" [storageName]="'models/stl/binary/pr2_head_pan.stl'" [receiveShadow]="true" [castShadow]="true">
         <three-position [x]="0" [y]="-0.37" [z]="-0.6"></three-position>
@@ -83,7 +83,7 @@
         <three-position [x]="0.5" [y]="0.2" [z]="0"></three-position>
         <three-rotation [x]="-90" [y]="90" [z]="0"></three-rotation>
         <three-scale [multiply]="0.3"></three-scale>
-        <three-material type="MeshPhong" [opacity]="0.7" [vertexColors]="true"></three-material>
+        <three-material [type]="'MeshPhong'" [opacity]="0.7" [vertexColors]="true"></three-material>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">

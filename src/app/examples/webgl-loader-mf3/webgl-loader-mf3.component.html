@@ -1,8 +1,8 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <a href="http://3mf.io" target="_blank" rel="noopener">3MF File format</a>
-  <div>3MF loader test by <a href="https://github.com/technohippy" target="_blank" rel="noopener">technohippy</a></div>
-  <div>Files from <a href="https://github.com/3MFConsortium/3mf-samples" target="_blank" rel="noopener">3mf-samples</a></div>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a>
+  <a [href]="'http://3mf.io'" [target]="'_blank'" [rel]="'noopener'">3MF File format</a>
+  <div>3MF loader test by <a [href]="'https://github.com/technohippy'" [target]="'_blank'" [rel]="'noopener'">technohippy</a></div>
+  <div>Files from <a [href]="'https://github.com/3MFConsortium/3mf-samples'" [target]="'_blank'" [rel]="'noopener'">3mf-samples</a></div>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -25,13 +25,13 @@
   </three-camera>
   <three-scene #scene [background]="'0x333333'">
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.2"
     >
     </three-light>
     <three-light
-      type="Point"
+      [type]="'Point'"
       [color]="'0xffffff'"
       [intensity]="0.8"
     >

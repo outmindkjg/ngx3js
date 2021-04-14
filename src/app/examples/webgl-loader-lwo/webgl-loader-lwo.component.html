@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - LWOLoader
-  <P>Lightwave Object loader by <a href="https://discoverthreejs.com/" target="_blank" rel="noopener">Discover three.js</a></P>
-  Models by <a href="https://onthez.com/" target="_blank" rel="noopener">on the z</a> - Environment images by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - LWOLoader
+  <P>Lightwave Object loader by <a [href]="'https://discoverthreejs.com/'" [target]="'_blank'" [rel]="'noopener'">Discover three.js</a></P>
+  Models by <a [href]="'https://onthez.com/'" [target]="'_blank'" [rel]="'noopener'">on the z</a> - Environment images by <a [href]="'https://hdrihaven.com/'" [target]="'_blank'" [rel]="'noopener'">HDRI Haven</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -22,13 +22,13 @@
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xaaaaaa'"
       [intensity]="1.75"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -40,21 +40,21 @@
       <three-position [x]="0" [y]="200" [z]="100"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.7"
     >
       <three-position [x]="-100" [y]="200" [z]="-100"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.4"
     >
       <three-position [x]="100" [y]="-200" [z]="100"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >

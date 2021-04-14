@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - light probe
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - light probe
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -30,7 +30,7 @@
     </three-material>
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       (onLoad)="setLight($event)"
@@ -38,7 +38,7 @@
       <three-position [x]="10" [y]="10" [z]="10"></three-position>
     </three-light>
     <three-light
-      type="lightprobe"
+      [type]="'lightprobe'"
       [texture]="cubeTexture"
       (onLoad)="setlightProbe($event)"
     >
@@ -51,7 +51,7 @@
         [widthSegments]="64"
         [heightSegments]="32"
       ></three-geometry>
-      <three-material type="MeshStandard" 
+      <three-material [type]="'MeshStandard'" 
         [color]="'0xffffff'"
         [metalness]="0"
         [roughness]="0"

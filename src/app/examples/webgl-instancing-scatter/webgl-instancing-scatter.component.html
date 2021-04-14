@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -18,9 +18,9 @@
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
   <three-scene #scene [background]="'0xE39469'">
-    <three-light type="Hemisphere"></three-light>
+    <three-light [type]="'Hemisphere'"></three-light>
     <three-light
-      type="Point"
+      [type]="'Point'"
       [color]="'0xAA8899'"
       [intensity]="0.75"
     >
@@ -39,7 +39,7 @@
         [tubularSegments]="16"
         [toNonIndexed]="true"
       ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xFFF784'" [wireframe]="false"></three-material>
+      <three-material [type]="'meshlambert'" [color]="'0xFFF784'" [wireframe]="false"></three-material>
       <three-mesh *ngIf="stemMaterial && stemGeometry" [type]="'Instanced'" [count]="1000" [material]="stemMaterial" [geometry]="stemGeometry" (onLoad)="setStemMesh($event)" ></three-mesh>
       <three-mesh *ngIf="blossomMaterial && blossomGeometry" [type]="'Instanced'" [count]="1000" [material]="blossomMaterial" [geometry]="blossomGeometry" (onLoad)="setBlossomMesh($event)" ></three-mesh>
     </three-mesh>

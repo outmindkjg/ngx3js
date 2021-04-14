@@ -1,4 +1,4 @@
-<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - buffergeometry</div>
+<div [id]="'info'"><a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - interactive - buffergeometry</div>
 <three-renderer
   [controlType]="'orbit'"
   [autoRotate]="true"
@@ -22,19 +22,19 @@
   <three-scene #scene [background]="'0x050505'">
     <three-fog [color]="'0x050505'" [far]="3500" [near]="2000"></three-fog>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x444444'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
       <three-position [x]="1" [y]="1" [z]="1"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1.5"
     >
@@ -49,7 +49,7 @@
         [normal]="normals"
       ></three-geometry>
       <three-material 
-        type="MeshPhong" 
+        [type]="'MeshPhong'" 
         [color]="'0xaaaaaa'"
         [specular]="'0xffffff'"
         [shininess]="250"
@@ -63,7 +63,7 @@
           [position]="linePosition"
         ></three-geometry>
         <three-material 
-          type="LineBasic" 
+          [type]="'LineBasic'" 
           [color]="'0xffffff'"
           [transparent]="true"
         ></three-material>

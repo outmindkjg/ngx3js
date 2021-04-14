@@ -4,24 +4,24 @@
         <three-lookat [refer]="scene"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient"></three-mesh>
-        <three-mesh type="light" lightType="spot"></three-mesh>
-        <three-mesh type="helper" helperType="axis" [size]="10"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'ambient'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'spot'"></three-mesh>
+        <three-mesh [type]="'helper'" [helperType]="'axis'" [size]="10"></three-mesh>
         <three-mesh>
             <three-position [x]="-4" [y]="3" [z]="0"></three-position>
-            <three-geometry type="box" [width]="4" [height]="4" [depth]="4"></three-geometry>
-            <three-material type="meshbasic" [color]="'0xff0000'" [wireframe]="true"></three-material>
+            <three-geometry [type]="'box'" [width]="4" [height]="4" [depth]="4"></three-geometry>
+            <three-material [type]="'meshbasic'" [color]="'0xff0000'" [wireframe]="true"></three-material>
         </three-mesh>
         <three-mesh>
             <three-position [x]="20" [y]="4" [z]="2"></three-position>
-            <three-geometry type="sphere" [radius]="4" [widthSegments]="20" [heightSegments]="20"></three-geometry>
-            <three-material type="meshbasic" [color]="'0x7777ff'" [wireframe]="true"></three-material>
+            <three-geometry [type]="'sphere'" [radius]="4" [widthSegments]="20" [heightSegments]="20"></three-geometry>
+            <three-material [type]="'meshbasic'" [color]="'0x7777ff'" [wireframe]="true"></three-material>
         </three-mesh>
         <three-mesh>
             <three-position [x]="15" [y]="0" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-            <three-geometry type="plane" [width]="60" [height]="20"></three-geometry>
-            <three-material type="meshbasic" [color]="'0xcccccc'"></three-material>
+            <three-geometry [type]="'plane'" [width]="60" [height]="20"></three-geometry>
+            <three-material [type]="'meshbasic'" [color]="'0xcccccc'"></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

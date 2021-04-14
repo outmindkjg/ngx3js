@@ -1,9 +1,9 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> webgl - depth texture<br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">threejs</a> webgl - depth texture<br/>
   Stores render target depth in a texture attachment.<br/>
-  Created by <a href="http://twitter.com/mattdesl" target="_blank" rel="noopener">@mattdesl</a>.
+  Created by <a [href]="'http://twitter.com/mattdesl'" [target]="'_blank'" [rel]="'noopener'">@mattdesl</a>.
 
-  <div id="error" style="display: none;">
+  <div [id]="'error'" [style]="'display: none;'">
   Your browser does not support <strong>WEBGL_depth_texture</strong>.<br/><br/>
   This demo will not work.
   </div>
@@ -27,7 +27,7 @@
   </three-camera>
   <three-scene>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -52,7 +52,7 @@
           [radialSegments]="128"
           [tubularSegments]="64"
         ></three-geometry>
-        <three-material type="MeshBasic" [color]="'blue'"></three-material>
+        <three-material [type]="'MeshBasic'" [color]="'blue'"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

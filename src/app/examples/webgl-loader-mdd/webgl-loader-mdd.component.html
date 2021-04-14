@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MDDLoader
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - MDDLoader
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -26,7 +26,7 @@
         [height]="1"
         [depth]="1"
       ></three-geometry>
-      <three-material type="MeshNormal" [morphTargets]="true"></three-material>
+      <three-material [type]="'MeshNormal'" [morphTargets]="true"></three-material>
       <three-mixer [action]="'base'">
         <three-clip [name]="'base'" [index]="0"></three-clip>
       </three-mixer>

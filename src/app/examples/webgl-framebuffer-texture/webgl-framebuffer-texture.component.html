@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> framebuffer to texture
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener noreferrer'">three.js</a> framebuffer to texture
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -19,14 +19,14 @@
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
   <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" type="line">
+    <three-mesh (onLoad)="setMesh($event)" [type]="'line'">
       <three-position [x]="0" [y]="1" [z]="0"></three-position>
       <three-scale [x]="0.05" [y]="0.05" [z]="0.05"></three-scale>
       <three-geometry
         [onInit]="loadGeometry"
         [type]="'geometry'"
       ></three-geometry>
-      <three-material type="LineBasic" [vertexColors]="true"></three-material>
+      <three-material [type]="'LineBasic'" [vertexColors]="true"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

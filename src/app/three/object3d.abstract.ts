@@ -31,11 +31,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() private rotation : RotationComponent = null;
   @Input() private scale : ScaleComponent = null;
   @Input() private lookat : LookatComponent = null;
+  @Input() private loDistance : number = null;
+  
 	@ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
 	@ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 	@ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
 	@ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
 	@ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+
+  private getLoDistance(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.loDistance, def);
+  }
 
 	ngOnInit(): void {
 		super.ngOnInit();
@@ -398,7 +404,11 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
         this.object3d.name = this.name;
         this.object3d.visible = this.visible;
         if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
-          this.parent.add(this.object3d);
+          if (this.parent instanceof THREE.LOD) {
+            this.parent.addLevel(this.object3d, this.getLoDistance(0));
+          } else {
+            this.parent.add(this.object3d);
+          }
         }
         this.setTweenTarget(this.object3d);
       }

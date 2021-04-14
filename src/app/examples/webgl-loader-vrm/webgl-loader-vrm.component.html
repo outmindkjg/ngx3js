@@ -1,8 +1,8 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - VRMLoader<br />
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - VRMLoader<br />
   Alicia by
-  <a href="https://3d.nicovideo.jp/works/td32797" target="_blank" rel="noopener">Dwango</a> /
-  <a href="http://3d.nicovideo.jp/alicia/rule.html">License</a><br />
+  <a [href]="'https://3d.nicovideo.jp/works/td32797'" [target]="'_blank'" [rel]="'noopener'">Dwango</a> /
+  <a [href]="'http://3d.nicovideo.jp/alicia/rule.html'">License</a><br />
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -24,7 +24,7 @@
   </three-camera>
   <three-scene #scene>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xbbbbff'"
       [groundColor]="'0x444422'"
     >

@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MD2 Loader -
-  Character by <a href="http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=368">Brian Collins</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - MD2 Loader -
+  Character by <a [href]="'http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=368'">Brian Collins</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -22,12 +22,12 @@
   <three-scene #scene [background]="'0x050505'">
     <three-fog [color]="'0x050505'" [near]="400" [far]="1000"></three-fog>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x222222'"
     >
     </three-light>
     <three-light
-      type="spot"
+      [type]="'spot'"
       [color]="'0xffffff'"
       [intensity]="5"
       [distance]="1000"
@@ -39,7 +39,7 @@
       <three-position [x]="200" [y]="250" [z]="500"></three-position>
     </three-light>
     <three-light
-      type="spot"
+      [type]="'spot'"
       [color]="'0xffffff'"
       [intensity]="5"
       [distance]="1000"

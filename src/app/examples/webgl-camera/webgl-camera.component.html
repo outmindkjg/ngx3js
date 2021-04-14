@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras<br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - cameras<br/>
   <b>O</b> orthographic <b>P</b> perspective
 </div>
 <three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)" [autoClear]="true">
@@ -10,17 +10,17 @@
       <three-position [x]="0" [y]="0" [z]="2500"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
-    <three-mesh name="cameraRig" (onLoad)="setCameraRig($event)">
+    <three-mesh [name]="'cameraRig'" (onLoad)="setCameraRig($event)">
       <three-lookat [refer]="main_mesh"></three-lookat>
       <three-camera (onLoad)="setCameraPerspective($event)" [visible]="true" [type]="'perspective'"  [fov]="50" [near]="150" [far]="1000" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
         <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-helper type="camera"></three-helper>
+        <three-helper [type]="'camera'"></three-helper>
       </three-camera>
       <three-camera (onLoad)="setCameraOrthographic($event)" [visible]="false" [type]="'Orthographic'" [near]="150" [far]="1000" [left]="-0.5" [top]="1" [right]="0.5" [bottom]="-1" [fov]="50" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
         <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-helper [visible]="false" type="camera"></three-helper>
+        <three-helper [visible]="false" [type]="'camera'"></three-helper>
       </three-camera>
       <three-mesh>
         <three-position [x]="0" [y]="0" [z]="150"></three-position>

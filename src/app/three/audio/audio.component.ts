@@ -4,17 +4,17 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, ContentC
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractObject3dComponent } from '../object3d.abstract';
 
 @Component({
   selector: 'three-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
 })
-export class AudioComponent implements OnInit {
+export class AudioComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type:string = 'position';
   @Input() private url:string = null;
   @Input() private videoUrl:string = null;
-  @Input() private visible:boolean = true ;
   @Input() private autoplay:boolean = true ;
   @Input() private play:boolean = true ;
   @Input() private loop:boolean = true ;
@@ -32,10 +32,6 @@ export class AudioComponent implements OnInit {
 
   @ContentChildren(MixerComponent, { descendants: false }) private mixer: QueryList<MixerComponent>;
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.type) {
       this.audio = null;
@@ -43,14 +39,12 @@ export class AudioComponent implements OnInit {
     if (this.audio !== null && this.audio.buffer !== null && changes.url) {
       this.audio.buffer = null;
     }
+    super.ngOnChanges(changes);
     this.resetAudio();
   }
 
   ngOnDestroy(): void {
     if (this.audio !== null) {
-      if (this.audio.parent !== null) {
-        this.audio.parent.remove(this.audio);
-      }
       if (this.audio.source !== null) {
         this.audio.stop();
       }
@@ -58,6 +52,7 @@ export class AudioComponent implements OnInit {
         this.video.pause();
       }
     }
+    super.ngOnDestroy();
   }
 
   private audio: THREE.Audio<any> = null;
@@ -96,13 +91,12 @@ export class AudioComponent implements OnInit {
     }
   }
 
-  private parent: THREE.Object3D = null;
-
-  setParent(parent: THREE.Object3D) {
-    if (this.parent !== parent) {
-      this.parent = parent;
+  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
+    if (super.setParent(parent, isRestore)) {
       this.resetAudio();
+      return true;
     }
+    return false;
   }
 
   private _textureSubject:Subject<HTMLVideoElement> = new Subject<HTMLVideoElement>();
@@ -156,14 +150,6 @@ export class AudioComponent implements OnInit {
       if (this.audio.listener !== this.listener) {
         this.audio.listener = this.listener;
       }
-      if (this.parent !== null) {
-        if (this.audio.parent !== this.parent) {
-          if (this.audio.parent !== null) {
-            this.audio.parent.remove(this.audio);
-          }
-          this.parent.add(this.audio);
-        }
-      }
       if (this.url !== null && this.loadedUrl !== this.url) {
         this.loadedUrl = this.url;
         this.loadedVideoTexture = null;
@@ -195,20 +181,18 @@ export class AudioComponent implements OnInit {
             this.audio.setBuffer(buffer);
             this.resetAudio();
             this.onLoad.emit(this);
-        });
+          });
+        }
+        if (this.video !== null) {
+          this.setObject3D(this.audio);
         }
       }
       if (!this.visible) {
-        if (this.audio.parent !== null) {
-          this.audio.parent.remove(this.audio);
-        }
+        this.setObject3D(null);
         this.audio.setVolume(0);
       } else if (this.visible) {
         if (this.audio.parent === null && this.audio.parent !== this.parent) {
-          if (this.audio.parent !== null && this.audio.parent !== undefined) {
-            this.audio.parent.remove(this.audio);
-          }
-          this.parent.add(this.audio);
+          this.setObject3D(this.audio);
         }
         this.audio.setVolume(this.volume);
         if (this.audio instanceof THREE.PositionalAudio) {
@@ -281,6 +265,7 @@ export class AudioComponent implements OnInit {
       });
     }
   }
+
   getAudio():THREE.Audio {
     if (this.audio === null && this.listener !== null) {
       this.loadedVideoTexture = null;

@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - lookup table<br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - lookup table<br/>
   vertex color values from a range of data values
 </div>
 <three-renderer
@@ -20,7 +20,7 @@
       <three-position [x]="0" [y]="0" [z]="10"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
       >
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
@@ -41,7 +41,7 @@
         [center]="true"
         [computeVertexNormals]="true"
       ></three-geometry>
-      <three-material type="meshlambert" [color]="'0xF5F5F5'" [vertexColors]="true" [side]="'double'"></three-material>
+      <three-material [type]="'meshlambert'" [color]="'0xF5F5F5'" [vertexColors]="true" [side]="'double'"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

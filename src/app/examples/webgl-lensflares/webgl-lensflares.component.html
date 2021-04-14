@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - lensflares<br/>
-  textures from <a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br/>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - lensflares<br/>
+  textures from <a [href]="'http://www.ro.me'" [target]="'_blank'" [rel]="'noopener'">ro.me</a><br/>
   fly with WASD/RF/QE + mouse
 </div>
 <three-renderer
@@ -26,7 +26,7 @@
   <three-scene #scene [background]="'0x010303'">
     <three-fog [color]="'0x010303'" [near]="3500"  [far]="15000"></three-fog>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xd89126'"
       [intensity]="0.05"
       [castShadow]="true"
@@ -39,7 +39,7 @@
     >
       <three-position [x]="0" [y]="-1" [z]="0" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh *ngFor="let light of lightInfo" type="light" 
+    <three-mesh *ngFor="let light of lightInfo" [type]="'light'" 
       [lightType]="'Point'" 
       [color]="light.color"
       [intensity]="1.5"
@@ -85,7 +85,7 @@
       ></three-geometry>
       <three-material 
         #boxMaterial
-        type="MeshPhong" 
+        [type]="'MeshPhong'" 
         [color]="'0xffffff'"
         [specular]="'0xffffff'"
         [shininess]="50"

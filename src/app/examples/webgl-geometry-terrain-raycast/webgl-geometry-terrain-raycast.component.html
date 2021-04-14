@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl terrain raycasting demo
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - webgl terrain raycasting demo
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -40,7 +40,7 @@
         [widthSegments]="256"
         [depthSegments]="256"
       ></three-geometry>
-      <three-material type="MeshBasic">
+      <three-material [type]="'MeshBasic'">
         <three-texture [perlin]="geometry"></three-texture>
       </three-material>
     </three-mesh>

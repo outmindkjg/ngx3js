@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Physically accurate incandescent bulb by <a href="http://clara.io" target="_blank" rel="noopener">Ben Houston</a><br />
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - Physically accurate incandescent bulb by <a [href]="'http://clara.io'" [target]="'_blank'" [rel]="'noopener'">Ben Houston</a><br />
   Real world scale: Brick cube is 50 cm in size. Globe is 50 cm in diameter.<br/>
   Reinhard inline tonemapping with real-world light falloff (decay = 2).
 </div>
@@ -23,7 +23,7 @@
   </three-camera>
   <three-scene #scene >
     <three-mesh
-      type="light"
+      [type]="'light'"
       [lightType]="'Point'"
       [color]="'0xffee88'"
       [intensity]="1"
@@ -40,11 +40,11 @@
           [widthSegments]="16"
           [heightSegments]="8"
         ></three-geometry>
-        <three-material type="MeshStandard" [emissive]="'0xffffee'" [emissiveIntensity]="1" [color]="'0x000000'"></three-material>
+        <three-material [type]="'MeshStandard'" [emissive]="'0xffffee'" [emissiveIntensity]="1" [color]="'0x000000'"></three-material>
       </three-mesh>
     </three-mesh>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xddeeff'"
       [groundColor]="'0x0f0e0d'"
       [intensity]="0.02"

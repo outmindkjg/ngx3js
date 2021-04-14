@@ -1,7 +1,7 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
   Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
+  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
   >)<br />
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
   or (0,0,1)
@@ -25,7 +25,7 @@
     <three-material
       #boxmaterial
       (onLoad)="setMaterial($event)"
-      type="MeshPhong"
+      [type]="'MeshPhong'"
       [color]="'0xee0a10'"
       [shininess]="100"
       [side]="'double'"
@@ -61,9 +61,9 @@
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
   <three-scene #scene>
-    <three-light type="Ambient" [color]="'0x505050'"> </three-light>
+    <three-light [type]="'Ambient'" [color]="'0x505050'"> </three-light>
     <three-light
-      type="Spot"
+      [type]="'Spot'"
       [color]="'0xffffff'"
       [angle]="36"
       [penumbra]="0.2"
@@ -76,7 +76,7 @@
       <three-position [x]="2" [y]="3" [z]="3"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0x55505a'"
       [intensity]="1"
       [castShadow]="true"

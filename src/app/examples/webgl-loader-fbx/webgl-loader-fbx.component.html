@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - FBXLoader<br />
-  Character and animation from <a href="https://www.mixamo.com/" target="_blank" rel="noopener">Mixamo</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - FBXLoader<br />
+  Character and animation from <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">Mixamo</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -23,14 +23,14 @@
   <three-scene #scene [background]="'0xa0a0a0'">
     <three-fog [color]="'0xa0a0a0'" [near]="200" [far]="1000" ></three-fog>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x444444'"
     >
       <three-position [x]="0" [y]="200" [z]="0"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"

@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - OBJLoader test
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - OBJLoader test
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -25,7 +25,7 @@
     <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
       <three-position [x]="0" [y]="0" [z]="250"></three-position>
       <three-light
-        type="point"
+        [type]="'point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >

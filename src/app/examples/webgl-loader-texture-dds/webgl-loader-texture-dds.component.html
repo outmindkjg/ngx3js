@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - compressed textures<br/>
-  leaf texture by <a href="http://opengameart.org/node/10505">lauris71</a>, explosion texture by <a href="http://opengameart.org/node/7728">bart</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - webgl - compressed textures<br/>
+  leaf texture by <a [href]="'http://opengameart.org/node/10505'">lauris71</a>, explosion texture by <a [href]="'http://opengameart.org/node/7728'">bart</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -104,42 +104,42 @@
           [radialSegments]="32"
           [tubularSegments]="16"
         ></three-geometry>
-        <three-material type="MeshBasic" [map]="map1" [envMap]="cubemap1">
+        <three-material [type]="'MeshBasic'" [map]="map1" [envMap]="cubemap1">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="-200" [y]="-200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [map]="map2">
+        <three-material [type]="'MeshBasic'" [map]="map2">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="-200" [y]="200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [map]="map3" [alphaTest]="0.5" [side]="'bouble'">
+        <three-material [type]="'MeshBasic'" [map]="map3" [alphaTest]="0.5" [side]="'bouble'">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="-600" [y]="200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [map]="map4" [side]="'bouble'" [blending]="'Additive'">
+        <three-material [type]="'MeshBasic'" [map]="map4" [side]="'bouble'" [blending]="'Additive'">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="200" [y]="200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [envMap]="cubemap2">
+        <three-material [type]="'MeshBasic'" [envMap]="cubemap2">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="200" [y]="-200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [envMap]="cubemap3">
+        <three-material [type]="'MeshBasic'" [envMap]="cubemap3">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="600" [y]="-200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [map]="map5">
+        <three-material [type]="'MeshBasic'" [map]="map5">
         </three-material>
       </three-mesh>
       <three-mesh [geometry]="boxGeometry">
         <three-position [x]="600" [y]="200" [z]="0"></three-position>
-        <three-material type="MeshBasic" [map]="map6">
+        <three-material [type]="'MeshBasic'" [map]="map6">
         </three-material>
       </three-mesh>
     </three-mesh>

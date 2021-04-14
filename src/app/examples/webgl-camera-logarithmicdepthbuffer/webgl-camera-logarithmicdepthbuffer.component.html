@@ -1,5 +1,5 @@
-<div id="info">
-    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras - logarithmic depth buffer<br/>
+<div [id]="'info'">
+    <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - cameras - logarithmic depth buffer<br/>
     mousewheel to dolly out
 </div>
 <three-renderer
@@ -20,8 +20,8 @@
   <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'">
   </three-camera>
   <three-scene #scene>
-    <three-light type="Ambient" [color]="'0x222222'"></three-light>
-    <three-light type="directional" [color]="'0xffffff'" [intensity]="1">
+    <three-light [type]="'Ambient'" [color]="'0x222222'"></three-light>
+    <three-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
       <three-position [x]="100" [y]="100" [z]="100"></three-position>
     </three-light>
     <three-geometry
@@ -38,7 +38,7 @@
           <three-position [x]="0" [y]="label.size / 4 * label.scale" [z]=" - label.size * label.scale"></three-position>
           <three-scale [x]="label.scale" [y]="label.scale" [z]="label.scale"></three-scale>
           <three-geometry [type]="'text'" [font]="'helvetiker'" [textAlign]="'center'" [text]="label.label" [size]="label.size" [height]="label.size/2"></three-geometry>
-          <three-material type="MeshPhong" 
+          <three-material [type]="'MeshPhong'" 
             [color]="label.color"
             [specular]="'0x050505'"
             [shininess]="50"
@@ -48,7 +48,7 @@
         <three-mesh [geometry]="geometry">
           <three-position [x]="0" [y]="- label.size / 4 * label.scale" [z]="0"></three-position>
           <three-scale [x]="label.scale * label.size" [y]="label.scale * label.size" [z]="label.scale * label.size"></three-scale>
-          <three-material type="MeshPhong" 
+          <three-material [type]="'MeshPhong'" 
             [color]="label.color"
             [specular]="'0x050505'"
             [shininess]="50"

@@ -1,5 +1,5 @@
-<div id="info">
-    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes
+<div [id]="'info'">
+    <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - interactive cubes
 </div>
 <three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
@@ -8,7 +8,7 @@
         <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene [background]="'0xf0f0f0'">
-        <three-light type="directional"
+        <three-light [type]="'directional'"
             [color]="'0xffffff'" [intensity]="0.35" [castShadow]="false"
         >
             <three-position [x]="1" [y]="1" [z]="1"></three-position>
@@ -18,7 +18,7 @@
             <three-position [x]="0" [y]="0" [z]="0"></three-position>
             <three-mesh *ngFor="let box of boxes" [geometry]="geometry">
                 <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
-                <three-material type="meshlambert" [color]="box.color"></three-material>
+                <three-material [type]="'meshlambert'" [color]="box.color"></three-material>
             </three-mesh>
         </three-mesh>
     </three-scene>

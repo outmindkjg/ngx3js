@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shapes extrusion via geodata
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - shapes extrusion via geodata
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,13 +20,13 @@
   </three-camera>
   <three-scene #scene [background]="'0xb0b0b0'">
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xcccccc'"
       [intensity]="0.2"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.6"
     >
@@ -36,7 +36,7 @@
       <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
     </three-helper>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh name="Taipei">
+      <three-mesh [name]="'Taipei'">
         <three-position [x]="-365" [y]="125" [z]="10"></three-position>
         <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
         <three-mesh *ngFor="let map of taipeiMap" [name]="map.name" [visible]="map.visible">

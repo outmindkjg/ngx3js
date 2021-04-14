@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive lines
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - interactive lines
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -28,7 +28,7 @@
         [type]="'Sphere'"
         [radius]="5"
       ></three-geometry>
-      <three-material type="MeshBasic" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'MeshBasic'" [color]="'0xff0000'"></three-material>
     </three-mesh>
     <three-shared>
       <three-geometry
@@ -47,7 +47,7 @@
           <three-position [x]="line.position.x" [y]="line.position.y" [z]="line.position.z"></three-position>
           <three-rotation [x]="line.rotation.x" [y]="line.rotation.y" [z]="line.rotation.z"></three-rotation>
           <three-scale [x]="line.scale.x" [y]="line.scale.y" [z]="line.scale.z"></three-scale>
-          <three-material type="LineBasic" [color]="line.color"></three-material>
+          <three-material [type]="'LineBasic'" [color]="line.color"></three-material>
         </three-mesh>
       </three-mesh>
     </three-mesh>

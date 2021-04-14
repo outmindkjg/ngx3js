@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - spline extrusion examples<br/>
-  by <a href="http://www.lab4games.net/zz85/blog" target="_blank" rel="noopener">zz85</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - spline extrusion examples<br/>
+  by <a [href]="'http://www.lab4games.net/zz85/blog'" [target]="'_blank'" [rel]="'noopener'">zz85</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -21,7 +21,7 @@
   </three-camera>
   <three-scene #scene [background]="'0xf0f0f0'">
     <three-light
-      type="Directional"
+      [type]="'Directional'"
       [color]="'0xffffff'"
     >
       <three-position [x]="0" [y]="0" [z]="1"></three-position>
@@ -31,14 +31,14 @@
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-helper [type]="'camera'" [visible]="controls.cameraHelper" (onLoad)="setCameraHelper($event)"></three-helper>
       </three-camera>
-      <three-mesh name="cameraEye" [visible]="controls.cameraHelper" (onLoad)="setCameraEye($event)">
+      <three-mesh [name]="'cameraEye'" [visible]="controls.cameraHelper" (onLoad)="setCameraEye($event)">
         <three-geometry [type]="'Sphere'" [radius]="5"></three-geometry>
         <three-material [type]="'MeshBasic'" [color]="'0xdddddd'"></three-material>
       </three-mesh>
     </three-mesh>
     <three-shared>
-      <three-material #material type="meshlambert" [color]="'0xff00ff'"></three-material>
-      <three-material #wireframeMaterial type="MeshBasic" [color]="'0x000000'" [opacity]="0.3" [transparent]="true" [wireframe]="true"></three-material>
+      <three-material #material [type]="'meshlambert'" [color]="'0xff00ff'"></three-material>
+      <three-material #wireframeMaterial [type]="'MeshBasic'" [color]="'0x000000'" [opacity]="0.3" [transparent]="true" [wireframe]="true"></three-material>
       <three-geometry
         (onLoad)="setTubeGeometry($event)"
         #geometry

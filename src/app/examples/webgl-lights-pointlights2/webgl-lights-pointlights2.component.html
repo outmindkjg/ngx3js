@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - point lights WebGL demo
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - point lights WebGL demo
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -21,7 +21,7 @@
   <three-scene #scene [background]="'0x040306'">
     <three-fog [color]="'0x040306'" [far]="300" [near]="10"></three-fog>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
       [castShadow]="true"
@@ -37,7 +37,7 @@
         [radialSegments]="8"
         [tubularSegments]="16"
       ></three-geometry>
-      <three-material #objectMaterial type="MeshStandard" [color]="'0xffffff'" [roughness]="0.5" [metalness]="1.0"></three-material>
+      <three-material #objectMaterial [type]="'MeshStandard'" [color]="'0xffffff'" [roughness]="0.5" [metalness]="1.0"></three-material>
       <three-geometry
         #lightGeometry
         [type]="'Sphere'"
@@ -48,7 +48,7 @@
     </three-shared>
     <three-mesh *ngFor="let color of lightColors" [type]="'light'" [lightType]="'Point'" [color]="color" [intensity]="2.5" [distance]="100" [decay]="2.0" (onLoad)="addLight($event)">
       <three-mesh [geometry]="lightGeometry">
-        <three-material #objectMaterial type="MeshBasic" [color]="color"></three-material>
+        <three-material #objectMaterial [type]="'MeshBasic'" [color]="color"></three-material>
       </three-mesh>
     </three-mesh>
     <three-mesh (onLoad)="setMesh($event)">

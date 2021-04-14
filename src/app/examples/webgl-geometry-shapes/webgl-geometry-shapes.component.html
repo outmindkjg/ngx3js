@@ -1,4 +1,4 @@
-<div id="info">
+<div [id]="'info'">
   Simple procedurally-generated shapes
 </div>
 <three-renderer
@@ -19,7 +19,7 @@
       <three-position [x]="0" [y]="150" [z]="500"></three-position>
       <three-lookat [x]="0" [y]="150" [z]="0"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       ></three-light>
@@ -31,7 +31,7 @@
         [height]="1"
         [depth]="1"
       ></three-geometry>
-      <three-material #material type="MeshPhong" [side]="'double'">
+      <three-material #material [type]="'MeshPhong'" [side]="'double'">
         <three-texture [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [repeatX]="0.008" [repeatY]="0.008"></three-texture>
       </three-material>
     </three-shared>
@@ -54,7 +54,7 @@
             [type]="'Shape'"
             [shapes]="shapesInfo.shape"
           ></three-geometry>
-          <three-material type="MeshPhong" [side]="'double'" [color]="shapesInfo.color">
+          <three-material [type]="'MeshPhong'" [side]="'double'" [color]="shapesInfo.color">
           </three-material>
         </three-mesh>
         <three-mesh>
@@ -64,7 +64,7 @@
             [shapes]="shapesInfo.shape"
             [params]="shapesInfo.extrudeSettings"
           ></three-geometry>
-          <three-material type="MeshPhong" [color]="shapesInfo.color">
+          <three-material [type]="'MeshPhong'" [color]="shapesInfo.color">
           </three-material>
         </three-mesh>
       </three-mesh>
@@ -78,7 +78,7 @@
             [type]="'Buffer'"
             [points]="shapesInfo.points"
           ></three-geometry>
-          <three-material type="LineBasic" [color]="shapesInfo.color"></three-material>
+          <three-material [type]="'LineBasic'" [color]="shapesInfo.color"></three-material>
         </three-mesh>
         <three-mesh [type]="'Line'">
           <three-position [x]="0" [y]="0" [z]="25"></three-position>
@@ -86,7 +86,7 @@
             [type]="'Buffer'"
             [points]="shapesInfo.spacedPoints"
           ></three-geometry>
-          <three-material type="LineBasic" [color]="shapesInfo.color"></three-material>
+          <three-material [type]="'LineBasic'" [color]="shapesInfo.color"></three-material>
         </three-mesh>
         <three-mesh [type]="'Points'">
           <three-position [x]="0" [y]="0" [z]="75"></three-position>
@@ -94,7 +94,7 @@
             [type]="'Buffer'"
             [points]="shapesInfo.points"
           ></three-geometry>
-          <three-material type="Points" [color]="shapesInfo.color" [size]="4"></three-material>
+          <three-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></three-material>
         </three-mesh>
         <three-mesh [type]="'Points'">
           <three-position [x]="0" [y]="0" [z]="125"></three-position>
@@ -102,7 +102,7 @@
             [type]="'Buffer'"
             [points]="shapesInfo.spacedPoints"
           ></three-geometry>
-          <three-material type="Points" [color]="shapesInfo.color" [size]="4"></three-material>
+          <three-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></three-material>
         </three-mesh>
       </three-mesh>
     </three-mesh>

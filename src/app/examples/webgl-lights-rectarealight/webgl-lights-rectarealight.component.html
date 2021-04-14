@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - THREE.RectAreaLight<br/>
-  by <a href="http://github.com/abelnation" target="_blank" rel="noopener">abelnation</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - THREE.RectAreaLight<br/>
+  by <a [href]="'http://github.com/abelnation'" [target]="'_blank'" [rel]="'noopener'">abelnation</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -20,7 +20,7 @@
   </three-camera>
   <three-scene #scene >
     <three-light
-      type="RectArea"
+      [type]="'RectArea'"
       [color]="'0xff0000'"
       [intensity]="5"
       [width]="4"
@@ -30,7 +30,7 @@
       <three-helper [type]="'light'"></three-helper>
     </three-light>
     <three-light
-      type="RectArea"
+      [type]="'RectArea'"
       [color]="'0x00ff00'"
       [intensity]="5"
       [width]="4"
@@ -40,7 +40,7 @@
       <three-helper [type]="'light'"></three-helper>
     </three-light>
     <three-light
-      type="RectArea"
+      [type]="'RectArea'"
       [color]="'0x0000ff'"
       [intensity]="5"
       [width]="4"
@@ -58,7 +58,7 @@
         [radialSegments]="200"
         [tubularSegments]="16"
       ></three-geometry>
-      <three-material type="meshstandard" [color]="'0xffffff'" [roughness]="0" [metalness]="0"></three-material>
+      <three-material [type]="'meshstandard'" [color]="'0xffffff'" [roughness]="0" [metalness]="0"></three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>

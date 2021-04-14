@@ -1,12 +1,12 @@
-<div id="info">
+<div [id]="'info'">
   <strong>Models</strong>:
-  <a class="model" href="models/prwm/faceted-nefertiti.*.prwm">Faceted Nefertiti</a>,
-  <a class="model" href="models/prwm/smooth-suzanne.*.prwm">Smooth Suzanne</a>,
-  <a class="model" href="models/prwm/vive-controller.*.prwm">Vive Controller</a>
-  <div class="notes">
+  <a [class]="'model'" [href]="'models/prwm/faceted-nefertiti.*.prwm'">Faceted Nefertiti</a>,
+  <a [class]="'model'" [href]="'models/prwm/smooth-suzanne.*.prwm'">Smooth Suzanne</a>,
+  <a [class]="'model'" [href]="'models/prwm/vive-controller.*.prwm'">Vive Controller</a>
+  <div [class]="'notes'">
     The parsing of PRWM file is especially fast when the endianness of the file is the same as the endianness of the client platform.
-    The loader will automatically replace the <strong>*</strong> in the model url by either <strong>le</strong> or <strong>be</strong> depending on the client platform's endianness to download the most appropriate file. <a href="https://github.com/kchapelier/PRWM" target="_blank" rel="noopener noreferrer">Specifications and implementations</a><br><br>
-    This platform endianness is <strong id="endianness">little-endian</strong>.<br>
+    The loader will automatically replace the <strong>*</strong> in the model url by either <strong>le</strong> or <strong>be</strong> depending on the client platform's endianness to download the most appropriate file. <a [href]="'https://github.com/kchapelier/PRWM'" [target]="'_blank'" [rel]="'noopener noreferrer'">Specifications and implementations</a><br><br>
+    This platform endianness is <strong [id]="'endianness'">little-endian</strong>.<br>
     See your console for stats.
   </div>
 </div>
@@ -27,12 +27,12 @@
   </three-camera>
   <three-scene #scene>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x101030'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffeedd'"
     >
       <three-position [x]="0" [y]="0" [z]="1"></three-position>
@@ -40,7 +40,7 @@
     <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/prwm/smooth-suzanne.*.prwm'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [multiply]="50"></three-scale>
-      <three-material type="MeshPhong"></three-material>
+      <three-material [type]="'MeshPhong'"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -4,8 +4,8 @@
         <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xffffff'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x121212'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [refer]="scene"></three-lookat>
         </three-mesh>
@@ -37,7 +37,7 @@
           <three-position [x]="0" [y]="0" [z]="0"></three-position>
           <three-rotation [x]="-90"></three-rotation>
           <three-geometry [type]="'Plane'" [width]="100" [height]="100"></three-geometry>
-          <three-material type="MeshPhong" [color]="'0x999999'" [depthWrite]="false"></three-material>
+          <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
       </three-mesh>
     </three-scene>
 </three-renderer>

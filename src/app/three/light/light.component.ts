@@ -403,11 +403,10 @@ export class LightComponent
 
   resetLight(clearLight: boolean = false) {
     if (this.parent !== null) {
-      if (clearLight && this.light !== null && this.light.parent) {
-        this.light.parent.remove(this.light);
+      if (clearLight && this.light !== null) {
         this.light = null;
       }
-      this.parent.add(this.getLight());
+      this.getLight();
     } else if (this.light !== null && this.needsUpdate) {
       this.getLight();
     }
@@ -418,9 +417,6 @@ export class LightComponent
 
   getLight(): THREE.Light {
     if (this.light === null || this.needsUpdate) {
-      if (this.light !== null && this.light.parent !== null) {
-        this.light.parent.remove(this.light);
-      }
       this.light = null;
       this.needsUpdate = false;
       let basemesh: THREE.Light = null;

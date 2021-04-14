@@ -1,8 +1,8 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <a href="https://github.com/Virtulous" target="_blank" rel="noopener">Assimp File format</a>
-  <div>Assimp loader by <a href="https://virtulo.us" target="_blank" rel="noopener">Virtulous</a></div>
-  <div>Octaminator model from <a href="http://opengameart.org/content/octaminator-engine-ready" target="_blank" rel="noopener">Teh_Bucket and raymoohawk</a></div>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a>
+  <a [href]="'https://github.com/Virtulous'" [target]="'_blank'" [rel]="'noopener'">Assimp File format</a>
+  <div>Assimp loader by <a [href]="'https://virtulo.us'" [target]="'_blank'" [rel]="'noopener'">Virtulous</a></div>
+  <div>Octaminator model from <a [href]="'http://opengameart.org/content/octaminator-engine-ready'" [target]="'_blank'" [rel]="'noopener'">Teh_Bucket and raymoohawk</a></div>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -26,7 +26,7 @@
   </three-camera>
   <three-scene #scene>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [intensity]="0.5"
       [skyColor]="'0x8888fff'"
       [groundColor]="'0xff8888'"
@@ -34,7 +34,7 @@
       <three-position [x]="0" [y]="1" [z]="0"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"

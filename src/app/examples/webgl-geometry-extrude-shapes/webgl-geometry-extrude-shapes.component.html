@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - geometry extrude shapes
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - geometry extrude shapes
 </div>
 <three-renderer
   [controlType]="'Trackball'"
@@ -19,13 +19,13 @@
       <three-position [x]="0" [y]="0" [z]="500"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
       >
       </three-light>
     </three-camera>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x222222'"
     >
     </three-light>
@@ -40,7 +40,7 @@
           [extrudePath]="extrudePath"
           [closed]="true"
           ></three-geometry>
-        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
+        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
       </three-mesh>
       <three-mesh>
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
@@ -51,7 +51,7 @@
           [bevelEnabled]="false"
           [extrudePath]="randomPoints"
           ></three-geometry>
-        <three-material type="meshlambert" [color]="'0xff8000'" [wireframe]="false"></three-material>
+        <three-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></three-material>
       </three-mesh>
       <three-mesh>
         <three-position [x]="50" [y]="100" [z]="50"></three-position>
@@ -65,9 +65,9 @@
           [bevelSize]="4"
           [bevelSegments]="1"
         ></three-geometry>
-        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
-        <three-material type="meshlambert" [color]="'0xff8000'" [wireframe]="false"></three-material>
-        <three-material type="meshlambert" [color]="'0xb00000'" [wireframe]="false"></three-material>
+        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
+        <three-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></three-material>
+        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

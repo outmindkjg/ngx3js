@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - parallax barrier<br/>
-  skybox by <a href="http://ict.debevec.org/~debevec/" target="_blank" rel="noopener">Paul Debevec</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - effects - parallax barrier<br/>
+  skybox by <a [href]="'http://ict.debevec.org/~debevec/'" [target]="'_blank'" [rel]="'noopener'">Paul Debevec</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -24,14 +24,14 @@
       <three-texture #envMap [image]="'/assets/examples/textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']"></three-texture>
     </three-material>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x444444'"
     >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
@@ -55,7 +55,7 @@
           [widthSegments]="32"
           [heightSegments]="16"
         ></three-geometry>
-        <three-material type="MeshBasic" [color]="'0xffffff'" [envMap]="envMap"></three-material>
+        <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="envMap"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

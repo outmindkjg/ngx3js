@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - spotlight by <a href="http://master-domain.com" target="_blank" rel="noopener">Master James</a><br />
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - spotlight by <a [href]="'http://master-domain.com'" [target]="'_blank'" [rel]="'noopener'">Master James</a><br />
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -23,7 +23,7 @@
   <three-scene #scene>
     <three-light [type]="'Ambient'" [color]="'0xffffff'" [intensity]="0.1"></three-light>
     <three-light
-      type="Spot"
+      [type]="'Spot'"
       [color]="'0xffffff'"
       [angle]="45"
       [intensity]="1"
@@ -53,7 +53,7 @@
         [heightSegments]="1"
         [openEnded]="false"
       ></three-geometry>
-      <three-material type="MeshPhong" [color]="'0x4080ff'" [dithering]="true"></three-material>
+      <three-material [type]="'MeshPhong'" [color]="'0x4080ff'" [dithering]="true"></three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="-1" [z]="0"></three-position>

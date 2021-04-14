@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - parametric geometries
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - parametric geometries
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -15,14 +15,14 @@
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-shared>
-    <three-material #material type="MeshPhong" [side]="'double'">
+    <three-material #material [type]="'MeshPhong'" [side]="'double'">
       <three-texture [textureType]="'map'" [image]="'/assets/examples/textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></three-texture>
     </three-material>
     <three-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></three-rotation>
   </three-shared>
   <three-scene #scene>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0xcccccc'"
       [intensity]="0.4"
     >
@@ -31,7 +31,7 @@
       <three-position [x]="0" [y]="400" [z]="800"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >

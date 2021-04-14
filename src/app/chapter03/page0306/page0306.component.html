@@ -21,8 +21,8 @@
             <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         </three-mesh>
         <three-mesh #plane>
-            <three-geometry type="Plane" [width]="70" [height]="70"></three-geometry>
-            <three-material type="MeshStandard"
+            <three-geometry [type]="'Plane'" [width]="70" [height]="70"></three-geometry>
+            <three-material [type]="'MeshStandard'"
                 [color]="'0xffffff'"
                 [specular]="'0xffffff'"
                 [shininess]="0"

@@ -1,6 +1,6 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  <a href="https://github.com/google/draco" target="_blank" rel="noopener">DRACO</a> loader
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
+  <a [href]="'https://github.com/google/draco'" [target]="'_blank'" [rel]="'noopener'">DRACO</a> loader
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -23,13 +23,13 @@
   <three-scene #scene [background]="'0x443333'">
     <three-fog [color]="'0x443333'" [near]="1" [far]="4" ></three-fog>
     <three-light
-      type="Hemisphere"
+      [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
     </three-light>
     <three-light
-      type="Spot"
+      [type]="'Spot'"
       [angle]="11.25"
       [penumbra]="0.5"
       [distance]="1000"

@@ -1,4 +1,4 @@
-<div id="info"><a href="https://threejs.org" target="_blank">three.js</a> - fat lines</div>
+<div [id]="'info'"><a [href]="'https://threejs.org'" [target]="'_blank'">three.js</a> - fat lines</div>
 <three-renderer
   [controlType]="'orbit'"
   [enablePan]="false"
@@ -47,7 +47,7 @@
         </three-geometry>
         <three-material
           #matLine 
-          type="Line" 
+          [type]="'Line'" 
           [color]="'0x4080ff'" 
           [linewidth]="controls.width" 
           [dashed]="controls.dashed" 

@@ -21,6 +21,7 @@ import {
   LensflareElement
 } from 'three/examples/jsm/objects/Lensflare';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
@@ -114,6 +115,10 @@ export class MeshComponent
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
   @Input() private usage: string = null;
+  @Input() private enableUvs: boolean = null;
+  @Input() private enableColors: boolean = null;
+  @Input() private resolution: number = null;
+
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
@@ -231,6 +236,18 @@ export class MeshComponent
       case 'streamcopy':
         return THREE.StreamCopyUsage;
     }
+  }
+
+  private getEnableColors(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.enableColors, def);
+  }
+
+  private getEnableUvs(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.enableUvs, def);
+  }
+
+  private getResolution(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.resolution, def);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -1031,6 +1048,15 @@ export class MeshComponent
             geometry as LineSegmentsGeometry,
             this.getMaterials()[0] as LineMaterial
           );
+          break;
+        case 'lod' :
+          basemesh = new THREE.LOD();
+          break;
+        case 'marchingcubes' :
+          const effect = new MarchingCubes( this.getResolution(), this.getMaterials()[0] , this.getEnableUvs(), this.getEnableColors());
+          // effect.reset();
+          // effect.addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any);
+          basemesh = effect;
           break;
         case 'points':
           basemesh = new THREE.Points(geometry, this.getMaterials()[0]);

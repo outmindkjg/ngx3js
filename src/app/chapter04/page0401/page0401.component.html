@@ -4,8 +4,8 @@
         <three-lookat [x]="10" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x121212'"></three-mesh>
-        <three-mesh type="light" lightType="directional" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x121212'"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xa0a0a0'" [intensity]="0.2" [castShadow]="true" >
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
             <three-lookat [refer]="baseGeo"></three-lookat>
         </three-mesh>
@@ -22,7 +22,7 @@
                 [height]="15"
                 [depth]="15"
             ></three-geometry>
-            <three-material type="meshbasic"
+            <three-material [type]="'meshbasic'"
                 [color]="controls.color"
                 [transparent]="controls.transparent"
                 [opacity]="controls.opacity"
@@ -36,8 +36,8 @@
         <three-mesh #plane [receiveShadow]="true">
             <three-position [x]="0" [y]="-20" [z]="0"></three-position>
             <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-            <three-geometry type="plane" [width]="100" [height]="100"></three-geometry>
-            <three-material type="MeshBasic" [color]="'0x777777'"></three-material>
+            <three-geometry [type]="'plane'" [width]="100" [height]="100"></three-geometry>
+            <three-material [type]="'MeshBasic'" [color]="'0x777777'"></three-material>
         </three-mesh>
     </three-scene>
 </three-renderer>

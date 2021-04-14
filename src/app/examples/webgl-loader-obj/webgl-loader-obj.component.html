@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - OBJLoader test
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - OBJLoader test
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -24,7 +24,7 @@
     <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
       <three-position [x]="0" [y]="0" [z]="250"></three-position>
       <three-light
-        type="point"
+        [type]="'point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >
@@ -32,7 +32,7 @@
     </three-camera>
     <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/obj/male02/male02.obj'" [storageOption]="{ materialType : 'map' }">
       <three-position [x]="0" [y]="-95" [z]="0"></three-position>
-      <three-material type="meshlambert" [color]="'0xff0000'">
+      <three-material [type]="'meshlambert'" [color]="'0xff0000'">
         <three-texture [image]="'textures/uv_grid_opengl.jpg'"></three-texture>
       </three-material>
     </three-mesh>

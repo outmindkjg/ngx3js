@@ -1,9 +1,9 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MMDLoader test<br />
-  <a href="https://github.com/mrdoob/three.js/tree/master/examples/models/mmd#readme" target="_blank" rel="noopener">MMD Assets license</a><br />
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - MMDLoader test<br />
+  <a [href]="'https://github.com/mrdoob/three.js/tree/master/examples/models/mmd#readme'" [target]="'_blank'" [rel]="'noopener'">MMD Assets license</a><br />
   Copyright
-  <a href="https://sites.google.com/view/evpvp/" target="_blank" rel="noopener">Model Data</a>
-  <a href="http://www.nicovideo.jp/watch/sm13147122" target="_blank" rel="noopener">Dance Data</a>
+  <a [href]="'https://sites.google.com/view/evpvp/'" [target]="'_blank'" [rel]="'noopener'">Model Data</a>
+  <a [href]="'http://www.nicovideo.jp/watch/sm13147122'" [target]="'_blank'" [rel]="'noopener'">Dance Data</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -27,12 +27,12 @@
   <three-scene #scene [background]="'0xffffff'">
     <three-physics></three-physics>
     <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x666666'"
     >
     </three-light>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0x887766'"
       [intensity]="1"
       [castShadow]="true"

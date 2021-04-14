@@ -1,8 +1,8 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <a href="http://amf.wikispaces.com" target="_blank" rel="noopener">AMF File format</a>
-  <div>AMF loader test by <a href="https://github.com/tamarintech" target="_blank" rel="noopener">tamarintech</a></div>
-  <div>Rook manufacturing file from <a href="http://amf.wikispaces.com/AMF+test+files" target="_blank" rel="noopener">AMF test files</a></div>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a>
+  <a [href]="'http://amf.wikispaces.com'" [target]="'_blank'" [rel]="'noopener'">AMF File format</a>
+  <div>AMF loader test by <a [href]="'https://github.com/tamarintech'" [target]="'_blank'" [rel]="'noopener'">tamarintech</a></div>
+  <div>Rook manufacturing file from <a [href]="'http://amf.wikispaces.com/AMF+test+files'" [target]="'_blank'" [rel]="'noopener'">AMF test files</a></div>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -23,14 +23,14 @@
       <three-position [x]="0" [y]="-9" [z]="6"></three-position>
       <three-lookat [x]="0" [y]="1.2" [z]="2"></three-lookat>
       <three-light
-        type="Point"
+        [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >
       </three-light>
     </three-camera>
       <three-light
-      type="Ambient"
+      [type]="'Ambient'"
       [color]="'0x999999'"
     >
     </three-light>

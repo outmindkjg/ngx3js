@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - raycasting - points 
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> webgl - interactive - raycasting - points 
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -46,7 +46,7 @@
           [type]="'buffer'"
           [attributes]="pointCloudInfo"
         ></three-geometry>
-        <three-material type="Points" [size]="0.05" [vertexColors]="true"></three-material>
+        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
       </three-mesh>
       <three-mesh [type]="'Points'">
         <three-scale [x]="5" [y]="10" [z]="10"></three-scale>
@@ -55,7 +55,7 @@
           [type]="'buffer'"
           [attributes]="indexedPointcloud"
         ></three-geometry>
-        <three-material type="Points" [size]="0.05" [vertexColors]="true"></three-material>
+        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
       </three-mesh>
       <three-mesh [type]="'Points'">
         <three-scale [x]="5" [y]="10" [z]="10"></three-scale>
@@ -65,7 +65,7 @@
           [attributes]="indexedWithOffsetPointcloud"
           [addGroup]="true"
         ></three-geometry>
-        <three-material type="Points" [size]="0.05" [vertexColors]="true"></three-material>
+        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

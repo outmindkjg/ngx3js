@@ -18,8 +18,8 @@
         <three-pass #effectCopy [type]="'Shader'" [shader]="'Copy'" [renderToScreen]="true"></three-pass>
     </three-camera>
     <three-scene #scene>
-        <three-mesh type="light" lightType="ambient" [color]="'0x444444'" [intensity]="0.1"></three-mesh>
-        <three-mesh type="light" lightType="spot" 
+        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x444444'" [intensity]="0.1"></three-mesh>
+        <three-mesh [type]="'light'" [lightType]="'spot'" 
             [color]="'0xffffff'" 
             [intensity]="1" 
             [castShadow]="true" 
@@ -37,7 +37,7 @@
             <three-position [x]="-150" [y]="0" [z]="-150"></three-position>
             <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
             <three-geometry [type]="'box'" [width]="1000" [height]="1000" [depth]="0.1" [widthSegments]="40" [heightSegments]="40"></three-geometry>
-            <three-material type="MeshPhong" [color]="'0xffffff'" [normalScaleX]="0.6" [normalScaleY]="0.6">
+            <three-material [type]="'MeshPhong'" [color]="'0xffffff'" [normalScaleX]="0.6" [normalScaleY]="0.6">
                 <three-texture 
                     [textureType]="'map'" 
                     [repeatX]="80"
@@ -59,17 +59,17 @@
         <three-mesh [castShadow]="true">
             <three-position [x]="-15" [y]="5" [z]="15"></three-position>
             <three-geometry [type]="'box'" [width]="30" [height]="10" [depth]="2"></three-geometry>
-            <three-material type="MeshPhong" [color]="'0xff0000'"></three-material>
+            <three-material [type]="'MeshPhong'" [color]="'0xff0000'"></three-material>
         </three-mesh>
         <three-mesh [castShadow]="true">
             <three-position [x]="-20" [y]="5" [z]="5"></three-position>
             <three-geometry [type]="'box'" [width]="30" [height]="10" [depth]="2"></three-geometry>
-            <three-material type="MeshPhong" [color]="'0x00ff00'"></three-material>
+            <three-material [type]="'MeshPhong'" [color]="'0x00ff00'"></three-material>
         </three-mesh>
         <three-mesh [castShadow]="true">
             <three-position [x]="-25" [y]="5" [z]="-8"></three-position>
             <three-geometry [type]="'box'" [width]="30" [height]="10" [depth]="2"></three-geometry>
-            <three-material type="MeshPhong" [color]="'0x0000ff'"></three-material>
+            <three-material [type]="'MeshPhong'" [color]="'0x0000ff'"></three-material>
         </three-mesh>
         <three-mesh [castShadow]="true" [storageName]="'/assets/sample_assets/models/sol/LibertStatue.mtl#/assets/sample_assets/models/sol/LibertStatue.obj'">
             <three-position [x]="15" [y]="0" [z]="5"></three-position>

@@ -1,5 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - stereo. skybox by <a href="http://www.zfight.com/" target="_blank" rel="noopener">Jochum Skoglund</a>
+<div [id]="'info'">
+  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - effects - stereo. skybox by <a [href]="'http://www.zfight.com/'" [target]="'_blank'" [rel]="'noopener'">Jochum Skoglund</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -26,7 +26,7 @@
         [widthSegments]="32"
         [heightSegments]="16"
       ></three-geometry>
-      <three-material #material type="MeshBasic" [color]="'0xffffff'" [refractionRatio]="controls.refractionRatio">
+      <three-material #material [type]="'MeshBasic'" [color]="'0xffffff'" [refractionRatio]="controls.refractionRatio">
         <three-texture 
           [textureType]="'envMap'" 
           [image]="'/assets/examples/textures/cube/Park3Med/'" 
@@ -43,7 +43,7 @@
     ></three-texture>
     </three-material>
     <three-light
-      type="directional"
+      [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
