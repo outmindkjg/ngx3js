@@ -38,15 +38,39 @@
     >
       <three-position [x]="0" [y]="0" [z]="100"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
+    <three-shared>
+      <three-texture 
+        #refractionCube
+        [textureType]="'envMap'" 
+        [image]="'textures/cube/SwedishRoyalCastle/'" 
+        [cubeImage]="['','.jpg']" 
+        [mapping]="'CubeRefraction'"
+      ></three-texture>
+      <three-texture 
+        #texture
+        [textureType]="'map'" 
+        [image]="'textures/uv_grid_opengl.jpg'" 
+        [wrapS]="'Repeat'"
+        [wrapT]="'Repeat'"
+      ></three-texture>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)" [type]="'MarchingCubes'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-scale [x]="700" [y]="700" [z]="700"></three-scale>
+      <three-material
+        [type]="materialInfo.type"
+        [color]="materialInfo.color"
+        [envMap]="materialInfo.envMap ? refractionCube : null"
+        [map]="materialInfo.map ? texture : null"
+        [refractionRatio]="materialInfo.refractionRatio"
+        [roughness]="materialInfo.roughness"
+        [metalness]="materialInfo.metalness"
+        [specular]="materialInfo.specular"
+        [shininess]="materialInfo.shininess"
+        [flatShading]="materialInfo.flatShading"
+        [vertexColors]="materialInfo.vertexColors"
+      >
+      </three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

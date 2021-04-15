@@ -1053,7 +1053,22 @@ export class MeshComponent
           basemesh = new THREE.LOD();
           break;
         case 'marchingcubes' :
-          const effect = new MarchingCubes( this.getResolution(), this.getMaterials()[0] , this.getEnableUvs(), this.getEnableColors());
+          const effect = new MarchingCubes( this.getResolution(28), this.getMaterials()[0] , this.getEnableUvs(false), this.getEnableColors(false));
+          const subtract = 12;
+          const numblobs = 10;
+          const time = 10;
+          const strength = 1.2 / ( ( Math.sqrt( numblobs ) - 1 ) / 4 + 1 );
+          for ( let i = 0; i < numblobs; i ++ ) {
+            const ballx = Math.sin( i + 1.26 * time * ( 1.03 + 0.5 * Math.cos( 0.21 * i ) ) ) * 0.27 + 0.5;
+            const bally = Math.abs( Math.cos( i + 1.12 * time * Math.cos( 1.22 + 0.1424 * i ) ) ) * 0.77; // dip into the floor
+            const ballz = Math.cos( i + 1.32 * time * 0.1 * Math.sin( ( 0.92 + 0.53 * i ) ) ) * 0.27 + 0.5;
+            effect.addBall( ballx, bally, ballz, strength, subtract, undefined );
+          }
+    
+          effect.addPlaneY( 2, 12 );
+          effect.addPlaneZ( 2, 12 );
+          effect.addPlaneX( 2, 12 );
+    
           // effect.reset();
           // effect.addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any);
           basemesh = effect;
