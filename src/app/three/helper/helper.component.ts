@@ -27,6 +27,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private color1: string | number = null;
   @Input() private color2: string | number = null;
   @Input() private opacity: number = null;
+  @Input() private depthWrite: boolean = null;
   @Input() private dirX: number = null;
   @Input() private dirY: number = null;
   @Input() private dirZ: number = null;
@@ -103,6 +104,10 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 
   private getOpacity(def?: number ): number {
     return ThreeUtil.getTypeSafe(this.opacity, def);
+  }
+
+  private getDepthWrite(def?: boolean ): boolean {
+    return ThreeUtil.getTypeSafe(this.depthWrite, def);
   }
 
   private getDir(def?: THREE.Vector3 ): THREE.Vector3 {
@@ -373,6 +378,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           if (opacity >= 0 && opacity < 1) {
             this.helper.material.opacity = opacity;
             this.helper.material.transparent = true;
+          }
+          if (ThreeUtil.isNotNull(this.depthWrite)) {
+            this.helper.material.depthWrite = this.getDepthWrite(false);
           }
         }
         if (ThreeUtil.isNotNull(this.matrix)) {

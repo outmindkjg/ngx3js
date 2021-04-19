@@ -1,13 +1,10 @@
 <div id="info">
-  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> car materials<br/>
+  Ferrari 458 Italia model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
+  [autoRotate]="true"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
@@ -18,13 +15,12 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0.5" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="40" [near]="0.1" [far]="100">
+    <three-position [x]="4.25" [y]="1.4" [z]="-4.5"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene [background]="'0xeeeeee'">
+    <three-fog [color]="'0xeeeeee'" [near]="10" [far]="50"></three-fog>
     <three-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
@@ -46,29 +42,58 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-helper 
+      (onLoad)="setGridHelp($event)"
+      [type]="'grid'" 
+      [size]="100" 
+      [divisions]="40"
+      [color1]="'0x000000'"
+      [color2]="'0x000000'"
+      [opacity]="0.1"
+      [depthWrite]="false"
+    ></three-helper>
+    <three-shared>
+      <three-material 
+        [type]="'MeshPhysical'"
+        [color]="'0xff0000'"
+        [metalness]="0.6"
+        [roughness]="0.4"
+        [clearcoat]="0.05"
+        [clearcoatRoughness]="0.05"
+      >
+      </three-material>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ materialType : 'nameList', useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-material 
+        [type]="'MeshPhysical'"
+        [color]="controls.glass"
+        [nameList]="['glass']"
+        [metalness]="0"
+        [roughness]="0.1"
+        [transmission]="0.9"
+        [opacity]="0.5"
+        [transparent]="true"
+      >
+      </three-material>
+      <three-material 
+        [type]="'MeshPhysical'"
+        [color]="controls.body"
+        [nameList]="['body']"
+        [metalness]="0.6"
+        [roughness]="0.4"
+        [clearcoat]="0.05"
+        [clearcoatRoughness]="0.05"
+      >
+      </three-material>
+      <three-material 
+        [type]="'MeshStandard'"
+        [color]="controls.detail"
+        [nameList]="['rim_fl','rim_fr','rim_rr','rim_rl','trim']"
+        [metalness]="1.0"
+        [roughness]="0.5"
+      >
+      </three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

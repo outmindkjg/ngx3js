@@ -689,7 +689,9 @@ export class LocalStorageService {
             this.dracoLoader = new DRACOLoader(this.getLoadingManager());
           }
           if (options.decoderPath) {
-            this.dracoLoader.setDecoderPath(options.decoderPath);
+            this.dracoLoader.setDecoderPath(
+              this.getStoreUrl(options.decoderPath)
+            );
           }
           this.gltfLoader.setDRACOLoader(this.dracoLoader);
         }
@@ -1313,6 +1315,10 @@ export class LocalStorageService {
       (result) => {
         if (result.geometry instanceof THREE.BufferGeometry) {
           callBack(result.geometry, result.source);
+        } else if (result.object instanceof THREE.Mesh) {
+          callBack(result.object['geometry'], result.source);
+        } else if (result.object.children.length > 0 && result.object.children[0] instanceof THREE.Mesh) {
+          callBack(result.object.children[0]['geometry'], result.source);
         } else {
           callBack(new THREE.BufferGeometry());
         }

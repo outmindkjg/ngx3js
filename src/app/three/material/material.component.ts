@@ -17,6 +17,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   @Input() public type:string = "lambert";
   @Input() public name:string = null;
+  @Input() public nameList:string[] = null;
   @Input() public visible:boolean = true;
   @Input() public materialType:string = "material";
   @Input() private refer:any = null;

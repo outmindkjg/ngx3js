@@ -516,6 +516,26 @@ export class MeshComponent
           }
           break;
       }
+    } else if (this.mesh !== null && this.mesh['material'] !== undefined) {
+      this.mesh['material'] = material.getMaterial();
+    } else {
+      const materialType:string = (this.storageOption?.materialType || 'seqn');
+      switch(materialType.toLowerCase()) {
+        case 'namelist' :
+          const nameList = material.nameList;
+          if (nameList !== null && nameList.length > 0) {
+            const matOfName = material.getMaterial();
+            nameList.forEach(name => {
+              const object = this.mesh.getObjectByName( name ) as any;
+              if (object !== null && object !== undefined) {
+                object.material = matOfName;
+              }
+            })
+          }
+          break;        
+        default :
+        break;
+      }
     }
   }
 
@@ -1211,6 +1231,20 @@ export class MeshComponent
                 ) {
                   const materialType:string = (this.storageOption?.materialType || 'seqn');
                   switch(materialType.toLowerCase()) {
+                    case 'namelist' :
+                      this.materialList.forEach(material => {
+                        const nameList = material.nameList;
+                        if (nameList !== null && nameList.length > 0) {
+                          const matOfName = material.getMaterial();
+                          nameList.forEach(name => {
+                            const object = loadedMesh.getObjectByName( name ) as any;
+                            if (object !== null && object !== undefined) {
+                              object.material = matOfName;
+                            }
+                          })
+                        }
+                      });
+                      break;
                     case 'map' :
                       const texture = this.getMaterials()[0]['map'];
                       loadedMesh.traverse( child  => {
