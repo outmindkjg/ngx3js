@@ -118,7 +118,9 @@ export class MeshComponent
   @Input() private enableUvs: boolean = null;
   @Input() private enableColors: boolean = null;
   @Input() private resolution: number = null;
-
+  @Input() private isolation:number = null;
+  @Input() private planeInfos: { type : string, strength: number, subtract: number }[] = null;
+  @Input() private blobInfos: { x : number, y : number, z : number, strength: number, subtract: number, colors? : any }[] = null;
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
@@ -249,6 +251,11 @@ export class MeshComponent
   private getResolution(def?: number): number {
     return ThreeUtil.getTypeSafe(this.resolution, def);
   }
+
+  private getIsolation(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.isolation, def);
+  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
@@ -1054,21 +1061,29 @@ export class MeshComponent
           break;
         case 'marchingcubes' :
           const effect = new MarchingCubes( this.getResolution(28), this.getMaterials()[0] , this.getEnableUvs(false), this.getEnableColors(false));
-          const subtract = 12;
-          const numblobs = 10;
-          const time = 10;
-          const strength = 1.2 / ( ( Math.sqrt( numblobs ) - 1 ) / 4 + 1 );
-          for ( let i = 0; i < numblobs; i ++ ) {
-            const ballx = Math.sin( i + 1.26 * time * ( 1.03 + 0.5 * Math.cos( 0.21 * i ) ) ) * 0.27 + 0.5;
-            const bally = Math.abs( Math.cos( i + 1.12 * time * Math.cos( 1.22 + 0.1424 * i ) ) ) * 0.77; // dip into the floor
-            const ballz = Math.cos( i + 1.32 * time * 0.1 * Math.sin( ( 0.92 + 0.53 * i ) ) ) * 0.27 + 0.5;
-            effect.addBall( ballx, bally, ballz, strength, subtract, undefined );
+          if (ThreeUtil.isNotNull(this.isolation)) {
+            effect.isolation = this.getIsolation(80.0);
           }
-    
-          effect.addPlaneY( 2, 12 );
-          effect.addPlaneZ( 2, 12 );
-          effect.addPlaneX( 2, 12 );
-    
+          if (ThreeUtil.isNotNull(this.blobInfos) && this.blobInfos.length > 0) {
+            this.blobInfos.forEach(blobInfo => {
+              effect.addBall( blobInfo.x, blobInfo.y, blobInfo.z, blobInfo.strength, blobInfo.subtract, ThreeUtil.getColorSafe(blobInfo.colors));
+            });
+          }
+          if (ThreeUtil.isNotNull(this.planeInfos) && this.planeInfos.length > 0) {
+            this.planeInfos.forEach(plane => {
+              switch(plane.type.toLowerCase()) {
+                case 'x' :
+                  effect.addPlaneX( plane.strength, plane.subtract );
+                  break;
+                case 'y' :
+                  effect.addPlaneY( plane.strength, plane.subtract );
+                  break;
+                case 'z' :
+                  effect.addPlaneZ( plane.strength, plane.subtract );
+                  break;
+              }
+            })
+          }
           // effect.reset();
           // effect.addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any);
           basemesh = effect;

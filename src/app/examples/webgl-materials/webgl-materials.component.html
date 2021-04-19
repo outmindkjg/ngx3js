@@ -1,74 +1,90 @@
-<div [id]="'info'">
-  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl materials
 </div>
 <three-renderer
   [controlType]="'orbit'"
+  [autoRotate]="true"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+    <three-position [x]="0" [y]="200" [z]="1000"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene>
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
+      [type]="'Ambient'"
+      [color]="'0x111111'"
     >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
     </three-light>
     <three-light
       [type]="'directional'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [intensity]="0.125"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="1" [y]="0" [z]="0" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+    <three-mesh
+      [type]="'light'"
+      [lightType]="'point'"
+      [color]="'0xffffff'"
+      [intensity]="1"
+    >
+      <three-position [x]="pointLightPosition.x" [y]="pointLightPosition.y" [z]="pointLightPosition.z"></three-position>
+      <three-mesh>
+        <three-geometry
+          [type]="'Sphere'"
+          [radius]="4"
+          [width]="8"
+          [height]="8"
+        ></three-geometry>
+        <three-material
+          [type]="'MeshBasic'"
+          [color]="'0xffffff'"
+        ></three-material>
+      </three-mesh>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+    <three-shared>
       <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        #sphereGeometry
+        [type]="'Sphere'"
+        [radius]="70"
+        [widthSegments]="32"
+        [heightSegments]="16"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-texture 
+        #texture
+        [width]="256" [height]="256" [program]="canvasProgram"
+      ></three-texture>
+    </three-shared>
+    <three-helper [type]="'Grid'" [size]="1000" [divisions]="40" [color1]="'0x303030'" [color2]="'0x303030'">
+      <three-position [x]="0" [y]="-75" [z]="0"></three-position>
+    </three-helper>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-mesh *ngFor="let mesh of meshInfos" [geometry]="sphereGeometry">
+        <three-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></three-position>
+        <three-rotation [x]="mesh.rotation.x" [y]="mesh.rotation.y" [z]="mesh.rotation.z"></three-rotation>
+        <three-material 
+          [type]="mesh.material.type" 
+          [map]="mesh.material.map ? texture : null"          
+          [transparent]="mesh.material.transparent"
+          [color]="mesh.material.color"
+          [specular]="mesh.material.specular"
+          [shininess]="mesh.material.shininess"
+          [flatShading]="mesh.material.flatShading"
+          [blending]="mesh.material.blending"
+          [wireframe]="mesh.material.wireframe"
+          [emissive]="mesh.material.emissive"
+          [opacity]="mesh.material.opacity"
+        ></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -1,4 +1,4 @@
-<div [id]="'info'">
+<div id="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
   marching cubes<br/>
   based on greggman's <a href="https://webglsamples.org/blob/blob.html">blob</a>, original code by Henrik Rydgård
@@ -29,11 +29,11 @@
       [color]="'0xffffff'"
       [intensity]="1"
     >
-      <three-position [x]="-0.5" [y]="0.5" [z]="1"></three-position>
+      <three-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz" [normalize]="true"></three-position>
     </three-light>
     <three-light
       [type]="'Point'"
-      [color]="'0xff3300'"
+      [color]="'hsl('+controls.lhue+','+controls.lsaturation+','+controls.llightness+')'"
       [intensity]="1"
     >
       <three-position [x]="0" [y]="0" [z]="100"></three-position>
@@ -54,7 +54,7 @@
         [wrapT]="'Repeat'"
       ></three-texture>
     </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [type]="'MarchingCubes'">
+    <three-mesh (onLoad)="setMesh($event)" [type]="'MarchingCubes'" [planeInfos]="planeInfos" [blobInfos]="blobInfos" [resolution]="controls.resolution" [isolation]="controls.isolation" [enableUvs]="materialInfo.enableUvs" [enableColors]="materialInfo.enableColors">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [x]="700" [y]="700" [z]="700"></three-scale>
       <three-material

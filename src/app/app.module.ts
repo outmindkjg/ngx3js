@@ -266,7 +266,51 @@ import { WebglLoaderXComponent } from './examples/webgl-loader-x/webgl-loader-x.
 import { WebglLoaderXyzComponent } from './examples/webgl-loader-xyz/webgl-loader-xyz.component';
 import { WebglLodComponent } from './examples/webgl-lod/webgl-lod.component';
 import { WebglMarchingcubesComponent } from './examples/webgl-marchingcubes/webgl-marchingcubes.component';
+import { WebglMaterialsBlendingCustomComponent } from './examples/webgl-materials-blending-custom/webgl-materials-blending-custom.component';
 import { WebglMaterialsBlendingComponent } from './examples/webgl-materials-blending/webgl-materials-blending.component';
+import { WebglMaterialsBumpmapComponent } from './examples/webgl-materials-bumpmap/webgl-materials-bumpmap.component';
+import { WebglMaterialsCarComponent } from './examples/webgl-materials-car/webgl-materials-car.component';
+import { WebglMaterialsChannelsComponent } from './examples/webgl-materials-channels/webgl-materials-channels.component';
+import { WebglMaterialsCubemapBallsReflectionComponent } from './examples/webgl-materials-cubemap-balls-reflection/webgl-materials-cubemap-balls-reflection.component';
+import { WebglMaterialsCubemapBallsRefractionComponent } from './examples/webgl-materials-cubemap-balls-refraction/webgl-materials-cubemap-balls-refraction.component';
+import { WebglMaterialsCubemapDynamicComponent } from './examples/webgl-materials-cubemap-dynamic/webgl-materials-cubemap-dynamic.component';
+import { WebglMaterialsCubemapMipmapsComponent } from './examples/webgl-materials-cubemap-mipmaps/webgl-materials-cubemap-mipmaps.component';
+import { WebglMaterialsCubemapRefractionComponent } from './examples/webgl-materials-cubemap-refraction/webgl-materials-cubemap-refraction.component';
+import { WebglMaterialsCubemapComponent } from './examples/webgl-materials-cubemap/webgl-materials-cubemap.component';
+import { WebglMaterialsCurvatureComponent } from './examples/webgl-materials-curvature/webgl-materials-curvature.component';
+import { WebglMaterialsDisplacementmapComponent } from './examples/webgl-materials-displacementmap/webgl-materials-displacementmap.component';
+import { WebglMaterialsEnvmapsExrComponent } from './examples/webgl-materials-envmaps-exr/webgl-materials-envmaps-exr.component';
+import { WebglMaterialsEnvmapsHdrComponent } from './examples/webgl-materials-envmaps-hdr/webgl-materials-envmaps-hdr.component';
+import { WebglMaterialsEnvmapsParallaxComponent } from './examples/webgl-materials-envmaps-parallax/webgl-materials-envmaps-parallax.component';
+import { WebglMaterialsEnvmapsComponent } from './examples/webgl-materials-envmaps/webgl-materials-envmaps.component';
+import { WebglMaterialsGrassComponent } from './examples/webgl-materials-grass/webgl-materials-grass.component';
+import { WebglMaterialsLightmapComponent } from './examples/webgl-materials-lightmap/webgl-materials-lightmap.component';
+import { WebglMaterialsMatcapComponent } from './examples/webgl-materials-matcap/webgl-materials-matcap.component';
+import { WebglMaterialsNormalmapObjectSpaceComponent } from './examples/webgl-materials-normalmap-object-space/webgl-materials-normalmap-object-space.component';
+import { WebglMaterialsNormalmapComponent } from './examples/webgl-materials-normalmap/webgl-materials-normalmap.component';
+import { WebglMaterialsParallaxmapComponent } from './examples/webgl-materials-parallaxmap/webgl-materials-parallaxmap.component';
+import { WebglMaterialsPhysicalClearcoatComponent } from './examples/webgl-materials-physical-clearcoat/webgl-materials-physical-clearcoat.component';
+import { WebglMaterialsPhysicalReflectivityComponent } from './examples/webgl-materials-physical-reflectivity/webgl-materials-physical-reflectivity.component';
+import { WebglMaterialsPhysicalSheenComponent } from './examples/webgl-materials-physical-sheen/webgl-materials-physical-sheen.component';
+import { WebglMaterialsPhysicalTransmissionComponent } from './examples/webgl-materials-physical-transmission/webgl-materials-physical-transmission.component';
+import { WebglMaterialsShadersFresnelComponent } from './examples/webgl-materials-shaders-fresnel/webgl-materials-shaders-fresnel.component';
+import { WebglMaterialsStandardComponent } from './examples/webgl-materials-standard/webgl-materials-standard.component';
+import { WebglMaterialsSubsurfaceScatteringComponent } from './examples/webgl-materials-subsurface-scattering/webgl-materials-subsurface-scattering.component';
+import { WebglMaterialsTextureAnisotropyComponent } from './examples/webgl-materials-texture-anisotropy/webgl-materials-texture-anisotropy.component';
+import { WebglMaterialsTextureCanvasComponent } from './examples/webgl-materials-texture-canvas/webgl-materials-texture-canvas.component';
+import { WebglMaterialsTextureFiltersComponent } from './examples/webgl-materials-texture-filters/webgl-materials-texture-filters.component';
+import { WebglMaterialsTextureManualmipmapComponent } from './examples/webgl-materials-texture-manualmipmap/webgl-materials-texture-manualmipmap.component';
+import { WebglMaterialsTexturePartialupdateComponent } from './examples/webgl-materials-texture-partialupdate/webgl-materials-texture-partialupdate.component';
+import { WebglMaterialsTextureRotationComponent } from './examples/webgl-materials-texture-rotation/webgl-materials-texture-rotation.component';
+import { WebglMaterialsVariationsBasicComponent } from './examples/webgl-materials-variations-basic/webgl-materials-variations-basic.component';
+import { WebglMaterialsVariationsLambertComponent } from './examples/webgl-materials-variations-lambert/webgl-materials-variations-lambert.component';
+import { WebglMaterialsVariationsPhongComponent } from './examples/webgl-materials-variations-phong/webgl-materials-variations-phong.component';
+import { WebglMaterialsVariationsPhysicalComponent } from './examples/webgl-materials-variations-physical/webgl-materials-variations-physical.component';
+import { WebglMaterialsVariationsStandardComponent } from './examples/webgl-materials-variations-standard/webgl-materials-variations-standard.component';
+import { WebglMaterialsVariationsToonComponent } from './examples/webgl-materials-variations-toon/webgl-materials-variations-toon.component';
+import { WebglMaterialsVideoWebcamComponent } from './examples/webgl-materials-video-webcam/webgl-materials-video-webcam.component';
+import { WebglMaterialsVideoComponent } from './examples/webgl-materials-video/webgl-materials-video.component';
+import { WebglMaterialsWireframeComponent } from './examples/webgl-materials-wireframe/webgl-materials-wireframe.component';
 import { WebglMaterialsComponent } from './examples/webgl-materials/webgl-materials.component';
 import { MenuComponent } from './menu/menu.component';
 import { AudioComponent } from './three/audio/audio.component';
@@ -275,6 +319,7 @@ import { CameraComponent } from './three/camera/camera.component';
 import { CanvasComponent } from './three/canvas/canvas.component';
 import { ClipComponent } from './three/clip/clip.component';
 import { ComposerComponent } from './three/composer/composer.component';
+import { ControlComponent } from './three/control/control.component';
 import { ControllerComponent } from './three/controller/controller.component';
 import { CurveComponent } from './three/curve/curve.component';
 import { FogComponent } from './three/fog/fog.component';
@@ -302,12 +347,11 @@ import { ShapeComponent } from './three/shape/shape.component';
 import { SharedComponent } from './three/shared/shared.component';
 import { SvgComponent } from './three/svg/svg.component';
 import { TextureComponent } from './three/texture/texture.component';
+import { ToolsComponent } from './three/tools/tools.component';
 import { TransformComponent } from './three/transform/transform.component';
 import { TranslationComponent } from './three/translation/translation.component';
 import { TweenComponent } from './three/tween/tween.component';
 import { VisualComponent } from './three/visual/visual.component';
-import { ControlComponent } from './three/control/control.component';
-import { ToolsComponent } from './three/tools/tools.component';
 
 @NgModule({
   declarations: [
@@ -558,6 +602,7 @@ import { ToolsComponent } from './three/tools/tools.component';
     WebglLinesFatWireframeComponent,
     WebglLinesSphereComponent,
     WebglMaterialsBlendingComponent,
+    WebglMaterialsBlendingCustomComponent,
     WebglMaterialsComponent,
     WebglMarchingcubesComponent,
     WebglLodComponent,
@@ -617,7 +662,50 @@ import { ToolsComponent } from './three/tools/tools.component';
     WebglLoaderDs3Component,
     WebglLoaderDm3Component,
     ControlComponent,
-    ToolsComponent
+    ToolsComponent,
+    WebglMaterialsBumpmapComponent,
+    WebglMaterialsCarComponent,
+    WebglMaterialsChannelsComponent,
+    WebglMaterialsCubemapComponent,
+    WebglMaterialsCubemapBallsReflectionComponent,
+    WebglMaterialsCubemapBallsRefractionComponent,
+    WebglMaterialsCubemapDynamicComponent,
+    WebglMaterialsCubemapRefractionComponent,
+    WebglMaterialsCubemapMipmapsComponent,
+    WebglMaterialsCurvatureComponent,
+    WebglMaterialsDisplacementmapComponent,
+    WebglMaterialsEnvmapsComponent,
+    WebglMaterialsEnvmapsExrComponent,
+    WebglMaterialsEnvmapsHdrComponent,
+    WebglMaterialsEnvmapsParallaxComponent,
+    WebglMaterialsGrassComponent,
+    WebglMaterialsLightmapComponent,
+    WebglMaterialsMatcapComponent,
+    WebglMaterialsNormalmapComponent,
+    WebglMaterialsNormalmapObjectSpaceComponent,
+    WebglMaterialsParallaxmapComponent,
+    WebglMaterialsPhysicalClearcoatComponent,
+    WebglMaterialsPhysicalReflectivityComponent,
+    WebglMaterialsPhysicalSheenComponent,
+    WebglMaterialsPhysicalTransmissionComponent,
+    WebglMaterialsShadersFresnelComponent,
+    WebglMaterialsStandardComponent,
+    WebglMaterialsSubsurfaceScatteringComponent,
+    WebglMaterialsTextureAnisotropyComponent,
+    WebglMaterialsTextureCanvasComponent,
+    WebglMaterialsTextureFiltersComponent,
+    WebglMaterialsTextureManualmipmapComponent,
+    WebglMaterialsTexturePartialupdateComponent,
+    WebglMaterialsTextureRotationComponent,
+    WebglMaterialsVariationsBasicComponent,
+    WebglMaterialsVariationsLambertComponent,
+    WebglMaterialsVariationsPhongComponent,
+    WebglMaterialsVariationsStandardComponent,
+    WebglMaterialsVariationsPhysicalComponent,
+    WebglMaterialsVariationsToonComponent,
+    WebglMaterialsVideoComponent,
+    WebglMaterialsVideoWebcamComponent,
+    WebglMaterialsWireframeComponent,
   ],
   imports: [
     BrowserModule,

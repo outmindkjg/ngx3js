@@ -16,10 +16,12 @@ export class TextureComponent implements OnInit {
   @Input() public textureType:string = 'map';
   @Input() private loaderType:string = null;
   @Input() private image:string = null;
+  @Input() private premultiplyAlpha : boolean = null;
   @Input() private cubeImage:string[] = null;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
-  @Input() private program:(ctx: CanvasRenderingContext2D) => void = null;
+  @Input() private program:(ctx: CanvasRenderingContext2D, text? : string) => void = null;
+  @Input() private text: string = null;
   @Input() private canvas:string = null;
   @Input() private mapping:string = null;
   @Input() private wrapS:string = null;
@@ -62,7 +64,7 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  private getProgram(def?: (ctx: CanvasRenderingContext2D) => void): (ctx: CanvasRenderingContext2D) => void {
+  private getProgram(def?: (ctx: CanvasRenderingContext2D, text? : string) => void): (ctx: CanvasRenderingContext2D, text? : string) => void {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
 
@@ -288,11 +290,11 @@ export class TextureComponent implements OnInit {
   static textureLoader: THREE.TextureLoader = null;
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
   static imageBitmapLoader: THREE.ImageBitmapLoader = null;
-  getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void): THREE.Texture {
-    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height, this.loaderType);
+  getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, onLoad? : () => void): THREE.Texture {
+    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height, this.loaderType, this.text, onLoad);
   }
 
-  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, canvasWidth? : number, canvasHeight? : number, loadType? : string): THREE.Texture {
+  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D, text? : string) => void, canvasWidth? : number, canvasHeight? : number, loadType? : string, text? : string, onLoad? : () => void): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       if (this.cubeTextureLoader === null) {
         this.cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -303,7 +305,11 @@ export class TextureComponent implements OnInit {
         }
         this.cubeTextureLoader.setPath(image);
       }
-      return this.cubeTextureLoader.load(cubeImage);
+      return this.cubeTextureLoader.load(cubeImage, () => {
+        if (ThreeUtil.isNotNull(onLoad)) {
+          onLoad();
+        }
+      });
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
      switch((loadType || 'texture').toLowerCase()) {
         case 'imagebitmap' :
@@ -315,7 +321,11 @@ export class TextureComponent implements OnInit {
           if (!image.startsWith('/')) {
             image = '/assets/examples/' + image;
           }
-          return this.textureLoader.load(image);
+          return this.textureLoader.load(image, () => {
+            if (ThreeUtil.isNotNull(onLoad)) {
+              onLoad();
+            }
+          });
       }
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -326,7 +336,7 @@ export class TextureComponent implements OnInit {
           alpha: true
         })
         // _context.save();
-        program(_context);
+        program(_context, text);
         // _context.restore();
       }
       return new THREE.CanvasTexture(canvas);
@@ -415,10 +425,9 @@ export class TextureComponent implements OnInit {
               format : null,
               type : null,
               repeat : null,
-              anisotropy : null
+              anisotropy : null,
+              premultiplyAlpha : null
             });
-          } else {
-            console.log();
           }
         }, this.storageOption);
       } else {
@@ -431,7 +440,20 @@ export class TextureComponent implements OnInit {
             ThreeUtil.getColorSafe(this.add, 0xe08060)
           ));
         } else {
-          this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null));
+          this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null), () => {
+            this.getTexture({
+              encoding : null,
+              wrapS : null,
+              wrapT : null,
+              magFilter : null,
+              minFilter : null,
+              format : null,
+              type : null,
+              repeat : null,
+              anisotropy : null,
+              premultiplyAlpha : null
+            });
+          });
         }
         this.texture.mapping = this.getMapping();
       }
@@ -444,7 +466,8 @@ export class TextureComponent implements OnInit {
           format : null,
           type : null,
           repeat : null,
-          anisotropy : null
+          anisotropy : null,
+          premultiplyAlpha : null
         };
       }
     }
@@ -459,6 +482,14 @@ export class TextureComponent implements OnInit {
           case 'wrapT':
             if (ThreeUtil.isNotNull(this.wrapT)) {
               this.texture.wrapT = this.getWrapT('clamptoedge');
+            }
+            break;
+          case 'premultiplyAlpha':
+            if (ThreeUtil.isNotNull(this.premultiplyAlpha)) {
+              this.texture.premultiplyAlpha = this.premultiplyAlpha;
+              if (ThreeUtil.isNotNull(this.texture.image)) {
+                this.texture.needsUpdate = true;
+              }
             }
             break;
           case 'magFilter':

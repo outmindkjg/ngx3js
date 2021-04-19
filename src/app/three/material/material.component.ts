@@ -447,15 +447,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   private getBlendEquation(def?: string): THREE.BlendingEquation {
     const blendEquation = ThreeUtil.getTypeSafe(this.blendEquation, def, '');
     switch (blendEquation.toLowerCase()) {
-      case 'adde':
+      case 'add':
         return THREE.AddEquation;
-      case 'subtracte':
+      case 'subtract':
         return THREE.SubtractEquation;
-      case 'reversesubtracte':
+      case 'reversesubtract':
         return THREE.ReverseSubtractEquation;
-      case 'mine':
+      case 'min':
         return THREE.MinEquation;
-      case 'maxe':
+      case 'max':
         return THREE.MaxEquation;
     }
     return undefined;

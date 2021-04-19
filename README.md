@@ -253,7 +253,50 @@ ng g c examples/webgl_lod
 ng g c examples/webgl_marchingcubes
 ng g c examples/webgl_materials
 ng g c examples/webgl_materials_blending
-
+ng g c examples/webgl_materials_blending_custom
+ng g c examples/webgl_materials_bumpmap
+ng g c examples/webgl_materials_car
+ng g c examples/webgl_materials_channels
+ng g c examples/webgl_materials_cubemap
+ng g c examples/webgl_materials_cubemap_balls_reflection
+ng g c examples/webgl_materials_cubemap_balls_refraction
+ng g c examples/webgl_materials_cubemap_dynamic
+ng g c examples/webgl_materials_cubemap_refraction
+ng g c examples/webgl_materials_cubemap_mipmaps
+ng g c examples/webgl_materials_curvature
+ng g c examples/webgl_materials_displacementmap
+ng g c examples/webgl_materials_envmaps
+ng g c examples/webgl_materials_envmaps_exr
+ng g c examples/webgl_materials_envmaps_hdr
+ng g c examples/webgl_materials_envmaps_parallax
+ng g c examples/webgl_materials_grass
+ng g c examples/webgl_materials_lightmap
+ng g c examples/webgl_materials_matcap
+ng g c examples/webgl_materials_normalmap
+ng g c examples/webgl_materials_normalmap_object_space
+ng g c examples/webgl_materials_parallaxmap
+ng g c examples/webgl_materials_physical_clearcoat
+ng g c examples/webgl_materials_physical_reflectivity
+ng g c examples/webgl_materials_physical_sheen
+ng g c examples/webgl_materials_physical_transmission
+ng g c examples/webgl_materials_shaders_fresnel
+ng g c examples/webgl_materials_standard
+ng g c examples/webgl_materials_subsurface_scattering
+ng g c examples/webgl_materials_texture_anisotropy
+ng g c examples/webgl_materials_texture_canvas
+ng g c examples/webgl_materials_texture_filters
+ng g c examples/webgl_materials_texture_manualmipmap
+ng g c examples/webgl_materials_texture_partialupdate
+ng g c examples/webgl_materials_texture_rotation
+ng g c examples/webgl_materials_variations_basic
+ng g c examples/webgl_materials_variations_lambert
+ng g c examples/webgl_materials_variations_phong
+ng g c examples/webgl_materials_variations_standard
+ng g c examples/webgl_materials_variations_physical
+ng g c examples/webgl_materials_variations_toon
+ng g c examples/webgl_materials_video
+ng g c examples/webgl_materials_video_webcam
+ng g c examples/webgl_materials_wireframe
 
 
 
