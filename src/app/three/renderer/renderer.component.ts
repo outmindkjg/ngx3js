@@ -29,6 +29,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private minZoom:number = null;
+  @Input() private maxZoom:number = null;
   @Input() private rotateSpeed:number = null;
   @Input() private staticMoving:boolean = null;
   @Input() private zoomSpeed:number = null;
@@ -65,6 +67,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private height:number = -1;
   @Input() private statsMode:number = -1;
   @Input() private autoClear:boolean=true;
+  @Input() private outputEncoding:string = null;
   @Input() private guiControl:any = null;
   @Input() private logarithmicDepthBuffer:boolean = false;
   @Input() private guiParams:GuiControlParam[] = [];
@@ -88,6 +91,29 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @ViewChild('canvas') private canvas: ElementRef;
   @ViewChild('debug') private debug: ElementRef;
   @ViewChild('renderer') private _renderer: ElementRef;
+
+  private getEncoding(def?: string): THREE.TextureEncoding {
+    const encoding = ThreeUtil.getTypeSafe(this.outputEncoding, def, '');
+    switch (encoding.toLowerCase()) {
+      case 'srgb':
+        return THREE.sRGBEncoding;
+      case 'gamma':
+        return THREE.GammaEncoding;
+      case 'rgbe':
+        return THREE.RGBEEncoding;
+      case 'logluv':
+        return THREE.LogLuvEncoding;
+      case 'rgbm7':
+        return THREE.RGBM7Encoding;
+      case 'rgbm16':
+        return THREE.RGBM16Encoding;
+      case 'rgbd':
+        return THREE.RGBDEncoding;
+      case 'linear':
+      default:
+        return THREE.LinearEncoding;
+    }
+  }
 
   private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
@@ -426,6 +452,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             screenSpacePanning : this.screenSpacePanning,
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
+            minZoom : this.minZoom,
+            maxZoom : this.maxZoom,
             rotateSpeed : this.rotateSpeed,
             staticMoving : this.staticMoving,
             zoomSpeed : this.zoomSpeed,
@@ -564,7 +592,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.autoClear = this.autoClear;
-        // this.renderer.outputEncoding = THREE.sRGBEncoding;
+        if (this.outputEncoding !== null) {
+          this.renderer.outputEncoding = this.getEncoding('linear');
+        }
         this.renderer.localClippingEnabled = this.localClippingEnabled;
         this.renderer.clippingPlanes = (!this.globalClippingEnabled) ? [] : this.getClippingPlanes();
       }

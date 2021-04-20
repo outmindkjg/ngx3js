@@ -1,6 +1,6 @@
 <div id="info">
-  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> - Skeletal Animation Blending
-  (model from <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a>)<br/>
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending
+  (model from <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br/>
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
 </div>
 <three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">

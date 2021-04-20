@@ -53,6 +53,7 @@ export class CameraComponent
   @Input() private top: number = 0.5;
   @Input() private bottom: number = -0.5;
   @Input() private autoClear: boolean = null;
+  @Input() private material: any = null;
   @Input() public controlType: string = 'none';
   @Input() public autoRotate: boolean = null;
   @Input() private scene: any = null;
@@ -239,6 +240,8 @@ export class CameraComponent
   ngOnInit(): void {}
 
   private camera: THREE.Camera = null;
+  public cubeCamera1: THREE.CubeCamera = null;
+  public cubeCamera2: THREE.CubeCamera = null;
   private clips: THREE.AnimationClip[] = null;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -582,27 +585,30 @@ export class CameraComponent
           this.camera = new THREE.ArrayCamera();
           break;
         case 'cube':
-          const cubeCamera = new THREE.CubeCamera(
+          const cubeCamera1 = new THREE.CubeCamera(
             this.getNear(0.1),
             this.getFar(2000),
             new THREE.WebGLCubeRenderTarget(256, {
               encoding: THREE.sRGBEncoding,
-              format: THREE.RGBAFormat,
+              format: THREE.RGBFormat,
+              generateMipmaps: true,
+              minFilter: THREE.LinearMipmapLinearFilter
             })
           );
-          let scene: THREE.Scene = null;
-          if (this.rendererScenes !== null && this.rendererScenes.length > 0) {
-            scene = this.rendererScenes.first.getScene();
-          }
-          if (
-            scene !== null &&
-            this.renderer !== null &&
-            this.renderer instanceof THREE.WebGLRenderer
-          ) {
-            const renderer = this.renderer;
-            cubeCamera.update(renderer, scene);
-          }
-          this.camera = cubeCamera as any;
+          const cubeCamera2 = new THREE.CubeCamera(
+            this.getNear(0.1),
+            this.getFar(2000),
+            new THREE.WebGLCubeRenderTarget(256, {
+              encoding: THREE.sRGBEncoding,
+              format: THREE.RGBFormat,
+              generateMipmaps: true,
+              minFilter: THREE.LinearMipmapLinearFilter
+            })
+          );
+
+          this.cubeCamera1 = cubeCamera1;
+          this.cubeCamera2 = cubeCamera2;
+          this.camera = cubeCamera1 as any;
           break;
         case 'cinematic':
           this.camera = new CinematicCamera(
@@ -691,6 +697,8 @@ export class CameraComponent
     }
   }
 
+  private _cubeRenderCount = 0;
+
   render(
     renderer: THREE.Renderer,
     cssRenderer: CSS3DRenderer | CSS2DRenderer,
@@ -700,8 +708,7 @@ export class CameraComponent
     if (
       !this.visible ||
       !this.active ||
-      this.isCameraChild ||
-      this.type === 'cube'
+      this.isCameraChild
     ) {
       return;
     }
@@ -714,6 +721,17 @@ export class CameraComponent
       }
     }
     if (renderer instanceof THREE.WebGLRenderer) {
+      if (this.type === 'cube' && this.cubeCamera1 !== null && this.cubeCamera2 !== null) {
+        this._cubeRenderCount ++;
+        this._cubeRenderCount = this._cubeRenderCount  % 2;
+        const cubeCamera = (this._cubeRenderCount % 2 === 0) ? this.cubeCamera1 : this.cubeCamera2;
+        cubeCamera.update(renderer, this.getScene(scenes));
+        if (ThreeUtil.isNotNull(this.material) && this.material.getMaterial) {
+          const material = this.material.getMaterial();
+          material.envMap = cubeCamera.renderTarget.texture;
+        }
+        return ;
+      }
       if (ThreeUtil.isNotNull(this.autoClear)) {
         renderer.autoClear = this.autoClear;
       }

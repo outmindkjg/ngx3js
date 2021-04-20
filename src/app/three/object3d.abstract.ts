@@ -32,6 +32,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() private scale : ScaleComponent = null;
   @Input() private lookat : LookatComponent = null;
   @Input() private loDistance : number = null;
+  @Input() protected debug : boolean = false;
   
 	@ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
 	@ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
@@ -493,5 +494,23 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 			});
 		}
 	}
+
+  showDebug(obj : THREE.Object3D) {
+    const lines:string[] = [];
+    lines.push(obj.name || obj.id.toString());
+    this.addDebugLine(obj.children, lines, "\t");
+    console.log(lines.join("\n"));
+  }
+
+  addDebugLine(objs : THREE.Object3D[], lines : string[], prefix : string) : string[] {
+    if (objs.length >0) {
+      objs.forEach(obj => {
+        lines.push(prefix + (obj.name || obj.id.toString()));
+        this.addDebugLine(obj.children, lines, prefix + "\t");
+      });
+    }
+    return lines;
+  }
+
 
 }

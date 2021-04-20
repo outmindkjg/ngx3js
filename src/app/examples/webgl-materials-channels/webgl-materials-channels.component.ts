@@ -6,10 +6,22 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-materials-channels.component.html',
   styleUrls: ['./webgl-materials-channels.component.scss']
 })
-export class WebglMaterialsChannelsComponent extends BaseComponent<{}> {
+export class WebglMaterialsChannelsComponent extends BaseComponent<{
+  material : string;
+  camera : string;
+  side : string;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      material : 'normal',
+      camera : 'perspective',
+      side : 'double'
+    },[
+      { name : 'material', type : 'select', select : ['standard', 'normal', 'depthBasic', 'depthRGBA']},
+      { name : 'camera', type : 'select', select : ['perspective', 'ortho']},
+      { name : 'side', type : 'select', select : ['front', 'back', 'double']}
+    ]);
   }
 
 }

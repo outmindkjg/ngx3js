@@ -6,10 +6,19 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-materials-envmaps.component.html',
   styleUrls: ['./webgl-materials-envmaps.component.scss']
 })
-export class WebglMaterialsEnvmapsComponent extends BaseComponent<{}> {
+export class WebglMaterialsEnvmapsComponent extends BaseComponent<{
+  background : string;
+  refraction : boolean
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      background : 'Cube',
+      refraction : false
+    },[
+      { name : 'background', type : 'select' , select : ['Cube','Equirectangular']},
+      { name : 'refraction', type : 'checkbox'}
+    ]);
   }
 
 }

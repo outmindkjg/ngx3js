@@ -37,7 +37,7 @@
 				const maxLevel = 8;
 
 				async function loadCubeTexture( urls ) {
-
+					console.log(urls);
 					return new Promise( function ( resolve ) {
 
 						new THREE.CubeTextureLoader().load( urls, function ( cubeTexture ) {

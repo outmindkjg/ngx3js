@@ -911,6 +911,14 @@ export class ThreeUtil {
     return undefined;
   }
 
+  static getAngle2RadianSafe(angle: number, altangle?: number): number {
+    const defValue = this.getTypeSafe(angle, altangle);
+    if (this.isNotNull(defValue)) {
+      return (defValue / 180 ) * Math.PI;
+    }
+    return undefined;
+  }
+ 
   static getRadian2AngleSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {

@@ -1,10 +1,7 @@
 <div id="info">
-  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cubemap customized mipmaps demo. Author <a href="https://github.com/AngusLang" target="_blank">Angus</a><br/>
+  Left: webgl generated mipmaps<br/>
+  Right: manual mipmaps<br/>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -12,18 +9,16 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
+    <three-position [x]="0" [y]="0" [z]="500"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
+  <three-scene #scene>
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
       [type]="'Hemisphere'"
@@ -46,29 +41,25 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
+    <three-shared>
+      <three-geometry
+        #sphere
+        [type]="'sphere'"
+        [radius]="100"
+        [widthSegments]="128"
+        [heightSegments]="128"
+      ></three-geometry>
+      <three-texture #texture8 [image]="'textures/cube/angus/'" [cubeImage]="['cube_m08_c00.jpg', 'cube_m08_c01.jpg', 'cube_m08_c02.jpg', 'cube_m08_c03.jpg', 'cube_m08_c04.jpg', 'cube_m08_c05.jpg']"  [mapping]="'EquirectangularReflection'"></three-texture>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-mesh [geometry]="sphere">
+        <three-position [x]="100" [y]="0" [z]="0"></three-position>
+        <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="texture8"></three-material>
+      </three-mesh>
+      <three-mesh [geometry]="sphere">
+        <three-position [x]="-100" [y]="0" [z]="0"></three-position>
+        <three-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="texture8"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

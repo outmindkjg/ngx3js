@@ -1,11 +1,11 @@
 <div id="info">
   <strong>Models</strong>:
-  <a [class]="'model'" [href]="'models/prwm/faceted-nefertiti.*.prwm'">Faceted Nefertiti</a>,
-  <a [class]="'model'" [href]="'models/prwm/smooth-suzanne.*.prwm'">Smooth Suzanne</a>,
-  <a [class]="'model'" [href]="'models/prwm/vive-controller.*.prwm'">Vive Controller</a>
+  <a [class]="'model'" href="models/prwm/faceted-nefertiti.*.prwm">Faceted Nefertiti</a>,
+  <a [class]="'model'" href="models/prwm/smooth-suzanne.*.prwm">Smooth Suzanne</a>,
+  <a [class]="'model'" href="models/prwm/vive-controller.*.prwm">Vive Controller</a>
   <div [class]="'notes'">
     The parsing of PRWM file is especially fast when the endianness of the file is the same as the endianness of the client platform.
-    The loader will automatically replace the <strong>*</strong> in the model url by either <strong>le</strong> or <strong>be</strong> depending on the client platform's endianness to download the most appropriate file. <a [href]="'https://github.com/kchapelier/PRWM'" [target]="'_blank'" [rel]="'noopener noreferrer'">Specifications and implementations</a><br><br>
+    The loader will automatically replace the <strong>*</strong> in the model url by either <strong>le</strong> or <strong>be</strong> depending on the client platform's endianness to download the most appropriate file. <a href="https://github.com/kchapelier/PRWM" target="_blank" rel="noopener noreferrer">Specifications and implementations</a><br><br>
     This platform endianness is <strong [id]="'endianness'">little-endian</strong>.<br>
     See your console for stats.
   </div>

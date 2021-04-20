@@ -10,6 +10,7 @@ import {
 
 export interface SearchMenu {
   id: string;
+  safeId? : string;
   name: string;
   image: string;
   selected: boolean;
@@ -203,6 +204,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       return {
         id: url,
+        safeId : url.replace(/_/gi,'-'),
         name: id.split('_').join(' '),
         image: image,
         tags: itemTags.join(' / '),

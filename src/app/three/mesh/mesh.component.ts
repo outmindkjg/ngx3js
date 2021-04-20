@@ -361,7 +361,7 @@ export class MeshComponent
     }
     if (this.materialList !== null && this.materialList.length > 0) {
       this.materialList.forEach((material) => {
-        if (material.materialType === 'material') {
+        if (material.materialType === 'material' && material.visible) {
           materials.push(material.getMaterial());
         }
       });
@@ -534,6 +534,15 @@ export class MeshComponent
           }
           break;        
         default :
+          if (this.mesh instanceof THREE.Group) {
+            const childMeshes = this.mesh.children;
+            if (childMeshes.length > 0) {
+              const firstMesh = childMeshes[0];
+              if (firstMesh instanceof THREE.Mesh) {
+                firstMesh.material = material.getMaterial();
+              }
+            }
+          }
         break;
       }
     }
@@ -557,7 +566,7 @@ export class MeshComponent
       this.materialList.forEach((material, idx) => {
         this._materialSubscribe.push(
           material.materialSubscribe().subscribe(() => {
-            this.setMaterial(material, idx);
+            this.setMaterial(material, 0);
           })
         );
       });
@@ -1183,7 +1192,6 @@ export class MeshComponent
                 source? : any 
               ) => {
                 let assignMaterial = true;
-
                 if (ThreeUtil.isNotNull(loadedMesh)) {
                   this.mesh.add(loadedMesh);
                 } else if (ThreeUtil.isNotNull(geometry )) {
@@ -1289,6 +1297,9 @@ export class MeshComponent
                 this.synkObject3D(['mixer', 'helpers']);
                 this._meshSubject.next(loadedMesh);
                 this.onLoad.emit(this);
+                if (this.debug) {
+                  this.showDebug(this.mesh);
+                }
               },
               this.storageOption
             );

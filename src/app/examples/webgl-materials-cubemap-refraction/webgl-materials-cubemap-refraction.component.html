@@ -1,10 +1,7 @@
 <div id="info">
-  <a [href]="'https://threejs.org'" [target]="'_blank'" [rel]="'noopener'">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a [href]="'https://www.mixamo.com/'" [target]="'_blank'" [rel]="'noopener'">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org">Three.js</a> cube map refraction demo<br/>
+  Lucy model from <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford 3d scanning repository</a><br/>
+  Texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank" rel="noopener">Humus</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -12,18 +9,16 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="100000">
+    <three-position [x]="0" [y]="0" [z]="-4000"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
+  <three-scene #scene [background]="textureCube">
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
       [type]="'Hemisphere'"
@@ -46,29 +41,51 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+    <three-shared>
+      <three-texture
+        #textureCube
+        [image]="'textures/cube/Park3Med/'"
+        [cubeImage]="['','jpg']"
+        [mapping]="'CubeRefraction'"
+      ></three-texture>
+      <three-geometry #geometry [storageName]="'models/ply/binary/Lucy100k.ply'"></three-geometry>
+    </three-shared>
+    <three-light
+      [type]="'Ambient'"
+      [color]="'0xffffff'"
+      [intensity]="5"
+    >
+    </three-light>
+    <three-mesh
+      (onLoad)="setLight($event)"
+      [type]="'light'"
+      [lightType]="'Point'"
+      [color]="'0xffffff'"
+      [intensity]="10"
+    >
+      <three-mesh>
+        <three-scale [multiply]="0.05"></three-scale>
+        <three-geometry [type]="'Sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="8"></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
+      </three-mesh>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-mesh [geometry]="geometry">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-scale [multiply]="1.5"></three-scale>
+        <three-material [type]="'MeshPhong'" [color]="'0xffffff'" [envMap]="textureCube" [refractionRatio]="0.98" [opacity]="0.5"></three-material>
+      </three-mesh>
+      <three-mesh [geometry]="geometry">
+        <three-position [x]="-1500" [y]="0" [z]="0"></three-position>
+        <three-scale [multiply]="1.5"></three-scale>
+        <three-material [type]="'MeshPhong'" [color]="'0xccfffd'" [envMap]="textureCube" [refractionRatio]="0.985"></three-material>
+      </three-mesh>
+      <three-mesh [geometry]="geometry">
+        <three-position [x]="1500" [y]="0" [z]="0"></three-position>
+        <three-scale [multiply]="1.5"></three-scale>
+        <three-material [type]="'MeshPhong'" [color]="'0xccddff'" [envMap]="textureCube" [refractionRatio]="0.985" [reflectivity]="0.9"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

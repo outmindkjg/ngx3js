@@ -19,29 +19,8 @@
   <three-camera [type]="'perspective'" [fov]="40" [near]="0.1" [far]="100">
     <three-position [x]="4.25" [y]="1.4" [z]="-4.5"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xeeeeee'">
+  <three-scene #scene [background]="'0xeeeeee'" [environment]="'room'">
     <three-fog [color]="'0xeeeeee'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
     <three-helper 
       (onLoad)="setGridHelp($event)"
       [type]="'grid'" 

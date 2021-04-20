@@ -19,6 +19,8 @@ export class ControlComponent implements OnInit {
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private minZoom:number = null;
+  @Input() private maxZoom:number = null;
   @Input() private staticMoving:boolean = null;
   @Input() private rotateSpeed:number = null;
   @Input() private zoomSpeed:number = null;
@@ -183,6 +185,12 @@ export class ControlComponent implements OnInit {
           }
           if (ThreeUtil.isNotNull(this.maxDistance)) {
             orbitControls.maxDistance = this.maxDistance;
+          }
+          if (ThreeUtil.isNotNull(this.minZoom)) {
+            orbitControls.minZoom = this.minZoom;
+          }
+          if (ThreeUtil.isNotNull(this.maxZoom)) {
+            orbitControls.maxZoom = this.maxZoom;
           }
           if (ThreeUtil.isNotNull(this.rotateSpeed)) {
             orbitControls.rotateSpeed = this.rotateSpeed;

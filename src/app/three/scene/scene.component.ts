@@ -26,6 +26,7 @@ import { CameraComponent } from '../camera/camera.component';
 import { Subscription } from 'rxjs';
 import { HelperComponent } from '../helper/helper.component';
 import { TextureComponent } from '../texture/texture.component';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 
 @Component({
   selector: 'three-scene',
@@ -36,8 +37,10 @@ export class SceneComponent
   extends AbstractObject3dComponent
   implements OnInit {
   @Input() private storageName:string = null;
-  @Input() private background:string | number | MaterialComponent = null;
-
+  @Input() private background:string | number | MaterialComponent | TextureComponent = null;
+  @Input() private backgroundType:string = 'background';
+  @Input() private environment:string | MaterialComponent = null;
+  
   @ContentChildren(MeshComponent, { descendants: false }) meshList: QueryList<MeshComponent>;
   @ContentChildren(PhysicsComponent, { descendants: false }) physicsList: QueryList<PhysicsComponent>;
   @ContentChildren(RigidbodyComponent, { descendants: true }) rigidbodyList: QueryList<RigidbodyComponent>;
@@ -150,12 +153,13 @@ export class SceneComponent
 
   private _materialSubscribe: Subscription[] = [];
 
-  setMaterial(material : MaterialComponent) {
+  setMaterial(material : MaterialComponent, materialTypeHint : string = null) {
     if (this.scene !== null) {
       const materialClone = material.getMaterial();
       const map: THREE.Texture = (materialClone['map'] && materialClone['map'] instanceof THREE.Texture) ? materialClone['map'] : null;
       const color: THREE.Color = (materialClone['color'] && materialClone['color'] instanceof THREE.Color) ? materialClone['color'] : null;
-      switch(material.materialType.toLowerCase()) {
+      const materialType = ThreeUtil.getTypeSafe(materialTypeHint , material.materialType, 'material');
+      switch(materialType.toLowerCase()) {
         case 'environment':
           if (map !== null) {
             this.scene.environment = map;
@@ -366,7 +370,22 @@ export class SceneComponent
       }
       if (ThreeUtil.isNotNull(this.background)) {
         if (this.background instanceof MaterialComponent) {
-          this.setMaterial(this.background);
+          this.setMaterial(this.background, this.backgroundType);
+        } else if (this.background instanceof TextureComponent) {
+          switch (this.backgroundType.toLowerCase()) {
+            case 'background-angular':
+            case 'backgroundangular':
+              const background = this.background.getTexture();
+              TextureComponent.checkTextureImage(background, () => {
+                const envMap = this.getTextureEquirectangular(background);
+                this.scene.background = envMap;
+              })
+              break;
+            default :
+              this.scene.background = this.background.getTexture();
+              break;
+          }
+
         } else {
           this.scene.background = ThreeUtil.getColorSafe(
             this.background,
@@ -374,6 +393,26 @@ export class SceneComponent
           );
         }
       }
+      if (ThreeUtil.isNotNull(this.environment)) {
+        if (this.environment instanceof MaterialComponent) {
+          this.setMaterial(this.environment, 'environment');
+        } else {
+          switch(this.environment) {
+            case 'room' :
+              const renderer = this.getThreeRenderer();
+              if (renderer instanceof THREE.WebGLRenderer) {
+                const roomEnvironment = new RoomEnvironment();
+                const pmremGenerator = new THREE.PMREMGenerator( renderer );
+                this.scene.environment = pmremGenerator.fromScene( roomEnvironment ).texture;
+              }
+              break;
+          }
+        }
+      }
+
+
+      
+
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }

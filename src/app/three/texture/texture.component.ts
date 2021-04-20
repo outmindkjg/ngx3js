@@ -55,9 +55,9 @@ export class TextureComponent implements OnInit {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
       return [
-        prefix + 'px' + postfix, prefix + 'nx' + postfix,
-        prefix + 'py' + postfix, prefix + 'ny' + postfix,
-        prefix + 'pz' + postfix, prefix + 'nz' + postfix
+        prefix + 'px.' + postfix, prefix + 'nx.' + postfix,
+        prefix + 'py.' + postfix, prefix + 'ny.' + postfix,
+        prefix + 'pz.' + postfix, prefix + 'nz.' + postfix
       ];
     } else {
       return cubeImage;
@@ -451,8 +451,10 @@ export class TextureComponent implements OnInit {
               type : null,
               repeat : null,
               anisotropy : null,
-              premultiplyAlpha : null
+              premultiplyAlpha : null,
+              mapping : null
             });
+            this.texture.needsUpdate = true;
           });
         }
         this.texture.mapping = this.getMapping();
@@ -467,13 +469,19 @@ export class TextureComponent implements OnInit {
           type : null,
           repeat : null,
           anisotropy : null,
-          premultiplyAlpha : null
+          premultiplyAlpha : null,
+          mapping : null
         };
       }
     }
     if (this.texture != null && changes) {
       for (const propName in changes) {
         switch (propName) {
+          case 'mapping':
+            if (ThreeUtil.isNotNull(this.mapping)) {
+              this.texture.mapping = this.getMapping();
+            }
+            break;
           case 'wrapS':
             if (ThreeUtil.isNotNull(this.wrapS)) {
               this.texture.wrapS = this.getWrapS('clamptoedge');
