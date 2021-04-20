@@ -1103,7 +1103,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           this.material['emissiveMap'] = materialClone;
           break;  
       }
-      this.material.needsUpdate = true;
+      // this.material.needsUpdate = true;
       this._materialSubject.next(this.material);
     }
   }

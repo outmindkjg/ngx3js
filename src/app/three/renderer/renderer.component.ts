@@ -285,6 +285,22 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     return ThreeUtil.getTypeSafe(this.clearAlpha, def);
   }
 
+  private getToneMapping(def?: string): THREE.ToneMapping {
+    const toneMapping = ThreeUtil.getTypeSafe(this.toneMapping, def, '');
+    switch(toneMapping.toLowerCase()) {
+      case 'linear' :
+        return THREE.LinearToneMapping;
+      case 'reinhard' :
+        return THREE.ReinhardToneMapping;
+      case 'cineon' :
+        return THREE.CineonToneMapping;
+      case 'acesfilmic' :
+        return THREE.ACESFilmicToneMapping;
+      default :
+        return THREE.NoToneMapping;
+    }
+  }
+
   setSize(width: number, height: number) {
     if (this.renderer !== null) {
       this.rendererWidth = width;
@@ -583,7 +599,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
           this.renderer.setClearAlpha(this.getClearAlpha());
         }
         if (ThreeUtil.isNotNull(this.toneMapping)) {
-          this.renderer.toneMapping = THREE.ReinhardToneMapping;
+          this.renderer.toneMapping = this.getToneMapping();
         }
         if (ThreeUtil.isNotNull(this.toneMappingExposure)) {
           this.renderer.toneMappingExposure = this.toneMappingExposure;

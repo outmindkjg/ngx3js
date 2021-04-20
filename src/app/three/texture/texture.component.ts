@@ -358,7 +358,7 @@ export class TextureComponent implements OnInit {
         this.checkTextureImage(texture, callback, tryout+1);
       }, 200);
     } else {
-      console.error('timeout');
+      // console.error('timeout');
     }
   }
 

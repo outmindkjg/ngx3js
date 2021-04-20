@@ -107,6 +107,26 @@ export class SceneComponent
       if (changes.storageName || changes.background) {
         this.scene = null;
       }
+      if (this.background && this.background instanceof TextureComponent) {
+        this.background.textureSubscribe().subscribe(() => {
+          if (this.scene && this.background instanceof TextureComponent) {
+            switch (this.backgroundType.toLowerCase()) {
+              case 'background-angular':
+              case 'backgroundangular':
+                const background = this.background.getTexture();
+                TextureComponent.checkTextureImage(background, () => {
+                  const envMap = this.getTextureEquirectangular(background);
+                  this.scene.background = envMap;
+                })
+                break;
+              default :
+                this.scene.background = this.background.getTexture();
+                break;
+            }
+          }
+        });
+      }
+  
     }
     super.ngOnChanges(changes);
   }
@@ -385,7 +405,6 @@ export class SceneComponent
               this.scene.background = this.background.getTexture();
               break;
           }
-
         } else {
           this.scene.background = ThreeUtil.getColorSafe(
             this.background,

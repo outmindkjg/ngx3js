@@ -8,6 +8,8 @@
   [statsMode]="0"
   [antialias]="true"
   [outputEncoding]="'sRGB'"
+  [toneMapping]="'ACESFilmic'"
+  [toneMappingExposure]="controls.exposure"
   [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
@@ -19,31 +21,16 @@
     <three-position [x]="0" [y]="0" [z]="120"></three-position>
   </three-camera>
   <three-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'backgroundangular'">
+    <three-light
+      [type]="'Ambient'"
+      [color]="'0xffffff'"
+      [intensity]="0.5"
+    >
+    </three-light>
     <three-shared>
       <three-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'"></three-texture>
       <three-texture #exrBackground [storageName]="'textures/piz_compressed.exr'"></three-texture>
     </three-shared>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
@@ -53,7 +40,14 @@
         [radialSegments]="150"
         [tubularSegments]="20"
       ></three-geometry>
-      <three-material [type]="'MeshStandard'" [metalness]="controls.metalness" [roughness]="controls.roughness"></three-material>
+      <three-material 
+        [type]="'MeshStandard'" 
+        [metalness]="controls.metalness" 
+        [roughness]="controls.roughness" 
+        [envMapIntensity]="1.0"
+      >
+        <three-texture [textureType]="'envMap'" [image]="'textures/equirectangular.png'" [encoding]="'sRGBA'"></three-texture>
+      </three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true" [visible]="controls.debug">
       <three-position [x]="0" [y]="-50" [z]="0"></three-position>

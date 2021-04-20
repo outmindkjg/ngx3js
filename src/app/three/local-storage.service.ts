@@ -396,6 +396,7 @@ export class LocalStorageService {
     } else if (key.endsWith('.exr')) {
       if (this.exrLoader === null) {
         this.exrLoader = new EXRLoader(this.getLoadingManager());
+        this.exrLoader.setDataType( THREE.UnsignedByteType )
       }
       this.setLoaderWithOption(this.exrLoader, options);
       this.exrLoader.load(
