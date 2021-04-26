@@ -853,7 +853,7 @@ export class ThreeUtil {
         if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
         } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
-          let [type,val1,val2,val3] = (colorStr + ',,,').replace('(',',').replace(':',',').replace(/[^A-Z\-0-9\.,]/g,'').split(',');
+          let [type,val1,val2,val3] = (colorStr + ',,,').replace('(',',').replace(')',',').replace(':',',').replace(/[^A-Za-z\-0-9\.,]/g,'').split(',');
           switch(type.toLowerCase()) {
             case 'hsl' :
               const h = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random();
