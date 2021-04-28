@@ -1,0 +1,604 @@
+.btn_accident.hover:after,
+.btn_accident:after,
+.btn_accident:hover:after,
+.btn_cctv {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/common.png);
+  background-size: 256px 225px;
+}
+.retina .btn_accident.hover:after,
+.retina .btn_accident:after,
+.retina .btn_accident:hover:after,
+.retina .btn_cctv {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/common@2x.png);
+}
+.btn_accident.type_accident1:before,
+.btn_accident.type_accident2:before,
+.btn_accident.type_accident3:before,
+.btn_accident.type_accident4:before,
+.btn_accident.type_accident5:before,
+.btn_place_info:after,
+.btn_transport_info:after,
+.path_oil.al:before,
+.path_oil.e1:before,
+.path_oil.gs:before,
+.path_oil.ns:before,
+.path_oil.olibank:before,
+.path_oil.sk:before,
+.path_oil.soil:before {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/directions.png);
+  background-size: 170px 161px;
+}
+.retina
+  
+  .btn_accident.type_accident1:before,
+.retina
+  
+  .btn_accident.type_accident2:before,
+.retina
+  
+  .btn_accident.type_accident3:before,
+.retina
+  
+  .btn_accident.type_accident4:before,
+.retina
+  
+  .btn_accident.type_accident5:before,
+.retina .btn_place_info:after,
+.retina .btn_transport_info:after,
+.retina .path_oil.al:before,
+.retina .path_oil.e1:before,
+.retina .path_oil.gs:before,
+.retina .path_oil.ns:before,
+.retina .path_oil.olibank:before,
+.retina .path_oil.sk:before,
+.retina .path_oil.soil:before {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/directions@2x.png);
+}
+
+  .path_icon.icon_navi87_1
+  .icon,
+
+  .path_icon.icon_navi87_2
+  .icon,
+
+  .path_icon.icon_navi87_3
+  .icon,
+
+  .path_icon.icon_navi87_4
+  .icon,
+
+  .path_icon.icon_navi87_5
+  .icon,
+
+  .path_icon.icon_navi88
+  .icon,
+
+  .path_icon.icon_navi89
+  .icon {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/directions-detail.png);
+  background-size: 296px 290px;
+}
+.retina
+  
+  .path_icon.icon_navi87_1
+  .icon,
+.retina
+  
+  .path_icon.icon_navi87_2
+  .icon,
+.retina
+  
+  .path_icon.icon_navi87_3
+  .icon,
+.retina
+  
+  .path_icon.icon_navi87_4
+  .icon,
+.retina
+  
+  .path_icon.icon_navi87_5
+  .icon,
+.retina
+  
+  .path_icon.icon_navi88
+  .icon,
+.retina
+  
+  .path_icon.icon_navi89
+  .icon {
+  background-image: url(https://ssl.pstatic.net/static/maps/v5/pc/20210323192811/directions-detail@2x.png);
+}
+{
+  display: block;
+}
+.path_box {
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  margin: 4px 0;
+}
+.path_box:after {
+  min-height: inherit;
+  font-size: 0;
+  content: "";
+}
+
+  .path_box
+  .path_title.hover,
+
+  .path_box
+  .path_title.selected,
+
+  .path_box
+  .path_title:hover {
+  color: #0475f4;
+}
+
+  .path_box.type_start
+  .path_title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+  .path_box.type_start
+  .path_icon,
+
+  .path_box.type_waypoint
+  .path_icon {
+  top: -6px;
+}
+
+  .path_box.type_goal
+  .path_inner {
+  display: block;
+}
+
+  .path_box.type_goal
+  .path_title {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+  .path_box.type_goal
+  .path_icon {
+  top: -6px;
+}
+
+  .path_box.type_goal
+  .path_btn {
+  display: inline-block;
+  vertical-align: middle;
+}
+.path_inner {
+  display: flex;
+  flex: 1;
+  position: relative;
+  padding-left: 40px;
+}
+.path_icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+}
+
+  .path_icon.icon_navi87_1
+  .icon {
+  background-position: 0 0;
+}
+
+  .path_icon.icon_navi87_1
+  .icon,
+
+  .path_icon.icon_navi87_2
+  .icon {
+  overflow: hidden;
+  display: inline-block;
+  width: 25px;
+  height: 35px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+
+  .path_icon.icon_navi87_2
+  .icon {
+  background-position: -27px 0;
+}
+
+  .path_icon.icon_navi87_3
+  .icon {
+  background-position: -54px 0;
+}
+
+  .path_icon.icon_navi87_3
+  .icon,
+
+  .path_icon.icon_navi87_4
+  .icon {
+  overflow: hidden;
+  display: inline-block;
+  width: 25px;
+  height: 35px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+
+  .path_icon.icon_navi87_4
+  .icon {
+  background-position: 0 -37px;
+}
+
+  .path_icon.icon_navi87_5
+  .icon {
+  background-position: -27px -37px;
+}
+
+  .path_icon.icon_navi87_5
+  .icon,
+
+  .path_icon.icon_navi88
+  .icon {
+  overflow: hidden;
+  display: inline-block;
+  width: 25px;
+  height: 35px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+
+  .path_icon.icon_navi88
+  .icon {
+  background-position: -54px -37px;
+}
+
+  .path_icon.icon_navi89
+  .icon {
+  overflow: hidden;
+  display: inline-block;
+  width: 25px;
+  height: 35px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -81px 0;
+}
+.path_title {
+  font-size: 13px;
+  letter-spacing: -0.2px;
+  line-height: 16px;
+  color: #333;
+  word-break: break-all;
+  text-align: left;
+}
+.path_title b {
+  font-weight: 500;
+}
+.path_btn {
+  flex-shrink: 0;
+  margin-left: 5px;
+  font-size: 0;
+}
+.btn_cctv {
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -22px -205px;
+}
+.btn_place_info,
+.btn_transport_info {
+  display: inline-block;
+  padding: 3px 2px 3px 6px;
+  border: 1px solid #dadada;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 11px;
+  letter-spacing: -0.5px;
+  line-height: 12px;
+  color: #333;
+  vertical-align: top;
+}
+.btn_place_info:after,
+.btn_transport_info:after {
+  overflow: hidden;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -44px -32px;
+  margin: 1px 0 0 1px;
+  content: "";
+}
+.btn_detail {
+  font-size: 14px;
+  width: 60px;
+  padding: 3px 0;
+  color: #bbb;
+  border: 1px solid #bbb;
+  border-radius: 15px;
+}
+.path_notice {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding-left: 70px;
+  color: #767676;
+}
+.path_guide_box {
+  position: relative;
+  font-size: 0;
+}
+.path_guide_box:before {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #f2f2f2;
+  opacity: 0.85;
+  content: "";
+}
+.path_guide {
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+  padding: 0 10px 0 40px;
+  font-size: 11px;
+  line-height: 13px;
+  color: #777;
+}
+
+  .path_guide
+  .path_guide_congestion {
+  margin-right: 5px;
+  font-weight: 500;
+}
+.path_guide_description {
+  display: none;
+  margin-top: 13px;
+  font-size: 12px;
+  color: #333;
+  line-height: 18px;
+}
+.path_guide_title_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.path_guide_title {
+  margin-right: 4px;
+  font-weight: 500;
+}
+.path_guide_text {
+  margin-top: 7px;
+  letter-spacing: -0.4px;
+  color: #767676;
+}
+.path_guide_date {
+  overflow: hidden;
+  margin-top: 7px;
+}
+
+  .path_guide_date
+  .tit {
+  float: left;
+  margin-right: 4px;
+  color: #333;
+  letter-spacing: -0.4px;
+}
+
+  .path_guide_date
+  .date {
+  overflow: hidden;
+  color: #f35252;
+}
+.path_guide_cp {
+  display: inline-block;
+  font-size: 11px;
+  color: #767676;
+}
+.path_thumb_box {
+  visibility: hidden;
+  position: absolute;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.path_thumb_box.loaded {
+  margin-left: 15px;
+  visibility: visible;
+  position: relative;
+}
+.path_thumb_box.loaded:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  content: "";
+}
+.path_move {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #999;
+}
+.path_oil_box {
+  padding-left: 70px;
+  margin: 6px 0 13px;
+}
+.path_oil {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 26px;
+  color: #777;
+}
+.path_oil:before {
+  margin-right: 4px;
+  vertical-align: -5px;
+  content: "";
+}
+.path_oil.gs:before {
+  background-position: -76px -32px;
+}
+.path_oil.gs:before,
+.path_oil.soil:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+.path_oil.soil:before {
+  background-position: 0 -76px;
+}
+.path_oil.olibank:before {
+  background-position: -28px -76px;
+}
+.path_oil.olibank:before,
+.path_oil.sk:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+.path_oil.sk:before {
+  background-position: -56px -76px;
+}
+.path_oil.e1:before {
+  background-position: -108px 0;
+}
+.path_oil.al:before,
+.path_oil.e1:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+.path_oil.al:before {
+  background-position: -108px -28px;
+}
+.path_oil.ns:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -108px -56px;
+}
+
+  .path_oil
+  + .path_oil {
+  margin-left: 10px;
+}
+.accident_box {
+  margin: 0 0 15px 40px;
+  font-size: 0;
+}
+.btn_accident {
+  font-size: 12px;
+  line-height: 16px;
+  color: #333;
+}
+.btn_accident:before {
+  margin-right: 2px;
+  content: "";
+}
+.btn_accident:after {
+  overflow: hidden;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -226px -115px;
+  vertical-align: -1px;
+  content: "";
+}
+.btn_accident.type_accident1:before {
+  background-position: -36px -131px;
+}
+.btn_accident.type_accident1:before,
+.btn_accident.type_accident2:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+}
+.btn_accident.type_accident2:before {
+  background-position: -54px -131px;
+}
+.btn_accident.type_accident3:before,
+.btn_accident.type_accident4:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -72px -131px;
+}
+.btn_accident.type_accident5:before {
+  overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -90px -131px;
+}
+
+  .btn_accident.expand
+  ~ .path_guide_description {
+  display: block;
+}
+.btn_accident.expand:after {
+  transform: rotate(180deg);
+  vertical-align: 0;
+}
+.btn_accident.hover,
+.btn_accident:hover {
+  font-weight: 500;
+  color: #0475f4;
+}
+.btn_accident.hover:after,
+.btn_accident:hover:after {
+  overflow: hidden;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  font-size: 0;
+  color: transparent;
+  vertical-align: top;
+  background-position: -226px -93px;
+  vertical-align: -1px;
+}
+.btn_accident.hover.expand:after,
+.btn_accident:hover.expand:after {
+  vertical-align: 0;
+}
