@@ -6,10 +6,26 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-materials-physical-reflectivity.component.html',
   styleUrls: ['./webgl-materials-physical-reflectivity.component.scss']
 })
-export class WebglMaterialsPhysicalReflectivityComponent extends BaseComponent<{}> {
+export class WebglMaterialsPhysicalReflectivityComponent extends BaseComponent<{
+  projection: string,
+  autoRotate: boolean,
+  reflectivity: number,
+  background: boolean,
+  exposure: number,
+  gemColor: string
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      projection: 'normal',
+      autoRotate: true,
+      reflectivity: 1.0,
+      background: false,
+      exposure: 1.0,
+      gemColor: 'Green'
+    },[
+      
+    ]);
   }
 
 }

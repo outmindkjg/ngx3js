@@ -27,7 +27,6 @@ export class WebglMaterialsEnvmapsExrComponent extends BaseComponent<{
       { name : 'metalness', type : 'number', min : 0, max : 1, step : 0.01 },
       { name : 'exposure', type : 'number', min : 0, max : 2, step : 0.01 },
       { name : 'debug', type : 'checkbox' },
-      
     ]);
   }
 
