@@ -2,7 +2,6 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - curve modifier - instanced
 </div>
 <three-renderer
-  [controlType]="'orbit'"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
@@ -10,58 +9,114 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['pointerdown','pointerup','pointermove']"
+  (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
+  <three-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></three-control>
+  <three-control
+    [type]="'orbit'"
+    [enablePan]="false"
+    [enableDamping]="true"
+    (onLoad)="setOrbitControl($event)"
+  ></three-control>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+    <three-position [x]="2" [y]="2" [z]="4"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+  <three-scene #scene>
     <three-light
       [type]="'directional'"
-      [color]="'0xffffff'"
+      [color]="'0xffaa33'"
       [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="-10" [y]="10" [z]="10"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
+    <three-light
+      [type]="'Ambient'"
+      [color]="'0x003973'"
+      [intensity]="1"
+    >
+    </three-light>
+    <three-shared>
+      <three-geometry 
+        #boxGeometry
         [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [width]="0.1"
+        [height]="0.1"
+        [depth]="0.1"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
+      <three-material 
+        #boxMaterial
+        [type]="'MeshBasic'"
+        [color]="'0xffff00'"
       ></three-material>
+      <three-curve 
+        #curve1
+        [type]="'catmullrom'" 
+        [points]="curvePath1"
+        [closed]="true"
+        [curveType]="'centripetal'"
+      ></three-curve>
+      <three-curve 
+        #curve2
+        [type]="'catmullrom'" 
+        [points]="curvePath2"
+        [closed]="true"
+        [curveType]="'centripetal'"
+      ></three-curve>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let box of initialPoints1" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh1($event)">
+        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
+      </three-mesh>
+      <three-mesh *ngFor="let box of initialPoints2" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh2($event)">
+        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
+      </three-mesh>
+      <three-mesh [type]="'lineloop'" [curve]="curve1" [divisions]="50">
+        <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
+      </three-mesh>
+      <three-mesh [type]="'lineloop'" [curve]="curve2" [divisions]="50">
+        <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
+      </three-mesh>
+      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve1" (onLoad)="setFlow1($event)">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Text'"
+          [font]="'helvetiker_regular'"
+          [text]="'Hello three.js!'"
+          [size]="0.2"
+          [height]="0.05"
+          [curveSegments]="12"
+          [bevelEnabled]="true"
+          [bevelThickness]="0.02"
+          [bevelSize]="0.01"
+          [bevelOffset]="0"
+          [bevelSegments]="5"
+        >
+          <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
+        </three-geometry>
+        <three-material [type]="'MeshStandard'" [color]="'0x99ffff'"></three-material>
+      </three-mesh>
+      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve2" (onLoad)="setFlow2($event)">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Text'"
+          [font]="'helvetiker_regular'"
+          [text]="'Hello three.js!'"
+          [size]="0.2"
+          [height]="0.05"
+          [curveSegments]="12"
+          [bevelEnabled]="true"
+          [bevelThickness]="0.02"
+          [bevelSize]="0.01"
+          [bevelOffset]="0"
+          [bevelSegments]="5"
+        >
+          <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
+        </three-geometry>
+        <three-material [type]="'MeshStandard'" [color]="'0x99ffff'"></three-material>
+      </three-mesh>      
     </three-mesh>
   </three-scene>
 </three-renderer>

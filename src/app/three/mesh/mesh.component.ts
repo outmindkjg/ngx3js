@@ -1071,11 +1071,17 @@ export class MeshComponent
           break;
           case 'instancedflow' :
             const instancedFlowMaterial = this.getMaterials()[0];
-            const instancedFlow = new InstancedFlow( 1, 1, geometry,  instancedFlowMaterial);
+            const instancedFlow = new InstancedFlow( this.getCount(1), 1, geometry,  instancedFlowMaterial);
             const instancedFlowCurve = this.getCurve();
             if (ThreeUtil.isNotNull(instancedFlowCurve)) {
               instancedFlow.updateCurve( 0, instancedFlowCurve);
+              instancedFlow.setCurve( 0, 0 );
+              for ( let i = 0; i < this.getCount(1); i ++ ) {
+                instancedFlow.moveIndividualAlongCurve( i, i * 1 / this.getCount(1) );
+                instancedFlow.object3D.setColorAt( i, new THREE.Color( 0xffffff * Math.random() ) );
+              }
             }
+
             this.storageSource = instancedFlow;
             this._referGeometry = geometry;
             this._referMateral = instancedFlowMaterial;
