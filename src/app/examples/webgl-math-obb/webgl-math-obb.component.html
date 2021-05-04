@@ -1,0 +1,52 @@
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - OBB (Oriented Bounding Box)
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0xffffff'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+  [useEvent]="['click']"
+  (eventListener)="eventListener($event)"
+>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+    <three-position [x]="0" [y]="0" [z]="75"></three-position>
+  </three-camera>
+  <three-scene #scene [background]="'0xffffff'">
+    <three-light
+      [type]="'Hemisphere'"
+      [skyColor]="'0xffffff'"
+      [groundColor]="'0x222222'"
+      [intensity]="1.5"
+    >
+      <three-position [x]="1" [y]="1" [z]="1"></three-position>
+    </three-light>
+    <three-shared>
+      <three-geometry
+        #geometry
+        [type]="'box'"
+        [width]="10"
+        [height]="5"
+        [depth]="6"
+      ></three-geometry>
+      <three-mesh [geometry]="geometry" (onLoad)="setHitBox($event)">
+        <three-material [type]="'MeshBasic'" [color]="'0x000000'" [wireframe]="true"></three-material>
+      </three-mesh>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let box of boxInfos" [geometry]="geometry">
+        <three-position [x]="box.position.x" [y]="box.position.y" [z]="box.position.z"></three-position>
+        <three-rotation [x]="box.rotation.x" [y]="box.rotation.x" [z]="box.rotation.x"></three-rotation>
+        <three-scale [x]="box.scale.x" [y]="box.scale.x" [z]="box.scale.x"></three-scale>
+        <three-material [type]="'meshlambert'" [color]="'0x00ff00'"></three-material>
+      </three-mesh>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

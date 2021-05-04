@@ -1,10 +1,7 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
+  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
+  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -18,10 +15,9 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>

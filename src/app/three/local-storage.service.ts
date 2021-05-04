@@ -1395,6 +1395,11 @@ export class LocalStorageService {
     fontWeight: string = ''
   ) {
     let fontPath: string = '';
+    if (ThreeUtil.isNull(fontWeight) || fontWeight === '') {
+       if (fontName.indexOf('_') > 0) {
+         [fontName, fontWeight] = fontName.split('_');
+       }
+    }
     switch (fontName.toLowerCase()) {
       case 'helvetiker':
         switch (fontWeight.toLowerCase()) {

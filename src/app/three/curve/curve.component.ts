@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
 
@@ -117,9 +118,14 @@ export class CurveComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      this.curve = null;
-      if (this.parent !== null && this.parent.resetGeometry) {
-        this.parent.resetGeometry(true);
+      if (this.curve !== null) {
+        this.curve = null;
+        this.getCurve();
+      } else if (this.parent !== null){
+        this.curve = null;
+        if (this.parent !== null && this.parent.resetGeometry) {
+          this.parent.resetGeometry(true);
+        }
       }
     }
   }
@@ -130,6 +136,12 @@ export class CurveComponent implements OnInit {
     if (this.parent !== parent) {
       this.parent = parent;
     }
+  }
+
+  private _curveSubject: Subject<THREE.Curve<THREE.Vector>> = new Subject<THREE.Curve<THREE.Vector>>();
+
+  curveSubscribe(): Observable<THREE.Curve<THREE.Vector>> {
+    return this._curveSubject.asObservable();
   }
 
   private curve: THREE.Curve<THREE.Vector> = null;
@@ -221,8 +233,8 @@ export class CurveComponent implements OnInit {
             this.getPointsV2([], 1)
           );
           break;
-
       }
+      this._curveSubject.next(this.curve);
     }
     return this.curve;
   }

@@ -25,6 +25,9 @@ import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
+import { Reflector } from 'three/examples/jsm/objects/Reflector';
+import { Flow, InstancedFlow } from "three/examples/jsm/modifiers/CurveModifier";
+
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, InterfaceMeshComponent, ThreeUtil } from '../interface';
@@ -41,6 +44,8 @@ import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
+import { CurveComponent } from '../curve/curve.component';
+import { Vector3 } from 'three';
 
 
 @Component({
@@ -71,6 +76,9 @@ export class MeshComponent
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private color: string | number = null;
+  @Input() private textureWidth: number = null;
+  @Input() private textureHeight: number = null;
+  @Input() private clipBias: number = null;
   @Input() private skyColor: string | number = null;
   @Input() private groundColor: string | number = null;
   @Input() private intensity: number = null;
@@ -124,6 +132,8 @@ export class MeshComponent
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
+  @Input() private curve: CurveComponent | THREE.Curve<Vector3> = null;
+  
   @Input() private shareParts: MeshComponent = null;
   
   @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
@@ -141,6 +151,7 @@ export class MeshComponent
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
+  @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -200,6 +211,18 @@ export class MeshComponent
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
+  private getTextureWidth(def?: number ): number {
+    return ThreeUtil.getTypeSafe(this.textureWidth, def);
+  }
+
+  private gettextureHeight(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.textureHeight, def);
+  }
+
+  private getClipBias(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.clipBias, def);
+  }
+
   private getSkyColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.skyColor, def);
   }
@@ -214,6 +237,10 @@ export class MeshComponent
 
   private getSize(def?: number): number {
     return ThreeUtil.getTypeSafe(this.size, def);
+  }
+
+  private getDivisions(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.divisions, def);
   }
 
   private getUsage(def?: string): THREE.Usage {
@@ -287,6 +314,8 @@ export class MeshComponent
 
   private _materialSubscribe: Subscription[] = [];
   private _geometrySubscribe: Subscription[] = [];
+  private _curveSubscribe: Subscription[] = [];
+  
 
   ngOnDestroy(): void {
     this._materialSubscribe = this.unSubscription(this._materialSubscribe);
@@ -298,6 +327,9 @@ export class MeshComponent
   private clips: THREE.AnimationClip[] | any = null;
   private clipMesh: THREE.Object3D = null;
   public storageSource : any = null;
+  private _referGeometry : any = null;
+  private _referMateral : any = null;
+  
   public helper: THREE.Object3D = null;
   getStorageSource(): any {
     return this.storageSource;
@@ -319,6 +351,20 @@ export class MeshComponent
     }
     if (this.geometryList !== null && this.geometryList.length > 0) {
       return this.geometryList.first.getGeometry();
+    }
+    return null;
+  }
+
+  getCurve(): THREE.Curve<THREE.Vector3> {
+    if (this.curve !== null) {
+      if (this.curve instanceof THREE.Curve) {
+        return this.curve;
+      } else {
+        return this.curve.getCurve() as THREE.Curve<THREE.Vector3>;
+      }
+    }
+    if (this.curveList !== null && this.curveList.length > 0) {
+      return this.curveList.first.getCurve() as THREE.Curve<THREE.Vector3>;
     }
     return null;
   }
@@ -429,16 +475,23 @@ export class MeshComponent
     this.cssChildrenList.changes.subscribe(() => {
       this.synkObject3D(['cssChildren']);
     });
+    
     if (this.geometryList !== null && this.geometryList !== undefined) {
       this.setGeometrySubscribe();
-      this.geometryList.changes.subscribe((e) => {
+      this.geometryList.changes.subscribe(() => {
         this.setGeometrySubscribe();
       });
     }
     if (this.materialList !== null && this.materialList !== undefined) {
       this.setMaterialSubscribe();
-      this.materialList.changes.subscribe((e) => {
+      this.materialList.changes.subscribe(() => {
         this.setMaterialSubscribe();
+      });
+    }
+    if (this.curveList !== null && this.curveList !== undefined) {
+      this.setCurveSubscribe();
+      this.curveList.changes.subscribe(() => {
+        this.setCurveSubscribe();
       });
     }
     super.ngAfterContentInit();
@@ -452,6 +505,16 @@ export class MeshComponent
           geometry instanceof THREE.BufferGeometry
             ? geometry
             : geometry.getGeometry();
+        switch(this.type.toLowerCase()) {
+          case 'flow' :
+          case 'instancedflow' :
+            if (this.storageSource === null || this._referGeometry !== geometryClone) {
+              this.resetMesh(true);
+            }
+            return ;
+          default :
+            break;
+        }
         if (meshGeometry.geometry !== geometryClone) {
           meshGeometry.geometry = geometryClone;
           this._meshSubject.next(meshGeometry);
@@ -462,7 +525,7 @@ export class MeshComponent
       }
     }
   }
-
+  
   setGeometrySubscribe() {
     if (this.geometryList !== null && this.geometryList !== undefined) {
       this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
@@ -493,9 +556,44 @@ export class MeshComponent
     }
   }
 
+  setCurveSubscribe() {
+    if (this.curveList !== null && this.curveList !== undefined) {
+      this._curveSubscribe = this.unSubscription(this._curveSubscribe);
+      if (
+        this.curve !== null &&
+        this.curve instanceof CurveComponent
+      ) {
+        this._curveSubscribe.push(
+          this.curve.curveSubscribe().subscribe(() => {
+            if (
+              this.curve instanceof CurveComponent
+            ) {
+              this.resetMesh(true);
+            }
+          })
+        );
+      }
+      this.curveList.forEach((curve) => {
+        this._curveSubscribe.push(
+          curve.curveSubscribe().subscribe(() => {
+            this.resetMesh(true);
+          })
+        );
+      });
+    }
+  }
+
   setMaterial(material: MaterialComponent, seqn: number) {
     if (this.mesh instanceof THREE.Mesh) {
       const materialClone = material.getMaterial();
+      switch(this.type.toLowerCase()) {
+        case 'flow' :
+        case 'instancedflow' :
+          if (this.storageSource === null || this._referMateral !== materialClone) {
+            this.resetMesh(true);
+          }
+          return ;
+      }
       switch (material.materialType.toLowerCase()) {
         case 'customdepth':
           this.mesh.customDepthMaterial = materialClone;
@@ -944,6 +1042,60 @@ export class MeshComponent
           cssObject.receiveShadow = this.receiveShadow;
           basemesh = new THREE.Mesh(cssGeometry, cssMaterials[0]);
           basemesh.add(cssObject);
+          break;
+        case 'reflector' :
+          basemesh = new Reflector(geometry, {
+            color: this.getColor(),
+            textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
+            textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+            clipBias: this.getClipBias(0.003),
+            // shader: undefined,
+            // encoding: this.getEn,
+          });
+          break;
+        case 'flow' :
+          const flowMaterial = this.getMaterials()[0];
+					const objectToCurve = new THREE.Mesh( geometry, flowMaterial);
+          const flow = new Flow( objectToCurve );
+          const flowCurve = this.getCurve();
+          if (ThreeUtil.isNotNull(flowCurve)) {
+            flow.updateCurve( 0, flowCurve);
+          }
+          this.storageSource = flow;
+          this._referGeometry = geometry;
+          this._referMateral = flowMaterial;
+          basemesh = flow.object3D;
+          basemesh.onBeforeRender = () => {
+            flow.moveAlongCurve(0.001);
+          };
+          break;
+          case 'instancedflow' :
+            const instancedFlowMaterial = this.getMaterials()[0];
+            const instancedFlow = new InstancedFlow( 1, 1, geometry,  instancedFlowMaterial);
+            const instancedFlowCurve = this.getCurve();
+            if (ThreeUtil.isNotNull(instancedFlowCurve)) {
+              instancedFlow.updateCurve( 0, instancedFlowCurve);
+            }
+            this.storageSource = instancedFlow;
+            this._referGeometry = geometry;
+            this._referMateral = instancedFlowMaterial;
+            basemesh = instancedFlow.object3D;
+            basemesh.onBeforeRender = () => {
+              instancedFlow.moveAlongCurve(0.001);
+            };
+            break;
+            
+        case 'lineloop' :
+          let points = [];
+          const lineloopCurve = this.getCurve();
+          if (ThreeUtil.isNotNull(lineloopCurve)) {
+            points = lineloopCurve.getPoints( this.getDivisions(50));
+          }
+          const lineLoop = new THREE.LineLoop(
+            new THREE.BufferGeometry().setFromPoints( points ),
+            this.getMaterials()
+          );
+          basemesh = lineLoop;
           break;
         case 'light':
           const light = new LightComponent();

@@ -1,0 +1,54 @@
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - gradually transform an orientation to a target orientation
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [autoRotate]="false"
+  [enablePan]="false"
+  [enableDamping]="true"
+  [statsMode]="0"
+  [antialias]="true"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+>
+  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="10">
+    <three-position [x]="0" [y]="0" [z]="5"></three-position>
+  </three-camera>
+  <three-scene #scene>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh (onLoad)="setCone($event)">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Cone'"
+          [radius]="0.1"
+          [height]="0.5"
+          [radialSegments]="8"
+        >
+          <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
+        </three-geometry>
+        <three-material [type]="'MeshNormal'"></three-material>
+      </three-mesh>
+      <three-mesh (onLoad)="setTarget($event)">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Sphere'"
+          [radius]="0.05"
+        ></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0xff0000'"></three-material>
+      </three-mesh>
+      <three-mesh>
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Sphere'"
+          [radius]="2"
+          [widthSegments]="32"
+          [heightSegments]="32"
+        ></three-geometry>
+        <three-material [type]="'MeshBasic'" [color]="'0xcccccc'" [wireframe]="true" [transparent]="true" [opacity]="0.3"></three-material>
+      </three-mesh>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

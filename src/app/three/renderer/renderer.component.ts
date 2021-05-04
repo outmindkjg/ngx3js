@@ -218,7 +218,11 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       } else {
         this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
       }
-      
+      if (useEvent.indexOf('click') > -1) {
+        this.eventClick = this.addWindowEvent('click', this.eventClick);
+      } else {
+        this.eventClick = this.removeWindowEvent('click', this.eventClick);
+      }
     }
   }
 
@@ -276,6 +280,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   private eventKeyDown : (event : any) => void = null;
   private eventKeyUp : (event : any) => void = null;
   private eventKeyPress : (event : any) => void = null;
+  private eventClick : (event : any) => void = null;
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -422,8 +427,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
-  private rendererWidth: number = null;
-  private rendererHeight: number = null;
+  public rendererWidth: number = null;
+  public rendererHeight: number = null;
 
   private stats: ThreeStats = null;
   private gui: ThreeGui = null;

@@ -1098,9 +1098,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           uv.setY( i, 1 - uv.getY( i ) );
         }
       }   
-      if (ThreeUtil.isNull(this.geometry.userData.component)) {
-        // this.geometry.userData.component = this;
-      }
       const geometryScale = this.getGeometryScale();
       if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
         this.geometry.scale( geometryScale, geometryScale, geometryScale );
@@ -1114,9 +1111,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         this.onInit(this.geometry);
       }
       this.onLoad.emit(this);
-      if (ThreeUtil.isNull(this.geometry.userData.component)) {
-        // this.geometry.userData.component = this;
-      }
       if (this.visible) {
         this._geometrySubject.next(this.geometry);
       }

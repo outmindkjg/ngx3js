@@ -311,6 +311,204 @@ import { WebglMaterialsVideoComponent } from './examples/webgl-materials-video/w
 import { WebglMaterialsWireframeComponent } from './examples/webgl-materials-wireframe/webgl-materials-wireframe.component';
 import { WebglMaterialsComponent } from './examples/webgl-materials/webgl-materials.component';
 
+import { WebglMathObbComponent } from './examples/webgl-math-obb/webgl-math-obb.component';
+import { WebglMathOrientationTransformComponent } from './examples/webgl-math-orientation-transform/webgl-math-orientation-transform.component';
+import { WebglMirrorComponent } from './examples/webgl-mirror/webgl-mirror.component';
+import { WebglModifierCurveComponent } from './examples/webgl-modifier-curve/webgl-modifier-curve.component';
+import { WebglModifierCurveInstancedComponent } from './examples/webgl-modifier-curve-instanced/webgl-modifier-curve-instanced.component';
+import { WebglModifierEdgesplitComponent } from './examples/webgl-modifier-edgesplit/webgl-modifier-edgesplit.component';
+import { WebglModifierSimplifierComponent } from './examples/webgl-modifier-simplifier/webgl-modifier-simplifier.component';
+import { WebglModifierTessellationComponent } from './examples/webgl-modifier-tessellation/webgl-modifier-tessellation.component';
+import { WebglMorphtargetsComponent } from './examples/webgl-morphtargets/webgl-morphtargets.component';
+import { WebglMorphtargetsHorseComponent } from './examples/webgl-morphtargets-horse/webgl-morphtargets-horse.component';
+import { WebglMorphtargetsSphereComponent } from './examples/webgl-morphtargets-sphere/webgl-morphtargets-sphere.component';
+import { WebglMultipleCanvasesCircleComponent } from './examples/webgl-multiple-canvases-circle/webgl-multiple-canvases-circle.component';
+import { WebglMultipleCanvasesComplexComponent } from './examples/webgl-multiple-canvases-complex/webgl-multiple-canvases-complex.component';
+import { WebglMultipleCanvasesGridComponent } from './examples/webgl-multiple-canvases-grid/webgl-multiple-canvases-grid.component';
+import { WebglMultipleElementsComponent } from './examples/webgl-multiple-elements/webgl-multiple-elements.component';
+import { WebglMultipleElementsTextComponent } from './examples/webgl-multiple-elements-text/webgl-multiple-elements-text.component';
+import { WebglMultipleRenderersComponent } from './examples/webgl-multiple-renderers/webgl-multiple-renderers.component';
+import { WebglMultipleScenesComparisonComponent } from './examples/webgl-multiple-scenes-comparison/webgl-multiple-scenes-comparison.component';
+import { WebglMultipleViewsComponent } from './examples/webgl-multiple-views/webgl-multiple-views.component';
+import { WebglPanoramaCubeComponent } from './examples/webgl-panorama-cube/webgl-panorama-cube.component';
+import { WebglPanoramaEquirectangularComponent } from './examples/webgl-panorama-equirectangular/webgl-panorama-equirectangular.component';
+import { WebglPerformanceComponent } from './examples/webgl-performance/webgl-performance.component';
+import { WebglPerformanceStaticComponent } from './examples/webgl-performance-static/webgl-performance-static.component';
+import { WebglPointsDynamicComponent } from './examples/webgl-points-dynamic/webgl-points-dynamic.component';
+import { WebglPointsSpritesComponent } from './examples/webgl-points-sprites/webgl-points-sprites.component';
+import { WebglPointsWavesComponent } from './examples/webgl-points-waves/webgl-points-waves.component';
+import { WebglRaycastSpriteComponent } from './examples/webgl-raycast-sprite/webgl-raycast-sprite.component';
+import { WebglRaycastTextureComponent } from './examples/webgl-raycast-texture/webgl-raycast-texture.component';
+import { WebglReadFloatBufferComponent } from './examples/webgl-read-float-buffer/webgl-read-float-buffer.component';
+import { WebglRefractionComponent } from './examples/webgl-refraction/webgl-refraction.component';
+import { WebglRttComponent } from './examples/webgl-rtt/webgl-rtt.component';
+import { WebglSandboxComponent } from './examples/webgl-sandbox/webgl-sandbox.component';
+import { WebglShaderComponent } from './examples/webgl-shader/webgl-shader.component';
+import { WebglShaderLavaComponent } from './examples/webgl-shader-lava/webgl-shader-lava.component';
+import { WebglShader2Component } from './examples/webgl-shader2/webgl-shader2.component';
+import { WebglShadersOceanComponent } from './examples/webgl-shaders-ocean/webgl-shaders-ocean.component';
+import { WebglShadersOcean2Component } from './examples/webgl-shaders-ocean2/webgl-shaders-ocean2.component';
+import { WebglShadersSkyComponent } from './examples/webgl-shaders-sky/webgl-shaders-sky.component';
+import { WebglShadersTonemappingComponent } from './examples/webgl-shaders-tonemapping/webgl-shaders-tonemapping.component';
+import { WebglShadersVectorComponent } from './examples/webgl-shaders-vector/webgl-shaders-vector.component';
+import { WebglShadingPhysicalComponent } from './examples/webgl-shading-physical/webgl-shading-physical.component';
+import { WebglShadowContactComponent } from './examples/webgl-shadow-contact/webgl-shadow-contact.component';
+import { WebglShadowmapComponent } from './examples/webgl-shadowmap/webgl-shadowmap.component';
+import { WebglShadowmapPerformanceComponent } from './examples/webgl-shadowmap-performance/webgl-shadowmap-performance.component';
+import { WebglShadowmapPointlightComponent } from './examples/webgl-shadowmap-pointlight/webgl-shadowmap-pointlight.component';
+import { WebglShadowmapViewerComponent } from './examples/webgl-shadowmap-viewer/webgl-shadowmap-viewer.component';
+import { WebglShadowmapVsmComponent } from './examples/webgl-shadowmap-vsm/webgl-shadowmap-vsm.component';
+import { WebglShadowmeshComponent } from './examples/webgl-shadowmesh/webgl-shadowmesh.component';
+import { WebglSkinningSimpleComponent } from './examples/webgl-skinning-simple/webgl-skinning-simple.component';
+import { WebglSpritesComponent } from './examples/webgl-sprites/webgl-sprites.component';
+import { WebglTestMemoryComponent } from './examples/webgl-test-memory/webgl-test-memory.component';
+import { WebglTestMemory2Component } from './examples/webgl-test-memory2/webgl-test-memory2.component';
+import { WebglTonemappingComponent } from './examples/webgl-tonemapping/webgl-tonemapping.component';
+import { WebglTrailsComponent } from './examples/webgl-trails/webgl-trails.component';
+import { WebglVideoKinectComponent } from './examples/webgl-video-kinect/webgl-video-kinect.component';
+import { WebglVideoPanoramaEquirectangularComponent } from './examples/webgl-video-panorama-equirectangular/webgl-video-panorama-equirectangular.component';
+import { WebglWaterComponent } from './examples/webgl-water/webgl-water.component';
+import { WebglWaterFlowmapComponent } from './examples/webgl-water-flowmap/webgl-water-flowmap.component';
+import { WebglLoaderNodesComponent } from './examples/webgl-loader-nodes/webgl-loader-nodes.component';
+import { WebglMaterialsCompileComponent } from './examples/webgl-materials-compile/webgl-materials-compile.component';
+import { WebglMaterialsEnvmapsHdrNodesComponent } from './examples/webgl-materials-envmaps-hdr-nodes/webgl-materials-envmaps-hdr-nodes.component';
+import { WebglMaterialsEnvmapsPmremNodesComponent } from './examples/webgl-materials-envmaps-pmrem-nodes/webgl-materials-envmaps-pmrem-nodes.component';
+import { WebglMaterialsNodesComponent } from './examples/webgl-materials-nodes/webgl-materials-nodes.component';
+import { WebglPerformanceNodesComponent } from './examples/webgl-performance-nodes/webgl-performance-nodes.component';
+import { WebglPostprocessingNodesComponent } from './examples/webgl-postprocessing-nodes/webgl-postprocessing-nodes.component';
+import { WebglPostprocessingNodesPassComponent } from './examples/webgl-postprocessing-nodes-pass/webgl-postprocessing-nodes-pass.component';
+import { WebglSpritesNodesComponent } from './examples/webgl-sprites-nodes/webgl-sprites-nodes.component';
+import { WebglPostprocessingComponent } from './examples/webgl-postprocessing/webgl-postprocessing.component';
+import { WebglPostprocessingD3lutComponent } from './examples/webgl-postprocessing-d3lut/webgl-postprocessing-d3lut.component';
+import { WebglPostprocessingAdvancedComponent } from './examples/webgl-postprocessing-advanced/webgl-postprocessing-advanced.component';
+import { WebglPostprocessingAfterimageComponent } from './examples/webgl-postprocessing-afterimage/webgl-postprocessing-afterimage.component';
+import { WebglPostprocessingBackgroundsComponent } from './examples/webgl-postprocessing-backgrounds/webgl-postprocessing-backgrounds.component';
+import { WebglPostprocessingCrossfadeComponent } from './examples/webgl-postprocessing-crossfade/webgl-postprocessing-crossfade.component';
+import { WebglPostprocessingDofComponent } from './examples/webgl-postprocessing-dof/webgl-postprocessing-dof.component';
+import { WebglPostprocessingDof2Component } from './examples/webgl-postprocessing-dof2/webgl-postprocessing-dof2.component';
+import { WebglPostprocessingFxaaComponent } from './examples/webgl-postprocessing-fxaa/webgl-postprocessing-fxaa.component';
+import { WebglPostprocessingGlitchComponent } from './examples/webgl-postprocessing-glitch/webgl-postprocessing-glitch.component';
+import { WebglPostprocessingGodraysComponent } from './examples/webgl-postprocessing-godrays/webgl-postprocessing-godrays.component';
+import { WebglPostprocessingRgbHalftoneComponent } from './examples/webgl-postprocessing-rgb-halftone/webgl-postprocessing-rgb-halftone.component';
+import { WebglPostprocessingMaskingComponent } from './examples/webgl-postprocessing-masking/webgl-postprocessing-masking.component';
+import { WebglPostprocessingSsaaComponent } from './examples/webgl-postprocessing-ssaa/webgl-postprocessing-ssaa.component';
+import { WebglPostprocessingOutlineComponent } from './examples/webgl-postprocessing-outline/webgl-postprocessing-outline.component';
+import { WebglPostprocessingPixelComponent } from './examples/webgl-postprocessing-pixel/webgl-postprocessing-pixel.component';
+import { WebglPostprocessingProceduralComponent } from './examples/webgl-postprocessing-procedural/webgl-postprocessing-procedural.component';
+import { WebglPostprocessingSaoComponent } from './examples/webgl-postprocessing-sao/webgl-postprocessing-sao.component';
+import { WebglPostprocessingSmaaComponent } from './examples/webgl-postprocessing-smaa/webgl-postprocessing-smaa.component';
+import { WebglPostprocessingSobelComponent } from './examples/webgl-postprocessing-sobel/webgl-postprocessing-sobel.component';
+import { WebglPostprocessingSsaoComponent } from './examples/webgl-postprocessing-ssao/webgl-postprocessing-ssao.component';
+import { WebglPostprocessingTaaComponent } from './examples/webgl-postprocessing-taa/webgl-postprocessing-taa.component';
+import { WebglPostprocessingUnrealBloomComponent } from './examples/webgl-postprocessing-unreal-bloom/webgl-postprocessing-unreal-bloom.component';
+import { WebglPostprocessingUnrealBloomSelectiveComponent } from './examples/webgl-postprocessing-unreal-bloom-selective/webgl-postprocessing-unreal-bloom-selective.component';
+import { WebglBuffergeometryComponent } from './examples/webgl-buffergeometry/webgl-buffergeometry.component';
+import { WebglBuffergeometryCompressionComponent } from './examples/webgl-buffergeometry-compression/webgl-buffergeometry-compression.component';
+import { WebglBuffergeometryCustomAttributesParticlesComponent } from './examples/webgl-buffergeometry-custom-attributes-particles/webgl-buffergeometry-custom-attributes-particles.component';
+import { WebglBuffergeometryDrawrangeComponent } from './examples/webgl-buffergeometry-drawrange/webgl-buffergeometry-drawrange.component';
+import { WebglBuffergeometryGlbufferattributeComponent } from './examples/webgl-buffergeometry-glbufferattribute/webgl-buffergeometry-glbufferattribute.component';
+import { WebglBuffergeometryIndexedComponent } from './examples/webgl-buffergeometry-indexed/webgl-buffergeometry-indexed.component';
+import { WebglBuffergeometryInstancingComponent } from './examples/webgl-buffergeometry-instancing/webgl-buffergeometry-instancing.component';
+import { WebglBuffergeometryInstancingBillboardsComponent } from './examples/webgl-buffergeometry-instancing-billboards/webgl-buffergeometry-instancing-billboards.component';
+import { WebglBuffergeometryInstancingInterleavedComponent } from './examples/webgl-buffergeometry-instancing-interleaved/webgl-buffergeometry-instancing-interleaved.component';
+import { WebglBuffergeometryLinesComponent } from './examples/webgl-buffergeometry-lines/webgl-buffergeometry-lines.component';
+import { WebglBuffergeometryLinesIndexedComponent } from './examples/webgl-buffergeometry-lines-indexed/webgl-buffergeometry-lines-indexed.component';
+import { WebglBuffergeometryPointsComponent } from './examples/webgl-buffergeometry-points/webgl-buffergeometry-points.component';
+import { WebglBuffergeometryPointsInterleavedComponent } from './examples/webgl-buffergeometry-points-interleaved/webgl-buffergeometry-points-interleaved.component';
+import { WebglBuffergeometryRawshaderComponent } from './examples/webgl-buffergeometry-rawshader/webgl-buffergeometry-rawshader.component';
+import { WebglBuffergeometrySelectiveDrawComponent } from './examples/webgl-buffergeometry-selective-draw/webgl-buffergeometry-selective-draw.component';
+import { WebglBuffergeometryUintComponent } from './examples/webgl-buffergeometry-uint/webgl-buffergeometry-uint.component';
+import { WebglCustomAttributesComponent } from './examples/webgl-custom-attributes/webgl-custom-attributes.component';
+import { WebglCustomAttributesLinesComponent } from './examples/webgl-custom-attributes-lines/webgl-custom-attributes-lines.component';
+import { WebglCustomAttributesPointsComponent } from './examples/webgl-custom-attributes-points/webgl-custom-attributes-points.component';
+import { WebglCustomAttributesPoints2Component } from './examples/webgl-custom-attributes-points2/webgl-custom-attributes-points2.component';
+import { WebglCustomAttributesPoints3Component } from './examples/webgl-custom-attributes-points3/webgl-custom-attributes-points3.component';
+import { WebglGpgpuBirdsComponent } from './examples/webgl-gpgpu-birds/webgl-gpgpu-birds.component';
+import { WebglGpgpuBirdsGltfComponent } from './examples/webgl-gpgpu-birds-gltf/webgl-gpgpu-birds-gltf.component';
+import { WebglGpgpuWaterComponent } from './examples/webgl-gpgpu-water/webgl-gpgpu-water.component';
+import { WebglGpgpuProtoplanetComponent } from './examples/webgl-gpgpu-protoplanet/webgl-gpgpu-protoplanet.component';
+import { WebglInstancingModifiedComponent } from './examples/webgl-instancing-modified/webgl-instancing-modified.component';
+import { WebglLightningstrikeComponent } from './examples/webgl-lightningstrike/webgl-lightningstrike.component';
+import { WebglMaterialsModifiedComponent } from './examples/webgl-materials-modified/webgl-materials-modified.component';
+import { WebglRaymarchingReflectComponent } from './examples/webgl-raymarching-reflect/webgl-raymarching-reflect.component';
+import { WebglShadowmapCsmComponent } from './examples/webgl-shadowmap-csm/webgl-shadowmap-csm.component';
+import { WebglShadowmapPcssComponent } from './examples/webgl-shadowmap-pcss/webgl-shadowmap-pcss.component';
+import { WebglSimpleGiComponent } from './examples/webgl-simple-gi/webgl-simple-gi.component';
+import { WebglTiledForwardComponent } from './examples/webgl-tiled-forward/webgl-tiled-forward.component';
+import { WebglWorkerOffscreencanvasComponent } from './examples/webgl-worker-offscreencanvas/webgl-worker-offscreencanvas.component';
+import { Webgl2BuffergeometryAttributesIntegerComponent } from './examples/webgl2-buffergeometry-attributes-integer/webgl2-buffergeometry-attributes-integer.component';
+import { Webgl2MaterialsTexture2darrayComponent } from './examples/webgl2-materials-texture2darray/webgl2-materials-texture2darray.component';
+import { Webgl2MaterialsTexture3dComponent } from './examples/webgl2-materials-texture3d/webgl2-materials-texture3d.component';
+import { Webgl2MultisampledRenderbuffersComponent } from './examples/webgl2-multisampled-renderbuffers/webgl2-multisampled-renderbuffers.component';
+import { Webgl2VolumeCloudComponent } from './examples/webgl2-volume-cloud/webgl2-volume-cloud.component';
+import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instancing/webgl2-volume-instancing.component';
+import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
+import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
+import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
+import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
+import { WebaudioOrientationComponent } from './examples/webaudio-orientation/webaudio-orientation.component';
+import { WebaudioSandboxComponent } from './examples/webaudio-sandbox/webaudio-sandbox.component';
+import { WebaudioTimingComponent } from './examples/webaudio-timing/webaudio-timing.component';
+import { WebaudioVisualizerComponent } from './examples/webaudio-visualizer/webaudio-visualizer.component';
+import { WebxrArConesComponent } from './examples/webxr-ar-cones/webxr-ar-cones.component';
+import { WebxrArHittestComponent } from './examples/webxr-ar-hittest/webxr-ar-hittest.component';
+import { WebxrArPaintComponent } from './examples/webxr-ar-paint/webxr-ar-paint.component';
+import { WebxrVrBallshooterComponent } from './examples/webxr-vr-ballshooter/webxr-vr-ballshooter.component';
+import { WebxrVrCubesComponent } from './examples/webxr-vr-cubes/webxr-vr-cubes.component';
+import { WebxrVrDraggingComponent } from './examples/webxr-vr-dragging/webxr-vr-dragging.component';
+import { WebxrVrHandinputComponent } from './examples/webxr-vr-handinput/webxr-vr-handinput.component';
+import { WebxrVrHandinputCubesComponent } from './examples/webxr-vr-handinput-cubes/webxr-vr-handinput-cubes.component';
+import { WebxrVrHandinputProfilesComponent } from './examples/webxr-vr-handinput-profiles/webxr-vr-handinput-profiles.component';
+import { WebxrVrHapticsComponent } from './examples/webxr-vr-haptics/webxr-vr-haptics.component';
+import { WebxrVrLorenzattractorComponent } from './examples/webxr-vr-lorenzattractor/webxr-vr-lorenzattractor.component';
+import { WebxrVrPanoramaComponent } from './examples/webxr-vr-panorama/webxr-vr-panorama.component';
+import { WebxrVrPanoramaDepthComponent } from './examples/webxr-vr-panorama-depth/webxr-vr-panorama-depth.component';
+import { WebxrVrPaintComponent } from './examples/webxr-vr-paint/webxr-vr-paint.component';
+import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster/webxr-vr-rollercoaster.component';
+import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
+import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
+import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
+import { GamesFpsComponent } from './examples/games-fps/games-fps.component';
+import { PhysicsAmmoBreakComponent } from './examples/physics-ammo-break/physics-ammo-break.component';
+import { PhysicsAmmoClothComponent } from './examples/physics-ammo-cloth/physics-ammo-cloth.component';
+import { PhysicsAmmoInstancingComponent } from './examples/physics-ammo-instancing/physics-ammo-instancing.component';
+import { PhysicsAmmoRopeComponent } from './examples/physics-ammo-rope/physics-ammo-rope.component';
+import { PhysicsAmmoTerrainComponent } from './examples/physics-ammo-terrain/physics-ammo-terrain.component';
+import { PhysicsAmmoVolumeComponent } from './examples/physics-ammo-volume/physics-ammo-volume.component';
+import { MiscAnimationGroupsComponent } from './examples/misc-animation-groups/misc-animation-groups.component';
+import { MiscAnimationKeysComponent } from './examples/misc-animation-keys/misc-animation-keys.component';
+import { MiscBoxselectionComponent } from './examples/misc-boxselection/misc-boxselection.component';
+import { MiscControlsDeviceorientationComponent } from './examples/misc-controls-deviceorientation/misc-controls-deviceorientation.component';
+import { MiscControlsDragComponent } from './examples/misc-controls-drag/misc-controls-drag.component';
+import { MiscControlsFlyComponent } from './examples/misc-controls-fly/misc-controls-fly.component';
+import { MiscControlsMapComponent } from './examples/misc-controls-map/misc-controls-map.component';
+import { MiscControlsOrbitComponent } from './examples/misc-controls-orbit/misc-controls-orbit.component';
+import { MiscControlsPointerlockComponent } from './examples/misc-controls-pointerlock/misc-controls-pointerlock.component';
+import { MiscControlsTrackballComponent } from './examples/misc-controls-trackball/misc-controls-trackball.component';
+import { MiscControlsTransformComponent } from './examples/misc-controls-transform/misc-controls-transform.component';
+import { MiscExporterColladaComponent } from './examples/misc-exporter-collada/misc-exporter-collada.component';
+import { MiscExporterDracoComponent } from './examples/misc-exporter-draco/misc-exporter-draco.component';
+import { MiscExporterGltfComponent } from './examples/misc-exporter-gltf/misc-exporter-gltf.component';
+import { MiscExporterObjComponent } from './examples/misc-exporter-obj/misc-exporter-obj.component';
+import { MiscExporterPlyComponent } from './examples/misc-exporter-ply/misc-exporter-ply.component';
+import { MiscExporterStlComponent } from './examples/misc-exporter-stl/misc-exporter-stl.component';
+import { MiscLegacyComponent } from './examples/misc-legacy/misc-legacy.component';
+import { MiscLookatComponent } from './examples/misc-lookat/misc-lookat.component';
+import { Css2dLabelComponent } from './examples/css2d-label/css2d-label.component';
+import { Css3dMoleculesComponent } from './examples/css3d-molecules/css3d-molecules.component';
+import { Css3dOrthographicComponent } from './examples/css3d-orthographic/css3d-orthographic.component';
+import { Css3dPanoramaComponent } from './examples/css3d-panorama/css3d-panorama.component';
+import { Css3dPanoramaDeviceorientationComponent } from './examples/css3d-panorama-deviceorientation/css3d-panorama-deviceorientation.component';
+import { Css3dPeriodictableComponent } from './examples/css3d-periodictable/css3d-periodictable.component';
+import { Css3dSandboxComponent } from './examples/css3d-sandbox/css3d-sandbox.component';
+import { Css3dSpritesComponent } from './examples/css3d-sprites/css3d-sprites.component';
+import { Css3dYoutubeComponent } from './examples/css3d-youtube/css3d-youtube.component';
+import { SvgLinesComponent } from './examples/svg-lines/svg-lines.component';
+import { SvgSandboxComponent } from './examples/svg-sandbox/svg-sandbox.component';
+import { WebglFurnaceTestComponent } from './examples/webgl-furnace-test/webgl-furnace-test.component';
+import { WebglPmremTestComponent } from './examples/webgl-pmrem-test/webgl-pmrem-test.component';
+import { MiscUvTestsComponent } from './examples/misc-uv-tests/misc-uv-tests.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
   {
@@ -521,427 +719,427 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'webgl_animation_cloth' },
       {
         path: 'webgl_animation_cloth',
-        component: WebglAnimationClothComponent
+        component: WebglAnimationClothComponent,
       },
       {
         path: 'webgl_animation_keyframes',
-        component: WebglAnimationKeyframesComponent
+        component: WebglAnimationKeyframesComponent,
       },
       {
         path: 'webgl_animation_skinning_blending',
-        component: WebglAnimationSkinningBlendingComponent
+        component: WebglAnimationSkinningBlendingComponent,
       },
       {
         path: 'webgl_animation_skinning_additive_blending',
-        component: WebglAnimationSkinningAdditiveBlendingComponent
+        component: WebglAnimationSkinningAdditiveBlendingComponent,
       },
       {
         path: 'webgl_animation_skinning_morph',
-        component: WebglAnimationSkinningMorphComponent
+        component: WebglAnimationSkinningMorphComponent,
       },
       {
         path: 'webgl_animation_multiple',
-        component: WebglAnimationMultipleComponent
+        component: WebglAnimationMultipleComponent,
       },
       { path: 'webgl_camera', component: WebglCameraComponent },
       { path: 'webgl_camera_array', component: WebglCameraArrayComponent },
       {
         path: 'webgl_camera_cinematic',
-        component: WebglCameraCinematicComponent
+        component: WebglCameraCinematicComponent,
       },
       {
         path: 'webgl_camera_logarithmicdepthbuffer',
-        component: WebglCameraLogarithmicdepthbufferComponent
+        component: WebglCameraLogarithmicdepthbufferComponent,
       },
       { path: 'webgl_clipping', component: WebglClippingComponent },
       {
         path: 'webgl_clipping_advanced',
-        component: WebglClippingAdvancedComponent
+        component: WebglClippingAdvancedComponent,
       },
       {
         path: 'webgl_clipping_intersection',
-        component: WebglClippingIntersectionComponent
+        component: WebglClippingIntersectionComponent,
       },
       {
         path: 'webgl_clipping_stencil',
-        component: WebglClippingStencilComponent
+        component: WebglClippingStencilComponent,
       },
       { path: 'webgl_decals', component: WebglDecalsComponent },
       { path: 'webgl_depth_texture', component: WebglDepthTextureComponent },
       {
         path: 'webgl_effects_anaglyph',
-        component: WebglEffectsAnaglyphComponent
+        component: WebglEffectsAnaglyphComponent,
       },
       { path: 'webgl_effects_ascii', component: WebglEffectsAsciiComponent },
       {
         path: 'webgl_effects_parallaxbarrier',
-        component: WebglEffectsParallaxbarrierComponent
+        component: WebglEffectsParallaxbarrierComponent,
       },
       {
         path: 'webgl_effects_peppersghost',
-        component: WebglEffectsPeppersghostComponent
+        component: WebglEffectsPeppersghostComponent,
       },
       { path: 'webgl_effects_stereo', component: WebglEffectsStereoComponent },
       {
         path: 'webgl_framebuffer_texture',
-        component: WebglFramebufferTextureComponent
+        component: WebglFramebufferTextureComponent,
       },
       { path: 'webgl_geometries', component: WebglGeometriesComponent },
       {
         path: 'webgl_geometries_parametric',
-        component: WebglGeometriesParametricComponent
+        component: WebglGeometriesParametricComponent,
       },
       {
         path: 'webgl_geometry_colors',
-        component: WebglGeometryColorsComponent
+        component: WebglGeometryColorsComponent,
       },
       {
         path: 'webgl_geometry_colors_lookuptable',
-        component: WebglGeometryColorsLookuptableComponent
+        component: WebglGeometryColorsLookuptableComponent,
       },
       {
         path: 'webgl_geometry_convex',
-        component: WebglGeometryConvexComponent
+        component: WebglGeometryConvexComponent,
       },
       { path: 'webgl_geometry_cube', component: WebglGeometryCubeComponent },
       {
         path: 'webgl_geometry_dynamic',
-        component: WebglGeometryDynamicComponent
+        component: WebglGeometryDynamicComponent,
       },
       {
         path: 'webgl_geometry_extrude_shapes',
-        component: WebglGeometryExtrudeShapesComponent
+        component: WebglGeometryExtrudeShapesComponent,
       },
       {
         path: 'webgl_geometry_extrude_shapes2',
-        component: WebglGeometryExtrudeShapes2Component
+        component: WebglGeometryExtrudeShapes2Component,
       },
       {
         path: 'webgl_geometry_extrude_splines',
-        component: WebglGeometryExtrudeSplinesComponent
+        component: WebglGeometryExtrudeSplinesComponent,
       },
       {
         path: 'webgl_geometry_hierarchy',
-        component: WebglGeometryHierarchyComponent
+        component: WebglGeometryHierarchyComponent,
       },
       {
         path: 'webgl_geometry_hierarchy2',
-        component: WebglGeometryHierarchy2Component
+        component: WebglGeometryHierarchy2Component,
       },
       {
         path: 'webgl_geometry_minecraft',
-        component: WebglGeometryMinecraftComponent
+        component: WebglGeometryMinecraftComponent,
       },
       {
         path: 'webgl_geometry_minecraft_ao',
-        component: WebglGeometryMinecraftAoComponent
+        component: WebglGeometryMinecraftAoComponent,
       },
       {
         path: 'webgl_geometry_normals',
-        component: WebglGeometryNormalsComponent
+        component: WebglGeometryNormalsComponent,
       },
       { path: 'webgl_geometry_nurbs', component: WebglGeometryNurbsComponent },
       {
         path: 'webgl_geometry_shapes',
-        component: WebglGeometryShapesComponent
+        component: WebglGeometryShapesComponent,
       },
       {
         path: 'webgl_geometry_spline_editor',
-        component: WebglGeometrySplineEditorComponent
+        component: WebglGeometrySplineEditorComponent,
       },
       {
         path: 'webgl_geometry_teapot',
-        component: WebglGeometryTeapotComponent
+        component: WebglGeometryTeapotComponent,
       },
       {
         path: 'webgl_geometry_terrain',
-        component: WebglGeometryTerrainComponent
+        component: WebglGeometryTerrainComponent,
       },
       {
         path: 'webgl_geometry_terrain_fog',
-        component: WebglGeometryTerrainFogComponent
+        component: WebglGeometryTerrainFogComponent,
       },
       {
         path: 'webgl_geometry_terrain_raycast',
-        component: WebglGeometryTerrainRaycastComponent
+        component: WebglGeometryTerrainRaycastComponent,
       },
       { path: 'webgl_geometry_text', component: WebglGeometryTextComponent },
       {
         path: 'webgl_geometry_text_shapes',
-        component: WebglGeometryTextShapesComponent
+        component: WebglGeometryTextShapesComponent,
       },
       {
         path: 'webgl_geometry_text_stroke',
-        component: WebglGeometryTextStrokeComponent
+        component: WebglGeometryTextStrokeComponent,
       },
       { path: 'webgl_helpers', component: WebglHelpersComponent },
       {
         path: 'webgl_instancing_dynamic',
-        component: WebglInstancingDynamicComponent
+        component: WebglInstancingDynamicComponent,
       },
       {
         path: 'webgl_instancing_performance',
-        component: WebglInstancingPerformanceComponent
+        component: WebglInstancingPerformanceComponent,
       },
       {
         path: 'webgl_instancing_raycast',
-        component: WebglInstancingRaycastComponent
+        component: WebglInstancingRaycastComponent,
       },
       {
         path: 'webgl_instancing_scatter',
-        component: WebglInstancingScatterComponent
+        component: WebglInstancingScatterComponent,
       },
       {
         path: 'webgl_interactive_buffergeometry',
-        component: WebglInteractiveBuffergeometryComponent
+        component: WebglInteractiveBuffergeometryComponent,
       },
       {
         path: 'webgl_interactive_cubes',
-        component: WebglInteractiveCubesComponent
+        component: WebglInteractiveCubesComponent,
       },
       {
         path: 'webgl_interactive_cubes_gpu',
-        component: WebglInteractiveCubesGpuComponent
+        component: WebglInteractiveCubesGpuComponent,
       },
       {
         path: 'webgl_interactive_cubes_ortho',
-        component: WebglInteractiveCubesOrthoComponent
+        component: WebglInteractiveCubesOrthoComponent,
       },
       {
         path: 'webgl_interactive_lines',
-        component: WebglInteractiveLinesComponent
+        component: WebglInteractiveLinesComponent,
       },
       {
         path: 'webgl_interactive_points',
-        component: WebglInteractivePointsComponent
+        component: WebglInteractivePointsComponent,
       },
       {
         path: 'webgl_interactive_raycasting_points',
-        component: WebglInteractiveRaycastingPointsComponent
+        component: WebglInteractiveRaycastingPointsComponent,
       },
       {
         path: 'webgl_interactive_voxelpainter',
-        component: WebglInteractiveVoxelpainterComponent
+        component: WebglInteractiveVoxelpainterComponent,
       },
       { path: 'webgl_layers', component: WebglLayersComponent },
       { path: 'webgl_lensflares', component: WebglLensflaresComponent },
       { path: 'webgl_lightprobe', component: WebglLightprobeComponent },
       {
         path: 'webgl_lightprobe_cubecamera',
-        component: WebglLightprobeCubecameraComponent
+        component: WebglLightprobeCubecameraComponent,
       },
       {
         path: 'webgl_lights_hemisphere',
-        component: WebglLightsHemisphereComponent
+        component: WebglLightsHemisphereComponent,
       },
       {
         path: 'webgl_lights_physical',
-        component: WebglLightsPhysicalComponent
+        component: WebglLightsPhysicalComponent,
       },
       {
         path: 'webgl_lights_pointlights',
-        component: WebglLightsPointlightsComponent
+        component: WebglLightsPointlightsComponent,
       },
       {
         path: 'webgl_lights_pointlights2',
-        component: WebglLightsPointlights2Component
+        component: WebglLightsPointlights2Component,
       },
       {
         path: 'webgl_lights_spotlight',
-        component: WebglLightsSpotlightComponent
+        component: WebglLightsSpotlightComponent,
       },
       {
         path: 'webgl_lights_spotlights',
-        component: WebglLightsSpotlightsComponent
+        component: WebglLightsSpotlightsComponent,
       },
       {
         path: 'webgl_lights_rectarealight',
-        component: WebglLightsRectarealightComponent
+        component: WebglLightsRectarealightComponent,
       },
       { path: 'webgl_lines_colors', component: WebglLinesColorsComponent },
       { path: 'webgl_lines_dashed', component: WebglLinesDashedComponent },
       { path: 'webgl_lines_fat', component: WebglLinesFatComponent },
       {
         path: 'webgl_lines_fat_wireframe',
-        component: WebglLinesFatWireframeComponent
+        component: WebglLinesFatWireframeComponent,
       },
       { path: 'webgl_lines_sphere', component: WebglLinesSphereComponent },
       {
         path: 'webgl_materials_blending',
-        component: WebglMaterialsBlendingComponent
+        component: WebglMaterialsBlendingComponent,
       },
       {
         path: 'webgl_materials_blending_custom',
-        component: WebglMaterialsBlendingCustomComponent
+        component: WebglMaterialsBlendingCustomComponent,
       },
       {
         path: 'webgl_materials_bumpmap',
-        component: WebglMaterialsBumpmapComponent
+        component: WebglMaterialsBumpmapComponent,
       },
       { path: 'webgl_materials_car', component: WebglMaterialsCarComponent },
       {
         path: 'webgl_materials_channels',
-        component: WebglMaterialsChannelsComponent
+        component: WebglMaterialsChannelsComponent,
       },
       {
         path: 'webgl_materials_cubemap',
-        component: WebglMaterialsCubemapComponent
+        component: WebglMaterialsCubemapComponent,
       },
       {
         path: 'webgl_materials_cubemap_balls_reflection',
-        component: WebglMaterialsCubemapBallsReflectionComponent
+        component: WebglMaterialsCubemapBallsReflectionComponent,
       },
       {
         path: 'webgl_materials_cubemap_balls_refraction',
-        component: WebglMaterialsCubemapBallsRefractionComponent
+        component: WebglMaterialsCubemapBallsRefractionComponent,
       },
       {
         path: 'webgl_materials_cubemap_dynamic',
-        component: WebglMaterialsCubemapDynamicComponent
+        component: WebglMaterialsCubemapDynamicComponent,
       },
       {
         path: 'webgl_materials_cubemap_refraction',
-        component: WebglMaterialsCubemapRefractionComponent
+        component: WebglMaterialsCubemapRefractionComponent,
       },
       {
         path: 'webgl_materials_cubemap_mipmaps',
-        component: WebglMaterialsCubemapMipmapsComponent
+        component: WebglMaterialsCubemapMipmapsComponent,
       },
       {
         path: 'webgl_materials_curvature',
-        component: WebglMaterialsCurvatureComponent
+        component: WebglMaterialsCurvatureComponent,
       },
       {
         path: 'webgl_materials_displacementmap',
-        component: WebglMaterialsDisplacementmapComponent
+        component: WebglMaterialsDisplacementmapComponent,
       },
       {
         path: 'webgl_materials_envmaps',
-        component: WebglMaterialsEnvmapsComponent
+        component: WebglMaterialsEnvmapsComponent,
       },
       {
         path: 'webgl_materials_envmaps_exr',
-        component: WebglMaterialsEnvmapsExrComponent
+        component: WebglMaterialsEnvmapsExrComponent,
       },
       {
         path: 'webgl_materials_envmaps_hdr',
-        component: WebglMaterialsEnvmapsHdrComponent
+        component: WebglMaterialsEnvmapsHdrComponent,
       },
       {
         path: 'webgl_materials_envmaps_parallax',
-        component: WebglMaterialsEnvmapsParallaxComponent
+        component: WebglMaterialsEnvmapsParallaxComponent,
       },
       {
         path: 'webgl_materials_grass',
-        component: WebglMaterialsGrassComponent
+        component: WebglMaterialsGrassComponent,
       },
       {
         path: 'webgl_materials_lightmap',
-        component: WebglMaterialsLightmapComponent
+        component: WebglMaterialsLightmapComponent,
       },
       {
         path: 'webgl_materials_matcap',
-        component: WebglMaterialsMatcapComponent
+        component: WebglMaterialsMatcapComponent,
       },
       {
         path: 'webgl_materials_normalmap',
-        component: WebglMaterialsNormalmapComponent
+        component: WebglMaterialsNormalmapComponent,
       },
       {
         path: 'webgl_materials_normalmap_object_space',
-        component: WebglMaterialsNormalmapObjectSpaceComponent
+        component: WebglMaterialsNormalmapObjectSpaceComponent,
       },
       {
         path: 'webgl_materials_parallaxmap',
-        component: WebglMaterialsParallaxmapComponent
+        component: WebglMaterialsParallaxmapComponent,
       },
       {
         path: 'webgl_materials_physical_clearcoat',
-        component: WebglMaterialsPhysicalClearcoatComponent
+        component: WebglMaterialsPhysicalClearcoatComponent,
       },
       {
         path: 'webgl_materials_physical_reflectivity',
-        component: WebglMaterialsPhysicalReflectivityComponent
+        component: WebglMaterialsPhysicalReflectivityComponent,
       },
       {
         path: 'webgl_materials_physical_sheen',
-        component: WebglMaterialsPhysicalSheenComponent
+        component: WebglMaterialsPhysicalSheenComponent,
       },
       {
         path: 'webgl_materials_physical_transmission',
-        component: WebglMaterialsPhysicalTransmissionComponent
+        component: WebglMaterialsPhysicalTransmissionComponent,
       },
       {
         path: 'webgl_materials_shaders_fresnel',
-        component: WebglMaterialsShadersFresnelComponent
+        component: WebglMaterialsShadersFresnelComponent,
       },
       {
         path: 'webgl_materials_standard',
-        component: WebglMaterialsStandardComponent
+        component: WebglMaterialsStandardComponent,
       },
       {
         path: 'webgl_materials_subsurface_scattering',
-        component: WebglMaterialsSubsurfaceScatteringComponent
+        component: WebglMaterialsSubsurfaceScatteringComponent,
       },
       {
         path: 'webgl_materials_texture_anisotropy',
-        component: WebglMaterialsTextureAnisotropyComponent
+        component: WebglMaterialsTextureAnisotropyComponent,
       },
       {
         path: 'webgl_materials_texture_canvas',
-        component: WebglMaterialsTextureCanvasComponent
+        component: WebglMaterialsTextureCanvasComponent,
       },
       {
         path: 'webgl_materials_texture_filters',
-        component: WebglMaterialsTextureFiltersComponent
+        component: WebglMaterialsTextureFiltersComponent,
       },
       {
         path: 'webgl_materials_texture_manualmipmap',
-        component: WebglMaterialsTextureManualmipmapComponent
+        component: WebglMaterialsTextureManualmipmapComponent,
       },
       {
         path: 'webgl_materials_texture_partialupdate',
-        component: WebglMaterialsTexturePartialupdateComponent
+        component: WebglMaterialsTexturePartialupdateComponent,
       },
       {
         path: 'webgl_materials_texture_rotation',
-        component: WebglMaterialsTextureRotationComponent
+        component: WebglMaterialsTextureRotationComponent,
       },
       {
         path: 'webgl_materials_variations_basic',
-        component: WebglMaterialsVariationsBasicComponent
+        component: WebglMaterialsVariationsBasicComponent,
       },
       {
         path: 'webgl_materials_variations_lambert',
-        component: WebglMaterialsVariationsLambertComponent
+        component: WebglMaterialsVariationsLambertComponent,
       },
       {
         path: 'webgl_materials_variations_phong',
-        component: WebglMaterialsVariationsPhongComponent
+        component: WebglMaterialsVariationsPhongComponent,
       },
       {
         path: 'webgl_materials_variations_standard',
-        component: WebglMaterialsVariationsStandardComponent
+        component: WebglMaterialsVariationsStandardComponent,
       },
       {
         path: 'webgl_materials_variations_physical',
-        component: WebglMaterialsVariationsPhysicalComponent
+        component: WebglMaterialsVariationsPhysicalComponent,
       },
       {
         path: 'webgl_materials_variations_toon',
-        component: WebglMaterialsVariationsToonComponent
+        component: WebglMaterialsVariationsToonComponent,
       },
       {
         path: 'webgl_materials_video',
-        component: WebglMaterialsVideoComponent
+        component: WebglMaterialsVideoComponent,
       },
       {
         path: 'webgl_materials_video_webcam',
-        component: WebglMaterialsVideoWebcamComponent
+        component: WebglMaterialsVideoWebcamComponent,
       },
       {
         path: 'webgl_materials_wireframe',
-        component: WebglMaterialsWireframeComponent
+        component: WebglMaterialsWireframeComponent,
       },
       { path: 'webgl_materials', component: WebglMaterialsComponent },
       { path: 'webgl_marchingcubes', component: WebglMarchingcubesComponent },
@@ -953,45 +1151,542 @@ const routes: Routes = [
       { path: 'webgl_loader_vrm', component: WebglLoaderVrmComponent },
       { path: 'webgl_loader_vox', component: WebglLoaderVoxComponent },
       { path: 'webgl_loader_ttf', component: WebglLoaderTtfComponent },
+      { path: 'webgl_math_obb', component: WebglMathObbComponent },
+      {
+        path: 'webgl_math_orientation_transform',
+        component: WebglMathOrientationTransformComponent,
+      },
+      { path: 'webgl_mirror', component: WebglMirrorComponent },
+      { path: 'webgl_modifier_curve', component: WebglModifierCurveComponent },
+      {
+        path: 'webgl_modifier_curve_instanced',
+        component: WebglModifierCurveInstancedComponent,
+      },
+      {
+        path: 'webgl_modifier_edgesplit',
+        component: WebglModifierEdgesplitComponent,
+      },
+      {
+        path: 'webgl_modifier_simplifier',
+        component: WebglModifierSimplifierComponent,
+      },
+      {
+        path: 'webgl_modifier_tessellation',
+        component: WebglModifierTessellationComponent,
+      },
+      { path: 'webgl_morphtargets', component: WebglMorphtargetsComponent },
+      {
+        path: 'webgl_morphtargets_horse',
+        component: WebglMorphtargetsHorseComponent,
+      },
+      {
+        path: 'webgl_morphtargets_sphere',
+        component: WebglMorphtargetsSphereComponent,
+      },
+      {
+        path: 'webgl_multiple_canvases_circle',
+        component: WebglMultipleCanvasesCircleComponent,
+      },
+      {
+        path: 'webgl_multiple_canvases_complex',
+        component: WebglMultipleCanvasesComplexComponent,
+      },
+      {
+        path: 'webgl_multiple_canvases_grid',
+        component: WebglMultipleCanvasesGridComponent,
+      },
+      {
+        path: 'webgl_multiple_elements',
+        component: WebglMultipleElementsComponent,
+      },
+      {
+        path: 'webgl_multiple_elements_text',
+        component: WebglMultipleElementsTextComponent,
+      },
+      {
+        path: 'webgl_multiple_renderers',
+        component: WebglMultipleRenderersComponent,
+      },
+      {
+        path: 'webgl_multiple_scenes_comparison',
+        component: WebglMultipleScenesComparisonComponent,
+      },
+      { path: 'webgl_multiple_views', component: WebglMultipleViewsComponent },
+      { path: 'webgl_panorama_cube', component: WebglPanoramaCubeComponent },
+      {
+        path: 'webgl_panorama_equirectangular',
+        component: WebglPanoramaEquirectangularComponent,
+      },
+      { path: 'webgl_performance', component: WebglPerformanceComponent },
+      {
+        path: 'webgl_performance_static',
+        component: WebglPerformanceStaticComponent,
+      },
+      { path: 'webgl_points_dynamic', component: WebglPointsDynamicComponent },
+      { path: 'webgl_points_sprites', component: WebglPointsSpritesComponent },
+      { path: 'webgl_points_waves', component: WebglPointsWavesComponent },
+      { path: 'webgl_raycast_sprite', component: WebglRaycastSpriteComponent },
+      {
+        path: 'webgl_raycast_texture',
+        component: WebglRaycastTextureComponent,
+      },
+      {
+        path: 'webgl_read_float_buffer',
+        component: WebglReadFloatBufferComponent,
+      },
+      { path: 'webgl_refraction', component: WebglRefractionComponent },
+      { path: 'webgl_rtt', component: WebglRttComponent },
+      { path: 'webgl_sandbox', component: WebglSandboxComponent },
+      { path: 'webgl_shader', component: WebglShaderComponent },
+      { path: 'webgl_shader_lava', component: WebglShaderLavaComponent },
+      { path: 'webgl_shader2', component: WebglShader2Component },
+      { path: 'webgl_shaders_ocean', component: WebglShadersOceanComponent },
+      { path: 'webgl_shaders_ocean2', component: WebglShadersOcean2Component },
+      { path: 'webgl_shaders_sky', component: WebglShadersSkyComponent },
+      {
+        path: 'webgl_shaders_tonemapping',
+        component: WebglShadersTonemappingComponent,
+      },
+      { path: 'webgl_shaders_vector', component: WebglShadersVectorComponent },
+      {
+        path: 'webgl_shading_physical',
+        component: WebglShadingPhysicalComponent,
+      },
+      { path: 'webgl_shadow_contact', component: WebglShadowContactComponent },
+      { path: 'webgl_shadowmap', component: WebglShadowmapComponent },
+      {
+        path: 'webgl_shadowmap_performance',
+        component: WebglShadowmapPerformanceComponent,
+      },
+      {
+        path: 'webgl_shadowmap_pointlight',
+        component: WebglShadowmapPointlightComponent,
+      },
+      {
+        path: 'webgl_shadowmap_viewer',
+        component: WebglShadowmapViewerComponent,
+      },
+      { path: 'webgl_shadowmap_vsm', component: WebglShadowmapVsmComponent },
+      { path: 'webgl_shadowmesh', component: WebglShadowmeshComponent },
+      {
+        path: 'webgl_skinning_simple',
+        component: WebglSkinningSimpleComponent,
+      },
+      { path: 'webgl_sprites', component: WebglSpritesComponent },
+      { path: 'webgl_test_memory', component: WebglTestMemoryComponent },
+      { path: 'webgl_test_memory2', component: WebglTestMemory2Component },
+      { path: 'webgl_tonemapping', component: WebglTonemappingComponent },
+      { path: 'webgl_trails', component: WebglTrailsComponent },
+      { path: 'webgl_video_kinect', component: WebglVideoKinectComponent },
+      {
+        path: 'webgl_video_panorama_equirectangular',
+        component: WebglVideoPanoramaEquirectangularComponent,
+      },
+      { path: 'webgl_water', component: WebglWaterComponent },
+      { path: 'webgl_water_flowmap', component: WebglWaterFlowmapComponent },
+      { path: 'webgl_loader_nodes', component: WebglLoaderNodesComponent },
+      {
+        path: 'webgl_materials_compile',
+        component: WebglMaterialsCompileComponent,
+      },
+      {
+        path: 'webgl_materials_envmaps_hdr_nodes',
+        component: WebglMaterialsEnvmapsHdrNodesComponent,
+      },
+      {
+        path: 'webgl_materials_envmaps_pmrem_nodes',
+        component: WebglMaterialsEnvmapsPmremNodesComponent,
+      },
+      {
+        path: 'webgl_materials_nodes',
+        component: WebglMaterialsNodesComponent,
+      },
+      {
+        path: 'webgl_performance_nodes',
+        component: WebglPerformanceNodesComponent,
+      },
+      {
+        path: 'webgl_postprocessing_nodes',
+        component: WebglPostprocessingNodesComponent,
+      },
+      {
+        path: 'webgl_postprocessing_nodes_pass',
+        component: WebglPostprocessingNodesPassComponent,
+      },
+      { path: 'webgl_sprites_nodes', component: WebglSpritesNodesComponent },
+      { path: 'webgl_postprocessing', component: WebglPostprocessingComponent },
+      {
+        path: 'webgl_postprocessing_d3lut',
+        component: WebglPostprocessingD3lutComponent,
+      },
+      {
+        path: 'webgl_postprocessing_advanced',
+        component: WebglPostprocessingAdvancedComponent,
+      },
+      {
+        path: 'webgl_postprocessing_afterimage',
+        component: WebglPostprocessingAfterimageComponent,
+      },
+      {
+        path: 'webgl_postprocessing_backgrounds',
+        component: WebglPostprocessingBackgroundsComponent,
+      },
+      {
+        path: 'webgl_postprocessing_crossfade',
+        component: WebglPostprocessingCrossfadeComponent,
+      },
+      {
+        path: 'webgl_postprocessing_dof',
+        component: WebglPostprocessingDofComponent,
+      },
+      {
+        path: 'webgl_postprocessing_dof2',
+        component: WebglPostprocessingDof2Component,
+      },
+      {
+        path: 'webgl_postprocessing_fxaa',
+        component: WebglPostprocessingFxaaComponent,
+      },
+      {
+        path: 'webgl_postprocessing_glitch',
+        component: WebglPostprocessingGlitchComponent,
+      },
+      {
+        path: 'webgl_postprocessing_godrays',
+        component: WebglPostprocessingGodraysComponent,
+      },
+      {
+        path: 'webgl_postprocessing_rgb_halftone',
+        component: WebglPostprocessingRgbHalftoneComponent,
+      },
+      {
+        path: 'webgl_postprocessing_masking',
+        component: WebglPostprocessingMaskingComponent,
+      },
+      {
+        path: 'webgl_postprocessing_ssaa',
+        component: WebglPostprocessingSsaaComponent,
+      },
+      {
+        path: 'webgl_postprocessing_outline',
+        component: WebglPostprocessingOutlineComponent,
+      },
+      {
+        path: 'webgl_postprocessing_pixel',
+        component: WebglPostprocessingPixelComponent,
+      },
+      {
+        path: 'webgl_postprocessing_procedural',
+        component: WebglPostprocessingProceduralComponent,
+      },
+      {
+        path: 'webgl_postprocessing_sao',
+        component: WebglPostprocessingSaoComponent,
+      },
+      {
+        path: 'webgl_postprocessing_smaa',
+        component: WebglPostprocessingSmaaComponent,
+      },
+      {
+        path: 'webgl_postprocessing_sobel',
+        component: WebglPostprocessingSobelComponent,
+      },
+      {
+        path: 'webgl_postprocessing_ssao',
+        component: WebglPostprocessingSsaoComponent,
+      },
+      {
+        path: 'webgl_postprocessing_taa',
+        component: WebglPostprocessingTaaComponent,
+      },
+      {
+        path: 'webgl_postprocessing_unreal_bloom',
+        component: WebglPostprocessingUnrealBloomComponent,
+      },
+      {
+        path: 'webgl_postprocessing_unreal_bloom_selective',
+        component: WebglPostprocessingUnrealBloomSelectiveComponent,
+      },
+      { path: 'webgl_buffergeometry', component: WebglBuffergeometryComponent },
+      {
+        path: 'webgl_buffergeometry_compression',
+        component: WebglBuffergeometryCompressionComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_custom_attributes_particles',
+        component: WebglBuffergeometryCustomAttributesParticlesComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_drawrange',
+        component: WebglBuffergeometryDrawrangeComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_glbufferattribute',
+        component: WebglBuffergeometryGlbufferattributeComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_indexed',
+        component: WebglBuffergeometryIndexedComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_instancing',
+        component: WebglBuffergeometryInstancingComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_instancing_billboards',
+        component: WebglBuffergeometryInstancingBillboardsComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_instancing_interleaved',
+        component: WebglBuffergeometryInstancingInterleavedComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_lines',
+        component: WebglBuffergeometryLinesComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_lines_indexed',
+        component: WebglBuffergeometryLinesIndexedComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_points',
+        component: WebglBuffergeometryPointsComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_points_interleaved',
+        component: WebglBuffergeometryPointsInterleavedComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_rawshader',
+        component: WebglBuffergeometryRawshaderComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_selective_draw',
+        component: WebglBuffergeometrySelectiveDrawComponent,
+      },
+      {
+        path: 'webgl_buffergeometry_uint',
+        component: WebglBuffergeometryUintComponent,
+      },
+      {
+        path: 'webgl_custom_attributes',
+        component: WebglCustomAttributesComponent,
+      },
+      {
+        path: 'webgl_custom_attributes_lines',
+        component: WebglCustomAttributesLinesComponent,
+      },
+      {
+        path: 'webgl_custom_attributes_points',
+        component: WebglCustomAttributesPointsComponent,
+      },
+      {
+        path: 'webgl_custom_attributes_points2',
+        component: WebglCustomAttributesPoints2Component,
+      },
+      {
+        path: 'webgl_custom_attributes_points3',
+        component: WebglCustomAttributesPoints3Component,
+      },
+      { path: 'webgl_gpgpu_birds', component: WebglGpgpuBirdsComponent },
+      {
+        path: 'webgl_gpgpu_birds_gltf',
+        component: WebglGpgpuBirdsGltfComponent,
+      },
+      { path: 'webgl_gpgpu_water', component: WebglGpgpuWaterComponent },
+      {
+        path: 'webgl_gpgpu_protoplanet',
+        component: WebglGpgpuProtoplanetComponent,
+      },
+      {
+        path: 'webgl_instancing_modified',
+        component: WebglInstancingModifiedComponent,
+      },
+      {
+        path: 'webgl_lightningstrike',
+        component: WebglLightningstrikeComponent,
+      },
+      {
+        path: 'webgl_materials_modified',
+        component: WebglMaterialsModifiedComponent,
+      },
+      {
+        path: 'webgl_raymarching_reflect',
+        component: WebglRaymarchingReflectComponent,
+      },
+      { path: 'webgl_shadowmap_csm', component: WebglShadowmapCsmComponent },
+      { path: 'webgl_shadowmap_pcss', component: WebglShadowmapPcssComponent },
+      { path: 'webgl_simple_gi', component: WebglSimpleGiComponent },
+      { path: 'webgl_tiled_forward', component: WebglTiledForwardComponent },
+      {
+        path: 'webgl_worker_offscreencanvas',
+        component: WebglWorkerOffscreencanvasComponent,
+      },
+      {
+        path: 'webgl2_buffergeometry_attributes_integer',
+        component: Webgl2BuffergeometryAttributesIntegerComponent,
+      },
+      {
+        path: 'webgl2_materials_texture2darray',
+        component: Webgl2MaterialsTexture2darrayComponent,
+      },
+      {
+        path: 'webgl2_materials_texture3d',
+        component: Webgl2MaterialsTexture3dComponent,
+      },
+      {
+        path: 'webgl2_multisampled_renderbuffers',
+        component: Webgl2MultisampledRenderbuffersComponent,
+      },
+      { path: 'webgl2_volume_cloud', component: Webgl2VolumeCloudComponent },
+      {
+        path: 'webgl2_volume_instancing',
+        component: Webgl2VolumeInstancingComponent,
+      },
+      { path: 'webgl2_volume_perlin', component: Webgl2VolumePerlinComponent },
+      { path: 'webgpu_sandbox', component: WebgpuSandboxComponent },
+      { path: 'webgpu_rtt', component: WebgpuRttComponent },
+      { path: 'webgpu_compute', component: WebgpuComputeComponent },
+      { path: 'webaudio_orientation', component: WebaudioOrientationComponent },
+      { path: 'webaudio_sandbox', component: WebaudioSandboxComponent },
+      { path: 'webaudio_timing', component: WebaudioTimingComponent },
+      { path: 'webaudio_visualizer', component: WebaudioVisualizerComponent },
+      { path: 'webxr_ar_cones', component: WebxrArConesComponent },
+      { path: 'webxr_ar_hittest', component: WebxrArHittestComponent },
+      { path: 'webxr_ar_paint', component: WebxrArPaintComponent },
+      { path: 'webxr_vr_ballshooter', component: WebxrVrBallshooterComponent },
+      { path: 'webxr_vr_cubes', component: WebxrVrCubesComponent },
+      { path: 'webxr_vr_dragging', component: WebxrVrDraggingComponent },
+      { path: 'webxr_vr_handinput', component: WebxrVrHandinputComponent },
+      {
+        path: 'webxr_vr_handinput_cubes',
+        component: WebxrVrHandinputCubesComponent,
+      },
+      {
+        path: 'webxr_vr_handinput_profiles',
+        component: WebxrVrHandinputProfilesComponent,
+      },
+      { path: 'webxr_vr_haptics', component: WebxrVrHapticsComponent },
+      {
+        path: 'webxr_vr_lorenzattractor',
+        component: WebxrVrLorenzattractorComponent,
+      },
+      { path: 'webxr_vr_panorama', component: WebxrVrPanoramaComponent },
+      {
+        path: 'webxr_vr_panorama_depth',
+        component: WebxrVrPanoramaDepthComponent,
+      },
+      { path: 'webxr_vr_paint', component: WebxrVrPaintComponent },
+      {
+        path: 'webxr_vr_rollercoaster',
+        component: WebxrVrRollercoasterComponent,
+      },
+      { path: 'webxr_vr_sandbox', component: WebxrVrSandboxComponent },
+      { path: 'webxr_vr_sculpt', component: WebxrVrSculptComponent },
+      { path: 'webxr_vr_video', component: WebxrVrVideoComponent },
+      { path: 'games_fps', component: GamesFpsComponent },
+      { path: 'physics_ammo_break', component: PhysicsAmmoBreakComponent },
+      { path: 'physics_ammo_cloth', component: PhysicsAmmoClothComponent },
+      {
+        path: 'physics_ammo_instancing',
+        component: PhysicsAmmoInstancingComponent,
+      },
+      { path: 'physics_ammo_rope', component: PhysicsAmmoRopeComponent },
+      { path: 'physics_ammo_terrain', component: PhysicsAmmoTerrainComponent },
+      { path: 'physics_ammo_volume', component: PhysicsAmmoVolumeComponent },
+      {
+        path: 'misc_animation_groups',
+        component: MiscAnimationGroupsComponent,
+      },
+      { path: 'misc_animation_keys', component: MiscAnimationKeysComponent },
+      { path: 'misc_boxselection', component: MiscBoxselectionComponent },
+      {
+        path: 'misc_controls_deviceorientation',
+        component: MiscControlsDeviceorientationComponent,
+      },
+      { path: 'misc_controls_drag', component: MiscControlsDragComponent },
+      { path: 'misc_controls_fly', component: MiscControlsFlyComponent },
+      { path: 'misc_controls_map', component: MiscControlsMapComponent },
+      { path: 'misc_controls_orbit', component: MiscControlsOrbitComponent },
+      {
+        path: 'misc_controls_pointerlock',
+        component: MiscControlsPointerlockComponent,
+      },
+      {
+        path: 'misc_controls_trackball',
+        component: MiscControlsTrackballComponent,
+      },
+      {
+        path: 'misc_controls_transform',
+        component: MiscControlsTransformComponent,
+      },
+      {
+        path: 'misc_exporter_collada',
+        component: MiscExporterColladaComponent,
+      },
+      { path: 'misc_exporter_draco', component: MiscExporterDracoComponent },
+      { path: 'misc_exporter_gltf', component: MiscExporterGltfComponent },
+      { path: 'misc_exporter_obj', component: MiscExporterObjComponent },
+      { path: 'misc_exporter_ply', component: MiscExporterPlyComponent },
+      { path: 'misc_exporter_stl', component: MiscExporterStlComponent },
+      { path: 'misc_legacy', component: MiscLegacyComponent },
+      { path: 'misc_lookat', component: MiscLookatComponent },
+      { path: 'css2d_label', component: Css2dLabelComponent },
+      { path: 'css3d_molecules', component: Css3dMoleculesComponent },
+      { path: 'css3d_orthographic', component: Css3dOrthographicComponent },
+      { path: 'css3d_panorama', component: Css3dPanoramaComponent },
+      {
+        path: 'css3d_panorama_deviceorientation',
+        component: Css3dPanoramaDeviceorientationComponent,
+      },
+      { path: 'css3d_periodictable', component: Css3dPeriodictableComponent },
+      { path: 'css3d_sandbox', component: Css3dSandboxComponent },
+      { path: 'css3d_sprites', component: Css3dSpritesComponent },
+      { path: 'css3d_youtube', component: Css3dYoutubeComponent },
+      { path: 'svg_lines', component: SvgLinesComponent },
+      { path: 'svg_sandbox', component: SvgSandboxComponent },
+      { path: 'webgl_furnace_test', component: WebglFurnaceTestComponent },
+      { path: 'webgl_pmrem_test', component: WebglPmremTestComponent },
+      { path: 'misc_uv_tests', component: MiscUvTestsComponent },
       {
         path: 'webgl_loader_texture_tga',
-        component: WebglLoaderTextureTgaComponent
+        component: WebglLoaderTextureTgaComponent,
       },
       {
         path: 'webgl_loader_texture_rgbm',
-        component: WebglLoaderTextureRgbmComponent
+        component: WebglLoaderTextureRgbmComponent,
       },
       {
         path: 'webgl_loader_texture_pvrtc',
-        component: WebglLoaderTexturePvrtcComponent
+        component: WebglLoaderTexturePvrtcComponent,
       },
       {
         path: 'webgl_loader_texture_lottie',
-        component: WebglLoaderTextureLottieComponent
+        component: WebglLoaderTextureLottieComponent,
       },
       {
         path: 'webgl_loader_texture_ktx2',
-        component: WebglLoaderTextureKtx2Component
+        component: WebglLoaderTextureKtx2Component,
       },
       {
         path: 'webgl_loader_texture_ktx',
-        component: WebglLoaderTextureKtxComponent
+        component: WebglLoaderTextureKtxComponent,
       },
       {
         path: 'webgl_loader_texture_hdr',
-        component: WebglLoaderTextureHdrComponent
+        component: WebglLoaderTextureHdrComponent,
       },
       {
         path: 'webgl_loader_texture_exr',
-        component: WebglLoaderTextureExrComponent
+        component: WebglLoaderTextureExrComponent,
       },
       {
         path: 'webgl_loader_texture_dds',
-        component: WebglLoaderTextureDdsComponent
+        component: WebglLoaderTextureDdsComponent,
       },
       {
         path: 'webgl_loader_texture_basis',
-        component: WebglLoaderTextureBasisComponent
+        component: WebglLoaderTextureBasisComponent,
       },
       { path: 'webgl_loader_tilt', component: WebglLoaderTiltComponent },
       { path: 'webgl_loader_svg', component: WebglLoaderSvgComponent },
@@ -1005,14 +1700,14 @@ const routes: Routes = [
       { path: 'webgl_loader_nrrd', component: WebglLoaderNrrdComponent },
       {
         path: 'webgl_loader_mmd_audio',
-        component: WebglLoaderMmdAudioComponent
+        component: WebglLoaderMmdAudioComponent,
       },
       { path: 'webgl_loader_mmd_pose', component: WebglLoaderMmdPoseComponent },
       { path: 'webgl_loader_mmd', component: WebglLoaderMmdComponent },
       { path: 'webgl_loader_mdd', component: WebglLoaderMddComponent },
       {
         path: 'webgl_loader_md2_control',
-        component: WebglLoaderMd2ControlComponent
+        component: WebglLoaderMd2ControlComponent,
       },
       { path: 'webgl_loader_md2', component: WebglLoaderMd2Component },
       { path: 'webgl_loader_lwo', component: WebglLoaderLwoComponent },
@@ -1020,35 +1715,35 @@ const routes: Routes = [
       { path: 'webgl_loader_kmz', component: WebglLoaderKmzComponent },
       {
         path: 'webgl_loader_imagebitmap',
-        component: WebglLoaderImagebitmapComponent
+        component: WebglLoaderImagebitmapComponent,
       },
       {
         path: 'webgl_loader_gltf_variants',
-        component: WebglLoaderGltfVariantsComponent
+        component: WebglLoaderGltfVariantsComponent,
       },
       {
         path: 'webgl_loader_gltf_extensions',
-        component: WebglLoaderGltfExtensionsComponent
+        component: WebglLoaderGltfExtensionsComponent,
       },
       {
         path: 'webgl_loader_gltf_compressed',
-        component: WebglLoaderGltfCompressedComponent
+        component: WebglLoaderGltfCompressedComponent,
       },
       { path: 'webgl_loader_gltf', component: WebglLoaderGltfComponent },
       { path: 'webgl_loader_gcode', component: WebglLoaderGcodeComponent },
       {
         path: 'webgl_loader_fbx_nurbs',
-        component: WebglLoaderFbxNurbsComponent
+        component: WebglLoaderFbxNurbsComponent,
       },
       { path: 'webgl_loader_fbx', component: WebglLoaderFbxComponent },
       { path: 'webgl_loader_draco', component: WebglLoaderDracoComponent },
       {
         path: 'webgl_loader_collada_skinning',
-        component: WebglLoaderColladaSkinningComponent
+        component: WebglLoaderColladaSkinningComponent,
       },
       {
         path: 'webgl_loader_collada_kinematics',
-        component: WebglLoaderColladaKinematicsComponent
+        component: WebglLoaderColladaKinematicsComponent,
       },
       { path: 'webgl_loader_collada', component: WebglLoaderColladaComponent },
       { path: 'webgl_loader_bvh', component: WebglLoaderBvhComponent },
@@ -1056,11 +1751,12 @@ const routes: Routes = [
       { path: 'webgl_loader_amf', component: WebglLoaderAmfComponent },
       {
         path: 'webgl_loader_3mf_materials',
-        component: WebglLoaderMf3MaterialsComponent
+        component: WebglLoaderMf3MaterialsComponent,
       },
       { path: 'webgl_loader_3mf', component: WebglLoaderMf3Component },
       { path: 'webgl_loader_3ds', component: WebglLoaderDs3Component },
       { path: 'webgl_loader_3dm', component: WebglLoaderDm3Component },
+
       { path: '**', component: UnderConstructionComponent },
     ],
   },

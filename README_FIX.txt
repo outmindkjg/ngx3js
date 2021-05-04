@@ -54,3 +54,25 @@ export class VOXMesh extends Mesh {
 
 ----------------------
 
+node_modules\three\examples\jsm\math\OBB.d.ts
+constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
+intersectsOBB( obb: OBB, epsilon?: number ): boolean;
+
+----------------------
+node_modules\three\examples\jsm\modifiers\CurveModifier.d.ts
+
+7		BufferGeometry,
+43	constructor( count: Number, curveCount: Number, geometry: BufferGeometry, material: Material );
+
+----------------------
+
+
+----------------------
+
+----------------------
+
+----------------------
+
+----------------------
+
+----------------------
