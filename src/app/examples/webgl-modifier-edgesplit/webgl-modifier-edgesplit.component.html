@@ -28,10 +28,11 @@
     <three-shared>
       <three-texture #texture [image]="'models/obj/cerberus/Cerberus_A.jpg'"></three-texture>
     </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/obj/cerberus/Cerberus.obj'">
+    <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="-1.5" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="0" [y]="-90" [z]="0"></three-rotation>
       <three-scale [multiply]="3.5"></three-scale>
+      <three-geometry [storageName]="'models/obj/cerberus/Cerberus.obj'" [edgeSplit]="controls.edgeSplit" [cutOffAngle]="controls.cutOffAngle" [tryKeepNormals]="controls.tryKeepNormals"></three-geometry>
       <three-material 
         [type]="'MeshStandard'" 
         [color]="'0xffffff'" 

@@ -65,7 +65,9 @@ node_modules\three\examples\jsm\modifiers\CurveModifier.d.ts
 43	constructor( count: Number, curveCount: Number, geometry: BufferGeometry, material: Material );
 
 ----------------------
+node_modules/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts
 
+modify( geometry: BufferGeometry, cutOffPoint: number, tryKeepNormals: boolean ): BufferGeometry;
 
 ----------------------
 

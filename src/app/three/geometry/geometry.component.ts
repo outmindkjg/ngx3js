@@ -15,6 +15,8 @@ import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { EdgeSplitModifier } from 'three/examples/jsm/modifiers/EdgeSplitModifier';
+
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
 import { CurveComponent } from '../curve/curve.component';
@@ -199,6 +201,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private refGeometry : any = null;
   @Input() private refType : string = 'targetMesh';
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
+  @Input() private edgeSplit : boolean = null;
+  @Input() private cutOffAngle : number = null;
+  @Input() private tryKeepNormals : boolean = null;
+  
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
@@ -1079,6 +1085,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       if (this.geometry !== null) {
         this.geometry.dispose();
       }
+      if (this.edgeSplit && geometry.getAttribute( 'position' ) !== undefined) {
+        geometry = BufferGeometryUtils.mergeVertices( geometry ); 
+        const modifier = new EdgeSplitModifier();
+        geometry = modifier.modify(geometry, 
+          ThreeUtil.getAngleSafe(this.cutOffAngle, 0), 
+          ThreeUtil.getTypeSafe(this.tryKeepNormals, false)
+        );
+      }
       this.geometry = geometry;
       if (this.center) {
         this.geometry.center();
@@ -1097,7 +1111,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         for ( let i = 0; i < uv.count; i ++ ) {
           uv.setY( i, 1 - uv.getY( i ) );
         }
-      }   
+      }
       const geometryScale = this.getGeometryScale();
       if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
         this.geometry.scale( geometryScale, geometryScale, geometryScale );

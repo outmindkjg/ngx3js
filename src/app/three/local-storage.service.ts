@@ -207,6 +207,7 @@ export class LocalStorageService {
     return this._manager;
   }
 
+  _loadedObject : { [key : string] : LoadedObject} = {}
   public getObjectFromKey(
     key: string,
     callBack: (mesh: LoadedObject) => void,
@@ -219,24 +220,29 @@ export class LocalStorageService {
     } else {
       safeKey = this.getStoreUrl(key);
     }
-    this._getObjectFromKey(
-      safeKey,
-      (result: LoadedObject) => {
-        if (result.object && result.object instanceof THREE.Group && result.object.children.length == 1) {
-          result.object = result.object.children[0];
-        }
-        if (options.autoCenter && result.object) {
-          const object = result.object;
-          const aabb = new THREE.Box3().setFromObject(object);
-          const center = aabb.getCenter(new THREE.Vector3());
-          object.position.x += object.position.x - center.x;
-          object.position.y += object.position.y - center.y;
-          object.position.z += object.position.z - center.z;
-        }
-        callBack(result);
-      },
-      options
-    );
+    if (this._loadedObject[safeKey] !== undefined) {
+      callBack(this._loadedObject[safeKey]);
+    } else {
+      this._getObjectFromKey(
+        safeKey,
+        (result: LoadedObject) => {
+          if (result.object && result.object instanceof THREE.Group && result.object.children.length == 1) {
+            result.object = result.object.children[0];
+          }
+          if (options.autoCenter && result.object) {
+            const object = result.object;
+            const aabb = new THREE.Box3().setFromObject(object);
+            const center = aabb.getCenter(new THREE.Vector3());
+            object.position.x += object.position.x - center.x;
+            object.position.y += object.position.y - center.y;
+            object.position.z += object.position.z - center.z;
+          }
+          // this._loadedObject[safeKey] = result;
+          callBack(result);
+        },
+        options
+      );
+    }
   }
 
   public setLoaderWithOption(loader: THREE.Loader, options: any) {
@@ -1320,7 +1326,7 @@ export class LocalStorageService {
         if (result.geometry instanceof THREE.BufferGeometry) {
           callBack(result.geometry, result.source);
         } else if (result.object instanceof THREE.Mesh) {
-          callBack(result.object['geometry'], result.source);
+          callBack(result.object.geometry, result.source);
         } else if (result.object.children.length > 0 && result.object.children[0] instanceof THREE.Mesh) {
           callBack(result.object.children[0]['geometry'], result.source);
         } else {
