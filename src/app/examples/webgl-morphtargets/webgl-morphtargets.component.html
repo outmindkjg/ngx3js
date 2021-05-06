@@ -15,7 +15,7 @@
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-scene #scene [background]="'0x8FBCD4'">
-    <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="20">
+    <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="50">
       <three-position [x]="0" [y]="0" [z]="20"></three-position>
       <three-light
         [type]="'point'"
@@ -30,8 +30,10 @@
       [intensity]="0.4"
     >
     </three-light>
+    <three-shared>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'box'"
         [width]="2"

@@ -23,7 +23,7 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
         this.setMorphTargetInfluences(this.controls.spherify, 0);
       }},
       { name : 'twist', title : 'Twist', type : 'number', listen : true, min : 0, max : 1, step : 0.01, finishChange : () => {
-        this.setMorphTargetInfluences(this.controls.spherify, 1);
+        this.setMorphTargetInfluences(this.controls.twist, 1);
       }},
       { name : 'animation', title : 'Animation', type : 'checkbox', change : () => {
         if (this.threeMesh !== null) {
@@ -48,17 +48,12 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
     }
   }
 
-  threeMesh : THREE.Mesh = null;
-
-  setGeometry(geometryCom : GeometryComponent) {
-    const geometry = geometryCom.getGeometry();
-    if (geometry.attributes.position !== undefined) {
+  setGeometry(geo : GeometryComponent) {
+    const geometry = geo.getGeometry();
+    if (geometry.attributes.position != undefined && geometry.attributes.position.count > 0) {
       geometry.morphAttributes.position = [];
-      // the original positions of the cube's vertices
       const positionAttribute = geometry.attributes.position;
-      // for the first morph target we'll move the cube's vertices onto the surface of a sphere
       const spherePositions = [];
-      // for the second morph target, we'll twist the cubes vertices
       const twistPositions = [];
       const direction = new THREE.Vector3( 1, 0, 0 );
       const vertex = new THREE.Vector3();
@@ -67,24 +62,24 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
         const y = positionAttribute.getY( i );
         const z = positionAttribute.getZ( i );
         spherePositions.push(
-          x * Math.sqrt( 1 - ( y * y / 2 ) - ( z * z / 2 ) + ( y * y * z * z / 3 ) ),
-          y * Math.sqrt( 1 - ( z * z / 2 ) - ( x * x / 2 ) + ( z * z * x * x / 3 ) ),
-          z * Math.sqrt( 1 - ( x * x / 2 ) - ( y * y / 2 ) + ( x * x * y * y / 3 ) )
+          x * Math.sqrt( Math.abs(1 - ( y * y / 2 ) - ( z * z / 2 ) + ( y * y * z * z / 3 ))),
+          y * Math.sqrt( Math.abs(1 - ( z * z / 2 ) - ( x * x / 2 ) + ( z * z * x * x / 3 ))),
+          z * Math.sqrt( Math.abs(1 - ( x * x / 2 ) - ( y * y / 2 ) + ( x * x * y * y / 3 )))
         );
-        // stretch along the x-axis so we can see the twist better
         vertex.set( x * 2, y, z );
         vertex.applyAxisAngle( direction, Math.PI * x / 2 ).toArray( twistPositions, twistPositions.length );
       }
-      // add the spherical positions as the first morph target
       geometry.morphAttributes.position[ 0 ] = new THREE.Float32BufferAttribute( spherePositions, 3 );
-      // add the twisted positions as the second morph target
       geometry.morphAttributes.position[ 1 ] = new THREE.Float32BufferAttribute( twistPositions, 3 );
     }
   }
 
+
+  threeMesh : THREE.Mesh = null;
+
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.threeMesh !== null && this.controls.animation) {
+    if (this.threeMesh !== null && this.controls.animation && this.threeMesh.morphTargetInfluences && this.threeMesh.morphTargetInfluences.length > 1) {
       const time = timer.elapsedTime;
       this.threeMesh.morphTargetInfluences[0] = 0.5 + Math.sin(time * 0.6) * 0.5;
       this.threeMesh.morphTargetInfluences[1] = 0.5 + Math.cos(time * 0.7) * 0.5;

@@ -1472,7 +1472,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             break;
           case 'textbuffer':
           case 'text':
-            geometry = new THREE.BufferGeometry();
+            geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
             this.getFont('helvetiker', (font: THREE.Font) => {
               const textParameters: THREE.TextGeometryParameters = {
                 font: font,
