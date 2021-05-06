@@ -221,7 +221,16 @@ export class LocalStorageService {
       safeKey = this.getStoreUrl(key);
     }
     if (this._loadedObject[safeKey] !== undefined) {
-      callBack(this._loadedObject[safeKey]);
+      const result = this._loadedObject[safeKey];
+      callBack({
+        object: ThreeUtil.isNotNull(result.object) ? result.object.clone(true) : null,
+        material: ThreeUtil.isNotNull(result.material) ? result.material : null,
+        geometry: ThreeUtil.isNotNull(result.geometry) ? result.geometry.clone() : null,
+        texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
+        clips: result.clips,
+        morphTargets: result.morphTargets,
+        source: result.source
+      });
     } else {
       this._getObjectFromKey(
         safeKey,
@@ -231,13 +240,23 @@ export class LocalStorageService {
           }
           if (options.autoCenter && result.object) {
             const object = result.object;
-            const aabb = new THREE.Box3().setFromObject(object);
-            const center = aabb.getCenter(new THREE.Vector3());
+            const objectBox = new THREE.Box3().setFromObject(object);
+            const center = objectBox.getCenter(new THREE.Vector3());
             object.position.x += object.position.x - center.x;
             object.position.y += object.position.y - center.y;
             object.position.z += object.position.z - center.z;
           }
-          // this._loadedObject[safeKey] = result;
+          /*
+          this._loadedObject[safeKey] = {
+            object: ThreeUtil.isNotNull(result.object) ? result.object.clone(true) : null,
+            material: ThreeUtil.isNotNull(result.material) ? result.material : null,
+            geometry: ThreeUtil.isNotNull(result.geometry) ? result.geometry.clone() : null,
+            texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
+            clips: result.clips,
+            morphTargets: result.morphTargets,
+            source: result.source
+          };
+          */
           callBack(result);
         },
         options

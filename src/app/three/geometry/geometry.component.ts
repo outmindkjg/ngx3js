@@ -16,6 +16,9 @@ import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { EdgeSplitModifier } from 'three/examples/jsm/modifiers/EdgeSplitModifier';
+import { SimplifyModifier } from 'three/examples/jsm/modifiers/SimplifyModifier';
+import { TessellateModifier } from 'three/examples/jsm/modifiers/TessellateModifier';
+
 
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
@@ -201,10 +204,16 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private refGeometry : any = null;
   @Input() private refType : string = 'targetMesh';
   @Input() private onInit : (geometry : THREE.BufferGeometry) => void = null;
+  @Input() private mergeVertices : boolean = null;
   @Input() private edgeSplit : boolean = null;
   @Input() private cutOffAngle : number = null;
   @Input() private tryKeepNormals : boolean = null;
-  
+  @Input() private simplify : boolean = null;
+  @Input() private count : number = null;
+  @Input() private tessellate : boolean = null;
+  @Input() private maxEdgeLength : number = null;
+  @Input() private maxIterations : number = null;
+
   @Output() private onLoad:EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
@@ -1082,21 +1091,38 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   setGeometry(geometry : THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
+      if (this.center) {
+        geometry.center();
+      }
       if (this.geometry !== null) {
         this.geometry.dispose();
       }
-      if (this.edgeSplit && geometry.getAttribute( 'position' ) !== undefined) {
-        geometry = BufferGeometryUtils.mergeVertices( geometry ); 
-        const modifier = new EdgeSplitModifier();
-        geometry = modifier.modify(geometry, 
-          ThreeUtil.getAngleSafe(this.cutOffAngle, 0), 
-          ThreeUtil.getTypeSafe(this.tryKeepNormals, false)
-        );
+      if (geometry.getAttribute( 'position' ) !== undefined) {
+        if (this.mergeVertices) {
+          geometry = BufferGeometryUtils.mergeVertices( geometry ); 
+        }
+        if (this.edgeSplit) {
+          const modifier = new EdgeSplitModifier();
+          geometry = modifier.modify(geometry, 
+            ThreeUtil.getAngleSafe(this.cutOffAngle, 0), 
+            ThreeUtil.getTypeSafe(this.tryKeepNormals, false)
+          );
+        }
+        if (this.simplify) {
+          const modifier = new SimplifyModifier();
+          const count = Math.floor( geometry.attributes.position.count * Math.max(0, Math.min(1, ThreeUtil.getTypeSafe(this.count, 1))));
+          geometry = modifier.modify(geometry, count);
+          geometry.computeVertexNormals();
+        }
+        if (this.tessellate) {
+          const modifier = new TessellateModifier(
+            ThreeUtil.getTypeSafe(this.maxEdgeLength, 8), 
+            ThreeUtil.getTypeSafe(this.maxIterations, 6)
+          );
+          geometry = modifier.modify(geometry);
+        }
       }
       this.geometry = geometry;
-      if (this.center) {
-        this.geometry.center();
-      }
       if (this.computeVertexNormals) {
         this.geometry.computeVertexNormals();
       }

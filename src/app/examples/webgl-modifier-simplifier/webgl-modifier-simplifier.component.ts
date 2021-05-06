@@ -6,10 +6,19 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-modifier-simplifier.component.html',
   styleUrls: ['./webgl-modifier-simplifier.component.scss']
 })
-export class WebglModifierSimplifierComponent extends BaseComponent<{}> {
+export class WebglModifierSimplifierComponent extends BaseComponent<{
+  simplify : boolean;
+  count : number
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      simplify : true,
+      count : 0.875
+    },[
+      { name : 'simplify', type : 'checkbox'},
+      { name : 'count', type : 'number', min : 0, max : 1 }
+    ]);
   }
 
 }

@@ -70,6 +70,8 @@ node_modules/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts
 modify( geometry: BufferGeometry, cutOffPoint: number, tryKeepNormals: boolean ): BufferGeometry;
 
 ----------------------
+node_modules\three\examples\jsm\modifiers\SimplifyModifier.d.ts
+modify( geometry: BufferGeometry , count: number ): BufferGeometry;
 
 ----------------------
 
