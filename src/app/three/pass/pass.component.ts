@@ -688,6 +688,7 @@ export class PassComponent implements OnInit {
                     break;
                 }
               })
+              console.log(shaderPass.uniforms);
             }
             pass = shaderPass;
             break;

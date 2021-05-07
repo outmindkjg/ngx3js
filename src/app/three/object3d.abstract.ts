@@ -26,6 +26,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
 	@Input() public visible:boolean = true;
   @Input() public name:string = "";
+  @Input() protected matrixAutoUpdate : boolean = null;
   @Input() private layers : number[] = null;
   @Input() private position : PositionComponent = null;
   @Input() private rotation : RotationComponent = null;
@@ -393,6 +394,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       }
       this.object3d = object3d;
       if (this.object3d !== null) {
+        if (ThreeUtil.isNotNull(this.matrixAutoUpdate)) {
+          this.object3d.matrixAutoUpdate = this.matrixAutoUpdate;
+          this.object3d.updateMatrix();
+        }
         if (ThreeUtil.isNotNull(this.layers) && this.layers.length > 0) {
           if (this.layers.length == 1) {
             this.object3d.layers.set(this.layers[0]);
@@ -446,6 +451,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }
               });
             }
+            if (!this.matrixAutoUpdate) {
+              this.object3d.updateMatrix();
+            }
 						break;
 					case 'rotation':
             if (this.rotation !== null && this.rotation.visible) {
@@ -457,6 +465,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                   this.object3d.rotation.copy(rotation.getRotation());
                 }
 						  });
+            }
+            if (!this.matrixAutoUpdate) {
+              this.object3d.updateMatrix();
             }
 						break;
 					case 'scale':
@@ -470,6 +481,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }
 						  });
             }
+            if (!this.matrixAutoUpdate) {
+              this.object3d.updateMatrix();
+            }
 						break;
 					case 'lookat':
             if (this.lookat !== null && this.lookat.visible) {
@@ -482,7 +496,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }
 						  });
             }
-						break;
+            if (!this.matrixAutoUpdate) {
+              this.object3d.updateMatrix();
+            }
+            break;
 					case 'controller' :
             if (this.controllerList !== null && this.controllerList !== undefined) {
               this.controllerList.forEach((controller) => {

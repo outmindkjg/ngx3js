@@ -750,8 +750,7 @@ export class CameraComponent
       this.composer.forEach((composer) => {
         composer.render(renderer, renderTimer);
       });
-    }
-    if (this.effectComposer !== null) {
+    } else if (this.effectComposer !== null) {
       if (this.effectComposer instanceof EffectComposer) {
         this.effectComposer.render(renderTimer.delta);
       } else if (this.effectComposer instanceof OutlineEffect) {

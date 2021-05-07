@@ -1,70 +1,48 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl dynamic particles + postprocessing<br/>
+  models by <a href="http://sketchup.google.com/3dwarehouse/details?mid=2c6fd128fca34052adc5f5b98d513da1" target="_blank" rel="noopener">Reallusion</a>
+  <a href="http://sketchup.google.com/3dwarehouse/details?mid=f526cc4abf7cb68d76cab47c765b7255" target="_blank" rel="noopener">iClone</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
+  [autoRotate]="true"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="50000">
+    <three-position [x]="0" [y]="700" [z]="7000"></three-position>
+    <!-- three-composer>
+      <three-pass [type]="'render'"></three-pass>
+      <three-pass [type]="'bloom'" [strength]="0.75"></three-pass>
+      <three-pass [type]="'film'" [noiseIntensity]="0.5" [scanlinesIntensity]="0.5" [scanlinesCount]="1448" [grayscale]="false"></three-pass>
+      <three-pass [type]="'shader'" [shader]="'focus'" [uniforms]="{ screenWidth : 1024, screenHeight : 1024 }"></three-pass>
+    </!-->
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+  <three-scene #scene [background]="'0x000104'">
+    <three-fog [type]="'FogExp2'" [color]="'0x000104'" [density]="0.0000675"></three-fog>
+    <three-shared>
+      <three-geometry #male [storageName]="'models/obj/male02/male02.obj'" [storage2Buffer]="true"></three-geometry>
+      <three-geometry #female [storageName]="'models/obj/female02/female02.obj'" [storage2Buffer]="true"></three-geometry>
+    </three-shared>
+    <three-mesh [type]="'Points'">
+      <three-position [x]="0" [y]="-400" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-geometry [type]="'Plane'" [width]="15000" [height]="15000" [widthSegments]="64" [heightSegments]="64"></three-geometry>
+      <three-material [type]="'Points'" [size]="40" [color]="'0xff0000'"></three-material>
+    </three-mesh>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let info of meshInfos;let idx=index;" [type]="'Points'" [geometry]="info.geoType == 'female' ? female : male"  (onLoad)="setGeometry(idx, $event)">
+        <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></three-position>
+        <three-scale [multiply]="info.scale"></three-scale>
+        <three-material [type]="'Points'" [size]="30" [color]="info.color"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

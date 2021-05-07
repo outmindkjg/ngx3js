@@ -130,10 +130,11 @@ export class MeshComponent
   @Input() private planeInfos: { type : string, strength: number, subtract: number }[] = null;
   @Input() private blobInfos: { x : number, y : number, z : number, strength: number, subtract: number, colors? : any }[] = null;
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
-  @Input() private geometry: GeometryComponent | THREE.BufferGeometry = null;
+  @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
   @Input() private curve: CurveComponent | THREE.Curve<Vector3> = null;
-  
+  @Input() private morphTargets:boolean = null;
+
   @Input() private shareParts: MeshComponent = null;
   
   @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
@@ -336,7 +337,7 @@ export class MeshComponent
   }
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.mesh !== null && this.mesh instanceof THREE.Mesh) {
+    if (this.mesh !== null) {
       const mesh = this.getRealMesh();
       if (mesh !== null) {
         return mesh.geometry;
@@ -345,6 +346,8 @@ export class MeshComponent
     if (this.geometry !== null) {
       if (this.geometry instanceof THREE.BufferGeometry) {
         return this.geometry;
+      } else if (this.geometry instanceof MeshComponent) {
+        return this.geometry.getGeometry();
       } else {
         return this.geometry.getGeometry();
       }
@@ -352,7 +355,7 @@ export class MeshComponent
     if (this.geometryList !== null && this.geometryList.length > 0) {
       return this.geometryList.first.getGeometry();
     }
-    return null;
+    return new THREE.BufferGeometry();
   }
 
   getCurve(): THREE.Curve<THREE.Vector3> {
@@ -517,6 +520,9 @@ export class MeshComponent
         }
         if (meshGeometry.geometry !== geometryClone) {
           meshGeometry.geometry = geometryClone;
+          if (!this.matrixAutoUpdate) {
+            meshGeometry.updateMatrix();
+          }
           this._meshSubject.next(meshGeometry);
           this.onLoad.emit(this);
         }
@@ -530,19 +536,29 @@ export class MeshComponent
     if (this.geometryList !== null && this.geometryList !== undefined) {
       this._geometrySubscribe = this.unSubscription(this._geometrySubscribe);
       if (
-        this.geometry !== null &&
-        this.geometry instanceof GeometryComponent
+        this.geometry !== null
       ) {
-        this._geometrySubscribe.push(
-          this.geometry.geometrySubscribe().subscribe(() => {
+        if (this.geometry instanceof GeometryComponent) {
+          this._geometrySubscribe.push(
+            this.geometry.geometrySubscribe().subscribe(() => {
+              if (
+                this.geometry instanceof GeometryComponent &&
+                this.geometry.visible
+              ) {
+                this.setGeometry(this.geometry);
+              }
+            })
+          );
+        } else if (this.geometry instanceof MeshComponent) {
+          this.geometry.meshSubscribe().subscribe(() => {
             if (
-              this.geometry instanceof GeometryComponent &&
+              this.geometry instanceof MeshComponent &&
               this.geometry.visible
             ) {
-              this.setGeometry(this.geometry);
+              this.setGeometry(this.geometry.getGeometry());
             }
           })
-        );
+        }
       }
       this.geometryList.forEach((geometry) => {
         this._geometrySubscribe.push(
@@ -1390,6 +1406,11 @@ export class MeshComponent
                     }
                   });
                 }
+                if (ThreeUtil.isNotNull(this.morphTargets) && loadedMesh instanceof THREE.Mesh) {
+                  if (loadedMesh.material instanceof THREE.Material) {
+                    loadedMesh.material['morphTargets'] = this.morphTargets;
+                  }
+                }
                 if (
                   assignMaterial &&
                   ThreeUtil.isNotNull(this.materialList) &&
@@ -1494,6 +1515,15 @@ export class MeshComponent
         this.object3d instanceof THREE.Sprite
       ) {
         const mesh = this.object3d;
+        if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points) {
+          if (this.geometry instanceof MeshComponent) {
+            const realMesh = this.geometry.getRealMesh();
+            if (realMesh !== null && realMesh instanceof THREE.Mesh) {
+              mesh.morphTargetInfluences = realMesh.morphTargetInfluences;
+              mesh.morphTargetDictionary = realMesh.morphTargetDictionary;
+            }
+          }
+        }
         if (this.object3d instanceof THREE.Mesh) {
           mesh.castShadow = this.castShadow;
           mesh.receiveShadow = this.receiveShadow;

@@ -335,6 +335,7 @@ import { WebglPanoramaCubeComponent } from './examples/webgl-panorama-cube/webgl
 import { WebglPanoramaEquirectangularComponent } from './examples/webgl-panorama-equirectangular/webgl-panorama-equirectangular.component';
 import { WebglPerformanceComponent } from './examples/webgl-performance/webgl-performance.component';
 import { WebglPerformanceStaticComponent } from './examples/webgl-performance-static/webgl-performance-static.component';
+import { WebglPointsBillboardsComponent } from './examples/webgl-points-billboards/webgl-points-billboards.component';
 import { WebglPointsDynamicComponent } from './examples/webgl-points-dynamic/webgl-points-dynamic.component';
 import { WebglPointsSpritesComponent } from './examples/webgl-points-sprites/webgl-points-sprites.component';
 import { WebglPointsWavesComponent } from './examples/webgl-points-waves/webgl-points-waves.component';
@@ -927,6 +928,7 @@ import { VisualComponent } from './three/visual/visual.component';
     WebglPanoramaEquirectangularComponent,
     WebglPerformanceComponent,
     WebglPerformanceStaticComponent,
+    WebglPointsBillboardsComponent,
     WebglPointsDynamicComponent,
     WebglPointsSpritesComponent,
     WebglPointsWavesComponent,
@@ -1100,7 +1102,7 @@ import { VisualComponent } from './three/visual/visual.component';
     SvgSandboxComponent,
     WebglFurnaceTestComponent,
     WebglPmremTestComponent,
-    MiscUvTestsComponent,
+    MiscUvTestsComponent
   ],
   imports: [
     BrowserModule,

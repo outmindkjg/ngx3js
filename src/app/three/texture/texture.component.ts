@@ -22,7 +22,7 @@ export class TextureComponent implements OnInit {
   @Input() private storageOption: any = null;
   @Input() private program:(ctx: CanvasRenderingContext2D, text? : string) => void = null;
   @Input() private text: string = null;
-  @Input() private canvas:string = null;
+  @Input() private canvas:HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap | string = null;
   @Input() private mapping:string = null;
   @Input() private wrapS:string = null;
   @Input() private wrapT:string = null;
@@ -42,6 +42,7 @@ export class TextureComponent implements OnInit {
   @Input() private sunX:number = null;
   @Input() private sunY:number = null;
   @Input() private sunZ:number = null;
+  @Input() private useDropImage:boolean = false;
   @Input() private color:number|string = null;
   @Input() private add:number|string = null;
 
@@ -69,11 +70,15 @@ export class TextureComponent implements OnInit {
   }
 
   private getCanvas(def?: string): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
-    const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '');
-    switch(canvas.toLowerCase()) {
-      case 'lut' :
-      default :
-        return new Lut().createCanvas();
+    if (ThreeUtil.isNull(this.canvas) || typeof(this.canvas) === 'string') {
+      const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '') as string;
+      switch(canvas.toLowerCase()) {
+        case 'lut' :
+        default :
+          return new Lut().createCanvas();
+      }
+    } else {
+      return this.canvas;
     }
   }
 
@@ -276,6 +281,9 @@ export class TextureComponent implements OnInit {
     if (this.refTexture != null) {
       this.refTexture.dispose();
     }
+    if (this.useDropImage) {
+      this.setUseDropImage(false);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -283,7 +291,73 @@ export class TextureComponent implements OnInit {
     if (this.refTexture != null) {
       this.refTexture.copy(this.texture);
     }
+    if (changes.useDropImage) {
+      this.setUseDropImage(this.useDropImage);
+    }
   }
+
+  private setUseDropImage(useDropImage : boolean) {
+    if (useDropImage) {
+      if (this._dragOverHandler === null) {
+        this._dragOverHandler = (event) => {
+          event.preventDefault();
+          event.dataTransfer.dropEffect = 'copy';
+        }
+        document.addEventListener('dragover', this._dragOverHandler);
+      }
+      if (this._dragEnterHandler === null) {
+        this._dragEnterHandler = () => {
+					document.body.style.opacity = (0.5).toString();
+        }
+        document.addEventListener('dragenter', this._dragEnterHandler);
+      }
+      if (this._dragLeaveHandler === null) {
+        this._dragLeaveHandler = () => {
+					document.body.style.opacity = (1).toString();
+        }
+        document.addEventListener('dragleave', this._dragLeaveHandler);
+      }
+      if (this._dropHandler === null) {
+        this._dropHandler = (event) => {
+					event.preventDefault();
+          if (this.texture !== null) {
+            const texture = this.texture;
+            const reader = new FileReader();
+            reader.addEventListener( 'load', ( event ) => {
+              texture.image.src = event.target.result;
+              texture.needsUpdate = true;
+            });
+            reader.readAsDataURL( event.dataTransfer.files[ 0 ] );
+          }
+					document.body.style.opacity = (1).toString();
+        }
+        document.addEventListener('drop', this._dropHandler);
+      }
+    } else {
+      if (this._dragOverHandler !== null) {
+        document.removeEventListener('dragover', this._dragOverHandler);
+        this._dragOverHandler = null;
+      }
+      if (this._dragEnterHandler !== null) {
+        document.removeEventListener('dragenter', this._dragEnterHandler);
+        this._dragEnterHandler = null;
+      }
+      if (this._dragLeaveHandler !== null) {
+        document.removeEventListener('dragleave', this._dragLeaveHandler);
+        this._dragLeaveHandler = null;
+      }
+      if (this._dropHandler !== null) {
+        document.removeEventListener('drop', this._dropHandler);
+        this._dropHandler = null;
+      }
+    }
+  }
+
+  private _dragOverHandler = null;
+  private _dragEnterHandler = null;
+  private _dragLeaveHandler = null;
+  private _dropHandler = null;
+
 
   private refTexture: THREE.Texture = null;
   private texture: THREE.Texture = null;

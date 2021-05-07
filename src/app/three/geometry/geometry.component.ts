@@ -102,6 +102,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private params:GeometryParams = null;
   @Input() public type:string = 'sphere';
   @Input() private storageName:string = null;
+  @Input() private storage2Buffer:boolean = false;
   @Input() private action:string = 'none';
   @Input() private perlinType:string = 'minecraft';
   @Input() private light:string|number = null;
@@ -703,27 +704,27 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     if (attribute instanceof THREE.BufferAttribute) {
       return attribute;
     } else if (attribute instanceof Int8Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Int8BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Int16Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Int16BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Int32Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Int32BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Uint8Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Uint8BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Uint16Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Uint16BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Uint32Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Uint32BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Float32Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Float32BufferAttribute( attribute, itemSize )
     } else if (attribute instanceof Float64Array ) {
-      return new THREE.BufferAttribute( attribute, itemSize )
+      return new THREE.Float64BufferAttribute( attribute, itemSize )
     } else {
       const floatArray = new Float32Array( attribute.length );
       attribute.forEach((v,i) => {
         floatArray[i] = v;
       });
-      return new THREE.BufferAttribute( floatArray, itemSize );
+      return new THREE.Float32BufferAttribute( floatArray, itemSize );
     }
   }
   
@@ -1179,8 +1180,31 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         geometry = new THREE.BufferGeometry();
-        this.localStorageService.getGeometry(this.storageName, (geometry) => {
-          this.setGeometry(geometry);
+        this.localStorageService.getGeometry(this.storageName, (geometry, model:THREE.Object3D) => {
+          if (model !== null && this.storage2Buffer) {
+            let count = 0;
+            model.traverse(( child : THREE.Mesh ) => {
+              if ( child.isMesh) {
+                const buffer = child.geometry.attributes[ 'position' ];
+                count += buffer.array.length;
+              }
+            });
+            const combined = new Float32Array( count );
+            let offset = 0;
+            model.traverse( (child : THREE.Mesh) => {
+              if ( child.isMesh ) {
+                const buffer = child.geometry.attributes[ 'position' ];
+                combined.set( buffer.array, offset );
+                offset += buffer.array.length;
+              }
+            });
+            const positions = new THREE.BufferAttribute( combined, 3 );
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute( 'position', positions.clone() );
+            this.setGeometry(geometry);
+          } else {
+            this.setGeometry(geometry);
+          }
         })
       }
       if (geometry === null) {
