@@ -903,10 +903,14 @@ export class ThreeUtil {
     }
   }
 
-  static getAngleSafe(angle: number, altangle?: number): number {
+  static getAngleSafe(angle: number | string, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
-      return (defValue / 180) * Math.PI;
+      if (typeof(angle) === 'string') {
+        return Math.random() * 2 * Math.PI;
+      } else {
+        return (defValue as number / 180) * Math.PI;
+      }
     }
     return undefined;
   }
@@ -964,9 +968,9 @@ export class ThreeUtil {
   }
 
   static getEulerSafe(
-    x: number,
-    y: number,
-    z: number,
+    x: number | string,
+    y: number | string,
+    z: number | string,
     altValue?: THREE.Euler
   ): THREE.Euler {
     const defValue =

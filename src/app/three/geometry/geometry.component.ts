@@ -187,6 +187,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private color: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private customColor: number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private customSize:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
+  @Input() private customScale:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   @Input() private index:number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute = null;
   
   @Input() private mesh : THREE.Mesh | any = null;
@@ -744,6 +745,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
       }
       if (ThreeUtil.isNotNull(this.customSize)) {
         attributes.push({ key : 'size', value : this.getAttribute(this.customSize, 1)})
+      }
+      if (ThreeUtil.isNotNull(this.customScale)) {
+        attributes.push({ key : 'scale', value : this.getAttribute(this.customScale, 1)})
       }
       if (ThreeUtil.isNotNull(this.index)) {
         attributes.push({ key : 'index', value : this.getAttribute(this.index, 1)})

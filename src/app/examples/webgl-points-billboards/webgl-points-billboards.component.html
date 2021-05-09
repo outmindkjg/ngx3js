@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl particle billboards example
 </div>
 <three-renderer
-  [controlType]="'orbit'"
+  [controlType]="'plain'"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
@@ -10,8 +10,6 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['mousemove']"
-  (eventListener)="onMouseMove($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>

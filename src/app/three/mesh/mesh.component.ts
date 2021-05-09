@@ -1249,9 +1249,11 @@ export class MeshComponent
           }
           break;
         case 'sprite':
-          basemesh = new THREE.Sprite(
+          const sprite = new THREE.Sprite(
             this.getMaterials()[0] as THREE.SpriteMaterial
           );
+          // sprite.center todo
+          basemesh = sprite;
           break;
         case 'wireframe':
           basemesh = new Wireframe(

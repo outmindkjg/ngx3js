@@ -1,11 +1,14 @@
 import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
-import { RendererTimer, ThreeUtil } from '../interface';
+import * as THREE from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
+import { PlainControls } from './plain-controls';
+
 
 @Component({
   selector: 'three-control',
@@ -19,6 +22,8 @@ export class ControlComponent implements OnInit {
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private xDistance:number = null;
+  @Input() private yDistance:number = null;
   @Input() private minZoom:number = null;
   @Input() private maxZoom:number = null;
   @Input() private staticMoving:boolean = null;
@@ -78,6 +83,7 @@ export class ControlComponent implements OnInit {
 
   private control : any = null;
   private needUpdate : boolean = true;
+
   getControl() {
     if (this.control === null || this.needUpdate) {
       const camera = this.camera;
@@ -170,6 +176,25 @@ export class ControlComponent implements OnInit {
           }
           control = trackballControls;
           break;
+        case "plain" :
+          const mouseMoveControls = new PlainControls(camera, domElement);
+          if (ThreeUtil.isNotNull(this.rotateSpeed)) {
+            mouseMoveControls.rotateSpeed = this.rotateSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.zoomSpeed)) {
+            mouseMoveControls.zoomSpeed = this.zoomSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.panSpeed)) {
+            mouseMoveControls.panSpeed = this.panSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.xDistance)) {
+            mouseMoveControls.xDistance = this.xDistance;
+          }
+          if (ThreeUtil.isNotNull(this.yDistance)) {
+            mouseMoveControls.yDistance = this.yDistance;
+          }
+          control = mouseMoveControls;
+          break;
         case "orbit":
         default :
           const orbitControls = new OrbitControls(camera, domElement);
@@ -228,6 +253,8 @@ export class ControlComponent implements OnInit {
         this.control.update(renderTimer.delta);
       } else if (this.control instanceof TrackballControls) {
         this.control.update();
+      } else if (this.control instanceof PlainControls) {
+        this.control.update(renderTimer.delta);
       }
     }
   }

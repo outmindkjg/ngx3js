@@ -29,6 +29,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
+  @Input() private xDistance:number = null;
+  @Input() private yDistance:number = null;
   @Input() private minZoom:number = null;
   @Input() private maxZoom:number = null;
   @Input() private rotateSpeed:number = null;
@@ -466,6 +468,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         case "firstperson":
         case "transform":
         case "trackball":
+        case "plain" :
           const control = new ControlComponent();
           control.setControlParams({
             type : controlType,
@@ -473,6 +476,8 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             screenSpacePanning : this.screenSpacePanning,
             minDistance : this.minDistance,
             maxDistance : this.maxDistance,
+            xDistance : this.xDistance,
+            yDistance : this.yDistance,
             minZoom : this.minZoom,
             maxZoom : this.maxZoom,
             rotateSpeed : this.rotateSpeed,

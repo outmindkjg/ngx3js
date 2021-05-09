@@ -24,14 +24,6 @@ export class WebglPointsBillboardsComponent extends BaseComponent<{}> {
   }
   vertices : number[] = [];
 
-  mouseX : number = 0;
-  mouseY : number = 0;
-  
-  onMouseMove(event  : RendererEvent) {
-    this.mouseX = ( event.mouse.x ) * event.width * 2;
-    this.mouseY = ( event.mouse.y ) * event.height * 2;
-  }
-
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     const tmpMesh = mesh.getMesh() as Points;
@@ -42,16 +34,10 @@ export class WebglPointsBillboardsComponent extends BaseComponent<{}> {
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.camera !== null) {
-      const camera = this.camera.getCamera();
-      camera.position.x += ( this.mouseX - camera.position.x ) * .05;
-      camera.position.y += ( - this.mouseY - camera.position.y ) * .05;
-      camera.lookAt( 0, 0, 0 );
-      if (this.material !== null) {
-        const time = timer.elapsedTime * 0.05;
-				const h = ( 360 * ( 1.0 + time ) % 360 ) / 360;
-				this.material.color.setHSL( h, 0.5, 0.5 );
-      }
+    if (this.material !== null) {
+      const time = timer.elapsedTime * 0.05;
+      const h = ( 360 * ( 1.0 + time ) % 360 ) / 360;
+      this.material.color.setHSL( h, 0.5, 0.5 );
     }
   }
 }

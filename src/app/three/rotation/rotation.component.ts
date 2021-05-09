@@ -13,9 +13,9 @@ export class RotationComponent implements OnInit {
   @Input() public visible:boolean = true;
   @Input() private refer:any = null;
   @Input() private referRef:boolean = true;
-  @Input() private x:number = 0;
-  @Input() private y:number = 0;
-  @Input() private z:number = 0;
+  @Input() private x:number|string = 0;
+  @Input() private y:number|string = 0;
+  @Input() private z:number|string = 0;
   @Output() private onLoad:EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
 
   constructor() { }

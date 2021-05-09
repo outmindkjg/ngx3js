@@ -357,7 +357,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private getRotation(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.rotation, def);
+    return ThreeUtil.getAngleSafe(this.rotation, def);
   }
 
   private getSize(def?: number): number {
