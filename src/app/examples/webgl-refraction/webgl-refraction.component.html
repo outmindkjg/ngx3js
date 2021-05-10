@@ -42,17 +42,6 @@
         ></three-geometry>
         <three-material [type]="'MeshStandard'" [color]="'0x6083c2'"></three-material>
       </three-mesh>
-      <three-mesh>
-        <three-position [x]="0" [y]="0" [z]="10"></three-position>
-        <three-geometry
-          [type]="'TorusKnot'"
-          [radius]="3"
-          [tube]="1"
-          [radialSegments]="256"
-          [tubularSegments]="32"
-        ></three-geometry>
-        <three-material [type]="'MeshStandard'" [color]="'0x6083c2'"></three-material>
-      </three-mesh>
       <three-mesh [type]="'refractor'" [color]="'0x999999'" [textureWidth]="1024" [textureHeight]="1024" [shader]="'WaterRefraction'" (onLoad)="setRefractor($event)">
         <three-position [x]="0" [y]="0" [z]="5"></three-position>
         <three-geometry

@@ -1146,6 +1146,7 @@ export class MeshComponent
             encoding: this.getEncoding(),
           });
           const refractorMaterial = refractor.material as THREE.ShaderMaterial;
+          console.log(refractorMaterial.uniforms);
           Object.entries(refractorMaterial.uniforms).forEach(([key, value]) => {
               switch(key.toLowerCase()) {
                 case 'tdudv' :
