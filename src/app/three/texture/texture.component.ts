@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -45,6 +45,8 @@ export class TextureComponent implements OnInit {
   @Input() private useDropImage:boolean = false;
   @Input() private color:number|string = null;
   @Input() private add:number|string = null;
+  @Input() private rotation:number = null;
+  @Output() private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
   private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
@@ -267,6 +269,10 @@ export class TextureComponent implements OnInit {
 
   private getOffset(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.offsetX, this.offsetY, new THREE.Vector2(defX,defY));
+  }
+
+  private getRotation(def?: number): number {
+    return ThreeUtil.getAngleSafe(this.rotation, def);
   }
 
   constructor(private localStorageService: LocalStorageService) { }
@@ -499,6 +505,7 @@ export class TextureComponent implements OnInit {
               format : null,
               type : null,
               repeat : null,
+              rotation : null,
               anisotropy : null,
               premultiplyAlpha : null
             });
@@ -526,6 +533,7 @@ export class TextureComponent implements OnInit {
               repeat : null,
               anisotropy : null,
               premultiplyAlpha : null,
+              rotation : null,
               mapping : null
             });
             this.texture.needsUpdate = true;
@@ -564,6 +572,11 @@ export class TextureComponent implements OnInit {
           case 'wrapT':
             if (ThreeUtil.isNotNull(this.wrapT)) {
               this.texture.wrapT = this.getWrapT('clamptoedge');
+            }
+            break;
+          case 'rotation':
+            if (ThreeUtil.isNotNull(this.rotation)) {
+              this.texture.rotation = this.getRotation(0);
             }
             break;
           case 'premultiplyAlpha':
@@ -620,6 +633,7 @@ export class TextureComponent implements OnInit {
             break;
         }
       }
+      this.onLoad.emit(this);
       this._textureSubject.next(this.texture);
     }
     return this.texture;

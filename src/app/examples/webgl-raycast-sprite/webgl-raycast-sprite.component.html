@@ -10,10 +10,12 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['mousemove']"
+  (eventListener)="onMouseOver($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
     <three-position [x]="15" [y]="15" [z]="15"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xffffff'">
@@ -23,16 +25,16 @@
         <three-scale [x]="2" [y]="5" [z]="1"></three-scale>
         <three-material [type]="'Sprite'" [color]="'0x6699ff'"></three-material>
       </three-mesh>
-      <three-mesh [type]="'Sprite'">
+      <three-mesh [type]="'Sprite'" [centerX]="0.5" [centerY]="0">
         <three-position [x]="8" [y]="-2" [z]="2"></three-position>
         <three-scale [x]="0.1" [y]="0.5" [z]="0.1"></three-scale>
-        <three-material [type]="'Sprite'" [color]="'0x6699ff'" [sizeAttenuation]="true" [rotation]="240"></three-material>
+        <three-material [type]="'Sprite'" [color]="'0x6699ff'" [sizeAttenuation]="false" [rotation]="240"></three-material>
       </three-mesh>
       <three-mesh>
         <three-position [x]="-5" [y]="0" [z]="0"></three-position>
         <three-scale [x]="1" [y]="2" [z]="1"></three-scale>
         <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
-        <three-mesh [type]="'Sprite'">
+        <three-mesh [type]="'Sprite'" [centerX]="-0.1" [centerY]="0">
           <three-position [x]="0" [y]="2" [z]="5"></three-position>
           <three-scale [x]="10" [y]="2" [z]="3"></three-scale>
           <three-material [type]="'Sprite'" [color]="'0x6699ff'" [rotation]="60"></three-material>

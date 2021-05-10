@@ -26,6 +26,9 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
+import { Refractor } from 'three/examples/jsm/objects/Refractor';
+import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
+
 import { Flow, InstancedFlow } from "three/examples/jsm/modifiers/CurveModifier";
 
 import { GeometryComponent } from '../geometry/geometry.component';
@@ -45,7 +48,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { CurveComponent } from '../curve/curve.component';
-import { Vector3 } from 'three';
+import { Vector2, Vector3 } from 'three';
 
 
 @Component({
@@ -132,15 +135,20 @@ export class MeshComponent
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
+  @Input() private texture: TextureComponent | THREE.Texture = null;
   @Input() private curve: CurveComponent | THREE.Curve<Vector3> = null;
   @Input() private morphTargets:boolean = null;
-
+  @Input() private centerX: number = null;
+  @Input() private centerY: number = null;
+  @Input() private shader: string = null;
+  @Input() private encoding:string = null;
   @Input() private shareParts: MeshComponent = null;
   
   @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @Output() private onDestory: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
+  @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
@@ -284,6 +292,42 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.isolation, def);
   }
 
+  private getShader(def?: string) {
+    const shader = ThreeUtil.getTypeSafe(this.shader, def, '');
+    switch(shader.toLowerCase()) {
+      case 'waterrefractionshader' :
+      case 'waterrefraction' :
+        return WaterRefractionShader;
+      default:
+        break;
+    }
+    return undefined;
+  }
+
+  private getEncoding(def?: string): THREE.TextureEncoding {
+    const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
+    switch (encoding.toLowerCase()) {
+      case 'srgb':
+        return THREE.sRGBEncoding;
+      case 'gamma':
+        return THREE.GammaEncoding;
+      case 'rgbe':
+        return THREE.RGBEEncoding;
+      case 'logluv':
+        return THREE.LogLuvEncoding;
+      case 'rgbm7':
+        return THREE.RGBM7Encoding;
+      case 'rgbm16':
+        return THREE.RGBM16Encoding;
+      case 'rgbd':
+        return THREE.RGBDEncoding;
+      case 'linear':
+        return THREE.LinearEncoding;
+      default:
+        break;
+    }
+    return undefined;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
@@ -419,6 +463,29 @@ export class MeshComponent
       materials.push(new THREE.MeshPhongMaterial(parameters));
     }
     return materials;
+  }
+
+  private getTexture(type : string): THREE.Texture {
+    if (this.texture !== null && this.texture !== undefined) {
+      if (
+        this.texture instanceof TextureComponent &&
+        this.texture.textureType.toLowerCase() === type.toLowerCase()
+      ) {
+        return this.texture.getTexture();
+      } else if (this.texture instanceof THREE.Texture) {
+       return this.texture;
+      }
+    }
+    if (this.textureList !== null && this.textureList.length > 0) {
+      let foundTexture: THREE.Texture = null
+      this.textureList.forEach((texture) => {
+        if (texture.textureType.toLowerCase() === type.toLowerCase()) {
+          foundTexture = texture.getTexture();
+        }
+      });
+      return foundTexture;
+    }
+    return undefined;
   }
 
   setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
@@ -1065,9 +1132,28 @@ export class MeshComponent
             textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
             textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
             clipBias: this.getClipBias(0.003),
-            // shader: undefined,
-            // encoding: this.getEn,
+            shader: this.getShader(),
+            encoding: this.getEncoding(),
           });
+          break;
+        case 'refractor' :
+          const refractor = new Refractor(geometry, {
+            color: this.getColor(),
+            textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
+            textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+            clipBias: this.getClipBias(0.003),
+            shader: this.getShader(),
+            encoding: this.getEncoding(),
+          });
+          const refractorMaterial = refractor.material as THREE.ShaderMaterial;
+          Object.entries(refractorMaterial.uniforms).forEach(([key, value]) => {
+              switch(key.toLowerCase()) {
+                case 'tdudv' :
+                  value.value = this.getTexture('tdudv') || null;
+                  break;
+              }
+          });
+          basemesh = refractor;
           break;
         case 'flow' :
           const flowMaterial = this.getMaterials()[0];
@@ -1252,7 +1338,9 @@ export class MeshComponent
           const sprite = new THREE.Sprite(
             this.getMaterials()[0] as THREE.SpriteMaterial
           );
-          // sprite.center todo
+          if (ThreeUtil.isNotNull(this.centerX) && ThreeUtil.isNotNull(this.centerY)) {
+            sprite.center.copy(ThreeUtil.getVector2Safe(this.centerX, this.centerY, new Vector2()));
+          }
           basemesh = sprite;
           break;
         case 'wireframe':

@@ -1,7 +1,5 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - raycast texture<br>Left to right: buffer geometry - geometry - indexed buffer geometry
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -9,62 +7,67 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['mousemove']"
+  (eventListener)="setMouseMove($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+    <three-position [x]="-30" [y]="40" [z]="50"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
+  <three-scene #scene [background]="'0xeeeeee'">
+    <three-shared>
+      <three-material #material [type]="'MeshBasic'" [side]="'double'">
+        <three-texture 
+          [image]="'textures/uv_grid_opengl.jpg'" 
+          [mapping]="'uv'" 
+          [wrapS]="controls.wrapS" 
+          [wrapT]="controls.wrapT"
+          [repeatX]="controls.repeat.x"
+          [repeatY]="controls.repeat.y"
+          [offsetX]="controls.offset.x"
+          [offsetY]="controls.offset.y"
+          [rotation]="controls.rotation"
+          (onLoad)="setTexture($event)"
+        ></three-texture>
+      </three-material>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-mesh [material]="material">
+        <three-position [x]="4" [y]="-5" [z]="0"></three-position>
+        <three-geometry
+          [type]="'box'"
+          [width]="20"
+          [height]="20"
+          [depth]="20"
+          (onLoad)="setGeometry('box', $event)"
+        ></three-geometry>
+      </three-mesh>
+      <three-mesh [material]="material">
+        <three-position [x]="-16" [y]="-5" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Plane'"
+          [width]="25"
+          [height]="25"
+          [widthSegments]="1"
+          [heightSegments]="1"
+          (onLoad)="setGeometry('plane', $event)"
+          ></three-geometry>
+      </three-mesh>
+      <three-mesh [material]="material">
+        <three-position [x]="24" [y]="-5" [z]="0"></three-position>
+        <three-geometry
+          [type]="'Circle'"
+          [radius]="25"
+          [segments]="40"
+          [thetaStart]="0"
+          [thetaLength]="360"
+          (onLoad)="setGeometry('circle', $event)"
+        ></three-geometry>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>
