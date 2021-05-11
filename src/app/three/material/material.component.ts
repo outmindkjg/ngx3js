@@ -62,7 +62,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private stencilZFail:string = null;
   @Input() private stencilZPass:string = null;
   @Input() private userData:any = null;
-  @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any } | THREE.IUniform) } = null;
+  @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any, options? : any } | THREE.IUniform) } = null;
   @Input() private vertexShader:string = null;
   @Input() private fragmentShader:string = null;
   @Input() private lights:boolean = null;
@@ -836,11 +836,28 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     Object.entries(uniforms).forEach(([key, value]) => {
       if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
         switch(value['type'].toLowerCase()) {
+          case 'vector2' :
+          case 'v2' :
+            uniforms[key] = { value: ThreeUtil.getVector2Safe( value['value'][0] , value['value'][1]) }
+            break;
+          case 'vector3' :
+          case 'vector' :
+          case 'v3' :
+            uniforms[key] = { value: ThreeUtil.getVector3Safe( value['value'][0] , value['value'][1], value['value'][2]) }
+            break;
           case 'color' :
             uniforms[key] = { value: ThreeUtil.getColorSafe( value['value'] , 0xffffff) }
             break;
           case 'texture' :
-            uniforms[key] = { value: TextureComponent.getTextureImage( value['value'] ) }
+            const texture = TextureComponent.getTextureImage( value['value'] );
+            if (ThreeUtil.isNotNull(value['options'])) {
+              switch(value['options']) {
+                case 'wrapRepeat' :
+                  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                  break;
+              }
+            }
+            uniforms[key] = { value: texture };
             break;
           case 'number' :
             uniforms[key] = { value: parseFloat(value['value'])}

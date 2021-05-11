@@ -5,9 +5,9 @@ import { CameraComponent } from './camera/camera.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RendererTimer, ThreeUtil } from './interface';
 import { MaterialComponent } from './material/material.component';
-import { AbstractObject3dComponent } from './object3d.abstract';
 import { SceneComponent } from './scene/scene.component';
 import { HtmlCollection, VisualComponent } from './visual/visual.component';
+import { IUniform } from 'three';
 
 export abstract class AbstractThreeController {
   enable: boolean = true;
@@ -390,12 +390,11 @@ export abstract class AbstractThreeController {
     return result;
   }
 
-  getComponent(refObject?: THREE.Object3D): AbstractObject3dComponent {
+  getComponent(refObject?: THREE.Object3D): any {
     const object3d = refObject || this.refObject;
     if (
       ThreeUtil.isNotNull(object3d) &&
-      ThreeUtil.isNotNull(object3d.userData.component) &&
-      object3d.userData.component instanceof AbstractObject3dComponent
+      ThreeUtil.isNotNull(object3d.userData.component)
     ) {
       return object3d.userData.component;
     }
@@ -731,3 +730,36 @@ export class AutoMaterialController extends AbstractThreeController {
     }
   }
 }
+
+export class AutoUniformsController extends AbstractThreeController {
+  key: string = null;
+  valueType : string = 'elapsedTime';
+  speed: number = 1;
+  setObject3d(refObject: THREE.Object3D) {
+    super.setObject3d(refObject);
+  }
+  setVariables(variables: { [key: string]: any }) {
+    super.setVariables(variables);
+    this.uniform = null;
+    if (ThreeUtil.isNotNull(this.key) && this.refObject['material']) {
+      const material = this.refObject['material'];
+      if (material instanceof THREE.ShaderMaterial) {
+        this.uniform = material.uniforms[this.key];
+      }
+    }
+  }
+
+  private uniform : IUniform = null;
+
+  update(rendererTimer: RendererTimer): void {
+    if (this.uniform !== null) {
+      switch(this.valueType.toLowerCase()) {
+        default :
+          this.uniform.value = rendererTimer.elapsedTime * this.speed;
+          break;
+      }
+    }
+  }
+
+}
+

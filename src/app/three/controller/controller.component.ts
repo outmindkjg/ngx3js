@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
-import { AbstractThreeController } from '../controller.abstract';
+import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
 import { RendererTimer } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
 import { HtmlCollection } from '../visual/visual.component';
@@ -15,7 +15,7 @@ import { HtmlCollection } from '../visual/visual.component';
 })
 export class ControllerComponent implements OnInit {
 
-  @Input() private controller:{ new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } = null;
+  @Input() private controller:{ new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } | string = null;
   @Input() private params:{ [key : string] : any} = null;
   constructor() { }
 
@@ -103,7 +103,17 @@ export class ControllerComponent implements OnInit {
 
   getController() : AbstractThreeController {
     if ((this.parent !== null || this.refObject2d)&& this._controller === null) {
-      this._controller = new this.controller(this.parent, this.refObject2d);
+      let controller : any = null; 
+      if (typeof this.controller === 'string') {
+        switch(this.controller.toLowerCase()) {
+          case 'uniforms' :
+            controller = AutoUniformsController;
+            break;
+        }
+      } else {
+        controller = this.controller;
+      }
+      this._controller = new controller(this.parent, this.refObject2d);
       this.resetRenderer();
       this._controller.setVariables(this.params);
       this._controller.awake();

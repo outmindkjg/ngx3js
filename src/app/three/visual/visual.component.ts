@@ -4,7 +4,7 @@ import { HtmlComponent } from '../html/html.component';
 import { CssStyle, ThreeUtil } from '../interface';
 import { TransformComponent } from '../transform/transform.component';
 import * as THREE from 'three';
-import { ControllerComponent } from '../controller/controller.component';
+// import { ControllerComponent } from '../controller/controller.component';
 
 export interface HtmlCollection {
   html : HTMLElement;
@@ -56,7 +56,7 @@ export class VisualComponent implements OnInit {
   @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
   @ContentChildren(TransformComponent) private transform: QueryList<TransformComponent>;
   @ContentChildren(BackgroundComponent) private background: QueryList<BackgroundComponent>;
-	@ContentChildren(ControllerComponent, { descendants: false }) private controller: QueryList<ControllerComponent>;
+	// @ContentChildren(ControllerComponent, { descendants: false }) private controller: QueryList<ControllerComponent>;
 
   private collection : HtmlCollection = {
     html : null,
@@ -96,9 +96,9 @@ export class VisualComponent implements OnInit {
     this.background.changes.subscribe(() => {
       this.synkObject2D(['background']);
     });
-    this.controller.changes.subscribe(() => {
-      this.synkObject2D(['controller']);
-    });
+    // this.controller.changes.subscribe(() => {
+    //  this.synkObject2D(['controller']);
+    // });
   }
 
   private parentNode: HTMLElement = null;
@@ -151,11 +151,11 @@ export class VisualComponent implements OnInit {
               background.setParentNode(this.visual);
             });
             break;
-            case 'controller':
-              this.controller.forEach((controller) => {
-                controller.setObject2D(this.collection);
-              });
-              break;
+          case 'controller':
+            // this.controller.forEach((controller) => {
+            //   controller.setObject2D(this.collection);
+            // });
+            break;
         }
       });
     }
