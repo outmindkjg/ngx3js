@@ -39,7 +39,7 @@ export class SceneComponent
   @Input() private storageName:string = null;
   @Input() private background:string | number | MaterialComponent | TextureComponent = null;
   @Input() private backgroundType:string = 'background';
-  @Input() private environment:string | MaterialComponent = null;
+  @Input() private environment:string | MaterialComponent | MeshComponent = null;
   
   @ContentChildren(MeshComponent, { descendants: false }) meshList: QueryList<MeshComponent>;
   @ContentChildren(PhysicsComponent, { descendants: false }) physicsList: QueryList<PhysicsComponent>;
@@ -173,12 +173,12 @@ export class SceneComponent
 
   private _materialSubscribe: Subscription[] = [];
 
-  setMaterial(material : MaterialComponent, materialTypeHint : string = null) {
+  setMaterial(material : MaterialComponent | THREE.Material , materialTypeHint : string = null) {
     if (this.scene !== null) {
-      const materialClone = material.getMaterial();
+      const materialClone = material instanceof MaterialComponent ? material.getMaterial() : material;
       const map: THREE.Texture = (materialClone['map'] && materialClone['map'] instanceof THREE.Texture) ? materialClone['map'] : null;
       const color: THREE.Color = (materialClone['color'] && materialClone['color'] instanceof THREE.Color) ? materialClone['color'] : null;
-      const materialType = ThreeUtil.getTypeSafe(materialTypeHint , material.materialType, 'material');
+      const materialType = material instanceof MaterialComponent ? ThreeUtil.getTypeSafe(materialTypeHint , material.materialType, 'material') : materialTypeHint;
       switch(materialType.toLowerCase()) {
         case 'environment':
           if (map !== null) {
@@ -246,12 +246,20 @@ export class SceneComponent
   }
   _pmremGenerator : THREE.PMREMGenerator = null;
 
-  getTextureEquirectangular(map : THREE.Texture) {
+  getTextureEquirectangular(map : THREE.Texture) : THREE.Texture {
     if (this._pmremGenerator == null) {
       this._pmremGenerator = new THREE.PMREMGenerator( this.getThreeRenderer() as THREE.WebGLRenderer );
       this._pmremGenerator.compileEquirectangularShader();
     }
     return this._pmremGenerator.fromEquirectangular( map ).texture;
+  }
+
+  getTextureScene(map : THREE.Scene) : THREE.Texture {
+    if (this._pmremGenerator == null) {
+      this._pmremGenerator = new THREE.PMREMGenerator( this.getThreeRenderer() as THREE.WebGLRenderer );
+      this._pmremGenerator.compileEquirectangularShader();
+    }
+    return this._pmremGenerator.fromScene( map ).texture;
   }
 
   setMaterialSubscribe() {
@@ -415,6 +423,9 @@ export class SceneComponent
       if (ThreeUtil.isNotNull(this.environment)) {
         if (this.environment instanceof MaterialComponent) {
           this.setMaterial(this.environment, 'environment');
+        } else if (this.environment instanceof MeshComponent) {
+            const mesh = this.environment.getMesh() as THREE.Scene;
+            this.scene.environment = this.getTextureScene(mesh);
         } else {
           switch(this.environment) {
             case 'room' :
@@ -428,10 +439,6 @@ export class SceneComponent
           }
         }
       }
-
-
-      
-
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }

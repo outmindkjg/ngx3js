@@ -2,51 +2,26 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  EventEmitter, Input,
-  OnInit, Output,
-  QueryList,
-  SimpleChanges
+  OnInit,
+  QueryList
 } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import * as THREE from 'three';
-import { Line2 } from 'three/examples/jsm/lines/Line2';
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
-import { Wireframe } from 'three/examples/jsm/lines/Wireframe';
-import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
-import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
-import { Volume } from 'three/examples/jsm/misc/Volume';
-import {
-  Lensflare,
-  LensflareElement
-} from 'three/examples/jsm/objects/Lensflare';
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
-import { CssStyle, InterfaceMeshComponent, ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
-import { AbstractObject3dComponent } from '../object3d.abstract';
 import { SvgComponent } from '../svg/svg.component';
-import { TextureComponent } from '../texture/texture.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
+import { ControllerComponent } from './../controller/controller.component';
 import { HelperComponent } from './../helper/helper.component';
 import { LightComponent } from './../light/light.component';
 import { ListenerComponent } from './../listener/listener.component';
-import { LocalStorageService } from './../local-storage.service';
-import { MixerComponent } from './../mixer/mixer.component';
-import { MeshComponent } from './../mesh/mesh.component';
-import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { LookatComponent } from './../lookat/lookat.component';
+import { MeshComponent } from './../mesh/mesh.component';
 import { PositionComponent } from './../position/position.component';
+import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { RotationComponent } from './../rotation/rotation.component';
 import { ScaleComponent } from './../scale/scale.component';
-import { ControllerComponent } from './../controller/controller.component';
 
 
 @Component({

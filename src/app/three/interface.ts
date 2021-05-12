@@ -931,18 +931,48 @@ export class ThreeUtil {
     return undefined;
   }
 
+  static getVector2VSafe(
+    v2: number[] | THREE.Vector2,
+    altValue?: THREE.Vector2
+  ): THREE.Vector2 {
+    if (v2 instanceof THREE.Vector2) {
+      return v2;
+    } else if (this.isNotNull(v2) && v2.length >= 2){
+      return this.getVector2Safe(v2[0],v2[1], altValue);
+    }
+    return undefined;
+  }
 
   static getVector2Safe(
     x: number,
     y: number,
-    altValue?: THREE.Vector2
+    altValue?: THREE.Vector2,
+    v2?: number[] | THREE.Vector2,
   ): THREE.Vector2 {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y)
         ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x))
-        : altValue;
+        : null;
     if (this.isNotNull(defValue)) {
       return defValue;
+    }
+    if (this.isNotNull(v2)) {
+      return this.getVector2VSafe(v2, altValue);
+    }
+    if (this.isNotNull(altValue)) {
+      return altValue;
+    }
+    return undefined;
+  }
+
+  static getVector3VSafe(
+    v3: number[] | THREE.Vector3,
+    altValue?: THREE.Vector3
+  ): THREE.Vector3 {
+    if (v3 instanceof THREE.Vector3) {
+      return v3;
+    } else if (this.isNotNull(v3) && v3.length >= 3){
+      return this.getVector3Safe(v3[0],v3[1],v3[2], altValue);
     }
     return undefined;
   }
@@ -951,7 +981,8 @@ export class ThreeUtil {
     x: number,
     y: number,
     z: number,
-    altValue?: THREE.Vector3
+    altValue?: THREE.Vector3,
+    v3?: number[] | THREE.Vector3,
   ): THREE.Vector3 {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
@@ -960,9 +991,15 @@ export class ThreeUtil {
             this.getTypeSafe(y, z, x),
             this.getTypeSafe(z, x, y)
           )
-        : altValue;
+        : null;
     if (this.isNotNull(defValue)) {
       return defValue;
+    }
+    if (this.isNotNull(v3)) {
+      return this.getVector3VSafe(v3, altValue);
+    }
+    if (this.isNotNull(altValue)) {
+      return altValue;
     }
     return undefined;
   }

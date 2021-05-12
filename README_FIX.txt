@@ -74,6 +74,7 @@ node_modules\three\examples\jsm\modifiers\SimplifyModifier.d.ts
 modify( geometry: BufferGeometry , count: number ): BufferGeometry;
 
 ----------------------
+node_modules\three\examples\jsm\objects\Water.d.ts
 
 ----------------------
 

@@ -30,6 +30,8 @@ import { Refractor } from 'three/examples/jsm/objects/Refractor';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 
 import { Flow, InstancedFlow } from "three/examples/jsm/modifiers/CurveModifier";
+import { Water } from 'three/examples/jsm/objects/Water';
+import { Sky } from 'three/examples/jsm/objects/Sky';
 
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
@@ -82,8 +84,16 @@ export class MeshComponent
   @Input() private textureWidth: number = null;
   @Input() private textureHeight: number = null;
   @Input() private clipBias: number = null;
+  @Input() private sunColor: string | number = null;
+  @Input() private sunDirection: number[] | THREE.Vector3 = null;
+  @Input() private sunPosition: number[] | THREE.Vector3 = null;
+  @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any, options? : any } | THREE.IUniform) } = null;
+  @Input() private distortionScale: number = null;
+  @Input() private alpha: number = null;
+  
   @Input() private skyColor: string | number = null;
   @Input() private groundColor: string | number = null;
+  @Input() private waterColor: string | number = null;
   @Input() private intensity: number = null;
   @Input() private distance: number = null;
   @Input() private metalness: number = null;
@@ -143,6 +153,7 @@ export class MeshComponent
   @Input() private shader: string = null;
   @Input() private encoding:string = null;
   @Input() private shareParts: MeshComponent = null;
+  @Input() private sharedMesh: MeshComponent = null;
   
   @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @Output() private onDestory: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
@@ -232,12 +243,91 @@ export class MeshComponent
     return ThreeUtil.getTypeSafe(this.clipBias, def);
   }
 
+  private getSunColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.sunColor, def);
+  }
+
+  private getSunPosition(def?: THREE.Vector3): THREE.Vector3 {
+    if (ThreeUtil.isNotNull(this.sunPosition)) {
+      return ThreeUtil.getVector3VSafe(this.sunPosition, def);
+    } else {
+      return ThreeUtil.getVector3VSafe(this.sunDirection, def);
+    }
+  }
+  
+  private getUndateUniforms(orgUniforms?: { [uniform: string]: THREE.IUniform }): void {
+    const uniforms = ThreeUtil.getTypeSafe(this.uniforms, {});
+    Object.entries(uniforms).forEach(([key, value]) => {
+      if (ThreeUtil.isNotNull(orgUniforms[key])) {
+        const uniformsValue = orgUniforms[key];
+        if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+          switch(value['type'].toLowerCase()) {
+            case 'vector2' :
+            case 'v2' :
+              uniformsValue.value = ThreeUtil.getVector2Safe( value['value'][0] , value['value'][1]);
+              break;
+            case 'vector3' :
+            case 'vector' :
+            case 'v3' :
+              uniformsValue.value = ThreeUtil.getVector3Safe( value['value'][0] , value['value'][1], value['value'][2]);
+              break;
+            case 'color' :
+              uniformsValue.value = ThreeUtil.getColorSafe( value['value'] , 0xffffff);
+              break;
+            case 'texture' :
+              const texture = TextureComponent.getTextureImage( value['value'] );
+              if (ThreeUtil.isNotNull(value['options'])) {
+                switch(value['options']) {
+                  case 'wrapRepeat' :
+                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                    break;
+                }
+              }
+              uniformsValue.value = texture;
+              break;
+            case 'number' :
+              uniformsValue.value = parseFloat(value['value']);
+              break;
+          }
+        } else {
+          orgUniforms.value = value;
+        }
+      }
+    })
+  }
+
+  private getSunDirection(def?: THREE.Vector3): THREE.Vector3 {
+    let sunDirection : THREE.Vector3 = null;
+    if (ThreeUtil.isNotNull(this.sunDirection)) {
+      sunDirection = ThreeUtil.getVector3VSafe(this.sunDirection, def);
+    } else {
+      sunDirection = ThreeUtil.getVector3VSafe(this.sunPosition, def);
+    }
+    if (ThreeUtil.isNotNull(sunDirection)) {
+      return sunDirection.normalize();
+    } else {
+      return undefined;
+    }
+  }
+
+  private getAlpha(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.alpha, def);
+  }
+
+  private getDistortionScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.distortionScale, def);
+  }
+
   private getSkyColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.skyColor, def);
   }
 
   private getGroundColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.groundColor, def);
+  }
+
+  private getWaterColor(def?: string | number): THREE.Color {
+    return ThreeUtil.getColorSafe(this.waterColor, def);
   }
 
   private getHelperVisible(def?: boolean): boolean {
@@ -360,7 +450,8 @@ export class MeshComponent
   private _materialSubscribe: Subscription[] = [];
   private _geometrySubscribe: Subscription[] = [];
   private _curveSubscribe: Subscription[] = [];
-  
+  private _sharedMeshSubscribe: Subscription[] = [];
+    
 
   ngOnDestroy(): void {
     this._materialSubscribe = this.unSubscription(this._materialSubscribe);
@@ -1146,7 +1237,6 @@ export class MeshComponent
             encoding: this.getEncoding(),
           });
           const refractorMaterial = refractor.material as THREE.ShaderMaterial;
-          console.log(refractorMaterial.uniforms);
           Object.entries(refractorMaterial.uniforms).forEach(([key, value]) => {
               switch(key.toLowerCase()) {
                 case 'tdudv' :
@@ -1155,6 +1245,28 @@ export class MeshComponent
               }
           });
           basemesh = refractor;
+          break;
+        case 'water' :
+          const water = new Water(geometry, {
+            textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
+            textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+            clipBias: this.getClipBias(0.003),
+            alpha: this.getAlpha(),
+            time: 0,
+            waterNormals: this.getTexture('waterNormals'),
+            sunDirection: this.getSunDirection(),
+            sunColor: this.getSunColor(),
+            waterColor: this.getWaterColor(),
+            distortionScale: this.getDistortionScale(),
+            fog: false
+          });
+          this.getUndateUniforms(water.material['uniforms']);
+          basemesh = water;
+          break;
+        case 'sky' :
+          const sky = new Sky();
+          this.getUndateUniforms(sky.material.uniforms);
+          basemesh = sky;
           break;
         case 'flow' :
           const flowMaterial = this.getMaterials()[0];
@@ -1566,6 +1678,7 @@ export class MeshComponent
                 this.resetHelper();
                 this.synkObject3D(['mixer', 'helpers']);
                 this._meshSubject.next(loadedMesh);
+                console.log(loadedMesh);
                 this.onLoad.emit(this);
                 if (this.debug) {
                   this.showDebug(this.mesh);
@@ -1573,6 +1686,48 @@ export class MeshComponent
               },
               this.storageOption
             );
+          } else if (ThreeUtil.isNotNull(this.sharedMesh)) {
+            this.unSubscription(this._sharedMeshSubscribe);
+            basemesh = new THREE.Group();
+            const mesh = this.sharedMesh.getMesh();
+            const clips = this.sharedMesh.clips;
+            if (ThreeUtil.isNotNull(clips)) {
+              if (clips instanceof Array) {
+                this.clips = [];
+                clips.forEach(clip => {
+                  this.clips.push(clip.clone());
+                });
+              } else {
+                this.clips = clips;
+              }
+            } else {
+              this.clips = null;
+            }
+            const clipMesh = this.sharedMesh.clipMesh;
+            console.log(clipMesh);
+            this.clipMesh = clipMesh !== null ? clipMesh.clone(true) : null;
+            if (this.clipMesh === null && !(mesh instanceof THREE.Group)) {
+              this.clipMesh = mesh.clone(true);
+            }
+            if (this.clipMesh !== null) {
+              this.storageSource = this.sharedMesh.storageSource;
+              basemesh.add(this.clipMesh);
+              if (ThreeUtil.isNotNull(this.clipMesh['material'])) {
+                this.clipMesh['material'] = this.clipMesh['material'].clone();
+              }
+              this._sharedMeshSubscribe.push(
+                this.sharedMesh.meshSubscribe().subscribe(() => {
+                  this.resetMesh(true);
+                })
+              )
+              this.resetHelper();
+              if (ThreeUtil.isNotNull(this.clips)) {
+                this.synkObject3D(['mixer', 'helpers']);
+              }
+            } else {
+              this.clipMesh = null;
+              this.storageSource = null;
+            }
           } else {
             const materials = this.getMaterials();
             if (geometry !== null) {

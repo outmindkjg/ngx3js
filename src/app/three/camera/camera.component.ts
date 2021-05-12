@@ -570,8 +570,8 @@ export class CameraComponent
     if (this.camera === null) {
       this.getCamera();
     }
-    if (this.camera instanceof THREE.CubeCamera) {
-      return this.camera.renderTarget;
+    if (this.type == 'cube') {
+      return this.cubeCamera1.renderTarget;
     }
     return undefined;
   }
@@ -585,6 +585,7 @@ export class CameraComponent
           this.camera = new THREE.ArrayCamera();
           break;
         case 'cube':
+
           const cubeCamera1 = new THREE.CubeCamera(
             this.getNear(0.1),
             this.getFar(2000),
@@ -608,7 +609,10 @@ export class CameraComponent
 
           this.cubeCamera1 = cubeCamera1;
           this.cubeCamera2 = cubeCamera2;
-          this.camera = cubeCamera1 as any;
+          const cubeGroup = new THREE.Group();
+          cubeGroup.add(this.cubeCamera1);
+          cubeGroup.add(this.cubeCamera2);
+          this.camera = cubeGroup as any;
           break;
         case 'cinematic':
           this.camera = new CinematicCamera(

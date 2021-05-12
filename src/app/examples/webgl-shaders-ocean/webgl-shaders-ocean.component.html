@@ -1,7 +1,5 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl ocean
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -9,62 +7,58 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="55" [near]="1" [far]="20000">
+    <three-position [x]="30" [y]="30" [z]="100"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
+  <three-scene #scene [environment]="sky">
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="1" [z]="0"></three-position>
       <three-geometry
         [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [width]="30"
+        [height]="30"
+        [depth]="30"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'MeshStandard'" [roughness]="0"></three-material>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-mesh #sky [type]="'sky'"
+      [uniforms]="{
+        sunPosition : { type : 'v3', value : sunDirection },
+        turbidity : { type : 'number', value : 10 },
+        rayleigh : { type : 'number', value : 2 },
+        mieCoefficient : { type : 'number', value : 0.005 },
+        mieDirectionalG : { type : 'number', value : 0.8 }
+      }"
+    >
+      <three-scale [multiply]="10000"></three-scale>
+    </three-mesh>
+    <three-mesh [type]="'water'" 
+      [sunColor]="'0xffffff'"
+      [waterColor]="'0x001e0f'"
+      [sunDirection]="sunDirection"
+      [textureWidth]="512"
+      [textureHeight]="512"
+      [alpha]="controls.water.alpha"
+      [distortionScale]="controls.water.distortionScale"
+      [uniforms]="{
+        size : { type : 'number', value : controls.water.size }
+      }"
+    >
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
         [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        [width]="10000"
+        [height]="10000"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-texture [textureType]="'waterNormals'" [image]="'textures/waternormals.jpg'" [wrapS]="'repeat'" [wrapT]="'repeat'"></three-texture>
+      <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : 0.1 }"></three-controller>
     </three-mesh>
   </three-scene>
 </three-renderer>
