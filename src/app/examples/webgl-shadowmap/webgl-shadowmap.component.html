@@ -48,48 +48,76 @@
         [color]="'0xffb851'"
       ></three-material>
       <three-mesh #horse [storageName]="'models/gltf/Horse.glb'"></three-mesh>
+      <three-mesh #flamingo [storageName]="'models/gltf/Flamingo.glb'"></three-mesh>
+      <three-mesh #stork [storageName]="'models/gltf/Stork.glb'"></three-mesh>
+      <three-mesh #parrot [storageName]="'models/gltf/Parrot.glb'"></three-mesh>
+      
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-mixer [action]="'run'">
+          <three-clip [name]="'run'" [index]="0"></three-clip>
+        </three-mixer>
       </three-mesh>
-      <three-mesh>
-        <three-position [x]="0" [y]="-80" [z]="0"></three-position>
-        <three-geometry
-          [type]="'text'"
-          [font]="'helvetiker_bold'"
-          [text]="'THREE.JS'"
-          [size]="200"
-          [height]="50"
-          [curveSegments]="12"
-          [bevelThickness]="2"
-          [bevelSize]="5"
-          [bevelEnabled]="true"
-          [center]="true"
-        ></three-geometry>
-        <three-material [type]="'MeshPhong'" [color]="'0xff0000'" [specular]="'0xffffff'"></three-material>
+      <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="flamingo">
+        <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-mixer [action]="'run'">
+          <three-clip [name]="'run'" [index]="0"></three-clip>
+        </three-mixer>
       </three-mesh>
-      <three-mesh #cubes1 [material]="planeMaterial"> 
-        <three-position [x]="0" [y]="-300" [z]="20"></three-position>
-        <three-geometry 
-          [type]="'box'"
-          [width]="1500"
-          [height]="220"
-          [depth]="150"
-        >
-        </three-geometry>
+      <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="stork">
+        <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
+        <three-position [x]="info.x+120" [y]="info.y+20" [z]="info.z+10"></three-position>
+        <three-mixer [action]="'run'">
+          <three-clip [name]="'run'" [index]="0"></three-clip>
+        </three-mixer>
       </three-mesh>
-      <three-mesh #cubes2 [material]="planeMaterial"> 
-        <three-position [x]="0" [y]="-300" [z]="20"></three-position>
-        <three-geometry 
-          [type]="'box'"
-          [width]="1500"
-          [height]="170"
-          [depth]="250"
-        >
-        </three-geometry>
+      <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="parrot">
+        <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
+        <three-position [x]="info.x-120" [y]="info.y-20" [z]="info.z-10"></three-position>
+        <three-mixer [action]="'run'">
+          <three-clip [name]="'run'" [index]="0"></three-clip>
+        </three-mixer>
       </three-mesh>
+    </three-mesh>
+    <three-mesh>
+      <three-position [x]="0" [y]="-80" [z]="0"></three-position>
+      <three-geometry
+        [type]="'text'"
+        [font]="'helvetiker_bold'"
+        [text]="'THREE.JS'"
+        [size]="200"
+        [height]="50"
+        [curveSegments]="12"
+        [bevelThickness]="2"
+        [bevelSize]="5"
+        [bevelEnabled]="true"
+        [center]="true"
+      ></three-geometry>
+      <three-material [type]="'MeshPhong'" [color]="'0xff0000'" [specular]="'0xffffff'"></three-material>
+    </three-mesh>
+    <three-mesh #cubes1 [material]="planeMaterial"> 
+      <three-position [x]="0" [y]="-300" [z]="20"></three-position>
+      <three-geometry 
+        [type]="'box'"
+        [width]="1500"
+        [height]="220"
+        [depth]="150"
+      >
+      </three-geometry>
+    </three-mesh>
+    <three-mesh #cubes2 [material]="planeMaterial"> 
+      <three-position [x]="0" [y]="-300" [z]="20"></three-position>
+      <three-geometry 
+        [type]="'box'"
+        [width]="1500"
+        [height]="170"
+        [depth]="250"
+      >
+      </three-geometry>
     </three-mesh>
     <three-mesh [receiveShadow]="true" [material]="planeMaterial">
       <three-position [x]="0" [y]="-250" [z]="0"></three-position>

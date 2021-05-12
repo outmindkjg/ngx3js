@@ -1678,7 +1678,6 @@ export class MeshComponent
                 this.resetHelper();
                 this.synkObject3D(['mixer', 'helpers']);
                 this._meshSubject.next(loadedMesh);
-                console.log(loadedMesh);
                 this.onLoad.emit(this);
                 if (this.debug) {
                   this.showDebug(this.mesh);
@@ -1692,7 +1691,7 @@ export class MeshComponent
             const mesh = this.sharedMesh.getMesh();
             const clips = this.sharedMesh.clips;
             if (ThreeUtil.isNotNull(clips)) {
-              if (clips instanceof Array) {
+              if (Array.isArray(clips)) {
                 this.clips = [];
                 clips.forEach(clip => {
                   this.clips.push(clip.clone());
@@ -1704,7 +1703,6 @@ export class MeshComponent
               this.clips = null;
             }
             const clipMesh = this.sharedMesh.clipMesh;
-            console.log(clipMesh);
             this.clipMesh = clipMesh !== null ? clipMesh.clone(true) : null;
             if (this.clipMesh === null && !(mesh instanceof THREE.Group)) {
               this.clipMesh = mesh.clone(true);
@@ -1715,19 +1713,15 @@ export class MeshComponent
               if (ThreeUtil.isNotNull(this.clipMesh['material'])) {
                 this.clipMesh['material'] = this.clipMesh['material'].clone();
               }
-              this._sharedMeshSubscribe.push(
-                this.sharedMesh.meshSubscribe().subscribe(() => {
-                  this.resetMesh(true);
-                })
-              )
-              this.resetHelper();
-              if (ThreeUtil.isNotNull(this.clips)) {
-                this.synkObject3D(['mixer', 'helpers']);
-              }
             } else {
               this.clipMesh = null;
               this.storageSource = null;
             }
+            this._sharedMeshSubscribe.push(
+              this.sharedMesh.meshSubscribe().subscribe(() => {
+                this.resetMesh(true);
+              })
+            )
           } else {
             const materials = this.getMaterials();
             if (geometry !== null) {
@@ -1874,6 +1868,9 @@ export class MeshComponent
         'cssChildren',
         'controller',
       ]);
+      if (ThreeUtil.isNotNull(this.clips)) {
+        this.synkObject3D(['mixer', 'helpers']);
+      }
       this.onLoad.emit(this);
     }
     return this.mesh;
