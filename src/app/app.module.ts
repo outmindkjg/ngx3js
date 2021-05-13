@@ -551,6 +551,7 @@ import { TransformComponent } from './three/transform/transform.component';
 import { TranslationComponent } from './three/translation/translation.component';
 import { TweenComponent } from './three/tween/tween.component';
 import { VisualComponent } from './three/visual/visual.component';
+import { ViewerComponent } from './three/viewer/viewer.component';
 
 @NgModule({
   declarations: [
@@ -593,6 +594,7 @@ import { VisualComponent } from './three/visual/visual.component';
     ToolsComponent,
     LightComponent,
     HelperComponent,
+    ViewerComponent,
     AppComponent,
     Chapter01Component,
     Chapter02Component,

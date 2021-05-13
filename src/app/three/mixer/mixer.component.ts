@@ -147,7 +147,13 @@ export class MixerComponent implements OnInit {
       }
       this.resetMixer();
       if (this.lastAction !== this.action) {
-        this.play(this.action);
+        if (this.delayTime > 0) {
+          setTimeout(() => {
+            this.play(this.action);
+          }, this.delayTime);
+        } else {
+          this.play(this.action);
+        }
       }
     }
   }

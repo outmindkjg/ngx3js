@@ -1,4 +1,14 @@
-import { Component, ContentChildren, Input, Output, EventEmitter ,OnChanges, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  OnInit,
+  QueryList,
+  SimpleChanges,
+} from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
@@ -11,128 +21,136 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 @Component({
   selector: 'three-material',
   templateUrl: './material.component.html',
-  styleUrls: ['./material.component.scss']
+  styleUrls: ['./material.component.scss'],
 })
-export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometry {
+export class MaterialComponent
+  implements OnInit, OnChanges, InterfaceSvgGeometry {
+  @Input() public type: string = 'lambert';
+  @Input() public name: string = null;
+  @Input() public nameList: string[] = null;
+  @Input() public visible: boolean = true;
+  @Input() public materialType: string = 'material';
+  @Input() private refer: any = null;
+  @Input() private referOverride: boolean = false;
+  @Input() private storageName: string = null;
+  @Input() private color: string | number | THREE.Color = null;
+  @Input() private colorMultiply: number = null;
+  @Input() private opacity: number = null;
+  @Input() private alphaTest: number = null;
+  @Input() private blendDst: string = null;
+  @Input() private blendDstAlpha: number = null;
+  @Input() private blendEquation: string = null;
+  @Input() private blendEquationAlpha: number = null;
+  @Input() private blending: string = null;
+  @Input() private blendSrc: string = null;
+  @Input() private blendSrcAlpha: number = null;
+  @Input() private clipIntersection: boolean = null;
+  @Input() private clippingPlanes: PlaneComponent[] | THREE.Plane[] = null;
+  @Input() private clipShadows: boolean = null;
+  @Input() private colorWrite: boolean = null;
+  @Input() private defines: any = null;
+  @Input() private depthFunc: string = null;
+  @Input() private depthTest: boolean = null;
+  @Input() private depthWrite: boolean = null;
+  @Input() private fog: boolean = null;
+  @Input() private polygonOffset: boolean = null;
+  @Input() private polygonOffsetFactor: number = null;
+  @Input() private polygonOffsetUnits: number = null;
+  @Input() private precision: string = null;
+  @Input() private premultipliedAlpha: boolean = null;
+  @Input() private dithering: boolean = null;
+  @Input() private flatShading: boolean = null;
+  @Input() private side: string = null;
+  @Input() private shadowSide: string = null;
+  @Input() private toneMapped: boolean = null;
+  @Input() private vertexColors: boolean = null;
+  @Input() private stencilWrite: boolean = null;
+  @Input() private stencilFunc: string = null;
+  @Input() private stencilRef: number = null;
+  @Input() private stencilWriteMask: number = null;
+  @Input() private stencilFuncMask: number = null;
+  @Input() private stencilFail: string = null;
+  @Input() private stencilZFail: string = null;
+  @Input() private stencilZPass: string = null;
+  @Input() private userData: any = null;
+  @Input() private uniforms: {
+    [uniform: string]:
+      | { type: string; value: any; options?: any }
+      | THREE.IUniform;
+  } = null;
+  @Input() private vertexShader: string = null;
+  @Input() private fragmentShader: string = null;
+  @Input() private lights: boolean = null;
+  @Input() private clipping: boolean = null;
+  @Input() private transparent: boolean = null;
+  @Input() private wireframe: boolean = null;
+  @Input() private shading: string = null;
+  @Input() private specular: string | number | THREE.Color = null;
+  @Input() private specularMultiply: number = null;
+  @Input() private shininess: number = null;
+  @Input() private lightMapIntensity: number = null;
+  @Input() private aoMapIntensity: number = null;
+  @Input() private emissive: string | number | THREE.Color = null;
+  @Input() private emissiveMultiply: number = null;
+  @Input() private emissiveIntensity: number = null;
+  @Input() private bumpScale: number = null;
+  @Input() private normalMapType: string = null;
+  @Input() private normalScaleX: number = null;
+  @Input() private normalScaleY: number = null;
+  @Input() private displacementScale: number = null;
+  @Input() private displacementBias: number = null;
+  @Input() private combine: string = null;
+  @Input() private reflectivity: number = null;
+  @Input() private refractionRatio: number = null;
+  @Input() private wireframeLinewidth: number = null;
+  @Input() private wireframeLinecap: string = null;
+  @Input() private wireframeLinejoin: string = null;
+  @Input() private skinning: boolean = null;
+  @Input() private morphTargets: boolean = null;
+  @Input() private morphNormals: boolean = null;
+  @Input() private linewidth: number = null;
+  @Input() private linecap: string = null;
+  @Input() private linejoin: string = null;
+  @Input() private scale: number = null;
+  @Input() private dashSize: number = null;
+  @Input() private gapSize: number = null;
+  @Input() private depthPacking: string = null;
+  @Input() private farDistance: number = null;
+  @Input() private nearDistance: number = null;
+  @Input() private referencePositionX: number = null;
+  @Input() private referencePositionY: number = null;
+  @Input() private referencePositionZ: number = null;
+  @Input() private clearcoat: number = null;
+  @Input() private clearcoatRoughness: number = null;
+  @Input() private clearcoatNormalScaleX: number = null;
+  @Input() private clearcoatNormalScaleY: number = null;
+  @Input() private ior: number = null;
+  @Input() private sheen: string | number | THREE.Color = null;
+  @Input() private sheenMultiply: number = null;
+  @Input() private transmission: number = null;
+  @Input() private roughness: number = null;
+  @Input() private metalness: number = null;
+  @Input() private envMapIntensity: number = null;
+  @Input() private vertexTangents: boolean = null;
+  @Input() private rotation: number = null;
+  @Input() private size: number = null;
+  @Input() private sizeAttenuation: boolean = null;
+  @Input() private envMap: TextureComponent | THREE.Texture = null;
+  @Input() private map: TextureComponent | THREE.Texture = null;
+  @Input() private specularMap: TextureComponent | THREE.Texture = null;
+  @Input() private alphaMap: TextureComponent | THREE.Texture = null;
+  @Input() private bumpMap: TextureComponent | THREE.Texture = null;
+  @Input() private normalMap: TextureComponent | THREE.Texture = null;
+  @Input() private displacementMap: TextureComponent | THREE.Texture = null;
+  @Input() private aoMap: TextureComponent | THREE.Texture = null;
+  @Input() private dashed: boolean = null;
+  @Input() private dashScale: number = null;
+  @Input() private dashOffset: number = null;
+  @Input() private resolutionX: number = null;
+  @Input() private resolutionY: number = null;
 
-  @Input() public type:string = "lambert";
-  @Input() public name:string = null;
-  @Input() public nameList:string[] = null;
-  @Input() public visible:boolean = true;
-  @Input() public materialType:string = "material";
-  @Input() private refer:any = null;
-  @Input() private referOverride:boolean = false;
-  @Input() private storageName:string = null;
-  @Input() private color:string | number = null;
-  @Input() private opacity:number = null;
-  @Input() private alphaTest:number = null;
-  @Input() private blendDst:string = null;
-  @Input() private blendDstAlpha:number = null;
-  @Input() private blendEquation:string = null;
-  @Input() private blendEquationAlpha:number = null;
-  @Input() private blending:string = null;
-  @Input() private blendSrc:string = null;
-  @Input() private blendSrcAlpha:number = null;
-  @Input() private clipIntersection:boolean = null;
-  @Input() private clippingPlanes : PlaneComponent[] | THREE.Plane[] = null;
-  @Input() private clipShadows:boolean = null;
-  @Input() private colorWrite:boolean = null;
-  @Input() private defines:any = null;
-  @Input() private depthFunc:string = null;
-  @Input() private depthTest:boolean = null;
-  @Input() private depthWrite:boolean = null;
-  @Input() private fog:boolean = null;
-  @Input() private polygonOffset:boolean = null;
-  @Input() private polygonOffsetFactor:number = null;
-  @Input() private polygonOffsetUnits:number = null;
-  @Input() private precision:string = null;
-  @Input() private premultipliedAlpha:boolean = null;
-  @Input() private dithering:boolean = null;
-  @Input() private flatShading:boolean = null;
-  @Input() private side:string = null;
-  @Input() private shadowSide:string = null;
-  @Input() private toneMapped:boolean = null;
-  @Input() private vertexColors:boolean = null;
-  @Input() private stencilWrite:boolean = null;
-  @Input() private stencilFunc:string = null;
-  @Input() private stencilRef:number = null;
-  @Input() private stencilWriteMask:number = null;
-  @Input() private stencilFuncMask:number = null;
-  @Input() private stencilFail:string = null;
-  @Input() private stencilZFail:string = null;
-  @Input() private stencilZPass:string = null;
-  @Input() private userData:any = null;
-  @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any, options? : any } | THREE.IUniform) } = null;
-  @Input() private vertexShader:string = null;
-  @Input() private fragmentShader:string = null;
-  @Input() private lights:boolean = null;
-  @Input() private clipping:boolean = null;
-  @Input() private transparent:boolean = null;
-  @Input() private wireframe:boolean = null;
-  @Input() private shading:string = null;
-  @Input() private specular:number | string = null;
-  @Input() private shininess:number = null;
-  @Input() private lightMapIntensity:number = null;
-  @Input() private aoMapIntensity:number = null;
-  @Input() private emissive:string | number = null;
-  @Input() private emissiveIntensity:number = null;
-  @Input() private bumpScale:number = null;
-  @Input() private normalMapType:string = null;
-  @Input() private normalScaleX:number = null;
-  @Input() private normalScaleY:number = null;
-  @Input() private displacementScale:number = null;
-  @Input() private displacementBias:number = null;
-  @Input() private combine:string = null;
-  @Input() private reflectivity:number = null;
-  @Input() private refractionRatio:number = null;
-  @Input() private wireframeLinewidth:number = null;
-  @Input() private wireframeLinecap:string = null;
-  @Input() private wireframeLinejoin:string = null;
-  @Input() private skinning:boolean = null;
-  @Input() private morphTargets:boolean = null;
-  @Input() private morphNormals:boolean = null;
-  @Input() private linewidth:number = null;
-  @Input() private linecap:string = null;
-  @Input() private linejoin:string = null;
-  @Input() private scale:number = null;
-  @Input() private dashSize:number = null;
-  @Input() private gapSize:number = null;
-  @Input() private depthPacking:string = null;
-  @Input() private farDistance:number = null;
-  @Input() private nearDistance:number = null;
-  @Input() private referencePositionX:number = null;
-  @Input() private referencePositionY:number = null;
-  @Input() private referencePositionZ:number = null;
-  @Input() private clearcoat:number = null;
-  @Input() private clearcoatRoughness:number = null;
-  @Input() private clearcoatNormalScaleX:number = null;
-  @Input() private clearcoatNormalScaleY:number = null;
-  @Input() private ior:number = null;
-  @Input() private sheen:string = null;
-  @Input() private transmission:number = null;
-  @Input() private roughness:number = null;
-  @Input() private metalness:number = null;
-  @Input() private envMapIntensity:number = null;
-  @Input() private vertexTangents:boolean = null;
-  @Input() private rotation:number = null;
-  @Input() private size:number = null;
-  @Input() private sizeAttenuation:boolean = null;
-  @Input() private envMap:TextureComponent | THREE.Texture = null;
-  @Input() private map:TextureComponent | THREE.Texture = null;
-  @Input() private specularMap:TextureComponent | THREE.Texture = null;
-  @Input() private alphaMap:TextureComponent | THREE.Texture = null;
-  @Input() private bumpMap:TextureComponent | THREE.Texture = null;
-  @Input() private normalMap:TextureComponent | THREE.Texture = null;
-  @Input() private displacementMap:TextureComponent | THREE.Texture = null;
-  @Input() private aoMap:TextureComponent | THREE.Texture = null;
-  @Input() private dashed:boolean = null;
-  @Input() private dashScale:number = null;
-  @Input() private dashOffset:number = null;
-  @Input() private resolutionX:number = null;
-  @Input() private resolutionY:number = null;
-
-
-  @Output() private onLoad:EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
+  @Output()
+  private onLoad: EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -140,12 +158,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
-  @ContentChildren(TextureComponent) private textureList: QueryList<TextureComponent>;
-  @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
-  @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
+  @ContentChildren(TextureComponent)
+  private textureList: QueryList<TextureComponent>;
+  @ContentChildren(ShaderComponent)
+  private shaderList: QueryList<ShaderComponent>;
+  @ContentChildren(PlaneComponent)
+  private clippingPlanesList: QueryList<PlaneComponent>;
 
-  private getColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color, def);
+  private getColor(def?: string | number | THREE.Color): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.color, def, this.colorMultiply);
   }
 
   private getOpacity(def?: number): number {
@@ -160,6 +181,14 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.wireframe, def);
   }
 
+  public isMaterialType(materialType?: string): boolean {
+    if (materialType.toLowerCase() === this.materialType.toLowerCase()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   private getShading(def?: string): THREE.Shading {
     const shading = ThreeUtil.getTypeSafe(this.shading, def, '');
     switch (shading.toLowerCase()) {
@@ -171,8 +200,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return undefined;
   }
 
-  private getSpecular(def?: number | string): THREE.Color {
-    return ThreeUtil.getColorSafe(this.specular, def);
+  private getSpecular(def?: string | number | THREE.Color): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.specular, def, this.specularMultiply);
   }
 
   private getShininess(def?: number): number {
@@ -187,8 +216,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.aoMapIntensity, def);
   }
 
-  private getEmissive(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.emissive, def);
+  private getEmissive(def?: string | number | THREE.Color): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.emissive, def, this.emissiveMultiply);
   }
 
   private getEmissiveIntensity(def?: number): number {
@@ -293,14 +322,14 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   private getDepthPacking(def?: string): THREE.DepthPackingStrategies {
     const depthPacking = ThreeUtil.getTypeSafe(this.depthPacking, def, '');
-    switch(depthPacking.toLowerCase()) {
-      case 'rgba' :
-      case 'rgbadepth' :
-          return THREE.RGBADepthPacking;
-      case 'basic' :
-      case 'basicdepth' :
-      default :
-          return THREE.BasicDepthPacking;
+    switch (depthPacking.toLowerCase()) {
+      case 'rgba':
+      case 'rgbadepth':
+        return THREE.RGBADepthPacking;
+      case 'basic':
+      case 'basicdepth':
+      default:
+        return THREE.BasicDepthPacking;
     }
   }
 
@@ -313,7 +342,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private getReferencePosition(def?: THREE.Vector3): THREE.Vector3 {
-    return ThreeUtil.getVector3Safe(this.referencePositionX, this.referencePositionY, this.referencePositionZ, def);
+    return ThreeUtil.getVector3Safe(
+      this.referencePositionX,
+      this.referencePositionY,
+      this.referencePositionZ,
+      def
+    );
   }
 
   private getClearcoat(def?: number): number {
@@ -325,15 +359,19 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(this.clearcoatNormalScaleX, this.clearcoatNormalScaleY, def);
+    return ThreeUtil.getVector2Safe(
+      this.clearcoatNormalScaleX,
+      this.clearcoatNormalScaleY,
+      def
+    );
   }
 
   private getIor(def?: number): number {
     return ThreeUtil.getTypeSafe(this.ior, def);
   }
 
-  private getSheen(def?: THREE.Color): THREE.Color {
-    return ThreeUtil.getColorSafe(this.sheen, def);
+  private getSheen(def?: string| number | THREE.Color): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.sheen, def, this.sheenMultiply);
   }
 
   private getTransmission(def?: number): number {
@@ -369,8 +407,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   getTexture(type: string): THREE.Texture {
-    switch(type.toLowerCase()) {
-      case 'envmap' :
+    switch (type.toLowerCase()) {
+      case 'envmap':
         if (ThreeUtil.isNotNull(this.envMap)) {
           if (this.envMap instanceof TextureComponent) {
             return this.envMap.getTexture();
@@ -379,7 +417,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'map' :
+      case 'map':
         if (ThreeUtil.isNotNull(this.map)) {
           if (this.map instanceof TextureComponent) {
             return this.map.getTexture();
@@ -388,7 +426,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'specularmap' :
+      case 'specularmap':
         if (ThreeUtil.isNotNull(this.specularMap)) {
           if (this.specularMap instanceof TextureComponent) {
             return this.specularMap.getTexture();
@@ -397,7 +435,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'alphamap' :
+      case 'alphamap':
         if (ThreeUtil.isNotNull(this.alphaMap)) {
           if (this.alphaMap instanceof TextureComponent) {
             return this.alphaMap.getTexture();
@@ -406,7 +444,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'bumpmap' :
+      case 'bumpmap':
         if (ThreeUtil.isNotNull(this.bumpMap)) {
           if (this.bumpMap instanceof TextureComponent) {
             return this.bumpMap.getTexture();
@@ -415,7 +453,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'normalmap' :
+      case 'normalmap':
         if (ThreeUtil.isNotNull(this.normalMap)) {
           if (this.normalMap instanceof TextureComponent) {
             return this.normalMap.getTexture();
@@ -424,7 +462,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'aomap' :
+      case 'aomap':
         if (ThreeUtil.isNotNull(this.aoMap)) {
           if (this.aoMap instanceof TextureComponent) {
             return this.aoMap.getTexture();
@@ -433,7 +471,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           }
         }
         break;
-      case 'displacementmap' :
+      case 'displacementmap':
         if (ThreeUtil.isNotNull(this.displacementMap)) {
           if (this.displacementMap instanceof TextureComponent) {
             return this.displacementMap.getTexture();
@@ -454,7 +492,6 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     }
     return undefined;
   }
-
 
   private getAlphaTest(def?: number): number {
     return ThreeUtil.getTypeSafe(this.alphaTest, def);
@@ -531,7 +568,9 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return undefined;
   }
 
-  private getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
+  private getBlendSrc(
+    def?: string
+  ): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
     const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
     switch (blendSrc.toLowerCase()) {
       case 'srcalphasaturate':
@@ -570,8 +609,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
-      const clippingPlanes : THREE.Plane[] = [];
-      this.clippingPlanes.forEach(plane => {
+      const clippingPlanes: THREE.Plane[] = [];
+      this.clippingPlanes.forEach((plane) => {
         if (plane instanceof PlaneComponent) {
           clippingPlanes.push(plane.getWorldPlane());
         } else {
@@ -581,9 +620,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       if (clippingPlanes.length > 0) {
         return clippingPlanes;
       }
-    } else if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined) {
-      const clippingPlanes : THREE.Plane[] = [];
-      this.clippingPlanesList.forEach(plane => {
+    } else if (
+      this.clippingPlanesList !== null &&
+      this.clippingPlanesList !== undefined
+    ) {
+      const clippingPlanes: THREE.Plane[] = [];
+      this.clippingPlanesList.forEach((plane) => {
         clippingPlanes.push(plane.getWorldPlane());
       });
       if (clippingPlanes.length > 0) {
@@ -834,37 +876,53 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   private getUniforms(def?: any): { [uniform: string]: THREE.IUniform } {
     const uniforms = ThreeUtil.getTypeSafe(this.uniforms, def);
     Object.entries(uniforms).forEach(([key, value]) => {
-      if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
-        switch(value['type'].toLowerCase()) {
-          case 'vector2' :
-          case 'v2' :
-            uniforms[key] = { value: ThreeUtil.getVector2Safe( value['value'][0] , value['value'][1]) }
+      if (
+        ThreeUtil.isNotNull(value['type']) &&
+        ThreeUtil.isNotNull(value['value'])
+      ) {
+        switch (value['type'].toLowerCase()) {
+          case 'vector2':
+          case 'v2':
+            uniforms[key] = {
+              value: ThreeUtil.getVector2Safe(
+                value['value'][0],
+                value['value'][1]
+              ),
+            };
             break;
-          case 'vector3' :
-          case 'vector' :
-          case 'v3' :
-            uniforms[key] = { value: ThreeUtil.getVector3Safe( value['value'][0] , value['value'][1], value['value'][2]) }
+          case 'vector3':
+          case 'vector':
+          case 'v3':
+            uniforms[key] = {
+              value: ThreeUtil.getVector3Safe(
+                value['value'][0],
+                value['value'][1],
+                value['value'][2]
+              ),
+            };
             break;
-          case 'color' :
-            uniforms[key] = { value: ThreeUtil.getColorSafe( value['value'] , 0xffffff) }
+          case 'color':
+            uniforms[key] = {
+              value: ThreeUtil.getColorSafe(value['value'], 0xffffff),
+            };
             break;
-          case 'texture' :
-            const texture = TextureComponent.getTextureImage( value['value'] );
+          case 'texture':
+            const texture = TextureComponent.getTextureImage(value['value']);
             if (ThreeUtil.isNotNull(value['options'])) {
-              switch(value['options']) {
-                case 'wrapRepeat' :
+              switch (value['options']) {
+                case 'wrapRepeat':
                   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
                   break;
               }
             }
             uniforms[key] = { value: texture };
             break;
-          case 'number' :
-            uniforms[key] = { value: parseFloat(value['value'])}
+          case 'number':
+            uniforms[key] = { value: parseFloat(value['value']) };
             break;
         }
       }
-    })
+    });
     return uniforms;
   }
 
@@ -914,50 +972,53 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   }
 
   private getMaterialParameters(extendObj: any): THREE.MaterialParameters {
-    const materialParameters: THREE.MaterialParameters = Object.assign({
-      blending: this.getBlending(),
-      blendDst: this.getBlendDst(),
-      blendDstAlpha: this.getBlendDstAlpha(),
-      blendEquation: this.getBlendEquation(),
-      blendEquationAlpha: this.getBlendEquationAlpha(),
-      blendSrc: this.getBlendSrc(),
-      blendSrcAlpha: this.getBlendSrcAlpha(),
-      clipIntersection: this.getClipIntersection(),
-      clippingPlanes: this.getClippingPlanes(),
-      clipShadows: this.getClipShadows(),
-      colorWrite: this.getColorWrite(),
-      defines: this.getDefines(),
-      depthFunc: this.getDepthFunc(),
-      depthTest: this.getDepthTest(),
-      depthWrite: this.getDepthWrite(),
-      fog: this.getFog(),
-      opacity: this.getOpacity(),
-      polygonOffset: this.getPolygonOffset(),
-      polygonOffsetFactor: this.getPolygonOffsetFactor(),
-      polygonOffsetUnits: this.getPolygonOffsetUnits(),
-      precision: this.getPrecision(),
-      premultipliedAlpha: this.getPremultipliedAlpha(),
-      dithering: this.getDithering(),
-      flatShading: this.getFlatShading(),
-      shadowSide: this.getShadowSide(),
-      toneMapped: this.getToneMapped(),
-      transparent: this.getTransparent(),
-      stencilWrite: this.getStencilWrite(),
-      stencilFunc: this.getStencilFunc(),
-      stencilRef: this.getStencilRef(),
-      stencilWriteMask: this.getStencilWriteMask(),
-      stencilFuncMask: this.getStencilFuncMask(),
-      stencilFail: this.getStencilFail(),
-      stencilZFail: this.getStencilZFail(),
-      stencilZPass: this.getStencilZPass(),
-      userData: this.getUserData(),
-      alphaTest: this.getAlphaTest(),
-      name: this.getName(),
-      side: this.getSide(),
-      vertexColors: this.getVertexColors(),
-      visible: this.getVisible(),
-    }, extendObj);
-    const materialParametersSafe: THREE.MaterialParameters = {}
+    const materialParameters: THREE.MaterialParameters = Object.assign(
+      {
+        blending: this.getBlending(),
+        blendDst: this.getBlendDst(),
+        blendDstAlpha: this.getBlendDstAlpha(),
+        blendEquation: this.getBlendEquation(),
+        blendEquationAlpha: this.getBlendEquationAlpha(),
+        blendSrc: this.getBlendSrc(),
+        blendSrcAlpha: this.getBlendSrcAlpha(),
+        clipIntersection: this.getClipIntersection(),
+        clippingPlanes: this.getClippingPlanes(),
+        clipShadows: this.getClipShadows(),
+        colorWrite: this.getColorWrite(),
+        defines: this.getDefines(),
+        depthFunc: this.getDepthFunc(),
+        depthTest: this.getDepthTest(),
+        depthWrite: this.getDepthWrite(),
+        fog: this.getFog(),
+        opacity: this.getOpacity(),
+        polygonOffset: this.getPolygonOffset(),
+        polygonOffsetFactor: this.getPolygonOffsetFactor(),
+        polygonOffsetUnits: this.getPolygonOffsetUnits(),
+        precision: this.getPrecision(),
+        premultipliedAlpha: this.getPremultipliedAlpha(),
+        dithering: this.getDithering(),
+        flatShading: this.getFlatShading(),
+        shadowSide: this.getShadowSide(),
+        toneMapped: this.getToneMapped(),
+        transparent: this.getTransparent(),
+        stencilWrite: this.getStencilWrite(),
+        stencilFunc: this.getStencilFunc(),
+        stencilRef: this.getStencilRef(),
+        stencilWriteMask: this.getStencilWriteMask(),
+        stencilFuncMask: this.getStencilFuncMask(),
+        stencilFail: this.getStencilFail(),
+        stencilZFail: this.getStencilZFail(),
+        stencilZPass: this.getStencilZPass(),
+        userData: this.getUserData(),
+        alphaTest: this.getAlphaTest(),
+        name: this.getName(),
+        side: this.getSide(),
+        vertexColors: this.getVertexColors(),
+        visible: this.getVisible(),
+      },
+      extendObj
+    );
+    const materialParametersSafe: THREE.MaterialParameters = {};
     Object.entries(materialParameters).forEach(([key, value]) => {
       if (ThreeUtil.isNotNull(value)) {
         materialParametersSafe[key] = value;
@@ -968,7 +1029,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
 
   private material: THREE.Material = null;
 
-  setMaterialParams(params : { [key : string] : any } ) {
+  setMaterialParams(params: { [key: string]: any }) {
     Object.entries(params).forEach(([key, value]) => {
       if (this[key] !== undefined) {
         this[key] = value;
@@ -976,37 +1037,35 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     });
   }
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   ngAfterContentInit(): void {
     this.textureList.changes.subscribe((e) => {
-      this.textureList.forEach(texture => {
+      this.textureList.forEach((texture) => {
         texture.textureSubscribe().subscribe(() => {
           this.setTexture(texture);
-        })
-      })
+        });
+      });
     });
-    this.textureList.forEach(texture => {
+    this.textureList.forEach((texture) => {
       texture.textureSubscribe().subscribe(() => {
         this.setTexture(texture);
-      })
-    })
-}
+      });
+    });
+  }
 
-  private _needUpdate : boolean = true;
+  private _needUpdate: boolean = true;
   private _textureSubscribe: Subscription[] = [];
 
-  unSubscription(subscriptions : Subscription[]) : Subscription[] {
+  unSubscription(subscriptions: Subscription[]): Subscription[] {
     if (subscriptions !== null && subscriptions.length > 0) {
-      subscriptions.forEach(subscription => {
+      subscriptions.forEach((subscription) => {
         subscription.unsubscribe();
-      })
+      });
     }
     return [];
   }
@@ -1014,7 +1073,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && ThreeUtil.isNotNull(this.textureList)) {
       this._needUpdate = true;
-      this.unSubscription(this._textureSubscribe)
+      this.unSubscription(this._textureSubscribe);
       this.getMaterial();
       if (this.map !== null && this.map instanceof TextureComponent) {
         this._textureSubscribe.push(
@@ -1030,7 +1089,10 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           })
         );
       }
-      if (this.specularMap !== null && this.specularMap instanceof TextureComponent) {
+      if (
+        this.specularMap !== null &&
+        this.specularMap instanceof TextureComponent
+      ) {
         this._textureSubscribe.push(
           this.specularMap.textureSubscribe().subscribe(() => {
             this.setTexture(this.specularMap as TextureComponent);
@@ -1051,7 +1113,10 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           })
         );
       }
-      if (this.normalMap !== null && this.normalMap instanceof TextureComponent) {
+      if (
+        this.normalMap !== null &&
+        this.normalMap instanceof TextureComponent
+      ) {
         this._textureSubscribe.push(
           this.normalMap.textureSubscribe().subscribe(() => {
             this.setTexture(this.normalMap as TextureComponent, 'normalMap');
@@ -1065,60 +1130,70 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           })
         );
       }
-      if (this.displacementMap !== null && this.displacementMap instanceof TextureComponent) {
+      if (
+        this.displacementMap !== null &&
+        this.displacementMap instanceof TextureComponent
+      ) {
         this._textureSubscribe.push(
           this.displacementMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.displacementMap as TextureComponent, 'displacementMap');
+            this.setTexture(
+              this.displacementMap as TextureComponent,
+              'displacementMap'
+            );
           })
         );
       }
     }
   }
 
-  private _materialSubject:Subject<THREE.Material> = new Subject<THREE.Material>();
+  private _materialSubject: Subject<THREE.Material> = new Subject<THREE.Material>();
 
-  materialSubscribe() : Observable<THREE.Material>{
+  materialSubscribe(): Observable<THREE.Material> {
     return this._materialSubject.asObservable();
   }
 
-  setTexture(texture : TextureComponent, textureTypeHint : string = null) {
+  setTexture(texture: TextureComponent, textureTypeHint: string = null) {
     if (this.material !== null) {
       const materialClone = texture.getTexture();
-      const textureType = ThreeUtil.getTypeSafe(textureTypeHint, texture.textureType, 'map');
-      switch(textureType.toLowerCase()) {
-        case 'map' :
+      const textureType = ThreeUtil.getTypeSafe(
+        textureTypeHint,
+        texture.textureType,
+        'map'
+      );
+      switch (textureType.toLowerCase()) {
+        case 'map':
           this.material['map'] = materialClone;
           break;
-        case 'envmap' :
+        case 'envmap':
           this.material['envMap'] = materialClone;
-          break;  
-        case 'aomap' :
+          break;
+        case 'aomap':
           this.material['aoMap'] = materialClone;
-          break;  
-        case 'specularmap' :
+          break;
+        case 'specularmap':
           this.material['specularMap'] = materialClone;
-          break;  
-        case 'alphamap' :
+          break;
+        case 'alphamap':
           this.material['alphaMap'] = materialClone;
           break;
-        case 'displacementmap' :
+        case 'displacementmap':
           this.material['displacementMap'] = materialClone;
-          break;  
-        case 'matcap' :
+          break;
+        case 'matcap':
           this.material['matcap'] = materialClone;
-          break;  
-        case 'bumpmap' :
+          break;
+        case 'bumpmap':
           this.material['bumpMap'] = materialClone;
-          break;  
-        case 'normalmap' :
+          break;
+        case 'normalmap':
           this.material['normalMap'] = materialClone;
-          break;  
-        case 'lightmap' :
+          break;
+        case 'lightmap':
           this.material['lightMap'] = materialClone;
-          break;  
-        case 'emissivemap' :
+          break;
+        case 'emissivemap':
           this.material['emissiveMap'] = materialClone;
-          break;  
+          break;
       }
       // this.material.needsUpdate = true;
       this._materialSubject.next(this.material);
@@ -1130,14 +1205,19 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       this._needUpdate = false;
       this.material = null;
       if (ThreeUtil.isNotNull(this.storageName)) {
-        this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters({}));
-        this.localStorageService.getMaterial(this.storageName, (material : THREE.Material) => {
-          this.material = material;
-          if (this.getVisible(true)) {
-            this._materialSubject.next(this.material);
+        this.material = new THREE.MeshLambertMaterial(
+          this.getMaterialParameters({})
+        );
+        this.localStorageService.getMaterial(
+          this.storageName,
+          (material: THREE.Material) => {
+            this.material = material;
+            if (this.getVisible(true)) {
+              this._materialSubject.next(this.material);
+            }
+            this.onLoad.emit(this);
           }
-          this.onLoad.emit(this);
-        })
+        );
       } else if (this.refer !== null) {
         if (this.refer.getMaterial) {
           this.material = this.refer.getMaterial();
@@ -1153,26 +1233,33 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
       }
       if (this.material === null) {
         switch (this.type.toLowerCase()) {
+          case 'linebasicmaterial':
           case 'linebasic':
             const parametersLineBasicMaterial: THREE.LineBasicMaterialParameters = {
               color: this.getColor(),
               linewidth: this.getLinewidth(),
               linecap: this.getLinecap(),
               linejoin: this.getLinejoin(),
-              morphTargets: this.getMorphTargets()
-            }
-            this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
+              morphTargets: this.getMorphTargets(),
+            };
+            this.material = new THREE.LineBasicMaterial(
+              this.getMaterialParameters(parametersLineBasicMaterial)
+            );
             break;
+          case 'linedashedmaterial':
           case 'linedashed':
             const parametersLineDashedMaterial: THREE.LineDashedMaterialParameters = {
               color: this.getColor(),
               vertexColors: this.getVertexColors(),
               dashSize: this.getDashSize(),
               gapSize: this.getGapSize(),
-              scale: this.getScale()
-            }
-            this.material = new THREE.LineDashedMaterial(this.getMaterialParameters(parametersLineDashedMaterial));
+              scale: this.getScale(),
+            };
+            this.material = new THREE.LineDashedMaterial(
+              this.getMaterialParameters(parametersLineDashedMaterial)
+            );
             break;
+          case 'meshbasicmaterial':
           case 'meshbasic':
             const parametersMeshBasicMaterial: THREE.MeshBasicMaterialParameters = {
               color: this.getColor(),
@@ -1192,9 +1279,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               specularMap: this.getTexture('specularMap'),
               alphaMap: this.getTexture('alphaMap'),
               envMap: this.getTexture('envMap'),
-            }
-            this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial))
+            };
+            this.material = new THREE.MeshBasicMaterial(
+              this.getMaterialParameters(parametersMeshBasicMaterial)
+            );
             break;
+          case 'meshdepthmaterial':
           case 'meshdepth':
             const parametersMeshDepthMaterial: THREE.MeshDepthMaterialParameters = {
               map: this.getTexture('map'),
@@ -1205,9 +1295,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               displacementBias: this.getDisplacementBias(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-            }
-            this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
+            };
+            this.material = new THREE.MeshDepthMaterial(
+              this.getMaterialParameters(parametersMeshDepthMaterial)
+            );
             break;
+          case 'meshdistancematerial':
           case 'meshdistance':
             const parametersMeshDistanceMaterial: THREE.MeshDistanceMaterialParameters = {
               map: this.getTexture('map'),
@@ -1217,10 +1310,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               displacementBias: this.getDisplacementBias(),
               farDistance: this.getFarDistance(),
               nearDistance: this.getNearDistance(),
-              referencePosition: this.getReferencePosition()
-            }
-            this.material = new THREE.MeshDistanceMaterial(this.getMaterialParameters(parametersMeshDistanceMaterial));
+              referencePosition: this.getReferencePosition(),
+            };
+            this.material = new THREE.MeshDistanceMaterial(
+              this.getMaterialParameters(parametersMeshDistanceMaterial)
+            );
             break;
+          case 'meshmatcapmaterial':
           case 'meshmatcap':
             const parametersMeshMatcapMaterial: THREE.MeshMatcapMaterialParameters = {
               color: this.getColor(),
@@ -1237,10 +1333,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               displacementBias: this.getDisplacementBias(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.MeshMatcapMaterial(
+              this.getMaterialParameters(parametersMeshMatcapMaterial)
+            );
             break;
+          case 'meshnormalmaterial':
           case 'meshnormal':
             const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
               bumpMap: this.getTexture('bumpMap'),
@@ -1255,10 +1354,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               wireframeLinewidth: this.getWireframeLinewidth(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.MeshNormalMaterial(
+              this.getMaterialParameters(parametersMeshNormalMaterial)
+            );
             break;
+          case 'meshphongmaterial':
           case 'meshphong':
             const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
               color: this.getColor(),
@@ -1293,10 +1395,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               specularMap: this.getTexture('clearcoatNormalMap'),
               combine: this.getCombine(),
               wireframeLinecap: this.getWireframeLinecap(),
-              wireframeLinejoin: this.getWireframeLinejoin()
-            }
-            this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
+              wireframeLinejoin: this.getWireframeLinejoin(),
+            };
+            this.material = new THREE.MeshPhongMaterial(
+              this.getMaterialParameters(parametersMeshPhongMaterial)
+            );
             break;
+          case 'meshphysicalmaterial':
           case 'meshphysical':
             const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
               color: this.getColor(),
@@ -1341,9 +1446,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               sheen: this.getSheen(),
               // transmission: this.getTransmission(),
               // transmissionMap: this.getTexture('transmissionMap')
-            }
-            this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
+            };
+            this.material = new THREE.MeshPhysicalMaterial(
+              this.getMaterialParameters(parametersMeshPhysicalMaterial)
+            );
             break;
+          case 'meshstandardmaterial':
           case 'meshstandard':
             const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
               color: this.getColor(),
@@ -1376,10 +1484,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               skinning: this.getSkinning(),
               vertexTangents: this.getVertexTangents(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.MeshStandardMaterial(
+              this.getMaterialParameters(parametersMeshStandardMaterial)
+            );
             break;
+          case 'meshtoonmaterial':
           case 'meshtoon':
             const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
               color: this.getColor(),
@@ -1408,10 +1519,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               wireframeLinejoin: this.getWireframeLinejoin('round'),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.MeshToonMaterial(
+              this.getMaterialParameters(parametersMeshToonMaterial)
+            );
             break;
+          case 'pointsmaterial':
           case 'points':
             const parametersPointsMaterial: THREE.PointsMaterialParameters = {
               color: this.getColor(),
@@ -1420,9 +1534,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               size: this.getSize(),
               sizeAttenuation: this.getSizeAttenuation(),
               morphTargets: this.getMorphTargets(),
-            }
-            this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
+            };
+            this.material = new THREE.PointsMaterial(
+              this.getMaterialParameters(parametersPointsMaterial)
+            );
             break;
+          case 'rawshadermaterial':
           case 'rawshader':
             const parametersRawShaderMaterial: THREE.ShaderMaterialParameters = {
               uniforms: this.getUniforms({}),
@@ -1435,10 +1552,13 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               clipping: this.getClipping(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.RawShaderMaterial(
+              this.getMaterialParameters(parametersRawShaderMaterial)
+            );
             break;
+          case 'shadermaterial':
           case 'shader':
             const parametersShaderMaterial: THREE.ShaderMaterialParameters = {
               uniforms: this.getUniforms({}),
@@ -1451,37 +1571,49 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               clipping: this.getClipping(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.ShaderMaterial(
+              this.getMaterialParameters(parametersShaderMaterial)
+            );
             break;
+          case 'shadowmaterial':
           case 'shadow':
-            this.material = new THREE.ShadowMaterial(this.getMaterialParameters({
-              color: this.getColor()
-            }));
+            this.material = new THREE.ShadowMaterial(
+              this.getMaterialParameters({
+                color: this.getColor(),
+              })
+            );
             break;
-          case 'line' :
-            this.material = new LineMaterial(this.getMaterialParameters({
-              color: this.getColor(),
-              dashed: this.getDashed(),
-              dashScale: this.getDashScale(),
-              dashSize: this.getDashSize(),
-              dashOffset: this.getDashOffset(),
-              gapSize: this.getGapSize(),
-              linewidth: this.getLinewidth(),
-              resolution: this.getResolution()
-            }));
+          case 'linematerial':
+          case 'line':
+            this.material = new LineMaterial(
+              this.getMaterialParameters({
+                color: this.getColor(),
+                dashed: this.getDashed(),
+                dashScale: this.getDashScale(),
+                dashSize: this.getDashSize(),
+                dashOffset: this.getDashOffset(),
+                gapSize: this.getGapSize(),
+                linewidth: this.getLinewidth(),
+                resolution: this.getResolution(),
+              })
+            );
             break;
+          case 'spritematerial':
           case 'sprite':
             const parametersSpriteMaterial: THREE.SpriteMaterialParameters = {
               color: this.getColor(),
               map: this.getTexture('map'),
               alphaMap: this.getTexture('alphaMap'),
               rotation: this.getRotation(),
-              sizeAttenuation: this.getSizeAttenuation()
-            }
-            this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
+              sizeAttenuation: this.getSizeAttenuation(),
+            };
+            this.material = new THREE.SpriteMaterial(
+              this.getMaterialParameters(parametersSpriteMaterial)
+            );
             break;
+          case 'meshlambertmaterial':
           case 'meshlambert':
           default:
             const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
@@ -1506,9 +1638,11 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               wireframeLinejoin: this.getWireframeLinejoin('round'),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
-            }
-            this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
+              morphNormals: this.getMorphNormals(),
+            };
+            this.material = new THREE.MeshLambertMaterial(
+              this.getMaterialParameters(parametersMeshLambertMaterial)
+            );
             break;
         }
       }

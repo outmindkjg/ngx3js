@@ -6,31 +6,37 @@ import { BaseComponent, RendererTimer } from '../../three';
   templateUrl: './webgl-shadowmap.component.html',
   styleUrls: ['./webgl-shadowmap.component.scss']
 })
-export class WebglShadowmapComponent extends BaseComponent<{}> {
+export class WebglShadowmapComponent extends BaseComponent<{
+  hudEnable : boolean;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      hudEnable : true
+    },[
+      { name : 'hudEnable', title : 'show HUD', type : 'checkbox'}
+    ]);
   }
 
   ngOnInit() {
     this.horsePositions = [
-      { x : 0, y : this.floor, z : 300 },
-      { x : 100 - Math.random() * 1000, y : this.floor, z : 450 },
-      { x : 100 - Math.random() * 1000, y : this.floor, z : 600 },
-      { x : 100 - Math.random() * 1000, y : this.floor, z : -300 },
-      { x : 100 - Math.random() * 1000, y : this.floor, z : -450 },
-      { x : 100 - Math.random() * 1000, y : this.floor, z : -600 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : 300, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : 450, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : 600, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : -300, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : -450, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor, z : -600, delay : Math.random() * 1000 },
     ]
     this.flamingoPositions = [
-      { x : 0, y : this.floor + 350, z : 40 },
-      { x : 100 - Math.random() * 1000, y : this.floor + 350, z : 140 },
-      { x : 100 - Math.random() * 1000, y : this.floor + 350, z : -140 },
+      { x : 100 - Math.random() * 1000, y : this.floor + 350, z : 40, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor + 350, z : 140, delay : Math.random() * 1000 },
+      { x : 100 - Math.random() * 1000, y : this.floor + 350, z : -140, delay : Math.random() * 1000 },
     ]
   }
   floor : number = -250;
 
-  horsePositions : { x : number, y : number, z : number }[] = [];
-  flamingoPositions : { x : number, y : number, z : number }[] = [];
+  horsePositions : { x : number, y : number, z : number, delay : number }[] = [];
+  flamingoPositions : { x : number, y : number, z : number, delay : number }[] = [];
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

@@ -247,6 +247,7 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
   }
 
   public mesh: MeshComponent = null;
+  protected meshChildren: THREE.Object3D[] = null;
 
   setMesh(mesh: MeshComponent) {
     this.mesh = mesh;
@@ -326,7 +327,9 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
           ThreeUtil.setGuiEnabled(helperParams.controler, false);
         }
       }
+      this.meshChildren = this.mesh.getMesh().children;
     }
+
   }
 
   onRender(timer: RendererTimer) {
@@ -838,6 +841,27 @@ export class ThreeUtil {
       return colorObj.getStyle();
     }
     return undefined;
+  }
+
+  static getColorMultiplySafe(
+    color: string | number | THREE.Color,
+    altColor?: string | number | THREE.Color,
+    multiply? : number
+  ): THREE.Color {
+    const safeColor = this.getColorSafe(color, altColor);
+    if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
+      safeColor.multiplyScalar(multiply);
+      if (safeColor.r < 0 || safeColor.r > 1) {
+        safeColor.r = Math.min(1, Math.max(0, safeColor.r));
+      }
+      if (safeColor.g < 0 || safeColor.g > 1) {
+        safeColor.g = Math.min(1, Math.max(0, safeColor.g));
+      }
+      if (safeColor.b < 0 || safeColor.b > 1) {
+        safeColor.b = Math.min(1, Math.max(0, safeColor.b));
+      }
+    }
+    return safeColor;
   }
 
   static getColorSafe(

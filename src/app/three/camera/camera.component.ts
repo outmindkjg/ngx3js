@@ -141,11 +141,21 @@ export class CameraComponent
   }
 
   private getX(def?: number | string): number {
-    return this.getViewPortSize(this.x, this.cameraWidth, def);
+    const x = this.getViewPortSize(this.x, this.cameraWidth, def);
+    if (x < 0) {
+      return this.cameraWidth - this.getWidth() + x;
+    } else {
+      return x;
+    }
   }
 
   private getY(def?: number | string): number {
-    return this.getViewPortSize(this.y, this.cameraHeight, def);
+    const y = this.getViewPortSize(this.y, this.cameraHeight, def);
+    if (y < 0) {
+      return this.cameraHeight - this.getHeight() + y;
+    } else {
+      return y;
+    }
   }
 
   private getWidth(def?: number | string): number {

@@ -305,6 +305,7 @@
     overflow: auto;
     padding-left: var(--panel-width);
     #viewer-inner {
+      position: relative;
       box-sizing: border-box;
       background-color: white;
       width: calc(100% - var(--panel-width));

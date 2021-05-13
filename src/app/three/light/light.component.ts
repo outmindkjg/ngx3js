@@ -15,6 +15,7 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TextureComponent } from '../texture/texture.component';
 import { TagAttributes, ThreeUtil } from './../interface';
 import { MixerComponent } from './../mixer/mixer.component';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'three-light',
@@ -37,8 +38,10 @@ export class LightComponent
   @Input() private height: number = null;
   @Input() private castShadow: boolean = true;
   @Input() private shadowBias: number = null;
+  @Input() private shadowRadius: number = null;
   @Input() private shadowFocus: number = null;
   @Input() private shadowCameraNear: number = null;
+  @Input() private shadowMapSize: number = null;
   @Input() private shadowMapSizeWidth: number = null;
   @Input() private shadowMapSizeHeight: number = null;
   @Input() private shadowCameraFar: number = null;
@@ -99,11 +102,11 @@ export class LightComponent
   }
 
   private getShadowMapSizeWidth(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowMapSizeWidth, def);
+    return ThreeUtil.getTypeSafe(this.shadowMapSizeWidth, this.shadowMapSize, def);
   }
 
   private getShadowMapSizeHeight(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, def);
+    return ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, this.shadowMapSize, def);
   }
 
   private getShadowCameraNear(def?: number): number {
@@ -119,19 +122,43 @@ export class LightComponent
   }
 
   private getShadowCameraLeft(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraLeft, def);
+    if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraLeft, def);
+    } else if (ThreeUtil.isNotNull(this.shadowCameraRight)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraRight * -1, def);
+    } else {
+      return def;
+    }
   }
 
   private getShadowCameraRight(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraRight, def);
+    if (ThreeUtil.isNotNull(this.shadowCameraRight)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraRight, def);
+    } else if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraLeft * -1, def);
+    } else {
+      return def;
+    }
   }
 
   private getShadowCameraTop(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraTop, def);
+    if (ThreeUtil.isNotNull(this.shadowCameraTop)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraTop, def);
+    } else if (ThreeUtil.isNotNull(this.shadowCameraBottom)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraBottom * -1, def);
+    } else {
+      return def;
+    }
   }
 
   private getShadowCameraBottom(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
+    if (ThreeUtil.isNotNull(this.shadowCameraBottom)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
+    } else if (ThreeUtil.isNotNull(this.shadowCameraTop)) {
+      return ThreeUtil.getTypeSafe(this.shadowCameraTop * -1, def);
+    } else {
+      return def;
+    }
   }
 
   private getShadowCameraZoom(def?: number): number {
@@ -140,6 +167,10 @@ export class LightComponent
 
   private getShadowBias(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowBias, def);
+  }
+
+  private getShadowRadius(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.shadowRadius, def);
   }
 
   private getShadowFocus(def?: number): number {
@@ -384,6 +415,12 @@ export class LightComponent
     super.ngAfterContentInit();
   }
 
+  private _lightSubject: Subject<THREE.Light> = new Subject<THREE.Light>();
+
+  lightSubscribe(): Observable<THREE.Light> {
+    return this._lightSubject.asObservable();
+  }
+
   synkObject3D(synkTypes: string[]) {
     if (this.light !== null) {
       synkTypes.forEach((synkType) => {
@@ -421,6 +458,7 @@ export class LightComponent
       this.needsUpdate = false;
       let basemesh: THREE.Light = null;
       switch (this.type.toLowerCase()) {
+        case 'directionallight':
         case 'directional':
           basemesh = new THREE.DirectionalLight(
             this.getColor(0xffffff),
@@ -428,6 +466,7 @@ export class LightComponent
           );
           basemesh.castShadow = this.castShadow;
           break;
+        case 'hemispherelight':
         case 'hemisphere':
           basemesh = new THREE.HemisphereLight(
             this.getSkyColor(0xffffff),
@@ -467,6 +506,7 @@ export class LightComponent
             }
           }
           break;
+        case 'pointlight':
         case 'point':
           basemesh = new THREE.PointLight(
             this.getColor(0xffffff),
@@ -476,7 +516,9 @@ export class LightComponent
           );
           basemesh.castShadow = this.castShadow;
           break;
+        case 'arealight':
         case 'area':
+        case 'rectarealight':
         case 'rectarea':
           basemesh = new THREE.RectAreaLight(
             this.getColor(0xffffff),
@@ -485,6 +527,7 @@ export class LightComponent
             this.getHeight(10)
           );
           break;
+        case 'spotlight':
         case 'spot':
           const spotLight = new THREE.SpotLight(
             this.getColor(0xffffff),
@@ -501,6 +544,7 @@ export class LightComponent
           basemesh = spotLight;
 
           break;
+        case 'ambientlight':
         case 'ambient':
         default:
           basemesh = new THREE.AmbientLight(
@@ -536,10 +580,13 @@ export class LightComponent
         if (ThreeUtil.isNotNull(this.shadowBias)) {
           this.light.shadow.bias = this.getShadowBias(0);
         }
-        if (ThreeUtil.isNotNull(this.shadowMapSizeWidth)) {
+        if (ThreeUtil.isNotNull(this.shadowRadius)) {
+          this.light.shadow.radius = this.getShadowRadius(1);
+        }
+        if (ThreeUtil.isNotNull(this.shadowMapSizeWidth) || ThreeUtil.isNotNull(this.shadowMapSize)) {
           this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
         }
-        if (ThreeUtil.isNotNull(this.shadowMapSizeHeight)) {
+        if (ThreeUtil.isNotNull(this.shadowMapSizeHeight) || ThreeUtil.isNotNull(this.shadowMapSize)) {
           this.light.shadow.mapSize.height = this.getShadowMapSizeHeight(1024);
         }
         if (this.light.shadow.camera) {
@@ -589,6 +636,7 @@ export class LightComponent
       }
       this.setObject3D(this.light);
       this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helpers']);
+      this._lightSubject.next(this.light);
       this.onLoad.emit(this);
     }
     return this.light;

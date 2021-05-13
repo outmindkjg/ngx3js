@@ -1,7 +1,5 @@
-<div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+<div id="info" class="dark">
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - VSM Shadows example by <a href="https://github.com/supereggbert">Paul Brunt</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -9,7 +7,6 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
@@ -17,30 +14,49 @@
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+    <three-position [x]="0" [y]="10" [z]="30"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene>
+    <three-fog [color]="'0xCCCCCC'" [near]="50" [far]="100"></three-fog>
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
+      [type]="'AmbientLight'"
+      [color]="'0x444444'"
     >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
     </three-light>
     <three-light
-      [type]="'directional'"
+      #spotLight
+      [type]="'SpotLight'"
+      [color]="'0x888888'"
+      [name]="'Spot Light'"
+      [angle]="36"
+      [penumbra]="0.3"
+      [castShadow]="true"
+      [shadowCameraNear]="8"
+      [shadowCameraFar]="200"
+      [shadowMapSize]="256"
+      [shadowRadius]="controls.spotlight"
+      [shadowBias]="-0.002"
+    >
+      <three-position [x]="8" [y]="10" [z]="5"></three-position>
+    </three-light>
+    <three-light
+      #dirLight
+      [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"
+      [name]="'Dir. Light'"
       [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
       [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [shadowCameraFar]="500"
+      [shadowCameraRight]="17"
+      [shadowCameraLeft]="-17"
+      [shadowCameraTop]="17"
+      [shadowCameraBottom]="-17"
+      [shadowMapSize]="512"
+      [shadowRadius]="controls.directional"
+      [shadowBias]="-0.0005"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="0" [y]="10" [z]="0"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="1" [z]="0"></three-position>

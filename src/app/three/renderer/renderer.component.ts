@@ -9,6 +9,7 @@ import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
 import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
+import { ViewerComponent } from '../viewer/viewer.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
 import { ListenerComponent } from './../listener/listener.component';
@@ -81,6 +82,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @ContentChildren(SceneComponent, { descendants: false }) private sceneList: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
   @ContentChildren(ListenerComponent, { descendants: true }) private listnerList: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) private audioList: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
@@ -316,6 +318,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       this.cameraList.forEach(camera => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       })
+      this.viewerList.forEach(viewer => {
+        viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
+      });
       if (this.cssRenderer !== null) {
         this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
       }
@@ -422,6 +427,10 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
               controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2d);
             });
             break;
+          case 'viewer' :
+            this.viewerList.forEach(viewer => {
+              viewer.getViewer();
+            });
           }
       });
     }
@@ -565,7 +574,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
       camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
     });
     this.setSize(this.rendererWidth, this.rendererHeight);
-    this.synkObject3D(['listner', 'audio','canvas2d','controller']);
+    this.synkObject3D(['listner', 'audio','canvas2d','controller','viewer']);
     this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
     this.resizeRender(null);
     this._renderCaller();
@@ -693,6 +702,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     if (ThreeUtil.isNull(this.beforeRender) || ! this.beforeRender(this.getRenderInfo(renderTimer))) {
       this.cameraList.forEach(camera => {
         camera.render(this.renderer, this.cssRenderer ,this.sceneList, renderTimer)
+      });
+      this.viewerList.forEach(viewer => {
+        viewer.render(this.renderer, renderTimer);
       });
     }
     if (this.stats != null) {

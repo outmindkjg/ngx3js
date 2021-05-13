@@ -1,6 +1,7 @@
 .renderer {
   position: relative;
   &.auto-size {
+    position: absolute;
     box-sizing: border-box;
     left: 0;
     top: 0;

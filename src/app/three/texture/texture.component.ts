@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -8,45 +15,56 @@ import { LocalStorageService } from '../local-storage.service';
 @Component({
   selector: 'three-texture',
   templateUrl: './texture.component.html',
-  styleUrls: ['./texture.component.scss']
+  styleUrls: ['./texture.component.scss'],
 })
 export class TextureComponent implements OnInit {
-
-  @Input() private refer:any = null;
-  @Input() public textureType:string = 'map';
-  @Input() private loaderType:string = null;
-  @Input() private image:string = null;
-  @Input() private premultiplyAlpha : boolean = null;
-  @Input() private cubeImage:string[] = null;
+  @Input() private refer: any = null;
+  @Input() public textureType: string = 'map';
+  @Input() private loaderType: string = null;
+  @Input() private image: string = null;
+  @Input() private premultiplyAlpha: boolean = null;
+  @Input() private cubeImage: string[] = null;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
-  @Input() private program:(ctx: CanvasRenderingContext2D, text? : string) => void = null;
+  @Input() private program: (
+    ctx: CanvasRenderingContext2D,
+    text?: string
+  ) => void = null;
   @Input() private text: string = null;
-  @Input() private canvas:HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap | string = null;
-  @Input() private mapping:string = null;
-  @Input() private wrapS:string = null;
-  @Input() private wrapT:string = null;
-  @Input() private magFilter:string = null;
-  @Input() private minFilter:string = null;
-  @Input() private format:string = null;
-  @Input() public type:string = null;
-  @Input() private anisotropy:number = null;
-  @Input() private encoding:string = null;
-  @Input() private repeatX:number = null;
-  @Input() private repeatY:number = null;
-  @Input() private offsetX:number = null;
-  @Input() private offsetY:number = null;
-  @Input() private width:number = null;
-  @Input() private height:number = null;
-  @Input() private perlin:any = null;
-  @Input() private sunX:number = null;
-  @Input() private sunY:number = null;
-  @Input() private sunZ:number = null;
-  @Input() private useDropImage:boolean = false;
-  @Input() private color:number|string = null;
-  @Input() private add:number|string = null;
-  @Input() private rotation:number = null;
-  @Output() private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
+  @Input() private canvas:
+    | HTMLVideoElement
+    | HTMLImageElement
+    | HTMLCanvasElement
+    | ImageBitmap
+    | string = null;
+  @Input() private mapping: string = null;
+  @Input() private wrap: string = null;
+  @Input() private wrapS: string = null;
+  @Input() private wrapT: string = null;
+  @Input() private magFilter: string = null;
+  @Input() private minFilter: string = null;
+  @Input() private format: string = null;
+  @Input() public type: string = null;
+  @Input() private anisotropy: number = null;
+  @Input() private encoding: string = null;
+  @Input() private repeat: number = null;
+  @Input() private repeatX: number = null;
+  @Input() private repeatY: number = null;
+  @Input() private offset: number = null;
+  @Input() private offsetX: number = null;
+  @Input() private offsetY: number = null;
+  @Input() private width: number = null;
+  @Input() private height: number = null;
+  @Input() private perlin: any = null;
+  @Input() private sunX: number = null;
+  @Input() private sunY: number = null;
+  @Input() private sunZ: number = null;
+  @Input() private useDropImage: boolean = false;
+  @Input() private color: number | string = null;
+  @Input() private add: number | string = null;
+  @Input() private rotation: number = null;
+  @Output()
+  private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
   private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
@@ -54,29 +72,40 @@ export class TextureComponent implements OnInit {
 
   private getCubeImage(def?: string[]): string[] {
     const cubeImage = ThreeUtil.getTypeSafe(this.cubeImage, def);
-    if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length !== 6 && cubeImage.length >= 1) {
+    if (
+      ThreeUtil.isNotNull(cubeImage) &&
+      cubeImage.length !== 6 &&
+      cubeImage.length >= 1
+    ) {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
       return [
-        prefix + 'px.' + postfix, prefix + 'nx.' + postfix,
-        prefix + 'py.' + postfix, prefix + 'ny.' + postfix,
-        prefix + 'pz.' + postfix, prefix + 'nz.' + postfix
+        prefix + 'px.' + postfix,
+        prefix + 'nx.' + postfix,
+        prefix + 'py.' + postfix,
+        prefix + 'ny.' + postfix,
+        prefix + 'pz.' + postfix,
+        prefix + 'nz.' + postfix,
       ];
     } else {
       return cubeImage;
     }
   }
 
-  private getProgram(def?: (ctx: CanvasRenderingContext2D, text? : string) => void): (ctx: CanvasRenderingContext2D, text? : string) => void {
+  private getProgram(
+    def?: (ctx: CanvasRenderingContext2D, text?: string) => void
+  ): (ctx: CanvasRenderingContext2D, text?: string) => void {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
 
-  private getCanvas(def?: string): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
-    if (ThreeUtil.isNull(this.canvas) || typeof(this.canvas) === 'string') {
+  private getCanvas(
+    def?: string
+  ): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
+    if (ThreeUtil.isNull(this.canvas) || typeof this.canvas === 'string') {
       const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '') as string;
-      switch(canvas.toLowerCase()) {
-        case 'lut' :
-        default :
+      switch (canvas.toLowerCase()) {
+        case 'lut':
+        default:
           return new Lut().createCanvas();
       }
     } else {
@@ -107,12 +136,15 @@ export class TextureComponent implements OnInit {
   }
 
   private getWrapS(def: string): THREE.Wrapping {
-    const wrapS = ThreeUtil.getTypeSafe(this.wrapS, def, '');
+    const wrapS = ThreeUtil.getTypeSafe(this.wrapS, this.wrap, def || '');
     switch (wrapS.toLowerCase()) {
+      case 'repeatwrapping':
       case 'repeat':
         return THREE.RepeatWrapping;
+      case 'mirroredrepeatwrapping':
       case 'mirroredrepeat':
         return THREE.MirroredRepeatWrapping;
+      case 'clamptoedgewrapping':
       case 'clamptoedge':
       default:
         return THREE.ClampToEdgeWrapping;
@@ -120,12 +152,15 @@ export class TextureComponent implements OnInit {
   }
 
   private getWrapT(def: string): THREE.Wrapping {
-    const wrapT = ThreeUtil.getTypeSafe(this.wrapT, def, '');
+    const wrapT = ThreeUtil.getTypeSafe(this.wrapT, this.wrap, def || '');
     switch (wrapT.toLowerCase()) {
+      case 'repeatwrapping':
       case 'repeat':
         return THREE.RepeatWrapping;
+      case 'mirroredrepeatwrapping':
       case 'mirroredrepeat':
         return THREE.MirroredRepeatWrapping;
+      case 'clamptoedgewrapping':
       case 'clamptoedge':
       default:
         return THREE.ClampToEdgeWrapping;
@@ -135,16 +170,22 @@ export class TextureComponent implements OnInit {
   private getMagFilter(def: string): THREE.TextureFilter {
     const magFilter = ThreeUtil.getTypeSafe(this.magFilter, def, '');
     switch (magFilter.toLowerCase()) {
+      case 'nearestfilter':
       case 'nearest':
         return THREE.NearestFilter;
+      case 'nearestmipmapnearestfilter':
       case 'nearestmipmapnearest':
         return THREE.NearestMipmapNearestFilter;
+      case 'nearestmipmaplinearfilter':
       case 'nearestmipmaplinear':
         return THREE.NearestMipmapLinearFilter;
+      case 'linearmipmapnearestfilter':
       case 'linearmipmapnearest':
         return THREE.LinearMipmapNearestFilter;
+      case 'linearmipmaplinearfilter':
       case 'linearmipmaplinear':
         return THREE.LinearMipmapLinearFilter;
+      case 'linearfilter':
       case 'linear':
       default:
         return THREE.LinearFilter;
@@ -264,21 +305,28 @@ export class TextureComponent implements OnInit {
   }
 
   private getRepeat(defX: number, defY: number): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(this.repeatX, this.repeatY, new THREE.Vector2(defX,defY));
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(this.repeatX, this.repeat),
+      ThreeUtil.getTypeSafe(this.repeatY, this.repeat),
+      new THREE.Vector2(defX, defY)
+    );
   }
 
   private getOffset(defX: number, defY: number): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(this.offsetX, this.offsetY, new THREE.Vector2(defX,defY));
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(this.offsetX, this.offset),
+      ThreeUtil.getTypeSafe(this.offsetY, this.offset),
+      new THREE.Vector2(defX, defY)
+    );
   }
 
   private getRotation(def?: number): number {
     return ThreeUtil.getAngleSafe(this.rotation, def);
   }
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.texture != null) {
@@ -302,41 +350,41 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  private setUseDropImage(useDropImage : boolean) {
+  private setUseDropImage(useDropImage: boolean) {
     if (useDropImage) {
       if (this._dragOverHandler === null) {
         this._dragOverHandler = (event) => {
           event.preventDefault();
           event.dataTransfer.dropEffect = 'copy';
-        }
+        };
         document.addEventListener('dragover', this._dragOverHandler);
       }
       if (this._dragEnterHandler === null) {
         this._dragEnterHandler = () => {
-					document.body.style.opacity = (0.5).toString();
-        }
+          document.body.style.opacity = (0.5).toString();
+        };
         document.addEventListener('dragenter', this._dragEnterHandler);
       }
       if (this._dragLeaveHandler === null) {
         this._dragLeaveHandler = () => {
-					document.body.style.opacity = (1).toString();
-        }
+          document.body.style.opacity = (1).toString();
+        };
         document.addEventListener('dragleave', this._dragLeaveHandler);
       }
       if (this._dropHandler === null) {
         this._dropHandler = (event) => {
-					event.preventDefault();
+          event.preventDefault();
           if (this.texture !== null) {
             const texture = this.texture;
             const reader = new FileReader();
-            reader.addEventListener( 'load', ( event ) => {
+            reader.addEventListener('load', (event) => {
               texture.image.src = event.target.result;
               texture.needsUpdate = true;
             });
-            reader.readAsDataURL( event.dataTransfer.files[ 0 ] );
+            reader.readAsDataURL(event.dataTransfer.files[0]);
           }
-					document.body.style.opacity = (1).toString();
-        }
+          document.body.style.opacity = (1).toString();
+        };
         document.addEventListener('drop', this._dropHandler);
       }
     } else {
@@ -364,17 +412,39 @@ export class TextureComponent implements OnInit {
   private _dragLeaveHandler = null;
   private _dropHandler = null;
 
-
   private refTexture: THREE.Texture = null;
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
   static imageBitmapLoader: THREE.ImageBitmapLoader = null;
-  getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D) => void, onLoad? : () => void): THREE.Texture {
-    return TextureComponent.getTextureImage(image, cubeImage, program, this.width, this.height, this.loaderType, this.text, onLoad);
+  getTextureImage(
+    image: string,
+    cubeImage?: string[],
+    program?: (ctx: CanvasRenderingContext2D) => void,
+    onLoad?: () => void
+  ): THREE.Texture {
+    return TextureComponent.getTextureImage(
+      image,
+      cubeImage,
+      program,
+      this.width,
+      this.height,
+      this.loaderType,
+      this.text,
+      onLoad
+    );
   }
 
-  static getTextureImage(image: string, cubeImage? : string[], program?: (ctx: CanvasRenderingContext2D, text? : string) => void, canvasWidth? : number, canvasHeight? : number, loadType? : string, text? : string, onLoad? : () => void): THREE.Texture {
+  static getTextureImage(
+    image: string,
+    cubeImage?: string[],
+    program?: (ctx: CanvasRenderingContext2D, text?: string) => void,
+    canvasWidth?: number,
+    canvasHeight?: number,
+    loadType?: string,
+    text?: string,
+    onLoad?: () => void
+  ): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       if (this.cubeTextureLoader === null) {
         this.cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -391,10 +461,10 @@ export class TextureComponent implements OnInit {
         }
       });
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
-     switch((loadType || 'texture').toLowerCase()) {
-        case 'imagebitmap' :
-        case 'image' :
-        default :
+      switch ((loadType || 'texture').toLowerCase()) {
+        case 'imagebitmap':
+        case 'image':
+        default:
           if (this.textureLoader === null) {
             this.textureLoader = new THREE.TextureLoader();
           }
@@ -413,8 +483,8 @@ export class TextureComponent implements OnInit {
       canvas.height = canvasHeight ? canvasHeight : 35;
       if (ThreeUtil.isNotNull(program)) {
         const _context = canvas.getContext('2d', {
-          alpha: true
-        })
+          alpha: true,
+        });
         // _context.save();
         program(_context, text);
         // _context.restore();
@@ -423,19 +493,26 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  static checkTextureImage(texture: THREE.Texture , callback : () => void, tryout = 0) {
+  static checkTextureImage(
+    texture: THREE.Texture,
+    callback: () => void,
+    tryout = 0
+  ) {
     if (ThreeUtil.isNotNull(texture.image)) {
       if (texture instanceof THREE.CubeTexture && texture.image.length === 6) {
         callback();
-        return ;
-      } else if (ThreeUtil.isNotNull(texture.image.width) && texture.image.width > 0 ) {
+        return;
+      } else if (
+        ThreeUtil.isNotNull(texture.image.width) &&
+        texture.image.width > 0
+      ) {
         callback();
-        return ;
+        return;
       }
     }
     if (tryout < 30) {
       setTimeout(() => {
-        this.checkTextureImage(texture, callback, tryout+1);
+        this.checkTextureImage(texture, callback, tryout + 1);
       }, 200);
     } else {
       // console.error('timeout');
@@ -445,114 +522,144 @@ export class TextureComponent implements OnInit {
   setTexture(refTexture: THREE.Texture) {
     if (this.refTexture !== refTexture) {
       this.refTexture = refTexture;
-      this.refTexture.copy(this.getTexture())
+      this.refTexture.copy(this.getTexture());
     }
   }
 
-  private _textureSubject:Subject<THREE.Texture> = new Subject<THREE.Texture>();
+  private _textureSubject: Subject<THREE.Texture> = new Subject<THREE.Texture>();
 
-  textureSubscribe() : Observable<THREE.Texture>{
+  textureSubscribe(): Observable<THREE.Texture> {
     return this._textureSubject.asObservable();
   }
- 
+
   private _textureSubscribe: Subscription = null;
 
-  setReferTexture(texture : any) {
+  setReferTexture(texture: any) {
     if (texture instanceof HTMLVideoElement) {
       this.texture = new THREE.VideoTexture(texture);
     } else if (texture instanceof THREE.Texture) {
       this.texture = texture;
     }
     if (texture !== null && this.texture !== null && this.refTexture !== null) {
-      this.refTexture.copy(this.getTexture())
+      this.refTexture.copy(this.getTexture());
     }
   }
 
   getTexture(changes?: SimpleChanges) {
-    if (this.texture === null || (changes && (changes.image || changes.program || changes.storageName))) {
+    if (
+      this.texture === null ||
+      (changes && (changes.image || changes.program || changes.storageName))
+    ) {
       if (this._textureSubscribe !== null) {
         this._textureSubscribe.unsubscribe();
         this._textureSubscribe = null;
       }
       if (this.refer !== null) {
         if (this.refer instanceof TextureComponent) {
-          this.texture = this.getTextureImage(this.refer.getImage(null), this.refer.getCubeImage(null), this.refer.getProgram(null));
+          this.texture = this.getTextureImage(
+            this.refer.getImage(null),
+            this.refer.getCubeImage(null),
+            this.refer.getProgram(null)
+          );
           this.texture.repeat.copy(this.refer.getRepeat(1, 1));
           this.texture.offset.copy(this.refer.getOffset(0, 0));
         } else if (this.refer.getTexture && this.refer.textureSubscribe) {
           this.setReferTexture(this.refer.getTexture());
-          this._textureSubscribe = this.refer.textureSubscribe().subscribe(texture => {
-            if (texture instanceof THREE.Texture) {
-              this.setReferTexture(texture);
-            } else {
-              this.setReferTexture(this.refer.getTexture());
-            }
-          });
+          this._textureSubscribe = this.refer
+            .textureSubscribe()
+            .subscribe((texture) => {
+              if (texture instanceof THREE.Texture) {
+                this.setReferTexture(texture);
+              } else {
+                this.setReferTexture(this.refer.getTexture());
+              }
+            });
         } else {
           this.texture = new THREE.Texture();
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         this.texture = new THREE.Texture();
-        this.localStorageService.getTexture(this.storageName, (texture) => {
-          if (texture !== null) {
-            this.texture = texture;
-            this.getTexture({
-              encoding : null,
-              wrapS : null,
-              wrapT : null,
-              magFilter : null,
-              minFilter : null,
-              format : null,
-              type : null,
-              repeat : null,
-              rotation : null,
-              anisotropy : null,
-              premultiplyAlpha : null
-            });
-          }
-        }, this.storageOption);
+        this.localStorageService.getTexture(
+          this.storageName,
+          (texture) => {
+            if (texture !== null) {
+              this.texture = texture;
+              this.getTexture({
+                encoding: null,
+                wrapS: null,
+                wrapT: null,
+                magFilter: null,
+                minFilter: null,
+                format: null,
+                type: null,
+                repeat: null,
+                rotation: null,
+                anisotropy: null,
+                premultiplyAlpha: null,
+              });
+            }
+          },
+          this.storageOption
+        );
       } else {
         if (ThreeUtil.isNotNull(this.canvas)) {
-          this.texture = new THREE.CanvasTexture( this.getCanvas() );
-        } else if (ThreeUtil.isNotNull(this.perlin) && this.perlin.getPerlinGeometry) {
-          this.texture = new THREE.CanvasTexture( this.perlin.getPerlinGeometry().getTexture(
-            ThreeUtil.getVector3Safe(this.sunX, this.sunY, this.sunZ, new THREE.Vector3(1,1,1)),
-            ThreeUtil.getColorSafe(this.color, 0x602000),
-            ThreeUtil.getColorSafe(this.add, 0xe08060)
-          ));
+          this.texture = new THREE.CanvasTexture(this.getCanvas());
+        } else if (
+          ThreeUtil.isNotNull(this.perlin) &&
+          this.perlin.getPerlinGeometry
+        ) {
+          this.texture = new THREE.CanvasTexture(
+            this.perlin
+              .getPerlinGeometry()
+              .getTexture(
+                ThreeUtil.getVector3Safe(
+                  this.sunX,
+                  this.sunY,
+                  this.sunZ,
+                  new THREE.Vector3(1, 1, 1)
+                ),
+                ThreeUtil.getColorSafe(this.color, 0x602000),
+                ThreeUtil.getColorSafe(this.add, 0xe08060)
+              )
+          );
         } else {
-          this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null), () => {
-            this.getTexture({
-              encoding : null,
-              wrapS : null,
-              wrapT : null,
-              magFilter : null,
-              minFilter : null,
-              format : null,
-              type : null,
-              repeat : null,
-              anisotropy : null,
-              premultiplyAlpha : null,
-              rotation : null,
-              mapping : null
-            });
-            this.texture.needsUpdate = true;
-          });
+          this.texture = this.getTextureImage(
+            this.getImage(null),
+            this.getCubeImage(null),
+            this.getProgram(null),
+            () => {
+              this.getTexture({
+                encoding: null,
+                wrapS: null,
+                wrapT: null,
+                magFilter: null,
+                minFilter: null,
+                format: null,
+                type: null,
+                repeat: null,
+                anisotropy: null,
+                premultiplyAlpha: null,
+                rotation: null,
+                mapping: null,
+              });
+              this.texture.needsUpdate = true;
+            }
+          );
         }
         this.texture.mapping = this.getMapping();
       }
       if (ThreeUtil.isNotNull(changes)) {
         changes = {
-          wrapS : null,
-          wrapT : null,
-          magFilter : null,
-          minFilter : null,
-          format : null,
-          type : null,
-          repeat : null,
-          anisotropy : null,
-          premultiplyAlpha : null,
-          mapping : null
+          wrapS: null,
+          wrapT: null,
+          magFilter: null,
+          minFilter: null,
+          format: null,
+          type: null,
+          repeat: null,
+          anisotropy: null,
+          premultiplyAlpha: null,
+          mapping: null,
         };
       }
     }
@@ -565,12 +672,18 @@ export class TextureComponent implements OnInit {
             }
             break;
           case 'wrapS':
-            if (ThreeUtil.isNotNull(this.wrapS)) {
+            if (
+              ThreeUtil.isNotNull(this.wrapS) ||
+              ThreeUtil.isNotNull(this.wrap)
+            ) {
               this.texture.wrapS = this.getWrapS('clamptoedge');
             }
             break;
           case 'wrapT':
-            if (ThreeUtil.isNotNull(this.wrapT)) {
+            if (
+              ThreeUtil.isNotNull(this.wrapT) ||
+              ThreeUtil.isNotNull(this.wrap)
+            ) {
               this.texture.wrapT = this.getWrapT('clamptoedge');
             }
             break;
@@ -598,7 +711,7 @@ export class TextureComponent implements OnInit {
             }
             break;
           case 'format':
-            if (ThreeUtil.isNotNull(this.wrapS)) {
+            if (ThreeUtil.isNotNull(this.format)) {
               this.texture.format = this.getFormat('rgba');
             }
             break;
@@ -620,14 +733,22 @@ export class TextureComponent implements OnInit {
           case 'repeat':
           case 'repeatX':
           case 'repeatY':
-            if (ThreeUtil.isNotNull(this.repeatX) && ThreeUtil.isNotNull(this.repeatY)) {
+            if (
+              (ThreeUtil.isNotNull(this.repeatX) &&
+                ThreeUtil.isNotNull(this.repeatY)) ||
+              ThreeUtil.isNotNull(this.repeat)
+            ) {
               this.texture.repeat.copy(this.getRepeat(1, 1));
             }
             break;
           case 'offset':
           case 'offsetX':
           case 'offsetY':
-            if (ThreeUtil.isNotNull(this.offsetX) && ThreeUtil.isNotNull(this.offsetY)) {
+            if (
+              (ThreeUtil.isNotNull(this.offsetX) &&
+                ThreeUtil.isNotNull(this.offsetY)) ||
+              ThreeUtil.isNotNull(this.offset)
+            ) {
               this.texture.offset.copy(this.getOffset(0, 0));
             }
             break;

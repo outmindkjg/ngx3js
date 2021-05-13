@@ -52,7 +52,7 @@
       <three-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-mixer [action]="'run'">
+        <three-mixer [action]="'run'" [delayTime]="info.delay">
           <three-clip [name]="'run'" [index]="0"></three-clip>
         </three-mixer>
       </three-mesh>

@@ -6,10 +6,19 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-shadowmap-vsm.component.html',
   styleUrls: ['./webgl-shadowmap-vsm.component.scss']
 })
-export class WebglShadowmapVsmComponent extends BaseComponent<{}> {
+export class WebglShadowmapVsmComponent extends BaseComponent<{
+  spotlight : number;
+  directional : number;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      spotlight : 4,
+      directional : 4
+    },[
+      { name : 'spotlight', title : 'Spotlight Radius', type : 'number', min : 2, max : 8 },
+      { name : 'directional', title : 'Directional light Radius', type : 'number', min : 2, max : 8 },
+    ]);
   }
 
 }

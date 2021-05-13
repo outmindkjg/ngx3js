@@ -78,6 +78,7 @@ export class MeshComponent
   @Input() private renderOrder: number = null;
   @Input() private usePlaneStencil: boolean = false;
   @Input() private receiveShadow: boolean = false;
+  @Input() private useCustomDistanceMaterial: boolean = false;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private color: string | number = null;
@@ -107,6 +108,8 @@ export class MeshComponent
   @Input() private volume: Volume = null;
   @Input() private axis: string = null;
   @Input() private index: number = null;
+  @Input() private shadowBias: number = null;
+  @Input() private shadowFocus: number = null;
   @Input() private shadowCameraNear: number = null;
   @Input() private shadowMapSizeWidth: number = null;
   @Input() private shadowMapSizeHeight: number = null;
@@ -536,7 +539,7 @@ export class MeshComponent
     if (this.material !== null && this.material !== undefined) {
       if (
         this.material instanceof MaterialComponent &&
-        this.material.materialType === 'material'
+        this.material.isMaterialType('material')
       ) {
         materials.push(this.material.getMaterial());
       } else if (this.material instanceof THREE.Material) {
@@ -545,7 +548,7 @@ export class MeshComponent
     }
     if (this.materialList !== null && this.materialList.length > 0) {
       this.materialList.forEach((material) => {
-        if (material.materialType === 'material' && material.visible) {
+        if (material.isMaterialType('material') && material.visible) {
           materials.push(material.getMaterial());
         }
       });
@@ -555,6 +558,28 @@ export class MeshComponent
     }
     return materials;
   }
+
+  private getCustomDistanceMaterial(): THREE.Material {
+    let customDistanceMaterial: THREE.Material = null;
+    if (this.material !== null && this.material !== undefined) {
+      if (
+        this.material instanceof MaterialComponent &&
+        this.material.isMaterialType('customdistance')
+      ) {
+        customDistanceMaterial = this.material.getMaterial();
+      }
+    }
+    if (this.materialList !== null && this.materialList.length > 0) {
+      this.materialList.forEach((material) => {
+        if (material.isMaterialType('customdistance') && material.visible) {
+          customDistanceMaterial = material.getMaterial();
+        }
+      });
+    }
+    return customDistanceMaterial;
+  }
+
+  
 
   private getTexture(type : string): THREE.Texture {
     if (this.texture !== null && this.texture !== undefined) {
@@ -771,6 +796,9 @@ export class MeshComponent
       switch (material.materialType.toLowerCase()) {
         case 'customdepth':
           this.mesh.customDepthMaterial = materialClone;
+          break;
+        case 'customdistance':
+          this.mesh.customDistanceMaterial = materialClone;
           break;
         default:
           if (this.mesh.material instanceof Array) {
@@ -1335,6 +1363,8 @@ export class MeshComponent
             width: this.width,
             height: this.height,
             castShadow: this.castShadow,
+            shadowBias: this.shadowBias,
+            shadowFocus: this.shadowFocus,
             shadowCameraNear: this.shadowCameraNear,
             shadowMapSizeWidth: this.shadowMapSizeWidth,
             shadowMapSizeHeight: this.shadowMapSizeHeight,
@@ -1745,6 +1775,9 @@ export class MeshComponent
         });
       }
       this.setObject3D(this.mesh);
+      if (this.useCustomDistanceMaterial) {
+        this.mesh.customDistanceMaterial = this.getCustomDistanceMaterial();
+      }
       if (this.name !== null) {
         this.object3d.name = this.name;
       }

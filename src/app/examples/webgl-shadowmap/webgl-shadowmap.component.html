@@ -14,6 +14,7 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
+  <three-viewer [type]="'shadowmapviewer'" [x]="10" [y]="-10" [width]="'25%'" [height]="'25%'" [light]="spotLight" [enabled]="controls.hudEnable"></three-viewer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="23" [near]="10" [far]="3000">
     <three-position [x]="700" [y]="50" [z]="1900"></three-position>
@@ -26,6 +27,7 @@
     >
     </three-light>
     <three-light
+      #spotLight
       [type]="'Spot'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -57,28 +59,28 @@
       <three-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-mixer [action]="'run'">
+        <three-mixer [action]="'run'" [delayTime]="info.delay">
           <three-clip [name]="'run'" [index]="0"></three-clip>
         </three-mixer>
       </three-mesh>
       <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="flamingo">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-mixer [action]="'run'">
+        <three-mixer [action]="'run'" [delayTime]="info.delay">
           <three-clip [name]="'run'" [index]="0"></three-clip>
         </three-mixer>
       </three-mesh>
       <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="stork">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x+120" [y]="info.y+20" [z]="info.z+10"></three-position>
-        <three-mixer [action]="'run'">
+        <three-mixer [action]="'run'" [delayTime]="info.delay">
           <three-clip [name]="'run'" [index]="0"></three-clip>
         </three-mixer>
       </three-mesh>
       <three-mesh *ngFor="let info of flamingoPositions"  [sharedMesh]="parrot">
         <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
         <three-position [x]="info.x-120" [y]="info.y-20" [z]="info.z-10"></three-position>
-        <three-mixer [action]="'run'">
+        <three-mixer [action]="'run'" [delayTime]="info.delay">
           <three-clip [name]="'run'" [index]="0"></three-clip>
         </three-mixer>
       </three-mesh>

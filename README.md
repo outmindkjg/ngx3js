@@ -32,7 +32,6 @@ ng g s three/local-storage-service
 ng g c three/composer
 ng g c three/mixer
 ng g c three/animation
-
 ng g c three/listener
 ng g c three/audio
 ng g c three/plane
@@ -45,6 +44,8 @@ ng g c three/physics
 ng g c three/rigidbody
 ng g c three/control
 ng g c three/tools
+ng g c three/viewer
+
 
 
 

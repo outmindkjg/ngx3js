@@ -15,13 +15,14 @@ export class WebglShadowmapPerformanceComponent extends BaseComponent<{}> {
   ngOnInit() {
     this.horsePositions = [];
     for ( let i = - 600; i < 601; i += 2 ) {
+      const z = ((i > 0) ? 150 : -150) + i * 10;
       this.horsePositions.push(
-        { x : 100 - Math.random() * 3000, y : this.floor, z : i }
+        { x : 100 - Math.random() * 3000, y : this.floor, z : z, delay : 100 - Math.random() * 1000,  }
       )
     }
   }
   floor : number = -250;
-  horsePositions : { x : number, y : number, z : number }[] = [];
+  horsePositions : { x : number, y : number, z : number, delay : number }[] = [];
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
