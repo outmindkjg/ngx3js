@@ -1890,6 +1890,7 @@ export class MeshComponent
         'scale',
         'lookat',
         'rigidbody',
+        'lights',
         'meshes',
         'cameras',
         'helpers',

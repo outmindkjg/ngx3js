@@ -278,11 +278,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getRadiusTop(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.radiusTop , def);
+    return ThreeUtil.getTypeSafe(this.radiusTop , this.radiusBottom, def);
   }
 
   private getRadiusBottom(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.radiusBottom , def);
+    return ThreeUtil.getTypeSafe(this.radiusBottom , this.radiusTop, def);
   }
 
   private getDetail(def?: number): number {

@@ -5,14 +5,16 @@
   [controlType]="'orbit'"
   [enablePan]="false"
   [enableDamping]="true"
+  [clearColor]="'0xCCCCCC'"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
+  [shadowMapType]="'VSM'"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="10" [z]="30"></three-position>
   </three-camera>
@@ -34,52 +36,89 @@
       [shadowCameraNear]="8"
       [shadowCameraFar]="200"
       [shadowMapSize]="256"
-      [shadowRadius]="controls.spotlight"
+      [shadowRadius]="4"
       [shadowBias]="-0.002"
+      (onLoad)="setSpotLight($event)"
     >
       <three-position [x]="8" [y]="10" [z]="5"></three-position>
     </three-light>
-    <three-light
-      #dirLight
-      [type]="'DirectionalLight'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [name]="'Dir. Light'"
-      [castShadow]="true"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="500"
-      [shadowCameraRight]="17"
-      [shadowCameraLeft]="-17"
-      [shadowCameraTop]="17"
-      [shadowCameraBottom]="-17"
-      [shadowMapSize]="512"
-      [shadowRadius]="controls.directional"
-      [shadowBias]="-0.0005"
-    >
-      <three-position [x]="0" [y]="10" [z]="0"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-mesh>
+      <three-light
+        #dirLight
+        [type]="'DirectionalLight'"
+        [color]="'0xffffff'"
+        [intensity]="1"
+        [name]="'Dir. Light'"
+        [castShadow]="true"
+        [shadowCameraNear]="0.1"
+        [shadowCameraFar]="500"
+        [shadowCameraRight]="17"
+        [shadowCameraLeft]="-17"
+        [shadowCameraTop]="17"
+        [shadowCameraBottom]="-17"
+        [shadowMapSize]="512"
+        [shadowRadius]="4"
+        [shadowBias]="-0.0005"
+        (onLoad)="setDirLight($event)"
+      >
+        <three-position [x]="3" [y]="12" [z]="17"></three-position>
+      </three-light>
+    </three-mesh>
+    <three-shared>
+      <three-material 
+        #material
+        [type]="'MeshPhongMaterial'" 
+        [color]="'0x999999'"
+        [shininess]="0"
+        [specular]="'0x222222'"
+      ></three-material>
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        #cylinderGeometry
+        [type]="'CylinderGeometry'"
+        [radiusTop]="0.75"
+        [radiusBottom]="0.75"
+        [height]="7"
+        [radialSegments]="32"
+      >
+      </three-geometry>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)" [material]="material" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="0" [y]="3" [z]="0"></three-position>
+      <three-scale [multiply]="1/18"></three-scale>
+      <three-geometry
+        [type]="'TorusKnotGeometry'"
+        [radius]="25"
+        [tube]="8"
+        [radialSegments]="75"
+        [tubularSegments]="20"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+    </three-mesh>
+    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="10" [y]="3.5" [z]="10"></three-position>
+    </three-mesh>
+    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="10" [y]="3.5" [z]="-10"></three-position>
+    </three-mesh>
+    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="-10" [y]="3.5" [z]="10"></three-position>
+    </three-mesh>
+    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="-10" [y]="3.5" [z]="-10"></three-position>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+      <three-scale [multiply]="3"></three-scale>
       <three-geometry
         [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        [width]="200"
+        [height]="200"
       ></three-geometry>
       <three-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
-        [depthWrite]="false"
+        [shininess]="0"
+        [specular]="'0x111111'"
       ></three-material>
     </three-mesh>
   </three-scene>

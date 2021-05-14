@@ -27,6 +27,7 @@ import { Subscription } from 'rxjs';
 import { HelperComponent } from '../helper/helper.component';
 import { TextureComponent } from '../texture/texture.component';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+import { ViewerComponent } from '../viewer/viewer.component';
 
 @Component({
   selector: 'three-scene',
@@ -53,6 +54,7 @@ export class SceneComponent
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -284,6 +286,11 @@ export class SceneComponent
               mesh.setParent(this.scene);
             });
             break;
+          case 'viewer':
+              this.viewerList.forEach((viewer) => {
+              viewer.setParent(this.scene);
+            });
+            break;
           case 'cameras':
             this.cameraList.forEach((camera) => {
               camera.setParent(this.scene);
@@ -344,6 +351,9 @@ export class SceneComponent
   }
 
   update(timer: RendererTimer) {
+    this.viewerList.forEach((viewer) => {
+      viewer.update(timer);
+    });
     this.mixerList.forEach((mixer) => {
       mixer.update(timer);
     });
@@ -388,6 +398,7 @@ export class SceneComponent
           'lookat',
           'materials',
           'mesh',
+          'viewer',
           'lights',
           'helpers',
           'cameras',

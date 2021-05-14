@@ -6,8 +6,9 @@ import {
   OnInit,
   Output,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 import { HelperComponent } from '../helper/helper.component';
@@ -15,7 +16,6 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TextureComponent } from '../texture/texture.component';
 import { TagAttributes, ThreeUtil } from './../interface';
 import { MixerComponent } from './../mixer/mixer.component';
-import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'three-light',

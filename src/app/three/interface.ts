@@ -866,9 +866,10 @@ export class ThreeUtil {
 
   static getColorSafe(
     color: string | number | THREE.Color,
-    altColor?: string | number | THREE.Color
+    altColor?: string | number | THREE.Color,
+    nullColor? : string | number | THREE.Color
   ): THREE.Color {
-    const defColor = this.isNotNull(color) ? color : altColor;
+    const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
     if (this.isNotNull(defColor)) {
       if (defColor instanceof THREE.Color) {
         return defColor;
@@ -885,10 +886,10 @@ export class ThreeUtil {
               const l = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random();
               return new THREE.Color().setHSL(h, s, l);
             case 'rgb' :
-              const r = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random();
-              const g = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random();
-              const b = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random();
-              return new THREE.Color(r,g,b);
+              const r = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random() * 255;
+              const g = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random() * 255;
+              const b = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random() * 255;
+              return new THREE.Color(r / 255,g / 255,b / 255);
           }
         }
       }

@@ -1,20 +1,20 @@
-import { ThreeUtil } from './../interface';
 import {
   Component,
-  OnInit,
-  Output,
   EventEmitter,
-  Input,
-  SimpleChanges,
+  Input, OnInit,
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import { AbstractObject3dComponent } from '../object3d.abstract';
+import { Observable, Subject } from 'rxjs';
+import * as THREE from 'three';
+import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
 import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
-import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
+import { AbstractObject3dComponent } from '../object3d.abstract';
+import { ThreeUtil } from './../interface';
 
-import * as THREE from 'three';
 
 @Component({
   selector: 'three-helper',
@@ -42,6 +42,8 @@ export class HelperComponent
   @Input() private originX: number = null;
   @Input() private originY: number = null;
   @Input() private originZ: number = null;
+  @Input() private arrowFrom: any = null;
+  @Input() private arrowTo: any = null;
   @Input() private length: number = null;
   @Input() private headLength: number = null;
   @Input() private headWidth: number = null;
@@ -104,11 +106,11 @@ export class HelperComponent
   }
 
   private getColor1(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color1, def);
+    return ThreeUtil.getColorSafe(this.color1, this.color, def);
   }
 
   private getColor2(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color2, def);
+    return ThreeUtil.getColorSafe(this.color2, this.color1 || this.color, def);
   }
 
   private getOpacity(def?: number): number {
@@ -120,17 +122,44 @@ export class HelperComponent
   }
 
   private getDir(def?: THREE.Vector3): THREE.Vector3 {
-    return ThreeUtil.getTypeSafe(
-      ThreeUtil.getVector3Safe(this.dirX, this.dirY, this.dirZ),
-      def
-    );
+    if (ThreeUtil.isNotNull(this.arrowFrom) && ThreeUtil.isNotNull(this.arrowTo)) {
+      const arrowFrom : THREE.Vector3 = this.getObjectPosition(this.arrowFrom);
+      const arrowTo : THREE.Vector3 = this.getObjectPosition(this.arrowTo);
+      const arrowDirection = new THREE.Vector3();
+      arrowDirection.subVectors( arrowTo, arrowFrom ).normalize();
+      return arrowDirection;
+    } else {
+      return ThreeUtil.getTypeSafe(
+        ThreeUtil.getVector3Safe(this.dirX, this.dirY, this.dirZ),
+        def
+      );
+    }
   }
 
   private getOrigin(def?: THREE.Vector3): THREE.Vector3 {
-    return ThreeUtil.getTypeSafe(
-      ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ),
-      def
-    );
+    let origin : THREE.Vector3 = def;
+    if (ThreeUtil.isNotNull(this.arrowFrom)) {
+      origin = this.getObjectPosition(this.arrowFrom);
+    }
+    if (ThreeUtil.isNotNull(this.originX) && ThreeUtil.isNotNull(this.originY) && ThreeUtil.isNotNull(this.originZ)) {
+      origin = origin.clone();
+      origin.add(ThreeUtil.getTypeSafe(
+        ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ),
+        def
+      ));
+    }
+    return origin;
+  }
+
+  private getObjectPosition(obj: any): THREE.Vector3 {
+    if (ThreeUtil.isNotNull(obj)) {
+      if (obj instanceof THREE.Vector3) {
+        return obj;
+      } else if (ThreeUtil.isNotNull(obj.getPosition)) {
+        return obj.getPosition();
+      }
+    } 
+    return new THREE.Vector3(0,0,0);
   }
 
   private getLength(def?: number): number {
@@ -192,6 +221,12 @@ export class HelperComponent
         helper.update();
       }, 100);
     }
+  }
+
+  private _helperSubject: Subject<THREE.Object3D> = new Subject<THREE.Object3D>();
+
+  helperSubscribe(): Observable<THREE.Object3D> {
+    return this._helperSubject.asObservable();
   }
 
   resetHelper(clearMesh: boolean = false) {
@@ -445,6 +480,7 @@ export class HelperComponent
           'lookat',
           'controller',
         ]);
+        this._helperSubject.next(this.helper);
         this.onLoad.emit(this);
       } else {
         this.helper = null;

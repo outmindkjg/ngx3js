@@ -113,11 +113,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       }
       if (this.position === null) {
         this.position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
-        if (this.multiply !== null) {
-          this.position.multiplyScalar(this.multiply);
-        }
         if (this.normalize) {
           this.position.normalize();
+        }
+        if (this.multiply !== null) {
+          this.position.multiplyScalar(this.multiply);
         }
       }
       if (this.visible) {

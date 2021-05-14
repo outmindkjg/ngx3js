@@ -77,6 +77,8 @@ modify( geometry: BufferGeometry , count: number ): BufferGeometry;
 node_modules\three\examples\jsm\objects\Water.d.ts
 
 ----------------------
+node_modules\three\examples\jsm\objects\ShadowMesh.d.ts
+constructor(mesh : Mesh);
 
 ----------------------
 
