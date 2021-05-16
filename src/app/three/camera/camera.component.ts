@@ -13,6 +13,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
+import { Observable, Subject } from 'rxjs';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { PassComponent } from '../pass/pass.component';
@@ -503,7 +504,7 @@ export class CameraComponent
       return raycaster.intersectObjects(mesh, recursive);
     }
   }
-
+  
   getIntersection(
     mouse: THREE.Vector2,
     mesh: THREE.Object3D | THREE.Object3D[],
@@ -544,6 +545,11 @@ export class CameraComponent
         }
         this.camera.updateProjectionMatrix();
       }
+      this.camera.dispatchEvent({
+        type : 'change',
+        width : width,
+        height : height
+      });
     }
     if (this.composer !== null && this.composer.length > 0) {
       this.composer.forEach((composer) => {
@@ -591,11 +597,12 @@ export class CameraComponent
       const width = this.cameraWidth;
       const height = this.cameraHeight;
       switch (this.type.toLowerCase()) {
+        case 'arraycamera':
         case 'array':
           this.camera = new THREE.ArrayCamera();
           break;
+        case 'cubecamera':
         case 'cube':
-
           const cubeCamera1 = new THREE.CubeCamera(
             this.getNear(0.1),
             this.getFar(2000),
@@ -632,6 +639,7 @@ export class CameraComponent
             this.getFar(2000)
           );
           break;
+        case 'orthographiccamera':
         case 'orthographic':
           this.camera = new THREE.OrthographicCamera(
             this.getLeft(width),
@@ -642,6 +650,7 @@ export class CameraComponent
             this.getFar(2000)
           );
           break;
+        case 'perspectivecamera':
         case 'perspective':
         default:
           const perspectiveCamera = new THREE.PerspectiveCamera(

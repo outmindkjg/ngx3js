@@ -13,7 +13,7 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2100">
+  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2100" [scene]="scene" [autoClear]="false">
     <three-position [x]="0" [y]="0" [z]="1500"></three-position>
   </three-camera>
   <three-scene #scene>
@@ -33,6 +33,37 @@
           [map]="sprite.mapType == 'b' ? mapB : mapC"
         ></three-material>
       </three-mesh>
+    </three-mesh>
+  </three-scene>
+  <three-camera #cameraOrtho [type]="'OrthographicCamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="0.01" [far]="10000"  [scene]="orthScene" [clearDepth]="true" [autoClear]="false">
+    <three-rotation [x]="10" [y]="0" [z]="0"></three-rotation>
+    <three-position [x]="0" [y]="0" [z]="10"></three-position>
+  </three-camera>
+  <three-scene #orthScene>
+    <three-shared>
+      <three-material #material [type]="'Sprite'" [transparent]="true">
+        <three-texture [image]="'textures/sprite0.png'"></three-texture>
+      </three-material>
+    </three-shared>
+    <three-mesh #spriteTL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="1.0">
+      <three-position [x]="-1" [y]="1" [z]="-10" [camera]="cameraOrtho"></three-position>
+        <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
+    </three-mesh>
+    <three-mesh #spriteTR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="1.0">
+      <three-position [x]="1" [y]="1" [z]="-10" [camera]="cameraOrtho"></three-position>
+      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
+    </three-mesh>
+    <three-mesh #spriteBL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="0.0">
+      <three-position [x]="-1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></three-position>
+      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
+    </three-mesh>
+    <three-mesh #spriteBR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="0.0">
+      <three-position [x]="1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></three-position>
+      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
+    </three-mesh>
+    <three-mesh #spriteC [type]="'Sprite'" [material]="material" [centerX]="0.5" [centerY]="0.5">
+      <three-position [x]="0" [y]="0" [z]="-10" [camera]="cameraOrtho"></three-position>
+      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
     </three-mesh>
   </three-scene>
 </three-renderer>

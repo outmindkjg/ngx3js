@@ -1,8 +1,7 @@
-import { TweenComponent } from './../tween/tween.component';
-import { Component, Input, OnInit, SimpleChanges, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
-import { Observable, Subject, Subscription } from 'rxjs';
 import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
@@ -21,6 +20,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   @Input() private z:number = null;
   @Input() private multiply:number = null;
   @Input() private normalize:boolean = false;
+  @Input() public camera:any = null;
   
   @Output() private onLoad:EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
 
@@ -100,6 +100,8 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     return tagAttributes;
   }
 
+  _lastRefCamera : THREE.Camera = null;
+  _lastRefCameraBind : any = null;
   getPosition(): THREE.Vector3 {
     if (this.position === null || this.needUpdate) {
       this.needUpdate = false;
@@ -118,6 +120,34 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
         }
         if (this.multiply !== null) {
           this.position.multiplyScalar(this.multiply);
+        }
+        if (this.camera !== null) {
+          const camera : THREE.Camera = ThreeUtil.isNotNull(this.camera.getCamera) ? this.camera.getCamera() : this.camera;
+          if (camera !== null) {
+            if (this._lastRefCamera !== camera) {
+              if (this._lastRefCameraBind === null) {
+                this._lastRefCameraBind = (e) => {
+                  this.needUpdate = true;
+                  this.position = null;
+                  setTimeout(() => {
+                    if (this.position === null){
+                      this.getPosition();
+                    }
+                  }, 10);
+                }
+              }
+              if (this._lastRefCamera !== null) {
+                camera.removeEventListener('change', this._lastRefCameraBind);
+              }
+              camera.addEventListener('change', this._lastRefCameraBind);
+              this._lastRefCamera = camera;
+            }
+            if (camera instanceof THREE.OrthographicCamera) {
+              this.position.x = (camera.right - camera.left) / 2 * this.position.x + (camera.right + camera.left) / 2;
+              this.position.y = (camera.top - camera.bottom) / 2 * this.position.y + (camera.top + camera.bottom) / 2;
+              this.position.applyQuaternion(camera.quaternion);
+            }
+          }
         }
       }
       if (this.visible) {

@@ -229,6 +229,9 @@ export class ControlComponent implements OnInit {
           if (ThreeUtil.isNotNull(this.maxPolarAngle)) {
             orbitControls.maxPolarAngle = ThreeUtil.getAngleSafe(this.maxPolarAngle, 180);
           }
+          orbitControls.addEventListener('change', () => {
+            camera.dispatchEvent({type : 'change'});
+          })
           control = orbitControls;
           break;
       }
