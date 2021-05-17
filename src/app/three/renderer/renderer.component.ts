@@ -52,6 +52,7 @@ export class RendererComponent
   @Input() private controlType: string = 'none';
   @Input() private autoRotate: boolean = false;
   @Input() private shadowMapEnabled: boolean = true;
+  @Input() private physicallyCorrectLights: boolean = false;
   @Input() private shadowMapType: string = null;
   @Input() private screenSpacePanning: boolean = null;
   @Input() private minDistance: number = null;
@@ -768,6 +769,7 @@ export class RendererComponent
         }
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
+        this.renderer.physicallyCorrectLights = this.physicallyCorrectLights;
         if (this.renderer.shadowMap.enabled) {
           this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
         }
