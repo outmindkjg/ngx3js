@@ -6,10 +6,16 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-water-flowmap.component.html',
   styleUrls: ['./webgl-water-flowmap.component.scss']
 })
-export class WebglWaterFlowmapComponent extends BaseComponent<{}> {
+export class WebglWaterFlowmapComponent extends BaseComponent<{
+  visible : boolean;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      visible : false
+    },[
+      { name : 'visible', title : 'Show Flow Map', type : 'checkbox'}
+    ]);
   }
 
 }

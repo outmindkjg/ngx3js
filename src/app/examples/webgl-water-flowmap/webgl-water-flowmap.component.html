@@ -1,7 +1,8 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
+    >three.js</a
+  >
+  - water flow map
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -9,62 +10,64 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
+    <three-position [x]="0" [y]="25" [z]="0"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
+  <three-scene #scene>
+    <three-shared>
+      <three-texture #flowMap [image]="'textures/water/Water_1_M_Flow.jpg'"></three-texture>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-mesh [visible]="controls.visible">
+        <three-position [x]="0" [y]="1.01" [z]="0"></three-position>
+        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+        <three-geometry
+          [type]="'Plane'"
+          [width]="20"
+          [height]="20"
+        ></three-geometry>
+        <three-material [type]="'MeshBasicMaterial'" [map]="flowMap"></three-material>
+      </three-mesh>
+      <three-mesh
+        [type]="'water2'"
+        [waterScale]="2"
+        [textureWidth]="1024"
+        [textureHeight]="1024"
+        [flowMap]="flowMap" 
+      >
+        <three-position [x]="0" [y]="1" [z]="0"></three-position>
+        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+        <three-geometry
+          [type]="'Plane'"
+          [width]="20"
+          [height]="20"
+        ></three-geometry>
+      </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
         [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        [width]="20"
+        [height]="20"
+        [widthSegments]="10"
+        [heightSegments]="10"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-material [type]="'MeshBasicMaterial'" [color]="'0xcccccc'">
+        <three-texture
+          [image]="'textures/floors/FloorsCheckerboard_S_Diffuse.jpg'"
+          [wrap]="'repeat'"
+          [anisotropy]="16"
+          [repeat]="4"
+        ></three-texture>
+      </three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -115,12 +115,35 @@ export class SceneComponent
             switch (this.backgroundType.toLowerCase()) {
               case 'background-angular':
               case 'backgroundangular':
+              case 'background-environment-angular':
+              case 'backgroundenvironmentangular':
+              case 'environment-angular':
+              case 'environmentangular':
                 const background = this.background.getTexture();
                 TextureComponent.checkTextureImage(background, () => {
                   const envMap = this.getTextureEquirectangular(background);
-                  this.scene.background = envMap;
+                  switch (this.backgroundType.toLowerCase()) {
+                    case 'background-environment-angular':
+                    case 'backgroundenvironmentangular':
+                      this.scene.background = envMap;
+                      this.scene.environment = envMap;
+                      break;
+                    case 'environment-angular':
+                    case 'environmentangular':
+                      this.scene.environment = envMap;
+                      break;
+                    case 'background-angular':
+                    case 'backgroundangular':
+                    default :
+                      this.scene.background = envMap;
+                      break;
+                  }
                 })
                 break;
+              case 'environment':
+                this.scene.environment = this.background.getTexture();
+                break;
+              case 'background':
               default :
                 this.scene.background = this.background.getTexture();
                 break;

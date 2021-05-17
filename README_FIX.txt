@@ -81,5 +81,7 @@ node_modules\three\examples\jsm\objects\ShadowMesh.d.ts
 constructor(mesh : Mesh);
 
 ----------------------
+node_modules\three\examples\jsm\objects\Water2.d.ts
+constructor( geometry: BufferGeometry, options: WaterOptions );
 
 ----------------------

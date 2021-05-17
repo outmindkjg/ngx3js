@@ -1,10 +1,9 @@
-import { MixerComponent } from './../mixer/mixer.component';
-import { viewClassName } from '@angular/compiler';
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
+import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
   selector: 'three-audio',

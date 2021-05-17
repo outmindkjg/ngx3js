@@ -17,6 +17,10 @@ import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
+import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
+import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
+
 
 @Component({
   selector: 'three-material',
@@ -33,6 +37,7 @@ export class MaterialComponent
   @Input() private refer: any = null;
   @Input() private referOverride: boolean = false;
   @Input() private storageName: string = null;
+  @Input() private storageOption: any = null;
   @Input() private color: string | number | THREE.Color = null;
   @Input() private colorMultiply: number = null;
   @Input() private opacity: number = null;
@@ -188,7 +193,7 @@ export class MaterialComponent
       return false;
     }
   }
-  
+
   private getShading(def?: string): THREE.Shading {
     const shading = ThreeUtil.getTypeSafe(this.shading, def, '');
     switch (shading.toLowerCase()) {
@@ -201,7 +206,11 @@ export class MaterialComponent
   }
 
   private getSpecular(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorMultiplySafe(this.specular, def, this.specularMultiply);
+    return ThreeUtil.getColorMultiplySafe(
+      this.specular,
+      def,
+      this.specularMultiply
+    );
   }
 
   private getShininess(def?: number): number {
@@ -217,7 +226,11 @@ export class MaterialComponent
   }
 
   private getEmissive(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorMultiplySafe(this.emissive, def, this.emissiveMultiply);
+    return ThreeUtil.getColorMultiplySafe(
+      this.emissive,
+      def,
+      this.emissiveMultiply
+    );
   }
 
   private getEmissiveIntensity(def?: number): number {
@@ -370,7 +383,7 @@ export class MaterialComponent
     return ThreeUtil.getTypeSafe(this.ior, def);
   }
 
-  private getSheen(def?: string| number | THREE.Color): THREE.Color {
+  private getSheen(def?: string | number | THREE.Color): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.sheen, def, this.sheenMultiply);
   }
 
@@ -552,16 +565,22 @@ export class MaterialComponent
   private getBlending(def?: string): THREE.Blending {
     const blending = ThreeUtil.getTypeSafe(this.blending, def, '');
     switch (blending.toLowerCase()) {
+      case 'noblending':
       case 'no':
         return THREE.NoBlending;
+      case 'normalblending':
       case 'normal':
         return THREE.NormalBlending;
+      case 'additiveblending':
       case 'additive':
         return THREE.AdditiveBlending;
+      case 'subtractiveblending':
       case 'subtractive':
         return THREE.SubtractiveBlending;
+      case 'multiplyblending':
       case 'multiply':
         return THREE.MultiplyBlending;
+      case 'customblending':
       case 'custom':
         return THREE.CustomBlending;
     }
@@ -573,30 +592,41 @@ export class MaterialComponent
   ): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
     const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
     switch (blendSrc.toLowerCase()) {
+      case 'srcalphasaturatefactor':
       case 'srcalphasaturate':
         return THREE.SrcAlphaSaturateFactor;
+      case 'zerofactor':
       case 'zero':
         return THREE.ZeroFactor;
+      case 'onefactor':
       case 'one':
         return THREE.OneFactor;
+      case 'srccolorfactor':
       case 'srccolor':
         return THREE.SrcColorFactor;
+      case 'oneminussrccolorfactor':
       case 'oneminussrccolor':
         return THREE.OneMinusSrcColorFactor;
+      case 'srcalphafactor':
       case 'srcalpha':
         return THREE.SrcAlphaFactor;
+      case 'oneminussrcalphafactor':
       case 'oneminussrcalpha':
         return THREE.OneMinusSrcAlphaFactor;
+      case 'dstalphafactor':
       case 'dstalpha':
         return THREE.DstAlphaFactor;
+      case 'oneminusdstalphafactor':
       case 'oneminusdstalpha':
         return THREE.OneMinusDstAlphaFactor;
+      case 'dstcolorfactor':
       case 'dstcolor':
         return THREE.DstColorFactor;
+      case 'oneminusdstcolorfactor':
       case 'oneminusdstcolor':
         return THREE.OneMinusDstColorFactor;
     }
-    return null;
+    return undefined;
   }
 
   private getBlendSrcAlpha(def?: number): number {
@@ -906,15 +936,16 @@ export class MaterialComponent
               value: ThreeUtil.getColorSafe(value['value'], 0xffffff),
             };
             break;
+          case 'video':
+          case 'videotexture':
+            const videoTexture = TextureComponent.getTextureImageOption(
+              value['value'],
+              value['options'],
+              'video'
+            );
+            uniforms[key] = { value: videoTexture };
           case 'texture':
-            const texture = TextureComponent.getTextureImage(value['value']);
-            if (ThreeUtil.isNotNull(value['options'])) {
-              switch (value['options']) {
-                case 'wrapRepeat':
-                  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                  break;
-              }
-            }
+            const texture = TextureComponent.getTextureImageOption(value['value'], value['options']);
             uniforms[key] = { value: texture };
             break;
           case 'number':
@@ -1200,24 +1231,60 @@ export class MaterialComponent
     }
   }
 
+  public storageSource : any = null;
+
   getMaterial(): THREE.Material {
     if (this.material === null || this._needUpdate) {
       this._needUpdate = false;
       this.material = null;
+      this.storageSource = null;
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.material = new THREE.MeshLambertMaterial(
           this.getMaterialParameters({})
         );
-        this.localStorageService.getMaterial(
-          this.storageName,
-          (material: THREE.Material) => {
-            this.material = material;
-            if (this.getVisible(true)) {
-              this._materialSubject.next(this.material);
+        switch (this.type.toLowerCase()) {
+          case 'nodematerial' :
+          case 'node' :
+            const modeMateriallibrary = {}
+            if (ThreeUtil.isNotNull(this.storageOption)) {
+              Object.entries(this.storageOption).forEach(([key, value]) => {
+                if (
+                  ThreeUtil.isNotNull(value['type']) &&
+                  ThreeUtil.isNotNull(value['value'])
+                ) {
+                  switch (value['type'].toLowerCase()) {
+                    case 'texture':
+                        const texture = TextureComponent.getTextureImageOption(value['value'], value['options']);
+                        modeMateriallibrary[key] = texture;
+                        break;
+                  }
+                }
+              });
             }
-            this.onLoad.emit(this);
-          }
-        );
+            const nodeMaterialLoader = new NodeMaterialLoader(undefined, modeMateriallibrary);
+            nodeMaterialLoader.load(this.localStorageService.getStoreUrl(this.storageName), (material: THREE.Material) => {
+              this.material = material;
+              this.storageSource = nodeMaterialLoader;
+              if (this.getVisible(true)) {
+                this._materialSubject.next(this.material);
+              }
+              this.onLoad.emit(this);
+            });
+            break;
+          default :
+            this.localStorageService.getMaterial(
+              this.storageName,
+              (material: THREE.Material, storageSource : any) => {
+                this.material = material;
+                if (this.getVisible(true)) {
+                  this._materialSubject.next(this.material);
+                }
+                this.storageSource = storageSource;
+                this.onLoad.emit(this);
+              }
+            , this.storageOption);
+            break;
+        }
       } else if (this.refer !== null) {
         if (this.refer.getMaterial) {
           this.material = this.refer.getMaterial();
@@ -1652,5 +1719,16 @@ export class MaterialComponent
       this.onLoad.emit(this);
     }
     return this.material;
+  }
+
+  private _nodeFrame : any = null;
+
+  updateNode(delta) {
+    if (this.material instanceof NodeMaterial) {
+      if (this._nodeFrame == null) {
+        this._nodeFrame = new NodeFrame(0);
+      }
+      this._nodeFrame.update( delta ).updateNode( this.material )
+    }
   }
 }

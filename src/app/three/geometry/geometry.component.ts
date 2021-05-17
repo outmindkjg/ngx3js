@@ -3,36 +3,37 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
-  Output,
-  OnInit,
+
+  OnInit, Output,
+
   QueryList,
   SimpleChanges
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
+import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
-import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
+import { Volume } from 'three/examples/jsm/misc/Volume';
 import { EdgeSplitModifier } from 'three/examples/jsm/modifiers/EdgeSplitModifier';
 import { SimplifyModifier } from 'three/examples/jsm/modifiers/SimplifyModifier';
 import { TessellateModifier } from 'three/examples/jsm/modifiers/TessellateModifier';
-
-
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
-import { ShapeComponent } from '../shape/shape.component';
-import { TranslationComponent } from '../translation/translation.component';
-import { SvgComponent } from '../svg/svg.component';
-import { PlanePerlinGeometry } from './plane-perlin-geometry';
-import { ScaleComponent } from '../scale/scale.component';
 import { RotationComponent } from '../rotation/rotation.component';
-import { Volume } from 'three/examples/jsm/misc/Volume';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { ScaleComponent } from '../scale/scale.component';
+import { ShapeComponent } from '../shape/shape.component';
+import { SvgComponent } from '../svg/svg.component';
+import { TranslationComponent } from '../translation/translation.component';
+import { PlanePerlinGeometry } from './plane-perlin-geometry';
+				
 
 export interface GeometriesParametric {
   (u: number, v: number, target? : any): GeometriesVector3;
@@ -144,6 +145,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private curvePathType:string = null;
   @Input() private curveType:string = null;
   @Input() private addGroup:boolean = null;
+
+  @Input() private bottom:boolean = null;
+  @Input() private lid:boolean = null;
+  @Input() private body:boolean = null;
+  @Input() private fitLid:boolean = null;
+  @Input() private blinn:number = null;
 
   @Input() private uVGenerator:string = null;
   @Input() private pointsGeometry:GeometryComponent = null;
@@ -340,6 +347,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   private getSlices(def?: number): number {
     return ThreeUtil.getTypeSafe(this.slices , def);
   }
+
   private getStacks(def?: number): number {
     return ThreeUtil.getTypeSafe(this.stacks , def);
   }
@@ -1253,6 +1261,21 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                 position.needsUpdate = true;
               }
             }
+            break;
+          case 'teapotbuffergeometry':
+          case 'teapotgeometry':
+          case 'teapotbuffer':
+          case 'teapot':
+            const teapot = new TeapotGeometry( 
+              this.getSize(), 
+              this.getSegments(), 
+              ThreeUtil.getTypeSafe(this.bottom),
+              ThreeUtil.getTypeSafe(this.lid),
+              ThreeUtil.getTypeSafe(this.body),
+              ThreeUtil.getTypeSafe(this.fitLid),
+              ThreeUtil.getTypeSafe(this.blinn)
+             );
+            geometry = teapot;
             break;
           case 'perlinbuffergeometry':
           case 'perlingeometry':

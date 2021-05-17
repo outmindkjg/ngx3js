@@ -96,9 +96,11 @@ export class RendererComponent
   @Input() private height: number = -1;
   @Input() private statsMode: number = -1;
   @Input() private autoClear: boolean = true;
+  @Input() private autoClearColor: boolean = true;
   @Input() private outputEncoding: string = null;
   @Input() private guiControl: any = null;
   @Input() private logarithmicDepthBuffer: boolean = false;
+  @Input() private preserveDrawingBuffer: boolean = false;
   @Input() private guiParams: GuiControlParam[] = [];
   @Input() private useEvent: string[] = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
@@ -139,19 +141,27 @@ export class RendererComponent
     const encoding = ThreeUtil.getTypeSafe(this.outputEncoding, def, '');
     switch (encoding.toLowerCase()) {
       case 'srgb':
+      case 'srgb':
         return THREE.sRGBEncoding;
+      case 'gamma':
       case 'gamma':
         return THREE.GammaEncoding;
       case 'rgbe':
+      case 'rgbe':
         return THREE.RGBEEncoding;
+      case 'logluvencoding':
       case 'logluv':
         return THREE.LogLuvEncoding;
+      case 'rgbm7encoding':
       case 'rgbm7':
         return THREE.RGBM7Encoding;
+      case 'rgbm16encoding':
       case 'rgbm16':
         return THREE.RGBM16Encoding;
+      case 'rgbdencoding':
       case 'rgbd':
         return THREE.RGBDEncoding;
+      case 'linearencoding':
       case 'linear':
       default:
         return THREE.LinearEncoding;
@@ -405,14 +415,20 @@ export class RendererComponent
   private getToneMapping(def?: string): THREE.ToneMapping {
     const toneMapping = ThreeUtil.getTypeSafe(this.toneMapping, def, '');
     switch (toneMapping.toLowerCase()) {
+      case 'lineartonemapping':
       case 'linear':
         return THREE.LinearToneMapping;
+      case 'reinhardtonemapping':
       case 'reinhard':
         return THREE.ReinhardToneMapping;
+      case 'cineontonemapping':
       case 'cineon':
         return THREE.CineonToneMapping;
+      case 'acesfilmictonemapping':
       case 'acesfilmic':
         return THREE.ACESFilmicToneMapping;
+      case 'notonemapping':
+      case 'no':
       default:
         return THREE.NoToneMapping;
     }
@@ -725,6 +741,7 @@ export class RendererComponent
             alpha: this.cssRenderer !== null ? true : false,
             antialias: this.antialias,
             logarithmicDepthBuffer: this.logarithmicDepthBuffer,
+            preserveDrawingBuffer : this.preserveDrawingBuffer
           });
           break;
       }
@@ -755,6 +772,7 @@ export class RendererComponent
           this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
         }
         this.renderer.autoClear = this.autoClear;
+        this.renderer.autoClearColor = this.autoClearColor;
         if (this.outputEncoding !== null) {
           this.renderer.outputEncoding = this.getEncoding('linear');
         }

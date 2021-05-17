@@ -147,7 +147,7 @@ export class LocalStorageService {
     }
   }
 
-  private getStoreUrl(url: string) {
+  public getStoreUrl(url: string) {
     if (
       url.startsWith('/') ||
       url.startsWith('http://') ||

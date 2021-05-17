@@ -94,11 +94,11 @@ export class LightComponent
   }
 
   private getSkyColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.skyColor, def);
+    return ThreeUtil.getColorSafe(this.skyColor, this.color, def);
   }
 
   private getGroundColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.groundColor, def);
+    return ThreeUtil.getColorSafe(this.groundColor, this.color, def);
   }
 
   private getShadowMapSizeWidth(def?: number): number {

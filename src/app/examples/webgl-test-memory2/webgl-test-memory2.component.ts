@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererTimer } from '../../three';
+import { Material, Mesh, ShaderMaterial } from 'three';
 
 @Component({
   selector: 'app-webgl-test-memory2',
@@ -12,4 +13,57 @@ export class WebglTestMemory2Component extends BaseComponent<{}> {
     super({},[]);
   }
 
+  fragmentShader = `
+  void main() {
+
+    if ( mod ( gl_FragCoord.x, 4.0001 ) < 1.0 || mod ( gl_FragCoord.y, 4.0001 ) < 1.0 )
+
+      gl_FragColor = vec4( XXX, 1.0 );
+
+    else
+
+      gl_FragColor = vec4( 1.0 );
+
+  }
+  `;
+
+  vertexShader = `
+  void main() {
+
+    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+    gl_Position = projectionMatrix * mvPosition;
+
+  }
+  `;
+
+  generateFragmentShader() {
+    return this.fragmentShader.replace( "XXX", Math.random() + "," + Math.random() + "," + Math.random() );
+  }
+
+  ngOnInit() {
+    this.meshPositions = [];
+    for ( let i = 0; i < 100; i ++ ) {
+      this.meshPositions.push({
+        x : ( 0.5 - Math.random() ) * 1000,
+        y : ( 0.5 - Math.random() ) * 1000,
+        z : ( 0.5 - Math.random() ) * 1000,
+        fragmentShader : this.generateFragmentShader()
+      })
+    }
+  }
+
+  meshPositions : {x : number, y : number, z : number, fragmentShader : string }[] = [];
+
+  onRender(timer : RendererTimer) {
+    super.onRender(timer);
+    if (this.meshChildren != null) {
+      this.meshChildren.forEach(child => {
+        const mesh = child as Mesh;
+        (mesh.material as Material).dispose();
+        mesh.material = new ShaderMaterial( { vertexShader: this.vertexShader, fragmentShader: this.generateFragmentShader() } );
+      })
+    }
+  }
+
+  
 }

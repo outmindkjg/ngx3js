@@ -79,13 +79,16 @@ export class TextureComponent implements OnInit {
     ) {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
+      const prefix1 = cubeImage[2] || 'p';
+      const prefix2 = cubeImage[3] || 'n';
+
       return [
-        prefix + 'px.' + postfix,
-        prefix + 'nx.' + postfix,
-        prefix + 'py.' + postfix,
-        prefix + 'ny.' + postfix,
-        prefix + 'pz.' + postfix,
-        prefix + 'nz.' + postfix,
+        prefix + prefix1 + 'x.' + postfix,
+        prefix + prefix2 + 'x.' + postfix,
+        prefix + prefix1 + 'y.' + postfix,
+        prefix + prefix2 + 'y.' + postfix,
+        prefix + prefix1 + 'z.' + postfix,
+        prefix + prefix2 + 'z.' + postfix,
       ];
     } else {
       return cubeImage;
@@ -435,6 +438,29 @@ export class TextureComponent implements OnInit {
     );
   }
 
+  static getTextureImageOption(image: string, options? : string, loadType?: string): THREE.Texture {
+    const texture = this.getTextureImage(image, null, null, 10 , 10, loadType);
+    if (ThreeUtil.isNotNull(options)) {
+      const optionsList = options.split(',');
+      optionsList.forEach((option) => {
+        switch (option.toLowerCase()) {
+          case 'nearest':
+          case 'nearestfilter':
+          case 'minnearest':
+          case 'minnearestfilter':
+            texture.minFilter = THREE.NearestFilter;
+            break;
+          case 'repeat':
+          case 'wraprepeat':
+          case 'Repeatwrapping':
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            break;
+        }
+      });
+    }
+    return texture;
+  }
+  
   static getTextureImage(
     image: string,
     cubeImage?: string[],
@@ -462,6 +488,18 @@ export class TextureComponent implements OnInit {
       });
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
       switch ((loadType || 'texture').toLowerCase()) {
+        case 'video':
+          if (!image.startsWith('/')) {
+            image = '/assets/examples/' + image;
+          }
+          const video = document.createElement('video');
+          video.src = image;
+          video.loop = true;
+          video.muted = true;
+          video.crossOrigin = 'anonymous';
+          const videoTexture = new THREE.VideoTexture(video);
+          video.play();
+          return videoTexture;
         case 'imagebitmap':
         case 'image':
         default:

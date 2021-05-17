@@ -28,9 +28,10 @@ import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import { Refractor } from 'three/examples/jsm/objects/Refractor';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
-
 import { Flow, InstancedFlow } from "three/examples/jsm/modifiers/CurveModifier";
 import { Water } from 'three/examples/jsm/objects/Water';
+import { Water as Water2} from 'three/examples/jsm/objects/Water2';
+
 import { Sky } from 'three/examples/jsm/objects/Sky';
 
 import { GeometryComponent } from '../geometry/geometry.component';
@@ -50,8 +51,6 @@ import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { CurveComponent } from '../curve/curve.component';
-import { Vector2, Vector3 } from 'three';
-
 
 @Component({
   selector: 'three-mesh',
@@ -143,13 +142,21 @@ export class MeshComponent
   @Input() private enableColors: boolean = null;
   @Input() private resolution: number = null;
   @Input() private isolation:number = null;
+  @Input() private flowDirectionX:number = null;
+  @Input() private flowDirectionY:number = null;
+  @Input() private flowSpeed:number = null;
+  @Input() private reflectivity:number = null;
+  @Input() private waterScale:number = null;
+  @Input() private flowMap : string | THREE.Texture | TextureComponent = null;
+  @Input() private normalMap0 : string | THREE.Texture | TextureComponent = null;
+  @Input() private normalMap1 : string | THREE.Texture | TextureComponent = null;
   @Input() private planeInfos: { type : string, strength: number, subtract: number }[] = null;
   @Input() private blobInfos: { x : number, y : number, z : number, strength: number, subtract: number, colors? : any }[] = null;
   @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
   @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
   @Input() private texture: TextureComponent | THREE.Texture = null;
-  @Input() private curve: CurveComponent | THREE.Curve<Vector3> = null;
+  @Input() private curve: CurveComponent | THREE.Curve<THREE.Vector3> = null;
   @Input() private morphTargets:boolean = null;
   @Input() private centerX: number = null;
   @Input() private centerY: number = null;
@@ -231,7 +238,7 @@ export class MeshComponent
   }
 
   private getColor(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color, def);
+    return ThreeUtil.getColorSafe(this.color, this.waterColor, def);
   }
 
   private getTextureWidth(def?: number ): number {
@@ -383,6 +390,22 @@ export class MeshComponent
 
   private getIsolation(def?: number): number {
     return ThreeUtil.getTypeSafe(this.isolation, def);
+  }
+
+  private getFlowDirection(def?: THREE.Vector2): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(this.flowDirectionX, this.flowDirectionY, def);
+  }
+
+  private getFlowSpeed(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.flowSpeed, def);
+  }
+
+  private getReflectivity(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.reflectivity, def);
+  }
+
+  private getWaterScale(def?: number): number {
+    return ThreeUtil.getTypeSafe(this.waterScale, def);
   }
 
   private getShader(def?: string) {
@@ -581,7 +604,7 @@ export class MeshComponent
 
   
 
-  private getTexture(type : string): THREE.Texture {
+  private getTexture(type : string, alterTexture? : string | THREE.Texture | TextureComponent , defImage?: string): THREE.Texture {
     if (this.texture !== null && this.texture !== undefined) {
       if (
         this.texture instanceof TextureComponent &&
@@ -599,7 +622,21 @@ export class MeshComponent
           foundTexture = texture.getTexture();
         }
       });
-      return foundTexture;
+      if (ThreeUtil.isNotNull(foundTexture)) {
+        return foundTexture;
+      }
+    }
+    if (ThreeUtil.isNotNull(alterTexture)) {
+      if (alterTexture instanceof THREE.Texture) {
+        return alterTexture;
+      } else if (alterTexture instanceof TextureComponent) {
+        return alterTexture.getTexture();
+      } else {
+        return TextureComponent.getTextureImage(alterTexture);
+      }
+    }
+    if (ThreeUtil.isNotNull(defImage)) {
+      return TextureComponent.getTextureImage(defImage);
     }
     return undefined;
   }
@@ -1291,6 +1328,25 @@ export class MeshComponent
           this.getUndateUniforms(water.material['uniforms']);
           basemesh = water;
           break;
+        case 'water2' :
+          const water2 = new Water2(geometry, {
+            textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
+            textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+            clipBias: this.getClipBias(0.003),
+            color: this.getColor(),
+            flowDirection: this.getFlowDirection(),
+            flowSpeed: this.getFlowSpeed(),
+            reflectivity: this.getReflectivity(),
+            scale: this.getWaterScale(),
+            shader: this.getShader(),
+            flowMap: this.getTexture('flowMap', this.flowMap ),
+            normalMap0: this.getTexture('normalMap0', this.normalMap0, 'textures/water/Water_1_M_Normal.jpg'),
+            normalMap1: this.getTexture('normalMap1', this.normalMap1, 'textures/water/Water_2_M_Normal.jpg'),
+            encoding: this.getEncoding()
+          });
+          this.getUndateUniforms(water2.material['uniforms']);
+          basemesh = water2;
+          break;
         case 'sky' :
           const sky = new Sky();
           this.getUndateUniforms(sky.material.uniforms);
@@ -1482,7 +1538,7 @@ export class MeshComponent
             this.getMaterials()[0] as THREE.SpriteMaterial
           );
           if (ThreeUtil.isNotNull(this.centerX) && ThreeUtil.isNotNull(this.centerY)) {
-            sprite.center.copy(ThreeUtil.getVector2Safe(this.centerX, this.centerY, new Vector2()));
+            sprite.center.copy(ThreeUtil.getVector2Safe(this.centerX, this.centerY, new THREE.Vector2()));
           }
           basemesh = sprite;
           break;
