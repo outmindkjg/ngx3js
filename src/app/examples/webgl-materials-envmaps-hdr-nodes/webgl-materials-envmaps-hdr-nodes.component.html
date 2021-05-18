@@ -8,39 +8,44 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
+  [toneMapping]="'ACESFilmicToneMapping'"
+  [outputEncoding]="'sRGBEncoding'"
   [shadowMapEnabled]="true"
-  [physicallyCorrectLights]="false"
+  [toneMappingExposure]="1"
+  [physicallyCorrectLights]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
+  (onLoad)="setRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="0" [z]="120"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0x000000'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene [background]="background" [backgroundType]="'background-cubemap'">
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
+      [type]="'ambientlight'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [intensity]="0.2"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
+    <three-light
+      [type]="'directionallight'"
+      [color]="'0xffffff'"
+      [intensity]="0.8"
+    >
+      <three-position [x]="3" [y]="10" [z]="10"></three-position>
+    </three-light>
+    <three-shared>
+      <three-texture 
+        #background 
+        [image]="envMapInfo.image" 
+        [cubeImage]="envMapInfo.cubeImage" 
+        [loaderType]="envMapInfo.loaderType"
+        [magFilter]="envMapInfo.magFilter"
+        [encoding]="envMapInfo.encoding"
+      ></three-texture>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
@@ -55,9 +60,10 @@
         [color]="'0xffffff'" 
         [roughness]="controls.roughness"
         [metalness]="controls.metalness"
+        [envMap]="background"
       ></three-material>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-mesh [receiveShadow]="true" [visible]="controls.debug">
       <three-position [x]="0" [y]="-50" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
@@ -67,6 +73,7 @@
       ></three-geometry>
       <three-material
         [type]="'MeshBasicMaterial'"
+        [map]="background"
       ></three-material>
     </three-mesh>
   </three-scene>

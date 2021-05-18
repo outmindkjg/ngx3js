@@ -21,6 +21,12 @@ import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoade
 import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
 import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
 
+export interface TextureOption {
+  type : string;
+  value : string;
+  options? : string;
+  cubeImage? : string[];
+}
 
 @Component({
   selector: 'three-material',
@@ -140,14 +146,14 @@ export class MaterialComponent
   @Input() private rotation: number = null;
   @Input() private size: number = null;
   @Input() private sizeAttenuation: boolean = null;
-  @Input() private envMap: TextureComponent | THREE.Texture = null;
-  @Input() private map: TextureComponent | THREE.Texture = null;
-  @Input() private specularMap: TextureComponent | THREE.Texture = null;
-  @Input() private alphaMap: TextureComponent | THREE.Texture = null;
-  @Input() private bumpMap: TextureComponent | THREE.Texture = null;
-  @Input() private normalMap: TextureComponent | THREE.Texture = null;
-  @Input() private displacementMap: TextureComponent | THREE.Texture = null;
-  @Input() private aoMap: TextureComponent | THREE.Texture = null;
+  @Input() private envMap: string | TextureComponent | THREE.Texture | TextureOption | TextureOption = null;
+  @Input() private map: string | TextureComponent | THREE.Texture | TextureOption | TextureOption = null;
+  @Input() private specularMap: string | TextureComponent | THREE.Texture | TextureOption | TextureOption = null;
+  @Input() private alphaMap: string | TextureComponent | THREE.Texture | TextureOption = null;
+  @Input() private bumpMap: string | TextureComponent | THREE.Texture | TextureOption = null;
+  @Input() private normalMap: string | TextureComponent | THREE.Texture | TextureOption = null;
+  @Input() private displacementMap: string | TextureComponent | THREE.Texture | TextureOption = null;
+  @Input() private aoMap: string | TextureComponent | THREE.Texture | TextureOption = null;
   @Input() private dashed: boolean = null;
   @Input() private dashScale: number = null;
   @Input() private dashOffset: number = null;
@@ -418,79 +424,62 @@ export class MaterialComponent
   private getSizeAttenuation(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.sizeAttenuation, def);
   }
+  
+  private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption): THREE.Texture {
+    if (ThreeUtil.isNotNull(map)) {
+      if (map instanceof THREE.Texture) {
+        return map;
+      } else if (map instanceof TextureComponent) {
+        return map.getTexture();
+      } else if (typeof map == 'string') {
+        return TextureComponent.getTextureImageOption(map, null, 'texture', this.localStorageService);
+      } else if (ThreeUtil.isNotNull(map.value)) {
+        return TextureComponent.getTextureImageOption(map.value, map.options , map.type, this.localStorageService, map.cubeImage);
+      }
+    }
+    return undefined;
+  }
 
-  getTexture(type: string): THREE.Texture {
+  private getTexture(type: string): THREE.Texture {
     switch (type.toLowerCase()) {
       case 'envmap':
         if (ThreeUtil.isNotNull(this.envMap)) {
-          if (this.envMap instanceof TextureComponent) {
-            return this.envMap.getTexture();
-          } else {
-            return this.envMap;
-          }
+          return this.getTextureOption(this.envMap);
         }
         break;
       case 'map':
         if (ThreeUtil.isNotNull(this.map)) {
-          if (this.map instanceof TextureComponent) {
-            return this.map.getTexture();
-          } else {
-            return this.map;
-          }
+          return this.getTextureOption(this.map);
         }
         break;
       case 'specularmap':
         if (ThreeUtil.isNotNull(this.specularMap)) {
-          if (this.specularMap instanceof TextureComponent) {
-            return this.specularMap.getTexture();
-          } else {
-            return this.specularMap;
-          }
+          return this.getTextureOption(this.specularMap);
         }
         break;
       case 'alphamap':
         if (ThreeUtil.isNotNull(this.alphaMap)) {
-          if (this.alphaMap instanceof TextureComponent) {
-            return this.alphaMap.getTexture();
-          } else {
-            return this.alphaMap;
-          }
+          return this.getTextureOption(this.alphaMap);
         }
         break;
       case 'bumpmap':
         if (ThreeUtil.isNotNull(this.bumpMap)) {
-          if (this.bumpMap instanceof TextureComponent) {
-            return this.bumpMap.getTexture();
-          } else {
-            return this.bumpMap;
-          }
+          return this.getTextureOption(this.bumpMap);
         }
         break;
       case 'normalmap':
         if (ThreeUtil.isNotNull(this.normalMap)) {
-          if (this.normalMap instanceof TextureComponent) {
-            return this.normalMap.getTexture();
-          } else {
-            return this.normalMap;
-          }
+          return this.getTextureOption(this.normalMap);
         }
         break;
       case 'aomap':
         if (ThreeUtil.isNotNull(this.aoMap)) {
-          if (this.aoMap instanceof TextureComponent) {
-            return this.aoMap.getTexture();
-          } else {
-            return this.aoMap;
-          }
+          return this.getTextureOption(this.aoMap);
         }
         break;
       case 'displacementmap':
         if (ThreeUtil.isNotNull(this.displacementMap)) {
-          if (this.displacementMap instanceof TextureComponent) {
-            return this.displacementMap.getTexture();
-          } else {
-            return this.displacementMap;
-          }
+          return this.getTextureOption(this.displacementMap);
         }
         break;
     }

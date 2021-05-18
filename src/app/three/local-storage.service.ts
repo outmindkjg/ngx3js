@@ -189,7 +189,7 @@ export class LocalStorageService {
   }
   private _manager: THREE.LoadingManager = null;
 
-  private getLoadingManager(): THREE.LoadingManager {
+  public getLoadingManager(): THREE.LoadingManager {
     if (this._manager === null) {
       this._manager = new THREE.LoadingManager(
         () => {

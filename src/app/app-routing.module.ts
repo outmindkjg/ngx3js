@@ -291,6 +291,8 @@ import { WebglMaterialsPhysicalClearcoatComponent } from './examples/webgl-mater
 import { WebglMaterialsPhysicalReflectivityComponent } from './examples/webgl-materials-physical-reflectivity/webgl-materials-physical-reflectivity.component';
 import { WebglMaterialsPhysicalSheenComponent } from './examples/webgl-materials-physical-sheen/webgl-materials-physical-sheen.component';
 import { WebglMaterialsPhysicalTransmissionComponent } from './examples/webgl-materials-physical-transmission/webgl-materials-physical-transmission.component';
+import { WebglMirrorNodesComponent } from './examples/webgl-mirror-nodes/webgl-mirror-nodes.component';
+
 import { WebglMaterialsShadersFresnelComponent } from './examples/webgl-materials-shaders-fresnel/webgl-materials-shaders-fresnel.component';
 import { WebglMaterialsStandardComponent } from './examples/webgl-materials-standard/webgl-materials-standard.component';
 import { WebglMaterialsSubsurfaceScatteringComponent } from './examples/webgl-materials-subsurface-scattering/webgl-materials-subsurface-scattering.component';
@@ -1302,6 +1304,10 @@ const routes: Routes = [
       {
         path: 'webgl_materials_nodes',
         component: WebglMaterialsNodesComponent,
+      },
+      {
+        path: 'webgl_mirror_nodes',
+        component: WebglMirrorNodesComponent,
       },
       {
         path: 'webgl_performance_nodes',

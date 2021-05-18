@@ -219,6 +219,10 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
   controlsParams: GuiControlParam[];
   constructor(controls: T, controlsParams: GuiControlParam[] = []) {
     this.controls = ThreeUtil.getControls(controls, this);
+    this.setControlsParams(controlsParams);
+  }
+
+  setControlsParams(controlsParams: GuiControlParam[] = []) {
     this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
   }
 

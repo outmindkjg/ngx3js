@@ -141,13 +141,13 @@ export class RendererComponent
   private getEncoding(def?: string): THREE.TextureEncoding {
     const encoding = ThreeUtil.getTypeSafe(this.outputEncoding, def, '');
     switch (encoding.toLowerCase()) {
-      case 'srgb':
+      case 'srgbencoding':
       case 'srgb':
         return THREE.sRGBEncoding;
-      case 'gamma':
+      case 'gammaencoding':
       case 'gamma':
         return THREE.GammaEncoding;
-      case 'rgbe':
+      case 'rgbeencoding':
       case 'rgbe':
         return THREE.RGBEEncoding;
       case 'logluvencoding':

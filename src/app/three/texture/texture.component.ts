@@ -10,6 +10,9 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { Lut } from 'three/examples/jsm/math/Lut';
+import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
+import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
+
 import { LocalStorageService } from '../local-storage.service';
 
 @Component({
@@ -71,28 +74,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getCubeImage(def?: string[]): string[] {
-    const cubeImage = ThreeUtil.getTypeSafe(this.cubeImage, def);
-    if (
-      ThreeUtil.isNotNull(cubeImage) &&
-      cubeImage.length !== 6 &&
-      cubeImage.length >= 1
-    ) {
-      const prefix = cubeImage[0];
-      const postfix = cubeImage[1] || 'png';
-      const prefix1 = cubeImage[2] || 'p';
-      const prefix2 = cubeImage[3] || 'n';
-
-      return [
-        prefix + prefix1 + 'x.' + postfix,
-        prefix + prefix2 + 'x.' + postfix,
-        prefix + prefix1 + 'y.' + postfix,
-        prefix + prefix2 + 'y.' + postfix,
-        prefix + prefix1 + 'z.' + postfix,
-        prefix + prefix2 + 'z.' + postfix,
-      ];
-    } else {
-      return cubeImage;
-    }
+    return ThreeUtil.getTypeSafe(this.cubeImage, def);
   }
 
   private getProgram(
@@ -287,20 +269,28 @@ export class TextureComponent implements OnInit {
   private getEncoding(def: string): THREE.TextureEncoding {
     const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
     switch (encoding.toLowerCase()) {
+      case 'srgbencoding':
       case 'srgb':
         return THREE.sRGBEncoding;
+      case 'gammaencoding':
       case 'gamma':
         return THREE.GammaEncoding;
+      case 'rgbeencoding':
       case 'rgbe':
         return THREE.RGBEEncoding;
+      case 'logluvencoding':
       case 'logluv':
         return THREE.LogLuvEncoding;
+      case 'rgbm7encoding':
       case 'rgbm7':
         return THREE.RGBM7Encoding;
+      case 'rgbm16encoding':
       case 'rgbm16':
         return THREE.RGBM16Encoding;
+      case 'rgbdencoding':
       case 'rgbd':
         return THREE.RGBDEncoding;
+      case 'linearencoding':
       case 'linear':
       default:
         return THREE.LinearEncoding;
@@ -420,6 +410,9 @@ export class TextureComponent implements OnInit {
   static textureLoader: THREE.TextureLoader = null;
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
   static imageBitmapLoader: THREE.ImageBitmapLoader = null;
+  static hdrCubeMapLoader: HDRCubeTextureLoader = null;
+  static rgbmLoader: RGBMLoader = null;
+
   getTextureImage(
     image: string,
     cubeImage?: string[],
@@ -434,12 +427,29 @@ export class TextureComponent implements OnInit {
       this.height,
       this.loaderType,
       this.text,
-      onLoad
+      onLoad,
+      this.localStorageService
     );
   }
 
-  static getTextureImageOption(image: string, options? : string, loadType?: string): THREE.Texture {
-    const texture = this.getTextureImage(image, null, null, 10 , 10, loadType);
+  static getTextureImageOption(
+    image: string,
+    options?: string,
+    loadType?: string,
+    localStorageService?: LocalStorageService,
+    cubeImage?: string[]
+  ): THREE.Texture {
+    const texture = this.getTextureImage(
+      image,
+      cubeImage,
+      null,
+      10,
+      10,
+      loadType,
+      null,
+      null,
+      localStorageService
+    );
     if (ThreeUtil.isNotNull(options)) {
       const optionsList = options.split(',');
       optionsList.forEach((option) => {
@@ -460,7 +470,42 @@ export class TextureComponent implements OnInit {
     }
     return texture;
   }
-  
+
+  static getStoreUrl(url: string) {
+    if (
+      url.startsWith('/') ||
+      url.startsWith('http://') ||
+      url.startsWith('https://')
+    ) {
+      return url;
+    } else {
+      return '/assets/examples/' + url;
+    }
+  }
+
+  private static checkCubeImage(cubeImage : string[]): string[] {
+    if (
+      ThreeUtil.isNotNull(cubeImage) &&
+      cubeImage.length !== 6 &&
+      cubeImage.length >= 1
+    ) {
+      const prefix = cubeImage[0];
+      const postfix = cubeImage[1] || 'png';
+      const prefix1 = cubeImage[2] || 'p';
+      const prefix2 = cubeImage[3] || 'n';
+      return [
+        prefix + prefix1 + 'x.' + postfix,
+        prefix + prefix2 + 'x.' + postfix,
+        prefix + prefix1 + 'y.' + postfix,
+        prefix + prefix2 + 'y.' + postfix,
+        prefix + prefix1 + 'z.' + postfix,
+        prefix + prefix2 + 'z.' + postfix,
+      ];
+    } else {
+      return cubeImage;
+    }
+  }
+
   static getTextureImage(
     image: string,
     cubeImage?: string[],
@@ -469,31 +514,77 @@ export class TextureComponent implements OnInit {
     canvasHeight?: number,
     loadType?: string,
     text?: string,
-    onLoad?: () => void
+    onLoad?: () => void,
+    localStorageService?: LocalStorageService
   ): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
-      if (this.cubeTextureLoader === null) {
-        this.cubeTextureLoader = new THREE.CubeTextureLoader();
+      cubeImage = this.checkCubeImage(cubeImage);
+      switch (loadType.toLowerCase()) {
+        case 'hdrcube':
+        case 'hdrcubetexture':
+          if (this.hdrCubeMapLoader == null) {
+            this.hdrCubeMapLoader = new HDRCubeTextureLoader(
+              ThreeUtil.isNotNull(localStorageService)
+                ? localStorageService.getLoadingManager()
+                : undefined
+            );
+          }
+          if (ThreeUtil.isNotNull(image) && image !== '') {
+            this.hdrCubeMapLoader.setPath(this.getStoreUrl(image));
+          }
+          const cubeTexture = new THREE.CubeTexture();
+          this.hdrCubeMapLoader.setDataType(THREE.UnsignedByteType);
+          this.hdrCubeMapLoader.load(cubeImage, (hdrCubeMap) => {
+            cubeTexture.copy(hdrCubeMap);
+            cubeTexture.needsUpdate = true;
+            if (ThreeUtil.isNotNull(onLoad)) {
+              onLoad();
+            }
+          });
+          return cubeTexture;
+        case 'rgbm':
+        case 'rgbmtexture':
+          if (this.rgbmLoader == null) {
+            this.rgbmLoader = new RGBMLoader(
+              ThreeUtil.isNotNull(localStorageService)
+                ? localStorageService.getLoadingManager()
+                : undefined
+            );
+          }
+          if (ThreeUtil.isNotNull(image) && image !== '') {
+            this.rgbmLoader.setPath(this.getStoreUrl(image));
+          }
+          const rgbmTexture = new THREE.CubeTexture();
+          this.rgbmLoader.loadCubemap(cubeImage, (rgbmCube) => {
+            rgbmTexture.copy(rgbmCube);
+            rgbmTexture.needsUpdate = true;
+            if (ThreeUtil.isNotNull(onLoad)) {
+              onLoad();
+            }
+          });
+          return rgbmTexture;
+        default:
+          if (this.cubeTextureLoader === null) {
+            this.cubeTextureLoader = new THREE.CubeTextureLoader(
+              ThreeUtil.isNotNull(localStorageService)
+                ? localStorageService.getLoadingManager()
+                : undefined
+            );
+          }
+          if (ThreeUtil.isNotNull(image) && image !== '') {
+            this.cubeTextureLoader.setPath(this.getStoreUrl(image));
+          }
+          return this.cubeTextureLoader.load(cubeImage, () => {
+            if (ThreeUtil.isNotNull(onLoad)) {
+              onLoad();
+            }
+          });
       }
-      if (ThreeUtil.isNotNull(image) && image !== '') {
-        if (!image.startsWith('/')) {
-          image = '/assets/examples/' + image;
-        }
-        this.cubeTextureLoader.setPath(image);
-      }
-      return this.cubeTextureLoader.load(cubeImage, () => {
-        if (ThreeUtil.isNotNull(onLoad)) {
-          onLoad();
-        }
-      });
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
       switch ((loadType || 'texture').toLowerCase()) {
         case 'video':
-          if (!image.startsWith('/')) {
-            image = '/assets/examples/' + image;
-          }
           const video = document.createElement('video');
-          video.src = image;
+          video.src = this.getStoreUrl(image);
           video.loop = true;
           video.muted = true;
           video.crossOrigin = 'anonymous';
@@ -504,12 +595,13 @@ export class TextureComponent implements OnInit {
         case 'image':
         default:
           if (this.textureLoader === null) {
-            this.textureLoader = new THREE.TextureLoader();
+            this.textureLoader = new THREE.TextureLoader(
+              ThreeUtil.isNotNull(localStorageService)
+                ? localStorageService.getLoadingManager()
+                : undefined
+            );
           }
-          if (!image.startsWith('/')) {
-            image = '/assets/examples/' + image;
-          }
-          return this.textureLoader.load(image, () => {
+          return this.textureLoader.load(this.getStoreUrl(image), () => {
             if (ThreeUtil.isNotNull(onLoad)) {
               onLoad();
             }
