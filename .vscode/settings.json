@@ -1,7 +1,9 @@
 {
     "python.pythonPath": "C:\\Python39\\python.exe",
-    "editor.wordWrapColumn": 580,
+    "editor.wordWrapColumn": 880,
     "compile-hero.disable-compile-files-on-did-save-code": false,
     "git.ignoreLimitWarning": true,
-    "jupyter.jupyterServerType": "local"
+    "jupyter.jupyterServerType": "local",
+    "html.format.wrapLineLength": 0,
+    "prettier.proseWrap": "never"
 }

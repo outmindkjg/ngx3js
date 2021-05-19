@@ -57,7 +57,7 @@ export class WebglLoaderMmdPoseComponent extends BaseComponent<{
   effect : any = null;
   setCamera(camera : CameraComponent) {
     super.setCamera(camera);
-    this.effect = camera.getEffectComposer();
+    // this.effect = camera.getEffectComposer();
   }
 
   setHelperEnable(name, enable) {

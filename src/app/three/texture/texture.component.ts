@@ -519,7 +519,7 @@ export class TextureComponent implements OnInit {
   ): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       cubeImage = this.checkCubeImage(cubeImage);
-      switch (loadType.toLowerCase()) {
+      switch ((loadType || 'cubetexture').toLowerCase()) {
         case 'hdrcube':
         case 'hdrcubetexture':
           if (this.hdrCubeMapLoader == null) {
@@ -584,16 +584,25 @@ export class TextureComponent implements OnInit {
       switch ((loadType || 'texture').toLowerCase()) {
         case 'video':
           const video = document.createElement('video');
-          video.src = this.getStoreUrl(image);
+          const videoTexture = new THREE.VideoTexture(video);
           video.loop = true;
           video.muted = true;
           video.crossOrigin = 'anonymous';
-          const videoTexture = new THREE.VideoTexture(video);
-          video.play();
+          video.autoplay = true;
+          video.src = this.getStoreUrl(image);
+          video.load();
+          try {
+            video.play();
+          } catch(e) {
+            setTimeout(() => {
+              video.play();
+            },10);
+          }
           return videoTexture;
         case 'imagebitmap':
         case 'image':
         default:
+          console.log(image, loadType);
           if (this.textureLoader === null) {
             this.textureLoader = new THREE.TextureLoader(
               ThreeUtil.isNotNull(localStorageService)

@@ -13,8 +13,33 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'50%'" [clear]="true">
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'DotScreen'" [uniforms]="{ scale :  2 }"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'RGBShift'" [uniforms]="{ amount :  0.0015 }"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'50%'">
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'DotScreen'" [uniforms]="{ scale :  4 }"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'RGBShift'" [uniforms]="{ amount :  0.0015 }"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="'50%'" [width]="'50%'" [height]="'50%'">
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'DotScreen'" [uniforms]="{ scale :  6 }"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'RGBShift'" [uniforms]="{ amount :  0.0015 }"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="'50%'" [width]="'50%'" [height]="'50%'">
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'DotScreen'" [uniforms]="{ scale :  8 }"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'RGBShift'" [uniforms]="{ amount :  0.0015 }"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'15%'" [y]="'15%'" [width]="'70%'" [height]="'70%'" >
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'DotScreen'" [uniforms]="{ scale :  2 }"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'RGBShift'" [uniforms]="{ amount :  0.0015 }"></three-pass>
+  </three-composer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+  <three-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="0" [z]="400"></three-position>
   </three-camera>
   <three-scene #scene>

@@ -1324,7 +1324,7 @@ const routes: Routes = [
       { path: 'webgl_sprites_nodes', component: WebglSpritesNodesComponent },
       { path: 'webgl_postprocessing', component: WebglPostprocessingComponent },
       {
-        path: 'webgl_postprocessing_d3lut',
+        path: 'webgl_postprocessing_3dlut',
         component: WebglPostprocessingD3lutComponent,
       },
       {

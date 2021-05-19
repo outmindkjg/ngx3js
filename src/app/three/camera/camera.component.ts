@@ -1,37 +1,27 @@
-import { HelperComponent } from './../helper/helper.component';
-import { LocalStorageService } from './../local-storage.service';
-import { MixerComponent } from './../mixer/mixer.component';
-import { AudioComponent } from './../audio/audio.component';
 import {
   Component,
   ContentChildren,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
+  EventEmitter, Input,
+  OnInit, Output,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import * as THREE from 'three';
-import { Observable, Subject } from 'rxjs';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
-import { PassComponent } from '../pass/pass.component';
-import {
-  InterfaceEffectComposer,
-  RendererTimer,
-  ThreeUtil,
-} from './../interface';
-import { ComposerComponent } from '../composer/composer.component';
-import { ListenerComponent } from '../listener/listener.component';
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect';
-import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect';
-import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
-
-import { AbstractObject3dComponent } from '../object3d.abstract';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LightComponent } from '../light/light.component';
+import { ListenerComponent } from '../listener/listener.component';
+import { AbstractObject3dComponent } from '../object3d.abstract';
+import { AudioComponent } from './../audio/audio.component';
+import { HelperComponent } from './../helper/helper.component';
+import {
+  RendererTimer,
+  ThreeUtil
+} from './../interface';
+import { LocalStorageService } from './../local-storage.service';
+import { MixerComponent } from './../mixer/mixer.component';
+
 
 @Component({
   selector: 'three-camera',
@@ -40,7 +30,7 @@ import { LightComponent } from '../light/light.component';
 })
 export class CameraComponent
   extends AbstractObject3dComponent
-  implements OnInit, InterfaceEffectComposer {
+  implements OnInit {
   @Input() public type: string = 'perspective';
   @Input() private active: boolean = true;
   @Input() private effectType: string = null;
@@ -69,6 +59,7 @@ export class CameraComponent
   @Input() private clearColor: string | number = null;
   @Input() private clearAlpha: number = null;
   @Input() private clearDepth: boolean = null;
+  @Input() private clear: boolean = null;
   @Input() private scissorTest: boolean = null;
   @Input() private scissorX: number | string = 0;
   @Input() private scissorY: number | string = 0;
@@ -79,8 +70,6 @@ export class CameraComponent
   @Output()
   private onLoad: EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
-  @ContentChildren(PassComponent, { descendants: false }) pass: QueryList<PassComponent>;
-  @ContentChildren(ComposerComponent, { descendants: false }) composer: QueryList<ComposerComponent>;
   @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
@@ -228,14 +217,6 @@ export class CameraComponent
     return 0;
   }
 
-  private getCameraDistance(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.cameraDistance, def);
-  }
-
-  private getReflectFromAbove(def?: boolean): boolean {
-    return ThreeUtil.getTypeSafe(this.reflectFromAbove, def);
-  }
-
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
   }
@@ -265,7 +246,6 @@ export class CameraComponent
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererScenes: QueryList<any>;
-  private effectComposer: EffectComposer | any = null;
 
   getRenderer(): THREE.Renderer {
     return this.renderer;
@@ -282,12 +262,6 @@ export class CameraComponent
     if (this.renderer !== renderer) {
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
-      this.effectComposer = this.getEffectComposer();
-      if (this.composer !== null && this.composer.length > 0) {
-        this.composer.forEach((composer) => {
-          composer.setCamera(this);
-        });
-      }
     }
   }
 
@@ -349,50 +323,6 @@ export class CameraComponent
         helper.setUpdate();
       });
     }
-  }
-
-  resetEffectComposer() {
-    this.effectComposer = null;
-    this.effectComposer = this.getEffectComposer();
-  }
-
-  getEffectComposer(): EffectComposer {
-    if (this.effectComposer == null) {
-      if (this.pass !== null && this.pass.length > 0) {
-        if (this.renderer instanceof THREE.WebGLRenderer) {
-          const effectComposer: EffectComposer = new EffectComposer(
-            this.renderer
-          );
-          this.pass.forEach((item) => {
-            item.getPass(this.getScene(), this.getCamera(), effectComposer);
-          });
-          this.effectComposer = effectComposer;
-        }
-      } else if (this.effectType !== null) {
-        if (this.renderer instanceof THREE.WebGLRenderer) {
-          switch (this.effectType.toLowerCase()) {
-            case 'peppersghost':
-              const peppersGhostEffect = new PeppersGhostEffect(this.renderer);
-              peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
-              peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(
-                false
-              );
-              this.effectComposer = peppersGhostEffect;
-              break;
-            case 'outline' :
-              const outlineEffect = new OutlineEffect(this.renderer, {
-              });
-              this.effectComposer = outlineEffect;
-              break;
-            case 'parallaxbarrier':
-            default:
-              this.effectComposer = new ParallaxBarrierEffect(this.renderer);
-              break;
-          }
-        }
-      }
-    }
-    return this.effectComposer;
   }
 
   ngAfterContentInit(): void {
@@ -550,18 +480,6 @@ export class CameraComponent
         width : width,
         height : height
       });
-    }
-    if (this.composer !== null && this.composer.length > 0) {
-      this.composer.forEach((composer) => {
-        composer.setCameraSize(this.cameraWidth, this.cameraHeight);
-      });
-    }
-    if (this.effectComposer !== null) {
-      if (this.effectComposer instanceof EffectComposer) {
-        this.effectComposer.setSize(width, height);
-      } else if (this.effectComposer.setSize) {
-        this.effectComposer.setSize(width, height);
-      }
     }
   }
 
@@ -761,31 +679,8 @@ export class CameraComponent
       if (ThreeUtil.isNotNull(this.clearColor)) {
         renderer.setClearColor(this.getClearColor(), this.getClearAlpha(1));
       }
-      if (ThreeUtil.isNotNull(this.clearDepth) && this.clearDepth) {
-        renderer.clearDepth();
-      }
     }
-    if (
-      renderer instanceof THREE.WebGLRenderer &&
-      this.composer &&
-      this.composer.length > 0
-    ) {
-      this.composer.forEach((composer) => {
-        composer.render(renderer, renderTimer);
-      });
-    } else if (this.effectComposer !== null) {
-      if (this.effectComposer instanceof EffectComposer) {
-        this.effectComposer.render(renderTimer.delta);
-      } else if (this.effectComposer instanceof OutlineEffect) {
-        this.effectComposer.render(this.getScene(scenes), camera);
-      } else if (this.effectComposer instanceof PeppersGhostEffect) {
-        this.effectComposer.render(this.getScene(scenes), camera);
-      } else if (this.effectComposer instanceof ParallaxBarrierEffect) {
-        this.effectComposer.render(this.getScene(scenes), camera);
-      } else {
-        this.effectComposer.render(this.getScene(scenes), camera);
-      }
-    } else if (this.scenes !== null && this.scenes.length > 0) {
+    if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {
         this.renderWithScene(renderer, camera, sceneCom.getScene());
       });
@@ -835,6 +730,14 @@ export class CameraComponent
           this.getWidth(),
           this.getHeight()
         );
+      }
+      if (renderer instanceof THREE.WebGLRenderer) {
+        if (ThreeUtil.isNotNull(this.clear) && this.clear) {
+          renderer.clear();
+        }
+        if (ThreeUtil.isNotNull(this.clearDepth) && this.clearDepth) {
+          renderer.clearDepth();
+        }
       }
       renderer.render(scene, camera);
       if (

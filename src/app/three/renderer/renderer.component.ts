@@ -20,6 +20,7 @@ import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
+import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
 import {
@@ -46,7 +47,8 @@ import { SceneComponent } from './../scene/scene.component';
   styleUrls: ['./renderer.component.scss'],
 })
 export class RendererComponent
-  implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
+  implements OnInit, AfterContentInit, AfterViewInit, OnChanges
+{
   @Input() public type: string = 'webgl';
   @Input() private css3dType: string = 'none';
   @Input() private controlType: string = 'none';
@@ -105,17 +107,19 @@ export class RendererComponent
   @Input() private guiParams: GuiControlParam[] = [];
   @Input() private useEvent: string[] = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
-  @Output()
-  private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
-  @Output()
-  private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
-  @Output()
-  private onLoad: EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
+  @Output() private eventListener: EventEmitter<RendererEvent> =
+    new EventEmitter<RendererEvent>();
+  @Output() private onRender: EventEmitter<RendererTimer> =
+    new EventEmitter<RendererTimer>();
+  @Output() private onLoad: EventEmitter<RendererComponent> =
+    new EventEmitter<RendererComponent>();
 
   @ContentChildren(SceneComponent, { descendants: false })
   private sceneList: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: true })
   private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(ComposerComponent, { descendants: true })
+  private composerList: QueryList<ComposerComponent>;
   @ContentChildren(ViewerComponent, { descendants: true })
   private viewerList: QueryList<ViewerComponent>;
   @ContentChildren(ListenerComponent, { descendants: true })
@@ -443,6 +447,9 @@ export class RendererComponent
       this.cameraList.forEach((camera) => {
         camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       });
+      this.composerList.forEach((composer) => {
+        composer.setComposerSize(this.rendererWidth, this.rendererHeight);
+      });
       this.viewerList.forEach((viewer) => {
         viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
       });
@@ -559,7 +566,17 @@ export class RendererComponent
             this.viewerList.forEach((viewer) => {
               viewer.getViewer();
             });
-        }
+            break;
+          case 'composer':
+            if (this.renderer instanceof THREE.WebGLRenderer) {
+              const camera = this.cameraList.first.getCamera();
+              const scene = this.sceneList.first.getScene();
+              this.composerList.forEach((composer) => {
+                composer.getEffectComposer(this.renderer as THREE.WebGLRenderer , camera, scene);
+              });
+            }
+            break;
+          }
       });
     }
   }
@@ -706,7 +723,7 @@ export class RendererComponent
       camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
     });
     this.setSize(this.rendererWidth, this.rendererHeight);
-    this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller', 'viewer']);
+    this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller', 'viewer', 'composer']);
     this.controls = this.getControls(
       this.cameraList,
       this.sceneList,
@@ -742,7 +759,7 @@ export class RendererComponent
             alpha: this.cssRenderer !== null ? true : false,
             antialias: this.antialias,
             logarithmicDepthBuffer: this.logarithmicDepthBuffer,
-            preserveDrawingBuffer : this.preserveDrawingBuffer
+            preserveDrawingBuffer: this.preserveDrawingBuffer,
           });
           break;
       }
@@ -853,17 +870,25 @@ export class RendererComponent
       ThreeUtil.isNull(this.beforeRender) ||
       !this.beforeRender(this.getRenderInfo(renderTimer))
     ) {
-      this.cameraList.forEach((camera) => {
-        camera.render(
-          this.renderer,
-          this.cssRenderer,
-          this.sceneList,
-          renderTimer
-        );
-      });
+      if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
+        const renderer = this.renderer;
+        this.composerList.forEach(composer => {
+          composer.render(renderer, renderTimer);
+        });
+      } else {
+        this.cameraList.forEach((camera) => {
+          camera.render(
+            this.renderer,
+            this.cssRenderer,
+            this.sceneList,
+            renderTimer
+          );
+        });
+      }
       this.viewerList.forEach((viewer) => {
         viewer.render(this.renderer, renderTimer);
       });
+
     }
     if (this.stats != null) {
       this.stats.end();
