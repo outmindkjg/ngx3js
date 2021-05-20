@@ -1,7 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl postprocessing example<br/>
+  <a href="http://g3d.cs.williams.edu/g3d/data10/index.html#mesh19" target="_blank" rel="noopener">Lee Perry-Smith</a> head
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -9,62 +8,116 @@
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
+  <three-shared>
+    <three-pass #effectBleach [type]="'ShaderPass'" [shader]="'BleachBypassShader'" [uniforms]="{ opacity : 0.95 }"></three-pass>
+    <three-pass #effectSepia [type]="'ShaderPass'" [shader]="'SepiaShader'" [uniforms]="{ amount : 0.9 }"></three-pass>
+    <three-pass #effectVignette [type]="'ShaderPass'" [shader]="'VignetteShader'" [uniforms]="{ offset : 0.95, darkness : 1.6 }"></three-pass>
+    <three-pass #gammaCorrection [type]="'ShaderPass'" [shader]="'GammaCorrectionShader'"></three-pass>
+    <three-pass #effectBloom [type]="'BloomPass'" [strength]="0.5"></three-pass>
+    <three-pass #effectFilm [type]="'FilmPass'" [noiseIntensity]="0.35" [scanlinesIntensity]="0.025" [scanlinesCount]="648" [grayscale]="false"></three-pass>
+    <three-pass #effectFilmBW [type]="'FilmPass'" [noiseIntensity]="0.35" [scanlinesIntensity]="0.5" [scanlinesCount]="2048" [grayscale]="true"></three-pass>
+    <three-pass #effectDotScreen [type]="'DotScreenPass'" [centerX]="0" [centerY]="0" [angle]="28" [scale]="0.8"></three-pass>
+    <three-pass #effectHBlur [type]="'ShaderPass'" [shader]="'HorizontalBlurShader'" [uniforms]="{ h : 2 / 400}"></three-pass>
+    <three-pass #effectVBlur [type]="'ShaderPass'" [shader]="'VerticalBlurShader'" [uniforms]="{ v : 2 / 400}"></three-pass>
+    <three-pass #effectColorify1 [type]="'ShaderPass'" [shader]="'ColorifyShader'" [uniforms]="{ color : '0xffc0c0'}"></three-pass>
+    <three-pass #effectColorify2 [type]="'ShaderPass'" [shader]="'ColorifyShader'" [uniforms]="{ color : '0xffb0b0'}"></three-pass>
+    <three-pass #clearMask [type]="'ClearMaskPass'"></three-pass>
+    <three-pass #renderMask [type]="'MaskPass'"></three-pass>
+    <three-pass #renderMaskInverse [type]="'MaskPass'" [inverse]="true"></three-pass>
+    <three-pass #renderBackground [type]="'RenderPass'" [scene]="sceneBG" [camera]="cameraOrtho"></three-pass>
+    <three-pass #renderModel [type]="'RenderPass'" [clear]="false" [scene]="scene" [camera]="camera"></three-pass>
+  </three-shared>
+  <three-composer [clear]="true" [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'50%'" >
+    <three-pass [refer]="renderBackground"></three-pass>
+    <three-pass [refer]="renderModel"></three-pass>
+    <three-pass [refer]="renderMaskInverse"></three-pass>
+    <three-pass [refer]="effectHBlur"></three-pass>
+    <three-pass [refer]="effectVBlur"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="gammaCorrection"></three-pass>
+    <three-pass [refer]="effectFilmBW"></three-pass>
+    <three-pass [refer]="effectVignette"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'50%'" >
+    <three-pass [refer]="renderBackground"></three-pass>
+    <three-pass [refer]="renderModel"></three-pass>
+    <three-pass [refer]="renderMaskInverse"></three-pass>
+    <three-pass [refer]="effectHBlur"></three-pass>
+    <three-pass [refer]="effectVBlur"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="gammaCorrection"></three-pass>
+    <three-pass [refer]="effectDotScreen"></three-pass>
+    <three-pass [refer]="renderMask"></three-pass>
+    <three-pass [refer]="effectColorify1"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="renderMaskInverse"></three-pass>
+    <three-pass [refer]="effectColorify2"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="effectVignette"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="'50%'" [width]="'50%'" [height]="'50%'" >
+    <three-pass [refer]="renderBackground"></three-pass>
+    <three-pass [refer]="renderModel"></three-pass>
+    <three-pass [refer]="renderMaskInverse"></three-pass>
+    <three-pass [refer]="effectHBlur"></three-pass>
+    <three-pass [refer]="effectVBlur"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="gammaCorrection"></three-pass>
+    <three-pass [refer]="effectSepia"></three-pass>
+    <three-pass [refer]="effectFilm"></three-pass>
+    <three-pass [refer]="effectVignette"></three-pass>
+  </three-composer>
+  <three-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="'50%'" [width]="'50%'" [height]="'50%'" >
+    <three-pass [refer]="renderBackground"></three-pass>
+    <three-pass [refer]="renderModel"></three-pass>
+    <three-pass [refer]="renderMaskInverse"></three-pass>
+    <three-pass [refer]="effectHBlur"></three-pass>
+    <three-pass [refer]="effectVBlur"></three-pass>
+    <three-pass [refer]="clearMask"></three-pass>
+    <three-pass [refer]="gammaCorrection"></three-pass>
+    <three-pass [refer]="effectBloom"></three-pass>
+    <three-pass [refer]="effectFilm"></three-pass>
+    <three-pass [refer]="effectBleach"></three-pass>
+    <three-pass [refer]="effectVignette"></three-pass>
+  </three-composer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera #camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
+    <three-position [x]="0" [y]="0" [z]="900"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+  <three-scene #scene>
     <three-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="0" [y]="-0.1" [z]="1" [normalize]="true"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+      <three-position [x]="0" [y]="-50" [z]="0"></three-position>
+      <three-scale [multiply]="100"></three-scale>
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
+      <three-material 
+        [type]="'MeshPhongMaterial'" 
         [color]="'0x999999'"
-        [depthWrite]="false"
+        [specular]="'0x080808'"
+        [shininess]="20"
+        [normalScale]="0.75"
+        [map]="'models/gltf/LeePerrySmith/Map-COL.jpg'"
+        [normalMap]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"
       ></three-material>
     </three-mesh>
+  </three-scene>
+  <three-camera #cameraOrtho [type]="'orthographiccamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="-10000" [far]="10000">
+    <three-position [x]="0" [y]="0" [z]="100"></three-position>
+  </three-camera>
+  <three-scene #sceneBG [background]="background">
+    <three-texture #background [textureType]="'background'" [image]="'textures/cube/SwedishRoyalCastle/pz.jpg'"></three-texture>
   </three-scene>
 </three-renderer>

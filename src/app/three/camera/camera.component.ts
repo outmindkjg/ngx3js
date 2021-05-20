@@ -37,6 +37,8 @@ export class CameraComponent
   @Input() private cameraDistance: number = null;
   @Input() private reflectFromAbove: boolean = null;
   @Input() private fov: number | string = 45;
+  @Input() private aspect: number = 1;
+  @Input() private focalLength: number = null;
   @Input() private near: number | string = null;
   @Input() private far: number | string = null;
   @Input() private left: number = -0.5;
@@ -126,8 +128,8 @@ export class CameraComponent
       const cHeight = this.getHeight();
       return cWidth / cHeight;
     } else {
-      return width > 0 && height > 0 ? width / height : 0.5;
-    }
+      return width > 0 && height > 0 ? (width / height  * this.aspect ) : 0.5;
+    } 
   }
 
   private getX(def?: number | string): number {
@@ -577,6 +579,9 @@ export class CameraComponent
             this.getNear(0.1),
             this.getFar(2000)
           );
+          if (ThreeUtil.isNotNull(this.focalLength)) {
+            perspectiveCamera.setFocalLength(ThreeUtil.getTypeSafe(this.focalLength, 35));
+          }
           if (this.viewport && this.viewportType === 'camera') {
             perspectiveCamera['viewport'] = new THREE.Vector4(
               this.getX(),

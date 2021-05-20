@@ -137,25 +137,13 @@ export class LocalStorageService {
 
   private getStoreUrlList(url: string | string[]) {
     if (typeof url === 'string') {
-      return this.getStoreUrl(url);
+      return ThreeUtil.getStoreUrl(url);
     } else {
       const modUrl = [];
       url.forEach((path) => {
-        modUrl.push(this.getStoreUrl(path));
+        modUrl.push(ThreeUtil.getStoreUrl(path));
       });
       return modUrl;
-    }
-  }
-
-  public getStoreUrl(url: string) {
-    if (
-      url.startsWith('/') ||
-      url.startsWith('http://') ||
-      url.startsWith('https://')
-    ) {
-      return url;
-    } else {
-      return '/assets/examples/' + url;
     }
   }
 
@@ -187,25 +175,6 @@ export class LocalStorageService {
     }
     return object;
   }
-  private _manager: THREE.LoadingManager = null;
-
-  public getLoadingManager(): THREE.LoadingManager {
-    if (this._manager === null) {
-      this._manager = new THREE.LoadingManager(
-        () => {
-          console.log('loaded');
-        },
-        (url: string, loaded: number, total: number) => {
-          console.log(url, loaded, total);
-        },
-        (url: string) => {
-          console.error(url);
-        }
-      );
-      this._manager.addHandler( /\.dds$/i, new DDSLoader() );
-    }
-    return this._manager;
-  }
 
   _loadedObject : { [key : string] : LoadedObject} = {}
   public getObjectFromKey(
@@ -218,7 +187,7 @@ export class LocalStorageService {
     if (ThreeUtil.isNotNull(options.path)) {
       safeKey = key.substr(key.lastIndexOf('/') + 1);
     } else {
-      safeKey = this.getStoreUrl(key);
+      safeKey = ThreeUtil.getStoreUrl(key);
     }
     if (this._loadedObject[safeKey] !== undefined) {
       const result = this._loadedObject[safeKey];
@@ -267,10 +236,10 @@ export class LocalStorageService {
   public setLoaderWithOption(loader: THREE.Loader, options: any) {
     if (ThreeUtil.isNotNull(options)) {
       if (ThreeUtil.isNotNull(options.resourcePath)) {
-        loader.setResourcePath(this.getStoreUrl(options.resourcePath));
+        loader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
       }
       if (ThreeUtil.isNotNull(options.path)) {
-        loader.setPath(this.getStoreUrl(options.path));
+        loader.setPath(ThreeUtil.getStoreUrl(options.path));
       }
     }
     return loader;
@@ -283,7 +252,7 @@ export class LocalStorageService {
   ): void {
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
-        this.colladaLoader = new ColladaLoader(this.getLoadingManager());
+        this.colladaLoader = new ColladaLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.colladaLoader, options);
       this.colladaLoader.load(key, (result: Collada) => {
@@ -295,7 +264,7 @@ export class LocalStorageService {
       });
     } else if (key.endsWith('.obj')) {
       if (this.objLoader === null) {
-        this.objLoader = new OBJLoader(this.getLoadingManager());
+        this.objLoader = new OBJLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.objLoader, options);
       const materialUrl: string = options.material ? options.material : null;
@@ -336,7 +305,7 @@ export class LocalStorageService {
       }
     } else if (key.endsWith('.mtl')) {
       if (this.mtlLoader === null) {
-        this.mtlLoader = new MTLLoader(this.getLoadingManager());
+        this.mtlLoader = new MTLLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.mtlLoader, options);
       this.mtlLoader.load(
@@ -353,7 +322,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.3ds')) {
       if (this.tdsLoader === null) {
-        this.tdsLoader = new TDSLoader(this.getLoadingManager());
+        this.tdsLoader = new TDSLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.tdsLoader, options);
       this.tdsLoader.load(
@@ -369,7 +338,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.tilt')) {
       if (this.tiltLoader === null) {
-        this.tiltLoader = new TiltLoader(this.getLoadingManager());
+        this.tiltLoader = new TiltLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.tiltLoader, options);
       this.tiltLoader.load(
@@ -386,7 +355,7 @@ export class LocalStorageService {
       
     } else if (key.endsWith('.amf')) {
       if (this.amfLoader === null) {
-        this.amfLoader = new AMFLoader(this.getLoadingManager());
+        this.amfLoader = new AMFLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.amfLoader, options);
       this.amfLoader.load(
@@ -402,7 +371,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.assimp')) {
       if (this.assimpLoader === null) {
-        this.assimpLoader = new AssimpLoader(this.getLoadingManager());
+        this.assimpLoader = new AssimpLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.assimpLoader, options);
       this.assimpLoader.load(
@@ -420,7 +389,7 @@ export class LocalStorageService {
       
     } else if (key.endsWith('.exr')) {
       if (this.exrLoader === null) {
-        this.exrLoader = new EXRLoader(this.getLoadingManager());
+        this.exrLoader = new EXRLoader(ThreeUtil.getLoadingManager());
         this.exrLoader.setDataType( THREE.UnsignedByteType )
       }
       this.setLoaderWithOption(this.exrLoader, options);
@@ -437,7 +406,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.hdr')) {
       if (this.rgbeLoader === null) {
-        this.rgbeLoader = new RGBELoader(this.getLoadingManager());
+        this.rgbeLoader = new RGBELoader(ThreeUtil.getLoadingManager());
         this.rgbeLoader.setDataType( THREE.UnsignedByteType )
       }
       this.setLoaderWithOption(this.rgbeLoader, options);
@@ -454,7 +423,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.ktx')) {
       if (this.ktxLoader === null) {
-        this.ktxLoader = new KTXLoader(this.getLoadingManager());
+        this.ktxLoader = new KTXLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.ktxLoader, options);
       this.ktxLoader.load(
@@ -470,11 +439,11 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.ktx2')) {
       if (this.ktx2Loader === null) {
-        this.ktx2Loader = new KTX2Loader(this.getLoadingManager());
+        this.ktx2Loader = new KTX2Loader(ThreeUtil.getLoadingManager());
 				this.ktx2Loader.detectSupport( new THREE.WebGLRenderer() );
       }
       if (options.transcoderPath) {
-        this.ktx2Loader.setTranscoderPath( this.getStoreUrl(options.transcoderPath) );
+        this.ktx2Loader.setTranscoderPath( ThreeUtil.getStoreUrl(options.transcoderPath) );
       }
       this.setLoaderWithOption(this.ktx2Loader, options);
       this.ktx2Loader.load(
@@ -490,7 +459,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.dds')) {
       if (this.ddsLoader === null) {
-        this.ddsLoader = new DDSLoader(this.getLoadingManager());
+        this.ddsLoader = new DDSLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.ddsLoader, options);
       this.ddsLoader.load(
@@ -506,7 +475,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.bvh')) {
       if (this.bvhLoader === null) {
-        this.bvhLoader = new BVHLoader(this.getLoadingManager());
+        this.bvhLoader = new BVHLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.bvhLoader, options);
       this.bvhLoader.load(
@@ -530,7 +499,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.fbx')) {
       if (this.fbxLoader === null) {
-        this.fbxLoader = new FBXLoader(this.getLoadingManager());
+        this.fbxLoader = new FBXLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.fbxLoader, options);
       this.fbxLoader.load(
@@ -547,10 +516,10 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.kmz')) {
       if (this.kmzLoader === null) {
-        this.kmzLoader = new KMZLoader(this.getLoadingManager());
+        this.kmzLoader = new KMZLoader(ThreeUtil.getLoadingManager());
       }
       if (options.resourcePath) {
-        this.kmzLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+        this.kmzLoader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
       }
       this.kmzLoader.load(
         key,
@@ -565,10 +534,10 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.lwo')) {
       if (this.lwoLoader === null) {
-        this.lwoLoader = new LWOLoader(this.getLoadingManager());
+        this.lwoLoader = new LWOLoader(ThreeUtil.getLoadingManager());
       }
       if (options.resourcePath) {
-        this.lwoLoader.setResourcePath(this.getStoreUrl(options.resourcePath));
+        this.lwoLoader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
       }
       this.lwoLoader.load(
         key,
@@ -587,11 +556,11 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.mpd')) {
       if (this.lDrawLoader === null) {
-        this.lDrawLoader = new LDrawLoader(this.getLoadingManager());
+        this.lDrawLoader = new LDrawLoader(ThreeUtil.getLoadingManager());
       }
       if (options.resourcePath) {
         this.lDrawLoader.setResourcePath(
-          this.getStoreUrl(options.resourcePath)
+          ThreeUtil.getStoreUrl(options.resourcePath)
         );
       }
       this.lDrawLoader.load(
@@ -607,7 +576,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.gcode')) {
       if (this.gCodeLoader === null) {
-        this.gCodeLoader = new GCodeLoader(this.getLoadingManager());
+        this.gCodeLoader = new GCodeLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.gCodeLoader, options);
       this.gCodeLoader.load(
@@ -624,7 +593,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.hdr')) {
       if (this.rgbeLoader === null) {
-        this.rgbeLoader = new RGBELoader(this.getLoadingManager());
+        this.rgbeLoader = new RGBELoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.rgbeLoader, options);
       this.rgbeLoader.load(
@@ -642,7 +611,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.3mf')) {
       if (this.threeMFLoader === null) {
-        this.threeMFLoader = new ThreeMFLoader(this.getLoadingManager());
+        this.threeMFLoader = new ThreeMFLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.threeMFLoader, options);
       this.threeMFLoader.load(
@@ -658,7 +627,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
-        this.rhino3dmLoader = new Rhino3dmLoader(this.getLoadingManager());
+        this.rhino3dmLoader = new Rhino3dmLoader(ThreeUtil.getLoadingManager());
         this.rhino3dmLoader.setLibraryPath('/assets/libs/rhino3dm/');
       }
       this.setLoaderWithOption(this.rhino3dmLoader, options);
@@ -672,12 +641,12 @@ export class LocalStorageService {
     } else if (key.endsWith('.basis')) {
       if (this.basisTextureLoader === null) {
         this.basisTextureLoader = new BasisTextureLoader(
-          this.getLoadingManager()
+          ThreeUtil.getLoadingManager()
         );
 				this.basisTextureLoader.detectSupport( new THREE.WebGLRenderer() );
       }
       if (options.transcoderPath) {
-        this.basisTextureLoader.setTranscoderPath( this.getStoreUrl(options.transcoderPath) );
+        this.basisTextureLoader.setTranscoderPath( ThreeUtil.getStoreUrl(options.transcoderPath) );
       }
       this.setLoaderWithOption(this.basisTextureLoader, options);
       this.basisTextureLoader.load(
@@ -693,8 +662,8 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.drc')) {
       if (this.dracoLoader === null) {
-        this.dracoLoader = new DRACOLoader(this.getLoadingManager());
-        this.dracoLoader.setDecoderPath(this.getStoreUrl('js/libs/draco/'));
+        this.dracoLoader = new DRACOLoader(ThreeUtil.getLoadingManager());
+        this.dracoLoader.setDecoderPath(ThreeUtil.getStoreUrl('js/libs/draco/'));
         this.dracoLoader.setDecoderConfig({ type: 'js' });
       }
       this.setLoaderWithOption(this.dracoLoader, options);
@@ -710,25 +679,25 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.gltf') || key.endsWith('.glb')) {
       if (this.gltfLoader === null) {
-        this.gltfLoader = new GLTFLoader(this.getLoadingManager());
+        this.gltfLoader = new GLTFLoader(ThreeUtil.getLoadingManager());
       }
       if (options) {
         if (options.useDraco) {
           if (this.dracoLoader === null) {
-            this.dracoLoader = new DRACOLoader(this.getLoadingManager());
+            this.dracoLoader = new DRACOLoader(ThreeUtil.getLoadingManager());
           }
           if (options.decoderPath) {
             this.dracoLoader.setDecoderPath(
-              this.getStoreUrl(options.decoderPath)
+              ThreeUtil.getStoreUrl(options.decoderPath)
             );
           }
           this.gltfLoader.setDRACOLoader(this.dracoLoader);
         }
         if (options.useKtx2) {
           if (this.ktx2Loader === null) {
-            this.ktx2Loader = new KTX2Loader(this.getLoadingManager());
+            this.ktx2Loader = new KTX2Loader(ThreeUtil.getLoadingManager());
             this.ktx2Loader.setTranscoderPath(
-              this.getStoreUrl('js/libs/basis/')
+              ThreeUtil.getStoreUrl('js/libs/basis/')
             );
             this.ktx2Loader.detectSupport(
               ThreeUtil.getRenderer() as THREE.WebGLRenderer
@@ -759,7 +728,7 @@ export class LocalStorageService {
       key.endsWith('.vpd')
     ) {
       if (this.mmdLoader === null) {
-        this.mmdLoader = new MMDLoader(this.getLoadingManager());
+        this.mmdLoader = new MMDLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.mmdLoader, options);
       const vmdUrl = options && options.vmdUrl ? options.vmdUrl : null;
@@ -811,7 +780,7 @@ export class LocalStorageService {
       }
     } else if (key.endsWith('.pcd')) {
       if (this.pcdLoader === null) {
-        this.pcdLoader = new PCDLoader(this.getLoadingManager());
+        this.pcdLoader = new PCDLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.pcdLoader, options);
       this.pcdLoader.load(
@@ -827,7 +796,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.prwm')) {
       if (this.prwmLoader === null) {
-        this.prwmLoader = new PRWMLoader(this.getLoadingManager());
+        this.prwmLoader = new PRWMLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.prwmLoader, options);
       this.prwmLoader.load(
@@ -843,7 +812,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.tga')) {
       if (this.tgaLoader === null) {
-        this.tgaLoader = new TGALoader(this.getLoadingManager());
+        this.tgaLoader = new TGALoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.tgaLoader, options);
       this.tgaLoader.load(key, (texture: THREE.Texture) => {
@@ -854,7 +823,7 @@ export class LocalStorageService {
       });
     } else if (key.endsWith('.svg')) {
       if (this.svgLoader === null) {
-        this.svgLoader = new SVGLoader(this.getLoadingManager());
+        this.svgLoader = new SVGLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.svgLoader, options);
       this.svgLoader.load(
@@ -913,7 +882,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.ply')) {
       if (this.plyLoader === null) {
-        this.plyLoader = new PLYLoader(this.getLoadingManager());
+        this.plyLoader = new PLYLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.plyLoader, options);
       this.plyLoader.load(
@@ -929,7 +898,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.vtk') || key.endsWith('.vtp')) {
       if (this.vtkLoader === null) {
-        this.vtkLoader = new VTKLoader(this.getLoadingManager());
+        this.vtkLoader = new VTKLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.vtkLoader, options);
       this.vtkLoader.load(
@@ -945,7 +914,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.x')) {
       if (this.xLoader === null) {
-        this.xLoader = new XLoader(this.getLoadingManager());
+        this.xLoader = new XLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.xLoader, options);
       this.xLoader.load(
@@ -962,7 +931,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.mdd')) {
       if (this.mddLoader === null) {
-        this.mddLoader = new MDDLoader(this.getLoadingManager());
+        this.mddLoader = new MDDLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.mddLoader, options);
       this.mddLoader.load(
@@ -979,7 +948,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.nrrd')) {
       if (this.nrrdLoader === null) {
-        this.nrrdLoader = new NRRDLoader(this.getLoadingManager());
+        this.nrrdLoader = new NRRDLoader(ThreeUtil.getLoadingManager());
       }
       this.nrrdLoader.load(
         key,
@@ -995,7 +964,7 @@ export class LocalStorageService {
       const optionType = (options.type || '').toLowerCase();
       if (optionType === 'md2character') {
         const character = new MD2Character();
-        options.baseUrl = this.getStoreUrl(options.baseUrl);
+        options.baseUrl = ThreeUtil.getStoreUrl(options.baseUrl);
         if (ThreeUtil.isNull(options.body)) {
           options.body = key;
         }
@@ -1009,7 +978,7 @@ export class LocalStorageService {
         character.loadParts(options);
       } else if (optionType === 'md2charactercomplex') {
         const character = new MD2CharacterComplex();
-        options.baseUrl = this.getStoreUrl(options.baseUrl);
+        options.baseUrl = ThreeUtil.getStoreUrl(options.baseUrl);
         if (ThreeUtil.isNull(options.body)) {
           options.body = key;
         }
@@ -1023,7 +992,7 @@ export class LocalStorageService {
         character.loadParts(options);
       } else {
         if (this.md2Loader === null) {
-          this.md2Loader = new MD2Loader(this.getLoadingManager());
+          this.md2Loader = new MD2Loader(ThreeUtil.getLoadingManager());
         }
         this.md2Loader.load(
           key,
@@ -1039,7 +1008,7 @@ export class LocalStorageService {
       }
     } else if (key.endsWith('.pdb')) {
       if (this.pdbLoader === null) {
-        this.pdbLoader = new PDBLoader(this.getLoadingManager());
+        this.pdbLoader = new PDBLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.pdbLoader, options);
       this.pdbLoader.load(key, (pdb: PDB) => {
@@ -1105,7 +1074,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.stl')) {
       if (this.stlLoader === null) {
-        this.stlLoader = new STLLoader(this.getLoadingManager());
+        this.stlLoader = new STLLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.stlLoader, options);
       this.stlLoader.load(
@@ -1124,7 +1093,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.vox')) {
       if (this.voxLoader === null) {
-        this.voxLoader = new VOXLoader(this.getLoadingManager());
+        this.voxLoader = new VOXLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.voxLoader, options);
       this.voxLoader.load(
@@ -1144,7 +1113,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.wrl')) {
       if (this.vrmlLoader === null) {
-        this.vrmlLoader = new VRMLLoader(this.getLoadingManager());
+        this.vrmlLoader = new VRMLLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.vrmlLoader, options);
       this.vrmlLoader.load(
@@ -1160,7 +1129,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.xyz')) {
       if (this.xyzLoader === null) {
-        this.xyzLoader = new XYZLoader(this.getLoadingManager());
+        this.xyzLoader = new XYZLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.xyzLoader, options);
       this.xyzLoader.load(
@@ -1176,7 +1145,7 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.vrm')) {
       if (this.vrmLoader === null) {
-        this.vrmLoader = new VRMLoader(this.getLoadingManager());
+        this.vrmLoader = new VRMLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.vrmLoader, options);
       this.vrmLoader.load(
@@ -1220,7 +1189,7 @@ export class LocalStorageService {
       
     } else if (key.endsWith('.png') || key.endsWith('.jpg') || key.endsWith('.jpeg')) {
       if (this.rgbmLoader === null) {
-        this.rgbmLoader = new RGBMLoader(this.getLoadingManager());
+        this.rgbmLoader = new RGBMLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.rgbmLoader, options);
       this.rgbmLoader.load(
@@ -1244,7 +1213,7 @@ export class LocalStorageService {
             case 'lottie' :
               if (this.lottieLoader === null) {
                 this.lottieLoader = new LottieLoader(
-                  this.getLoadingManager()
+                  ThreeUtil.getLoadingManager()
                 );
                 window['bodymovin'] = LOTTE_CANVAS;
               }
@@ -1270,7 +1239,7 @@ export class LocalStorageService {
             default :
               if (this.objectLoader === null) {
                 this.objectLoader = new THREE.ObjectLoader(
-                  this.getLoadingManager()
+                  ThreeUtil.getLoadingManager()
                 );
               }
               this.setLoaderWithOption(this.objectLoader, options);
@@ -1289,7 +1258,7 @@ export class LocalStorageService {
         } else {
           if (this.geometryLoader === null) {
             this.geometryLoader = new THREE.BufferGeometryLoader(
-              this.getLoadingManager()
+              ThreeUtil.getLoadingManager()
             );
           }
           this.setLoaderWithOption(this.geometryLoader, options);
@@ -1519,17 +1488,17 @@ export class LocalStorageService {
     } else {
       if (fontPath.endsWith('.ttf')) {
         if (this.ttfLoader === null) {
-          this.ttfLoader = new TTFLoader(this.getLoadingManager());
+          this.ttfLoader = new TTFLoader(ThreeUtil.getLoadingManager());
         }
-        this.ttfLoader.load(this.getStoreUrl(fontPath), (json: any) => {
+        this.ttfLoader.load(ThreeUtil.getStoreUrl(fontPath), (json: any) => {
           this._loadedFonts[fontPath] = new THREE.Font( json );
           callBack(this._loadedFonts[fontPath]);
         });
       } else {
         if (this.fontLoader === null) {
-          this.fontLoader = new THREE.FontLoader(this.getLoadingManager());
+          this.fontLoader = new THREE.FontLoader(ThreeUtil.getLoadingManager());
         }
-        this.fontLoader.load(this.getStoreUrl(fontPath), (responseFont: THREE.Font) => {
+        this.fontLoader.load(ThreeUtil.getStoreUrl(fontPath), (responseFont: THREE.Font) => {
           this._loadedFonts[fontPath] = responseFont;
           callBack(this._loadedFonts[fontPath]);
         });

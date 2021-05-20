@@ -249,7 +249,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getWidthSegments(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.widthSegments , this.heightSegments, def);
+    return ThreeUtil.getTypeSafe(this.widthSegments , this.segments, def);
   }
 
   private getHeight(def?: number): number {
@@ -257,7 +257,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getHeightSegments(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.heightSegments , this.widthSegments, def);
+    return ThreeUtil.getTypeSafe(this.heightSegments , this.segments, def);
   }
 
   private getDepth(def?: number): number {
@@ -265,7 +265,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getDepthSegments(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.depthSegments , this.widthSegments, def);
+    return ThreeUtil.getTypeSafe(this.depthSegments , this.segments, def);
   }
 
   private getQuality(def?: number): number {

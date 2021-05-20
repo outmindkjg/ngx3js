@@ -444,11 +444,11 @@ export class RendererComponent
       this.rendererWidth = width;
       this.rendererHeight = height;
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
-      this.cameraList.forEach((camera) => {
-        camera.setCameraSize(this.rendererWidth, this.rendererHeight);
-      });
       this.composerList.forEach((composer) => {
         composer.setComposerSize(this.rendererWidth, this.rendererHeight);
+      });
+      this.cameraList.forEach((camera) => {
+        camera.setCameraSize(this.rendererWidth, this.rendererHeight);
       });
       this.viewerList.forEach((viewer) => {
         viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
@@ -871,9 +871,8 @@ export class RendererComponent
       !this.beforeRender(this.getRenderInfo(renderTimer))
     ) {
       if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
-        const renderer = this.renderer;
         this.composerList.forEach(composer => {
-          composer.render(renderer, renderTimer);
+          composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);
         });
       } else {
         this.cameraList.forEach((camera) => {
@@ -888,7 +887,6 @@ export class RendererComponent
       this.viewerList.forEach((viewer) => {
         viewer.render(this.renderer, renderTimer);
       });
-
     }
     if (this.stats != null) {
       this.stats.end();

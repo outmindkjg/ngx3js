@@ -20,9 +20,7 @@
   <three-composer [scene]="scene" [camera]="camera">
     <three-pass [type]="'RenderPass'"></three-pass>
     <three-pass [type]="'ShaderPass'" [shader]="'GammaCorrectionShader'"></three-pass>
-    <!-- 
-    <three-pass [type]="'LUTPass'" [intensity]="controls.intensity"></three-pass>
-    -->
+    <three-pass [type]="'LUTPass'" [enabled]="controls.enabled" [lut]="controls.lut" [use2DLut]="controls.use2dLut" [intensity]="controls.intensity"></three-pass>
   </three-composer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera #camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">

@@ -7,6 +7,7 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { CameraComponent } from './camera/camera.component';
 import { RendererComponent } from './renderer/renderer.component';
 import { SceneComponent } from './scene/scene.component';
+import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
 
 export { THREE };
 
@@ -738,6 +739,38 @@ export class ThreeUtil {
 
   static isNotNull(value: any): boolean {
     return !this.isNull(value);
+  }
+
+  static getStoreUrl(url: string) {
+    if (
+      url.startsWith('/') ||
+      url.startsWith('http://') ||
+      url.startsWith('https://')
+    ) {
+      return url;
+    } else {
+      return '/assets/examples/' + url;
+    }
+  }
+
+  private static _manager: THREE.LoadingManager = null;
+
+  static getLoadingManager(): THREE.LoadingManager {
+    if (this._manager === null) {
+      this._manager = new THREE.LoadingManager(
+        () => {
+          console.log('loaded');
+        },
+        (url: string, loaded: number, total: number) => {
+          console.log(url, loaded, total);
+        },
+        (url: string) => {
+          console.error(url);
+        }
+      );
+      this._manager.addHandler( /\.dds$/i, new DDSLoader() );
+    }
+    return this._manager;
   }
 
   static getHtmlCode(info : TagAttributes, preTab: string = ''): string  {

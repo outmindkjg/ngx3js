@@ -15,7 +15,8 @@ import { DotScreenPass } from 'three/examples/jsm/postprocessing/DotScreenPass';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass';
 import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass';
-import { MaskPass } from 'three/examples/jsm/postprocessing/MaskPass';
+import { ClearMaskPass, MaskPass } from 'three/examples/jsm/postprocessing/MaskPass';
+			
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass';
 import { Pass } from 'three/examples/jsm/postprocessing/Pass';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -34,6 +35,7 @@ import { BasicShader } from 'three/examples/jsm/shaders/BasicShader';
 import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader';
 import { BlendShader } from 'three/examples/jsm/shaders/BlendShader';
 import { BokehShader } from 'three/examples/jsm/shaders/BokehShader';
+import { BokehShader as BokehShader2, BokehDepthShader } from 'three/examples/jsm/shaders/BokehShader2';
 import { BrightnessContrastShader } from 'three/examples/jsm/shaders/BrightnessContrastShader';
 import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader';
 import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader';
@@ -49,6 +51,11 @@ import { FreiChenShader } from 'three/examples/jsm/shaders/FreiChenShader';
 import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader';
+import {
+  LUTCubeLoader,
+  LUTCubeResult,
+} from 'three/examples/jsm/loaders/LUTCubeLoader';
+
 import {
   GodRaysDepthMaskShader,
   GodRaysGenerateShader,
@@ -95,6 +102,7 @@ import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 
 import { ThreeUtil } from '../interface';
+import { TextureComponent } from '../texture/texture.component';
 
 @Component({
   selector: 'three-pass',
@@ -104,7 +112,7 @@ import { ThreeUtil } from '../interface';
 export class PassComponent implements OnInit {
   @Input() public type: string = '';
   @Input() private refer: PassComponent = null;
-  @Input() private enabled: boolean = null;
+  @Input() private enabled: boolean = true;
   @Input() private needsSwap: boolean = null;
   @Input() private clear: boolean = null;
   @Input() private renderToScreen: boolean = null;
@@ -141,12 +149,64 @@ export class PassComponent implements OnInit {
   @Input() private shader: string = null;
   @Input() private textureId: string = null;
   @Input() private map: THREE.Texture | any = null;
+  @Input() private texture: THREE.Texture | TextureComponent = null;
   @Input() private radius: number = null;
   @Input() private threshold: number = null;
   @Input() private goWild: boolean = null;
   @Input() private uniforms: { [key: string]: any } = null;
+  @Input() private lut: string = null;
+  @Input() private use2DLut: boolean = null;
+  @Input() private inverse: boolean = null;
+  @Input() private focus: number = null;
+  @Input() private aspect: number = null;
+  @Input() private aperture: number = null;
+  @Input() private maxblur: number = null;
 
   constructor() {}
+
+  private lutCubeLoader: LUTCubeLoader = null;
+
+  private getLut(
+    callBack: (result: LUTCubeResult) => void,
+    def?: string
+  ): void {
+    const lut = ThreeUtil.getTypeSafe(this.lut, def, 'remy24');
+    let lutPath = '';
+    switch (lut.toLowerCase()) {
+      case 'bourbon 64.cube':
+      case 'bourbon64':
+        lutPath = 'luts/Bourbon 64.CUBE';
+        break;
+      case 'chemical 168.cube':
+      case 'chemical168':
+        lutPath = 'luts/Chemical 168.CUBE';
+        break;
+      case 'clayton 33.cube':
+      case 'clayton33':
+        lutPath = 'luts/Clayton 33.CUBE';
+        break;
+      case 'cubicle 99.cube':
+      case 'cubicle99':
+        lutPath = 'luts/Cubicle 99.CUBE';
+        break;
+      case 'remy 24.cube':
+      case 'remy24':
+        lutPath = 'luts/Remy 24.CUBE';
+        break;
+      default:
+        lutPath = lut;
+        break;
+    }
+    if (this.lutCubeLoader == null) {
+      this.lutCubeLoader = new LUTCubeLoader(ThreeUtil.getLoadingManager());
+    }
+    this.lutCubeLoader.load(
+      ThreeUtil.getStoreUrl(lutPath),
+      (result: LUTCubeResult) => {
+        callBack(result);
+      }
+    );
+  }
 
   private getEnabled(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.enabled, def);
@@ -207,7 +267,7 @@ export class PassComponent implements OnInit {
       if (camera instanceof THREE.Camera) {
         return camera;
       } else {
-        return camera.getScene();
+        return camera.getCamera();
       }
     } else {
       return new THREE.Camera();
@@ -224,7 +284,7 @@ export class PassComponent implements OnInit {
 
   private getClearColor(
     def?: THREE.Color | string | number
-  ): THREE.Color | string | number {
+  ): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
   }
 
@@ -233,7 +293,18 @@ export class PassComponent implements OnInit {
   }
 
   private getEnvMap(def?: THREE.CubeTexture): THREE.CubeTexture {
-    return ThreeUtil.getTypeSafe(this.envMap, def);
+    const cubeTexture = ThreeUtil.getTypeSafe(this.envMap, 
+      ThreeUtil.getTypeSafe(this.map, this.texture, def)  
+    , def);
+    if (cubeTexture instanceof THREE.CubeTexture) {
+      return cubeTexture;
+    } else if (cubeTexture instanceof TextureComponent) {
+      const texture = cubeTexture.getTexture();
+      if (texture instanceof THREE.CubeTexture) {
+        return texture;
+      }
+    }
+    return undefined;
   }
 
   private getOpacity(def?: number): number {
@@ -330,9 +401,14 @@ export class PassComponent implements OnInit {
       case 'bokeh':
         shaderUniforms = BokehShader;
         break;
-      case 'bokehshader':
-      case 'bokeh':
-        shaderUniforms = BokehShader;
+      case 'bokehshader2':
+      case 'bokeh2shader':
+      case 'bokeh2':
+        shaderUniforms = BokehShader2;
+        break;
+      case 'bokehdepthshader':
+      case 'bokehdepth':
+        shaderUniforms = BokehDepthShader;
         break;
       case 'brightnesscontrastshader':
       case 'brightnesscontrast':
@@ -563,9 +639,11 @@ export class PassComponent implements OnInit {
     scene?: THREE.Scene,
     mapType?: string
   ): THREE.Texture {
-    const map = ThreeUtil.getTypeSafe(this.map, effectComposer);
+    const map = ThreeUtil.getTypeSafe(this.map, this.texture, effectComposer);
     if (map !== null) {
-      if (map instanceof EffectComposer) {
+      if (map instanceof THREE.Texture){
+        return map;
+      } else if (map instanceof EffectComposer) {
         switch ((mapType || '').toLowerCase()) {
           case 'target1':
             return map.renderTarget1.texture;
@@ -591,13 +669,13 @@ export class PassComponent implements OnInit {
             return map.getWriteBuffer(effectComposer.renderer, camera, scene)
               .texture;
           case 'read':
-            return map.getReadBuffer(effectComposer.renderer, camera, scene)
-              .texture;
+            return map.getReadBuffer(effectComposer.renderer, camera, scene).texture;
           case 'target2':
           default:
-            return map.getRenderTarget2(effectComposer.renderer, camera, scene)
-              .texture;
+            return map.getRenderTarget2(effectComposer.renderer, camera, scene).texture;
         }
+      } else if (map instanceof TextureComponent) {
+        return map.getTexture();
       } else {
         return map;
       }
@@ -653,7 +731,7 @@ export class PassComponent implements OnInit {
       this.effectCamera = camera;
       let pass: Pass = null;
       if (this.refer !== null && this.refer !== undefined) {
-        pass = this.refer.getPass(scene, camera, effectComposer);
+        pass = this.refer.getPass(scene, camera, null);
       }
       if (pass === null) {
         switch (this.type.toLowerCase()) {
@@ -682,7 +760,14 @@ export class PassComponent implements OnInit {
             pass = new BokehPass(
               this.getScene(scene),
               this.getCamera(camera),
-              this.getParams()
+              {
+                focus: ThreeUtil.getTypeSafe(this.focus, 1.0),
+                aspect: ThreeUtil.getTypeSafe(this.aspect, null),
+                aperture: ThreeUtil.getTypeSafe(this.aperture, null),
+                maxblur: ThreeUtil.getTypeSafe(this.maxblur, null),
+                width: ThreeUtil.getTypeSafe(this.width, null),
+                height: ThreeUtil.getTypeSafe(this.height, null)
+              }
             );
             break;
           case 'cubetexturepass':
@@ -724,9 +809,17 @@ export class PassComponent implements OnInit {
               null // this.getParams(null)
             );
             break;
+          case 'clearmaskpass':
+          case 'clearmask':
+            pass = new ClearMaskPass();
+            break;
           case 'maskpass':
           case 'mask':
-            pass = new MaskPass(this.getScene(scene), this.getCamera(camera));
+            const maskpass = new MaskPass(this.getScene(scene), this.getCamera(camera));
+            if (ThreeUtil.isNotNull(this.inverse)) {
+              maskpass.inverse = ThreeUtil.getTypeSafe(this.inverse, false);
+            }
+            pass = maskpass;
             break;
           case 'outlinepass':
           case 'outline':
@@ -851,7 +944,6 @@ export class PassComponent implements OnInit {
                     break;
                 }
               });
-              console.log(shaderPass.uniforms);
             }
             pass = shaderPass;
             break;
@@ -904,10 +996,16 @@ export class PassComponent implements OnInit {
             break;
           case 'lutpass':
           case 'lut':
-            pass = new LUTPass({
-              lut : null,
-              intensity : this.getIntensity()
+            const lutPass = new LUTPass({
+              lut: null,
+              intensity: this.getIntensity(),
             });
+            lutPass.enabled = false;
+            this.getLut((result) => {
+              this.pass['lut'] = this.use2DLut ? result.texture : result.texture3D;
+              this.pass.enabled = this.enabled;
+            });
+            pass = lutPass;
             break;
           case 'clearpass':
           case 'clear':
@@ -928,7 +1026,7 @@ export class PassComponent implements OnInit {
           pass.renderToScreen = this.getRenderToScreen(false);
         }
       }
-      if (this.pass !== null && this.pass !== undefined) {
+      if (ThreeUtil.isNotNull(this.pass)) {
         Object.assign(this.pass, pass);
       } else {
         this.pass = pass;

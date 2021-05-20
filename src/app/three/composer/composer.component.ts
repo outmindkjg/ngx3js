@@ -22,6 +22,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
   @Input() private camera:THREE.Camera | CameraComponent = null;
   @Input() private clear:boolean = false;
   @Input() private viewport:boolean = false;
+  @Input() private viewportAspect:boolean = false;
   @Input() private x:number | string = 0;
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
@@ -124,6 +125,16 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
     return 0;
   }
 
+  private getAspect(): number {
+    if (this.viewport) {
+      const cWidth = this.getWidth();
+      const cHeight = this.getHeight();
+      return cWidth / cHeight;
+    } else {
+      return this.composerWidth > 0 && this.composerHeight > 0 ? (this.composerWidth / this.composerHeight ) : 1;
+    } 
+  }
+  
   ngOnInit(): void {
   }
 
@@ -154,6 +165,12 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
           this.getHeight()
         );
       }
+      if (this.viewportAspect && ThreeUtil.isNotNull(this._composerCamera)) {
+        if (this._composerCamera instanceof THREE.PerspectiveCamera) {
+          this._composerCamera.aspect = this.getAspect();
+          this._composerCamera.updateProjectionMatrix();
+        }
+      }
       if (this.clear) {
         webGLRenderer.autoClear = false;
         webGLRenderer.clear();
@@ -183,6 +200,8 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
     return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;
   }
 
+  private _composerCamera : THREE.Camera = null;
+
   getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): EffectComposer | any {
     if (this.effectComposer === null) {
       switch(this.type.toLowerCase()) {
@@ -203,11 +222,15 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
           this.effectComposer = new ParallaxBarrierEffect(webGLRenderer);
           break;
         default :
-          this.effectComposer = new EffectComposer(webGLRenderer);
-          this.effectComposer.setPixelRatio(window.devicePixelRatio);
+          const effectComposer = new EffectComposer(webGLRenderer);
+          effectComposer.setPixelRatio(window.devicePixelRatio);
+          const composerCamera = this.getCamera(camera);
+          this._composerCamera = composerCamera;
+          const composerScene = this.getScene(scene);
           this.pass.forEach(item => {
-            item.getPass(this.getScene(scene), this.getCamera(camera), this.effectComposer);
+            item.getPass(composerScene, composerCamera , effectComposer);
           })
+          this.effectComposer = effectComposer;
           break;
       }
     }

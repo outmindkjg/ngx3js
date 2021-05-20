@@ -427,8 +427,7 @@ export class TextureComponent implements OnInit {
       this.height,
       this.loaderType,
       this.text,
-      onLoad,
-      this.localStorageService
+      onLoad
     );
   }
 
@@ -436,7 +435,6 @@ export class TextureComponent implements OnInit {
     image: string,
     options?: string,
     loadType?: string,
-    localStorageService?: LocalStorageService,
     cubeImage?: string[]
   ): THREE.Texture {
     const texture = this.getTextureImage(
@@ -447,8 +445,7 @@ export class TextureComponent implements OnInit {
       10,
       loadType,
       null,
-      null,
-      localStorageService
+      null
     );
     if (ThreeUtil.isNotNull(options)) {
       const optionsList = options.split(',');
@@ -514,8 +511,7 @@ export class TextureComponent implements OnInit {
     canvasHeight?: number,
     loadType?: string,
     text?: string,
-    onLoad?: () => void,
-    localStorageService?: LocalStorageService
+    onLoad?: () => void
   ): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       cubeImage = this.checkCubeImage(cubeImage);
@@ -524,9 +520,7 @@ export class TextureComponent implements OnInit {
         case 'hdrcubetexture':
           if (this.hdrCubeMapLoader == null) {
             this.hdrCubeMapLoader = new HDRCubeTextureLoader(
-              ThreeUtil.isNotNull(localStorageService)
-                ? localStorageService.getLoadingManager()
-                : undefined
+              ThreeUtil.getLoadingManager()
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
@@ -546,9 +540,7 @@ export class TextureComponent implements OnInit {
         case 'rgbmtexture':
           if (this.rgbmLoader == null) {
             this.rgbmLoader = new RGBMLoader(
-              ThreeUtil.isNotNull(localStorageService)
-                ? localStorageService.getLoadingManager()
-                : undefined
+              ThreeUtil.getLoadingManager()
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
@@ -566,9 +558,7 @@ export class TextureComponent implements OnInit {
         default:
           if (this.cubeTextureLoader === null) {
             this.cubeTextureLoader = new THREE.CubeTextureLoader(
-              ThreeUtil.isNotNull(localStorageService)
-                ? localStorageService.getLoadingManager()
-                : undefined
+              ThreeUtil.getLoadingManager()
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
@@ -605,9 +595,7 @@ export class TextureComponent implements OnInit {
           console.log(image, loadType);
           if (this.textureLoader === null) {
             this.textureLoader = new THREE.TextureLoader(
-              ThreeUtil.isNotNull(localStorageService)
-                ? localStorageService.getLoadingManager()
-                : undefined
+              ThreeUtil.getLoadingManager()
             );
           }
           return this.textureLoader.load(this.getStoreUrl(image), () => {
