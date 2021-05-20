@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output,   EventEmitter,
+  SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 
@@ -161,6 +162,7 @@ export class PassComponent implements OnInit {
   @Input() private aspect: number = null;
   @Input() private aperture: number = null;
   @Input() private maxblur: number = null;
+  @Output() private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
 
   constructor() {}
 
@@ -720,10 +722,13 @@ export class PassComponent implements OnInit {
   private needUpdate: boolean = false;
 
   getPass(
-    scene: THREE.Scene,
-    camera: THREE.Camera,
-    effectComposer: EffectComposer
+    scene?: THREE.Scene,
+    camera?: THREE.Camera,
+    effectComposer?: EffectComposer
   ): Pass {
+    if (ThreeUtil.isNull(scene) || ThreeUtil.isNull(camera)) {
+      return this.pass;
+    }
     if (this.pass === null || this.needUpdate) {
       this.needUpdate = false;
       this.effectComposer = effectComposer;
@@ -1031,6 +1036,7 @@ export class PassComponent implements OnInit {
       } else {
         this.pass = pass;
       }
+      this.onLoad.emit(this);
     }
     if (this.pass !== null && effectComposer !== null) {
       if (effectComposer.passes.indexOf(this.pass) === -1) {
