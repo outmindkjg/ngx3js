@@ -421,28 +421,7 @@ export class MeshComponent
   }
 
   private getEncoding(def?: string): THREE.TextureEncoding {
-    const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
-    switch (encoding.toLowerCase()) {
-      case 'srgb':
-        return THREE.sRGBEncoding;
-      case 'gamma':
-        return THREE.GammaEncoding;
-      case 'rgbe':
-        return THREE.RGBEEncoding;
-      case 'logluv':
-        return THREE.LogLuvEncoding;
-      case 'rgbm7':
-        return THREE.RGBM7Encoding;
-      case 'rgbm16':
-        return THREE.RGBM16Encoding;
-      case 'rgbd':
-        return THREE.RGBDEncoding;
-      case 'linear':
-        return THREE.LinearEncoding;
-      default:
-        break;
-    }
-    return undefined;
+    return ThreeUtil.getTextureEncodingSafe(this.encoding, def, '');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -577,7 +556,7 @@ export class MeshComponent
       });
     }
     if (materials.length == 0) {
-      materials.push(new THREE.MeshPhongMaterial(parameters));
+      materials.push(new THREE.MeshBasicMaterial(parameters));
     }
     return materials;
   }

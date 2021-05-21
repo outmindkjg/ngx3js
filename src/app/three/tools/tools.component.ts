@@ -19,61 +19,11 @@ export class ToolsComponent implements OnInit {
   }
   
   private getEncoding(def?: string): THREE.TextureEncoding {
-    const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
-    switch (encoding.toLowerCase()) {
-      case 'srgb':
-        return THREE.sRGBEncoding;
-      case 'gamma':
-        return THREE.GammaEncoding;
-      case 'rgbe':
-        return THREE.RGBEEncoding;
-      case 'logluv':
-        return THREE.LogLuvEncoding;
-      case 'rgbm7':
-        return THREE.RGBM7Encoding;
-      case 'rgbm16':
-        return THREE.RGBM16Encoding;
-      case 'rgbd':
-        return THREE.RGBDEncoding;
-      case 'linear':
-      default:
-        return THREE.LinearEncoding;
-    }
+    return ThreeUtil.getTextureEncodingSafe(this.encoding, def, '');
   }
 
   private getFormat(def?: string): THREE.PixelFormat {
-    const format = ThreeUtil.getTypeSafe(this.format, def, '');
-    switch (format.toLowerCase()) {
-      case 'alpha':
-        return THREE.AlphaFormat;
-      case 'red':
-        return THREE.RedFormat;
-      case 'redinteger':
-        return THREE.RedIntegerFormat;
-      case 'rg':
-        return THREE.RGFormat;
-      case 'rginteger':
-        return THREE.RGIntegerFormat;
-      case 'rgb':
-        return THREE.RGBFormat;
-      case 'rgbinteger':
-        return THREE.RGBIntegerFormat;
-      case 'rgbainteger':
-        return THREE.RGBAIntegerFormat;
-      case 'luminance':
-        return THREE.LuminanceFormat;
-      case 'luminancealpha':
-        return THREE.LuminanceAlphaFormat;
-      case 'rgbe':
-        return THREE.RGBEFormat;
-      case 'depth':
-        return THREE.DepthFormat;
-      case 'depthstencil':
-        return THREE.DepthStencilFormat;
-      case 'rgba':
-      default:
-        return THREE.RGBAFormat;
-    }
+    return ThreeUtil.getPixelFormatSafe(this.format, def, '');
   }
 
   constructor() { }

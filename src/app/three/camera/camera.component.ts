@@ -6,6 +6,7 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -45,6 +46,7 @@ export class CameraComponent
   @Input() private right: number = 0.5;
   @Input() private top: number = 0.5;
   @Input() private bottom: number = -0.5;
+  @Input() private zoom: number | string = null;
   @Input() private autoClear: boolean = null;
   @Input() private material: any = null;
   @Input() public controlType: string = 'none';
@@ -121,6 +123,28 @@ export class CameraComponent
   private getBottom(height?: number): number {
     return height * this.bottom;
   }
+
+  private getZoom(def?: number | string): number {
+    const zoom = ThreeUtil.getTypeSafe(this.zoom, def, 1);
+    if (typeof zoom === 'number') {
+      return zoom;
+    } else {
+      switch (this.type.toLowerCase()) {
+        case 'orthographiccamera':
+        case 'orthographic':
+          switch(zoom.toLowerCase()) {
+            case 'auto' :
+              const fov = THREE.MathUtils.degToRad( this.getFov(50) );
+              const hyperfocus = ( this.getNear(-200) + this.getFar(2000) ) / 2;
+              const _height = 2 * Math.tan( fov / 2 ) * hyperfocus;
+              return this.getHeight() / _height;
+          }
+          break;
+      }
+    }
+    return 1;
+  }
+  
 
   private getAspect(width?: number, height?: number): number {
     if (this.viewport) {
@@ -561,7 +585,7 @@ export class CameraComponent
           break;
         case 'orthographiccamera':
         case 'orthographic':
-          this.camera = new THREE.OrthographicCamera(
+          const orthographicCamera = new THREE.OrthographicCamera(
             this.getLeft(width),
             this.getRight(width),
             this.getTop(height),
@@ -569,6 +593,10 @@ export class CameraComponent
             this.getNear(-200),
             this.getFar(2000)
           );
+          if (ThreeUtil.isNotNull(this.zoom)) {
+            orthographicCamera.zoom = this.getZoom(1);
+          }
+          this.camera = orthographicCamera;
           break;
         case 'perspectivecamera':
         case 'perspective':
@@ -626,6 +654,7 @@ export class CameraComponent
         'audio',
         'mixer',
       ]);
+      this._cameraSubject.next(this.camera);
       this.onLoad.emit(this);
     }
     return this.camera;
@@ -641,6 +670,12 @@ export class CameraComponent
     } else {
       return new THREE.Scene();
     }
+  }
+
+  private _cameraSubject: Subject<THREE.Camera> = new Subject<THREE.Camera>();
+
+  cameraSubscribe(): Observable<THREE.Object3D> {
+    return this._cameraSubject.asObservable();
   }
 
   private _cubeRenderCount = 0;

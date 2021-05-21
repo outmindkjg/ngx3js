@@ -32,6 +32,46 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
 
   @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
+  @Input() private useRenderTarget: boolean = false;
+  @Input() private wrap: string = null;
+  @Input() private wrapS: string = null;
+  @Input() private wrapT: string = null;
+  @Input() private filter: string = null;
+  @Input() private magFilter: string = null;
+  @Input() private minFilter: string = null;
+  @Input() private format: string = null;
+  @Input() private dataType: string = null;
+  @Input() private anisotropy: number = null;
+  @Input() private encoding: string = null;
+  @Input() private depthBuffer: boolean = null;
+  @Input() private stencilBuffer: boolean = null;
+  @Input() private generateMipmaps: boolean = null;
+  @Input() private depthTexture: any = null;
+
+  private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget  {
+    if (this.useRenderTarget) {
+      return new THREE.WebGLRenderTarget(
+        this.getWidth() * renderer.getPixelRatio(), 
+        this.getHeight() * renderer.getPixelRatio(),
+        {
+          wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
+          wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
+          magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
+          minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+          format: ThreeUtil.getPixelFormatSafe(this.format),
+          type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
+          anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
+          depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
+          stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
+          generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
+          depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+          encoding: ThreeUtil.getTextureEncodingSafe(this.encoding)
+        }
+      );
+    }
+    return undefined;
+  }
+
   private getReflectFromAbove(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.reflectFromAbove, def);
   }
@@ -222,7 +262,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
           this.effectComposer = new ParallaxBarrierEffect(webGLRenderer);
           break;
         default :
-          const effectComposer = new EffectComposer(webGLRenderer);
+          const effectComposer = new EffectComposer(webGLRenderer, this.getRenderTarget(webGLRenderer));
           effectComposer.setPixelRatio(window.devicePixelRatio);
           const composerCamera = this.getCamera(camera);
           this._composerCamera = composerCamera;

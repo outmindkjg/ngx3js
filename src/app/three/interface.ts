@@ -19,7 +19,7 @@ export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;
   geometry?: THREE.BufferGeometry;
-  texture?: THREE.Texture,
+  texture?: THREE.Texture;
   clips?: THREE.AnimationClip[] | any;
   morphTargets?: THREE.BufferAttribute[];
   source?: any;
@@ -117,14 +117,14 @@ export interface InterfaceMeshComponent {
 }
 
 export interface TagAttributes {
-  tag : string ;
-  attributes : {name : string, value : any}[],
-  children? : {getTagAttribute : (options? : any) => TagAttributes }[],
-  options? : any
+  tag: string;
+  attributes: { name: string; value: any }[];
+  children?: { getTagAttribute: (options?: any) => TagAttributes }[];
+  options?: any;
 }
 
 export interface CssStyle {
-  innerHTML? : string; 
+  innerHTML?: string;
   content?: string;
   position?: string;
   pointerEvents?: string;
@@ -334,7 +334,6 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
       }
       this.meshChildren = this.mesh.getMesh().children;
     }
-
   }
 
   onRender(timer: RendererTimer) {
@@ -720,7 +719,7 @@ export class ThreeUtil {
     this.lastRenderer = lastRenderer;
   }
 
-  static getRenderer(): THREE.Renderer{
+  static getRenderer(): THREE.Renderer {
     return this.lastRenderer;
   }
 
@@ -768,41 +767,47 @@ export class ThreeUtil {
           console.error(url);
         }
       );
-      this._manager.addHandler( /\.dds$/i, new DDSLoader() );
+      this._manager.addHandler(/\.dds$/i, new DDSLoader());
     }
     return this._manager;
   }
 
-  static getHtmlCode(info : TagAttributes, preTab: string = ''): string  {
-      const tag = info.tag;
-      const attributes = info.attributes;
-      const tags:string[] = [];
-      tags.push(preTab + '<' + tag);
-      attributes.forEach(attr => {
-        const key = attr.name;
-        const value = attr.value;
-        if (this.isNotNull(value)) {
-            if (value instanceof THREE.Color) {
-              tags.push(preTab + '\t[' + key + ']="\'#'+value.getHexString()+'\'"');
-            } else if (typeof(value) == 'number') {
-              if (Math.round(value) !== value) { 
-                tags.push(preTab + '\t[' + key + ']="'+parseFloat(value.toFixed(4))+'"');
-              } else {
-                tags.push(preTab + '\t[' + key + ']="'+value+'"');
-              }
-            } else if (typeof(value) == 'string') {
-              tags.push(preTab + '\t[' + key + ']="\''+value+'\'"');
-            } 
+  static getHtmlCode(info: TagAttributes, preTab: string = ''): string {
+    const tag = info.tag;
+    const attributes = info.attributes;
+    const tags: string[] = [];
+    tags.push(preTab + '<' + tag);
+    attributes.forEach((attr) => {
+      const key = attr.name;
+      const value = attr.value;
+      if (this.isNotNull(value)) {
+        if (value instanceof THREE.Color) {
+          tags.push(
+            preTab + '\t[' + key + ']="\'#' + value.getHexString() + '\'"'
+          );
+        } else if (typeof value == 'number') {
+          if (Math.round(value) !== value) {
+            tags.push(
+              preTab + '\t[' + key + ']="' + parseFloat(value.toFixed(4)) + '"'
+            );
+          } else {
+            tags.push(preTab + '\t[' + key + ']="' + value + '"');
+          }
+        } else if (typeof value == 'string') {
+          tags.push(preTab + '\t[' + key + ']="\'' + value + '\'"');
         }
-      })
-      tags.push(preTab + '>');
-      if (info.children && info.children.length > 0) {
-        info.children.forEach(child => {
-          tags.push(this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t'));
-        });
       }
-      tags.push(preTab + '</' + tag + '>');
-      return tags.join('\n');
+    });
+    tags.push(preTab + '>');
+    if (info.children && info.children.length > 0) {
+      info.children.forEach((child) => {
+        tags.push(
+          this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t')
+        );
+      });
+    }
+    tags.push(preTab + '</' + tag + '>');
+    return tags.join('\n');
   }
 
   static getColor(color: string | number | THREE.Color): THREE.Color {
@@ -883,7 +888,7 @@ export class ThreeUtil {
   static getColorMultiplySafe(
     color: string | number | THREE.Color,
     altColor?: string | number | THREE.Color,
-    multiply? : number
+    multiply?: number
   ): THREE.Color {
     const safeColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
@@ -904,9 +909,13 @@ export class ThreeUtil {
   static getColorSafe(
     color: string | number | THREE.Color,
     altColor?: string | number | THREE.Color,
-    nullColor? : string | number | THREE.Color
+    nullColor?: string | number | THREE.Color
   ): THREE.Color {
-    const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
+    const defColor = this.isNotNull(color)
+      ? color
+      : this.isNotNull(altColor)
+      ? altColor
+      : nullColor;
     if (this.isNotNull(defColor)) {
       if (defColor instanceof THREE.Color) {
         return defColor;
@@ -915,18 +924,41 @@ export class ThreeUtil {
         if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
         } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
-          let [type,val1,val2,val3] = (colorStr + ',,,').replace('(',',').replace(')',',').replace(':',',').replace(/[^A-Za-z\-0-9\.,]/g,'').split(',');
-          switch(type.toLowerCase()) {
-            case 'hsl' :
-              const h = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random();
-              const s = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random();
-              const l = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random();
+          let [type, val1, val2, val3] = (colorStr + ',,,')
+            .replace('(', ',')
+            .replace(')', ',')
+            .replace(':', ',')
+            .replace(/[^A-Za-z\-0-9\.,]/g, '')
+            .split(',');
+          switch (type.toLowerCase()) {
+            case 'hsl':
+              const h =
+                this.isNotNull(val1) && val1 !== ''
+                  ? parseFloat(val1)
+                  : Math.random();
+              const s =
+                this.isNotNull(val2) && val2 !== ''
+                  ? parseFloat(val2)
+                  : Math.random();
+              const l =
+                this.isNotNull(val3) && val3 !== ''
+                  ? parseFloat(val3)
+                  : Math.random();
               return new THREE.Color().setHSL(h, s, l);
-            case 'rgb' :
-              const r = (this.isNotNull(val1) && val1 !== '') ? parseFloat(val1) : Math.random() * 255;
-              const g = (this.isNotNull(val2) && val2 !== '') ? parseFloat(val2) : Math.random() * 255;
-              const b = (this.isNotNull(val3) && val3 !== '') ? parseFloat(val3) : Math.random() * 255;
-              return new THREE.Color(r / 255,g / 255,b / 255);
+            case 'rgb':
+              const r =
+                this.isNotNull(val1) && val1 !== ''
+                  ? parseFloat(val1)
+                  : Math.random() * 255;
+              const g =
+                this.isNotNull(val2) && val2 !== ''
+                  ? parseFloat(val2)
+                  : Math.random() * 255;
+              const b =
+                this.isNotNull(val3) && val3 !== ''
+                  ? parseFloat(val3)
+                  : Math.random() * 255;
+              return new THREE.Color(r / 255, g / 255, b / 255);
           }
         }
       }
@@ -968,10 +1000,10 @@ export class ThreeUtil {
   static getAngleSafe(angle: number | string, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
-      if (typeof(angle) === 'string') {
+      if (typeof angle === 'string') {
         return Math.random() * 2 * Math.PI;
       } else {
-        return (defValue as number / 180) * Math.PI;
+        return ((defValue as number) / 180) * Math.PI;
       }
     }
     return undefined;
@@ -980,15 +1012,15 @@ export class ThreeUtil {
   static getAngle2RadianSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
-      return (defValue / 180 ) * Math.PI;
+      return (defValue / 180) * Math.PI;
     }
     return undefined;
   }
- 
+
   static getRadian2AngleSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
-      return (defValue / Math.PI ) * 180;
+      return (defValue / Math.PI) * 180;
     }
     return undefined;
   }
@@ -999,8 +1031,8 @@ export class ThreeUtil {
   ): THREE.Vector2 {
     if (v2 instanceof THREE.Vector2) {
       return v2;
-    } else if (this.isNotNull(v2) && v2.length >= 2){
-      return this.getVector2Safe(v2[0],v2[1], altValue);
+    } else if (this.isNotNull(v2) && v2.length >= 2) {
+      return this.getVector2Safe(v2[0], v2[1], altValue);
     }
     return undefined;
   }
@@ -1009,7 +1041,7 @@ export class ThreeUtil {
     x: number,
     y: number,
     altValue?: THREE.Vector2,
-    v2?: number[] | THREE.Vector2,
+    v2?: number[] | THREE.Vector2
   ): THREE.Vector2 {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y)
@@ -1033,8 +1065,8 @@ export class ThreeUtil {
   ): THREE.Vector3 {
     if (v3 instanceof THREE.Vector3) {
       return v3;
-    } else if (this.isNotNull(v3) && v3.length >= 3){
-      return this.getVector3Safe(v3[0],v3[1],v3[2], altValue);
+    } else if (this.isNotNull(v3) && v3.length >= 3) {
+      return this.getVector3Safe(v3[0], v3[1], v3[2], altValue);
     }
     return undefined;
   }
@@ -1044,7 +1076,7 @@ export class ThreeUtil {
     y: number,
     z: number,
     altValue?: THREE.Vector3,
-    v3?: number[] | THREE.Vector3,
+    v3?: number[] | THREE.Vector3
   ): THREE.Vector3 {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
@@ -1084,6 +1116,250 @@ export class ThreeUtil {
       return defValue;
     }
     return undefined;
+  }
+
+  static getWrappingSafe(
+    baseWrap: string,
+    altWrap?: string,
+    def?: string
+  ): THREE.Wrapping {
+    const wrap = this.getTypeSafe(baseWrap, altWrap, def || '');
+    switch (wrap.toLowerCase()) {
+      case 'repeatwrapping':
+      case 'repeat':
+        return THREE.RepeatWrapping;
+      case 'mirroredrepeatwrapping':
+      case 'mirroredrepeat':
+        return THREE.MirroredRepeatWrapping;
+      case 'clamptoedgewrapping':
+      case 'clamptoedge':
+      default:
+        return THREE.ClampToEdgeWrapping;
+    }
+  }
+
+  static getTextureFilterSafe(
+    baseFilter: string,
+    altFilter?: string,
+    def?: string
+  ): THREE.TextureFilter {
+    const filter = this.getTypeSafe(baseFilter, altFilter, def || '');
+    switch (filter.toLowerCase()) {
+      case 'nearestfilter':
+      case 'nearest':
+        return THREE.NearestFilter;
+      case 'nearestmipmapnearestfilter':
+      case 'nearestmipmapnearest':
+        return THREE.NearestMipmapNearestFilter;
+      case 'nearestmipmaplinearfilter':
+      case 'nearestmipmaplinear':
+        return THREE.NearestMipmapLinearFilter;
+      case 'linearmipmapnearestfilter':
+      case 'linearmipmapnearest':
+        return THREE.LinearMipmapNearestFilter;
+      case 'linearmipmaplinearfilter':
+      case 'linearmipmaplinear':
+        return THREE.LinearMipmapLinearFilter;
+      case 'linearfilter':
+      case 'linear':
+      default:
+        return THREE.LinearFilter;
+    }
+  }
+
+  static getPixelFormatSafe(
+    baseFormat: string,
+    altFormat?: string,
+    def?: string
+  ): THREE.PixelFormat {
+    const format = this.getTypeSafe(baseFormat, altFormat, def || '');
+    switch (format.toLowerCase()) {
+      case 'alphaformat':
+      case 'alpha':
+        return THREE.AlphaFormat;
+      case 'redformat':
+      case 'red':
+        return THREE.RedFormat;
+      case 'redintegerformat':
+      case 'redinteger':
+        return THREE.RedIntegerFormat;
+      case 'rgformat':
+      case 'rg':
+        return THREE.RGFormat;
+      case 'rgintegerformat':
+      case 'rginteger':
+        return THREE.RGIntegerFormat;
+      case 'rgbformat':
+      case 'rgb':
+        return THREE.RGBFormat;
+      case 'rgbintegerformat':
+      case 'rgbinteger':
+        return THREE.RGBIntegerFormat;
+      case 'rgbaintegerformat':
+      case 'rgbainteger':
+        return THREE.RGBAIntegerFormat;
+      case 'luminanceformat':
+      case 'luminance':
+        return THREE.LuminanceFormat;
+      case 'luminancealphaformat':
+      case 'luminancealpha':
+        return THREE.LuminanceAlphaFormat;
+      case 'rgbeformat':
+      case 'rgbe':
+        return THREE.RGBEFormat;
+      case 'depthformat':
+      case 'depth':
+        return THREE.DepthFormat;
+      case 'depthstencilformat':
+      case 'depthstencil':
+        return THREE.DepthStencilFormat;
+      case 'rgbaformat':
+      case 'rgba':
+        return THREE.RGBAFormat;
+      default:
+        break;
+    }
+    return undefined;
+  }
+
+  static getTextureDataTypeSafe(
+    baseFormat: string,
+    altFormat?: string,
+    def?: string
+  ): THREE.TextureDataType {
+    const type = this.getTypeSafe(baseFormat, altFormat, def || '');
+    switch (type.toLowerCase()) {
+      case 'bytetype':
+      case 'byte':
+        return THREE.ByteType;
+      case 'shorttype':
+      case 'short':
+        return THREE.ShortType;
+      case 'unsignedshorttype':
+      case 'unsignedshort':
+        return THREE.UnsignedShortType;
+      case 'inttype':
+      case 'int':
+        return THREE.IntType;
+      case 'unsignedinttype':
+      case 'unsignedint':
+        return THREE.UnsignedIntType;
+      case 'floattype':
+      case 'float':
+        return THREE.FloatType;
+      case 'halffloattype':
+      case 'halffloat':
+        return THREE.HalfFloatType;
+      case 'unsignedshort4444type':
+      case 'unsignedshort4444':
+        return THREE.UnsignedShort4444Type;
+      case 'unsignedshort5551type':
+      case 'unsignedshort5551':
+        return THREE.UnsignedShort5551Type;
+      case 'unsignedshort565type':
+      case 'unsignedshort565':
+        return THREE.UnsignedShort565Type;
+      case 'unsignedint248type':
+      case 'unsignedint248':
+        return THREE.UnsignedInt248Type;
+      case 'unsignedbytetype':
+      case 'unsignedbyte':
+      default:
+        return THREE.UnsignedByteType;
+    }
+  }
+
+  static getTextureEncodingSafe(
+    baseEncoding: string,
+    altEncoding?: string,
+    def?: string
+  ): THREE.TextureEncoding {
+    const encoding = this.getTypeSafe(baseEncoding, altEncoding, def || '');
+    switch (encoding.toLowerCase()) {
+      case 'srgbencoding':
+      case 'srgb':
+        return THREE.sRGBEncoding;
+      case 'gammaencoding':
+      case 'gamma':
+        return THREE.GammaEncoding;
+      case 'rgbeencoding':
+      case 'rgbe':
+        return THREE.RGBEEncoding;
+      case 'logluvencoding':
+      case 'logluv':
+        return THREE.LogLuvEncoding;
+      case 'rgbm7encoding':
+      case 'rgbm7':
+        return THREE.RGBM7Encoding;
+      case 'rgbm16encoding':
+      case 'rgbm16':
+        return THREE.RGBM16Encoding;
+      case 'rgbdencoding':
+      case 'rgbd':
+        return THREE.RGBDEncoding;
+      case 'linearencoding':
+      case 'linear':
+        return THREE.LinearEncoding;
+      default:
+        break;
+    }
+    return undefined;
+  }
+
+  static getMappingSafe(
+    baseMapping: string,
+    altMapping?: string,
+    def?: string
+  ): THREE.Mapping {
+    const mapping = this.getTypeSafe(baseMapping, altMapping, def || '');
+    switch (mapping.toLowerCase()) {
+      case 'uvmapping':
+      case 'uv':
+        return THREE.UVMapping;
+      case 'cubereflectionmapping':
+      case 'cubereflection':
+        return THREE.CubeReflectionMapping;
+      case 'cuberefractionmapping':
+      case 'cuberefraction':
+        return THREE.CubeRefractionMapping;
+      case 'equirectangularreflectionmapping':
+      case 'equirectangularreflection':
+        return THREE.EquirectangularReflectionMapping;
+      case 'equirectangularrefractionmapping':
+      case 'equirectangularrefraction':
+        return THREE.EquirectangularRefractionMapping;
+      case 'cubeuvreflectionmapping':
+      case 'cubeuvreflection':
+        return THREE.CubeUVReflectionMapping;
+      case 'cubeuvrefractionmapping':
+      case 'cubeuvrefraction':
+        return THREE.CubeUVRefractionMapping;
+      default:
+        return THREE.Texture.DEFAULT_MAPPING;
+    }
+  }
+
+  static getCubeImage(cubeImage: string[]): string[] {
+    if (
+      ThreeUtil.isNotNull(cubeImage) &&
+      cubeImage.length !== 6 &&
+      cubeImage.length >= 1
+    ) {
+      const prefix = cubeImage[0];
+      const postfix = cubeImage[1] || 'png';
+      const prefix1 = cubeImage[2] || 'p';
+      const prefix2 = cubeImage[3] || 'n';
+      return [
+        prefix + prefix1 + 'x.' + postfix,
+        prefix + prefix2 + 'x.' + postfix,
+        prefix + prefix1 + 'y.' + postfix,
+        prefix + prefix2 + 'y.' + postfix,
+        prefix + prefix1 + 'z.' + postfix,
+        prefix + prefix2 + 'z.' + postfix,
+      ];
+    } else {
+      return cubeImage;
+    }
   }
 
   static getClock(autoStart?: boolean): ThreeClock {
@@ -1613,12 +1889,12 @@ export interface RendererTimer {
 
 export interface RendererInfo {
   timer: RendererTimer;
-  innerWidth : number,
-  innerHeight : number,
+  innerWidth: number;
+  innerHeight: number;
   renderer: THREE.Renderer;
-  cssRenderer : any;
+  cssRenderer: any;
   cameras: THREE.Camera[];
-  scenes : THREE.Scene[];
+  scenes: THREE.Scene[];
 }
 
 export interface RendererEvent {
@@ -1707,7 +1983,7 @@ export interface GuiControlParam {
   min?: number;
   max?: number;
   step?: number;
-  select?: string[] | { [ key : string] : any };
+  select?: string[] | { [key: string]: any };
   control?: string;
   listen?: boolean;
   isOpen?: boolean;

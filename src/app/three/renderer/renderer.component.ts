@@ -143,34 +143,7 @@ export class RendererComponent
   @ViewChild('renderer') private _renderer: ElementRef;
 
   private getEncoding(def?: string): THREE.TextureEncoding {
-    const encoding = ThreeUtil.getTypeSafe(this.outputEncoding, def, '');
-    switch (encoding.toLowerCase()) {
-      case 'srgbencoding':
-      case 'srgb':
-        return THREE.sRGBEncoding;
-      case 'gammaencoding':
-      case 'gamma':
-        return THREE.GammaEncoding;
-      case 'rgbeencoding':
-      case 'rgbe':
-        return THREE.RGBEEncoding;
-      case 'logluvencoding':
-      case 'logluv':
-        return THREE.LogLuvEncoding;
-      case 'rgbm7encoding':
-      case 'rgbm7':
-        return THREE.RGBM7Encoding;
-      case 'rgbm16encoding':
-      case 'rgbm16':
-        return THREE.RGBM16Encoding;
-      case 'rgbdencoding':
-      case 'rgbd':
-        return THREE.RGBDEncoding;
-      case 'linearencoding':
-      case 'linear':
-      default:
-        return THREE.LinearEncoding;
-    }
+    return ThreeUtil.getTextureEncodingSafe(this.outputEncoding, def, '');
   }
 
   private getShadowMapType(def?: string): THREE.ShadowMapType {
@@ -870,7 +843,8 @@ export class RendererComponent
       ThreeUtil.isNull(this.beforeRender) ||
       !this.beforeRender(this.getRenderInfo(renderTimer))
     ) {
-      if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
+      // if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer && this.panSpeed ) {
+      if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer ) {
         this.composerList.forEach(composer => {
           composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);
         });

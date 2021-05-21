@@ -3,9 +3,7 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
-
   OnInit, Output,
-
   QueryList,
   SimpleChanges
 } from '@angular/core';

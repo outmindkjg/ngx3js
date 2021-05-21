@@ -44,6 +44,7 @@ export class TextureComponent implements OnInit {
   @Input() private wrap: string = null;
   @Input() private wrapS: string = null;
   @Input() private wrapT: string = null;
+  @Input() private filter: string = null;
   @Input() private magFilter: string = null;
   @Input() private minFilter: string = null;
   @Input() private format: string = null;
@@ -99,167 +100,31 @@ export class TextureComponent implements OnInit {
   }
 
   private getMapping(def?: string): THREE.Mapping {
-    const mapping = ThreeUtil.getTypeSafe(this.mapping, def, '');
-    switch (mapping.toLowerCase()) {
-      case 'uv':
-        return THREE.UVMapping;
-      case 'cubereflection':
-        return THREE.CubeReflectionMapping;
-      case 'cuberefraction':
-        return THREE.CubeRefractionMapping;
-      case 'equirectangularreflection':
-        return THREE.EquirectangularReflectionMapping;
-      case 'equirectangularrefraction':
-        return THREE.EquirectangularRefractionMapping;
-      case 'cubeuvreflection':
-        return THREE.CubeUVReflectionMapping;
-      case 'cubeuvrefraction':
-        return THREE.CubeUVRefractionMapping;
-      default:
-        return THREE.Texture.DEFAULT_MAPPING;
-    }
+    return ThreeUtil.getMappingSafe(this.mapping, def, '');
   }
 
   private getWrapS(def: string): THREE.Wrapping {
-    const wrapS = ThreeUtil.getTypeSafe(this.wrapS, this.wrap, def || '');
-    switch (wrapS.toLowerCase()) {
-      case 'repeatwrapping':
-      case 'repeat':
-        return THREE.RepeatWrapping;
-      case 'mirroredrepeatwrapping':
-      case 'mirroredrepeat':
-        return THREE.MirroredRepeatWrapping;
-      case 'clamptoedgewrapping':
-      case 'clamptoedge':
-      default:
-        return THREE.ClampToEdgeWrapping;
-    }
+    return ThreeUtil.getWrappingSafe(this.wrapS, this.wrap, def);
   }
 
   private getWrapT(def: string): THREE.Wrapping {
-    const wrapT = ThreeUtil.getTypeSafe(this.wrapT, this.wrap, def || '');
-    switch (wrapT.toLowerCase()) {
-      case 'repeatwrapping':
-      case 'repeat':
-        return THREE.RepeatWrapping;
-      case 'mirroredrepeatwrapping':
-      case 'mirroredrepeat':
-        return THREE.MirroredRepeatWrapping;
-      case 'clamptoedgewrapping':
-      case 'clamptoedge':
-      default:
-        return THREE.ClampToEdgeWrapping;
-    }
+    return ThreeUtil.getWrappingSafe(this.wrapT, this.wrap, def);
   }
 
   private getMagFilter(def: string): THREE.TextureFilter {
-    const magFilter = ThreeUtil.getTypeSafe(this.magFilter, def, '');
-    switch (magFilter.toLowerCase()) {
-      case 'nearestfilter':
-      case 'nearest':
-        return THREE.NearestFilter;
-      case 'nearestmipmapnearestfilter':
-      case 'nearestmipmapnearest':
-        return THREE.NearestMipmapNearestFilter;
-      case 'nearestmipmaplinearfilter':
-      case 'nearestmipmaplinear':
-        return THREE.NearestMipmapLinearFilter;
-      case 'linearmipmapnearestfilter':
-      case 'linearmipmapnearest':
-        return THREE.LinearMipmapNearestFilter;
-      case 'linearmipmaplinearfilter':
-      case 'linearmipmaplinear':
-        return THREE.LinearMipmapLinearFilter;
-      case 'linearfilter':
-      case 'linear':
-      default:
-        return THREE.LinearFilter;
-    }
+    return ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter, def);
   }
 
   private getMinFilter(def: string): THREE.TextureFilter {
-    const minFilter = ThreeUtil.getTypeSafe(this.minFilter, def, '');
-    switch (minFilter.toLowerCase()) {
-      case 'nearest':
-        return THREE.NearestFilter;
-      case 'nearestmipmapnearest':
-        return THREE.NearestMipmapNearestFilter;
-      case 'nearestmipmaplinear':
-        return THREE.NearestMipmapLinearFilter;
-      case 'linearmipmapnearest':
-        return THREE.LinearMipmapNearestFilter;
-      case 'linear':
-        return THREE.LinearFilter;
-      case 'linearmipmaplinear':
-      default:
-        return THREE.LinearMipmapLinearFilter;
-    }
+    return ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, def);
   }
 
   private getFormat(def: string): THREE.PixelFormat {
-    const format = ThreeUtil.getTypeSafe(this.format, def, '');
-    switch (format.toLowerCase()) {
-      case 'alpha':
-        return THREE.AlphaFormat;
-      case 'red':
-        return THREE.RedFormat;
-      case 'redinteger':
-        return THREE.RedIntegerFormat;
-      case 'rg':
-        return THREE.RGFormat;
-      case 'rginteger':
-        return THREE.RGIntegerFormat;
-      case 'rgb':
-        return THREE.RGBFormat;
-      case 'rgbinteger':
-        return THREE.RGBIntegerFormat;
-      case 'rgbainteger':
-        return THREE.RGBAIntegerFormat;
-      case 'luminance':
-        return THREE.LuminanceFormat;
-      case 'luminancealpha':
-        return THREE.LuminanceAlphaFormat;
-      case 'rgbe':
-        return THREE.RGBEFormat;
-      case 'depth':
-        return THREE.DepthFormat;
-      case 'depthstencil':
-        return THREE.DepthStencilFormat;
-      case 'rgba':
-      default:
-        return THREE.RGBAFormat;
-    }
+    return ThreeUtil.getPixelFormatSafe(this.format, def, '');
   }
 
   private getType(def: string): THREE.TextureDataType {
-    const type = ThreeUtil.getTypeSafe(this.type, def, '');
-    switch (type.toLowerCase()) {
-      case 'byte':
-        return THREE.ByteType;
-      case 'short':
-        return THREE.ShortType;
-      case 'unsignedshort':
-        return THREE.UnsignedShortType;
-      case 'int':
-        return THREE.IntType;
-      case 'unsignedint':
-        return THREE.UnsignedIntType;
-      case 'float':
-        return THREE.FloatType;
-      case 'halffloat':
-        return THREE.HalfFloatType;
-      case 'unsignedshort4444':
-        return THREE.UnsignedShort4444Type;
-      case 'unsignedshort5551':
-        return THREE.UnsignedShort5551Type;
-      case 'unsignedshort565':
-        return THREE.UnsignedShort565Type;
-      case 'unsignedint248':
-        return THREE.UnsignedInt248Type;
-      case 'unsignedbyte':
-      default:
-        return THREE.UnsignedByteType;
-    }
+    return ThreeUtil.getTextureDataTypeSafe(this.type, def, '');
   }
 
   private getAnisotropy(def: number): number {
@@ -267,34 +132,7 @@ export class TextureComponent implements OnInit {
   }
 
   private getEncoding(def: string): THREE.TextureEncoding {
-    const encoding = ThreeUtil.getTypeSafe(this.encoding, def, '');
-    switch (encoding.toLowerCase()) {
-      case 'srgbencoding':
-      case 'srgb':
-        return THREE.sRGBEncoding;
-      case 'gammaencoding':
-      case 'gamma':
-        return THREE.GammaEncoding;
-      case 'rgbeencoding':
-      case 'rgbe':
-        return THREE.RGBEEncoding;
-      case 'logluvencoding':
-      case 'logluv':
-        return THREE.LogLuvEncoding;
-      case 'rgbm7encoding':
-      case 'rgbm7':
-        return THREE.RGBM7Encoding;
-      case 'rgbm16encoding':
-      case 'rgbm16':
-        return THREE.RGBM16Encoding;
-      case 'rgbdencoding':
-      case 'rgbd':
-        return THREE.RGBDEncoding;
-      case 'linearencoding':
-      case 'linear':
-      default:
-        return THREE.LinearEncoding;
-    }
+    return ThreeUtil.getTextureEncodingSafe(this.encoding, def, '');
   }
 
   private getRepeat(defX: number, defY: number): THREE.Vector2 {
@@ -468,41 +306,6 @@ export class TextureComponent implements OnInit {
     return texture;
   }
 
-  static getStoreUrl(url: string) {
-    if (
-      url.startsWith('/') ||
-      url.startsWith('http://') ||
-      url.startsWith('https://')
-    ) {
-      return url;
-    } else {
-      return '/assets/examples/' + url;
-    }
-  }
-
-  private static checkCubeImage(cubeImage : string[]): string[] {
-    if (
-      ThreeUtil.isNotNull(cubeImage) &&
-      cubeImage.length !== 6 &&
-      cubeImage.length >= 1
-    ) {
-      const prefix = cubeImage[0];
-      const postfix = cubeImage[1] || 'png';
-      const prefix1 = cubeImage[2] || 'p';
-      const prefix2 = cubeImage[3] || 'n';
-      return [
-        prefix + prefix1 + 'x.' + postfix,
-        prefix + prefix2 + 'x.' + postfix,
-        prefix + prefix1 + 'y.' + postfix,
-        prefix + prefix2 + 'y.' + postfix,
-        prefix + prefix1 + 'z.' + postfix,
-        prefix + prefix2 + 'z.' + postfix,
-      ];
-    } else {
-      return cubeImage;
-    }
-  }
-
   static getTextureImage(
     image: string,
     cubeImage?: string[],
@@ -514,7 +317,7 @@ export class TextureComponent implements OnInit {
     onLoad?: () => void
   ): THREE.Texture {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
-      cubeImage = this.checkCubeImage(cubeImage);
+      cubeImage =  ThreeUtil.getCubeImage(cubeImage);
       switch ((loadType || 'cubetexture').toLowerCase()) {
         case 'hdrcube':
         case 'hdrcubetexture':
@@ -524,7 +327,7 @@ export class TextureComponent implements OnInit {
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
-            this.hdrCubeMapLoader.setPath(this.getStoreUrl(image));
+            this.hdrCubeMapLoader.setPath(ThreeUtil.getStoreUrl(image));
           }
           const cubeTexture = new THREE.CubeTexture();
           this.hdrCubeMapLoader.setDataType(THREE.UnsignedByteType);
@@ -544,7 +347,7 @@ export class TextureComponent implements OnInit {
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
-            this.rgbmLoader.setPath(this.getStoreUrl(image));
+            this.rgbmLoader.setPath(ThreeUtil.getStoreUrl(image));
           }
           const rgbmTexture = new THREE.CubeTexture();
           this.rgbmLoader.loadCubemap(cubeImage, (rgbmCube) => {
@@ -562,7 +365,7 @@ export class TextureComponent implements OnInit {
             );
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
-            this.cubeTextureLoader.setPath(this.getStoreUrl(image));
+            this.cubeTextureLoader.setPath(ThreeUtil.getStoreUrl(image));
           }
           return this.cubeTextureLoader.load(cubeImage, () => {
             if (ThreeUtil.isNotNull(onLoad)) {
@@ -579,7 +382,7 @@ export class TextureComponent implements OnInit {
           video.muted = true;
           video.crossOrigin = 'anonymous';
           video.autoplay = true;
-          video.src = this.getStoreUrl(image);
+          video.src = ThreeUtil.getStoreUrl(image);
           video.load();
           try {
             video.play();
@@ -592,13 +395,12 @@ export class TextureComponent implements OnInit {
         case 'imagebitmap':
         case 'image':
         default:
-          console.log(image, loadType);
           if (this.textureLoader === null) {
             this.textureLoader = new THREE.TextureLoader(
               ThreeUtil.getLoadingManager()
             );
           }
-          return this.textureLoader.load(this.getStoreUrl(image), () => {
+          return this.textureLoader.load(ThreeUtil.getStoreUrl(image), () => {
             if (ThreeUtil.isNotNull(onLoad)) {
               onLoad();
             }
@@ -833,12 +635,12 @@ export class TextureComponent implements OnInit {
             }
             break;
           case 'minFilter':
-            if (ThreeUtil.isNotNull(this.minFilter)) {
+            if (ThreeUtil.isNotNull(this.minFilter) || ThreeUtil.isNotNull(this.filter)) {
               this.texture.minFilter = this.getMinFilter('linearmipmaplinear');
             }
             break;
           case 'format':
-            if (ThreeUtil.isNotNull(this.format)) {
+            if (ThreeUtil.isNotNull(this.format) || ThreeUtil.isNotNull(this.filter)) {
               this.texture.format = this.getFormat('rgba');
             }
             break;
