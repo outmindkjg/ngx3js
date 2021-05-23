@@ -85,3 +85,6 @@ node_modules\three\examples\jsm\objects\Water2.d.ts
 constructor( geometry: BufferGeometry, options: WaterOptions );
 
 ----------------------
+
+node_modules/three/examples/jsm/postprocessing/SAOPass.d.ts
+	saoBlur: boolean;

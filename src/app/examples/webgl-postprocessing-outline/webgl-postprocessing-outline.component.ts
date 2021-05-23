@@ -64,8 +64,8 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
   outlinePass : any = null;
   setOutlinePass(pass : PassComponent) {
     this.outlinePass = pass.getPass();
-    // this.outlinePass.selectedObjects = this.selectedObjects;
-    console.log(this.outlinePass);
+    this.outlinePass.selectedObjects = this.selectedObjects;
+    // console.log(this.outlinePass);
   }
 
   onMouseDownEvent(event : RendererEvent) {
@@ -75,7 +75,7 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
         if (this.selectedObjects.indexOf(intersection.object) === -1) {
           this.selectedObjects = [intersection.object];
           if (this.outlinePass !== null) {
-            // this.outlinePass.selectedObjects = this.selectedObjects;
+            this.outlinePass.selectedObjects = this.selectedObjects;
           }
         }
       }

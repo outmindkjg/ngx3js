@@ -177,6 +177,7 @@ export class PassComponent implements OnInit {
   @Input() private maxblur: number = null;
   @Input() private sampleLevel: number = null;
   @Input() private unbiased: boolean = null;
+  @Input() private accumulate: boolean = null;
   @Input() private visibleEdgeColor: string | number | THREE.Color = null;
   @Input() private hiddenEdgeColor: string | number | THREE.Color = null;
   @Input() private edgeGlow: number = null;
@@ -185,6 +186,19 @@ export class PassComponent implements OnInit {
   @Input() private edgeStrength: number = null;
   @Input() private downSampleRatio: number = null;
   @Input() private pulsePeriod: number = null;
+  @Input() private output: string = null;
+  @Input() private kernelRadius: number = null;
+  @Input() private minDistance: number = null;
+  @Input() private maxDistance: number = null;
+  @Input() private saoBias: number = null;
+  @Input() private saoIntensity: number = null;
+  @Input() private saoScale: number = null;
+  @Input() private saoKernelRadius: number = null;
+  @Input() private saoMinResolution: number = null;
+  @Input() private saoBlur: boolean = null;
+  @Input() private saoBlurRadius: number = null;
+  @Input() private saoBlurStdDev: number = null;
+  @Input() private saoBlurDepthCutoff: number = null;
 
   @Output()
   private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
@@ -396,8 +410,8 @@ export class PassComponent implements OnInit {
 
   private getSelectedObjects(def?: THREE.Object3D[]): THREE.Object3D[] {
     const selectedObjects = ThreeUtil.getTypeSafe(this.selectedObjects, def);
-    const safeObject3d : THREE.Object3D[] = [];
-    selectedObjects.forEach(child => {
+    const safeObject3d: THREE.Object3D[] = [];
+    selectedObjects.forEach((child) => {
       if (child instanceof THREE.Object3D) {
         safeObject3d.push(child);
       } else if (child.getMesh) {
@@ -421,6 +435,42 @@ export class PassComponent implements OnInit {
 
   private getUseNormals(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.useNormals, def);
+  }
+
+  private getSaoOutput(def?: string): number {
+    const output = ThreeUtil.getTypeSafe(this.output, def, '');
+    switch (output.toLowerCase()) {
+      case 'beauty':
+        return 1;
+      case 'sao':
+        return 2;
+      case 'depth':
+        return 3;
+      case 'normal':
+        return 4;
+      case 'default':
+      default:
+        return 0;
+    }
+  }
+
+  private getSsaoOutput(def?: string): number {
+    const output = ThreeUtil.getTypeSafe(this.output, def, '');
+    switch (output.toLowerCase()) {
+      case 'ssao':
+        return 1;
+      case 'blur':
+        return 1;
+      case 'beauty':
+        return 3;
+      case 'depth':
+        return 4;
+      case 'normal':
+        return 5;
+      case 'default':
+      default:
+        return 0;
+    }
   }
 
   private getRenderTarget(
@@ -892,28 +942,49 @@ export class PassComponent implements OnInit {
               outlinePass.selectedObjects = this.getSelectedObjects();
             }
             if (ThreeUtil.isNotNull(this.visibleEdgeColor)) {
-              outlinePass.visibleEdgeColor = ThreeUtil.getColorSafe(this.visibleEdgeColor, 0xffffff);
+              outlinePass.visibleEdgeColor = ThreeUtil.getColorSafe(
+                this.visibleEdgeColor,
+                0xffffff
+              );
             }
             if (ThreeUtil.isNotNull(this.hiddenEdgeColor)) {
-              outlinePass.hiddenEdgeColor = ThreeUtil.getColorSafe(this.hiddenEdgeColor, 0xffffff);
+              outlinePass.hiddenEdgeColor = ThreeUtil.getColorSafe(
+                this.hiddenEdgeColor,
+                0xffffff
+              );
             }
             if (ThreeUtil.isNotNull(this.edgeGlow)) {
               outlinePass.edgeGlow = ThreeUtil.getTypeSafe(this.edgeGlow, 0);
             }
             if (ThreeUtil.isNotNull(this.usePatternTexture)) {
-              outlinePass.usePatternTexture = ThreeUtil.getTypeSafe(this.usePatternTexture, false);
+              outlinePass.usePatternTexture = ThreeUtil.getTypeSafe(
+                this.usePatternTexture,
+                false
+              );
             }
             if (ThreeUtil.isNotNull(this.edgeThickness)) {
-              outlinePass.edgeThickness = ThreeUtil.getTypeSafe(this.edgeThickness, 1.0);
+              outlinePass.edgeThickness = ThreeUtil.getTypeSafe(
+                this.edgeThickness,
+                1.0
+              );
             }
             if (ThreeUtil.isNotNull(this.edgeStrength)) {
-              outlinePass.edgeStrength = ThreeUtil.getTypeSafe(this.edgeStrength, 3.0);
+              outlinePass.edgeStrength = ThreeUtil.getTypeSafe(
+                this.edgeStrength,
+                3.0
+              );
             }
             if (ThreeUtil.isNotNull(this.downSampleRatio)) {
-              outlinePass.downSampleRatio = ThreeUtil.getTypeSafe(this.downSampleRatio, 2.0);
+              outlinePass.downSampleRatio = ThreeUtil.getTypeSafe(
+                this.downSampleRatio,
+                2.0
+              );
             }
             if (ThreeUtil.isNotNull(this.pulsePeriod)) {
-              outlinePass.pulsePeriod = ThreeUtil.getTypeSafe(this.pulsePeriod, 0.0);
+              outlinePass.pulsePeriod = ThreeUtil.getTypeSafe(
+                this.pulsePeriod,
+                0.0
+              );
             }
             pass = outlinePass;
             break;
@@ -929,13 +1000,29 @@ export class PassComponent implements OnInit {
             break;
           case 'saopass':
           case 'sao':
-            pass = new SAOPass(
+            const saoPass = new SAOPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getDepthTexture(),
               this.getUseNormals(),
-              null // this.getResolution()
+              ThreeUtil.getVector2Safe(this.width, this.height)
             );
+            saoPass.params = {
+              output: this.getSaoOutput('Default'),
+              saoBias: ThreeUtil.getTypeSafe(this.saoBias, 0.5),
+              saoIntensity: ThreeUtil.getTypeSafe(this.saoIntensity, 0.18),
+              saoScale: ThreeUtil.getTypeSafe(this.saoScale, 1),
+              saoKernelRadius: ThreeUtil.getTypeSafe(this.saoKernelRadius, this.kernelRadius, 100),
+              saoMinResolution: ThreeUtil.getTypeSafe(this.saoMinResolution, 0),
+              saoBlur: ThreeUtil.getTypeSafe(this.saoBlur, true),
+              saoBlurRadius: ThreeUtil.getTypeSafe(this.saoBlurRadius, 8),
+              saoBlurStdDev: ThreeUtil.getTypeSafe(this.saoBlurStdDev, 4),
+              saoBlurDepthCutoff: ThreeUtil.getTypeSafe(
+                this.saoBlurDepthCutoff,
+                0.01
+              ),
+            };
+            pass = saoPass;
             break;
           case 'savepass':
           case 'save':
@@ -1001,7 +1088,7 @@ export class PassComponent implements OnInit {
                       );
                     }
                     break;
-                  case 'resolution' :
+                  case 'resolution':
                     shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(
                       this.uniforms['resolutionX'] || this.width | 1024,
                       this.uniforms['resolutionY'] || this.height | 1024,
@@ -1042,7 +1129,7 @@ export class PassComponent implements OnInit {
             break;
           case 'smaapass':
           case 'smaa':
-            pass = new SMAAPass(this.getWidth(), this.getHeight());
+            pass = new SMAAPass(this.getWidth(1024), this.getHeight(1024));
             break;
           case 'ssaarenderpass':
           case 'ssaarender':
@@ -1068,21 +1155,45 @@ export class PassComponent implements OnInit {
             break;
           case 'ssaopass':
           case 'ssao':
-            pass = new SSAOPass(
+            const ssaoPass = new SSAOPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getWidth(),
               this.getHeight()
             );
+            ssaoPass.output = this.getSsaoOutput('Default');
+            ssaoPass.kernelRadius = ThreeUtil.getTypeSafe(this.kernelRadius, this.saoKernelRadius, 8);
+            ssaoPass.minDistance = ThreeUtil.getTypeSafe(this.minDistance, 0.005);
+            ssaoPass.maxDistance = ThreeUtil.getTypeSafe(this.maxDistance, 0.1);
+            pass = ssaoPass;
             break;
           case 'taarenderpass':
           case 'taarender':
-            pass = new TAARenderPass(
+            const taaRenderPass = new TAARenderPass(
               this.getScene(scene),
               this.getCamera(camera),
               this.getClearColor(),
               this.getClearAlpha()
             );
+            if (ThreeUtil.isNotNull(this.sampleLevel)) {
+              taaRenderPass.sampleLevel = ThreeUtil.getTypeSafe(
+                this.sampleLevel,
+                4
+              );
+            }
+            if (ThreeUtil.isNotNull(this.unbiased)) {
+              taaRenderPass.unbiased = ThreeUtil.getTypeSafe(
+                this.unbiased,
+                true
+              );
+            }
+            if (ThreeUtil.isNotNull(this.accumulate)) {
+              taaRenderPass.accumulate = ThreeUtil.getTypeSafe(
+                this.accumulate,
+                false
+              );
+            }
+            pass = taaRenderPass;
             break;
           case 'texturepass':
           case 'texture':
@@ -1091,13 +1202,17 @@ export class PassComponent implements OnInit {
               this.getOpacity()
             );
             break;
-          case 'taarenderpass':
-          case 'taarender':
+          case 'unrealbloompass':
+          case 'unrealbloom':
             pass = new UnrealBloomPass(
-              null, //this.getResolution(),
-              this.getStrength(),
-              this.getRadius(),
-              this.getThreshold()
+              ThreeUtil.getVector2Safe(
+                this.width | 512,
+                this.height | 512,
+                new THREE.Vector2(512,512)
+              ),
+              this.getStrength(1.5),
+              this.getRadius(0.4),
+              this.getThreshold(0.85)
             );
             break;
           case 'lutpass':

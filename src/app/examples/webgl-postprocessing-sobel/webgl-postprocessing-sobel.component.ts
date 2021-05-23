@@ -6,10 +6,14 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-postprocessing-sobel.component.html',
   styleUrls: ['./webgl-postprocessing-sobel.component.scss']
 })
-export class WebglPostprocessingSobelComponent extends BaseComponent<{}> {
+export class WebglPostprocessingSobelComponent extends BaseComponent<{
+  enable : boolean;
+}> {
 
   constructor() {
-    super({},[]);
+    super({ enable : true },[
+      { name : 'enable', type : 'checkbox'}
+    ]);
   }
 
 }

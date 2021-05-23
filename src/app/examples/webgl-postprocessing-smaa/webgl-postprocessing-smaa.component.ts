@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-postprocessing-smaa',
@@ -10,6 +10,17 @@ export class WebglPostprocessingSmaaComponent extends BaseComponent<{}> {
 
   constructor() {
     super({},[]);
+  }
+
+  onRender(timer : RendererTimer) {
+    super.onRender(timer);
+    if (this.meshChildren.length > 0) {
+      const delta = timer.delta * 50;
+      this.meshChildren.forEach(child => {
+        child.rotation.x += 0.005 * delta;
+        child.rotation.y += 0.01 * delta;
+      })
+    }
   }
 
 }

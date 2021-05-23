@@ -63,6 +63,7 @@ export class TextureComponent implements OnInit {
   @Input() private sunX: number = null;
   @Input() private sunY: number = null;
   @Input() private sunZ: number = null;
+  @Input() private generateMipmaps: boolean = null;
   @Input() private useDropImage: boolean = false;
   @Input() private color: number | string = null;
   @Input() private add: number | string = null;
@@ -525,6 +526,7 @@ export class TextureComponent implements OnInit {
                 rotation: null,
                 anisotropy: null,
                 premultiplyAlpha: null,
+                generateMipmaps : null
               });
             }
           },
@@ -570,6 +572,7 @@ export class TextureComponent implements OnInit {
                 premultiplyAlpha: null,
                 rotation: null,
                 mapping: null,
+                generateMipmaps : null,
               });
               this.texture.needsUpdate = true;
             }
@@ -652,6 +655,11 @@ export class TextureComponent implements OnInit {
           case 'anisotropy':
             if (ThreeUtil.isNotNull(this.anisotropy)) {
               this.texture.anisotropy = this.getAnisotropy(1);
+            }
+            break;
+          case 'generateMipmaps':
+            if (ThreeUtil.isNotNull(this.generateMipmaps)) {
+              this.texture.generateMipmaps = ThreeUtil.getTypeSafe(this.generateMipmaps, true);
             }
             break;
           case 'encoding':
