@@ -199,7 +199,10 @@ export class PassComponent implements OnInit {
   @Input() private saoBlurRadius: number = null;
   @Input() private saoBlurStdDev: number = null;
   @Input() private saoBlurDepthCutoff: number = null;
-
+  @Input() private vertexShader: string = null;
+  @Input() private fragmentShader: string = null;
+  @Input() private bloomTexture: any = null;
+  
   @Output()
   private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
 
@@ -724,6 +727,24 @@ export class PassComponent implements OnInit {
       case 'waterrefraction':
         shaderUniforms = WaterRefractionShader;
         break;
+      case 'shadermaterial' :
+      case 'material' :
+        const shaderMaterialParameters : THREE.ShaderMaterialParameters = {};
+        if (ThreeUtil.isNotNull(this.vertexShader)) {
+          shaderMaterialParameters.vertexShader = this.vertexShader;
+        }
+        if (ThreeUtil.isNotNull(this.fragmentShader)) {
+          shaderMaterialParameters.fragmentShader = this.fragmentShader;
+        }
+        if (ThreeUtil.isNotNull(this.uniforms)) {
+          const uniforms : { [uniform: string]: THREE.IUniform } = {};
+          Object.entries(this.uniforms).forEach(([key, value]) => {
+            uniforms[key] = { value : null }
+          });
+          shaderMaterialParameters.uniforms = uniforms;
+        }
+        shaderUniforms = new THREE.ShaderMaterial(shaderMaterialParameters);
+        break;
     }
     if (shaderUniforms !== null) {
       return shaderUniforms;
@@ -1109,7 +1130,11 @@ export class PassComponent implements OnInit {
                       );
                     }
                     break;
-
+                  case 'bloomTexture' :
+                    if (ThreeUtil.isNotNull(this.bloomTexture) && ThreeUtil.isNotNull(this.bloomTexture.getRenderTarget2)) {
+                      shaderPass.uniforms[key].value = this.bloomTexture.getRenderTarget2().texture
+                    }
+                    break;
                   default:
                     if (
                       this.uniforms[key] !== null &&

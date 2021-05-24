@@ -23,6 +23,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
   @Input() private clear:boolean = false;
   @Input() private viewport:boolean = false;
   @Input() private viewportAspect:boolean = false;
+  @Input() private renderToScreen:boolean = null;
   @Input() private x:number | string = 0;
   @Input() private y:number | string = 0;
   @Input() private width:number | string = '100%';
@@ -271,6 +272,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit,
             item.getPass(composerScene, composerCamera , effectComposer);
           })
           this.effectComposer = effectComposer;
+          if (ThreeUtil.isNotNull(this.renderToScreen)) {
+            this.effectComposer.renderToScreen = this.renderToScreen;
+          }
           break;
       }
     }

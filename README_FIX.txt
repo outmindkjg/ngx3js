@@ -88,3 +88,15 @@ constructor( geometry: BufferGeometry, options: WaterOptions );
 
 node_modules/three/examples/jsm/postprocessing/SAOPass.d.ts
 	saoBlur: boolean;
+
+----------------------
+node_modules\three\examples\jsm\geometries\TeapotGeometry.d.ts
+constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, body?: boolean, fitLid?: boolean, blinn?: boolean );
+
+----------------------
+
+
+----------------------
+
+
+----------------------

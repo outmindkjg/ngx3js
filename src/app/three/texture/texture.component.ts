@@ -68,6 +68,8 @@ export class TextureComponent implements OnInit {
   @Input() private color: number | string = null;
   @Input() private add: number | string = null;
   @Input() private rotation: number = null;
+  @Input() private flipY: boolean = null;
+  
   @Output()
   private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
@@ -524,6 +526,7 @@ export class TextureComponent implements OnInit {
                 type: null,
                 repeat: null,
                 rotation: null,
+                flipY : null,
                 anisotropy: null,
                 premultiplyAlpha: null,
                 generateMipmaps : null
@@ -571,6 +574,7 @@ export class TextureComponent implements OnInit {
                 anisotropy: null,
                 premultiplyAlpha: null,
                 rotation: null,
+                flipY : null,
                 mapping: null,
                 generateMipmaps : null,
               });
@@ -617,6 +621,13 @@ export class TextureComponent implements OnInit {
               ThreeUtil.isNotNull(this.wrap)
             ) {
               this.texture.wrapT = this.getWrapT('clamptoedge');
+            }
+            break;
+          case 'flipY' :
+            if (
+              ThreeUtil.isNotNull(this.flipY)
+            ) {
+              this.texture.flipY = ThreeUtil.getTypeSafe(this.flipY, true);
             }
             break;
           case 'rotation':

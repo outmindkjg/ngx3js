@@ -197,7 +197,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
       this.controls.lid,
       this.controls.body,
       this.controls.fitLid,
-      this.controls.nonblinn ? 0 : 1
+      this.controls.nonblinn ? false : true
     );
   }
 

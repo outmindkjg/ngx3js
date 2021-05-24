@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
+import { GeometryCompressionUtils } from 'three/examples/jsm/utils/GeometryCompressionUtils';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -90,7 +91,10 @@ export class MeshComponent
   @Input() private uniforms:{ [uniform: string]: ({ type : string, value : any, options? : any } | THREE.IUniform) } = null;
   @Input() private distortionScale: number = null;
   @Input() private alpha: number = null;
-  
+  @Input() private compressPositions: boolean = null;
+  @Input() private compressNormals: string = null;
+  @Input() private compressUvs: boolean = null;
+
   @Input() private skyColor: string | number = null;
   @Input() private groundColor: string | number = null;
   @Input() private waterColor: string | number = null;
@@ -152,7 +156,7 @@ export class MeshComponent
   @Input() private normalMap1 : string | THREE.Texture | TextureComponent = null;
   @Input() private planeInfos: { type : string, strength: number, subtract: number }[] = null;
   @Input() private blobInfos: { x : number, y : number, z : number, strength: number, subtract: number, colors? : any }[] = null;
-  @Input() private makeMatrix: (mat: THREE.Matrix4) => void = null;
+  @Input() private makeMatrix: (mat: THREE.Matrix4, index? : number) => void = null;
   @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
   @Input() private texture: TextureComponent | THREE.Texture = null;
@@ -1359,7 +1363,6 @@ export class MeshComponent
                 instancedFlow.object3D.setColorAt( i, new THREE.Color( 0xffffff * Math.random() ) );
               }
             }
-
             this.storageSource = instancedFlow;
             this._referGeometry = geometry;
             this._referMateral = instancedFlowMaterial;
@@ -1368,7 +1371,6 @@ export class MeshComponent
               instancedFlow.moveAlongCurve(0.001);
             };
             break;
-            
         case 'lineloop' :
           let points = [];
           const lineloopCurve = this.getCurve();
@@ -1439,6 +1441,7 @@ export class MeshComponent
             basemesh = new THREE.Group();
           }
           break;
+        case 'instancedmesh':
         case 'instanced':
           const instanced = new THREE.InstancedMesh(
             geometry,
@@ -1451,7 +1454,7 @@ export class MeshComponent
           if (ThreeUtil.isNotNull(this.makeMatrix)) {
             const matrix = new THREE.Matrix4();
             for (let i = 0; i < instanced.count; i++) {
-              this.makeMatrix(matrix);
+              this.makeMatrix(matrix, i);
               instanced.setMatrixAt(i, matrix);
             }
           }
@@ -1905,6 +1908,15 @@ export class MeshComponent
                 mesh.add(object);
               }
             }
+          }
+          if (ThreeUtil.isNotNull(this.compressPositions) && this.compressPositions) {
+            GeometryCompressionUtils.compressPositions(this.object3d);
+          }
+          if (ThreeUtil.isNotNull(this.compressNormals) && this.compressNormals !== 'None') {
+            GeometryCompressionUtils.compressNormals(this.object3d, this.compressNormals);
+          }
+          if (ThreeUtil.isNotNull(this.compressNormals) && this.compressUvs) {
+            GeometryCompressionUtils.compressUvs(this.object3d);
           }
         }
       }

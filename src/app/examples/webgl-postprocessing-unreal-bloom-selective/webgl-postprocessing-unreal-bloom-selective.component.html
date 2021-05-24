@@ -1,5 +1,6 @@
 <div id="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> Click on a sphere to toggle bloom<br>By <a href="http://github.com/Temdog007" target="_blank" rel="noopener">Temdog007</a>
+  todo
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -12,9 +13,27 @@
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
+  [useEvent]="['pointerdown']"
+  (eventListener)="onPointerDown($event)"
+  (onLoad)="setRender($event)"
 >
+  <three-composer [scene]="scene" [camera]="camera" [renderToScreen]="false"  #bloomComposer>
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'UnrealBloomPass'" [strength]="1.5" [radius]="0.4" [threshold]="0.85"></three-pass>
+  </three-composer>
+  <three-composer [scene]="scene" [camera]="camera">
+    <three-pass [type]="'RenderPass'"></three-pass>
+    <three-pass [type]="'ShaderPass'" [shader]="'ShaderMaterial'" 
+      [fragmentShader]="fragmentshader" 
+      [vertexShader]="vertexshader" 
+      [textureId]="'baseTexture'" 
+      [uniforms]="{ baseTexture : null, bloomTexture : null }"
+      [bloomTexture]="bloomComposer"
+      [needsSwap]="true"
+    ></three-pass>
+  </three-composer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="200">
+  <three-camera #camera [type]="'perspective'" [fov]="40" [near]="1" [far]="200" (onLoad)="setCamera($event)">
     <three-position [x]="0" [y]="0" [z]="20"></three-position>
   </three-camera>
   <three-scene #scene>
@@ -22,15 +41,20 @@
       [type]="'AmbientLight'"
       [color]="'0x404040'"
     ></three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-shared>
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        #geometry
+        [type]="'IcosahedronGeometry'"
+        [radius]="1"
+        [detail]="15"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let info of meshInfos" [geometry]="geometry" [layers]="info.layer">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z" [normalize]="true" [multiply]="info.multiply"></three-position>
+        <three-scale [multiply]="info.scale"></three-scale>
+        <three-material [type]="'MeshBasicMaterial'" [color]="info.color"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -1167,6 +1167,35 @@ export class ThreeUtil {
     }
   }
 
+  static getBlendingSafe(
+    baseBlending: string,
+    altBlending?: string,
+    def?: string
+  ): THREE.Blending {
+    const blending = this.getTypeSafe(baseBlending, altBlending, def || '');
+    switch (blending.toLowerCase()) {
+      case 'noblending':
+      case 'no':
+        return THREE.NoBlending;
+      case 'normalblending':
+      case 'normal':
+        return THREE.NormalBlending;
+      case 'additiveblending':
+      case 'additive':
+        return THREE.AdditiveBlending;
+      case 'subtractiveblending':
+      case 'subtractive':
+        return THREE.SubtractiveBlending;
+      case 'multiplyblending':
+      case 'multiply':
+        return THREE.MultiplyBlending;
+      case 'customblending':
+      case 'custom':
+        return THREE.CustomBlending;
+    }
+    return undefined;
+  }
+
   static getPixelFormatSafe(
     baseFormat: string,
     altFormat?: string,

@@ -36,6 +36,9 @@ export class HelperComponent
   @Input() private color2: string | number = null;
   @Input() private opacity: number = null;
   @Input() private depthWrite: boolean = null;
+  @Input() private materialColor: string | number = null;
+  @Input() private materialBlending: string = null;
+  @Input() private materialTransparent: boolean = null;
   @Input() private dirX: number = null;
   @Input() private dirY: number = null;
   @Input() private dirZ: number = null;
@@ -459,10 +462,19 @@ export class HelperComponent
           ThreeUtil.isNotNull(this.helper.material) &&
           this.helper.material instanceof THREE.Material
         ) {
+          console.log(this.helper);
           const opacity = this.getOpacity(1);
           if (opacity >= 0 && opacity < 1) {
             this.helper.material.opacity = opacity;
             this.helper.material.transparent = true;
+          } else if (ThreeUtil.isNotNull(this.materialTransparent)) {
+            this.helper.material.transparent = this.materialTransparent;
+          }
+          if (ThreeUtil.isNotNull(this.materialColor) && this.helper.material['color'] !== undefined) {
+            this.helper.material['color'] = ThreeUtil.getColorSafe(this.materialColor);
+          }
+          if (ThreeUtil.isNotNull(this.materialBlending)) {
+            this.helper.material.blending = ThreeUtil.getBlendingSafe(this.materialBlending, 'NormalBlending');
           }
           if (ThreeUtil.isNotNull(this.depthWrite)) {
             this.helper.material.depthWrite = this.getDepthWrite(false);
