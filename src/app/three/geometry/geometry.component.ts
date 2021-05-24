@@ -301,6 +301,8 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
     | Float64Array
     | THREE.BufferAttribute = null;
   @Input() private colorUsage: string = null;
+  @Input() private colorSize: number = null;
+  
   @Input() private customColor:
     number[]
     | Int8Array
@@ -944,6 +946,14 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           });
           bufferAttribute = new THREE.InstancedBufferAttribute(instancedFloatArray, itemSize);
           break;
+        case 'normalized' :
+          const normalizedIntArray = new Uint8Array(attribute.length);
+          attribute.forEach((v, i) => {
+            normalizedIntArray[i] = v;
+          });
+          bufferAttribute = new THREE.Uint8BufferAttribute(normalizedIntArray, itemSize);
+          bufferAttribute.normalized = true;
+          break;
         case 'float' :
         default :
           const floatArray = new Float32Array(attribute.length);
@@ -1010,6 +1020,12 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         attributes.push({
           key: 'color',
           value: this.getAttribute(this.color, 4, this.colorUsage, 'instanced'),
+        });
+        
+      } else if(this.colorSize == 4){
+        attributes.push({
+          key: 'color',
+          value: this.getAttribute(this.color, 4, this.colorUsage,'normalized'),
         });
       } else {
         attributes.push({

@@ -17,15 +17,17 @@
     <three-position [x]="0" [y]="0" [z]="9000"></three-position>
   </three-camera>
   <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-mesh (onLoad)="setMesh($event)" [type]="'LineSegments'">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [type]="'BufferGeometry'"
+        [index]="indices"
+        [position]="positions"
+        [color]="colors"
+        [computeBoundingSphere]="true"
+        [center]="true"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'LineBasicMaterial'" [vertexColors]="true"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>
