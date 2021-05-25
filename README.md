@@ -11,6 +11,7 @@ ng g c three/pass
 ng g c three/tween
 ng g c three/renderer
 ng g c three/geometry
+ng g c three/geometry/bird
 ng g c three/material
 ng g c three/mesh
 ng g c three/light

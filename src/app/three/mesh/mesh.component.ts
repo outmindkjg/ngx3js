@@ -157,7 +157,7 @@ export class MeshComponent
   @Input() private planeInfos: { type : string, strength: number, subtract: number }[] = null;
   @Input() private blobInfos: { x : number, y : number, z : number, strength: number, subtract: number, colors? : any }[] = null;
   @Input() private makeMatrix: (mat: THREE.Matrix4, index? : number) => void = null;
-  @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry = null;
+  @Input() private geometry: GeometryComponent | MeshComponent | THREE.BufferGeometry | any = null;
   @Input() private material: MaterialComponent | THREE.Material = null;
   @Input() private texture: TextureComponent | THREE.Texture = null;
   @Input() private curve: CurveComponent | THREE.Curve<THREE.Vector3> = null;
@@ -492,7 +492,7 @@ export class MeshComponent
         return this.geometry;
       } else if (this.geometry instanceof MeshComponent) {
         return this.geometry.getGeometry();
-      } else {
+      } else if (ThreeUtil.isNotNull(this.geometry.getGeometry)){
         return this.geometry.getGeometry();
       }
     }

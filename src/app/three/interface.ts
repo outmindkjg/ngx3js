@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit, Component, Injectable } from '@angular/core';
+import { AfterViewInit, OnInit, Component, Injectable, Input } from '@angular/core';
 import { MeshComponent } from './mesh/mesh.component';
 import * as CHROMA from 'chroma-js';
 import * as THREE from 'three';
@@ -2022,6 +2022,38 @@ export interface GuiControlParam {
   children?: GuiControlParam[];
   controler?: ThreeGuiController;
 }
+
+@Component({
+	template: '',
+})
+export abstract class ThreeGeometryCustom  {
+
+  @Input() scale : number = null;
+
+  protected geometry : THREE.BufferGeometry = null;
+
+  initGeometry():THREE.BufferGeometry {
+    return new THREE.BufferGeometry();
+  }
+
+  setGeometry(geometry : THREE.BufferGeometry) {
+    if (ThreeUtil.isNotNull(this.scale)) {
+      const scale = ThreeUtil.getTypeSafe(this.scale,1);
+      geometry.scale(scale,scale,scale);
+    }
+    this.geometry = geometry;
+  }
+
+  getGeometry():THREE.BufferGeometry {
+    if (this.geometry == null) {
+      this.setGeometry(this.initGeometry());
+    }
+    return this.geometry;
+  }
+
+
+}
+
 
 export class ThreeGui implements ThreeGuiController {
   gui: GUI = null;

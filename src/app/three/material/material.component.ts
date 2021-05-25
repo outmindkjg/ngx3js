@@ -21,6 +21,10 @@ import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoade
 import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
 import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
 
+export type TypeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
+
+export type TypeUniforms = { [uniform: string]: TypeUniform; }
+
 export interface TextureOption {
   type: string;
   value: string;
@@ -85,9 +89,7 @@ export class MaterialComponent
   @Input() private stencilZPass: string = null;
   @Input() private userData: any = null;
   @Input() private uniforms: {
-    [uniform: string]:
-      | { type: string; value: any; options?: any }
-      | THREE.IUniform;
+    [uniform: string]: TypeUniform;
   } = null;
   @Input() private vertexShader: string = null;
   @Input() private fragmentShader: string = null;
@@ -972,6 +974,7 @@ export class MaterialComponent
               ),
             };
             break;
+          case 'image':
           case 'texture':
             uniforms[key] = {
               value: TextureComponent.getTextureImageOption(
@@ -981,10 +984,21 @@ export class MaterialComponent
               ),
             };
             break;
+          case 'int':
+            uniforms[key] = { value: parseInt(value['value']) };
+            break;
+          case 'float':
           case 'number':
             uniforms[key] = { value: parseFloat(value['value']) };
             break;
+          default:
+            uniforms[key] = { value: value['value'] };
+            break;
         }
+      } else if (value['value'] !== undefined){
+        uniforms[key] = { value: value['value'] };
+      } else {
+        uniforms[key] = { value: value };
       }
     });
     return uniforms;
@@ -1681,7 +1695,7 @@ export class MaterialComponent
               clipping: this.getClipping(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals(),
+              morphNormals: this.getMorphNormals()
             };
             this.material = new THREE.ShaderMaterial(
               this.getMaterialParameters(parametersShaderMaterial)

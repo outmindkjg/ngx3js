@@ -25,10 +25,10 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'BufferGeometry'"
-        [index]="indices"
-        [position]="vertices"
-        [normal]="normals"
-        [color]="colors"
+        [attrIndex]="indices"
+        [attrPosition]="vertices"
+        [attrNormal]="normals"
+        [attrColor]="colors"
       ></three-geometry>
       <three-material [type]="'MeshPhongMaterial'" [side]="'double'" [vertexColors]="true"></three-material>
     </three-mesh>

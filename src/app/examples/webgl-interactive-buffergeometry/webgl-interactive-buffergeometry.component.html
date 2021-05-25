@@ -44,9 +44,9 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'Buffer'"
-        [position]="positions"
-        [color]="colors"
-        [normal]="normals"
+        [attrPosition]="positions"
+        [attrColor]="colors"
+        [attrNormal]="normals"
       ></three-geometry>
       <three-material 
         [type]="'MeshPhong'" 
@@ -60,7 +60,7 @@
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-geometry
           [type]="'Buffer'"
-          [position]="linePosition"
+          [attrPosition]="linePosition"
         ></three-geometry>
         <three-material 
           [type]="'LineBasic'" 

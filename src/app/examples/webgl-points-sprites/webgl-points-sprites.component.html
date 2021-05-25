@@ -20,7 +20,7 @@
   <three-scene #scene>
     <three-fog [type]="'FogExp2'" [color]="'0x000000'" [density]="0.0008"></three-fog>
     <three-shared>
-      <three-geometry #geometry [type]="'buffer'" [position]="vertices"></three-geometry>
+      <three-geometry #geometry [type]="'buffer'" [attrPosition]="vertices"></three-geometry>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-mesh [type]="'Points'" [geometry]="geometry">

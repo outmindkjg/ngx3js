@@ -22,9 +22,10 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'BufferGeometry'"
-        [position]="positions"
-        [color]="colors"
-        [colorSize]="4"
+        [attrPosition]="positions"
+        [attrColor]="colors"
+        [attrColorSize]="4"
+        [attrColorNormalized]="true"
       ></three-geometry>
       <three-material 
         [type]="'RawShaderMaterial'"

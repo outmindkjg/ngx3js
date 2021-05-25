@@ -33,6 +33,8 @@ import { SvgComponent } from '../svg/svg.component';
 import { TranslationComponent } from '../translation/translation.component';
 import { PlanePerlinGeometry } from './plane-perlin-geometry';
 
+type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
+
 export interface GeometriesParametric {
   (u: number, v: number, target?: any): GeometriesVector3;
 }
@@ -185,172 +187,57 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private geometryScale: number = null;
   @Input() private sphereScale: number = null;
   @Input() private attributes: {
-    [key: string]:
-      number[]
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | Uint8Array
-      | Uint16Array
-      | Uint32Array
-      | Float32Array
-      | Float64Array
-      | THREE.BufferAttribute;
+    [key: string]:AttrBufferAttribute;
   } = null;
   @Input() private morphAttributes: {
-    [key: string]:
-      (number[]
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | Uint8Array
-      | Uint16Array
-      | Uint32Array
-      | Float32Array
-      | Float64Array
-      | THREE.BufferAttribute
-    ) [];
+    [key: string]: AttrBufferAttribute [];
   } = null;
+  @Input() private autoDisplacement: boolean = null;
+  @Input() private autoDisplacementSize: number = 3;
+  @Input() private autoCustomColor: boolean = null;
+  @Input() private autoCustomColorSize: number = 3;
+  @Input() private autoCustomColorKey: string = null;
+  @Input() private autoSize: boolean = null;
+  @Input() private autoSizeSize: number = 1;
+  
+  @Input() private attrPosition:AttrBufferAttribute = null;
+  @Input() private attrPositionUsage: string = null;
+  @Input() private attrVertColor:AttrBufferAttribute = null;
+  
+   @Input() private attrVisible:AttrBufferAttribute = null;
+    
 
-  @Input() private position:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private positionUsage: string = null;
   @Input() private instanceCount : number = null;
   @Input() private vertexBuffer : Float32Array | THREE.InterleavedBuffer | number[] = null;
   @Input() private vertexBufferStride : number = null;
   
-  @Input() private offset:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private offsetUsage: string = null;
-  @Input() private translate:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private translateUsage: string = null;
-  @Input() private orientationStart:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private orientationStartUsage: string = null;
-  @Input() private orientationEnd:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private orientationEndUsage: string = null;
+  @Input() private attrOffset:AttrBufferAttribute= null;
+  @Input() private attrOffsetUsage: string = null;
+  @Input() private attrTranslate:AttrBufferAttribute = null;
+  @Input() private attrTranslateUsage: string = null;
+  @Input() private attrOrientationStart:AttrBufferAttribute = null;
+  @Input() private attrOrientationStartUsage: string = null;
+  @Input() private attrOrientationEnd:AttrBufferAttribute = null;
+  @Input() private attrOrientationEndUsage: string = null;
 
-  @Input() private normal:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private normalUsage: string = null;
-  @Input() private color:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private colorUsage: string = null;
-  @Input() private colorSize: number = null;
+  @Input() private attrNormal:AttrBufferAttribute = null;
+  @Input() private attrNormalUsage: string = null;
+  @Input() private attrNormalNormalized: boolean = false;
   
-  @Input() private customColor:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private customColorUsage: string = null;
-  @Input() private customSize:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private customSizeUsage: string = null;
-  @Input() private customScale:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private customScaleUsage: string = null;
-  @Input() private index:
-    number[]
-    | Int8Array
-    | Int16Array
-    | Int32Array
-    | Uint8Array
-    | Uint16Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array
-    | THREE.BufferAttribute = null;
-  @Input() private indexUsage: string = null;
+  @Input() private attrColor:AttrBufferAttribute = null;
+  @Input() private attrColorUsage: string = null;
+  @Input() private attrColorSize: number = null;
+  @Input() private attrColorKey: string = null;
+  @Input() private attrColorNormalized: boolean = false;
+  
+  @Input() private attrCustomColor:AttrBufferAttribute = null;
+  @Input() private attrCustomColorUsage: string = null;
+  @Input() private attrSize:AttrBufferAttribute = null;
+  @Input() private attrSizeUsage: string = null;
+  @Input() private attrScale:AttrBufferAttribute = null;
+  @Input() private attrScaleUsage: string = null;
+  @Input() private attrIndex:AttrBufferAttribute = null;
+  @Input() private attrIndexUsage: string = null;
   @Input() private mesh: THREE.Mesh | any = null;
   @Input() private positionX: number = null;
   @Input() private positionY: number = null;
@@ -892,20 +779,11 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   }
 
   private getAttribute(
-    value:
-      | number[]
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | Uint8Array
-      | Uint16Array
-      | Uint32Array
-      | Float32Array
-      | Float64Array
-      | THREE.BufferAttribute,
+    value:AttrBufferAttribute,
     itemSize: number,
     usage?: string,
-    bufferType? : string
+    bufferType? : string,
+    normalized? : boolean
   ): THREE.BufferAttribute {
     if (value instanceof THREE.BufferAttribute) {
       return value;
@@ -946,23 +824,23 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           });
           bufferAttribute = new THREE.InstancedBufferAttribute(instancedFloatArray, itemSize);
           break;
-        case 'normalized' :
-          const normalizedIntArray = new Uint8Array(attribute.length);
-          attribute.forEach((v, i) => {
-            normalizedIntArray[i] = v;
-          });
-          bufferAttribute = new THREE.Uint8BufferAttribute(normalizedIntArray, itemSize);
-          bufferAttribute.normalized = true;
-          break;
         case 'float' :
         default :
-          const floatArray = new Float32Array(attribute.length);
-          attribute.forEach((v, i) => {
-            floatArray[i] = v;
-          });
-          bufferAttribute = new THREE.Float32BufferAttribute(floatArray, itemSize);
+          if (ThreeUtil.isNotNull(normalized) && normalized) {
+            const normalizedIntArray = new Uint8Array(attribute.length);
+            attribute.forEach((v, i) => {
+              normalizedIntArray[i] = v;
+            });
+            bufferAttribute = new THREE.Uint8BufferAttribute(normalizedIntArray, itemSize);
+            bufferAttribute.normalized = true;
+          } else {
+            const floatArray = new Float32Array(attribute.length);
+            attribute.forEach((v, i) => {
+              floatArray[i] = v;
+            });
+            bufferAttribute = new THREE.Float32BufferAttribute(floatArray, itemSize);
+          }
       }
-
     }
     if (bufferAttribute !== null && ThreeUtil.isNotNull(usage)) {
       switch (usage.toLowerCase()) {
@@ -1009,84 +887,88 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   private getAttributes(colorType : string = ''): { key: string; value: THREE.BufferAttribute }[] {
     const attributes = [];
-    if (ThreeUtil.isNotNull(this.position)) {
+    if (ThreeUtil.isNotNull(this.attrPosition)) {
       attributes.push({
         key: 'position',
-        value: this.getAttribute(this.position, 3, this.positionUsage),
+        value: this.getAttribute(this.attrPosition, 3, this.attrPositionUsage),
       });
     }
-    if (ThreeUtil.isNotNull(this.color)) {
+    if (ThreeUtil.isNotNull(this.attrColor)) {
       if (colorType == 'instanced') {
         attributes.push({
-          key: 'color',
-          value: this.getAttribute(this.color, 4, this.colorUsage, 'instanced'),
-        });
-        
-      } else if(this.colorSize == 4){
-        attributes.push({
-          key: 'color',
-          value: this.getAttribute(this.color, 4, this.colorUsage,'normalized'),
+          key: ThreeUtil.getTypeSafe(this.attrColorKey, 'color'),
+          value: this.getAttribute(this.attrColor, ThreeUtil.getTypeSafe(this.attrColorSize, 4), this.attrColorUsage, 'instanced', this.attrColorNormalized),
         });
       } else {
         attributes.push({
-          key: 'color',
-          value: this.getAttribute(this.color, 3, this.colorUsage),
+          key: ThreeUtil.getTypeSafe(this.attrColorKey, 'color'),
+          value: this.getAttribute(this.attrColor, ThreeUtil.getTypeSafe(this.attrColorSize, 3), this.attrColorUsage, 'float', this.attrColorNormalized),
         });
       }
+    } else if (ThreeUtil.isNotNull(this.attrVertColor)) {
+      attributes.push({
+        key: 'vertColor',
+        value: this.getAttribute(this.attrVertColor, ThreeUtil.getTypeSafe(this.attrColorSize, 3) , this.attrColorUsage, 'float', this.attrColorNormalized),
+      });
     }
-
-    if (ThreeUtil.isNotNull(this.offset)) {
+    if (ThreeUtil.isNotNull(this.attrVisible)) {
+      attributes.push({
+        key: 'visible',
+        value: this.getAttribute(this.attrVisible, 1),
+      });
+    }
+    if (ThreeUtil.isNotNull(this.attrOffset)) {
       attributes.push({
         key: 'offset',
-        value: this.getAttribute(this.offset, 3, this.offsetUsage, 'instanced'),
+        value: this.getAttribute(this.attrOffset, 3, this.attrOffsetUsage, 'instanced'),
       });
     }
-    if (ThreeUtil.isNotNull(this.translate)) {
+    if (ThreeUtil.isNotNull(this.attrTranslate)) {
       attributes.push({
         key: 'translate',
-        value: this.getAttribute(this.translate, 3, this.translateUsage, 'instanced'),
+        value: this.getAttribute(this.attrTranslate, 3, this.attrTranslateUsage, 'instanced'),
       });
     }
-    if (ThreeUtil.isNotNull(this.orientationStart)) {
+    if (ThreeUtil.isNotNull(this.attrOrientationStart)) {
       attributes.push({
         key: 'orientationStart',
-        value: this.getAttribute(this.orientationStart, 4, this.orientationStartUsage, 'instanced'),
+        value: this.getAttribute(this.attrOrientationStart, 4, this.attrOrientationStartUsage, 'instanced'),
       });
     }
-    if (ThreeUtil.isNotNull(this.orientationEnd)) {
+    if (ThreeUtil.isNotNull(this.attrOrientationEnd)) {
       attributes.push({
         key: 'orientationEnd',
-        value: this.getAttribute(this.orientationEnd, 4, this.orientationEndUsage, 'instanced'),
+        value: this.getAttribute(this.attrOrientationEnd, 4, this.attrOrientationEndUsage, 'instanced'),
       });
     }
-    if (ThreeUtil.isNotNull(this.normal)) {
+    if (ThreeUtil.isNotNull(this.attrNormal)) {
       attributes.push({
         key: 'normal',
-        value: this.getAttribute(this.normal, 3, this.normalUsage),
+        value: this.getAttribute(this.attrNormal, 3, this.attrNormalUsage, 'float', this.attrNormalNormalized),
       });
     }
-    if (ThreeUtil.isNotNull(this.customColor)) {
+    if (ThreeUtil.isNotNull(this.attrCustomColor)) {
       attributes.push({
         key: 'customColor',
-        value: this.getAttribute(this.customColor, 3, this.customColorUsage),
+        value: this.getAttribute(this.attrCustomColor, 3, this.attrCustomColorUsage),
       });
     }
-    if (ThreeUtil.isNotNull(this.customSize)) {
+    if (ThreeUtil.isNotNull(this.attrSize)) {
       attributes.push({
         key: 'size',
-        value: this.getAttribute(this.customSize, 1, this.customSizeUsage),
+        value: this.getAttribute(this.attrSize, 1, this.attrSizeUsage),
       });
     }
-    if (ThreeUtil.isNotNull(this.customScale)) {
+    if (ThreeUtil.isNotNull(this.attrScale)) {
       attributes.push({
         key: 'scale',
-        value: this.getAttribute(this.customScale, 1, this.customScaleUsage),
+        value: this.getAttribute(this.attrScale, 1, this.attrScaleUsage),
       });
     }
-    if (ThreeUtil.isNotNull(this.index)) {
+    if (ThreeUtil.isNotNull(this.attrIndex)) {
       attributes.push({
         key: 'index',
-        value: this.getAttribute(this.index, 1, this.indexUsage, 'int'),
+        value: this.getAttribute(this.attrIndex, 1, this.attrIndexUsage, 'int'),
       });
     }
     if (ThreeUtil.isNotNull(this.vertexBuffer)) {
@@ -1515,18 +1397,6 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
-      if (ThreeUtil.isNotNull(this.morphAttributes)) {
-        const attributes = this.getMorphAttributes();
-        if (attributes.length > 0) {
-          attributes.forEach((attribute) => {
-            switch (attribute.key.toLowerCase()) {
-              default :
-                geometry.morphAttributes[attribute.key] = attribute.value;
-                break;
-            }
-          });
-        }
-      }
       if (this.center) {
         geometry.center();
       }
@@ -1534,6 +1404,33 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         this.geometry.dispose();
       }
       if (geometry.getAttribute('position') !== undefined) {
+        if (ThreeUtil.isNotNull(this.morphAttributes)) {
+          const attributes = this.getMorphAttributes();
+          if (attributes.length > 0) {
+            attributes.forEach((attribute) => {
+              switch (attribute.key.toLowerCase()) {
+                default :
+                  geometry.morphAttributes[attribute.key] = attribute.value;
+                  break;
+              }
+            });
+          }
+        }
+        if (ThreeUtil.isNotNull(this.autoDisplacement) && this.autoDisplacement) {
+          const itemCount = geometry.attributes.position.count;
+          const itemSize = ThreeUtil.getTypeSafe(this.autoDisplacementSize, 3);
+          geometry.setAttribute( 'displacement', new THREE.Float32BufferAttribute( itemCount * itemSize, itemSize) );
+        }
+        if (ThreeUtil.isNotNull(this.autoCustomColor) && this.autoCustomColor) {
+          const itemCount = geometry.attributes.position.count;
+          const itemSize = ThreeUtil.getTypeSafe(this.autoCustomColorSize, 3);
+          geometry.setAttribute( ThreeUtil.getTypeSafe(this.autoCustomColorKey ,'customColor'), new THREE.Float32BufferAttribute( itemCount * itemSize, itemSize) );
+        }
+        if (ThreeUtil.isNotNull(this.autoSize) && this.autoSize) {
+          const itemCount = geometry.attributes.position.count;
+          const itemSize = ThreeUtil.getTypeSafe(this.autoSizeSize, 1);
+          geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( itemCount * itemSize, itemSize) );
+        }
         if (this.mergeVertices) {
           geometry = BufferGeometryUtils.mergeVertices(geometry);
         }
@@ -1788,16 +1685,16 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           case 'line':
             const lineGeometry = new LineGeometry();
             if (
-              this.position instanceof Float32Array ||
-              this.position instanceof Array
+              this.attrPosition instanceof Float32Array ||
+              this.attrPosition instanceof Array
             ) {
-              lineGeometry.setPositions(this.position);
+              lineGeometry.setPositions(this.attrPosition);
             }
             if (
-              this.color instanceof Float32Array ||
-              this.color instanceof Array
+              this.attrColor instanceof Float32Array ||
+              this.attrColor instanceof Array
             ) {
-              lineGeometry.setColors(this.color);
+              lineGeometry.setColors(this.attrColor);
             }
             geometry = lineGeometry;
             break;
@@ -1884,7 +1781,22 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
               this.getThresholdAngle(0)
             );
             break;
-          case 'shapebuffereometry':
+          case 'mergebuffergeometries' :
+          case 'mergebuffergeometry' :
+          case 'mergebuffer' :
+          case 'merge' :
+            const geometries:THREE.BufferGeometry[] = [];
+            if (this.geometryList !== null && this.geometryList.length > 0) {
+              this.geometryList.forEach(geometryComponent => {
+                const geometry = geometryComponent.getGeometry().clone();
+                geometry.deleteAttribute('normal');
+                geometry.deleteAttribute('uv');
+                geometries.push(BufferGeometryUtils.mergeVertices(geometry));
+              })
+            }
+            geometry = BufferGeometryUtils.mergeBufferGeometries( geometries );
+            break;
+          case 'shapebuffergeometry':
           case 'extrudebuffergeometry':
           case 'extrudegeometry':
           case 'shapegeometry':

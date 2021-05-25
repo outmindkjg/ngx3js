@@ -89,11 +89,11 @@ export class WebglBuffergeometrySelectiveDrawComponent extends BaseComponent<{}>
     }
     this.linePositions = linePositions;
     this.lineColors = lineColors;
-    this.visible = visible;
+    this.lineVisible = visible;
   }
 
   linePositions : Float32Array;
   lineColors : Float32Array;
-  visible : Float32Array;
+  lineVisible : Float32Array;
 
 }

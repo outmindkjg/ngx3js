@@ -12,13 +12,14 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [autoRotate]="true"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
     <three-position [x]="0" [y]="0" [z]="3.5"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
+  <three-scene #scene>
     <three-light
       [type]="'AmbientLight'"
       [color]="'0x444444'"
@@ -28,7 +29,9 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'BufferGeometry'"
-        [position]="linePositions"
+        [attrPosition]="linePositions"
+        [attrVertColor]="lineColors"
+        [attrVisible]="lineVisible"
       ></three-geometry>
       <three-material 
         [type]="'ShaderMaterial'" 

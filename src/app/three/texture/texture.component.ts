@@ -300,7 +300,7 @@ export class TextureComponent implements OnInit {
             break;
           case 'repeat':
           case 'wraprepeat':
-          case 'Repeatwrapping':
+          case 'repeatwrapping':
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
             break;
         }

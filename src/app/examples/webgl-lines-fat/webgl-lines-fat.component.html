@@ -38,8 +38,8 @@
       <three-mesh [type]="'Line2'" [visible]="true">
         <three-geometry
           [type]="'Line'"
-          [position]="positions"
-          [color]="colors"
+          [attrPosition]="positions"
+          [attrColor]="colors"
         ></three-geometry>
         <three-material 
           [type]="'Line'" 
@@ -54,8 +54,8 @@
       <three-mesh [type]="'Line'">
         <three-geometry
           [type]="'Buffer'"
-          [position]="positions"
-          [color]="colors"
+          [attrPosition]="positions"
+          [attrColor]="colors"
         ></three-geometry>
         <three-material [type]="'LineBasic'" [color]="'0xffffff'" [vertexColors]="true"></three-material>
       </three-mesh>

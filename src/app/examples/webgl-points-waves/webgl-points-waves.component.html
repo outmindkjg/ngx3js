@@ -21,8 +21,8 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'buffer'"
-        [position]="positions"
-        [customScale]="scales"
+        [attrPosition]="positions"
+        [attrScale]="scales"
       ></three-geometry>
       <three-material [type]="'Shader'" [uniforms]="{ color : { type : 'color', value : '0xffffff'} }" [vertexShader]="vertexshader" [fragmentShader]="fragmentshader"></three-material>
     </three-mesh>

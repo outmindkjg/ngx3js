@@ -24,8 +24,8 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'BufferGeometry'"
-        [position]="positions"
-        [color]="colors"
+        [attrPosition]="positions"
+        [attrColor]="colors"
       ></three-geometry>
       <three-material [type]="'PointsMaterial'" [size]="4" [vertexColors]="true" [depthTest]="true" [sizeAttenuation]="false"></three-material>
     </three-mesh>

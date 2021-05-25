@@ -21,10 +21,10 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="'BufferGeometry'"
-        [position]="positions"
-        [color]="colors"
-        [customSize]="sizes"
-        [customSizeUsage]="'DynamicDrawUsage'"
+        [attrPosition]="positions"
+        [attrColor]="colors"
+        [attrSize]="sizes"
+        [attrSizeUsage]="'DynamicDrawUsage'"
       ></three-geometry>
       <three-material [type]="'ShaderMaterial'" 
         [uniforms]="{ pointTexture : { value : 'textures/sprites/spark1.png', type : 'texture'}}"

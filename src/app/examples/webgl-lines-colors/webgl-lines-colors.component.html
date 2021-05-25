@@ -26,8 +26,8 @@
         <three-scale [x]="line.scale" [y]="line.scale" [z]="line.scale"></three-scale>
         <three-geometry
           [type]="'Buffer'"
-          [position]="line.position"
-          [color]="line.color"
+          [attrPosition]="line.position"
+          [attrColor]="line.color"
         ></three-geometry>
         <three-material [type]="'LineBasic'" [color]="'0xffffff'" [vertexColors]="true"></three-material>
       </three-mesh>

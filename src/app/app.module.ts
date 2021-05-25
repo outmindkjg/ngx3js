@@ -553,6 +553,7 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { ViewerComponent } from './three/viewer/viewer.component';
 import { VisualComponent } from './three/visual/visual.component';
+import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
 
 
 @NgModule({
@@ -1107,7 +1108,8 @@ import { VisualComponent } from './three/visual/visual.component';
     WebglFurnaceTestComponent,
     WebglPmremTestComponent,
     MiscUvTestsComponent,
-    WebglMirrorNodesComponent
+    WebglMirrorNodesComponent,
+    GeometryBirdComponent
   ],
   imports: [
     BrowserModule,
