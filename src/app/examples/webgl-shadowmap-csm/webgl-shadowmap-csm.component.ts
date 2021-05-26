@@ -37,7 +37,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
       lightNear:1,
       autoUpdateHelper: true,
       helper : {
-        visible : false, 
+        visible : false,
         displayFrustum : true,
         displayPlanes : true,
         displayShadowBounds : true,
@@ -119,9 +119,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
         }},
         { name : 'displayShadowBounds' , type : 'checkbox', change : () => {
           this.changeHelper();
-        }},
-        
-        
+        }}
       ], isOpen : true}
     ]);
   }
