@@ -254,8 +254,7 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
   public mesh: MeshComponent = null;
   protected meshChildren: THREE.Object3D[] = null;
 
-  setMesh(mesh: MeshComponent) {
-    this.mesh = mesh;
+  protected updateGuiController() {
     if (this.mesh !== null) {
       const position = this.mesh.getPosition();
       this.controls.meshPositionOrg = {
@@ -293,14 +292,14 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
         const maxScale = this.controls.meshScale.x * 1.5;
         const stepScale = (maxScale - minScale) / 30;
         controlsParams.children.forEach((child) => {
-          if (ThreeUtil.isNotNull(child.controler['min'])) {
-            child.controler['min'](minScale);
+          if (ThreeUtil.isNotNull(child.controller['min'])) {
+            child.controller['min'](minScale);
           }
-          if (ThreeUtil.isNotNull(child.controler['max'])) {
-            child.controler['max'](maxScale);
+          if (ThreeUtil.isNotNull(child.controller['max'])) {
+            child.controller['max'](maxScale);
           }
-          if (ThreeUtil.isNotNull(child.controler['step'])) {
-            child.controler['step'](stepScale);
+          if (ThreeUtil.isNotNull(child.controller['step'])) {
+            child.controller['step'](stepScale);
           }
         });
       }
@@ -318,21 +317,34 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
           'helperVisible'
         );
         const helper = this.mesh.helper;
-        if (ThreeUtil.isNotNull(helper)) {
-          if (helper instanceof THREE.SkeletonHelper) {
-            helperParams.controler.name('Skeleton');
+        if (helperParams && helperParams.controller) {
+          if (ThreeUtil.isNotNull(helper)) {
+            if (helper instanceof THREE.SkeletonHelper) {
+              helperParams.controller.name('Skeleton');
+            } else {
+              helperParams.controller.name('Helper');
+            }
+            this.controls.meshShape.helperVisible = helper.visible;
+            ThreeUtil.setGuiEnabled(helperParams.controller, true);
           } else {
-            helperParams.controler.name('Helper');
+            this.controls.meshShape.helperVisible = false;
+            helperParams.controller.name('Not Supported');
+            ThreeUtil.setGuiEnabled(helperParams.controller, false);
           }
-          this.controls.meshShape.helperVisible = helper.visible;
-          ThreeUtil.setGuiEnabled(helperParams.controler, true);
         } else {
-          this.controls.meshShape.helperVisible = false;
-          helperParams.controler.name('Not Supported');
-          ThreeUtil.setGuiEnabled(helperParams.controler, false);
+          console.log(helperParams);
         }
       }
+    }
+  }
+
+  setMesh(mesh: MeshComponent) {
+    this.mesh = mesh;
+    if (this.mesh !== null) {
       this.meshChildren = this.mesh.getMesh().children;
+      setTimeout(() => {
+        this.updateGuiController();
+      }, 100);
     }
   }
 
@@ -713,14 +725,14 @@ export class ThreeUtil {
     return CHROMA.scale(scales);
   }
 
-  private static lastRenderer: THREE.Renderer;
+  public static lastRenderer: any;
 
-  static setRenderer(lastRenderer: THREE.Renderer) {
+  static setRenderer(lastRenderer: any) {
     this.lastRenderer = lastRenderer;
   }
 
   static getRenderer(): THREE.Renderer {
-    return this.lastRenderer;
+    return this.lastRenderer.renderer;
   }
 
   private static renderTimer: RendererTimer;
@@ -1098,6 +1110,37 @@ export class ThreeUtil {
     return undefined;
   }
 
+  static getMatrix4Safe(
+    obj: THREE.Object3D,
+    matrixType: string = 'maxtix'
+  ): THREE.Matrix4 {
+    if (this.isNotNull(obj)) {
+      switch(matrixType.toLowerCase()) {
+        case 'projectionmatrixinverse' :
+          if (this.isNotNull(obj['projectionMatrixInverse'])) {
+            return new THREE.Matrix4().copy(obj['projectionMatrixInverse']);
+          }
+          break;
+        case 'projectionmatrix' :
+          if (this.isNotNull(obj['projectionMatrix'])) {
+            return obj['projectionMatrix'];
+          }
+          break;
+        case 'matrixworldinverse' :
+          if (this.isNotNull(obj['matrixWorldInverse'])) {
+            return obj['matrixWorldInverse'];
+          }
+          break;
+        case 'matrixworld' :
+          return obj.matrixWorld;
+        case 'matrix' :
+        default :
+          return obj.matrix;
+      }
+    }
+    return new THREE.Matrix4();
+  }
+
   static getEulerSafe(
     x: number | string,
     y: number | string,
@@ -1442,8 +1485,8 @@ export class ThreeUtil {
             );
             if (this.isNotNull(controlsParams)) {
               if (component.controls.meshRotate.autoRotate) {
-                this.setGuiEnabled(controlsParams.children[1].controler, false);
-                this.setGuiEnabled(controlsParams.children[4].controler, true);
+                this.setGuiEnabled(controlsParams.children[1].controller, false);
+                this.setGuiEnabled(controlsParams.children[4].controller, true);
               } else {
                 if (this.isNotNull(component.mesh)) {
                   const meshRotate = component.mesh.getRotation();
@@ -1454,8 +1497,8 @@ export class ThreeUtil {
                   component.controls.meshRotate.z =
                     ((meshRotate.z / Math.PI) * 180) % 360;
                 }
-                this.setGuiEnabled(controlsParams.children[1].controler, true);
-                this.setGuiEnabled(controlsParams.children[4].controler, false);
+                this.setGuiEnabled(controlsParams.children[1].controller, true);
+                this.setGuiEnabled(controlsParams.children[4].controller, false);
               }
             }
           }
@@ -1837,7 +1880,7 @@ export class ThreeUtil {
     params.forEach((param) => {
       switch (param.type) {
         case 'color':
-          param.controler = this.setupGuiChange(
+          param.controller = this.setupGuiChange(
             gui.addColor(
               param.control ? control[param.control] : control,
               param.name
@@ -1850,7 +1893,7 @@ export class ThreeUtil {
           break;
         case 'folder':
           const folder = gui.addFolder(param.name);
-          param.controler = this.setupGui(
+          param.controller = this.setupGui(
             param.control ? control[param.control] : control,
             folder,
             param.children
@@ -1860,7 +1903,7 @@ export class ThreeUtil {
           }
           break;
         case 'number':
-          param.controler = this.setupGuiChange(
+          param.controller = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name,
@@ -1875,12 +1918,12 @@ export class ThreeUtil {
           );
           break;
         case 'listen':
-          param.controler = gui
+          param.controller = gui
             .add(param.control ? control[param.control] : control, param.name)
             .listen();
           break;
         case 'select':
-          param.controler = this.setupGuiChange(
+          param.controller = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name,
@@ -1894,7 +1937,7 @@ export class ThreeUtil {
           break;
         case 'button':
         default:
-          param.controler = this.setupGuiChange(
+          param.controller = this.setupGuiChange(
             gui.add(
               param.control ? control[param.control] : control,
               param.name
@@ -2020,7 +2063,7 @@ export interface GuiControlParam {
   change?: (value?: any) => void;
   finishChange?: (value?: any) => void;
   children?: GuiControlParam[];
-  controler?: ThreeGuiController;
+  controller?: ThreeGuiController;
 }
 
 @Component({

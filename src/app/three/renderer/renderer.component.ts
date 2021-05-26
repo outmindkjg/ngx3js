@@ -554,7 +554,7 @@ export class RendererComponent
     }
   }
 
-  private renderer: THREE.Renderer = null;
+  public renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   public rendererWidth: number = null;
   public rendererHeight: number = null;
@@ -592,7 +592,7 @@ export class RendererComponent
     let controls: ControlComponent[] = [];
     if (cameraComp !== null && cameraComp !== undefined) {
       const camera: THREE.Camera = cameraComp.getCamera();
-      const scene: THREE.Scene = scenes.first.getScene();
+      // const scene: THREE.Scene = scenes.first.getScene();
       switch (controlType.toLowerCase()) {
         case 'orbit':
         case 'fly':
@@ -636,12 +636,12 @@ export class RendererComponent
             mouseDragOn: this.mouseDragOn,
             lookatList: this.lookatList,
           });
-          control.setCameraDomElement(camera, domElement, scene);
+          control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);
       }
       if (this.controlList !== null && this.controlList !== undefined) {
         this.controlList.forEach((control) => {
-          control.setCameraDomElement(camera, domElement, scene);
+          control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);
         });
       }
@@ -692,17 +692,20 @@ export class RendererComponent
       this.stats = null;
     }
     this.renderer = this.getRenderer();
-    this.cameraList.forEach((camera) => {
-      camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
-    });
     this.setSize(this.rendererWidth, this.rendererHeight);
-    this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller', 'viewer', 'composer']);
     this.controls = this.getControls(
       this.cameraList,
       this.sceneList,
       this.canvas.nativeElement
     );
-    this.resizeRender(null);
+    this.sceneList.forEach((scene) => {
+      scene.setRenderer(this);
+    });
+    this.cameraList.forEach((camera) => {
+      camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
+    });
+    this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller', 'viewer', 'composer']);
+    this.resizeRender();
     this._renderCaller();
   }
 
@@ -782,7 +785,7 @@ export class RendererComponent
       }
       this.renderer.domElement.style.position = 'relative';
       this.canvas.nativeElement.appendChild(this.renderer.domElement);
-      ThreeUtil.setRenderer(this.renderer);
+      ThreeUtil.setRenderer(this);
       // GSAP.gsap.ticker.add(this._renderCaller);
       this.onLoad.emit(this);
     }
@@ -818,7 +821,8 @@ export class RendererComponent
     };
   }
 
-  render() {
+  private _isPaused : boolean = false;
+  private _renderOnce() {
     if (this.renderer === null) {
       return;
     }
@@ -865,11 +869,20 @@ export class RendererComponent
     if (this.stats != null) {
       this.stats.end();
     }
+  }
+
+  render() {
+    if (this.renderer === null) {
+      return;
+    }
+    if (!this._isPaused) {
+      this._renderOnce();
+    }
     requestAnimationFrame(this._renderCaller);
   }
 
   @HostListener('window:resize')
-  resizeRender(e: any) {
+  resizeRender() {
     if (this.width <= 0 || this.height <= 0) {
       if (this.sizeType === 'auto') {
         this.setSize(
@@ -882,5 +895,136 @@ export class RendererComponent
     }
   }
 
-  resizeCanvas() {}
+  getCanvasJson(callback : (json) => void, options? : { width? : number, height? : number, name? : string, type? : string }) {
+    if (this.renderer !== null && this.renderer.domElement !== null) {
+      this._isPaused = true;
+      this._renderOnce();
+      options = options ||{};
+      let imageType = ThreeUtil.getTypeSafe(options.type , 'png');
+      let contentType = 'image/png';
+      switch(imageType.toLowerCase()) {
+        case 'jpg' :
+        case 'jpeg' :
+          contentType = 'image/jpeg';
+          break;
+        case 'png' :
+        default :
+          imageType = 'png';
+          contentType = 'image/png';
+          break;        
+      }
+      let imageName = ThreeUtil.getTypeSafe(options.name , 'auto');
+      if (imageName == '' || imageName == 'auto') {
+        imageName = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
+      }
+      const resultJson = {
+        content : null,
+        contentType : contentType,
+        size : 0,
+        name : imageName + '.' + imageType
+      }
+      if (ThreeUtil.isNotNull(options.width) && ThreeUtil.isNotNull(options.height) && options.width > 0 && options.height > 0) {
+        const canvas: HTMLCanvasElement = document.createElement('canvas');
+        canvas.width = options.width;
+        canvas.height = options.height;
+        const context = canvas.getContext('2d', {
+          alpha: true,
+        });
+        const canvasImage :HTMLImageElement = document.createElement('img');
+        canvasImage.src = this.renderer.domElement.toDataURL('png');
+        canvasImage.addEventListener('load',() => {
+          let sx: number = 0;
+          let sy: number = 0;
+          let sw: number = 0;
+          let sh: number = 0;
+          const canvasImageRate = canvasImage.naturalWidth / canvasImage.naturalHeight;
+          const thumbRate = options.width / options.height;
+          if (canvasImageRate > thumbRate) {
+            sw = canvasImage.naturalHeight * thumbRate;
+            sh = canvasImage.naturalHeight;
+            sx = (canvasImage.naturalWidth - sw) / 2;
+          } else {
+            sh = canvasImage.naturalWidth / thumbRate;
+            sw = canvasImage.naturalWidth;
+            sy = (canvasImage.naturalHeight - sh) / 2;
+          }
+          let dx: number = 0;
+          let dy: number = 0;
+          let dw: number = options.width;
+          let dh: number = options.height;
+          context.drawImage(canvasImage, sx, sy, sw, sh, dx, dy, dw, dh);
+          resultJson.content = canvas.toDataURL(imageType);
+          if (ThreeUtil.isNotNull(options.name)) {
+            this.getDownloadFile(resultJson);
+          } else {
+            const blob = this.dataURLtoBlob(resultJson.content);
+            resultJson.size = blob.size;
+          }
+          this._isPaused = false;
+          callback(resultJson);
+        });
+        canvasImage.addEventListener('error',() => {
+          this._isPaused = false;
+        });
+      } else {
+        resultJson.content =  this.renderer.domElement.toDataURL(imageType);
+        if (ThreeUtil.isNotNull(options.name)) {
+          this.getDownloadFile(resultJson);
+        } else {
+          const blob = this.dataURLtoBlob(resultJson.content);
+          resultJson.size = blob.size;
+        }
+        this._isPaused = false;
+        callback(resultJson);
+      }
+    }
+  }
+
+  private getDownloadFile(result) {
+    if (result && result.content !== null && result.content !== '') {
+      const blob = this.dataURLtoBlob(result.content);
+      result.size = blob.size;
+      var tempUrl = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.setAttribute("download", result.name);
+      link.setAttribute("href", tempUrl);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  /**
+   * 서버로 부터 파일 다운 받기 - Blob
+   *
+   * @param dataUrl {{ string }}
+   *
+   * @returns {{Blob}}
+   */
+  private dataURLtoBlob(dataUrl : string) : Blob{
+    let arr = dataUrl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+  }
+
+  changeAutoSize() {}
+
+  resizeCanvas(width : number, height : number) {
+    if (width <= 0 || height <= 0) {
+      this.width = 0;
+      this.height = 0;
+      this.sizeType = 'auto';
+      this.resizeRender();
+    } else {
+      this.width = width;
+      this.height = height;
+      this.setSize(this.width, this.height);
+    }
+  }
 }

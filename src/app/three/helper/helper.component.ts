@@ -1,12 +1,15 @@
 import {
   Component,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
+import { CSM } from 'three/examples/jsm/csm/CSM';
+import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
 import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
@@ -14,7 +17,6 @@ import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsH
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { ThreeUtil } from './../interface';
-
 
 @Component({
   selector: 'three-helper',
@@ -52,6 +54,7 @@ export class HelperComponent
   @Input() private headWidth: number = null;
   @Input() private matrix: THREE.Matrix4 = null;
   @Input() private children: any[] = null;
+  @Input() private control: any = null;
 
   @Output()
   private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
@@ -125,11 +128,14 @@ export class HelperComponent
   }
 
   private getDir(def?: THREE.Vector3): THREE.Vector3 {
-    if (ThreeUtil.isNotNull(this.arrowFrom) && ThreeUtil.isNotNull(this.arrowTo)) {
-      const arrowFrom : THREE.Vector3 = this.getObjectPosition(this.arrowFrom);
-      const arrowTo : THREE.Vector3 = this.getObjectPosition(this.arrowTo);
+    if (
+      ThreeUtil.isNotNull(this.arrowFrom) &&
+      ThreeUtil.isNotNull(this.arrowTo)
+    ) {
+      const arrowFrom: THREE.Vector3 = this.getObjectPosition(this.arrowFrom);
+      const arrowTo: THREE.Vector3 = this.getObjectPosition(this.arrowTo);
       const arrowDirection = new THREE.Vector3();
-      arrowDirection.subVectors( arrowTo, arrowFrom ).normalize();
+      arrowDirection.subVectors(arrowTo, arrowFrom).normalize();
       return arrowDirection;
     } else {
       return ThreeUtil.getTypeSafe(
@@ -140,16 +146,22 @@ export class HelperComponent
   }
 
   private getOrigin(def?: THREE.Vector3): THREE.Vector3 {
-    let origin : THREE.Vector3 = def;
+    let origin: THREE.Vector3 = def;
     if (ThreeUtil.isNotNull(this.arrowFrom)) {
       origin = this.getObjectPosition(this.arrowFrom);
     }
-    if (ThreeUtil.isNotNull(this.originX) && ThreeUtil.isNotNull(this.originY) && ThreeUtil.isNotNull(this.originZ)) {
+    if (
+      ThreeUtil.isNotNull(this.originX) &&
+      ThreeUtil.isNotNull(this.originY) &&
+      ThreeUtil.isNotNull(this.originZ)
+    ) {
       origin = origin.clone();
-      origin.add(ThreeUtil.getTypeSafe(
-        ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ),
-        def
-      ));
+      origin.add(
+        ThreeUtil.getTypeSafe(
+          ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ),
+          def
+        )
+      );
     }
     return origin;
   }
@@ -161,8 +173,8 @@ export class HelperComponent
       } else if (ThreeUtil.isNotNull(obj.getPosition)) {
         return obj.getPosition();
       }
-    } 
-    return new THREE.Vector3(0,0,0);
+    }
+    return new THREE.Vector3(0, 0, 0);
   }
 
   private getLength(def?: number): number {
@@ -284,6 +296,21 @@ export class HelperComponent
             });
           }
           basemesh = gyroscope;
+          if (this.parent !== null && this.parent instanceof THREE.Object3D) {
+            this.parent.add(basemesh);
+          }
+          break;
+        case 'csmhelper':
+        case 'csm':
+          let csm = this.control || {};
+          if (ThreeUtil.isNotNull(csm.getControl)) {
+            csm = csm.getControl();
+          }
+          if (!(csm instanceof CSM)) {
+            // csm = new CSM({ parent: new THREE.Scene() });
+          }
+          const csmHelper = new CSMHelper(csm);
+          basemesh = csmHelper as any;
           if (this.parent !== null && this.parent instanceof THREE.Object3D) {
             this.parent.add(basemesh);
           }
@@ -470,11 +497,19 @@ export class HelperComponent
           } else if (ThreeUtil.isNotNull(this.materialTransparent)) {
             this.helper.material.transparent = this.materialTransparent;
           }
-          if (ThreeUtil.isNotNull(this.materialColor) && this.helper.material['color'] !== undefined) {
-            this.helper.material['color'] = ThreeUtil.getColorSafe(this.materialColor);
+          if (
+            ThreeUtil.isNotNull(this.materialColor) &&
+            this.helper.material['color'] !== undefined
+          ) {
+            this.helper.material['color'] = ThreeUtil.getColorSafe(
+              this.materialColor
+            );
           }
           if (ThreeUtil.isNotNull(this.materialBlending)) {
-            this.helper.material.blending = ThreeUtil.getBlendingSafe(this.materialBlending, 'NormalBlending');
+            this.helper.material.blending = ThreeUtil.getBlendingSafe(
+              this.materialBlending,
+              'NormalBlending'
+            );
           }
           if (ThreeUtil.isNotNull(this.depthWrite)) {
             this.helper.material.depthWrite = this.getDepthWrite(false);

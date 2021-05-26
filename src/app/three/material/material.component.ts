@@ -1,29 +1,30 @@
 import {
   Component,
   ContentChildren,
-  Input,
-  Output,
-  EventEmitter,
+  EventEmitter, Input,
   OnChanges,
-  OnInit,
+  OnInit, Output,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
+import { CSM } from 'three/examples/jsm/csm/CSM';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
+import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
+import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
 import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { TextureComponent } from '../texture/texture.component';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
-import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
-import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
 
 export type TypeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
 
 export type TypeUniforms = { [uniform: string]: TypeUniform; }
+
+export type TextureValue = string | TextureComponent | THREE.Texture | TextureOption;
 
 export interface TextureOption {
   type: string;
@@ -149,54 +150,20 @@ export class MaterialComponent
   @Input() private rotation: number = null;
   @Input() private size: number = null;
   @Input() private sizeAttenuation: boolean = null;
-  @Input() private envMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption
-    | TextureOption = null;
-  @Input() private map:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption
-    | TextureOption = null;
-  @Input() private specularMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption
-    | TextureOption = null;
-  @Input() private alphaMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption = null;
-  @Input() private bumpMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption = null;
-  @Input() private normalMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption = null;
-  @Input() private displacementMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption = null;
-  @Input() private aoMap:
-    | string
-    | TextureComponent
-    | THREE.Texture
-    | TextureOption = null;
+  @Input() private envMap:TextureValue = null;
+  @Input() private map:TextureValue = null;
+  @Input() private specularMap:TextureValue = null;
+  @Input() private alphaMap:TextureValue = null;
+  @Input() private bumpMap:TextureValue = null;
+  @Input() private normalMap:TextureValue = null;
+  @Input() private displacementMap:TextureValue = null;
+  @Input() private aoMap:TextureValue = null;
   @Input() private dashed: boolean = null;
   @Input() private dashScale: number = null;
   @Input() private dashOffset: number = null;
   @Input() private resolutionX: number = null;
   @Input() private resolutionY: number = null;
+  @Input() private control: any = null;
 
   @Output()
   private onLoad: EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
@@ -938,37 +905,75 @@ export class MaterialComponent
         ThreeUtil.isNotNull(value['type']) &&
         ThreeUtil.isNotNull(value['value'])
       ) {
-        switch (value['type'].toLowerCase()) {
+        const valueType : string = value['type'];
+        const valueValue : any = value['value'];
+        switch (valueType.toLowerCase()) {
+          case 'projectionmatrixinverse' :
+          case 'projectionmatrix' :
+          case 'matrixworldinverse' :
+          case 'matrixworld' :
+          case 'matrix' :
+            if (ThreeUtil.isNotNull(valueValue.getObject3D)) {
+              this._unSubscribeRefer('unforms_' + key);
+              const object3d : THREE.Object3D = valueValue.getObject3D();
+              uniforms[key] = {
+                value: ThreeUtil.getMatrix4Safe(object3d, valueType)
+              };
+              if (ThreeUtil.isNotNull(valueValue.object3DSubscribe)) {
+                this._subscribeRefer('unforms_' + key, valueValue.object3DSubscribe().subscribe((e) => {
+                  uniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
+                  console.log(key, e, uniforms);
+                }));
+              }
+            } else {
+              uniforms[key] = {
+                value: new THREE.Matrix4()
+              };
+            }
+            break;
           case 'vector2':
           case 'v2':
-            uniforms[key] = {
-              value: ThreeUtil.getVector2Safe(
-                value['value'][0],
-                value['value'][1]
-              ),
-            };
+            if (ThreeUtil.isNotNull(valueValue.getSize)) {
+              this._unSubscribeRefer('unforms_' + key);
+              uniforms[key] = {
+                value: valueValue.getSize(),
+              };
+              if (ThreeUtil.isNotNull(valueValue.sizeSubscribe)) {
+                this._subscribeRefer('unforms_' + key, valueValue.sizeSubscribe().subscribe((e) => {
+                  uniforms[key].value = e;
+                  console.log(key, e, uniforms);
+                }));
+              }
+            } else {
+              uniforms[key] = {
+                value: ThreeUtil.getVector2Safe(
+                  valueValue[0],
+                  valueValue[1]
+                ),
+              };
+            }
             break;
           case 'vector3':
           case 'vector':
           case 'v3':
             uniforms[key] = {
               value: ThreeUtil.getVector3Safe(
-                value['value'][0],
-                value['value'][1],
-                value['value'][2]
+                valueValue[0],
+                valueValue[1],
+                valueValue[2]
               ),
             };
             break;
           case 'color':
             uniforms[key] = {
-              value: ThreeUtil.getColorSafe(value['value'], 0xffffff),
+              value: ThreeUtil.getColorSafe(valueValue, 0xffffff),
             };
             break;
           case 'video':
           case 'videotexture':
             uniforms[key] = {
               value: TextureComponent.getTextureImageOption(
-                value['value'],
+                valueValue,
                 value['options'],
                 'video'
               ),
@@ -978,21 +983,21 @@ export class MaterialComponent
           case 'texture':
             uniforms[key] = {
               value: TextureComponent.getTextureImageOption(
-                value['value'],
+                valueValue,
                 value['options'],
                 'texture'
               ),
             };
             break;
           case 'int':
-            uniforms[key] = { value: parseInt(value['value']) };
+            uniforms[key] = { value: parseInt(valueValue) };
             break;
           case 'float':
           case 'number':
-            uniforms[key] = { value: parseFloat(value['value']) };
+            uniforms[key] = { value: parseFloat(valueValue) };
             break;
           default:
-            uniforms[key] = { value: value['value'] };
+            uniforms[key] = { value: valueValue };
             break;
         }
       } else if (value['value'] !== undefined){
@@ -1001,6 +1006,7 @@ export class MaterialComponent
         uniforms[key] = { value: value };
       }
     });
+    console.log(uniforms);
     return uniforms;
   }
 
@@ -1135,6 +1141,21 @@ export class MaterialComponent
       });
     });
   }
+  
+  private _subscribe: { [ key : string ] : Subscription} = {};
+  private _unSubscribeRefer(key : string) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this._subscribe[key].unsubscribe();
+      delete this._subscribe[key];
+    }
+  }
+  private _subscribeRefer(key : string, subscription :Subscription) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this._unSubscribeRefer(key);
+    }
+    this._subscribe[key] = subscription;
+  }
+
 
   private _needUpdate: boolean = true;
   private _textureSubscribe: Subscription[] = [];
@@ -1768,6 +1789,15 @@ export class MaterialComponent
               this.getMaterialParameters(parametersMeshLambertMaterial)
             );
             break;
+        }
+      }
+      if (ThreeUtil.isNotNull(this.control)) {
+        let control = this.control;
+        if (ThreeUtil.isNotNull(control.getControl)) {
+          control = control.getControl();
+        }
+        if (control instanceof CSM) {
+          control.setupMaterial(this.material);
         }
       }
       if (this.getVisible(true)) {

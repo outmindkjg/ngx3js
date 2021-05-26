@@ -5,10 +5,11 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
+import { SceneComponent } from '../scene/scene.component';
 import { PlainControls } from './plain-controls';
-
 
 @Component({
   selector: 'three-control',
@@ -49,6 +50,15 @@ export class ControlComponent implements OnInit {
   @Input() private verticalMin:number = null;
   @Input() private verticalMax:number = null;
   @Input() private mouseDragOn:boolean = null;
+  @Input() private maxFar: number = null;
+  @Input() private cascades: number = null;
+  @Input() private mode: string = null;
+  @Input() private scene: any = null;
+  @Input() private shadowMapSize: number = null;
+  @Input() private lightDirectionX: number = null;
+  @Input() private lightDirectionY: number = null;
+  @Input() private lightDirectionZ: number = null;
+  @Input() private camera: any = null;
 
   @Output() private onLoad:EventEmitter<ControlComponent> = new EventEmitter<ControlComponent>();
   @Output() private eventListener:EventEmitter<{type : string, event : any}> = new EventEmitter<{ type : string, event : any}>();
@@ -67,16 +77,26 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  camera : THREE.Camera = null;
-  scene : THREE.Scene = null;
-  domElement : HTMLElement = null;
+  private _camera : THREE.Camera = null;
+  private _scene : QueryList<SceneComponent> = null;
+  private _domElement : HTMLElement = null;
 
-  setCameraDomElement(camera : THREE.Camera, domElement : HTMLElement, scene : THREE.Scene) {
-    if (this.camera !== camera || this.domElement !== domElement || this.scene !== scene) {
-      this.camera = camera;
-      this.domElement = domElement;
-      this.scene = scene;
-      this.needUpdate = true;
+  setCameraDomElement(camera : THREE.Camera, domElement : HTMLElement, scene : QueryList<SceneComponent>) {
+    if (this._camera !== camera || this._domElement !== domElement || this._scene !== scene) {
+      console.log('camera', this._camera !== camera);
+      console.log('domElement', this._domElement !== domElement);
+      console.log('scene', this._scene !== scene);
+      
+      this._camera = camera;
+      this._domElement = domElement;
+      this._scene = scene;
+      switch(this.type.toLowerCase()) {
+        case 'csm' :
+          break;
+        default :
+          this.needUpdate = true;
+          break;
+      }
       this.getControl();
     }
   }
@@ -86,8 +106,8 @@ export class ControlComponent implements OnInit {
 
   getControl() {
     if (this.control === null || this.needUpdate) {
-      const camera = this.camera;
-      const domElement = this.domElement;
+      const camera = this._camera;
+      const domElement = this._domElement;
       this.needUpdate = false;
       if (this.control !== null) {
         if (this.control instanceof TransformControls && this.control.parent)  {
@@ -165,8 +185,10 @@ export class ControlComponent implements OnInit {
             this.eventListener.emit({ type : 'objectChange', event : event })
           });
           control = transformControls;
-          if (this.scene !== null) {
-            this.scene.add(control);
+          if (this._scene !== null && this._scene.length > 0) {
+            setTimeout(() => {
+              this._scene.first.getScene().add(control);
+            }, 100);
           }
           break;
         case "trackball":
@@ -175,6 +197,34 @@ export class ControlComponent implements OnInit {
             trackballControls.staticMoving = this.staticMoving;
           }
           control = trackballControls;
+          break;
+        case "csm" :
+          let csmScene = ThreeUtil.getTypeSafe(this.scene, {});
+          if (ThreeUtil.isNotNull(csmScene.getSceneDumpy)) {
+            csmScene = csmScene.getSceneDumpy();
+          }
+          if (!(csmScene instanceof THREE.Scene)) {
+            console.error('error Scene');
+            csmScene = new THREE.Scene();
+          }
+          let csmCamera = ThreeUtil.getTypeSafe(this.camera, this._camera, {});
+          if (ThreeUtil.isNotNull(csmCamera.getCamera)) {
+            csmCamera = csmCamera.getCamera();
+          }
+          if (!(csmCamera instanceof THREE.Camera)) {
+            console.error('error Camera');
+            csmCamera = new THREE.Camera();
+          }
+          const csm = new CSM({
+            maxFar: ThreeUtil.getTypeSafe(this.maxFar, 100000),
+            cascades: ThreeUtil.getTypeSafe(this.cascades, 3),
+            mode: ThreeUtil.getTypeSafe(this.mode, 'practical'),
+            parent: csmScene,
+            shadowMapSize: ThreeUtil.getTypeSafe(this.shadowMapSize, 2048),
+            lightDirection: ThreeUtil.getVector3Safe(this.lightDirectionX, this.lightDirectionY, this.lightDirectionZ, new THREE.Vector3(1,1,1)).normalize(),
+            camera: csmCamera
+          });
+          control = csm;
           break;
         case "plain" :
           const mouseMoveControls = new PlainControls(camera, domElement);
@@ -250,6 +300,8 @@ export class ControlComponent implements OnInit {
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
         this.control.update();
+      } else if (this.control instanceof CSM) {
+          this.control.update();
       } else if (this.control instanceof FlyControls) {
         this.control.update(renderTimer.delta);
       } else if (this.control instanceof FirstPersonControls) {

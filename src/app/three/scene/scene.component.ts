@@ -397,8 +397,34 @@ export class SceneComponent
       rigidbody.update(timer);
     });
   }
+  private _sceneSynked : boolean = false;
 
-  getScene(): THREE.Scene {
+  getScene() : THREE.Scene {
+    if (this.scene === null) {
+      this.getSceneDumpy();
+    }
+    if (!this._sceneSynked) {
+      this._sceneSynked = true;
+      this.synkObject3D([
+        'position',
+        'rotation',
+        'scale',
+        'lookat',
+        'materials',
+        'mesh',
+        'viewer',
+        'lights',
+        'helpers',
+        'cameras',
+        'physics',
+        'fog',
+        'sceneController',
+      ]);
+    }
+    return this.scene;
+  }
+
+  getSceneDumpy(): THREE.Scene {
     if (this.scene === null) {
       if (this.storageName !== null) {
         this.scene = new THREE.Scene();
@@ -424,21 +450,6 @@ export class SceneComponent
       } else {
         this.scene = new THREE.Scene();
         this.setObject3D(this.scene);
-        this.synkObject3D([
-          'position',
-          'rotation',
-          'scale',
-          'lookat',
-          'materials',
-          'mesh',
-          'viewer',
-          'lights',
-          'helpers',
-          'cameras',
-          'physics',
-          'fog',
-          'sceneController',
-        ]);
       }
       if (ThreeUtil.isNotNull(this.background)) {
         if (this.background instanceof MaterialComponent) {
@@ -486,7 +497,7 @@ export class SceneComponent
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }
-
+      this._sceneSynked = false;
     }
     return this.scene;
   }

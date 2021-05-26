@@ -1,12 +1,12 @@
-import { Subscription } from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
+  AfterContentInit,
+  AfterViewInit, Component,
+  ContentChildren, ElementRef, OnInit,
+  QueryList, ViewChild
 } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { RendererComponent, ThreeUtil } from './three';
 
 export interface SearchMenu {
   id: string;
@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 
   ngOnDestroy(): void {
     if (this.subscription !== null) {
@@ -78,6 +79,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {}
+
+  downloadThumbFile() {
+    if (ThreeUtil.lastRenderer !== null) {
+      const lastRenderer = ThreeUtil.lastRenderer as RendererComponent;
+      lastRenderer.getCanvasJson((json) => {
+        console.log(json);
+      }, { width : 400, height : 250, name : 'auto', type : 'jpg'})
+    }
+    return false;
+  }
 
   searchFocused: boolean = false;
 

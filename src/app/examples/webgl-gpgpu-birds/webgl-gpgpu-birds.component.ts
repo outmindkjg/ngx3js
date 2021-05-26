@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer';
 import { BaseComponent } from '../../three';
 
 @Component({
@@ -270,5 +271,8 @@ export class WebglGpgpuBirdsComponent extends BaseComponent<{}> {
   }
   `;
 
+  ngOnInit() {
+    GPUComputationRenderer
+  }
   
 }

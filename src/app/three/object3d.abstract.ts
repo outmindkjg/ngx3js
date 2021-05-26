@@ -9,7 +9,7 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ControllerComponent } from './controller/controller.component';
 import { TagAttributes, ThreeUtil } from './interface';
@@ -28,6 +28,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() public name:string = "";
   @Input() protected matrixAutoUpdate : boolean = null;
   @Input() private layers : number[] = null;
+  @Input() protected frustumCulled : boolean = null;
   @Input() private position : PositionComponent = null;
   @Input() private rotation : RotationComponent = null;
   @Input() private scale : ScaleComponent = null;
@@ -387,6 +388,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     
   }
 
+  private _object3dSubject: Subject<THREE.Object3D> = new Subject<THREE.Object3D>();
+
+  object3DSubscribe(): Observable<THREE.Object3D> {
+    return this._object3dSubject.asObservable();
+  }
+
   setObject3D(object3d : THREE.Object3D, add2Parent : boolean = true) {
     if (this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
@@ -407,8 +414,16 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             });
           }
         }
-        this.object3d.name = this.name;
-        this.object3d.visible = this.visible;
+        
+        if (ThreeUtil.isNotNull(this.name) && this.name !== '') {
+          this.object3d.name = this.name;
+        }
+        if (ThreeUtil.isNotNull(this.visible)) {
+          this.object3d.visible = this.visible;
+        }
+        if (ThreeUtil.isNotNull(this.frustumCulled)) {
+          this.object3d.frustumCulled = this.frustumCulled;
+        }
         if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
           if (this.parent instanceof THREE.LOD) {
             this.parent.addLevel(this.object3d, this.getLoDistance(0));
@@ -417,6 +432,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           }
         }
         this.setTweenTarget(this.object3d);
+        this._object3dSubject.next(this.object3d);
       }
     }
   }

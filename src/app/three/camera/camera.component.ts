@@ -427,8 +427,14 @@ export class CameraComponent
   private cameraWidth: number = 0;
   private cameraHeight: number = 0;
 
-  getObject3D(): THREE.Object3D {
-    return this.getCamera();
+  protected _sizeSubject: Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
+
+  sizeSubscribe(): Observable<THREE.Vector2> {
+    return this._sizeSubject.asObservable();
+  }
+
+  getSize() : THREE.Vector2 {
+    return new THREE.Vector2(this.cameraWidth, this.cameraHeight);
   }
 
   private raycaster: THREE.Raycaster = null;
@@ -507,6 +513,7 @@ export class CameraComponent
         height : height
       });
     }
+    this._sizeSubject.next(this.getSize());
   }
 
   isCameraChild: boolean = false;
