@@ -83,10 +83,6 @@ export class ControlComponent implements OnInit {
 
   setCameraDomElement(camera : THREE.Camera, domElement : HTMLElement, scene : QueryList<SceneComponent>) {
     if (this._camera !== camera || this._domElement !== domElement || this._scene !== scene) {
-      console.log('camera', this._camera !== camera);
-      console.log('domElement', this._domElement !== domElement);
-      console.log('scene', this._scene !== scene);
-      
       this._camera = camera;
       this._domElement = domElement;
       this._scene = scene;

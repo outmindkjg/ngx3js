@@ -56,10 +56,11 @@ export class SharedComponent implements OnInit, AfterContentInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngAfterContentInit() {
+  ngAfterContentInit() {}
+
+  getShared() {
     this.geometryList.changes.subscribe(() => {
       this.initComponents('geometry');
     });

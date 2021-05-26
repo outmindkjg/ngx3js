@@ -95,6 +95,8 @@ constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, 
 
 ----------------------
 
+inet : 82:0d:5c:2d:69:00
+wifi : 54:26:96:ce:a5:71
 
 ----------------------
 

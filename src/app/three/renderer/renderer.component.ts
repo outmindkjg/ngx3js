@@ -34,6 +34,7 @@ import {
   ThreeUtil,
 } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
+import { SharedComponent } from '../shared/shared.component';
 import { ViewerComponent } from '../viewer/viewer.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
@@ -137,6 +138,9 @@ export class RendererComponent
   private clippingPlanes: QueryList<PlaneComponent>;
   @ContentChildren(CanvasComponent)
   private canvas2d: QueryList<CanvasComponent>;
+
+  @ContentChildren(SharedComponent, { descendants: true })
+  private sharedList: QueryList<SharedComponent>;
 
   @ViewChild('canvas') private canvas: ElementRef;
   @ViewChild('debug') private debug: ElementRef;
@@ -691,6 +695,9 @@ export class RendererComponent
     } else {
       this.stats = null;
     }
+    this.sharedList.forEach((shared) => {
+      shared.getShared();
+    });
     this.renderer = this.getRenderer();
     this.setSize(this.rendererWidth, this.rendererHeight);
     this.controls = this.getControls(

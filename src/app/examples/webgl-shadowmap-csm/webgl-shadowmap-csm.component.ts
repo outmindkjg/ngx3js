@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
 import { BaseComponent } from '../../three';
+import { ControlComponent } from '../../three/control/control.component';
+import { HelperComponent } from '../../three/helper/helper.component';
 
 @Component({
   selector: 'app-webgl-shadowmap-csm',
@@ -35,13 +38,16 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
       autoUpdateHelper: true,
       helper : {
         visible : false, 
+        displayFrustum : true,
+        displayPlanes : true,
+        displayShadowBounds : true,
         updateHelper: () => {
           // csmHelper.update();
         }
       }
     },[
       { name : 'orthographic', type : 'checkbox', change : () => {
-        if (this.csm !== null) {
+        if (this.csm !== null && this.oCamera !== null && this.pCamera !== null) {
           this.csm.camera = this.controls.orthographic ? this.oCamera : this.pCamera;
           this.csm.updateFrustums();
         }
@@ -106,14 +112,41 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
       }},
       { name : 'helper' , type : 'folder', control : 'helper', children : [
         { name : 'visible' , type : 'checkbox', change : () => {
-
-        }}
+          this.changeHelper();
+        }},
+        { name : 'displayFrustum' , type : 'checkbox', change : () => {
+          this.changeHelper();
+        }},
+        { name : 'displayShadowBounds' , type : 'checkbox', change : () => {
+          this.changeHelper();
+        }},
+        
+        
       ], isOpen : true}
     ]);
   }
 
-  csm : any = null;
 
+  setCsm(control : ControlComponent) {
+    this.csm = control.getControl();
+  }
+
+  changeHelper() {
+    if (this.helper !== null) {
+      this.helper['visible'] = this.controls.helper.visible;
+      this.helper.displayFrustum = this.controls.helper.displayFrustum;
+      this.helper.displayPlanes = this.controls.helper.displayPlanes;
+      this.helper.displayShadowBounds = this.controls.helper.displayShadowBounds;
+      this.helper.updateVisibility();
+    }
+  }
+
+  setHelper(helper : HelperComponent ) {
+    this.helper = (helper.getHelper() as any) as CSMHelper;
+  }
+
+  csm : any = null;
+  helper : CSMHelper = null;
   oCamera : any = null;
   pCamera : any = null;
 
