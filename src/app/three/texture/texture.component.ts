@@ -408,10 +408,21 @@ export class TextureComponent implements OnInit {
           case 'cubeuvrefraction':
             textureOption.mapping = ThreeUtil.getTypeSafe(option, 'default');
             break;
+          case 'texture3d' :
+          case 'texture2d' :
+          case 'texture' :
+            loadOption.type = option;
+            break;
           default :
             if (option.indexOf('=') > 0) {
               const [key, value] = option.split('=');
               switch(key.toLowerCase()) {
+                case 'size' :
+                  const [width, height, depth] = (option + 'xxx').split('x');
+                  loadOption.width = parseInt(width);
+                  loadOption.height = parseInt(height) || loadOption.width;
+                  loadOption.depth = parseInt(depth) || loadOption.width;
+                  break;
                 case 'width' :
                 case 'height' :
                 case 'depth' :
@@ -536,17 +547,32 @@ export class TextureComponent implements OnInit {
               this.fileLoader.setResponseType( 'arraybuffer' );
             }
             let texture : THREE.Texture = null;
+            const width = options.width || 1;
+            const height = options.height || 1;
+            const depth = options.depth || 1;
             switch ((loadType || 'texture').toLowerCase()) {
+              case 'texture3d' :
+                texture = new THREE.DataTexture3D(
+                  null,
+                  width,
+                  height,
+                  depth
+                );
+                break;
               case 'texture2d' :
                 texture = new THREE.DataTexture2DArray(
-                  new Float32Array(),
-                  options.width || 1,
-                  options.height || 1,
-                  options.depth || 1
+                  null,
+                  width,
+                  height,
+                  depth
                 );
                 break;
               default :
-                texture = new THREE.Texture();
+                texture = new THREE.DataTexture(
+                  null,
+                  width,
+                  height,
+                );
                 break;
             }
             this.fileLoader.load(ThreeUtil.getStoreUrl(image), (data) => {
@@ -560,18 +586,13 @@ export class TextureComponent implements OnInit {
                   fileObject = value;
                 }
               });
-              if (texture instanceof THREE.DataTexture2DArray) {
-                texture.image.data = new Uint8Array( fileObject.buffer );
-                texture.needsUpdate = true;
-              } else {
-                // todo
-              }
+              texture.image.data = new Uint8Array( fileObject.buffer );
+              texture.needsUpdate = true;
               if (ThreeUtil.isNotNull(onLoad)) {
                 onLoad();
               }
             });
             return texture;
-            
           } else {
             if (this.textureLoader === null) {
               this.textureLoader = new THREE.TextureLoader(

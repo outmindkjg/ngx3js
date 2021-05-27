@@ -23,6 +23,7 @@ import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
+import { WEBGL } from 'three/examples/jsm/WebGL';
 import {
   GuiControlParam,
   RendererEvent,
@@ -743,6 +744,11 @@ export class RendererComponent
           break;
       }
       switch (this.type.toLowerCase()) {
+        case 'webgl2' :
+          if (WEBGL.isWebGL2Available() === false) {
+            // isWebGL2Available
+            // WEBGL.getWebGL2ErrorMessage()
+          }
         default:
           this.renderer = new THREE.WebGLRenderer({
             alpha: this.cssRenderer !== null ? true : false,
