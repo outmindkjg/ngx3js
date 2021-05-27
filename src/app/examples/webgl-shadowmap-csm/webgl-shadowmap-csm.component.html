@@ -28,7 +28,10 @@
     (onLoad)="setCsm($event)"
   ></three-control>
   <three-lookat [x]="-100" [y]="10" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="70" [near]="0.1" [far]="5000">
+  <three-camera #camera [type]="'PerspectiveCamera'" [fov]="70" [near]="0.1" [far]="5000" (onLoad)="setPerspectiveCamera($event)">
+    <three-position [x]="60" [y]="60" [z]="0"></three-position>
+  </three-camera>
+  <three-camera #orthoCamera [type]="'OrthographicCamera'" [visible]="false" [left]="0.5" [right]="0.5" [top]="0.5" [bottom]="0.5" [near]="0.1" [far]="5000"  (onLoad)="setOrthographicCamera($event)">
     <three-position [x]="60" [y]="60" [z]="0"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0x454e61'">
@@ -37,7 +40,7 @@
       [color]="'0xffffff'"
       [intensity]="0.5"
     ></three-light>
-    <three-helper [visible]="true" [type]="'csmhelper'" [control]="csm" (onLoad)="setHelper($event)"></three-helper>
+    <three-helper [visible]="false" [type]="'csmhelper'" [control]="csm" (onLoad)="setHelper($event)"></three-helper>
     <three-shared>
       <three-material #material1 [type]="'MeshPhongMaterial'" [color]="'0x08d9d6'" [control]="csm"></three-material>
       <three-material #material2 [type]="'MeshPhongMaterial'" [color]="'0xff2e63'" [control]="csm"></three-material>

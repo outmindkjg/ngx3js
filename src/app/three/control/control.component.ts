@@ -19,22 +19,25 @@ import { PlainControls } from './plain-controls';
 export class ControlComponent implements OnInit {
 
   @Input() type : string = "orbit";
-  @Input() private autoRotate:boolean = false;
+  @Input() private autoRotate:boolean = null;
+  @Input() private autoRotateSpeed: number = null;
   @Input() private screenSpacePanning:boolean = null;
   @Input() private minDistance:number = null;
   @Input() private maxDistance:number = null;
   @Input() private xDistance:number = null;
   @Input() private yDistance:number = null;
+  @Input() private enableZoom: boolean = null;
   @Input() private minZoom:number = null;
   @Input() private maxZoom:number = null;
   @Input() private staticMoving:boolean = null;
   @Input() private rotateSpeed:number = null;
   @Input() private zoomSpeed:number = null;
   @Input() private panSpeed:number = null;
+  @Input() private minPolarAngle:number = null;
   @Input() private maxPolarAngle:number = null;
-  @Input() private enableKeys:boolean = true;
-  @Input() private enablePan:boolean = true;
-  @Input() private enableDamping:boolean = false;
+  @Input() private enableKeys:boolean = null;
+  @Input() private enablePan:boolean = null;
+  @Input() private enableDamping:boolean = null;
   @Input() private movementSpeed:number = null;
   @Input() private rollSpeed:number = null;
   @Input() private dragToLook:boolean = null;
@@ -244,10 +247,21 @@ export class ControlComponent implements OnInit {
         case "orbit":
         default :
           const orbitControls = new OrbitControls(camera, domElement);
-          orbitControls.autoRotate = this.autoRotate;
-          orbitControls.enableDamping = this.enableDamping;
-          orbitControls.enablePan = this.enablePan;
-          orbitControls.enableKeys = this.enableKeys;
+          if (ThreeUtil.isNotNull(this.autoRotate)) {
+            orbitControls.autoRotate = this.autoRotate;
+          }
+          if (ThreeUtil.isNotNull(this.autoRotateSpeed)) {
+            orbitControls.autoRotateSpeed = this.autoRotateSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.enableDamping)) {
+            orbitControls.enableDamping = this.enableDamping;
+          }
+          if (ThreeUtil.isNotNull(this.enablePan)) {
+            orbitControls.enablePan = this.enablePan;
+          }
+          if (ThreeUtil.isNotNull(this.enableKeys)) {
+            orbitControls.enableKeys = this.enableKeys;
+          }
           if (ThreeUtil.isNotNull(this.screenSpacePanning)) {
             orbitControls.screenSpacePanning = this.screenSpacePanning;
           }
@@ -256,6 +270,9 @@ export class ControlComponent implements OnInit {
           }
           if (ThreeUtil.isNotNull(this.maxDistance)) {
             orbitControls.maxDistance = this.maxDistance;
+          }
+          if (ThreeUtil.isNotNull(this.enableZoom)) {
+            orbitControls.enableZoom = this.enableZoom;
           }
           if (ThreeUtil.isNotNull(this.minZoom)) {
             orbitControls.minZoom = this.minZoom;
@@ -271,6 +288,9 @@ export class ControlComponent implements OnInit {
           }
           if (ThreeUtil.isNotNull(this.panSpeed)) {
             orbitControls.panSpeed = this.panSpeed;
+          }
+          if (ThreeUtil.isNotNull(this.minPolarAngle)) {
+            orbitControls.minPolarAngle = ThreeUtil.getAngleSafe(this.minPolarAngle, 180);
           }
           if (ThreeUtil.isNotNull(this.maxPolarAngle)) {
             orbitControls.maxPolarAngle = ThreeUtil.getAngleSafe(this.maxPolarAngle, 180);

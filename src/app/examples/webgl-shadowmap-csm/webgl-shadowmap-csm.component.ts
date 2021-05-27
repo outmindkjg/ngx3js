@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Camera, OrthographicCamera, PerspectiveCamera, Vector3 } from 'three';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererTimer } from '../../three';
+import { CameraComponent } from '../../three/camera/camera.component';
 import { ControlComponent } from '../../three/control/control.component';
 import { HelperComponent } from '../../three/helper/helper.component';
 
@@ -48,7 +50,16 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
     },[
       { name : 'orthographic', type : 'checkbox', change : () => {
         if (this.csm !== null && this.oCamera !== null && this.pCamera !== null) {
-          this.csm.camera = this.controls.orthographic ? this.oCamera : this.pCamera;
+          if (this.controls.orthographic) {
+            this.pCamera.visible = false;
+            this.oCamera.visible = true;
+            this.updateOrthoCamera();
+            this.csm.camera = this.oCamera;
+          } else {
+            this.pCamera.visible = true;
+            this.oCamera.visible = false;
+            this.csm.camera = this.pCamera;
+          }
           this.csm.updateFrustums();
         }
       }},
@@ -124,6 +135,25 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
     ]);
   }
 
+  updateOrthoCamera() {
+    if (this.pCamera === null || this.oCamera === null) {
+      return ;
+    }
+    const target = new Vector3(-100, 10, 0);
+    const camera = this.pCamera;
+    // <three-lookat [x]="-100" [y]="10" [z]="0"></three-lookat>
+    const size = target.distanceTo( camera.position );
+    const aspect = camera.aspect;
+    const orthoCamera = this.oCamera;
+    orthoCamera.left = size * aspect / - 2;
+    orthoCamera.right = size * aspect / 2;
+
+    orthoCamera.top = size / 2;
+    orthoCamera.bottom = size / - 2;
+    orthoCamera.position.copy( camera.position );
+    orthoCamera.rotation.copy( camera.rotation );
+    orthoCamera.updateProjectionMatrix();
+  }
 
   setCsm(control : ControlComponent) {
     this.csm = control.getControl();
@@ -143,10 +173,18 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
     this.helper = (helper.getHelper() as any) as CSMHelper;
   }
 
+  setPerspectiveCamera(camera : CameraComponent) {
+    this.pCamera = camera.getCamera() as any;
+  }
+
+  setOrthographicCamera(camera : CameraComponent) {
+    this.oCamera = camera.getCamera() as any;
+  }
+
   csm : any = null;
   helper : CSMHelper = null;
-  oCamera : any = null;
-  pCamera : any = null;
+  oCamera : OrthographicCamera = null;
+  pCamera : PerspectiveCamera = null;
 
   ngOnInit() {
     this.cubeInfos = [];
@@ -173,4 +211,11 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
     matrial : boolean;
   }[] = [];
 
+  onRender(timer : RendererTimer) {
+    super.onRender(timer);
+    if (this.csm !== null && this.controls.orthographic) {
+      this.updateOrthoCamera();
+      this.csm.updateFrustums();
+    }
+  }
 }

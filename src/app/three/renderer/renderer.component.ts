@@ -54,6 +54,7 @@ export class RendererComponent
   @Input() private css3dType: string = 'none';
   @Input() private controlType: string = 'none';
   @Input() private autoRotate: boolean = false;
+  @Input() private autoRotateSpeed: number = null;
   @Input() private shadowMapEnabled: boolean = true;
   @Input() private physicallyCorrectLights: boolean = false;
   @Input() private shadowMapType: string = null;
@@ -62,12 +63,14 @@ export class RendererComponent
   @Input() private maxDistance: number = null;
   @Input() private xDistance: number = null;
   @Input() private yDistance: number = null;
+  @Input() private enableZoom: boolean = null;
   @Input() private minZoom: number = null;
   @Input() private maxZoom: number = null;
   @Input() private rotateSpeed: number = null;
   @Input() private staticMoving: boolean = null;
   @Input() private zoomSpeed: number = null;
   @Input() private panSpeed: number = null;
+  @Input() private minPolarAngle: number = null;
   @Input() private maxPolarAngle: number = null;
   @Input() private clearColor: string | number = null;
   @Input() private toneMapping: string = null;
@@ -608,17 +611,20 @@ export class RendererComponent
           control.setControlParams({
             type: controlType,
             autoRotate: autoRotate,
+            autoRotateSpeed: this.autoRotateSpeed,
             screenSpacePanning: this.screenSpacePanning,
             minDistance: this.minDistance,
             maxDistance: this.maxDistance,
             xDistance: this.xDistance,
             yDistance: this.yDistance,
+            enableZoom : this.enableZoom,
             minZoom: this.minZoom,
             maxZoom: this.maxZoom,
             rotateSpeed: this.rotateSpeed,
             staticMoving: this.staticMoving,
             zoomSpeed: this.zoomSpeed,
             panSpeed: this.panSpeed,
+            minPolarAngle: this.minPolarAngle,
             maxPolarAngle: this.maxPolarAngle,
             enablePan: this.enablePan,
             enableKeys: this.enableKeys,
@@ -770,12 +776,12 @@ export class RendererComponent
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.shadowMap.enabled = this.shadowMapEnabled;
         this.renderer.physicallyCorrectLights = this.physicallyCorrectLights;
-        if (this.renderer.shadowMap.enabled) {
+        if (this.renderer.shadowMap.enabled && ThreeUtil.isNotNull(this.shadowMapType)) {
           this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
         }
         this.renderer.autoClear = this.autoClear;
         this.renderer.autoClearColor = this.autoClearColor;
-        if (this.outputEncoding !== null) {
+        if (ThreeUtil.isNotNull(this.outputEncoding)) {
           this.renderer.outputEncoding = this.getEncoding('linear');
         }
         this.renderer.localClippingEnabled = this.localClippingEnabled;

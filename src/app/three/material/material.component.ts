@@ -164,7 +164,8 @@ export class MaterialComponent
   @Input() private resolutionX: number = null;
   @Input() private resolutionY: number = null;
   @Input() private control: any = null;
-
+  @Input() private glslVersion: string = null;
+  
   @Output()
   private onLoad: EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
@@ -518,6 +519,22 @@ export class MaterialComponent
     }
     return undefined;
   }
+
+  private getGlslVersion(def?: string): THREE.GLSLVersion {
+    const glslVersion = ThreeUtil.getTypeSafe(this.glslVersion, def, '');
+    switch(glslVersion.toLowerCase()) {
+      case '1' :
+      case 'gl1' :
+      case 'glsl1' :
+        return THREE.GLSL1;
+      case '3' :
+      case 'gl3' :
+      case 'glsl3' :
+        return THREE.GLSL3;
+    }
+    return null;
+  }
+  
 
   private getAlphaTest(def?: number): number {
     return ThreeUtil.getTypeSafe(this.alphaTest, def);
@@ -898,8 +915,8 @@ export class MaterialComponent
     return ThreeUtil.getTypeSafe(this.userData, def);
   }
 
-  private getUniforms(def?: any): { [uniform: string]: THREE.IUniform } {
-    const uniforms = ThreeUtil.getTypeSafe(this.uniforms, def);
+  private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
+    const uniforms : { [uniform: string]: THREE.IUniform } = ThreeUtil.getTypeSafe(this.uniforms, def);
     Object.entries(uniforms).forEach(([key, value]) => {
       if (
         ThreeUtil.isNotNull(value['type']) &&
@@ -922,7 +939,6 @@ export class MaterialComponent
               if (ThreeUtil.isNotNull(valueValue.object3DSubscribe)) {
                 this._subscribeRefer('unforms_' + key, valueValue.object3DSubscribe().subscribe((e) => {
                   uniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
-                  console.log(key, e, uniforms);
                 }));
               }
             } else {
@@ -941,7 +957,6 @@ export class MaterialComponent
               if (ThreeUtil.isNotNull(valueValue.sizeSubscribe)) {
                 this._subscribeRefer('unforms_' + key, valueValue.sizeSubscribe().subscribe((e) => {
                   uniforms[key].value = e;
-                  console.log(key, e, uniforms);
                 }));
               }
             } else {
@@ -949,7 +964,7 @@ export class MaterialComponent
                 value: ThreeUtil.getVector2Safe(
                   valueValue[0],
                   valueValue[1]
-                ),
+                , new THREE.Vector2()),
               };
             }
             break;
@@ -961,7 +976,7 @@ export class MaterialComponent
                 valueValue[0],
                 valueValue[1],
                 valueValue[2]
-              ),
+              , new THREE.Vector3()),
             };
             break;
           case 'color':
@@ -969,24 +984,48 @@ export class MaterialComponent
               value: ThreeUtil.getColorSafe(valueValue, 0xffffff),
             };
             break;
+          case 'image':
+          case 'texture2d':
+          case 'texture':
           case 'video':
           case 'videotexture':
             uniforms[key] = {
               value: TextureComponent.getTextureImageOption(
                 valueValue,
                 value['options'],
-                'video'
+                valueType.toLowerCase()
               ),
             };
             break;
-          case 'image':
-          case 'texture':
-            uniforms[key] = {
-              value: TextureComponent.getTextureImageOption(
-                valueValue,
-                value['options'],
+          case 'imagelist':
+          case 'texturelist':
+          case 'imagearray':
+          case 'texturearray':
+            const textureList : THREE.Texture[] = [];
+            const texturePathList : string[] = [];
+            const textureOption = value['options'];
+            if (typeof valueValue === 'string') {
+              valueValue.split(',').forEach(path => {
+                if (path !== '' && path.length > 3) {
+                  texturePathList.push(path);
+                }
+              });
+            } else if (ThreeUtil.isNotNull(valueValue.forEach)) {
+              valueValue.forEach(path => {
+                if (path !== '' && path.length > 3) {
+                  texturePathList.push(path);
+                }
+              });
+            }
+            texturePathList.forEach(texturePath => {
+              textureList.push(TextureComponent.getTextureImageOption(
+                texturePath,
+                textureOption,
                 'texture'
-              ),
+              ));
+            });
+            uniforms[key] = {
+              value: textureList
             };
             break;
           case 'int':
@@ -1006,7 +1045,6 @@ export class MaterialComponent
         uniforms[key] = { value: value };
       }
     });
-    console.log(uniforms);
     return uniforms;
   }
 
@@ -1699,9 +1737,13 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.RawShaderMaterial(
+            const rawShaderMaterial = new THREE.RawShaderMaterial(
               this.getMaterialParameters(parametersRawShaderMaterial)
             );
+            if (ThreeUtil.isNotNull(this.glslVersion)) {
+              rawShaderMaterial.glslVersion = this.getGlslVersion();
+            }
+            this.material = rawShaderMaterial;
             break;
           case 'shadermaterial':
           case 'shader':
@@ -1718,9 +1760,13 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals()
             };
-            this.material = new THREE.ShaderMaterial(
+            const shaderMaterial = new THREE.ShaderMaterial(
               this.getMaterialParameters(parametersShaderMaterial)
             );
+            if (ThreeUtil.isNotNull(this.glslVersion)) {
+              shaderMaterial.glslVersion = this.getGlslVersion();
+            }
+            this.material = shaderMaterial;
             break;
           case 'shadowmaterial':
           case 'shadow':
@@ -1800,6 +1846,7 @@ export class MaterialComponent
           control.setupMaterial(this.material);
         }
       }
+      
       if (this.getVisible(true)) {
         this._materialSubject.next(this.material);
       }

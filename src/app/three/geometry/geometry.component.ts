@@ -202,10 +202,16 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   
   @Input() private attrPosition:AttrBufferAttribute = null;
   @Input() private attrPositionUsage: string = null;
+
+  @Input() private attrUv:AttrBufferAttribute = null;
+  @Input() private attrUvUsage: string = null;
+
+  @Input() private attrTextureIndex:AttrBufferAttribute = null;
+  @Input() private attrTextureIndexUsage: string = null;
+
   @Input() private attrVertColor:AttrBufferAttribute = null;
   
-   @Input() private attrVisible:AttrBufferAttribute = null;
-    
+  @Input() private attrVisible:AttrBufferAttribute = null;
 
   @Input() private instanceCount : number = null;
   @Input() private vertexBuffer : Float32Array | THREE.InterleavedBuffer | number[] = null;
@@ -971,6 +977,18 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
         value: this.getAttribute(this.attrIndex, 1, this.attrIndexUsage, 'int'),
       });
     }
+    if (ThreeUtil.isNotNull(this.attrTextureIndex)) {
+      attributes.push({
+        key: 'textureIndex',
+        value: this.getAttribute(this.attrTextureIndex, 1, this.attrTextureIndexUsage, 'int'),
+      });
+    }
+    if (ThreeUtil.isNotNull(this.attrUv)) {
+      attributes.push({
+        key: 'uv',
+        value: this.getAttribute(this.attrUv, 2, this.attrUvUsage),
+      });
+    }
     if (ThreeUtil.isNotNull(this.vertexBuffer)) {
       let vertexBuffer : THREE.InterleavedBuffer = null;
       if (this.vertexBuffer instanceof THREE.InterleavedBuffer) {
@@ -991,7 +1009,10 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             attributes.push({ key: key, value: this.getAttribute(value, 1) });
             break;
           case 'index':
-            attributes.push({ key: key, value: this.getAttribute(value, 1, null, 'int') });
+            attributes.push({ key: key, value: this.getAttribute(value, 1, this.attrIndexUsage, 'int') });
+            break;
+          case 'textureIndex' :
+            attributes.push({ key: key, value: this.getAttribute(value, 1, this.attrTextureIndexUsage, 'int') });
             break;
           case 'offset':
             attributes.push({
@@ -1000,15 +1021,23 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
             });
           case 'orientationStart':
           case 'orientationEnd':
-            attributes.push({
-              key: key,
-              value: this.getAttribute(value, 4, null, 'instanced'),
-            });
+            attributes.push({ key: key, value: this.getAttribute(value, 4, null, 'instanced') });
+            break;
+          case 'uv':
+            attributes.push({ key: key, value: this.getAttribute(value, 2, this.attrUvUsage ) });
             break;
           case 'position':
+            attributes.push({ key: key, value: this.getAttribute(value, 3) });
+            break;
           case 'color':
+            attributes.push({ key: key, value: this.getAttribute(value, 3, this.attrColorUsage ) });
+            break;
           case 'normal':
+            attributes.push({ key: key, value: this.getAttribute(value, 3, this.attrNormalUsage, null, this.attrNormalNormalized ) });
+            break;
           case 'customColor':
+            attributes.push({ key: key, value: this.getAttribute(value, 3, this.attrCustomColorUsage ) });
+            break;
           default:
             attributes.push({ key: key, value: this.getAttribute(value, 3) });
             break;
@@ -1475,6 +1504,9 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
           uv.setY(i, 1 - uv.getY(i));
         }
       }
+      if (this.computeBoundingSphere) {
+        this.geometry.computeBoundingSphere();
+      }
       const geometryScale = this.getGeometryScale();
       if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
         this.geometry.scale(geometryScale, geometryScale, geometryScale);
@@ -1578,7 +1610,7 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
                     break;
                   default:
                     geometry.setAttribute(attribute.key, attribute.value);
-                    attribute.value.needsUpdate = true;
+                    // attribute.value.needsUpdate = true;
                     break;
                 }
               });

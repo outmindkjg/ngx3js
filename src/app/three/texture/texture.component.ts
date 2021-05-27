@@ -12,6 +12,7 @@ import { ThreeUtil } from '../interface';
 import { Lut } from 'three/examples/jsm/math/Lut';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
+import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
 
 import { LocalStorageService } from '../local-storage.service';
 
@@ -102,42 +103,6 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  private getMapping(def?: string): THREE.Mapping {
-    return ThreeUtil.getMappingSafe(this.mapping, def, '');
-  }
-
-  private getWrapS(def: string): THREE.Wrapping {
-    return ThreeUtil.getWrappingSafe(this.wrapS, this.wrap, def);
-  }
-
-  private getWrapT(def: string): THREE.Wrapping {
-    return ThreeUtil.getWrappingSafe(this.wrapT, this.wrap, def);
-  }
-
-  private getMagFilter(def: string): THREE.TextureFilter {
-    return ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter, def);
-  }
-
-  private getMinFilter(def: string): THREE.TextureFilter {
-    return ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, def);
-  }
-
-  private getFormat(def: string): THREE.PixelFormat {
-    return ThreeUtil.getPixelFormatSafe(this.format, def, '');
-  }
-
-  private getType(def: string): THREE.TextureDataType {
-    return ThreeUtil.getTextureDataTypeSafe(this.type, def, '');
-  }
-
-  private getAnisotropy(def: number): number {
-    return ThreeUtil.getTypeSafe(this.anisotropy, def);
-  }
-
-  private getEncoding(def: string): THREE.TextureEncoding {
-    return ThreeUtil.getTextureEncodingSafe(this.encoding, def, '');
-  }
-
   private getRepeat(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(
       ThreeUtil.getTypeSafe(this.repeatX, this.repeat),
@@ -152,10 +117,6 @@ export class TextureComponent implements OnInit {
       ThreeUtil.getTypeSafe(this.offsetY, this.offset),
       new THREE.Vector2(defX, defY)
     );
-  }
-
-  private getRotation(def?: number): number {
-    return ThreeUtil.getAngleSafe(this.rotation, def);
   }
 
   constructor(private localStorageService: LocalStorageService) {}
@@ -249,6 +210,7 @@ export class TextureComponent implements OnInit {
   private refTexture: THREE.Texture = null;
   private texture: THREE.Texture = null;
   static textureLoader: THREE.TextureLoader = null;
+  static fileLoader: THREE.FileLoader = null;
   static cubeTextureLoader: THREE.CubeTextureLoader = null;
   static imageBitmapLoader: THREE.ImageBitmapLoader = null;
   static hdrCubeMapLoader: HDRCubeTextureLoader = null;
@@ -264,10 +226,12 @@ export class TextureComponent implements OnInit {
       image,
       cubeImage,
       program,
-      this.width,
-      this.height,
-      this.loaderType,
-      this.text,
+      { 
+        width : this.width,
+        height : this.height,
+        type : this.loaderType,
+        text : this.text
+      },
       onLoad
     );
   }
@@ -278,34 +242,200 @@ export class TextureComponent implements OnInit {
     loadType?: string,
     cubeImage?: string[]
   ): THREE.Texture {
-    const texture = this.getTextureImage(
-      image,
-      cubeImage,
-      null,
-      10,
-      10,
-      loadType,
-      null,
-      null
-    );
+    const loadOption : { [key : string] : any } = { 
+      width : 10,
+      height : 10,
+      type : loadType
+    }
+    const textureOption : { [key : string] : any } = {};
     if (ThreeUtil.isNotNull(options)) {
       const optionsList = options.split(',');
       optionsList.forEach((option) => {
         switch (option.toLowerCase()) {
-          case 'nearest':
           case 'nearestfilter':
-          case 'minnearest':
+          case 'nearest':
+          case 'nearestmipmapnearestfilter':
+          case 'nearestmipmapnearest':
+          case 'nearestmipmaplinearfilter':
+          case 'nearestmipmaplinear':
+          case 'linearmipmapnearestfilter':
+          case 'linearmipmapnearest':
+          case 'linearmipmaplinearfilter':
+          case 'linearmipmaplinear':
+          case 'linearfilter':
+          case 'linear':
+            textureOption.minFilter = textureOption.magFilter = ThreeUtil.getTypeSafe(option, 'LinearMipmapLinearFilter');
+            break;
           case 'minnearestfilter':
-            texture.minFilter = THREE.NearestFilter;
+          case 'minnearest':
+          case 'minnearestmipmapnearestfilter':
+          case 'minnearestmipmapnearest':
+          case 'minnearestmipmaplinearfilter':
+          case 'minnearestmipmaplinear':
+          case 'minlinearmipmapnearestfilter':
+          case 'minlinearmipmapnearest':
+          case 'minlinearmipmaplinearfilter':
+          case 'minlinearmipmaplinear':
+          case 'minlinearfilter':
+          case 'minlinear':
+            textureOption.minFilter = ThreeUtil.getTypeSafe(option.substr(3), 'LinearMipmapLinearFilter');
             break;
-          case 'repeat':
-          case 'wraprepeat':
+          case 'magnearestfilter':
+          case 'magnearest':
+          case 'magnearestmipmapnearestfilter':
+          case 'magnearestmipmapnearest':
+          case 'magnearestmipmaplinearfilter':
+          case 'magnearestmipmaplinear':
+          case 'maglinearmipmapnearestfilter':
+          case 'maglinearmipmapnearest':
+          case 'maglinearmipmaplinearfilter':
+          case 'maglinearmipmaplinear':
+          case 'maglinearfilter':
+          case 'maglinear':
+            textureOption.magFilter = ThreeUtil.getTypeSafe(option.substr(3), 'LinearFilter');
+            break;
           case 'repeatwrapping':
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+          case 'repeat':
+          case 'mirroredrepeatwrapping':
+          case 'mirroredrepeat':
+          case 'clamptoedgewrapping':
+          case 'clamptoedge':
+          case 'wraprepeat':
+            textureOption.wrapS = textureOption.wrapT = ThreeUtil.getTypeSafe(option, 'repeat');
             break;
+          case 'wrapsrepeatwrapping':
+          case 'wrapsrepeat':
+          case 'wrapsmirroredrepeatwrapping':
+          case 'wrapsmirroredrepeat':
+          case 'wrapsclamptoedgewrapping':
+          case 'wrapsclamptoedge':
+            textureOption.wrapS = ThreeUtil.getTypeSafe(option.substr(4), 'repeat');
+            break;
+          case 'wraptrepeatwrapping':
+          case 'wraptrepeat':
+          case 'wraptmirroredrepeatwrapping':
+          case 'wraptmirroredrepeat':
+          case 'wraptclamptoedgewrapping':
+          case 'wraptclamptoedge':
+            textureOption.wrapT = ThreeUtil.getTypeSafe(option.substr(4), 'repeat');
+            break;
+          case 'alphaformat':
+          case 'alpha':
+          case 'redformat':
+          case 'red':
+          case 'redintegerformat':
+          case 'redinteger':
+          case 'rgformat':
+          case 'rg':
+          case 'rgintegerformat':
+          case 'rginteger':
+          case 'rgbformat':
+          case 'rgb':
+          case 'rgbintegerformat':
+          case 'rgbinteger':
+          case 'rgbaintegerformat':
+          case 'rgbainteger':
+          case 'luminanceformat':
+          case 'luminance':
+          case 'luminancealphaformat':
+          case 'luminancealpha':
+          case 'rgbeformat':
+          case 'rgbe':
+          case 'depthformat':
+          case 'depth':
+          case 'depthstencilformat':
+          case 'depthstencil':
+          case 'rgbaformat':
+          case 'rgba':
+            textureOption.format = ThreeUtil.getTypeSafe(option, 'rgba');
+            break;
+          case 'bytetype':
+          case 'byte':
+          case 'shorttype':
+          case 'short':
+          case 'unsignedshorttype':
+          case 'unsignedshort':
+          case 'inttype':
+          case 'int':
+          case 'unsignedinttype':
+          case 'unsignedint':
+          case 'floattype':
+          case 'float':
+          case 'halffloattype':
+          case 'halffloat':
+          case 'unsignedshort4444type':
+          case 'unsignedshort4444':
+          case 'unsignedshort5551type':
+          case 'unsignedshort5551':
+          case 'unsignedshort565type':
+          case 'unsignedshort565':
+          case 'unsignedint248type':
+          case 'unsignedint248':
+          case 'unsignedbytetype':
+          case 'unsignedbyte':
+            textureOption.type = ThreeUtil.getTypeSafe(option, 'unsignedbyte');
+            break;
+          case 'srgbencoding':
+          case 'srgb':
+          case 'gammaencoding':
+          case 'gamma':
+          case 'rgbeencoding':
+          case 'rgbe':
+          case 'logluvencoding':
+          case 'logluv':
+          case 'rgbm7encoding':
+          case 'rgbm7':
+          case 'rgbm16encoding':
+          case 'rgbm16':
+          case 'rgbdencoding':
+          case 'rgbd':
+          case 'linearencoding':
+            textureOption.encoding = ThreeUtil.getTypeSafe(option, 'linearencoding');
+            break;
+          case 'uvmapping':
+          case 'uv':
+          case 'cubereflectionmapping':
+          case 'cubereflection':
+          case 'cuberefractionmapping':
+          case 'cuberefraction':
+          case 'equirectangularreflectionmapping':
+          case 'equirectangularreflection':
+          case 'equirectangularrefractionmapping':
+          case 'equirectangularrefraction':
+          case 'cubeuvreflectionmapping':
+          case 'cubeuvreflection':
+          case 'cubeuvrefractionmapping':
+          case 'cubeuvrefraction':
+            textureOption.mapping = ThreeUtil.getTypeSafe(option, 'default');
+            break;
+          default :
+            if (option.indexOf('=') > 0) {
+              const [key, value] = option.split('=');
+              switch(key.toLowerCase()) {
+                case 'width' :
+                case 'height' :
+                case 'depth' :
+                  loadOption[key.toLowerCase()] = parseInt(value);
+                  break;
+                case 'type' :
+                  loadOption.type = value;
+                  break;
+                case 'name' :
+                case 'filename' :
+                  loadOption.fileName = value;
+                  break;
+                }
+            }
         }
       });
     }
+    const texture = this.getTextureImage(
+      image,
+      cubeImage,
+      null,
+      loadOption
+    );
+    this.setTextureOptions(texture, textureOption);
     return texture;
   }
 
@@ -313,12 +443,11 @@ export class TextureComponent implements OnInit {
     image: string,
     cubeImage?: string[],
     program?: (ctx: CanvasRenderingContext2D, text?: string) => void,
-    canvasWidth?: number,
-    canvasHeight?: number,
-    loadType?: string,
-    text?: string,
+    options?: any,
     onLoad?: () => void
   ): THREE.Texture {
+    options = options || {};
+    const loadType = options.type || '';
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       cubeImage =  ThreeUtil.getCubeImage(cubeImage);
       switch ((loadType || 'cubetexture').toLowerCase()) {
@@ -397,20 +526,71 @@ export class TextureComponent implements OnInit {
           return videoTexture;
         case 'imagebitmap':
         case 'image':
+        case 'texture2d':
         default:
-          if (this.textureLoader === null) {
-            this.textureLoader = new THREE.TextureLoader(
-              ThreeUtil.getLoadingManager()
-            );
-          }
-          return this.textureLoader.load(ThreeUtil.getStoreUrl(image), () => {
-            if (ThreeUtil.isNotNull(onLoad)) {
-              onLoad();
+          if (image.endsWith('.zip')) {
+            if (this.fileLoader === null) {
+              this.fileLoader = new THREE.FileLoader(
+                ThreeUtil.getLoadingManager()
+              );
+              this.fileLoader.setResponseType( 'arraybuffer' );
             }
-          });
+            let texture : THREE.Texture = null;
+            switch ((loadType || 'texture').toLowerCase()) {
+              case 'texture2d' :
+                texture = new THREE.DataTexture2DArray(
+                  new Float32Array(),
+                  options.width || 1,
+                  options.height || 1,
+                  options.depth || 1
+                );
+                break;
+              default :
+                texture = new THREE.Texture();
+                break;
+            }
+            this.fileLoader.load(ThreeUtil.getStoreUrl(image), (data) => {
+              const zip = unzipSync( new Uint8Array( data as ArrayBuffer ) );
+              console.log(zip);
+              console.log(options);
+              let fileName = (options.fileName || '').toLowerCase();
+              let fileObject = null;
+              Object.entries(zip).forEach(([key, value]) => {
+                if (fileObject === null || key.toLowerCase() === fileName) {
+                  fileObject = value;
+                }
+              });
+              if (texture instanceof THREE.DataTexture2DArray) {
+                texture.image.data = new Uint8Array( fileObject.buffer );
+                texture.needsUpdate = true;
+              } else {
+                // todo
+              }
+              if (ThreeUtil.isNotNull(onLoad)) {
+                onLoad();
+              }
+            });
+            return texture;
+            
+          } else {
+            if (this.textureLoader === null) {
+              this.textureLoader = new THREE.TextureLoader(
+                ThreeUtil.getLoadingManager()
+              );
+            }
+            return this.textureLoader.load(ThreeUtil.getStoreUrl(image), (texture) => {
+              console.log(texture.image);
+              if (ThreeUtil.isNotNull(onLoad)) {
+                onLoad();
+              }
+            });
+          }
       }
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
+      const canvasWidth : number = ThreeUtil.getTypeSafe(options.width, 35);
+      const canvasHeight : number = ThreeUtil.getTypeSafe(options.height, 35);
+      const text:string = ThreeUtil.getTypeSafe(options.text, '');
       canvas.width = canvasWidth ? canvasWidth : 35;
       canvas.height = canvasHeight ? canvasHeight : 35;
       if (ThreeUtil.isNotNull(program)) {
@@ -477,6 +657,129 @@ export class TextureComponent implements OnInit {
     }
   }
 
+  getTextureOptions(options : { [key : string] : any } = {}) : { [key : string] : any } {
+    if (ThreeUtil.isNotNull(this.mapping)) {
+      options.mapping = this.mapping;
+    }
+    if (
+      ThreeUtil.isNotNull(this.wrapS) ||
+      ThreeUtil.isNotNull(this.wrap)
+    ) {
+      options.wrapS = ThreeUtil.getTypeSafe(this.wrapS, this.wrap, 'clamptoedge');
+    }
+    if (
+      ThreeUtil.isNotNull(this.wrapT) ||
+      ThreeUtil.isNotNull(this.wrap)
+    ) {
+      options.wrapT = ThreeUtil.getTypeSafe(this.wrapS, this.wrap, 'clamptoedge');
+    }
+    if (
+      ThreeUtil.isNotNull(this.flipY)
+    ) {
+      options.flipY = ThreeUtil.getTypeSafe(this.flipY, true);
+    }
+    if (ThreeUtil.isNotNull(this.rotation)) {
+      options.rotation = this.rotation;
+    }
+    if (ThreeUtil.isNotNull(this.premultiplyAlpha)) {
+      options.premultiplyAlpha = this.premultiplyAlpha;
+    }
+    if (ThreeUtil.isNotNull(this.magFilter)) {
+      options.magFilter = ThreeUtil.getTypeSafe(this.magFilter, this.filter, 'linearmipmaplinear');
+    }
+    if (ThreeUtil.isNotNull(this.minFilter) || ThreeUtil.isNotNull(this.filter)) {
+      options.minFilter = ThreeUtil.getTypeSafe(this.minFilter, this.filter, 'linearmipmaplinear');
+    }
+    if (ThreeUtil.isNotNull(this.format)) {
+      options.format = this.format;
+    }
+    if (ThreeUtil.isNotNull(this.type)) {
+      options.type = this.type;
+    }
+    if (ThreeUtil.isNotNull(this.anisotropy)) {
+      options.anisotropy = this.anisotropy;
+    }
+    if (ThreeUtil.isNotNull(this.generateMipmaps)) {
+      options.generateMipmaps = this.generateMipmaps;
+    }
+    if (ThreeUtil.isNotNull(this.encoding)) {
+      options.encoding = this.encoding;
+    }
+    if (
+      (ThreeUtil.isNotNull(this.repeatX) &&
+        ThreeUtil.isNotNull(this.repeatY)) ||
+      ThreeUtil.isNotNull(this.repeat)
+    ) {
+      options.repeat = this.getRepeat(1, 1);
+    }
+    if (
+      (ThreeUtil.isNotNull(this.offsetX) &&
+        ThreeUtil.isNotNull(this.offsetY)) ||
+      ThreeUtil.isNotNull(this.offset)
+    ) {
+      options.offset = this.getOffset(0, 0);
+    }
+    return options;
+  }
+
+  static setTextureOptions(texture : THREE.Texture, options : { [key : string] : any } = {}) : THREE.Texture {
+    Object.entries(options).forEach(([key, value]) => {
+      if (ThreeUtil.isNotNull(value)) {
+        switch(key.toLowerCase()) { 
+          case 'mapping':
+            texture.mapping = ThreeUtil.getMappingSafe(value);
+            break;
+          case 'wrapS':
+            texture.wrapS = ThreeUtil.getWrappingSafe(value, 'clamptoedge');
+            break;
+          case 'wrapT':
+            texture.wrapT = ThreeUtil.getWrappingSafe(value, 'clamptoedge');
+            break;
+          case 'flipY' :
+            texture.flipY = ThreeUtil.getTypeSafe(value, true);
+            break;
+          case 'rotation':
+            texture.rotation = ThreeUtil.getAngleSafe(value, 0);
+            break;
+          case 'premultiplyAlpha':
+            texture.premultiplyAlpha = ThreeUtil.getTypeSafe(value, true);
+            if (ThreeUtil.isNotNull(texture.image)) {
+              texture.needsUpdate = true;
+            }
+            break;
+          case 'magFilter':
+            texture.magFilter = ThreeUtil.getTextureFilterSafe(value, 'linear');
+            break;
+          case 'minFilter':
+            texture.minFilter = ThreeUtil.getTextureFilterSafe(value, 'linearmipmaplinear');
+            break;
+          case 'format':
+            texture.format = ThreeUtil.getPixelFormatSafe(value, 'rgba');
+            break;
+          case 'type':
+            texture.type = ThreeUtil.getTextureDataTypeSafe(value, 'unsignedbyte');
+            break;
+          case 'anisotropy':
+            texture.anisotropy = ThreeUtil.getTypeSafe(value, 1);
+            break;
+          case 'generateMipmaps':
+            texture.generateMipmaps = ThreeUtil.getTypeSafe(value, true);
+            break;
+          case 'encoding':
+            texture.encoding = ThreeUtil.getTextureEncodingSafe(value, 'linear');
+            break;
+          case 'repeat':
+            texture.repeat.copy(value);
+            break;
+          case 'offset':
+            texture.offset.copy(value);
+            break;
+        }
+      }
+    });
+    return texture;
+  }
+
   getTexture(changes?: SimpleChanges) {
     if (
       this.texture === null ||
@@ -516,21 +819,7 @@ export class TextureComponent implements OnInit {
           (texture) => {
             if (texture !== null) {
               this.texture = texture;
-              this.getTexture({
-                encoding: null,
-                wrapS: null,
-                wrapT: null,
-                magFilter: null,
-                minFilter: null,
-                format: null,
-                type: null,
-                repeat: null,
-                rotation: null,
-                flipY : null,
-                anisotropy: null,
-                premultiplyAlpha: null,
-                generateMipmaps : null
-              });
+              TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
             }
           },
           this.storageOption
@@ -562,146 +851,16 @@ export class TextureComponent implements OnInit {
             this.getCubeImage(null),
             this.getProgram(null),
             () => {
-              this.getTexture({
-                encoding: null,
-                wrapS: null,
-                wrapT: null,
-                magFilter: null,
-                minFilter: null,
-                format: null,
-                type: null,
-                repeat: null,
-                anisotropy: null,
-                premultiplyAlpha: null,
-                rotation: null,
-                flipY : null,
-                mapping: null,
-                generateMipmaps : null,
-              });
+              TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
               this.texture.needsUpdate = true;
             }
           );
         }
-        this.texture.mapping = this.getMapping();
-      }
-      if (ThreeUtil.isNotNull(changes)) {
-        changes = {
-          wrapS: null,
-          wrapT: null,
-          magFilter: null,
-          minFilter: null,
-          format: null,
-          type: null,
-          repeat: null,
-          anisotropy: null,
-          premultiplyAlpha: null,
-          mapping: null,
-        };
+        this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
       }
     }
-    if (this.texture != null && changes) {
-      for (const propName in changes) {
-        switch (propName) {
-          case 'mapping':
-            if (ThreeUtil.isNotNull(this.mapping)) {
-              this.texture.mapping = this.getMapping();
-            }
-            break;
-          case 'wrapS':
-            if (
-              ThreeUtil.isNotNull(this.wrapS) ||
-              ThreeUtil.isNotNull(this.wrap)
-            ) {
-              this.texture.wrapS = this.getWrapS('clamptoedge');
-            }
-            break;
-          case 'wrapT':
-            if (
-              ThreeUtil.isNotNull(this.wrapT) ||
-              ThreeUtil.isNotNull(this.wrap)
-            ) {
-              this.texture.wrapT = this.getWrapT('clamptoedge');
-            }
-            break;
-          case 'flipY' :
-            if (
-              ThreeUtil.isNotNull(this.flipY)
-            ) {
-              this.texture.flipY = ThreeUtil.getTypeSafe(this.flipY, true);
-            }
-            break;
-          case 'rotation':
-            if (ThreeUtil.isNotNull(this.rotation)) {
-              this.texture.rotation = this.getRotation(0);
-            }
-            break;
-          case 'premultiplyAlpha':
-            if (ThreeUtil.isNotNull(this.premultiplyAlpha)) {
-              this.texture.premultiplyAlpha = this.premultiplyAlpha;
-              if (ThreeUtil.isNotNull(this.texture.image)) {
-                this.texture.needsUpdate = true;
-              }
-            }
-            break;
-          case 'magFilter':
-            if (ThreeUtil.isNotNull(this.magFilter)) {
-              this.texture.magFilter = this.getMagFilter('linear');
-            }
-            break;
-          case 'minFilter':
-            if (ThreeUtil.isNotNull(this.minFilter) || ThreeUtil.isNotNull(this.filter)) {
-              this.texture.minFilter = this.getMinFilter('linearmipmaplinear');
-            }
-            break;
-          case 'format':
-            if (ThreeUtil.isNotNull(this.format) || ThreeUtil.isNotNull(this.filter)) {
-              this.texture.format = this.getFormat('rgba');
-            }
-            break;
-          case 'type':
-            if (ThreeUtil.isNotNull(this.type)) {
-              this.texture.type = this.getType('unsignedbyte');
-            }
-            break;
-          case 'anisotropy':
-            if (ThreeUtil.isNotNull(this.anisotropy)) {
-              this.texture.anisotropy = this.getAnisotropy(1);
-            }
-            break;
-          case 'generateMipmaps':
-            if (ThreeUtil.isNotNull(this.generateMipmaps)) {
-              this.texture.generateMipmaps = ThreeUtil.getTypeSafe(this.generateMipmaps, true);
-            }
-            break;
-          case 'encoding':
-            if (ThreeUtil.isNotNull(this.encoding)) {
-              this.texture.encoding = this.getEncoding('linear');
-            }
-            break;
-          case 'repeat':
-          case 'repeatX':
-          case 'repeatY':
-            if (
-              (ThreeUtil.isNotNull(this.repeatX) &&
-                ThreeUtil.isNotNull(this.repeatY)) ||
-              ThreeUtil.isNotNull(this.repeat)
-            ) {
-              this.texture.repeat.copy(this.getRepeat(1, 1));
-            }
-            break;
-          case 'offset':
-          case 'offsetX':
-          case 'offsetY':
-            if (
-              (ThreeUtil.isNotNull(this.offsetX) &&
-                ThreeUtil.isNotNull(this.offsetY)) ||
-              ThreeUtil.isNotNull(this.offset)
-            ) {
-              this.texture.offset.copy(this.getOffset(0, 0));
-            }
-            break;
-        }
-      }
+    if (this.texture != null) {
+      TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
       this.onLoad.emit(this);
       this._textureSubject.next(this.texture);
     }

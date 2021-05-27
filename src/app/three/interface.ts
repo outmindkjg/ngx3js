@@ -933,7 +933,9 @@ export class ThreeUtil {
         return defColor;
       } else if (typeof defColor === 'string') {
         const colorStr: string = defColor;
-        if (colorStr.startsWith('0x')) {
+        if (colorStr.startsWith('#')) {
+          return new THREE.Color(colorStr);
+        } else if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
         } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
           let [type, val1, val2, val3] = (colorStr + ',,,')
@@ -1168,6 +1170,7 @@ export class ThreeUtil {
   ): THREE.Wrapping {
     const wrap = this.getTypeSafe(baseWrap, altWrap, def || '');
     switch (wrap.toLowerCase()) {
+      case 'wraprepeat':
       case 'repeatwrapping':
       case 'repeat':
         return THREE.RepeatWrapping;
@@ -1187,7 +1190,7 @@ export class ThreeUtil {
     def?: string
   ): THREE.TextureFilter {
     const filter = this.getTypeSafe(baseFilter, altFilter, def || '');
-    switch (filter.toLowerCase()) {
+    switch (filter) {
       case 'nearestfilter':
       case 'nearest':
         return THREE.NearestFilter;

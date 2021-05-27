@@ -489,7 +489,6 @@ export class HelperComponent
           ThreeUtil.isNotNull(this.helper.material) &&
           this.helper.material instanceof THREE.Material
         ) {
-          console.log(this.helper);
           const opacity = this.getOpacity(1);
           if (opacity >= 0 && opacity < 1) {
             this.helper.material.opacity = opacity;

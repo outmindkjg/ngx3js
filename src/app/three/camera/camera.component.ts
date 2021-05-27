@@ -289,6 +289,7 @@ export class CameraComponent
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
     }
+    this.getCamera();
   }
 
   setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
@@ -694,9 +695,9 @@ export class CameraComponent
     renderTimer: RendererTimer
   ) {
     if (
-      !this.visible ||
       !this.active ||
-      this.isCameraChild
+      this.isCameraChild ||
+      !this.camera.visible
     ) {
       return;
     }

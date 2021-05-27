@@ -168,6 +168,7 @@ export class MeshComponent
   @Input() private encoding:string = null;
   @Input() private shareParts: MeshComponent = null;
   @Input() private sharedMesh: MeshComponent = null;
+  @Input() private userData: any = null;
   
   @Output() private onLoad: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
   @Output() private onDestory: EventEmitter<MeshComponent> = new EventEmitter<MeshComponent>();
@@ -1925,6 +1926,11 @@ export class MeshComponent
       }
       if (ThreeUtil.isNull(this.object3d.userData.component)) {
         this.object3d.userData.component = this;
+      }
+      if (ThreeUtil.isNotNull(this.userData)) {
+        Object.entries(this.userData).forEach(([key, value]) => {
+          this.object3d.userData[key] = value;
+        });
       }
       const realMesh = this.getRealMesh();
       this._meshSubject.next(realMesh);
