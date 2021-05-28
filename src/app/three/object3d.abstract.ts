@@ -183,6 +183,22 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  private _subscribe: { [key: string]: Subscription } = {};
+
+  protected unSubscribeRefer(key: string) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this._subscribe[key].unsubscribe();
+      delete this._subscribe[key];
+    }
+  }
+
+  protected subscribeRefer(key: string, subscription: Subscription) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this.unSubscribeRefer(key);
+    }
+    this._subscribe[key] = subscription;
+  }
+
   private _controllerSubscribe: Subscription[] = [];
   private _positionSubscribe: Subscription[] = [];
   private _rotationSubscribe: Subscription[] = [];

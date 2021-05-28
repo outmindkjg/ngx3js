@@ -109,13 +109,6 @@ export class SceneComponent
       if (changes.storageName || changes.background) {
         this.scene = null;
       }
-      if (this.background && this.background instanceof TextureComponent) {
-        this.background.textureSubscribe().subscribe(() => {
-          if (this.scene && this.background instanceof TextureComponent) {
-            this.setBackgroundTexture(this.background.getTexture(),this.backgroundType);
-          }
-        });
-      }
     }
     super.ngOnChanges(changes);
   }
@@ -168,25 +161,28 @@ export class SceneComponent
       case 'backgroundenvironmentangular':
       case 'environment-angular':
       case 'environmentangular':
-        TextureComponent.checkTextureImage(background, () => {
-          const envMap = this.getTextureFromEquirectangular(background);
-          switch (backgroundType.toLowerCase()) {
-            case 'background-environment-angular':
-            case 'backgroundenvironmentangular':
-              this.scene.background = envMap;
-              this.scene.environment = envMap;
-              break;
-            case 'environment-angular':
-            case 'environmentangular':
-              this.scene.environment = envMap;
-              break;
-            case 'background-angular':
-            case 'backgroundangular':
-            default :
-              this.scene.background = envMap;
-              break;
+        background.onUpdate = () => {
+          if (ThreeUtil.isTextureLoaded(background)) {
+            const envMap = this.getTextureFromEquirectangular(background);
+            switch (backgroundType.toLowerCase()) {
+              case 'background-environment-angular':
+              case 'backgroundenvironmentangular':
+                this.scene.background = envMap;
+                this.scene.environment = envMap;
+                break;
+              case 'environment-angular':
+              case 'environmentangular':
+                this.scene.environment = envMap;
+                break;
+              case 'background-angular':
+              case 'backgroundangular':
+              default :
+                this.scene.background = envMap;
+                break;
+            }
           }
-        })
+        }
+        background.onUpdate();
         break;
       case 'background-environment-cubemap':
       case 'backgroundenvironmentcubemap':
@@ -194,25 +190,28 @@ export class SceneComponent
       case 'backgroundcubemap':
       case 'environment-cubemap':
       case 'environmentcubemap':
-        TextureComponent.checkTextureImage(background, () => {
-          const envMap = this.getTextureFromCubemap(background);
-          switch (backgroundType.toLowerCase()) {
-            case 'background-environment-cubemap':
-            case 'backgroundenvironmentcubemap':
-              this.scene.background = envMap;
-              this.scene.environment = envMap;
-              break;
-            case 'environment-cubemap':
-            case 'environmentcubemap':
-              this.scene.environment = envMap;
-              break;
-            case 'background-cubemap':
-            case 'backgroundcubemap':
-            default :
-              this.scene.background = envMap;
-              break;
+        background.onUpdate = () => {
+          if (ThreeUtil.isTextureLoaded(background)) {
+            const envMap = this.getTextureFromCubemap(background as THREE.CubeTexture);
+            switch (backgroundType.toLowerCase()) {
+              case 'background-environment-cubemap':
+              case 'backgroundenvironmentcubemap':
+                this.scene.background = envMap;
+                this.scene.environment = envMap;
+                break;
+              case 'environment-cubemap':
+              case 'environmentcubemap':
+                this.scene.environment = envMap;
+                break;
+              case 'background-cubemap':
+              case 'backgroundcubemap':
+              default :
+                this.scene.background = envMap;
+                break;
+            }
           }
-        })
+        }
+        background.onUpdate();
         break;
       case 'environment':
         this.scene.environment = background;
@@ -285,16 +284,17 @@ export class SceneComponent
     }
     return this._pmremGenerator;
   }
-  getTextureFromEquirectangular(map : THREE.Texture) : THREE.Texture {
-    return this.getPmremGenerator().fromEquirectangular( map ).texture;
+
+  getTextureFromEquirectangular(texture : THREE.Texture) : THREE.Texture {
+    return this.getPmremGenerator().fromEquirectangular( texture ).texture;
   }
 
-  getTextureFromScene(map : any) : THREE.Texture {
-    return this.getPmremGenerator().fromScene( map ).texture;
+  getTextureFromScene(scene : THREE.Scene) : THREE.Texture {
+    return this.getPmremGenerator().fromScene( scene ).texture;
   }
 
-  getTextureFromCubemap(map : any) : THREE.Texture {
-    return this.getPmremGenerator().fromCubemap( map ).texture;
+  getTextureFromCubemap(texture : THREE.CubeTexture) : THREE.Texture {
+    return this.getPmremGenerator().fromCubemap( texture ).texture;
   }
 
   setMaterialSubscribe() {
@@ -451,23 +451,18 @@ export class SceneComponent
         this.scene = new THREE.Scene();
         this.setObject3D(this.scene);
       }
+      this.unSubscribeRefer('background');
       if (ThreeUtil.isNotNull(this.background)) {
         if (this.background instanceof MaterialComponent) {
           this.setMaterial(this.background, this.backgroundType);
+          this.subscribeRefer('background', this.background.materialSubscribe().subscribe(() => {
+            this.setMaterial(this.background as MaterialComponent, this.backgroundType);
+          }));
         } else if (this.background instanceof TextureComponent) {
-          switch (this.backgroundType.toLowerCase()) {
-            case 'background-angular':
-            case 'backgroundangular':
-              const background = this.background.getTexture();
-              TextureComponent.checkTextureImage(background, () => {
-                const envMap = this.getTextureFromEquirectangular(background);
-                this.scene.background = envMap;
-              })
-              break;
-            default :
-              this.scene.background = this.background.getTexture();
-              break;
-          }
+          this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+          this.subscribeRefer('background', this.background.textureSubscribe().subscribe(() => {
+            this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+          }));
         } else {
           this.scene.background = ThreeUtil.getColorSafe(
             this.background,
@@ -475,9 +470,13 @@ export class SceneComponent
           );
         }
       }
+      this.unSubscribeRefer('environment');
       if (ThreeUtil.isNotNull(this.environment)) {
         if (this.environment instanceof MaterialComponent) {
           this.setMaterial(this.environment, 'environment');
+          this.subscribeRefer('environment', this.environment.materialSubscribe().subscribe(() => {
+            this.setMaterial(this.environment as MaterialComponent, 'environment');
+          }));
         } else if (this.environment instanceof MeshComponent) {
             const mesh = this.environment.getMesh() as THREE.Scene;
             this.scene.environment = this.getTextureFromScene(mesh);

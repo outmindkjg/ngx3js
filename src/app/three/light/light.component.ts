@@ -480,9 +480,12 @@ export class LightComponent
           if (ThreeUtil.isNotNull(this.texture)) {
             const texture = this.texture.getTexture();
             if (texture instanceof THREE.CubeTexture) {
-              TextureComponent.checkTextureImage(texture, () => {
-                basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
-              });
+              texture.onUpdate = () => {
+                if (ThreeUtil.isTextureLoaded(texture)) {
+                  basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
+                }
+              }
+              texture.onUpdate();
             }
           } else if (ThreeUtil.isNotNull(this.renderTarget)) {
             const renderer = this.getThreeRenderer();

@@ -1022,6 +1022,38 @@ export class ThreeUtil {
     }
     return undefined;
   }
+  static getBooleanSafe(bl: string | number | boolean , altbl?: string | number | boolean): boolean {
+    const defValue = this.getTypeSafe(bl, altbl);
+    if (typeof defValue === 'boolean') {
+      return defValue;
+    } else if (typeof defValue === 'string') {
+      switch(defValue.toLowerCase()) {
+        case '1' :
+        case 'y' :
+        case 'yes' :
+        case 'true' :
+        case 't' :
+        case 'on' :
+          return true;
+        case '' :
+        case '0' :
+        case 'n' :
+        case 'no' :
+        case 'false' :
+        case 'f' :
+        case 'off' :
+          return false;
+      }
+    } else if (typeof defValue === 'number') {
+      if (defValue > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } 
+    return undefined;
+
+  }
 
   static getAngle2RadianSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
@@ -1055,7 +1087,8 @@ export class ThreeUtil {
     x: number,
     y: number,
     altValue?: THREE.Vector2,
-    v2?: number[] | THREE.Vector2
+    v2?: number[] | THREE.Vector2,
+    isRequired? : boolean 
   ): THREE.Vector2 {
     const defValue =
       this.isNotNull(x) || this.isNotNull(y)
@@ -1069,6 +1102,9 @@ export class ThreeUtil {
     }
     if (this.isNotNull(altValue)) {
       return altValue;
+    }
+    if (isRequired) {
+      return new THREE.Vector2();      
     }
     return undefined;
   }
@@ -1342,6 +1378,95 @@ export class ThreeUtil {
       default:
         return THREE.UnsignedByteType;
     }
+  }
+
+  static getObject3d(object3d : any) : THREE.Object3D { 
+    if (object3d instanceof THREE.Object3D) {
+      return object3d;
+    } else if (this.isNotNull(object3d.getHelper)) {
+      return object3d.getHelper();
+    } else if (this.isNotNull(object3d.getCamera)) {
+      return object3d.getCamera();
+    } else if (this.isNotNull(object3d.getScene)) {
+      return object3d.getScene();
+    } else if (this.isNotNull(object3d.getObject3D)) {
+      return object3d.getObject3D();
+    }
+    return new THREE.Object3D();
+  }
+
+  static getMesh(mesh : any) : THREE.Mesh { 
+    if (mesh instanceof THREE.Mesh) {
+      return mesh;
+    } else if (this.isNotNull(mesh.getHelper)) {
+      return mesh.getHelper();
+    } else if (this.isNotNull(mesh.getMesh)) {
+      return mesh.getMesh();
+    } else if (this.isNotNull(mesh)) {
+      const object3d = this.getObject3d(mesh);
+      if (object3d instanceof THREE.Mesh) {
+        return object3d;
+      }
+    }
+    return new THREE.Mesh();
+  }
+
+  static getMaterial(material : any) : THREE.Material { 
+    if (material instanceof THREE.Material) {
+      return material;
+    } else if (this.isNotNull(material.getMaterial)) {
+      return material.getMaterial();
+    } else if (this.isNotNull(material)) {
+      const mesh = this.getMesh(material);
+      if (mesh instanceof THREE.Mesh) {
+        if (this.isNotNull(material.material)) {
+          if (Array.isArray(material.material)) {
+            if (material.material.length > 0) {
+              return material.material[0];
+            }
+          } else {
+            return material.material;
+          }
+        }
+      }
+    }
+    return new THREE.Material();
+  }
+
+  static getTexture(texture : any, refType : string = 'map') : THREE.Texture { 
+    if (texture instanceof THREE.Texture) {
+      return texture;
+    } else if (this.isNotNull(texture.getTexture)) {
+      return texture.getTexture();
+    } else if (this.isNotNull(texture)) {
+      const material = this.getMaterial(texture);
+      if (this.isNotNull(material[refType]) && material[refType] instanceof THREE.Texture) {
+        return material[refType];
+      }
+    }
+    return new THREE.Texture();
+  }
+
+  static isTextureLoaded(texture : THREE.Texture) : boolean { 
+    if (texture instanceof THREE.CubeTexture || texture['isCubeTexture']) {
+      if (this.isNotNull(texture.image) && texture.image.length === 6) {
+        return true;
+      }
+    } if (texture instanceof THREE.DataTexture || texture['isDataTexture']) {
+      if (this.isNotNull(texture.image) && this.isNotNull(texture.image.data) && texture.image.data.length > 0) {
+        return true;
+      }
+    } else if (texture instanceof THREE.VideoTexture || texture['isVideoTexture']) {
+      if (this.isNotNull(texture.image) && texture.image instanceof HTMLVideoElement && texture.image.error === null) {
+        return true;
+      }
+    } else if (texture instanceof THREE.Texture) {
+      if (this.isNotNull(texture.image)) {
+        return true;
+      }
+    } 
+    console.log(texture);
+    return false;
   }
 
   static getTextureEncodingSafe(

@@ -591,24 +591,6 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-    } else if (key.endsWith('.hdr')) {
-      if (this.rgbeLoader === null) {
-        this.rgbeLoader = new RGBELoader(ThreeUtil.getLoadingManager());
-      }
-      this.setLoaderWithOption(this.rgbeLoader, options);
-      this.rgbeLoader.load(
-        key,
-        (texture: THREE.Texture) => {
-          callBack({
-            material: new THREE.MeshBasicMaterial({
-              map: texture,
-            }),
-            source: texture,
-          });
-        },
-        this.onProgress,
-        this.onError
-      );
     } else if (key.endsWith('.3mf')) {
       if (this.threeMFLoader === null) {
         this.threeMFLoader = new ThreeMFLoader(ThreeUtil.getLoadingManager());

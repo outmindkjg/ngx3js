@@ -1,12 +1,4 @@
-import {
-  Component,
-  ContentChildren,
-  EventEmitter, Input,
-  OnChanges,
-  OnInit, Output,
-  QueryList,
-  SimpleChanges
-} from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
@@ -18,11 +10,12 @@ import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
+import { ShaderType, ShaderUtils } from '../shader/shaderUtils';
 import { TextureComponent } from '../texture/texture.component';
 
 export type TypeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
 
-export type TypeUniforms = { [uniform: string]: TypeUniform; }
+export type TypeUniforms = { [uniform: string]: TypeUniform };
 
 export type TextureValue = string | TextureComponent | THREE.Texture | TextureOption;
 
@@ -38,8 +31,7 @@ export interface TextureOption {
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.scss'],
 })
-export class MaterialComponent
-  implements OnInit, OnChanges, InterfaceSvgGeometry {
+export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometry {
   @Input() public type: string = 'lambert';
   @Input() public name: string = null;
   @Input() public nameList: string[] = null;
@@ -89,9 +81,8 @@ export class MaterialComponent
   @Input() private stencilZFail: string = null;
   @Input() private stencilZPass: string = null;
   @Input() private userData: any = null;
-  @Input() private uniforms: {
-    [uniform: string]: TypeUniform;
-  } = null;
+  @Input() private shader: string | ShaderType = null;
+  @Input() private uniforms: { [uniform: string]: TypeUniform; } = null;
   @Input() private vertexShader: string = null;
   @Input() private fragmentShader: string = null;
   @Input() private lights: boolean = null;
@@ -150,14 +141,14 @@ export class MaterialComponent
   @Input() private rotation: number = null;
   @Input() private size: number = null;
   @Input() private sizeAttenuation: boolean = null;
-  @Input() private envMap:TextureValue = null;
-  @Input() private map:TextureValue = null;
-  @Input() private specularMap:TextureValue = null;
-  @Input() private alphaMap:TextureValue = null;
-  @Input() private bumpMap:TextureValue = null;
-  @Input() private normalMap:TextureValue = null;
-  @Input() private displacementMap:TextureValue = null;
-  @Input() private aoMap:TextureValue = null;
+  @Input() private envMap: TextureValue = null;
+  @Input() private map: TextureValue = null;
+  @Input() private specularMap: TextureValue = null;
+  @Input() private alphaMap: TextureValue = null;
+  @Input() private bumpMap: TextureValue = null;
+  @Input() private normalMap: TextureValue = null;
+  @Input() private displacementMap: TextureValue = null;
+  @Input() private aoMap: TextureValue = null;
   @Input() private dashed: boolean = null;
   @Input() private dashScale: number = null;
   @Input() private dashOffset: number = null;
@@ -165,9 +156,9 @@ export class MaterialComponent
   @Input() private resolutionY: number = null;
   @Input() private control: any = null;
   @Input() private glslVersion: string = null;
-  
-  @Output()
-  private onLoad: EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
+  @Input() private debug: boolean = false;
+
+  @Output() private onLoad: EventEmitter<MaterialComponent> = new EventEmitter<MaterialComponent>();
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -175,12 +166,9 @@ export class MaterialComponent
   meshTranslations: THREE.BufferGeometry[] = [];
   meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
-  @ContentChildren(TextureComponent)
-  private textureList: QueryList<TextureComponent>;
-  @ContentChildren(ShaderComponent)
-  private shaderList: QueryList<ShaderComponent>;
-  @ContentChildren(PlaneComponent)
-  private clippingPlanesList: QueryList<PlaneComponent>;
+  @ContentChildren(TextureComponent) private textureList: QueryList<TextureComponent>;
+  @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
 
   private getColor(def?: string | number | THREE.Color): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.color, def, this.colorMultiply);
@@ -218,11 +206,7 @@ export class MaterialComponent
   }
 
   private getSpecular(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorMultiplySafe(
-      this.specular,
-      def,
-      this.specularMultiply
-    );
+    return ThreeUtil.getColorMultiplySafe(this.specular, def, this.specularMultiply);
   }
 
   private getShininess(def?: number): number {
@@ -238,11 +222,7 @@ export class MaterialComponent
   }
 
   private getEmissive(def?: string | number | THREE.Color): THREE.Color {
-    return ThreeUtil.getColorMultiplySafe(
-      this.emissive,
-      def,
-      this.emissiveMultiply
-    );
+    return ThreeUtil.getColorMultiplySafe(this.emissive, def, this.emissiveMultiply);
   }
 
   private getEmissiveIntensity(def?: number): number {
@@ -265,19 +245,7 @@ export class MaterialComponent
   }
 
   private getNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(
-      ThreeUtil.getTypeSafe(
-        this.normalScaleX,
-        this.normalScaleY,
-        this.normalScale
-      ),
-      ThreeUtil.getTypeSafe(
-        this.normalScaleY,
-        this.normalScaleX,
-        this.normalScale
-      ),
-      def
-    );
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.normalScaleX, this.normalScaleY, this.normalScale), ThreeUtil.getTypeSafe(this.normalScaleY, this.normalScaleX, this.normalScale), def);
   }
 
   private getDisplacementScale(def?: number): number {
@@ -379,12 +347,7 @@ export class MaterialComponent
   }
 
   private getReferencePosition(def?: THREE.Vector3): THREE.Vector3 {
-    return ThreeUtil.getVector3Safe(
-      this.referencePositionX,
-      this.referencePositionY,
-      this.referencePositionZ,
-      def
-    );
+    return ThreeUtil.getVector3Safe(this.referencePositionX, this.referencePositionY, this.referencePositionZ, def);
   }
 
   private getClearcoat(def?: number): number {
@@ -396,11 +359,7 @@ export class MaterialComponent
   }
 
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(
-      this.clearcoatNormalScaleX,
-      this.clearcoatNormalScaleY,
-      def
-    );
+    return ThreeUtil.getVector2Safe(this.clearcoatNormalScaleX, this.clearcoatNormalScaleY, def);
   }
 
   private getIor(def?: number): number {
@@ -443,9 +402,7 @@ export class MaterialComponent
     return ThreeUtil.getTypeSafe(this.sizeAttenuation, def);
   }
 
-  private getTextureOption(
-    map: string | TextureComponent | THREE.Texture | TextureOption
-  ): THREE.Texture {
+  private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
       if (map instanceof THREE.Texture) {
         return map;
@@ -454,12 +411,7 @@ export class MaterialComponent
       } else if (typeof map == 'string') {
         return TextureComponent.getTextureImageOption(map, null, 'texture');
       } else if (ThreeUtil.isNotNull(map.value)) {
-        return TextureComponent.getTextureImageOption(
-          map.value,
-          map.options,
-          map.type,
-          map.cubeImage
-        );
+        return TextureComponent.getTextureImageOption(map.value, map.options, map.type, map.cubeImage);
       }
     }
     return undefined;
@@ -522,19 +474,18 @@ export class MaterialComponent
 
   private getGlslVersion(def?: string): THREE.GLSLVersion {
     const glslVersion = ThreeUtil.getTypeSafe(this.glslVersion, def, '');
-    switch(glslVersion.toLowerCase()) {
-      case '1' :
-      case 'gl1' :
-      case 'glsl1' :
+    switch (glslVersion.toLowerCase()) {
+      case '1':
+      case 'gl1':
+      case 'glsl1':
         return THREE.GLSL1;
-      case '3' :
-      case 'gl3' :
-      case 'glsl3' :
+      case '3':
+      case 'gl3':
+      case 'glsl3':
         return THREE.GLSL3;
     }
     return null;
   }
-  
 
   private getAlphaTest(def?: number): number {
     return ThreeUtil.getTypeSafe(this.alphaTest, def);
@@ -596,9 +547,7 @@ export class MaterialComponent
     return ThreeUtil.getBlendingSafe(this.blending, def, '');
   }
 
-  private getBlendSrc(
-    def?: string
-  ): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
+  private getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
     const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
     switch (blendSrc.toLowerCase()) {
       case 'srcalphasaturatefactor':
@@ -659,10 +608,7 @@ export class MaterialComponent
       if (clippingPlanes.length > 0) {
         return clippingPlanes;
       }
-    } else if (
-      this.clippingPlanesList !== null &&
-      this.clippingPlanesList !== undefined
-    ) {
+    } else if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined) {
       const clippingPlanes: THREE.Plane[] = [];
       this.clippingPlanesList.forEach((plane) => {
         clippingPlanes.push(plane.getWorldPlane());
@@ -916,34 +862,37 @@ export class MaterialComponent
   }
 
   private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
-    const uniforms : { [uniform: string]: THREE.IUniform } = ThreeUtil.getTypeSafe(this.uniforms, def);
+    const uniforms: {
+      [key: string]: THREE.IUniform;
+    } = ThreeUtil.getTypeSafe(this.uniforms, def);
+    const resultUniforms = ShaderUtils.getUniforms(this.shader);
     Object.entries(uniforms).forEach(([key, value]) => {
-      if (
-        ThreeUtil.isNotNull(value['type']) &&
-        ThreeUtil.isNotNull(value['value'])
-      ) {
-        const valueType : string = value['type'];
-        const valueValue : any = value['value'];
+      if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+        const valueType: string = value['type'];
+        const valueValue: any = value['value'];
         switch (valueType.toLowerCase()) {
-          case 'projectionmatrixinverse' :
-          case 'projectionmatrix' :
-          case 'matrixworldinverse' :
-          case 'matrixworld' :
-          case 'matrix' :
+          case 'projectionmatrixinverse':
+          case 'projectionmatrix':
+          case 'matrixworldinverse':
+          case 'matrixworld':
+          case 'matrix':
             if (ThreeUtil.isNotNull(valueValue.getObject3D)) {
               this._unSubscribeRefer('unforms_' + key);
-              const object3d : THREE.Object3D = valueValue.getObject3D();
-              uniforms[key] = {
-                value: ThreeUtil.getMatrix4Safe(object3d, valueType)
+              const object3d: THREE.Object3D = valueValue.getObject3D();
+              resultUniforms[key] = {
+                value: ThreeUtil.getMatrix4Safe(object3d, valueType),
               };
               if (ThreeUtil.isNotNull(valueValue.object3DSubscribe)) {
-                this._subscribeRefer('unforms_' + key, valueValue.object3DSubscribe().subscribe((e) => {
-                  uniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
-                }));
+                this._subscribeRefer(
+                  'unforms_' + key,
+                  valueValue.object3DSubscribe().subscribe((e) => {
+                    resultUniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
+                  })
+                );
               }
             } else {
-              uniforms[key] = {
-                value: new THREE.Matrix4()
+              resultUniforms[key] = {
+                value: new THREE.Matrix4(),
               };
             }
             break;
@@ -951,101 +900,102 @@ export class MaterialComponent
           case 'v2':
             if (ThreeUtil.isNotNull(valueValue.getSize)) {
               this._unSubscribeRefer('unforms_' + key);
-              uniforms[key] = {
+              resultUniforms[key] = {
                 value: valueValue.getSize(),
               };
               if (ThreeUtil.isNotNull(valueValue.sizeSubscribe)) {
-                this._subscribeRefer('unforms_' + key, valueValue.sizeSubscribe().subscribe((e) => {
-                  uniforms[key].value = e;
-                }));
+                this._subscribeRefer(
+                  'unforms_' + key,
+                  valueValue.sizeSubscribe().subscribe((e) => {
+                    resultUniforms[key].value = e;
+                  })
+                );
               }
             } else {
-              uniforms[key] = {
-                value: ThreeUtil.getVector2Safe(
-                  valueValue[0],
-                  valueValue[1]
-                , new THREE.Vector2()),
+              resultUniforms[key] = {
+                value: ThreeUtil.getVector2Safe(valueValue[0], valueValue[1], new THREE.Vector2()),
               };
             }
             break;
           case 'vector3':
           case 'vector':
           case 'v3':
-            uniforms[key] = {
-              value: ThreeUtil.getVector3Safe(
-                valueValue[0],
-                valueValue[1],
-                valueValue[2]
-              , new THREE.Vector3()),
+            resultUniforms[key] = {
+              value: ThreeUtil.getVector3Safe(valueValue[0], valueValue[1], valueValue[2], new THREE.Vector3()),
             };
             break;
           case 'color':
-            uniforms[key] = {
+            resultUniforms[key] = {
               value: ThreeUtil.getColorSafe(valueValue, 0xffffff),
             };
             break;
           case 'image':
           case 'texture2d':
+          case 'texture3d':
           case 'texture':
+          case 'datatexture2d':
+          case 'datatexture3d':
+          case 'datatexture':
           case 'video':
           case 'videotexture':
-            uniforms[key] = {
-              value: TextureComponent.getTextureImageOption(
-                valueValue,
-                value['options'],
-                valueType.toLowerCase()
-              ),
+            resultUniforms[key] = {
+              value: TextureComponent.getTextureImageOption(valueValue, value['options'], valueType.toLowerCase()),
             };
             break;
           case 'imagelist':
           case 'texturelist':
           case 'imagearray':
           case 'texturearray':
-            const textureList : THREE.Texture[] = [];
-            const texturePathList : string[] = [];
+            const textureList: THREE.Texture[] = [];
+            const texturePathList: string[] = [];
             const textureOption = value['options'];
             if (typeof valueValue === 'string') {
-              valueValue.split(',').forEach(path => {
+              valueValue.split(',').forEach((path) => {
                 if (path !== '' && path.length > 3) {
                   texturePathList.push(path);
                 }
               });
             } else if (ThreeUtil.isNotNull(valueValue.forEach)) {
-              valueValue.forEach(path => {
+              valueValue.forEach((path) => {
                 if (path !== '' && path.length > 3) {
                   texturePathList.push(path);
                 }
               });
             }
-            texturePathList.forEach(texturePath => {
-              textureList.push(TextureComponent.getTextureImageOption(
-                texturePath,
-                textureOption,
-                'texture'
-              ));
+            texturePathList.forEach((texturePath) => {
+              textureList.push(TextureComponent.getTextureImageOption(texturePath, textureOption, 'texture'));
             });
-            uniforms[key] = {
-              value: textureList
+            resultUniforms[key] = {
+              value: textureList,
             };
             break;
           case 'int':
-            uniforms[key] = { value: parseInt(valueValue) };
+          case 'integer':
+            resultUniforms[key] = { value: parseInt(valueValue) };
             break;
+          case 'str' :
+          case 'string' :
+            resultUniforms[key] = { value: valueValue.toString() };
+            break;
+          case 'double':
           case 'float':
           case 'number':
-            uniforms[key] = { value: parseFloat(valueValue) };
+            resultUniforms[key] = { value: parseFloat(valueValue) };
             break;
           default:
-            uniforms[key] = { value: valueValue };
+            resultUniforms[key] = { value: valueValue };
             break;
         }
-      } else if (value['value'] !== undefined){
-        uniforms[key] = { value: value['value'] };
+      } else if (value['value'] !== undefined) {
+        resultUniforms[key] = { value: value['value'] };
       } else {
-        uniforms[key] = { value: value };
+        resultUniforms[key] = { value: value };
       }
     });
-    return uniforms;
+    if (this.debug) {
+      console.log('material-uniforms', resultUniforms);
+    }
+    return resultUniforms;
   }
 
   private getLights(def?: any): any {
@@ -1074,12 +1024,12 @@ export class MaterialComponent
 
   private getShader(type: string) {
     if (type === 'x-shader/x-vertex') {
-      if (ThreeUtil.isNotNull(this.vertexShader)) {
-        return this.vertexShader;
+      if (ThreeUtil.isNotNull(this.vertexShader) || ThreeUtil.isNotNull(this.shader)) {
+        return ShaderUtils.getVertexShader(ThreeUtil.getTypeSafe(this.vertexShader, this.shader));
       }
     } else if (type === 'x-shader/x-fragment') {
-      if (ThreeUtil.isNotNull(this.fragmentShader)) {
-        return this.fragmentShader;
+      if (ThreeUtil.isNotNull(this.fragmentShader) || ThreeUtil.isNotNull(this.shader)) {
+        return ShaderUtils.getFragmentShader(ThreeUtil.getTypeSafe(this.fragmentShader, this.shader));
       }
     }
     if (this.shaderList != null && this.shaderList.length > 0) {
@@ -1179,21 +1129,22 @@ export class MaterialComponent
       });
     });
   }
-  
-  private _subscribe: { [ key : string ] : Subscription} = {};
-  private _unSubscribeRefer(key : string) {
+
+  private _subscribe: { [key: string]: Subscription } = {};
+
+  private _unSubscribeRefer(key: string) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this._subscribe[key].unsubscribe();
       delete this._subscribe[key];
     }
   }
-  private _subscribeRefer(key : string, subscription :Subscription) {
+
+  private _subscribeRefer(key: string, subscription: Subscription) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this._unSubscribeRefer(key);
     }
     this._subscribe[key] = subscription;
   }
-
 
   private _needUpdate: boolean = true;
   private _textureSubscribe: Subscription[] = [];
@@ -1226,10 +1177,7 @@ export class MaterialComponent
           })
         );
       }
-      if (
-        this.specularMap !== null &&
-        this.specularMap instanceof TextureComponent
-      ) {
+      if (this.specularMap !== null && this.specularMap instanceof TextureComponent) {
         this._textureSubscribe.push(
           this.specularMap.textureSubscribe().subscribe(() => {
             this.setTexture(this.specularMap as TextureComponent);
@@ -1250,10 +1198,7 @@ export class MaterialComponent
           })
         );
       }
-      if (
-        this.normalMap !== null &&
-        this.normalMap instanceof TextureComponent
-      ) {
+      if (this.normalMap !== null && this.normalMap instanceof TextureComponent) {
         this._textureSubscribe.push(
           this.normalMap.textureSubscribe().subscribe(() => {
             this.setTexture(this.normalMap as TextureComponent, 'normalMap');
@@ -1267,16 +1212,10 @@ export class MaterialComponent
           })
         );
       }
-      if (
-        this.displacementMap !== null &&
-        this.displacementMap instanceof TextureComponent
-      ) {
+      if (this.displacementMap !== null && this.displacementMap instanceof TextureComponent) {
         this._textureSubscribe.push(
           this.displacementMap.textureSubscribe().subscribe(() => {
-            this.setTexture(
-              this.displacementMap as TextureComponent,
-              'displacementMap'
-            );
+            this.setTexture(this.displacementMap as TextureComponent, 'displacementMap');
           })
         );
       }
@@ -1292,11 +1231,7 @@ export class MaterialComponent
   setTexture(texture: TextureComponent, textureTypeHint: string = null) {
     if (this.material !== null) {
       const materialClone = texture.getTexture();
-      const textureType = ThreeUtil.getTypeSafe(
-        textureTypeHint,
-        texture.textureType,
-        'map'
-      );
+      const textureType = ThreeUtil.getTypeSafe(textureTypeHint, texture.textureType, 'map');
       switch (textureType.toLowerCase()) {
         case 'map':
           this.material['map'] = materialClone;
@@ -1345,46 +1280,32 @@ export class MaterialComponent
       this.material = null;
       this.storageSource = null;
       if (ThreeUtil.isNotNull(this.storageName)) {
-        this.material = new THREE.MeshLambertMaterial(
-          this.getMaterialParameters({})
-        );
+        this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters({}));
         switch (this.type.toLowerCase()) {
           case 'nodematerial':
           case 'node':
             const modeMateriallibrary = {};
             if (ThreeUtil.isNotNull(this.storageOption)) {
               Object.entries(this.storageOption).forEach(([key, value]) => {
-                if (
-                  ThreeUtil.isNotNull(value['type']) &&
-                  ThreeUtil.isNotNull(value['value'])
-                ) {
+                if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
                   switch (value['type'].toLowerCase()) {
                     case 'texture':
-                      const texture = TextureComponent.getTextureImageOption(
-                        value['value'],
-                        value['options']
-                      );
+                      const texture = TextureComponent.getTextureImageOption(value['value'], value['options']);
                       modeMateriallibrary[key] = texture;
                       break;
                   }
                 }
               });
             }
-            const nodeMaterialLoader = new NodeMaterialLoader(
-              undefined,
-              modeMateriallibrary
-            );
-            nodeMaterialLoader.load(
-              ThreeUtil.getStoreUrl(this.storageName),
-              (material: THREE.Material) => {
-                this.material = material;
-                this.storageSource = nodeMaterialLoader;
-                if (this.getVisible(true)) {
-                  this._materialSubject.next(this.material);
-                }
-                this.onLoad.emit(this);
+            const nodeMaterialLoader = new NodeMaterialLoader(undefined, modeMateriallibrary);
+            nodeMaterialLoader.load(ThreeUtil.getStoreUrl(this.storageName), (material: THREE.Material) => {
+              this.material = material;
+              this.storageSource = nodeMaterialLoader;
+              if (this.getVisible(true)) {
+                this._materialSubject.next(this.material);
               }
-            );
+              this.onLoad.emit(this);
+            });
             break;
           default:
             this.localStorageService.getMaterial(
@@ -1425,9 +1346,7 @@ export class MaterialComponent
               linejoin: this.getLinejoin(),
               morphTargets: this.getMorphTargets(),
             };
-            this.material = new THREE.LineBasicMaterial(
-              this.getMaterialParameters(parametersLineBasicMaterial)
-            );
+            this.material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
             break;
           case 'linedashedmaterial':
           case 'linedashed':
@@ -1438,9 +1357,7 @@ export class MaterialComponent
               gapSize: this.getGapSize(),
               scale: this.getScale(),
             };
-            this.material = new THREE.LineDashedMaterial(
-              this.getMaterialParameters(parametersLineDashedMaterial)
-            );
+            this.material = new THREE.LineDashedMaterial(this.getMaterialParameters(parametersLineDashedMaterial));
             break;
           case 'meshbasicmaterial':
           case 'meshbasic':
@@ -1463,9 +1380,7 @@ export class MaterialComponent
               alphaMap: this.getTexture('alphaMap'),
               envMap: this.getTexture('envMap'),
             };
-            this.material = new THREE.MeshBasicMaterial(
-              this.getMaterialParameters(parametersMeshBasicMaterial)
-            );
+            this.material = new THREE.MeshBasicMaterial(this.getMaterialParameters(parametersMeshBasicMaterial));
             break;
           case 'meshdepthmaterial':
           case 'meshdepth':
@@ -1479,9 +1394,7 @@ export class MaterialComponent
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
             };
-            this.material = new THREE.MeshDepthMaterial(
-              this.getMaterialParameters(parametersMeshDepthMaterial)
-            );
+            this.material = new THREE.MeshDepthMaterial(this.getMaterialParameters(parametersMeshDepthMaterial));
             break;
           case 'meshdistancematerial':
           case 'meshdistance':
@@ -1495,9 +1408,7 @@ export class MaterialComponent
               nearDistance: this.getNearDistance(),
               referencePosition: this.getReferencePosition(),
             };
-            this.material = new THREE.MeshDistanceMaterial(
-              this.getMaterialParameters(parametersMeshDistanceMaterial)
-            );
+            this.material = new THREE.MeshDistanceMaterial(this.getMaterialParameters(parametersMeshDistanceMaterial));
             break;
           case 'meshmatcapmaterial':
           case 'meshmatcap':
@@ -1518,9 +1429,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.MeshMatcapMaterial(
-              this.getMaterialParameters(parametersMeshMatcapMaterial)
-            );
+            this.material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
             break;
           case 'meshnormalmaterial':
           case 'meshnormal':
@@ -1539,9 +1448,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.MeshNormalMaterial(
-              this.getMaterialParameters(parametersMeshNormalMaterial)
-            );
+            this.material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
             break;
           case 'meshphongmaterial':
           case 'meshphong':
@@ -1580,9 +1487,7 @@ export class MaterialComponent
               wireframeLinecap: this.getWireframeLinecap(),
               wireframeLinejoin: this.getWireframeLinejoin(),
             };
-            this.material = new THREE.MeshPhongMaterial(
-              this.getMaterialParameters(parametersMeshPhongMaterial)
-            );
+            this.material = new THREE.MeshPhongMaterial(this.getMaterialParameters(parametersMeshPhongMaterial));
             break;
           case 'meshphysicalmaterial':
           case 'meshphysical':
@@ -1630,9 +1535,7 @@ export class MaterialComponent
               // transmission: this.getTransmission(),
               // transmissionMap: this.getTexture('transmissionMap')
             };
-            this.material = new THREE.MeshPhysicalMaterial(
-              this.getMaterialParameters(parametersMeshPhysicalMaterial)
-            );
+            this.material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
             break;
           case 'meshstandardmaterial':
           case 'meshstandard':
@@ -1669,9 +1572,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.MeshStandardMaterial(
-              this.getMaterialParameters(parametersMeshStandardMaterial)
-            );
+            this.material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
             break;
           case 'meshtoonmaterial':
           case 'meshtoon':
@@ -1704,9 +1605,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.MeshToonMaterial(
-              this.getMaterialParameters(parametersMeshToonMaterial)
-            );
+            this.material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
             break;
           case 'pointsmaterial':
           case 'points':
@@ -1718,9 +1617,7 @@ export class MaterialComponent
               sizeAttenuation: this.getSizeAttenuation(),
               morphTargets: this.getMorphTargets(),
             };
-            this.material = new THREE.PointsMaterial(
-              this.getMaterialParameters(parametersPointsMaterial)
-            );
+            this.material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
             break;
           case 'rawshadermaterial':
           case 'rawshader':
@@ -1737,9 +1634,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            const rawShaderMaterial = new THREE.RawShaderMaterial(
-              this.getMaterialParameters(parametersRawShaderMaterial)
-            );
+            const rawShaderMaterial = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
             if (ThreeUtil.isNotNull(this.glslVersion)) {
               rawShaderMaterial.glslVersion = this.getGlslVersion();
             }
@@ -1758,11 +1653,9 @@ export class MaterialComponent
               clipping: this.getClipping(),
               skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
-              morphNormals: this.getMorphNormals()
+              morphNormals: this.getMorphNormals(),
             };
-            const shaderMaterial = new THREE.ShaderMaterial(
-              this.getMaterialParameters(parametersShaderMaterial)
-            );
+            const shaderMaterial = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
             if (ThreeUtil.isNotNull(this.glslVersion)) {
               shaderMaterial.glslVersion = this.getGlslVersion();
             }
@@ -1800,9 +1693,7 @@ export class MaterialComponent
               rotation: this.getRotation(),
               sizeAttenuation: this.getSizeAttenuation(),
             };
-            this.material = new THREE.SpriteMaterial(
-              this.getMaterialParameters(parametersSpriteMaterial)
-            );
+            this.material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
             break;
           case 'meshlambertmaterial':
           case 'meshlambert':
@@ -1831,9 +1722,7 @@ export class MaterialComponent
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            this.material = new THREE.MeshLambertMaterial(
-              this.getMaterialParameters(parametersMeshLambertMaterial)
-            );
+            this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
             break;
         }
       }
@@ -1846,9 +1735,12 @@ export class MaterialComponent
           control.setupMaterial(this.material);
         }
       }
-      
+
       if (this.getVisible(true)) {
         this._materialSubject.next(this.material);
+      }
+      if (this.debug) {
+        console.log('material', this.material);
       }
       this.onLoad.emit(this);
     }

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ThreeUtil } from '../interface';
-
+import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
+		
 @Component({
   selector: 'three-shader',
   templateUrl: './shader.component.html',

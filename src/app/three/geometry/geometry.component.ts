@@ -26,6 +26,7 @@ import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtil
 import { CurveComponent } from '../curve/curve.component';
 import { InterfaceGetGeometry, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
+import { PositionComponent } from '../position/position.component';
 import { RotationComponent } from '../rotation/rotation.component';
 import { ScaleComponent } from '../scale/scale.component';
 import { ShapeComponent } from '../shape/shape.component';
@@ -270,22 +271,15 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
   @Input() private maxEdgeLength: number = null;
   @Input() private maxIterations: number = null;
 
-  @Output()
-  private onLoad: EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
-  @ContentChildren(GeometryComponent, { descendants: false })
-  private geometryList: QueryList<GeometryComponent>;
-  @ContentChildren(ShapeComponent, { descendants: false })
-  private shapeList: QueryList<ShapeComponent>;
-  @ContentChildren(CurveComponent, { descendants: false })
-  private curveList: QueryList<CurveComponent>;
-  @ContentChildren(TranslationComponent, { descendants: false })
-  private translationList: QueryList<TranslationComponent>;
-  @ContentChildren(ScaleComponent, { descendants: false })
-  private scaleList: QueryList<ScaleComponent>;
-  @ContentChildren(RotationComponent, { descendants: false })
-  private rotationList: QueryList<RotationComponent>;
-  @ContentChildren(SvgComponent, { descendants: false })
-  private svgList: QueryList<SvgComponent>;
+  @Output() private onLoad: EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
+  @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
+  @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
+  @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
+  @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
+  @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
+  @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
+  @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
+  @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 
   private getRadius(def?: number): number {
     return ThreeUtil.getTypeSafe(this.radius, def);
@@ -1426,13 +1420,39 @@ export class GeometryComponent implements OnInit, InterfaceGetGeometry {
 
   setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
-      if (this.center) {
-        geometry.center();
-      }
       if (this.geometry !== null) {
         this.geometry.dispose();
       }
+      if (this.center) {
+        geometry.center();
+      }
       if (geometry.getAttribute('position') !== undefined) {
+        if (ThreeUtil.isNotNull(this.positionList) && this.positionList.length > 0) {
+          this.positionList.forEach(pos => {
+            const position = pos.getPosition();
+            switch(pos.type.toLowerCase()) {
+              case 'rotate' :
+                if (position.x !== 0) {
+                  geometry.rotateX(ThreeUtil.getAngleSafe(position.x));
+                }
+                if (position.y !== 0) {
+                  geometry.rotateY(ThreeUtil.getAngleSafe(position.y));
+                }
+                if (position.z !== 0) {
+                  geometry.rotateZ(ThreeUtil.getAngleSafe(position.z));
+                }
+                break;
+              case 'scale' :
+                geometry.scale(position.x, position.y, position.z);
+                break;
+              case 'position' :
+              case 'translate' :
+              default :
+                geometry.translate(position.x, position.y, position.z);
+                break;
+            }
+          })
+        }
         if (ThreeUtil.isNotNull(this.morphAttributes)) {
           const attributes = this.getMorphAttributes();
           if (attributes.length > 0) {

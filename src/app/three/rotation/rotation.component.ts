@@ -6,22 +6,20 @@ import { TagAttributes, ThreeUtil } from '../interface';
 @Component({
   selector: 'three-rotation',
   templateUrl: './rotation.component.html',
-  styleUrls: ['./rotation.component.scss']
+  styleUrls: ['./rotation.component.scss'],
 })
 export class RotationComponent implements OnInit {
+  @Input() public visible: boolean = true;
+  @Input() private refer: any = null;
+  @Input() private referRef: boolean = true;
+  @Input() private x: number | string = 0;
+  @Input() private y: number | string = 0;
+  @Input() private z: number | string = 0;
+  @Output() private onLoad: EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
 
-  @Input() public visible:boolean = true;
-  @Input() private refer:any = null;
-  @Input() private referRef:boolean = true;
-  @Input() private x:number|string = 0;
-  @Input() private y:number|string = 0;
-  @Input() private z:number|string = 0;
-  @Output() private onLoad:EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer) {
@@ -30,27 +28,27 @@ export class RotationComponent implements OnInit {
     this.resetRotation();
   }
 
-  private rotation : THREE.Euler = null;
-  private parent : THREE.Object3D | any = null;
+  private rotation: THREE.Euler = null;
+  private parent: THREE.Object3D | any = null;
 
-  getTagAttribute(options? : any) : TagAttributes {
+  getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
       tag: 'three-rotation',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.rotation)) {
-      tagAttributes.attributes.push({ name : 'x', value : ThreeUtil.getRadian2AngleSafe(options.rotation.x) });
-      tagAttributes.attributes.push({ name : 'y', value : ThreeUtil.getRadian2AngleSafe(options.rotation.y) });
-      tagAttributes.attributes.push({ name : 'z', value : ThreeUtil.getRadian2AngleSafe(options.rotation.z) });
+      tagAttributes.attributes.push({ name: 'x', value: ThreeUtil.getRadian2AngleSafe(options.rotation.x) });
+      tagAttributes.attributes.push({ name: 'y', value: ThreeUtil.getRadian2AngleSafe(options.rotation.y) });
+      tagAttributes.attributes.push({ name: 'z', value: ThreeUtil.getRadian2AngleSafe(options.rotation.z) });
     } else {
-      tagAttributes.attributes.push({ name : 'x', value : this.x });
-      tagAttributes.attributes.push({ name : 'y', value : this.y });
-      tagAttributes.attributes.push({ name : 'z', value : this.z });
+      tagAttributes.attributes.push({ name: 'x', value: this.x });
+      tagAttributes.attributes.push({ name: 'y', value: this.y });
+      tagAttributes.attributes.push({ name: 'z', value: this.z });
     }
     return tagAttributes;
   }
 
-  setParent(parent : THREE.Object3D | any , isRestore : boolean = false) : boolean {
+  setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
     if (this.parent !== parent) {
       this.parent = parent;
       if (isRestore && this.parent !== null && this.parent instanceof THREE.Object3D) {
@@ -67,13 +65,13 @@ export class RotationComponent implements OnInit {
 
   private _rotationSubscribe: Subscription = null;
 
-  private _rotationSubject:Subject<THREE.Euler> = new Subject<THREE.Euler>();
+  private _rotationSubject: Subject<THREE.Euler> = new Subject<THREE.Euler>();
 
-  rotationSubscribe() : Observable<THREE.Euler>{
+  rotationSubscribe(): Observable<THREE.Euler> {
     return this._rotationSubject.asObservable();
   }
 
-  setRotation(x : number, y : number, z : number) {
+  setRotation(x: number, y: number, z: number) {
     if (ThreeUtil.isNotNull(x)) {
       this.x = x;
     }
@@ -94,25 +92,25 @@ export class RotationComponent implements OnInit {
           this._rotationSubscribe.unsubscribe();
           this._rotationSubscribe = null;
         }
-        this.parent.rotation.copy(this.getRotation())
+        this.parent.rotation.copy(this.getRotation());
         if (this.refer !== null && this.referRef && this.refer.rotationSubscribe) {
-          this._rotationSubscribe = this.refer.rotationSubscribe().subscribe(rotation => {
+          this._rotationSubscribe = this.refer.rotationSubscribe().subscribe((rotation) => {
             if (this.parent instanceof THREE.Object3D && this.visible) {
               this.parent.rotation.copy(rotation);
             }
-          })
+          });
         }
       } else if (this.parent.meshRotations) {
-        this.parent.meshRotations.forEach(rotation => {
+        this.parent.meshRotations.forEach((rotation) => {
           rotation.copy(this.getRotation());
         });
       }
-    } else if (this.rotation === null){
+    } else if (this.rotation === null) {
       this.rotation = this.getRotation();
     }
   }
 
-  getRotation() : THREE.Euler {
+  getRotation(): THREE.Euler {
     if (this.rotation === null) {
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getRotation) {
@@ -122,7 +120,7 @@ export class RotationComponent implements OnInit {
         }
       }
       if (this.rotation === null) {
-        this.rotation = ThreeUtil.getEulerSafe(this.x,this.y,this.z,new THREE.Euler(0,0,0));
+        this.rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, new THREE.Euler(0, 0, 0));
       }
       if (this.visible) {
         this._rotationSubject.next(this.rotation);
@@ -131,5 +129,4 @@ export class RotationComponent implements OnInit {
     }
     return this.rotation;
   }
-
 }

@@ -1,39 +1,15 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  ContentChildren,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  QueryList,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild } from '@angular/core';
 import * as GSAP from 'gsap';
 import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { WEBGL } from 'three/examples/jsm/WebGL';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent } from '../control/control.component';
 import { ControllerComponent } from '../controller/controller.component';
-import { WEBGL } from 'three/examples/jsm/WebGL';
-import {
-  GuiControlParam,
-  RendererEvent,
-  RendererInfo,
-  RendererTimer,
-  ThreeClock,
-  ThreeGui,
-  ThreeStats,
-  ThreeUtil,
-} from '../interface';
+import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { SharedComponent } from '../shared/shared.component';
 import { ViewerComponent } from '../viewer/viewer.component';
@@ -48,9 +24,7 @@ import { SceneComponent } from './../scene/scene.component';
   templateUrl: './renderer.component.html',
   styleUrls: ['./renderer.component.scss'],
 })
-export class RendererComponent
-  implements OnInit, AfterContentInit, AfterViewInit, OnChanges
-{
+export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
   @Input() public type: string = 'webgl';
   @Input() private css3dType: string = 'none';
   @Input() private controlType: string = 'none';
@@ -97,7 +71,6 @@ export class RendererComponent
   @Input() private verticalMin: number = null;
   @Input() private verticalMax: number = null;
   @Input() private mouseDragOn: boolean = null;
-
   @Input() private antialias: boolean = false;
   @Input() public sizeType: string = 'auto';
   @Input() private width: number = -1;
@@ -112,47 +85,26 @@ export class RendererComponent
   @Input() private guiParams: GuiControlParam[] = [];
   @Input() private useEvent: string[] = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
-  @Output() private eventListener: EventEmitter<RendererEvent> =
-    new EventEmitter<RendererEvent>();
-  @Output() private onRender: EventEmitter<RendererTimer> =
-    new EventEmitter<RendererTimer>();
-  @Output() private onLoad: EventEmitter<RendererComponent> =
-    new EventEmitter<RendererComponent>();
+  @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
+  @Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
+  @Output() private onLoad: EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
 
-  @ContentChildren(SceneComponent, { descendants: false })
-  private sceneList: QueryList<SceneComponent>;
-  @ContentChildren(CameraComponent, { descendants: true })
-  private cameraList: QueryList<CameraComponent>;
-  @ContentChildren(ComposerComponent, { descendants: true })
-  private composerList: QueryList<ComposerComponent>;
-  @ContentChildren(ViewerComponent, { descendants: true })
-  private viewerList: QueryList<ViewerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: true })
-  private listnerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: true })
-  private audioList: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true })
-  private controllerList: QueryList<ControllerComponent>;
-  @ContentChildren(LookatComponent, { descendants: false })
-  private lookatList: QueryList<LookatComponent>;
-  @ContentChildren(ControlComponent, { descendants: false })
-  private controlList: QueryList<ControlComponent>;
-
-  @ContentChildren(PlaneComponent)
-  private clippingPlanes: QueryList<PlaneComponent>;
-  @ContentChildren(CanvasComponent)
-  private canvas2d: QueryList<CanvasComponent>;
-
-  @ContentChildren(SharedComponent, { descendants: true })
-  private sharedList: QueryList<SharedComponent>;
+  @ContentChildren(SceneComponent, { descendants: false }) private sceneList: QueryList<SceneComponent>;
+  @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(ComposerComponent, { descendants: true }) private composerList: QueryList<ComposerComponent>;
+  @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: true }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: true }) private audioList: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+  @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+  @ContentChildren(ControlComponent, { descendants: false }) private controlList: QueryList<ControlComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
+  @ContentChildren(CanvasComponent) private canvas2d: QueryList<CanvasComponent>;
+  @ContentChildren(SharedComponent, { descendants: true }) private sharedList: QueryList<SharedComponent>;
 
   @ViewChild('canvas') private canvas: ElementRef;
   @ViewChild('debug') private debug: ElementRef;
   @ViewChild('renderer') private _renderer: ElementRef;
-
-  private getEncoding(def?: string): THREE.TextureEncoding {
-    return ThreeUtil.getTextureEncodingSafe(this.outputEncoding, def, '');
-  }
 
   private getShadowMapType(def?: string): THREE.ShadowMapType {
     const shadowMapType = ThreeUtil.getTypeSafe(this.shadowMapType, def, '');
@@ -232,9 +184,7 @@ export class RendererComponent
       }
       if (changes.globalClippingEnabled) {
         if (this.renderer instanceof THREE.WebGLRenderer) {
-          this.renderer.clippingPlanes = !this.globalClippingEnabled
-            ? []
-            : this.getClippingPlanes();
+          this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
         }
       }
     }
@@ -245,59 +195,25 @@ export class RendererComponent
       } else {
         this.eventChange = this.removeWindowEvent('change', this.eventChange);
       }
-      if (
-        useEvent.indexOf('pointerdown') > -1 ||
-        useEvent.indexOf('mousedown') > -1 ||
-        useEvent.indexOf('down') > -1
-      ) {
-        this.eventPointerDown = this.addWindowEvent(
-          'pointerdown',
-          this.eventPointerDown
-        );
+      if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
+        this.eventPointerDown = this.addWindowEvent('pointerdown', this.eventPointerDown);
       } else {
-        this.eventPointerDown = this.removeWindowEvent(
-          'pointerdown',
-          this.eventPointerDown
-        );
+        this.eventPointerDown = this.removeWindowEvent('pointerdown', this.eventPointerDown);
       }
-      if (
-        useEvent.indexOf('pointerup') > -1 ||
-        useEvent.indexOf('mouseup') > -1 ||
-        useEvent.indexOf('up') > -1 ||
-        useEvent.indexOf('click') > -1
-      ) {
-        this.eventPointerUp = this.addWindowEvent(
-          'pointerup',
-          this.eventPointerUp
-        );
+      if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
+        this.eventPointerUp = this.addWindowEvent('pointerup', this.eventPointerUp);
       } else {
-        this.eventPointerUp = this.removeWindowEvent(
-          'pointerup',
-          this.eventPointerUp
-        );
+        this.eventPointerUp = this.removeWindowEvent('pointerup', this.eventPointerUp);
       }
-      if (
-        useEvent.indexOf('pointermove') > -1 ||
-        useEvent.indexOf('mousemove') > -1 ||
-        useEvent.indexOf('move') > -1
-      ) {
-        this.eventPointerMove = this.addWindowEvent(
-          'pointermove',
-          this.eventPointerMove
-        );
+      if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
+        this.eventPointerMove = this.addWindowEvent('pointermove', this.eventPointerMove);
       } else {
-        this.eventPointerMove = this.removeWindowEvent(
-          'pointermove',
-          this.eventPointerMove
-        );
+        this.eventPointerMove = this.removeWindowEvent('pointermove', this.eventPointerMove);
       }
       if (useEvent.indexOf('keydown') > -1) {
         this.eventKeyDown = this.addWindowEvent('keydown', this.eventKeyDown);
       } else {
-        this.eventKeyDown = this.removeWindowEvent(
-          'keydown',
-          this.eventKeyDown
-        );
+        this.eventKeyDown = this.removeWindowEvent('keydown', this.eventKeyDown);
       }
       if (useEvent.indexOf('keyup') > -1) {
         this.eventKeyUp = this.addWindowEvent('keyup', this.eventKeyUp);
@@ -305,15 +221,9 @@ export class RendererComponent
         this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
       }
       if (useEvent.indexOf('keypress') > -1) {
-        this.eventKeyPress = this.addWindowEvent(
-          'keypress',
-          this.eventKeyPress
-        );
+        this.eventKeyPress = this.addWindowEvent('keypress', this.eventKeyPress);
       } else {
-        this.eventKeyPress = this.removeWindowEvent(
-          'keypress',
-          this.eventKeyPress
-        );
+        this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
       }
       if (useEvent.indexOf('click') > -1) {
         this.eventClick = this.addWindowEvent('click', this.eventClick);
@@ -333,10 +243,7 @@ export class RendererComponent
   addWindowEvent(type: string, listener: any) {
     if (listener === null) {
       listener = (event) => {
-        if (
-          ThreeUtil.isNotNull(this._renderer) &&
-          ThreeUtil.isNotNull(this.renderer)
-        ) {
+        if (ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
           const offsetTop = this._renderer.nativeElement.offsetTop;
           const offsetLeft = this._renderer.nativeElement.offsetLeft;
           const offsetRight = offsetLeft + this.rendererWidth;
@@ -349,12 +256,7 @@ export class RendererComponent
               event.clientY = offsetTop;
               break;
           }
-          if (
-            event.clientX >= offsetLeft &&
-            event.clientX <= offsetRight &&
-            event.clientY >= offsetTop &&
-            event.clientY <= offsetBottom
-          ) {
+          if (event.clientX >= offsetLeft && event.clientX <= offsetRight && event.clientY >= offsetTop && event.clientY <= offsetBottom) {
             const offsetX = event.clientX - offsetLeft;
             const offsetY = event.clientY - offsetTop;
             this.eventListener.emit({
@@ -367,10 +269,7 @@ export class RendererComponent
               rateY: offsetY / this.rendererHeight,
               width: this.rendererWidth,
               height: this.rendererHeight,
-              mouse: new THREE.Vector2(
-                (offsetX / this.rendererWidth) * 2 - 1,
-                -(offsetY / this.rendererHeight) * 2 + 1
-              ),
+              mouse: new THREE.Vector2((offsetX / this.rendererWidth) * 2 - 1, -(offsetY / this.rendererHeight) * 2 + 1),
               event: event,
             });
           }
@@ -421,6 +320,10 @@ export class RendererComponent
   }
 
   setSize(width: number, height: number) {
+    if (this._lastConfirmHtml !== null) {
+      this._lastConfirmHtml.style.width = width + 'px';
+      this._lastConfirmHtml.style.height = height + 'px';
+    }
     if (this.renderer !== null) {
       this.rendererWidth = width;
       this.rendererHeight = height;
@@ -453,44 +356,46 @@ export class RendererComponent
 
   protected _userGestureSubject: Subject<boolean> = new Subject<boolean>();
 
-  userGestureSubscribe(): Observable<boolean> {
+  userGestureSubscribe(ele?: HTMLElement): Observable<boolean> {
     const observable = this._userGestureSubject.asObservable();
     if (!this._userGestureShown) {
       this._userGestureShown = true;
       setTimeout(() => {
-        this.drawGesture();
+        this.drawGesture(ele);
       }, 100);
     }
     return observable;
   }
 
+  _lastConfirmHtml: HTMLElement = null;
   _userGestureShown: boolean = false;
-  drawGesture() {
+  drawGesture(ele?: HTMLElement) {
+    if (this._lastConfirmHtml !== null) {
+      this._lastConfirmHtml.parentNode.removeChild(this._lastConfirmHtml);
+      this._lastConfirmHtml = null;
+    }
     this._userGestureShown = true;
     const confirm = document.createElement('div');
-    confirm.style.position = 'absolute';
-    confirm.style.left = '0px';
-    confirm.style.top = '0px';
-    confirm.style.right = '0px';
-    confirm.style.bottom = '0px';
-    confirm.style.zIndex = '1000';
-    confirm.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    confirm.className = 'message-info';
     const button = document.createElement('button');
-    button.style.position = 'absolute';
-    button.style.left = '50%';
-    button.style.top = '50%';
-    button.style.right = 'auto';
-    button.style.bottom = 'auto';
-    button.style.backgroundColor = 'black';
-    button.style.color = 'white';
-    button.innerHTML = '<b>P</b>lay';
+    button.className = 'message-button';
+    button.innerHTML = '<b>Re</b>try';
     button.addEventListener('click', () => {
-      this._userGestureSubject.next(true);
       confirm.parentNode.removeChild(confirm);
+      this._lastConfirmHtml = null;
       this._userGestureShown = false;
+      this._userGestureSubject.next(true);
     });
+    if (ThreeUtil.isNotNull(ele)) {
+      const message = document.createElement('div');
+      message.className = 'message';
+      message.append(ele);
+      confirm.append(message);
+    }
     confirm.append(button);
     this.canvas.nativeElement.appendChild(confirm);
+    this._lastConfirmHtml = confirm;
+    this.resizeRender();
   }
 
   getSize(): THREE.Vector2 {
@@ -535,12 +440,7 @@ export class RendererComponent
             break;
           case 'controller':
             this.controllerList.forEach((controller) => {
-              controller.setRenderer(
-                this.renderer,
-                this.sceneList,
-                this.cameraList,
-                this.canvas2d
-              );
+              controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2d);
             });
             break;
           case 'viewer':
@@ -553,11 +453,11 @@ export class RendererComponent
               const camera = this.cameraList.first.getCamera();
               const scene = this.sceneList.first.getScene();
               this.composerList.forEach((composer) => {
-                composer.getEffectComposer(this.renderer as THREE.WebGLRenderer , camera, scene);
+                composer.getEffectComposer(this.renderer as THREE.WebGLRenderer, camera, scene);
               });
             }
             break;
-          }
+        }
       });
     }
   }
@@ -572,11 +472,7 @@ export class RendererComponent
   private clock: ThreeClock = null;
   private controls: ControlComponent[] = null;
 
-  private getControls(
-    cameras: QueryList<CameraComponent>,
-    scenes: QueryList<SceneComponent>,
-    domElement: HTMLElement
-  ): ControlComponent[] {
+  private getControls(cameras: QueryList<CameraComponent>, scenes: QueryList<SceneComponent>, domElement: HTMLElement): ControlComponent[] {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
     let autoRotate: boolean = this.autoRotate;
@@ -618,7 +514,7 @@ export class RendererComponent
             maxDistance: this.maxDistance,
             xDistance: this.xDistance,
             yDistance: this.yDistance,
-            enableZoom : this.enableZoom,
+            enableZoom: this.enableZoom,
             minZoom: this.minZoom,
             maxZoom: this.maxZoom,
             rotateSpeed: this.rotateSpeed,
@@ -690,6 +586,17 @@ export class RendererComponent
   }
 
   ngAfterViewInit() {
+    switch (this.type.toLowerCase()) {
+      case 'gl2':
+      case 'webgl2':
+        if (WEBGL.isWebGL2Available() === false) {
+          this.renderer = null;
+          this.userGestureSubscribe(WEBGL.getWebGL2ErrorMessage()).subscribe(() => {
+            this.ngAfterViewInit();
+          });
+          return;
+        }
+    }
     if (this.guiControl != null) {
       ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
     }
@@ -707,11 +614,7 @@ export class RendererComponent
     });
     this.renderer = this.getRenderer();
     this.setSize(this.rendererWidth, this.rendererHeight);
-    this.controls = this.getControls(
-      this.cameraList,
-      this.sceneList,
-      this.canvas.nativeElement
-    );
+    this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
     this.sceneList.forEach((scene) => {
       scene.setRenderer(this);
     });
@@ -744,11 +647,8 @@ export class RendererComponent
           break;
       }
       switch (this.type.toLowerCase()) {
-        case 'webgl2' :
-          if (WEBGL.isWebGL2Available() === false) {
-            // isWebGL2Available
-            // WEBGL.getWebGL2ErrorMessage()
-          }
+        case 'gl2':
+        case 'webgl2':
         default:
           this.renderer = new THREE.WebGLRenderer({
             alpha: this.cssRenderer !== null ? true : false,
@@ -759,10 +659,7 @@ export class RendererComponent
           break;
       }
       if (this.rendererWidth === null || this.rendererHeight === null) {
-        const [width, height] =
-          this.width > 0 && this.height > 0
-            ? [this.width, this.height]
-            : [window.innerWidth, window.innerHeight];
+        const [width, height] = this.width > 0 && this.height > 0 ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
         this.rendererWidth = width;
         this.rendererHeight = height;
       }
@@ -788,12 +685,10 @@ export class RendererComponent
         this.renderer.autoClear = this.autoClear;
         this.renderer.autoClearColor = this.autoClearColor;
         if (ThreeUtil.isNotNull(this.outputEncoding)) {
-          this.renderer.outputEncoding = this.getEncoding('linear');
+          this.renderer.outputEncoding = ThreeUtil.getTextureEncodingSafe(this.outputEncoding, 'linear');
         }
         this.renderer.localClippingEnabled = this.localClippingEnabled;
-        this.renderer.clippingPlanes = !this.globalClippingEnabled
-          ? []
-          : this.getClippingPlanes();
+        this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
       }
       if (this.cssRenderer !== null) {
         this.cssRenderer.domElement.style.position = 'absolute';
@@ -840,7 +735,7 @@ export class RendererComponent
     };
   }
 
-  private _isPaused : boolean = false;
+  private _isPaused: boolean = false;
   private _renderOnce() {
     if (this.renderer === null) {
       return;
@@ -862,23 +757,15 @@ export class RendererComponent
         control.render(renderTimer);
       });
     }
-    if (
-      ThreeUtil.isNull(this.beforeRender) ||
-      !this.beforeRender(this.getRenderInfo(renderTimer))
-    ) {
+    if (ThreeUtil.isNull(this.beforeRender) || !this.beforeRender(this.getRenderInfo(renderTimer))) {
       // if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer && this.panSpeed ) {
-      if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer ) {
-        this.composerList.forEach(composer => {
+      if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
+        this.composerList.forEach((composer) => {
           composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);
         });
       } else {
         this.cameraList.forEach((camera) => {
-          camera.render(
-            this.renderer,
-            this.cssRenderer,
-            this.sceneList,
-            renderTimer
-          );
+          camera.render(this.renderer, this.cssRenderer, this.sceneList, renderTimer);
         });
       }
       this.viewerList.forEach((viewer) => {
@@ -904,44 +791,41 @@ export class RendererComponent
   resizeRender() {
     if (this.width <= 0 || this.height <= 0) {
       if (this.sizeType === 'auto') {
-        this.setSize(
-          this._renderer.nativeElement.clientWidth,
-          this._renderer.nativeElement.clientHeight
-        );
+        this.setSize(this._renderer.nativeElement.clientWidth, this._renderer.nativeElement.clientHeight);
       } else {
         this.setSize(window.innerWidth, window.innerHeight);
       }
     }
   }
 
-  getCanvasJson(callback : (json) => void, options? : { width? : number, height? : number, name? : string, type? : string }) {
+  getCanvasJson(callback: (json) => void, options?: { width?: number; height?: number; name?: string; type?: string }) {
     if (this.renderer !== null && this.renderer.domElement !== null) {
       this._isPaused = true;
       this._renderOnce();
-      options = options ||{};
-      let imageType = ThreeUtil.getTypeSafe(options.type , 'png');
+      options = options || {};
+      let imageType = ThreeUtil.getTypeSafe(options.type, 'png');
       let contentType = 'image/png';
-      switch(imageType.toLowerCase()) {
-        case 'jpg' :
-        case 'jpeg' :
+      switch (imageType.toLowerCase()) {
+        case 'jpg':
+        case 'jpeg':
           contentType = 'image/jpeg';
           break;
-        case 'png' :
-        default :
+        case 'png':
+        default:
           imageType = 'png';
           contentType = 'image/png';
-          break;        
+          break;
       }
-      let imageName = ThreeUtil.getTypeSafe(options.name , 'auto');
+      let imageName = ThreeUtil.getTypeSafe(options.name, 'auto');
       if (imageName == '' || imageName == 'auto') {
         imageName = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
       }
       const resultJson = {
-        content : null,
-        contentType : contentType,
-        size : 0,
-        name : imageName + '.' + imageType
-      }
+        content: null,
+        contentType: contentType,
+        size: 0,
+        name: imageName + '.' + imageType,
+      };
       if (ThreeUtil.isNotNull(options.width) && ThreeUtil.isNotNull(options.height) && options.width > 0 && options.height > 0) {
         const canvas: HTMLCanvasElement = document.createElement('canvas');
         canvas.width = options.width;
@@ -949,9 +833,9 @@ export class RendererComponent
         const context = canvas.getContext('2d', {
           alpha: true,
         });
-        const canvasImage :HTMLImageElement = document.createElement('img');
+        const canvasImage: HTMLImageElement = document.createElement('img');
         canvasImage.src = this.renderer.domElement.toDataURL('png');
-        canvasImage.addEventListener('load',() => {
+        canvasImage.addEventListener('load', () => {
           let sx: number = 0;
           let sy: number = 0;
           let sw: number = 0;
@@ -982,11 +866,11 @@ export class RendererComponent
           this._isPaused = false;
           callback(resultJson);
         });
-        canvasImage.addEventListener('error',() => {
+        canvasImage.addEventListener('error', () => {
           this._isPaused = false;
         });
       } else {
-        resultJson.content =  this.renderer.domElement.toDataURL(imageType);
+        resultJson.content = this.renderer.domElement.toDataURL(imageType);
         if (ThreeUtil.isNotNull(options.name)) {
           this.getDownloadFile(resultJson);
         } else {
@@ -1004,9 +888,9 @@ export class RendererComponent
       const blob = this.dataURLtoBlob(result.content);
       result.size = blob.size;
       var tempUrl = window.URL.createObjectURL(blob);
-      let link = document.createElement("a");
-      link.setAttribute("download", result.name);
-      link.setAttribute("href", tempUrl);
+      let link = document.createElement('a');
+      link.setAttribute('download', result.name);
+      link.setAttribute('href', tempUrl);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1020,8 +904,8 @@ export class RendererComponent
    *
    * @returns {{Blob}}
    */
-  private dataURLtoBlob(dataUrl : string) : Blob{
-    let arr = dataUrl.split(","),
+  private dataURLtoBlob(dataUrl: string): Blob {
+    let arr = dataUrl.split(','),
       mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]),
       n = bstr.length,
@@ -1034,7 +918,7 @@ export class RendererComponent
 
   changeAutoSize() {}
 
-  resizeCanvas(width : number, height : number) {
+  resizeCanvas(width: number, height: number) {
     if (width <= 0 || height <= 0) {
       this.width = 0;
       this.height = 0;
