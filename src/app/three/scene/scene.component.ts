@@ -180,6 +180,8 @@ export class SceneComponent
                 this.scene.background = envMap;
                 break;
             }
+          } else {
+            this.scene.background = background;
           }
         }
         background.onUpdate();

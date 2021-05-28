@@ -82,7 +82,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
   @Input() private stencilZPass: string = null;
   @Input() private userData: any = null;
   @Input() private shader: string | ShaderType = null;
-  @Input() private uniforms: { [uniform: string]: TypeUniform; } = null;
+  @Input() private uniforms: { [uniform: string]: TypeUniform } = null;
   @Input() private vertexShader: string = null;
   @Input() private fragmentShader: string = null;
   @Input() private lights: boolean = null;
@@ -973,8 +973,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           case 'integer':
             resultUniforms[key] = { value: parseInt(valueValue) };
             break;
-          case 'str' :
-          case 'string' :
+          case 'str':
+          case 'string':
             resultUniforms[key] = { value: valueValue.toString() };
             break;
           case 'double':

@@ -240,6 +240,8 @@ export class LocalStorageService {
       }
       if (ThreeUtil.isNotNull(options.path)) {
         loader.setPath(ThreeUtil.getStoreUrl(options.path));
+      } else {
+        loader.setPath('');
       }
     }
     return loader;
@@ -691,6 +693,8 @@ export class LocalStorageService {
           this.gltfLoader.setMeshoptDecoder(MeshoptDecoder);
         }
       }
+      console.log(key);
+      console.log(options);
       this.setLoaderWithOption(this.gltfLoader, options);
       this.gltfLoader.load(
         key,

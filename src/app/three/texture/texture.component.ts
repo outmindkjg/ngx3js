@@ -797,12 +797,7 @@ export class TextureComponent implements OnInit {
               this.texture.copy(texture);
               TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
               this.texture.needsUpdate = true;
-              this._textureSubject.next(this.texture);
-              if (this.texture.onUpdate !== null) {
-                setTimeout(() => {
-                  this.texture.onUpdate();
-                }, 100);
-              }
+              // this._textureSubject.next(this.texture);
             }
           },
           this.storageOption
