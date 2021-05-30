@@ -1,13 +1,14 @@
-import { AfterViewInit, OnInit, Component, Injectable, Input } from '@angular/core';
-import { MeshComponent } from './mesh/mesh.component';
+import { AfterViewInit, Component, Injectable, Input, OnInit } from '@angular/core';
 import * as CHROMA from 'chroma-js';
+import { Observable, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
 import { CameraComponent } from './camera/camera.component';
+import { MeshComponent } from './mesh/mesh.component';
 import { RendererComponent } from './renderer/renderer.component';
 import { SceneComponent } from './scene/scene.component';
-import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
 
 export { THREE };
 
@@ -70,50 +71,6 @@ export interface GuiBaseControl {
     reset: () => void;
     update: () => void;
   };
-}
-
-export interface InterfaceEffectComposer {
-  resetEffectComposer(): void;
-}
-
-export interface InterfaceGetGeometry {
-  getGeometry(): THREE.BufferGeometry;
-  resetGeometry(clearGeometry: boolean);
-}
-
-export interface InterfaceComposerComponent {
-  getWriteBuffer(
-    webGLRenderer: THREE.WebGLRenderer,
-    camera: THREE.Camera,
-    scene: THREE.Scene
-  ): THREE.WebGLRenderTarget;
-  getReadBuffer(
-    webGLRenderer: THREE.WebGLRenderer,
-    camera: THREE.Camera,
-    scene: THREE.Scene
-  ): THREE.WebGLRenderTarget;
-  getRenderTarget1(
-    webGLRenderer: THREE.WebGLRenderer,
-    camera: THREE.Camera,
-    scene: THREE.Scene
-  ): THREE.WebGLRenderTarget;
-  getRenderTarget2(
-    webGLRenderer: THREE.WebGLRenderer,
-    camera: THREE.Camera,
-    scene: THREE.Scene
-  ): THREE.WebGLRenderTarget;
-}
-
-export interface InterfaceSvgGeometry {
-  meshPositions: THREE.Vector3[];
-  meshRotations: THREE.Euler[];
-  meshScales: THREE.Vector3[];
-  meshTranslations: THREE.BufferGeometry[];
-  meshMaterials: (THREE.Material | THREE.Material[])[];
-}
-
-export interface InterfaceMeshComponent {
-  resetMesh(clearMesh: boolean): void;
 }
 
 export interface TagAttributes {
@@ -284,10 +241,7 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
       this.controls.meshRotate.y = this.controls.meshRotateOrg.y;
       this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
       if (this.controls.meshScale.x !== 1) {
-        const controlsParams = ThreeUtil.getGuiControlParam(
-          this.controlsParams,
-          'Mesh Scale'
-        );
+        const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Scale');
         const minScale = this.controls.meshScale.x * 0.01;
         const maxScale = this.controls.meshScale.x * 1.5;
         const stepScale = (maxScale - minScale) / 30;
@@ -303,19 +257,10 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
           }
         });
       }
-      const controlsParams = ThreeUtil.getGuiControlParam(
-        this.controlsParams,
-        'Mesh Visible'
-      );
-      if (
-        ThreeUtil.isNotNull(controlsParams) &&
-        ThreeUtil.isNotNull(this.controls.meshShape)
-      ) {
+      const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
+      if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)) {
         this.controls.meshShape.visible = this.mesh.getMesh().visible;
-        const helperParams = ThreeUtil.getGuiControlParam(
-          controlsParams.children,
-          'helperVisible'
-        );
+        const helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
         const helper = this.mesh.helper;
         if (helperParams && helperParams.controller) {
           if (ThreeUtil.isNotNull(helper)) {
@@ -423,11 +368,7 @@ export class ThreeUtil {
     }
     return true;
   }
-  static toggleCssStyle(
-    ele: HTMLElement,
-    clazzName?: string,
-    isActive?: boolean
-  ): boolean {
+  static toggleCssStyle(ele: HTMLElement, clazzName?: string, isActive?: boolean): boolean {
     if (this.isNotNull(clazzName)) {
       if (!isActive) {
         if (ele.classList.contains(clazzName)) {
@@ -492,13 +433,7 @@ export class ThreeUtil {
     return ele as HTMLElement;
   }
 
-  static addCssStyle(
-    ele: HTMLElement,
-    styles: string | CssStyle,
-    clazzName?: string,
-    classPrefix?: string,
-    vertualClass?: string
-  ): string {
+  static addCssStyle(ele: HTMLElement, styles: string | CssStyle, clazzName?: string, classPrefix?: string, vertualClass?: string): string {
     if (clazzName == null || clazzName == undefined) {
       clazzName = this.makeUUID(15, classPrefix);
     }
@@ -569,16 +504,7 @@ export class ThreeUtil {
             } else if (value instanceof THREE.Color) {
               styleList[key] = value.getStyle();
             } else if (value instanceof THREE.Vector4) {
-              styleList[key] =
-                'rgba(' +
-                value.x * 255 +
-                ',' +
-                value.y * 255 +
-                ',' +
-                value.z * 255 +
-                ',' +
-                value.w +
-                ')';
+              styleList[key] = 'rgba(' + value.x * 255 + ',' + value.y * 255 + ',' + value.z * 255 + ',' + value.w + ')';
             }
             break;
           case 'transform':
@@ -680,15 +606,7 @@ export class ThreeUtil {
         Object.entries(styleList).forEach(([key, value]) => {
           cssStyleList.push(this.camelCaseToDash(key) + ': ' + value);
         });
-        this.cssInject(
-          '.' +
-            clazzName +
-            (vertualClass ? ':' + vertualClass : '') +
-            '{' +
-            cssStyleList.join(';') +
-            '}',
-          clazzName
-        );
+        this.cssInject('.' + clazzName + (vertualClass ? ':' + vertualClass : '') + '{' + cssStyleList.join(';') + '}', clazzName);
         if (!ele.classList.contains(clazzName)) {
           ele.classList.add(clazzName);
         }
@@ -753,11 +671,7 @@ export class ThreeUtil {
   }
 
   static getStoreUrl(url: string) {
-    if (
-      url.startsWith('/') ||
-      url.startsWith('http://') ||
-      url.startsWith('https://')
-    ) {
+    if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     } else {
       return '/assets/examples/' + url;
@@ -794,14 +708,10 @@ export class ThreeUtil {
       const value = attr.value;
       if (this.isNotNull(value)) {
         if (value instanceof THREE.Color) {
-          tags.push(
-            preTab + '\t[' + key + ']="\'#' + value.getHexString() + '\'"'
-          );
+          tags.push(preTab + '\t[' + key + ']="\'#' + value.getHexString() + '\'"');
         } else if (typeof value == 'number') {
           if (Math.round(value) !== value) {
-            tags.push(
-              preTab + '\t[' + key + ']="' + parseFloat(value.toFixed(4)) + '"'
-            );
+            tags.push(preTab + '\t[' + key + ']="' + parseFloat(value.toFixed(4)) + '"');
           } else {
             tags.push(preTab + '\t[' + key + ']="' + value + '"');
           }
@@ -813,9 +723,7 @@ export class ThreeUtil {
     tags.push(preTab + '>');
     if (info.children && info.children.length > 0) {
       info.children.forEach((child) => {
-        tags.push(
-          this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t')
-        );
+        tags.push(this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t'));
       });
     }
     tags.push(preTab + '</' + tag + '>');
@@ -834,41 +742,19 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorRGB(
-    r: number,
-    g: number,
-    b: number,
-    color?: string | number | THREE.Color
-  ): THREE.Color {
-    const colorObj = this.isNotNull(color)
-      ? this.getColor(color)
-      : new THREE.Color(0x000000);
+  static getColorRGB(r: number, g: number, b: number, color?: string | number | THREE.Color): THREE.Color {
+    const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
-      return colorObj.setRGB(
-        this.isNotNull(r) ? r : colorObj.r,
-        this.isNotNull(g) ? g : colorObj.g,
-        this.isNotNull(b) ? b : colorObj.b
-      );
+      return colorObj.setRGB(this.isNotNull(r) ? r : colorObj.r, this.isNotNull(g) ? g : colorObj.g, this.isNotNull(b) ? b : colorObj.b);
     }
     return undefined;
   }
 
-  static getColorHSL(
-    h?: number,
-    s?: number,
-    l?: number,
-    color?: string | number | THREE.Color
-  ): THREE.Color {
-    const colorObj = this.isNotNull(color)
-      ? this.getColor(color)
-      : new THREE.Color(0x000000);
+  static getColorHSL(h?: number, s?: number, l?: number, color?: string | number | THREE.Color): THREE.Color {
+    const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
       const hsl = colorObj.getHSL({ h: 0, s: 0, l: 0 });
-      return colorObj.setHSL(
-        this.isNotNull(h) ? h : hsl.h,
-        this.isNotNull(s) ? s : hsl.s,
-        this.isNotNull(l) ? l : hsl.l
-      );
+      return colorObj.setHSL(this.isNotNull(h) ? h : hsl.h, this.isNotNull(s) ? s : hsl.s, this.isNotNull(l) ? l : hsl.l);
     }
     return undefined;
   }
@@ -897,11 +783,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorMultiplySafe(
-    color: string | number | THREE.Color,
-    altColor?: string | number | THREE.Color,
-    multiply?: number
-  ): THREE.Color {
+  static getColorMultiplySafe(color: string | number | THREE.Color, altColor?: string | number | THREE.Color, multiply?: number): THREE.Color {
     const safeColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
       safeColor.multiplyScalar(multiply);
@@ -918,16 +800,8 @@ export class ThreeUtil {
     return safeColor;
   }
 
-  static getColorSafe(
-    color: string | number | THREE.Color,
-    altColor?: string | number | THREE.Color,
-    nullColor?: string | number | THREE.Color
-  ): THREE.Color {
-    const defColor = this.isNotNull(color)
-      ? color
-      : this.isNotNull(altColor)
-      ? altColor
-      : nullColor;
+  static getColorSafe(color: string | number | THREE.Color, altColor?: string | number | THREE.Color, nullColor?: string | number | THREE.Color): THREE.Color {
+    const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
     if (this.isNotNull(defColor)) {
       if (defColor instanceof THREE.Color) {
         return defColor;
@@ -946,32 +820,14 @@ export class ThreeUtil {
             .split(',');
           switch (type.toLowerCase()) {
             case 'hsl':
-              const h =
-                this.isNotNull(val1) && val1 !== ''
-                  ? parseFloat(val1)
-                  : Math.random();
-              const s =
-                this.isNotNull(val2) && val2 !== ''
-                  ? parseFloat(val2)
-                  : Math.random();
-              const l =
-                this.isNotNull(val3) && val3 !== ''
-                  ? parseFloat(val3)
-                  : Math.random();
+              const h = this.isNotNull(val1) && val1 !== '' ? parseFloat(val1) : Math.random();
+              const s = this.isNotNull(val2) && val2 !== '' ? parseFloat(val2) : Math.random();
+              const l = this.isNotNull(val3) && val3 !== '' ? parseFloat(val3) : Math.random();
               return new THREE.Color().setHSL(h, s, l);
             case 'rgb':
-              const r =
-                this.isNotNull(val1) && val1 !== ''
-                  ? parseFloat(val1)
-                  : Math.random() * 255;
-              const g =
-                this.isNotNull(val2) && val2 !== ''
-                  ? parseFloat(val2)
-                  : Math.random() * 255;
-              const b =
-                this.isNotNull(val3) && val3 !== ''
-                  ? parseFloat(val3)
-                  : Math.random() * 255;
+              const r = this.isNotNull(val1) && val1 !== '' ? parseFloat(val1) : Math.random() * 255;
+              const g = this.isNotNull(val2) && val2 !== '' ? parseFloat(val2) : Math.random() * 255;
+              const b = this.isNotNull(val3) && val3 !== '' ? parseFloat(val3) : Math.random() * 255;
               return new THREE.Color(r / 255, g / 255, b / 255);
           }
         }
@@ -981,11 +837,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorAlphaSafe(
-    color: string | number | THREE.Color,
-    alpha: number,
-    altColor?: string | number | THREE.Color
-  ): THREE.Color | THREE.Vector4 {
+  static getColorAlphaSafe(color: string | number | THREE.Color, alpha: number, altColor?: string | number | THREE.Color): THREE.Color | THREE.Vector4 {
     const defColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(defColor)) {
       if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
@@ -1022,26 +874,26 @@ export class ThreeUtil {
     }
     return undefined;
   }
-  static getBooleanSafe(bl: string | number | boolean , altbl?: string | number | boolean): boolean {
+  static getBooleanSafe(bl: string | number | boolean, altbl?: string | number | boolean): boolean {
     const defValue = this.getTypeSafe(bl, altbl);
     if (typeof defValue === 'boolean') {
       return defValue;
     } else if (typeof defValue === 'string') {
-      switch(defValue.toLowerCase()) {
-        case '1' :
-        case 'y' :
-        case 'yes' :
-        case 'true' :
-        case 't' :
-        case 'on' :
+      switch (defValue.toLowerCase()) {
+        case '1':
+        case 'y':
+        case 'yes':
+        case 'true':
+        case 't':
+        case 'on':
           return true;
-        case '' :
-        case '0' :
-        case 'n' :
-        case 'no' :
-        case 'false' :
-        case 'f' :
-        case 'off' :
+        case '':
+        case '0':
+        case 'n':
+        case 'no':
+        case 'false':
+        case 'f':
+        case 'off':
           return false;
       }
     } else if (typeof defValue === 'number') {
@@ -1050,9 +902,8 @@ export class ThreeUtil {
       } else {
         return false;
       }
-    } 
+    }
     return undefined;
-
   }
 
   static getAngle2RadianSafe(angle: number, altangle?: number): number {
@@ -1071,10 +922,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector2VSafe(
-    v2: number[] | THREE.Vector2,
-    altValue?: THREE.Vector2
-  ): THREE.Vector2 {
+  static getVector2VSafe(v2: number[] | THREE.Vector2, altValue?: THREE.Vector2): THREE.Vector2 {
     if (v2 instanceof THREE.Vector2) {
       return v2;
     } else if (this.isNotNull(v2) && v2.length >= 2) {
@@ -1083,17 +931,8 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector2Safe(
-    x: number,
-    y: number,
-    altValue?: THREE.Vector2,
-    v2?: number[] | THREE.Vector2,
-    isRequired? : boolean 
-  ): THREE.Vector2 {
-    const defValue =
-      this.isNotNull(x) || this.isNotNull(y)
-        ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x))
-        : null;
+  static getVector2Safe(x: number, y: number, altValue?: THREE.Vector2, v2?: number[] | THREE.Vector2, isRequired?: boolean): THREE.Vector2 {
+    const defValue = this.isNotNull(x) || this.isNotNull(y) ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x)) : null;
     if (this.isNotNull(defValue)) {
       return defValue;
     }
@@ -1104,15 +943,12 @@ export class ThreeUtil {
       return altValue;
     }
     if (isRequired) {
-      return new THREE.Vector2();      
+      return new THREE.Vector2();
     }
     return undefined;
   }
 
-  static getVector3VSafe(
-    v3: number[] | THREE.Vector3,
-    altValue?: THREE.Vector3
-  ): THREE.Vector3 {
+  static getVector3VSafe(v3: number[] | THREE.Vector3, altValue?: THREE.Vector3): THREE.Vector3 {
     if (v3 instanceof THREE.Vector3) {
       return v3;
     } else if (this.isNotNull(v3) && v3.length >= 3) {
@@ -1121,21 +957,8 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector3Safe(
-    x: number,
-    y: number,
-    z: number,
-    altValue?: THREE.Vector3,
-    v3?: number[] | THREE.Vector3
-  ): THREE.Vector3 {
-    const defValue =
-      this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
-        ? new THREE.Vector3(
-            this.getTypeSafe(x, y, z),
-            this.getTypeSafe(y, z, x),
-            this.getTypeSafe(z, x, y)
-          )
-        : null;
+  static getVector3Safe(x: number, y: number, z: number, altValue?: THREE.Vector3, v3?: number[] | THREE.Vector3, isRequired?: boolean): THREE.Vector3 {
+    const defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Vector3(this.getTypeSafe(x, y, z), this.getTypeSafe(y, z, x), this.getTypeSafe(z, x, y)) : null;
     if (this.isNotNull(defValue)) {
       return defValue;
     }
@@ -1145,65 +968,52 @@ export class ThreeUtil {
     if (this.isNotNull(altValue)) {
       return altValue;
     }
+    if (isRequired) {
+      return new THREE.Vector3();
+    }
     return undefined;
   }
 
-  static getMatrix4Safe(
-    obj: THREE.Object3D,
-    matrixType: string = 'maxtix'
-  ): THREE.Matrix4 {
+  static getMatrix4Safe(obj: THREE.Object3D, matrixType: string = 'maxtix'): THREE.Matrix4 {
     if (this.isNotNull(obj)) {
-      switch(matrixType.toLowerCase()) {
-        case 'projectionmatrixinverse' :
+      switch (matrixType.toLowerCase()) {
+        case 'projectionmatrixinverse':
           if (this.isNotNull(obj['projectionMatrixInverse'])) {
             return new THREE.Matrix4().copy(obj['projectionMatrixInverse']);
           }
           break;
-        case 'projectionmatrix' :
+        case 'projectionmatrix':
           if (this.isNotNull(obj['projectionMatrix'])) {
             return obj['projectionMatrix'];
           }
           break;
-        case 'matrixworldinverse' :
+        case 'matrixworldinverse':
           if (this.isNotNull(obj['matrixWorldInverse'])) {
             return obj['matrixWorldInverse'];
           }
           break;
-        case 'matrixworld' :
+        case 'matrixworld':
           return obj.matrixWorld;
-        case 'matrix' :
-        default :
+        case 'matrix':
+        default:
           return obj.matrix;
       }
     }
     return new THREE.Matrix4();
   }
 
-  static getEulerSafe(
-    x: number | string,
-    y: number | string,
-    z: number | string,
-    altValue?: THREE.Euler
-  ): THREE.Euler {
-    const defValue =
-      this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
-        ? new THREE.Euler(
-            this.getAngleSafe(this.getTypeSafe(x, y, z), 0),
-            this.getAngleSafe(this.getTypeSafe(y, x, z), 0),
-            this.getAngleSafe(this.getTypeSafe(z, x, y), 0)
-          )
-        : altValue;
+  static getEulerSafe(x: number | string, y: number | string, z: number | string, altValue?: THREE.Euler, isRequired?: boolean): THREE.Euler {
+    const defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x, y, z), 0), this.getAngleSafe(this.getTypeSafe(y, x, z), 0), this.getAngleSafe(this.getTypeSafe(z, x, y), 0)) : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
+    }
+    if (isRequired) {
+      return new THREE.Euler(0, 0, 0);
     }
     return undefined;
   }
 
-  static getWrappingSafe(
-    baseWrap: string,
-    altWrap?: string,
-    def?: string
-  ): THREE.Wrapping {
+  static getWrappingSafe(baseWrap: string, altWrap?: string, def?: string): THREE.Wrapping {
     const wrap = this.getTypeSafe(baseWrap, altWrap, def || '');
     switch (wrap.toLowerCase()) {
       case 'wraprepeat':
@@ -1220,11 +1030,7 @@ export class ThreeUtil {
     }
   }
 
-  static getTextureFilterSafe(
-    baseFilter: string,
-    altFilter?: string,
-    def?: string
-  ): THREE.TextureFilter {
+  static getTextureFilterSafe(baseFilter: string, altFilter?: string, def?: string): THREE.TextureFilter {
     const filter = this.getTypeSafe(baseFilter, altFilter, def || '');
     switch (filter) {
       case 'nearestfilter':
@@ -1249,11 +1055,7 @@ export class ThreeUtil {
     }
   }
 
-  static getBlendingSafe(
-    baseBlending: string,
-    altBlending?: string,
-    def?: string
-  ): THREE.Blending {
+  static getBlendingSafe(baseBlending: string, altBlending?: string, def?: string): THREE.Blending {
     const blending = this.getTypeSafe(baseBlending, altBlending, def || '');
     switch (blending.toLowerCase()) {
       case 'noblending':
@@ -1278,11 +1080,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getPixelFormatSafe(
-    baseFormat: string,
-    altFormat?: string,
-    def?: string
-  ): THREE.PixelFormat {
+  static getPixelFormatSafe(baseFormat: string, altFormat?: string, def?: string): THREE.PixelFormat {
     const format = this.getTypeSafe(baseFormat, altFormat, def || '');
     switch (format.toLowerCase()) {
       case 'alphaformat':
@@ -1333,11 +1131,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getTextureDataTypeSafe(
-    baseFormat: string,
-    altFormat?: string,
-    def?: string
-  ): THREE.TextureDataType {
+  static getTextureDataTypeSafe(baseFormat: string, altFormat?: string, def?: string): THREE.TextureDataType {
     const type = this.getTypeSafe(baseFormat, altFormat, def || '');
     switch (type.toLowerCase()) {
       case 'bytetype':
@@ -1380,22 +1174,22 @@ export class ThreeUtil {
     }
   }
 
-  static getObject3d(object3d : any) : THREE.Object3D { 
+  static getObject3d(object3d: any): THREE.Object3D {
     if (object3d instanceof THREE.Object3D) {
       return object3d;
     } else if (this.isNotNull(object3d.getHelper)) {
-      return object3d.getHelper();
+      return object3d.getHelper() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getCamera)) {
-      return object3d.getCamera();
+      return object3d.getCamera() as THREE.Camera;
     } else if (this.isNotNull(object3d.getScene)) {
-      return object3d.getScene();
+      return object3d.getScene() as THREE.Scene;
     } else if (this.isNotNull(object3d.getObject3D)) {
-      return object3d.getObject3D();
+      return object3d.getObject3D() as THREE.Object3D;
     }
     return new THREE.Object3D();
   }
 
-  static getMesh(mesh : any) : THREE.Mesh { 
+  static getMesh(mesh: any): THREE.Mesh {
     if (mesh instanceof THREE.Mesh) {
       return mesh;
     } else if (this.isNotNull(mesh.getHelper)) {
@@ -1411,7 +1205,20 @@ export class ThreeUtil {
     return new THREE.Mesh();
   }
 
-  static getMaterial(material : any) : THREE.Material { 
+  static getLight(light: any): THREE.Light {
+    if (light instanceof THREE.Light) {
+      return light;
+    } else if (this.isNotNull(light)) {
+      const mesh = this.getMesh(light);
+      if (mesh instanceof THREE.Light) {
+        return mesh;
+      }
+    }
+    return new THREE.Light();
+  }
+
+
+  static getMaterial(material: any): THREE.Material {
     if (material instanceof THREE.Material) {
       return material;
     } else if (this.isNotNull(material.getMaterial)) {
@@ -1433,7 +1240,72 @@ export class ThreeUtil {
     return new THREE.Material();
   }
 
-  static getTexture(texture : any, refType : string = 'map') : THREE.Texture { 
+  static getGeometry(geometry: any): THREE.BufferGeometry {
+    if (geometry instanceof THREE.BufferGeometry) {
+      return geometry;
+    } else if (this.isNotNull(geometry.getGeometry)) {
+      return geometry.getGeometry();
+    } else if (this.isNotNull(geometry)) {
+      const mesh = this.getMesh(geometry);
+      if (mesh instanceof THREE.Mesh) {
+        if (this.isNotNull(mesh.geometry)) {
+          return mesh.geometry;
+        }
+      }
+    }
+    return new THREE.BufferGeometry();
+  }
+
+  static getSubscribe(object: any, callBack: (key?: string) => void, nextKey? : string): Subscription {
+    if (this.isNotNull(object.getSubscribe)) {
+      return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
+        if (this.isNull(nextKey)) {
+          callBack();
+        } else {
+          switch(nextKey.toLowerCase()) {
+            case 'lookat' :
+              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('position') > -1 || keyList.indexOf('lookat') > -1) {
+                callBack('lookat');
+              }
+              break;
+            case 'position' :
+              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('position') > -1) {
+                callBack('position');
+              }
+              break;
+            case 'rotation' :
+              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('rotation') > -1) {
+                callBack('rotation');
+              }
+              break;
+            case 'scale' :
+              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('scale') > -1) {
+                callBack('scale');
+              }
+              break;
+            case 'geometry' :
+              if (keyList.indexOf('mesh') > -1 || keyList.indexOf('geometry') > -1) {
+                callBack('geometry');
+              }
+              break;
+            case 'material' :
+              if (keyList.indexOf('mesh') > -1 || keyList.indexOf('material') > -1) {
+                callBack('material');
+              }
+              break;
+            default :
+              if (keyList.indexOf(nextKey.toLowerCase()) > -1) {
+                callBack(nextKey);
+              }
+              break;
+            }
+        }
+      });
+    }
+    return null;
+  }
+
+  static getTexture(texture: any, refType: string = 'map'): THREE.Texture {
     if (texture instanceof THREE.Texture) {
       return texture;
     } else if (this.isNotNull(texture.getTexture)) {
@@ -1447,12 +1319,65 @@ export class ThreeUtil {
     return new THREE.Texture();
   }
 
-  static isTextureLoaded(texture : THREE.Texture) : boolean { 
+  static getPosition(position: any): THREE.Vector3 {
+    if (position instanceof THREE.Vector3) {
+      return position;
+    } else if (Array.isArray(position) && position.length >= 3) {
+      return this.getVector3Safe(position[0], position[1], position[2], null, null, true);
+    } else if (this.isNotNull(position.getPosition)) {
+      return position.getPosition() as THREE.Vector3;
+    } else if (this.isNotNull(position.getLookAt)) {
+      return position.getLookAt() as THREE.Vector3;
+    } else if (this.isNotNull(position)) {
+      const object3d = this.getObject3d(position);
+      return object3d.position;
+    }
+    return new THREE.Vector3();
+  }
+
+  static getRotation(rotation: any): THREE.Euler {
+    if (rotation instanceof THREE.Euler) {
+      return rotation;
+    } else if (Array.isArray(rotation) && rotation.length >= 3) {
+      return this.getEulerSafe(rotation[0], rotation[1], rotation[2], null, true);
+    } else if (this.isNotNull(rotation.getRotation)) {
+      return rotation.getRotation();
+    } else if (this.isNotNull(rotation)) {
+      const object3d = this.getObject3d(rotation);
+      return object3d.rotation;
+    }
+    return new THREE.Euler();
+  }
+
+  static getScale(scale: any): THREE.Vector3 {
+    if (scale instanceof THREE.Vector3) {
+      return scale;
+    } else if (Array.isArray(scale) && scale.length >= 3) {
+      return this.getVector3Safe(scale[0], scale[1], scale[2], null, null, true);
+    } else if (this.isNotNull(scale.getScale)) {
+      return scale.getScale() as THREE.Vector3;
+    } else if (this.isNotNull(scale)) {
+      const object3d = this.getObject3d(scale);
+      return object3d.scale;
+    }
+    return new THREE.Vector3();
+  }
+
+  static getLookAt(lookat: any): THREE.Vector3 {
+    if (this.isNotNull(lookat.getLookAt)) {
+      return lookat.getLookAt() as THREE.Vector3;
+    } else {
+      return this.getPosition(lookat);
+    }
+  }
+
+  static isTextureLoaded(texture: THREE.Texture): boolean {
     if (texture instanceof THREE.CubeTexture || texture['isCubeTexture']) {
       if (this.isNotNull(texture.image) && texture.image.length === 6) {
         return true;
       }
-    } if (texture instanceof THREE.DataTexture || texture['isDataTexture']) {
+    }
+    if (texture instanceof THREE.DataTexture || texture['isDataTexture']) {
       if (this.isNotNull(texture.image) && this.isNotNull(texture.image.data) && texture.image.data.length > 0) {
         return true;
       }
@@ -1460,20 +1385,22 @@ export class ThreeUtil {
       if (this.isNotNull(texture.image) && texture.image instanceof HTMLVideoElement && texture.image.error === null) {
         return true;
       }
-    } else if (texture instanceof THREE.Texture) {
-      if (this.isNotNull(texture.image)) {
+    } else if (texture instanceof THREE.Texture && this.isNotNull(texture.image)) {
+      if (texture.image instanceof HTMLImageElement || texture.image instanceof HTMLCanvasElement || texture.image instanceof HTMLVideoElement) {
         return true;
       }
-    } 
+      if (Array.isArray(texture.image) && texture.image.length >= 6) {
+        return true;
+      }
+      if (ThreeUtil.isNotNull(texture.image.data) && texture.image.data.length > 0) {
+        return true;
+      }
+    }
     console.log(texture);
     return false;
   }
 
-  static getTextureEncodingSafe(
-    baseEncoding: string,
-    altEncoding?: string,
-    def?: string
-  ): THREE.TextureEncoding {
+  static getTextureEncodingSafe(baseEncoding: string, altEncoding?: string, def?: string): THREE.TextureEncoding {
     const encoding = this.getTypeSafe(baseEncoding, altEncoding, def || '');
     switch (encoding.toLowerCase()) {
       case 'srgbencoding':
@@ -1506,11 +1433,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getMappingSafe(
-    baseMapping: string,
-    altMapping?: string,
-    def?: string
-  ): THREE.Mapping {
+  static getMappingSafe(baseMapping: string, altMapping?: string, def?: string): THREE.Mapping {
     const mapping = this.getTypeSafe(baseMapping, altMapping, def || '');
     switch (mapping.toLowerCase()) {
       case 'uvmapping':
@@ -1540,23 +1463,12 @@ export class ThreeUtil {
   }
 
   static getCubeImage(cubeImage: string[]): string[] {
-    if (
-      ThreeUtil.isNotNull(cubeImage) &&
-      cubeImage.length !== 6 &&
-      cubeImage.length >= 1
-    ) {
+    if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length !== 6 && cubeImage.length >= 1) {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
       const prefix1 = cubeImage[2] || 'p';
       const prefix2 = cubeImage[3] || 'n';
-      return [
-        prefix + prefix1 + 'x.' + postfix,
-        prefix + prefix2 + 'x.' + postfix,
-        prefix + prefix1 + 'y.' + postfix,
-        prefix + prefix2 + 'y.' + postfix,
-        prefix + prefix1 + 'z.' + postfix,
-        prefix + prefix2 + 'z.' + postfix,
-      ];
+      return [prefix + prefix1 + 'x.' + postfix, prefix + prefix2 + 'x.' + postfix, prefix + prefix1 + 'y.' + postfix, prefix + prefix2 + 'y.' + postfix, prefix + prefix1 + 'z.' + postfix, prefix + prefix2 + 'z.' + postfix];
     } else {
       return cubeImage;
     }
@@ -1572,10 +1484,7 @@ export class ThreeUtil {
     return new ThreeStats(style);
   }
 
-  static getControls<T>(
-    param: T,
-    component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }
-  ): T & GuiBaseControl {
+  static getControls<T>(param: T, component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): T & GuiBaseControl {
     const baseControl: GuiBaseControl = {
       meshShape: {
         visible: true,
@@ -1589,17 +1498,10 @@ export class ThreeUtil {
         autoRotate: false,
         speed: 10,
         reset: () => {
-          if (
-            this.isNotNull(component.controls) &&
-            this.isNotNull(component.controls.meshRotate) &&
-            this.isNotNull(component.controls.meshRotateOrg)
-          ) {
-            component.controls.meshRotate.x =
-              component.controls.meshRotateOrg.x;
-            component.controls.meshRotate.y =
-              component.controls.meshRotateOrg.y;
-            component.controls.meshRotate.z =
-              component.controls.meshRotateOrg.z;
+          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshRotate) && this.isNotNull(component.controls.meshRotateOrg)) {
+            component.controls.meshRotate.x = component.controls.meshRotateOrg.x;
+            component.controls.meshRotate.y = component.controls.meshRotateOrg.y;
+            component.controls.meshRotate.z = component.controls.meshRotateOrg.z;
             component.controls.meshRotate.autoRotate = true;
             component.controls.meshRotate.applyAutoRotate();
             component.controls.meshRotate.update();
@@ -1607,10 +1509,7 @@ export class ThreeUtil {
         },
         applyAutoRotate: () => {
           if (this.isNotNull(component.controlsParams)) {
-            const controlsParams = this.getGuiControlParam(
-              component.controlsParams,
-              'Mesh Rotation'
-            );
+            const controlsParams = this.getGuiControlParam(component.controlsParams, 'Mesh Rotation');
             if (this.isNotNull(controlsParams)) {
               if (component.controls.meshRotate.autoRotate) {
                 this.setGuiEnabled(controlsParams.children[1].controller, false);
@@ -1618,12 +1517,9 @@ export class ThreeUtil {
               } else {
                 if (this.isNotNull(component.mesh)) {
                   const meshRotate = component.mesh.getRotation();
-                  component.controls.meshRotate.x =
-                    ((meshRotate.x / Math.PI) * 180) % 360;
-                  component.controls.meshRotate.y =
-                    ((meshRotate.y / Math.PI) * 180) % 360;
-                  component.controls.meshRotate.z =
-                    ((meshRotate.z / Math.PI) * 180) % 360;
+                  component.controls.meshRotate.x = ((meshRotate.x / Math.PI) * 180) % 360;
+                  component.controls.meshRotate.y = ((meshRotate.y / Math.PI) * 180) % 360;
+                  component.controls.meshRotate.z = ((meshRotate.z / Math.PI) * 180) % 360;
                 }
                 this.setGuiEnabled(controlsParams.children[1].controller, true);
                 this.setGuiEnabled(controlsParams.children[4].controller, false);
@@ -1632,17 +1528,8 @@ export class ThreeUtil {
           }
         },
         update: () => {
-          if (
-            this.isNotNull(component.mesh) &&
-            this.isNotNull(component.controls.meshRotate)
-          ) {
-            component.mesh.setRotation(
-              component.controls.meshRotate.x,
-              component.controls.meshRotate.autoRotate
-                ? null
-                : component.controls.meshRotate.y,
-              component.controls.meshRotate.z
-            );
+          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshRotate)) {
+            component.mesh.setRotation(component.controls.meshRotate.x, component.controls.meshRotate.autoRotate ? null : component.controls.meshRotate.y, component.controls.meshRotate.z);
           }
         },
       },
@@ -1651,30 +1538,16 @@ export class ThreeUtil {
         y: 0,
         z: 0,
         reset: () => {
-          if (
-            this.isNotNull(component.controls) &&
-            this.isNotNull(component.controls.meshPosition) &&
-            this.isNotNull(component.controls.meshPositionOrg)
-          ) {
-            component.controls.meshPosition.x =
-              component.controls.meshPositionOrg.x;
-            component.controls.meshPosition.y =
-              component.controls.meshPositionOrg.y;
-            component.controls.meshPosition.z =
-              component.controls.meshPositionOrg.z;
+          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshPosition) && this.isNotNull(component.controls.meshPositionOrg)) {
+            component.controls.meshPosition.x = component.controls.meshPositionOrg.x;
+            component.controls.meshPosition.y = component.controls.meshPositionOrg.y;
+            component.controls.meshPosition.z = component.controls.meshPositionOrg.z;
             component.controls.meshPosition.update();
           }
         },
         update: () => {
-          if (
-            this.isNotNull(component.mesh) &&
-            this.isNotNull(component.controls.meshPosition)
-          ) {
-            component.mesh.setPosition(
-              component.controls.meshPosition.x,
-              component.controls.meshPosition.y,
-              component.controls.meshPosition.z
-            );
+          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshPosition)) {
+            component.mesh.setPosition(component.controls.meshPosition.x, component.controls.meshPosition.y, component.controls.meshPosition.z);
           }
         },
       },
@@ -1683,11 +1556,7 @@ export class ThreeUtil {
         y: 1,
         z: 1,
         reset: () => {
-          if (
-            this.isNotNull(component.controls) &&
-            this.isNotNull(component.controls.meshScale) &&
-            this.isNotNull(component.controls.meshScaleOrg)
-          ) {
+          if (this.isNotNull(component.controls) && this.isNotNull(component.controls.meshScale) && this.isNotNull(component.controls.meshScaleOrg)) {
             component.controls.meshScale.x = component.controls.meshScaleOrg.x;
             component.controls.meshScale.y = component.controls.meshScaleOrg.y;
             component.controls.meshScale.z = component.controls.meshScaleOrg.z;
@@ -1695,15 +1564,8 @@ export class ThreeUtil {
           }
         },
         update: () => {
-          if (
-            this.isNotNull(component.mesh) &&
-            this.isNotNull(component.controls.meshScale)
-          ) {
-            component.mesh.setScale(
-              component.controls.meshScale.x,
-              component.controls.meshScale.y,
-              component.controls.meshScale.z
-            );
+          if (this.isNotNull(component.mesh) && this.isNotNull(component.controls.meshScale)) {
+            component.mesh.setScale(component.controls.meshScale.x, component.controls.meshScale.y, component.controls.meshScale.z);
           }
         },
       },
@@ -1711,10 +1573,7 @@ export class ThreeUtil {
     return Object.assign(param, baseControl);
   }
 
-  static getControlsParams(
-    params: GuiControlParam[],
-    component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }
-  ): GuiControlParam[] {
+  static getControlsParams(params: GuiControlParam[], component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): GuiControlParam[] {
     params.push({
       name: 'Mesh Visible',
       type: 'folder',
@@ -1726,10 +1585,7 @@ export class ThreeUtil {
           listen: true,
           change: () => {
             if (this.isNotNull(component.mesh)) {
-              component.mesh.setVisible(
-                component.controls.meshShape.visible,
-                null
-              );
+              component.mesh.setVisible(component.controls.meshShape.visible, null);
             }
           },
         },
@@ -1739,10 +1595,7 @@ export class ThreeUtil {
           listen: true,
           change: () => {
             if (this.isNotNull(component.mesh)) {
-              component.mesh.setVisible(
-                null,
-                component.controls.meshShape.helperVisible
-              );
+              component.mesh.setVisible(null, component.controls.meshShape.helperVisible);
             }
           },
         },
@@ -1752,9 +1605,7 @@ export class ThreeUtil {
           listen: true,
           change: () => {
             if (this.isNotNull(component.mesh)) {
-              component.mesh.setWireFrame(
-                component.controls.meshShape.wireframe
-              );
+              component.mesh.setWireFrame(component.controls.meshShape.wireframe);
             }
           },
         },
@@ -1917,26 +1768,13 @@ export class ThreeUtil {
     }
   ) {
     if (this.isNotNull(component.controls) && this.isNotNull(component.mesh)) {
-      if (
-        component.controls.meshRotate.autoRotate &&
-        component.controls.meshRotate.speed !== 0
-      ) {
-        component.mesh.addRotation(
-          0,
-          component.controls.meshRotate.speed * timer.delta,
-          0
-        );
+      if (component.controls.meshRotate.autoRotate && component.controls.meshRotate.speed !== 0) {
+        component.mesh.addRotation(0, component.controls.meshRotate.speed * timer.delta, 0);
       }
     }
   }
 
-  static setupGuiChange(
-    control: ThreeGuiController,
-    onFinishChange?: (value?: any) => void,
-    onChange?: (value?: any) => void,
-    listen?: boolean,
-    title?: string
-  ): ThreeGuiController {
+  static setupGuiChange(control: ThreeGuiController, onFinishChange?: (value?: any) => void, onChange?: (value?: any) => void, listen?: boolean, title?: string): ThreeGuiController {
     if (listen != null && listen !== undefined && listen) {
       control.listen();
     }
@@ -1977,20 +1815,13 @@ export class ThreeUtil {
     }
   }
 
-  static getGuiControlParam(
-    children: GuiControlParam[],
-    name: string
-  ): GuiControlParam {
+  static getGuiControlParam(children: GuiControlParam[], name: string): GuiControlParam {
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
       if (child.name === name) {
         return child;
       }
-      if (
-        child.type === 'folder' &&
-        child.children &&
-        child.children.length > 0
-      ) {
+      if (child.type === 'folder' && child.children && child.children.length > 0) {
         const foundChild = this.getGuiControlParam(child.children, name);
         if (foundChild !== null) {
           return foundChild;
@@ -2000,81 +1831,31 @@ export class ThreeUtil {
     return null;
   }
 
-  static setupGui(
-    control,
-    gui: ThreeGuiController,
-    params: GuiControlParam[]
-  ): ThreeGuiController {
+  static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]): ThreeGuiController {
     params.forEach((param) => {
       switch (param.type) {
         case 'color':
-          param.controller = this.setupGuiChange(
-            gui.addColor(
-              param.control ? control[param.control] : control,
-              param.name
-            ),
-            param.finishChange,
-            param.change,
-            param.listen,
-            param.title
-          );
+          param.controller = this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
           break;
         case 'folder':
           const folder = gui.addFolder(param.name);
-          param.controller = this.setupGui(
-            param.control ? control[param.control] : control,
-            folder,
-            param.children
-          );
+          param.controller = this.setupGui(param.control ? control[param.control] : control, folder, param.children);
           if (param.isOpen) {
             folder.open();
           }
           break;
         case 'number':
-          param.controller = this.setupGuiChange(
-            gui.add(
-              param.control ? control[param.control] : control,
-              param.name,
-              param.min,
-              param.max,
-              param.step
-            ),
-            param.finishChange,
-            param.change,
-            param.listen,
-            param.title
-          );
+          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen, param.title);
           break;
         case 'listen':
-          param.controller = gui
-            .add(param.control ? control[param.control] : control, param.name)
-            .listen();
+          param.controller = gui.add(param.control ? control[param.control] : control, param.name).listen();
           break;
         case 'select':
-          param.controller = this.setupGuiChange(
-            gui.add(
-              param.control ? control[param.control] : control,
-              param.name,
-              param.select
-            ),
-            param.finishChange,
-            param.change,
-            param.listen,
-            param.title
-          );
+          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen, param.title);
           break;
         case 'button':
         default:
-          param.controller = this.setupGuiChange(
-            gui.add(
-              param.control ? control[param.control] : control,
-              param.name
-            ),
-            param.finishChange,
-            param.change,
-            param.listen,
-            param.title
-          );
+          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
           break;
       }
     });
@@ -2169,17 +1950,7 @@ export class ThreeStats implements Stats {
 
 export interface GuiControlParam {
   name: string;
-  type?:
-    | 'number'
-    | 'folder'
-    | 'select'
-    | 'folder'
-    | 'button'
-    | 'color'
-    | 'checkbox'
-    | 'input'
-    | 'listen'
-    | 'auto';
+  type?: 'number' | 'folder' | 'select' | 'folder' | 'button' | 'color' | 'checkbox' | 'input' | 'listen' | 'auto';
   min?: number;
   max?: number;
   step?: number;
@@ -2195,42 +1966,37 @@ export interface GuiControlParam {
 }
 
 @Component({
-	template: '',
+  template: '',
 })
-export abstract class ThreeGeometryCustom  {
+export abstract class ThreeGeometryCustom {
+  @Input() scale: number = null;
 
-  @Input() scale : number = null;
+  protected geometry: THREE.BufferGeometry = null;
 
-  protected geometry : THREE.BufferGeometry = null;
-
-  initGeometry():THREE.BufferGeometry {
+  initGeometry(): THREE.BufferGeometry {
     return new THREE.BufferGeometry();
   }
 
-  setGeometry(geometry : THREE.BufferGeometry) {
+  setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(this.scale)) {
-      const scale = ThreeUtil.getTypeSafe(this.scale,1);
-      geometry.scale(scale,scale,scale);
+      const scale = ThreeUtil.getTypeSafe(this.scale, 1);
+      geometry.scale(scale, scale, scale);
     }
     this.geometry = geometry;
   }
 
-  getGeometry():THREE.BufferGeometry {
+  getGeometry(): THREE.BufferGeometry {
     if (this.geometry == null) {
       this.setGeometry(this.initGeometry());
     }
     return this.geometry;
   }
-
-
 }
-
 
 export class ThreeGui implements ThreeGuiController {
   gui: GUI = null;
   domElement: HTMLElement;
-  static customCss: string =
-    '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
+  static customCss: string = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
 
   constructor(
     style?: any,
@@ -2272,13 +2038,7 @@ export class ThreeGui implements ThreeGuiController {
     return this.gui.addFolder(name);
   }
 
-  add(
-    object: any,
-    property: string,
-    option1?: any,
-    options2?: any,
-    options3?: any
-  ): ThreeGuiController {
+  add(object: any, property: string, option1?: any, options2?: any, options3?: any): ThreeGuiController {
     return this.gui.add(object, property, option1, options2, options3);
   }
 

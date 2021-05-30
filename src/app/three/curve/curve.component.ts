@@ -2,13 +2,14 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-curve',
   templateUrl: './curve.component.html',
   styleUrls: ['./curve.component.scss']
 })
-export class CurveComponent implements OnInit {
+export class CurveComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() public type:string = 'spline';
   @Input() private aX:number = null;
@@ -111,7 +112,9 @@ export class CurveComponent implements OnInit {
     return aRotation;
   }
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
   }
@@ -136,12 +139,6 @@ export class CurveComponent implements OnInit {
     if (this.parent !== parent) {
       this.parent = parent;
     }
-  }
-
-  private _curveSubject: Subject<THREE.Curve<THREE.Vector>> = new Subject<THREE.Curve<THREE.Vector>>();
-
-  curveSubscribe(): Observable<THREE.Curve<THREE.Vector>> {
-    return this._curveSubject.asObservable();
   }
 
   private curve: THREE.Curve<THREE.Vector> = null;
@@ -234,7 +231,7 @@ export class CurveComponent implements OnInit {
           );
           break;
       }
-      this._curveSubject.next(this.curve);
+      this.setSubscribeNext('curve');
     }
     return this.curve;
   }

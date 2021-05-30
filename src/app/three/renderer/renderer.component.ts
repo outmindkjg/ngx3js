@@ -48,6 +48,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
   @Input() private minPolarAngle: number = null;
   @Input() private maxPolarAngle: number = null;
   @Input() private clearColor: string | number = null;
+  @Input() private target: THREE.Vector3 | LookatComponent | any = null;
   @Input() private toneMapping: string = null;
   @Input() private toneMappingExposure: number = null;
   @Input() private clearAlpha: number = null;
@@ -542,6 +543,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             verticalMax: this.verticalMax,
             mouseDragOn: this.mouseDragOn,
             lookatList: this.lookatList,
+            target : this.target
           });
           control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);

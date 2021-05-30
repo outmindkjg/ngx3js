@@ -1,16 +1,16 @@
-import { Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
 import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
 import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
-import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
+import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { ShaderType, ShaderUtils } from '../shader/shaderUtils';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
 export type TypeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
@@ -31,7 +31,7 @@ export interface TextureOption {
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.scss'],
 })
-export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometry {
+export class MaterialComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public type: string = 'lambert';
   @Input() public name: string = null;
   @Input() public nameList: string[] = null;
@@ -402,16 +402,22 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     return ThreeUtil.getTypeSafe(this.sizeAttenuation, def);
   }
 
-  private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption): THREE.Texture {
+  private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption, name : string): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
-      if (map instanceof THREE.Texture) {
-        return map;
-      } else if (map instanceof TextureComponent) {
-        return map.getTexture();
-      } else if (typeof map == 'string') {
+      if (typeof map == 'string') {
         return TextureComponent.getTextureImageOption(map, null, 'texture');
-      } else if (ThreeUtil.isNotNull(map.value)) {
-        return TextureComponent.getTextureImageOption(map.value, map.options, map.type, map.cubeImage);
+      } else if (ThreeUtil.isNotNull(map['value'])) {
+        return TextureComponent.getTextureImageOption(map['value'], map['options'], map['type'] as string, map['cubeImage']);
+      } else {
+        this.unSubscribeRefer(name);
+        const texture = ThreeUtil.getTexture(map, name);
+        this.subscribeRefer(name, ThreeUtil.getSubscribe(map, () => {
+          const newTexture = ThreeUtil.getTexture(map, name);
+          if (texture !== newTexture) {
+            texture.copy(newTexture);
+          }
+        }));
+        return texture;
       }
     }
     return undefined;
@@ -421,42 +427,42 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     switch (type.toLowerCase()) {
       case 'envmap':
         if (ThreeUtil.isNotNull(this.envMap)) {
-          return this.getTextureOption(this.envMap);
+          return this.getTextureOption(this.envMap, 'envMap');
         }
         break;
       case 'map':
         if (ThreeUtil.isNotNull(this.map)) {
-          return this.getTextureOption(this.map);
+          return this.getTextureOption(this.map, 'map');
         }
         break;
       case 'specularmap':
         if (ThreeUtil.isNotNull(this.specularMap)) {
-          return this.getTextureOption(this.specularMap);
+          return this.getTextureOption(this.specularMap,'specularMap');
         }
         break;
       case 'alphamap':
         if (ThreeUtil.isNotNull(this.alphaMap)) {
-          return this.getTextureOption(this.alphaMap);
+          return this.getTextureOption(this.alphaMap, 'alphaMap');
         }
         break;
       case 'bumpmap':
         if (ThreeUtil.isNotNull(this.bumpMap)) {
-          return this.getTextureOption(this.bumpMap);
+          return this.getTextureOption(this.bumpMap,'bumpMap');
         }
         break;
       case 'normalmap':
         if (ThreeUtil.isNotNull(this.normalMap)) {
-          return this.getTextureOption(this.normalMap);
+          return this.getTextureOption(this.normalMap, 'normalMap');
         }
         break;
       case 'aomap':
         if (ThreeUtil.isNotNull(this.aoMap)) {
-          return this.getTextureOption(this.aoMap);
+          return this.getTextureOption(this.aoMap, 'aoMap');
         }
         break;
       case 'displacementmap':
         if (ThreeUtil.isNotNull(this.displacementMap)) {
-          return this.getTextureOption(this.displacementMap);
+          return this.getTextureOption(this.displacementMap, 'displacementMap');
         }
         break;
     }
@@ -877,15 +883,15 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           case 'matrixworld':
           case 'matrix':
             if (ThreeUtil.isNotNull(valueValue.getObject3D)) {
-              this._unSubscribeRefer('unforms_' + key);
+              this.unSubscribeRefer('unforms_' + key);
               const object3d: THREE.Object3D = valueValue.getObject3D();
               resultUniforms[key] = {
                 value: ThreeUtil.getMatrix4Safe(object3d, valueType),
               };
-              if (ThreeUtil.isNotNull(valueValue.object3DSubscribe)) {
-                this._subscribeRefer(
+              if (ThreeUtil.isNotNull(valueValue.getSubscribe)) {
+                this.subscribeRefer(
                   'unforms_' + key,
-                  valueValue.object3DSubscribe().subscribe((e) => {
+                  valueValue.getSubscribe().subscribe((e) => {
                     resultUniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
                   })
                 );
@@ -899,12 +905,12 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           case 'vector2':
           case 'v2':
             if (ThreeUtil.isNotNull(valueValue.getSize)) {
-              this._unSubscribeRefer('unforms_' + key);
+              this.unSubscribeRefer('unforms_' + key);
               resultUniforms[key] = {
                 value: valueValue.getSize(),
               };
               if (ThreeUtil.isNotNull(valueValue.sizeSubscribe)) {
-                this._subscribeRefer(
+                this.subscribeRefer(
                   'unforms_' + key,
                   valueValue.sizeSubscribe().subscribe((e) => {
                     resultUniforms[key].value = e;
@@ -1109,123 +1115,37 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
     });
   }
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    if (this.material !== null) {
+      this.material.dispose();
+    }
+  }
 
   ngAfterContentInit(): void {
-    this.textureList.changes.subscribe((e) => {
-      this.textureList.forEach((texture) => {
-        texture.textureSubscribe().subscribe(() => {
-          this.setTexture(texture);
-        });
-      });
-    });
-    this.textureList.forEach((texture) => {
-      texture.textureSubscribe().subscribe(() => {
-        this.setTexture(texture);
-      });
-    });
-  }
-
-  private _subscribe: { [key: string]: Subscription } = {};
-
-  private _unSubscribeRefer(key: string) {
-    if (ThreeUtil.isNotNull(this._subscribe[key])) {
-      this._subscribe[key].unsubscribe();
-      delete this._subscribe[key];
-    }
-  }
-
-  private _subscribeRefer(key: string, subscription: Subscription) {
-    if (ThreeUtil.isNotNull(this._subscribe[key])) {
-      this._unSubscribeRefer(key);
-    }
-    this._subscribe[key] = subscription;
-  }
-
-  private _needUpdate: boolean = true;
-  private _textureSubscribe: Subscription[] = [];
-
-  unSubscription(subscriptions: Subscription[]): Subscription[] {
-    if (subscriptions !== null && subscriptions.length > 0) {
-      subscriptions.forEach((subscription) => {
-        subscription.unsubscribe();
-      });
-    }
-    return [];
+    this.subscribeListQuery(this.textureList, 'textureList', 'texture');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && ThreeUtil.isNotNull(this.textureList)) {
-      this._needUpdate = true;
-      this.unSubscription(this._textureSubscribe);
-      this.getMaterial();
-      if (this.map !== null && this.map instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.map.textureSubscribe().subscribe(() => {
-            this.setTexture(this.map as TextureComponent, 'map');
-          })
-        );
-      }
-      if (this.envMap !== null && this.envMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.envMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.envMap as TextureComponent, 'envMap');
-          })
-        );
-      }
-      if (this.specularMap !== null && this.specularMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.specularMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.specularMap as TextureComponent);
-          })
-        );
-      }
-      if (this.alphaMap !== null && this.alphaMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.alphaMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.alphaMap as TextureComponent, 'alphaMap');
-          })
-        );
-      }
-      if (this.bumpMap !== null && this.bumpMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.bumpMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.bumpMap as TextureComponent, 'bumpMap');
-          })
-        );
-      }
-      if (this.normalMap !== null && this.normalMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.normalMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.normalMap as TextureComponent, 'normalMap');
-          })
-        );
-      }
-      if (this.aoMap !== null && this.aoMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.aoMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.aoMap as TextureComponent, 'aoMap');
-          })
-        );
-      }
-      if (this.displacementMap !== null && this.displacementMap instanceof TextureComponent) {
-        this._textureSubscribe.push(
-          this.displacementMap.textureSubscribe().subscribe(() => {
-            this.setTexture(this.displacementMap as TextureComponent, 'displacementMap');
-          })
-        );
-      }
+      this.needUpdate = true;
     }
   }
 
-  private _materialSubject: Subject<THREE.Material> = new Subject<THREE.Material>();
-
-  materialSubscribe(): Observable<THREE.Material> {
-    return this._materialSubject.asObservable();
+  set needUpdate(value: boolean) {
+    if (value && this.material !== null) {
+      this.material.dispose();
+      this.material = null;
+      this.getMaterial();
+    }
   }
 
   setTexture(texture: TextureComponent, textureTypeHint: string = null) {
@@ -1268,16 +1188,14 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           break;
       }
       // this.material.needsUpdate = true;
-      this._materialSubject.next(this.material);
+      this.setSubscribeNext('material');
     }
   }
 
   public storageSource: any = null;
 
   getMaterial(): THREE.Material {
-    if (this.material === null || this._needUpdate) {
-      this._needUpdate = false;
-      this.material = null;
+    if (this.material === null) {
       this.storageSource = null;
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.material = new THREE.MeshLambertMaterial(this.getMaterialParameters({}));
@@ -1302,7 +1220,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               this.material = material;
               this.storageSource = nodeMaterialLoader;
               if (this.getVisible(true)) {
-                this._materialSubject.next(this.material);
+                this.setSubscribeNext('material');
               }
               this.onLoad.emit(this);
             });
@@ -1313,7 +1231,7 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
               (material: THREE.Material, storageSource: any) => {
                 this.material = material;
                 if (this.getVisible(true)) {
-                  this._materialSubject.next(this.material);
+                  this.setSubscribeNext('material');
                 }
                 this.storageSource = storageSource;
                 this.onLoad.emit(this);
@@ -1735,9 +1653,8 @@ export class MaterialComponent implements OnInit, OnChanges, InterfaceSvgGeometr
           control.setupMaterial(this.material);
         }
       }
-
       if (this.getVisible(true)) {
-        this._materialSubject.next(this.material);
+        this.setSubscribeNext('material');
       }
       if (this.debug) {
         console.log('material', this.material);

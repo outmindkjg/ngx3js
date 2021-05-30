@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-scale',
   templateUrl: './scale.component.html',
   styleUrls: ['./scale.component.scss'],
 })
-export class ScaleComponent implements OnInit {
+export class ScaleComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public visible: boolean = true;
   @Input() private refer: any = null;
   @Input() private referRef: boolean = true;
@@ -19,7 +19,9 @@ export class ScaleComponent implements OnInit {
   @Input() private scaleMode: string = 'max';
   @Output() private onLoad: EventEmitter<ScaleComponent> = new EventEmitter<ScaleComponent>();
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 
@@ -51,29 +53,23 @@ export class ScaleComponent implements OnInit {
 
   resetScale() {
     if (this.parent !== null && this.visible) {
-      if (this._scaleSubscribe !== null) {
-        this._scaleSubscribe.unsubscribe();
-        this._scaleSubscribe = null;
-      }
-      if (this._sizeSubscribe !== null) {
-        this._sizeSubscribe.unsubscribe();
-        this._sizeSubscribe = null;
-      }
+      this.unSubscribeRefer('scale');
+      this.unSubscribeRefer('size');
       if (this.parent instanceof THREE.Object3D) {
         this.parent.scale.copy(this.getScale());
         if (this.refer !== null && this.referRef) {
           if (this.refer.sizeSubscribe) {
-            this._scaleSubscribe = this.refer.sizeSubscribe().subscribe((size) => {
+            this.subscribeRefer('scale', this.refer.sizeSubscribe().subscribe((size) => {
               if (this.parent instanceof THREE.Object3D && this.visible) {
                 this.parent.scale.copy(this.getScaleFromSize(size));
               }
-            });
+            }));
           } else if (this.refer.scaleSubscribe) {
-            this._scaleSubscribe = this.refer.scaleSubscribe().subscribe((scale) => {
+            this.subscribeRefer('size', this.refer.scaleSubscribe().subscribe((scale) => {
               if (this.parent instanceof THREE.Object3D && this.visible) {
                 this.parent.scale.copy(scale);
               }
-            });
+            }));
           }
         }
       } else if (this.parent.meshScales) {
@@ -84,15 +80,6 @@ export class ScaleComponent implements OnInit {
     } else if (this.scale !== null && this.needUpdate) {
       this.getScale();
     }
-  }
-
-  private _sizeSubscribe: Subscription = null;
-  private _scaleSubscribe: Subscription = null;
-
-  private _scaleSubject: Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
-
-  scaleSubscribe(): Observable<THREE.Vector3> {
-    return this._scaleSubject.asObservable();
   }
 
   private getScaleFromSize(size: THREE.Vector2): THREE.Vector3 {
@@ -128,7 +115,7 @@ export class ScaleComponent implements OnInit {
         this.scale.multiplyScalar(this.multiply);
       }
       if (this.visible) {
-        this._scaleSubject.next(this.scale);
+        this.setSubscribeNext('scale');
       }
       this.onLoad.emit(this);
     }

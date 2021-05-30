@@ -11,12 +11,13 @@ import {
 } from '@angular/core';
 import * as GSAP from 'gsap';
 import { ThreeUtil } from './interface';
+import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TweenComponent } from './tween/tween.component';
 
 @Component({
   template: '',
 })
-export abstract class AbstractTweenComponent
+export abstract class AbstractTweenComponent extends AbstractSubscribeComponent
   implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   @Input() protected tweenStart: boolean = true;
 
@@ -84,5 +85,7 @@ export abstract class AbstractTweenComponent
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 }

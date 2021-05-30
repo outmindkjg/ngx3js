@@ -181,7 +181,22 @@ export class SceneComponent
                 break;
             }
           } else {
-            this.scene.background = background;
+            switch (backgroundType.toLowerCase()) {
+              case 'background-environment-angular':
+              case 'backgroundenvironmentangular':
+                this.scene.background = background;
+                this.scene.environment = background;
+                break;
+              case 'environment-angular':
+              case 'environmentangular':
+                this.scene.environment = background;
+                break;
+              case 'background-angular':
+              case 'backgroundangular':
+              default :
+                this.scene.background = background;
+                break;
+            }
           }
         }
         background.onUpdate();
@@ -209,6 +224,23 @@ export class SceneComponent
               case 'backgroundcubemap':
               default :
                 this.scene.background = envMap;
+                break;
+            }
+          } else {
+            switch (backgroundType.toLowerCase()) {
+              case 'background-environment-cubemap':
+              case 'backgroundenvironmentcubemap':
+                this.scene.background = background;
+                this.scene.environment = background;
+                break;
+              case 'environment-cubemap':
+              case 'environmentcubemap':
+                this.scene.environment = background;
+                break;
+              case 'background-cubemap':
+              case 'backgroundcubemap':
+              default :
+                this.scene.background = background;
                 break;
             }
           }
@@ -303,7 +335,7 @@ export class SceneComponent
 		if (this.materialList !== null && this.materialList !== undefined) {
       this._materialSubscribe = this.unSubscription(this._materialSubscribe);
       this.materialList.forEach(material => {
-        this._materialSubscribe.push(material.materialSubscribe().subscribe(() => {
+        this._materialSubscribe.push(material.getSubscribe().subscribe(() => {
           this.setMaterial(material);
         }));
       });
@@ -457,12 +489,12 @@ export class SceneComponent
       if (ThreeUtil.isNotNull(this.background)) {
         if (this.background instanceof MaterialComponent) {
           this.setMaterial(this.background, this.backgroundType);
-          this.subscribeRefer('background', this.background.materialSubscribe().subscribe(() => {
+          this.subscribeRefer('background', this.background.getSubscribe().subscribe(() => {
             this.setMaterial(this.background as MaterialComponent, this.backgroundType);
           }));
         } else if (this.background instanceof TextureComponent) {
           this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
-          this.subscribeRefer('background', this.background.textureSubscribe().subscribe(() => {
+          this.subscribeRefer('background', this.background.getSubscribe().subscribe(() => {
             this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
           }));
         } else {
@@ -476,7 +508,7 @@ export class SceneComponent
       if (ThreeUtil.isNotNull(this.environment)) {
         if (this.environment instanceof MaterialComponent) {
           this.setMaterial(this.environment, 'environment');
-          this.subscribeRefer('environment', this.environment.materialSubscribe().subscribe(() => {
+          this.subscribeRefer('environment', this.environment.getSubscribe().subscribe(() => {
             this.setMaterial(this.environment as MaterialComponent, 'environment');
           }));
         } else if (this.environment instanceof MeshComponent) {

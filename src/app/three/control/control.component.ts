@@ -9,6 +9,7 @@ import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
 import { SceneComponent } from '../scene/scene.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { PlainControls } from './plain-controls';
 
 @Component({
@@ -16,7 +17,7 @@ import { PlainControls } from './plain-controls';
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.scss']
 })
-export class ControlComponent implements OnInit {
+export class ControlComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() type : string = "orbit";
   @Input() private autoRotate:boolean = null;
@@ -61,13 +62,16 @@ export class ControlComponent implements OnInit {
   @Input() private lightDirectionX: number = null;
   @Input() private lightDirectionY: number = null;
   @Input() private lightDirectionZ: number = null;
+  @Input() private target: THREE.Vector3 | LookatComponent | any = null;
   @Input() private camera: any = null;
 
   @Output() private onLoad:EventEmitter<ControlComponent> = new EventEmitter<ControlComponent>();
   @Output() private eventListener:EventEmitter<{type : string, event : any}> = new EventEmitter<{ type : string, event : any}>();
 	@ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent> = null;
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
   }
@@ -302,10 +306,19 @@ export class ControlComponent implements OnInit {
           break;
       }
       this.control = control;
-      if (this.control !== null && this.lookatList !== null && this.lookatList !== undefined) {
-        this.lookatList.forEach(lookat => {
-          lookat.setParent(this.control);
-        })
+      if (this.control !== null && ThreeUtil.isNotNull(this.control['target'])) {
+        this.unSubscribeRefer('target')
+        if (ThreeUtil.isNotNull(this.target)) {
+          this.control['target'] = ThreeUtil.getLookAt(this.target);
+          this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
+            this.control['target'] = ThreeUtil.getLookAt(this.target);
+          }, 'lookat'));
+        }
+        if (this.lookatList !== null && this.lookatList !== undefined) {
+          this.lookatList.forEach(lookat => {
+            lookat.setParent(this.control);
+          })
+        }
       }
       this.onLoad.emit(this);
     }

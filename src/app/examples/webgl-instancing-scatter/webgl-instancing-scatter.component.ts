@@ -40,7 +40,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 
   ngAfterViewInit() {
     if (this.flower !== null) {
-      this.flower.meshSubscribe().subscribe(() => {
+      this.flower.getSubscribe().subscribe(() => {
         this.setFlower(this.flower);
       });
       this.flower.getMesh();

@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-rotation',
   templateUrl: './rotation.component.html',
   styleUrls: ['./rotation.component.scss'],
 })
-export class RotationComponent implements OnInit {
+export class RotationComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public visible: boolean = true;
   @Input() private refer: any = null;
   @Input() private referRef: boolean = true;
@@ -17,7 +17,9 @@ export class RotationComponent implements OnInit {
   @Input() private z: number | string = 0;
   @Output() private onLoad: EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 
@@ -63,14 +65,6 @@ export class RotationComponent implements OnInit {
     return false;
   }
 
-  private _rotationSubscribe: Subscription = null;
-
-  private _rotationSubject: Subject<THREE.Euler> = new Subject<THREE.Euler>();
-
-  rotationSubscribe(): Observable<THREE.Euler> {
-    return this._rotationSubject.asObservable();
-  }
-
   setRotation(x: number, y: number, z: number) {
     if (ThreeUtil.isNotNull(x)) {
       this.x = x;
@@ -88,17 +82,14 @@ export class RotationComponent implements OnInit {
   resetRotation() {
     if (this.parent !== null && this.visible) {
       if (this.parent instanceof THREE.Object3D) {
-        if (this._rotationSubscribe !== null) {
-          this._rotationSubscribe.unsubscribe();
-          this._rotationSubscribe = null;
-        }
+        this.unSubscribeRefer('rotation');
         this.parent.rotation.copy(this.getRotation());
         if (this.refer !== null && this.referRef && this.refer.rotationSubscribe) {
-          this._rotationSubscribe = this.refer.rotationSubscribe().subscribe((rotation) => {
+          this.subscribeRefer('rotation', this.refer.rotationSubscribe().subscribe((rotation) => {
             if (this.parent instanceof THREE.Object3D && this.visible) {
               this.parent.rotation.copy(rotation);
             }
-          });
+          }));
         }
       } else if (this.parent.meshRotations) {
         this.parent.meshRotations.forEach((rotation) => {
@@ -123,7 +114,7 @@ export class RotationComponent implements OnInit {
         this.rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, new THREE.Euler(0, 0, 0));
       }
       if (this.visible) {
-        this._rotationSubject.next(this.rotation);
+        this.setSubscribeNext('rotation');
       }
       this.onLoad.emit(this);
     }

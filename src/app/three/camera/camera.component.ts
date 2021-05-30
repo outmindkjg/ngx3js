@@ -428,11 +428,6 @@ export class CameraComponent
   private cameraWidth: number = 0;
   private cameraHeight: number = 0;
 
-  protected _sizeSubject: Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
-
-  sizeSubscribe(): Observable<THREE.Vector2> {
-    return this._sizeSubject.asObservable();
-  }
 
   getSize() : THREE.Vector2 {
     return new THREE.Vector2(this.cameraWidth, this.cameraHeight);
@@ -514,7 +509,7 @@ export class CameraComponent
         height : height
       });
     }
-    this._sizeSubject.next(this.getSize());
+    this.setSubscribeNext('size');
   }
 
   isCameraChild: boolean = false;
@@ -662,7 +657,7 @@ export class CameraComponent
         'audio',
         'mixer',
       ]);
-      this._cameraSubject.next(this.camera);
+      this.setSubscribeNext('camera');
       this.onLoad.emit(this);
     }
     return this.camera;
@@ -678,12 +673,6 @@ export class CameraComponent
     } else {
       return new THREE.Scene();
     }
-  }
-
-  private _cameraSubject: Subject<THREE.Camera> = new Subject<THREE.Camera>();
-
-  cameraSubscribe(): Observable<THREE.Object3D> {
-    return this._cameraSubject.asObservable();
   }
 
   private _cubeRenderCount = 0;

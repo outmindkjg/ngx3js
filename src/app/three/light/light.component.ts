@@ -8,7 +8,6 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 import { HelperComponent } from '../helper/helper.component';
@@ -415,12 +414,6 @@ export class LightComponent
     super.ngAfterContentInit();
   }
 
-  private _lightSubject: Subject<THREE.Light> = new Subject<THREE.Light>();
-
-  lightSubscribe(): Observable<THREE.Light> {
-    return this._lightSubject.asObservable();
-  }
-
   synkObject3D(synkTypes: string[]) {
     if (this.light !== null) {
       synkTypes.forEach((synkType) => {
@@ -639,7 +632,7 @@ export class LightComponent
       }
       this.setObject3D(this.light);
       this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helpers']);
-      this._lightSubject.next(this.light);
+      this.setSubscribeNext('light');
       this.onLoad.emit(this);
     }
     return this.light;

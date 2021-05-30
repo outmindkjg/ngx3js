@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
@@ -8,13 +7,14 @@ import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
 import { Lut } from 'three/examples/jsm/math/Lut';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-texture',
   templateUrl: './texture.component.html',
   styleUrls: ['./texture.component.scss'],
 })
-export class TextureComponent implements OnInit {
+export class TextureComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy {
   @Input() private refer: any = null;
   @Input() public textureType: string = 'map';
   @Input() private loaderType: string = null;
@@ -58,8 +58,7 @@ export class TextureComponent implements OnInit {
   @Input() private rotation: number = null;
   @Input() private flipY: boolean = null;
 
-  @Output()
-  private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
+  @Output() private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
   private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
@@ -94,11 +93,14 @@ export class TextureComponent implements OnInit {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.offsetX, this.offset), ThreeUtil.getTypeSafe(this.offsetY, this.offset), new THREE.Vector2(defX, defY));
   }
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     if (this.texture != null) {
       this.texture.dispose();
     }
@@ -111,15 +113,19 @@ export class TextureComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.texture !== null) {
-      this.texture = null;
-      this.getTexture();
-    }
-    if (this.refTexture != null) {
-      this.refTexture.copy(this.texture);
+    if (changes && this.texture !== null) {
+      this.needUpdate = true;
     }
     if (changes.useDropImage) {
       this.setUseDropImage(this.useDropImage);
+    }
+  }
+
+  set needUpdate(value: boolean) {
+    if (value && this.texture !== null) {
+      this.texture.dispose();
+      this.texture = null;
+      this.getTexture();
     }
   }
 
@@ -443,7 +449,7 @@ export class TextureComponent implements OnInit {
         }
       });
     }
-    let texture : THREE.Texture = null;
+    let texture: THREE.Texture = null;
     if (image instanceof TextureComponent) {
       texture = image.getTexture();
     } else if (image instanceof THREE.Texture) {
@@ -623,14 +629,6 @@ export class TextureComponent implements OnInit {
     }
   }
 
-  private _textureSubject: Subject<THREE.Texture> = new Subject<THREE.Texture>();
-
-  textureSubscribe(): Observable<THREE.Texture> {
-    return this._textureSubject.asObservable();
-  }
-
-  private _textureSubscribe: Subscription = null;
-
   setReferTexture(texture: any) {
     if (texture instanceof HTMLVideoElement) {
       this.texture = new THREE.VideoTexture(texture);
@@ -696,7 +694,7 @@ export class TextureComponent implements OnInit {
 
   static setTextureOptions(texture: THREE.Texture, options: { [key: string]: any } = {}): THREE.Texture {
     if (options == {}) {
-      return ;
+      return;
     }
     console.log(options);
     Object.entries(options).forEach(([key, value]) => {
@@ -761,10 +759,7 @@ export class TextureComponent implements OnInit {
 
   getTexture() {
     if (this.texture === null) {
-      if (this._textureSubscribe !== null) {
-        this._textureSubscribe.unsubscribe();
-        this._textureSubscribe = null;
-      }
+      this.unSubscribeRefer('referTexture');
       if (this.refer !== null) {
         if (this.refer instanceof TextureComponent) {
           this.texture = this.getTextureImage(this.refer.getImage(null), this.refer.getCubeImage(null), this.refer.getProgram(null));
@@ -772,21 +767,24 @@ export class TextureComponent implements OnInit {
           this.texture.offset.copy(this.refer.getOffset(0, 0));
         } else if (this.refer.getTexture && this.refer.textureSubscribe) {
           this.setReferTexture(this.refer.getTexture());
-          this._textureSubscribe = this.refer.textureSubscribe().subscribe((texture) => {
-            if (texture instanceof THREE.Texture) {
-              this.setReferTexture(texture);
-            } else {
-              this.setReferTexture(this.refer.getTexture());
-            }
-          });
+          this.subscribeRefer(
+            'referTexture',
+            this.refer.textureSubscribe().subscribe((texture) => {
+              if (texture instanceof THREE.Texture) {
+                this.setReferTexture(texture);
+              } else {
+                this.setReferTexture(this.refer.getTexture());
+              }
+            })
+          );
         } else {
           this.texture = new THREE.Texture();
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
-          this.texture = new THREE.DataTexture(null,1,1);
+          this.texture = new THREE.DataTexture(null, 1, 1);
         } else if (this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
-          this.texture = new THREE.CompressedTexture(null,1,1);
+          this.texture = new THREE.CompressedTexture(null, 1, 1);
         } else {
           this.texture = new THREE.Texture();
         }
@@ -816,7 +814,7 @@ export class TextureComponent implements OnInit {
       }
       TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
       this.onLoad.emit(this);
-      this._textureSubject.next(this.texture);
+      this.setSubscribeNext('texture');
     }
     return this.texture;
   }

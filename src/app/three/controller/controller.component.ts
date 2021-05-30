@@ -6,6 +6,7 @@ import { CanvasComponent } from '../canvas/canvas.component';
 import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
 import { RendererTimer } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
 
 @Component({
@@ -13,12 +14,14 @@ import { HtmlCollection } from '../visual/visual.component';
   templateUrl: './controller.component.html',
   styleUrls: ['./controller.component.scss']
 })
-export class ControllerComponent implements OnInit {
+export class ControllerComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private controller:{ new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } | string = null;
   @Input() private params:{ [key : string] : any} = null;
-  constructor() { }
 
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
   }

@@ -4,9 +4,8 @@ import {
   Input,
   OnInit,
   Output,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
@@ -56,8 +55,7 @@ export class HelperComponent
   @Input() private children: any[] = null;
   @Input() private control: any = null;
 
-  @Output()
-  private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
+  @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
 
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     if (this.targetMesh !== null) {
@@ -204,11 +202,9 @@ export class HelperComponent
         this.target.meshSubscribe().subscribe((mesh) => {
           this.targetMesh = mesh;
           this.needsUpdate = true;
-          this.resetHelper();
         });
       }
       this.needsUpdate = true;
-      this.resetHelper();
     }
     super.ngOnChanges(changes);
   }
@@ -221,14 +217,6 @@ export class HelperComponent
     });
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      this.resetHelper(true);
-      return true;
-    }
-    return false;
-  }
-
   setUpdate() {
     const helper: any = this.helper;
     if (ThreeUtil.isNotNull(helper.update)) {
@@ -238,32 +226,10 @@ export class HelperComponent
     }
   }
 
-  private _helperSubject: Subject<THREE.Object3D> = new Subject<THREE.Object3D>();
-
-  helperSubscribe(): Observable<THREE.Object3D> {
-    return this._helperSubject.asObservable();
-  }
-
-  resetHelper(clearMesh: boolean = false) {
-    if (this.parent !== null) {
-      if (clearMesh && this.helper !== null && this.helper.parent) {
-        this.helper.parent.remove(this.helper);
-        this.helper = null;
-      }
-      if (this.parent instanceof THREE.Object3D) {
-        let parent = this.parent;
-        const helper = this.getHelper();
-        if (helper.parent === null) {
-          while (parent.parent) {
-            parent = parent.parent;
-          }
-          parent.add(helper);
-        }
-        this.setUpdate();
-      }
-    } else if (this.needsUpdate && this.helper !== null) {
+  set needUpdate(value : boolean) {
+    if (value && this.helper !== null) {
+      this.helper = null;
       this.getHelper();
-      this.setUpdate();
     }
   }
 
@@ -526,7 +492,7 @@ export class HelperComponent
           'lookat',
           'controller',
         ]);
-        this._helperSubject.next(this.helper);
+        this.setSubscribeNext('helper');
         this.onLoad.emit(this);
       } else {
         this.helper = null;

@@ -1,14 +1,11 @@
-import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, QueryList, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
-import { InterfaceSvgGeometry, ThreeUtil } from '../interface';
+import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { PositionComponent } from '../position/position.component';
-import { RotationComponent } from '../rotation/rotation.component';
-import { ScaleComponent } from '../scale/scale.component';
 import { TranslationComponent } from '../translation/translation.component';
 
 export interface GeometriesVector3 {
@@ -312,14 +309,16 @@ export class SvgComponent extends AbstractObject3dComponent {
 		if (this.materialList !== null && this.materialList !== undefined) {
       this._materialSubscribe = this.unSubscription(this._materialSubscribe);
       if (this.material !== null) {
-        this._materialSubscribe.push(this.material.materialSubscribe().subscribe((mat) => {
+        this._materialSubscribe.push(this.material.getSubscribe().subscribe(() => {
+          const mat = this.material.getMaterial();
           this.meshMaterials.forEach(material => {
             material.copy(mat);
           });
         }));
       }
       this.materialList.forEach((material, idx) => {
-        this._materialSubscribe.push(material.materialSubscribe().subscribe((mat) => {
+        this._materialSubscribe.push(material.getSubscribe().subscribe(() => {
+          const mat = this.material.getMaterial();
           if (this.meshMaterials && this.meshMaterials.length > idx) {
             this.meshMaterials[idx].copy(mat);
           };

@@ -8,18 +8,18 @@ import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ShadowMapViewer } from 'three/examples/jsm/utils/ShadowMapViewer';
 import { ShadowMesh } from 'three/examples/jsm/objects/ShadowMesh';
-
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LightComponent } from '../light/light.component';
 import { MeshComponent } from '../mesh/mesh.component';
 import { HelperComponent } from '../helper/helper.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss']
 })
-export class ViewerComponent implements OnInit {
+export class ViewerComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private type: string = "shadowmap";
   @Input() private light : LightComponent | MeshComponent | THREE.Light = null;
@@ -35,60 +35,27 @@ export class ViewerComponent implements OnInit {
   _refTargetSubscription : Subscription[] = [];
 
   private getLight() : THREE.Light {
-    let light : THREE.Light = null;
+    this.unSubscribeRefer('light');
     if (ThreeUtil.isNotNull(this.light)) {
-      if (this.light instanceof THREE.Light) {
-        return this.light;
-      } else if (this.light instanceof LightComponent) {
-        light = this.light.getLight();
-        this._refTargetSubscription.push(this.light.lightSubscribe().subscribe(() => {
-          this.resetViewer();
-        }));
-      } else if (this.light instanceof MeshComponent) {
-        const mesh = this.light.getMesh();
-        if (mesh instanceof THREE.Light) {
-          light = mesh;
-        }
-        this._refTargetSubscription.push(this.light.meshSubscribe().subscribe(() => {
-          this.resetViewer();
-        }));
-      }
-    }
-    if (light !== null) {
+      const light = ThreeUtil.getLight(this.light);
+      this.subscribeRefer('light', ThreeUtil.getSubscribe(this.light, () => {
+        this.resetViewer();        
+      },'light'))
       return light;
-    } else {
-      return new THREE.PointLight();
     }
+    return new THREE.PointLight();
   }
 
   private getMesh() : THREE.Mesh {
-    let mesh : THREE.Mesh = null;
+    this.unSubscribeRefer('mesh');
     if (ThreeUtil.isNotNull(this.mesh)) {
-      if (this.mesh instanceof THREE.Mesh) {
-        return this.mesh;
-      } else if (this.mesh instanceof MeshComponent) {
-        const refMesh = this.mesh.getMesh();
-        if (refMesh instanceof THREE.Mesh) {
-          mesh = refMesh;
-        }
-        this._refTargetSubscription.push(this.mesh.meshSubscribe().subscribe(() => {
-          this.resetViewer();
-        }));
-      } else if (this.mesh instanceof HelperComponent) {
-        const refMesh = this.mesh.getHelper();
-        if (refMesh instanceof THREE.Mesh) {
-          mesh = refMesh;
-        }
-        this._refTargetSubscription.push(this.mesh.helperSubscribe().subscribe(() => {
-          this.resetViewer();
-        }));
-      }
-    }
-    if (mesh !== null) {
+      const mesh = ThreeUtil.getMesh(this.mesh);
+      this.subscribeRefer('mesh', ThreeUtil.getSubscribe(this.mesh, () => {
+        this.resetViewer();
+      },'mesh'));
       return mesh;
-    } else {
-      return new THREE.Mesh();
     }
+    return new THREE.Mesh();
   }
 
   private getPlane() : THREE.Plane {
@@ -101,7 +68,7 @@ export class ViewerComponent implements OnInit {
         mesh = this.plane;
       } else if (this.plane instanceof MeshComponent) {
         mesh = this.plane.getMesh();
-        this._refTargetSubscription.push(this.plane.meshSubscribe().subscribe(() => {
+        this._refTargetSubscription.push(this.plane.getSubscribe().subscribe(() => {
           this.resetViewer();
         }));
       }
@@ -186,7 +153,9 @@ export class ViewerComponent implements OnInit {
     return 0;
   }
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
   }

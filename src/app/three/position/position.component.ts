@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractTweenComponent } from '../tween.abstract';
@@ -47,29 +46,18 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     return false;
   }
 
-  private _positionSubscribe: Subscription = null;
-
-  private _positionSubject:Subject<THREE.Vector3> = new Subject<THREE.Vector3>();
-
-  positionSubscribe() : Observable<THREE.Vector3>{
-    return this._positionSubject.asObservable();
-  }
-
   resetPosition() {
     if (this.parent !== null && this.visible) {
-      if (this._positionSubscribe !== null) {
-        this._positionSubscribe.unsubscribe();
-        this._positionSubscribe = null;
-      }
+      this.unSubscribeRefer('position');
       if (this.parent instanceof THREE.Object3D ) {
         if (this.type === 'position') {
           this.parent.position.copy(this.getPosition());
           if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
-            this._positionSubscribe = this.refer.positionSubscribe().subscribe(position => {
+            this.subscribeRefer('position', this.refer.positionSubscribe().subscribe(position => {
               if (this.parent instanceof THREE.Object3D && this.visible) {
                 this.parent.position.copy(position);
               }
-            })
+            }));
           }
           this.setTweenTarget(this.parent.position);
         }
@@ -151,7 +139,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
         }
       }
       if (this.visible) {
-        this._positionSubject.next(this.position);
+        this.setSubscribeNext('position');
       }
       this.onLoad.emit(this);
     }

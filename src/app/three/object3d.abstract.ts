@@ -1,5 +1,4 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ControllerComponent } from './controller/controller.component';
 import { TagAttributes, ThreeUtil } from './interface';
@@ -18,10 +17,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() protected matrixAutoUpdate: boolean = null;
   @Input() private layers: number[] = null;
   @Input() protected frustumCulled: boolean = null;
-  @Input() private position: PositionComponent = null;
-  @Input() private rotation: RotationComponent = null;
-  @Input() private scale: ScaleComponent = null;
-  @Input() private lookat: LookatComponent = null;
+  @Input() private position: THREE.Vector3 | number[] | PositionComponent | any = null;
+  @Input() private rotation: THREE.Vector3 | number[] | RotationComponent | any = null;
+  @Input() private scale: THREE.Vector3 | number[] | ScaleComponent | any = null;
+  @Input() private lookat: THREE.Vector3 | number[] | LookatComponent | any = null;
   @Input() private loDistance: number = null;
   @Input() protected debug: boolean = false;
 
@@ -54,159 +53,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   ngAfterContentInit(): void {
-    if (this.controllerList !== null && this.controllerList !== undefined) {
-      this.controllerList.changes.subscribe((e) => {
-        this._controllerSubscribe = this.unSubscription(this._controllerSubscribe);
-        this.controllerList.forEach((controller) => {
-          this._controllerSubscribe.push(controller.controllerSubscribe().subscribe(() => {}));
-        });
-        this.synkObject3D(['controller']);
-      });
-    }
-    if (this.positionList !== null && this.positionList !== undefined) {
-      this.setPositionSubscribe();
-      this.positionList.changes.subscribe((e) => {
-        this.setPositionSubscribe();
-      });
-    }
-    if (this.rotationList !== null && this.rotationList !== undefined) {
-      this.setRotationSubscribe();
-      this.rotationList.changes.subscribe((e) => {
-        this.setRotationSubscribe();
-      });
-    }
-    if (this.scaleList !== null && this.scaleList !== undefined) {
-      this.setScaleSubscribe();
-      this.scaleList.changes.subscribe((e) => {
-        this.setScaleSubscribe();
-      });
-    }
-    if (this.lookatList !== null && this.lookatList !== undefined) {
-      this.setLookatSubscribe();
-      this.lookatList.changes.subscribe((e) => {
-        this.setLookatSubscribe();
-      });
-    }
+    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQuery(this.positionList, 'positionList', 'position');
+    this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
     super.ngAfterContentInit();
   }
-
-  setPositionSubscribe() {
-    if (this.positionList !== null && this.positionList !== undefined) {
-      this._positionSubscribe = this.unSubscription(this._positionSubscribe);
-      if (this.position !== null) {
-        this._positionSubscribe.push(
-          this.position.positionSubscribe().subscribe((pos) => {
-            if (this.object3d !== null) {
-              this.object3d.position.copy(pos);
-            }
-          })
-        );
-      }
-      this.positionList.forEach((position) => {
-        this._positionSubscribe.push(
-          position.positionSubscribe().subscribe((pos) => {
-            if (this.object3d !== null) {
-              this.object3d.position.copy(pos);
-            }
-          })
-        );
-      });
-    }
-  }
-
-  setRotationSubscribe() {
-    if (this.rotationList !== null && this.rotationList !== undefined) {
-      this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
-      if (this.rotation !== null) {
-        this._rotationSubscribe.push(
-          this.rotation.rotationSubscribe().subscribe((rot) => {
-            if (this.object3d !== null) {
-              this.object3d.rotation.copy(rot);
-            }
-          })
-        );
-      }
-      this.rotationList.forEach((rotation) => {
-        this._rotationSubscribe.push(
-          rotation.rotationSubscribe().subscribe((rot) => {
-            if (this.object3d !== null) {
-              this.object3d.rotation.copy(rot);
-            }
-          })
-        );
-      });
-    }
-  }
-
-  setScaleSubscribe() {
-    if (this.scaleList !== null && this.scaleList !== undefined) {
-      this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
-      if (this.scale !== null) {
-        this._scaleSubscribe.push(
-          this.scale.scaleSubscribe().subscribe((sca) => {
-            if (this.object3d !== null) {
-              this.object3d.scale.copy(sca);
-            }
-          })
-        );
-      }
-      this.scaleList.forEach((scale) => {
-        this._scaleSubscribe.push(
-          scale.scaleSubscribe().subscribe((sca) => {
-            if (this.object3d !== null) {
-              this.object3d.scale.copy(sca);
-            }
-          })
-        );
-      });
-    }
-  }
-
-  setLookatSubscribe() {
-    if (this.lookatList !== null && this.lookatList !== undefined) {
-      this._lookatSubscribe = this.unSubscription(this._lookatSubscribe);
-      if (this.lookat !== null) {
-        this._lookatSubscribe.push(
-          this.lookat.lookatSubscribe().subscribe((loat) => {
-            if (this.object3d !== null) {
-              this.object3d.lookAt(loat);
-            }
-          })
-        );
-      }
-      this.lookatList.forEach((lookat) => {
-        this._lookatSubscribe.push(
-          lookat.lookatSubscribe().subscribe((loat) => {
-            if (this.object3d !== null) {
-              this.object3d.lookAt(loat);
-            }
-          })
-        );
-      });
-    }
-  }
-
-  private _subscribe: { [key: string]: Subscription } = {};
-
-  protected unSubscribeRefer(key: string) {
-    if (ThreeUtil.isNotNull(this._subscribe[key])) {
-      this._subscribe[key].unsubscribe();
-      delete this._subscribe[key];
-    }
-  }
-
-  protected subscribeRefer(key: string, subscription: Subscription) {
-    if (ThreeUtil.isNotNull(this._subscribe[key])) {
-      this.unSubscribeRefer(key);
-    }
-    this._subscribe[key] = subscription;
-  }
-
-  private _controllerSubscribe: Subscription[] = [];
-  private _positionSubscribe: Subscription[] = [];
-  private _rotationSubscribe: Subscription[] = [];
-  private _scaleSubscribe: Subscription[] = [];
-  private _lookatSubscribe: Subscription[] = [];
 
   ngOnDestroy(): void {
     if (this.object3d != null) {
@@ -216,21 +69,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
         this.object3d = null;
       }
     }
-    this._controllerSubscribe = this.unSubscription(this._controllerSubscribe);
-    this._positionSubscribe = this.unSubscription(this._positionSubscribe);
-    this._rotationSubscribe = this.unSubscription(this._rotationSubscribe);
-    this._scaleSubscribe = this.unSubscription(this._scaleSubscribe);
-    this._lookatSubscribe = this.unSubscription(this._lookatSubscribe);
     super.ngOnDestroy();
-  }
-
-  unSubscription(subscriptions: Subscription[]): Subscription[] {
-    if (subscriptions !== null && subscriptions.length > 0) {
-      subscriptions.forEach((subscription) => {
-        subscription.unsubscribe();
-      });
-    }
-    return [];
   }
 
   getPosition(): THREE.Vector3 {
@@ -406,12 +245,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
-  private _object3dSubject: Subject<THREE.Object3D> = new Subject<THREE.Object3D>();
-
-  object3DSubscribe(): Observable<THREE.Object3D> {
-    return this._object3dSubject.asObservable();
-  }
-
   setObject3D(object3d: THREE.Object3D, add2Parent: boolean = true) {
     if (this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
@@ -432,7 +265,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             });
           }
         }
-
         if (ThreeUtil.isNotNull(this.name) && this.name !== '') {
           this.object3d.name = this.name;
         }
@@ -450,7 +282,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           }
         }
         this.setTweenTarget(this.object3d);
-        this._object3dSubject.next(this.object3d);
+        this.setSubscribeNext('object3d');
+        if (this.debug) {
+          console.log('object3d', this.object3d);
+        }
       }
     }
   }
@@ -463,13 +298,24 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return parent;
   }
 
-  synkObject3D(synkTypes: string[]) {
+  protected applyChanges() {
+    this.synkObject3D(this.getChanges());
+  }
+
+  protected synkObject3D(synkTypes: string[]) {
     if (this.object3d !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'position':
-            if (this.position !== null && this.position.visible) {
-              this.object3d.position.copy(this.position.getPosition());
+            this.unSubscribeRefer('position');
+            if (this.position !== null) {
+              this.object3d.position.copy(ThreeUtil.getPosition(this.position));
+              this.subscribeRefer(
+                'position',
+                ThreeUtil.getSubscribe(this.position, () => {
+                  this.addChanges('position');
+                })
+              );
             }
             if (this.positionList !== null && this.positionList !== undefined) {
               this.positionList.forEach((position) => {
@@ -478,20 +324,32 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                     case 'up':
                       this.object3d.up.copy(position.getPosition());
                       break;
-                    default:
+                    case 'position':
                       this.object3d.position.copy(position.getPosition());
+                      break;
+                    case 'lookat':
+                      this.object3d.lookAt(position.getPosition());
+                      break;
+                    default:
                       break;
                   }
                 }
               });
             }
-            if (!this.matrixAutoUpdate) {
+            if (!this.object3d.matrixAutoUpdate) {
               this.object3d.updateMatrix();
             }
             break;
           case 'rotation':
-            if (this.rotation !== null && this.rotation.visible) {
-              this.object3d.rotation.copy(this.rotation.getRotation());
+            this.unSubscribeRefer('rotation');
+            if (this.position !== null) {
+              this.object3d.rotation.copy(ThreeUtil.getRotation(this.rotation));
+              this.subscribeRefer(
+                'rotation',
+                ThreeUtil.getSubscribe(this.rotation, () => {
+                  this.addChanges('rotation');
+                })
+              );
             }
             if (this.rotationList !== null && this.rotationList !== undefined) {
               this.rotationList.forEach((rotation) => {
@@ -500,13 +358,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }
               });
             }
-            if (!this.matrixAutoUpdate) {
+            if (!this.object3d.matrixAutoUpdate) {
               this.object3d.updateMatrix();
             }
             break;
           case 'scale':
-            if (this.scale !== null && this.scale.visible) {
-              this.object3d.scale.copy(this.scale.getScale());
+            this.unSubscribeRefer('scale');
+            if (this.scale !== null) {
+              this.object3d.scale.copy(ThreeUtil.getScale(this.scale));
+              this.subscribeRefer(
+                'scale',
+                ThreeUtil.getSubscribe(this.scale, () => {
+                  this.addChanges('scale');
+                })
+              );
             }
             if (this.scaleList !== null && this.scaleList !== undefined) {
               this.scaleList.forEach((scale) => {
@@ -515,13 +380,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }
               });
             }
-            if (!this.matrixAutoUpdate) {
+            if (!this.object3d.matrixAutoUpdate) {
               this.object3d.updateMatrix();
             }
             break;
           case 'lookat':
-            if (this.lookat !== null && this.lookat.visible) {
-              this.object3d.lookAt(this.lookat.getLookAt());
+            this.unSubscribeRefer('lookat');
+            if (this.lookat !== null) {
+              this.object3d.lookAt(ThreeUtil.getLookAt(this.lookat));
+              this.subscribeRefer(
+                'lookat',
+                ThreeUtil.getSubscribe(this.lookat, () => {
+                  this.addChanges('lookat');
+                })
+              );
             }
             if (this.lookatList !== null && this.lookatList !== undefined) {
               this.lookatList.forEach((lookat) => {
@@ -543,6 +415,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             break;
         }
       });
+      this.clearChanges();
     }
   }
 

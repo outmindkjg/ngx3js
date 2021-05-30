@@ -4,7 +4,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect';
 import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect';
-import { InterfaceComposerComponent, InterfaceEffectComposer, RendererTimer, ThreeUtil } from '../interface';
+import { RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
 import { AbstractTweenComponent } from '../tween.abstract';
 import { CameraComponent } from '../camera/camera.component';
@@ -15,7 +15,7 @@ import { SceneComponent } from '../scene/scene.component';
   templateUrl: './composer.component.html',
   styleUrls: ['./composer.component.scss']
 })
-export class ComposerComponent extends AbstractTweenComponent implements OnInit, InterfaceEffectComposer, InterfaceComposerComponent {
+export class ComposerComponent extends AbstractTweenComponent implements OnInit {
 
   @Input() private type:string = 'composer';
   @Input() private scene:THREE.Scene | SceneComponent = null;
