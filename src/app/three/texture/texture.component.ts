@@ -97,7 +97,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -119,6 +121,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if (changes.useDropImage) {
       this.setUseDropImage(this.useDropImage);
     }
+    super.ngOnChanges(changes);
   }
 
   set needUpdate(value: boolean) {
@@ -795,7 +798,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
               this.texture.copy(texture);
               TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
               this.texture.needsUpdate = true;
-              // this._textureSubject.next(this.texture);
+              this.setSubscribeNext('textureloaded')
             }
           },
           this.storageOption
@@ -808,6 +811,8 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         } else {
           this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null), () => {
             this.texture.needsUpdate = true;
+            console.log('textureloaded');
+            this.setSubscribeNext('textureloaded')
           });
         }
         this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);

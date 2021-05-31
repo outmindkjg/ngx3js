@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-tools',
   templateUrl: './tools.component.html',
   styleUrls: ['./tools.component.scss']
 })
-export class ToolsComponent implements OnInit {
+export class ToolsComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() public type: string = '';
   @Input() public size: number = null;
@@ -26,9 +27,12 @@ export class ToolsComponent implements OnInit {
     return ThreeUtil.getPixelFormatSafe(this.format, def, '');
   }
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   private tool : any = null;

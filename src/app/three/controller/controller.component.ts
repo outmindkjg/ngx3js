@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
@@ -24,15 +23,24 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
+    if (changes && this._controller !== null) {
       if (changes.controller) {
-        this.resetController();
+        this.needUpdate = true;
       } else if (changes.params && this._controller !== null) {
         this._controller.setVariables(this.params);
       }
+    }
+    super.ngOnChanges(changes);
+  }
+
+  set needUpdate(value : boolean) {
+    if (value && this._controller !== null) {
+      this._controller = null;
+      this.getController();
     }
   }
 
@@ -40,17 +48,17 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   private parent : THREE.Object3D = null;
   private refObject2d : HtmlCollection = null;
 
-  setParent(parent: THREE.Object3D) {
+  setObject3D(parent: THREE.Object3D) {
     if (this.parent !== parent) {
       this.parent = parent;
-      this.resetController();
+      this.resetRenderer();
     }
   }
 
   setObject2D(refObject2d: HtmlCollection) {
     if (this.refObject2d !== refObject2d) {
       this.refObject2d = refObject2d;
-      this.resetController();
+      this.resetRenderer();
     }
   }
 
@@ -88,14 +96,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       if (this._canvas !== null) {
         this._controller.setCanvas(this._canvas);
       }
-
     }
-  }
-
-  private _controllerSubject:Subject<ControllerComponent> = new Subject<ControllerComponent>();
-
-  controllerSubscribe() : Observable<ControllerComponent>{
-    return this._controllerSubject.asObservable();
   }
 
   resetController() {
@@ -105,7 +106,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
 
 
   getController() : AbstractThreeController {
-    if ((this.parent !== null || this.refObject2d)&& this._controller === null) {
+    if ((this.parent !== null || this.refObject2d) && this._controller === null) {
       let controller : any = null; 
       if (typeof this.controller === 'string') {
         switch(this.controller.toLowerCase()) {

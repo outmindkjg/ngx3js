@@ -3,13 +3,14 @@ import { PhysicsComponent } from './../physics/physics.component';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import Ammo from 'ammojs-typed';
 import * as THREE from 'three';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-rigidbody',
   templateUrl: './rigidbody.component.html',
   styleUrls: ['./rigidbody.component.scss'],
 })
-export class RigidbodyComponent implements OnInit {
+export class RigidbodyComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type:string = 'auto';
   @Input() private width:number = null;
   @Input() private height:number = null;
@@ -123,9 +124,13 @@ export class RigidbodyComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   private parent: THREE.Object3D = null;
   setParent(parent: THREE.Object3D) {
@@ -146,12 +151,12 @@ export class RigidbodyComponent implements OnInit {
       this._ammo = this.physics.getAmmo();
       this.resetRigidBody();
     } else {
-      const subscribe = this.physics.physicsSubscribe().subscribe(() => {
+      this.unSubscribeRefer('physics');
+      this.subscribeRefer('physics', ThreeUtil.getSubscribe(this.physics, () => {
         this._physics = this.physics.getPhysics();
         this._ammo = this.physics.getAmmo();
         this.resetRigidBody();
-        subscribe.unsubscribe();
-      });
+      },'physics'))
     }
   }
   private rigidBody: Ammo.btRigidBody = null;

@@ -1217,25 +1217,58 @@ export class ThreeUtil {
     return new THREE.Light();
   }
 
+  static getMaterialByType(material: any, materialType? : string): THREE.Material{
+    let matchedMat : THREE.Material = null;
+    if (this.isNotNull(materialType) && materialType != '') {
+      const matList = this.getMaterial(material);
+      if (Array.isArray(matList)) {
+        matList.forEach(mat => {
+          if(this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType){
+            matchedMat = mat;
+          }
+        });
+      } else if (this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType){
+        matchedMat = matList;
+      }
+    } else {
+      const matList = this.getMaterial(material);
+      if (Array.isArray(matList)) {
+        if (matList.length > 0) {
+          matchedMat = matList[0];
+        }
+      } else {
+        matchedMat = matList;
+      }
+    }
+    return matchedMat;
+  }
 
-  static getMaterial(material: any): THREE.Material {
+  static getMaterial(material: any): THREE.Material | THREE.Material[]{
     if (material instanceof THREE.Material) {
       return material;
+    } else if (Array.isArray(material)) {
+      return material;
     } else if (this.isNotNull(material.getMaterial)) {
-      return material.getMaterial();
+      return material.getMaterial() as THREE.Material;
     } else if (this.isNotNull(material)) {
       const mesh = this.getMesh(material);
       if (mesh instanceof THREE.Mesh) {
         if (this.isNotNull(material.material)) {
-          if (Array.isArray(material.material)) {
-            if (material.material.length > 0) {
-              return material.material[0];
-            }
-          } else {
-            return material.material;
-          }
+          return material.material;
         }
       }
+    }
+    return new THREE.Material();
+  }
+
+  static getMaterialOne(material: any): THREE.Material{
+    const materialList = this.getMaterial(material);
+    if (Array.isArray(materialList)) {
+      if (materialList.length > 0) {
+        materialList[0];
+      }
+    } else {
+      return materialList;
     }
     return new THREE.Material();
   }
@@ -1312,8 +1345,15 @@ export class ThreeUtil {
       return texture.getTexture();
     } else if (this.isNotNull(texture)) {
       const material = this.getMaterial(texture);
-      if (this.isNotNull(material[refType]) && material[refType] instanceof THREE.Texture) {
-        return material[refType];
+      if (Array.isArray(material) && material.length > 0) {
+        const firstMaterial = material[0];
+        if (this.isNotNull(firstMaterial[refType]) && firstMaterial[refType] instanceof THREE.Texture) {
+          return firstMaterial[refType];
+        }
+      } else {
+        if (this.isNotNull(material[refType]) && material[refType] instanceof THREE.Texture) {
+          return material[refType];
+        }
       }
     }
     return new THREE.Texture();

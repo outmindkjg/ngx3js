@@ -1,23 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { ApplyMatrix4 } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss']
 })
-export class TranslationComponent implements OnInit {
+export class TranslationComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private visible:boolean = true;
   @Input() private x:number = 0;
   @Input() private y:number = 0;
   @Input() private z:number = 0;
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   private translation : THREE.Matrix4 = null;
@@ -28,15 +31,6 @@ export class TranslationComponent implements OnInit {
       this.parent = parent;
       this.resetTranslation();
     }
-  }
-
-  private _translationSubject:Subject<THREE.Matrix4> = new Subject<THREE.Matrix4>();
-
-  translationSubscribe() : Observable<THREE.Matrix4>{
-    if (this.translation === null) {
-      this.translation = this.getTranslation();
-    }
-    return this._translationSubject.asObservable();
   }
 
   resetTranslation(){
@@ -63,7 +57,7 @@ export class TranslationComponent implements OnInit {
   getTranslation() : THREE.Matrix4{
     if (this.translation === null) {
       this.translation = new THREE.Matrix4().makeTranslation(this.x, this.y, this.z);
-      this._translationSubject.next(this.translation);
+      this.setSubscribeNext('translation');
     }
     return this.translation;
   }

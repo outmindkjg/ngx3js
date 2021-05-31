@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   OnChanges,
   OnDestroy,
@@ -12,8 +13,7 @@ import { ThreeUtil } from './interface';
 @Component({
   template: '',
 })
-export abstract class AbstractSubscribeComponent
-  implements OnInit, OnChanges, OnDestroy {
+export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
 
   ngOnInit(): void {}
 
@@ -37,19 +37,29 @@ export abstract class AbstractSubscribeComponent
     }
   }
 
+  ngAfterContentInit() : void {}
+
   private _changeList : string[] = null;
   
-  protected addChanges(key : string) {
+  protected addChanges(key : string | SimpleChanges) {
     if (this._changeList === null) {
       this._changeList = [];
     }
-    if (this._changeList.indexOf(key) === -1) {
-      this._changeList.push(key);
-      if (this._changeList.length === 1) {
-        setTimeout(() => {
-          this.applyChanges();
-        },1);
+    if (this._changeList.length == 0) {
+      setTimeout(() => {
+        this.applyChanges();
+      },1);
+    }
+    if (typeof key === 'string') {
+      if (this._changeList.indexOf(key) === -1) {
+        this._changeList.push(key);
       }
+    } else {
+      Object.entries(key).forEach(([subKey, _]) => {
+        if (this._changeList.indexOf(subKey) === -1) {
+          this._changeList.push(subKey);
+        }
+      });
     }
   }
 
@@ -63,6 +73,10 @@ export abstract class AbstractSubscribeComponent
   
   protected applyChanges() {
     this._changeList = null;
+  }
+
+  protected synkObject(synkTypes: string[]) {
+    this.clearChanges();
   }
 
   private _subject: Subject<string[]> = new Subject<string[]>();
@@ -127,7 +141,7 @@ export abstract class AbstractSubscribeComponent
   private _subscribeList: { [key: string]: Subscription[] } = {};
 
   protected unSubscribeReferList(key: string) {
-    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+    if (ThreeUtil.isNotNull(this._subscribeList[key])) {
       this._subscribeList[key].forEach(subscribe => {
         subscribe.unsubscribe();
       })

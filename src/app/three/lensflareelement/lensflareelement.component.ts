@@ -1,36 +1,36 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
 @Component({
   selector: 'three-lensflareelement',
   templateUrl: './lensflareelement.component.html',
-  styleUrls: ['./lensflareelement.component.scss']
+  styleUrls: ['./lensflareelement.component.scss'],
 })
-export class LensflareelementComponent implements OnInit {
+export class LensflareelementComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() private image: string = null;
+  @Input() private size: number = null;
+  @Input() private distance: number = null;
+  @Input() private color: string | number = null;
 
-  @Input() private image:string = null;
-  @Input() private size:number = null;
-  @Input() private distance:number = null;
-  @Input() private color:string | number = null;
-
-
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    super();
   }
 
+  ngOnInit(): void {}
+
   private getImage(def: string): string {
-    return (this.image === null) ? def : this.image;
+    return this.image === null ? def : this.image;
   }
 
   private getSize(def: number): number {
-    return (this.size === null) ? def : this.size;
+    return this.size === null ? def : this.size;
   }
 
   private getDistance(def: number): number {
-    return (this.distance === null) ? def : this.distance;
+    return this.distance === null ? def : this.distance;
   }
 
   private getColor(def: string | number): THREE.Color {
@@ -44,7 +44,7 @@ export class LensflareelementComponent implements OnInit {
 
   private getConvColor(paramColor: string | number, def: string | number): string | number {
     const color = paramColor === null ? def : paramColor;
-    if (typeof (color) === 'string') {
+    if (typeof color === 'string') {
       if (color.startsWith('0x')) {
         return parseInt(color, 16);
       } else {
@@ -54,7 +54,6 @@ export class LensflareelementComponent implements OnInit {
       return color;
     }
   }
-
 
   getTexture(): THREE.Texture {
     return TextureComponent.getTextureImage(this.getImage(''));
@@ -72,14 +71,8 @@ export class LensflareelementComponent implements OnInit {
 
   getLensflareElement(): LensflareElement {
     if (this.lensflareElement === null) {
-      this.lensflareElement = new LensflareElement(
-        this.getTexture(),
-        this.getSize(100),
-        this.getDistance(0),
-        this.getColor(null)
-      );
+      this.lensflareElement = new LensflareElement(this.getTexture(), this.getSize(100), this.getDistance(0), this.getColor(null));
     }
     return this.lensflareElement;
   }
-
 }

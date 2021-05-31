@@ -9,9 +9,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./rotation.component.scss'],
 })
 export class RotationComponent extends AbstractSubscribeComponent implements OnInit {
-  @Input() public visible: boolean = true;
   @Input() private refer: any = null;
-  @Input() private referRef: boolean = true;
   @Input() private x: number | string = 0;
   @Input() private y: number | string = 0;
   @Input() private z: number | string = 0;
@@ -25,13 +23,20 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer) {
-      this.rotation = null;
+      this.needUpdate = true;
     }
-    this.resetRotation();
+    super.ngOnChanges(changes);
   }
 
   private rotation: THREE.Euler = null;
-  private parent: THREE.Object3D | any = null;
+  private _needUpdate: boolean = true;
+
+  set needUpdate(value : boolean) {
+    if (value && this.rotation !== null) {
+      this._needUpdate = true;
+      this.getRotation();
+    }
+  }
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
@@ -50,73 +55,40 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     return tagAttributes;
   }
 
-  setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
-    if (this.parent !== parent) {
-      this.parent = parent;
-      if (isRestore && this.parent !== null && this.parent instanceof THREE.Object3D) {
-        this.rotation = null;
-        this.x = this.parent.rotation.x;
-        this.y = this.parent.rotation.y;
-        this.z = this.parent.rotation.z;
+  setRotation(rotation: THREE.Euler | number, y? : number, z? : number) {
+    if (rotation instanceof THREE.Euler) {
+      if (this.rotation !== rotation) {
+        this.rotation = rotation;
+        this._needUpdate = true;
+        this.getRotation();
+        return true;
       }
-      this.resetRotation();
-      return true;
+    } else if (this.rotation !== null){
+      this.x = ThreeUtil.getTypeSafe(rotation, this.rotation.x);
+      this.y = ThreeUtil.getTypeSafe(y, this.rotation.y);
+      this.z = ThreeUtil.getTypeSafe(z, this.rotation.z);
+      this.needUpdate = true;
     }
     return false;
   }
 
-  setRotation(x: number, y: number, z: number) {
-    if (ThreeUtil.isNotNull(x)) {
-      this.x = x;
-    }
-    if (ThreeUtil.isNotNull(y)) {
-      this.y = y;
-    }
-    if (ThreeUtil.isNotNull(z)) {
-      this.z = z;
-    }
-    this.rotation = null;
-    this.rotation = this.getRotation();
-  }
-
-  resetRotation() {
-    if (this.parent !== null && this.visible) {
-      if (this.parent instanceof THREE.Object3D) {
-        this.unSubscribeRefer('rotation');
-        this.parent.rotation.copy(this.getRotation());
-        if (this.refer !== null && this.referRef && this.refer.rotationSubscribe) {
-          this.subscribeRefer('rotation', this.refer.rotationSubscribe().subscribe((rotation) => {
-            if (this.parent instanceof THREE.Object3D && this.visible) {
-              this.parent.rotation.copy(rotation);
-            }
-          }));
-        }
-      } else if (this.parent.meshRotations) {
-        this.parent.meshRotations.forEach((rotation) => {
-          rotation.copy(this.getRotation());
-        });
-      }
-    } else if (this.rotation === null) {
-      this.rotation = this.getRotation();
-    }
-  }
-
   getRotation(): THREE.Euler {
     if (this.rotation === null) {
-      if (this.refer !== null && this.refer !== undefined) {
-        if (this.refer.getRotation) {
-          this.rotation = this.refer.getRotation();
-        } else if (this.refer instanceof THREE.Euler) {
-          this.rotation = this.refer;
-        }
+      this.rotation = new THREE.Euler();
+    }
+    if (this._needUpdate) {
+      let rotation : THREE.Euler = null;
+      if (ThreeUtil.isNotNull(this.refer)) {
+        rotation = ThreeUtil.getRotation(this.refer);
       }
-      if (this.rotation === null) {
-        this.rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, new THREE.Euler(0, 0, 0));
+      if (rotation === null) {
+        rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, null, true);
       }
-      if (this.visible) {
+      if (rotation !== null) {
+        this.rotation.copy(rotation);
         this.setSubscribeNext('rotation');
+        this.onLoad.emit(this);
       }
-      this.onLoad.emit(this);
     }
     return this.rotation;
   }

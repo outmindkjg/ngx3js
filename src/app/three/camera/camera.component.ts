@@ -1,12 +1,4 @@
-import {
-  Component,
-  ContentChildren,
-  EventEmitter, Input,
-  OnInit, Output,
-  QueryList,
-  SimpleChanges
-} from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -16,22 +8,16 @@ import { ListenerComponent } from '../listener/listener.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { AudioComponent } from './../audio/audio.component';
 import { HelperComponent } from './../helper/helper.component';
-import {
-  RendererTimer,
-  ThreeUtil
-} from './../interface';
+import { RendererTimer, ThreeUtil } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
-
 
 @Component({
   selector: 'three-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent
-  extends AbstractObject3dComponent
-  implements OnInit {
+export class CameraComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'perspective';
   @Input() private active: boolean = true;
   @Input() private effectType: string = null;
@@ -71,15 +57,14 @@ export class CameraComponent
   @Input() private scissorHeight: number | string = '100%';
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
 
-  @Output()
-  private onLoad: EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
+  @Output() private onLoad: EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
 
-  @ContentChildren(ListenerComponent, { descendants: false }) listner: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) audio: QueryList<AudioComponent>;
-  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) private cameras: QueryList<CameraComponent>;
-  @ContentChildren(LightComponent, { descendants: false }) private lights: QueryList<LightComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) listenerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) audioList: QueryList<AudioComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
+  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
+  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
@@ -132,11 +117,11 @@ export class CameraComponent
       switch (this.type.toLowerCase()) {
         case 'orthographiccamera':
         case 'orthographic':
-          switch(zoom.toLowerCase()) {
-            case 'auto' :
-              const fov = THREE.MathUtils.degToRad( this.getFov(50) );
-              const hyperfocus = ( this.getNear(-200) + this.getFar(2000) ) / 2;
-              const _height = 2 * Math.tan( fov / 2 ) * hyperfocus;
+          switch (zoom.toLowerCase()) {
+            case 'auto':
+              const fov = THREE.MathUtils.degToRad(this.getFov(50));
+              const hyperfocus = (this.getNear(-200) + this.getFar(2000)) / 2;
+              const _height = 2 * Math.tan(fov / 2) * hyperfocus;
               return this.getHeight() / _height;
           }
           break;
@@ -144,7 +129,6 @@ export class CameraComponent
     }
     return 1;
   }
-  
 
   private getAspect(width?: number, height?: number): number {
     if (this.viewport) {
@@ -152,8 +136,8 @@ export class CameraComponent
       const cHeight = this.getHeight();
       return cWidth / cHeight;
     } else {
-      return width > 0 && height > 0 ? (width / height  * this.aspect ) : 0.5;
-    } 
+      return width > 0 && height > 0 ? (width / height) * this.aspect : 0.5;
+    }
   }
 
   private getX(def?: number | string): number {
@@ -198,18 +182,12 @@ export class CameraComponent
     return this.getViewPortSize(this.scissorHeight, this.cameraHeight, def);
   }
 
-  private getViewPortSize(
-    size: number | string,
-    cameraSize: number,
-    def?: number | string
-  ): number {
+  private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
       if (typeof baseSize == 'string') {
         if (baseSize.endsWith('%')) {
-          return Math.ceil(
-            (cameraSize * parseFloat(baseSize.slice(0, -1))) / 100
-          );
+          return Math.ceil((cameraSize * parseFloat(baseSize.slice(0, -1))) / 100);
         } else {
           switch (baseSize) {
             case 'x':
@@ -255,7 +233,9 @@ export class CameraComponent
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   private camera: THREE.Camera = null;
   public cubeCamera1: THREE.CubeCamera = null;
@@ -277,11 +257,7 @@ export class CameraComponent
     return this.renderer;
   }
 
-  setRenderer(
-    renderer: THREE.Renderer,
-    cssRenderer: CSS3DRenderer | CSS2DRenderer,
-    rendererScenes: QueryList<any>
-  ) {
+  setRenderer(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, rendererScenes: QueryList<any>) {
     if (this.cssRenderer !== cssRenderer) {
       this.cssRenderer = cssRenderer;
     }
@@ -296,23 +272,7 @@ export class CameraComponent
     if (super.setParent(parent, isRestore)) {
       if (isRestore) {
         this.object3d = parent;
-        this.synkObject3D([
-          'position',
-          'rotation',
-          'scale',
-          'lookat',
-          'rigidbody',
-          'mesh',
-          'rigidbody',
-          'geometry',
-          'material',
-          'svg',
-          'listner',
-          'audio',
-          'helpers',
-          'lights',
-          'controller',
-        ]);
+        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helpers', 'lights', 'controller']);
       } else {
         this.resetCamera(true);
       }
@@ -337,47 +297,32 @@ export class CameraComponent
         this.camera.far = this.getFar(2000);
         this.camera.updateProjectionMatrix();
       } else if (this.camera instanceof THREE.PerspectiveCamera) {
-        this.camera.aspect = this.getAspect(
-          this.cameraWidth,
-          this.cameraHeight
-        );
+        this.camera.aspect = this.getAspect(this.cameraWidth, this.cameraHeight);
         this.camera.fov = this.getFov(50);
         this.camera.near = this.getNear(0.1);
         this.camera.far = this.getFar(2000);
         this.camera.updateProjectionMatrix();
       }
-      this.helpers.forEach((helper) => {
+      this.helperList.forEach((helper) => {
         helper.setUpdate();
       });
     }
   }
 
   ngAfterContentInit(): void {
-    this.listner.changes.subscribe(() => {
-      this.synkObject3D(['listner']);
-    });
-    this.audio.changes.subscribe(() => {
-      this.synkObject3D(['audio']);
-    });
-    this.mixer.changes.subscribe(() => {
-      this.synkObject3D(['mixer']);
-    });
-    this.helpers.changes.subscribe(() => {
-      this.synkObject3D(['helpers']);
-    });
-    this.lights.changes.subscribe(() => {
-      this.synkObject3D(['lights']);
-    });
-    this.cameras.changes.subscribe(() => {
-      this.synkObject3D(['cameras']);
-    });
+    this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
+    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    this.subscribeListQuery(this.lightList, 'lightList', 'light');
+    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
     super.ngAfterContentInit();
   }
 
   setVisible(visible: boolean, helperVisible: boolean = null) {
     super.setVisible(visible);
     if (helperVisible !== null && helperVisible !== undefined) {
-      this.helpers.forEach((helper) => {
+      this.helperList.forEach((helper) => {
         helper.setVisible(helperVisible);
       });
     }
@@ -388,34 +333,34 @@ export class CameraComponent
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'listner':
-            this.listner.forEach((listner) => {
+            this.listenerList.forEach((listner) => {
               listner.setParent(this.camera);
             });
             break;
           case 'audio':
-            this.audio.forEach((audio) => {
+            this.audioList.forEach((audio) => {
               audio.setParent(this.camera);
             });
             break;
           case 'mixer':
             if (this.clips !== null && this.clips.length > 0) {
-              this.mixer.forEach((mixer) => {
+              this.mixerList.forEach((mixer) => {
                 mixer.setModel(this.camera, this.clips);
               });
             }
             break;
           case 'helpers':
-            this.helpers.forEach((helper) => {
+            this.helperList.forEach((helper) => {
               helper.setParent(this.camera);
             });
             break;
           case 'lights':
-            this.lights.forEach((light) => {
+            this.listenerList.forEach((light) => {
               light.setParent(this.camera);
             });
             break;
           case 'cameras':
-            this.cameras.forEach((camera) => {
+            this.cameraList.forEach((camera) => {
               camera.setParent(this.camera);
             });
             break;
@@ -428,8 +373,7 @@ export class CameraComponent
   private cameraWidth: number = 0;
   private cameraHeight: number = 0;
 
-
-  getSize() : THREE.Vector2 {
+  getSize(): THREE.Vector2 {
     return new THREE.Vector2(this.cameraWidth, this.cameraHeight);
   }
 
@@ -440,20 +384,13 @@ export class CameraComponent
       this.raycaster = new THREE.Raycaster();
     }
     if (event !== null) {
-      const mouse = new THREE.Vector2(
-        (event.clientX / this.cameraWidth) * 2 - 1,
-        -(event.clientY / this.cameraHeight) * 2 + 1
-      );
+      const mouse = new THREE.Vector2((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1);
       this.raycaster.setFromCamera(mouse, this.getCamera());
     }
     return this.raycaster;
   }
 
-  getIntersections(
-    mouse: THREE.Vector2,
-    mesh: THREE.Object3D | THREE.Object3D[],
-    recursive: boolean = false
-  ): THREE.Intersection[] {
+  getIntersections(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection[] {
     const raycaster = this.getRaycaster();
     raycaster.setFromCamera(mouse, this.getCamera());
     if (mesh instanceof THREE.Object3D) {
@@ -462,12 +399,8 @@ export class CameraComponent
       return raycaster.intersectObjects(mesh, recursive);
     }
   }
-  
-  getIntersection(
-    mouse: THREE.Vector2,
-    mesh: THREE.Object3D | THREE.Object3D[],
-    recursive: boolean = false
-  ): THREE.Intersection {
+
+  getIntersection(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection {
     const intersects = this.getIntersections(mouse, mesh, recursive);
     if (intersects !== null && intersects.length > 0) {
       return intersects[0];
@@ -494,19 +427,14 @@ export class CameraComponent
       } else if (this.camera instanceof THREE.PerspectiveCamera) {
         this.camera.aspect = this.getAspect(width, height);
         if (this.viewport && this.viewportType === 'camera') {
-          this.camera['viewport'] = new THREE.Vector4(
-            this.getX(),
-            this.getY(),
-            this.getWidth(),
-            this.getHeight()
-          );
+          this.camera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         }
         this.camera.updateProjectionMatrix();
       }
       this.camera.dispatchEvent({
-        type : 'change',
-        width : width,
-        height : height
+        type: 'change',
+        width: width,
+        height: height,
       });
     }
     this.setSubscribeNext('size');
@@ -557,7 +485,7 @@ export class CameraComponent
               encoding: THREE.sRGBEncoding,
               format: THREE.RGBFormat,
               generateMipmaps: true,
-              minFilter: THREE.LinearMipmapLinearFilter
+              minFilter: THREE.LinearMipmapLinearFilter,
             })
           );
           const cubeCamera2 = new THREE.CubeCamera(
@@ -567,7 +495,7 @@ export class CameraComponent
               encoding: THREE.sRGBEncoding,
               format: THREE.RGBFormat,
               generateMipmaps: true,
-              minFilter: THREE.LinearMipmapLinearFilter
+              minFilter: THREE.LinearMipmapLinearFilter,
             })
           );
 
@@ -579,23 +507,11 @@ export class CameraComponent
           this.camera = cubeGroup as any;
           break;
         case 'cinematic':
-          this.camera = new CinematicCamera(
-            this.getFov(50),
-            this.getAspect(width, height),
-            this.getNear(0.1),
-            this.getFar(2000)
-          );
+          this.camera = new CinematicCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
           break;
         case 'orthographiccamera':
         case 'orthographic':
-          const orthographicCamera = new THREE.OrthographicCamera(
-            this.getLeft(width),
-            this.getRight(width),
-            this.getTop(height),
-            this.getBottom(height),
-            this.getNear(-200),
-            this.getFar(2000)
-          );
+          const orthographicCamera = new THREE.OrthographicCamera(this.getLeft(width), this.getRight(width), this.getTop(height), this.getBottom(height), this.getNear(-200), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.zoom)) {
             orthographicCamera.zoom = this.getZoom(1);
           }
@@ -604,22 +520,12 @@ export class CameraComponent
         case 'perspectivecamera':
         case 'perspective':
         default:
-          const perspectiveCamera = new THREE.PerspectiveCamera(
-            this.getFov(50),
-            this.getAspect(width, height),
-            this.getNear(0.1),
-            this.getFar(2000)
-          );
+          const perspectiveCamera = new THREE.PerspectiveCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.focalLength)) {
             perspectiveCamera.setFocalLength(ThreeUtil.getTypeSafe(this.focalLength, 35));
           }
           if (this.viewport && this.viewportType === 'camera') {
-            perspectiveCamera['viewport'] = new THREE.Vector4(
-              this.getX(),
-              this.getY(),
-              this.getWidth(),
-              this.getHeight()
-            );
+            perspectiveCamera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight());
           }
           this.camera = perspectiveCamera;
           break;
@@ -634,29 +540,14 @@ export class CameraComponent
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
-          (
-            loadedMesh: THREE.Object3D,
-            clips?: THREE.AnimationClip[],
-            geometry?: THREE.BufferGeometry
-          ) => {
+          (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => {
             this.clips = clips;
             this.synkObject3D(['mixer']);
           },
           { object: this.camera }
         );
       }
-      this.synkObject3D([
-        'position',
-        'rotation',
-        'scale',
-        'lookat',
-        'listner',
-        'helpers',
-        'lights',
-        'cameras',
-        'audio',
-        'mixer',
-      ]);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'helpers', 'lights', 'cameras', 'audio', 'mixer']);
       this.setSubscribeNext('camera');
       this.onLoad.emit(this);
     }
@@ -677,38 +568,29 @@ export class CameraComponent
 
   private _cubeRenderCount = 0;
 
-  render(
-    renderer: THREE.Renderer,
-    cssRenderer: CSS3DRenderer | CSS2DRenderer,
-    scenes: QueryList<any>,
-    renderTimer: RendererTimer
-  ) {
-    if (
-      !this.active ||
-      this.isCameraChild ||
-      !this.camera.visible
-    ) {
+  render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any>, renderTimer: RendererTimer) {
+    if (!this.active || this.isCameraChild || !this.camera.visible) {
       return;
     }
     const camera = this.getCamera();
     if (ThreeUtil.isNotNull(this.referObject3d)) {
-      const object3d = (this.referObject3d instanceof AbstractObject3dComponent) ? this.referObject3d.getObject3D() : this.referObject3d;
+      const object3d = this.referObject3d instanceof AbstractObject3dComponent ? this.referObject3d.getObject3D() : this.referObject3d;
       if (ThreeUtil.isNotNull(this.object3d)) {
-        camera.position.copy( object3d.position );
-        camera.quaternion.copy( object3d.quaternion );
+        camera.position.copy(object3d.position);
+        camera.quaternion.copy(object3d.quaternion);
       }
     }
     if (renderer instanceof THREE.WebGLRenderer) {
       if (this.type === 'cube' && this.cubeCamera1 !== null && this.cubeCamera2 !== null) {
-        this._cubeRenderCount ++;
-        this._cubeRenderCount = this._cubeRenderCount  % 2;
-        const cubeCamera = (this._cubeRenderCount % 2 === 0) ? this.cubeCamera1 : this.cubeCamera2;
+        this._cubeRenderCount++;
+        this._cubeRenderCount = this._cubeRenderCount % 2;
+        const cubeCamera = this._cubeRenderCount % 2 === 0 ? this.cubeCamera1 : this.cubeCamera2;
         cubeCamera.update(renderer, this.getScene(scenes));
         if (ThreeUtil.isNotNull(this.material) && this.material.getMaterial) {
           const material = this.material.getMaterial();
           material.envMap = cubeCamera.renderTarget.texture;
         }
-        return ;
+        return;
       }
       if (ThreeUtil.isNotNull(this.autoClear)) {
         renderer.autoClear = this.autoClear;
@@ -741,32 +623,14 @@ export class CameraComponent
     }
   }
 
-  private renderWithScene(
-    renderer: THREE.Renderer,
-    camera: THREE.Camera,
-    scene: THREE.Scene
-  ) {
+  private renderWithScene(renderer: THREE.Renderer, camera: THREE.Camera, scene: THREE.Scene) {
     if (scene !== null) {
-      if (
-        renderer instanceof THREE.WebGLRenderer &&
-        this.viewport &&
-        this.viewportType === 'renderer'
-      ) {
+      if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
         if (this.scissorTest) {
           renderer.setScissorTest(true);
-          renderer.setScissor(
-            this.getScissorX(),
-            this.getScissorY(),
-            this.getScissorWidth(),
-            this.getScissorHeight()
-          );
+          renderer.setScissor(this.getScissorX(), this.getScissorY(), this.getScissorWidth(), this.getScissorHeight());
         }
-        renderer.setViewport(
-          this.getX(),
-          this.getY(),
-          this.getWidth(),
-          this.getHeight()
-        );
+        renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
       }
       if (renderer instanceof THREE.WebGLRenderer) {
         if (ThreeUtil.isNotNull(this.clear) && this.clear) {
@@ -777,11 +641,7 @@ export class CameraComponent
         }
       }
       renderer.render(scene, camera);
-      if (
-        renderer instanceof THREE.WebGLRenderer &&
-        this.viewport &&
-        this.viewportType === 'renderer'
-      ) {
+      if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
         if (this.scissorTest) {
           renderer.setScissorTest(false);
         }

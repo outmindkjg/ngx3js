@@ -104,11 +104,16 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
   private cssClazzName : string = null;
 
   private html: HTMLElement = null;
-  private needUpdate: boolean = false;
 
+  set needUpdate(value : boolean) {
+    if (value && this.html !== null) {
+      this.html = null;
+      this.getHtml();
+    }
+  }
+  
   getHtml(): HTMLElement {
-    if (this.html === null || this.needUpdate) {
-      this.needUpdate = false;
+    if (this.html === null) {
       let html: HTMLElement = null;
       switch (this.type.toLowerCase()) {
         case 'ul':

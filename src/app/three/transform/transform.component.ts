@@ -1,13 +1,14 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CssStyle, ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-transform',
   templateUrl: './transform.component.html',
   styleUrls: ['./transform.component.scss']
 })
-export class TransformComponent implements OnInit {
+export class TransformComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private visible:boolean = true;
   @Input() private anchorSeparat:boolean = false;
@@ -78,15 +79,19 @@ export class TransformComponent implements OnInit {
     return ThreeUtil.getVector3Safe(this.scaleX, this.scaleY, this.scaleZ, def);
   }
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes ) {
       this.applyHtmlStyle();
     }
+    super.ngOnChanges(changes);
   }
 
   ngOnDestroy(): void {
@@ -97,6 +102,7 @@ export class TransformComponent implements OnInit {
       }
       this.parentNode = null;
     }
+    super.ngOnDestroy();
   }
 
   private parentNode : HTMLElement = null;

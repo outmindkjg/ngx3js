@@ -17,7 +17,6 @@ export class WebglMaterialsModifiedComponent extends BaseComponent<{}> {
   setMaterial(matCom : MaterialComponent, amount : number) {
     const material : MeshNormalMaterial = matCom.getMaterial() as MeshNormalMaterial;
     material.onBeforeCompile = ( shader ) => {
-      console.log(shader);
       shader.uniforms.time = { value: 0 };
       shader.vertexShader = 'uniform float time;\n' + shader.vertexShader;
       shader.vertexShader = shader.vertexShader.replace(
@@ -31,7 +30,6 @@ export class WebglMaterialsModifiedComponent extends BaseComponent<{}> {
           'vNormal = vNormal * m;'
         ].join( '\n' )
       );
-
       material.userData.shader = shader;
     };
 

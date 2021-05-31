@@ -1,5 +1,5 @@
 import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
@@ -29,17 +29,16 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   @Output() private onLoad:EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
 
-  @ContentChildren(MixerComponent, { descendants: false }) private mixer: QueryList<MixerComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.type) {
-      this.audio = null;
-    }
-    if (this.audio !== null && this.audio.buffer !== null && changes.url) {
-      this.audio.buffer = null;
+    if (changes && this.audio !== null) {
+      this.addChanges(changes); 
+      if (this.audio.buffer !== null && changes.url) {
+        this.audio.buffer = null;
+      }
     }
     super.ngOnChanges(changes);
-    this.resetAudio();
   }
 
   ngOnDestroy(): void {
@@ -96,12 +95,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       return true;
     }
     return false;
-  }
-
-  private _textureSubject:Subject<HTMLVideoElement> = new Subject<HTMLVideoElement>();
-
-  textureSubscribe() : Observable<HTMLVideoElement>{
-    return this._textureSubject.asObservable();
   }
 
   private loadedVideoTexture : THREE.VideoTexture = null;
@@ -164,7 +157,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             this.video.play().then(() => {
               this.resetAudio();
               this.onLoad.emit(this);
-              this._textureSubject.next(this.video);
+              this.setSubscribeNext('texture')
             }).catch(() => {
               setTimeout(( ) => {
                 this.checkAudioPlay();
@@ -173,7 +166,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           } else {
             this.resetAudio();
             this.onLoad.emit(this);
-            this._textureSubject.next(this.video);
+            this.setSubscribeNext('texture')
           }
         } else {
           this.loadAudio(this.url, (buffer: AudioBuffer) => {
@@ -246,9 +239,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.mixer.changes.subscribe(() => {
-      this.synkObject3D(['mixer']);
-    });
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    super.ngAfterContentInit();
   }
 
   synkObject3D(synkTypes: string[]) {
@@ -256,7 +248,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'mixer' :
-            this.mixer.forEach((mixer) => {
+            this.mixerList.forEach((mixer) => {
               mixer.setModel(this.audio, null);
             });
             break;

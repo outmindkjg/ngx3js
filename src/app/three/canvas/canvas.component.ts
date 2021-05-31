@@ -6,13 +6,14 @@ import * as THREE from 'three';
 import { TransformComponent } from '../transform/transform.component';
 import { BackgroundComponent } from '../background/background.component';
 import { ControllerComponent } from '../controller/controller.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent implements OnInit {
+export class CanvasComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public name:string = null;
   @ContentChildren(VisualComponent) private children: QueryList<VisualComponent>;
   @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
@@ -27,10 +28,13 @@ export class CanvasComponent implements OnInit {
     children : []
   };
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnDestroy(): void {
@@ -44,6 +48,7 @@ export class CanvasComponent implements OnInit {
       }
       this.canvas = null;
     }
+    super.ngOnDestroy();
   }
 
   ngAfterContentInit() {

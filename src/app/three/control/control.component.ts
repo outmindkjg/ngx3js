@@ -74,6 +74,38 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  protected applyChanges() {
+    this.synkControls(this.getChanges());
+  }
+
+  protected synkControls(synkTypes: string[]) {
+    if (this.control !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType.toLowerCase()) {
+          case 'lookat':
+            if (this.control !== null && ThreeUtil.isNotNull(this.control['target'])) {
+              this.unSubscribeRefer('target')
+              if (ThreeUtil.isNotNull(this.target)) {
+                this.control['target'].copy(ThreeUtil.getLookAt(this.target));
+                this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
+                  this.control['target'].copy(ThreeUtil.getLookAt(this.target));
+                }, 'lookat'));
+              }
+              if (this.lookatList !== null && this.lookatList !== undefined) {
+                this.unSubscribeReferList('lookatList')
+                this.lookatList.forEach(lookat => {
+                  lookat.setLookAt(this.control['target']);
+                })
+                this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+              }
+            }
+            break;
+        }
+      });
+    }
   }
 
   setControlParams(params : { [key : string] : any } ) {
@@ -83,6 +115,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
       }
     });
   }
+
 
   private _camera : THREE.Camera = null;
   private _scene : QueryList<SceneComponent> = null;
@@ -97,21 +130,26 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
         case 'csm' :
           break;
         default :
-          this.needUpdate = true;
+          this.control = null;
+          this.getControl();
           break;
       }
-      this.getControl();
     }
   }
 
   private control : any = null;
-  private needUpdate : boolean = true;
+
+  set needUpdate(value : boolean) {
+    if (value && this.control !== null) {
+      this.control = null;
+      this.getControl();
+    }
+  }
 
   getControl() {
-    if (this.control === null || this.needUpdate) {
+    if (this.control === null) {
       const camera = this._camera;
       const domElement = this._domElement;
-      this.needUpdate = false;
       if (this.control !== null) {
         if (this.control instanceof TransformControls && this.control.parent)  {
           this.control.parent.remove(this.control);
@@ -306,20 +344,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
           break;
       }
       this.control = control;
-      if (this.control !== null && ThreeUtil.isNotNull(this.control['target'])) {
-        this.unSubscribeRefer('target')
-        if (ThreeUtil.isNotNull(this.target)) {
-          this.control['target'] = ThreeUtil.getLookAt(this.target);
-          this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
-            this.control['target'] = ThreeUtil.getLookAt(this.target);
-          }, 'lookat'));
-        }
-        if (this.lookatList !== null && this.lookatList !== undefined) {
-          this.lookatList.forEach(lookat => {
-            lookat.setParent(this.control);
-          })
-        }
-      }
+      this.synkControls(['lookat'])
+      this.setSubscribeNext('control');
       this.onLoad.emit(this);
     }
     return this.control;

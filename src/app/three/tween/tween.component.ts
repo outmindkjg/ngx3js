@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import * as GSAP from 'gsap';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-tween',
   templateUrl: './tween.component.html',
   styleUrls: ['./tween.component.scss'],
 })
-export class TweenComponent implements OnInit {
+export class TweenComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public targets:string = null;
   @Input() private to:any = null;
   @Input() private duration:number = null;
@@ -222,14 +223,19 @@ export class TweenComponent implements OnInit {
     return result;
   }
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && this.parentEle !== null && this.parentEle.resetTween) {
       this.parentEle.resetTween();
     }
+    super.ngOnChanges(changes);
   }
 
   private parentEle: any = null;

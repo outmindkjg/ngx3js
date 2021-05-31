@@ -1,13 +1,4 @@
-import {
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  QueryList,
-  SimpleChanges
-} from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 import { HelperComponent } from '../helper/helper.component';
@@ -21,9 +12,7 @@ import { MixerComponent } from './../mixer/mixer.component';
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
 })
-export class LightComponent
-  extends AbstractObject3dComponent
-  implements OnInit {
+export class LightComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';
   @Input() private color: string | number = null;
   @Input() private skyColor: string | number = null;
@@ -57,8 +46,8 @@ export class LightComponent
   @Input() private renderTarget: any = null;
 
   @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
-  @ContentChildren(MixerComponent, { descendants: false }) mixer: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helpers: QueryList<HelperComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
+  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
@@ -199,10 +188,7 @@ export class LightComponent
   }
 
   getThreeRenderer(): THREE.Renderer {
-    if (
-      ThreeUtil.isNotNull(this.renderer) &&
-      ThreeUtil.isNotNull(this.renderer.getRenderer)
-    ) {
+    if (ThreeUtil.isNotNull(this.renderer) && ThreeUtil.isNotNull(this.renderer.getRenderer)) {
       return this.renderer.getRenderer();
     } else {
       return ThreeUtil.getRenderer();
@@ -217,10 +203,7 @@ export class LightComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (this.light !== null) {
-        this.needsUpdate = true;
-      }
-      this.resetLight();
+      this.needUpdate = true;
     }
     super.ngOnChanges(changes);
   }
@@ -233,12 +216,12 @@ export class LightComponent
     });
   }
 
-  getTagAttribute(options : any = {}) {
+  getTagAttribute(options: any = {}) {
     const tagAttributes: TagAttributes = {
       tag: 'three-light',
       attributes: [],
-      options : options,
-      children : []
+      options: options,
+      children: [],
     };
     super.getTagAttributeObject3d(tagAttributes);
     const attributesKeys: string[] = [
@@ -298,10 +281,7 @@ export class LightComponent
               break;
             case 'shadowMapSizeWidth':
             case 'shadowMapSizeHeight':
-              if (
-                ThreeUtil.isNotNull(light['shadow']) &&
-                ThreeUtil.isNotNull(light['shadow']['mapSize'])
-              ) {
+              if (ThreeUtil.isNotNull(light['shadow']) && ThreeUtil.isNotNull(light['shadow']['mapSize'])) {
                 switch (key) {
                   case 'shadowMapSizeWidth':
                     tagAttributes.attributes.push({
@@ -318,9 +298,9 @@ export class LightComponent
                 }
               }
               break;
-            case 'angle' :
+            case 'angle':
               if (ThreeUtil.isNotNull(light[key])) {
-                tagAttributes.attributes.push({ name: key, value: ThreeUtil.getRadian2AngleSafe(light[key])});
+                tagAttributes.attributes.push({ name: key, value: ThreeUtil.getRadian2AngleSafe(light[key]) });
               }
               break;
             case 'shadowCameraNear':
@@ -331,10 +311,7 @@ export class LightComponent
             case 'shadowCameraTop':
             case 'shadowCameraBottom':
             case 'shadowCameraZoom':
-              if (
-                ThreeUtil.isNotNull(light['shadow']) &&
-                ThreeUtil.isNotNull(light['shadow']['camera'])
-              ) {
+              if (ThreeUtil.isNotNull(light['shadow']) && ThreeUtil.isNotNull(light['shadow']['camera'])) {
                 switch (key) {
                   case 'shadowCameraNear':
                     tagAttributes.attributes.push({
@@ -408,9 +385,8 @@ export class LightComponent
   }
 
   ngAfterContentInit(): void {
-    this.helpers.changes.subscribe((e) => {
-      this.synkObject3D(['helpers']);
-    });
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
     super.ngAfterContentInit();
   }
 
@@ -418,9 +394,9 @@ export class LightComponent
     if (this.light !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
-          case 'helpers':
-            if (this.helpers !== null && this.helpers !== undefined) {
-              this.helpers.forEach((helper) => {
+          case 'helper':
+            if (ThreeUtil.isNotNull(this.helperList)) {
+              this.helperList.forEach((helper) => {
                 helper.setParent(this.light);
               });
             }
@@ -437,102 +413,77 @@ export class LightComponent
         this.light = null;
       }
       this.getLight();
-    } else if (this.light !== null && this.needsUpdate) {
+    } else if (this.light !== null) {
       this.getLight();
     }
   }
 
   private light: THREE.Light = null;
-  private needsUpdate: boolean = true;
+
+  set needUpdate(value : boolean) {
+    if (value && this.light !== null) {
+      this.light = null;
+      this.getLight();
+    }
+  }
 
   getLight(): THREE.Light {
-    if (this.light === null || this.needsUpdate) {
+    if (this.light === null) {
       this.light = null;
-      this.needsUpdate = false;
       let basemesh: THREE.Light = null;
       switch (this.type.toLowerCase()) {
         case 'directionallight':
         case 'directional':
-          basemesh = new THREE.DirectionalLight(
-            this.getColor(0xffffff),
-            this.getIntensity(1)
-          );
+          basemesh = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
           basemesh.castShadow = this.castShadow;
           break;
         case 'hemispherelight':
         case 'hemisphere':
-          basemesh = new THREE.HemisphereLight(
-            this.getSkyColor(0xffffff),
-            this.getGroundColor(0xffffff),
-            this.getIntensity(1)
-          );
+          basemesh = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
           break;
         case 'lightprobe':
         case 'probe':
           basemesh = new THREE.LightProbe(this.getSh(), this.getIntensity(1));
           if (ThreeUtil.isNotNull(this.texture)) {
+            this.unSubscribeRefer('texture');
             const texture = this.texture.getTexture();
-            if (texture instanceof THREE.CubeTexture) {
-              texture.onUpdate = () => {
-                if (ThreeUtil.isTextureLoaded(texture)) {
-                  basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
-                }
-              }
-              texture.onUpdate();
+            if (ThreeUtil.isTextureLoaded(texture) && texture instanceof THREE.CubeTexture) {
+              basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
             }
+            this.subscribeRefer('texture', ThreeUtil.getSubscribe(this.texture, () => {
+              if (ThreeUtil.isTextureLoaded(texture) && texture instanceof THREE.CubeTexture) {
+                basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
+              }
+            },'textureloaded'));
           } else if (ThreeUtil.isNotNull(this.renderTarget)) {
             const renderer = this.getThreeRenderer();
             let renderTarget = null;
             if (ThreeUtil.isNotNull(this.renderTarget.getTool)) {
               renderTarget = this.renderTarget.getTool();
-            } else if (
-              ThreeUtil.isNotNull(this.renderTarget.getCubeRenderTarget)
-            ) {
+            } else if (ThreeUtil.isNotNull(this.renderTarget.getCubeRenderTarget)) {
               renderTarget = this.renderTarget.getCubeRenderTarget();
             } else {
               renderTarget = this.renderTarget;
             }
-            if (
-              renderer instanceof THREE.WebGLRenderer &&
-              renderTarget instanceof THREE.WebGLCubeRenderTarget
-            ) {
-              basemesh.copy(
-                LightProbeGenerator.fromCubeRenderTarget(renderer, renderTarget)
-              );
+            if (renderer instanceof THREE.WebGLRenderer && renderTarget instanceof THREE.WebGLCubeRenderTarget) {
+              basemesh.copy(LightProbeGenerator.fromCubeRenderTarget(renderer, renderTarget));
             }
           }
           break;
         case 'pointlight':
         case 'point':
-          basemesh = new THREE.PointLight(
-            this.getColor(0xffffff),
-            this.getIntensity(1),
-            this.getDistance(),
-            this.getDecay()
-          );
+          basemesh = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
           basemesh.castShadow = this.castShadow;
           break;
         case 'arealight':
         case 'area':
         case 'rectarealight':
         case 'rectarea':
-          basemesh = new THREE.RectAreaLight(
-            this.getColor(0xffffff),
-            this.getIntensity(1),
-            this.getWidth(10),
-            this.getHeight(10)
-          );
+          basemesh = new THREE.RectAreaLight(this.getColor(0xffffff), this.getIntensity(1), this.getWidth(10), this.getHeight(10));
           break;
         case 'spotlight':
         case 'spot':
-          const spotLight = new THREE.SpotLight(
-            this.getColor(0xffffff),
-            this.getIntensity(1),
-            this.getDistance(),
-            this.getAngle(),
-            this.getPenumbra(),
-            this.getDecay()
-          );
+          const spotLight = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getAngle(), this.getPenumbra(), this.getDecay());
           spotLight.castShadow = this.castShadow;
           if (ThreeUtil.isNotNull(this.shadowFocus)) {
             spotLight.shadow.focus = this.getShadowFocus(1);
@@ -543,10 +494,7 @@ export class LightComponent
         case 'ambientlight':
         case 'ambient':
         default:
-          basemesh = new THREE.AmbientLight(
-            this.getColor(0x0c0c0c),
-            this.getIntensity(1)
-          );
+          basemesh = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
           break;
       }
       this.light = basemesh;
@@ -554,20 +502,13 @@ export class LightComponent
         this.light.name = this.name;
       }
       this.light.visible = this.visible;
-      if (
-        this.light instanceof THREE.SpotLight ||
-        this.light instanceof THREE.DirectionalLight
-      ) {
+      if (this.light instanceof THREE.SpotLight || this.light instanceof THREE.DirectionalLight) {
         const target = this.getTarget();
         if (ThreeUtil.isNotNull(target)) {
           this.light.target = target;
         }
         if (ThreeUtil.isNotNull(this.light.target)) {
-          if (
-            this.parent !== null &&
-            this.light.target.parent == null &&
-            this.parent !== this.light.target
-          ) {
+          if (this.parent !== null && this.light.target.parent == null && this.parent !== this.light.target) {
             this.parent.add(this.light.target);
           }
         }
@@ -599,9 +540,7 @@ export class LightComponent
             if (ThreeUtil.isNotNull(this.shadowCameraZoom)) {
               this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
             }
-          } else if (
-            this.light.shadow.camera instanceof THREE.OrthographicCamera
-          ) {
+          } else if (this.light.shadow.camera instanceof THREE.OrthographicCamera) {
             if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
               this.light.shadow.camera.left = this.getShadowCameraLeft(-5);
             }
@@ -631,7 +570,7 @@ export class LightComponent
         this.light.userData.component = this;
       }
       this.setObject3D(this.light);
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helpers']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helper']);
       this.setSubscribeNext('light');
       this.onLoad.emit(this);
     }

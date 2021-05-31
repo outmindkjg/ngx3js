@@ -1,32 +1,19 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-
+import { LUTCubeLoader, LUTCubeResult } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass';
-import {
-  BokehPass,
-  BokehPassParamters,
-} from 'three/examples/jsm/postprocessing/BokehPass';
+import { BokehPass, BokehPassParamters } from 'three/examples/jsm/postprocessing/BokehPass';
 import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
 import { CubeTexturePass } from 'three/examples/jsm/postprocessing/CubeTexturePass';
 import { DotScreenPass } from 'three/examples/jsm/postprocessing/DotScreenPass';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass';
 import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass';
-import {
-  ClearMaskPass,
-  MaskPass,
-} from 'three/examples/jsm/postprocessing/MaskPass';
-
+import { LUTPass } from 'three/examples/jsm/postprocessing/LUTPass';
+import { ClearMaskPass, MaskPass } from 'three/examples/jsm/postprocessing/MaskPass';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass';
 import { Pass } from 'three/examples/jsm/postprocessing/Pass';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -39,16 +26,12 @@ import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass';
 import { TAARenderPass } from 'three/examples/jsm/postprocessing/TAARenderPass';
 import { TexturePass } from 'three/examples/jsm/postprocessing/TexturePass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-import { LUTPass } from 'three/examples/jsm/postprocessing/LUTPass';
 import { AfterimageShader } from 'three/examples/jsm/shaders/AfterimageShader';
 import { BasicShader } from 'three/examples/jsm/shaders/BasicShader';
 import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader';
 import { BlendShader } from 'three/examples/jsm/shaders/BlendShader';
 import { BokehShader } from 'three/examples/jsm/shaders/BokehShader';
-import {
-  BokehShader as BokehShader2,
-  BokehDepthShader,
-} from 'three/examples/jsm/shaders/BokehShader2';
+import { BokehDepthShader, BokehShader as BokehShader2 } from 'three/examples/jsm/shaders/BokehShader2';
 import { BrightnessContrastShader } from 'three/examples/jsm/shaders/BrightnessContrastShader';
 import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader';
 import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader';
@@ -64,17 +47,7 @@ import { FreiChenShader } from 'three/examples/jsm/shaders/FreiChenShader';
 import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader';
-import {
-  LUTCubeLoader,
-  LUTCubeResult,
-} from 'three/examples/jsm/loaders/LUTCubeLoader';
-
-import {
-  GodRaysDepthMaskShader,
-  GodRaysGenerateShader,
-  GodRaysCombineShader,
-  GodRaysFakeSunShader,
-} from 'three/examples/jsm/shaders/GodRaysShader';
+import { GodRaysCombineShader, GodRaysDepthMaskShader, GodRaysFakeSunShader, GodRaysGenerateShader } from 'three/examples/jsm/shaders/GodRaysShader';
 import { HalftoneShader } from 'three/examples/jsm/shaders/HalftoneShader';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader';
 import { HorizontalTiltShiftShader } from 'three/examples/jsm/shaders/HorizontalTiltShiftShader';
@@ -90,22 +63,13 @@ import { PixelShader } from 'three/examples/jsm/shaders/PixelShader';
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader';
 import { SAOShader } from 'three/examples/jsm/shaders/SAOShader';
 import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader';
-import {
-  SMAAEdgesShader,
-  SMAAWeightsShader,
-  SMAABlendShader,
-} from 'three/examples/jsm/shaders/SMAAShader';
+import { SMAABlendShader, SMAAEdgesShader, SMAAWeightsShader } from 'three/examples/jsm/shaders/SMAAShader';
 import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader';
 import { SSAOShader } from 'three/examples/jsm/shaders/SSAOShader';
 import { SubsurfaceScatteringShader } from 'three/examples/jsm/shaders/SubsurfaceScatteringShader';
 import { TechnicolorShader } from 'three/examples/jsm/shaders/TechnicolorShader';
 import { ToneMapShader } from 'three/examples/jsm/shaders/ToneMapShader';
-import {
-  ToonShader1,
-  ToonShader2,
-  ToonShaderDotted,
-  ToonShaderHatching,
-} from 'three/examples/jsm/shaders/ToonShader';
+import { ToonShader1, ToonShader2, ToonShaderDotted, ToonShaderHatching } from 'three/examples/jsm/shaders/ToonShader';
 import { TriangleBlurShader } from 'three/examples/jsm/shaders/TriangleBlurShader';
 import { UnpackDepthRGBAShader } from 'three/examples/jsm/shaders/UnpackDepthRGBAShader';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader';
@@ -113,16 +77,20 @@ import { VerticalTiltShiftShader } from 'three/examples/jsm/shaders/VerticalTilt
 import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader';
 import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
-
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
+
+
+
+
 
 @Component({
   selector: 'three-pass',
   templateUrl: './pass.component.html',
   styleUrls: ['./pass.component.scss'],
 })
-export class PassComponent implements OnInit {
+export class PassComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type: string = '';
   @Input() private refer: PassComponent = null;
   @Input() private enabled: boolean = true;
@@ -202,18 +170,16 @@ export class PassComponent implements OnInit {
   @Input() private vertexShader: string = null;
   @Input() private fragmentShader: string = null;
   @Input() private bloomTexture: any = null;
-  
-  @Output()
-  private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
 
-  constructor() {}
+  @Output() private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
+
+  constructor() {
+    super();
+  }
 
   private lutCubeLoader: LUTCubeLoader = null;
 
-  private getLut(
-    callBack: (result: LUTCubeResult) => void,
-    def?: string
-  ): void {
+  private getLut(callBack: (result: LUTCubeResult) => void, def?: string): void {
     const lut = ThreeUtil.getTypeSafe(this.lut, def, 'remy24');
     let lutPath = '';
     switch (lut.toLowerCase()) {
@@ -244,12 +210,9 @@ export class PassComponent implements OnInit {
     if (this.lutCubeLoader == null) {
       this.lutCubeLoader = new LUTCubeLoader(ThreeUtil.getLoadingManager());
     }
-    this.lutCubeLoader.load(
-      ThreeUtil.getStoreUrl(lutPath),
-      (result: LUTCubeResult) => {
-        callBack(result);
-      }
-    );
+    this.lutCubeLoader.load(ThreeUtil.getStoreUrl(lutPath), (result: LUTCubeResult) => {
+      callBack(result);
+    });
   }
 
   private getEnabled(def?: boolean): boolean {
@@ -346,15 +309,8 @@ export class PassComponent implements OnInit {
     return this.getTexture(this.patternTexture, def);
   }
 
-  private getTexture(
-    baseTexture: THREE.Texture | TextureComponent | any,
-    def?: THREE.Texture | TextureComponent | any
-  ): THREE.Texture {
-    const texture = ThreeUtil.getTypeSafe(
-      baseTexture,
-      ThreeUtil.getTypeSafe(this.texture, this.map, def),
-      def
-    );
+  private getTexture(baseTexture: THREE.Texture | TextureComponent | any, def?: THREE.Texture | TextureComponent | any): THREE.Texture {
+    const texture = ThreeUtil.getTypeSafe(baseTexture, ThreeUtil.getTypeSafe(this.texture, this.map, def), def);
     if (texture instanceof THREE.Texture) {
       return texture;
     } else if (texture instanceof TextureComponent) {
@@ -476,9 +432,7 @@ export class PassComponent implements OnInit {
     }
   }
 
-  private getRenderTarget(
-    def?: THREE.WebGLRenderTarget
-  ): THREE.WebGLRenderTarget {
+  private getRenderTarget(def?: THREE.WebGLRenderTarget): THREE.WebGLRenderTarget {
     return ThreeUtil.getTypeSafe(this.renderTarget, def);
   }
 
@@ -727,9 +681,9 @@ export class PassComponent implements OnInit {
       case 'waterrefraction':
         shaderUniforms = WaterRefractionShader;
         break;
-      case 'shadermaterial' :
-      case 'material' :
-        const shaderMaterialParameters : THREE.ShaderMaterialParameters = {};
+      case 'shadermaterial':
+      case 'material':
+        const shaderMaterialParameters: THREE.ShaderMaterialParameters = {};
         if (ThreeUtil.isNotNull(this.vertexShader)) {
           shaderMaterialParameters.vertexShader = this.vertexShader;
         }
@@ -737,9 +691,9 @@ export class PassComponent implements OnInit {
           shaderMaterialParameters.fragmentShader = this.fragmentShader;
         }
         if (ThreeUtil.isNotNull(this.uniforms)) {
-          const uniforms : { [uniform: string]: THREE.IUniform } = {};
+          const uniforms: { [uniform: string]: THREE.IUniform } = {};
           Object.entries(this.uniforms).forEach(([key, value]) => {
-            uniforms[key] = { value : null }
+            uniforms[key] = { value: null };
           });
           shaderMaterialParameters.uniforms = uniforms;
         }
@@ -756,12 +710,7 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.textureId, def);
   }
 
-  private getMap(
-    effectComposer?: EffectComposer,
-    camera?: THREE.Camera,
-    scene?: THREE.Scene,
-    mapType?: string
-  ): THREE.Texture {
+  private getMap(effectComposer?: EffectComposer, camera?: THREE.Camera, scene?: THREE.Scene, mapType?: string): THREE.Texture {
     const map = this.getTexture(this.map, this.texture);
     if (ThreeUtil.isNotNull(map)) {
       return map;
@@ -780,27 +729,17 @@ export class PassComponent implements OnInit {
       }
     }
     const refMap = this.map;
-    if (
-      ThreeUtil.isNotNull(refMap) &&
-      refMap.getRenderTarget2 &&
-      refMap.getRenderTarget1 &&
-      refMap.getWriteBuffer &&
-      refMap.getReadBuffer
-    ) {
+    if (ThreeUtil.isNotNull(refMap) && refMap.getRenderTarget2 && refMap.getRenderTarget1 && refMap.getWriteBuffer && refMap.getReadBuffer) {
       switch ((mapType || '').toLowerCase()) {
         case 'target1':
-          return refMap.getRenderTarget1(effectComposer.renderer, camera, scene)
-            .texture;
+          return refMap.getRenderTarget1(effectComposer.renderer, camera, scene).texture;
         case 'write':
-          return refMap.getWriteBuffer(effectComposer.renderer, camera, scene)
-            .texture;
+          return refMap.getWriteBuffer(effectComposer.renderer, camera, scene).texture;
         case 'read':
-          return refMap.getReadBuffer(effectComposer.renderer, camera, scene)
-            .texture;
+          return refMap.getReadBuffer(effectComposer.renderer, camera, scene).texture;
         case 'target2':
         default:
-          return refMap.getRenderTarget2(effectComposer.renderer, camera, scene)
-            .texture;
+          return refMap.getRenderTarget2(effectComposer.renderer, camera, scene).texture;
       }
     }
     return undefined;
@@ -818,22 +757,20 @@ export class PassComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.goWild, def);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       if (this.pass !== null && this.effectComposer !== null) {
         this.needUpdate = true;
       }
-      if (
-        this.effectScene !== null &&
-        this.effectCamera !== null &&
-        this.effectComposer !== null &&
-        (this.pass === null || this.needUpdate)
-      ) {
+      if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && (this.pass === null || this.needUpdate)) {
         this.getPass(this.effectScene, this.effectCamera, this.effectComposer);
       }
     }
+    super.ngOnChanges(changes);
   }
 
   private effectComposer: EffectComposer = null;
@@ -842,11 +779,7 @@ export class PassComponent implements OnInit {
   private pass: Pass = null;
   private needUpdate: boolean = false;
 
-  getPass(
-    scene?: THREE.Scene,
-    camera?: THREE.Camera,
-    effectComposer?: EffectComposer
-  ): Pass {
+  getPass(scene?: THREE.Scene, camera?: THREE.Camera, effectComposer?: EffectComposer): Pass {
     if (ThreeUtil.isNull(scene) || ThreeUtil.isNull(camera)) {
       return this.pass;
     }
@@ -863,10 +796,7 @@ export class PassComponent implements OnInit {
         switch (this.type.toLowerCase()) {
           case 'adaptivetonemappingpass':
           case 'adaptivetonemapping':
-            pass = new AdaptiveToneMappingPass(
-              this.getAdaptive(),
-              this.getResolution()
-            );
+            pass = new AdaptiveToneMappingPass(this.getAdaptive(), this.getResolution());
             break;
           case 'afterimagepass':
           case 'afterimage':
@@ -874,12 +804,7 @@ export class PassComponent implements OnInit {
             break;
           case 'bloompass':
           case 'bloom':
-            pass = new BloomPass(
-              this.getStrength(),
-              this.getKernelSize(),
-              this.getSigma(),
-              this.getResolution()
-            );
+            pass = new BloomPass(this.getStrength(), this.getKernelSize(), this.getSigma(), this.getResolution());
             break;
           case 'bokehpass':
           case 'bokeh':
@@ -894,28 +819,15 @@ export class PassComponent implements OnInit {
             break;
           case 'cubetexturepass':
           case 'cubetexture':
-            pass = new CubeTexturePass(
-              this.getCamera(camera) as THREE.PerspectiveCamera,
-              this.getEnvMap(),
-              this.getOpacity()
-            );
+            pass = new CubeTexturePass(this.getCamera(camera) as THREE.PerspectiveCamera, this.getEnvMap(), this.getOpacity());
             break;
           case 'dotscreenpass':
           case 'dotscreen':
-            pass = new DotScreenPass(
-              this.getCenter(),
-              this.getAngle(),
-              this.getScale()
-            );
+            pass = new DotScreenPass(this.getCenter(), this.getAngle(), this.getScale());
             break;
           case 'filmpass':
           case 'film':
-            pass = new FilmPass(
-              this.getNoiseIntensity(),
-              this.getScanlinesIntensity(),
-              this.getScanlinesCount(),
-              this.getGrayscale()
-            );
+            pass = new FilmPass(this.getNoiseIntensity(), this.getScanlinesIntensity(), this.getScanlinesCount(), this.getGrayscale());
             break;
           case 'glitchpass':
           case 'glitch':
@@ -937,10 +849,7 @@ export class PassComponent implements OnInit {
             break;
           case 'maskpass':
           case 'mask':
-            const maskpass = new MaskPass(
-              this.getScene(scene),
-              this.getCamera(camera)
-            );
+            const maskpass = new MaskPass(this.getScene(scene), this.getCamera(camera));
             if (ThreeUtil.isNotNull(this.inverse)) {
               maskpass.inverse = ThreeUtil.getTypeSafe(this.inverse, false);
             }
@@ -948,14 +857,7 @@ export class PassComponent implements OnInit {
             break;
           case 'outlinepass':
           case 'outline':
-            const outlinePass = new OutlinePass(
-              ThreeUtil.getVector2Safe(
-                this.getWidth(1024),
-                this.getHeight(1024)
-              ),
-              this.getScene(scene),
-              this.getCamera(camera)
-            );
+            const outlinePass = new OutlinePass(ThreeUtil.getVector2Safe(this.getWidth(1024), this.getHeight(1024)), this.getScene(scene), this.getCamera(camera));
             if (ThreeUtil.isNotNull(this.patternTexture)) {
               outlinePass.patternTexture = this.getPatternTexture();
             }
@@ -963,49 +865,28 @@ export class PassComponent implements OnInit {
               outlinePass.selectedObjects = this.getSelectedObjects();
             }
             if (ThreeUtil.isNotNull(this.visibleEdgeColor)) {
-              outlinePass.visibleEdgeColor = ThreeUtil.getColorSafe(
-                this.visibleEdgeColor,
-                0xffffff
-              );
+              outlinePass.visibleEdgeColor = ThreeUtil.getColorSafe(this.visibleEdgeColor, 0xffffff);
             }
             if (ThreeUtil.isNotNull(this.hiddenEdgeColor)) {
-              outlinePass.hiddenEdgeColor = ThreeUtil.getColorSafe(
-                this.hiddenEdgeColor,
-                0xffffff
-              );
+              outlinePass.hiddenEdgeColor = ThreeUtil.getColorSafe(this.hiddenEdgeColor, 0xffffff);
             }
             if (ThreeUtil.isNotNull(this.edgeGlow)) {
               outlinePass.edgeGlow = ThreeUtil.getTypeSafe(this.edgeGlow, 0);
             }
             if (ThreeUtil.isNotNull(this.usePatternTexture)) {
-              outlinePass.usePatternTexture = ThreeUtil.getTypeSafe(
-                this.usePatternTexture,
-                false
-              );
+              outlinePass.usePatternTexture = ThreeUtil.getTypeSafe(this.usePatternTexture, false);
             }
             if (ThreeUtil.isNotNull(this.edgeThickness)) {
-              outlinePass.edgeThickness = ThreeUtil.getTypeSafe(
-                this.edgeThickness,
-                1.0
-              );
+              outlinePass.edgeThickness = ThreeUtil.getTypeSafe(this.edgeThickness, 1.0);
             }
             if (ThreeUtil.isNotNull(this.edgeStrength)) {
-              outlinePass.edgeStrength = ThreeUtil.getTypeSafe(
-                this.edgeStrength,
-                3.0
-              );
+              outlinePass.edgeStrength = ThreeUtil.getTypeSafe(this.edgeStrength, 3.0);
             }
             if (ThreeUtil.isNotNull(this.downSampleRatio)) {
-              outlinePass.downSampleRatio = ThreeUtil.getTypeSafe(
-                this.downSampleRatio,
-                2.0
-              );
+              outlinePass.downSampleRatio = ThreeUtil.getTypeSafe(this.downSampleRatio, 2.0);
             }
             if (ThreeUtil.isNotNull(this.pulsePeriod)) {
-              outlinePass.pulsePeriod = ThreeUtil.getTypeSafe(
-                this.pulsePeriod,
-                0.0
-              );
+              outlinePass.pulsePeriod = ThreeUtil.getTypeSafe(this.pulsePeriod, 0.0);
             }
             pass = outlinePass;
             break;
@@ -1021,13 +902,7 @@ export class PassComponent implements OnInit {
             break;
           case 'saopass':
           case 'sao':
-            const saoPass = new SAOPass(
-              this.getScene(scene),
-              this.getCamera(camera),
-              this.getDepthTexture(),
-              this.getUseNormals(),
-              ThreeUtil.getVector2Safe(this.width, this.height)
-            );
+            const saoPass = new SAOPass(this.getScene(scene), this.getCamera(camera), this.getDepthTexture(), this.getUseNormals(), ThreeUtil.getVector2Safe(this.width, this.height));
             saoPass.params = {
               output: this.getSaoOutput('Default'),
               saoBias: ThreeUtil.getTypeSafe(this.saoBias, 0.5),
@@ -1038,10 +913,7 @@ export class PassComponent implements OnInit {
               saoBlur: ThreeUtil.getTypeSafe(this.saoBlur, true),
               saoBlurRadius: ThreeUtil.getTypeSafe(this.saoBlurRadius, 8),
               saoBlurStdDev: ThreeUtil.getTypeSafe(this.saoBlurStdDev, 4),
-              saoBlurDepthCutoff: ThreeUtil.getTypeSafe(
-                this.saoBlurDepthCutoff,
-                0.01
-              ),
+              saoBlurDepthCutoff: ThreeUtil.getTypeSafe(this.saoBlurDepthCutoff, 0.01),
             };
             pass = saoPass;
             break;
@@ -1051,100 +923,46 @@ export class PassComponent implements OnInit {
             break;
           case 'shaderpass':
           case 'shader':
-            const shaderPass = new ShaderPass(
-              this.getShader(),
-              this.getTextureId()
-            );
-            if (
-              ThreeUtil.isNotNull(shaderPass.uniforms) &&
-              ThreeUtil.isNotNull(this.uniforms)
-            ) {
+            const shaderPass = new ShaderPass(this.getShader(), this.getTextureId());
+            if (ThreeUtil.isNotNull(shaderPass.uniforms) && ThreeUtil.isNotNull(this.uniforms)) {
               Object.entries(shaderPass.uniforms).forEach(([key, value]) => {
                 switch (key) {
                   case 'color':
                     if (this.uniforms['color'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getColorSafe(
-                        this.uniforms['color'],
-                        shaderPass.uniforms[key].value
-                      );
+                      shaderPass.uniforms[key].value = ThreeUtil.getColorSafe(this.uniforms['color'], shaderPass.uniforms[key].value);
                     }
                     break;
                   case 'delta':
-                    if (
-                      this.uniforms['deltaX'] !== null ||
-                      this.uniforms['deltaY'] !== null
-                    ) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(
-                        this.uniforms['deltaX'],
-                        this.uniforms['deltaY'],
-                        shaderPass.uniforms[key].value
-                      );
+                    if (this.uniforms['deltaX'] !== null || this.uniforms['deltaY'] !== null) {
+                      shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(this.uniforms['deltaX'], this.uniforms['deltaY'], shaderPass.uniforms[key].value);
                     }
                     break;
                   case 'powRGB':
-                    if (
-                      this.uniforms['powRGBx'] !== null ||
-                      this.uniforms['powRGBy'] !== null ||
-                      this.uniforms['powRGBz'] !== null
-                    ) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(
-                        this.uniforms['powRGBx'],
-                        this.uniforms['powRGBy'],
-                        this.uniforms['powRGBz'],
-                        shaderPass.uniforms[key].value
-                      );
+                    if (this.uniforms['powRGBx'] !== null || this.uniforms['powRGBy'] !== null || this.uniforms['powRGBz'] !== null) {
+                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['powRGBx'], this.uniforms['powRGBy'], this.uniforms['powRGBz'], shaderPass.uniforms[key].value);
                     }
                     break;
                   case 'mulRGB':
-                    if (
-                      this.uniforms['mulRGBx'] !== null ||
-                      this.uniforms['mulRGBy'] !== null ||
-                      this.uniforms['mulRGBz'] !== null
-                    ) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(
-                        this.uniforms['mulRGBx'],
-                        this.uniforms['mulRGBy'],
-                        this.uniforms['mulRGBz'],
-                        shaderPass.uniforms[key].value
-                      );
+                    if (this.uniforms['mulRGBx'] !== null || this.uniforms['mulRGBy'] !== null || this.uniforms['mulRGBz'] !== null) {
+                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['mulRGBx'], this.uniforms['mulRGBy'], this.uniforms['mulRGBz'], shaderPass.uniforms[key].value);
                     }
                     break;
                   case 'resolution':
-                    shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(
-                      this.uniforms['resolutionX'] || this.width | 1024,
-                      this.uniforms['resolutionY'] || this.height | 1024,
-                      shaderPass.uniforms[key].value
-                    );
+                    shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(this.uniforms['resolutionX'] || this.width | 1024, this.uniforms['resolutionY'] || this.height | 1024, shaderPass.uniforms[key].value);
                     break;
                   case 'addRGB':
-                    if (
-                      this.uniforms['addRGBx'] !== null ||
-                      this.uniforms['addRGBy'] !== null ||
-                      this.uniforms['addRGBz'] !== null
-                    ) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(
-                        this.uniforms['addRGBx'],
-                        this.uniforms['addRGBy'],
-                        this.uniforms['addRGBz'],
-                        shaderPass.uniforms[key].value
-                      );
+                    if (this.uniforms['addRGBx'] !== null || this.uniforms['addRGBy'] !== null || this.uniforms['addRGBz'] !== null) {
+                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['addRGBx'], this.uniforms['addRGBy'], this.uniforms['addRGBz'], shaderPass.uniforms[key].value);
                     }
                     break;
-                  case 'bloomTexture' :
+                  case 'bloomTexture':
                     if (ThreeUtil.isNotNull(this.bloomTexture) && ThreeUtil.isNotNull(this.bloomTexture.getRenderTarget2)) {
-                      shaderPass.uniforms[key].value = this.bloomTexture.getRenderTarget2().texture
+                      shaderPass.uniforms[key].value = this.bloomTexture.getRenderTarget2().texture;
                     }
                     break;
                   default:
-                    if (
-                      this.uniforms[key] !== null &&
-                      this.uniforms[key] !== undefined
-                    ) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getTypeSafe(
-                        this.uniforms[key],
-                        value['value'],
-                        null
-                      );
+                    if (this.uniforms[key] !== null && this.uniforms[key] !== undefined) {
+                      shaderPass.uniforms[key].value = ThreeUtil.getTypeSafe(this.uniforms[key], value['value'], null);
                     }
                     break;
                 }
@@ -1158,34 +976,18 @@ export class PassComponent implements OnInit {
             break;
           case 'ssaarenderpass':
           case 'ssaarender':
-            const ssaaRenderPass = new SSAARenderPass(
-              this.getScene(scene),
-              this.getCamera(camera),
-              this.getClearColor(),
-              this.getClearAlpha()
-            );
+            const ssaaRenderPass = new SSAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
             if (ThreeUtil.isNotNull(this.sampleLevel)) {
-              ssaaRenderPass.sampleLevel = ThreeUtil.getTypeSafe(
-                this.sampleLevel,
-                4
-              );
+              ssaaRenderPass.sampleLevel = ThreeUtil.getTypeSafe(this.sampleLevel, 4);
             }
             if (ThreeUtil.isNotNull(this.unbiased)) {
-              ssaaRenderPass.unbiased = ThreeUtil.getTypeSafe(
-                this.unbiased,
-                true
-              );
+              ssaaRenderPass.unbiased = ThreeUtil.getTypeSafe(this.unbiased, true);
             }
             pass = ssaaRenderPass;
             break;
           case 'ssaopass':
           case 'ssao':
-            const ssaoPass = new SSAOPass(
-              this.getScene(scene),
-              this.getCamera(camera),
-              this.getWidth(),
-              this.getHeight()
-            );
+            const ssaoPass = new SSAOPass(this.getScene(scene), this.getCamera(camera), this.getWidth(), this.getHeight());
             ssaoPass.output = this.getSsaoOutput('Default');
             ssaoPass.kernelRadius = ThreeUtil.getTypeSafe(this.kernelRadius, this.saoKernelRadius, 8);
             ssaoPass.minDistance = ThreeUtil.getTypeSafe(this.minDistance, 0.005);
@@ -1194,51 +996,25 @@ export class PassComponent implements OnInit {
             break;
           case 'taarenderpass':
           case 'taarender':
-            const taaRenderPass = new TAARenderPass(
-              this.getScene(scene),
-              this.getCamera(camera),
-              this.getClearColor(),
-              this.getClearAlpha()
-            );
+            const taaRenderPass = new TAARenderPass(this.getScene(scene), this.getCamera(camera), this.getClearColor(), this.getClearAlpha());
             if (ThreeUtil.isNotNull(this.sampleLevel)) {
-              taaRenderPass.sampleLevel = ThreeUtil.getTypeSafe(
-                this.sampleLevel,
-                4
-              );
+              taaRenderPass.sampleLevel = ThreeUtil.getTypeSafe(this.sampleLevel, 4);
             }
             if (ThreeUtil.isNotNull(this.unbiased)) {
-              taaRenderPass.unbiased = ThreeUtil.getTypeSafe(
-                this.unbiased,
-                true
-              );
+              taaRenderPass.unbiased = ThreeUtil.getTypeSafe(this.unbiased, true);
             }
             if (ThreeUtil.isNotNull(this.accumulate)) {
-              taaRenderPass.accumulate = ThreeUtil.getTypeSafe(
-                this.accumulate,
-                false
-              );
+              taaRenderPass.accumulate = ThreeUtil.getTypeSafe(this.accumulate, false);
             }
             pass = taaRenderPass;
             break;
           case 'texturepass':
           case 'texture':
-            pass = new TexturePass(
-              this.getMap(effectComposer, camera, scene),
-              this.getOpacity()
-            );
+            pass = new TexturePass(this.getMap(effectComposer, camera, scene), this.getOpacity());
             break;
           case 'unrealbloompass':
           case 'unrealbloom':
-            pass = new UnrealBloomPass(
-              ThreeUtil.getVector2Safe(
-                this.width | 512,
-                this.height | 512,
-                new THREE.Vector2(512,512)
-              ),
-              this.getStrength(1.5),
-              this.getRadius(0.4),
-              this.getThreshold(0.85)
-            );
+            pass = new UnrealBloomPass(ThreeUtil.getVector2Safe(this.width | 512, this.height | 512, new THREE.Vector2(512, 512)), this.getStrength(1.5), this.getRadius(0.4), this.getThreshold(0.85));
             break;
           case 'lutpass':
           case 'lut':
@@ -1248,9 +1024,7 @@ export class PassComponent implements OnInit {
             });
             lutPass.enabled = false;
             this.getLut((result) => {
-              this.pass['lut'] = this.use2DLut
-                ? result.texture
-                : result.texture3D;
+              this.pass['lut'] = this.use2DLut ? result.texture : result.texture3D;
               this.pass.enabled = this.enabled;
             });
             pass = lutPass;

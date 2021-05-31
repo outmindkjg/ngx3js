@@ -1,45 +1,48 @@
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import * as THREE from 'three';
 import { GeometriesVector3, GeometryComponent } from '../geometry/geometry.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-shape',
   templateUrl: './shape.component.html',
-  styleUrls: ['./shape.component.scss']
+  styleUrls: ['./shape.component.scss'],
 })
-export class ShapeComponent implements OnInit {
+export class ShapeComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() public type: string = 'fromPoints';
+  @Input() private points: GeometriesVector3[] = null;
+  @Input() private x: number = null;
+  @Input() private y: number = null;
+  @Input() private aCPx: number = null;
+  @Input() private aCPy: number = null;
+  @Input() private aX: number = null;
+  @Input() private aY: number = null;
+  @Input() private aCP1x: number = null;
+  @Input() private aCP1y: number = null;
+  @Input() private aCP2x: number = null;
+  @Input() private aCP2y: number = null;
+  @Input() private aRadius: number = null;
+  @Input() private aStartAngle: number = null;
+  @Input() private aEndAngle: number = null;
+  @Input() private aClockwise: boolean = null;
+  @Input() private xRadius: number = null;
+  @Input() private yRadius: number = null;
+  @Input() private aRotation: number = null;
 
-  @Input() public type:string = 'fromPoints';
-  @Input() private points:GeometriesVector3[] = null;
-  @Input() private x:number = null;
-  @Input() private y:number = null;
-  @Input() private aCPx:number = null;
-  @Input() private aCPy:number = null;
-  @Input() private aX:number = null;
-  @Input() private aY:number = null;
-  @Input() private aCP1x:number = null;
-  @Input() private aCP1y:number = null;
-  @Input() private aCP2x:number = null;
-  @Input() private aCP2y:number = null;
-  @Input() private aRadius:number = null;
-  @Input() private aStartAngle:number = null;
-  @Input() private aEndAngle:number = null;
-  @Input() private aClockwise:boolean = null;
-  @Input() private xRadius:number = null; n
-  @Input() private yRadius:number = null;
-  @Input() private aRotation:number = null;
+  @ContentChildren(ShapeComponent, { descendants: false }) private holes: QueryList<ShapeComponent>;
 
-  @ContentChildren(ShapeComponent,{descendants: false}) private holes: QueryList<ShapeComponent>;
-
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   private getPoints(def: GeometriesVector3[]): THREE.Vector2[] {
     const points = [];
-    (this.points === null ? def : this.points).forEach(p => {
-      points.push(new THREE.Vector2(p.x, p.y))
+    (this.points === null ? def : this.points).forEach((p) => {
+      points.push(new THREE.Vector2(p.x, p.y));
     });
     return points;
   }
@@ -101,12 +104,12 @@ export class ShapeComponent implements OnInit {
 
   private getAStartAngle(def: number): number {
     const aStartAngle = this.aStartAngle === null ? def : this.aStartAngle;
-    return aStartAngle / 180 * Math.PI;
+    return (aStartAngle / 180) * Math.PI;
   }
 
   private getAEndAngle(def: number): number {
     const aEndAngle = this.aEndAngle === null ? def : this.aEndAngle;
-    return aEndAngle / 180 * Math.PI;
+    return (aEndAngle / 180) * Math.PI;
   }
 
   private getAClockwise(def: boolean): boolean {
@@ -132,22 +135,22 @@ export class ShapeComponent implements OnInit {
   private getHoles(): THREE.Path {
     const holes = new THREE.Path();
     if (this.holes !== null && this.holes.length > 0) {
-      this.holes.forEach(hole => {
+      this.holes.forEach((hole) => {
         hole.getShape(holes);
-      })
+      });
     }
     return holes;
   }
 
-  private parent : GeometryComponent= null;
+  private parent: GeometryComponent = null;
 
-  setParent(parent : GeometryComponent){
+  setParent(parent: GeometryComponent) {
     if (this.parent !== parent) {
       this.parent = parent;
     }
   }
 
-  getShape(shape: THREE.Shape | THREE.Path): THREE.Shape | THREE.Path{
+  getShape(shape: THREE.Shape | THREE.Path): THREE.Shape | THREE.Path {
     switch (this.type.toLowerCase()) {
       case 'frompoints':
         shape.setFromPoints(this.getPoints([]));
@@ -159,80 +162,33 @@ export class ShapeComponent implements OnInit {
         shape.lineTo(this.getX(0), this.getY(0));
         break;
       case 'quadraticcurveto':
-        shape.quadraticCurveTo(
-          this.getACPx(0),
-          this.getACPy(0),
-          this.getAX(0),
-          this.getAY(0)
-        );
+        shape.quadraticCurveTo(this.getACPx(0), this.getACPy(0), this.getAX(0), this.getAY(0));
         break;
       case 'beziercurveto':
-        shape.bezierCurveTo(
-          this.getACP1x(0),
-          this.getACP1y(0),
-          this.getACP2x(0),
-          this.getACP2y(0),
-          this.getAX(0),
-          this.getAY(0)
-        );
+        shape.bezierCurveTo(this.getACP1x(0), this.getACP1y(0), this.getACP2x(0), this.getACP2y(0), this.getAX(0), this.getAY(0));
         break;
       case 'splinethru':
-        shape.splineThru(
-          this.getPoints([])
-        );
+        shape.splineThru(this.getPoints([]));
         break;
       case 'arc':
-        shape.arc(
-          this.getAX(0),
-          this.getAY(0),
-          this.getARadius(0),
-          this.getAStartAngle(0),
-          this.getAEndAngle(0),
-          this.getAClockwise(false)
-        );
+        shape.arc(this.getAX(0), this.getAY(0), this.getARadius(0), this.getAStartAngle(0), this.getAEndAngle(0), this.getAClockwise(false));
         break;
       case 'absarc':
-        shape.absarc(
-          this.getAX(0),
-          this.getAY(0),
-          this.getARadius(0),
-          this.getAStartAngle(0),
-          this.getAEndAngle(0),
-          this.getAClockwise(false)
-        );
+        shape.absarc(this.getAX(0), this.getAY(0), this.getARadius(0), this.getAStartAngle(0), this.getAEndAngle(0), this.getAClockwise(false));
         break;
       case 'ellipse':
-        shape.ellipse(
-          this.getAX(0),
-          this.getAY(0),
-          this.getXRadius(0),
-          this.getYRadius(0),
-          this.getAStartAngle(0),
-          this.getAEndAngle(0),
-          this.getAClockwise(false),
-          this.getARotation(0)
-        );
+        shape.ellipse(this.getAX(0), this.getAY(0), this.getXRadius(0), this.getYRadius(0), this.getAStartAngle(0), this.getAEndAngle(0), this.getAClockwise(false), this.getARotation(0));
         break;
       case 'absellipse':
-        shape.absellipse(
-          this.getAX(0),
-          this.getAY(0),
-          this.getXRadius(0),
-          this.getYRadius(0),
-          this.getAStartAngle(0),
-          this.getAEndAngle(0),
-          this.getAClockwise(false),
-          this.getARotation(0)
-        );
+        shape.absellipse(this.getAX(0), this.getAY(0), this.getXRadius(0), this.getYRadius(0), this.getAStartAngle(0), this.getAEndAngle(0), this.getAClockwise(false), this.getARotation(0));
         break;
       case 'holes':
       case 'hole':
-          if (shape instanceof THREE.Shape) {
+        if (shape instanceof THREE.Shape) {
           shape.holes.push(this.getHoles());
         }
         break;
     }
     return shape;
   }
-
 }

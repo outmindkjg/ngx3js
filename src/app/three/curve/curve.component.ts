@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
@@ -117,27 +116,20 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (this.curve !== null) {
-        this.curve = null;
-        this.getCurve();
-      } else if (this.parent !== null){
-        this.curve = null;
-        if (this.parent !== null && this.parent.resetGeometry) {
-          this.parent.resetGeometry(true);
-        }
-      }
+    if (changes && this.curve !== null) {
+      this.needUpdate = true;
     }
+    super.ngOnChanges(changes);
   }
 
-  private parent : any= null;
-
-  setParent(parent : any){
-    if (this.parent !== parent) {
-      this.parent = parent;
+  set needUpdate(value : boolean) {
+    if (value && this.curve !== null) {
+      this.curve = null;
+      this.getCurve();
     }
   }
 

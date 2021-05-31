@@ -1,5 +1,4 @@
 import { Component, ContentChildren, ElementRef, Input, QueryList, SimpleChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { ThreeUtil } from '../interface';
@@ -269,82 +268,17 @@ export class SvgComponent extends AbstractObject3dComponent {
       this.meshes = null;
     }
     this.resetMeshes();
+    super.ngOnChanges(changes);
   }
 
   ngOnDestroy() {
-    this._materialSubscribe = this.unSubscription(this._materialSubscribe);
-    this._translationSubscribe = this.unSubscription(this._translationSubscribe);
     super.ngOnDestroy();
   }
 
   ngAfterContentInit(): void {
-    if (this.materialList !== null && this.materialList !== undefined) {
-      this.setMaterialSubscribe();
-      this.materialList.changes.subscribe((e) => {
-        this.setMaterialSubscribe();
-      });
-		}
-    if (this.translationList !== null && this.translationList !== undefined) {
-      this.setTranslationSubscribe();
-      this.translationList.changes.subscribe((e) => {
-        this.setTranslationSubscribe();
-      });
-		}
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
+    this.subscribeListQuery(this.translationList, 'translationList', 'translation');
     super.ngAfterContentInit();
-  }
-
-  private _materialSubscribe: Subscription[] = [];
-  private _translationSubscribe: Subscription[] = [];
-
-  unSubscription(subscriptions : Subscription[]) : Subscription[] {
-    if (subscriptions !== null && subscriptions.length > 0) {
-      subscriptions.forEach(subscription => {
-        subscription.unsubscribe();
-      })
-    }
-    return [];
-  }
-
-  setMaterialSubscribe() {
-		if (this.materialList !== null && this.materialList !== undefined) {
-      this._materialSubscribe = this.unSubscription(this._materialSubscribe);
-      if (this.material !== null) {
-        this._materialSubscribe.push(this.material.getSubscribe().subscribe(() => {
-          const mat = this.material.getMaterial();
-          this.meshMaterials.forEach(material => {
-            material.copy(mat);
-          });
-        }));
-      }
-      this.materialList.forEach((material, idx) => {
-        this._materialSubscribe.push(material.getSubscribe().subscribe(() => {
-          const mat = this.material.getMaterial();
-          if (this.meshMaterials && this.meshMaterials.length > idx) {
-            this.meshMaterials[idx].copy(mat);
-          };
-        }));
-      });
-    }
-  }
-
-  setTranslationSubscribe() {
-		if (this.translationList !== null && this.translationList !== undefined) {
-      this._translationSubscribe = this.unSubscription(this._translationSubscribe);
-      if (this.translation !== null) {
-        this._translationSubscribe.push(this.translation.translationSubscribe().subscribe((tra) => {
-          this.meshTranslations.forEach(translation => {
-            translation.applyMatrix4(tra);
-          });
-        }));
-      }
-      this.translationList.forEach(translation => {
-        this._translationSubscribe.push(translation.translationSubscribe().subscribe((tra) => {
-          this.meshTranslations.forEach(translation => {
-            translation.applyMatrix4(tra);
-          });
-        }));
-      });
-    }
   }
 
   synkObject3D(synkTypes: string[]) {

@@ -1,13 +1,14 @@
-import { ThreeUtil } from './../interface';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { ThreeUtil } from './../interface';
 
 @Component({
   selector: 'three-fog',
   templateUrl: './fog.component.html',
   styleUrls: ['./fog.component.scss']
 })
-export class FogComponent implements OnInit {
+export class FogComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() public type:string = "fog";
   @Input() private color:string | number = null;
@@ -15,10 +16,16 @@ export class FogComponent implements OnInit {
   @Input() private near:number = 1;
   @Input() private far:number = 1000;
 
-
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  ngOnDestroy() : void {
+    super.ngOnDestroy();
   }
 
   private getColor(def? : number | string) : THREE.Color{
@@ -38,8 +45,22 @@ export class FogComponent implements OnInit {
   }
 
   private fog : THREE.IFog = null;
+  
   private refScene : THREE.Scene = null;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && this.fog !== null) {
+      this.needUpdate = true;
+    }
+    super.ngOnChanges(changes);
+  }
+
+  set needUpdate(value : boolean) {
+    if (value && this.fog !== null) {
+      this.fog = null;
+      this.getFog();
+    }
+  }
 
   setScene(refScene : THREE.Scene) {
     if (this.refScene !== refScene) {
@@ -47,6 +68,7 @@ export class FogComponent implements OnInit {
       this.refScene.fog = this.getFog();
     }
   }
+
 
   getFog() : THREE.IFog{
     if (this.fog === null) {
@@ -67,6 +89,7 @@ export class FogComponent implements OnInit {
           );
           break;
       }
+      this.setSubscribeNext('fox');
     }
     return this.fog;
   }

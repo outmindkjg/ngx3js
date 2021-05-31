@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
@@ -22,9 +15,7 @@ import { ThreeUtil } from './../interface';
   templateUrl: './helper.component.html',
   styleUrls: ['./helper.component.scss'],
 })
-export class HelperComponent
-  extends AbstractObject3dComponent
-  implements OnInit {
+export class HelperComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';
   @Input() private color: string | number = null;
   @Input() private target: any = null;
@@ -126,20 +117,14 @@ export class HelperComponent
   }
 
   private getDir(def?: THREE.Vector3): THREE.Vector3 {
-    if (
-      ThreeUtil.isNotNull(this.arrowFrom) &&
-      ThreeUtil.isNotNull(this.arrowTo)
-    ) {
+    if (ThreeUtil.isNotNull(this.arrowFrom) && ThreeUtil.isNotNull(this.arrowTo)) {
       const arrowFrom: THREE.Vector3 = this.getObjectPosition(this.arrowFrom);
       const arrowTo: THREE.Vector3 = this.getObjectPosition(this.arrowTo);
       const arrowDirection = new THREE.Vector3();
       arrowDirection.subVectors(arrowTo, arrowFrom).normalize();
       return arrowDirection;
     } else {
-      return ThreeUtil.getTypeSafe(
-        ThreeUtil.getVector3Safe(this.dirX, this.dirY, this.dirZ),
-        def
-      );
+      return ThreeUtil.getTypeSafe(ThreeUtil.getVector3Safe(this.dirX, this.dirY, this.dirZ), def);
     }
   }
 
@@ -148,18 +133,9 @@ export class HelperComponent
     if (ThreeUtil.isNotNull(this.arrowFrom)) {
       origin = this.getObjectPosition(this.arrowFrom);
     }
-    if (
-      ThreeUtil.isNotNull(this.originX) &&
-      ThreeUtil.isNotNull(this.originY) &&
-      ThreeUtil.isNotNull(this.originZ)
-    ) {
+    if (ThreeUtil.isNotNull(this.originX) && ThreeUtil.isNotNull(this.originY) && ThreeUtil.isNotNull(this.originZ)) {
       origin = origin.clone();
-      origin.add(
-        ThreeUtil.getTypeSafe(
-          ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ),
-          def
-        )
-      );
+      origin.add(ThreeUtil.getTypeSafe(ThreeUtil.getVector3Safe(this.originX, this.originY, this.originZ), def));
     }
     return origin;
   }
@@ -195,16 +171,15 @@ export class HelperComponent
 
   private targetMesh: THREE.Mesh = null;
 
-  private needsUpdate: boolean = true;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       if (changes.target && this.target !== null && this.target.meshSubscribe) {
         this.target.meshSubscribe().subscribe((mesh) => {
           this.targetMesh = mesh;
-          this.needsUpdate = true;
+          this.needUpdate = true;
         });
       }
-      this.needsUpdate = true;
+      this.needUpdate = true;
     }
     super.ngOnChanges(changes);
   }
@@ -226,7 +201,7 @@ export class HelperComponent
     }
   }
 
-  set needUpdate(value : boolean) {
+  set needUpdate(value: boolean) {
     if (value && this.helper !== null) {
       this.helper = null;
       this.getHelper();
@@ -236,8 +211,7 @@ export class HelperComponent
   private helper: THREE.Object3D = null;
 
   public getHelper(): THREE.Object3D {
-    if (this.helper === null || this.needsUpdate) {
-      this.needsUpdate = false;
+    if (this.helper === null) {
       if (this.helper !== null && this.helper.parent) {
         this.helper.parent.remove(this.helper);
       }
@@ -283,21 +257,11 @@ export class HelperComponent
           break;
         case 'arrowhelper':
         case 'arrow':
-          basemesh = new THREE.ArrowHelper(
-            this.getDir(new THREE.Vector3(0, 0, 1)),
-            this.getOrigin(new THREE.Vector3(0, 0, 0)),
-            this.getLength(1),
-            this.getColor(0xffff00),
-            this.getHeadLength(),
-            this.getHeadWidth()
-          );
+          basemesh = new THREE.ArrowHelper(this.getDir(new THREE.Vector3(0, 0, 1)), this.getOrigin(new THREE.Vector3(0, 0, 0)), this.getLength(1), this.getColor(0xffff00), this.getHeadLength(), this.getHeadWidth());
           break;
         case 'boxhelper':
         case 'box':
-          const boxHelper = new THREE.BoxHelper(
-            this.getTarget(this.parent),
-            this.getColor(0xffff00)
-          );
+          const boxHelper = new THREE.BoxHelper(this.getTarget(this.parent), this.getColor(0xffff00));
           basemesh = boxHelper;
           break;
         case 'box3helper':
@@ -306,32 +270,17 @@ export class HelperComponent
           break;
         case 'gridhelper':
         case 'grid':
-          basemesh = new THREE.GridHelper(
-            this.getSize(10),
-            this.getDivisions(10),
-            this.getColor1(0x444444),
-            this.getColor2(0x888888)
-          );
+          basemesh = new THREE.GridHelper(this.getSize(10), this.getDivisions(10), this.getColor1(0x444444), this.getColor2(0x888888));
           break;
         case 'polargridhelper':
         case 'polargrid':
-          basemesh = new THREE.PolarGridHelper(
-            this.getRadius(10),
-            this.getRadials(16),
-            this.getCircles(8),
-            this.getDivisions(64),
-            this.getColor1(0x444444),
-            this.getColor2(0x888888)
-          );
+          basemesh = new THREE.PolarGridHelper(this.getRadius(10), this.getRadials(16), this.getCircles(8), this.getDivisions(64), this.getColor1(0x444444), this.getColor2(0x888888));
           basemesh.receiveShadow = true;
           break;
         case 'camerahelper':
         case 'camera':
           let cameraTarget = this.getTarget(this.parent);
-          if (
-            cameraTarget instanceof THREE.Light &&
-            cameraTarget.shadow.camera
-          ) {
+          if (cameraTarget instanceof THREE.Light && cameraTarget.shadow.camera) {
             basemesh = new THREE.CameraHelper(cameraTarget.shadow.camera);
           } else if (cameraTarget instanceof THREE.Camera) {
             basemesh = new THREE.CameraHelper(cameraTarget);
@@ -355,23 +304,11 @@ export class HelperComponent
         case 'light':
           let lightTarget = this.getTarget(this.parent);
           if (lightTarget instanceof THREE.DirectionalLight) {
-            basemesh = new THREE.DirectionalLightHelper(
-              lightTarget,
-              this.getSize(10),
-              this.getColor()
-            );
+            basemesh = new THREE.DirectionalLightHelper(lightTarget, this.getSize(10), this.getColor());
           } else if (lightTarget instanceof THREE.HemisphereLight) {
-            basemesh = new THREE.HemisphereLightHelper(
-              lightTarget,
-              this.getSize(10),
-              this.getColor()
-            );
+            basemesh = new THREE.HemisphereLightHelper(lightTarget, this.getSize(10), this.getColor());
           } else if (lightTarget instanceof THREE.PointLight) {
-            basemesh = new THREE.PointLightHelper(
-              lightTarget,
-              this.getSize(10),
-              this.getColor()
-            );
+            basemesh = new THREE.PointLightHelper(lightTarget, this.getSize(10), this.getColor());
           } else if (lightTarget instanceof THREE.SpotLight) {
             basemesh = new THREE.SpotLightHelper(lightTarget, this.getColor());
           } else if (lightTarget instanceof THREE.RectAreaLight) {
@@ -382,22 +319,12 @@ export class HelperComponent
           break;
         case 'planehelper':
         case 'plane':
-          if (
-            this.parent instanceof THREE.Mesh &&
-            this.parent.material instanceof THREE.Material
-          ) {
+          if (this.parent instanceof THREE.Mesh && this.parent.material instanceof THREE.Material) {
             basemesh = new THREE.Group();
-            const clippingPlanes: THREE.Plane[] = this.parent.material
-              .clippingPlanes;
+            const clippingPlanes: THREE.Plane[] = this.parent.material.clippingPlanes;
             if (clippingPlanes !== null && clippingPlanes !== undefined) {
               clippingPlanes.forEach((clippingPlane) => {
-                basemesh.add(
-                  new THREE.PlaneHelper(
-                    clippingPlane,
-                    this.getSize(10),
-                    this.getColorHex()
-                  )
-                );
+                basemesh.add(new THREE.PlaneHelper(clippingPlane, this.getSize(10), this.getColorHex()));
               });
             }
           } else {
@@ -409,28 +336,16 @@ export class HelperComponent
         case 'vertexnormals':
         case 'vertextangents':
           const vertexMesh = this.getTarget(this.parent);
-          if (
-            vertexMesh instanceof THREE.Mesh &&
-            vertexMesh.geometry instanceof THREE.BufferGeometry &&
-            vertexMesh.geometry.attributes.normal
-          ) {
+          if (vertexMesh instanceof THREE.Mesh && vertexMesh.geometry instanceof THREE.BufferGeometry && vertexMesh.geometry.attributes.normal) {
             switch (this.type.toLowerCase()) {
               case 'vertextangentshelper':
               case 'vertextangents':
-                basemesh = new VertexTangentsHelper(
-                  this.getTarget(this.parent),
-                  this.getSize(),
-                  this.getColorHex()
-                );
+                basemesh = new VertexTangentsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
                 break;
               case 'vertexnormalshelper':
               case 'vertexnormals':
               default:
-                basemesh = new VertexNormalsHelper(
-                  this.getTarget(this.parent),
-                  this.getSize(),
-                  this.getColorHex()
-                );
+                basemesh = new VertexNormalsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
                 break;
             }
           } else {
@@ -450,11 +365,7 @@ export class HelperComponent
       }
       if (basemesh !== null) {
         this.helper = basemesh;
-        if (
-          this.helper instanceof THREE.Line &&
-          ThreeUtil.isNotNull(this.helper.material) &&
-          this.helper.material instanceof THREE.Material
-        ) {
+        if (this.helper instanceof THREE.Line && ThreeUtil.isNotNull(this.helper.material) && this.helper.material instanceof THREE.Material) {
           const opacity = this.getOpacity(1);
           if (opacity >= 0 && opacity < 1) {
             this.helper.material.opacity = opacity;
@@ -462,19 +373,11 @@ export class HelperComponent
           } else if (ThreeUtil.isNotNull(this.materialTransparent)) {
             this.helper.material.transparent = this.materialTransparent;
           }
-          if (
-            ThreeUtil.isNotNull(this.materialColor) &&
-            this.helper.material['color'] !== undefined
-          ) {
-            this.helper.material['color'] = ThreeUtil.getColorSafe(
-              this.materialColor
-            );
+          if (ThreeUtil.isNotNull(this.materialColor) && this.helper.material['color'] !== undefined) {
+            this.helper.material['color'] = ThreeUtil.getColorSafe(this.materialColor);
           }
           if (ThreeUtil.isNotNull(this.materialBlending)) {
-            this.helper.material.blending = ThreeUtil.getBlendingSafe(
-              this.materialBlending,
-              'NormalBlending'
-            );
+            this.helper.material.blending = ThreeUtil.getBlendingSafe(this.materialBlending, 'NormalBlending');
           }
           if (ThreeUtil.isNotNull(this.depthWrite)) {
             this.helper.material.depthWrite = this.getDepthWrite(false);
@@ -485,13 +388,7 @@ export class HelperComponent
         }
         this.helper.visible = this.getVisible(true);
         this.setObject3D(this.helper, false);
-        this.synkObject3D([
-          'position',
-          'rotation',
-          'scale',
-          'lookat',
-          'controller',
-        ]);
+        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'controller']);
         this.setSubscribeNext('helper');
         this.onLoad.emit(this);
       } else {

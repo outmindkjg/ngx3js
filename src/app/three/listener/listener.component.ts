@@ -1,33 +1,39 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-listener',
   templateUrl: './listener.component.html',
   styleUrls: ['./listener.component.scss']
 })
-export class ListenerComponent implements OnInit {
+export class ListenerComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private volume:number = 1 ;
   @Input() public visible:boolean = true ;
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnDestroy(): void {
     if (this.listener !== null && this.listener.parent !== null) {
       this.listener.parent.remove(this.listener);
     }
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.resetListener();
     }
+    super.ngOnChanges(changes);
   }
 
   private listener : THREE.AudioListener = null;

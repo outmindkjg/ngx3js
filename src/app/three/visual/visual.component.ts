@@ -1,73 +1,76 @@
-import { Component, ContentChildren, ElementRef, Input, OnInit, Output, QueryList, EventEmitter } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
+import * as THREE from 'three';
 import { BackgroundComponent } from '../background/background.component';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TransformComponent } from '../transform/transform.component';
-import * as THREE from 'three';
 // import { ControllerComponent } from '../controller/controller.component';
 
 export interface HtmlCollection {
-  html : HTMLElement;
-  name : string;
-  component : VisualComponent | any;
-  children : HtmlCollection[];
+  html: HTMLElement;
+  name: string;
+  component: VisualComponent | any;
+  children: HtmlCollection[];
 }
 
 @Component({
   selector: 'three-visual',
   templateUrl: './visual.component.html',
-  styleUrls: ['./visual.component.scss']
+  styleUrls: ['./visual.component.scss'],
 })
-export class VisualComponent implements OnInit {
+export class VisualComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() public type: string = 'div';
+  @Input() public name: string = null;
+  @Input() private childType: string = 'innerHTML';
+  @Input() private src: string = null;
+  @Input() private value: string | number = '';
+  @Input() private inputType: string | number = 'text';
+  @Input() private checked: string | number = 'false';
 
-  @Input() public type:string = "div";
-  @Input() public name:string = null;
-  @Input() private childType:string = 'innerHTML';
-  @Input() private src:string = null;
-  @Input() private value:string | number = '';
-  @Input() private inputType:string | number = 'text';
-  @Input() private checked:string | number = 'false';
-
-  @Input() private radioValues:{
-    value? : string;
-    text? : string;
+  @Input() private radioValues: {
+    value?: string;
+    text?: string;
   }[] = null;
 
-  @Input() private selectOptions:{
-    value? : string;
-    text? : string;
+  @Input() private selectOptions: {
+    value?: string;
+    text?: string;
   }[] = null;
 
-  @Output() private change:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private click:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private dblclick:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private focus:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private keyup:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private keydown:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private load:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private select:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private mousedown:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private mouseout:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private mouseover:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private mousemove:EventEmitter<any> = new EventEmitter<any>();
-  @Output() private mouseup:EventEmitter<any> = new EventEmitter<any>();
+  @Output() private change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private click: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private dblclick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private keyup: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private keydown: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private load: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private select: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private mousedown: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private mouseout: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private mouseover: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private mousemove: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private mouseup: EventEmitter<any> = new EventEmitter<any>();
 
   @ContentChildren(VisualComponent) private children: QueryList<VisualComponent>;
   @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
   @ContentChildren(TransformComponent) private transform: QueryList<TransformComponent>;
   @ContentChildren(BackgroundComponent) private background: QueryList<BackgroundComponent>;
-	// @ContentChildren(ControllerComponent, { descendants: false }) private controller: QueryList<ControllerComponent>;
+  // @ContentChildren(ControllerComponent, { descendants: false }) private controller: QueryList<ControllerComponent>;
 
-  private collection : HtmlCollection = {
-    html : null,
-    name : null,
-    component : this,
-    children : []
+  private collection: HtmlCollection = {
+    html: null,
+    name: null,
+    component: this,
+    children: [],
   };
 
-  constructor(private ele: ElementRef) { }
+  constructor(private ele: ElementRef) {
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnDestroy(): void {
@@ -81,6 +84,7 @@ export class VisualComponent implements OnInit {
       }
       this.visual = null;
     }
+    super.ngOnDestroy();
   }
 
   ngAfterContentInit() {
@@ -104,9 +108,9 @@ export class VisualComponent implements OnInit {
   private parentNode: HTMLElement = null;
   private parentSize: THREE.Vector2 = null;
   private eleSize: THREE.Vector2 = null;
-  private parentCollection : HtmlCollection = null;
+  private parentCollection: HtmlCollection = null;
 
-  setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, parentCollection : HtmlCollection) {
+  setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, parentCollection: HtmlCollection) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
@@ -161,7 +165,7 @@ export class VisualComponent implements OnInit {
     }
   }
 
-  getCollection():HtmlCollection {
+  getCollection(): HtmlCollection {
     return this.collection;
   }
 
@@ -169,7 +173,7 @@ export class VisualComponent implements OnInit {
     const style: CssStyle = {
       width: '100%',
       height: '100%',
-    }
+    };
     if (this.parentSize !== null) {
       style.width = this.parentSize.x;
       style.height = this.parentSize.y;
@@ -183,67 +187,67 @@ export class VisualComponent implements OnInit {
       if (this.click.observers.length > 0) {
         style.click = (e) => {
           this.click.emit(e);
-        }
+        };
       }
       if (this.change.observers.length > 0) {
         style.change = (e) => {
           this.change.emit(e);
-        }
+        };
       }
       if (this.dblclick.observers.length > 0) {
         style.dblclick = (e) => {
           this.dblclick.emit(e);
-        }
+        };
       }
       if (this.focus.observers.length > 0) {
         style.focus = (e) => {
           this.focus.emit(e);
-        }
+        };
       }
       if (this.keyup.observers.length > 0) {
         style.keyup = (e) => {
           this.keyup.emit(e);
-        }
+        };
       }
       if (this.keydown.observers.length > 0) {
         style.keydown = (e) => {
           this.keydown.emit(e);
-        }
+        };
       }
       if (this.load.observers.length > 0) {
         style.load = (e) => {
           this.load.emit(e);
-        }
+        };
       }
       if (this.select.observers.length > 0) {
         style.select = (e) => {
           this.select.emit(e);
-        }
+        };
       }
       if (this.mousedown.observers.length > 0) {
         style.mousedown = (e) => {
           this.mousedown.emit(e);
-        }
+        };
       }
       if (this.mouseout.observers.length > 0) {
         style.mouseout = (e) => {
           this.mouseout.emit(e);
-        }
+        };
       }
       if (this.mouseover.observers.length > 0) {
         style.mouseover = (e) => {
           this.mouseover.emit(e);
-        }
+        };
       }
       if (this.mousemove.observers.length > 0) {
         style.mousemove = (e) => {
           this.mousemove.emit(e);
-        }
+        };
       }
       if (this.mouseup.observers.length > 0) {
         style.mouseup = (e) => {
           this.mouseup.emit(e);
-        }
+        };
       }
       switch (this.visual.tagName) {
         case 'FORM':
@@ -274,7 +278,7 @@ export class VisualComponent implements OnInit {
           }
       }
       this.cssClazzName = ThreeUtil.addCssStyle(this.visual, style, this.cssClazzName, 'visual');
-      this.synkObject2D(['transform', 'background', 'children','controller']);
+      this.synkObject2D(['transform', 'background', 'children', 'controller']);
     }
   }
 
@@ -285,7 +289,7 @@ export class VisualComponent implements OnInit {
   getVisual(): HTMLElement {
     if (this.visual === null) {
       let visual: HTMLElement = null;
-      let texthold : HTMLElement = null;
+      let texthold: HTMLElement = null;
       switch (this.type.toLowerCase()) {
         case 'img':
         case 'iframe':
@@ -298,8 +302,8 @@ export class VisualComponent implements OnInit {
           visual.setAttribute('value', (this.value || '').toString());
           break;
         case 'textarea':
-          const textarea : HTMLTextAreaElement = document.createElement('textarea') ;
-          textarea.name = "textarea";
+          const textarea: HTMLTextAreaElement = document.createElement('textarea');
+          textarea.name = 'textarea';
           textarea.value = (this.value || '').toString();
           visual = textarea;
           break;
@@ -314,54 +318,56 @@ export class VisualComponent implements OnInit {
           visual.appendChild(texthold);
           break;
         case 'radio':
-            visual = document.createElement('form');
-            if (ThreeUtil.isNotNull(this.radioValues) && this.radioValues.length > 0) {
-              this.radioValues.forEach(radioValue => {
-                const label = document.createElement('label');
-                const radio = document.createElement('input');
-                radio.setAttribute('type', 'radio');
-                radio.setAttribute('name', 'radio');
-                radio.setAttribute('value', (radioValue.value || '').toString());
-                if (this.value !== null && radioValue.value == this.value) {
-                  radio.setAttribute('checked', 'checked');
-                }
-                label.appendChild(radio);
-                const radiotext = document.createElement('span');
-                radiotext.innerText = (radioValue.text || '');
-                label.appendChild(radiotext);
-                visual.appendChild(label);
-              });
-            }
-            texthold = document.createElement('span');
-            visual.appendChild(texthold);
-            break;
+          visual = document.createElement('form');
+          if (ThreeUtil.isNotNull(this.radioValues) && this.radioValues.length > 0) {
+            this.radioValues.forEach((radioValue) => {
+              const label = document.createElement('label');
+              const radio = document.createElement('input');
+              radio.setAttribute('type', 'radio');
+              radio.setAttribute('name', 'radio');
+              radio.setAttribute('value', (radioValue.value || '').toString());
+              if (this.value !== null && radioValue.value == this.value) {
+                radio.setAttribute('checked', 'checked');
+              }
+              label.appendChild(radio);
+              const radiotext = document.createElement('span');
+              radiotext.innerText = radioValue.text || '';
+              label.appendChild(radiotext);
+              visual.appendChild(label);
+            });
+          }
+          texthold = document.createElement('span');
+          visual.appendChild(texthold);
+          break;
         case 'button':
-          visual = document.createElement("button");
+          visual = document.createElement('button');
           break;
         case 'div':
         default:
-          visual = document.createElement("div");
+          visual = document.createElement('div');
           break;
       }
       if (visual.tagName !== 'IMG' && visual.tagName !== 'IFRAME') {
         switch (this.childType.toLowerCase()) {
-          case 'innerhtml': {
-            const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
-            if (texthold !== null) {
-              texthold.innerHTML = ele.innerHTML
-            } else {
-              visual.innerHTML = ele.innerHTML
+          case 'innerhtml':
+            {
+              const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
+              if (texthold !== null) {
+                texthold.innerHTML = ele.innerHTML;
+              } else {
+                visual.innerHTML = ele.innerHTML;
+              }
             }
-          }
             break;
-          case 'innertext': {
-            const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
-            if (texthold !== null) {
-              texthold.innerText = ele.innerText;
-            } else {
-              visual.innerText = ele.innerText;
+          case 'innertext':
+            {
+              const ele: HTMLElement = ThreeUtil.getChildElementSave(this.ele.nativeElement);
+              if (texthold !== null) {
+                texthold.innerText = ele.innerText;
+              } else {
+                visual.innerText = ele.innerText;
+              }
             }
-          }
             break;
         }
       }
@@ -379,8 +385,7 @@ export class VisualComponent implements OnInit {
       this.parentNode.appendChild(this.visual);
       this.applyHtmlStyle();
     }
-    this.synkObject2D(['html', 'transform', 'background', 'children','controller']);
+    this.synkObject2D(['html', 'transform', 'background', 'children', 'controller']);
     return this.visual;
   }
-
 }

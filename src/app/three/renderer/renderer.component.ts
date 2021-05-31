@@ -12,6 +12,7 @@ import { ControllerComponent } from '../controller/controller.component';
 import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { SharedComponent } from '../shared/shared.component';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ViewerComponent } from '../viewer/viewer.component';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
@@ -24,7 +25,7 @@ import { SceneComponent } from './../scene/scene.component';
   templateUrl: './renderer.component.html',
   styleUrls: ['./renderer.component.scss'],
 })
-export class RendererComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
+export class RendererComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
   @Input() public type: string = 'webgl';
   @Input() private css3dType: string = 'none';
   @Input() private controlType: string = 'none';
@@ -138,7 +139,9 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
     }
   }
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 
@@ -232,6 +235,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
         this.eventClick = this.removeWindowEvent('click', this.eventClick);
       }
     }
+    super.ngOnChanges(changes);
   }
 
   removeWindowEvent(type: string, listener: any) {
@@ -543,7 +547,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
             verticalMax: this.verticalMax,
             mouseDragOn: this.mouseDragOn,
             lookatList: this.lookatList,
-            target : this.target
+            target: this.target,
           });
           control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);
@@ -585,6 +589,7 @@ export class RendererComponent implements OnInit, AfterContentInit, AfterViewIni
 
   ngOnDestroy(): void {
     this.renderer = null;
+    super.ngOnDestroy();
   }
 
   ngAfterViewInit() {

@@ -1,17 +1,17 @@
-import { PhysicsComponent } from './../physics/physics.component';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper';
-import { RendererTimer, ThreeUtil } from './../interface';
-import { ClipComponent } from './../clip/clip.component';
-import { Component, OnInit, ContentChildren, QueryList, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { ClipComponent } from './../clip/clip.component';
+import { RendererTimer, ThreeUtil } from './../interface';
+import { PhysicsComponent } from './../physics/physics.component';
 
 @Component({
   selector: 'three-mixer',
   templateUrl: './mixer.component.html',
   styleUrls: ['./mixer.component.scss']
 })
-export class MixerComponent implements OnInit {
+export class MixerComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() public type: string = "mixer";
   @Input() private action: string = "";
@@ -82,7 +82,9 @@ export class MixerComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.delayTime, def);
   }
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.action) {
@@ -112,15 +114,18 @@ export class MixerComponent implements OnInit {
         // this.helper.pose(this.model, null);
       }
     }
+    super.ngOnChanges(changes);
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnDestroy(): void {
     if (this.mixer !== null) {
       this.mixer.stopAllAction();
     }
+    super.ngOnDestroy();
   }
 
   private mixer : THREE.AnimationMixer = null;
@@ -160,10 +165,6 @@ export class MixerComponent implements OnInit {
 
   private lastAction : string = null;
 
-  private _animationHelperSubscribe: Subscription = null;
-
-  private _animationHelperSubject:Subject<MMDAnimationHelper> = new Subject<MMDAnimationHelper>();
-
   private _physics : PhysicsComponent = null;
 
   private _ammo : any = null;
@@ -175,17 +176,13 @@ export class MixerComponent implements OnInit {
         this._ammo = this._physics.getAmmo();
         this.synkAnimationHelper(this.helper);
       } else {
-        const subscribe = this._physics.physicsSubscribe().subscribe(() => {
+        this.unSubscribeRefer('physics');
+        this.subscribeRefer('physics', ThreeUtil.getSubscribe(this._physics, () => {
           this._ammo = this._physics.getAmmo();
           this.synkAnimationHelper(this.helper);
-          subscribe.unsubscribe();
-        });
+        },'physics'))
       }
     }
-  }
-
-  animationHelperSubscribe() : Observable<MMDAnimationHelper>{
-    return this._animationHelperSubject.asObservable();
   }
 
   fadeToAction(endAction : string , duration? : number, restoreAction? : string, restoreDuration? : number ) {
@@ -294,11 +291,12 @@ export class MixerComponent implements OnInit {
                 resetPhysicsOnLoop: this.getResetPhysicsOnLoop()
               });
               this.synkAnimationHelper(this.helper);
-              this._animationHelperSubject.next(this.helper);
+              this.setSubscribeNext('animation');
             } else {
-              this.animationHelper.animationHelperSubscribe().subscribe((helper) => {
-                this.synkAnimationHelper(helper);
-              })
+              this.unSubscribeRefer('animation');
+              this.subscribeRefer('animation', ThreeUtil.getSubscribe(this.animationHelper, () => {
+                this.synkAnimationHelper(this.animationHelper.helper);
+              }, 'animation'));
               if (this.animationHelper.helper !== null) {
                 this.synkAnimationHelper(this.animationHelper.helper);
               }

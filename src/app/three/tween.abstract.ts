@@ -1,14 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  ContentChildren,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  SimpleChanges,
-} from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
@@ -17,27 +7,29 @@ import { TweenComponent } from './tween/tween.component';
 @Component({
   template: '',
 })
-export abstract class AbstractTweenComponent extends AbstractSubscribeComponent
-  implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+export abstract class AbstractTweenComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   @Input() protected tweenStart: boolean = true;
 
   @ContentChildren(TweenComponent, { descendants: false }) private tweenList: QueryList<TweenComponent>;
 
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.tweenStart && this.tweenTarget) {
       this.resetTween();
     }
+    super.ngOnChanges(changes);
   }
 
   ngAfterContentInit(): void {
-    if (this.tweenList !== null && this.tweenList !== undefined) {
-      this.tweenList.changes.subscribe((e) => {
-        this.resetTween();
-      });
-    }
+    this.subscribeListQuery(this.tweenList, 'tweenList', 'tween');
+    super.ngAfterContentInit();
+  }
+
+  protected synkObject(synkTypes: string[]) {
+    super.synkObject(synkTypes);
   }
 
   protected parent: THREE.Object3D | any = null;
@@ -68,12 +60,7 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent
   }
 
   resetTween() {
-    if (
-      ThreeUtil.isNotNull(this.tweenTarget) &&
-      ThreeUtil.isNotNull(this.tweenList) &&
-      this.tweenList.length > 0 &&
-      this.tweenStart
-    ) {
+    if (ThreeUtil.isNotNull(this.tweenTarget) && ThreeUtil.isNotNull(this.tweenList) && this.tweenList.length > 0 && this.tweenStart) {
       this.tweenTimer = new GSAP.TimelineLite();
       this.tweenList.forEach((tween) => {
         tween.getTween(this.tweenTimer, this.tweenTarget, this);

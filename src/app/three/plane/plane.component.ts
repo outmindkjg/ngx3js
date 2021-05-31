@@ -1,24 +1,26 @@
-import { Component, Input, Output, OnInit, EventEmitter, SimpleChanges } from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-plane',
   templateUrl: './plane.component.html',
-  styleUrls: ['./plane.component.scss']
+  styleUrls: ['./plane.component.scss'],
 })
-export class PlaneComponent implements OnInit {
-
+export class PlaneComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() private x: number = null;
   @Input() private y: number = null;
   @Input() private z: number = null;
   @Input() private w: number = null;
-  @Output() private onLoad:EventEmitter<PlaneComponent> = new EventEmitter<PlaneComponent>();
+  @Output() private onLoad: EventEmitter<PlaneComponent> = new EventEmitter<PlaneComponent>();
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -26,13 +28,20 @@ export class PlaneComponent implements OnInit {
       this.needUpdate = true;
       this.getPlane();
     }
+    super.ngOnChanges(changes);
   }
 
-  private plane : THREE.Plane = null;
-  private worldPlane : THREE.Plane = null;
-  private needUpdate : boolean = false;
+  private plane: THREE.Plane = null;
+  private worldPlane: THREE.Plane = null;
 
-  setPlane(x : number, y : number, z : number, w : number) {
+  set needUpdate(value : boolean) {
+    if (value && this.plane !== null) {
+      this.plane = null;
+      this.getPlane();
+    }
+  }
+  
+  setPlane(x: number, y: number, z: number, w: number) {
     if (ThreeUtil.isNotNull(x)) {
       this.x = x;
     }
@@ -52,7 +61,7 @@ export class PlaneComponent implements OnInit {
     }
   }
 
-  getWorldPlane(matrixWorld? : THREE.Matrix4) : THREE.Plane {
+  getWorldPlane(matrixWorld?: THREE.Matrix4): THREE.Plane {
     if (this.worldPlane === null) {
       this.worldPlane = new THREE.Plane();
     }
@@ -63,9 +72,9 @@ export class PlaneComponent implements OnInit {
     return this.worldPlane;
   }
 
-  getPlane() : THREE.Plane {
+  getPlane(): THREE.Plane {
     if (this.plane === null) {
-      this.plane = new THREE.Plane( ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));
+      this.plane = new THREE.Plane(ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));
       this.needUpdate = false;
       this.onLoad.emit(this);
     } else if (this.needUpdate) {

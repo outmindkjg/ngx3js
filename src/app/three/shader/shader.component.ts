@@ -1,25 +1,26 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { ThreeUtil } from '../interface';
-import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
-		
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
+
 @Component({
   selector: 'three-shader',
   templateUrl: './shader.component.html',
-  styleUrls: ['./shader.component.scss']
+  styleUrls: ['./shader.component.scss'],
 })
-export class ShaderComponent implements OnInit {
+export class ShaderComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() public type: string = 'x-shader/x-fragment';
+  @Input() private refShader: ShaderComponent = null;
 
-  @Input() public type:string = 'x-shader/x-fragment';
-  @Input() private refShader:ShaderComponent = null;
-
-  constructor(private ele : ElementRef) { }
-
-  ngOnInit(): void {
+  constructor(private ele: ElementRef) {
+    super();
   }
 
-  private shader : string = null;
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
-  getShader() : string {
+  private shader: string = null;
+
+  getShader(): string {
     if (this.shader === null) {
       if (this.refShader !== null) {
         this.shader = this.refShader.getShader();
@@ -29,5 +30,4 @@ export class ShaderComponent implements OnInit {
     }
     return this.shader;
   }
-
 }

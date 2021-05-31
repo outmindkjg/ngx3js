@@ -1,14 +1,14 @@
-import { Subject, Observable } from 'rxjs';
-import { RendererTimer, ThreeUtil } from './../interface';
 import { Component, Input, OnInit } from '@angular/core';
 import Ammo from 'ammojs-typed';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { RendererTimer, ThreeUtil } from './../interface';
 
 @Component({
   selector: 'three-physics',
   templateUrl: './physics.component.html',
   styleUrls: ['./physics.component.scss'],
 })
-export class PhysicsComponent implements OnInit {
+export class PhysicsComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() private gravity:number = null;
   @Input() private gravityX:number = null;
   @Input() private gravityY:number = null;
@@ -22,13 +22,16 @@ export class PhysicsComponent implements OnInit {
     return new this.ammo.btVector3(gravityX, gravityY, gravityZ);
   }
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     Ammo().then((AmmoLib: typeof Ammo) => {
       this.ammo = AmmoLib;
       this.getPhysics();
     });
+    super.ngOnInit();    
   }
 
   private ammo: typeof Ammo = null;
@@ -36,12 +39,6 @@ export class PhysicsComponent implements OnInit {
 
   getAmmo() {
     return this.ammo;
-  }
-
-  protected _physicsSubject: Subject<Ammo.btDynamicsWorld> = new Subject<Ammo.btDynamicsWorld>();
-
-  physicsSubscribe(): Observable<Ammo.btDynamicsWorld> {
-    return this._physicsSubject.asObservable();
   }
 
   getPhysics(): Ammo.btDiscreteDynamicsWorld {
@@ -64,7 +61,7 @@ export class PhysicsComponent implements OnInit {
       physics.setGravity(gravity);
       physics.getWorldInfo().set_m_gravity(gravity);
       this.physics = physics;
-      this._physicsSubject.next(this.physics);
+      this.setSubscribeNext('physics');
     }
     return this.physics;
   }

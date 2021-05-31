@@ -177,6 +177,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   }
   
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
   resetEffectComposer() {

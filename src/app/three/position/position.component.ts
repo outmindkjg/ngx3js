@@ -6,111 +6,90 @@ import { AbstractTweenComponent } from '../tween.abstract';
 @Component({
   selector: 'three-position',
   templateUrl: './position.component.html',
-  styleUrls: ['./position.component.scss']
+  styleUrls: ['./position.component.scss'],
 })
 export class PositionComponent extends AbstractTweenComponent implements OnInit {
+  @Input() public type: string = 'position';
+  @Input() private refer: any = null;
+  @Input() private x: number = null;
+  @Input() private y: number = null;
+  @Input() private z: number = null;
+  @Input() private multiply: number = null;
+  @Input() private normalize: boolean = false;
+  @Input() public camera: any = null;
 
-  @Input() public visible:boolean = true;
-  @Input() public type:string = "position";
-  @Input() private refer:any = null;
-  @Input() private referRef:boolean = true;
-  @Input() private x:number = null;
-  @Input() private y:number = null;
-  @Input() private z:number = null;
-  @Input() private multiply:number = null;
-  @Input() private normalize:boolean = false;
-  @Input() public camera:any = null;
-  
-  @Output() private onLoad:EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
+  @Output() private onLoad: EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.x || changes.y || changes.z || changes.refer || changes.multiply) {
       this.needUpdate = true;
     }
-    this.resetPosition();
+    super.ngOnChanges(changes);
   }
 
   private position: THREE.Vector3 = null;
-  private needUpdate : boolean = true;
-  setParent(parent: THREE.Object3D | any, isRestore: boolean = false) : boolean {
-    if (super.setParent(parent, isRestore)) {
-      if (isRestore && parent instanceof THREE.Object3D) {
-        this.position = null;
-        this.x = this.parent.position.x;
-        this.y = this.parent.position.y;
-        this.z = this.parent.position.z;
-      }
-      this.resetPosition();
-      return true;
-    }
-    return false;
-  }
-
-  resetPosition() {
-    if (this.parent !== null && this.visible) {
-      this.unSubscribeRefer('position');
-      if (this.parent instanceof THREE.Object3D ) {
-        if (this.type === 'position') {
-          this.parent.position.copy(this.getPosition());
-          if (this.refer !== null && this.referRef && this.refer.positionSubscribe) {
-            this.subscribeRefer('position', this.refer.positionSubscribe().subscribe(position => {
-              if (this.parent instanceof THREE.Object3D && this.visible) {
-                this.parent.position.copy(position);
-              }
-            }));
-          }
-          this.setTweenTarget(this.parent.position);
-        }
-      } else if (this.parent.meshPositions) {
-        this.parent.meshPositions.forEach(position => {
-          position.copy(this.getPosition());
-        });
-      }
-    } else if (this.needUpdate && this.position !== null) {
+  private _needUpdate: boolean = true;
+  set needUpdate(value : boolean) {
+    if (value && this.position !== null) {
+      this._needUpdate = true;
       this.getPosition();
     }
   }
 
-  getTagAttribute(options? : any) : TagAttributes {
+  setPosition(position: THREE.Vector3 | number, y? : number, z? : number) {
+    if (position instanceof THREE.Vector3) {
+      if (this.position !== position && ThreeUtil.isNotNull(position)) {
+        this.position = position;
+        this._needUpdate = true;
+        this.getPosition();
+      }
+    } else if (this.position !== null){
+      this.x = ThreeUtil.getTypeSafe(position, this.position.x);
+      this.y = ThreeUtil.getTypeSafe(y, this.position.y);
+      this.z = ThreeUtil.getTypeSafe(z, this.position.z);
+      this.needUpdate = true;
+    }
+  }
+
+  getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
       tag: 'three-position',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.position)) {
-      tagAttributes.attributes.push({ name : 'x', value : options.position.x });
-      tagAttributes.attributes.push({ name : 'y', value : options.position.y });
-      tagAttributes.attributes.push({ name : 'z', value : options.position.z });
+      tagAttributes.attributes.push({ name: 'x', value: options.position.x });
+      tagAttributes.attributes.push({ name: 'y', value: options.position.y });
+      tagAttributes.attributes.push({ name: 'z', value: options.position.z });
     } else {
-      tagAttributes.attributes.push({ name : 'x', value : this.x });
-      tagAttributes.attributes.push({ name : 'y', value : this.y });
-      tagAttributes.attributes.push({ name : 'z', value : this.z });
+      tagAttributes.attributes.push({ name: 'x', value: this.x });
+      tagAttributes.attributes.push({ name: 'y', value: this.y });
+      tagAttributes.attributes.push({ name: 'z', value: this.z });
     }
     return tagAttributes;
   }
 
-  _lastRefCamera : THREE.Camera = null;
-  _lastRefCameraBind : any = null;
+  _lastRefCamera: THREE.Camera = null;
+  _lastRefCameraBind: any = null;
   getPosition(): THREE.Vector3 {
-    if (this.position === null || this.needUpdate) {
-      this.needUpdate = false;
-      this.position = null;
+    if (this.position === null) {
+      this.position = new THREE.Vector3();
+    }
+    if (this._needUpdate) {
+      this._needUpdate = false;
+      let position : THREE.Vector3 = null;
       if (this.refer !== null && this.refer !== undefined) {
-        if (this.refer.getPosition) {
-          this.position = this.refer.getPosition();
-        } else if (this.refer instanceof THREE.Vector3) {
-          this.position = this.refer;
-        }
+        position = ThreeUtil.getPosition(this.refer);
       }
-      if (this.position === null) {
-        this.position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+      if (position === null) {
+        position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
         if (this.normalize) {
-          this.position.normalize();
+          position.normalize();
         }
         if (this.multiply !== null) {
-          this.position.multiplyScalar(this.multiply);
+          position.multiplyScalar(this.multiply);
         }
         if (this.camera !== null) {
-          const camera : THREE.Camera = ThreeUtil.isNotNull(this.camera.getCamera) ? this.camera.getCamera() : this.camera;
+          const camera: THREE.Camera = ThreeUtil.isNotNull(this.camera.getCamera) ? this.camera.getCamera() : this.camera;
           if (camera !== null) {
             if (this._lastRefCamera !== camera) {
               if (this._lastRefCameraBind === null) {
@@ -118,11 +97,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
                   this.needUpdate = true;
                   this.position = null;
                   setTimeout(() => {
-                    if (this.position === null){
+                    if (this.position === null) {
                       this.getPosition();
                     }
                   }, 10);
-                }
+                };
               }
               if (this._lastRefCamera !== null) {
                 camera.removeEventListener('change', this._lastRefCameraBind);
@@ -131,17 +110,18 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
               this._lastRefCamera = camera;
             }
             if (camera instanceof THREE.OrthographicCamera) {
-              this.position.x = (camera.right - camera.left) / 2 * this.position.x + (camera.right + camera.left) / 2;
-              this.position.y = (camera.top - camera.bottom) / 2 * this.position.y + (camera.top + camera.bottom) / 2;
-              this.position.applyQuaternion(camera.quaternion);
+              position.x = ((camera.right - camera.left) / 2) * position.x + (camera.right + camera.left) / 2;
+              position.y = ((camera.top - camera.bottom) / 2) * position.y + (camera.top + camera.bottom) / 2;
+              position.applyQuaternion(camera.quaternion);
             }
           }
         }
       }
-      if (this.visible) {
+      if (ThreeUtil.isNotNull(position)) {
+        this.position.copy(position);
         this.setSubscribeNext('position');
+        this.onLoad.emit(this);
       }
-      this.onLoad.emit(this);
     }
     return this.position;
   }
