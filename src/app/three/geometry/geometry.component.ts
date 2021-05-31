@@ -1280,20 +1280,19 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  setGeometry(geometry: THREE.BufferGeometry) {
-    if (this.geometry !== geometry && ThreeUtil.isNotNull(geometry)) {
-      this.geometry = geometry;
-      this._needUpdate = true;
+  private _meshGeometry : { geometry : THREE.BufferGeometry } = null;
+
+  setGeometry(meshGeometry : { geometry : THREE.BufferGeometry }) {
+    if (this._meshGeometry !== meshGeometry && ThreeUtil.isNotNull(meshGeometry)) {
+      this._meshGeometry = meshGeometry;
       this.getGeometry();
-      console.log('setGeometry');
     }
   }
 
-  _cashedGeometry : THREE.BufferGeometry = null;
   setSynkGeometry(geometry: THREE.BufferGeometry) {
-    if (ThreeUtil.isNotNull(geometry) && this._cashedGeometry !== geometry) {
-      if (this._cashedGeometry !== null) {
-        this._cashedGeometry.dispose();
+    if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
+      if (this.geometry !== null) {
+        this.geometry.dispose();
       }
       if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
         if (this.center) {
@@ -1388,9 +1387,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           geometry.computeBoundingSphere();
         }
       }
-      this._cashedGeometry = geometry;
-      if (this.geometry !== null && ThreeUtil.isNotNull(this._cashedGeometry.getAttribute('position'))) {
-        this.geometry.copy(this._cashedGeometry);  
+      this.geometry = geometry;
+      if (this._meshGeometry !== null && ThreeUtil.isNotNull(this.geometry.getAttribute('position'))) {
+        this._meshGeometry.geometry = this.geometry;  
         this.synkGeometry(['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale', 'align']);
         if (this.name !== null) {
           this.geometry.name = this.name;
@@ -1810,6 +1809,8 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         }
       }
       this.setSynkGeometry(geometry);
+    } else if (this._meshGeometry !== null && this._meshGeometry.geometry !== this.geometry) {
+      this._meshGeometry.geometry = this.geometry;
     }
     return this.geometry;
   }

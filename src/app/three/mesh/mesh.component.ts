@@ -686,23 +686,17 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           if (ThreeUtil.isNull(this.mesh.customDepthMaterial)) {
             this.mesh.customDepthMaterial = materialClone;
           }
-          if (material instanceof MaterialComponent) {
-            material.setMaterial(this.mesh.customDepthMaterial);
-          }
           break;
         case 'customdistance':
           if (ThreeUtil.isNull(this.mesh.customDistanceMaterial)) {
             this.mesh.customDistanceMaterial = materialClone;
           }
-          if (material instanceof MaterialComponent) {
-            material.setMaterial(this.mesh.customDistanceMaterial);
-          }
           break;
         default:
-          if (material instanceof MaterialComponent) {
-            material.setMaterial(this.mesh.material);
-          }
           break;
+      }
+      if (material instanceof MaterialComponent) {
+        material.setMaterial(this.mesh);
       }
     } else if (this.mesh !== null && this.mesh['material'] !== undefined) {
       if (ThreeUtil.isNull(this.mesh['material'])) {
@@ -841,12 +835,18 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             });
             break;
           case 'material':
-            if (this.material !== null) {
-              this.setMaterial(this.material);
-            } else {
-              this.materialList.forEach((material, idx) => {
-                this.setMaterial(material);
-              });
+            const meshMaterial = this.mesh instanceof THREE.Group ? this.mesh.children[0] : this.mesh;
+            if (meshMaterial !== null && meshMaterial instanceof THREE.Mesh) {
+              if (this.material !== null) {
+                const material = ThreeUtil.getMaterial(this.material);
+                if (meshMaterial.material !== material) {
+                  meshMaterial.material = material;
+                }
+              } else if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
+                this.materialList.forEach((material) => {
+                  material.setMaterial(meshMaterial);
+                });
+              }
             }
             break;
           case 'geometry':
@@ -858,7 +858,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                   meshGeometry.geometry = geometry;
                 }
               } else if (ThreeUtil.isNotNull(this.geometryList) && this.geometryList.length > 0) {
-                this.geometryList.first.setGeometry(meshGeometry.geometry);
+                this.geometryList.first.setGeometry(meshGeometry);
               }
             }
             break;
