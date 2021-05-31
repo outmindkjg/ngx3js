@@ -356,9 +356,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             break;
           case 'materials':
             this.materialList.forEach((material) => {
-              if (material.visible) {
-                this.setMaterial(material);
-              }
+              material.setMaterial(this.scene);
             });
             break;
         }
@@ -432,7 +430,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
             }, 'textureloaded')
           );
-  
         } else {
           this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);
         }
@@ -463,6 +460,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           }
         }
       }
+
       if (ThreeUtil.isNull(this.scene.userData.component)) {
         this.scene.userData.component = this;
       }
