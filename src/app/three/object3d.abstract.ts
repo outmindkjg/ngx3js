@@ -428,6 +428,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               this.scaleList.forEach((scale) => {
                 scale.setScale(this.object3d.scale);
               });
+              this.object3d.updateMatrix();
             }
             if (!this.object3d.matrixAutoUpdate) {
               this.object3d.updateMatrix();

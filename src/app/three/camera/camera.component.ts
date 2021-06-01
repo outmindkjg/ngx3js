@@ -294,7 +294,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (super.setParent(parent, isRestore)) {
       if (isRestore) {
         this.object3d = parent;
-        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helpers', 'lights', 'controller']);
+        this.synkObject3D(['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
       } else {
         this.resetCamera(true);
       }
@@ -377,7 +377,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
             });
             break;
           case 'light':
-            this.listenerList.forEach((light) => {
+            this.lightList.forEach((light) => {
               light.setParent(this.camera);
             });
             break;

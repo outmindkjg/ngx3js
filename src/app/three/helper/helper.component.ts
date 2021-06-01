@@ -407,9 +407,10 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           this.helper.applyMatrix4(this.matrix);
         }
         this.helper.visible = this.getVisible(true);
-        this.setObject3D(this.helper, false);
+        this.setObject3D(this.helper, this.helper.parent === null);
         this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'controller']);
         this.setSubscribeNext('helper');
+        console.log(this.helper);
         this.onLoad.emit(this);
       } else {
         this.helper = null;

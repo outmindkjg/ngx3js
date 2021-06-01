@@ -1281,9 +1281,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  private _meshGeometry : { geometry : THREE.BufferGeometry } = null;
+  private _meshGeometry : { geometry : THREE.BufferGeometry, material: THREE.Material | THREE.Material[] } = null;
 
-  setMesh(meshGeometry : { geometry : THREE.BufferGeometry }) {
+  setMesh(meshGeometry : { geometry : THREE.BufferGeometry, material: THREE.Material | THREE.Material[] }) {
     if (this._meshGeometry !== meshGeometry && ThreeUtil.isNotNull(meshGeometry)) {
       this._meshGeometry = meshGeometry;
       if (this.geometry !== null) {
@@ -1379,7 +1379,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         if (this.computeBoundingBox) {
           geometry.computeBoundingBox();
         }
-        if (this.computeBoundingSphere) {
+        if (this.computeBoundingSphere || ThreeUtil.isNotNull(this.textAlign)) {
           geometry.computeBoundingSphere();
         }
         if (this.toNonIndexed) {

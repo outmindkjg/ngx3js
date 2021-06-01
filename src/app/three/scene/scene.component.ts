@@ -104,15 +104,15 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.meshList, 'meshList', 'meshes');
+    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
     this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
     this.subscribeListQuery(this.audioList, 'audioList', 'audio');
     this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
     this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
     this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
     this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.lightList, 'lightList', 'lights');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helpers');
+    this.subscribeListQuery(this.lightList, 'lightList', 'light');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
     this.subscribeListQuery(this.cameraList, 'cameraList', 'cameras');
     this.subscribeListQuery(this.materialList, 'materialList', 'material');
     super.ngAfterContentInit();
@@ -305,12 +305,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               camera.setParent(this.scene);
             });
             break;
-          case 'lights':
+          case 'light':
             this.lightList.forEach((light) => {
               light.setParent(this.scene);
             });
             break;
-          case 'helpers':
+          case 'helper':
             this.helperList.forEach((helper) => {
               helper.setParent(this.scene);
             });
@@ -379,7 +379,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
     if (!this._sceneSynked) {
       this._sceneSynked = true;
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'material', 'mesh', 'viewer', 'lights', 'helpers', 'cameras', 'physics', 'fog', 'scenecontroller']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'material', 'mesh', 'viewer', 'light', 'helper', 'cameras', 'physics', 'fog', 'scenecontroller']);
     }
     return this.scene;
   }

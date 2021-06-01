@@ -67,12 +67,14 @@ export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
   }
 
   setGeometry(geometry : THREE.BufferGeometry) {
+    console.log(geometry);
     if (geometry.attributes.position) {
       const colors = [];
       for ( let i = 0, n = geometry.attributes.position.count; i < n; ++ i ) {
         colors.push( 0, 0, 0 );
       }
       geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+      geometry.getAttribute( 'color' ).needsUpdate = true;
     }
   }
 }

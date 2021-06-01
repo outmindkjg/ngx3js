@@ -74,7 +74,7 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
 
   checkIntersection( mouse : THREE.Vector2 ):THREE.Intersection {
     if ( ThreeUtil.isNull(this.mesh ) || ThreeUtil.isNull(this.camera )) return null;
-    const intersection = this.camera.getIntersection(mouse, this.mesh.getMesh().children , true );
+    const intersection = this.camera.getIntersection(mouse, this.mesh.getMesh() , true );
     if (intersection !== null && this.mouseHelper !== null) {
       const p = intersection.point;
       const mouseHelper = this.mouseHelper.getMesh();

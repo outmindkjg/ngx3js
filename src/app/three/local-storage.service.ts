@@ -214,18 +214,9 @@ export class LocalStorageService {
             object.position.x += object.position.x - center.x;
             object.position.y += object.position.y - center.y;
             object.position.z += object.position.z - center.z;
+            result.object = new THREE.Group();
+            result.object.add(object);
           }
-          /*
-          this._loadedObject[safeKey] = {
-            object: ThreeUtil.isNotNull(result.object) ? result.object.clone(true) : null,
-            material: ThreeUtil.isNotNull(result.material) ? result.material : null,
-            geometry: ThreeUtil.isNotNull(result.geometry) ? result.geometry.clone() : null,
-            texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
-            clips: result.clips,
-            morphTargets: result.morphTargets,
-            source: result.source
-          };
-          */
           callBack(result);
         },
         options
