@@ -114,7 +114,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.subscribeListQuery(this.lightList, 'lightList', 'lights');
     this.subscribeListQuery(this.helperList, 'helperList', 'helpers');
     this.subscribeListQuery(this.cameraList, 'cameraList', 'cameras');
-    this.subscribeListQuery(this.materialList, 'materialList', 'materials');
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
     super.ngAfterContentInit();
   }
 
@@ -233,34 +233,26 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
         case 'environment-background-angular':
         case 'backgroundenvironmentangular':
         case 'environmentbackgroundangular':
-          if (map !== null) {
-            this.unSubscribeRefer('background');
+          this.unSubscribeRefer('background');
+          if (map) {
             this.setBackgroundTexture(map, materialType);
-            this.subscribeRefer('background', ThreeUtil.getSubscribe(material, () => {
-              this.setMaterial(material, materialTypeHint);              
-            },'textureloaded'));
           } else {
             switch (materialType.toLowerCase()) {
               case 'environment':
-              case 'environment-angular':
-              case 'environmentangular':
-              case 'background-environment-angular':
-              case 'environment-background-angular':
-              case 'backgroundenvironmentangular':
-              case 'environmentbackgroundangular':
-                this.scene.environment = null;
-                break;
-              case 'background':
-              case 'background-angular':
-              case 'backgroundangular':
-                if (color !== null) {
-                  this.scene.background = color;
-                } else {
-                  this.scene.background = null;
-                }
-                break;
+                case 'background':
+                case 'background-angular':
+                case 'backgroundangular':
+                case 'background-environment-angular':
+                case 'backgroundenvironmentangular':
+                  if (ThreeUtil.isNotNull(color)) {
+                    this.scene.background = color;
+                  }
+                  break;
             }
           }
+          this.subscribeRefer('background', ThreeUtil.getSubscribe(material, () => {
+            this.setMaterial(material, materialTypeHint);              
+          },'material'));
           break;
         case 'material':
         case 'overrideMaterial':
@@ -354,9 +346,9 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               controller.setScene(this.scene);
             });
             break;
-          case 'materials':
+          case 'material':
             this.materialList.forEach((material) => {
-              material.setMaterial(this.scene);
+              this.setMaterial(material);
             });
             break;
         }
@@ -387,7 +379,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
     if (!this._sceneSynked) {
       this._sceneSynked = true;
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'materials', 'mesh', 'viewer', 'lights', 'helpers', 'cameras', 'physics', 'fog', 'scenecontroller']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'material', 'mesh', 'viewer', 'lights', 'helpers', 'cameras', 'physics', 'fog', 'scenecontroller']);
     }
     return this.scene;
   }

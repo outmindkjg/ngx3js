@@ -800,6 +800,18 @@ export class ThreeUtil {
     return safeColor;
   }
 
+  static getParseFloat(value : string, max : number = 1): number {
+    if (/^(\+|\-|)[0-9]+(\.|)[0-9]*$/.test(value)) {
+      return parseFloat(value);
+    } else {
+      switch(value.toLowerCase()) {
+        case 'random' :
+        default :
+          return Math.random() * max;
+      }
+    }
+  }
+
   static getColorSafe(color: string | number | THREE.Color, altColor?: string | number | THREE.Color, nullColor?: string | number | THREE.Color): THREE.Color {
     const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
     if (this.isNotNull(defColor)) {
@@ -820,14 +832,14 @@ export class ThreeUtil {
             .split(',');
           switch (type.toLowerCase()) {
             case 'hsl':
-              const h = this.isNotNull(val1) && val1 !== '' ? parseFloat(val1) : Math.random();
-              const s = this.isNotNull(val2) && val2 !== '' ? parseFloat(val2) : Math.random();
-              const l = this.isNotNull(val3) && val3 !== '' ? parseFloat(val3) : Math.random();
+              const h = this.getParseFloat(val1);
+              const s = this.getParseFloat(val2);
+              const l = this.getParseFloat(val3);
               return new THREE.Color().setHSL(h, s, l);
             case 'rgb':
-              const r = this.isNotNull(val1) && val1 !== '' ? parseFloat(val1) : Math.random() * 255;
-              const g = this.isNotNull(val2) && val2 !== '' ? parseFloat(val2) : Math.random() * 255;
-              const b = this.isNotNull(val3) && val3 !== '' ? parseFloat(val3) : Math.random() * 255;
+              const r = this.getParseFloat(val1,255);
+              const g = this.getParseFloat(val2,255);
+              const b = this.getParseFloat(val3,255);
               return new THREE.Color(r / 255, g / 255, b / 255);
           }
         }
@@ -1289,11 +1301,11 @@ export class ThreeUtil {
     return new THREE.BufferGeometry();
   }
 
-  static getSubscribe(object: any, callBack: (key?: string) => void, nextKey? : string): Subscription {
+  static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {
     if (this.isNotNull(object.getSubscribe)) {
       return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
         if (this.isNull(nextKey)) {
-          callBack();
+          callBack('anyevent');
         } else {
           switch(nextKey.toLowerCase()) {
             case 'lookat' :
@@ -1324,6 +1336,11 @@ export class ThreeUtil {
             case 'material' :
               if (keyList.indexOf('mesh') > -1 || keyList.indexOf('material') > -1) {
                 callBack('material');
+              }
+              break;
+            case 'texture' :
+              if (keyList.indexOf('material') > -1 || keyList.indexOf('texture') > -1 || keyList.indexOf('textureloaded') > -1) {
+                callBack('texture');
               }
               break;
             default :
@@ -1436,7 +1453,6 @@ export class ThreeUtil {
         return true;
       }
     }
-    console.log(texture);
     return false;
   }
 

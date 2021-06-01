@@ -43,9 +43,14 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
   setLookAt(lookat: THREE.Vector3 | number, y? : number, z? : number) {
     if (lookat instanceof THREE.Vector3) {
       if (this.lookat !== lookat && ThreeUtil.isNotNull(lookat)) {
-        this.lookat = lookat;
-        this._needUpdate = true;
-        this.getLookAt();
+        if (this.lookat !== null) {
+          lookat.copy(this.lookat);
+          this.lookat = lookat;
+        } else {
+          this.lookat = lookat;
+          this._needUpdate = true;
+          this.getLookAt();
+        }
       }
     } else if (this.lookat !== null){
       this.x = ThreeUtil.getTypeSafe(lookat, this.lookat.x);

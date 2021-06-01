@@ -57,19 +57,22 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 
   setRotation(rotation: THREE.Euler | number, y? : number, z? : number) {
     if (rotation instanceof THREE.Euler) {
-      if (this.rotation !== rotation) {
-        this.rotation = rotation;
-        this._needUpdate = true;
-        this.getRotation();
-        return true;
+      if (this.rotation !== rotation && ThreeUtil.isNotNull(rotation)) {
+        if (this.rotation !== null) {
+          rotation.copy(this.rotation);
+          this.rotation = rotation;
+        } else {
+          this.rotation = rotation;
+          this._needUpdate = true;
+          this.getRotation();
+        }
       }
     } else if (this.rotation !== null){
-      this.x = ThreeUtil.getTypeSafe(rotation, this.rotation.x);
+      this.x = ThreeUtil.getTypeSafe(rotation , this.rotation.x);
       this.y = ThreeUtil.getTypeSafe(y, this.rotation.y);
       this.z = ThreeUtil.getTypeSafe(z, this.rotation.z);
       this.needUpdate = true;
     }
-    return false;
   }
 
   getRotation(): THREE.Euler {

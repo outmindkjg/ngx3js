@@ -187,7 +187,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   }
 
   public isMaterialType(materialType: string): boolean {
-    return this.materialType.toLowerCase() === materialType.toLowerCase();
+    return this.materialType.toLowerCase() === materialType.toLowerCase() && (this.visible === null || this.visible);
   }
 
   private getShading(def?: string): THREE.Shading {
@@ -409,12 +409,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         const texture = ThreeUtil.getTexture(map, name);
         this.subscribeRefer(
           name,
-          ThreeUtil.getSubscribe(map, () => {
-            const newTexture = ThreeUtil.getTexture(map, name);
-            if (texture !== newTexture) {
-              texture.copy(newTexture);
-            }
-          })
+          ThreeUtil.getSubscribe(
+            map,
+            (event) => {
+              this.addChanges(event);
+            },
+            'texture'
+          )
         );
         return texture;
       }
@@ -470,7 +471,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       const foundTexture = this.textureList.find((texture) => {
         return texture.textureType.toLowerCase() === type;
       });
-      if (foundTexture !== null && foundTexture !== undefined) {
+      if (ThreeUtil.isNotNull(foundTexture)) {
         return foundTexture.getTexture();
       }
     }
@@ -998,7 +999,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       }
     });
     if (this.debug) {
-      console.log('material-uniforms', resultUniforms);
+      this.consoleLog('material-uniforms', resultUniforms);
     }
     return resultUniforms;
   }
@@ -1134,10 +1135,23 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && ThreeUtil.isNotNull(this.textureList)) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes.type || changes.storageName) {
+      this.needUpdate = true;
+    } else {
+      this.addChanges(changes);
+    }
+  }
+
+  applyChanges() {
+    const changes = this.getChanges();
+    if (changes.length > 0) {
+      if (changes.indexOf('type') > -1) {
+        this.needUpdate = true;
+      } else {
+        this.synkObject(changes);
+      }
+    }
   }
 
   private _needUpdate: boolean = true;
@@ -1149,22 +1163,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     }
   }
   private _meshMaterial: {
-    material?: THREE.Material | THREE.Material[];
+    geometry : THREE.BufferGeometry;
+    material: THREE.Material | THREE.Material[];
     customDepthMaterial?: THREE.Material;
     customDistanceMaterial?: THREE.Material;
-    overrideMaterial?: THREE.Material;
-    background?: THREE.Texture | THREE.Color | THREE.WebGLCubeRenderTarget;
-    environment?: THREE.Texture;
   } = null;
 
-  setMaterial(meshMaterial: { 
-    material?: THREE.Material | THREE.Material[];
-    customDepthMaterial?: THREE.Material;
-    customDistanceMaterial?: THREE.Material;
-    overrideMaterial?: THREE.Material;
-    background?: THREE.Texture | THREE.Color | THREE.WebGLCubeRenderTarget;
-    environment?: THREE.Texture;
-  }) {
+  setMesh(meshMaterial: { geometry : THREE.BufferGeometry; material: THREE.Material | THREE.Material[]; customDepthMaterial?: THREE.Material; customDistanceMaterial?: THREE.Material }) {
     if (this._meshMaterial !== meshMaterial && ThreeUtil.isNotNull(meshMaterial)) {
       this._meshMaterial = meshMaterial;
       this.getMaterial();
@@ -1659,13 +1664,47 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       }
       this._setMaterial(material);
     } else {
-      this._setMaterial(this.material);
+      this._setMaterial(null);
     }
     return this.material;
   }
 
+  protected synkTexture(texture: any, textureType: string) {
+    if (ThreeUtil.isNotNull(texture) && this.material !== null && this.material[textureType] !== undefined) {
+      this.material[textureType] = ThreeUtil.getTexture(texture);
+    }
+  }
+
+  protected synkObject(synkTypes: string[]) {
+    if (this.material !== null) {
+      synkTypes.forEach((synkType) => {
+        switch (synkType.toLowerCase()) {
+          case 'texture':
+            this.synkTexture(this.envMap, 'envMap');
+            this.synkTexture(this.map, 'map');
+            this.synkTexture(this.specularMap, 'specularMap');
+            this.synkTexture(this.alphaMap, 'alphaMap');
+            this.synkTexture(this.bumpMap, 'bumpMap');
+            this.synkTexture(this.normalMap, 'normalMap');
+            this.synkTexture(this.aoMap, 'aoMap');
+            this.synkTexture(this.displacementMap, 'displacementMap');
+            if (ThreeUtil.isNotNull(this.textureList)) {
+              this.textureList.forEach((texture) => {
+                texture.setMaterial(this.material);
+              });
+            }
+            this.material.needsUpdate = true;
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    super.synkObject(synkTypes);
+  }
+
   private _setMaterial(material: THREE.Material) {
-    if (this.material !== material) {
+    if (this.material !== material && ThreeUtil.isNotNull(material)) {
       if (this.material !== null) {
         this.material.dispose();
       }
@@ -1680,9 +1719,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       }
       material.userData.materialType = this.materialType.toLowerCase();
       this.material = material;
+      this.synkObject(['texture']);
+      if (this.debug) {
+        this.consoleLog('material', this.material);
+      }
       this.setSubscribeNext('material');
     }
-    if (this._meshMaterial !== null) {
+    if (this._meshMaterial !== null && (this.visible === null || this.visible)) {
       switch (this.materialType.toLowerCase()) {
         case 'customdepth':
           if (this._meshMaterial.customDepthMaterial !== this.material) {
@@ -1692,22 +1735,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         case 'customdistance':
           if (this._meshMaterial.customDistanceMaterial !== this.material) {
             this._meshMaterial.customDistanceMaterial = this.material;
-          }
-          break;
-        case 'overridematerial':
-        case 'override':
-          if (this._meshMaterial.overrideMaterial !== this.material) {
-            this._meshMaterial.overrideMaterial = this.material;
-          }
-          break;
-        case 'background' :
-          if (this._meshMaterial.background !== this.material['map']) {
-            this._meshMaterial.background = this.material['map'];
-          }
-          break;
-        case 'environment' :
-          if (this._meshMaterial.environment !== this.material['map']) {
-            this._meshMaterial.environment = this.material['map'];
           }
           break;
         case 'material':
@@ -1721,8 +1748,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
           }
           break;
       }
-    } else {
-      console.log(this.materialType);
     }
   }
 

@@ -209,9 +209,29 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   }
 
   private helper: THREE.Object3D = null;
+  private _refererTarget : THREE.Object3D = null;
+
+  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
+    if (super.setParent(parent, isRestore)) {
+      if (isRestore) {
+        this.object3d = parent;
+        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'controller']);
+      } else {
+        this.getHelper();
+      }
+      return true;
+    } else {
+      if (this._refererTarget !== this.parent) {
+        this.helper = null;
+        this.getHelper();
+      }
+    }
+    return false;
+  }
 
   public getHelper(): THREE.Object3D {
     if (this.helper === null) {
+      this._refererTarget = this.parent;
       if (this.helper !== null && this.helper.parent) {
         this.helper.parent.remove(this.helper);
       }

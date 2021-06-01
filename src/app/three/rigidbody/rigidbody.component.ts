@@ -544,7 +544,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       this.parent.userData.physicsBody = body;
       this.parent.userData.physicsComponent = this;
       this.parent.addEventListener('collision' , (e) => {
-        console.log('collision', e);
+        this.consoleLog('collision', e);
       })
       this.onLoad.emit(this);
     }

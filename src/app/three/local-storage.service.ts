@@ -235,13 +235,17 @@ export class LocalStorageService {
 
   public setLoaderWithOption(loader: THREE.Loader, options: any) {
     if (ThreeUtil.isNotNull(options)) {
-      if (ThreeUtil.isNotNull(options.resourcePath)) {
-        loader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
+      if (ThreeUtil.isNotNull(loader.setResourcePath)) {
+        if (ThreeUtil.isNotNull(options.resourcePath)) {
+          loader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
+        }
       }
-      if (ThreeUtil.isNotNull(options.path)) {
-        loader.setPath(ThreeUtil.getStoreUrl(options.path));
-      } else {
-        loader.setPath('');
+      if (ThreeUtil.isNotNull(loader.setPath)) {
+        if (ThreeUtil.isNotNull(options.path)) {
+          loader.setPath(ThreeUtil.getStoreUrl(options.path));
+        } else {
+          loader.setPath('');
+        }
       }
     }
     return loader;
@@ -693,8 +697,6 @@ export class LocalStorageService {
           this.gltfLoader.setMeshoptDecoder(MeshoptDecoder);
         }
       }
-      console.log(key);
-      console.log(options);
       this.setLoaderWithOption(this.gltfLoader, options);
       this.gltfLoader.load(
         key,
@@ -906,7 +908,6 @@ export class LocalStorageService {
       this.xLoader.load(
         key,
         (object: XResult) => {
-          console.log(object.models);
           callBack({
             object: object.models[0],
             source: object,
@@ -1321,6 +1322,8 @@ export class LocalStorageService {
       (result) => {
         if (result.texture instanceof THREE.Texture) {
           callBack(result.texture, result.source);
+        } else if (result.material instanceof THREE.Material && result.material['map'] instanceof THREE.Texture) {
+          callBack(result.material['map'], result.source);
         } else {
           callBack(new THREE.Texture());
         }
@@ -1339,6 +1342,10 @@ export class LocalStorageService {
       (result) => {
         if (result.material instanceof THREE.Material) {
           callBack(result.material, result.source);
+        } else if (result.texture instanceof THREE.Texture) {
+          const material = new THREE.MeshLambertMaterial();
+          material.map = result.texture;
+          callBack(material, result.source);
         }
       },
       options
@@ -1470,7 +1477,9 @@ export class LocalStorageService {
         break;
     }
     if (ThreeUtil.isNotNull(this._loadedFonts[fontPath])) {
-      callBack(this._loadedFonts[fontPath]);
+      setTimeout(() => {
+        callBack(this._loadedFonts[fontPath]);
+      }, 1);
     } else {
       if (fontPath.endsWith('.ttf')) {
         if (this.ttfLoader === null) {

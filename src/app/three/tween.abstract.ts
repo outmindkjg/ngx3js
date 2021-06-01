@@ -17,10 +17,18 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.tweenStart && this.tweenTarget) {
-      this.resetTween();
-    }
     super.ngOnChanges(changes);
+    if (changes) {
+      if (changes.tweenStart && this.tweenTarget) {
+        this.resetTween();
+      }
+      if (changes.tweenStart) {
+        delete changes.tweenStart;
+      }
+      if (changes.tweenTarget) {
+        delete changes.tweenTarget;
+      }
+    }
   }
 
   ngAfterContentInit(): void {

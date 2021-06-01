@@ -39,9 +39,14 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   setPosition(position: THREE.Vector3 | number, y? : number, z? : number) {
     if (position instanceof THREE.Vector3) {
       if (this.position !== position && ThreeUtil.isNotNull(position)) {
-        this.position = position;
-        this._needUpdate = true;
-        this.getPosition();
+        if (this.position !== null) {
+          position.copy(this.position);
+          this.position = position;
+        } else {
+          this.position = position;
+          this._needUpdate = true;
+          this.getPosition();
+        }
       }
     } else if (this.position !== null){
       this.x = ThreeUtil.getTypeSafe(position, this.position.x);

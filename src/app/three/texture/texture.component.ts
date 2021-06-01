@@ -57,6 +57,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private add: number | string = null;
   @Input() private rotation: number = null;
   @Input() private flipY: boolean = null;
+  @Input() private debug: boolean = false;
 
   @Output() private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
@@ -115,13 +116,15 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.texture !== null) {
-      this.needUpdate = true;
-    }
+    super.ngOnChanges(changes);
     if (changes.useDropImage) {
       this.setUseDropImage(this.useDropImage);
     }
-    super.ngOnChanges(changes);
+    if (changes && changes.image) {
+      this.needUpdate = true;
+    } else {
+      this.addChanges(changes);
+    }
   }
 
   set needUpdate(value: boolean) {
@@ -509,7 +512,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           if (ThreeUtil.isNotNull(image) && image !== '') {
             this.cubeTextureLoader.setPath(ThreeUtil.getStoreUrl(image));
           }
-          return this.cubeTextureLoader.load(cubeImage, () => {
+          return this.cubeTextureLoader.load(cubeImage, (cubeTexture) => {
             onLoad();
           });
       }
@@ -692,6 +695,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if ((ThreeUtil.isNotNull(this.offsetX) && ThreeUtil.isNotNull(this.offsetY)) || ThreeUtil.isNotNull(this.offset)) {
       options.offset = this.getOffset(0, 0);
     }
+    if (this.debug) {
+      this.consoleLog('texture-option', options);
+    }
     return options;
   }
 
@@ -699,7 +705,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if (options == {}) {
       return;
     }
-    console.log(options);
     Object.entries(options).forEach(([key, value]) => {
       if (ThreeUtil.isNotNull(value)) {
         switch (key.toLowerCase()) {
@@ -744,6 +749,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             break;
           case 'generatemipmaps':
             texture.generateMipmaps = ThreeUtil.getTypeSafe(value, true);
+            if (texture.generateMipmaps) {
+              texture.mipmaps = [];
+            }
             break;
           case 'encoding':
             texture.encoding = ThreeUtil.getTextureEncodingSafe(value, 'linear');
@@ -758,6 +766,58 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       }
     });
     return texture;
+  }
+  private _material: THREE.Material = null;
+  setMaterial(material: THREE.Material) {
+    if (ThreeUtil.isNotNull(material) && this._material !== material) {
+      this._material = material;
+      if (this.texture !== null) {
+        this.applyMaterial();
+      } else {
+        this.getTexture();
+      }
+    }
+  }
+
+  private applyMaterial() {
+    if (this._material !== null && this.texture !== null) {
+      switch (this.textureType.toLowerCase()) {
+        case 'env':
+        case 'envmap':
+          this._material['envMap'] = this.texture;
+          break;
+        case 'specular':
+        case 'specularmap':
+          this._material['specularMap'] = this.texture;
+          break;
+        case 'alpha':
+        case 'alphamap':
+          this._material['alphaMap'] = this.texture;
+          break;
+        case 'bump':
+        case 'bumpmap':
+          this._material['bumpMap'] = this.texture;
+          break;
+        case 'normal':
+        case 'normalmap':
+          this._material['normalMap'] = this.texture;
+          break;
+        case 'ao':
+        case 'aomap':
+          this._material['aoMap'] = this.texture;
+          break;
+        case 'displace':
+        case 'displacement':
+        case 'displacementmap':
+          this._material['displacementMap'] = this.texture;
+          break;
+        case 'map':
+        default:
+          this._material['map'] = this.texture;
+          break;
+      }
+      this._material.needsUpdate = true;
+    }
   }
 
   getTexture() {
@@ -795,10 +855,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           this.storageName,
           (texture) => {
             if (texture !== null) {
-              this.texture.copy(texture);
+              this.texture = texture;
               TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
               this.texture.needsUpdate = true;
-              this.setSubscribeNext('textureloaded')
+              this.setSubscribeNext(['texture','textureloaded']);
             }
           },
           this.storageOption
@@ -811,13 +871,13 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         } else {
           this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null), () => {
             this.texture.needsUpdate = true;
-            console.log('textureloaded');
-            this.setSubscribeNext('textureloaded')
+            this.setSubscribeNext(['texture','textureloaded']);
           });
         }
         this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
       }
       TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+      this.applyMaterial();
       this.onLoad.emit(this);
       this.setSubscribeNext('texture');
     }

@@ -257,6 +257,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   @Input() private tessellate: boolean = null;
   @Input() private maxEdgeLength: number = null;
   @Input() private maxIterations: number = null;
+  @Input() private debug: boolean = false;
 
   @Output() private onLoad: EventEmitter<GeometryComponent> = new EventEmitter<GeometryComponent>();
 
@@ -440,7 +441,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         });
         if (this.geometry !== null) {
           this.geometry.setFromPoints(points);
-          this.synkGeometry(['align']);
+          this.synkObject(['align']);
         }
       });
     } else {
@@ -1219,7 +1220,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  synkGeometry(synkTypes: string[]) {
+  synkObject(synkTypes: string[]) {
     if (this.geometry !== null) {
       synkTypes.forEach((synkType) => {
         switch (synkType) {
@@ -1276,20 +1277,24 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       });
-      this.clearChanges();
+      super.synkObject(synkTypes);
     }
   }
 
   private _meshGeometry : { geometry : THREE.BufferGeometry } = null;
 
-  setGeometry(meshGeometry : { geometry : THREE.BufferGeometry }) {
+  setMesh(meshGeometry : { geometry : THREE.BufferGeometry }) {
     if (this._meshGeometry !== meshGeometry && ThreeUtil.isNotNull(meshGeometry)) {
       this._meshGeometry = meshGeometry;
-      this.getGeometry();
+      if (this.geometry !== null) {
+        this._meshGeometry.geometry = this.geometry;
+      } else {
+        this.getGeometry();
+      }
     }
   }
 
-  setSynkGeometry(geometry: THREE.BufferGeometry) {
+  private _setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
       if (this.geometry !== null) {
         this.geometry.dispose();
@@ -1374,6 +1379,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         if (this.computeBoundingBox) {
           geometry.computeBoundingBox();
         }
+        if (this.computeBoundingSphere) {
+          geometry.computeBoundingSphere();
+        }
         if (this.toNonIndexed) {
           geometry.toNonIndexed();
         }
@@ -1383,23 +1391,25 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             uv.setY(i, 1 - uv.getY(i));
           }
         }
-        if (this.computeBoundingSphere) {
-          geometry.computeBoundingSphere();
-        }
       }
       this.geometry = geometry;
-      if (this._meshGeometry !== null && ThreeUtil.isNotNull(this.geometry.getAttribute('position'))) {
-        this._meshGeometry.geometry = this.geometry;  
-        this.synkGeometry(['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale', 'align']);
-        if (this.name !== null) {
-          this.geometry.name = this.name;
-        }
-        if (ThreeUtil.isNotNull(this.onInit)) {
-          this.onInit(this.geometry);
-        }
-        this.onLoad.emit(this);
-        this.setSubscribeNext('geometry');
+      if (ThreeUtil.isNotNull(this.name)) {
+        this.geometry.name = this.name;
       }
+      if (ThreeUtil.isNotNull(this.geometry.getAttribute('position'))) {
+        this.synkObject(['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale', 'align']);
+      }
+      if (ThreeUtil.isNotNull(this.onInit)) {
+        this.onInit(this.geometry);
+      }
+      if (this._meshGeometry !== null) {
+        this._meshGeometry.geometry = this.geometry;  
+      }
+      this.onLoad.emit(this);
+      if (this.debug) {
+        this.consoleLog('geometry', this.geometry);
+      }
+      this.setSubscribeNext('geometry');
     }
   }
 
@@ -1413,10 +1423,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   }
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.geometry === null) {
-      this.geometry = new THREE.BufferGeometry();
-    }
-    if (this._needUpdate) {
+    if (this.geometry === null || this._needUpdate) {
       this._needUpdate = false;
       let geometry: THREE.BufferGeometry = null;
       if (this.refer !== null && this.refer !== undefined) {
@@ -1427,7 +1434,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         geometry = new THREE.BufferGeometry();
-        this.localStorageService.getGeometry(this.storageName, (geometry, model: THREE.Object3D) => {
+        this.localStorageService.getGeometry(this.storageName, (loadGeometry, model: THREE.Object3D) => {
           if (model !== null && this.storage2Buffer) {
             let count = 0;
             model.traverse((child: THREE.Mesh) => {
@@ -1446,11 +1453,11 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
               }
             });
             const positions = new THREE.BufferAttribute(combined, 3);
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', positions.clone());
-            this.setSynkGeometry(geometry);
+            const loadGeometry = new THREE.BufferGeometry();
+            loadGeometry.setAttribute('position', positions.clone());
+            this._setGeometry(loadGeometry);
           } else {
-            this.setSynkGeometry(geometry);
+            this._setGeometry(loadGeometry);
           }
         });
       }
@@ -1655,7 +1662,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                   });
                   break;
               }
-              this.setSynkGeometry(shapeGeometry);
+              this._setGeometry(shapeGeometry);
             });
             break;
           case 'icosahedronbuffergeometry':
@@ -1753,7 +1760,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                 case 'textbuffer':
                 case 'text':
                 default:
-                  this.setSynkGeometry(new THREE.TextBufferGeometry(this.getText('test'), textParameters));
+                  this._setGeometry(new THREE.TextBufferGeometry(this.getText('test'), textParameters));
                   break;
               }
             });
@@ -1808,7 +1815,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       }
-      this.setSynkGeometry(geometry);
+      this._setGeometry(geometry);
     } else if (this._meshGeometry !== null && this._meshGeometry.geometry !== this.geometry) {
       this._meshGeometry.geometry = this.geometry;
     }

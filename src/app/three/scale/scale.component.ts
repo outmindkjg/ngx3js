@@ -43,12 +43,17 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
   setScale(scale: THREE.Vector3 | number, y? : number, z? : number) {
     if (scale instanceof THREE.Vector3) {
       if (this.scale !== scale && ThreeUtil.isNotNull(scale)) {
-        this.scale = scale;
-        this._needUpdate = true;
-        this.getScale();
+        if (this.scale !== null) {
+          scale.copy(this.scale);
+          this.scale = scale;
+        } else {
+          this.scale = scale;
+          this._needUpdate = true;
+          this.getScale();
+        }
       }
-    } else if (this.scale !== null){
-      this.x = ThreeUtil.getTypeSafe(scale, this.scale.x);
+    } else if (this.scale !== null ){
+      this.x = ThreeUtil.getTypeSafe(scale as number, this.scale.x);
       this.y = ThreeUtil.getTypeSafe(y, this.scale.y);
       this.z = ThreeUtil.getTypeSafe(z, this.scale.z);
       this.needUpdate = true;

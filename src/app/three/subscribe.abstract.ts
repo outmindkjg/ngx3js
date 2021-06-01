@@ -1,12 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  SimpleChanges
-} from '@angular/core';
+import { AfterContentInit, Component, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ThreeUtil } from './interface';
 
@@ -14,22 +6,20 @@ import { ThreeUtil } from './interface';
   template: '',
 })
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
-
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnDestroy(): void {
     if (this._subscribe !== null) {
       for (let key in this._subscribe) {
         this._subscribe[key].unsubscribe();
       }
-      this._subscribe = {}
+      this._subscribe = {};
     }
     if (this._subscribeList !== null) {
       for (let key in this._subscribeList) {
-        this._subscribeList[key].forEach(subscribe => {
+        this._subscribeList[key].forEach((subscribe) => {
           subscribe.unsubscribe();
         });
       }
@@ -37,18 +27,23 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
-  ngAfterContentInit() : void {}
+  ngAfterContentInit(): void {}
 
-  private _changeList : string[] = null;
-  
-  protected addChanges(key : string | SimpleChanges) {
+  private _changeList: string[] = null;
+
+  protected checkChanges(changes: SimpleChanges): SimpleChanges {
+    return changes;
+  }
+
+  protected consoleLog(key: string, object: any): void {
+    // console.trace(key, object);
+  }
+
+  private _applychangeBind: any = null;
+
+  protected addChanges(key: string | SimpleChanges) {
     if (this._changeList === null) {
       this._changeList = [];
-    }
-    if (this._changeList.length == 0) {
-      setTimeout(() => {
-        this.applyChanges();
-      },1);
     }
     if (typeof key === 'string') {
       if (this._changeList.indexOf(key) === -1) {
@@ -61,22 +56,36 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         }
       });
     }
+    if (this._applychangeBind === null && this._changeList.length > 0) {
+      this._applychangeBind = setTimeout(() => {
+        this._applychangeBind = null;
+        if (this._changeList !== null && this._changeList.length > 0) {
+          this.applyChanges();
+        }
+      }, 5);
+    }
   }
 
-  protected getChanges() : string[] {
-    return this._changeList || [];
+  protected getChanges(): string[] {
+    const changes: string[] = [];
+    (this._changeList || []).forEach((change) => {
+      changes.push(change);
+    });
+    this._changeList = [];
+    return changes;
   }
 
   protected clearChanges() {
-    this._changeList = null;
-  }
-  
-  protected applyChanges() {
+    this.consoleLog('changeList', this._changeList);
     this._changeList = null;
   }
 
+  protected applyChanges() {
+    this.getChanges();
+  }
+
   protected synkObject(synkTypes: string[]) {
-    this.clearChanges();
+    this.consoleLog('synkTypes', synkTypes);
   }
 
   private _subject: Subject<string[]> = new Subject<string[]>();
@@ -84,19 +93,14 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   public getSubscribe(): Observable<string[]> {
     return this._subject.asObservable();
   }
-  private _subscribeNext : string[] = [];
 
-  protected setSubscribeNext(key : string | string[]) {
-    if (this._subscribeNext.length == 0) {
-      setTimeout(() => {
-        if (this._subscribeNext.length > 0) {
-          this._subject.next(this._subscribeNext);
-          this._subscribeNext = [];
-        }
-      },10);
-    }
+  private _subscribeNext: string[] = [];
+
+  private _subscribeTimeout: any = null;
+
+  protected setSubscribeNext(key: string | string[]) {
     if (Array.isArray(key)) {
-      key.forEach(subKey => {
+      key.forEach((subKey) => {
         subKey = subKey.toLowerCase();
         if (this._subscribeNext.indexOf(subKey) === -1) {
           this._subscribeNext.push(subKey);
@@ -108,6 +112,19 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         this._subscribeNext.push(key);
       }
     }
+    if (this._subscribeTimeout === null && this._subscribeNext.length > 0) {
+      this._subscribeTimeout = setTimeout(() => {
+        this._subscribeTimeout = null;
+        if (this._subscribeNext.length > 0) {
+          const subscribeNext: string[] = [];
+          this._subscribeNext.forEach((text) => {
+            subscribeNext.push(text);
+          });
+          this._subscribeNext = [];
+          this._subject.next(subscribeNext);
+        }
+      }, 30);
+    }
   }
 
   protected unSubscription(subscriptions: Subscription[]): Subscription[] {
@@ -118,7 +135,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
     return [];
   }
-
 
   private _subscribe: { [key: string]: Subscription } = {};
 
@@ -142,40 +158,31 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected unSubscribeReferList(key: string) {
     if (ThreeUtil.isNotNull(this._subscribeList[key])) {
-      this._subscribeList[key].forEach(subscribe => {
+      this._subscribeList[key].forEach((subscribe) => {
         subscribe.unsubscribe();
-      })
+      });
       delete this._subscribeList[key];
     }
   }
 
   protected subscribeReferList(key: string, subscription: Subscription) {
+    if (ThreeUtil.isNull(this._subscribeList[key])) {
+      this._subscribeList[key] = [];
+    }
     if (ThreeUtil.isNotNull(subscription)) {
-      if (ThreeUtil.isNull(this._subscribeList[key])) {
-        this._subscribeList[key] = [];
-      }
       this._subscribeList[key].push(subscription);
     }
   }
 
-  protected subscribeListQuery(queryList : QueryList<any>, subscribeKey : string, changeKey : string) {
+  protected subscribeListQuery(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
-      const callBack = () => {
-        this.unSubscribeReferList(subscribeKey);
-        queryList.forEach((query) => {
-          this.subscribeReferList(
-            subscribeKey,
-            ThreeUtil.getSubscribe(query, () => {
-              this.addChanges(changeKey);
-            }, changeKey)
-          );
-        });
-      }
-      queryList.changes.subscribe((e) => {
-        callBack();
-      });
-      callBack();
+      this.unSubscribeReferList(subscribeKey);
+      this.subscribeReferList(
+        subscribeKey,
+        queryList.changes.subscribe(() => {
+          this.addChanges(changeKey);
+        })
+      );
     }
   }
-
 }

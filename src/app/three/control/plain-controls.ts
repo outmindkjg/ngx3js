@@ -2,7 +2,9 @@ import * as THREE from 'three';
 
 export class PlainControls {
   constructor(private camera: THREE.Camera, private domElement: HTMLElement) { 
-    if ( domElement === undefined ) console.warn( 'THREE.PlainControls: The second parameter "domElement" is now mandatory.' );
+    if ( domElement === undefined ) {
+      console.warn( 'THREE.PlainControls: The second parameter "domElement" is now mandatory.' );
+    }
     this.handleResize();
     this.cameraPosition = camera.position.clone();
     setTimeout(() => {

@@ -501,6 +501,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     let controls: ControlComponent[] = [];
     if (cameraComp !== null && cameraComp !== undefined) {
       const camera: THREE.Camera = cameraComp.getCamera();
+      this.unSubscribeRefer('control-camera');
       // const scene: THREE.Scene = scenes.first.getScene();
       switch (controlType.toLowerCase()) {
         case 'orbit':
@@ -558,6 +559,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           controls.push(control);
         });
       }
+      this.subscribeRefer('control-camera', ThreeUtil.getSubscribe(cameraComp, () => {
+        this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
+      },'camera'));
     }
     return controls;
   }

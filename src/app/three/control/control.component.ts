@@ -123,6 +123,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 
   setCameraDomElement(camera : THREE.Camera, domElement : HTMLElement, scene : QueryList<SceneComponent>) {
     if (this._camera !== camera || this._domElement !== domElement || this._scene !== scene) {
+      if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
+        this.control.dispose();
+      }
       this._camera = camera;
       this._domElement = domElement;
       this._scene = scene;
@@ -245,7 +248,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
             csmScene = csmScene.getSceneDumpy();
           }
           if (!(csmScene instanceof THREE.Scene)) {
-            console.error('error Scene');
+            this.consoleLog('error Scene', csmScene);
             csmScene = new THREE.Scene();
           }
           let csmCamera = ThreeUtil.getTypeSafe(this.camera, this._camera, {});
@@ -253,7 +256,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
             csmCamera = csmCamera.getCamera();
           }
           if (!(csmCamera instanceof THREE.Camera)) {
-            console.error('error Camera');
+            this.consoleLog('error Camera', csmCamera);
             csmCamera = new THREE.Camera();
           }
           const csm = new CSM({

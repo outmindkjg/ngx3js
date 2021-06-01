@@ -117,6 +117,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       switch (this.type.toLowerCase()) {
         case 'orthographiccamera':
         case 'orthographic':
+        case 'ortho':
           switch (zoom.toLowerCase()) {
             case 'auto':
               const fov = THREE.MathUtils.degToRad(this.getFov(50));
@@ -243,12 +244,33 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   private clips: THREE.AnimationClip[] = null;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.type) {
-      this.camera = null;
-    }
     super.ngOnChanges(changes);
+    if (changes.type || changes.storageName) {
+      this.needUpdate = true;
+    } else {
+      this.addChanges(changes);
+    }
   }
 
+  applyChanges() {
+    const changes = this.getChanges();
+    if (changes.length > 0) {
+      if (changes.indexOf('type') > -1) {
+        this.needUpdate = true;
+      } else {
+        this.synkObject3D(changes);
+      }
+    }
+  }
+
+  set needUpdate(value: boolean) {
+    if (value && this.camera !== null) {
+      this.camera = null;
+      this.getCamera();
+      this.clearChanges();
+    }
+  }
+  
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererScenes: QueryList<any>;
@@ -349,17 +371,17 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
               });
             }
             break;
-          case 'helpers':
+          case 'helper':
             this.helperList.forEach((helper) => {
               helper.setParent(this.camera);
             });
             break;
-          case 'lights':
+          case 'light':
             this.listenerList.forEach((light) => {
               light.setParent(this.camera);
             });
             break;
-          case 'cameras':
+          case 'camera':
             this.cameraList.forEach((camera) => {
               camera.setParent(this.camera);
             });
@@ -511,6 +533,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           break;
         case 'orthographiccamera':
         case 'orthographic':
+        case 'ortho':
           const orthographicCamera = new THREE.OrthographicCamera(this.getLeft(width), this.getRight(width), this.getTop(height), this.getBottom(height), this.getNear(-200), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.zoom)) {
             orthographicCamera.zoom = this.getZoom(1);
@@ -519,6 +542,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           break;
         case 'perspectivecamera':
         case 'perspective':
+        case 'per':
         default:
           const perspectiveCamera = new THREE.PerspectiveCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.focalLength)) {
@@ -540,14 +564,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
-          (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry) => {
+          (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
             this.clips = clips;
             this.synkObject3D(['mixer']);
           },
           { object: this.camera }
         );
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'helpers', 'lights', 'cameras', 'audio', 'mixer']);
+      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'helper', 'light', 'camera', 'audio', 'mixer']);
+      this.clearChanges();
       this.setSubscribeNext('camera');
       this.onLoad.emit(this);
     }
@@ -569,7 +594,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   private _cubeRenderCount = 0;
 
   render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any>, renderTimer: RendererTimer) {
-    if (!this.active || this.isCameraChild || !this.camera.visible) {
+    if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }
     const camera = this.getCamera();
