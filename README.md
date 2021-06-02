@@ -41,6 +41,7 @@ ng g c three/canvas
 ng g c three/visual
 ng g c three/transform
 ng g c three/controller
+ng g c three/controller/controller-item
 ng g c three/physics
 ng g c three/rigidbody
 ng g c three/control

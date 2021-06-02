@@ -1,24 +1,50 @@
-import { Component, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
-import { RendererTimer } from '../interface';
+import { RendererTimer, ThreeUtil } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
+import { ControllerItemComponent } from './controller-item/controller-item.component';
 
 @Component({
   selector: 'three-controller',
   templateUrl: './controller.component.html',
-  styleUrls: ['./controller.component.scss']
+  styleUrls: ['./controller.component.scss'],
 })
 export class ControllerComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() private controller: { new (ref3d: THREE.Object3D, ref2d: HtmlCollection): AbstractThreeController } | string = 'auto';
+  @Input() private params: { [key: string]: any } = null;
+  @Input() private curve: string = null;
+  @Input() private scale: number = null;
+  @Input() private scaleX: number = null;
+  @Input() private scaleY: number = null;
+  @Input() private scaleZ: number = null;
+  @Input() private rotationX: number = null;
+  @Input() private rotationY: number = null;
+  @Input() private rotationZ: number = null;
+  @Input() private centerX: number = null;
+  @Input() private centerY: number = null;
+  @Input() private centerZ: number = null;
+  @Input() private duration: number = null;
+  @Input() private delta: number = null;
+  @Input() private multiply: number = null;
+  @Input() private options: string = null;
+  @Input() private visible: boolean = null;
+  @Input() private color: string | number | THREE.Color = null;
+  @Input() private opacity: number = null;
+  @Input() private useEvent: boolean = false;
+  @Input() private eventSeqn: number = 1000;
+  @Input() private tubularSegments: number = null;
+  @Input() private radius: number = null;
+  @Input() private radiusSegments: number = null;
+  @Input() private closed: boolean = null;
 
-  @Input() private controller:{ new(ref3d : THREE.Object3D, ref2d : HtmlCollection) : AbstractThreeController } | string = null;
-  @Input() private params:{ [key : string] : any} = null;
+  @ContentChildren(ControllerItemComponent, { descendants: false }) controllerItemList: QueryList<ControllerItemComponent>;
 
-  constructor() { 
+  constructor() {
     super();
   }
 
@@ -27,26 +53,26 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this._controller !== null) {
+    super.ngOnChanges(changes);
+    if (changes) {
       if (changes.controller) {
         this.needUpdate = true;
       } else if (changes.params && this._controller !== null) {
         this._controller.setVariables(this.params);
       }
     }
-    super.ngOnChanges(changes);
   }
 
-  set needUpdate(value : boolean) {
-    if (value && this._controller !== null) {
-      this._controller = null;
-      this.getController();
+  set needUpdate(value: boolean) {
+    if (value && this._needUpdate == false) {
+      this._needUpdate = true;
+      this.resetRenderer();
     }
   }
 
-  private _controller : AbstractThreeController = null;
-  private parent : THREE.Object3D = null;
-  private refObject2d : HtmlCollection = null;
+  private _controller: AbstractThreeController = null;
+  private parent: THREE.Object3D = null;
+  private refObject2d: HtmlCollection = null;
 
   setObject3D(parent: THREE.Object3D) {
     if (this.parent !== parent) {
@@ -62,32 +88,44 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-	private _renderer : THREE.Renderer = null;
-	private _scenes : QueryList<SceneComponent> = null;
-	private _cameras : QueryList<CameraComponent> = null;
-  private _canvas2ds : QueryList<CanvasComponent> = null;
-  private _scene : THREE.Scene = null;
-  private _canvas : HtmlCollection = null;
+  private _renderer: THREE.Renderer = null;
+  private _scenes: QueryList<SceneComponent> = null;
+  private _cameras: QueryList<CameraComponent> = null;
+  private _canvas2ds: QueryList<CanvasComponent> = null;
+  private _scene: THREE.Scene = null;
+  private _canvas: HtmlCollection = null;
 
-  setRenderer(renderer : THREE.Renderer, scenes : QueryList<SceneComponent>, cameras : QueryList<CameraComponent>, canvas2ds : QueryList<CanvasComponent>) {
-		this._renderer = renderer;
-		this._scenes = scenes;
+  setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
+    this._renderer = renderer;
+    this._scenes = scenes;
     this._cameras = cameras;
     this._canvas2ds = canvas2ds;
     this.resetRenderer();
   }
 
-  setScene(scene : THREE.Scene) {
+  setScene(scene: THREE.Scene) {
     this._scene = scene;
     this.resetRenderer();
   }
 
-  setCanvas(canvas : HtmlCollection) {
+  setCanvas(canvas: HtmlCollection) {
     this._canvas = canvas;
     this.resetRenderer();
   }
 
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.controllerItemList, 'controllerItemList', 'controlleritem');
+    super.ngAfterContentInit();
+    this.resetRenderer();
+  }
+
   resetRenderer() {
+    if (this._needUpdate) {
+      this.getController();
+    }
+    if (this.parent !== null && this.parent.parent !== null && this._helper !== null && this._helper.parent === null) {
+      this.parent.parent.add(this._helper);
+    }
     if (this._controller !== null && this._renderer !== null) {
       this._controller.setRenderer(this._renderer, this._scenes, this._cameras, this._canvas2ds);
       if (this._scene !== null) {
@@ -99,41 +137,127 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-  resetController() {
-    this._controller = null;
-    this.getController();
-  }
+  private _needUpdate: boolean = true;
+  private _helper: THREE.Object3D = null;
+  private _controllerItems: ControllerItemComponent[] = null;
 
-
-  getController() : AbstractThreeController {
-    if ((this.parent !== null || this.refObject2d) && this._controller === null) {
-      let controller : any = null; 
+  getController(): void {
+    if ((this.parent !== null || this.refObject2d !== null) && this._needUpdate && ThreeUtil.isNotNull(this.controllerItemList)) {
+      if (this._helper !== null && this._helper.parent !== null) {
+        this._helper.parent.remove(this._helper);
+      }
+      this._helper = null;
+      this._controllerItems = [];
+      this._needUpdate = false;
+      this._controller = null;
+      let controller: any = null;
       if (typeof this.controller === 'string') {
-        switch(this.controller.toLowerCase()) {
-          case 'uniforms' :
+        switch (this.controller.toLowerCase()) {
+          case 'uniforms':
             controller = AutoUniformsController;
+            break;
+          default:
+            controller = this.controller;
             break;
         }
       } else {
         controller = this.controller;
       }
-      this._controller = new controller(this.parent, this.refObject2d);
-      this.resetRenderer();
-      this._controller.setVariables(this.params);
-      this._controller.awake();
+      if (ThreeUtil.isNotNull(controller)) {
+        if (typeof controller === 'string') {
+          switch (controller.toLowerCase()) {
+            case 'positionlookat':
+            case 'position':
+            case 'scale':
+            case 'rotation':
+            case 'lookat':
+              const controllerItem = new ControllerItemComponent();
+              controllerItem.setControlParams({
+                type: controller,
+                curve: this.curve,
+                scale: this.scale,
+                scaleX: this.scaleX,
+                scaleY: this.scaleY,
+                scaleZ: this.scaleZ,
+                rotationX: this.rotationX,
+                rotationY: this.rotationY,
+                rotationZ: this.rotationZ,
+                centerX: this.centerX,
+                centerY: this.centerY,
+                centerZ: this.centerZ,
+                duration: this.duration,
+                delta: this.delta,
+                multiply: this.multiply,
+                options: this.options,
+              });
+              this._controllerItems.push(controllerItem.getController());
+              break;
+          }
+          if (ThreeUtil.isNotNull(this.controllerItemList) && this.controllerItemList.length > 0) {
+            this.controllerItemList.forEach((controllerItem) => {
+              this._controllerItems.push(controllerItem.getController());
+            });
+          }
+          if (this._controllerItems.length === 0) {
+            this._controllerItems = null;
+          } else if (this.visible) {
+            let helperPath: THREE.Curve<THREE.Vector3> = null;
+            this._controllerItems.forEach((item) => {
+              switch (item.type.toLowerCase()) {
+                case 'positionlookat':
+                case 'position':
+                  helperPath = item.getPath();
+                  break;
+                case 'lookat':
+                  if (helperPath === null) {
+                    helperPath = item.getPath();
+                  }
+                  break;
+              }
+            });
+            if (helperPath !== null) {
+              this._helper = new THREE.Mesh(
+                new THREE.TubeGeometry(helperPath, ThreeUtil.getTypeSafe(this.tubularSegments, 64), ThreeUtil.getTypeSafe(this.radius, 0.01), ThreeUtil.getTypeSafe(this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.closed, false)),
+                new THREE.MeshBasicMaterial({
+                  color: ThreeUtil.getColorSafe(this.color, 0xff0000),
+                  opacity: ThreeUtil.getTypeSafe(this.opacity, 0.2),
+                  depthTest: true,
+                  side: THREE.DoubleSide,
+                })
+              );
+            }
+          }
+          console.log(this._controllerItems);
+        } else {
+          this._controller = new controller(this.parent, this.refObject2d);
+          this.resetRenderer();
+          this._controller.setVariables(this.params);
+          this._controller.awake();
+        }
+      }
     }
-    return this._controller;
   }
 
-  logSeqn : number = 0;
-  update(rendererTimer : RendererTimer) {
+  private _logSeqn: number = 0;
+
+  update(rendererTimer: RendererTimer) {
     if (this._controller !== null) {
       this._controller.update(rendererTimer);
-    } else {
-      this.logSeqn++;
-      if (this.logSeqn % 300 === 0) {
-        console.log(rendererTimer);
+    } else if (this.parent !== null && this._controllerItems !== null) {
+      const elapsedTime = rendererTimer.elapsedTime;
+      const events: string[] = [];
+      this._controllerItems.forEach((item) => {
+        item.update(elapsedTime, this.parent, events);
+      });
+      if (this.useEvent && events.length > 0) {
+        if (this._logSeqn % this.eventSeqn === 0 && ThreeUtil.isNotNull(this.parent.userData.component) && ThreeUtil.isNotNull(this.parent.userData.component.setSubscribeNext)) {
+          this.parent.userData.component.setSubscribeNext(events);
+        }
+        this.consoleLogTime('events', events);
+        this._logSeqn++;
       }
+    } else {
+      this.consoleLogTime('controller', rendererTimer);
     }
   }
 }

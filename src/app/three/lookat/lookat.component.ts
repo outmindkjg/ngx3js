@@ -13,6 +13,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private x: number = null;
   @Input() private y: number = null;
   @Input() private z: number = null;
+  @Input() private speed: number = 0.1;
   @Output() private onLoad: EventEmitter<LookatComponent> = new EventEmitter<LookatComponent>();
 
   constructor() {
@@ -60,10 +61,30 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getLookAt(): THREE.Vector3 {
-    if (this.lookat === null) {
-      this.lookat = new THREE.Vector3();
+  _lastLookat : THREE.Vector3 = null;
+  _lastLookatBind : any = null;
+  protected setLookatTarget(lookat : THREE.Vector3) {
+    if (this._lastLookat !== lookat && lookat !== null) {
+      this._lastLookat = lookat;
     }
+    if (this._lastLookat !== null && this.lookat !== null) {
+      this.lookat.lerp(this._lastLookat, this.speed);
+      if (this.lookat.distanceTo(this._lastLookat) > 0.01) {
+        if (this._lastLookatBind === null) {
+          this._lastLookatBind = setTimeout(() => {
+            this._lastLookatBind = null;
+            this.setLookatTarget(null);
+          }, 0.01);
+        }
+      } else {
+        this.lookat.copy(this._lastLookat);
+        this.setSubscribeNext('lookat');
+        this.onLoad.emit(this);
+      }
+    }
+  }
+
+  getLookAt(): THREE.Vector3 {
     if (this._needUpdate) {
       this._needUpdate = false;
       let lookat: THREE.Vector3 = null;
@@ -84,7 +105,11 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
       if (lookat === null) {
         lookat = ThreeUtil.getVector3Safe(this.x, this.y, this.z, null, null, true);
       }
-      if (lookat !== null) {
+      if (lookat !== null && this.lookat !== null) {
+          this.setLookatTarget(lookat);
+      }
+      if (this.lookat === null) {
+        this.lookat = new THREE.Vector3();
         this.lookat.copy(lookat);
         this.setSubscribeNext('lookat');
         this.onLoad.emit(this);

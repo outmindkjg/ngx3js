@@ -35,6 +35,14 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return changes;
   }
 
+  private _logTimeSeqn : number = 0;
+  protected consoleLogTime(key: string, object: any): void {
+    this._logTimeSeqn ++;
+    if (this._logTimeSeqn % 300 === 0) {
+      console.log(key, object);
+    }
+  }
+
   protected consoleLog(key: string, object: any): void {
     // console.trace(key, object);
   }
@@ -98,7 +106,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   private _subscribeTimeout: any = null;
 
-  protected setSubscribeNext(key: string | string[]) {
+  public setSubscribeNext(key: string | string[]) {
     if (Array.isArray(key)) {
       key.forEach((subKey) => {
         subKey = subKey.toLowerCase();

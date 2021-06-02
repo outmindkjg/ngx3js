@@ -554,6 +554,7 @@ import { TweenComponent } from './three/tween/tween.component';
 import { ViewerComponent } from './three/viewer/viewer.component';
 import { VisualComponent } from './three/visual/visual.component';
 import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
+import { ControllerItemComponent } from './three/controller/controller-item/controller-item.component';
 
 
 @NgModule({
@@ -1109,7 +1110,8 @@ import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
     WebglPmremTestComponent,
     MiscUvTestsComponent,
     WebglMirrorNodesComponent,
-    GeometryBirdComponent
+    GeometryBirdComponent,
+    ControllerItemComponent
   ],
   imports: [
     BrowserModule,

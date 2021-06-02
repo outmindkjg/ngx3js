@@ -378,7 +378,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
     if (super.setParent(parent, isRestore)) {
-      console.log(parent);
       this.resetLight(true);
       return true;
     }

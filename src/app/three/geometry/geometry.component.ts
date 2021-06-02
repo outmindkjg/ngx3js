@@ -691,8 +691,6 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         return new Curves.KnotCurve();
       case 'helixcurve':
         return new Curves.HelixCurve();
-      case 'helixcurve':
-        return new Curves.HelixCurve();
       case 'trefoilknot':
         return new Curves.TrefoilKnot(this.getScale());
       case 'torusknot':
