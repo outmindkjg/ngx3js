@@ -123,9 +123,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     if (this._needUpdate) {
       this.getController();
     }
-    if (this.parent !== null && this.parent.parent !== null && this._helper !== null && this._helper.parent === null) {
-      this.parent.parent.add(this._helper);
-    }
     if (this._controller !== null && this._renderer !== null) {
       this._controller.setRenderer(this._renderer, this._scenes, this._cameras, this._canvas2ds);
       if (this._scene !== null) {
@@ -138,15 +135,10 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   }
 
   private _needUpdate: boolean = true;
-  private _helper: THREE.Object3D = null;
   private _controllerItems: ControllerItemComponent[] = null;
 
   getController(): void {
     if ((this.parent !== null || this.refObject2d !== null) && this._needUpdate && ThreeUtil.isNotNull(this.controllerItemList)) {
-      if (this._helper !== null && this._helper.parent !== null) {
-        this._helper.parent.remove(this._helper);
-      }
-      this._helper = null;
       this._controllerItems = [];
       this._needUpdate = false;
       this._controller = null;
@@ -190,44 +182,17 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
                 multiply: this.multiply,
                 options: this.options,
               });
-              this._controllerItems.push(controllerItem.getController());
+              this._controllerItems.push(controllerItem.getController(this.parent));
               break;
           }
           if (ThreeUtil.isNotNull(this.controllerItemList) && this.controllerItemList.length > 0) {
             this.controllerItemList.forEach((controllerItem) => {
-              this._controllerItems.push(controllerItem.getController());
+              this._controllerItems.push(controllerItem.getController(this.parent));
             });
           }
           if (this._controllerItems.length === 0) {
             this._controllerItems = null;
-          } else if (this.visible) {
-            let helperPath: THREE.Curve<THREE.Vector3> = null;
-            this._controllerItems.forEach((item) => {
-              switch (item.type.toLowerCase()) {
-                case 'positionlookat':
-                case 'position':
-                  helperPath = item.getPath();
-                  break;
-                case 'lookat':
-                  if (helperPath === null) {
-                    helperPath = item.getPath();
-                  }
-                  break;
-              }
-            });
-            if (helperPath !== null) {
-              this._helper = new THREE.Mesh(
-                new THREE.TubeGeometry(helperPath, ThreeUtil.getTypeSafe(this.tubularSegments, 64), ThreeUtil.getTypeSafe(this.radius, 0.01), ThreeUtil.getTypeSafe(this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.closed, false)),
-                new THREE.MeshBasicMaterial({
-                  color: ThreeUtil.getColorSafe(this.color, 0xff0000),
-                  opacity: ThreeUtil.getTypeSafe(this.opacity, 0.2),
-                  depthTest: true,
-                  side: THREE.DoubleSide,
-                })
-              );
-            }
           }
-          console.log(this._controllerItems);
         } else {
           this._controller = new controller(this.parent, this.refObject2d);
           this.resetRenderer();
@@ -244,16 +209,14 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     if (this._controller !== null) {
       this._controller.update(rendererTimer);
     } else if (this.parent !== null && this._controllerItems !== null) {
-      const elapsedTime = rendererTimer.elapsedTime;
       const events: string[] = [];
       this._controllerItems.forEach((item) => {
-        item.update(elapsedTime, this.parent, events);
+        item.update(rendererTimer, this.parent, events);
       });
       if (this.useEvent && events.length > 0) {
         if (this._logSeqn % this.eventSeqn === 0 && ThreeUtil.isNotNull(this.parent.userData.component) && ThreeUtil.isNotNull(this.parent.userData.component.setSubscribeNext)) {
           this.parent.userData.component.setSubscribeNext(events);
         }
-        this.consoleLogTime('events', events);
         this._logSeqn++;
       }
     } else {

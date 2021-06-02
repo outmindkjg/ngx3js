@@ -47,14 +47,15 @@
         [height]="1"
         [depth]="1"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'meshlambert'" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
       <three-controller 
-        [controller]="'positionlookat'"
-        [curve]="'line'" 
+        [controller]="'auto'"
         [visible]="true"
         [useEvent]="true"
       >
-        <three-controller-item [type]="'scale'" [curve]="'circlewave'"></three-controller-item>
+        <three-controller-item [type]="'positionlookat'" [curve]="'helixcurve'" [radius]="50" [duration]="30" [visible]="true" [options]="'absy'"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'color'" [curve]="'circle'" [radiusX]="9" [radiusY]="1" [radiusZ]="1" [duration]="30"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'opacity'" [curve]="'line'" [radius]="15" [duration]="30"></three-controller-item>
       </three-controller>
     </three-mesh>
   </three-scene>
