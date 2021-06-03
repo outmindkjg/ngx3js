@@ -164,6 +164,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
             case 'rotation':
             case 'lookat':
               const controllerItem = new ControllerItemComponent();
+              controllerItem.ngOnInit();
               controllerItem.setControlParams({
                 type: controller,
                 curve: this.curve,

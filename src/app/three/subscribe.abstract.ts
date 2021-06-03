@@ -202,7 +202,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         }, 30);
       }
     } else {
-      console.log(this);
+      console.trace(this);
     }
   }
 
