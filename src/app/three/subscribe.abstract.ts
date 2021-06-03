@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ThreeUtil } from './interface';
 
@@ -6,9 +6,19 @@ import { ThreeUtil } from './interface';
   template: '',
 })
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
-  ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  @Input() protected debug: boolean = false;
+
+  @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
+  @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
+
+  constructor() {}
+  
+  protected subscribeType: string = null;
+
+  ngOnInit(subscribeType?: string): void {
+    this.setSubscribeType(subscribeType);
+  }
 
   ngOnDestroy(): void {
     if (this._subscribe !== null) {
@@ -25,9 +35,34 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       }
       this._subscribeList = {};
     }
+    this.onDestory.emit(this);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {}
+
   ngAfterContentInit(): void {}
+
+  setSubscribeType(subscribeType: string) {
+    this.subscribeType = subscribeType || 'nonamed';
+  }
+
+  protected callOnLoad() {
+    this.onLoad.emit(this);
+    this.setSubscribeNext(this.subscribeType);
+  }
+
+  protected _needUpdate: boolean = true;
+
+  protected set needUpdate(value: boolean) {
+    if (value && !this._needUpdate) {
+      this._needUpdate = true;
+      this.clearChanges();
+      this.addChanges('clearinit');
+    } else {
+      this._needUpdate = false;
+      this.clearChanges();
+    }
+  }
 
   private _changeList: string[] = null;
 
@@ -49,7 +84,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   private _applychangeBind: any = null;
 
-  protected addChanges(key: string | SimpleChanges) {
+  public addChanges(key: string | SimpleChanges) {
     if (this._changeList === null) {
       this._changeList = [];
     }
@@ -92,6 +127,23 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.getChanges();
   }
 
+  private _cashedObj : any = null;
+
+  protected setObject(obj : any) {
+    if (this._cashedObj !== obj) {
+      this._cashedObj = obj;
+      this._needUpdate = false;
+      this.clearChanges();
+      if (ThreeUtil.isNotNull(this._cashedObj)) {
+        if (this.debug) {
+          this.consoleLog(this.subscribeType, this._cashedObj);
+        }
+        this.synkObject(['init'])
+        this.callOnLoad();
+      }
+    }
+  }
+  
   protected synkObject(synkTypes: string[]) {
     this.consoleLog('synkTypes', synkTypes);
   }
@@ -107,31 +159,35 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   private _subscribeTimeout: any = null;
 
   public setSubscribeNext(key: string | string[]) {
-    if (Array.isArray(key)) {
-      key.forEach((subKey) => {
-        subKey = subKey.toLowerCase();
-        if (this._subscribeNext.indexOf(subKey) === -1) {
-          this._subscribeNext.push(subKey);
+    if (key !== null && key !== '') {
+      if (Array.isArray(key)) {
+        key.forEach((subKey) => {
+          subKey = subKey.toLowerCase();
+          if (this._subscribeNext.indexOf(subKey) === -1) {
+            this._subscribeNext.push(subKey);
+          }
+        });
+      } else {
+        key = key.toLowerCase();
+        if (this._subscribeNext.indexOf(key) === -1) {
+          this._subscribeNext.push(key);
         }
-      });
-    } else {
-      key = key.toLowerCase();
-      if (this._subscribeNext.indexOf(key) === -1) {
-        this._subscribeNext.push(key);
       }
-    }
-    if (this._subscribeTimeout === null && this._subscribeNext.length > 0) {
-      this._subscribeTimeout = setTimeout(() => {
-        this._subscribeTimeout = null;
-        if (this._subscribeNext.length > 0) {
-          const subscribeNext: string[] = [];
-          this._subscribeNext.forEach((text) => {
-            subscribeNext.push(text);
-          });
-          this._subscribeNext = [];
-          this._subject.next(subscribeNext);
-        }
-      }, 30);
+      if (this._subscribeTimeout === null && this._subscribeNext.length > 0) {
+        this._subscribeTimeout = setTimeout(() => {
+          this._subscribeTimeout = null;
+          if (this._subscribeNext.length > 0) {
+            const subscribeNext: string[] = [];
+            this._subscribeNext.forEach((text) => {
+              subscribeNext.push(text);
+            });
+            this._subscribeNext = [];
+            this._subject.next(subscribeNext);
+          }
+        }, 30);
+      }
+    } else {
+      console.log(this);
     }
   }
 
@@ -188,7 +244,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       this.subscribeReferList(
         subscribeKey,
         queryList.changes.subscribe(() => {
-          this.addChanges(changeKey);
+          this.addChanges(changeKey.toLowerCase());
         })
       );
     }

@@ -89,7 +89,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
   @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
   @Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
-  @Output() private onLoad: EventEmitter<RendererComponent> = new EventEmitter<RendererComponent>();
 
   @ContentChildren(SceneComponent, { descendants: false }) private sceneList: QueryList<SceneComponent>;
   @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
@@ -100,13 +99,13 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
   @ContentChildren(ControlComponent, { descendants: false }) private controlList: QueryList<ControlComponent>;
-  @ContentChildren(PlaneComponent) private clippingPlanes: QueryList<PlaneComponent>;
-  @ContentChildren(CanvasComponent) private canvas2d: QueryList<CanvasComponent>;
+  @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
+  @ContentChildren(CanvasComponent) private canvas2dList: QueryList<CanvasComponent>;
   @ContentChildren(SharedComponent, { descendants: true }) private sharedList: QueryList<SharedComponent>;
 
-  @ViewChild('canvas') private canvas: ElementRef;
-  @ViewChild('debug') private debug: ElementRef;
-  @ViewChild('renderer') private _renderer: ElementRef;
+  @ViewChild('canvas') private canvasEle: ElementRef;
+  @ViewChild('debug') private debugEle: ElementRef;
+  @ViewChild('renderer') private rendererEle: ElementRef;
 
   private getShadowMapType(def?: string): THREE.ShadowMapType {
     const shadowMapType = ThreeUtil.getTypeSafe(this.shadowMapType, def, '');
@@ -128,9 +127,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
-    if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
+    if (this.clippingPlanesList !== null && this.clippingPlanesList !== undefined) {
       const clippingPlanes: THREE.Plane[] = [];
-      this.clippingPlanes.forEach((plane) => {
+      this.clippingPlanesList.forEach((plane) => {
         clippingPlanes.push(plane.getWorldPlane());
       });
       return clippingPlanes;
@@ -143,11 +142,41 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('renderer');
+  }
+
+  ngOnDestroy(): void {
+    this.renderer = null;
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.renderer) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit() {
+    this.subscribeListQuery(this.sceneList, 'sceneList', 'scene');
+    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
+    this.subscribeListQuery(this.composerList, 'composerList', 'composer');
+    this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
+    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
+    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQuery(this.controlList, 'controlList', 'control');
+    this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
+    this.subscribeListQuery(this.canvas2dList, 'canvas2dList', 'canvas2d');
+    this.subscribeListQuery(this.sharedList, 'sharedList', 'shared');
+    super.ngAfterContentInit();
+  }
+
+  ngOnChangesTodo(changes: SimpleChanges): void {
     if ((changes.type || changes.logarithmicDepthBuffer) && this.renderer) {
-      this.canvas.nativeElement.removeChild(this.renderer.domElement);
+      this.canvasEle.nativeElement.removeChild(this.renderer.domElement);
       this.renderer = null;
       this.renderer = this.getRenderer();
     }
@@ -167,14 +196,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           this.stats.showPanel(this.statsMode);
         } else {
           if (this.stats != null) {
-            this.debug.nativeElement.removeChild(this.stats.dom);
+            this.debugEle.nativeElement.removeChild(this.stats.dom);
           }
           this.stats = null;
         }
       }
       if (changes.guiControl || changes.guiParams) {
         if (this.gui != null) {
-          this.debug.nativeElement.removeChild(this.gui.domElement);
+          this.debugEle.nativeElement.removeChild(this.gui.domElement);
           this.gui = null;
         }
         if (this.guiControl != null) {
@@ -248,9 +277,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   addWindowEvent(type: string, listener: any) {
     if (listener === null) {
       listener = (event) => {
-        if (ThreeUtil.isNotNull(this._renderer) && ThreeUtil.isNotNull(this.renderer)) {
-          const offsetTop = this._renderer.nativeElement.offsetTop;
-          const offsetLeft = this._renderer.nativeElement.offsetLeft;
+        if (ThreeUtil.isNotNull(this.rendererEle) && ThreeUtil.isNotNull(this.renderer)) {
+          const offsetTop = this.rendererEle.nativeElement.offsetTop;
+          const offsetLeft = this.rendererEle.nativeElement.offsetLeft;
           const offsetRight = offsetLeft + this.rendererWidth;
           const offsetBottom = offsetTop + this.rendererHeight;
           switch (type) {
@@ -346,7 +375,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
       }
       const rendererSize = this.getSize();
-      this.canvas2d.forEach((canvas2d) => {
+      this.canvas2dList.forEach((canvas2d) => {
         canvas2d.setSize(rendererSize);
       });
       this._sizeSubject.next(rendererSize);
@@ -398,7 +427,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       confirm.append(message);
     }
     confirm.append(button);
-    this.canvas.nativeElement.appendChild(confirm);
+    this.canvasEle.nativeElement.appendChild(confirm);
     this._lastConfirmHtml = confirm;
     this.resizeRender();
   }
@@ -407,50 +436,29 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
   }
 
-  ngAfterContentInit() {
-    this.listnerList.changes.subscribe(() => {
-      this.synkObject3D(['listner']);
-    });
-    this.audioList.changes.subscribe(() => {
-      this.synkObject3D(['audio']);
-    });
-    this.canvas2d.changes.subscribe(() => {
-      this.synkObject3D(['canvas2d']);
-    });
-    this.controllerList.changes.subscribe(() => {
-      this.synkObject3D(['controller']);
-    });
-  }
-
   private renderListner: THREE.AudioListener = null;
 
-  synkObject3D(synkTypes: string[]) {
+  synkObject(synkTypes: string[]) {
     if (this.renderer !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+      }
       synkTypes.forEach((synkType) => {
-        switch (synkType) {
-          case 'listner':
-            this.listnerList.forEach((listner) => {
-              this.renderListner = listner.getListener();
+        switch (synkType.toLowerCase()) {
+          case 'resize':
+            this.setSize(this.rendererWidth, this.rendererHeight);
+            break;
+          case 'control':
+            this.controls = this.getControls(this.cameraList, this.sceneList, this.canvasEle.nativeElement);
+            break;
+          case 'scene':
+            this.sceneList.forEach((scene) => {
+              scene.setRenderer(this);
             });
             break;
-          case 'audio':
-            this.audioList.forEach((audio) => {
-              audio.setListener(this.renderListner, this);
-            });
-            break;
-          case 'canvas2d':
-            this.canvas2d.forEach((canvas2d) => {
-              canvas2d.setParentNode(this.canvas.nativeElement);
-            });
-            break;
-          case 'controller':
-            this.controllerList.forEach((controller) => {
-              controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2d);
-            });
-            break;
-          case 'viewer':
-            this.viewerList.forEach((viewer) => {
-              viewer.getViewer();
+          case 'camera':
+            this.cameraList.forEach((camera) => {
+              camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
             });
             break;
           case 'composer':
@@ -462,8 +470,43 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
               });
             }
             break;
+          case 'viewer':
+            this.viewerList.forEach((viewer) => {
+              viewer.getViewer();
+            });
+            break;
+          case 'listner':
+            this.listnerList.forEach((listner) => {
+              this.renderListner = listner.getListener();
+            });
+            break;
+          case 'audio':
+            this.audioList.forEach((audio) => {
+              audio.setListener(this.renderListner, this);
+            });
+            break;
+          case 'controller':
+            this.controllerList.forEach((controller) => {
+              controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2dList);
+            });
+            break;
+          case 'clippingplanes':
+            if (this.renderer instanceof THREE.WebGLRenderer) {
+              this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
+            }
+            break;
+          case 'canvas2d':
+            this.canvas2dList.forEach((canvas2d) => {
+              canvas2d.setParentNode(this.canvasEle.nativeElement);
+            });
+          case 'shared':
+            this.sharedList.forEach((shared) => {
+              shared.getShared();
+            });
+            break;
         }
       });
+      super.synkObject(synkTypes);
     }
   }
 
@@ -559,9 +602,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           controls.push(control);
         });
       }
-      this.subscribeRefer('control-camera', ThreeUtil.getSubscribe(cameraComp, () => {
-        this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
-      },'camera'));
+      this.subscribeRefer(
+        'control-camera',
+        ThreeUtil.getSubscribe(
+          cameraComp,
+          () => {
+            this.controls = this.getControls(this.cameraList, this.sceneList, this.canvasEle.nativeElement);
+          },
+          'camera'
+        )
+      );
     }
     return controls;
   }
@@ -573,7 +623,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         left: '0px',
         top: '0px',
       });
-      this.debug.nativeElement.appendChild(this.stats.dom);
+      this.debugEle.nativeElement.appendChild(this.stats.dom);
     }
     return this.stats;
   }
@@ -586,14 +636,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         right: '0px',
         top: '0px',
       });
-      this.debug.nativeElement.appendChild(this.gui.domElement);
+      this.debugEle.nativeElement.appendChild(this.gui.domElement);
     }
     return this.gui;
-  }
-
-  ngOnDestroy(): void {
-    this.renderer = null;
-    super.ngOnDestroy();
   }
 
   ngAfterViewInit() {
@@ -624,21 +669,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       shared.getShared();
     });
     this.renderer = this.getRenderer();
-    this.setSize(this.rendererWidth, this.rendererHeight);
-    this.controls = this.getControls(this.cameraList, this.sceneList, this.canvas.nativeElement);
-    this.sceneList.forEach((scene) => {
-      scene.setRenderer(this);
-    });
-    this.cameraList.forEach((camera) => {
-      camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
-    });
-    this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller', 'viewer', 'composer']);
+    this.synkObject(['init']);
     this.resizeRender();
     this._renderCaller();
   }
 
   getRenderer(): THREE.Renderer {
-    if (this.renderer === null) {
+    if (this.renderer === null || this._needUpdate) {
+      this.needUpdate = false;
       GSAP.gsap.ticker.fps(60);
       if (this._renderCaller !== null) {
         GSAP.gsap.ticker.remove(this._renderCaller);
@@ -706,13 +744,13 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.cssRenderer.domElement.style.top = '0px';
         this.cssRenderer.domElement.style.left = '0px';
         this.cssRenderer.domElement.style.pointerEvents = 'none';
-        this.canvas.nativeElement.appendChild(this.cssRenderer.domElement);
+        this.canvasEle.nativeElement.appendChild(this.cssRenderer.domElement);
       }
       this.renderer.domElement.style.position = 'relative';
-      this.canvas.nativeElement.appendChild(this.renderer.domElement);
+      this.canvasEle.nativeElement.appendChild(this.renderer.domElement);
       ThreeUtil.setRenderer(this);
+      super.setObject(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
-      this.onLoad.emit(this);
     }
     return this.renderer;
   }
@@ -802,7 +840,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   resizeRender() {
     if (this.width <= 0 || this.height <= 0) {
       if (this.sizeType === 'auto') {
-        this.setSize(this._renderer.nativeElement.clientWidth, this._renderer.nativeElement.clientHeight);
+        this.setSize(this.rendererEle.nativeElement.clientWidth, this.rendererEle.nativeElement.clientHeight);
       } else {
         this.setSize(window.innerWidth, window.innerHeight);
       }

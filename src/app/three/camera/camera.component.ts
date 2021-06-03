@@ -57,8 +57,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private scissorHeight: number | string = '100%';
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
 
-  @Output() private onLoad: EventEmitter<CameraComponent> = new EventEmitter<CameraComponent>();
-
   @ContentChildren(ListenerComponent, { descendants: false }) listenerList: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: false }) audioList: QueryList<AudioComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
@@ -235,41 +233,34 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('camera');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.camera) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
+    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    this.subscribeListQuery(this.lightList, 'lightList', 'light');
+    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
+    super.ngAfterContentInit();
   }
 
   private camera: THREE.Camera = null;
   public cubeCamera1: THREE.CubeCamera = null;
   public cubeCamera2: THREE.CubeCamera = null;
   private clips: THREE.AnimationClip[] = null;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    if (changes.type || changes.storageName) {
-      this.needUpdate = true;
-    } else {
-      this.addChanges(changes);
-    }
-  }
-
-  applyChanges() {
-    const changes = this.getChanges();
-    if (changes.length > 0) {
-      if (changes.indexOf('type') > -1) {
-        this.needUpdate = true;
-      } else {
-        this.synkObject3D(changes);
-      }
-    }
-  }
-
-  set needUpdate(value: boolean) {
-    if (value && this.camera !== null) {
-      this.camera = null;
-      this.getCamera();
-      this.clearChanges();
-    }
-  }
   
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
@@ -294,7 +285,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (super.setParent(parent, isRestore)) {
       if (isRestore) {
         this.object3d = parent;
-        this.synkObject3D(['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
+        this.synkObject3d(['init']);
       } else {
         this.resetCamera(true);
       }
@@ -331,16 +322,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
-    super.ngAfterContentInit();
-  }
-
   setVisible(visible: boolean, helperVisible: boolean = null) {
     super.setVisible(visible);
     if (helperVisible !== null && helperVisible !== undefined) {
@@ -350,8 +331,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  synkObject3D(synkTypes: string[]) {
+  synkObject3d(synkTypes: string[]) {
     if (this.camera !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'listner':
@@ -388,7 +372,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
             break;
         }
       });
-      super.synkObject3D(synkTypes);
+      super.synkObject3d(synkTypes);
     }
   }
 
@@ -490,7 +474,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   getCamera(): THREE.Camera {
-    if (this.camera === null) {
+    if (this.camera === null || this._needUpdate) {
+      this.needUpdate = false;
       const width = this.cameraWidth;
       const height = this.cameraHeight;
       switch (this.type.toLowerCase()) {
@@ -520,7 +505,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
               minFilter: THREE.LinearMipmapLinearFilter,
             })
           );
-
           this.cubeCamera1 = cubeCamera1;
           this.cubeCamera2 = cubeCamera2;
           const cubeGroup = new THREE.Group();
@@ -557,24 +541,17 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (ThreeUtil.isNotNull(this.name)) {
         this.camera.name = this.name;
       }
-      if (ThreeUtil.isNull(this.camera.userData.component)) {
-        this.camera.userData.component = this;
-      }
-      this.setObject3D(this.camera, this.isCameraChild ? false : true);
+      this.setObject3d(this.camera, this.isCameraChild ? false : true);
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
           (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
             this.clips = clips;
-            this.synkObject3D(['mixer']);
+            this.synkObject3d(['mixer']);
           },
           { object: this.camera }
         );
       }
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'listner', 'helper', 'light', 'camera', 'audio', 'mixer']);
-      this.clearChanges();
-      this.setSubscribeNext('camera');
-      this.onLoad.emit(this);
     }
     return this.camera;
   }

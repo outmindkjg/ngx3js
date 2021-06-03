@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
@@ -13,21 +13,20 @@ import { SceneComponent } from '../scene/scene.component';
 @Component({
   selector: 'three-composer',
   templateUrl: './composer.component.html',
-  styleUrls: ['./composer.component.scss']
+  styleUrls: ['./composer.component.scss'],
 })
 export class ComposerComponent extends AbstractTweenComponent implements OnInit {
-
-  @Input() private type:string = 'composer';
-  @Input() private scene:THREE.Scene | SceneComponent = null;
-  @Input() private camera:THREE.Camera | CameraComponent = null;
-  @Input() private clear:boolean = false;
-  @Input() private viewport:boolean = false;
-  @Input() private viewportAspect:boolean = false;
-  @Input() private renderToScreen:boolean = null;
-  @Input() private x:number | string = 0;
-  @Input() private y:number | string = 0;
-  @Input() private width:number | string = '100%';
-  @Input() private height:number | string = '100%';
+  @Input() private type: string = 'composer';
+  @Input() private scene: THREE.Scene | SceneComponent = null;
+  @Input() private camera: THREE.Camera | CameraComponent = null;
+  @Input() private clear: boolean = false;
+  @Input() private viewport: boolean = false;
+  @Input() private viewportAspect: boolean = false;
+  @Input() private renderToScreen: boolean = null;
+  @Input() private x: number | string = 0;
+  @Input() private y: number | string = 0;
+  @Input() private width: number | string = '100%';
+  @Input() private height: number | string = '100%';
   @Input() private reflectFromAbove: boolean = null;
   @Input() private cameraDistance: number = null;
 
@@ -49,26 +48,22 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private generateMipmaps: boolean = null;
   @Input() private depthTexture: any = null;
 
-  private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget  {
+  private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {
     if (this.useRenderTarget) {
-      return new THREE.WebGLRenderTarget(
-        this.getWidth() * renderer.getPixelRatio(), 
-        this.getHeight() * renderer.getPixelRatio(),
-        {
-          wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
-          wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
-          magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-          minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
-          format: ThreeUtil.getPixelFormatSafe(this.format),
-          type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
-          anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
-          depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
-          stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
-          generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-          depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
-          encoding: ThreeUtil.getTextureEncodingSafe(this.encoding)
-        }
-      );
+      return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
+        wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
+        wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
+        magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
+        minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+        format: ThreeUtil.getPixelFormatSafe(this.format),
+        type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
+        anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
+        depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
+        stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
+        generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
+        depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+        encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
+      });
     }
     return undefined;
   }
@@ -133,18 +128,12 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return this.getViewPortSize(this.height, this.composerHeight, def);
   }
 
-  private getViewPortSize(
-    size: number | string,
-    cameraSize: number,
-    def?: number | string
-  ): number {
+  private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
       if (typeof baseSize == 'string') {
         if (baseSize.endsWith('%')) {
-          return Math.ceil(
-            (cameraSize * parseFloat(baseSize.slice(0, -1))) / 100
-          );
+          return Math.ceil((cameraSize * parseFloat(baseSize.slice(0, -1))) / 100);
         } else {
           switch (baseSize) {
             case 'x':
@@ -172,20 +161,33 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
       const cHeight = this.getHeight();
       return cWidth / cHeight;
     } else {
-      return this.composerWidth > 0 && this.composerHeight > 0 ? (this.composerWidth / this.composerHeight ) : 1;
-    } 
+      return this.composerWidth > 0 && this.composerHeight > 0 ? this.composerWidth / this.composerHeight : 1;
+    }
   }
-  
+
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('composer');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.effectComposer) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   resetEffectComposer() {
     this.effectComposer = null;
     if (this.effectCamera !== null && this.webGLRenderer) {
-      this.effectComposer = this.getEffectComposer(
-        this.webGLRenderer, this.effectCamera, this.effectScene
-      );
+      this.effectComposer = this.getEffectComposer(this.webGLRenderer, this.effectCamera, this.effectScene);
     }
   }
 
@@ -200,12 +202,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   render(webGLRenderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
     if (this.effectComposer !== null) {
       if (this.viewport) {
-        webGLRenderer.setViewport(
-          this.getX(),
-          this.getY(),
-          this.getWidth(),
-          this.getHeight()
-        );
+        webGLRenderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
       }
       if (this.viewportAspect && ThreeUtil.isNotNull(this._composerCamera)) {
         if (this._composerCamera instanceof THREE.PerspectiveCamera) {
@@ -226,58 +223,75 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   private effectScene: THREE.Scene = null;
   private effectComposer: EffectComposer | any = null;
 
-  getWriteBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
+  getWriteBuffer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
     return this.getEffectComposer(webGLRenderer, camera, scene).writeBuffer;
   }
 
-  getReadBuffer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
+  getReadBuffer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
     return this.getEffectComposer(webGLRenderer, camera, scene).readBuffer;
   }
 
-  getRenderTarget1(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
+  getRenderTarget1(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
     return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget1;
   }
 
-  getRenderTarget2(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): THREE.WebGLRenderTarget {
+  getRenderTarget2(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
     return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;
   }
 
-  private _composerCamera : THREE.Camera = null;
+  synkObject(synkTypes: string[]) {
+    if (this.effectComposer !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+      }
+      synkTypes.forEach((synkType) => {
+        switch (synkType.toLowerCase()) {
+          case 'pass':
+            if (this.effectComposer instanceof EffectComposer) {
+              this.pass.forEach((item) => {
+                item.getPass(this._composerScene, this._composerCamera, this.effectComposer);
+              });
+            }
+            break;
+        }
+      });
+    }
+  }
 
-  getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera : THREE.Camera, scene : THREE.Scene): EffectComposer | any {
-    if (this.effectComposer === null) {
-      switch(this.type.toLowerCase()) {
+  private _composerCamera: THREE.Camera = null;
+  private _composerScene: THREE.Scene = null;
+
+  getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): EffectComposer | any {
+    if (this.effectComposer === null || this._needUpdate) {
+      this.needUpdate = false;
+      switch (this.type.toLowerCase()) {
         case 'peppersghost':
           const peppersGhostEffect = new PeppersGhostEffect(webGLRenderer);
           peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
-          peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(
-            false
-          );
+          peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(false);
           this.effectComposer = peppersGhostEffect;
           break;
-        case 'outline' :
-          const outlineEffect = new OutlineEffect(webGLRenderer, {
-          });
+        case 'outline':
+          const outlineEffect = new OutlineEffect(webGLRenderer, {});
           this.effectComposer = outlineEffect;
           break;
         case 'parallaxbarrier':
           this.effectComposer = new ParallaxBarrierEffect(webGLRenderer);
           break;
-        default :
+        default:
           const effectComposer = new EffectComposer(webGLRenderer, this.getRenderTarget(webGLRenderer));
           effectComposer.setPixelRatio(window.devicePixelRatio);
           const composerCamera = this.getCamera(camera);
           this._composerCamera = composerCamera;
-          const composerScene = this.getScene(scene);
-          this.pass.forEach(item => {
-            item.getPass(composerScene, composerCamera , effectComposer);
-          })
+          this._composerScene = this.getScene(scene);
+
           this.effectComposer = effectComposer;
           if (ThreeUtil.isNotNull(this.renderToScreen)) {
             this.effectComposer.renderToScreen = this.renderToScreen;
           }
           break;
       }
+      this.setObject(this.effectComposer);
     }
     return this.effectComposer;
   }

@@ -14,29 +14,28 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private y: number = null;
   @Input() private z: number = null;
   @Input() private speed: number = 0.1;
-  @Output() private onLoad: EventEmitter<LookatComponent> = new EventEmitter<LookatComponent>();
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('lookat');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.refer) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.lookat) {
+      this.addChanges(changes);
+    }
   }
 
-  private _needUpdate: boolean = true;
-  set needUpdate(value: boolean) {
-    if (value && this.lookat !== null) {
-      this._needUpdate = true;
-      this.getLookAt();
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private lookat: THREE.Vector3 = null;
@@ -49,7 +48,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
           this.lookat = lookat;
         } else {
           this.lookat = lookat;
-          this._needUpdate = true;
+          this.needUpdate = true;
           this.getLookAt();
         }
       }
@@ -78,15 +77,14 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
         }
       } else {
         this.lookat.copy(this._lastLookat);
-        this.setSubscribeNext('lookat');
-        this.onLoad.emit(this);
+        this.setObject(this._lastLookat);
       }
     }
   }
 
   getLookAt(): THREE.Vector3 {
     if (this._needUpdate) {
-      this._needUpdate = false;
+      this.needUpdate = false;
       let lookat: THREE.Vector3 = null;
       if (this.refer !== null) {
         this.unSubscribeRefer('refer');
@@ -111,8 +109,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
       if (this.lookat === null) {
         this.lookat = new THREE.Vector3();
         this.lookat.copy(lookat);
-        this.setSubscribeNext('lookat');
-        this.onLoad.emit(this);
+        this.setObject(lookat);
       }
     }
     return this.lookat;

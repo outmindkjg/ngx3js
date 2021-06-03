@@ -1,25 +1,23 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractObject3dComponent } from '../object3d.abstract';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-listener',
   templateUrl: './listener.component.html',
-  styleUrls: ['./listener.component.scss']
+  styleUrls: ['./listener.component.scss'],
 })
-export class ListenerComponent extends AbstractSubscribeComponent implements OnInit {
+export class ListenerComponent extends AbstractObject3dComponent implements OnInit {
+  @Input() private volume: number = 1;
 
-  @Input() private volume:number = 1 ;
-  @Input() public visible:boolean = true ;
-
-  constructor() { 
+  constructor() {
     super();
   }
 
-
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('listener');
   }
 
   ngOnDestroy(): void {
@@ -30,25 +28,30 @@ export class ListenerComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.resetListener();
-    }
     super.ngOnChanges(changes);
+    if (changes && this.listener) {
+      this.addChanges(changes);
+      // this.resetListener(); todo
+    }
   }
 
-  private listener : THREE.AudioListener = null;
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
+  }
 
-  private parent: THREE.Object3D = null;
+  private listener: THREE.AudioListener = null;
 
-  setParent(parent: THREE.Object3D) {
-    if (this.parent !== parent) {
-      this.parent = parent;
+  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
+    if (super.setParent(parent, isRestore)) {
       this.resetListener();
+      return true;
+    } else {
+      return false;
     }
   }
 
   resetListener() {
-    if (this.listener === null) {
+    if (this.listener === null || this._needUpdate) {
       this.listener = this.getListener();
     }
     if (this.listener !== null && this.parent !== null) {
@@ -67,15 +70,13 @@ export class ListenerComponent extends AbstractSubscribeComponent implements OnI
       }
       this.listener.visible = this.visible;
     }
-
   }
 
-  getListener() : THREE.AudioListener {
-    if (this.listener === null) {
+  getListener(): THREE.AudioListener {
+    if (this.listener === null || this._needUpdate) {
+      this.needUpdate = false;
       this.listener = new THREE.AudioListener();
-      if (ThreeUtil.isNull(this.listener.userData.component)) {
-        this.listener.userData.component = this;
-      }
+      super.setObject3d(this.listener);
     }
     return this.listener;
   }

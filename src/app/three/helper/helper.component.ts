@@ -46,8 +46,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private children: any[] = null;
   @Input() private control: any = null;
 
-  @Output() private onLoad: EventEmitter<HelperComponent> = new EventEmitter<HelperComponent>();
-
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     if (this.targetMesh !== null) {
       return this.targetMesh;
@@ -167,22 +165,26 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('helper');
+  }
 
-  private targetMesh: THREE.Mesh = null;
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (changes.target && this.target !== null && this.target.meshSubscribe) {
-        this.target.meshSubscribe().subscribe((mesh) => {
-          this.targetMesh = mesh;
-          this.needUpdate = true;
-        });
-      }
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.helper) {
+      this.addChanges(changes);
+    }
   }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
+  }
+
+  private targetMesh: THREE.Mesh = null;
 
   setHelperParams(params: { [key: string]: any }) {
     Object.entries(params).forEach(([key, value]) => {
@@ -201,13 +203,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  set needUpdate(value: boolean) {
-    if (value && this.helper !== null) {
-      this.helper = null;
-      this.getHelper();
-    }
-  }
-
   private helper: THREE.Object3D = null;
   private _refererTarget : THREE.Object3D = null;
 
@@ -215,7 +210,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     if (super.setParent(parent, isRestore)) {
       if (isRestore) {
         this.object3d = parent;
-        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'controller']);
+        this.synkObject3d(['object3d']);
       } else {
         this.getHelper();
       }
@@ -230,7 +225,8 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   }
 
   public getHelper(): THREE.Object3D {
-    if (this.helper === null) {
+    if (this.helper === null || this._needUpdate) {
+      this.needUpdate = false;
       this._refererTarget = this.parent;
       if (this.helper !== null && this.helper.parent) {
         this.helper.parent.remove(this.helper);
@@ -406,12 +402,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         if (ThreeUtil.isNotNull(this.matrix)) {
           this.helper.applyMatrix4(this.matrix);
         }
-        this.helper.visible = this.getVisible(true);
-        this.setObject3D(this.helper, this.helper.parent === null);
-        this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'controller']);
-        this.setSubscribeNext('helper');
-        console.log(this.helper);
-        this.onLoad.emit(this);
+        this.setObject3d(this.helper, this.helper.parent === null);
       } else {
         this.helper = null;
       }

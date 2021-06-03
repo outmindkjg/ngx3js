@@ -21,11 +21,22 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('fog');
   }
 
   ngOnDestroy() : void {
     super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.fog) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private getColor(def? : number | string) : THREE.Color{
@@ -48,20 +59,6 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
   
   private refScene : THREE.Scene = null;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.fog !== null) {
-      this.needUpdate = true;
-    }
-    super.ngOnChanges(changes);
-  }
-
-  set needUpdate(value : boolean) {
-    if (value && this.fog !== null) {
-      this.fog = null;
-      this.getFog();
-    }
-  }
-
   setScene(refScene : THREE.Scene) {
     if (this.refScene !== refScene) {
       this.refScene = refScene;
@@ -69,9 +66,9 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     }
   }
 
-
   getFog() : THREE.IFog{
-    if (this.fog === null) {
+    if (this.fog === null || this._needUpdate) {
+      this.needUpdate = false;
       switch(this.type.toLowerCase()) {
         case 'exp2' :
         case 'fogexp2' :
@@ -89,7 +86,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
           );
           break;
       }
-      this.setSubscribeNext('fox');
+      super.setObject(this.fog);
     }
     return this.fog;
   }

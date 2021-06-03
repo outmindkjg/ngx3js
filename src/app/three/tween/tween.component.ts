@@ -24,7 +24,6 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private power:number = null;
   @Input() private yoyoMode:boolean = null;
   @Input() private steps:number = null;
-  @Output() private onLoad: EventEmitter<TweenComponent> = new EventEmitter<TweenComponent>();
 
   private getDuration(def?: number): number {
     return ThreeUtil.getTypeSafe(this.duration, def, 3);
@@ -228,14 +227,22 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('tween');;
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.parentEle !== null && this.parentEle.resetTween) {
-      this.parentEle.resetTween();
-    }
     super.ngOnChanges(changes);
+    if (changes && this.parentEle) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private parentEle: any = null;
@@ -270,7 +277,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
     if (ThreeUtil.isNotNull(this.to)) {
       this.setTween(this.getTo(), this.getDuration());
     }
-    this.onLoad.emit(this);
+    super.callOnLoad();
     return tween;
   }
 }

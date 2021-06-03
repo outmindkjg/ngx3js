@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
@@ -19,7 +19,24 @@ export class LensflareelementComponent extends AbstractSubscribeComponent implem
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('lensflareelement');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.lensflare) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
+  }
 
   private getImage(def: string): string {
     return this.image === null ? def : this.image;
@@ -70,8 +87,10 @@ export class LensflareelementComponent extends AbstractSubscribeComponent implem
   }
 
   getLensflareElement(): LensflareElement {
-    if (this.lensflareElement === null) {
+    if (this.lensflareElement === null || this._needUpdate) {
+      this.needUpdate = false;
       this.lensflareElement = new LensflareElement(this.getTexture(), this.getSize(100), this.getDistance(0), this.getColor(null));
+      super.setObject(this.lensflareElement);
     }
     return this.lensflareElement;
   }

@@ -13,33 +13,32 @@ export class PlaneComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private y: number = null;
   @Input() private z: number = null;
   @Input() private w: number = null;
-  @Output() private onLoad: EventEmitter<PlaneComponent> = new EventEmitter<PlaneComponent>();
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('plane');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.needUpdate = true;
-      this.getPlane();
-    }
     super.ngOnChanges(changes);
+    if (changes && this.plane) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private plane: THREE.Plane = null;
   private worldPlane: THREE.Plane = null;
-
-  set needUpdate(value : boolean) {
-    if (value && this.plane !== null) {
-      this.plane = null;
-      this.getPlane();
-    }
-  }
   
   setPlane(x: number, y: number, z: number, w: number) {
     if (ThreeUtil.isNotNull(x)) {
@@ -73,14 +72,12 @@ export class PlaneComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   getPlane(): THREE.Plane {
-    if (this.plane === null) {
+    if (this.plane === null || this._needUpdate) {
+      this.needUpdate = false;
       this.plane = new THREE.Plane(ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));
-      this.needUpdate = false;
-      this.onLoad.emit(this);
-    } else if (this.needUpdate) {
-      this.plane.set(ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));
-      this.needUpdate = false;
+      this.setObject(this.plane);
     }
+    this.plane.set(ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));
     return this.plane;
   }
 }

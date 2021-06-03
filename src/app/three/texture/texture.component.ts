@@ -57,9 +57,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private add: number | string = null;
   @Input() private rotation: number = null;
   @Input() private flipY: boolean = null;
-  @Input() private debug: boolean = false;
-
-  @Output() private onLoad: EventEmitter<TextureComponent> = new EventEmitter<TextureComponent>();
 
   private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
@@ -99,11 +96,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('texture');
   }
 
   ngOnDestroy(): void {
-    super.ngOnDestroy();
     if (this.texture != null) {
       this.texture.dispose();
     }
@@ -113,26 +109,19 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if (this.useDropImage) {
       this.setUseDropImage(false);
     }
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if (changes.useDropImage) {
-      this.setUseDropImage(this.useDropImage);
-    }
-    if (changes && changes.image) {
-      this.needUpdate = true;
-    } else {
+    if (changes && this.texture) {
       this.addChanges(changes);
+      // this.setUseDropImage(this.useDropImage); // todo
     }
   }
 
-  set needUpdate(value: boolean) {
-    if (value && this.texture !== null) {
-      this.texture.dispose();
-      this.texture = null;
-      this.getTexture();
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private setUseDropImage(useDropImage: boolean) {
@@ -821,7 +810,8 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   getTexture() {
-    if (this.texture === null) {
+    if (this.texture === null || this._needUpdate) {
+      this.needUpdate = false;
       this.unSubscribeRefer('referTexture');
       if (this.refer !== null) {
         if (this.refer instanceof TextureComponent) {
@@ -858,6 +848,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
               this.texture = texture;
               TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
               this.texture.needsUpdate = true;
+              super.setObject(this.texture);
               this.setSubscribeNext(['texture','textureloaded']);
             }
           },
@@ -878,8 +869,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       }
       TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
       this.applyMaterial();
-      this.onLoad.emit(this);
-      this.setSubscribeNext('texture');
+      super.setObject(this.texture);
     }
     return this.texture;
   }

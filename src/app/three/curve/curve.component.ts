@@ -116,7 +116,11 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('curve');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -126,17 +130,15 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
     super.ngOnChanges(changes);
   }
 
-  set needUpdate(value : boolean) {
-    if (value && this.curve !== null) {
-      this.curve = null;
-      this.getCurve();
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private curve: THREE.Curve<THREE.Vector> = null;
 
   getCurve(): THREE.Curve<THREE.Vector> {
-    if (this.curve === null) {
+    if (this.curve === null || this._needUpdate) {
+      this.needUpdate = false;
       switch (this.type.toLowerCase()) {
         case 'arc':
           this.curve = new THREE.ArcCurve(

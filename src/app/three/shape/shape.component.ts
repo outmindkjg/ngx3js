@@ -36,7 +36,15 @@ export class ShapeComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('shape');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private getPoints(def: GeometriesVector3[]): THREE.Vector2[] {

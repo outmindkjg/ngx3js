@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
@@ -31,7 +31,22 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
       this.ammo = AmmoLib;
       this.getPhysics();
     });
-    super.ngOnInit();    
+    super.ngOnInit('physics');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.physics) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private ammo: typeof Ammo = null;
@@ -42,7 +57,8 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   getPhysics(): Ammo.btDiscreteDynamicsWorld {
-    if (this.physics === null && this.ammo !== null) {
+    if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
+      this.needUpdate = false;
       const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
       const dispatcher = new this.ammo.btCollisionDispatcher(
         collisionConfiguration
@@ -61,7 +77,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
       physics.setGravity(gravity);
       physics.getWorldInfo().set_m_gravity(gravity);
       this.physics = physics;
-      this.setSubscribeNext('physics');
+      super.setObject(this.physics);
     }
     return this.physics;
   }

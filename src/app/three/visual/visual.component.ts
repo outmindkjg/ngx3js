@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { BackgroundComponent } from '../background/background.component';
 import { HtmlComponent } from '../html/html.component';
@@ -52,11 +52,11 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   @Output() private mousemove: EventEmitter<any> = new EventEmitter<any>();
   @Output() private mouseup: EventEmitter<any> = new EventEmitter<any>();
 
-  @ContentChildren(VisualComponent) private children: QueryList<VisualComponent>;
-  @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
-  @ContentChildren(TransformComponent) private transform: QueryList<TransformComponent>;
-  @ContentChildren(BackgroundComponent) private background: QueryList<BackgroundComponent>;
-  // @ContentChildren(ControllerComponent, { descendants: false }) private controller: QueryList<ControllerComponent>;
+  @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
+  @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
+  @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
+  @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
+  // @ContentChildren(ControllerComponent, { descendants: false }) private controllerList: QueryList<ControllerComponent>;
 
   private collection: HtmlCollection = {
     html: null,
@@ -70,7 +70,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('visual');
   }
 
   ngOnDestroy(): void {
@@ -87,22 +87,19 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     super.ngOnDestroy();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.visual) {
+      this.addChanges(changes);
+    }
+  }
+
   ngAfterContentInit() {
-    this.children.changes.subscribe(() => {
-      this.synkObject2D(['children']);
-    });
-    this.html.changes.subscribe(() => {
-      this.synkObject2D(['html']);
-    });
-    this.transform.changes.subscribe(() => {
-      this.synkObject2D(['transform']);
-    });
-    this.background.changes.subscribe(() => {
-      this.synkObject2D(['background']);
-    });
-    // this.controller.changes.subscribe(() => {
-    //  this.synkObject2D(['controller']);
-    // });
+    this.subscribeListQuery(this.childrenList, 'childrenList', 'children');
+    this.subscribeListQuery(this.htmlList, 'htmlList', 'html');
+    this.subscribeListQuery(this.transformList, 'transformList', 'transform');
+    this.subscribeListQuery(this.backgroundList, 'backgroundList', 'background');
+    super.ngAfterContentInit();
   }
 
   private parentNode: HTMLElement = null;
@@ -129,29 +126,32 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     this.getVisual();
   }
 
-  synkObject2D(synkTypes: string[]) {
+  synkObject2d(synkTypes: string[]) {
     if (this.visual !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['html', 'transform', 'background', 'children', 'controller']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'children':
-            this.children.forEach((child) => {
+            this.childrenList.forEach((child) => {
               child.setParentNode(this.visual, this.eleSize, this.collection);
             });
             break;
           case 'html':
-            this.html.forEach((html) => {
+            this.htmlList.forEach((html) => {
               html.setParent(this.visual);
             });
             break;
           case 'transform':
             if (this.parentSize !== null) {
-              this.transform.forEach((transform) => {
+              this.transformList.forEach((transform) => {
                 transform.setParentNode(this.visual, this.parentSize, this.eleSize);
               });
             }
             break;
           case 'background':
-            this.background.forEach((background) => {
+            this.backgroundList.forEach((background) => {
               background.setParentNode(this.visual);
             });
             break;
@@ -278,7 +278,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
           }
       }
       this.cssClazzName = ThreeUtil.addCssStyle(this.visual, style, this.cssClazzName, 'visual');
-      this.synkObject2D(['transform', 'background', 'children', 'controller']);
+      this.synkObject2d(['init']);
     }
   }
 
@@ -287,7 +287,8 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   private visual: HTMLElement = null;
 
   getVisual(): HTMLElement {
-    if (this.visual === null) {
+    if (this.visual === null || this._needUpdate) {
+      this.needUpdate = false;
       let visual: HTMLElement = null;
       let texthold: HTMLElement = null;
       switch (this.type.toLowerCase()) {
@@ -380,12 +381,12 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
       this.collection.name = this.name;
       this.collection.children = [];
       this.visual.classList.add('three-visual');
+      super.setObject(this.visual);
     }
     if (this.parentNode !== null && this.visual.parentNode !== this.parentNode) {
       this.parentNode.appendChild(this.visual);
       this.applyHtmlStyle();
     }
-    this.synkObject2D(['html', 'transform', 'background', 'children', 'controller']);
     return this.visual;
   }
 }

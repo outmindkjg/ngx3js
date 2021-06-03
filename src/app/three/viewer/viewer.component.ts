@@ -23,7 +23,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private width: number | string = '50%';
   @Input() private height: number | string = '50%';
   @Input() private enabled: boolean = true;
-  @Output() private onLoad: EventEmitter<ViewerComponent> = new EventEmitter<ViewerComponent>();
 
   private getLight(): THREE.Light {
     this.unSubscribeRefer('light');
@@ -164,20 +163,22 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('viewer');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.viewer !== null) {
-      if (changes.type) {
-        this.resetViewer();
-      } else {
-        if (changes.x || changes.y || changes.width || changes.height || changes.enabled) {
-          this.resizeViewer();
-        }
-      }
-    }
     super.ngOnChanges(changes);
+    if (changes && this.viewer) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   parent: THREE.Object3D = null;
@@ -249,13 +250,15 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   getViewer() {
-    if (this.viewer === null) {
+    if (this.viewer === null || this._needUpdate) {
+      this.needUpdate = false;
       this.unSubscribeRefer('referTarget');
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':
         case 'shadowmap':
           this.viewer = new ShadowMapViewer(this.getLight());
           this.resizeViewer();
+          super.setObject(this.viewer);
           break;
         case 'shadowmesh':
         case 'shadow':
@@ -267,12 +270,10 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           if (this.parent !== null) {
             this.parent.add(this.viewer);
           }
+          super.setObject(this.viewer);
           break;
         default:
           break;
-      }
-      if (this.viewer !== null) {
-        this.onLoad.emit(this);
       }
     }
     return this.viewer;

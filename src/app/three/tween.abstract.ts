@@ -12,32 +12,24 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
 
   @ContentChildren(TweenComponent, { descendants: false }) private tweenList: QueryList<TweenComponent>;
 
-  ngOnInit(): void {
-    super.ngOnInit();
+  ngOnInit(subscribeType?: string): void {
+    super.ngOnInit(subscribeType);
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if (changes) {
-      if (changes.tweenStart && this.tweenTarget) {
-        this.resetTween();
-      }
-      if (changes.tweenStart) {
-        delete changes.tweenStart;
-      }
-      if (changes.tweenTarget) {
-        delete changes.tweenTarget;
-      }
+    if (changes && this.tweenTimer) {
+      this.addChanges(changes);
     }
   }
 
   ngAfterContentInit(): void {
     this.subscribeListQuery(this.tweenList, 'tweenList', 'tween');
     super.ngAfterContentInit();
-  }
-
-  protected synkObject(synkTypes: string[]) {
-    super.synkObject(synkTypes);
   }
 
   protected parent: THREE.Object3D | any = null;
@@ -80,7 +72,4 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
     }
   }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
 }

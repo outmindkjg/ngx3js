@@ -24,7 +24,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private decay: number = null;
   @Input() private width: number = null;
   @Input() private height: number = null;
-  @Input() private castShadow: boolean = true;
   @Input() private shadowBias: number = null;
   @Input() private shadowRadius: number = null;
   @Input() private shadowFocus: number = null;
@@ -44,8 +43,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private target: any = null;
   @Input() private renderer: any = null;
   @Input() private renderTarget: any = null;
-
-  @Output() private onLoad: EventEmitter<LightComponent> = new EventEmitter<LightComponent>();
+  
   @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
@@ -199,13 +197,25 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('light');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.light) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    super.ngAfterContentInit();
   }
 
   setLightParams(params: { [key: string]: any }) {
@@ -384,14 +394,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return false;
   }
 
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    super.ngAfterContentInit();
-  }
-
-  synkObject3D(synkTypes: string[]) {
+  synkObject3d(synkTypes: string[]) {
     if (this.light !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['helper']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'helper':
@@ -403,7 +410,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
             break;
         }
       });
-      super.synkObject3D(synkTypes);
+      super.synkObject3d(synkTypes);
     }
   }
 
@@ -423,22 +430,15 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   private light: THREE.Light = null;
 
-  set needUpdate(value : boolean) {
-    if (value && this.light !== null) {
-      this.light = null;
-      this.getLight();
-    }
-  }
-
   getLight(): THREE.Light {
-    if (this.light === null) {
+    if (this.light === null || this._needUpdate) {
+      this.needUpdate = false;
       this.light = null;
       let basemesh: THREE.Light = null;
       switch (this.type.toLowerCase()) {
         case 'directionallight':
         case 'directional':
           basemesh = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
-          basemesh.castShadow = this.castShadow;
           break;
         case 'hemispherelight':
         case 'hemisphere':
@@ -476,7 +476,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         case 'pointlight':
         case 'point':
           basemesh = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
-          basemesh.castShadow = this.castShadow;
           break;
         case 'arealight':
         case 'area':
@@ -487,12 +486,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         case 'spotlight':
         case 'spot':
           const spotLight = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getAngle(), this.getPenumbra(), this.getDecay());
-          spotLight.castShadow = this.castShadow;
           if (ThreeUtil.isNotNull(this.shadowFocus)) {
             spotLight.shadow.focus = this.getShadowFocus(1);
           }
           basemesh = spotLight;
-
           break;
         case 'ambientlight':
         case 'ambient':
@@ -569,13 +566,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         }
         // this.light.shadow.updateMatrices(this.light);
       }
-      if (ThreeUtil.isNull(this.light.userData.component)) {
-        this.light.userData.component = this;
-      }
-      this.setObject3D(this.light);
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'helper']);
-      this.setSubscribeNext('light');
-      this.onLoad.emit(this);
+      this.setObject3d(this.light);
     }
     return this.light;
   }

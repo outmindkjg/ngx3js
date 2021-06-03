@@ -49,32 +49,39 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('controller');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if (changes) {
+    if (changes && this._needUpdate === false) {
+      this.addChanges(changes);
+      /*
       if (changes.controller) {
         this.needUpdate = true;
       } else if (changes.params && this._controller !== null) {
         this._controller.setVariables(this.params);
       }
+      todo
+      */
     }
   }
 
-  set needUpdate(value: boolean) {
-    if (value && this._needUpdate == false) {
-      this._needUpdate = true;
-      this.resetRenderer();
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
+    this.subscribeListQuery(this.controllerItemList, 'controllerItemList', 'controllerItem');
+    this.resetRenderer();
   }
 
   private _controller: AbstractThreeController = null;
   private parent: THREE.Object3D = null;
   private refObject2d: HtmlCollection = null;
 
-  setObject3D(parent: THREE.Object3D) {
+  setObject3d(parent: THREE.Object3D) {
     if (this.parent !== parent) {
       this.parent = parent;
       this.resetRenderer();
@@ -113,12 +120,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     this.resetRenderer();
   }
 
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.controllerItemList, 'controllerItemList', 'controlleritem');
-    super.ngAfterContentInit();
-    this.resetRenderer();
-  }
-
   resetRenderer() {
     if (this._needUpdate) {
       this.getController();
@@ -134,13 +135,12 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-  private _needUpdate: boolean = true;
   private _controllerItems: ControllerItemComponent[] = null;
 
   getController(): void {
     if ((this.parent !== null || this.refObject2d !== null) && this._needUpdate && ThreeUtil.isNotNull(this.controllerItemList)) {
+      this.needUpdate = false;
       this._controllerItems = [];
-      this._needUpdate = false;
       this._controller = null;
       let controller: any = null;
       if (typeof this.controller === 'string') {
@@ -193,11 +193,13 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
           if (this._controllerItems.length === 0) {
             this._controllerItems = null;
           }
+          super.setObject(this._controllerItems);
         } else {
           this._controller = new controller(this.parent, this.refObject2d);
           this.resetRenderer();
           this._controller.setVariables(this.params);
           this._controller.awake();
+          super.setObject(this._controller);
         }
       }
     }

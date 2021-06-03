@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
@@ -65,7 +65,6 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private target: THREE.Vector3 | LookatComponent | any = null;
   @Input() private camera: any = null;
 
-  @Output() private onLoad:EventEmitter<ControlComponent> = new EventEmitter<ControlComponent>();
   @Output() private eventListener:EventEmitter<{type : string, event : any}> = new EventEmitter<{ type : string, event : any}>();
 	@ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent> = null;
 
@@ -74,15 +73,35 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('control');
   }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.control) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    super.ngAfterContentInit();
+  }
+
 
   protected applyChanges() {
-    this.synkControls(this.getChanges());
+    this.synkObject(this.getChanges());
   }
 
-  protected synkControls(synkTypes: string[]) {
+  protected synkObject(synkTypes: string[]) {
     if (this.control !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['lookat']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType.toLowerCase()) {
           case 'lookat':
@@ -142,15 +161,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 
   private control : any = null;
 
-  set needUpdate(value : boolean) {
-    if (value && this.control !== null) {
-      this.control = null;
-      this.getControl();
-    }
-  }
-
   getControl() {
-    if (this.control === null) {
+    if (this.control === null || this._needUpdate) {
+      this.needUpdate = false;
       const camera = this._camera;
       const domElement = this._domElement;
       if (this.control !== null) {
@@ -347,9 +360,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
           break;
       }
       this.control = control;
-      this.synkControls(['lookat'])
-      this.setSubscribeNext('control');
-      this.onLoad.emit(this);
+      super.setObject(this.control);
     }
     return this.control;
   }

@@ -18,7 +18,6 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private fps:number = null;
   @Input() private duration: number = 0.5;
   @Input() private timeScale: number = 1;
-  @Input() private debug:boolean = false;
 
   @Input() private sync:boolean = null;
 	@Input() private afterglow:number = null;
@@ -34,7 +33,6 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private weapon: number = null;
   @Input() private controls: any = null;
   @Input() private mmdHelpers : string[] = null;
-  @Output() private onLoad:EventEmitter<MixerComponent> = new EventEmitter<MixerComponent>();
 
   @ContentChildren(ClipComponent, { descendants: false }) private clipList: QueryList<ClipComponent>;
 
@@ -86,7 +84,22 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
     super();
   }
 
+  ngOnInit(): void {
+    super.ngOnInit('mixer');
+  }
+
+  ngOnDestroy(): void {
+    if (this.mixer !== null) {
+      this.mixer.stopAllAction();
+    }
+    super.ngOnDestroy();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.mixer) {
+      this.addChanges(changes);
+      /*
     if (changes.action) {
       this.play(this.action.toLowerCase());
     }
@@ -114,18 +127,13 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
         // this.helper.pose(this.model, null);
       }
     }
-    super.ngOnChanges(changes);
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ngOnDestroy(): void {
-    if (this.mixer !== null) {
-      this.mixer.stopAllAction();
+    todo
+      */
     }
-    super.ngOnDestroy();
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private mixer : THREE.AnimationMixer = null;
@@ -267,7 +275,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
               rootObject3d.add(mmdAnimationHelper);
             });
           }
-          this.onLoad.emit(this);
+          super.callOnLoad();
           this.isAdded = true;
         }
       } else if (this.model instanceof THREE.Audio) {
@@ -301,7 +309,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
                 this.synkAnimationHelper(this.animationHelper.helper);
               }
             }
-            this.onLoad.emit(this);
+            super.callOnLoad();
         }
         break;
       case 'mixer' :
@@ -312,7 +320,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
           this.clipList.forEach(clip => {
             clip.setMixer(this.mixer, this.clips, fps);
           });
-          this.onLoad.emit(this);
+          super.callOnLoad();
         }
         break;
       case 'virtulous' :

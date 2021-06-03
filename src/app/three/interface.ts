@@ -670,6 +670,47 @@ export class ThreeUtil {
     return !this.isNull(value);
   }
 
+  static isArray(value: any): boolean {
+    return Array.isArray(value);
+  }
+
+  static getFirst<T>(value: T | T[]): T {
+    if (Array.isArray(value)) {
+      return value[0] || null;
+    } else {
+      return value;
+    }
+  }
+
+  static isIndexOf<T>(data: T[] , findMe : T[] | T): boolean {
+    if (Array.isArray(findMe)) {
+      let result:boolean = false;
+      findMe.forEach(txt => {
+        if (data.indexOf(txt) > -1) {
+          result = true;
+        }
+      });
+      return result;
+    } else {
+      return data.indexOf(findMe) > -1;
+    }
+  }
+
+  static pushUniq<T>(data: T[] , addMe : T[] | T): T[] {
+    if (Array.isArray(addMe)) {
+      addMe.forEach(obj => {
+        if (data.indexOf(obj) === -1) {
+          data.push(obj);
+        }
+      });
+    } else if (ThreeUtil.isNotNull(addMe)){
+      if (data.indexOf(addMe) === -1) {
+        data.push(addMe);
+      }
+    }
+    return data;
+  }
+
   static getStoreUrl(url: string) {
     if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
       return url;
@@ -1186,11 +1227,17 @@ export class ThreeUtil {
     }
   }
 
-  static getObject3d(object3d: any): THREE.Object3D {
+  static getObject3d(object3d: any, isRequired : boolean = true): THREE.Object3D {
     if (object3d instanceof THREE.Object3D) {
       return object3d;
+    } else if (this.isNotNull(object3d.getMesh)) {
+      return object3d.getMesh() as THREE.Object3D;
+    } else if (this.isNotNull(object3d.getLight)) {
+      return object3d.getLight() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getHelper)) {
       return object3d.getHelper() as THREE.Object3D;
+    } else if (this.isNotNull(object3d.getAudio)) {
+      return object3d.getAudio() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getCamera)) {
       return object3d.getCamera() as THREE.Camera;
     } else if (this.isNotNull(object3d.getScene)) {
@@ -1198,21 +1245,41 @@ export class ThreeUtil {
     } else if (this.isNotNull(object3d.getObject3D)) {
       return object3d.getObject3D() as THREE.Object3D;
     }
+    if (!isRequired) {
+      return null;
+    }
     return new THREE.Object3D();
   }
-
-  static getMesh(mesh: any): THREE.Mesh {
+  static getMeshFind(mesh: any): THREE.Mesh {
     if (mesh instanceof THREE.Mesh) {
       return mesh;
     } else if (this.isNotNull(mesh.getHelper)) {
-      return mesh.getHelper();
+      mesh = mesh.getHelper();
     } else if (this.isNotNull(mesh.getMesh)) {
-      return mesh.getMesh();
+      mesh = mesh.getMesh();
     } else if (this.isNotNull(mesh)) {
-      const object3d = this.getObject3d(mesh);
-      if (object3d instanceof THREE.Mesh) {
-        return object3d;
+      mesh = this.getObject3d(mesh);
+    }
+    if (mesh instanceof THREE.Mesh) {
+      return mesh;
+    } else if (mesh instanceof THREE.Group) {
+      let childMesh : THREE.Mesh = null;
+      mesh.children.forEach(child => {
+        if (childMesh === null && child instanceof THREE.Mesh) {
+          childMesh = child;
+        }
+      });
+      if (childMesh !== null) {
+        return childMesh;
       }
+    }
+    return null;
+  }
+
+  static getMesh(mesh: any): THREE.Mesh {
+    const findedMesh = this.getMeshFind(mesh);
+    if (findedMesh !== null) {
+      return findedMesh;
     }
     return new THREE.Mesh();
   }
@@ -1299,6 +1366,14 @@ export class ThreeUtil {
       }
     }
     return new THREE.BufferGeometry();
+  }
+  
+  static setSubscribeNext(object: any, key: string | string[]) {
+    if (this.isNotNull(object.setSubscribeNext)) {
+      object.setSubscribeNext(key);
+    } else if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component) && this.isNotNull(object.userData.component.setSubscribeNext)) {
+      object.userData.component.setSubscribeNext(key);
+    }
   }
 
   static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {

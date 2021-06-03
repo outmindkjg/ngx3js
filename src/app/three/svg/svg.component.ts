@@ -35,8 +35,6 @@ export class SvgComponent extends AbstractObject3dComponent {
 
   @Input() public type:string = 'mesh';
   @Input() public geometryType:string = 'shape';
-  @Input() private castShadow:boolean = true;
-  @Input() private receiveShadow:boolean = false;
   @Input() public name:string = null;
   @Input() private url:string = null;
   @Input() private path:string = null;
@@ -90,6 +88,28 @@ export class SvgComponent extends AbstractObject3dComponent {
 
   constructor(private ele: ElementRef, private localStorageService: LocalStorageService) {
     super();
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit('svg');
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.meshes) {
+      this.addChanges(changes);
+      // this.resetMeshes(); todo
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
+    this.subscribeListQuery(this.translationList, 'translationList', 'translation');
+    super.ngAfterContentInit();
   }
 
   private getCurveSegments(def?: number): number {
@@ -255,34 +275,12 @@ export class SvgComponent extends AbstractObject3dComponent {
     return materials;
   }
 
-  ngOnInit(): void {
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (this.parent !== null && this.meshes !== null ) {
-        this.meshes.forEach(mesh => {
-          this.parent.remove(mesh);
-        })
-      }
-      this.meshes = null;
-    }
-    this.resetMeshes();
-    super.ngOnChanges(changes);
-  }
-
-  ngOnDestroy() {
-    super.ngOnDestroy();
-  }
-
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
-    this.subscribeListQuery(this.translationList, 'translationList', 'translation');
-    super.ngAfterContentInit();
-  }
-
-  synkObject3D(synkTypes: string[]) {
+  synkObject(synkTypes: string[]) {
     if (this.meshes !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['translation', 'material']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'material':
@@ -322,7 +320,7 @@ export class SvgComponent extends AbstractObject3dComponent {
         }
       })
     }
-    super.synkObject3D(synkTypes);
+    super.synkObject(synkTypes);
   }
 
   private meshes : THREE.Object3D[] = null;
@@ -340,7 +338,8 @@ export class SvgComponent extends AbstractObject3dComponent {
   private svgMesh : THREE.Group = null;
 
   resetMeshes() {
-    if (this.parent !== null && this.svgMesh === null) {
+    if (this.parent !== null && (this.svgMesh === null || this._needUpdate)) {
+      this.needUpdate = false;
       this.svgMesh = new THREE.Group();
       this.getPaths((result : SvgGeometry[]) => {
         this.meshes = [];
@@ -383,8 +382,7 @@ export class SvgComponent extends AbstractObject3dComponent {
           this.svgMesh.add(mesh);
         })
       });
-      this.synkObject3D(['translation', 'position','rotation','scale','material']);
-      this.setObject3D(this.svgMesh);
+      this.setObject3d(this.svgMesh);
     }
   }
 

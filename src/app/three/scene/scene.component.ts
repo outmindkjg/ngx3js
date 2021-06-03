@@ -51,7 +51,35 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('scene');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.scene) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
+    this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
+    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQuery(this.fogList, 'fogList', 'fog');
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
+    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
+    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+    this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    this.subscribeListQuery(this.lightList, 'lightList', 'light');
+    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
+    this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
+    super.ngAfterContentInit();
   }
 
   private scene: THREE.Scene = null;
@@ -92,30 +120,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   setSavelocalStorage(storageName: string) {
     return this.localStorageService.setScene(storageName, this.getScene());
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (changes.storageName || changes.background) {
-        this.scene = null;
-      }
-    }
-    super.ngOnChanges(changes);
-  }
-
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
-    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
-    this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
-    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'cameras');
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
-    super.ngAfterContentInit();
   }
 
   setBackgroundTexture(background: THREE.Texture, backgroundType: string) {
@@ -286,8 +290,11 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   private _physics: PhysicsComponent = null;
 
-  synkObject3D(synkTypes: string[]) {
+  synkObject3d(synkTypes: string[]) {
     if (this.scene !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['material', 'mesh', 'viewer', 'light', 'helper', 'camera', 'physics', 'fog', 'scenecontroller']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'mesh':
@@ -300,7 +307,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               viewer.setParent(this.scene);
             });
             break;
-          case 'cameras':
+          case 'camera':
             this.cameraList.forEach((camera) => {
               camera.setParent(this.scene);
             });
@@ -354,7 +361,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
         }
       });
     }
-    super.synkObject3D(synkTypes);
+    super.synkObject3d(synkTypes);
   }
 
   update(timer: RendererTimer) {
@@ -374,18 +381,19 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   private _sceneSynked: boolean = false;
 
   getScene(): THREE.Scene {
-    if (this.scene === null) {
+    if (this.scene === null || this._needUpdate) {
       this.getSceneDumpy();
     }
     if (!this._sceneSynked) {
       this._sceneSynked = true;
-      this.synkObject3D(['position', 'rotation', 'scale', 'lookat', 'material', 'mesh', 'viewer', 'light', 'helper', 'cameras', 'physics', 'fog', 'scenecontroller']);
+      this.synkObject3d(['init']);
     }
     return this.scene;
   }
 
   getSceneDumpy(): THREE.Scene {
-    if (this.scene === null) {
+    if (this.scene === null || this._needUpdate) {
+      this.needUpdate = false;
       if (this.storageName !== null) {
         this.scene = new THREE.Scene();
         this.localStorageService.getScene(this.storageName, (scene: THREE.Scene) => {
@@ -399,10 +407,10 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             }
           });
         });
-        this.setObject3D(this.scene);
+        this.setObject3d(this.scene);
       } else {
         this.scene = new THREE.Scene();
-        this.setObject3D(this.scene);
+        this.setObject3d(this.scene);
       }
       this.unSubscribeRefer('background');
       if (ThreeUtil.isNotNull(this.background)) {
@@ -451,10 +459,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               break;
           }
         }
-      }
-
-      if (ThreeUtil.isNull(this.scene.userData.component)) {
-        this.scene.userData.component = this;
       }
       this._sceneSynked = false;
     }

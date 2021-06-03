@@ -15,18 +15,28 @@ export class ShaderComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('shader');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private shader: string = null;
 
   getShader(): string {
-    if (this.shader === null) {
+    if (this.shader === null || this._needUpdate) {
+      this.needUpdate = false;
       if (this.refShader !== null) {
         this.shader = this.refShader.getShader();
       } else {
         this.shader = this.ele.nativeElement.innerText;
       }
+      super.setObject(this.shader);
     }
     return this.shader;
   }

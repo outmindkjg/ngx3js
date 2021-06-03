@@ -1,5 +1,5 @@
 import { CssStyle, ThreeUtil } from './../interface';
-import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { HtmlComponent } from '../html/html.component';
 import { HtmlCollection, VisualComponent } from '../visual/visual.component';
 import * as THREE from 'three';
@@ -14,12 +14,14 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent extends AbstractSubscribeComponent implements OnInit {
+  
   @Input() public name:string = null;
-  @ContentChildren(VisualComponent) private children: QueryList<VisualComponent>;
-  @ContentChildren(HtmlComponent) private html: QueryList<HtmlComponent>;
-  @ContentChildren(TransformComponent) private transform: QueryList<TransformComponent>;
-  @ContentChildren(BackgroundComponent) private background: QueryList<BackgroundComponent>;
-	@ContentChildren(ControllerComponent, { descendants: true }) private controller: QueryList<ControllerComponent>;
+
+  @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
+  @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
+  @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
+  @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
+	@ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
 
   private collection : HtmlCollection = {
     html : null,
@@ -34,7 +36,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
 
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('canvas');
   }
 
   ngOnDestroy(): void {
@@ -51,19 +53,20 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     super.ngOnDestroy();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.canvas) {
+      this.addChanges(changes);
+    }
+  }
+
   ngAfterContentInit() {
-    this.children.changes.subscribe(() => {
-      this.synkObject2D(['children']);
-    });
-    this.html.changes.subscribe(() => {
-      this.synkObject2D(['html']);
-    });
-    this.transform.changes.subscribe(() => {
-      this.synkObject2D(['transform']);
-    });
-    this.background.changes.subscribe(() => {
-      this.synkObject2D(['background']);
-    });
+    this.subscribeListQuery(this.childrenList, 'childrenList', 'children');
+    this.subscribeListQuery(this.htmlList, 'htmlList', 'html');
+    this.subscribeListQuery(this.transformList, 'transformList', 'transform');
+    this.subscribeListQuery(this.backgroundList, 'backgroundList', 'background');
+    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+    super.ngAfterContentInit();
   }
 
   private canvas: HTMLElement = null;
@@ -84,41 +87,45 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  synkObject2D(synkTypes: string[]) {
+  synkObject2d(synkTypes: string[]) {
     if (this.canvas !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['children','html', 'transform', 'background', 'controller']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'children':
             if (this.eleSize !== null) {
-              this.children.forEach((child) => {
+              this.childrenList.forEach((child) => {
                 child.setParentNode(this.canvas, this.eleSize, this.collection);
               });
             }
             break;
           case 'html':
-            this.html.forEach((html) => {
+            this.htmlList.forEach((html) => {
               html.setParent(this.canvas);
             });
             break;
           case 'transform':
             if (this.canvasSize !== null) {
-              this.transform.forEach((transform) => {
+              this.transformList.forEach((transform) => {
                 transform.setParentNode(this.canvas, this.canvasSize, this.eleSize);
               });
             }
             break;
           case 'background':
-            this.background.forEach((background) => {
+            this.backgroundList.forEach((background) => {
               background.setParentNode(this.canvas);
             });
             break;
           case 'controller':
-            this.controller.forEach((controller) => {
+            this.controllerList.forEach((controller) => {
               controller.setCanvas(this.collection);
             });
             break;
         }
       });
+      super.synkObject(synkTypes);
     }
   }
 
@@ -142,14 +149,15 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     if (this.canvas !== null) {
       const style: CssStyle= this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
-      this.synkObject2D(['transform', 'background', 'children']);
+      this.synkObject2d(['transform', 'background', 'children']);
     }
   }
 
   private cssClazzName : string = null;
 
   getCanvas(): HTMLElement {
-    if (this.canvas === null) {
+    if (this.canvas === null || this._needUpdate) {
+      this.needUpdate = false;
       const canvas = document.createElement("div");
       canvas.classList.add('three-canvas');
       if (this.canvas !== null && this.canvas.parentNode !== null) {
@@ -160,7 +168,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
       this.collection.children = [];
       this.collection.component = this;
       this.collection.name = this.name;
-      this.synkObject2D(['html', 'transform', 'background', 'children' ]);
+      super.setObject(this.collection);
     }
     if (this.parentNode !== null && this.canvas.parentNode !== this.parentNode) {
       this.parentNode.appendChild(this.canvas);

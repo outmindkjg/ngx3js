@@ -84,14 +84,7 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes ) {
-      this.applyHtmlStyle();
-    }
-    super.ngOnChanges(changes);
+    super.ngOnInit('transform');
   }
 
   ngOnDestroy(): void {
@@ -103,6 +96,18 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
       this.parentNode = null;
     }
     super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.cssClazzName) {
+      this.addChanges(changes);
+      // this.applyHtmlStyle();
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private parentNode : HTMLElement = null;

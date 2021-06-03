@@ -18,23 +18,26 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   @Input() private normalize: boolean = false;
   @Input() public camera: any = null;
 
-  @Output() private onLoad: EventEmitter<PositionComponent> = new EventEmitter<PositionComponent>();
+  ngOnInit(): void {
+    super.ngOnInit('position');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.refer || changes.multiply) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.position) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private position: THREE.Vector3 = null;
-  private _needUpdate: boolean = true;
-  set needUpdate(value : boolean) {
-    if (value && this.position !== null) {
-      this._needUpdate = true;
-      this.getPosition();
-    }
-  }
 
   setPosition(position: THREE.Vector3 | number, y? : number, z? : number) {
     if (position instanceof THREE.Vector3) {
@@ -44,7 +47,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
           this.position = position;
         } else {
           this.position = position;
-          this._needUpdate = true;
+          this.needUpdate = true;
           this.getPosition();
         }
       }
@@ -80,7 +83,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       this.position = new THREE.Vector3();
     }
     if (this._needUpdate) {
-      this._needUpdate = false;
+      this.needUpdate = false;
       let position : THREE.Vector3 = null;
       if (this.refer !== null && this.refer !== undefined) {
         position = ThreeUtil.getPosition(this.refer);
@@ -124,8 +127,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       }
       if (ThreeUtil.isNotNull(position)) {
         this.position.copy(position);
-        this.setSubscribeNext('position');
-        this.onLoad.emit(this);
+        this.setObject(position);
       }
     }
     return this.position;

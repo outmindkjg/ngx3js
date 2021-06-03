@@ -171,10 +171,27 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private fragmentShader: string = null;
   @Input() private bloomTexture: any = null;
 
-  @Output() private onLoad: EventEmitter<PassComponent> = new EventEmitter<PassComponent>();
-
   constructor() {
     super();
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit('pass');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.pass) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private lutCubeLoader: LUTCubeLoader = null;
@@ -757,33 +774,16 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     return ThreeUtil.getTypeSafe(this.goWild, def);
   }
 
-  ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      if (this.pass !== null && this.effectComposer !== null) {
-        this.needUpdate = true;
-      }
-      if (this.effectScene !== null && this.effectCamera !== null && this.effectComposer !== null && (this.pass === null || this.needUpdate)) {
-        this.getPass(this.effectScene, this.effectCamera, this.effectComposer);
-      }
-    }
-    super.ngOnChanges(changes);
-  }
-
   private effectComposer: EffectComposer = null;
   private effectScene: THREE.Scene = null;
   private effectCamera: THREE.Camera = null;
   private pass: Pass = null;
-  private needUpdate: boolean = false;
 
   getPass(scene?: THREE.Scene, camera?: THREE.Camera, effectComposer?: EffectComposer): Pass {
     if (ThreeUtil.isNull(scene) || ThreeUtil.isNull(camera)) {
       return this.pass;
     }
-    if (this.pass === null || this.needUpdate) {
+    if (this.pass === null || this._needUpdate) {
       this.needUpdate = false;
       this.effectComposer = effectComposer;
       this.effectScene = scene;
@@ -1055,7 +1055,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       } else {
         this.pass = pass;
       }
-      this.onLoad.emit(this);
+      this.setObject(this.pass);
     }
     if (this.pass !== null && effectComposer !== null) {
       if (effectComposer.passes.indexOf(this.pass) === -1) {

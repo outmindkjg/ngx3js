@@ -13,30 +13,31 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
   @Input() private x: number | string = 0;
   @Input() private y: number | string = 0;
   @Input() private z: number | string = 0;
-  @Output() private onLoad: EventEmitter<RotationComponent> = new EventEmitter<RotationComponent>();
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('rotation');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.refer) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.rotation) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private rotation: THREE.Euler = null;
-  private _needUpdate: boolean = true;
-
-  set needUpdate(value : boolean) {
-    if (value && this.rotation !== null) {
-      this._needUpdate = true;
-      this.getRotation();
-    }
-  }
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
@@ -63,7 +64,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
           this.rotation = rotation;
         } else {
           this.rotation = rotation;
-          this._needUpdate = true;
+          this.needUpdate = true;
           this.getRotation();
         }
       }
@@ -80,6 +81,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
       this.rotation = new THREE.Euler();
     }
     if (this._needUpdate) {
+      this.needUpdate = false;
       let rotation : THREE.Euler = null;
       if (ThreeUtil.isNotNull(this.refer)) {
         rotation = ThreeUtil.getRotation(this.refer);
@@ -89,8 +91,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
       }
       if (rotation !== null) {
         this.rotation.copy(rotation);
-        this.setSubscribeNext('rotation');
-        this.onLoad.emit(this);
+        super.setObject(rotation);
       }
     }
     return this.rotation;

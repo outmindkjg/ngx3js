@@ -25,37 +25,41 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
     dd?: (string | CssStyle);
   }[] = null;
 
-  @ContentChildren(HtmlComponent, { descendants: false }) private children: QueryList<HtmlComponent>;
+  @ContentChildren(HtmlComponent, { descendants: false }) private childrenList: QueryList<HtmlComponent>;
 
   constructor(private ele: ElementRef) {
     super();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('html');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.parentElement !== null) {
-      this.needUpdate = true;
-      this.getHtml();
-    }
     super.ngOnChanges(changes);
+    if (changes && this.html !== null) {
+      this.addChanges(changes);
+    }
   }
 
   ngAfterContentInit(): void {
-    this.children.changes.subscribe(() => {
-      this.synkObject3D(['children']);
-    });
+    this.subscribeListQuery(this.childrenList, 'childrenList', 'children');
     super.ngAfterContentInit();
   }
 
-  synkObject3D(synkTypes: string[]) {
+  synkObject2d(synkTypes: string[]) {
     if (this.html !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['children','tween']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'children':
-            this.children.forEach((child) => {
+            this.childrenList.forEach((child) => {
               child.setParent(this.html);
             });
             break;
@@ -64,6 +68,7 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
             break;
         }
       })
+      super.synkObject(synkTypes);
     }
   }
 
@@ -105,15 +110,9 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
   private html: HTMLElement = null;
 
-  set needUpdate(value : boolean) {
-    if (value && this.html !== null) {
-      this.html = null;
-      this.getHtml();
-    }
-  }
-  
   getHtml(): HTMLElement {
-    if (this.html === null) {
+    if (this.html === null || this._needUpdate) {
+      this.needUpdate = false;
       let html: HTMLElement = null;
       switch (this.type.toLowerCase()) {
         case 'ul':
@@ -223,9 +222,8 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
       if (this.html !== null && this.html.parentNode !== null) {
         this.html.parentNode.removeChild(this.html);
       }
-
       this.html = html;
-      this.synkObject3D(['children', 'tween']);
+      super.setObject(this.html);
     }
     if (this.html !== null && this.parentElement !== null) {
       if (ThreeUtil.isNotNull(this.html.parentNode) || this.html.parentNode !== this.parentElement) {

@@ -93,22 +93,23 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('controllerItem');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if (changes) {
-      this.needUpdate = true;
+    if (changes && this._curve) {
+      this.addChanges(changes);
     }
   }
 
-  private _needUpdate: boolean = true;
-
-  set needUpdate(value: boolean) {
-    if (value && this._needUpdate == false) {
-      this._needUpdate = true;
-      this.getController(this._parent);
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private _helper: THREE.Object3D = null;

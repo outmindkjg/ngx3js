@@ -20,7 +20,15 @@ export class TranslationComponent extends AbstractSubscribeComponent implements 
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('translation');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private translation : THREE.Matrix4 = null;
@@ -55,9 +63,10 @@ export class TranslationComponent extends AbstractSubscribeComponent implements 
   }
 
   getTranslation() : THREE.Matrix4{
-    if (this.translation === null) {
+    if (this.translation === null || this._needUpdate) {
+      this.needUpdate = false;
       this.translation = new THREE.Matrix4().makeTranslation(this.x, this.y, this.z);
-      this.setSubscribeNext('translation');
+      super.setObject(this.translation);
     }
     return this.translation;
   }

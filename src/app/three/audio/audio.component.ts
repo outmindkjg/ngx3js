@@ -27,18 +27,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private coneOuterGain:number = 1;
   @Input() private fftSize:number = 128;
 
-  @Output() private onLoad:EventEmitter<AudioComponent> = new EventEmitter<AudioComponent>();
-
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.audio !== null) {
-      this.addChanges(changes); 
-      if (this.audio.buffer !== null && changes.url) {
-        this.audio.buffer = null;
-      }
-    }
-    super.ngOnChanges(changes);
+  ngOnInit(): void {
+    super.ngOnInit('audio');
   }
 
   ngOnDestroy(): void {
@@ -53,6 +45,18 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     super.ngOnDestroy();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.audio) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    super.ngAfterContentInit();
+  }
+  
   private audio: THREE.Audio<any> = null;
   private video : HTMLVideoElement = null;
   private listener: THREE.AudioListener = null;
@@ -130,12 +134,12 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         userGestureSubscribe.unsubscribe();
       })
     } else {
-      this.synkObject3D(['mixer'])
+      this.synkObject3d(['mixer'])
     }
   }
 
   resetAudio() {
-    if (this.audio === null) {
+    if (this.audio === null || this._needUpdate) {
       this.audio = this.getAudio();
     }
     if (this.audio !== null) {
@@ -156,8 +160,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           if (this.autoplay || this.play) {
             this.video.play().then(() => {
               this.resetAudio();
-              this.onLoad.emit(this);
-              this.setSubscribeNext('texture')
+              super.callOnLoad();
             }).catch(() => {
               setTimeout(( ) => {
                 this.checkAudioPlay();
@@ -165,26 +168,25 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             })
           } else {
             this.resetAudio();
-            this.onLoad.emit(this);
-            this.setSubscribeNext('texture')
+            super.callOnLoad();
           }
         } else {
           this.loadAudio(this.url, (buffer: AudioBuffer) => {
             this.audio.setBuffer(buffer);
             this.resetAudio();
-            this.onLoad.emit(this);
+            super.callOnLoad();
           });
         }
         if (this.video !== null) {
-          this.setObject3D(this.audio);
+          this.setObject3d(this.audio);
         }
       }
       if (!this.visible) {
-        this.setObject3D(null);
+        this.setObject3d(null);
         this.audio.setVolume(0);
       } else if (this.visible) {
         if (this.audio.parent === null && this.audio.parent !== this.parent) {
-          this.setObject3D(this.audio);
+          this.setObject3d(this.audio);
         }
         this.audio.setVolume(this.volume);
         if (this.audio instanceof THREE.PositionalAudio) {
@@ -238,13 +240,11 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return this.analyser;
   }
 
-  ngAfterContentInit(): void {
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    super.ngAfterContentInit();
-  }
-
-  synkObject3D(synkTypes: string[]) {
+  synkObject3d(synkTypes: string[]) {
     if (this.audio !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['mixer']);
+      }
       synkTypes.forEach((synkType) => {
         switch (synkType) {
           case 'mixer' :
@@ -254,11 +254,13 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             break;
         }
       });
+      super.synkObject3d(synkTypes);
     }
   }
 
   getAudio():THREE.Audio {
-    if (this.audio === null && this.listener !== null) {
+    if (this.listener !== null && (this.audio === null || this._needUpdate)) {
+      this.needUpdate = false;
       this.loadedVideoTexture = null;
       this.video = null;
       switch (this.type.toLowerCase()) {
@@ -271,9 +273,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           break;
       }
       this.audio.autoplay = this.autoplay;
-      if (ThreeUtil.isNull(this.audio.userData.component)) {
-        this.audio.userData.component = this;
-      }
+      this.synkObject3d(['init']);
     }
     return this.audio;
   }

@@ -15,30 +15,31 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private z: number = 1;
   @Input() private multiply: number = null;
   @Input() private scaleMode: string = 'max';
-  @Output() private onLoad: EventEmitter<ScaleComponent> = new EventEmitter<ScaleComponent>();
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    super.ngOnInit('scale');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.x || changes.y || changes.z || changes.multiply || changes.refer || changes.multiply) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.scale) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private scale: THREE.Vector3 = null;
-  private _needUpdate: boolean = true;
-
-  set needUpdate(value : boolean) {
-    if (value && this.scale !== null) {
-      this._needUpdate = true;
-      this.getScale();
-    }
-  }
 
   setScale(scale: THREE.Vector3 | number, y? : number, z? : number) {
     if (scale instanceof THREE.Vector3) {
@@ -48,7 +49,7 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
           this.scale = scale;
         } else {
           this.scale = scale;
-          this._needUpdate = true;
+          this.needUpdate = true;
           this.getScale();
         }
       }
@@ -78,7 +79,7 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
       this.scale = new THREE.Vector3();
     }
     if (this._needUpdate) {
-      this._needUpdate = false;
+      this.needUpdate = false;
       let scale : THREE.Vector3 = null;
       if (this.refer !== null && this.refer !== undefined) {
         if (this.refer.getSize) {
@@ -95,8 +96,7 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
         if (ThreeUtil.isNotNull(this.multiply)) {
           this.scale.multiplyScalar(this.multiply);
         }
-        this.setSubscribeNext('scale');
-        this.onLoad.emit(this);
+        super.setObject(scale);
       }
     }
     return this.scale;

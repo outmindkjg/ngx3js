@@ -1,6 +1,7 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, OnInit, Output, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
+import { ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
@@ -25,7 +26,6 @@ import { ScaleComponent } from './../scale/scale.component';
   styleUrls: ['./shared.component.scss'],
 })
 export class SharedComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit {
-  @Output() private onLoad: EventEmitter<SharedComponent> = new EventEmitter<SharedComponent>();
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
@@ -50,83 +50,152 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('shared');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes) {
+      this.addChanges(changes);
+    }
   }
 
   ngAfterContentInit() {
-
+    this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
+    this.subscribeListQuery(this.textureList, 'textureList', 'texture');
+    this.subscribeListQuery(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
+    this.subscribeListQuery(this.svgList, 'svgList', 'svg');
+    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
+    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+    this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
+    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
+    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
+    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    this.subscribeListQuery(this.lightList, 'lightList', 'light');
+    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQuery(this.positionList, 'positionList', 'position');
+    this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    super.ngAfterContentInit();
   }
 
-  getShared() {
-    this.geometryList.changes.subscribe(() => {
-      this.initComponents('geometry');
-    });
-    this.materialList.changes.subscribe(() => {
-      this.initComponents('material');
-    });
-    this.textureList.changes.subscribe(() => {
-      this.initComponents('texture');
-    });
-    this.lensflareElementList.changes.subscribe(() => {
-      this.initComponents('lensflare');
-    });
-    this.svgList.changes.subscribe(() => {
-      this.initComponents('svg');
-    });
-    this.listnerList.changes.subscribe(() => {
-      this.initComponents('listner');
-    });
-    this.audioList.changes.subscribe(() => {
-      this.initComponents('audio');
-    });
-    this.cssChildrenList.changes.subscribe(() => {
-      this.initComponents('css');
-    });
-    this.rigidbodyList.changes.subscribe(() => {
-      this.initComponents('rigidbody');
-    });
-    this.meshList.changes.subscribe(() => {
-      this.initComponents('mesh');
-    });
-    this.cameraList.changes.subscribe(() => {
-      this.initComponents('camera');
-    });
-    this.helperList.changes.subscribe(() => {
-      this.initComponents('helper');
-    });
-    this.lightList.changes.subscribe(() => {
-      this.initComponents('light');
-    });
-    this.positionList.changes.subscribe(() => {
-      this.initComponents('position');
-    });
-    this.rotationList.changes.subscribe(() => {
-      this.initComponents('rotation');
-    });
-    this.scaleList.changes.subscribe(() => {
-      this.initComponents('scale');
-    });
-    this.lookatList.changes.subscribe(() => {
-      this.initComponents('lookat');
-    });
-    this.initComponents('geometry');
-    this.initComponents('material');
-    this.initComponents('texture');
-    this.initComponents('lensflare');
-    this.initComponents('svg');
-    this.initComponents('listner');
-    this.initComponents('audio');
-    this.initComponents('css');
-    this.initComponents('rigidbody');
-    this.initComponents('mesh');
-    this.initComponents('camera');
-    this.initComponents('helper');
-    this.initComponents('light');
-    this.initComponents('position');
-    this.initComponents('rotation');
-    this.initComponents('scale');
-    this.initComponents('lookat');
-    this.onLoad.emit(this);
+  private sharedObj: any = null;
+
+  synkObject(synkTypes: string[]) {
+    if (this.sharedObj !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['geometry', 'material', 'texture', 'lensflareElement', 'svg', 'listner', 'audio', 'cssChildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
+      }
+      if (ThreeUtil.isIndexOf(synkTypes, ['type'])) {
+        return;
+      }
+      synkTypes.forEach((synkType) => {
+        switch (synkType) {
+          case 'geometry':
+            this.geometryList.forEach((geometry) => {
+              geometry.getGeometry();
+            });
+            break;
+          case 'material':
+            this.materialList.forEach((material) => {
+              material.getMaterial();
+            });
+            break;
+          case 'texture':
+            this.textureList.forEach((texture) => {
+              texture.getTexture();
+            });
+            break;
+          case 'lensflare':
+            this.lensflareElementList.forEach((lensflareElement) => {
+              lensflareElement.getLensflareElement();
+            });
+            break;
+          case 'svg':
+            this.svgList.forEach((svg) => {
+              svg.getSVGResult(() => {});
+            });
+            break;
+          case 'listner':
+            this.listnerList.forEach((listner) => {
+              listner.getListener();
+            });
+            break;
+          case 'audio':
+            this.audioList.forEach((audio) => {
+              audio.getAudio();
+            });
+            break;
+          case 'geometry':
+            this.cssChildrenList.forEach((cssChildren) => {
+              cssChildren.getHtml();
+            });
+            break;
+          case 'rigidbody':
+            this.rigidbodyList.forEach((rigidbody) => {
+              rigidbody.resetRigidBody();
+            });
+            break;
+          case 'mesh':
+            this.meshList.forEach((mesh) => {
+              mesh.getMesh();
+            });
+            break;
+          case 'camera':
+            this.cameraList.forEach((camera) => {
+              camera.getCamera();
+            });
+            break;
+          case 'helper':
+            this.helperList.forEach((helper) => {
+              helper.getHelper();
+            });
+            break;
+          case 'light':
+            this.lightList.forEach((light) => {
+              light.getLight();
+            });
+            break;
+          case 'position':
+            this.positionList.forEach((position) => {
+              position.getPosition();
+            });
+            break;
+          case 'rotation':
+            this.rotationList.forEach((rotation) => {
+              rotation.getRotation();
+            });
+            break;
+          case 'scale':
+            this.scaleList.forEach((scale) => {
+              scale.getScale();
+            });
+            break;
+          case 'lookat':
+            this.lookatList.forEach((lookat) => {
+              lookat.getLookAt();
+            });
+            break;
+        }
+      });
+    }
+    super.synkObject(synkTypes);
+  }
+
+  getShared(): any {
+    if (this.sharedObj === null || this._needUpdate) {
+      this.needUpdate = false;
+      this.sharedObj = { shared: Math.random() };
+      super.setObject(this.sharedObj);
+    }
+    return this.sharedObj;
   }
 
   getGeometryComponents(): GeometryComponent[] {
@@ -147,95 +216,5 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
       result.push(ele);
     });
     return result;
-  }
-
-  initComponents(type: string) {
-    switch (type) {
-      case 'geometry':
-        this.geometryList.forEach((geometry) => {
-          geometry.getGeometry();
-        });
-        break;
-      case 'material':
-        this.materialList.forEach((material) => {
-          material.getMaterial();
-        });
-        break;
-      case 'texture':
-        this.textureList.forEach((texture) => {
-          texture.getTexture();
-        });
-        break;
-      case 'lensflare':
-        this.lensflareElementList.forEach((lensflareElement) => {
-          lensflareElement.getLensflareElement();
-        });
-        break;
-      case 'svg':
-        this.svgList.forEach((svg) => {
-          svg.getSVGResult(() => {});
-        });
-        break;
-      case 'listner':
-        this.listnerList.forEach((listner) => {
-          listner.getListener();
-        });
-        break;
-      case 'audio':
-        this.audioList.forEach((audio) => {
-          audio.getAudio();
-        });
-        break;
-      case 'geometry':
-        this.cssChildrenList.forEach((cssChildren) => {
-          cssChildren.getHtml();
-        });
-        break;
-      case 'rigidbody':
-        this.rigidbodyList.forEach((rigidbody) => {
-          rigidbody.resetRigidBody();
-        });
-        break;
-      case 'mesh':
-        this.meshList.forEach((mesh) => {
-          mesh.getMesh();
-        });
-        break;
-      case 'camera':
-        this.cameraList.forEach((camera) => {
-          camera.getCamera();
-        });
-        break;
-      case 'helper':
-        this.helperList.forEach((helper) => {
-          helper.getHelper();
-        });
-        break;
-      case 'light':
-        this.lightList.forEach((light) => {
-          light.getLight();
-        });
-        break;
-      case 'position':
-        this.positionList.forEach((position) => {
-          position.getPosition();
-        });
-        break;
-      case 'rotation':
-        this.rotationList.forEach((rotation) => {
-          rotation.getRotation();
-        });
-        break;
-      case 'scale':
-        this.scaleList.forEach((scale) => {
-          scale.getScale();
-        });
-        break;
-      case 'lookat':
-        this.lookatList.forEach((lookat) => {
-          lookat.getLookAt();
-        });
-        break;
-    }
   }
 }

@@ -59,14 +59,22 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('clip');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.resetAnimation();
-    }
     super.ngOnChanges(changes);
+    if (changes && this.clip) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private mixer: THREE.AnimationMixer = null;

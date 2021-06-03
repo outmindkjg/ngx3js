@@ -32,13 +32,22 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit('tools');
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private tool : any = null;
 
   getTool(): any {
-    if (this.tool === null) {
+    if (this.tool === null || this._needUpdate) {
+      this.needUpdate = false;
       switch(this.type.toLowerCase()) {
         case 'cuberendertarget' :
         case 'cuberender' :
@@ -50,6 +59,7 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
           });
           break;
       }
+      this.setObject(this.tool);
     }
     return this.tool;
   }

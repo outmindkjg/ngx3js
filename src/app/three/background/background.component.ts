@@ -283,14 +283,7 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.applyHtmlStyle();
-    }
-    super.ngOnChanges(changes);
+    super.ngOnInit('background');
   }
 
   ngOnDestroy(): void {
@@ -302,6 +295,17 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
       this.parentNode = null;
     }
     super.ngOnDestroy();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.cssClazzName) {
+      this.addChanges(changes);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   private parentNode: HTMLElement = null;
@@ -369,9 +373,11 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
 
   applyHtmlStyle() {
     if (this.parentNode !== null) {
-      if (this.visible) {
+      if (this.visible && this._needUpdate) {
+        this.needUpdate = false;
         const style: CssStyle= this.getStyle();
         this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'background', this.pseudo);
+        super.setObject(this.cssClazzName);
       } else {
         ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
       }

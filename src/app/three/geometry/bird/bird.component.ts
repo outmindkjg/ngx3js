@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeGeometryCustom, ThreeUtil } from '../../interface';
 
@@ -13,6 +13,14 @@ export class GeometryBirdComponent extends ThreeGeometryCustom implements OnInit
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
+  ngAfterContentInit(): void {
+  }
 
   initGeometry():THREE.BufferGeometry {
     const birds : number = this.width * this.width;

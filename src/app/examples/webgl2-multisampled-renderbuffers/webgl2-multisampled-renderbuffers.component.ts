@@ -6,10 +6,16 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl2-multisampled-renderbuffers.component.html',
   styleUrls: ['./webgl2-multisampled-renderbuffers.component.scss']
 })
-export class Webgl2MultisampledRenderbuffersComponent extends BaseComponent<{}> {
+export class Webgl2MultisampledRenderbuffersComponent extends BaseComponent<{
+  geometry : string;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      geometry : 'box'
+    },[
+      { name : 'geometry', type : 'select', select : [ 'box', 'sphere','torus']}
+    ]);
   }
 
 }
