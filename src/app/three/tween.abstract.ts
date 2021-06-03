@@ -41,7 +41,7 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
       this.parent = parent;
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 

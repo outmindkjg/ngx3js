@@ -348,7 +348,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   setObject3d(object3d: THREE.Object3D) {
     if (this.object3d !== object3d) {
-      console.error(object3d.parent);
       if (this.object3d !== null && this.object3d.parent !== null) {
         if (object3d !== null) {
           this.object3d.children.forEach(child => {
