@@ -53,7 +53,7 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {
-      const mesh = this.mesh.getMesh().children[0] as THREE.Line;
+      const mesh = this.mesh.getObject3d().children[0] as THREE.Line;
       if (mesh.geometry) {
         const geometry = mesh.geometry;
         const colorAttribute = geometry.getAttribute( 'color' );

@@ -312,7 +312,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   protected object3d: THREE.Object3D = null;
 
-  getObject3D(): THREE.Object3D {
+  getObject3d(): THREE.Object3D {
     return this.object3d;
   }
 
@@ -327,14 +327,18 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      if (this.object3d !== null && this.parent !== null && this.parent instanceof THREE.Object3D) {
-        if (this.parent instanceof THREE.LOD) {
-          this.parent.addLevel(this.object3d, this.getLoDistance(0));
+  protected parentObject3d : THREE.Object3D = null;
+
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.parentObject3d = parent;
+      if (this.object3d !== null && this.parentObject3d !== null && this.parentObject3d instanceof THREE.Object3D) {
+        if (this.parentObject3d instanceof THREE.LOD) {
+          this.parentObject3d.addLevel(this.object3d, this.getLoDistance(0));
         } else {
-          this.parent.add(this.object3d);
+          this.parentObject3d.add(this.object3d);
         }
+        return false;
       } else {
         return true;
       }
@@ -342,27 +346,26 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return false;
   }
 
-  setObject3d(object3d: THREE.Object3D, add2Parent: boolean = true) {
+  setObject3d(object3d: THREE.Object3D) {
     if (this.object3d !== object3d) {
+      console.error(object3d.parent);
       if (this.object3d !== null && this.object3d.parent !== null) {
-        this.object3d.parent.remove(this.object3d);
         if (object3d !== null) {
           this.object3d.children.forEach(child => {
             object3d.children.push(child);
           });
+          if (object3d.parent === null) {
+            this.object3d.parent.add(object3d);
+          }
         }
+        this.object3d.parent.remove(this.object3d);
+      } else if (object3d !== null && object3d.parent === null && this.parentObject3d !== null) {
+        this.parentObject3d.add(object3d);
       }
       this.object3d = object3d;
       if (this.object3d !== null) {
         if (ThreeUtil.isNull(this.object3d.userData.component)) {
           this.object3d.userData.component = this;
-        }
-        if (add2Parent && this.parent !== null && this.parent instanceof THREE.Object3D) {
-          if (this.parent instanceof THREE.LOD) {
-            this.parent.addLevel(this.object3d, this.getLoDistance(0));
-          } else {
-            this.parent.add(this.object3d);
-          }
         }
         this.setTweenTarget(this.object3d);
         this.setSubscribeNext('object3d');
@@ -384,6 +387,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   private _lookAt : THREE.Vector3 = null;
+
+  protected synkObject(synkTypes: string[]) {
+    this.synkObject3d(synkTypes);
+  }
 
   protected synkObject3d(synkTypes: string[]) {
     if (this.object3d !== null) {

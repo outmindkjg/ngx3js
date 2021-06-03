@@ -43,7 +43,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
       this.flower.getSubscribe().subscribe(() => {
         this.setFlower(this.flower);
       });
-      this.flower.getMesh();
+      this.flower.getObject3d();
     }
   }
 
@@ -53,7 +53,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
   blossomGeometry : THREE.InstancedBufferGeometry = null;
 
   setFlower(meshCom : MeshComponent) {
-    const mesh = meshCom.getMesh();
+    const mesh = meshCom.getObject3d();
     const _stemMesh = mesh.getObjectByName( 'Stem' ) as THREE.Mesh;
     const _blossomMesh = mesh.getObjectByName( 'Blossom' ) as THREE.Mesh;
     if (_stemMesh !== undefined && _blossomMesh !== undefined) {

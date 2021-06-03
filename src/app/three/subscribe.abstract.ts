@@ -58,7 +58,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       this._needUpdate = true;
       this.clearChanges();
       this.addChanges('clearinit');
-    } else {
+    } else if (!value && this._needUpdate) {
       this._needUpdate = false;
       this.clearChanges();
     }
@@ -72,14 +72,29 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   private _logTimeSeqn : number = 0;
   protected consoleLogTime(key: string, object: any): void {
-    this._logTimeSeqn ++;
+    this._logTimeSeqn ++; 
     if (this._logTimeSeqn % 300 === 0) {
       console.log(key, object);
     }
   }
 
-  protected consoleLog(key: string, object: any): void {
-    // console.trace(key, object);
+  protected consoleLog(key: string, object: any, level : string = 'log'): void {
+    switch(level) {
+      case 'error' :
+        console.error(this.subscribeType ,key, object);
+        break;
+      case 'info' :
+        console.info(this.subscribeType ,key, object);
+        break;
+      case 'trace' :
+        console.trace(this.subscribeType ,key, object);
+        break;
+      case 'log' :
+      default :
+        // console.log(this.subscribeType ,key, object);
+        break;
+      
+    }
   }
 
   private _applychangeBind: any = null;

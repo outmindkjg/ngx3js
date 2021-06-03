@@ -51,9 +51,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       return this.targetMesh;
     } else if (ThreeUtil.isNotNull(this.target)) {
       if (ThreeUtil.isNotNull(this.target.getMesh)) {
-        return this.target.getMesh();
+        return this.target.getObject3d();
       } else if (ThreeUtil.isNotNull(this.target.getLight)) {
-        return this.target.getLight();
+        return this.target.getObject3d();
       } else if (ThreeUtil.isNotNull(this.target.getHelper)) {
         return this.target.getHelper();
       }
@@ -206,14 +206,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   private helper: THREE.Object3D = null;
   private _refererTarget : THREE.Object3D = null;
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      if (isRestore) {
-        this.object3d = parent;
-        this.synkObject3d(['object3d']);
-      } else {
-        this.getHelper();
-      }
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.getHelper();
       return true;
     } else {
       if (this._refererTarget !== this.parent) {
@@ -243,11 +238,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           if (ThreeUtil.isNotNull(this.children)) {
             this.children.forEach((child) => {
               if (child.getMesh) {
-                gyroscope.add(child.getMesh());
+                gyroscope.add(child.getObject3d());
               } else if (child.getLight) {
-                gyroscope.add(child.getLight());
+                gyroscope.add(child.getObject3d());
               } else if (child.getCamera) {
-                gyroscope.add(child.getCamera());
+                gyroscope.add(child.getObject3d());
               }
             });
           }
@@ -402,7 +397,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         if (ThreeUtil.isNotNull(this.matrix)) {
           this.helper.applyMatrix4(this.matrix);
         }
-        this.setObject3d(this.helper, this.helper.parent === null);
+        this.setObject3d(this.helper);
       } else {
         this.helper = null;
       }

@@ -140,12 +140,12 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
   }
 
   setLightGroup(mesh : MeshComponent) {
-    this.lights = mesh.getObject3D().children; 
+    this.lights = mesh.getObject3d().children; 
   }
   lights : Object3D[] = [];
 
   setGeometry(mesh : MeshComponent) {
-    const geometry = (mesh.getMesh() as any).geometry;
+    const geometry = (mesh.getObject3d() as any).geometry;
     this.controls.totalGPUMemory = BufferGeometryUtils.estimateBytesUsed(geometry) + ' bytes';
   }
 

@@ -266,7 +266,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
           }
           let csmCamera = ThreeUtil.getTypeSafe(this.camera, this._camera, {});
           if (ThreeUtil.isNotNull(csmCamera.getCamera)) {
-            csmCamera = csmCamera.getCamera();
+            csmCamera = csmCamera.getObject3d();
           }
           if (!(csmCamera instanceof THREE.Camera)) {
             this.consoleLog('error Camera', csmCamera);

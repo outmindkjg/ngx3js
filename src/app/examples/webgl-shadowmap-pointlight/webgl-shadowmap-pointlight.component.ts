@@ -15,7 +15,7 @@ export class WebglShadowmapPointlightComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.lights = mesh.getMesh().children;
+    this.lights = mesh.getObject3d().children;
   }
 
   lights : Object3D[] = null;

@@ -252,7 +252,7 @@ export class WebglRaymarchingReflectComponent extends BaseComponent<{
   `;
 
   setDolly(mesh : MeshComponent) {
-    this.dolly = mesh.getObject3D();
+    this.dolly = mesh.getObject3d();
   }
 
   dolly : Object3D = null;

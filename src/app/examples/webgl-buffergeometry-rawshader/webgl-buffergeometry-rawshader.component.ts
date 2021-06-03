@@ -84,7 +84,7 @@ export class WebglBuffergeometryRawshaderComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D() as Mesh;
+    this.object3d = mesh.getObject3d() as Mesh;
     this.uniforms = (this.object3d as any).material.uniforms;
   }
 

@@ -43,7 +43,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
   }[] = [];
 
   setHitBox(mesh : MeshComponent) {
-    this.hitBox = mesh.getMesh();
+    this.hitBox = mesh.getObject3d();
   }
 
   hitBox : THREE.Object3D;
@@ -65,7 +65,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.meshChildren = mesh.getMesh().children;
+    this.meshChildren = mesh.getObject3d().children;
     this.meshChildren.forEach(child => {
       child.userData.obb = new OBB();
     });

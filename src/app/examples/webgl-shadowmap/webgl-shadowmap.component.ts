@@ -41,7 +41,7 @@ export class WebglShadowmapComponent extends BaseComponent<{
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {
-      const children  = this.mesh.getMesh().children;
+      const children  = this.mesh.getObject3d().children;
       const delta = timer.delta ;
 
       children.forEach((morph) => {

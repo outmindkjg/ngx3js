@@ -14,7 +14,7 @@ export class WebglPostprocessingGodraysComponent extends BaseComponent<{}> {
   }
 
   setSphere(mesh : MeshComponent) {
-    this.sphere = mesh.getObject3D();
+    this.sphere = mesh.getObject3d();
   }
 
   sphere : Object3D = null;

@@ -75,11 +75,11 @@ export class WebglLightsHemisphereComponent extends BaseComponent<{
 
   hemiLight : any = null;
   setHemiLight( light : LightComponent) {
-    this.hemiLight = light.getLight();
+    this.hemiLight = light.getObject3d();
   }
   dirLight : any = null;
   setDirLight( light : LightComponent) {
-    this.dirLight = light.getLight();
+    this.dirLight = light.getObject3d();
   }
 
   hemiLightHelper : any = null;

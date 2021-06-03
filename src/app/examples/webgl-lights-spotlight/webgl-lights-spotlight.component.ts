@@ -75,7 +75,7 @@ export class WebglLightsSpotlightComponent extends BaseComponent<{
   spotLightObj3d : LightComponent = null;
   setSpotLight(light : LightComponent) {
     this.spotLightObj3d = light;
-    this.spotLight = light.getLight();
+    this.spotLight = light.getObject3d();
     this.updateLight();
   }
   

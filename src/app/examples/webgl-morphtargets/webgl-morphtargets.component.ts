@@ -42,7 +42,7 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const threeMesh = mesh.getMesh() ;
+    const threeMesh = mesh.getObject3d() ;
     if (threeMesh instanceof THREE.Mesh) {
       this.threeMesh = threeMesh;
     }

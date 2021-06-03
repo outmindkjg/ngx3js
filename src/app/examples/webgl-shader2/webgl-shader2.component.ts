@@ -131,7 +131,7 @@ export class WebglShader2Component extends BaseComponent<{  speed : number;
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.children = mesh.getMesh().children;
+    this.children = mesh.getObject3d().children;
   }
 
   children : Object3D[] = null;

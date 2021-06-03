@@ -70,7 +70,7 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
 
   onMouseDownEvent(event : RendererEvent) {
     if (this.camera !== null) {
-      const intersection = this.camera.getIntersection(event.mouse,this.mesh.getObject3D(), true);
+      const intersection = this.camera.getIntersection(event.mouse,this.mesh.getObject3d(), true);
       if (intersection !== null && intersection.object !== null) {
         if (this.selectedObjects.indexOf(intersection.object) === -1) {
           this.selectedObjects = [intersection.object];

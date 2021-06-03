@@ -85,7 +85,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 
   pointMesh : THREE.Object3D[] = [];
   setPointMesh(mesh : MeshComponent) {
-    const object = mesh.getMesh();
+    const object = mesh.getObject3d();
     if (this.pointMesh.indexOf(object) === -1) {
       this.pointMesh.push(object);
     }
@@ -93,7 +93,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
   }
 
   unsetPointMesh(mesh : MeshComponent) {
-    const object = mesh.getObject3D();
+    const object = mesh.getObject3d();
     const idx = this.pointMesh.indexOf(object);
     if (idx > -1) {
       this.pointMesh.splice(idx,1);

@@ -62,7 +62,7 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
     super.onRender(timer);
     if (this.mesh !== null) {
       const time = timer.elapsedTime * 1.5;
-      const mesh = this.mesh.getMesh();
+      const mesh = this.mesh.getObject3d();
       mesh.rotation.y = - time;
       if (this.material !== null) {
 				if ( this.material.uniforms[ "time" ].value > 1 || this.material.uniforms[ "time" ].value < 0 ) {

@@ -174,11 +174,11 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
   }
 
   setPerspectiveCamera(camera : CameraComponent) {
-    this.pCamera = camera.getCamera() as any;
+    this.pCamera = camera.getObject3d() as any;
   }
 
   setOrthographicCamera(camera : CameraComponent) {
-    this.oCamera = camera.getCamera() as any;
+    this.oCamera = camera.getObject3d() as any;
   }
 
   csm : any = null;

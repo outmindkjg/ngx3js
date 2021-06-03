@@ -227,7 +227,7 @@ export class WebglMaterialsBlendingCustomComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.mapBg = (this.mesh.getMesh() as any).material.map;
+    this.mapBg = (this.mesh.getObject3d() as any).material.map;
   }
 
   mapBg : any = null;

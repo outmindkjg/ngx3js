@@ -22,18 +22,18 @@ export class WebglInteractiveVoxelpainterComponent extends BaseComponent<{
   rollOver : THREE.Object3D = null;
 
   setRollOver(mesh : MeshComponent) {
-    this.rollOver = mesh.getMesh();
+    this.rollOver = mesh.getObject3d();
   }
 
   plane : THREE.Object3D = null;
 
   setPlane(mesh : MeshComponent) {
-    this.plane = mesh.getMesh();
+    this.plane = mesh.getObject3d();
   }
 
   onMouseEvent(event : RendererEvent) {
     if (this.camera !== null && this.plane !== null && this.rollOver !== null) {
-      const mesh = this.mesh.getMesh();
+      const mesh = this.mesh.getObject3d();
       const intersect = this.camera.getIntersection( event.mouse, [this.plane, ...mesh.children] );
       if ( intersect !== null) {
         this.rollOver.position.copy( intersect.point ).add( intersect.face.normal );

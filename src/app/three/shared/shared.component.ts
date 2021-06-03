@@ -145,12 +145,12 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
             break;
           case 'mesh':
             this.meshList.forEach((mesh) => {
-              mesh.getMesh();
+              mesh.getObject3d();
             });
             break;
           case 'camera':
             this.cameraList.forEach((camera) => {
-              camera.getCamera();
+              camera.getObject3d();
             });
             break;
           case 'helper':
@@ -160,7 +160,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
             break;
           case 'light':
             this.lightList.forEach((light) => {
-              light.getLight();
+              light.getObject3d();
             });
             break;
           case 'position':

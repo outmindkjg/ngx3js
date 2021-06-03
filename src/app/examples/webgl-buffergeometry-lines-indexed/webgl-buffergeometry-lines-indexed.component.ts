@@ -138,7 +138,7 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {
-      const object3d = this.mesh.getObject3D();
+      const object3d = this.mesh.getObject3d();
       const time = timer.elapsedTime;
       object3d.rotation.z = time * 0.5;
     }

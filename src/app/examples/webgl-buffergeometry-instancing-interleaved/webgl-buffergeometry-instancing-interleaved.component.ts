@@ -86,7 +86,7 @@ export class WebglBuffergeometryInstancingInterleavedComponent extends BaseCompo
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = this.mesh.getObject3D() as InstancedMesh;
+    this.object3d = this.mesh.getObject3d() as InstancedMesh;
   }
 
   object3d : InstancedMesh = null;

@@ -41,8 +41,8 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
 
   private listener: THREE.AudioListener = null;
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
       this.resetListener();
       return true;
     } else {

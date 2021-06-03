@@ -14,12 +14,12 @@ export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
   }
 
   setTarget(mesh : MeshComponent) {
-    this.target = mesh.getMesh();
+    this.target = mesh.getObject3d();
     this.generateTarget();
   }
 
   setCone(mesh : MeshComponent) {
-    this.corn = mesh.getMesh();
+    this.corn = mesh.getObject3d();
     this.generateTarget();
   }
 

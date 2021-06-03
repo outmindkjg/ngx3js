@@ -28,7 +28,7 @@ export class WebglMaterialsCubemapBallsRefractionComponent extends BaseComponent
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.sphereChildren = mesh.getMesh().children;
+    this.sphereChildren = mesh.getObject3d().children;
   }
   sphereChildren : any[] = [];
 

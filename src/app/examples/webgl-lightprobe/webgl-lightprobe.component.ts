@@ -41,11 +41,11 @@ export class WebglLightprobeComponent extends BaseComponent<{
   meshMaterial : any;
 
   setlightProbe(lightProbe : LightComponent) {
-    this.lightProbe = lightProbe.getLight();
+    this.lightProbe = lightProbe.getObject3d();
   }
 
   setLight(light : LightComponent) {
-    this.directionalLight = light.getLight();
+    this.directionalLight = light.getObject3d();
   }
 
   setMesh(mesh : MeshComponent) {

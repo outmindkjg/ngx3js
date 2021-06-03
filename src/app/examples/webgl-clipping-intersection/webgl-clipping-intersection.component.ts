@@ -23,7 +23,7 @@ export class WebglClippingIntersectionComponent extends BaseComponent<{
     },[
       { name : 'clipIntersection', type : 'checkbox', change : () => {
         if (this.mesh !== null ) {
-          this.changeClipIntersection(this.mesh.getMesh() as THREE.Mesh); 
+          this.changeClipIntersection(this.mesh.getObject3d() as THREE.Mesh); 
         }
       }},
       { name : 'planeConstant', type : 'number', min : -1, max : 1, step : 0.01, finishChange : () => {

@@ -124,7 +124,7 @@ export class WebglBuffergeometryInstancingComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D();
+    this.object3d = mesh.getObject3d();
     this.uniforms = (this.object3d as any).material.uniforms;
   }
 

@@ -80,7 +80,7 @@ export class WebglCustomAttributesPointsComponent extends BaseComponent<{}> {
   geometry : BufferGeometry = null;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D();
+    this.object3d = mesh.getObject3d();
     const geometry:BufferGeometry = (this.object3d as any).geometry;
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;

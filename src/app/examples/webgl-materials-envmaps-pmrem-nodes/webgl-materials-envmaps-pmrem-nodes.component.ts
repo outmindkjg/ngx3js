@@ -42,7 +42,7 @@ export class WebglMaterialsEnvmapsPmremNodesComponent extends BaseComponent<{
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null && this.controls.animate) {
-      const mesh = this.mesh.getObject3D();
+      const mesh = this.mesh.getObject3d();
       mesh.rotation.y += 0.1 * timer.delta;
     }
   }

@@ -72,8 +72,8 @@ export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseC
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.particleSystem = mesh.getObject3D();
-    const geometry : BufferGeometry = (mesh.getMesh() as any).geometry;
+    this.particleSystem = mesh.getObject3d();
+    const geometry : BufferGeometry = (mesh.getObject3d() as any).geometry;
     this.attributesSizes = geometry.attributes.size;
   }
 

@@ -16,12 +16,12 @@ export class WebglPostprocessingMaskingComponent extends BaseComponent<{}> {
   box : Object3D = null;
   setBox(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.box = mesh.getObject3D();
+    this.box = mesh.getObject3d();
   }
 
   torus : Object3D = null;
   setTorus(mesh : MeshComponent) {
-    this.torus = mesh.getObject3D();
+    this.torus = mesh.getObject3d();
   }
 
   onRender(timer : RendererTimer) {

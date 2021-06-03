@@ -61,7 +61,7 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
     const position = new THREE.Vector3();
     const orientation =new THREE.Euler();
     position.copy( intersection.point );
-    const mouseHelper = this.mouseHelper.getMesh();
+    const mouseHelper = this.mouseHelper.getObject3d();
     orientation.copy( mouseHelper.rotation );
     if ( this.controls.rotate ) orientation.z = Math.random() * 2 * Math.PI;
     const scale = this.controls.minScale + Math.random() * ( this.controls.maxScale - this.controls.minScale );
@@ -74,11 +74,11 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
 
   checkIntersection( mouse : THREE.Vector2 ):THREE.Intersection {
     if ( ThreeUtil.isNull(this.mesh ) || ThreeUtil.isNull(this.camera )) return null;
-    const intersection = this.camera.getIntersection(mouse, this.mesh.getMesh() , true );
+    const intersection = this.camera.getIntersection(mouse, this.mesh.getObject3d() , true );
     if (intersection !== null && this.mouseHelper !== null) {
       const p = intersection.point;
-      const mouseHelper = this.mouseHelper.getMesh();
-      const mesh = this.mesh.getMesh();
+      const mouseHelper = this.mouseHelper.getObject3d();
+      const mesh = this.mesh.getObject3d();
       mouseHelper.position.copy( p );
       const n = intersection.face.normal.clone();
       n.transformDirection( mesh.matrixWorld );
@@ -86,7 +86,7 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
       n.add( intersection.point );
       // intersection.normal.copy( intersects[ 0 ].face.normal );
       mouseHelper.lookAt( n );
-      const line = this.mouseLine.getMesh().children[0] as THREE.Line;
+      const line = this.mouseLine.getObject3d().children[0] as THREE.Line;
       const positions = line.geometry.attributes.position;
       positions.setXYZ( 0, p.x, p.y, p.z );
       positions.setXYZ( 1, n.x, n.y, n.z );

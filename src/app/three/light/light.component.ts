@@ -176,8 +176,8 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   private getTarget(): THREE.Object3D {
     if (ThreeUtil.isNotNull(this.target)) {
-      if (this.target.getObject3D) {
-        return this.target.getObject3D();
+      if (this.target.getObject3d) {
+        return this.target.getObject3d();
       } else if (this.target instanceof THREE.Object3D) {
         return this.target;
       }
@@ -386,9 +386,9 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return tagAttributes;
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      this.resetLight(true);
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.getObject3d();
       return true;
     }
     return false;
@@ -414,23 +414,9 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  resetLight(clearLight: boolean = false) {
-    if (this.parent !== null) {
-      if (clearLight && this.light !== null) {
-        if (this.light.parent) {
-          this.light.parent.remove(this.light);
-        }
-        this.light = null;
-      }
-      this.getLight();
-    } else if (this.light !== null) {
-      this.getLight();
-    }
-  }
-
   private light: THREE.Light = null;
 
-  getLight(): THREE.Light {
+  getObject3d(): THREE.Light {
     if (this.light === null || this._needUpdate) {
       this.needUpdate = false;
       this.light = null;
@@ -498,10 +484,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
       }
       this.light = basemesh;
-      if (this.name !== null) {
-        this.light.name = this.name;
-      }
-      this.light.visible = this.visible;
       if (this.light instanceof THREE.SpotLight || this.light instanceof THREE.DirectionalLight) {
         const target = this.getTarget();
         if (ThreeUtil.isNotNull(target)) {

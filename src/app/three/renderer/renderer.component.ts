@@ -463,7 +463,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'composer':
             if (this.renderer instanceof THREE.WebGLRenderer) {
-              const camera = this.cameraList.first.getCamera();
+              const camera = this.cameraList.first.getObject3d();
               const scene = this.sceneList.first.getScene();
               this.composerList.forEach((composer) => {
                 composer.getEffectComposer(this.renderer as THREE.WebGLRenderer, camera, scene);
@@ -543,7 +543,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     }
     let controls: ControlComponent[] = [];
     if (cameraComp !== null && cameraComp !== undefined) {
-      const camera: THREE.Camera = cameraComp.getCamera();
+      const camera: THREE.Camera = cameraComp.getObject3d();
       this.unSubscribeRefer('control-camera');
       // const scene: THREE.Scene = scenes.first.getScene();
       switch (controlType.toLowerCase()) {
@@ -764,7 +764,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this._cameras === null) {
       this._cameras = [];
       this.cameraList.forEach((camera) => {
-        this._cameras.push(camera.getCamera());
+        this._cameras.push(camera.getObject3d());
       });
     }
     if (this._scenes === null) {

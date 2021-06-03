@@ -577,7 +577,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     return ThreeUtil.getTypeSafe(this.bevelSegments, def);
   }
 
-  private getLight(def?: number | string): THREE.Color {
+  private getObject3d(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.light, def);
   }
 
@@ -1008,7 +1008,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     let value = ThreeUtil.getTypeSafe(this.mesh, def);
     let mesh: THREE.Object3D = null;
     if (value.getMesh) {
-      mesh = value.getMesh();
+      mesh = value.getObject3d();
     } else {
       mesh = value;
     }
@@ -1572,7 +1572,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             switch (this.perlinType.toLowerCase()) {
               case 'minecraftao':
               case 'minecraft_ao':
-                geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getLight(0xffffff), this.getShadow(0x505050));
+                geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getObject3d(0xffffff), this.getShadow(0x505050));
                 break;
               case 'terrain':
                 geometry = planePerlin.getTerrain(this.getWidth(100), this.getHeight(100), this.getDepth(100));

@@ -60,7 +60,7 @@ export class WebglGeometryHierarchy2Component extends BaseComponent<{}> {
           const rx = Math.sin( time * 0.7 ) * 0.2 ,
 					ry = Math.sin( time * 0.3 ) * 0.1,
 					rz = Math.sin( time * 0.2 ) * 0.1;
-          const mesh = this.mesh.getMesh();
+          const mesh = this.mesh.getObject3d();
           mesh.traverse( ( object ) => {
             object.rotation.x = rx;
             object.rotation.y = ry;

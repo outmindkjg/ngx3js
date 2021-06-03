@@ -36,19 +36,12 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
   private tweenTarget: any = null;
   private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
 
-  setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
-    if (isRestore) {
-      if (this.parent !== parent.parent) {
-        this.parent = parent.parent;
-        return true;
-      } else {
-        return false;
-      }
-    } else if (this.parent !== parent) {
+  setParent(parent: THREE.Object3D | any): boolean {
+    if (this.parent !== parent) {
       this.parent = parent;
       return true;
     } else {
-      return false;
+      return true;
     }
   }
 

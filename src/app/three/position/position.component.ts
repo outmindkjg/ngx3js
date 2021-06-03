@@ -97,7 +97,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
           position.multiplyScalar(this.multiply);
         }
         if (this.camera !== null) {
-          const camera: THREE.Camera = ThreeUtil.isNotNull(this.camera.getCamera) ? this.camera.getCamera() : this.camera;
+          const camera: THREE.Camera = ThreeUtil.isNotNull(this.camera.getCamera) ? this.camera.getObject3d() : this.camera;
           if (camera !== null) {
             if (this._lastRefCamera !== camera) {
               if (this._lastRefCameraBind === null) {

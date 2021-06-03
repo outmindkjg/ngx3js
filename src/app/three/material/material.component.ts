@@ -888,9 +888,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
           case 'matrixworldinverse':
           case 'matrixworld':
           case 'matrix':
-            if (ThreeUtil.isNotNull(valueValue.getObject3D)) {
+            if (ThreeUtil.isNotNull(valueValue.getObject3d)) {
               this.unSubscribeRefer('unforms_' + key);
-              const object3d: THREE.Object3D = valueValue.getObject3D();
+              const object3d: THREE.Object3D = valueValue.getObject3d();
               resultUniforms[key] = {
                 value: ThreeUtil.getMatrix4Safe(object3d, valueType),
               };

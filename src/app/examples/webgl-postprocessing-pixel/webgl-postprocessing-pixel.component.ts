@@ -57,7 +57,7 @@ export class WebglPostprocessingPixelComponent extends BaseComponent<{
     super.onRender(timer);
 
     if (this.mesh !== null) {
-      const meshChildren = this.mesh.getObject3D().children;
+      const meshChildren = this.mesh.getObject3d().children;
       const delta = timer.delta * 20;
       meshChildren.forEach(child => {
         child.rotation.y += 0.0015 * delta ;

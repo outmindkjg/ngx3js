@@ -14,7 +14,7 @@ export class WebglRefractionComponent extends BaseComponent<{}> {
   }
 
   setRefractor(refractor : MeshComponent) {
-    this.refractorMaterial = (refractor.getMesh() as Mesh).material as ShaderMaterial;
+    this.refractorMaterial = (refractor.getObject3d() as Mesh).material as ShaderMaterial;
     // this.refractorMaterial.side = DoubleSide;
   }
 

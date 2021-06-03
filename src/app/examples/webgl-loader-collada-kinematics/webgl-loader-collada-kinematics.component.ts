@@ -14,7 +14,7 @@ export class WebglLoaderColladaKinematicsComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const dae = mesh.getMesh();
+    const dae = mesh.getObject3d();
     dae.traverse( ( child:any  ) => {
       if ( child.isMesh ) {
         child.material.flatShading = true;

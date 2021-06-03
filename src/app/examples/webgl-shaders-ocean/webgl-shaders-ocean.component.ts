@@ -65,7 +65,7 @@ export class WebglShadersOceanComponent extends BaseComponent<{
     super.onRender(timer);
     if (this.mesh !== null) {
       const time = timer.elapsedTime;
-      const mesh = this.mesh.getObject3D();
+      const mesh = this.mesh.getObject3d();
       mesh.position.y = Math.sin( time ) * 20 + 5;
       mesh.rotation.x = time * 0.5;
       mesh.rotation.z = time * 0.51;

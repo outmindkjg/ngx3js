@@ -24,7 +24,7 @@ export class WebglPostprocessingAfterimageComponent extends BaseComponent<{
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {
-      const mesh = this.mesh.getObject3D();
+      const mesh = this.mesh.getObject3d();
       mesh.rotation.x += 0.005 * timer.delta * 30;
       mesh.rotation.y += 0.01 * timer.delta * 30;
     }

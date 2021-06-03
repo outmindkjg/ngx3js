@@ -31,7 +31,7 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const carModel = mesh.getMesh();
+    const carModel = mesh.getObject3d();
     const body = carModel.getObjectByName( 'body' );
     if (body !== null && body !== undefined) {
       this.wheels = [

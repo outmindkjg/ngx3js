@@ -14,12 +14,12 @@ export class WebglMaterialsCubemapDynamicComponent extends BaseComponent<{}> {
 
   cube : any = null;
   setCube(mesh : MeshComponent) {
-    this.cube = mesh.getMesh();
+    this.cube = mesh.getObject3d();
   }
 
   torus : any = null;
   setTorus(mesh : MeshComponent) {
-    this.torus = mesh.getMesh();
+    this.torus = mesh.getObject3d();
   }
 
   onRender(timer : RendererTimer) {

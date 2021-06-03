@@ -14,22 +14,22 @@ export class WebglLightsPointlightsComponent extends BaseComponent<{}> {
 
   light1 : any = null;
   setLight1(mesh : MeshComponent) {
-    this.light1 = mesh.getMesh();
+    this.light1 = mesh.getObject3d();
   }
 
   light2 : any = null;
   setLight2(mesh : MeshComponent) {
-    this.light2 = mesh.getMesh();
+    this.light2 = mesh.getObject3d();
   }
 
   light3 : any = null;
   setLight3(mesh : MeshComponent) {
-    this.light3 = mesh.getMesh();
+    this.light3 = mesh.getObject3d();
   }
 
   light4 : any = null;
   setLight4(mesh : MeshComponent) {
-    this.light4 = mesh.getMesh();
+    this.light4 = mesh.getObject3d();
   }
 
   onRender(timer : RendererTimer) {

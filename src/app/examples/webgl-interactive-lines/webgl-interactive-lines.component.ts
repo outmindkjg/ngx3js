@@ -103,12 +103,12 @@ export class WebglInteractiveLinesComponent extends BaseComponent<{}> {
   sphere : THREE.Object3D = null;
 
   setSphere(mesh : MeshComponent) {
-    this.sphere = mesh.getMesh();
+    this.sphere = mesh.getObject3d();
   }
 
   parent : THREE.Object3D = null;
   setParentTransform(mesh : MeshComponent) {
-    this.parent = mesh.getMesh();
+    this.parent = mesh.getObject3d();
   }
 
   onMouseMove(event : RendererEvent) {

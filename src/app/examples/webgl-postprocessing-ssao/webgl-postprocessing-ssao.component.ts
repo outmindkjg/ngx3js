@@ -86,7 +86,7 @@ export class WebglPostprocessingSsaoComponent extends BaseComponent<{
     super.onRender(timer);
     if (this.mesh !== null) {
       const elapsedTime = timer.elapsedTime;
-      const group = this.mesh.getObject3D();
+      const group = this.mesh.getObject3d();
       group.rotation.x = elapsedTime * 0.2;
       group.rotation.y = elapsedTime * 0.1;
     }

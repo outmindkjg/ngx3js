@@ -288,7 +288,7 @@ export class WebglMarchingcubesComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.effect = mesh.getMesh();
+    this.effect = mesh.getObject3d();
     console.log(this.effect);
   }
 

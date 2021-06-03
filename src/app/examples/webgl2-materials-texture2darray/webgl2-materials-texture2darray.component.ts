@@ -54,7 +54,7 @@ export class Webgl2MaterialsTexture2darrayComponent extends BaseComponent<{}> {
   depthStep : number = 0.4;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const object3d = mesh.getObject3D();
+    const object3d = mesh.getObject3d();
     if (object3d instanceof Mesh) {
       this.uniformsDepth = (object3d.material as ShaderMaterial).uniforms['depth'];
     }

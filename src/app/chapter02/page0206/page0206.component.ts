@@ -33,7 +33,7 @@ export class Page0206Component implements OnInit {
     y : 0,
     z : 0,
     translate : () => {
-      const mesh = this.cube.getMesh();
+      const mesh = this.cube.getObject3d();
       mesh.translateX(this.translate.x);
       mesh.translateY(this.translate.y);
       mesh.translateZ(this.translate.z);

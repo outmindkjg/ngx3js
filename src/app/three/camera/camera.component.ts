@@ -278,17 +278,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       this.renderer = renderer;
       this.rendererScenes = rendererScenes;
     }
-    this.getCamera();
+    this.getObject3d();
   }
 
-  setParent(parent: THREE.Object3D | any, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      if (isRestore) {
-        this.object3d = parent;
-        this.synkObject3d(['init']);
-      } else {
-        this.resetCamera(true);
-      }
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.getObject3d();
       return true;
     }
     return false;
@@ -391,14 +386,14 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
     if (event !== null) {
       const mouse = new THREE.Vector2((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1);
-      this.raycaster.setFromCamera(mouse, this.getCamera());
+      this.raycaster.setFromCamera(mouse, this.getObject3d());
     }
     return this.raycaster;
   }
 
   getIntersections(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection[] {
     const raycaster = this.getRaycaster();
-    raycaster.setFromCamera(mouse, this.getCamera());
+    raycaster.setFromCamera(mouse, this.getObject3d());
     if (mesh instanceof THREE.Object3D) {
       return raycaster.intersectObject(mesh, recursive);
     } else {
@@ -447,25 +442,10 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   isCameraChild: boolean = false;
-  resetCamera(clearCamera: boolean = false) {
-    if (this.parent !== null) {
-      if (clearCamera && this.camera !== null && this.camera.parent) {
-        this.camera.parent.remove(this.camera);
-        this.camera = null;
-      }
-      if (this.parent instanceof THREE.ArrayCamera) {
-        this.isCameraChild = true;
-        this.parent.cameras.push(this.getCamera() as THREE.PerspectiveCamera);
-      } else {
-        this.isCameraChild = false;
-        this.parent.add(this.getCamera());
-      }
-    }
-  }
 
   getCubeRenderTarget(): THREE.WebGLCubeRenderTarget {
     if (this.camera === null) {
-      this.getCamera();
+      this.getObject3d();
     }
     if (this.type == 'cube') {
       return this.cubeCamera1.renderTarget;
@@ -473,7 +453,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return undefined;
   }
 
-  getCamera(): THREE.Camera {
+  getObject3d(): THREE.Camera {
     if (this.camera === null || this._needUpdate) {
       this.needUpdate = false;
       const width = this.cameraWidth;
@@ -538,10 +518,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           this.camera = perspectiveCamera;
           break;
       }
-      if (ThreeUtil.isNotNull(this.name)) {
-        this.camera.name = this.name;
+      if (this.parentObject3d instanceof THREE.ArrayCamera) {
+        this.isCameraChild = true;
+        this.parentObject3d.cameras.push( this.camera as THREE.PerspectiveCamera);
+        this.setObject(this.camera);
+      } else {
+        this.isCameraChild = false;
+        this.setObject3d(this.camera);
       }
-      this.setObject3d(this.camera, this.isCameraChild ? false : true);
+
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
@@ -574,9 +559,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }
-    const camera = this.getCamera();
+    const camera = this.getObject3d();
     if (ThreeUtil.isNotNull(this.referObject3d)) {
-      const object3d = this.referObject3d instanceof AbstractObject3dComponent ? this.referObject3d.getObject3D() : this.referObject3d;
+      const object3d = this.referObject3d instanceof AbstractObject3dComponent ? this.referObject3d.getObject3d() : this.referObject3d;
       if (ThreeUtil.isNotNull(this.object3d)) {
         camera.position.copy(object3d.position);
         camera.quaternion.copy(object3d.quaternion);
@@ -613,13 +598,13 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.scenes.forEach((sceneCom) => {
           const scene = sceneCom.getScene();
           if (scene !== null) {
-            cssRenderer.render(scene, this.getCamera());
+            cssRenderer.render(scene, this.getObject3d());
           }
         });
       } else {
         const scene = this.getScene(scenes);
         if (scene !== null) {
-          cssRenderer.render(scene, this.getCamera());
+          cssRenderer.render(scene, this.getObject3d());
         }
       }
     }

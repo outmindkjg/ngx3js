@@ -53,7 +53,7 @@ export class WebglWaterComponent extends BaseComponent<{
   }
 
   setWater(mesh : MeshComponent) {
-    this.uniforms = (mesh.getMesh() as any).material.uniforms;
+    this.uniforms = (mesh.getObject3d() as any).material.uniforms;
   }
   
   uniforms : { [uniform: string]: IUniform } = null;
@@ -62,7 +62,7 @@ export class WebglWaterComponent extends BaseComponent<{
     super.onRender(timer);
     if (this.mesh !== null) {
       const delta = timer.delta;
-      const torusKnot = this.mesh.getObject3D();
+      const torusKnot = this.mesh.getObject3d();
       torusKnot.rotation.x += delta;
       torusKnot.rotation.y += delta * 0.5;
     }

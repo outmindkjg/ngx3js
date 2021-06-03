@@ -94,7 +94,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   private getCamera(def?: THREE.Camera): THREE.Camera {
     if (ThreeUtil.isNotNull(this.camera)) {
       if (this.camera instanceof CameraComponent) {
-        return this.camera.getCamera();
+        return this.camera.getObject3d();
       } else {
         return this.camera;
       }

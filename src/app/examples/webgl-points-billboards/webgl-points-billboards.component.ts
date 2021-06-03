@@ -26,7 +26,7 @@ export class WebglPointsBillboardsComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const tmpMesh = mesh.getMesh() as Points;
+    const tmpMesh = mesh.getObject3d() as Points;
     this.material = tmpMesh.material as PointsMaterial;
   }
 

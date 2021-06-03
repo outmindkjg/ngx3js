@@ -85,7 +85,7 @@ export class WebglLayersComponent extends BaseComponent<{
 
   enableLayer(bl = null, layers : number[] = null) {
     if (this.camera !== null) {
-      const camera = this.camera.getCamera();
+      const camera = this.camera.getObject3d();
       if (layers == null) {
         if (bl !== null) {
           if (bl) {

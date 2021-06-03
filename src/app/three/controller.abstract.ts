@@ -223,7 +223,7 @@ export abstract class AbstractThreeController {
       this._cameras !== null &&
       this._cameras.length > 0
     ) {
-      this._camera = this._cameras.first.getCamera();
+      this._camera = this._cameras.first.getObject3d();
     }
     if (
       this._canvas === null &&
@@ -317,7 +317,7 @@ export abstract class AbstractThreeController {
       this._cameras !== null &&
       this._cameras.length > 0
     ) {
-      this._camera = this._cameras.first.getCamera();
+      this._camera = this._cameras.first.getObject3d();
     }
     return this._camera;
   }
@@ -328,7 +328,7 @@ export abstract class AbstractThreeController {
         return camera.name == name;
       });
       if (ThreeUtil.isNotNull(camara)) {
-        return camara.getCamera();
+        return camara.getObject3d();
       }
     }
     return null;

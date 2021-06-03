@@ -61,7 +61,7 @@ export class WebglCustomAttributesComponent extends BaseComponent<{}> {
   uniforms : { [uniform: string]: IUniform } = null;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D();
+    this.object3d = mesh.getObject3d();
     this.geometry = (this.object3d as any).geometry;
     this.uniforms = (this.object3d as any).material.uniforms;
     this.displacement = this.geometry.attributes.displacement.array as Float32Array;

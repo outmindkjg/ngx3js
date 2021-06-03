@@ -99,7 +99,7 @@ export class WebglLightsPhysicalComponent extends BaseComponent<{
   bulbLight : any = null;
 
   setBulbLight(light : MeshComponent) {
-    this.bulbLight = light.getMesh();
+    this.bulbLight = light.getObject3d();
   }
 
   onRender(timer : RendererTimer) {

@@ -14,7 +14,7 @@ export class WebglMaterialsCubemapRefractionComponent extends BaseComponent<{}> 
 
   pointLight : any = null;
   setLight(mesh : MeshComponent) {
-    this.pointLight = mesh.getMesh();
+    this.pointLight = mesh.getObject3d();
   }
 
   onRender(timer : RendererTimer) {

@@ -98,7 +98,7 @@ export class WebglAnimationClothComponent
   }
 
   setSphere(sphere: MeshComponent) {
-    this.sphere = sphere.getMesh() as THREE.Mesh;
+    this.sphere = sphere.getObject3d() as THREE.Mesh;
   }
 
   cloth: Cloth = null;

@@ -90,7 +90,7 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
       z : Math.cos( elapsedTime * 3 ) * 300
     }
     if (this.mesh !== null) {
-      const children = this.mesh.getMesh().children;
+      const children = this.mesh.getObject3d().children;
       children.forEach(child => {
         child.rotation.x += 0.01;
         child.rotation.y += 0.005;

@@ -52,7 +52,7 @@ export class WebglCustomAttributesPoints2Component extends BaseComponent<{}> {
   sphereGeometryLength : number = 68 * (38 -1);
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D();
+    this.object3d = mesh.getObject3d();
     const geometry:BufferGeometry = (this.object3d as any).geometry;
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;

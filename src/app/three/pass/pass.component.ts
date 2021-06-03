@@ -291,7 +291,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       if (camera instanceof THREE.Camera) {
         return camera;
       } else {
-        return camera.getCamera();
+        return camera.getObject3d();
       }
     } else {
       return new THREE.Camera();
@@ -391,11 +391,11 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       if (child instanceof THREE.Object3D) {
         safeObject3d.push(child);
       } else if (child.getMesh) {
-        safeObject3d.push(child.getMesh());
+        safeObject3d.push(child.getObject3d());
       } else if (child.getHelper) {
         safeObject3d.push(child.getHelper());
-      } else if (child.getObject3D) {
-        safeObject3d.push(child.getObject3D());
+      } else if (child.getObject3d) {
+        safeObject3d.push(child.getObject3d());
       }
     });
     return safeObject3d;

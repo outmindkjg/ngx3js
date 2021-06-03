@@ -148,7 +148,7 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
   }
 
   setSplineCamera(splineCamera : CameraComponent) {
-    this.splineCamera = splineCamera.getCamera();
+    this.splineCamera = splineCamera.getObject3d();
   }
 
   setCameraEye(cameraEye : MeshComponent) {

@@ -34,13 +34,13 @@ export class WebglShadowmapVsmComponent extends BaseComponent<{
   }
 
   setSpotLight(light : LightComponent) {
-    this.spotLight = light.getLight() as SpotLight;
+    this.spotLight = light.getObject3d() as SpotLight;
   }
 
   spotLight : SpotLight = null;
 
   setDirLight(light : LightComponent) {
-    this.dirLight = light.getLight() as DirectionalLight;
+    this.dirLight = light.getObject3d() as DirectionalLight;
   }
 
   dirLight : DirectionalLight = null;
@@ -49,7 +49,7 @@ export class WebglShadowmapVsmComponent extends BaseComponent<{
     super.onRender(timer);
     if (this.mesh !== null) {
       const delta = timer.delta;
-      const torusKnot = this.mesh.getObject3D();
+      const torusKnot = this.mesh.getObject3d();
       torusKnot.rotation.x += 0.25 * delta;
       torusKnot.rotation.y += 2 * delta;
       torusKnot.rotation.z += 1 * delta;

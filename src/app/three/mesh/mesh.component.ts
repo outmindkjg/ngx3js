@@ -607,14 +607,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return undefined;
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
-      if (isRestore) {
-        this.object3d = parent;
-        this.synkObject3d(['init']);
-      } else {
-        this.resetMesh(true);
-      }
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.getObject3d();
       return true;
     }
     return false;
@@ -762,6 +757,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         }
       });
       super.synkObject3d(synkTypes);
+    } else {
+      console.error('synk', 'mesh null', synkTypes);
     }
   }
 
@@ -777,16 +774,16 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         this.helper.parent.remove(this.helper);
         this.helper = null;
       }
-      this.parent.add(this.getMesh());
+      this.parent.add(this.getObject3d());
     }
   }
 
   getJson(): any {
-    return this.getMesh().toJSON();
+    return this.getObject3d().toJSON();
   }
 
   setSavelocalStorage(storageName: string) {
-    return this.localStorageService.setObject(storageName, this.getMesh());
+    return this.localStorageService.setObject(storageName, this.getObject3d());
   }
 
   private cssClazzName: string = null;
@@ -810,7 +807,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return this.clips;
   }
 
-  getMesh(): THREE.Object3D {
+  getObject3d(): THREE.Object3D {
     if (this.mesh === null || this._needUpdate) {
       this.needUpdate = false;
       this.clips = null;
@@ -1085,7 +1082,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             shadowCameraBottom: this.shadowCameraBottom,
             target: this.target,
           });
-          basemesh = light.getLight();
+          basemesh = light.getObject3d();
           break;
         case 'lensflareelement':
         case 'lensflare':
@@ -1279,7 +1276,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 loadShareParts();
               })
             );
-            this.shareParts.getMesh();
+            this.shareParts.getObject3d();
             loadShareParts();
           }
           break;
@@ -1369,7 +1366,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                     if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
                       const foundMesh = basemesh.getObjectByName(mesh.name);
                       if (foundMesh instanceof THREE.Object3D) {
-                        mesh.setParent(foundMesh, true);
+                        mesh.setParent(foundMesh);
                       }
                     }
                   });
@@ -1386,7 +1383,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           } else if (ThreeUtil.isNotNull(this.sharedMesh)) {
             this.unSubscribeReferList('shareParts');
             basemesh = new THREE.Group();
-            const mesh = this.sharedMesh.getMesh();
+            const mesh = this.sharedMesh.getObject3d();
             const clips = this.sharedMesh.clips;
             if (ThreeUtil.isNotNull(clips)) {
               if (Array.isArray(clips)) {
@@ -1437,9 +1434,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 
   private setMesh(basemesh: THREE.Object3D) {
     if (basemesh !== null && this.mesh !== basemesh) {
-      if (this.mesh !== null && this.mesh.parent !== null) {
-        this.mesh.parent.remove(this.mesh);
-      }
       this.mesh = basemesh;
       this.setObject3d(this.mesh);
       if (this.useCustomDistanceMaterial) {

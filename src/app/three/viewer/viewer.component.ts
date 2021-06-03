@@ -71,7 +71,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
       } else if (this.plane instanceof THREE.Mesh) {
         mesh = this.plane;
       } else if (this.plane instanceof MeshComponent) {
-        mesh = this.plane.getMesh();
+        mesh = this.plane.getObject3d();
         this.subscribeRefer(
           'referTarget',
           ThreeUtil.getSubscribe(

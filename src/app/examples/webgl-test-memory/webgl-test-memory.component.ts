@@ -34,7 +34,7 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
     const texture = new CanvasTexture( this.createImage() );
     const material = new MeshBasicMaterial( { map: texture, wireframe: true } );
     const mesh = new Mesh( geometry, material );
-    this.mesh.getObject3D().add(mesh);
+    this.mesh.getObject3d().add(mesh);
     this.lastMesh = mesh;
   }
 }

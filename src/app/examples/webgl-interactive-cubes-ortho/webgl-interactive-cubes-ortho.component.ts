@@ -46,7 +46,7 @@ export class WebglInteractiveCubesOrthoComponent extends BaseComponent<{}> {
   lastIntersect : any = null;
   onMouseMove(event : RendererEvent) {
     if (this.camera !== null && this.mesh !== null) {
-      const mesh = this.mesh.getMesh();
+      const mesh = this.mesh.getObject3d();
       const intersect = this.camera.getIntersection(event.mouse, mesh.children );
       if (intersect !== null) {
         if ( this.lastIntersect !== intersect.object ) {

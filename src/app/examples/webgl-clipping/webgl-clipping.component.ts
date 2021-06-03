@@ -41,7 +41,7 @@ export class WebglClippingComponent extends BaseComponent<{
         }},
         { name : 'shadow', title : 'Shadow', type : 'checkbox', change : () => { 
           if (this.mesh !== null) {
-            const mesh = this.mesh.getMesh() as THREE.Mesh;
+            const mesh = this.mesh.getObject3d() as THREE.Mesh;
             const material = mesh.material as THREE.Material; 
             material.clipShadows = this.controls.localClipping.shadow;
           }

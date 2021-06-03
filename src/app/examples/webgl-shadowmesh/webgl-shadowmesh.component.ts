@@ -40,22 +40,22 @@ export class WebglShadowmeshComponent extends BaseComponent<{
 
   cube : Object3D = null;
   setCube(mesh : MeshComponent) {
-    this.cube = mesh.getObject3D();
+    this.cube = mesh.getObject3d();
   }
 
   cylinder : Object3D = null;
   setCylinder(mesh : MeshComponent) {
-    this.cylinder = mesh.getObject3D();
+    this.cylinder = mesh.getObject3d();
   }
 
   torus : Object3D = null;
   setTorus(mesh : MeshComponent) {
-    this.torus = mesh.getObject3D();
+    this.torus = mesh.getObject3d();
   }
 
   pyramid : Object3D = null;
   setPyramid(mesh : MeshComponent) {
-    this.pyramid = mesh.getObject3D();
+    this.pyramid = mesh.getObject3d();
   }
   horizontalAngle : number = 0;
   verticalAngle : number = 0;

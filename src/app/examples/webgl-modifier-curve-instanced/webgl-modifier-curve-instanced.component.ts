@@ -34,14 +34,14 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
   curvePath2 : {x : number, y : number, z : number }[] = this.initialPoints2;
 
   setFlow1(mesh : MeshComponent) {
-    mesh.getMesh();
+    mesh.getObject3d();
     this.flow1 = mesh.getStorageSource();
   }
 
   flow1 : Flow = null;
 
   setFlow2(mesh : MeshComponent) {
-    mesh.getMesh();
+    mesh.getObject3d();
     this.flow1 = mesh.getStorageSource();
   }
 
@@ -96,13 +96,13 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
   }
 
   setPointMesh1(mesh : MeshComponent) {
-    this.pointMesh1.push(mesh.getMesh());
+    this.pointMesh1.push(mesh.getObject3d());
   }
 
   pointMesh1 : Object3D[] = [];
 
   setPointMesh2(mesh : MeshComponent) {
-    this.pointMesh2.push(mesh.getMesh());
+    this.pointMesh2.push(mesh.getObject3d());
   }
 
   pointMesh2 : Object3D[] = [];

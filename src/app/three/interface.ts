@@ -259,7 +259,7 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
       }
       const controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
       if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)) {
-        this.controls.meshShape.visible = this.mesh.getMesh().visible;
+        this.controls.meshShape.visible = this.mesh.getObject3d().visible;
         const helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
         const helper = this.mesh.helper;
         if (helperParams && helperParams.controller) {
@@ -286,7 +286,7 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
   setMesh(mesh: MeshComponent) {
     this.mesh = mesh;
     if (this.mesh !== null) {
-      this.meshChildren = this.mesh.getMesh().children;
+      this.meshChildren = this.mesh.getObject3d().children;
       setTimeout(() => {
         this.updateGuiController();
       }, 100);
@@ -1231,19 +1231,19 @@ export class ThreeUtil {
     if (object3d instanceof THREE.Object3D) {
       return object3d;
     } else if (this.isNotNull(object3d.getMesh)) {
-      return object3d.getMesh() as THREE.Object3D;
+      return object3d.getObject3d() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getLight)) {
-      return object3d.getLight() as THREE.Object3D;
+      return object3d.getObject3d() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getHelper)) {
       return object3d.getHelper() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getAudio)) {
       return object3d.getAudio() as THREE.Object3D;
     } else if (this.isNotNull(object3d.getCamera)) {
-      return object3d.getCamera() as THREE.Camera;
+      return object3d.getObject3d() as THREE.Camera;
     } else if (this.isNotNull(object3d.getScene)) {
       return object3d.getScene() as THREE.Scene;
-    } else if (this.isNotNull(object3d.getObject3D)) {
-      return object3d.getObject3D() as THREE.Object3D;
+    } else if (this.isNotNull(object3d.getObject3d)) {
+      return object3d.getObject3d() as THREE.Object3D;
     }
     if (!isRequired) {
       return null;
@@ -1256,7 +1256,7 @@ export class ThreeUtil {
     } else if (this.isNotNull(mesh.getHelper)) {
       mesh = mesh.getHelper();
     } else if (this.isNotNull(mesh.getMesh)) {
-      mesh = mesh.getMesh();
+      mesh = mesh.getObject3d();
     } else if (this.isNotNull(mesh)) {
       mesh = this.getObject3d(mesh);
     }
@@ -1288,7 +1288,7 @@ export class ThreeUtil {
     if (light instanceof THREE.Light) {
       return light;
     } else if (this.isNotNull(light)) {
-      const mesh = this.getMesh(light);
+      const mesh = this.getObject3d(light);
       if (mesh instanceof THREE.Light) {
         return mesh;
       }
@@ -1330,7 +1330,7 @@ export class ThreeUtil {
     } else if (this.isNotNull(material.getMaterial)) {
       return material.getMaterial() as THREE.Material;
     } else if (this.isNotNull(material)) {
-      const mesh = this.getMesh(material);
+      const mesh = this.getObject3d(material);
       if (mesh instanceof THREE.Mesh) {
         if (this.isNotNull(material.material)) {
           return material.material;
@@ -1358,7 +1358,7 @@ export class ThreeUtil {
     } else if (this.isNotNull(geometry.getGeometry)) {
       return geometry.getGeometry();
     } else if (this.isNotNull(geometry)) {
-      const mesh = this.getMesh(geometry);
+      const mesh = this.getObject3d(geometry);
       if (mesh instanceof THREE.Mesh) {
         if (this.isNotNull(mesh.geometry)) {
           return mesh.geometry;

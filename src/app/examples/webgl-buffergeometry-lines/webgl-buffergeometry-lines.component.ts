@@ -66,7 +66,7 @@ export class WebglBuffergeometryLinesComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.object3d = mesh.getObject3D() as Line;
+    this.object3d = mesh.getObject3d() as Line;
   }
 
   object3d : Line = null;

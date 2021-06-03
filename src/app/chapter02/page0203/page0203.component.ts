@@ -72,7 +72,7 @@ export class Page0203Component implements OnInit {
 
   step : number = 0;
   onRender(timer : any) {
-    const plane = this.plane.getMesh();
+    const plane = this.plane.getObject3d();
     const rotationSpeed = this.controls.rotationSpeed;
     this.scene.getScene().traverse(e => {
       if (e instanceof THREE.Mesh && e != plane) {

@@ -16,7 +16,7 @@ export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.sprites = [];
-    mesh.getMesh().traverse((child) => {
+    mesh.getObject3d().traverse((child) => {
       if (child instanceof Sprite) {
         this.sprites.push(child);
       }

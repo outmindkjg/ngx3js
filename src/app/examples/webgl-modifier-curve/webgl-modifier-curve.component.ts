@@ -25,7 +25,7 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
   curvePath : {x : number, y : number, z : number }[] = this.initialPoints;
 
   setFlow(mesh : MeshComponent) {
-    mesh.getMesh();
+    mesh.getObject3d();
     this.flow = mesh.getStorageSource();
   }
 
@@ -69,7 +69,7 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
   }
 
   setPointMesh(mesh : MeshComponent) {
-    this.pointMesh.push(mesh.getMesh());
+    this.pointMesh.push(mesh.getObject3d());
   }
 
   pointMesh : Object3D[] = [];

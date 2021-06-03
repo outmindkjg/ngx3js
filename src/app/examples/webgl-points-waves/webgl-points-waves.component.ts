@@ -64,7 +64,7 @@ void main() {
   
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const geometry = (mesh.getMesh() as Points).geometry;
+    const geometry = (mesh.getObject3d() as Points).geometry;
     this.position = geometry.getAttribute('position') as BufferAttribute || null;
     this.scale = geometry.getAttribute('scale') as BufferAttribute || null;
   }

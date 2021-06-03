@@ -15,7 +15,7 @@ export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const meshTree = mesh.getMesh();
+    const meshTree = mesh.getObject3d();
     if (meshTree instanceof THREE.Mesh) {
       const geometry = meshTree.geometry;
       meshTree.geometry = geometry.toNonIndexed();

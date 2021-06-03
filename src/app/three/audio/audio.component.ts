@@ -93,8 +93,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false): boolean {
-    if (super.setParent(parent, isRestore)) {
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
       this.resetAudio();
       return true;
     }

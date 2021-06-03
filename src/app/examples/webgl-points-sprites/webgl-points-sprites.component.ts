@@ -49,7 +49,7 @@ export class WebglPointsSpritesComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.children = mesh.getMesh().children;
+    this.children = mesh.getObject3d().children;
   }
 
   children : Object3D[] = [];

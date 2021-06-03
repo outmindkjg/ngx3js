@@ -75,7 +75,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
   }
   sphereMesh : THREE.Object3D = null;
   setSphere(mesh : MeshComponent) {
-    this.sphereMesh = mesh.getMesh();
+    this.sphereMesh = mesh.getObject3d();
     setTimeout(() => {
       this.spheres = [];
       this.sphereMesh.children.forEach(child => {
@@ -89,7 +89,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
     super.setMesh(mesh);
     setTimeout(() => {
       this.meshChildren = [];
-      mesh.getMesh().children.forEach(child => {
+      mesh.getObject3d().children.forEach(child => {
         this.meshChildren.push(child);
       });
     }, 1000);

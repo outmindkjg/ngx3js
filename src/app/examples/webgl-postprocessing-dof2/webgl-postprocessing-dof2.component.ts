@@ -72,7 +72,7 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
       { name : 'fringe', type : 'number', min : 0.0, max : 5.0, step : 0.001 },
       { name : 'focalLength', type : 'number', min : 16, max : 80, step : 0.001, finishChange : () =>{
         if (this.camera !== null) {
-          const camera = this.camera.getCamera() as PerspectiveCamera;
+          const camera = this.camera.getObject3d() as PerspectiveCamera;
           camera.setFocalLength(this.controls.focalLength);
         }
       }},
@@ -129,7 +129,7 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
   ballInfos : { x : number, y : number, z : number, color : number }[] = [];
   meshLeaves : Object3D[] = [];
   setLeaves(mesh : MeshComponent) {
-    this.meshLeaves = mesh.getObject3D().children;
+    this.meshLeaves = mesh.getObject3d().children;
     this.meshLeaves.forEach(child => {
       child.userData.refInfo = {
         rotation :{

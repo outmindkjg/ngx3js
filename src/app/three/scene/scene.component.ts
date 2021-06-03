@@ -101,7 +101,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  getObject3D(): THREE.Object3D {
+  getObject3d(): THREE.Object3D {
     return this.getScene();
   }
 
@@ -402,7 +402,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
               const foundMesh = this.scene.getObjectByName(mesh.name);
               if (foundMesh !== null && foundMesh !== undefined) {
-                mesh.setParent(foundMesh, true);
+                mesh.setParent(foundMesh);
               }
             }
           });
@@ -445,7 +445,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             })
           );
         } else if (this.environment instanceof MeshComponent) {
-          const mesh = this.environment.getMesh() as THREE.Scene;
+          const mesh = this.environment.getObject3d() as THREE.Scene;
           this.scene.environment = this.getTextureFromScene(mesh);
         } else {
           switch (this.environment) {

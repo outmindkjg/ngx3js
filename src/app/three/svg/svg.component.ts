@@ -325,8 +325,8 @@ export class SvgComponent extends AbstractObject3dComponent {
 
   private meshes : THREE.Object3D[] = null;
 
-  setParent(parent: THREE.Object3D, isRestore: boolean = false) : boolean {
-    if (super.setParent(parent, isRestore)) {
+  setParent(parent: THREE.Object3D) : boolean {
+    if (super.setParent(parent)) {
       this.meshes = null;
       this.resetMeshes();
       return true;

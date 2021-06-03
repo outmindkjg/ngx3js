@@ -14,12 +14,12 @@ export class WebglMirrorComponent extends BaseComponent<{}> {
   }
 
   setSphereGroup(mesh : MeshComponent) {
-    this.sphereGroup = mesh.getMesh();
+    this.sphereGroup = mesh.getObject3d();
   }
   sphereGroup : Object3D = null;
 
   setSmallSphere(mesh : MeshComponent) {
-    this.smallSphere = mesh.getMesh();
+    this.smallSphere = mesh.getObject3d();
   }
   smallSphere : Object3D = null;
 

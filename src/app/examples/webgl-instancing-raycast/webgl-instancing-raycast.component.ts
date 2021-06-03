@@ -19,7 +19,7 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
     },[
       { name : 'count', type : 'number', min : 10, max : 1000, step : 1, change : () => {
         if (this.mesh !== null) {
-          const mesh = this.mesh.getMesh() as THREE.InstancedMesh;
+          const mesh = this.mesh.getObject3d() as THREE.InstancedMesh;
           mesh.count = this.controls.count;
         }
       }}
@@ -28,7 +28,7 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 
   onMouseMove(event : RendererEvent) {
     if (this.camera !== null && this.mesh !== null) {
-      const mesh = this.mesh.getMesh() as THREE.InstancedMesh;
+      const mesh = this.mesh.getObject3d() as THREE.InstancedMesh;
       const intersection = this.camera.getIntersection(event.mouse, mesh);
       if (intersection !== null) {
         const instanceId = intersection.instanceId;

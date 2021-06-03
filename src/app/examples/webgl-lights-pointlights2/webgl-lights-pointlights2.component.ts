@@ -44,7 +44,7 @@ export class WebglLightsPointlights2Component extends BaseComponent<{}> {
 
   lights: any[] = [];
   addLight(mesh: MeshComponent) {
-    const light = mesh.getMesh();
+    const light = mesh.getObject3d();
     this.lights.push(light);
   }
 

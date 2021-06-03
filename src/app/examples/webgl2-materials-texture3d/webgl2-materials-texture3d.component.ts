@@ -54,7 +54,7 @@ export class Webgl2MaterialsTexture3dComponent extends BaseComponent<{
 
   updateUniforms() {
     if (this.mesh !== null) {
-      const material = (this.mesh.getObject3D() as any).material;
+      const material = (this.mesh.getObject3d() as any).material;
       if (material !== null && material !== undefined) {
         material.uniforms[ "u_clim" ].value.set( this.controls.clim1, this.controls.clim2 );
         material.uniforms[ "u_renderstyle" ].value = this.controls.renderstyle == 'mip' ? 0 : 1; // 0: MIP, 1: ISO

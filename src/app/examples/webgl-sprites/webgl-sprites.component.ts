@@ -47,7 +47,7 @@ export class WebglSpritesComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.children = mesh.getMesh().children as Sprite[];
+    this.children = mesh.getObject3d().children as Sprite[];
   }
 
   children : Sprite[] = [];
@@ -57,7 +57,7 @@ export class WebglSpritesComponent extends BaseComponent<{}> {
     if (this.children.length > 0) {
       const l = this.children.length;
       const time = timer.elapsedTime;
-      const group = this.mesh.getObject3D();
+      const group = this.mesh.getObject3d();
       group.rotation.x = time * 0.5;
       group.rotation.y = time * 0.75;
       group.rotation.z = time * 1.0;

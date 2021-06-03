@@ -255,7 +255,7 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
   meshObj : any = null;
   setMesh(mesh: MeshComponent) {
     super.setMesh(mesh);
-    this.meshObj = mesh.getObject3D();
+    this.meshObj = mesh.getObject3d();
   }
   setMaterial(matrial : MaterialComponent) {
     this.material = this.orgMaterial = matrial.getMaterial() ;

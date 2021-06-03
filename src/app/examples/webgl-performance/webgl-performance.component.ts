@@ -45,7 +45,7 @@ export class WebglPerformanceComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.meshChildren = mesh.getMesh().children;
+    this.meshChildren = mesh.getObject3d().children;
   }
 
   meshChildren : Object3D[] = [];
@@ -62,7 +62,7 @@ export class WebglPerformanceComponent extends BaseComponent<{}> {
     super.onRender(timer);
     if (this.meshChildren !== null && this.meshChildren.length > 0) {
       if (this.camera !== null) {
-        const camera = this.camera.getCamera();
+        const camera = this.camera.getObject3d();
         camera.position.x += ( this.mouseX - camera.position.x ) * .05;
         camera.position.y += ( - this.mouseY - camera.position.y ) * .05;
         camera.lookAt( 0, 0, 0 );
