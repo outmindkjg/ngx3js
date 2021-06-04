@@ -157,7 +157,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
             break;
           case 'controller':
             // this.controller.forEach((controller) => {
-            //   controller.setObject2D(this.collection);
+            //   controller.setObject2d(this.collection);
             // });
             break;
         }

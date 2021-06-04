@@ -15,8 +15,8 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [refer]="mesh" [x]="0" [y]="0" [z]="0" [speed]="0.1"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+  <three-lookat [refer]="mesh" [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
     <three-position [x]="0" [y]="10" [z]="-10"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
@@ -39,23 +39,32 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
-    <three-mesh #mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-mesh [visible]="false">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
         [type]="controls.geometry"
         [width]="1"
         [height]="1"
         [depth]="1"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
+      <three-material [type]="'meshlambert'" [color]="'0x0000ff'"></three-material>
+    </three-mesh>
+    <three-mesh #mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-geometry
+        [type]="controls.geometry"
+        [width]="1"
+        [height]="1"
+        [depth]="1"
+      ></three-geometry>
+      <three-material [type]="'meshlambert'" [color]="'0xff0000'" [opacity]="1" [transparent]="true"></three-material>
       <three-controller 
-        [controller]="'auto'"
+        [type]="'auto'"
         [visible]="true"
-        [useEvent]="true"
       >
-        <three-controller-item [type]="'positionlookat'" [curve]="'helixcurve'" [radius]="50" [duration]="30" [visible]="true" [options]="'absy'"></three-controller-item>
-        <three-controller-item [type]="'material'" [material]="'color'" [curve]="'circle'" [radiusX]="9" [radiusY]="1" [radiusZ]="1" [duration]="30"></three-controller-item>
-        <three-controller-item [type]="'material'" [material]="'opacity'" [curve]="'line'" [radius]="15" [duration]="30"></three-controller-item>
+        <three-controller-item [type]="'positionlookat'" [curve]="'heartcurve'" [waveR]="7" [waveH]="5" [radius]="5" [radiusInner]="-0.3" [duration]="30" [visible]="true" [options]="'yoyo'"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'color'" [curve]="'circle'" [radiusX]="1" [radiusY]="1" [radiusZ]="1" [duration]="30" [scale]="2" [visible]="false"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'opacity'" [curve]="'line'" [waveR]="10" [waveH]="5" [radius]="15" [radiusInner]="0.2" [duration]="30" [visible]="false"></three-controller-item>
       </three-controller>
     </three-mesh>
   </three-scene>

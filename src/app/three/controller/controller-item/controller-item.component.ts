@@ -12,15 +12,19 @@ import { AbstractSubscribeComponent } from '../../subscribe.abstract';
 })
 export class ControllerItemComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type: string = 'position';
+  @Input() private lookathead: number = null;
   @Input() private curve: string = null;
   @Input() private scale: number = null;
   @Input() private radius: number = null;
+  @Input() private radiusInner: number = null;
   @Input() private radiusX: number = null;
   @Input() private radiusY: number = null;
   @Input() private radiusZ: number = null;
+  @Input() private rotation: number = null;
   @Input() private rotationX: number = null;
   @Input() private rotationY: number = null;
   @Input() private rotationZ: number = null;
+  @Input() private center: number = null;
   @Input() private centerX: number = null;
   @Input() private centerY: number = null;
   @Input() private centerZ: number = null;
@@ -31,62 +35,72 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   @Input() private visible: boolean = null;
   @Input() private color: string | number | THREE.Color = null;
   @Input() private opacity: number = null;
-  @Input() private useEvent: boolean = false;
-  @Input() private eventSeqn: number = 1000;
   @Input() private tubularSegments: number = null;
   @Input() private tubeRadius: number = null;
   @Input() private tubeRadiusSegments: number = null;
   @Input() private closed: boolean = null;
   @Input() private material: string = null;
+  @Input() private wave: number = 0;
+  @Input() private waveR: number = 0;
+  @Input() private waveH: number = 0;
+  @Input() private rate: number = 1;
+  @Input() private rateX: number = null;
+  @Input() private rateY: number = null;
+  @Input() private rateZ: number = null;
   
-  private getCurve(curve: string, scale: number): THREE.Curve<THREE.Vector3> {
+  private getCurve(curve: string): THREE.Curve<THREE.Vector3> {
     switch (curve.toLowerCase()) {
       case 'grannyknot':
         return new Curves.GrannyKnot();
       case 'heartcurve':
-        return new Curves.HeartCurve(scale);
+        return new Curves.HeartCurve(1);
       case 'vivianicurve':
-        return new Curves.VivianiCurve(scale);
+        return new Curves.VivianiCurve(1);
       case 'knotcurve':
         return new Curves.KnotCurve();
       case 'helixcurve':
         return new Curves.HelixCurve();
       case 'trefoilknot':
-        return new Curves.TrefoilKnot(scale);
+        return new Curves.TrefoilKnot(1);
       case 'torusknot':
-        return new Curves.TorusKnot(scale);
+        return new Curves.TorusKnot(1);
       case 'cinquefoilknot':
-        return new Curves.CinquefoilKnot(scale);
+        return new Curves.CinquefoilKnot(1);
       case 'trefoilpolynomialknot':
-        return new Curves.TrefoilPolynomialKnot(scale);
+        return new Curves.TrefoilPolynomialKnot(1);
       case 'decoratedtorusknot4b':
-        return new Curves.DecoratedTorusKnot4b(scale);
+        return new Curves.DecoratedTorusKnot4b(1);
       case 'decoratedtorusknot4a':
-        return new Curves.DecoratedTorusKnot4a(scale);
+        return new Curves.DecoratedTorusKnot4a(1);
       case 'figureeightpolynomialknot':
-        return new Curves.FigureEightPolynomialKnot(scale);
+        return new Curves.FigureEightPolynomialKnot(1);
       case 'decoratedtorusknot5a':
-        return new Curves.DecoratedTorusKnot5a(scale);
+        return new Curves.DecoratedTorusKnot5a(1);
       case 'decoratedtorusknot5c':
-        return new Curves.DecoratedTorusKnot5c(scale);
-      case 'circle':
-        return new CurvesCircle(scale);
+        return new Curves.DecoratedTorusKnot5c(1);
       case 'circlewave':
-        return new CurvesCircleWave(scale);
+      case 'circle':
+        return new CurvesCircle(1, 
+          ThreeUtil.getTypeSafe(this.radiusInner,0),
+          ThreeUtil.getTypeSafe(this.waveH,this.wave,0),
+          ThreeUtil.getTypeSafe(this.waveR,this.wave,0),
+          ThreeUtil.getTypeSafe(this.rateX,this.rate, 1),
+          ThreeUtil.getTypeSafe(this.rateY,this.rate, 1),
+          ThreeUtil.getTypeSafe(this.rateZ,this.rate, 1),
+        );
       case 'line' :
-        return new CurvesLine(scale);
+        return new CurvesLine(1,
+          ThreeUtil.getTypeSafe(this.radiusInner,0),
+          ThreeUtil.getTypeSafe(this.waveH,this.wave,0),
+          ThreeUtil.getTypeSafe(this.waveR,this.wave,0),
+          ThreeUtil.getTypeSafe(this.rateX,this.rate, 1),
+          ThreeUtil.getTypeSafe(this.rateY,this.rate, 1),
+          ThreeUtil.getTypeSafe(this.rateZ,this.rate, 1),
+        );
       default:
         break;
     }
     return new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0));
-  }
-
-  setControlParams(params : { [key : string] : any } ) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
   }
 
   constructor() {
@@ -113,11 +127,13 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   }
 
   private _helper: THREE.Object3D = null;
+  private _helperPoint: THREE.Object3D = null;
   private _curve: CurvesOptions = null;
   private _lookat: boolean = false;
   private _duration: number = 60;
   private _delta: number = 60;
   private _parent: THREE.Object3D;
+  private _lookathead: number = 0.05;
   getController(parent : THREE.Object3D): this {
     if (this._needUpdate) {
       this._needUpdate = false;
@@ -125,26 +141,45 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
       if (this._helper !== null && this._helper.parent === null) {
         this._helper.parent.remove(this._helper);
       }
-      this._helper = null;
-      const curve = this.getCurve(ThreeUtil.getTypeSafe(this.curve, 'circle'), ThreeUtil.getTypeSafe(this.scale, 1));
-      let scale : THREE.Vector3 = null;
-      if (ThreeUtil.isNotNull(this.radiusX) && ThreeUtil.isNotNull(this.radiusY) && ThreeUtil.isNotNull(this.radiusZ)) {
-        scale = ThreeUtil.getVector3Safe(this.radiusX, this.radiusY, this.radiusZ);
-      } if (ThreeUtil.isNotNull(this.radius)) {
-        scale = ThreeUtil.getVector3Safe(this.radius, this.radius, this.radius);
+      if (this._helperPoint !== null && this._helperPoint.parent === null) {
+        this._helperPoint.parent.remove(this._helperPoint);
       }
+      this._helper = null;
+      this._helperPoint = null;
+      const curve = this.getCurve(ThreeUtil.getTypeSafe(this.curve, 'circle'));
+      let scale : THREE.Vector3 = ThreeUtil.getVector3Safe(
+          ThreeUtil.getTypeSafe(this.radiusX, this.radius, 1),
+          ThreeUtil.getTypeSafe(this.radiusY, this.radius, 1),
+          ThreeUtil.getTypeSafe(this.radiusZ, this.radius, 1)
+      );
+      let rotation : THREE.Euler = ThreeUtil.getEulerSafe(
+        ThreeUtil.getTypeSafe(this.rotationX, this.rotation, 0),
+        ThreeUtil.getTypeSafe(this.rotationY, this.rotation, 0),
+        ThreeUtil.getTypeSafe(this.rotationZ, this.rotation, 0)
+      );
+      let center : THREE.Vector3 = ThreeUtil.getVector3Safe(
+        ThreeUtil.getTypeSafe(this.centerX, this.center, 0),
+        ThreeUtil.getTypeSafe(this.centerY, this.center, 0),
+        ThreeUtil.getTypeSafe(this.centerZ, this.center, 0)
+      );
+      this._lookathead = Math.min(1,Math.max(0.001,ThreeUtil.getTypeSafe(this.lookathead, 0.05)));
       this._curve = new CurvesOptions(
         curve,
         scale,
-        ThreeUtil.getEulerSafe(this.rotationX, this.rotationY, this.rotationZ),
-        ThreeUtil.getVector3Safe(this.centerX, this.centerY, this.centerZ),
+        rotation,
+        center,
         ThreeUtil.getTypeSafe(this.multiply, 1),
         this.options
       );
       this._duration = ThreeUtil.getTypeSafe(this.duration, 60);
       this._delta = ThreeUtil.getTypeSafe(this.delta, 0);
       switch(this.type.toLowerCase()) {
+        case 'position' :
+          this._curve.referCenter = parent.position;
+          this._lookat = false;
+          break;
         case 'positionlookat' :
+          this._curve.referCenter = parent.position;
           this._lookat = true;
           break;
       }
@@ -155,20 +190,49 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             color: ThreeUtil.getColorSafe(this.color, 0xff0000),
             opacity: ThreeUtil.getTypeSafe(this.opacity, 0.2),
             depthTest: true,
+            transparent : true,
             side: THREE.DoubleSide,
           })
         );
+        this._helperPoint = new THREE.Mesh(
+          new THREE.SphereGeometry(ThreeUtil.getTypeSafe(this.tubeRadius, 0.01) * 10, ThreeUtil.getTypeSafe(this.tubeRadiusSegments, 8), ThreeUtil.getTypeSafe(this.tubeRadiusSegments, 4)),
+          new THREE.MeshBasicMaterial({
+            color: ThreeUtil.getColorSafe(this.color, 0x0000ff),
+            opacity: ThreeUtil.getTypeSafe(this.opacity, 0.7),
+            depthTest: true,
+            transparent : true,
+            side: THREE.DoubleSide,
+          })
+        );
+        this._helperPoint.visible = false;
+        switch(this.type.toLowerCase()) {
+          case 'position' :
+            this._helper.scale.set(1,1,1);
+            this._helperPoint.visible = false;
+          case 'positionlookat' :
+            this._helper.scale.set(1,1,1);
+            this._helperPoint.visible = true;
+            break;
+          default :
+            this._helper.scale.set(1,1,1).multiplyScalar(ThreeUtil.getTypeSafe(this.scale,1));
+            this._helperPoint.scale.set(1,1,1).multiplyScalar(ThreeUtil.getTypeSafe(this.scale,1));
+            this._helperPoint.visible = true;
+            break;
+        }
       }
     }
     if (this._parent !== parent && parent !== null) {
       this._parent = parent;
-      if (this._helper !== null) {
-        if (this._parent.parent !== null) {
-          if (this._helper.parent !== this._parent.parent) {
-            this._parent.parent.add(this._helper); 
+      if (this._parent !== null) {
+        if (this._helper !== null) {
+          if (this._helper.parent !== this._parent.children[0]) {
+            this._parent.children[0].add(this._helper); 
           }
-        } else if (this._helper.parent !== this._parent) {
-          this._parent.add(this._helper); 
+        }
+        if (this._helperPoint !== null) {
+          if (this._helperPoint.parent !== this._parent) {
+            this._parent.add(this._helperPoint); 
+          }
         }
       }
     }
@@ -177,6 +241,23 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   }
 
   private _lastLookAt : THREE.Vector3 = null;
+
+  updateHelperPoint(itemTimer: RendererTimer, scale : number = null) {
+    if (this._helperPoint !== null) {
+      this._curve.getPointV3(itemTimer, this._helperPoint.position);
+      switch (this.type.toLowerCase()) {
+        case 'positionlookat' :
+        case 'position':
+            break;
+        default :
+          this._helperPoint.position.multiplyScalar(ThreeUtil.getTypeSafe(this.scale,1));
+          if (scale !== null) {
+            this._helperPoint.scale.set(scale, scale, scale);
+          }
+          break;
+      }
+    } 
+  }
   update(timer: RendererTimer, parent: THREE.Object3D, events: string[]): boolean {
     if (this._curve !== null) {
       const itemTimer : RendererTimer = {
@@ -190,14 +271,15 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             this._curve.getPointV3(itemTimer, parent.position);
             events.push('position');
             if (this._lookat) {
-              itemTimer.elapsedTime += 0.05;
-              itemTimer.delta += 0.05;
+              itemTimer.elapsedTime += this._lookathead;
+              itemTimer.delta += this._lookathead;
               if (this._lastLookAt === null) {
                 this._lastLookAt = this._curve.getPointV3(itemTimer, new THREE.Vector3());
               } else {
                 this._curve.getPointV3(itemTimer, this._lastLookAt);
                 parent.lookAt(this._lastLookAt);
               }
+              this.updateHelperPoint(itemTimer);
               events.push('lookat');
             }
             return true;
@@ -207,6 +289,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
         case 'scale':
           if (events.indexOf('scale') === -1) {
             this._curve.getPointV3(itemTimer, parent.scale);
+            this.updateHelperPoint(itemTimer);
             events.push('scale');
             return true;
           } else {
@@ -215,6 +298,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
         case 'rotation':
           if (events.indexOf('rotation') === -1) {
             this._curve.getPointEuler(itemTimer, parent.rotation);
+            this.updateHelperPoint(itemTimer);
             events.push('rotation');
             return true;
           } else {
@@ -228,6 +312,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
               this._curve.getPointV3(itemTimer, this._lastLookAt);
               parent.lookAt(this._lastLookAt);
             }
+            this.updateHelperPoint(itemTimer);
             events.push('lookat');
             return true;
           } else {
@@ -243,6 +328,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
               } else {
                 material = materials[0];
               }
+              let scale : number = 1;
               if (ThreeUtil.isNotNull(material) && ThreeUtil.isNotNull(material[this.material])) {
                 const oldValue = material[this.material];
                 if (oldValue instanceof THREE.Color) {
@@ -255,12 +341,14 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
                   switch(this.material.toLowerCase()) {
                     case 'opacity' :
                       material.opacity = this._curve.getPointFloat(itemTimer, 0, 1);
+                      scale = material.opacity * 3;
                       break;
                     default :
                       material[this.material] = this._curve.getPointFloat(itemTimer);
                       break;
                   }
                 }
+                this.updateHelperPoint(itemTimer, scale);
               }
             }
           }
@@ -272,38 +360,31 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
 }
 
 export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
-  constructor(private radius: number, private rateX: number = 1, private rateZ: number = 1) {
+  constructor(private radius: number = 1 , private radiusInner: number = 0 , private waveH: number = 0, private waveR: number = 0, private rateX: number = 1, private rateY: number = 0.2, private rateZ: number = 1) {
     super();
   }
 
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     t = 2 * Math.PI * t;
-    return point.set(Math.sin(t) * this.rateX, 0, Math.cos(t) * this.rateZ).multiplyScalar(this.radius);
+    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(t * this.waveR) * this.radiusInner + 1 ) * this.radius : this.radius;
+    const y = this.waveH != 0  ? Math.sin(t * this.waveH) : 0;
+    return point.set(Math.sin(t) * this.rateX, y * this.rateY , Math.cos(t) * this.rateZ).multiplyScalar(radius);
   }
 }
+
 
 export class CurvesLine extends THREE.Curve<THREE.Vector3> {
-  constructor(private radius : number = 1 , private from: number = -1, private to: number = 1) {
+  constructor(private radius: number = 1 , private radiusInner: number = 0 , private waveH: number = 0, private waveR: number = 0, private rateX: number = 1, private rateY: number = 0.2, private rateZ: number = 1) {
     super();
   }
 
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
-    const v = (t % 1) * (this.to - this.from) + this.from;
-    return point.set(v, v, v).multiplyScalar(this.radius);
-  }
-}
-
-export class CurvesCircleWave extends THREE.Curve<THREE.Vector3> {
-  constructor(private radius: number, private wave: number = 5, private rateX: number = 1, private rateY: number = 0.2, private rateZ: number = 1) {
-    super();
-  }
-
-  getPoint(t: number, optionalTarget: THREE.Vector3) {
-    const point = optionalTarget || new THREE.Vector3();
-    t = 2 * Math.PI * t;
-    return point.set(Math.sin(t) * this.rateX, Math.sin(t * this.wave) * this.rateY, Math.cos(t) * this.rateZ).multiplyScalar(this.radius);
+    const v = (t % 1) * 2 - 1;
+    const y = this.waveH != 0  ? Math.sin(2 * Math.PI * t * this.waveH) : 0;
+    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(2 * Math.PI * t * this.waveR) * this.radiusInner + 1 ) * this.radius : this.radius;
+    return point.set(v * this.rateX, y * this.rateY, v * this.rateZ).multiplyScalar(radius);
   }
 }
 
@@ -349,11 +430,13 @@ export class CurvesOptions extends THREE.Curve<THREE.Vector3> {
 		let minX = + Infinity;
 		let minY = + Infinity;
 		let minZ = + Infinity;
-
 		let maxX = - Infinity;
 		let maxY = - Infinity;
 		let maxZ = - Infinity;
-    for(let i = 0 ; i <= 10; i += 0.1) {
+    let sumX = 0;
+		let sumY = 0;
+		let sumZ = 0;
+    for(let i = 0 ; i <= 1; i += 0.02) {
       const v = curve.getPoint(i);
       minX = Math.min(minX, v.x);
       minY = Math.min(minY, v.y);
@@ -361,20 +444,20 @@ export class CurvesOptions extends THREE.Curve<THREE.Vector3> {
       maxX = Math.max(maxX, v.x);
       maxY = Math.max(maxY, v.y);
       maxZ = Math.max(maxZ, v.z);
+      sumX += v.x;
+      sumY += v.y;
+      sumZ += v.z;
     }
     this.curve = curve;
-    const minP = new THREE.Vector3(minX, minY, minZ);
-    const maxP = new THREE.Vector3(maxX, maxY, maxZ);
-    this._center = maxP.clone().add(minP).multiplyScalar(0.5);
-    const dist = maxP.distanceTo(minP);
-    if (dist > 0) {
-      this._scale = 2 / dist;
-    } else {
-      this._scale = 1;
+    this._center = new THREE.Vector3(sumX,sumY,sumZ).multiplyScalar(0.02);
+    const maxL = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+    this._scale = new THREE.Vector3(1,1,1);
+    if (maxL > 2) {
+      this._scale.multiplyScalar(2 / maxL);
     }
   }
   private _center : THREE.Vector3 = null;
-  private _scale : number = 1;
+  private _scale : THREE.Vector3 = null;
   private _absX: boolean = false;
   private _absY: boolean = false;
   private _absZ: boolean = false;
@@ -383,8 +466,8 @@ export class CurvesOptions extends THREE.Curve<THREE.Vector3> {
   getPoint(t: number, optionalTarget?: THREE.Vector3): THREE.Vector3 {
     optionalTarget = this.curve.getPoint(t, optionalTarget);
     optionalTarget.sub(this._center);
-    if (this._scale !== 1) {
-      optionalTarget.multiplyScalar(this._scale);
+    if (this._scale !== null) {
+      optionalTarget.multiply(this._scale);
     }
     if (this.rotation !== null) {
       optionalTarget.applyEuler(this.rotation);
@@ -427,12 +510,17 @@ export class CurvesOptions extends THREE.Curve<THREE.Vector3> {
   }
 
   private _lastV3 : THREE.Vector3 = null;
+  public referCenter : THREE.Vector3 = null;
+
   getPointV3(timer : RendererTimer, p : THREE.Vector3): THREE.Vector3 {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastV3 === null) {
       this._lastV3 = new THREE.Vector3(cp.x, cp.y, cp.z);
     } else {
       this._lastV3.copy(cp);
+    }
+    if (this.referCenter !== null) {
+      this._lastV3.add(this.referCenter);
     }
     p.copy(this._lastV3);
     return this._lastV3;

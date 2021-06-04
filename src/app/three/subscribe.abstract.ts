@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChange, SimpleChanges } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ThreeUtil } from './interface';
 
@@ -8,13 +8,13 @@ import { ThreeUtil } from './interface';
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
 
   @Input() protected debug: boolean = false;
+  @Input() private overrideParams: {[key : string] : any } = null;
 
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
   constructor() {}
   
-  protected subscribeType: string = null;
 
   ngOnInit(subscribeType?: string): void {
     this.setSubscribeType(subscribeType);
@@ -38,7 +38,13 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.onDestory.emit(this);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.overrideParams) {
+      this.updateInputParams(this.overrideParams, false, changes);
+      delete changes.overrideParams;
+    }
+  }
 
   ngAfterContentInit(): void {}
 
@@ -127,19 +133,21 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected getChanges(): string[] {
     const changes: string[] = [];
     (this._changeList || []).forEach((change) => {
-      changes.push(change);
+      changes.push(change.toLowerCase());
     });
+    if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+      this._needUpdate = true;
+    }
     this._changeList = [];
     return changes;
   }
 
   protected clearChanges() {
-    this.consoleLog('changeList', this._changeList);
     this._changeList = null;
   }
 
   protected applyChanges() {
-    this.getChanges();
+    this.synkObject(this.getChanges());
   }
 
   private _cashedObj : any = null;
@@ -147,8 +155,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected setObject(obj : any) {
     if (this._cashedObj !== obj) {
       this._cashedObj = obj;
-      this._needUpdate = false;
-      this.clearChanges();
+      this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
         if (this.debug) {
           this.consoleLog(this.subscribeType, this._cashedObj);
@@ -233,7 +240,46 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  protected subscribeType: string = null;
+
+  private _localComponents : { [key : string] : OnInit & OnDestroy} = {};
+
   private _subscribeList: { [key: string]: Subscription[] } = {};
+
+  protected destroyLocalComponent(key: string) {
+    if (ThreeUtil.isNotNull(this._localComponents[key])) {
+      this._localComponents[key].ngOnDestroy();
+      delete this._localComponents[key];
+    }
+  }
+
+  protected initLocalComponent<T extends OnInit & OnDestroy>(key: string, component: T):T {
+    if (ThreeUtil.isNotNull(this._localComponents[key])) {
+      this.destroyLocalComponent(key);
+    }
+    if (ThreeUtil.isNotNull(component)) {
+      component.ngOnInit();
+      this._localComponents[key] = component;
+    }
+    return component;
+  }
+
+  public updateInputParams(params : { [key : string] : any } , firstChange : boolean = true, changes : SimpleChanges = {}) {
+    if (ThreeUtil.isNotNull(params)) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (this[key] !== undefined) {
+          if (this[key] !== value && ThreeUtil.isNotNull(value)) {
+            changes[key] = new SimpleChange(this[key], value, firstChange);
+            this[key] = value;
+          }
+        }
+      });
+      if (firstChange) {
+        this.ngAfterContentInit();
+        this.ngOnChanges(changes);
+      }
+    }
+  }
 
   protected unSubscribeReferList(key: string) {
     if (ThreeUtil.isNotNull(this._subscribeList[key])) {

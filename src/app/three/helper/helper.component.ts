@@ -186,14 +186,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 
   private targetMesh: THREE.Mesh = null;
 
-  setHelperParams(params: { [key: string]: any }) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
-  }
-
   setUpdate() {
     const helper: any = this.helper;
     if (ThreeUtil.isNotNull(helper.update)) {

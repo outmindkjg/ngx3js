@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
@@ -17,7 +17,7 @@ import { PlainControls } from './plain-controls';
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.scss']
 })
-export class ControlComponent extends AbstractSubscribeComponent implements OnInit {
+export class ControlComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy, OnChanges, AfterContentInit {
 
   @Input() type : string = "orbit";
   @Input() private autoRotate:boolean = null;
@@ -88,7 +88,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQuery(this.lookatList, 'lookatList', 'target');
     super.ngAfterContentInit();
   }
 
@@ -99,26 +99,30 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 
   protected synkObject(synkTypes: string[]) {
     if (this.control !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, ['type'])) {
+        this.needUpdate = true;
+        return ;
+      }
       if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['lookat']);
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['target']);
       }
       synkTypes.forEach((synkType) => {
         switch (synkType.toLowerCase()) {
-          case 'lookat':
+          case 'target':
             if (this.control !== null && ThreeUtil.isNotNull(this.control['target'])) {
               this.unSubscribeRefer('target')
               if (ThreeUtil.isNotNull(this.target)) {
-                this.control['target'].copy(ThreeUtil.getLookAt(this.target));
+                this.control['target'] = ThreeUtil.getLookAt(this.target);
                 this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
-                  this.control['target'].copy(ThreeUtil.getLookAt(this.target));
+                  this.addChanges('target');
                 }, 'lookat'));
-              }
-              if (this.lookatList !== null && this.lookatList !== undefined) {
-                this.unSubscribeReferList('lookatList')
-                this.lookatList.forEach(lookat => {
-                  lookat.setLookAt(this.control['target']);
-                })
-                this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+              } else {
+                if (ThreeUtil.isNotNull(this.lookatList)) {
+                  this.control['target'] = this.lookatList.first.getLookAt();
+                  this.subscribeRefer('target', ThreeUtil.getSubscribe(this.lookatList.first, () => {
+                    this.addChanges('target');
+                  }, 'lookat'));
+                }
               }
             }
             break;
@@ -126,15 +130,6 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
       });
     }
   }
-
-  setControlParams(params : { [key : string] : any } ) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
-  }
-
 
   private _camera : THREE.Camera = null;
   private _scene : QueryList<SceneComponent> = null;

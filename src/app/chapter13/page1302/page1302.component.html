@@ -1,10 +1,10 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-canvas>
         <three-visual>
-            <three-controller [controller]="scaleController" [params]="scaleParam"></three-controller>
-            <three-controller [controller]="rotationController" [params]="rotationParam"></three-controller>
-            <three-controller [controller]="positionController" [params]="positionParam"></three-controller>
-            <three-controller [controller]="materialController" [params]="materialParam"></three-controller>
+            <three-controller [controlComponent]="scaleController" [controlParams]="scaleParam"></three-controller>
+            <three-controller [controlComponent]="rotationController" [controlParams]="rotationParam"></three-controller>
+            <three-controller [controlComponent]="positionController" [controlParams]="positionParam"></three-controller>
+            <three-controller [controlComponent]="materialController" [controlParams]="materialParam"></three-controller>
             <three-transform
                 [anchorSeparat]="true"
                 [anchorMaxX]="0.2"
@@ -34,10 +34,10 @@
             <three-audio
               [url]="'/assets/sounds/358232_j_s_song.mp3'"
             ></three-audio>
-            <three-controller [controller]="rotationController" [params]="rotationParam"></three-controller>
-            <three-controller [controller]="scaleController" [params]="scaleParam"></three-controller>
-            <three-controller [controller]="positionController" [params]="positionParam"></three-controller>
-            <three-controller [controller]="materialController" [params]="materialParam"></three-controller>
+            <three-controller [controlComponent]="rotationController" [controlParams]="rotationParam"></three-controller>
+            <three-controller [controlComponent]="scaleController" [controlParams]="scaleParam"></three-controller>
+            <three-controller [controlComponent]="positionController" [controlParams]="positionParam"></three-controller>
+            <three-controller [controlComponent]="materialController" [controlParams]="materialParam"></three-controller>
             <three-position [x]="0" [y]="0" [z]="0"></three-position>
             <three-geometry [type]="'box'" [width]="10" [height]="10" [depth]="10"></three-geometry>
             <three-material [type]="'meshlambert'" [color]="'0xff0000'" [transparent]="true" [wireframe]="controls.wireframe"></three-material>

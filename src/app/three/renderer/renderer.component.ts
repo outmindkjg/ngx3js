@@ -553,9 +553,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'transform':
         case 'trackball':
         case 'plain':
-          const control = new ControlComponent();
-          control.ngOnInit();
-          control.setControlParams({
+          const control = this.initLocalComponent('control', new ControlComponent());
+          control.updateInputParams({
             type: controlType,
             autoRotate: autoRotate,
             autoRotateSpeed: this.autoRotateSpeed,

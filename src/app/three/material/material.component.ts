@@ -1113,14 +1113,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
 
   private material: THREE.Material = null;
 
-  setMaterialParams(params: { [key: string]: any }) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
-  }
-
   constructor(private localStorageService: LocalStorageService) {
     super();
   }

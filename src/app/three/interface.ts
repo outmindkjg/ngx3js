@@ -1377,6 +1377,10 @@ export class ThreeUtil {
   }
 
   static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {
+    if (this.isNotNull(object) && object instanceof THREE.Object3D && this.isNotNull(object.userData.component) && this.isNotNull(object.userData.component.getSubscribe)) {
+      object = object.userData.component;
+      console.log(object);
+    }
     if (this.isNotNull(object.getSubscribe)) {
       return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
         if (this.isNull(nextKey)) {
@@ -1384,37 +1388,37 @@ export class ThreeUtil {
         } else {
           switch(nextKey.toLowerCase()) {
             case 'lookat' :
-              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('position') > -1 || keyList.indexOf('lookat') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','position','lookat'])) {
                 callBack('lookat');
               }
               break;
             case 'position' :
-              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('position') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','position'])) {
                 callBack('position');
               }
               break;
             case 'rotation' :
-              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('rotation') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','rotation'])) {
                 callBack('rotation');
               }
               break;
             case 'scale' :
-              if (keyList.indexOf('object3d') > -1 || keyList.indexOf('scale') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','scale'])) {
                 callBack('scale');
               }
               break;
             case 'geometry' :
-              if (keyList.indexOf('mesh') > -1 || keyList.indexOf('geometry') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','geometry'])) {
                 callBack('geometry');
               }
               break;
             case 'material' :
-              if (keyList.indexOf('mesh') > -1 || keyList.indexOf('material') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','material'])) {
                 callBack('material');
               }
               break;
             case 'texture' :
-              if (keyList.indexOf('material') > -1 || keyList.indexOf('texture') > -1 || keyList.indexOf('textureloaded') > -1) {
+              if (this.isIndexOf(keyList, ['object3d','material','texture','textureloaded'])) {
                 callBack('texture');
               }
               break;
@@ -1496,10 +1500,16 @@ export class ThreeUtil {
   }
 
   static getLookAt(lookat: any): THREE.Vector3 {
-    if (this.isNotNull(lookat.getLookAt)) {
+    if (lookat instanceof THREE.Vector3) {
+      return lookat;
+    } else if (Array.isArray(lookat) && lookat.length >= 3) {
+      return this.getVector3Safe(lookat[0], lookat[1], lookat[2], null, null, true);
+    } else if (this.isNotNull(lookat.getLookAt)) {
       return lookat.getLookAt() as THREE.Vector3;
+    } else if (this.isNotNull(lookat.getPosition)) {
+      return lookat.getPosition() as THREE.Vector3;
     } else {
-      return this.getPosition(lookat);
+      return this.getObject3d(lookat).position;
     }
   }
 

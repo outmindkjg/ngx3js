@@ -57,7 +57,7 @@
           [fragmentShader]="fragment_shader1"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
-        <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
+        <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="-0.5" [y]="0.5" [z]="0"></three-position>
@@ -67,7 +67,7 @@
           [fragmentShader]="fragment_shader2"
           [uniforms]="{ time : { type : 'number', value : 1.0 }, colorTexture : { type : 'texture', value : 'textures/disturb.jpg', options : 'wrapRepeat'}}"
         ></three-material>
-        <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : controls.speed }"></three-controller>
+        <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="0.5" [y]="-0.5" [z]="0"></three-position>
@@ -77,7 +77,7 @@
           [fragmentShader]="fragment_shader3"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
-        <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
+        <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="1.5" [y]="0.5" [z]="0"></three-position>
@@ -87,7 +87,7 @@
           [fragmentShader]="fragment_shader4"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
-        <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : controls.speed * 5}"></three-controller>
+        <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5}"></three-controller>
       </three-mesh>
     </three-mesh>
   </three-scene>

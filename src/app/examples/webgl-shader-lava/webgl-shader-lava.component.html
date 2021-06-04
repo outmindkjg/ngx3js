@@ -40,7 +40,7 @@
         [fragmentShader]="fragmentShader"
         [vertexShader]="vertexShader"
       ></three-material>
-      <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : controls.speed }"></three-controller>
+      <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -1053,9 +1053,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           basemesh = lineLoop;
           break;
         case 'light':
-          const light = new LightComponent();
-          light.ngOnInit();
-          light.setLightParams({
+          const light = this.initLocalComponent('light', new LightComponent());
+          light.updateInputParams({
             name: this.name,
             visible: this.visible,
             type: this.lightType,
@@ -1486,9 +1485,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               clippingPlanes.forEach((plane, idx) => {
                 const group = this.createPlaneStencilGroup(mesh.geometry, plane, idx + 1);
                 object.add(group);
-                const materialComponent = new MaterialComponent(null);
-                materialComponent.ngOnInit();
-                materialComponent.setMaterialParams(
+                const materialComponent = this.initLocalComponent('clippingPlanes_' + idx, new MaterialComponent(null));
+                materialComponent.updateInputParams(
                   Object.assign(meshStandardMaterialParameters, {
                     clippingPlanes: clippingPlanes.filter((p) => p !== plane),
                   })
@@ -1570,9 +1568,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       let basemesh: THREE.Object3D = null;
       const helperType = this.helperType.toLowerCase();
       if (helperType !== '' && helperType !== 'none') {
-        const helper = new HelperComponent();
-        helper.ngOnInit();
-        helper.setHelperParams({
+        const helper = this.initLocalComponent('helper', new HelperComponent());
+        helper.updateInputParams({
           type: this.helperType,
           color: this.color,
           target: this.target,

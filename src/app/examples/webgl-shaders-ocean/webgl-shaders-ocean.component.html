@@ -58,7 +58,7 @@
         [height]="10000"
       ></three-geometry>
       <three-texture [textureType]="'waterNormals'" [image]="'textures/waternormals.jpg'" [wrapS]="'repeat'" [wrapT]="'repeat'"></three-texture>
-      <three-controller [controller]="'uniforms'" [params]="{ key : 'time', speed : 0.1 }"></three-controller>
+      <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : 0.1 }"></three-controller>
     </three-mesh>
   </three-scene>
 </three-renderer>

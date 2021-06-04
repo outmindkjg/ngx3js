@@ -218,14 +218,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
-  setLightParams(params: { [key: string]: any }) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
-  }
-
   getTagAttribute(options: any = {}) {
     const tagAttributes: TagAttributes = {
       tag: 'three-light',

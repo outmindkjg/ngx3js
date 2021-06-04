@@ -48,41 +48,6 @@ export interface MeshGeometry {
   material?: THREE.Material | THREE.Material[];
 }
 
-export interface GeometryParams {
-  type?: string;
-  radius?: number;
-  radialSegments?: number;
-  width?: number;
-  widthSegments?: number;
-  height?: number;
-  heightSegments?: number;
-  depth?: number;
-  depthSegments?: number;
-  thetaStart?: number;
-  thetaLength?: number;
-  thetaSegments?: number;
-  radiusTop?: number;
-  radiusBottom?: number;
-  detail?: number;
-  innerRadius?: number;
-  openEnded?: boolean;
-  outerRadius?: number;
-  phiStart?: number;
-  phiLength?: number;
-  segments?: number;
-  phiSegments?: number;
-  tube?: number;
-  tubularSegments?: number;
-  arc?: number;
-  p?: number;
-  q?: number;
-  points?: GeometriesVector3[];
-  parametric?: string | GeometriesParametric;
-  slices?: number;
-  stacks?: number;
-  vertices?: GeometriesVector3[];
-  faces?: GeometriesFace3[];
-}
 
 @Component({
   selector: 'three-geometry',
@@ -95,7 +60,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   }
 
   @Input() private refer: any = null;
-  @Input() private params: GeometryParams = null;
+  @Input() private params: any = null;
   @Input() public type: string = 'sphere';
   @Input() private storageName: string = null;
   @Input() private storage2Buffer: boolean = false;
@@ -1090,109 +1055,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       }
     }
     if (changes.params) {
-      Object.entries(this.params).forEach(([key, value]) => {
-        switch (key) {
-          case 'type':
-            this.type = value as string;
-            break;
-          case 'radius':
-            this.radius = value as number;
-            break;
-          case 'radialSegments':
-            this.radialSegments = value as number;
-            break;
-          case 'width':
-            this.width = value as number;
-            break;
-          case 'widthSegments':
-            this.widthSegments = value as number;
-            break;
-          case 'height':
-            this.height = value as number;
-            break;
-          case 'heightSegments':
-            this.heightSegments = value as number;
-            break;
-          case 'depth':
-            this.depth = value as number;
-            break;
-          case 'depthSegments':
-            this.depthSegments = value as number;
-            break;
-          case 'thetaStart':
-            this.thetaStart = value as number;
-            break;
-          case 'thetaLength':
-            this.thetaLength = value as number;
-            break;
-          case 'thetaSegments':
-            this.thetaSegments = value as number;
-            break;
-          case 'radiusTop':
-            this.radiusTop = value as number;
-            break;
-          case 'radiusBottom':
-            this.radiusBottom = value as number;
-            break;
-          case 'detail':
-            this.detail = value as number;
-            break;
-          case 'innerRadius':
-            this.innerRadius = value as number;
-            break;
-          case 'openEnded':
-            this.openEnded = value as boolean;
-            break;
-          case 'outerRadius':
-            this.outerRadius = value as number;
-            break;
-          case 'phiStart':
-            this.phiStart = value as number;
-            break;
-          case 'phiLength':
-            this.phiLength = value as number;
-            break;
-          case 'segments':
-            this.segments = value as number;
-            break;
-          case 'phiSegments':
-            this.phiSegments = value as number;
-            break;
-          case 'tube':
-            this.tube = value as number;
-            break;
-          case 'tubularSegments':
-            this.tubularSegments = value as number;
-            break;
-          case 'arc':
-            this.arc = value as number;
-            break;
-          case 'p':
-            this.p = value as number;
-            break;
-          case 'q':
-            this.q = value as number;
-            break;
-          case 'points':
-            this.points = value as { x: number; y: number; z: number }[];
-            break;
-          case 'parametric':
-            this.parametric = value as string | GeometriesParametric;
-            break;
-          case 'slices':
-            this.slices = value as number;
-            break;
-          case 'stacks':
-            this.stacks = value as number;
-            break;
-          case 'vertices':
-            this.vertices = value as GeometriesVector3[];
-            break;
-          case 'faces':
-            this.faces = value as GeometriesFace3[];
-            break;
-        }
-      });
+      this.updateInputParams(this.params,false);
     }
     this.needUpdate = true;
   }
@@ -1209,24 +1072,23 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     super.ngAfterContentInit();
   }
 
-  applyChanges() {
-    if (this.geometry !== null) {
-      const changes = this.getChanges();
-      if (changes.length > 0) {
-        this.needUpdate = true;
-      }
-    }
-  }
-
   private geometry: THREE.BufferGeometry = null;
 
   synkObject(synkTypes: string[]) {
     if (this.geometry !== null) {
+      if (ThreeUtil.isIndexOf(synkTypes, 'clearinit')) {
+        this.getGeometry();
+        return ;
+      }
+      if (ThreeUtil.isIndexOf(synkTypes, 'type')) {
+        this.needUpdate = true;
+        return ;
+      }
       if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
         synkTypes = ThreeUtil.pushUniq(synkTypes, ['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale', 'align']);
       }
       synkTypes.forEach((synkType) => {
-        switch (synkType) {
+        switch (synkType.toLowerCase()) {
           case 'geometry':
             break;
           case 'shape':
