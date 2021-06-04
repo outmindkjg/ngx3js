@@ -13,6 +13,7 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="['keydown','keyup']"
   (onRender)="onRender($event)"
 >
   <three-lookat [refer]="mesh" [x]="0" [y]="0" [z]="0"></three-lookat>
@@ -63,8 +64,8 @@
         [visible]="true"
       >
         <three-controller-item [type]="'positionlookat'" [curve]="'heartcurve'" [waveR]="7" [waveH]="5" [radius]="5" [radiusInner]="-0.3" [duration]="30" [visible]="true" [options]="'yoyo'"></three-controller-item>
-        <three-controller-item [type]="'material'" [material]="'color'" [curve]="'circle'" [radiusX]="1" [radiusY]="1" [radiusZ]="1" [duration]="30" [scale]="2" [visible]="false"></three-controller-item>
-        <three-controller-item [type]="'material'" [material]="'opacity'" [curve]="'line'" [waveR]="10" [waveH]="5" [radius]="15" [radiusInner]="0.2" [duration]="30" [visible]="false"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'color'" [curve]="'circle'" [radiusX]="1" [radiusY]="1" [radiusZ]="1" [duration]="30" [scale]="2" [visible]="true"></three-controller-item>
+        <three-controller-item [type]="'material'" [material]="'opacity'" [curve]="'line'" [waveR]="10" [waveH]="5" [radius]="15" [radiusInner]="0.2" [duration]="30" [visible]="true"></three-controller-item>
       </three-controller>
     </three-mesh>
   </three-scene>

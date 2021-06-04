@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
-import { RendererTimer, ThreeUtil } from '../interface';
+import { RendererEvent, RendererTimer, ThreeUtil } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
@@ -208,9 +208,11 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   private _canvas2ds: QueryList<CanvasComponent> = null;
   private _scene: THREE.Scene = null;
   private _canvas: HtmlCollection = null;
-
+  private _event : RendererEvent = null;
   setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
     this._renderer = renderer;
+    this._event = ThreeUtil.getThreeComponent(renderer)?.events;
+    console.log(renderer);
     this._scenes = scenes;
     this._cameras = cameras;
     this._canvas2ds = canvas2ds;
@@ -342,13 +344,24 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
 
   private _logSeqn: number = 0;
 
+  private renderTime : number = 0;
   update(rendererTimer: RendererTimer) {
     if (this._controller !== null) {
       this._controller.update(rendererTimer);
     } else if (this.refObject3d !== null && this._controllerItems !== null) {
       const events: string[] = [];
+      if (this._event !== null) {
+        this.renderTime += this._event.direction.y / 1000 * rendererTimer.delta;
+      } else {
+        this.renderTime += rendererTimer.delta;
+      }
+
+      const dirRendererTimer : RendererTimer = {
+        elapsedTime : this.renderTime,
+        delta : rendererTimer.delta 
+      }
       this._controllerItems.forEach((item) => {
-        item.update(rendererTimer, this.refObject3d, events);
+        item.update(dirRendererTimer, this.refObject3d, events);
       });
       if (this.useEvent && events.length > 0) {
         if (this._logSeqn % this.eventSeqn === 0 && ThreeUtil.isNotNull(this.refObject3d.userData.component) && ThreeUtil.isNotNull(this.refObject3d.userData.component.setSubscribeNext)) {

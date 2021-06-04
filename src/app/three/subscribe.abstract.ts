@@ -77,9 +77,9 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   }
 
   private _logTimeSeqn : number = 0;
-  protected consoleLogTime(key: string, object: any): void {
+  protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
     this._logTimeSeqn ++; 
-    if (this._logTimeSeqn % 300 === 0) {
+    if (this._logTimeSeqn % repeat === 0) {
       console.log(key, object);
     }
   }

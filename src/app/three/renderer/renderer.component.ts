@@ -221,49 +221,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         }
       }
     }
-    if (changes.useEvent) {
-      const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
-      if (useEvent.indexOf('change') > -1) {
-        this.eventChange = this.addWindowEvent('change', this.eventChange);
-      } else {
-        this.eventChange = this.removeWindowEvent('change', this.eventChange);
-      }
-      if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
-        this.eventPointerDown = this.addWindowEvent('pointerdown', this.eventPointerDown);
-      } else {
-        this.eventPointerDown = this.removeWindowEvent('pointerdown', this.eventPointerDown);
-      }
-      if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
-        this.eventPointerUp = this.addWindowEvent('pointerup', this.eventPointerUp);
-      } else {
-        this.eventPointerUp = this.removeWindowEvent('pointerup', this.eventPointerUp);
-      }
-      if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
-        this.eventPointerMove = this.addWindowEvent('pointermove', this.eventPointerMove);
-      } else {
-        this.eventPointerMove = this.removeWindowEvent('pointermove', this.eventPointerMove);
-      }
-      if (useEvent.indexOf('keydown') > -1) {
-        this.eventKeyDown = this.addWindowEvent('keydown', this.eventKeyDown);
-      } else {
-        this.eventKeyDown = this.removeWindowEvent('keydown', this.eventKeyDown);
-      }
-      if (useEvent.indexOf('keyup') > -1) {
-        this.eventKeyUp = this.addWindowEvent('keyup', this.eventKeyUp);
-      } else {
-        this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
-      }
-      if (useEvent.indexOf('keypress') > -1) {
-        this.eventKeyPress = this.addWindowEvent('keypress', this.eventKeyPress);
-      } else {
-        this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
-      }
-      if (useEvent.indexOf('click') > -1) {
-        this.eventClick = this.addWindowEvent('click', this.eventClick);
-      } else {
-        this.eventClick = this.removeWindowEvent('click', this.eventClick);
-      }
-    }
     super.ngOnChanges(changes);
   }
 
@@ -274,40 +231,112 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return null;
   }
 
+  events: RendererEvent = {
+    type: 'none',
+    client: new THREE.Vector2(),
+    clientX: 0,
+    clientY: 0,
+    offset: new THREE.Vector2(),
+    offsetX: 0,
+    offsetY: 0,
+    rate: new THREE.Vector2(),
+    rateX: 0,
+    rateY: 0,
+    size: new THREE.Vector2(),
+    width: 0,
+    height: 0,
+    mouse: new THREE.Vector2(),
+    direction: new THREE.Vector2(),
+    keyInfo: {
+      code: null,
+      ctrlKey: false,
+      altKey: false,
+      shiftKey: false,
+      key: '',
+      timeStamp: 0,
+      timeRepeat: 0,
+      xy: new THREE.Vector2(),
+    },
+    event: {},
+  };
+
+  private setEvents(type: string, event: TouchInit | KeyboardEvent) {
+    const offsetTop = this.rendererEle.nativeElement.offsetTop;
+    const offsetLeft = this.rendererEle.nativeElement.offsetLeft;
+    const offsetRight = offsetLeft + this.rendererWidth;
+    const offsetBottom = offsetTop + this.rendererHeight;
+    let clientX = 0;
+    let clientY = 0;
+    if (event instanceof KeyboardEvent) {
+      clientX = offsetLeft;
+      clientY = offsetTop;
+      const keyInfo = this.events.keyInfo;
+      if (event.type == 'keyup') {
+        keyInfo.code = null;
+        keyInfo.ctrlKey = false;
+        keyInfo.altKey = false;
+        keyInfo.shiftKey = false;
+        keyInfo.key = '';
+        keyInfo.timeStamp = 0;
+        keyInfo.timeRepeat = 0;
+        keyInfo.xy.set(0,0);
+      } else if (this.events.keyInfo.code === event.code) {
+        keyInfo.timeRepeat = event.timeStamp - keyInfo.timeStamp;
+        switch (event.code) {
+          case 'ArrowRight':
+            keyInfo.xy.x += keyInfo.timeRepeat;
+            break;
+          case 'ArrowLeft':
+            keyInfo.xy.x -= keyInfo.timeRepeat;
+            break;
+          case 'ArrowUp':
+            keyInfo.xy.y += keyInfo.timeRepeat;
+            break;
+          case 'ArrowDown':
+            keyInfo.xy.y -= keyInfo.timeRepeat;
+            break;
+        }
+      } else {
+        keyInfo.code = event.code;
+        keyInfo.ctrlKey = event.ctrlKey;
+        keyInfo.altKey = event.altKey;
+        keyInfo.shiftKey = event.shiftKey;
+        keyInfo.key = event.key;
+        keyInfo.timeStamp = event.timeStamp;
+        keyInfo.timeRepeat = 0;
+        keyInfo.xy.set(0,0);
+      }
+    } else {
+      clientX = event.clientX;
+      clientY = event.clientY;
+    }
+    if (clientX >= offsetLeft && clientX <= offsetRight && clientY >= offsetTop && clientY <= offsetBottom) {
+      const offsetX = clientX - offsetLeft;
+      const offsetY = clientY - offsetTop;
+      this.events.type = type;
+      this.events.clientX = clientX;
+      this.events.clientY = clientY;
+      this.events.client.set(clientX, clientY);
+      this.events.offsetX = offsetX;
+      this.events.offsetY = offsetY;
+      this.events.offset.set(offsetX, offsetY);
+      this.events.rateX = offsetX / this.rendererWidth;
+      this.events.rateY = offsetY / this.rendererHeight;
+      this.events.rate.set(this.events.rateX, this.events.rateY);
+      this.events.mouse.set((offsetX / this.rendererWidth) * 2 - 1, -(offsetY / this.rendererHeight) * 2 + 1);
+      this.events.event = event;
+      this.eventListener.emit(this.events);
+      // this.consoleLogTime('event', this.events, 10);
+    } else {
+      this.events.type = 'none';
+    }
+    // this.consoleLog('event', this.events.event, 'info');
+  }
+
   addWindowEvent(type: string, listener: any) {
     if (listener === null) {
-      listener = (event) => {
-        if (ThreeUtil.isNotNull(this.rendererEle) && ThreeUtil.isNotNull(this.renderer)) {
-          const offsetTop = this.rendererEle.nativeElement.offsetTop;
-          const offsetLeft = this.rendererEle.nativeElement.offsetLeft;
-          const offsetRight = offsetLeft + this.rendererWidth;
-          const offsetBottom = offsetTop + this.rendererHeight;
-          switch (type) {
-            case 'keydown':
-            case 'keyup':
-            case 'keypress':
-              event.clientX = offsetLeft;
-              event.clientY = offsetTop;
-              break;
-          }
-          if (event.clientX >= offsetLeft && event.clientX <= offsetRight && event.clientY >= offsetTop && event.clientY <= offsetBottom) {
-            const offsetX = event.clientX - offsetLeft;
-            const offsetY = event.clientY - offsetTop;
-            this.eventListener.emit({
-              type: type,
-              clientX: event.clientX,
-              clientY: event.clientY,
-              offsetX: offsetX,
-              offsetY: offsetY,
-              rateX: offsetX / this.rendererWidth,
-              rateY: offsetY / this.rendererHeight,
-              width: this.rendererWidth,
-              height: this.rendererHeight,
-              mouse: new THREE.Vector2((offsetX / this.rendererWidth) * 2 - 1, -(offsetY / this.rendererHeight) * 2 + 1),
-              event: event,
-            });
-          }
-        }
+      listener = (event: TouchInit | KeyboardEvent) => {
+        this.setEvents(type, event);
       };
       window.addEventListener(type, listener);
     }
@@ -361,6 +390,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this.renderer !== null) {
       this.rendererWidth = width;
       this.rendererHeight = height;
+      this.events.width = this.rendererWidth;
+      this.events.height = this.rendererHeight;
+
+      this.events.size.set(this.rendererWidth, this.rendererHeight);
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
       this.composerList.forEach((composer) => {
         composer.setComposerSize(this.rendererWidth, this.rendererHeight);
@@ -441,10 +474,53 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   synkObject(synkTypes: string[]) {
     if (this.renderer !== null) {
       if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+        synkTypes = ThreeUtil.pushUniq(synkTypes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
       }
       synkTypes.forEach((synkType) => {
         switch (synkType.toLowerCase()) {
+          case 'useevent':
+            const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
+            if (useEvent.indexOf('change') > -1) {
+              this.eventChange = this.addWindowEvent('change', this.eventChange);
+            } else {
+              this.eventChange = this.removeWindowEvent('change', this.eventChange);
+            }
+            if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
+              this.eventPointerDown = this.addWindowEvent('pointerdown', this.eventPointerDown);
+            } else {
+              this.eventPointerDown = this.removeWindowEvent('pointerdown', this.eventPointerDown);
+            }
+            if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
+              this.eventPointerUp = this.addWindowEvent('pointerup', this.eventPointerUp);
+            } else {
+              this.eventPointerUp = this.removeWindowEvent('pointerup', this.eventPointerUp);
+            }
+            if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
+              this.eventPointerMove = this.addWindowEvent('pointermove', this.eventPointerMove);
+            } else {
+              this.eventPointerMove = this.removeWindowEvent('pointermove', this.eventPointerMove);
+            }
+            if (useEvent.indexOf('keydown') > -1) {
+              this.eventKeyDown = this.addWindowEvent('keydown', this.eventKeyDown);
+            } else {
+              this.eventKeyDown = this.removeWindowEvent('keydown', this.eventKeyDown);
+            }
+            if (useEvent.indexOf('keyup') > -1) {
+              this.eventKeyUp = this.addWindowEvent('keyup', this.eventKeyUp);
+            } else {
+              this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
+            }
+            if (useEvent.indexOf('keypress') > -1) {
+              this.eventKeyPress = this.addWindowEvent('keypress', this.eventKeyPress);
+            } else {
+              this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
+            }
+            if (useEvent.indexOf('click') > -1) {
+              this.eventClick = this.addWindowEvent('click', this.eventClick);
+            } else {
+              this.eventClick = this.removeWindowEvent('click', this.eventClick);
+            }
+            break;
           case 'resize':
             this.setSize(this.rendererWidth, this.rendererHeight);
             break;
@@ -749,6 +825,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.renderer.domElement.style.position = 'relative';
       this.canvasEle.nativeElement.appendChild(this.renderer.domElement);
       ThreeUtil.setRenderer(this);
+      this.renderer['userData'] = {
+        component : this
+      };
       super.setObject(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
     }
@@ -793,6 +872,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.stats.begin();
     }
     const renderTimer = this.clock.getTimer();
+    this.events.direction.lerp(this.events.keyInfo.xy,renderTimer.delta/3);
     this.onRender.emit(renderTimer);
     this.controllerList.forEach((controller) => {
       controller.update(renderTimer);

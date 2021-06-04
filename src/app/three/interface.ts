@@ -1367,19 +1367,34 @@ export class ThreeUtil {
     }
     return new THREE.BufferGeometry();
   }
-  
+
+  static isThreeComponent(object: any):boolean {
+    if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static getThreeComponent(object: any) : any {
+    if (this.isThreeComponent(object)) {
+      return object.userData.component;
+    } else {
+      return null;
+    }
+ }
+
   static setSubscribeNext(object: any, key: string | string[]) {
     if (this.isNotNull(object.setSubscribeNext)) {
       object.setSubscribeNext(key);
-    } else if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component) && this.isNotNull(object.userData.component.setSubscribeNext)) {
+    } else if (this.isThreeComponent(object) && this.isNotNull(object.userData.component.setSubscribeNext)) {
       object.userData.component.setSubscribeNext(key);
     }
   }
 
   static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {
-    if (this.isNotNull(object) && object instanceof THREE.Object3D && this.isNotNull(object.userData.component) && this.isNotNull(object.userData.component.getSubscribe)) {
+    if (this.isThreeComponent(object) && this.isNotNull(object.userData.component.getSubscribe)) {
       object = object.userData.component;
-      console.log(object);
     }
     if (this.isNotNull(object.getSubscribe)) {
       return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
@@ -2021,15 +2036,30 @@ export interface RendererInfo {
 
 export interface RendererEvent {
   type: string;
+  client?: THREE.Vector2;
   clientX?: number;
   clientY?: number;
+  offset?: THREE.Vector2;
   offsetX?: number;
   offsetY?: number;
+  rate?: THREE.Vector2;
   rateX?: number;
   rateY?: number;
   width?: number;
   height?: number;
+  size?: THREE.Vector2;
   mouse?: THREE.Vector2;
+  direction? :THREE.Vector2;
+  keyInfo? : {
+    code : string;
+    ctrlKey : boolean;
+    altKey : boolean;
+    shiftKey : boolean;
+    key : string;
+    timeStamp : number;
+    timeRepeat : number;
+    xy : THREE.Vector2;
+  };
   event: any;
 }
 
