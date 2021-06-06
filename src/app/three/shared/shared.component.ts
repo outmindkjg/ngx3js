@@ -88,16 +88,16 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
 
   private sharedObj: any = null;
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.sharedObj !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['geometry', 'material', 'texture', 'lensflareElement', 'svg', 'listner', 'audio', 'cssChildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareElement', 'svg', 'listner', 'audio', 'cssChildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
       }
-      if (ThreeUtil.isIndexOf(synkTypes, ['type'])) {
+      if (ThreeUtil.isIndexOf(changes, ['type'])) {
         return;
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'geometry':
             this.geometryList.forEach((geometry) => {
               geometry.getGeometry();
@@ -186,7 +186,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
         }
       });
     }
-    super.synkObject(synkTypes);
+    super.applyChanges(changes);
   }
 
   getShared(): any {

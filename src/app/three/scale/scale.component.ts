@@ -74,6 +74,20 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
+  protected applyChanges(changes: string[]) {
+    if (this.scale !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getScale();
+        return;
+      }
+      if (!ThreeUtil.isIndexOf(changes, ['init'])) {
+        this.needUpdate = true;
+        return ;
+      }
+      super.applyChanges(changes);
+    }
+  }
+
   getScale(): THREE.Vector3 {
     if (this.scale === null) {
       this.scale = new THREE.Vector3();

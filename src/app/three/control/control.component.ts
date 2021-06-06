@@ -92,22 +92,21 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
     super.ngAfterContentInit();
   }
 
-
-  protected applyChanges() {
-    this.synkObject(this.getChanges());
-  }
-
-  protected synkObject(synkTypes: string[]) {
+  protected applyChanges(changes: string[]) {
     if (this.control !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, ['type'])) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getControl();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['target'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
-        return ;
+        return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['target']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['target']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
           case 'target':
             if (this.control !== null && ThreeUtil.isNotNull(this.control['target'])) {
               this.unSubscribeRefer('target')
@@ -256,7 +255,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
             csmScene = csmScene.getSceneDumpy();
           }
           if (!(csmScene instanceof THREE.Scene)) {
-            this.consoleLog('error Scene', csmScene);
+            this.consoleLog('error Scene', csmScene, 'error');
             csmScene = new THREE.Scene();
           }
           let csmCamera = ThreeUtil.getTypeSafe(this.camera, this._camera, {});
@@ -264,7 +263,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
             csmCamera = csmCamera.getObject3d();
           }
           if (!(csmCamera instanceof THREE.Camera)) {
-            this.consoleLog('error Camera', csmCamera);
+            this.consoleLog('error Camera', csmCamera,'error');
             csmCamera = new THREE.Camera();
           }
           const csm = new CSM({

@@ -696,6 +696,23 @@ export class ThreeUtil {
     }
   }
 
+  static isOnlyIndexOf<T>(data: T[] , findMe : T[], addedFindMe? : T[]): boolean {
+    if (data.length === 0) {
+      return true;
+    } else {
+      if (this.isNotNull(addedFindMe)) {
+        findMe = this.pushUniq(findMe, addedFindMe);
+      }
+      let result:boolean = true;
+      data.forEach(txt => {
+        if (findMe.indexOf(txt) === -1) {
+          result = false;
+        }
+      });
+      return result;
+    }
+  }
+
   static pushUniq<T>(data: T[] , addMe : T[] | T): T[] {
     if (Array.isArray(addMe)) {
       addMe.forEach(obj => {
@@ -1403,37 +1420,37 @@ export class ThreeUtil {
         } else {
           switch(nextKey.toLowerCase()) {
             case 'lookat' :
-              if (this.isIndexOf(keyList, ['object3d','position','lookat'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','position','lookat'])) {
                 callBack('lookat');
               }
               break;
             case 'position' :
-              if (this.isIndexOf(keyList, ['object3d','position'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','position'])) {
                 callBack('position');
               }
               break;
             case 'rotation' :
-              if (this.isIndexOf(keyList, ['object3d','rotation'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','rotation'])) {
                 callBack('rotation');
               }
               break;
             case 'scale' :
-              if (this.isIndexOf(keyList, ['object3d','scale'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','scale'])) {
                 callBack('scale');
               }
               break;
             case 'geometry' :
-              if (this.isIndexOf(keyList, ['object3d','geometry'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','geometry'])) {
                 callBack('geometry');
               }
               break;
             case 'material' :
-              if (this.isIndexOf(keyList, ['object3d','material'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','material'])) {
                 callBack('material');
               }
               break;
             case 'texture' :
-              if (this.isIndexOf(keyList, ['object3d','material','texture','textureloaded'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','material','texture','textureloaded'])) {
                 callBack('texture');
               }
               break;

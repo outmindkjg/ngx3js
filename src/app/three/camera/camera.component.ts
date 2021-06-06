@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -326,13 +326,21 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  synkObject3d(synkTypes: string[]) {
+  applyChanges3d(changes: string[]) {
     if (this.camera !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light']);
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getObject3d();
+        return;
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light']);
+      }
+      changes.forEach((change) => {
+        switch (change) {
           case 'listner':
             this.listenerList.forEach((listner) => {
               listner.setParent(this.camera);
@@ -367,7 +375,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
             break;
         }
       });
-      super.synkObject3d(synkTypes);
+      super.applyChanges3d(changes);
     }
   }
 
@@ -532,7 +540,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           this.storageName,
           (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
             this.clips = clips;
-            this.synkObject3d(['mixer']);
+            this.applyChanges3d(['mixer']);
           },
           { object: this.camera }
         );

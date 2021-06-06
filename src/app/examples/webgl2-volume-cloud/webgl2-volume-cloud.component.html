@@ -15,7 +15,7 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="0" [z]="-10"></three-position>
   </three-camera>
@@ -42,15 +42,27 @@
     >
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-mesh (onLoad)="setMesh($event)" 
+      [type]="controls.mesh.type"
+      [castShadow]="controls.mesh.castShadow"
+    >
+      <three-position [enabled]="controls.mesh.usePosition" [x]="0" [y]="2" [z]="0"></three-position>
+      <three-position [x]="controls.mesh.position.x" [y]="controls.mesh.position.y" [z]="controls.mesh.position.z"></three-position>
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [type]="controls.geometry.type"
+        [width]="controls.geometry.width"
+        [height]="controls.geometry.height"
+        [depth]="controls.geometry.depth"
+        [radius]="controls.geometry.radius"
+        [text]="'Text'"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material 
+        [type]="controls.material.type" 
+        [color]="controls.material.color"
+        [colorMultiply]="controls.material.colorMultiply"
+        [transparent]="controls.material.transparent"
+        [opacity]="controls.material.opacity"
+      ></three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>

@@ -47,16 +47,16 @@ var CanvasComponent = /** @class */ (function () {
     CanvasComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.children.changes.subscribe(function () {
-            _this.synkObject2D(['children']);
+            _this.applyChanges2D(['children']);
         });
         this.html.changes.subscribe(function () {
-            _this.synkObject2D(['html']);
+            _this.applyChanges2D(['html']);
         });
         this.transform.changes.subscribe(function () {
-            _this.synkObject2D(['transform']);
+            _this.applyChanges2D(['transform']);
         });
         this.background.changes.subscribe(function () {
-            _this.synkObject2D(['background']);
+            _this.applyChanges2D(['background']);
         });
     };
     CanvasComponent.prototype.setSize = function (size) {
@@ -70,11 +70,11 @@ var CanvasComponent = /** @class */ (function () {
             this.getCanvas();
         }
     };
-    CanvasComponent.prototype.synkObject2D = function (synkTypes) {
+    CanvasComponent.prototype.applyChanges2D = function (changes) {
         var _this = this;
         if (this.canvas !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'children':
                         if (_this.eleSize !== null) {
                             _this.children.forEach(function (child) {
@@ -126,7 +126,7 @@ var CanvasComponent = /** @class */ (function () {
         if (this.canvas !== null) {
             var style = this.getStyle();
             this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
-            this.synkObject2D(['transform', 'background', 'children']);
+            this.applyChanges2D(['transform', 'background', 'children']);
         }
     };
     CanvasComponent.prototype.getCanvas = function () {
@@ -141,7 +141,7 @@ var CanvasComponent = /** @class */ (function () {
             this.collection.children = [];
             this.collection.component = this;
             this.collection.name = this.name;
-            this.synkObject2D(['html', 'transform', 'background', 'children']);
+            this.applyChanges2D(['html', 'transform', 'background', 'children']);
         }
         if (this.parentNode !== null && this.canvas.parentNode !== this.parentNode) {
             this.parentNode.appendChild(this.canvas);

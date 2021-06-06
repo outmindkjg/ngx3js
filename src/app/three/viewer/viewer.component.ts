@@ -22,7 +22,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private y: number | string = 0;
   @Input() private width: number | string = '50%';
   @Input() private height: number | string = '50%';
-  @Input() private enabled: boolean = true;
 
   private getLight(): THREE.Light {
     this.unSubscribeRefer('light');

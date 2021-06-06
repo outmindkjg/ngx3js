@@ -139,9 +139,9 @@ var LightComponent = /** @class */ (function (_super) {
         }
         return false;
     };
-    LightComponent.prototype.synkObject3D = function (synkTypes) {
+    LightComponent.prototype.applyChanges3D = function (changes) {
         if (this.light !== null) {
-            _super.prototype.synkObject3D.call(this, synkTypes);
+            _super.prototype.applyChanges3D.call(this, changes);
         }
     };
     LightComponent.prototype.resetLight = function (clearLight) {
@@ -217,7 +217,7 @@ var LightComponent = /** @class */ (function (_super) {
             if (interface_1.ThreeUtil.isNull(this.light.userData.component)) {
                 this.light.userData.component = this;
             }
-            this.synkObject3D(['position', 'rotation', 'scale', 'lookat']);
+            this.applyChanges3D(['position', 'rotation', 'scale', 'lookat']);
             this.setObject3D(this.light);
             this.onLoad.emit(this);
         }

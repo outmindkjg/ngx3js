@@ -55,7 +55,7 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
         var _this = this;
         if (this.controller !== null && this.controller !== undefined) {
             this.controller.changes.subscribe(function (e) {
-                _this.synkObject3D(['controller']);
+                _this.applyChanges3D(['controller']);
             });
         }
         _super.prototype.ngAfterContentInit.call(this);
@@ -209,11 +209,11 @@ var AbstractObject3dComponent = /** @class */ (function (_super) {
             }
         }
     };
-    AbstractObject3dComponent.prototype.synkObject3D = function (synkTypes) {
+    AbstractObject3dComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.object3d !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'position':
                         _this.position.forEach(function (position) {
                             position.setParent(_this.object3d);

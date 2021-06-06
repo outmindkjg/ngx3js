@@ -49,7 +49,7 @@ export class Page0608Component implements OnInit {
       this.cube.scaleZ = this.controls.cube.scaleZ;
       this.cube.typeCsg = this.controls.cube.typeCsg;
       if (this.result !== null && this.result !== undefined) {
-        this.result.resetMesh(true);
+        // this.result.resetMesh(true);
       }
     },
     rotateResult : false,

@@ -195,7 +195,7 @@ var CameraComponent = /** @class */ (function (_super) {
         if (_super.prototype.setParent.call(this, parent, isRestore)) {
             if (isRestore) {
                 this.object3d = parent;
-                this.synkObject3D([
+                this.applyChanges3D([
                     'position',
                     'rotation',
                     'scale',
@@ -238,24 +238,24 @@ var CameraComponent = /** @class */ (function (_super) {
     CameraComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.listner.changes.subscribe(function () {
-            _this.synkObject3D(['listner']);
+            _this.applyChanges3D(['listner']);
         });
         this.audio.changes.subscribe(function () {
-            _this.synkObject3D(['audio']);
+            _this.applyChanges3D(['audio']);
         });
         this.mixer.changes.subscribe(function () {
-            _this.synkObject3D(['mixer']);
+            _this.applyChanges3D(['mixer']);
         });
         this.helpers.changes.subscribe(function () {
-            _this.synkObject3D(['helpers']);
+            _this.applyChanges3D(['helpers']);
         });
         _super.prototype.ngAfterContentInit.call(this);
     };
-    CameraComponent.prototype.synkObject3D = function (synkTypes) {
+    CameraComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.camera !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'listner':
                         _this.listner.forEach(function (listner) {
                             listner.setParent(_this.camera);
@@ -280,7 +280,7 @@ var CameraComponent = /** @class */ (function (_super) {
                         break;
                 }
             });
-            _super.prototype.synkObject3D.call(this, synkTypes);
+            _super.prototype.applyChanges3D.call(this, changes);
         }
     };
     CameraComponent.prototype.getObject3D = function () {
@@ -350,10 +350,10 @@ var CameraComponent = /** @class */ (function (_super) {
             if (interface_1.ThreeUtil.isNotNull(this.storageName)) {
                 this.localStorageService.getObject(this.storageName, function (loadedMesh, clips, geometry) {
                     _this.clips = clips;
-                    _this.synkObject3D(['mixer']);
+                    _this.applyChanges3D(['mixer']);
                 }, { object: this.camera });
             }
-            this.synkObject3D([
+            this.applyChanges3D([
                 'position',
                 'rotation',
                 'scale',

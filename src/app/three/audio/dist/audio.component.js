@@ -125,7 +125,7 @@ var AudioComponent = /** @class */ (function () {
             });
         }
         else {
-            this.synkObject3D(['mixer']);
+            this.applyChanges3D(['mixer']);
         }
     };
     AudioComponent.prototype.resetAudio = function () {
@@ -250,14 +250,14 @@ var AudioComponent = /** @class */ (function () {
     AudioComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.mixer.changes.subscribe(function () {
-            _this.synkObject3D(['mixer']);
+            _this.applyChanges3D(['mixer']);
         });
     };
-    AudioComponent.prototype.synkObject3D = function (synkTypes) {
+    AudioComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.audio !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'mixer':
                         _this.mixer.forEach(function (mixer) {
                             mixer.setModel(_this.audio, null);

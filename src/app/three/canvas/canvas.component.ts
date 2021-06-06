@@ -87,13 +87,13 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  synkObject2d(synkTypes: string[]) {
+  applyChanges2d(changes: string[]) {
     if (this.canvas !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['children','html', 'transform', 'background', 'controller']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['children','html', 'transform', 'background', 'controller']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'children':
             if (this.eleSize !== null) {
               this.childrenList.forEach((child) => {
@@ -125,7 +125,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
             break;
         }
       });
-      super.synkObject(synkTypes);
+      super.applyChanges(changes);
     }
   }
 
@@ -149,7 +149,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     if (this.canvas !== null) {
       const style: CssStyle= this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
-      this.synkObject2d(['transform', 'background', 'children']);
+      this.applyChanges2d(['transform', 'background', 'children']);
     }
   }
 

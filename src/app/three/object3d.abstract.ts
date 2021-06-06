@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { ControllerComponent } from './controller/controller.component';
 import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
+import { MaterialComponent, MeshMaterialRaw } from './material/material.component';
 import { PositionComponent } from './position/position.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { ScaleComponent } from './scale/scale.component';
@@ -12,11 +13,12 @@ import { AbstractTweenComponent } from './tween.abstract';
   template: ''
 })
 export abstract class AbstractObject3dComponent extends AbstractTweenComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+ 
   @Input() public visible: boolean = true;
   @Input() public name: string = '';
   @Input() protected matrixAutoUpdate: boolean = null;
   @Input() private layers: number[] = null;
-  @Input() protected castShadow: boolean = null;
+  @Input() protected castShadow: boolean = true;
   @Input() protected receiveShadow: boolean = null;
   @Input() protected frustumCulled: boolean = null;
   @Input() private renderOrder: number = null;
@@ -27,12 +29,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() private scale: THREE.Vector3 | number[] | ScaleComponent | any = null;
   @Input() private lookat: THREE.Vector3 | number[] | LookatComponent | any = null;
   @Input() private loDistance: number = null;
+  @Input() private customDepth: MaterialComponent | THREE.Material | any = null;
+  @Input() private customDistance: MaterialComponent | THREE.Material | any  = null;
 
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+  @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
+
+  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','lodistance','debug','overrideparams'];
 
   private getLoDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.loDistance, def);
@@ -151,6 +158,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
     this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQuery(this.materialList, 'materialList', 'material');
     super.ngAfterContentInit();
   }
 
@@ -363,9 +371,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       }
       this.object3d = object3d;
       if (this.object3d !== null) {
-        if (ThreeUtil.isNull(this.object3d.userData.component)) {
-          this.object3d.userData.component = this;
-        }
         this.setTweenTarget(this.object3d);
         this.setSubscribeNext('object3d');
       }
@@ -381,21 +386,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return parent;
   }
 
-  protected applyChanges() {
-    this.synkObject3d(this.getChanges());
+  protected applyChanges(changes : string[]) {
+    this.applyChanges3d(changes);
   }
 
-  protected synkObject(synkTypes: string[]) {
-    this.synkObject3d(synkTypes);
-  }
-
-  protected synkObject3d(synkTypes: string[]) {
+  protected applyChanges3d(changes: string[]) {
     if (this.object3d !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, ['clearinit'])) {
+      if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
         return ;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, ['object3d','init'])) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, [
+      if (ThreeUtil.isIndexOf(changes, ['object3d','init'])) {
+        changes = ThreeUtil.pushUniq(changes, [
           'position', 
           'rotation', 
           'scale', 
@@ -403,17 +404,21 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           'controller',
           'visible',
           'name',
-          'matrixAutoUpdate',
+          'matrixautoupdate',
           'layers',
-          'castShadow',
-          'receiveShadow',
-          'frustumCulled',
-          'renderOrder',
-          'loDistance',
+          'castshadow',
+          'receiveshadow',
+          'frustumculled',
+          'renderorder',
+          'lodistance',
+          'material'
         ]);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
+      if (ThreeUtil.isIndexOf(changes, ['customdepth','customdistance'])) {
+        changes = ThreeUtil.pushUniq(changes, ['material']);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
           case 'visible' :
             if (ThreeUtil.isNotNull(this.visible)) {
               this.object3d.visible = this.visible;
@@ -424,7 +429,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               this.object3d.name = this.name;
             }
             break;
-          case 'matrixAutoUpdate' :
+          case 'matrixautoupdate' :
             if (ThreeUtil.isNotNull(this.matrixAutoUpdate)) {
               this.object3d.matrixAutoUpdate = this.matrixAutoUpdate;
               this.object3d.updateMatrix();
@@ -441,31 +446,42 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               }
             }
             break;
-          case 'castShadow' :
-            if (ThreeUtil.isNotNull(this.castShadow)) {
-              this.object3d.castShadow = this.castShadow;
+          case 'castshadow' :
+            if (!(this.object3d instanceof THREE.Scene) && !(this.object3d instanceof THREE.Camera) && !(this.object3d instanceof THREE.HemisphereLight) && !(this.object3d instanceof THREE.AmbientLight) && !(this.object3d instanceof THREE.RectAreaLight)) {
+              if (ThreeUtil.isNotNull(this.castShadow)) {
+                this.object3d.castShadow = this.castShadow;
+              }
             }
             break;
-          case 'receiveShadow' :
-            if (ThreeUtil.isNotNull(this.receiveShadow)) {
-              this.object3d.receiveShadow = this.receiveShadow;
+          case 'receiveshadow' :
+            if (!(this.object3d instanceof THREE.Light) && !(this.object3d instanceof THREE.Scene) && !(this.object3d instanceof THREE.Camera)) {
+              if (ThreeUtil.isNotNull(this.receiveShadow)) {
+                this.object3d.receiveShadow = this.receiveShadow;
+              }
             }
             break;
-          case 'frustumCulled' :
+          case 'frustumculled' :
             if (ThreeUtil.isNotNull(this.frustumCulled)) {
               this.object3d.frustumCulled = this.frustumCulled;
             }
             break;
-          case 'renderOrder' :
+          case 'renderorder' :
             if (ThreeUtil.isNotNull(this.renderOrder)) {
               this.object3d.renderOrder = this.renderOrder;
             }
             break;
-          case 'loDistance' :
+          case 'lodistance' :
+            if (ThreeUtil.isNotNull(this.loDistance) && this.parentObject3d instanceof THREE.LOD) {
+              this.parentObject3d.addLevel(this.object3d, this.getLoDistance(0));
+            }
             break;
           case 'position':
+            this.object3d.userData.position = null;
+            this.object3d.userData.positionUp = null;
+            this.object3d.userData.positionLookat = null;
             this.unSubscribeRefer('position');
             if (ThreeUtil.isNotNull(this.position)) {
+              this.object3d.userData.position = 'position';
               this.object3d.position.copy(ThreeUtil.getPosition(this.position));
               this.subscribeRefer(
                 'position',
@@ -476,24 +492,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             }
             if (ThreeUtil.isNotNull(this.positionList)) {
               this.positionList.forEach((position) => {
-                switch (position.type) {
-                  case 'up':
-                    position.setPosition(this.object3d.up);
-                    break;
-                  case 'lookat':
-                    this.object3d.lookAt(position.getPosition());
-                    break;
-                  case 'position':
-                  default:
-                    position.setPosition(this.object3d.position);
-                    break;
-                }
+                position.setObject3d(this.object3d);
               });
             }
-            if (!this.object3d.matrixAutoUpdate) {
-              this.object3d.updateMatrix();
+            if (ThreeUtil.isNull(this.object3d.userData.initPosition)) {
+              this.object3d.userData.initPosition = this.object3d.position.clone();
             }
-            this.object3d.userData.position = this.object3d.position.clone();
             this.setSubscribeNext('position');
             break;
           case 'rotation':
@@ -512,9 +516,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 rotation.setRotation(this.object3d.rotation);
               });
             }
-            if (!this.object3d.matrixAutoUpdate) {
-              this.object3d.updateMatrix();
-            }
             this.setSubscribeNext('rotation');
             break;
           case 'scale':
@@ -532,11 +533,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 this.scaleList.forEach((scale) => {
                   scale.setScale(this.object3d.scale);
                 });
-                this.object3d.updateMatrix();
               }
-            }
-            if (!this.object3d.matrixAutoUpdate) {
-              this.object3d.updateMatrix();
             }
             this.setSubscribeNext('scale');
             break;
@@ -557,9 +554,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 });
               }
             }
-            if (!this.matrixAutoUpdate) {
-              this.object3d.updateMatrix();
-            }
             this.setSubscribeNext('lookat');
             break;
           case 'controller':
@@ -579,9 +573,44 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               });
             }
             break;
+          case 'material':
+            this.unSubscribeRefer('customDepth');
+            this.unSubscribeRefer('customDistance');
+            if (ThreeUtil.isNotNull(this.customDepth)) {
+              this.object3d.customDepthMaterial = ThreeUtil.getMaterialOne(this.customDepth);
+              this.subscribeRefer('customDepth', ThreeUtil.getSubscribe(this.customDepth, (event) => {
+                this.addChanges(event);
+              },'material'));
+            }
+            if (ThreeUtil.isNotNull(this.customDistance)) {
+              this.object3d.customDistanceMaterial = ThreeUtil.getMaterialOne(this.customDistance);
+              this.subscribeRefer('customDistance', ThreeUtil.getSubscribe(this.customDistance, (event) => {
+                this.addChanges(event);
+              },'material'));
+            }
+            if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
+              const meshMaterial = MaterialComponent.getMeshMaterial(this.object3d) as MeshMaterialRaw;
+              if (meshMaterial !== null) {
+                this.materialList.forEach((material) => {
+                  switch(material.materialType.toLowerCase()) {
+                    case 'customdepthmaterial':
+                    case 'customdepth':
+                    case 'customdistancematerial':
+                    case 'customdistance':
+                      material.setMesh(meshMaterial);
+                      break;
+                  }
+                });
+              }
+            }
+            break;
         }
       });
-      super.synkObject(synkTypes);
+      if (ThreeUtil.isIndexOf(changes, ['position','rotation','scale','lookat']) && !this.object3d.matrixAutoUpdate) {
+        this.object3d.updateMatrix();
+      }
+
+      super.applyChanges(changes);
     }
   }
 

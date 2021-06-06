@@ -756,7 +756,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     });
     return texture;
   }
+  
   private _material: THREE.Material = null;
+
   setMaterial(material: THREE.Material) {
     if (ThreeUtil.isNotNull(material) && this._material !== material) {
       this._material = material;
@@ -809,6 +811,25 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
+  protected applyChanges(changes: string[]) {
+    if (this.texture !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getTexture();
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, ['image','storagename','storageoption','cubeimage','loadertype'])) {
+        this.needUpdate = true;
+        return;
+      }
+      TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+      if (ThreeUtil.isNotNull(this.texture.image)) {
+        this.texture.needsUpdate = true;
+      }
+      super.applyChanges(changes);
+    }
+  }
+
+  
   getTexture() {
     if (this.texture === null || this._needUpdate) {
       this.needUpdate = false;
@@ -846,8 +867,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           (texture) => {
             if (texture !== null) {
               this.texture = texture;
-              TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-              this.texture.needsUpdate = true;
               super.setObject(this.texture);
               this.setSubscribeNext(['texture','textureloaded']);
             }
@@ -867,7 +886,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         }
         this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
       }
-      TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
       this.applyMaterial();
       super.setObject(this.texture);
     }

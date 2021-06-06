@@ -27,11 +27,11 @@ export interface TextureOption {
 }
 
 export interface MeshMaterialRaw {
-  geometry? : THREE.BufferGeometry;
+  geometry?: THREE.BufferGeometry;
   material: THREE.Material | THREE.Material[];
   customDepthMaterial?: THREE.Material;
   customDistanceMaterial?: THREE.Material;
-};
+}
 
 export type MeshMaterial = MeshMaterialRaw | THREE.Scene;
 
@@ -1142,17 +1142,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     super.ngAfterContentInit();
   }
 
-  applyChanges() {
-    const changes = this.getChanges();
-    if (changes.length > 0) {
-      if (changes.indexOf('type') > -1) {
-        this.needUpdate = true;
-      } else {
-        this.synkObject(changes);
-      }
-    }
-  }
-
   private _meshMaterial: MeshMaterial = null;
 
   setMesh(meshMaterial: MeshMaterial) {
@@ -1162,7 +1151,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  static isMeshMaterial(mesh : any) : boolean {
+  static isMeshMaterial(mesh: any): boolean {
     if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite || mesh instanceof THREE.Scene) {
       return true;
     } else {
@@ -1170,7 +1159,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  static getMeshMaterial(mesh : any) : MeshMaterial {
+  static getMeshMaterial(mesh: any): MeshMaterial {
     if (this.isMeshMaterial(mesh)) {
       return mesh;
     }
@@ -1180,8 +1169,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         return object3d;
       }
       if (object3d instanceof THREE.Group) {
-        let childMesh : MeshMaterial = null;
-        mesh.children.forEach(child => {
+        let childMesh: MeshMaterial = null;
+        mesh.children.forEach((child) => {
           if (childMesh === null && this.isMeshMaterial(child)) {
             childMesh = child;
           }
@@ -1266,7 +1255,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             const nodeMaterialLoader = new NodeMaterialLoader(undefined, modeMateriallibrary);
             nodeMaterialLoader.load(ThreeUtil.getStoreUrl(this.storageName), (material: THREE.Material) => {
               this.storageSource = nodeMaterialLoader;
-              this._setMaterial(material);
+              this.setMaterial(material);
             });
             break;
           default:
@@ -1274,7 +1263,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               this.storageName,
               (material: THREE.Material, storageSource: any) => {
                 this.storageSource = storageSource;
-                this._setMaterial(material);
+                this.setMaterial(material);
               },
               this.storageOption
             );
@@ -1680,26 +1669,84 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       }
-      this._setMaterial(material);
+      this.setMaterial(material);
     } else {
-      this._setMaterial(null);
+      this.setMaterial(null);
     }
     return this.material;
   }
 
   protected synkTexture(texture: any, textureType: string) {
     if (ThreeUtil.isNotNull(texture) && this.material !== null && this.material[textureType] !== undefined) {
-      this.material[textureType] = ThreeUtil.getTexture(texture);
+      this.material[textureType] = ThreeUtil.getTexture(texture, textureType);
     }
   }
 
-  protected synkObject(synkTypes: string[]) {
+  protected applyChanges(changes: string[]) {
     if (this.material !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['texture']);
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getMaterial();
+        return;
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
+      if (
+        !ThreeUtil.isOnlyIndexOf(changes, [
+          'blending',
+          'blenddst',
+          'blenddstalpha',
+          'blendequation',
+          'blendequationalpha',
+          'blendsrc',
+          'blendsrcalpha',
+          'clipintersection',
+          'clippingplanes',
+          'clipshadows',
+          'colorwrite',
+          'defines',
+          'depthfunc',
+          'depthtest',
+          'depthwrite',
+          'fog',
+          'opacity',
+          'polygonoffset',
+          'polygonoffsetfactor',
+          'polygonoffsetunits',
+          'precision',
+          'premultipliedalpha',
+          'dithering',
+          'flatshading',
+          'shadowside',
+          'tonemapped',
+          'transparent',
+          'stencilwrite',
+          'stencilfunc',
+          'stencilref',
+          'stencilwritemask',
+          'stencilfuncmask',
+          'stencilfail',
+          'stencilzfail',
+          'stencilzpass',
+          'userdata',
+          'alphatest',
+          'name',
+          'side',
+          'vertexcolors',
+          'visible',
+          'texture',
+          'color',
+          'colormultiply',
+        ], this.OBJECT_ATTR)
+      ) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['texture']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'colormultiply')) {
+        changes = ThreeUtil.pushUniq(changes, ['color']);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
           case 'texture':
             this.synkTexture(this.envMap, 'envMap');
             this.synkTexture(this.map, 'map');
@@ -1714,17 +1761,228 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
                 texture.setMaterial(this.material);
               });
             }
-            this.material.needsUpdate = true;
+            break;
+          case 'color':
+            if (ThreeUtil.isNotNull(this.color) && this.material['color'] !== undefined) {
+              this.material['color'] = this.getColor();
+            }
+            break;
+          case 'blending':
+            if (ThreeUtil.isNotNull(this.blending)) {
+              this.material.blending = this.getBlending();
+            }
+            break;
+          case 'blenddst':
+            if (ThreeUtil.isNotNull(this.blendDst)) {
+              this.material.blendDst = this.getBlendDst();
+            }
+            break;
+          case 'blenddstalpha':
+            if (ThreeUtil.isNotNull(this.blendDstAlpha)) {
+              this.material.blendDstAlpha = this.getBlendDstAlpha();
+            }
+            break;
+          case 'blendequation':
+            if (ThreeUtil.isNotNull(this.blendEquation)) {
+              this.material.blendEquation = this.getBlendEquation();
+            }
+            break;
+          case 'blendequationalpha':
+            if (ThreeUtil.isNotNull(this.blendEquationAlpha)) {
+              this.material.blendEquationAlpha = this.getBlendEquationAlpha();
+            }
+            break;
+          case 'blendsrc':
+            if (ThreeUtil.isNotNull(this.blendSrc)) {
+              this.material.blendSrc = this.getBlendSrc();
+            }
+            break;
+          case 'blendsrcalpha':
+            if (ThreeUtil.isNotNull(this.blendSrcAlpha)) {
+              this.material.blendSrcAlpha = this.getBlendSrcAlpha();
+            }
+            break;
+          case 'clipintersection':
+            if (ThreeUtil.isNotNull(this.clipIntersection)) {
+              this.material.clipIntersection = this.getClipIntersection();
+            }
+            break;
+          case 'clippingplanes':
+            if (ThreeUtil.isNotNull(this.clippingPlanes)) {
+              this.material.clippingPlanes = this.getClippingPlanes();
+            }
+            break;
+          case 'clipshadows':
+            if (ThreeUtil.isNotNull(this.clipShadows)) {
+              this.material.clipShadows = this.getClipShadows();
+            }
+            break;
+          case 'colorwrite':
+            if (ThreeUtil.isNotNull(this.colorWrite)) {
+              this.material.colorWrite = this.getColorWrite();
+            }
+            break;
+          case 'defines':
+            if (ThreeUtil.isNotNull(this.defines)) {
+              this.material.defines = this.getDefines();
+            }
+            break;
+          case 'depthfunc':
+            if (ThreeUtil.isNotNull(this.depthFunc)) {
+              this.material.depthFunc = this.getDepthFunc();
+            }
+            break;
+          case 'depthtest':
+            if (ThreeUtil.isNotNull(this.depthTest)) {
+              this.material.depthTest = this.getDepthTest();
+            }
+            break;
+          case 'depthwrite':
+            if (ThreeUtil.isNotNull(this.depthWrite)) {
+              this.material.depthWrite = this.getDepthWrite();
+            }
+            break;
+          case 'fog':
+            if (ThreeUtil.isNotNull(this.fog)) {
+              this.material.fog = this.getFog();
+            }
+            break;
+          case 'opacity':
+            if (ThreeUtil.isNotNull(this.opacity)) {
+              this.material.opacity = this.getOpacity();
+            }
+            break;
+          case 'polygonoffset':
+            if (ThreeUtil.isNotNull(this.polygonOffset)) {
+              this.material.polygonOffset = this.getPolygonOffset();
+            }
+            break;
+          case 'polygonoffsetfactor':
+            if (ThreeUtil.isNotNull(this.polygonOffsetFactor)) {
+              this.material.polygonOffsetFactor = this.getPolygonOffsetFactor();
+            }
+            break;
+          case 'polygonoffsetunits':
+            if (ThreeUtil.isNotNull(this.polygonOffsetUnits)) {
+              this.material.polygonOffsetUnits = this.getPolygonOffsetUnits();
+            }
+            break;
+          case 'precision':
+            if (ThreeUtil.isNotNull(this.precision)) {
+              this.material.precision = this.getPrecision();
+            }
+            break;
+          case 'premultipliedalpha':
+            if (ThreeUtil.isNotNull(this.premultipliedAlpha)) {
+              this.material.premultipliedAlpha = this.getPremultipliedAlpha();
+            }
+            break;
+          case 'dithering':
+            if (ThreeUtil.isNotNull(this.dithering)) {
+              this.material.dithering = this.getDithering();
+            }
+            break;
+          case 'flatshading':
+            if (ThreeUtil.isNotNull(this.flatShading)) {
+              this.material.flatShading = this.getFlatShading();
+            }
+            break;
+          case 'shadowside':
+            if (ThreeUtil.isNotNull(this.shadowSide)) {
+              this.material.shadowSide = this.getShadowSide();
+            }
+            break;
+          case 'tonemapped':
+            if (ThreeUtil.isNotNull(this.toneMapped)) {
+              this.material.toneMapped = this.getToneMapped();
+            }
+            break;
+          case 'transparent':
+            if (ThreeUtil.isNotNull(this.transparent)) {
+              this.material.transparent = this.getTransparent();
+            }
+            break;
+          case 'stencilwrite':
+            if (ThreeUtil.isNotNull(this.stencilWrite)) {
+              this.material.stencilWrite = this.getStencilWrite();
+            }
+            break;
+          case 'stencilfunc':
+            if (ThreeUtil.isNotNull(this.stencilFunc)) {
+              this.material.stencilFunc = this.getStencilFunc();
+            }
+            break;
+          case 'stencilref':
+            if (ThreeUtil.isNotNull(this.stencilRef)) {
+              this.material.stencilRef = this.getStencilRef();
+            }
+            break;
+          case 'stencilwritemask':
+            if (ThreeUtil.isNotNull(this.stencilWriteMask)) {
+              this.material.stencilWriteMask = this.getStencilWriteMask();
+            }
+            break;
+          case 'stencilfuncmask':
+            if (ThreeUtil.isNotNull(this.stencilFuncMask)) {
+              this.material.stencilFuncMask = this.getStencilFuncMask();
+            }
+            break;
+          case 'stencilfail':
+            if (ThreeUtil.isNotNull(this.stencilFail)) {
+              this.material.stencilFail = this.getStencilFail();
+            }
+            break;
+          case 'stencilzfail':
+            if (ThreeUtil.isNotNull(this.stencilZFail)) {
+              this.material.stencilZFail = this.getStencilZFail();
+            }
+            break;
+          case 'stencilzpass':
+            if (ThreeUtil.isNotNull(this.stencilZPass)) {
+              this.material.stencilZPass = this.getStencilZPass();
+            }
+            break;
+          case 'userdata':
+            if (ThreeUtil.isNotNull(this.userData)) {
+              this.material.userData = this.getUserData({});
+              this.material.userData.component = this;
+            }
+            break;
+          case 'alphatest':
+            if (ThreeUtil.isNotNull(this.alphaTest)) {
+              this.material.alphaTest = this.getAlphaTest();
+            }
+            break;
+          case 'name':
+            if (ThreeUtil.isNotNull(this.name)) {
+              this.material.name = this.getName();
+            }
+            break;
+          case 'side':
+            if (ThreeUtil.isNotNull(this.side)) {
+              this.material.side = this.getSide();
+            }
+            break;
+          case 'vertexcolors':
+            if (ThreeUtil.isNotNull(this.vertexColors)) {
+              this.material.vertexColors = this.getVertexColors();
+            }
+            break;
+          case 'visible':
+            if (ThreeUtil.isNotNull(this.visible)) {
+              this.material.visible = this.getVisible();
+            }
             break;
           default:
             break;
         }
       });
+      this.material.needsUpdate = true;
     }
-    super.synkObject(synkTypes);
+    super.applyChanges(changes);
   }
 
-  private _setMaterial(material: THREE.Material) {
+  private setMaterial(material: THREE.Material) {
     if (this.material !== material && ThreeUtil.isNotNull(material)) {
       if (this.material !== null) {
         this.material.dispose();
@@ -1741,76 +1999,75 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       material.userData.materialType = this.materialType.toLowerCase();
       this.material = material;
       super.setObject(this.material);
-      if (this.debug) {
-        this.consoleLog('material', this.material);
-      }
       this.setSubscribeNext('material');
     }
     if (this._meshMaterial !== null && (this.visible === null || this.visible)) {
       switch (this.materialType.toLowerCase()) {
-          case 'customdepth':
-            if (this._meshMaterial.customDepthMaterial !== this.material) {
-              this._meshMaterial.customDepthMaterial = this.material;
-            }
-            break;
-          case 'customdistance':
-            if (this._meshMaterial.customDistanceMaterial !== this.material) {
-              this._meshMaterial.customDistanceMaterial = this.material;
-            }
-            break;
-          case 'material':
-          default:
-            if (this._meshMaterial instanceof THREE.Scene) {
-              switch (this.materialType.toLowerCase()) {
-                case 'background' :
-                  const backgroundTexture : THREE.Texture = this.material['map'] ;
-                  if (ThreeUtil.isNotNull(backgroundTexture) && this._meshMaterial.background !== backgroundTexture) {
-                    this._meshMaterial.background = backgroundTexture;
-                  }
-                  const backgroundEnvMap : THREE.Texture = this.material['envMap'] ;
+        case 'customdepthmaterial':
+        case 'customdepth':
+          if (this._meshMaterial.customDepthMaterial !== undefined && this._meshMaterial.customDepthMaterial !== this.material) {
+            this._meshMaterial.customDepthMaterial = this.material;
+          }
+          break;
+        case 'customdistancematerial':
+        case 'customdistance':
+          if (this._meshMaterial.customDistanceMaterial !== undefined && this._meshMaterial.customDistanceMaterial !== this.material) {
+            this._meshMaterial.customDistanceMaterial = this.material;
+          }
+          break;
+        case 'material':
+        default:
+          if (this._meshMaterial instanceof THREE.Scene) {
+            switch (this.materialType.toLowerCase()) {
+              case 'background':
+                const backgroundTexture: THREE.Texture = this.material['map'];
+                if (ThreeUtil.isNotNull(backgroundTexture) && this._meshMaterial.background !== backgroundTexture) {
+                  this._meshMaterial.background = backgroundTexture;
+                }
+                const backgroundEnvMap: THREE.Texture = this.material['envMap'];
+                if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
+                  this._meshMaterial.environment = backgroundEnvMap;
+                }
+                break;
+              case 'environment':
+                const environmentMap: THREE.Texture = this.material['map'];
+                if (ThreeUtil.isNotNull(environmentMap) && this._meshMaterial.background !== environmentMap) {
+                  this._meshMaterial.environment = environmentMap;
+                } else {
+                  const backgroundEnvMap: THREE.Texture = this.material['envMap'];
                   if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
                     this._meshMaterial.environment = backgroundEnvMap;
                   }
-                  break;
-                case 'environment' :
-                  const environmentMap : THREE.Texture = this.material['map'] ;
-                  if (ThreeUtil.isNotNull(environmentMap) && this._meshMaterial.background !== environmentMap) {
-                    this._meshMaterial.environment = environmentMap;
-                  } else {
-                    const backgroundEnvMap : THREE.Texture = this.material['envMap'] ;
-                    if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
-                      this._meshMaterial.environment = backgroundEnvMap;
-                    }
-                  }
-                  break;
-                case 'background-angular':
-                case 'backgroundangular':
-                case 'environment-angular':
-                case 'environmentangular':
-                case 'background-environment-angular':
-                case 'environment-background-angular':
-                case 'backgroundenvironmentangular':
-                case 'environmentbackgroundangular':
-                  ThreeUtil.setSubscribeNext(this._meshMaterial, 'material');
-                  break;
-                case 'overridematerial' :
-                default :
-                  if (this._meshMaterial.overrideMaterial !== this.material) {
-                    this._meshMaterial.overrideMaterial = this.material;
-                  }
-                  break;
-              }
-            } else {
-              if (Array.isArray(this._meshMaterial.material)) {
-                if (this._meshMaterial.material.indexOf(this.material) === -1) {
-                  this._meshMaterial.material.push(this.material);
                 }
-              } else if (this._meshMaterial.material !== this.material) {
-                this._meshMaterial.material = this.material;
-              }
+                break;
+              case 'background-angular':
+              case 'backgroundangular':
+              case 'environment-angular':
+              case 'environmentangular':
+              case 'background-environment-angular':
+              case 'environment-background-angular':
+              case 'backgroundenvironmentangular':
+              case 'environmentbackgroundangular':
+                ThreeUtil.setSubscribeNext(this._meshMaterial, 'material');
+                break;
+              case 'overridematerial':
+              default:
+                if (this._meshMaterial.overrideMaterial !== this.material) {
+                  this._meshMaterial.overrideMaterial = this.material;
+                }
+                break;
             }
-            break;
-        }
+          } else {
+            if (Array.isArray(this._meshMaterial.material)) {
+              if (this._meshMaterial.material.indexOf(this.material) === -1) {
+                this._meshMaterial.material.push(this.material);
+              }
+            } else if (this._meshMaterial.material !== this.material) {
+              this._meshMaterial.material = this.material;
+            }
+          }
+          break;
+      }
     }
   }
 

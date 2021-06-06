@@ -83,36 +83,36 @@ var SceneComponent = /** @class */ (function (_super) {
     SceneComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.meshes.changes.subscribe(function (e) {
-            _this.synkObject3D(['mesh']);
+            _this.applyChanges3D(['mesh']);
         });
         this.materials.changes.subscribe(function (e) {
-            _this.synkObject3D(['materials']);
+            _this.applyChanges3D(['materials']);
         });
         this.listner.changes.subscribe(function () {
-            _this.synkObject3D(['listner']);
+            _this.applyChanges3D(['listner']);
         });
         this.audio.changes.subscribe(function () {
-            _this.synkObject3D(['audio']);
+            _this.applyChanges3D(['audio']);
         });
         this.sceneController.changes.subscribe(function () {
-            _this.synkObject3D(['sceneController']);
+            _this.applyChanges3D(['sceneController']);
         });
         this.mixer.changes.subscribe(function () {
-            _this.synkObject3D(['mixer']);
+            _this.applyChanges3D(['mixer']);
         });
         this.physics.changes.subscribe(function () {
-            _this.synkObject3D(['physics']);
+            _this.applyChanges3D(['physics']);
         });
         this.rigidbody.changes.subscribe(function () {
-            _this.synkObject3D(['rigidbody']);
+            _this.applyChanges3D(['rigidbody']);
         });
         _super.prototype.ngAfterContentInit.call(this);
     };
-    SceneComponent.prototype.synkObject3D = function (synkTypes) {
+    SceneComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.scene !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'mesh':
                         _this.meshes.forEach(function (mesh) {
                             mesh.setParent(_this.scene);
@@ -157,7 +157,7 @@ var SceneComponent = /** @class */ (function (_super) {
                 }
             });
         }
-        _super.prototype.synkObject3D.call(this, synkTypes);
+        _super.prototype.applyChanges3D.call(this, changes);
     };
     SceneComponent.prototype.update = function (timer) {
         this.mixer.forEach(function (mixer) {
@@ -193,7 +193,7 @@ var SceneComponent = /** @class */ (function (_super) {
             else {
                 this.scene = new THREE.Scene();
                 this.setObject3D(this.scene);
-                this.synkObject3D([
+                this.applyChanges3D([
                     'position',
                     'rotation',
                     'scale',

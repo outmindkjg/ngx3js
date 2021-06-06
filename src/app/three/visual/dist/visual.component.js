@@ -70,19 +70,19 @@ var VisualComponent = /** @class */ (function () {
     VisualComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.children.changes.subscribe(function () {
-            _this.synkObject2D(['children']);
+            _this.applyChanges2D(['children']);
         });
         this.html.changes.subscribe(function () {
-            _this.synkObject2D(['html']);
+            _this.applyChanges2D(['html']);
         });
         this.transform.changes.subscribe(function () {
-            _this.synkObject2D(['transform']);
+            _this.applyChanges2D(['transform']);
         });
         this.background.changes.subscribe(function () {
-            _this.synkObject2D(['background']);
+            _this.applyChanges2D(['background']);
         });
         this.controller.changes.subscribe(function () {
-            _this.synkObject2D(['controller']);
+            _this.applyChanges2D(['controller']);
         });
     };
     VisualComponent.prototype.setParentNode = function (parentNode, parentSize, parentCollection) {
@@ -104,11 +104,11 @@ var VisualComponent = /** @class */ (function () {
         this.eleSize = new THREE.Vector2(this.parentSize.x, this.parentSize.y);
         this.getVisual();
     };
-    VisualComponent.prototype.synkObject2D = function (synkTypes) {
+    VisualComponent.prototype.applyChanges2D = function (changes) {
         var _this = this;
         if (this.visual !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'children':
                         _this.children.forEach(function (child) {
                             child.setParentNode(_this.visual, _this.eleSize, _this.collection);
@@ -250,7 +250,7 @@ var VisualComponent = /** @class */ (function () {
                     }
             }
             this.cssClazzName = interface_1.ThreeUtil.addCssStyle(this.visual, style, this.cssClazzName, 'visual');
-            this.synkObject2D(['transform', 'background', 'children', 'controller']);
+            this.applyChanges2D(['transform', 'background', 'children', 'controller']);
         }
     };
     VisualComponent.prototype.getVisual = function () {
@@ -355,7 +355,7 @@ var VisualComponent = /** @class */ (function () {
             this.parentNode.appendChild(this.visual);
             this.applyHtmlStyle();
         }
-        this.synkObject2D(['html', 'transform', 'background', 'children', 'controller']);
+        this.applyChanges2D(['html', 'transform', 'background', 'children', 'controller']);
         return this.visual;
     };
     var VisualComponent_1;

@@ -471,13 +471,21 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
   private renderListner: THREE.AudioListener = null;
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.renderer !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getRenderer();
+        return;
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d'], this.OBJECT_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
           case 'useevent':
             const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
             if (useEvent.indexOf('change') > -1) {
@@ -582,7 +590,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       });
-      super.synkObject(synkTypes);
+      super.applyChanges(changes);
     }
   }
 
@@ -745,7 +753,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       shared.getShared();
     });
     this.renderer = this.getRenderer();
-    this.synkObject(['init']);
+    this.applyChanges(['init']);
     this.resizeRender();
     this._renderCaller();
   }
@@ -825,9 +833,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.renderer.domElement.style.position = 'relative';
       this.canvasEle.nativeElement.appendChild(this.renderer.domElement);
       ThreeUtil.setRenderer(this);
-      this.renderer['userData'] = {
-        component : this
-      };
+      this.renderer['userData'] = {};
       super.setObject(this.renderer);
       // GSAP.gsap.ticker.add(this._renderCaller);
     }

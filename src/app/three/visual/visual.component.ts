@@ -126,13 +126,13 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     this.getVisual();
   }
 
-  synkObject2d(synkTypes: string[]) {
+  applyChanges2d(changes: string[]) {
     if (this.visual !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['html', 'transform', 'background', 'children', 'controller']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['html', 'transform', 'background', 'children', 'controller']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'children':
             this.childrenList.forEach((child) => {
               child.setParentNode(this.visual, this.eleSize, this.collection);
@@ -278,7 +278,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
           }
       }
       this.cssClazzName = ThreeUtil.addCssStyle(this.visual, style, this.cssClazzName, 'visual');
-      this.synkObject2d(['init']);
+      this.applyChanges2d(['init']);
     }
   }
 

@@ -560,11 +560,11 @@ var GeometryComponent = /** @class */ (function () {
             }
         }
     };
-    GeometryComponent.prototype.synkObject3D = function (synkTypes) {
+    GeometryComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.geometry !== null && this.subGeometry !== null && this.subGeometry !== undefined) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'geometry':
                         _this.subGeometry.forEach(function (subGeometry) {
                             subGeometry.setParent(_this);
@@ -808,7 +808,7 @@ var GeometryComponent = /** @class */ (function () {
                 if (interface_1.ThreeUtil.isNull(this.geometry.userData.component)) {
                     this.geometry.userData.component = this;
                 }
-                this.synkObject3D(['geometry', 'shape', 'curve', 'translation']);
+                this.applyChanges3D(['geometry', 'shape', 'curve', 'translation']);
             }
             this.onLoad.emit(this);
             this._geometrySubject.next(this.geometry);

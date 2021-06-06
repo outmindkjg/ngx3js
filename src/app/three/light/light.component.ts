@@ -386,13 +386,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return false;
   }
 
-  synkObject3d(synkTypes: string[]) {
+  applyChanges3d(changes: string[]) {
     if (this.light !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['helper']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['helper']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'helper':
             if (ThreeUtil.isNotNull(this.helperList)) {
               this.helperList.forEach((helper) => {
@@ -402,7 +402,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
             break;
         }
       });
-      super.synkObject3d(synkTypes);
+      super.applyChanges3d(changes);
     }
   }
 

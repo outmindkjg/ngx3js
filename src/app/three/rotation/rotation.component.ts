@@ -76,6 +76,20 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
+  protected applyChanges(changes: string[]) {
+    if (this.rotation !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getRotation();
+        return;
+      }
+      if (!ThreeUtil.isIndexOf(changes, ['init'])) {
+        this.needUpdate = true;
+        return ;
+      }
+      super.applyChanges(changes);
+    }
+  }
+
   getRotation(): THREE.Euler {
     if (this.rotation === null) {
       this.rotation = new THREE.Euler();

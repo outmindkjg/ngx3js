@@ -108,11 +108,11 @@ var SvgComponent = /** @class */ (function () {
             _this.resetMeshes();
         });
     };
-    SvgComponent.prototype.synkObject3D = function (synkTypes) {
+    SvgComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.meshes !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'position':
                         _this.position.forEach(function (position) {
                             position.setParent(_this);
@@ -176,7 +176,7 @@ var SvgComponent = /** @class */ (function () {
                     _this.meshes.push(mesh);
                     _this.parent.add(mesh);
                 });
-                _this.synkObject3D(['translation', 'position', 'rotation', 'scale', 'material']);
+                _this.applyChanges3D(['translation', 'position', 'rotation', 'scale', 'material']);
             });
         }
     };

@@ -51,13 +51,13 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
     super.ngAfterContentInit();
   }
 
-  synkObject2d(synkTypes: string[]) {
+  applyChanges2d(changes: string[]) {
     if (this.html !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['children','tween']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['children','tween']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'children':
             this.childrenList.forEach((child) => {
               child.setParent(this.html);
@@ -68,7 +68,7 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
             break;
         }
       })
-      super.synkObject(synkTypes);
+      super.applyChanges(changes);
     }
   }
 

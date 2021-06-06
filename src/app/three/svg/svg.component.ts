@@ -77,7 +77,6 @@ export class SvgComponent extends AbstractObject3dComponent {
 
   @Input() private uVGenerator:string = null;
 
-  @ContentChildren(MaterialComponent,{descendants: false}) private materialList: QueryList<MaterialComponent>;
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   meshPositions: THREE.Vector3[] = [];
@@ -107,7 +106,6 @@ export class SvgComponent extends AbstractObject3dComponent {
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
     this.subscribeListQuery(this.translationList, 'translationList', 'translation');
     super.ngAfterContentInit();
   }
@@ -276,13 +274,13 @@ export class SvgComponent extends AbstractObject3dComponent {
   }
 
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.meshes !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['translation', 'material']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['translation', 'material']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'material':
             const mainMaterials = this.meshMaterials;
             if (this.material !== null && this.material.visible) {
@@ -320,7 +318,7 @@ export class SvgComponent extends AbstractObject3dComponent {
         }
       })
     }
-    super.synkObject(synkTypes);
+    super.applyChanges(changes);
   }
 
   private meshes : THREE.Object3D[] = null;

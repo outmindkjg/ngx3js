@@ -93,7 +93,6 @@ import { TextureComponent } from '../texture/texture.component';
 export class PassComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type: string = '';
   @Input() private refer: PassComponent = null;
-  @Input() private enabled: boolean = true;
   @Input() private needsSwap: boolean = null;
   @Input() private clear: boolean = null;
   @Input() private renderToScreen: boolean = null;

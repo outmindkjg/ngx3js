@@ -134,7 +134,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         userGestureSubscribe.unsubscribe();
       })
     } else {
-      this.synkObject3d(['mixer'])
+      this.applyChanges3d(['mixer'])
     }
   }
 
@@ -240,13 +240,13 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return this.analyser;
   }
 
-  synkObject3d(synkTypes: string[]) {
+  applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['mixer']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['mixer']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'mixer' :
             this.mixerList.forEach((mixer) => {
               mixer.setModel(this.audio, null);
@@ -254,7 +254,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             break;
         }
       });
-      super.synkObject3d(synkTypes);
+      super.applyChanges3d(changes);
     }
   }
 
@@ -273,7 +273,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           break;
       }
       this.audio.autoplay = this.autoplay;
-      this.synkObject3d(['init']);
+      this.applyChanges3d(['init']);
     }
     return this.audio;
   }

@@ -60,15 +60,15 @@ var HtmlComponent = /** @class */ (function (_super) {
     HtmlComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.children.changes.subscribe(function () {
-            _this.synkObject3D(['children']);
+            _this.applyChanges3D(['children']);
         });
         _super.prototype.ngAfterContentInit.call(this);
     };
-    HtmlComponent.prototype.synkObject3D = function (synkTypes) {
+    HtmlComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.html !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'children':
                         _this.children.forEach(function (child) {
                             child.setParent(_this.html);
@@ -230,7 +230,7 @@ var HtmlComponent = /** @class */ (function (_super) {
                 this.html.parentNode.removeChild(this.html);
             }
             this.html = html_1;
-            this.synkObject3D(['children', 'tween']);
+            this.applyChanges3D(['children', 'tween']);
         }
         if (this.html !== null && this.parentElement !== null) {
             if (interface_1.ThreeUtil.isNotNull(this.html.parentNode) || this.html.parentNode !== this.parentElement) {

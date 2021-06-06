@@ -239,13 +239,13 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;
   }
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.effectComposer !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
           case 'pass':
             if (this.effectComposer instanceof EffectComposer) {
               this.pass.forEach((item) => {

@@ -32,15 +32,14 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private backgroundType: string = 'background';
   @Input() private environment: string | MaterialComponent | MeshComponent = null;
 
-  @ContentChildren(MeshComponent, { descendants: false }) meshList: QueryList<MeshComponent>;
-  @ContentChildren(PhysicsComponent, { descendants: false }) physicsList: QueryList<PhysicsComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: true }) rigidbodyList: QueryList<RigidbodyComponent>;
-  @ContentChildren(FogComponent, { descendants: false }) fogList: QueryList<FogComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) materialList: QueryList<MaterialComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) listnerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) audioList: QueryList<AudioComponent>;
-  @ContentChildren(ControllerComponent, { descendants: true }) sceneControllerList: QueryList<ControllerComponent>;
-  @ContentChildren(MixerComponent, { descendants: true }) mixerList: QueryList<MixerComponent>;
+  @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
+  @ContentChildren(PhysicsComponent, { descendants: false }) private physicsList: QueryList<PhysicsComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: true }) private rigidbodyList: QueryList<RigidbodyComponent>;
+  @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
+  @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) private mixerList: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
@@ -70,7 +69,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
     this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
     this.subscribeListQuery(this.fogList, 'fogList', 'fog');
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
     this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
     this.subscribeListQuery(this.audioList, 'audioList', 'audio');
     this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
@@ -290,13 +288,13 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   private _physics: PhysicsComponent = null;
 
-  synkObject3d(synkTypes: string[]) {
+  applyChanges3d(changes: string[]) {
     if (this.scene !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['material', 'mesh', 'viewer', 'light', 'helper', 'camera', 'physics', 'fog', 'scenecontroller']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'helper', 'camera', 'physics', 'fog', 'scenecontroller']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      changes.forEach((change) => {
+        switch (change) {
           case 'mesh':
             this.meshList.forEach((mesh) => {
               mesh.setParent(this.scene);
@@ -361,7 +359,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
         }
       });
     }
-    super.synkObject3d(synkTypes);
+    super.applyChanges3d(changes);
   }
 
   update(timer: RendererTimer) {
@@ -386,7 +384,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
     if (!this._sceneSynked) {
       this._sceneSynked = true;
-      this.synkObject3d(['init']);
+      this.applyChanges3d(['init']);
     }
     return this.scene;
   }

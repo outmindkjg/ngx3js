@@ -194,23 +194,23 @@ var RendererComponent = /** @class */ (function () {
     RendererComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.listner.changes.subscribe(function () {
-            _this.synkObject3D(['listner']);
+            _this.applyChanges3D(['listner']);
         });
         this.audio.changes.subscribe(function () {
-            _this.synkObject3D(['audio']);
+            _this.applyChanges3D(['audio']);
         });
         this.canvas2d.changes.subscribe(function () {
-            _this.synkObject3D(['canvas2d']);
+            _this.applyChanges3D(['canvas2d']);
         });
         this.controller.changes.subscribe(function () {
-            _this.synkObject3D(['controller']);
+            _this.applyChanges3D(['controller']);
         });
     };
-    RendererComponent.prototype.synkObject3D = function (synkTypes) {
+    RendererComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.renderer !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'listner':
                         _this.listner.forEach(function (listner) {
                             _this.renderListner = listner.getListener();
@@ -380,7 +380,7 @@ var RendererComponent = /** @class */ (function () {
             }
             this.renderer.domElement.style.position = 'relative';
             this.canvas.nativeElement.appendChild(this.renderer.domElement);
-            this.synkObject3D(['listner', 'audio', 'canvas2d', 'controller']);
+            this.applyChanges3D(['listner', 'audio', 'canvas2d', 'controller']);
             this.setSize(width, height);
             interface_1.ThreeUtil.setRenderer(this.renderer);
             // GSAP.gsap.ticker.add(this._renderCaller);

@@ -210,7 +210,7 @@ var MeshComponent = /** @class */ (function (_super) {
         if (_super.prototype.setParent.call(this, parent, isRestore)) {
             if (isRestore) {
                 this.object3d = parent;
-                this.synkObject3D([
+                this.applyChanges3D([
                     'position',
                     'rotation',
                     'scale',
@@ -238,37 +238,37 @@ var MeshComponent = /** @class */ (function (_super) {
     MeshComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.meshes.changes.subscribe(function (e) {
-            _this.synkObject3D(['meshes']);
+            _this.applyChanges3D(['meshes']);
         });
         this.cameras.changes.subscribe(function (e) {
-            _this.synkObject3D(['cameras']);
+            _this.applyChanges3D(['cameras']);
         });
         this.helpers.changes.subscribe(function (e) {
-            _this.synkObject3D(['helpers']);
+            _this.applyChanges3D(['helpers']);
         });
         this.lights.changes.subscribe(function (e) {
-            _this.synkObject3D(['lights']);
+            _this.applyChanges3D(['lights']);
         });
         this.rigidbody.changes.subscribe(function (e) {
-            _this.synkObject3D(['rigidbody']);
+            _this.applyChanges3D(['rigidbody']);
         });
         this.geometry.changes.subscribe(function (e) {
-            _this.synkObject3D(['geometry']);
+            _this.applyChanges3D(['geometry']);
         });
         this.svg.changes.subscribe(function (e) {
-            _this.synkObject3D(['svg']);
+            _this.applyChanges3D(['svg']);
         });
         this.materials.changes.subscribe(function (e) {
-            _this.synkObject3D(['material']);
+            _this.applyChanges3D(['material']);
         });
         this.listner.changes.subscribe(function () {
-            _this.synkObject3D(['listner']);
+            _this.applyChanges3D(['listner']);
         });
         this.audio.changes.subscribe(function () {
-            _this.synkObject3D(['audio']);
+            _this.applyChanges3D(['audio']);
         });
         this.cssChildren.changes.subscribe(function () {
-            _this.synkObject3D(['cssChildren']);
+            _this.applyChanges3D(['cssChildren']);
         });
         _super.prototype.ngAfterContentInit.call(this);
     };
@@ -298,11 +298,11 @@ var MeshComponent = /** @class */ (function (_super) {
             this.helper.visible = helperVisible;
         }
     };
-    MeshComponent.prototype.synkObject3D = function (synkTypes) {
+    MeshComponent.prototype.applyChanges3D = function (changes) {
         var _this = this;
         if (this.mesh !== null) {
-            synkTypes.forEach(function (synkType) {
-                switch (synkType) {
+            changes.forEach(function (change) {
+                switch (change) {
                     case 'meshes':
                         _this.meshes.forEach(function (mesh) {
                             mesh.setParent(_this.mesh);
@@ -381,7 +381,7 @@ var MeshComponent = /** @class */ (function (_super) {
                         break;
                 }
             });
-            _super.prototype.synkObject3D.call(this, synkTypes);
+            _super.prototype.applyChanges3D.call(this, changes);
         }
     };
     MeshComponent.prototype.resetMesh = function (clearMesh) {
@@ -637,7 +637,7 @@ var MeshComponent = /** @class */ (function (_super) {
                                 _this.clips = clips;
                             }
                             _this.clipMesh = loadedMesh;
-                            _this.synkObject3D(['mixer', 'material']);
+                            _this.applyChanges3D(['mixer', 'material']);
                             _this.resetHelper();
                         }, this.storageOption);
                     }
@@ -690,7 +690,7 @@ var MeshComponent = /** @class */ (function (_super) {
             if (this.helper == null) {
                 this.resetHelper();
             }
-            this.synkObject3D([
+            this.applyChanges3D([
                 'position',
                 'rotation',
                 'scale',

@@ -48,7 +48,6 @@ export interface MeshGeometry {
   material?: THREE.Material | THREE.Material[];
 }
 
-
 @Component({
   selector: 'three-geometry',
   templateUrl: './geometry.component.html',
@@ -392,7 +391,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       points.push(new THREE.Vector3(0, 0, 0));
       points.push(new THREE.Vector3(0, 0, 0));
       this.getFont('helvetiker', (font: THREE.Font) => {
-        const shapes = font.generateShapes(this.getText('test'), this.getSize(100));
+        const shapes = font.generateShapes(this.getText('test'), this.getSize(1));
         const points: THREE.Vector2[] = [];
         shapes.forEach((shape) => {
           shape.getPoints().forEach((p) => {
@@ -408,7 +407,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         });
         if (this.geometry !== null) {
           this.geometry.setFromPoints(points);
-          this.synkObject(['align']);
+          this.applyChanges(['align']);
         }
       });
     } else {
@@ -579,7 +578,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       }
     } else if (ThreeUtil.isNotNull(this.text)) {
       this.getFont('helvetiker', (font: THREE.Font) => {
-        const shapes = font.generateShapes(this.getText('test'), this.getSize(100));
+        const shapes = font.generateShapes(this.getText('test'), this.getSize(1));
         onload(shapes);
       });
     } else {
@@ -788,6 +787,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           break;
       }
     }
+    bufferAttribute.needsUpdate = true;
     return bufferAttribute;
   }
 
@@ -1055,7 +1055,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       }
     }
     if (changes.params) {
-      this.updateInputParams(this.params,false);
+      this.updateInputParams(this.params, false);
     }
     this.needUpdate = true;
   }
@@ -1074,75 +1074,29 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
 
   private geometry: THREE.BufferGeometry = null;
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.geometry !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'clearinit')) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getGeometry();
-        return ;
+        return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, 'type')) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['name'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
-        return ;
+        return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['geometry', 'shape', 'curve', 'translation', 'rotation', 'scale', 'align']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['name']);
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType.toLowerCase()) {
-          case 'geometry':
-            break;
-          case 'shape':
-            break;
-          case 'curve':
-            break;
-          case 'translation':
-            this.translationList.forEach((translation) => {
-              const trans = translation.getTranslation();
-              this.geometry.applyMatrix4(trans);
-            });
-            break;
-          case 'rotation':
-            this.rotationList.forEach((rotation) => {
-              const rotat = rotation.getRotation();
-              this.geometry.rotateX(rotat.x);
-              this.geometry.rotateY(rotat.y);
-              this.geometry.rotateZ(rotat.z);
-            });
-            break;
-          case 'scale':
-            const geometryScale = this.getGeometryScale();
-            if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
-              this.geometry.scale(geometryScale, geometryScale, geometryScale);
-            }
-            if (this.geometry.boundingSphere !== null) {
-              const sphereScale = this.getSphereScale();
-              if (ThreeUtil.isNotNull(sphereScale) && sphereScale > 0) {
-                const scaleFactor = sphereScale / this.geometry.boundingSphere.radius;
-                this.geometry.scale(scaleFactor, scaleFactor, scaleFactor);
-              }
-            }
-            this.scaleList.forEach((scale) => {
-              const sca = scale.getScale();
-              this.geometry.scale(sca.x, sca.y, sca.z);
-            });
-            break;
-          case 'align':
-            if (this.geometry.boundingSphere !== null) {
-              switch (this.getTextAlign('').toLowerCase()) {
-                case 'left':
-                  break;
-                case 'center':
-                  this.geometry.translate(-this.geometry.boundingSphere.radius, 0, 0);
-                  break;
-                case 'right':
-                  this.geometry.translate(this.geometry.boundingSphere.radius * 2, 0, 0);
-                  break;
-              }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'name':
+            if (ThreeUtil.isNotNull(this.name)) {
+              this.geometry.name = ThreeUtil.getTypeSafe(this.name, 'No Name');
             }
             break;
-        }
+          }
       });
-      super.synkObject(synkTypes);
+      super.applyChanges(changes);
     }
   }
 
@@ -1200,6 +1154,42 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         if (this.center) {
           geometry.center();
         }
+        if (ThreeUtil.isNotNull(this.translationList) && this.translationList.length > 0) {
+          this.translationList.forEach((translation) => {
+            const matrix = translation.getTranslation();
+            geometry.applyMatrix4(matrix);
+          });
+        }
+        if (ThreeUtil.isNotNull(this.rotationList) && this.rotationList.length > 0) {
+          this.rotationList.forEach((rotation) => {
+            const euler = rotation.getRotation();
+            geometry.rotateX(euler.x);
+            geometry.rotateY(euler.y);
+            geometry.rotateZ(euler.z);
+          });
+        }
+        if (ThreeUtil.isNotNull(this.geometryScale)) {
+          const geometryScale = this.getGeometryScale();
+          if (ThreeUtil.isNotNull(geometryScale) && geometryScale > 0) {
+            geometry.scale(geometryScale, geometryScale, geometryScale);
+          }
+        }
+        if (ThreeUtil.isNotNull(this.sphereScale)) {
+          const sphereScale = this.getSphereScale();
+          if (ThreeUtil.isNotNull(sphereScale) && sphereScale > 0) {
+            if (geometry.boundingSphere === null) {
+              geometry.computeBoundingSphere();
+            }
+            const scaleFactor = sphereScale / geometry.boundingSphere.radius;
+            geometry.scale(scaleFactor, scaleFactor, scaleFactor);
+          }
+        }
+        if (ThreeUtil.isNotNull(this.scaleList) && this.scaleList.length > 0) {
+          this.scaleList.forEach((scale) => {
+            const vector = scale.getScale();
+            geometry.scale(vector.x, vector.y, vector.z);
+          });
+        }
         if (ThreeUtil.isNotNull(this.positionList) && this.positionList.length > 0) {
           this.positionList.forEach((pos) => {
             const position = pos.getPosition();
@@ -1252,6 +1242,21 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           const itemCount = geometry.attributes.position.count;
           const itemSize = ThreeUtil.getTypeSafe(this.autoSizeSize, 1);
           geometry.setAttribute('size', new THREE.Float32BufferAttribute(itemCount * itemSize, itemSize));
+        }
+        if (ThreeUtil.isNotNull(this.textAlign)) {
+          if (geometry.boundingSphere === null) {
+            geometry.computeBoundingSphere();
+          }
+          switch (this.getTextAlign('').toLowerCase()) {
+            case 'left':
+              break;
+            case 'center':
+              geometry.translate(-geometry.boundingSphere.radius, 0, 0);
+              break;
+            case 'right':
+              geometry.translate(geometry.boundingSphere.radius * 2, 0, 0);
+              break;
+          }
         }
         if (this.mergeVertices) {
           geometry = BufferGeometryUtils.mergeVertices(geometry);
@@ -1635,7 +1640,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             this.getFont('helvetiker', (font: THREE.Font) => {
               const textParameters: THREE.TextGeometryParameters = {
                 font: font,
-                size: this.getSize(),
+                size: this.getSize(1),
                 height: this.getHeight(),
                 curveSegments: this.getCurveSegments(),
                 bevelEnabled: this.getBevelEnabled(),

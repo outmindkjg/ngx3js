@@ -71,25 +71,25 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     this.subscribeListQuery(this.controllerItemList, 'controllerItemList', 'controllerItem');
   }
 
-  synkObject(synkTypes: string[]) {
+  applyChanges(changes: string[]) {
     if (this._controller !== null || this._controllerItems !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'clearinit')) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getController();
         return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, ['type', 'object3d', 'object2d'])) {
+      if (ThreeUtil.isIndexOf(changes, ['type', 'object3d', 'object2d'])) {
         this.needUpdate = true;
         return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['controlparams', 'render', 'position']);
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['controlparams', 'render', 'position']);
       }
-      if (ThreeUtil.isIndexOf(synkTypes, 'render')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['scene', 'canvas']);
+      if (ThreeUtil.isIndexOf(changes, 'render')) {
+        changes = ThreeUtil.pushUniq(changes, ['scene', 'canvas']);
       }
       if (this._controller !== null && this._renderer !== null) {
-        synkTypes.forEach((synkType) => {
-          switch (synkType.toLowerCase()) {
+        changes.forEach((change) => {
+          switch (change.toLowerCase()) {
             case 'controlparams':
               this._controller.setVariables(this.controlParams);
               break;
@@ -110,7 +110,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
         });
       } else if (this._controllerItems !== null) {
         if (
-          ThreeUtil.isIndexOf(synkTypes, [
+          ThreeUtil.isIndexOf(changes, [
             'controlleritem',
             'scale',
             'radius',
@@ -140,8 +140,8 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
           this.needUpdate = true;
           return;
         }
-        synkTypes.forEach((synkType) => {
-          switch (synkType.toLowerCase()) {
+        changes.forEach((change) => {
+          switch (change.toLowerCase()) {
             case 'visible':
               if (this.pathGuide !== null) {
                 this.pathGuide.visible = ThreeUtil.getTypeSafe(this.visible, false);
@@ -153,7 +153,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
           }
         });
       }
-      super.synkObject(synkTypes);
+      super.applyChanges(changes);
     }
   }
 
@@ -165,8 +165,8 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
 
   refreshRefObject3dposition() {
     if (ThreeUtil.isNotNull(this.refObject3d)) {
-      if (ThreeUtil.isNotNull(this.refObject3d.userData.position)) {
-        this.refObject3dposition.copy(this.refObject3d.userData.position);
+      if (ThreeUtil.isNotNull(this.refObject3d.userData.initPosition)) {
+        this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
       } else {
         this.refObject3dposition.copy(this.refObject3d.position);
       }

@@ -153,7 +153,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private userData: any = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
@@ -189,7 +188,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 
   ngAfterContentInit(): void {
     this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
     this.subscribeListQuery(this.textureList, 'textureList', 'texture');
     this.subscribeListQuery(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
     this.subscribeListQuery(this.svgList, 'svgList', 'svg');
@@ -431,19 +429,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return ThreeUtil.getTextureEncodingSafe(this.encoding, def, '');
   }
 
-  applyChanges() {
-    if (this.mesh !== null) {
-      const changes = this.getChanges();
-      if (changes.length > 0) {
-        if (ThreeUtil.isIndexOf(changes, ['type', 'lighttype', 'skyboxtype', 'helpertype', 'storagename'])) {
-          this.needUpdate = true;
-        } else {
-          this.synkObject3d(changes);
-        }
-      }
-    }
-  }
-
   private clips: THREE.AnimationClip[] | any = null;
   private clipMesh: THREE.Object3D = null;
   public storageSource: any = null;
@@ -646,20 +631,24 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     }
   }
 
-  synkObject3d(synkTypes: string[]) {
+  applyChanges3d(changes: string[]) {
     if (this.mesh !== null) {
-      if (ThreeUtil.isIndexOf(synkTypes, 'init')) {
-        synkTypes = ThreeUtil.pushUniq(synkTypes, ['rigidbody', 'light', 'mesh', 'camera', 'helper', 'geometry', 'material', 'svg', 'listener', 'audio', 'cssChildren', 'controller']);
-        if (ThreeUtil.isNotNull(this.clips)) {
-          synkTypes = ThreeUtil.pushUniq(synkTypes, ['mixer']);
-        }
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getObject3d();
+        return;
       }
-      if (ThreeUtil.isIndexOf(synkTypes, ['type', 'lighttype', 'skyboxtype', 'helpertype', 'storagename'])) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'light', 'mesh', 'camera', 'helper', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller','material'], this.OBJECT3D_ATTR)) {
         this.needUpdate = true;
         return;
       }
-      synkTypes.forEach((synkType) => {
-        switch (synkType) {
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'light', 'mesh', 'camera', 'helper', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller','material']);
+        if (ThreeUtil.isNotNull(this.clips)) {
+          changes = ThreeUtil.pushUniq(changes, ['mixer']);
+        }
+      }
+      changes.forEach((change) => {
+        switch (change) {
           case 'mesh':
             this.meshList.forEach((mesh) => {
               mesh.setParent(this.mesh);
@@ -735,7 +724,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                   }
                 } else if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
                   this.materialList.forEach((material) => {
-                    material.setMesh(meshMaterial);
+                    switch(material.materialType.toLowerCase()) {
+                      case 'material' :
+                        material.setMesh(meshMaterial);
+                        break;
+                    }
                   });
                 }
               }
@@ -756,25 +749,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             break;
         }
       });
-      super.synkObject3d(synkTypes);
-    } else {
-      console.error('synk', 'mesh null', synkTypes);
-    }
-  }
-
-  resetMesh(clearMesh: boolean = false) {
-    if (this.parent !== null) {
-      if (clearMesh && this.mesh !== null) {
-        if (this.mesh.parent) {
-          this.mesh.parent.remove(this.mesh);
-        }
-        this.mesh = null;
-      }
-      if (clearMesh && this.helper != null && this.helper.parent != null) {
-        this.helper.parent.remove(this.helper);
-        this.helper = null;
-      }
-      this.parent.add(this.getObject3d());
+      super.applyChanges3d(changes);
     }
   }
 
@@ -1265,7 +1240,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.clipMesh = character.root;
                 this.clips = character;
                 this.resetHelper();
-                this.synkObject3d(['mixer', 'material', 'helper']);
+                this.applyChanges3d(['mixer', 'material', 'helper']);
                 super.callOnLoad();
               }
             };
@@ -1415,7 +1390,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             this.subscribeReferList(
               'shareParts',
               this.sharedMesh.getSubscribe().subscribe(() => {
-                this.resetMesh(true);
+                this.needUpdate = true;
               })
             );
           } else {
