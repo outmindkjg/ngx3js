@@ -20,7 +20,7 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000" [effectType]="'outline'" (onLoad)="setCamera($event)">
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000" (onLoad)="setCamera($event)">
     <three-position [x]="0" [y]="0" [z]="30"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>

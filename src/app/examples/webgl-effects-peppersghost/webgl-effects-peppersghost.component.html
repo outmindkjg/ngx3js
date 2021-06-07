@@ -15,7 +15,7 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [effectType]="'PeppersGhost'" [cameraDistance]="5" [fov]="45" [near]="1" [far]="1000">
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
     <three-position [x]="1" [y]="2" [z]="-3"></three-position>
     <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
   </three-camera>

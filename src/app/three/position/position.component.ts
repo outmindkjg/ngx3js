@@ -42,11 +42,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   private _object3d: THREE.Object3D = null;
 
   setObject3d(object3d: THREE.Object3D) {
-    if (ThreeUtil.isNotNull(object3d)) {
+    if (this.position === null) {
       this.getPosition();
+    }
+    if (ThreeUtil.isNotNull(object3d)) {
       this._object3d = object3d;
-      this.synkObject3d(this._getPosition());
-    } else {
       this.synkObject3d(this.position);
     }
   }
@@ -55,25 +55,26 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     if (ThreeUtil.isNotNull(position) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
         let idKey = 'position';
+        let targetPosition : THREE.Vector3 = null;
         switch (this.type.toLowerCase()) {
           case 'up':
             idKey = 'positionUp';
-            this.position = this._object3d.up;
+            targetPosition = this._object3d.up;
             break;
           case 'lookat':
             idKey = 'positionLookat';
-            this.position = this.position.clone();
+            targetPosition = this.position.clone();
             break;
           default:
             idKey = 'position';
-            this.position = this._object3d.position;
+            targetPosition = this._object3d.position;
             break;
         }
         if (this.isIdEuals(this._object3d.userData[idKey])) {
           this._object3d.userData[idKey] = this.id;
-          this.position.copy(position);
+          targetPosition.copy(position);
           if (idKey === 'positionLookat') {
-            this._object3d.lookAt(this.position);
+            this._object3d.lookAt(position);
           }
         }
       } else {
@@ -82,7 +83,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
-  setPosition(x: number, y?: number, z?: number) {
+  setPosition(x?: number, y?: number, z?: number) {
     if (this.position !== null) {
       this.x = ThreeUtil.getTypeSafe(x, this.position.x);
       this.y = ThreeUtil.getTypeSafe(y, this.position.y);
@@ -117,14 +118,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 
   protected applyChanges(changes: string[]) {
     if (this.position !== null) {
-      if (ThreeUtil.isIndexOf(changes, 'enabled')) {
-        this.setSubscribeNext('position');
-      }
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getPosition();
         return;
       }
-      if (!ThreeUtil.isIndexOf(changes, ['init'])) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','type','enabled'])) {
         this.needUpdate = true;
         return;
       }
@@ -132,7 +130,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
-  _getPosition(): THREE.Vector3 {
+  private _getPosition(): THREE.Vector3 {
     let position: THREE.Vector3 = null;
     if (this.refer !== null && this.refer !== undefined) {
       position = ThreeUtil.getPosition(this.refer);
@@ -178,16 +176,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   }
 
   getPosition(): THREE.Vector3 {
-    if (this.position === null) {
-      this.position = new THREE.Vector3();
-    }
-    if (this._needUpdate) {
+    if (this.position === null || this._needUpdate) {
       this.needUpdate = false;
-      const position = this._getPosition();
-      if (ThreeUtil.isNotNull(position)) {
-        this.synkObject3d(position);
-        this.setObject(position);
-      }
+      this.position = this._getPosition();
+      this.synkObject3d(this.position);
+      this.setObject(this.position);
     }
     return this.position;
   }

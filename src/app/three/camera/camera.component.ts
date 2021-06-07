@@ -20,9 +20,6 @@ import { MixerComponent } from './../mixer/mixer.component';
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'perspective';
   @Input() private active: boolean = true;
-  @Input() private effectType: string = null;
-  @Input() private cameraDistance: number = null;
-  @Input() private reflectFromAbove: boolean = null;
   @Input() private fov: number | string = 45;
   @Input() private aspect: number = 1;
   @Input() private focalLength: number = null;
@@ -261,7 +258,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   public cubeCamera1: THREE.CubeCamera = null;
   public cubeCamera2: THREE.CubeCamera = null;
   private clips: THREE.AnimationClip[] = null;
-  
+
   private renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
   private rendererScenes: QueryList<any>;
@@ -289,34 +286,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return false;
   }
 
-  setCameraParams(params: { [key: string]: any }) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (this[key] !== undefined) {
-        this[key] = value;
-      }
-    });
-    if (this.camera !== null) {
-      if (this.camera instanceof THREE.OrthographicCamera) {
-        this.camera.left = this.getLeft(this.cameraWidth);
-        this.camera.right = this.getRight(this.cameraWidth);
-        this.camera.top = this.getTop(this.cameraHeight);
-        this.camera.bottom = this.getBottom(this.cameraHeight);
-        this.camera.near = this.getNear(-200);
-        this.camera.far = this.getFar(2000);
-        this.camera.updateProjectionMatrix();
-      } else if (this.camera instanceof THREE.PerspectiveCamera) {
-        this.camera.aspect = this.getAspect(this.cameraWidth, this.cameraHeight);
-        this.camera.fov = this.getFov(50);
-        this.camera.near = this.getNear(0.1);
-        this.camera.far = this.getFar(2000);
-        this.camera.updateProjectionMatrix();
-      }
-      this.helperList.forEach((helper) => {
-        helper.setUpdate();
-      });
-    }
-  }
-
   setVisible(visible: boolean, helperVisible: boolean = null) {
     super.setVisible(visible);
     if (helperVisible !== null && helperVisible !== undefined) {
@@ -340,7 +309,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light']);
       }
       changes.forEach((change) => {
-        switch (change) {
+        switch (change.toLowerCase()) {
           case 'listner':
             this.listenerList.forEach((listner) => {
               listner.setParent(this.camera);
@@ -462,6 +431,10 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   getObject3d(): THREE.Camera {
+    return this.getCamera();
+  }
+
+  getCamera(): THREE.Camera {
     if (this.camera === null || this._needUpdate) {
       this.needUpdate = false;
       const width = this.cameraWidth;
@@ -510,6 +483,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           if (ThreeUtil.isNotNull(this.zoom)) {
             orthographicCamera.zoom = this.getZoom(1);
           }
+          console.log(orthographicCamera.zoom);
           this.camera = orthographicCamera;
           break;
         case 'perspectivecamera':
@@ -528,7 +502,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       }
       if (this.parentObject3d instanceof THREE.ArrayCamera) {
         this.isCameraChild = true;
-        this.parentObject3d.cameras.push( this.camera as THREE.PerspectiveCamera);
+        this.parentObject3d.cameras.push(this.camera as THREE.PerspectiveCamera);
         this.setObject(this.camera);
       } else {
         this.isCameraChild = false;
@@ -620,27 +594,29 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   private renderWithScene(renderer: THREE.Renderer, camera: THREE.Camera, scene: THREE.Scene) {
     if (scene !== null) {
-      if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
-        if (this.scissorTest) {
-          renderer.setScissorTest(true);
-          renderer.setScissor(this.getScissorX(), this.getScissorY(), this.getScissorWidth(), this.getScissorHeight());
+      try {
+        if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
+          if (this.scissorTest) {
+            renderer.setScissorTest(true);
+            renderer.setScissor(this.getScissorX(), this.getScissorY(), this.getScissorWidth(), this.getScissorHeight());
+          }
+          renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         }
-        renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-      }
-      if (renderer instanceof THREE.WebGLRenderer) {
-        if (ThreeUtil.isNotNull(this.clear) && this.clear) {
-          renderer.clear();
+        if (renderer instanceof THREE.WebGLRenderer) {
+          if (ThreeUtil.isNotNull(this.clear) && this.clear) {
+            renderer.clear();
+          }
+          if (ThreeUtil.isNotNull(this.clearDepth) && this.clearDepth) {
+            renderer.clearDepth();
+          }
         }
-        if (ThreeUtil.isNotNull(this.clearDepth) && this.clearDepth) {
-          renderer.clearDepth();
+        renderer.render(scene, camera);
+        if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
+          if (this.scissorTest) {
+            renderer.setScissorTest(false);
+          }
         }
-      }
-      renderer.render(scene, camera);
-      if (renderer instanceof THREE.WebGLRenderer && this.viewport && this.viewportType === 'renderer') {
-        if (this.scissorTest) {
-          renderer.setScissorTest(false);
-        }
-      }
+      } catch (ex) {}
     }
   }
 }

@@ -109,12 +109,12 @@ export class WebglCameraComponent extends BaseComponent<{
     }
     if (this.cameraPerspective !== null && this.cameraOrthographic !== null) {
       if (this.cameraPerspective === this.cameraControl) {
-        this.cameraPerspective.setCameraParams({
+        this.cameraPerspective.updateInputParams({
             fov : 35 + 30 * Math.sin( 0.5 * r ),
             far : this.mesh.getPosition().length()
         })
       } else if (this.cameraOrthographic === this.cameraControl) {
-        this.cameraOrthographic.setCameraParams({
+        this.cameraOrthographic.updateInputParams({
           far : this.mesh.getPosition().length()
         })
       }

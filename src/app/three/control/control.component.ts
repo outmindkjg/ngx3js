@@ -77,6 +77,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngOnDestroy(): void {
+    if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
+      this.control.dispose();
+    }
     super.ngOnDestroy();
   }
 

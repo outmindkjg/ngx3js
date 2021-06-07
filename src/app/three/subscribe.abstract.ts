@@ -8,13 +8,13 @@ import { ThreeUtil } from './interface';
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
 
   @Input() protected debug: boolean = false;
-  @Input() protected enabled: boolean = true;
+  @Input() public enabled: boolean = true;
   @Input() private overrideParams: {[key : string] : any } = null;
 
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
-  protected OBJECT_ATTR : string[] = ['init','debug','overrideparams'];
+  protected OBJECT_ATTR : string[] = ['init','debug','enabled','overrideparams'];
 
   constructor() {}
   
@@ -160,6 +160,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   }
 
   protected applyChanges(changes: string[]) {
+    if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+      return;
+    }
+    if (!ThreeUtil.isIndexOf(changes, 'init') && ThreeUtil.isIndexOf(changes, 'enabled')) {
+      this.setSubscribeNext(this.subscribeType);
+    }
     // this.consoleLog('changes', changes, 'info');
     this.clearChanges();
   }
@@ -229,7 +235,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         this._subscribeTimeout = setTimeout(() => {
           this._subscribeTimeout = null;
           if (this._subscribeNext.length > 0) {
-            // console.log(this._subscribeNext);
+            // this.consoleLog('subscribeNext',this._subscribeNext, 'info');
             const subscribeNext: string[] = [];
             this._subscribeNext.forEach((text) => {
               subscribeNext.push(text);

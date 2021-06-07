@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { ThreeUtil } from '../interface';
+import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
@@ -41,24 +41,59 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
 
   private scale: THREE.Vector3 = null;
 
-  setScale(scale: THREE.Vector3 | number, y? : number, z? : number) {
-    if (scale instanceof THREE.Vector3) {
-      if (this.scale !== scale && ThreeUtil.isNotNull(scale)) {
-        if (this.scale !== null) {
-          scale.copy(this.scale);
-          this.scale = scale;
-        } else {
-          this.scale = scale;
-          this.needUpdate = true;
-          this.getScale();
+  private _object3d: THREE.Object3D = null;
+
+  setObject3d(object3d: THREE.Object3D) {
+    if (this.scale === null) {
+      this.getScale();
+    }
+    if (ThreeUtil.isNotNull(object3d)) {
+      this._object3d = object3d;
+      this.synkObject3d(this.scale);
+    }
+  }
+
+  synkObject3d(rotation: THREE.Vector3 = null) {
+    if (ThreeUtil.isNotNull(rotation) && this.enabled) {
+      if (ThreeUtil.isNotNull(this._object3d)) {
+        if (this.isIdEuals(this._object3d.userData.scale)) {
+          this._object3d.userData.scale = this.id;
+          this._object3d.scale.copy(this.scale);
         }
+      } else {
+        this.scale.copy(rotation);
       }
-    } else if (this.scale !== null ){
-      this.x = ThreeUtil.getTypeSafe(scale as number, this.scale.x);
+    }
+  }
+
+  setScale(x?: number, y? : number, z? : number) {
+    if (this.scale !== null) {
+      this.x = ThreeUtil.getTypeSafe(x, this.scale.x);
       this.y = ThreeUtil.getTypeSafe(y, this.scale.y);
       this.z = ThreeUtil.getTypeSafe(z, this.scale.z);
-      this.needUpdate = true;
+    } else {
+      this.x = ThreeUtil.getTypeSafe(x, 0);
+      this.y = ThreeUtil.getTypeSafe(y, 0);
+      this.z = ThreeUtil.getTypeSafe(z, 0);
     }
+    this.needUpdate = true;
+  }
+
+  getTagAttribute(options?: any): TagAttributes {
+    const tagAttributes: TagAttributes = {
+      tag: 'three-scale',
+      attributes: [],
+    };
+    if (ThreeUtil.isNotNull(options.scale)) {
+      tagAttributes.attributes.push({ name: 'x', value: options.scale.x });
+      tagAttributes.attributes.push({ name: 'y', value: options.scale.y });
+      tagAttributes.attributes.push({ name: 'z', value: options.scale.z });
+    } else {
+      tagAttributes.attributes.push({ name: 'x', value: this.x });
+      tagAttributes.attributes.push({ name: 'y', value: this.y });
+      tagAttributes.attributes.push({ name: 'z', value: this.z });
+    }
+    return tagAttributes;
   }
 
   private getScaleFromSize(size: THREE.Vector2): THREE.Vector3 {
@@ -80,7 +115,7 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
         this.getScale();
         return;
       }
-      if (!ThreeUtil.isIndexOf(changes, ['init'])) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','type','enabled'])) {
         this.needUpdate = true;
         return ;
       }
@@ -88,30 +123,30 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
-  getScale(): THREE.Vector3 {
-    if (this.scale === null) {
-      this.scale = new THREE.Vector3();
+  private _getScale(): THREE.Vector3 {
+    let scale : THREE.Vector3 = null;
+    if (this.refer !== null && this.refer !== undefined) {
+      if (this.refer.getSize) {
+        scale = this.getScaleFromSize(this.refer.getSize());
+      } else {
+        scale = ThreeUtil.getScale(this.refer);
+      }
     }
-    if (this._needUpdate) {
+    if (scale === null) {
+      scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, null, null, true);
+    }
+    if (ThreeUtil.isNotNull(this.multiply)) {
+      scale.multiplyScalar(this.multiply);
+    }
+    return scale;
+  }
+
+  getScale(): THREE.Vector3 {
+    if (this.scale === null || this._needUpdate) {
       this.needUpdate = false;
-      let scale : THREE.Vector3 = null;
-      if (this.refer !== null && this.refer !== undefined) {
-        if (this.refer.getSize) {
-          scale = this.getScaleFromSize(this.refer.getSize());
-        } else {
-          scale = ThreeUtil.getScale(this.refer);
-        }
-      }
-      if (scale === null) {
-        scale = ThreeUtil.getVector3Safe(this.x, this.y, this.z, null, null, true);
-      }
-      if (scale !== null) {
-        this.scale.copy(scale);
-        if (ThreeUtil.isNotNull(this.multiply)) {
-          this.scale.multiplyScalar(this.multiply);
-        }
-        super.setObject(scale);
-      }
+      this.scale = this._getScale();
+      this.synkObject3d(this.scale);
+      this.setObject(this.scale);
     }
     return this.scale;
   }

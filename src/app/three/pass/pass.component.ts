@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LUTCubeLoader, LUTCubeResult } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';

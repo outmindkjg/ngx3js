@@ -82,9 +82,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private autoClearColor: boolean = true;
   @Input() private outputEncoding: string = null;
   @Input() private guiControl: any = null;
+  @Input() private guiParams: GuiControlParam[] = [];
   @Input() private logarithmicDepthBuffer: boolean = false;
   @Input() private preserveDrawingBuffer: boolean = false;
-  @Input() private guiParams: GuiControlParam[] = [];
   @Input() private useEvent: string[] = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
   @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
@@ -147,7 +147,20 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngOnDestroy(): void {
-    this.renderer = null;
+    if (this.renderer !== null) {
+      this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+      this.renderer = null;
+    }
+    if (this.cssRenderer !== null) {
+      this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
+      this.cssRenderer = null;
+    }
+    if (this.stats !== null) {
+      this.stats.dom.parentNode.removeChild(this.stats.dom);
+    }
+    if (this.renderControl !== null) {
+      this.renderControl.ngOnDestroy();
+    }
     super.ngOnDestroy();
   }
 
@@ -172,56 +185,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     this.subscribeListQuery(this.canvas2dList, 'canvas2dList', 'canvas2d');
     this.subscribeListQuery(this.sharedList, 'sharedList', 'shared');
     super.ngAfterContentInit();
-  }
-
-  ngOnChangesTodo(changes: SimpleChanges): void {
-    if ((changes.type || changes.logarithmicDepthBuffer) && this.renderer) {
-      this.canvasEle.nativeElement.removeChild(this.renderer.domElement);
-      this.renderer = null;
-      this.renderer = this.getRenderer();
-    }
-    if (this.renderer !== null) {
-      if (changes.width || changes.height) {
-        if (this.width > 0 && this.height > 0) {
-          this.setSize(this.width, this.height);
-        } else {
-          this.setSize(window.innerWidth, window.innerHeight);
-        }
-      }
-      if (changes.statsMode) {
-        if (this.statsMode >= 0) {
-          if (this.stats === null) {
-            this.getStats();
-          }
-          this.stats.showPanel(this.statsMode);
-        } else {
-          if (this.stats != null) {
-            this.debugEle.nativeElement.removeChild(this.stats.dom);
-          }
-          this.stats = null;
-        }
-      }
-      if (changes.guiControl || changes.guiParams) {
-        if (this.gui != null) {
-          this.debugEle.nativeElement.removeChild(this.gui.domElement);
-          this.gui = null;
-        }
-        if (this.guiControl != null) {
-          ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
-        }
-      }
-      if (changes.localClippingEnabled) {
-        if (this.renderer instanceof THREE.WebGLRenderer) {
-          this.renderer.localClippingEnabled = this.localClippingEnabled;
-        }
-      }
-      if (changes.globalClippingEnabled) {
-        if (this.renderer instanceof THREE.WebGLRenderer) {
-          this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
-        }
-      }
-    }
-    super.ngOnChanges(changes);
   }
 
   removeWindowEvent(type: string, listener: any) {
@@ -279,7 +242,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         keyInfo.key = '';
         keyInfo.timeStamp = 0;
         keyInfo.timeRepeat = 0;
-        keyInfo.xy.set(0,0);
+        keyInfo.xy.set(0, 0);
       } else if (this.events.keyInfo.code === event.code) {
         keyInfo.timeRepeat = event.timeStamp - keyInfo.timeStamp;
         switch (event.code) {
@@ -304,7 +267,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         keyInfo.key = event.key;
         keyInfo.timeStamp = event.timeStamp;
         keyInfo.timeRepeat = 0;
-        keyInfo.xy.set(0,0);
+        keyInfo.xy.set(0, 0);
       }
     } else {
       clientX = event.clientX;
@@ -477,15 +440,161 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.getRenderer();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d'], this.OBJECT_ATTR)) {
+      if (
+        !ThreeUtil.isOnlyIndexOf(
+          changes,
+          [
+            'useevent',
+            'shared',
+            'resize',
+            'scene',
+            'camera',
+            'control',
+            'composer',
+            'viewer',
+            'listner',
+            'audio',
+            'controller',
+            'lookat',
+            'control',
+            'localclippingenabled',
+            'globalclippingenabled',
+            'clearcolor',
+            'clearalpha',
+            'tonemapping',
+            'tonemappingexposure',
+            'shadowmapenabled',
+            'physicallycorrectlights',
+            'shadowmaptype',
+            'autoclear',
+            'autoclearcolor',
+            'outputencoding',
+            'clippingplanes',
+            'canvas2d',
+            'controltype',
+            'autorotate',
+            'autorotatespeed',
+            'screenspacepanning',
+            'mindistance',
+            'maxdistance',
+            'xdistance',
+            'ydistance',
+            'enablezoom',
+            'minzoom',
+            'maxzoom',
+            'rotatespeed',
+            'staticmoving',
+            'zoomspeed',
+            'panspeed',
+            'minpolarangle',
+            'maxpolarangle',
+            'enablepan',
+            'enablekeys',
+            'enabledamping',
+            'movementspeed',
+            'rollspeed',
+            'dragtolook',
+            'autoforward',
+            'lookspeed',
+            'lookvertical',
+            'activelook',
+            'heightspeed',
+            'heightcoef',
+            'heightmin',
+            'heightmax',
+            'constrainvertical',
+            'verticalmin',
+            'verticalmax',
+            'mousedragon',
+            'lookatlist',
+            'target',
+            'guiparams',
+            'guicontrol',
+          ],
+          this.OBJECT_ATTR
+        )
+      ) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+        changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol','webglrenderer']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
+        changes = ThreeUtil.pushUniq(changes, ['guicontrol']);
+      }
+      if (ThreeUtil.isIndexOf(changes, [
+        'localclippingenabled',
+        'globalclippingenabled',
+        'clearcolor',
+        'clearalpha',
+        'tonemapping',
+        'tonemappingexposure',
+        'shadowmapenabled',
+        'physicallycorrectlights',
+        'shadowmaptype',
+        'autoclear',
+        'autoclearcolor',
+        'outputencoding',
+        'clippingplanes',
+      ])) {
+        changes = ThreeUtil.pushUniq(changes, ['webglrenderer']);
+      }
+      if (
+        ThreeUtil.isIndexOf(changes, [
+          'camera',
+          'controltype',
+          'autorotate',
+          'autorotatespeed',
+          'screenspacepanning',
+          'mindistance',
+          'maxdistance',
+          'xdistance',
+          'ydistance',
+          'enablezoom',
+          'minzoom',
+          'maxzoom',
+          'rotatespeed',
+          'staticmoving',
+          'zoomspeed',
+          'panspeed',
+          'minpolarangle',
+          'maxpolarangle',
+          'enablepan',
+          'enablekeys',
+          'enabledamping',
+          'movementspeed',
+          'rollspeed',
+          'dragtolook',
+          'autoforward',
+          'lookspeed',
+          'lookvertical',
+          'activelook',
+          'heightspeed',
+          'heightcoef',
+          'heightmin',
+          'heightmax',
+          'constrainvertical',
+          'verticalmin',
+          'verticalmax',
+          'mousedragon',
+          'lookatlist',
+          'target',
+        ])
+      ) {
+        changes = ThreeUtil.pushUniq(changes, ['control']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
+          case 'guicontrol':
+            if (this.gui != null) {
+              this.gui.domElement.parentNode.removeChild(this.gui.domElement);
+              this.gui = null;
+            }
+            if (ThreeUtil.isNotNull(this.guiControl) && ThreeUtil.isNotNull(this.guiParams) && this.guiParams.length > 0) {
+              ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
+            }
+            break;      
           case 'useevent':
             const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
             if (useEvent.indexOf('change') > -1) {
@@ -530,7 +639,66 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             }
             break;
           case 'resize':
-            this.setSize(this.rendererWidth, this.rendererHeight);
+            if (this.width > 0 && this.height > 0) {
+              this.setSize(this.width, this.height);
+            } else {
+              this.resizeRender();
+            }
+            break;
+          case 'webglrenderer':
+            if (this.renderer instanceof THREE.WebGLRenderer) {
+              this.renderer.setClearAlpha
+              if (ThreeUtil.isNotNull(this.clearColor)) {
+                this.renderer.setClearColor(this.getClearColor());
+              }
+              if (ThreeUtil.isNotNull(this.clearAlpha)) {
+                this.renderer.setClearAlpha(this.getClearAlpha());
+              }
+              if (ThreeUtil.isNotNull(this.toneMapping)) {
+                this.renderer.toneMapping = this.getToneMapping();
+              }
+              if (ThreeUtil.isNotNull(this.toneMappingExposure)) {
+                this.renderer.toneMappingExposure = this.toneMappingExposure;
+              }
+              this.renderer.setPixelRatio(window.devicePixelRatio);
+              if (ThreeUtil.isNotNull(this.shadowMapEnabled)) {
+                this.renderer.shadowMap.enabled = this.shadowMapEnabled;
+              }
+              if (ThreeUtil.isNotNull(this.physicallyCorrectLights)) {
+                this.renderer.physicallyCorrectLights = this.physicallyCorrectLights;
+              }
+              if (this.renderer.shadowMap.enabled && ThreeUtil.isNotNull(this.shadowMapType)) {
+                this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
+              }
+              if (ThreeUtil.isNotNull(this.autoClear)) {
+                this.renderer.autoClear = this.autoClear;
+              }
+              if (ThreeUtil.isNotNull(this.autoClearColor)) {
+                this.renderer.autoClearColor = this.autoClearColor;
+              }
+              if (ThreeUtil.isNotNull(this.outputEncoding)) {
+                this.renderer.outputEncoding = ThreeUtil.getTextureEncodingSafe(this.outputEncoding, 'linear');
+              }
+              if (ThreeUtil.isNotNull(this.localClippingEnabled)) {
+                this.renderer.localClippingEnabled = this.localClippingEnabled;
+              }
+              if (ThreeUtil.isNotNull(this.globalClippingEnabled)) {
+                this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
+              }
+            }
+            break;
+          case 'statsmode':
+            if (this.statsMode >= 0) {
+              if (this.stats === null) {
+                this.getStats();
+              }
+              this.stats.showPanel(this.statsMode);
+            } else {
+              if (this.stats != null) {
+                this.debugEle.nativeElement.removeChild(this.stats.dom);
+              }
+              this.stats = null;
+            }
             break;
           case 'control':
             this.controls = this.getControls(this.cameraList, this.sceneList, this.canvasEle.nativeElement);
@@ -574,11 +742,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
               controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2dList);
             });
             break;
-          case 'clippingplanes':
-            if (this.renderer instanceof THREE.WebGLRenderer) {
-              this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
-            }
-            break;
           case 'canvas2d':
             this.canvas2dList.forEach((canvas2d) => {
               canvas2d.setParentNode(this.canvasEle.nativeElement);
@@ -603,11 +766,15 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   private gui: ThreeGui = null;
   private clock: ThreeClock = null;
   private controls: ControlComponent[] = null;
-
+  private renderControl: ControlComponent = null;
   private getControls(cameras: QueryList<CameraComponent>, scenes: QueryList<SceneComponent>, domElement: HTMLElement): ControlComponent[] {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
     let autoRotate: boolean = this.autoRotate;
+    if (this.renderControl !== null) {
+      this.renderControl.ngOnDestroy();
+      this.renderControl = null;
+    }
     if (cameras !== null && cameras.length > 0) {
       let cameraCompFounded: boolean = false;
       cameraComp = cameras.find((camera) => {
@@ -627,9 +794,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     }
     let controls: ControlComponent[] = [];
     if (cameraComp !== null && cameraComp !== undefined) {
-      const camera: THREE.Camera = cameraComp.getObject3d();
-      this.unSubscribeRefer('control-camera');
-      // const scene: THREE.Scene = scenes.first.getScene();
+      const camera: THREE.Camera = cameraComp.getCamera();
       switch (controlType.toLowerCase()) {
         case 'orbit':
         case 'fly':
@@ -679,6 +844,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           });
           control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);
+          this.renderControl = control;
       }
       if (this.controlList !== null && this.controlList !== undefined) {
         this.controlList.forEach((control) => {
@@ -686,16 +852,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           controls.push(control);
         });
       }
-      this.subscribeRefer(
-        'control-camera',
-        ThreeUtil.getSubscribe(
-          cameraComp,
-          () => {
-            this.controls = this.getControls(this.cameraList, this.sceneList, this.canvasEle.nativeElement);
-          },
-          'camera'
-        )
-      );
     }
     return controls;
   }
@@ -737,30 +893,21 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           return;
         }
     }
-    if (this.guiControl != null) {
-      ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
-    }
     this.clock = ThreeUtil.getClock(true);
-    if (this.statsMode >= 0) {
-      if (this.stats === null) {
-        this.getStats();
-      }
-      this.stats.showPanel(this.statsMode);
-    } else {
-      this.stats = null;
-    }
-    this.sharedList.forEach((shared) => {
-      shared.getShared();
-    });
     this.renderer = this.getRenderer();
-    this.applyChanges(['init']);
-    this.resizeRender();
-    this._renderCaller();
   }
 
   getRenderer(): THREE.Renderer {
     if (this.renderer === null || this._needUpdate) {
       this.needUpdate = false;
+      if (this.renderer !== null) {
+        this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+        this.renderer = null;
+      }
+      if (this.cssRenderer !== null) {
+        this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
+        this.cssRenderer = null;
+      }
       GSAP.gsap.ticker.fps(60);
       if (this._renderCaller !== null) {
         GSAP.gsap.ticker.remove(this._renderCaller);
@@ -796,33 +943,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.rendererWidth = width;
         this.rendererHeight = height;
       }
-      if (this.renderer instanceof THREE.WebGLRenderer) {
-        if (ThreeUtil.isNotNull(this.clearColor)) {
-          this.renderer.setClearColor(this.getClearColor());
-        }
-        if (ThreeUtil.isNotNull(this.clearAlpha)) {
-          this.renderer.setClearAlpha(this.getClearAlpha());
-        }
-        if (ThreeUtil.isNotNull(this.toneMapping)) {
-          this.renderer.toneMapping = this.getToneMapping();
-        }
-        if (ThreeUtil.isNotNull(this.toneMappingExposure)) {
-          this.renderer.toneMappingExposure = this.toneMappingExposure;
-        }
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.shadowMap.enabled = this.shadowMapEnabled;
-        this.renderer.physicallyCorrectLights = this.physicallyCorrectLights;
-        if (this.renderer.shadowMap.enabled && ThreeUtil.isNotNull(this.shadowMapType)) {
-          this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
-        }
-        this.renderer.autoClear = this.autoClear;
-        this.renderer.autoClearColor = this.autoClearColor;
-        if (ThreeUtil.isNotNull(this.outputEncoding)) {
-          this.renderer.outputEncoding = ThreeUtil.getTextureEncodingSafe(this.outputEncoding, 'linear');
-        }
-        this.renderer.localClippingEnabled = this.localClippingEnabled;
-        this.renderer.clippingPlanes = !this.globalClippingEnabled ? [] : this.getClippingPlanes();
-      }
       if (this.cssRenderer !== null) {
         this.cssRenderer.domElement.style.position = 'absolute';
         this.cssRenderer.domElement.style.top = '0px';
@@ -835,6 +955,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       ThreeUtil.setRenderer(this);
       this.renderer['userData'] = {};
       super.setObject(this.renderer);
+      window.setTimeout(() => {
+        // console.clear();
+        // console.error('renderer dual');
+      }, 1000);
+      this._renderCaller();
       // GSAP.gsap.ticker.add(this._renderCaller);
     }
     return this.renderer;
@@ -878,7 +1003,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.stats.begin();
     }
     const renderTimer = this.clock.getTimer();
-    this.events.direction.lerp(this.events.keyInfo.xy,renderTimer.delta/3);
+    this.events.direction.lerp(this.events.keyInfo.xy, renderTimer.delta / 3);
     this.onRender.emit(renderTimer);
     this.controllerList.forEach((controller) => {
       controller.update(renderTimer);
