@@ -1355,6 +1355,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 }
                 this.clipMesh = loadedMesh;
                 this.storageSource = source;
+                if (this.parentObject3d !== null) {
+                  this.parentObject3d.add(loadedMesh);
+                }
                 this.setMesh(loadedMesh);
               },
               this.storageOption

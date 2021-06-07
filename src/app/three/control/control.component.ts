@@ -119,7 +119,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
                   this.addChanges('target');
                 }, 'lookat'));
               } else {
-                if (ThreeUtil.isNotNull(this.lookatList)) {
+                if (ThreeUtil.isNotNull(this.lookatList) && this.lookatList.length > 0) {
                   this.control['target'] = this.lookatList.first.getLookAt();
                   this.subscribeRefer('target', ThreeUtil.getSubscribe(this.lookatList.first, () => {
                     this.addChanges('target');
