@@ -715,10 +715,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'composer':
             if (this.renderer instanceof THREE.WebGLRenderer) {
-              const camera = this.cameraList.first.getObject3d();
+              const camera = this.cameraList.first.getCamera();
               const scene = this.sceneList.first.getScene();
-              this.composerList.forEach((composer) => {
-                composer.getEffectComposer(this.renderer as THREE.WebGLRenderer, camera, scene);
+              this.composerList.forEach(composer => {
+                composer.setRenderer(this.renderer as THREE.WebGLRenderer, camera, scene);
               });
             }
             break;

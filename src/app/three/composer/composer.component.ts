@@ -184,13 +184,6 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
-  resetEffectComposer() {
-    this.effectComposer = null;
-    if (this.effectCamera !== null && this.webGLRenderer) {
-      this.effectComposer = this.getEffectComposer(this.webGLRenderer, this.effectCamera, this.effectScene);
-    }
-  }
-
   private composerWidth: number = 0;
   private composerHeight: number = 0;
 
@@ -218,29 +211,30 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
-  private webGLRenderer: THREE.WebGLRenderer = null;
-  private effectCamera: THREE.Camera = null;
-  private effectScene: THREE.Scene = null;
   private effectComposer: EffectComposer | any = null;
 
-  getWriteBuffer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).writeBuffer;
+  getWriteBuffer(): THREE.WebGLRenderTarget {
+    return this.getComposer().writeBuffer;
   }
 
-  getReadBuffer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).readBuffer;
+  getReadBuffer(): THREE.WebGLRenderTarget {
+    return this.getComposer().readBuffer;
   }
 
-  getRenderTarget1(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget1;
+  getRenderTarget1(): THREE.WebGLRenderTarget {
+    return this.getComposer().renderTarget1;
   }
 
-  getRenderTarget2(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): THREE.WebGLRenderTarget {
-    return this.getEffectComposer(webGLRenderer, camera, scene).renderTarget2;
+  getRenderTarget2(): THREE.WebGLRenderTarget {
+    return this.getComposer().renderTarget2;
   }
 
   applyChanges(changes: string[]) {
     if (this.effectComposer !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'pass')) {
+        this.needUpdate = true;
+        return ; 
+      }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
       }
@@ -248,8 +242,10 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         switch (change.toLowerCase()) {
           case 'pass':
             if (this.effectComposer instanceof EffectComposer) {
+              const scene = this.getScene(this._composerScene);
+              const camera = this.getCamera(this._composerCamera);
               this.pass.forEach((item) => {
-                item.getPass(this._composerScene, this._composerCamera, this.effectComposer);
+                item.getPass(scene, camera, this.effectComposer);
               });
             }
             break;
@@ -258,33 +254,40 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
+  private _composerRenderer: THREE.WebGLRenderer = null;
   private _composerCamera: THREE.Camera = null;
   private _composerScene: THREE.Scene = null;
 
-  getEffectComposer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene): EffectComposer | any {
-    if (this.effectComposer === null || this._needUpdate) {
+  setRenderer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene) {
+    if (this._composerRenderer !== webGLRenderer || this._composerCamera !== camera || this._composerScene !== scene){
+      this.needUpdate = true;
+    }
+  }
+
+  getObject() : EffectComposer | any {
+    return this.getComposer();
+  }
+
+  getComposer(): EffectComposer | any {
+    if (this._composerRenderer !== null && this._composerCamera && this._composerScene && (this.effectComposer === null || this._needUpdate)) {
       this.needUpdate = false;
       switch (this.type.toLowerCase()) {
         case 'peppersghost':
-          const peppersGhostEffect = new PeppersGhostEffect(webGLRenderer);
+          const peppersGhostEffect = new PeppersGhostEffect(this._composerRenderer);
           peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
           peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(false);
           this.effectComposer = peppersGhostEffect;
           break;
         case 'outline':
-          const outlineEffect = new OutlineEffect(webGLRenderer, {});
+          const outlineEffect = new OutlineEffect(this._composerRenderer, {});
           this.effectComposer = outlineEffect;
           break;
         case 'parallaxbarrier':
-          this.effectComposer = new ParallaxBarrierEffect(webGLRenderer);
+          this.effectComposer = new ParallaxBarrierEffect(this._composerRenderer);
           break;
         default:
-          const effectComposer = new EffectComposer(webGLRenderer, this.getRenderTarget(webGLRenderer));
+          const effectComposer = new EffectComposer(this._composerRenderer, this.getRenderTarget(this._composerRenderer));
           effectComposer.setPixelRatio(window.devicePixelRatio);
-          const composerCamera = this.getCamera(camera);
-          this._composerCamera = composerCamera;
-          this._composerScene = this.getScene(scene);
-
           this.effectComposer = effectComposer;
           if (ThreeUtil.isNotNull(this.renderToScreen)) {
             this.effectComposer.renderToScreen = this.renderToScreen;

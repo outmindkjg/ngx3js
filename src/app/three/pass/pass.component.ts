@@ -778,6 +778,24 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   private effectCamera: THREE.Camera = null;
   private pass: Pass = null;
 
+  setScene(scene?: THREE.Scene) {
+    if (this.effectScene !== scene) {
+      this.effectScene = scene;
+      if (this.pass !== null && this.pass['scene'] !== undefined) {
+        this.pass['scene'] = this.getScene(this.effectScene);
+      } 
+    }
+  }
+
+  setCamera(camera?: THREE.Camera) {
+    if (this.effectCamera !== camera) {
+      this.effectCamera = camera;
+      if (this.pass !== null && this.pass['camera'] !== undefined) {
+        this.pass['camera'] = this.getCamera(this.effectCamera);
+      } 
+    }
+  }
+
   getPass(scene?: THREE.Scene, camera?: THREE.Camera, effectComposer?: EffectComposer): Pass {
     if (ThreeUtil.isNull(scene) || ThreeUtil.isNull(camera)) {
       return this.pass;

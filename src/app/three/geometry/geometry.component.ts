@@ -491,17 +491,18 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   private targetMesh: THREE.Mesh = null;
 
   private getSubGeometry(): THREE.BufferGeometry {
+    let geometry : THREE.BufferGeometry = null;
     if (this.targetMesh !== null && this.targetMesh.geometry) {
-      return this.targetMesh.geometry;
+      geometry = this.targetMesh.geometry;
     } else if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
       if (this.refGeometry.getGeometry) {
-        const geometry = this.refGeometry.getGeometry();
-        if (geometry !== null) {
-          return geometry;
-        }
+        geometry = this.refGeometry.getGeometry();
       }
     } else if (this.geometryList !== null && this.geometryList.length > 0) {
-      return this.geometryList.first.getGeometry();
+      geometry = this.geometryList.first.getGeometry();
+    }
+    if (geometry !== null && ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
+      return geometry;
     }
     return new THREE.PlaneGeometry(1, 1, 1, 1);
   }
