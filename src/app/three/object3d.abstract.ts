@@ -357,16 +357,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   setObject3d(object3d: THREE.Object3D) {
     if (this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
-        if (object3d !== null) {
-          this.object3d.children.forEach(child => {
-            object3d.children.push(child);
-          });
-          if (object3d.parent === null) {
-            this.object3d.parent.add(object3d);
-          }
-        }
         this.object3d.parent.remove(this.object3d);
-      } else if (object3d !== null && object3d.parent === null && this.parentObject3d !== null) {
+      }
+      if (object3d !== null && object3d.parent === null && this.parentObject3d !== null) {
         this.parentObject3d.add(object3d);
       }
       this.object3d = object3d;

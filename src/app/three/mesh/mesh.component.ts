@@ -1274,19 +1274,16 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                     if (geometry['animations'] !== null && geometry['animations'] !== undefined && geometry['animations'].length > 0) {
                       const morphAnim = new MorphAnimMesh(geometry, this.getMaterialOne());
                       loadedMesh = morphAnim;
-                      this.mesh.add(loadedMesh);
                       if (geometry['animations'] !== null) {
                         clips = geometry['animations'];
                       }
                     } else {
                       loadedMesh = new THREE.Mesh(geometry, this.getMaterialOne());
-                      this.mesh.add(loadedMesh);
                     }
                   } else if (ThreeUtil.isNotNull(morphTargets)) {
                     const baseGeometry = this.getGeometry();
                     baseGeometry.morphAttributes.position = morphTargets;
                     loadedMesh = new THREE.Mesh(baseGeometry, this.getMaterialOne());
-                    this.mesh.add(loadedMesh);
                     assignMaterial = false;
                   }
                 }
@@ -1355,9 +1352,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 }
                 this.clipMesh = loadedMesh;
                 this.storageSource = source;
-                if (this.parentObject3d !== null) {
-                  this.parentObject3d.add(loadedMesh);
-                }
+                loadedMesh.parent = null;
                 this.setMesh(loadedMesh);
               },
               this.storageOption
