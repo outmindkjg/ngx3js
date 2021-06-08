@@ -71,7 +71,7 @@ void main() {
   particles : THREE.Points = null ;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.particles = mesh.getObject3d().children[0] as THREE.Points;
+    this.particles = mesh.getObject3d() as THREE.Points;
   } 
 
   lastIntersect : number = null;

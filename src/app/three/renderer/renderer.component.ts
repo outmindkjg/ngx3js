@@ -147,14 +147,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngOnDestroy(): void {
-    if (this.renderer !== null) {
-      this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
-      this.renderer = null;
-    }
-    if (this.cssRenderer !== null) {
-      this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
-      this.cssRenderer = null;
-    }
+    this.dispose();
     if (this.stats !== null) {
       this.stats.dom.parentNode.removeChild(this.stats.dom);
     }
@@ -185,6 +178,20 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     this.subscribeListQuery(this.canvas2dList, 'canvas2dList', 'canvas2d');
     this.subscribeListQuery(this.sharedList, 'sharedList', 'shared');
     super.ngAfterContentInit();
+  }
+
+  dispose() {
+    if (this.renderer !== null && this.renderer instanceof THREE.WebGLRenderer) {
+      if (this.renderer.domElement && this.renderer.domElement.parentNode) {
+        this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+      }
+      this.renderer.dispose();
+    }
+    if (this.cssRenderer !== null) {
+      if (this.cssRenderer.domElement && this.cssRenderer.domElement.parentNode) {
+        this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
+      }
+    }
   }
 
   removeWindowEvent(type: string, listener: any) {
@@ -223,16 +230,17 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     event: {},
   };
 
+  private offsetTop : number = 0;
+  private offsetLeft : number = 0;
+  private offsetRight : number = 0;
+  private offsetBottom : number = 0;
+
   private setEvents(type: string, event: TouchInit | KeyboardEvent) {
-    const offsetTop = this.rendererEle.nativeElement.offsetTop;
-    const offsetLeft = this.rendererEle.nativeElement.offsetLeft;
-    const offsetRight = offsetLeft + this.rendererWidth;
-    const offsetBottom = offsetTop + this.rendererHeight;
     let clientX = 0;
     let clientY = 0;
     if (event instanceof KeyboardEvent) {
-      clientX = offsetLeft;
-      clientY = offsetTop;
+      clientX = this.offsetLeft;
+      clientY = this.offsetTop;
       const keyInfo = this.events.keyInfo;
       if (event.type == 'keyup') {
         keyInfo.code = null;
@@ -273,9 +281,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       clientX = event.clientX;
       clientY = event.clientY;
     }
-    if (clientX >= offsetLeft && clientX <= offsetRight && clientY >= offsetTop && clientY <= offsetBottom) {
-      const offsetX = clientX - offsetLeft;
-      const offsetY = clientY - offsetTop;
+    if (clientX >= this.offsetLeft && clientX <= this.offsetRight && clientY >= this.offsetTop && clientY <= this.offsetBottom) {
+      const offsetX = clientX - this.offsetLeft;
+      const offsetY = clientY - this.offsetTop;
       this.events.type = type;
       this.events.clientX = clientX;
       this.events.clientY = clientY;
@@ -355,7 +363,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.rendererHeight = height;
       this.events.width = this.rendererWidth;
       this.events.height = this.rendererHeight;
-
+      this.offsetTop = 0;
+      this.offsetLeft = 0;
+      let offsetParent = this.rendererEle.nativeElement;
+      while(offsetParent) {
+        this.offsetLeft += offsetParent.offsetLeft;
+        this.offsetTop += offsetParent.offsetTop;
+        offsetParent = offsetParent.offsetParent;
+      }
+      this.offsetRight = this.offsetLeft + this.rendererWidth;
+      this.offsetBottom = this.offsetTop + this.rendererHeight;
       this.events.size.set(this.rendererWidth, this.rendererHeight);
       this.renderer.setSize(this.rendererWidth, this.rendererHeight);
       this.composerList.forEach((composer) => {
@@ -520,6 +537,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol','webglrenderer']);
       }
+      this.consoleLog('render',changes);
       if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
         changes = ThreeUtil.pushUniq(changes, ['guicontrol']);
       }
@@ -886,6 +904,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       case 'gl2':
       case 'webgl2':
         if (WEBGL.isWebGL2Available() === false) {
+          this.dispose();
           this.renderer = null;
           this.userGestureSubscribe(WEBGL.getWebGL2ErrorMessage()).subscribe(() => {
             this.ngAfterViewInit();
@@ -897,15 +916,18 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     this.renderer = this.getRenderer();
   }
 
+  getObject(): THREE.Renderer {
+    return this.getRenderer();
+  }
+
   getRenderer(): THREE.Renderer {
     if (this.renderer === null || this._needUpdate) {
       this.needUpdate = false;
+      this.dispose();
       if (this.renderer !== null) {
-        this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
         this.renderer = null;
       }
       if (this.cssRenderer !== null) {
-        this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
         this.cssRenderer = null;
       }
       GSAP.gsap.ticker.fps(60);
@@ -955,10 +977,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       ThreeUtil.setRenderer(this);
       this.renderer['userData'] = {};
       super.setObject(this.renderer);
-      window.setTimeout(() => {
-        // console.clear();
-        // console.error('renderer dual');
-      }, 1000);
+      this.resizeRender();
       this._renderCaller();
       // GSAP.gsap.ticker.add(this._renderCaller);
     }

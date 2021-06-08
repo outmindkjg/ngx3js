@@ -172,7 +172,7 @@ export interface CssStyle {
 }
 
 @Injectable()
-export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
+export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   controls: T & GuiBaseControl;
   controlsParams: GuiControlParam[];
   constructor(controls: T, controlsParams: GuiControlParam[] = []) {
@@ -188,6 +188,32 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.controls.meshRotate.applyAutoRotate();
+  }
+
+  private _logTimeSeqn : number = 0;
+  protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
+    this._logTimeSeqn ++; 
+    if (this._logTimeSeqn % repeat === 0) {
+      this.consoleLog(key, object, 'log');
+    }
+  }
+
+  protected consoleLog(key: string, object: any, level : string = 'log'): void {
+    switch(level) {
+      case 'error' :
+        console.error(key, object);
+        break;
+      case 'info' :
+        console.info(key, object);
+        break;
+      case 'trace' :
+        console.trace(key, object);
+        break;
+      case 'log' :
+      default :
+        // console.log(key, object);
+        break;
+    }
   }
 
   public renderer: RendererComponent = null;

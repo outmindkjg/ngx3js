@@ -77,10 +77,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
   setSphere(mesh : MeshComponent) {
     this.sphereMesh = mesh.getObject3d();
     setTimeout(() => {
-      this.spheres = [];
-      this.sphereMesh.children.forEach(child => {
-        this.spheres.push(child);
-      });
+      this.spheres = this.sphereMesh.children;
     }, 1000);
   }
 
@@ -115,7 +112,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.sphereMesh !== null && this.camera !== null && this.meshChildren !== null && this.mouseEvent !== null) {
+    if (this.sphereMesh !== null && this.camera !== null && this.meshChildren !== null && this.mouseEvent !== null && this.spheres) {
       const intersection = this.camera.getIntersection(this.mouseEvent, this.meshChildren);
       if ( this.toggle > 0.06 && intersection !== null ) {
         const spheres = this.spheres;

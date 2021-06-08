@@ -40,9 +40,9 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       }
       this._subscribeList = {};
     }
+    this.dispose();
     this.onDestory.emit(this);
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.overrideParams) {
@@ -52,6 +52,8 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   }
 
   ngAfterContentInit(): void {}
+
+  dispose() {}
 
   setSubscribeType(subscribeType: string) {
     this.subscribeType = subscribeType || 'nonamed';
@@ -112,7 +114,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       default :
         // console.log(this.subscribeType ,key, object);
         break;
-      
     }
   }
 
