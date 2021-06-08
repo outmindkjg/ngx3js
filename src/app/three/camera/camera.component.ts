@@ -301,18 +301,18 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.getObject3d();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody','mixer', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listner', 'audio', 'helper', 'light']);
+        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'mixer', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'listner':
-            this.listenerList.forEach((listner) => {
-              listner.setParent(this.camera);
+          case 'listener':
+            this.listenerList.forEach((listener) => {
+              listener.setParent(this.camera);
             });
             break;
           case 'audio':
@@ -508,13 +508,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.isCameraChild = false;
         this.setObject3d(this.camera);
       }
-
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
           (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
             this.clips = clips;
-            this.applyChanges3d(['mixer']);
+            this.addChanges('mixer');
           },
           { object: this.camera }
         );

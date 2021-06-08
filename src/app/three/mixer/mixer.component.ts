@@ -279,9 +279,13 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
           this.isAdded = true;
         }
       } else if (this.model instanceof THREE.Audio) {
-        helper.add(this.model, {
-          delayTime: this.getDelayTime()
-        })
+        if (this.model.buffer !== null) {
+          helper.add(this.model, {
+            delayTime: this.getDelayTime()
+          })
+        } else {
+          console.error('mix error');
+        }
       }
     }
   }

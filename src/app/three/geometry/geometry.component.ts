@@ -1,6 +1,5 @@
 import { Component, ContentChildren, Input, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
@@ -14,6 +13,7 @@ import { SimplifyModifier } from 'three/examples/jsm/modifiers/SimplifyModifier'
 import { TessellateModifier } from 'three/examples/jsm/modifiers/TessellateModifier';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { CurveComponent } from '../curve/curve.component';
+import { CurvesNormalParameters, CurveUtils } from '../curve/curveUtils';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PositionComponent } from '../position/position.component';
@@ -209,6 +209,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   @Input() private sizeY: number = null;
   @Input() private sizeZ: number = null;
   @Input() private curve: string = null;
+  @Input() private curveOption: any = null;
+  @Input() private curveNormal: boolean = null;
+  @Input() private curveNormalOption: string = null;
   @Input() private toNonIndexed: boolean = null;
   @Input() private flipY: boolean = null;
   @Input() private refGeometry: any = null;
@@ -640,47 +643,29 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
 
   private getCurve(def?: string): THREE.Curve<THREE.Vector3> {
     const curve = ThreeUtil.getTypeSafe(this.curve, def, '');
-    switch (curve.toLowerCase()) {
-      case 'grannyknot':
-        return new Curves.GrannyKnot();
-      case 'heartcurve':
-        return new Curves.HeartCurve(this.getScale());
-      case 'vivianicurve':
-        return new Curves.VivianiCurve(this.getScale());
-      case 'knotcurve':
-        return new Curves.KnotCurve();
-      case 'helixcurve':
-        return new Curves.HelixCurve();
-      case 'trefoilknot':
-        return new Curves.TrefoilKnot(this.getScale());
-      case 'torusknot':
-        return new Curves.TorusKnot(this.getScale());
-      case 'cinquefoilknot':
-        return new Curves.CinquefoilKnot(this.getScale());
-      case 'trefoilpolynomialknot':
-        return new Curves.TrefoilPolynomialKnot(this.getScale());
-      case 'decoratedtorusknot4b':
-        return new Curves.DecoratedTorusKnot4b(this.getScale());
-      case 'decoratedtorusknot4a':
-        return new Curves.DecoratedTorusKnot4a(this.getScale());
-      case 'figureeightpolynomialknot':
-        return new Curves.FigureEightPolynomialKnot(this.getScale());
-      case 'decoratedtorusknot5a':
-        return new Curves.DecoratedTorusKnot5a(this.getScale());
-      case 'decoratedtorusknot5c':
-        return new Curves.DecoratedTorusKnot5c(this.getScale());
-      default:
-        if (this.curveList !== null && this.curveList.length > 0) {
-          return this.curveList.first.getCurve() as THREE.Curve<THREE.Vector3>;
-        } else {
-          const extrudePath = this.getExtrudePath();
-          if (ThreeUtil.isNotNull(extrudePath)) {
-            return extrudePath;
-          }
-        }
-        break;
+    let curveLine : THREE.Curve<THREE.Vector3> = null;
+    if (ThreeUtil.isNotNull(curve) && curve !== '') {
+      curveLine = CurveUtils.getCurve(curve, this.getScale(), this.curveOption );
     }
-    return new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0));
+    if (curveLine === null) {
+      if (this.curveList !== null && this.curveList.length > 0) {
+        curveLine = this.curveList.first.getCurve() as THREE.Curve<THREE.Vector3>;
+      } else {
+        const extrudePath = this.getExtrudePath();
+        if (ThreeUtil.isNotNull(extrudePath)) {
+          curveLine = extrudePath;
+        }
+      }
+    }
+    if (curveLine !== null) {
+      if (ThreeUtil.isNotNull(this.curveNormal) && this.curveNormal) {
+        return CurveUtils.getCurveNormal(curveLine, { options : this.curveNormalOption }); 
+      } else {
+        return curveLine;
+      }
+    } else {
+      return new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0));
+    }
   }
 
   private getAttribute(value: AttrBufferAttribute, itemSize: number, usage?: string, bufferType?: string, normalized?: boolean): THREE.BufferAttribute {
@@ -1049,6 +1034,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'align':
             if (ThreeUtil.isNotNull(this.align) && ThreeUtil.isNotNull(this.geometry.getAttribute('position'))) {
+              this.geometry.center();
               this.geometry.computeBoundingBox();
               const boundingBox = this.geometry.boundingBox;
               const alignSides = ['left', 'center', 'right', 'top', 'middle', 'bottom', 'front', 'back', 'double'];
@@ -1057,13 +1043,13 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                 if (alignGeometry.indexOf(side) > -1) {
                   switch (side.toLowerCase()) {
                     case 'left':
-                      this.geometry.translate(-boundingBox.min.x, 0, 0);
+                      this.geometry.translate(-boundingBox.max.x, 0, 0);
                       break;
                     case 'center':
                       this.geometry.translate(-(boundingBox.max.x + boundingBox.min.x) / 2, 0, 0);
                       break;
                     case 'right':
-                      this.geometry.translate(-boundingBox.max.x, 0, 0);
+                      this.geometry.translate(-boundingBox.min.x, 0, 0);
                       break;
                     case 'top':
                       this.geometry.translate(0, -boundingBox.max.y, 0);

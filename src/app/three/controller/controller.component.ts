@@ -212,7 +212,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
     this._renderer = renderer;
     this._event = ThreeUtil.getThreeComponent(renderer)?.events;
-    console.log(renderer);
     this._scenes = scenes;
     this._cameras = cameras;
     this._canvas2ds = canvas2ds;
@@ -350,12 +349,11 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       this._controller.update(rendererTimer);
     } else if (this.refObject3d !== null && this._controllerItems !== null) {
       const events: string[] = [];
-      if (this._event !== null) {
-        this.renderTime += this._event.direction.y / 1000 * rendererTimer.delta;
+      if (this._event !== null && false) {
+         this.renderTime += this._event.direction.y / 1000 * rendererTimer.delta;
       } else {
         this.renderTime += rendererTimer.delta;
       }
-
       const dirRendererTimer : RendererTimer = {
         elapsedTime : this.renderTime,
         delta : rendererTimer.delta 

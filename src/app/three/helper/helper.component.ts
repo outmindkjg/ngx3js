@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
@@ -59,10 +59,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       }
     }
     return target;
-  }
-
-  private getVisible(def?: boolean): boolean {
-    return ThreeUtil.getTypeSafe(this.visible, def);
   }
 
   private getSize(def?: number): number {
@@ -204,20 +200,44 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
       return true;
     } else {
       if (this._refererTarget !== this.parent) {
-        this.helper = null;
-        this.getHelper();
+        this.needUpdate = true;
       }
     }
     return false;
+  }
+
+  applyChanges3d(changes: string[]) {
+    if (this.helper !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getObject3d();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, [], this.OBJECT3D_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, []);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          default:
+            break;
+        }
+      });
+      super.applyChanges3d(changes);
+    }
+  }
+
+  getObject3d(): THREE.Object3D {
+    return this.getHelper();
   }
 
   public getHelper(): THREE.Object3D {
     if (this.helper === null || this._needUpdate) {
       this.needUpdate = false;
       this._refererTarget = this.parent;
-      if (this.helper !== null && this.helper.parent) {
-        this.helper.parent.remove(this.helper);
-      }
+      this.removeObject3d(this.helper);
       if (this.parent !== null) {
         this.parent.updateMatrixWorld(true);
       }
@@ -239,9 +259,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             });
           }
           basemesh = gyroscope;
-          if (this.parent !== null && this.parent instanceof THREE.Object3D) {
-            this.parent.add(basemesh);
-          }
           break;
         case 'csmhelper':
         case 'csm':
@@ -254,9 +271,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           }
           const csmHelper = new CSMHelper(csm);
           basemesh = csmHelper as any;
-          if (this.parent !== null && this.parent instanceof THREE.Object3D) {
-            this.parent.add(basemesh);
-          }
           break;
         case 'arrowhelper':
         case 'arrow':
@@ -363,7 +377,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'axes':
         default:
           basemesh = new THREE.AxesHelper(this.getSize(10));
-          this.parent.add(basemesh);
           break;
       }
       if (basemesh !== null) {
@@ -389,7 +402,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         if (ThreeUtil.isNotNull(this.matrix)) {
           this.helper.applyMatrix4(this.matrix);
         }
-        this.setObject3d(this.helper);
+        this.setParentObject3d(this.helper);
       } else {
         this.helper = null;
       }

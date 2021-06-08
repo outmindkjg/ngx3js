@@ -118,7 +118,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   private _applyChangeBind: any = null;
 
-  public addChanges(key: string | SimpleChanges) {
+  public addChanges(key: string | string[] | SimpleChanges) {
     if (this._changeList === null) {
       this._changeList = [];
     }
@@ -126,6 +126,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       if (this._changeList.indexOf(key) === -1) {
         this._changeList.push(key);
       }
+    } else if (Array.isArray(key)) {
+      key.forEach(subKey => {
+        if (this._changeList.indexOf(subKey) === -1) {
+          this._changeList.push(subKey);
+        }
+      });
     } else {
       Object.entries(key).forEach(([subKey, _]) => {
         if (this._changeList.indexOf(subKey) === -1) {

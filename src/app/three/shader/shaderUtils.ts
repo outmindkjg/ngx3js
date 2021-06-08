@@ -1,10 +1,10 @@
-import { IUniform, Uniform, UniformsUtils } from "three";
+import { IUniform, UniformsUtils } from "three";
 import { AfterimageShader } from "three/examples/jsm/shaders/AfterimageShader";
 import { BasicShader } from "three/examples/jsm/shaders/BasicShader";
 import { BleachBypassShader } from "three/examples/jsm/shaders/BleachBypassShader";
 import { BlendShader } from "three/examples/jsm/shaders/BlendShader";
 import { BokehShader } from "three/examples/jsm/shaders/BokehShader";
-import { BokehShader as BokehShader2} from "three/examples/jsm/shaders/BokehShader2";
+import { BokehShader as BokehShader2 } from "three/examples/jsm/shaders/BokehShader2";
 import { BrightnessContrastShader } from "three/examples/jsm/shaders/BrightnessContrastShader";
 import { ColorCorrectionShader } from "three/examples/jsm/shaders/ColorCorrectionShader";
 import { ColorifyShader } from "three/examples/jsm/shaders/ColorifyShader";

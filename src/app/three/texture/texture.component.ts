@@ -211,7 +211,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     );
   }
 
-  static getTextureImageOption(image: any, optionsTxt?: string, loadType?: string, cubeImage?: string[]): THREE.Texture {
+  static getTextureImageOption(image: any, optionsTxt?: string, loadType?: string, cubeImage?: string[], onLoad? : () => void ): THREE.Texture {
     const loadOption: { [key: string]: any } = {
       width: 10,
       height: 10,
@@ -450,9 +450,13 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     } else if (image instanceof THREE.Texture) {
       texture = image;
     } else {
-      texture = this.getTextureImage(image, cubeImage, null, loadOption);
+      texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
+        this.setTextureOptions(texture, textureOption);
+        if (ThreeUtil.isNotNull(onLoad)) {
+          onLoad();
+        }
+      });
     }
-    this.setTextureOptions(texture, textureOption);
     return texture;
   }
 
@@ -591,11 +595,11 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             if (this.textureLoader === null) {
               this.textureLoader = new THREE.TextureLoader(ThreeUtil.getLoadingManager());
             }
-            return this.textureLoader.load(ThreeUtil.getStoreUrl(image), (texture) => {
-              if (ThreeUtil.isNotNull(onLoad)) {
-                onLoad();
-              }
+            const texture = this.textureLoader.load(ThreeUtil.getStoreUrl(image), () => {
+              texture.needsUpdate = true;
+              onLoad();
             });
+            return texture;
           }
       }
     } else {

@@ -45,7 +45,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return ThreeUtil.getTypeSafe(this.loDistance, def);
   }
 
-  constructor();
+  protected getVisible(def?: boolean): boolean {
+    return ThreeUtil.getTypeSafe(this.visible, def);
+  }
+
+  protected getName(def?: string): string {
+    return ThreeUtil.getTypeSafe(this.name, def);
+  }
 
   constructor() {
     super();
@@ -58,10 +64,16 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   ngOnDestroy(): void {
     if (this.object3d != null) {
       if (this.object3d.parent !== null) {
-        this.object3d.parent.remove(this.object3d);
+        this.removeObject3d(this.object3d);
         this.object3d.parent = null;
         this.object3d = null;
       }
+    }
+    if (this._addedReferChild !== null && this._addedReferChild.length > 0) {
+      this._addedReferChild.forEach(child => {
+        this.removeObject3d(child);
+      });
+      this._addedReferChild = [];
     }
     super.ngOnDestroy();
   }
@@ -71,13 +83,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     if (changes && this.object3d !== null) {
       if (changes.visible) {
         if (ThreeUtil.isNotNull(this.visible)) {
-          this.object3d.visible = this.visible;
+          this.object3d.visible = this.getVisible(true);
         }
         delete changes.visible;
       }
       if (changes.name) {
         if (ThreeUtil.isNotNull(this.name)) {
-          this.object3d.name = this.name;
+          this.object3d.name = this.getName('no-name');
         }
         delete changes.name;
       }
@@ -354,13 +366,60 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return false;
   }
 
+  removeObject3d(object3d : THREE.Object3D) {
+    if (object3d !== null && object3d.parent !== null) {
+      object3d.parent.remove(object3d);
+      object3d.parent = null;
+    }
+  }
+
+  private _addedReferChild : THREE.Object3D[] = [];
+  addParentObject3d(object3d : THREE.Object3D, changes? : string | string[]) {
+    if (ThreeUtil.isNotNull(this.object3d) && ThreeUtil.isNotNull(object3d)) {
+      if (this.object3d.parent !== null) {
+        this.object3d.parent.add(object3d);
+      } else {
+        this.object3d.add(object3d);
+      }
+      this._addedReferChild.push(object3d);
+      if (ThreeUtil.isNotNull(changes)) {
+        this.addChanges(changes);
+      }
+    }
+  }
+
+  addChildObject3d(object3d : THREE.Object3D, changes? : string | string[]) {
+    if (ThreeUtil.isNotNull(this.object3d) && ThreeUtil.isNotNull(object3d)) {
+      this.object3d.add(object3d);
+      this._addedReferChild.push(object3d);
+      if (ThreeUtil.isNotNull(changes)) {
+        this.addChanges(changes);
+      }
+    }
+  }
+  
+  setParentObject3d(object3d: THREE.Object3D) {
+    if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
+      this.setObject3d(object3d);
+      if (this.parentObject3d !== null && this.parentObject3d.parent !== null) {
+        this.parentObject3d.parent.add(this.object3d);
+      }
+    }
+  }
+
   setObject3d(object3d: THREE.Object3D) {
-    if (this.object3d !== object3d) {
+    if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
         this.object3d.parent.remove(this.object3d);
       }
       if (object3d !== null && object3d.parent === null && this.parentObject3d !== null) {
         this.parentObject3d.add(object3d);
+      }
+      if (this._addedReferChild !== null && this._addedReferChild.length > 0) {
+        this._addedReferChild.forEach(child => {
+          this.removeObject3d(child);
+        });
+        this._addedReferChild = [];
       }
       this.object3d = object3d;
       if (this.object3d !== null) {
@@ -447,7 +506,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             }
             break;
           case 'receiveshadow' :
-            if (!(this.object3d instanceof THREE.Light) && !(this.object3d instanceof THREE.Scene) && !(this.object3d instanceof THREE.Camera)) {
+            if (!(this.object3d instanceof THREE.Scene) && !(this.object3d instanceof THREE.Camera)) {
               if (ThreeUtil.isNotNull(this.receiveShadow)) {
                 this.object3d.receiveShadow = this.receiveShadow;
               }

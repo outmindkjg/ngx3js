@@ -408,9 +408,15 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption, name: string): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
       if (typeof map == 'string') {
-        return TextureComponent.getTextureImageOption(map, null, 'texture');
+        const texture = TextureComponent.getTextureImageOption(map, null, 'texture', null, () => {
+          this.addChanges('texture');
+        });
+        return texture;
       } else if (ThreeUtil.isNotNull(map['value'])) {
-        return TextureComponent.getTextureImageOption(map['value'], map['options'], map['type'] as string, map['cubeImage']);
+        const texture = TextureComponent.getTextureImageOption(map['value'], map['options'], map['type'] as string, map['cubeImage'], () => {
+          this.addChanges('texture');
+        });
+        return texture;
       } else {
         this.unSubscribeRefer(name);
         const texture = ThreeUtil.getTexture(map, name);
@@ -1161,7 +1167,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         switch (this.materialType.toLowerCase()) {
           case 'customdepthmaterial':
           case 'customdepth':
-            if (this._meshMaterial.customDepthMaterial !== undefined && this._meshMaterial.customDepthMaterial !== this.material) {
+            if (this._meshMaterial instanceof THREE.Object3D) {
               if (this.isIdEuals(this._meshMaterial.userData.customDepthMaterial)) {
                 this._meshMaterial.userData.customDepthMaterial = this.id;
                 this._meshMaterial.customDepthMaterial = this.material;
@@ -1170,7 +1176,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'customdistancematerial':
           case 'customdistance':
-            if (this._meshMaterial.customDistanceMaterial !== undefined && this._meshMaterial.customDistanceMaterial !== this.material) {
+            if (this._meshMaterial instanceof THREE.Object3D) {
               if (this.isIdEuals(this._meshMaterial.userData.customDistanceMaterial)) {
                 this._meshMaterial.userData.customDistanceMaterial = this.id;
                 this._meshMaterial.customDistanceMaterial = this.material;
@@ -1179,87 +1185,87 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'material':
           default:
-          if (this._meshMaterial instanceof THREE.Scene) {
-            switch (this.materialType.toLowerCase()) {
-              case 'background':
-                if (this.isIdEuals(this._meshMaterial.userData.background)) {
-                  this._meshMaterial.userData.background = this.id;
-                  const backgroundTexture: THREE.Texture = this.material['map'];
-                  if (ThreeUtil.isNotNull(backgroundTexture) && this._meshMaterial.background !== backgroundTexture) {
-                    this._meshMaterial.background = backgroundTexture;
-                  }
-                  const backgroundEnvMap: THREE.Texture = this.material['envMap'];
-                  if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
-                    this._meshMaterial.environment = backgroundEnvMap;
-                  }
-                }
-                break;
-              case 'environment':
-                if (this.isIdEuals(this._meshMaterial.userData.environment)) {
-                  this._meshMaterial.userData.environment = this.id;
-                  const environmentMap: THREE.Texture = this.material['map'];
-                  if (ThreeUtil.isNotNull(environmentMap) && this._meshMaterial.background !== environmentMap) {
-                    this._meshMaterial.environment = environmentMap;
-                  } else {
+            if (this._meshMaterial instanceof THREE.Scene) {
+              switch (this.materialType.toLowerCase()) {
+                case 'background':
+                  if (this.isIdEuals(this._meshMaterial.userData.background)) {
+                    this._meshMaterial.userData.background = this.id;
+                    const backgroundTexture: THREE.Texture = this.material['map'];
+                    if (ThreeUtil.isNotNull(backgroundTexture)) {
+                      this._meshMaterial.background = backgroundTexture;
+                    }
                     const backgroundEnvMap: THREE.Texture = this.material['envMap'];
-                    if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
+                    if (ThreeUtil.isNotNull(backgroundEnvMap)) {
                       this._meshMaterial.environment = backgroundEnvMap;
                     }
                   }
-                }
-                break;
-              case 'background-angular':
-              case 'backgroundangular':
-              case 'environment-angular':
-              case 'environmentangular':
-              case 'background-environment-angular':
-              case 'environment-background-angular':
-              case 'backgroundenvironmentangular':
-              case 'environmentbackgroundangular':
-                if (this.isIdEuals(this._meshMaterial.userData.angular)) {
-                  if (this._meshMaterial.userData.angular !== this.id) {
-                    this._meshMaterial.userData.angular = this.id;
-                    ThreeUtil.setSubscribeNext(this._meshMaterial, 'material');
+                  break;
+                case 'environment':
+                  if (this.isIdEuals(this._meshMaterial.userData.environment)) {
+                    this._meshMaterial.userData.environment = this.id;
+                    const environmentMap: THREE.Texture = this.material['map'];
+                    if (ThreeUtil.isNotNull(environmentMap) && this._meshMaterial.background !== environmentMap) {
+                      this._meshMaterial.environment = environmentMap;
+                    } else {
+                      const backgroundEnvMap: THREE.Texture = this.material['envMap'];
+                      if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
+                        this._meshMaterial.environment = backgroundEnvMap;
+                      }
+                    }
+                  }
+                  break;
+                case 'background-angular':
+                case 'backgroundangular':
+                case 'environment-angular':
+                case 'environmentangular':
+                case 'background-environment-angular':
+                case 'environment-background-angular':
+                case 'backgroundenvironmentangular':
+                case 'environmentbackgroundangular':
+                  if (this.isIdEuals(this._meshMaterial.userData.angular)) {
+                    if (this._meshMaterial.userData.angular !== this.id) {
+                      this._meshMaterial.userData.angular = this.id;
+                      ThreeUtil.setSubscribeNext(this._meshMaterial, 'material');
+                    }
+                  }
+                  break;
+                case 'overridematerial':
+                default:
+                  if (this.isIdEuals(this._meshMaterial.userData.angular)) {
+                    this._meshMaterial.userData.overrideMaterial = this.id;
+                    if (this._meshMaterial.overrideMaterial !== this.material) {
+                      this._meshMaterial.overrideMaterial = this.material;
+                    }
+                  }
+                  break;
+              }
+            } else {
+              if (Array.isArray(this._meshMaterial.material)) {
+                let oldMatrial: THREE.Material = null;
+                this._meshMaterial.material.forEach((mat) => {
+                  if (mat.userData.id === this.id) {
+                    oldMatrial = mat;
+                  }
+                });
+                if (oldMatrial !== null) {
+                  const idx = this._meshMaterial.material.indexOf(oldMatrial);
+                  if (idx > -1) {
+                    this._meshMaterial.material.splice(idx, 1);
                   }
                 }
-                break;
-              case 'overridematerial':
-              default:
-                if (this.isIdEuals(this._meshMaterial.userData.angular)) {
-                  this._meshMaterial.userData.overrideMaterial = this.id;
-                  if (this._meshMaterial.overrideMaterial !== this.material) {
-                    this._meshMaterial.overrideMaterial = this.material;
-                  }
+                if (this._meshMaterial.material.indexOf(this.material) === -1) {
+                  this._meshMaterial.material.push(this.material);
                 }
-                break;
-            }
-          } else {
-            if (Array.isArray(this._meshMaterial.material)) {
-              let oldMatrial : THREE.Material = null;
-              this._meshMaterial.material.forEach(mat => {
-                if (mat.userData.id === this.id) {
-                  oldMatrial = mat;
+              } else if (this._meshMaterial.material !== this.material) {
+                if (this.isIdEuals(this._meshMaterial.userData.material)) {
+                  this._meshMaterial.userData.material = this.id;
+                  this._meshMaterial.material = this.material;
                 }
-              });
-              if (oldMatrial !== null) {
-                const idx = this._meshMaterial.material.indexOf(oldMatrial);
-                if (idx > -1) {
-                  this._meshMaterial.material.splice(idx,1);
-                }
-              }
-              if (this._meshMaterial.material.indexOf(this.material) === -1) {
-                this._meshMaterial.material.push(this.material);
-              }
-            } else if (this._meshMaterial.material !== this.material) {
-              if (this.isIdEuals(this._meshMaterial.userData.material)) {
-                this._meshMaterial.userData.material = this.id;
-                this._meshMaterial.material = this.material;
               }
             }
-          }
-          break;
+            break;
         }
-      } else if (this.material !== material && material !== null){
+      } else if (this.material !== material && material !== null) {
         this.material = material;
       }
     }
@@ -1790,7 +1796,10 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
 
   protected synkTexture(texture: any, textureType: string) {
     if (ThreeUtil.isNotNull(texture) && this.material !== null && this.material[textureType] !== undefined) {
-      this.material[textureType] = ThreeUtil.getTexture(texture, textureType);
+      const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
+      if (foundTexture !== null) {
+        this.material[textureType] = foundTexture;
+      }
     }
   }
 
@@ -1801,52 +1810,56 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         return;
       }
       if (
-        !ThreeUtil.isOnlyIndexOf(changes, [
-          'blending',
-          'blenddst',
-          'blenddstalpha',
-          'blendequation',
-          'blendequationalpha',
-          'blendsrc',
-          'blendsrcalpha',
-          'clipintersection',
-          'clippingplanes',
-          'clipshadows',
-          'colorwrite',
-          'defines',
-          'depthfunc',
-          'depthtest',
-          'depthwrite',
-          'fog',
-          'opacity',
-          'polygonoffset',
-          'polygonoffsetfactor',
-          'polygonoffsetunits',
-          'precision',
-          'premultipliedalpha',
-          'dithering',
-          'flatshading',
-          'shadowside',
-          'tonemapped',
-          'transparent',
-          'stencilwrite',
-          'stencilfunc',
-          'stencilref',
-          'stencilwritemask',
-          'stencilfuncmask',
-          'stencilfail',
-          'stencilzfail',
-          'stencilzpass',
-          'userdata',
-          'alphatest',
-          'name',
-          'side',
-          'vertexcolors',
-          'visible',
-          'texture',
-          'color',
-          'colormultiply',
-        ], this.OBJECT_ATTR)
+        !ThreeUtil.isOnlyIndexOf(
+          changes,
+          [
+            'blending',
+            'blenddst',
+            'blenddstalpha',
+            'blendequation',
+            'blendequationalpha',
+            'blendsrc',
+            'blendsrcalpha',
+            'clipintersection',
+            'clippingplanes',
+            'clipshadows',
+            'colorwrite',
+            'defines',
+            'depthfunc',
+            'depthtest',
+            'depthwrite',
+            'fog',
+            'opacity',
+            'polygonoffset',
+            'polygonoffsetfactor',
+            'polygonoffsetunits',
+            'precision',
+            'premultipliedalpha',
+            'dithering',
+            'flatshading',
+            'shadowside',
+            'tonemapped',
+            'transparent',
+            'stencilwrite',
+            'stencilfunc',
+            'stencilref',
+            'stencilwritemask',
+            'stencilfuncmask',
+            'stencilfail',
+            'stencilzfail',
+            'stencilzpass',
+            'userdata',
+            'alphatest',
+            'name',
+            'side',
+            'vertexcolors',
+            'visible',
+            'texture',
+            'color',
+            'colormultiply',
+          ],
+          this.OBJECT_ATTR
+        )
       ) {
         this.needUpdate = true;
         return;

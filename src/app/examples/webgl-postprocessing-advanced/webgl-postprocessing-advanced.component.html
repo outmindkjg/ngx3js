@@ -97,6 +97,12 @@
     >
       <three-position [x]="0" [y]="-0.1" [z]="1" [normalize]="true"></three-position>
     </three-light>
+    <three-light
+      [type]="'AmbientLight'"
+      [color]="'0x111122'"
+      [intensity]="1"
+    >
+    </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="-50" [z]="0"></three-position>
       <three-scale [multiply]="100"></three-scale>

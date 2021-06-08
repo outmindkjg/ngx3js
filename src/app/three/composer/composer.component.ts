@@ -231,26 +231,32 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
 
   applyChanges(changes: string[]) {
     if (this.effectComposer !== null) {
-      if (ThreeUtil.isIndexOf(changes, 'pass')) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getComposer();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','pass'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
-        return ; 
+        return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d']);
+        changes = ThreeUtil.pushUniq(changes, ['pass']);
       }
+      
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'pass':
             if (this.effectComposer instanceof EffectComposer) {
               const scene = this.getScene(this._composerScene);
               const camera = this.getCamera(this._composerCamera);
-              this.pass.forEach((item) => {
-                item.getPass(scene, camera, this.effectComposer);
+              this.pass.forEach((pass) => {
+                pass.setEffectComposer(scene, camera, this.effectComposer);
               });
             }
             break;
         }
       });
+      super.applyChanges(changes);
     }
   }
 
@@ -260,7 +266,14 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
 
   setRenderer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene) {
     if (this._composerRenderer !== webGLRenderer || this._composerCamera !== camera || this._composerScene !== scene){
-      this.needUpdate = true;
+      this._composerRenderer = webGLRenderer;
+      this._composerCamera = camera;
+      this._composerScene = scene;
+      if (this.effectComposer === null) {
+        this.getComposer();
+      } else {
+        this.needUpdate = true;
+      }
     }
   }
 

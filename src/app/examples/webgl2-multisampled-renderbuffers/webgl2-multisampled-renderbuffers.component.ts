@@ -8,13 +8,16 @@ import { BaseComponent } from '../../three';
 })
 export class Webgl2MultisampledRenderbuffersComponent extends BaseComponent<{
   geometry : string;
+  curve : string;
 }> {
 
   constructor() {
     super({
-      geometry : 'box'
+      geometry : 'box',
+      curve : 'triangle'
     },[
-      { name : 'geometry', type : 'select', select : [ 'box', 'sphere','torus']}
+      { name : 'geometry', type : 'select', select : [ 'box', 'sphere','torus']},
+      { name : 'curve', type : 'select', select : [ 'triangle', 'square','pentagon']}
     ]);
   }
 

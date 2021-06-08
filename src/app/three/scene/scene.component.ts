@@ -358,6 +358,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             break;
         }
       });
+      window['scene'] = this.scene;
     }
     super.applyChanges3d(changes);
   }

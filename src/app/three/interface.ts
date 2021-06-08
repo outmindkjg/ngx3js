@@ -1466,7 +1466,7 @@ export class ThreeUtil {
     return null;
   }
 
-  static getTexture(texture: any, refType: string = 'map'): THREE.Texture {
+  static getTexture(texture: any, refType: string = 'map', isRequired : boolean = true): THREE.Texture {
     if (texture instanceof THREE.Texture) {
       return texture;
     } else if (this.isNotNull(texture.getTexture)) {
@@ -1483,6 +1483,9 @@ export class ThreeUtil {
           return material[refType];
         }
       }
+    }
+    if (!isRequired) {
+      return null;
     }
     return new THREE.Texture();
   }
