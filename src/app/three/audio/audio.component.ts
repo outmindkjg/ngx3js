@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
@@ -9,6 +9,7 @@ import { MixerComponent } from './../mixer/mixer.component';
   selector: 'three-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => AudioComponent) }]
 })
 export class AudioComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type:string = 'position';

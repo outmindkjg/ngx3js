@@ -8,7 +8,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 @Component({
   selector: 'three-rigidbody',
   templateUrl: './rigidbody.component.html',
-  styleUrls: ['./rigidbody.component.scss'],
+  styleUrls: ['./rigidbody.component.scss']
 })
 export class RigidbodyComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type: string = 'auto';

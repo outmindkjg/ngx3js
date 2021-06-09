@@ -1,21 +1,17 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { CameraComponent } from '../camera/camera.component';
 import { ControllerComponent } from '../controller/controller.component';
 import { FogComponent } from '../fog/fog.component';
 import { HelperComponent } from '../helper/helper.component';
 import { ThreeUtil } from '../interface';
-import { LightComponent } from '../light/light.component';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { PhysicsComponent } from '../physics/physics.component';
 import { RendererComponent } from '../renderer/renderer.component';
 import { TextureComponent } from '../texture/texture.component';
 import { ViewerComponent } from '../viewer/viewer.component';
-import { AudioComponent } from './../audio/audio.component';
 import { RendererTimer } from './../interface';
-import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MeshComponent } from './../mesh/mesh.component';
 import { MixerComponent } from './../mixer/mixer.component';
@@ -32,18 +28,14 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private backgroundType: string = 'background';
   @Input() private environment: string | MaterialComponent | MeshComponent = null;
 
-  @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
   @ContentChildren(PhysicsComponent, { descendants: false }) private physicsList: QueryList<PhysicsComponent>;
   @ContentChildren(RigidbodyComponent, { descendants: true }) private rigidbodyList: QueryList<RigidbodyComponent>;
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
   @ContentChildren(MixerComponent, { descendants: true }) private mixerList: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
-  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
+
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -65,17 +57,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
     this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
     this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
     this.subscribeListQuery(this.fogList, 'fogList', 'fog');
-    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
     this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
     this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
     this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
     this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
     super.ngAfterContentInit();
   }
@@ -295,24 +282,9 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       }
       changes.forEach((change) => {
         switch (change) {
-          case 'mesh':
-            this.meshList.forEach((mesh) => {
-              mesh.setParent(this.scene);
-            });
-            break;
           case 'viewer':
             this.viewerList.forEach((viewer) => {
               viewer.setParent(this.scene);
-            });
-            break;
-          case 'camera':
-            this.cameraList.forEach((camera) => {
-              camera.setParent(this.scene);
-            });
-            break;
-          case 'light':
-            this.lightList.forEach((light) => {
-              light.setParent(this.scene);
             });
             break;
           case 'helper':
@@ -329,16 +301,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             });
             this.mixerList.forEach((mixer) => {
               mixer.setPhysics(this._physics);
-            });
-            break;
-          case 'listner':
-            this.listnerList.forEach((listner) => {
-              listner.setParent(this.scene);
-            });
-            break;
-          case 'audio':
-            this.audioList.forEach((audio) => {
-              audio.setParent(this.scene);
             });
             break;
           case 'fog':
@@ -396,15 +358,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       if (this.storageName !== null) {
         this.scene = new THREE.Scene();
         this.localStorageService.getScene(this.storageName, (scene: THREE.Scene) => {
-          this.scene.copy(scene);
-          this.meshList.forEach((mesh) => {
-            if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
-              const foundMesh = this.scene.getObjectByName(mesh.name);
-              if (foundMesh !== null && foundMesh !== undefined) {
-                mesh.setParent(foundMesh);
-              }
-            }
-          });
+          this.setObject3d(scene);
         });
         this.setObject3d(this.scene);
       } else {

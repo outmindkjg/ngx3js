@@ -38,6 +38,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
+  @ContentChildren(AbstractObject3dComponent, { descendants: false }) protected object3dList: QueryList<AbstractObject3dComponent>;
 
   protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','lodistance','debug','enabled','overrideparams','windowexport'];
 
@@ -171,6 +172,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
     this.subscribeListQuery(this.materialList, 'materialList', 'material');
+    this.subscribeListQuery(this.object3dList, 'object3dList', 'object3d');
     super.ngAfterContentInit();
   }
 
@@ -424,7 +426,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       this.object3d = object3d;
       if (this.object3d !== null) {
         this.setTweenTarget(this.object3d);
-        this.setSubscribeNext('object3d');
+        // this.setSubscribeNext('object3d');
       }
       super.setObject(this.object3d);
     }
@@ -447,8 +449,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
         return ;
       }
-      if (ThreeUtil.isIndexOf(changes, ['object3d','init'])) {
+      if (ThreeUtil.isIndexOf(changes, ['init'])) {
         changes = ThreeUtil.pushUniq(changes, [
+          'object3d',
           'position', 
           'rotation', 
           'scale', 
@@ -525,6 +528,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           case 'lodistance' :
             if (ThreeUtil.isNotNull(this.loDistance) && this.parentObject3d instanceof THREE.LOD) {
               this.parentObject3d.addLevel(this.object3d, this.getLoDistance(0));
+            }
+            break;
+          case 'object3d' :
+            if (ThreeUtil.isNotNull(this.object3dList)) {
+              this.object3dList.forEach((object3d) => {
+                object3d.setParent(this.object3d);
+              });
             }
             break;
           case 'position':

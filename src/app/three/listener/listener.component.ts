@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
   selector: 'three-listener',
   templateUrl: './listener.component.html',
   styleUrls: ['./listener.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => ListenerComponent) }]
 })
 export class ListenerComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private volume: number = 1;

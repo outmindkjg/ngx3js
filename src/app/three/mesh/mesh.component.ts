@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
@@ -29,13 +29,9 @@ import { CssStyle, ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
 import { MaterialComponent, MeshMaterialRaw } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { SvgComponent } from '../svg/svg.component';
 import { TextureComponent } from '../texture/texture.component';
-import { AudioComponent } from './../audio/audio.component';
-import { CameraComponent } from './../camera/camera.component';
 import { HelperComponent } from './../helper/helper.component';
 import { LightComponent } from './../light/light.component';
-import { ListenerComponent } from './../listener/listener.component';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
@@ -44,6 +40,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
   selector: 'three-mesh',
   templateUrl: './mesh.component.html',
   styleUrls: ['./mesh.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => MeshComponent) }]
 })
 export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'mesh';
@@ -156,16 +153,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
-  @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: false }) private listenerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
-  @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
-  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
@@ -191,16 +182,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
     this.subscribeListQuery(this.textureList, 'textureList', 'texture');
     this.subscribeListQuery(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
-    this.subscribeListQuery(this.svgList, 'svgList', 'svg');
     this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
     this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
     this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
     this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
     this.subscribeListQuery(this.curveList, 'curveList', 'curve');
     super.ngAfterContentInit();
   }
@@ -627,18 +612,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'mesh':
-            this.meshList.forEach((mesh) => {
-              mesh.setParent(this.mesh);
-            });
-            break;
-          case 'camera':
-            this.cameraList.forEach((camera) => {
-              camera.setParent(this.mesh);
-            });
-            break;
           case 'helper':
-            this.resetHelper();
             if (this.clipMesh !== null) {
               this.helperList.forEach((helper) => {
                 helper.setParent(this.clipMesh);
@@ -649,19 +623,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               });
             }
             break;
-          case 'light':
-            this.lightList.forEach((light) => {
-              light.setParent(this.mesh);
-            });
-            break;
           case 'rigidbody':
             this.rigidbodyList.forEach((rigidbody) => {
               rigidbody.setParent(this.mesh);
-            });
-            break;
-          case 'svg':
-            this.svgList.forEach((svg) => {
-              svg.setParent(this.mesh);
             });
             break;
           case 'mixer':
@@ -676,16 +640,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 });
               }
             }
-            break;
-          case 'listener':
-            this.listenerList.forEach((listener) => {
-              listener.setParent(this.mesh);
-            });
-            break;
-          case 'audio':
-            this.audioList.forEach((audio) => {
-              audio.setParent(this.mesh);
-            });
             break;
           case 'cssChildren':
             this.cssChildrenList.forEach((cssChild) => {
@@ -1383,16 +1337,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                       break;
                   }
                 }
-                if (this.meshList) {
-                  this.meshList.forEach((mesh) => {
-                    if (mesh.name !== null && mesh.name !== undefined && mesh.name !== '') {
-                      const foundMesh = basemesh.getObjectByName(mesh.name);
-                      if (foundMesh instanceof THREE.Object3D) {
-                        mesh.setParent(foundMesh);
-                      }
-                    }
-                  });
-                }
                 if (clips !== null && clips !== undefined) {
                   this.clips = clips;
                 }
@@ -1544,6 +1488,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       }
       this.mesh = mesh;
       this.setObject3d(this.mesh);
+      this.resetHelper();
     }
   }
   private createPlaneStencilGroup(geometry: THREE.BufferGeometry, plane: THREE.Plane, renderOrder: number): THREE.Group {

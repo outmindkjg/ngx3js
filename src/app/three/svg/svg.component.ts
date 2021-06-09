@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, Input, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, ElementRef, forwardRef, Input, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { ThreeUtil } from '../interface';
@@ -29,7 +29,8 @@ export interface SvgGeometry {
 @Component({
   selector: 'three-svg',
   templateUrl: './svg.component.html',
-  styleUrls: ['./svg.component.scss']
+  styleUrls: ['./svg.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => SvgComponent) }]
 })
 export class SvgComponent extends AbstractObject3dComponent {
 

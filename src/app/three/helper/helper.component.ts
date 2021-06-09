@@ -13,7 +13,7 @@ import { ThreeUtil } from './../interface';
 @Component({
   selector: 'three-helper',
   templateUrl: './helper.component.html',
-  styleUrls: ['./helper.component.scss'],
+  styleUrls: ['./helper.component.scss']
 })
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';

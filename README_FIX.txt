@@ -100,5 +100,19 @@ wifi : 54:26:96:ce:a5:71
 
 ----------------------
 
+chrome://settings
+Scroll to the System section. Ensure the Use hardware acceleration when available checkbox is checked (You'll need to relaunch Chrome for any changes to take effect)
+
+In your Chrome URL bar, go to chrome://flags
+Ensure that WebGL is enabled, and not disabled (You'll need to relaunch Chrome for any changes to take effect)
+
+----------------------
+
+
+----------------------
+
+
+----------------------
+
 
 ----------------------

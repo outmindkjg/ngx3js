@@ -1,12 +1,9 @@
-import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { LightComponent } from '../light/light.component';
-import { ListenerComponent } from '../listener/listener.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { AudioComponent } from './../audio/audio.component';
 import { HelperComponent } from './../helper/helper.component';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
@@ -16,6 +13,7 @@ import { MixerComponent } from './../mixer/mixer.component';
   selector: 'three-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => CameraComponent) }]
 })
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'perspective';
@@ -54,12 +52,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private scissorHeight: number | string = '100%';
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
 
-  @ContentChildren(ListenerComponent, { descendants: false }) listenerList: QueryList<ListenerComponent>;
-  @ContentChildren(AudioComponent, { descendants: false }) audioList: QueryList<AudioComponent>;
   @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
-  @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
-  @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
@@ -251,12 +245,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
     this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
     this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
     super.ngAfterContentInit();
   }
 
@@ -316,16 +306,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'listener':
-            this.listenerList.forEach((listener) => {
-              listener.setParent(this.camera);
-            });
-            break;
-          case 'audio':
-            this.audioList.forEach((audio) => {
-              audio.setParent(this.camera);
-            });
-            break;
           case 'mixer':
             if (this.clips !== null && this.clips.length > 0) {
               this.mixerList.forEach((mixer) => {
@@ -336,16 +316,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           case 'helper':
             this.helperList.forEach((helper) => {
               helper.setParent(this.camera);
-            });
-            break;
-          case 'light':
-            this.lightList.forEach((light) => {
-              light.setParent(this.camera);
-            });
-            break;
-          case 'camera':
-            this.cameraList.forEach((camera) => {
-              camera.setParent(this.camera);
             });
             break;
         }

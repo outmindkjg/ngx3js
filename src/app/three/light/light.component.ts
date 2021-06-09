@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
 import { HelperComponent } from '../helper/helper.component';
@@ -11,6 +11,7 @@ import { MixerComponent } from './../mixer/mixer.component';
   selector: 'three-light',
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }]
 })
 export class LightComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';
