@@ -8,13 +8,14 @@ import { ThreeUtil } from './interface';
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
 
   @Input() protected debug: boolean = false;
+  @Input() protected windowExport: string = null;
   @Input() public enabled: boolean = true;
   @Input() private overrideParams: {[key : string] : any } = null;
 
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
-  protected OBJECT_ATTR : string[] = ['init','debug','enabled','overrideparams'];
+  protected OBJECT_ATTR : string[] = ['init','debug','enabled','overrideparams','windowexport'];
 
   constructor() {}
   
@@ -23,6 +24,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   ngOnInit(subscribeType?: string): void {
     this.id = subscribeType + '_' + Math.round(10000 + Math.random() * 10000) + '_' + Math.round(10000 + Math.random() * 10000);
     this.setSubscribeType(subscribeType);
+    ThreeUtil.setThreeComponent(this.id, this);
   }
 
   ngOnDestroy(): void {
@@ -41,6 +43,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       this._subscribeList = {};
     }
     this.dispose();
+    ThreeUtil.setThreeComponent(this.id, null);
     this.onDestory.emit(this);
   }
 
@@ -95,7 +98,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
     this._logTimeSeqn ++; 
     if (this._logTimeSeqn % repeat === 0) {
-      this.consoleLog(key, object, 'log');
+      this.consoleLog(key, object, 'info');
     }
   }
 
@@ -189,13 +192,16 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
         if (ThreeUtil.isNotNull(this._cashedObj.userData)) {
-          this._cashedObj.userData.component = this;
+          this._cashedObj.userData.component = this.id;
         }
         if (this.debug) {
           this.consoleLog(this.subscribeType, this._cashedObj);
         }
         this.applyChanges(['init'])
         this.callOnLoad();
+        if (ThreeUtil.isNotNull(this.windowExport) && this.windowExport != "") {
+          window[this.windowExport] = this._cashedObj;
+        }
       }
       // this.consoleLog('setobject', obj, 'error');
     }

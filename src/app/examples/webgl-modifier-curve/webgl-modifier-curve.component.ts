@@ -109,7 +109,7 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.flow !== null) {
-      // this.flow.moveAlongCurve(0.001);
+      this.flow.moveAlongCurve(0.001);
     } 
   }
 

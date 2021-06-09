@@ -27,12 +27,18 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private y: number | string = 0;
   @Input() private width: number | string = '100%';
   @Input() private height: number | string = '100%';
+  @Input() private scissorTest: boolean = false;
+  @Input() private scissorX: number | string = 0;
+  @Input() private scissorY: number | string = 0;
+  @Input() private scissorWidth: number | string = '100%';
+  @Input() private scissorHeight: number | string = '100%';
   @Input() private reflectFromAbove: boolean = null;
   @Input() private cameraDistance: number = null;
 
   @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
   @Input() private useRenderTarget: boolean = false;
+  @Input() private renderTargetType: string = "WebGLRenderTarget";
   @Input() private wrap: string = null;
   @Input() private wrapS: string = null;
   @Input() private wrapT: string = null;
@@ -50,20 +56,65 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
 
   private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {
     if (this.useRenderTarget) {
-      return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
-        wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
-        wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
-        magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-        minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
-        format: ThreeUtil.getPixelFormatSafe(this.format),
-        type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
-        anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
-        depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
-        stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
-        generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-        depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
-        encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
-      });
+      switch(this.renderTargetType.toLowerCase()) {
+        case 'webglmultisamplerendertarget' :
+        case 'webglmultisamplerender' :
+        case 'webglmultisample' :
+        case 'multisamplerendertarget' :
+        case 'multisamplerender' :
+        case 'multisample' :
+          return new THREE.WebGLMultisampleRenderTarget( this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
+            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
+            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
+            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
+            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+            format: ThreeUtil.getPixelFormatSafe(this.format),
+            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
+            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
+            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
+            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
+            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
+            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
+          });
+        case 'webglcuberendertarget' :
+        case 'webglcuberender' :
+        case 'webglcube' :
+        case 'cuberendertarget' :
+        case 'cuberender' :
+        case 'cube' :
+          return new THREE.WebGLCubeRenderTarget( this.getWidth() * renderer.getPixelRatio(), {
+            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
+            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
+            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
+            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+            format: ThreeUtil.getPixelFormatSafe(this.format),
+            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
+            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
+            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
+            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
+            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
+            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
+          });
+          break;          
+        default :
+          return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
+            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
+            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
+            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
+            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+            format: ThreeUtil.getPixelFormatSafe(this.format),
+            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
+            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
+            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
+            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
+            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
+            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
+          });
+      }
+      
     }
     return undefined;
   }
@@ -128,12 +179,34 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return this.getViewPortSize(this.height, this.composerHeight, def);
   }
 
+  private getScissorX(def?: number | string): number {
+    return this.getViewPortSize(this.scissorX, this.composerWidth, def);
+  }
+
+  private getScissorY(def?: number | string): number {
+    return this.getViewPortSize(this.scissorY, this.composerHeight, def);
+  }
+
+  private getScissorWidth(def?: number | string): number {
+    return this.getViewPortSize(this.scissorWidth, this.composerWidth, def);
+  }
+
+  private getScissorHeight(def?: number | string): number {
+    return this.getViewPortSize(this.scissorHeight, this.composerHeight, def);
+  }
+
   private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
       if (typeof baseSize == 'string') {
-        if (baseSize.endsWith('%')) {
-          return Math.ceil((cameraSize * parseFloat(baseSize.slice(0, -1))) / 100);
+        if (baseSize.indexOf('%') > 0) {
+          const [percent, extra] = baseSize.split('%');
+          const viewSize = Math.ceil(cameraSize * parseFloat(percent) / 100);
+          if (extra === '') {
+            return viewSize;
+          } else {
+            return viewSize + parseInt(extra);
+          }
         } else {
           switch (baseSize) {
             case 'x':
@@ -144,6 +217,18 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
               return this.getWidth(def);
             case 'height':
               return this.getHeight(def);
+            case 'scissorx':
+            case 'scissorX':
+              return this.getScissorX(def);
+            case 'scissory':
+            case 'scissorY':
+              return this.getScissorY(def);
+            case 'scissorwidth':
+            case 'scissorWidth':
+              return this.getScissorWidth(def);
+            case 'scissorheight':
+            case 'scissorHeight':
+              return this.getScissorHeight(def);
             default:
               return parseFloat(baseSize);
           }
@@ -192,10 +277,14 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     this.composerHeight = height;
   }
 
-  render(webGLRenderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
+  render(renderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
     if (this.effectComposer !== null) {
       if (this.viewport) {
-        webGLRenderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+      }
+      if (this.scissorTest) {
+        renderer.setScissorTest(true);
+        renderer.setScissor(this.getScissorX(), this.getScissorY(), this.getScissorWidth(), this.getScissorHeight());
       }
       if (this.viewportAspect && ThreeUtil.isNotNull(this._composerCamera)) {
         if (this._composerCamera instanceof THREE.PerspectiveCamera) {
@@ -204,10 +293,13 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         }
       }
       if (this.clear) {
-        webGLRenderer.autoClear = false;
-        webGLRenderer.clear();
+        renderer.autoClear = false;
+        renderer.clear();
       }
       this.effectComposer.render(renderTimer.delta);
+      if (this.scissorTest) {
+        renderer.setScissorTest(false);
+      }
     }
   }
 

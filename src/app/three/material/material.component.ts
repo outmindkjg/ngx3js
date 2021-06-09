@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -1006,9 +1006,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       } else if (value['value'] !== undefined) {
-        resultUniforms[key] = { value: value['value'] };
+        resultUniforms[key] = value;
       } else {
-        resultUniforms[key] = { value: value };
+        resultUniforms[key] = { value : value };
       }
     });
     if (this.debug) {

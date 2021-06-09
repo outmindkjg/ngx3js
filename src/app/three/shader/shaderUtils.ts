@@ -1,4 +1,4 @@
-import { IUniform, UniformsUtils } from "three";
+import * as THREE from 'three';
 import { AfterimageShader } from "three/examples/jsm/shaders/AfterimageShader";
 import { BasicShader } from "three/examples/jsm/shaders/BasicShader";
 import { BleachBypassShader } from "three/examples/jsm/shaders/BleachBypassShader";
@@ -51,13 +51,15 @@ import { VignetteShader } from "three/examples/jsm/shaders/VignetteShader";
 import { VolumeRenderShader1 } from "three/examples/jsm/shaders/VolumeShader";
 import { WaterRefractionShader } from "three/examples/jsm/shaders/WaterRefractionShader";
 import { ThreeUtil } from "../interface";
+import { CloudShader } from './shader.cloud';
+import { PerlinShader } from './shader.perlin';
 
 export interface ShaderType {
   defines? : {
     [key : string] : any
   }
   uniforms: {
-    [key:string]: IUniform;
+    [key:string]: THREE.IUniform;
   };
   fragmentShader: string;
   vertexShader?: string;
@@ -129,7 +131,9 @@ export const ShaderConf : {
   afterimageshader : AfterimageShader,
   vignetteshader : VignetteShader,
   triangleblurshader : TriangleBlurShader,
-  sobeloperatorshader : SobelOperatorShader
+  sobeloperatorshader : SobelOperatorShader,
+  cloudshader : CloudShader,
+  perlinshader : PerlinShader
 }
 
 export  class ShaderUtils {
@@ -142,7 +146,7 @@ export  class ShaderUtils {
       if (ThreeUtil.isNotNull(ShaderConf[key.toLowerCase()])) {
         return ShaderConf[key.toLowerCase()];
       } else {
-        console.error('known shader :' + key);
+        console.error('unknown shader :' + key);
         return {
           uniforms : {},
           fragmentShader : '',
@@ -162,8 +166,8 @@ export  class ShaderUtils {
     return {
       vertexShader : shader.vertexShader,
       fragmentShader : shader.fragmentShader,
-      uniforms : UniformsUtils.clone(shader.uniforms),
-      defines : ThreeUtil.isNotNull(shader.defines) ? UniformsUtils.clone(shader.defines) : undefined
+      uniforms : THREE.UniformsUtils.clone(shader.uniforms),
+      defines : ThreeUtil.isNotNull(shader.defines) ? THREE.UniformsUtils.clone(shader.defines) : undefined
     }
   }
 
@@ -183,14 +187,14 @@ export  class ShaderUtils {
     }
   }
 
-  static getUniforms(key : string | ShaderType) : { [key:string]: IUniform; } {
+  static getUniforms(key : string | ShaderType) : { [key:string]: THREE.IUniform; } {
     if (ThreeUtil.isNotNull(key)) {
       if (typeof key === 'string') {
         if (ThreeUtil.isNotNull(key) && key !== '') {
-          return UniformsUtils.clone(this.getShader(key).uniforms);
+          return THREE.UniformsUtils.clone(this.getShader(key).uniforms);
         }
       } else if (ThreeUtil.isNotNull(key.uniforms)) {
-        return UniformsUtils.clone(key.uniforms);
+        return THREE.UniformsUtils.clone(key.uniforms);
       }
     }
     return {}

@@ -39,7 +39,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
 
-  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','lodistance','debug','enabled','overrideparams'];
+  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','lodistance','debug','enabled','overrideparams','windowexport'];
 
   private getLoDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.loDistance, def);

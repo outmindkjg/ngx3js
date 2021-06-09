@@ -293,6 +293,8 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
             case 'scale':
             case 'rotation':
             case 'lookat':
+            case 'material':
+            case 'uniforms':
               const controllerItem = this.initLocalComponent('controllerItem', new ControllerItemComponent());
               controllerItem.updateInputParams({
                 type: controller,

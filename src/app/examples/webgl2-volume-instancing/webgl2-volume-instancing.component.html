@@ -1,25 +1,25 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl2 - volume - instancing
 </div>
 <three-renderer
+  [type]="'webgl2'"
   [controlType]="'orbit'"
+  [autoRotate]="true"
+  [autoRotateSpeed]="-1.0"
   [enablePan]="false"
   [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="1000">
+    <three-position [x]="0" [y]="0" [z]="4"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
+  <three-scene #scene >
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
       [type]="'Hemisphere'"
@@ -43,29 +43,17 @@
       <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [multiply]="2"></three-scale>
+      <three-position [x]="0" [y]="1" [z]="0"></three-position>
       <three-geometry
-        [type]="'tube'"
-        [curve]="'helixcurve'"
-        [curveOption]="{ waveH : 3, rateY : 0.3 }"
-        [curveNormal]="true"
-        [curveNormalOption]="'abs'"
-        [radius]="0.1"
-        [closed]="true"
-        [tubularSegments]="200"
-        [radialSegments]="16"
-        [align]="'center-middle-double'"
+        [type]="'box'"
+        [width]="1"
+        [height]="1"
+        [depth]="1"
       ></three-geometry>
-      <three-material 
-        [type]="'MeshStandard'" 
-        [color]="'0xff0000'"
-        [roughness]="0.2"
-        [metalness]="0.2"
-      ></three-material>
+      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-2" [z]="0"></three-position>
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
         [type]="'Plane'"

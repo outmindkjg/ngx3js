@@ -244,7 +244,7 @@ export  class CurveUtils {
     if (ThreeUtil.isNotNull(CurveConf[key.toLowerCase()])) {
       return CurveConf[key.toLowerCase()];
     } else {
-      console.error('known shader :' + key);
+      console.error('unknown curve :' + key);
       return CurvesLine;
     }
   }
@@ -467,7 +467,8 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
       this._lastFloat = new THREE.Vector3();
     }
     this.getPointV3(timer, this._lastFloat);
-    return Math.min(max, Math.max(min, this._lastFloat.length()));
+    const length = Math.max(0,Math.min(1,this._lastFloat.length() / 4));
+    return min + (max - min) * length;
   }
 
 }

@@ -1,161 +1,51 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl2 - volume - cloud
 </div>
 <three-renderer
+  [type]="'webgl2'"
   [controlType]="'orbit'"
-  [enablePan]="controls.renderer.enablePan"
-  [enableDamping]="controls.renderer.enableDamping"
+  [enablePan]="false"
+  [enableDamping]="true"
   [statsMode]="0"
-  [antialias]="controls.renderer.antialias"
-  [clearColor]="controls.renderer.clearColor"
-  [shadowMapEnabled]="controls.renderer.shadowMapEnabled"
+  [antialias]="true"
+  [clearColor]="'0xffffff'"
+  [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="controls.camera.type" [fov]="controls.camera.fov" [near]="controls.camera.near" [far]="controls.camera.far" [zoom]="'auto'">
-    <three-position [x]="0" [y]="2" [z]="10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100" (onLoad)="setCamera($event)">
+    <three-position [x]="0" [y]="0" [z]="1.5"></three-position>
   </three-camera>
-  <three-scene #scene >
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-shader>
-      <three-position #varPosition [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation #varRotation [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-rotation #varScale [x]="0.5" [y]="0.5" [z]="0.5"></three-rotation>
-      <three-lookat #varLookat [x]="100" [y]="0" [z]="100"></three-lookat>
+  <three-scene #scene>
+    <three-mesh #sky>
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
-        #varGeometry
-        [type]="'box'"
-        [width]="3"
-        [height]="2"
-        [depth]="2"
+        [type]="'SphereGeometry'"
+        [radius]="10"
       ></three-geometry>
-    </three-shader>
-    <three-mesh (onLoad)="setMesh($event)" 
-      [type]="controls.mesh.type"
-      [castShadow]="controls.mesh.castShadow"
-      [position]="controls.usePosition > 4 ? varPosition : null"
-      [rotation]="controls.useRotation > 4 ? varRotation : null"
-      [scale]="controls.useScale > 4 ? varScale : null"
-      [scale]="controls.useLookat > 4 ? varLookat : null"
-      [geometry]="controls.useGeometry > 4 ? varGeometry : null"
-      [materialIsArray]="controls.mesh.materialIsArray"
-    >
-      <three-mesh>
-        <three-geometry 
-          [type]="'box'"
-          [width]="0.5"
-          [height]="0.5"
-          [depth]="0.5"
-        ></three-geometry>
-        <three-material
-          [type]="'MeshPhong'"
-          [color]="'0x0000ff'"
-          [depthWrite]="true"
-        ></three-material>
-      </three-mesh>
-      <three-position [enabled]="controls.usePosition > 3" [x]="-1" [y]="2" [z]="0"></three-position>
-      <three-position [enabled]="controls.usePosition > 2" [x]="0" [y]="2" [z]="0"></three-position>
-      <three-position [enabled]="controls.usePosition > 1" [x]="1" [y]="2" [z]="0"></three-position>
-      <three-position [x]="controls.position.x" [y]="controls.position.y" [z]="controls.position.z"></three-position>
-      <three-rotation [enabled]="controls.useRotation > 3" [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-rotation [enabled]="controls.useRotation > 2" [x]="45" [y]="0" [z]="0"></three-rotation>
-      <three-rotation [enabled]="controls.useRotation > 1" [x]="0" [y]="45" [z]="0"></three-rotation>
-      <three-rotation [x]="controls.rotation.x" [y]="controls.rotation.y" [z]="controls.rotation.z"></three-rotation>
-      <three-scale [enabled]="controls.useScale > 3" [x]="1" [y]="1" [z]="1"></three-scale>
-      <three-scale [enabled]="controls.useScale > 2" [x]="0.1" [y]="0.4" [z]="0.4"></three-scale>
-      <three-scale [enabled]="controls.useScale > 1" [x]="0.5" [y]="1" [z]="2"></three-scale>
-      <three-scale [x]="controls.scale.x" [y]="controls.scale.y" [z]="controls.scale.z"></three-scale>
-      <three-lookat [enabled]="controls.useLookat > 3" [x]="0.1" [y]="0.4" [z]="0.4"></three-lookat>
-      <three-lookat [enabled]="controls.useLookat > 2" [x]="0.5" [y]="1" [z]="2"></three-lookat>
-      <three-lookat [enabled]="controls.useLookat > 1" [x]="controls.lookat.x" [y]="controls.lookat.y" [z]="controls.lookat.z"></three-lookat>
+      <three-material [type]="'MeshBasicMaterial'" [side]="'back'">
+        <three-texture [program]="'bluesky'" [width]="1" [height]="32"></three-texture>
+      </three-material>
+    </three-mesh>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-geometry
-        [enabled]="controls.useGeometry > 1"
         [type]="'box'"
         [width]="1"
-        [height]="2"
-        [depth]="3"
-      ></three-geometry>
-      <three-geometry
-        [type]="controls.geometry.type"
-        [width]="controls.geometry.width"
-        [height]="controls.geometry.height"
-        [depth]="controls.geometry.depth"
-        [radius]="controls.geometry.radius"
-        [align]="controls.geometry.alignX + '-' + controls.geometry.alignY + '-' + controls.geometry.alignZ"
-        [text]="'Text'"
+        [height]="1"
+        [depth]="1"
       ></three-geometry>
       <three-material 
-        [enabled]="controls.useMaterial > 4"
-        [type]="'meshstandard'" 
-        [color]="'0x00ffff'"
-      ></three-material>
-      <three-material 
-        [enabled]="controls.useMaterial > 3"
-        [type]="'meshstandard'" 
-        [color]="'0x00ffff'"
-      ></three-material>
-      <three-material 
-        [enabled]="controls.useMaterial > 2"
-        [type]="'meshstandard'" 
-        [color]="'0x0000ff'"
-      ></three-material>
-      <three-material 
-        [enabled]="controls.useMaterial > 1"
-        [type]="'meshstandard'" 
-        [color]="'0xff00ff'"
-      ></three-material>
-      <three-material 
-        [enabled]="controls.useMaterial > 0"
-        [type]="'meshstandard'" 
-        [color]="'0xff00ff'"
-      ></three-material>
-      <three-material 
-        [type]="controls.material.type" 
-        [color]="controls.material.color"
-        [size]="0.2"
-        [colorMultiply]="controls.material.colorMultiply"
-        [transparent]="controls.material.transparent"
-        [opacity]="controls.material.opacity"
-      ></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+        [type]="'RawShaderMaterial'" 
+        [shader]="'cloudshader'" 
+        [uniforms]="{ map : { type :'DataTexture3D', value : 'cloud' , options : 'RedFormat,LinearFilter,unpackAlignment=1'} }"
+        [glslVersion]="'GLSL3'"
+        [transparent]="true"
+        [side]="'back'"
+      >
+      </three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -47,7 +47,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private clearAlpha: number = null;
   @Input() private clearDepth: boolean = null;
   @Input() private clear: boolean = null;
-  @Input() private scissorTest: boolean = null;
+  @Input() private scissorTest: boolean = false;
   @Input() private scissorX: number | string = 0;
   @Input() private scissorY: number | string = 0;
   @Input() private scissorWidth: number | string = '100%';
@@ -182,8 +182,14 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
       if (typeof baseSize == 'string') {
-        if (baseSize.endsWith('%')) {
-          return Math.ceil((cameraSize * parseFloat(baseSize.slice(0, -1))) / 100);
+        if (baseSize.indexOf('%') > 0) {
+          const [percent, extra] = baseSize.split('%');
+          const viewSize = Math.ceil(cameraSize * parseFloat(percent) / 100);
+          if (extra === '') {
+            return viewSize;
+          } else {
+            return viewSize + parseInt(extra);
+          }
         } else {
           switch (baseSize) {
             case 'x':

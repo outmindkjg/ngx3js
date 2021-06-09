@@ -852,7 +852,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     if (this.pass === null || this._needUpdate) {
       this.needUpdate = false;
       let pass: Pass = null;
-      if (this.refer !== null && this.refer !== undefined) {
+      if (ThreeUtil.isNotNull(this.refer)) {
         this.unSubscribeRefer('referPass');
         if (ThreeUtil.isNotNull(this.refer.getPass)) {
           pass = this.refer.getPass();

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
@@ -8,6 +8,7 @@ import { Lut } from 'three/examples/jsm/math/Lut';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { CanvasFunctionType, TextureUtils } from './textureUtils';
 
 @Component({
   selector: 'three-texture',
@@ -24,7 +25,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private cubeImage: string[] = null;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
-  @Input() private program: (ctx: CanvasRenderingContext2D, text?: string) => void = null;
+  @Input() private program: CanvasFunctionType | string = null;
   @Input() private text: string = null;
   @Input() private canvas: HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap | string = null;
   @Input() private mapping: string = null;
@@ -66,7 +67,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     return ThreeUtil.getTypeSafe(this.cubeImage, def);
   }
 
-  private getProgram(def?: (ctx: CanvasRenderingContext2D, text?: string) => void): (ctx: CanvasRenderingContext2D, text?: string) => void {
+  private getProgram(def?: CanvasFunctionType | string): CanvasFunctionType | string {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
 
@@ -196,7 +197,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   static hdrCubeMapLoader: HDRCubeTextureLoader = null;
   static rgbmLoader: RGBMLoader = null;
 
-  getTextureImage(image: string, cubeImage?: string[], program?: (ctx: CanvasRenderingContext2D) => void, onLoad?: () => void): THREE.Texture {
+  getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string , onLoad?: () => void): THREE.Texture {
     return TextureComponent.getTextureImage(
       image,
       cubeImage,
@@ -460,7 +461,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     return texture;
   }
 
-  static getTextureImage(image: string, cubeImage?: string[], program?: (ctx: CanvasRenderingContext2D, text?: string) => void, options?: any, onLoad?: () => void): THREE.Texture {
+  static getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string , options?: any, onLoad?: () => void): THREE.Texture {
     options = options || {};
     onLoad = onLoad || (() => {});
     const loadType = options.type || '';
@@ -505,7 +506,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           if (ThreeUtil.isNotNull(image) && image !== '') {
             this.cubeTextureLoader.setPath(ThreeUtil.getStoreUrl(image));
           }
-          return this.cubeTextureLoader.load(cubeImage, (cubeTexture) => {
+          return this.cubeTextureLoader.load(cubeImage, () => {
             onLoad();
           });
       }
@@ -592,30 +593,37 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             });
             return texture;
           } else {
-            if (this.textureLoader === null) {
-              this.textureLoader = new THREE.TextureLoader(ThreeUtil.getLoadingManager());
+            switch ((loadType || 'texture').toLowerCase()) {
+              case 'datatexture':
+              case 'datatexture2d':
+              case 'datatexture3d':
+                return TextureUtils.dataTexture(image, () => {
+                  onLoad();
+                });
+              default :
+                if (this.textureLoader === null) {
+                  this.textureLoader = new THREE.TextureLoader(ThreeUtil.getLoadingManager());
+                }
+                const texture = this.textureLoader.load(ThreeUtil.getStoreUrl(image), () => {
+                  texture.needsUpdate = true;
+                  onLoad();
+                });
+                return texture;
             }
-            const texture = this.textureLoader.load(ThreeUtil.getStoreUrl(image), () => {
-              texture.needsUpdate = true;
-              onLoad();
-            });
-            return texture;
           }
       }
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
-      const canvasWidth: number = ThreeUtil.getTypeSafe(options.width, 35);
-      const canvasHeight: number = ThreeUtil.getTypeSafe(options.height, 35);
+      const canvasWidth: number = ThreeUtil.getTypeSafe(options.width, 32);
+      const canvasHeight: number = ThreeUtil.getTypeSafe(options.height, 32);
       const text: string = ThreeUtil.getTypeSafe(options.text, '');
-      canvas.width = canvasWidth ? canvasWidth : 35;
-      canvas.height = canvasHeight ? canvasHeight : 35;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
       if (ThreeUtil.isNotNull(program)) {
         const _context = canvas.getContext('2d', {
           alpha: true,
         });
-        // _context.save();
-        program(_context, text);
-        // _context.restore();
+        TextureUtils.drawCanvas(program, _context, text, canvasWidth, canvasHeight);
       }
       return new THREE.CanvasTexture(canvas);
     }

@@ -194,7 +194,7 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
     this._logTimeSeqn ++; 
     if (this._logTimeSeqn % repeat === 0) {
-      this.consoleLog(key, object, 'log');
+      this.consoleLog(key, object, 'info');
     }
   }
 
@@ -235,6 +235,7 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   }
 
   public mesh: MeshComponent = null;
+  public meshObject3d : THREE.Object3D;
   protected meshChildren: THREE.Object3D[] = null;
 
   protected updateGuiController() {
@@ -312,7 +313,9 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   setMesh(mesh: MeshComponent) {
     this.mesh = mesh;
     if (this.mesh !== null) {
-      this.meshChildren = this.mesh.getObject3d().children;
+      this.meshObject3d = this.mesh.getObject3d();
+      this.meshChildren = this.meshObject3d.children;
+
       setTimeout(() => {
         this.updateGuiController();
       }, 100);
@@ -1411,6 +1414,16 @@ export class ThreeUtil {
     return new THREE.BufferGeometry();
   }
 
+  static loadedComponent : { [key : string] : any } = {}
+
+  static setThreeComponent(key : string, object?: any) {
+    if (this.isNotNull(object)) {
+      this.loadedComponent[key] = object;
+    } else {
+      delete this.loadedComponent[key];
+    }
+  }
+
   static isThreeComponent(object: any):boolean {
     if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component)) {
       return true;
@@ -1421,7 +1434,7 @@ export class ThreeUtil {
 
   static getThreeComponent(object: any) : any {
     if (this.isThreeComponent(object)) {
-      return object.userData.component;
+      return this.loadedComponent[object.userData.component] || { };
     } else {
       return null;
     }
@@ -1430,14 +1443,20 @@ export class ThreeUtil {
   static setSubscribeNext(object: any, key: string | string[]) {
     if (this.isNotNull(object.setSubscribeNext)) {
       object.setSubscribeNext(key);
-    } else if (this.isThreeComponent(object) && this.isNotNull(object.userData.component.setSubscribeNext)) {
-      object.userData.component.setSubscribeNext(key);
+    } else if (this.isThreeComponent(object)) {
+      const threeComponent = this.getThreeComponent(object);
+      if (this.isNotNull(threeComponent.setSubscribeNext)) {
+        threeComponent.setSubscribeNext(key);
+      }
     }
   }
 
   static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {
-    if (this.isThreeComponent(object) && this.isNotNull(object.userData.component.getSubscribe)) {
-      object = object.userData.component;
+    if (this.isThreeComponent(object)) {
+      const threeComponent = this.getThreeComponent(object);
+      if (this.isNotNull(threeComponent.getSubscribe)) {
+        object = threeComponent;
+      }
     }
     if (this.isNotNull(object.getSubscribe)) {
       return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
