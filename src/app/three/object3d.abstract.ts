@@ -541,9 +541,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             }
             break;
           case 'position':
-            this.object3d.userData.position = null;
-            this.object3d.userData.positionUp = null;
-            this.object3d.userData.positionLookat = null;
+            this.setUserData('position',null);
+            this.setUserData('positionUp',null);
+            this.setUserData('positionLookat',null);
             this.unSubscribeRefer('position');
             if (ThreeUtil.isNotNull(this.position)) {
               this.object3d.userData.position = 'position';
@@ -562,8 +562,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               });
               this.subscribeListQuery(this.positionList, 'positionList','position');
             }
+
             if (ThreeUtil.isNull(this.object3d.userData.initPosition)) {
-              this.object3d.userData.initPosition = this.object3d.position.clone();
+              this.setUserData('initPosition', this.object3d.position.clone());
             }
             this.setSubscribeNext('position');
             break;

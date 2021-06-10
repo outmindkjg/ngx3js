@@ -22,7 +22,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private refDistance:number = 1;
   @Input() private rolloffFactor:number = 1;
   @Input() private distanceModel:string = "";
-  @Input() private maxDistance:number = 1;
+  @Input() private maxDistance:number = null;
   @Input() private coneInnerAngle:number = null;
   @Input() private coneOuterAngle:number = null;
   @Input() private coneOuterGain:number = 1;
@@ -176,6 +176,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             this.audio.setBuffer(buffer);
             this.resetAudio();
             super.callOnLoad();
+            this.setSubscribeNext('load');
           });
         }
         if (this.video !== null) {
@@ -191,10 +192,18 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         }
         this.audio.setVolume(this.volume);
         if (this.audio instanceof THREE.PositionalAudio) {
-          this.audio.setRefDistance(this.refDistance);
-          this.audio.setRolloffFactor(this.rolloffFactor);
-          // this.audio.setDistanceModel(this.distanceModel);
-          this.audio.setMaxDistance(this.maxDistance);
+          if (ThreeUtil.isNotNull(this.refDistance)) {
+            this.audio.setRefDistance(this.refDistance);
+          }
+          if (ThreeUtil.isNotNull(this.rolloffFactor)) {
+            this.audio.setRolloffFactor(this.rolloffFactor);
+          }
+          if (ThreeUtil.isNotNull(this.distanceModel)) {
+            this.audio.setDistanceModel(this.distanceModel);
+          }
+          if (ThreeUtil.isNotNull(this.maxDistance)) {
+            this.audio.setMaxDistance(this.maxDistance);
+          }
           if (ThreeUtil.isNotNull(this.coneInnerAngle) && ThreeUtil.isNotNull(this.coneOuterAngle)) {
             this.audio.setDirectionalCone(
               ThreeUtil.getTypeSafe(this.coneInnerAngle,0),

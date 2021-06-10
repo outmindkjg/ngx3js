@@ -54,8 +54,9 @@
           [coneOuterAngle]="230"
           [coneOuterGain]="0.1"
         >
+            <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
           <three-helper [type]="'PositionalAudioHelper'" [range]="0.1" [windowExport]="'positionalAudioHelper'"></three-helper>
-        </three-audio>
+      </three-audio>
       </three-mesh>
       <three-mesh>
         <three-position [x]="0" [y]="0.5" [z]="-0.5"></three-position>

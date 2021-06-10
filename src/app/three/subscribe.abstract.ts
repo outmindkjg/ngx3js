@@ -25,6 +25,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.id = subscribeType + '_' + Math.round(10000 + Math.random() * 10000) + '_' + Math.round(10000 + Math.random() * 10000);
     this.setSubscribeType(subscribeType);
     ThreeUtil.setThreeComponent(this.id, this);
+    this._userData.component = this.id;
   }
 
   ngOnDestroy(): void {
@@ -186,13 +187,19 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return this._cashedObj;
   }
 
+  private _userData : { [ key : string] : any } = {}
+
+  setUserData(key : string, value : any ) {
+    this._userData[key] = value;
+  }
+
   protected setObject(obj : any) {
     if (this._cashedObj !== obj) {
       this._cashedObj = obj;
       this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
         if (ThreeUtil.isNotNull(this._cashedObj.userData)) {
-          this._cashedObj.userData.component = this.id;
+          this._cashedObj.userData = this._userData;
         }
         if (this.debug) {
           this.consoleLog(this.subscribeType, this._cashedObj);
