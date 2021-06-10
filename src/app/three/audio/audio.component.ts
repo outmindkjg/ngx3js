@@ -19,9 +19,9 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private play:boolean = true ;
   @Input() private loop:boolean = true ;
   @Input() private volume:number = 1;
-  @Input() private refDistance:number = 1;
-  @Input() private rolloffFactor:number = 1;
-  @Input() private distanceModel:string = "";
+  @Input() private refDistance:number = null;
+  @Input() private rolloffFactor:number = null;
+  @Input() private distanceModel:string = null; // "exponential" | "inverse" | "linear"
   @Input() private maxDistance:number = null;
   @Input() private coneInnerAngle:number = null;
   @Input() private coneOuterAngle:number = null;

@@ -31,7 +31,7 @@
       >
           <three-position [x]="0" [y]="20" [z]="10"></three-position>
       </three-mesh>
-      <three-mesh (onLoad)="setMesh($event)" [helperType]="'skeleton'" [storageName]="'/assets/examples/models/gltf/RobotExpressive/RobotExpressive.glb'">
+      <three-mesh (onLoad)="setMesh($event)"  [storageName]="'/assets/examples/models/gltf/RobotExpressive/RobotExpressive.glb'">
           <three-position [x]="0" [y]="0" [z]="0"></three-position>
           <three-mixer [action]="controls.status" (onLoad)="setMixer($event)">
             <three-clip [name]="'Idle'" ></three-clip>

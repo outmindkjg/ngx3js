@@ -200,8 +200,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 
   private helper: THREE.Object3D = null;
 
-  private _refererTarget: THREE.Object3D = null;
-
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getHelper();
@@ -211,16 +209,13 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         ThreeUtil.getSubscribe(
           this.parentObject3d,
           (event) => {
-            this.needUpdate = true;
+            console.log(event);
+            // this.needUpdate = true;
           },
           'resettarget'
         )
       );
       return true;
-    } else {
-      if (this._refererTarget !== this.parent) {
-        this.needUpdate = true;
-      }
     }
     return false;
   }
@@ -255,10 +250,9 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   public getHelper(): THREE.Object3D {
     if (this.helper === null || this._needUpdate) {
       this.needUpdate = false;
-      this._refererTarget = this.parent;
       this.removeObject3d(this.helper);
-      if (this.parent !== null) {
-        this.parent.updateMatrixWorld(true);
+      if (this.parentObject3d !== null) {
+        this.parentObject3d.updateMatrixWorld(true);
       }
       this.helper = null;
       let parentAdd: boolean = true;
