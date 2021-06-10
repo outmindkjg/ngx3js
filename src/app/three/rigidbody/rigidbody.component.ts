@@ -1,9 +1,9 @@
-import { ThreeUtil, RendererTimer } from './../interface';
-import { PhysicsComponent } from './../physics/physics.component';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Ammo from 'ammojs-typed';
 import * as THREE from 'three';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { RendererTimer, ThreeUtil } from './../interface';
+import { PhysicsComponent } from './../physics/physics.component';
 
 @Component({
   selector: 'three-rigidbody',

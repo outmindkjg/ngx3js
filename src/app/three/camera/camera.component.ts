@@ -4,7 +4,6 @@ import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { HelperComponent } from './../helper/helper.component';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
@@ -53,7 +52,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
 
   @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
@@ -245,8 +243,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
+    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     super.ngAfterContentInit();
   }
 
@@ -276,19 +273,10 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
-      this.getObject3d();
+      this.getCamera();
       return true;
     }
     return false;
-  }
-
-  setVisible(visible: boolean, helperVisible: boolean = null) {
-    super.setVisible(visible);
-    if (helperVisible !== null && helperVisible !== undefined) {
-      this.helperList.forEach((helper) => {
-        helper.setVisible(helperVisible);
-      });
-    }
   }
 
   applyChanges3d(changes: string[]) {
@@ -307,16 +295,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'mixer':
-            if (this.clips !== null && this.clips.length > 0) {
-              this.mixerList.forEach((mixer) => {
-                mixer.setModel(this.camera, this.clips);
-              });
+            this.unSubscribeReferList('mixerList');
+            if (ThreeUtil.isNotNull(this.mixerList)) {
+              if (this.clips !== null && this.clips.length > 0) {
+                this.mixerList.forEach((mixer) => {
+                  mixer.setModel(this.camera, this.clips);
+                });
+              }
+              this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
             }
-            break;
-          case 'helper':
-            this.helperList.forEach((helper) => {
-              helper.setParent(this.camera);
-            });
             break;
         }
       });

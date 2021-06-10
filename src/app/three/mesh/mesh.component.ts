@@ -40,7 +40,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
   selector: 'three-mesh',
   templateUrl: './mesh.component.html',
   styleUrls: ['./mesh.component.scss'],
-  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => MeshComponent) }]
+  providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => MeshComponent) }],
 })
 export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'mesh';
@@ -156,7 +156,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
@@ -179,14 +178,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
-    this.subscribeListQuery(this.textureList, 'textureList', 'texture');
-    this.subscribeListQuery(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
-    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.curveList, 'curveList', 'curve');
+    this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
+    this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
+    this.subscribeListQueryChange(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
+    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQueryChange(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
+    this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQueryChange(this.curveList, 'curveList', 'curve');
     super.ngAfterContentInit();
   }
 
@@ -557,7 +555,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
-      this.getObject3d();
+      this.getMesh();
       return true;
     }
     return false;
@@ -587,9 +585,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     super.setVisible(visible);
     if (this.helper !== null && helperVisible !== null && helperVisible !== undefined) {
       this.helper.visible = helperVisible;
-      this.helperList.forEach((helper) => {
-        helper.setVisible(helperVisible);
-      });
       this.helperVisible = helperVisible;
     }
   }
@@ -600,51 +595,55 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         this.getObject3d();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'light', 'mesh', 'camera', 'helper', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material', 'mixer'], this.OBJECT3D_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'light', 'mesh', 'camera', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material', 'mixer'], this.OBJECT3D_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'light', 'mesh', 'camera', 'helper', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material']);
+        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'light', 'mesh', 'camera', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material']);
         if (ThreeUtil.isNotNull(this.clips)) {
           changes = ThreeUtil.pushUniq(changes, ['mixer']);
         }
       }
+      if (ThreeUtil.isIndexOf(changes, 'html')) {
+        changes = ThreeUtil.pushUniq(changes, ['csschildren']);
+      }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'helper':
-            if (this.clipMesh !== null) {
-              this.helperList.forEach((helper) => {
-                helper.setParent(this.clipMesh);
-              });
-            } else {
-              this.helperList.forEach((helper) => {
-                helper.setParent(this.mesh);
-              });
-            }
-            break;
           case 'rigidbody':
-            this.rigidbodyList.forEach((rigidbody) => {
-              rigidbody.setParent(this.mesh);
-            });
+            this.unSubscribeReferList('rigidbodyList');
+            if (ThreeUtil.isNotNull(this.rigidbodyList)) {
+              this.rigidbodyList.forEach((rigidbody) => {
+                rigidbody.setParent(this.mesh);
+              });
+              this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+            }
             break;
           case 'mixer':
-            if (ThreeUtil.isNotNull(this.clips)) {
-              if (ThreeUtil.isNotNull(this.clipMesh)) {
-                this.mixerList.forEach((mixer) => {
-                  mixer.setModel(this.clipMesh, this.clips);
-                });
-              } else {
-                this.mixerList.forEach((mixer) => {
-                  mixer.setModel(this.mesh, this.clips);
-                });
+            this.unSubscribeReferList('mixerList');
+            if (ThreeUtil.isNotNull(this.mixerList)) {
+              if (ThreeUtil.isNotNull(this.clips)) {
+                if (ThreeUtil.isNotNull(this.clipMesh)) {
+                  this.mixerList.forEach((mixer) => {
+                    mixer.setModel(this.clipMesh, this.clips);
+                  });
+                } else {
+                  this.mixerList.forEach((mixer) => {
+                    mixer.setModel(this.mesh, this.clips);
+                  });
+                }
               }
+              this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
             }
             break;
-          case 'cssChildren':
-            this.cssChildrenList.forEach((cssChild) => {
-              cssChild.setParent(this.mesh);
-            });
+          case 'csschildren':
+            this.unSubscribeReferList('cssChildrenList');
+            if (ThreeUtil.isNotNull(this.cssChildrenList)) {
+              this.cssChildrenList.forEach((cssChild) => {
+                cssChild.setParent(this.mesh);
+              });
+              this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'html');
+            }
             break;
           case 'material':
             this.unSubscribeRefer('material');
@@ -683,14 +682,16 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                         )
                       );
                     }
-                    if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
-                      this.materialList.forEach((material) => {
-                        switch (material.materialType.toLowerCase()) {
-                          case 'material':
-                            material.setMesh(meshMaterial);
-                            break;
-                        }
-                      });
+                    if (ThreeUtil.isNotNull(this.materialList)) {
+                      if (this.materialList.length > 0) {
+                        this.materialList.forEach((material) => {
+                          switch (material.materialType.toLowerCase()) {
+                            case 'material':
+                              material.setMesh(meshMaterial);
+                              break;
+                          }
+                        });
+                      }
                     }
                   }
                 }
@@ -699,6 +700,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             break;
           case 'geometry':
             this.unSubscribeRefer('geometry');
+            this.unSubscribeReferList('materialList');
             switch (this.type.toLowerCase()) {
               case 'flow':
               case 'instancedflow':
@@ -724,10 +726,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                       )
                     );
                   }
-                  if (ThreeUtil.isNotNull(this.geometryList) && this.geometryList.length > 0) {
-                    this.geometryList.forEach((geometry) => {
-                      geometry.setMesh(meshGeometry);
-                    });
+                  if (ThreeUtil.isNotNull(this.geometryList)) {
+                    if (this.geometryList.length > 0) {
+                      this.geometryList.forEach((geometry) => {
+                        geometry.setMesh(meshGeometry);
+                      });
+                    }
+                    this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
                   }
                 }
                 break;
@@ -1244,7 +1249,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 basemesh.add(character.root);
                 this.clipMesh = character.root;
                 this.clips = character;
-                this.applyChanges3d(['mixer', 'material', 'helper']);
+                this.applyChanges3d(['mixer', 'material']);
                 super.callOnLoad();
               }
             };

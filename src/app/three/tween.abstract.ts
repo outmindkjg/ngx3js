@@ -28,7 +28,7 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.tweenList, 'tweenList', 'tween');
+    this.subscribeListQueryChange(this.tweenList, 'tweenList', 'tween');
     super.ngAfterContentInit();
   }
 

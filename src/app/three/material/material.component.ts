@@ -1143,9 +1143,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.textureList, 'textureList', 'texture');
-    this.subscribeListQuery(this.shaderList, 'shaderList', 'shader');
-    this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
+    this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
+    this.subscribeListQueryChange(this.shaderList, 'shaderList', 'shader');
+    this.subscribeListQueryChange(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
     super.ngAfterContentInit();
   }
 
@@ -1881,10 +1881,12 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             this.synkTexture(this.normalMap, 'normalMap');
             this.synkTexture(this.aoMap, 'aoMap');
             this.synkTexture(this.displacementMap, 'displacementMap');
+            this.unSubscribeReferList('textureList');
             if (ThreeUtil.isNotNull(this.textureList)) {
               this.textureList.forEach((texture) => {
                 texture.setMaterial(this.material);
               });
+              this.subscribeListQuery(this.textureList, 'textureList','texture');
             }
             break;
           case 'color':
@@ -1933,8 +1935,10 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             }
             break;
           case 'clippingplanes':
-            if (ThreeUtil.isNotNull(this.clippingPlanes)) {
-              this.material.clippingPlanes = this.getClippingPlanes();
+            this.unSubscribeReferList('clippingPlanesList');
+            this.material.clippingPlanes = this.getClippingPlanes();
+            if (ThreeUtil.isNotNull(this.clippingPlanesList)) {
+              this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList','clippingPlanes');
             }
             break;
           case 'clipshadows':

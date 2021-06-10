@@ -95,10 +95,10 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngAfterContentInit() {
-    this.subscribeListQuery(this.childrenList, 'childrenList', 'children');
-    this.subscribeListQuery(this.htmlList, 'htmlList', 'html');
-    this.subscribeListQuery(this.transformList, 'transformList', 'transform');
-    this.subscribeListQuery(this.backgroundList, 'backgroundList', 'background');
+    this.subscribeListQueryChange(this.childrenList, 'childrenList', 'children');
+    this.subscribeListQueryChange(this.htmlList, 'htmlList', 'html');
+    this.subscribeListQueryChange(this.transformList, 'transformList', 'transform');
+    this.subscribeListQueryChange(this.backgroundList, 'backgroundList', 'background');
     super.ngAfterContentInit();
   }
 

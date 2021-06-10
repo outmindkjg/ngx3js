@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';

@@ -40,7 +40,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
   @ContentChildren(AbstractObject3dComponent, { descendants: false }) protected object3dList: QueryList<AbstractObject3dComponent>;
 
-  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','lodistance','debug','enabled','overrideparams','windowexport'];
+  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','debug','enabled','overrideparams','windowexport'];
 
   private getLoDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.loDistance, def);
@@ -166,13 +166,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
-    this.subscribeListQuery(this.positionList, 'positionList', 'position');
-    this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
-    this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
-    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
-    this.subscribeListQuery(this.object3dList, 'object3dList', 'object3d');
+    this.subscribeListQueryChange(this.object3dList, 'object3dList', 'object3d');
+    this.subscribeListQueryChange(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
+    this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQueryChange(this.materialList, 'materialList', 'material');
     super.ngAfterContentInit();
   }
 
@@ -531,10 +531,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             }
             break;
           case 'object3d' :
+            this.unSubscribeReferList('object3dList');
             if (ThreeUtil.isNotNull(this.object3dList)) {
+              this.consoleLog('object3d', this.object3dList.length,'error');
               this.object3dList.forEach((object3d) => {
                 object3d.setParent(this.object3d);
               });
+              this.subscribeListQuery(this.object3dList, 'object3dList','object3d');
             }
             break;
           case 'position':
@@ -552,10 +555,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }, 'position')
               );
             }
+            this.unSubscribeReferList('positionList');
             if (ThreeUtil.isNotNull(this.positionList)) {
               this.positionList.forEach((position) => {
                 position.setObject3d(this.object3d);
               });
+              this.subscribeListQuery(this.positionList, 'positionList','position');
             }
             if (ThreeUtil.isNull(this.object3d.userData.initPosition)) {
               this.object3d.userData.initPosition = this.object3d.position.clone();
@@ -575,10 +580,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 },'rotation')
               );
             }
+            this.unSubscribeReferList('rotationList');
             if (ThreeUtil.isNotNull(this.rotationList)) {
               this.rotationList.forEach((rotation) => {
                 rotation.setObject3d(this.object3d);
               });
+              this.subscribeListQuery(this.rotationList, 'rotationList','rotation');
             }
             this.setSubscribeNext('rotation');
             break;
@@ -595,10 +602,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }, 'scale')
               );
             }
+            this.unSubscribeReferList('scaleList');
             if (ThreeUtil.isNotNull(this.scaleList)) {
               this.scaleList.forEach((scale) => {
                 scale.setObject3d(this.object3d);
               });
+              this.subscribeListQuery(this.scaleList, 'scaleList','scale');
             }
             this.setSubscribeNext('scale');
             break;
@@ -615,10 +624,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }, 'lookat')
               );
             }
+            this.unSubscribeReferList('lookatList');
             if (ThreeUtil.isNotNull(this.lookatList)) {
               this.lookatList.forEach((lookat) => {
                 lookat.setObject3d(this.object3d)
               });
+              this.subscribeListQuery(this.lookatList, 'lookatList','lookat');
             }
             this.setSubscribeNext('lookat');
             break;
@@ -633,10 +644,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 }, 'controller')
               );
             }
+            this.unSubscribeReferList('controllerList');
             if (ThreeUtil.isNotNull(this.controllerList)) {
               this.controllerList.forEach((controller) => {
                 controller.setObject3d(this.object3d);
               });
+              this.subscribeListQuery(this.controllerList, 'controllerList','controller');
             }
             break;
           case 'material':
@@ -658,6 +671,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 this.addChanges(event);
               },'material'));
             }
+            this.unSubscribeReferList('materialList');
             if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
               const meshMaterial = MaterialComponent.getMeshMaterial(this.object3d) as MeshMaterialRaw;
               if (meshMaterial !== null) {
@@ -672,6 +686,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                   }
                 });
               }
+              this.subscribeListQuery(this.materialList, 'materialList','material');
             }
             break;
         }

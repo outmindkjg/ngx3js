@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
@@ -9,11 +9,13 @@ import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsH
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { ThreeUtil } from './../interface';
+import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper.js';
 
 @Component({
   selector: 'three-helper',
   templateUrl: './helper.component.html',
-  styleUrls: ['./helper.component.scss']
+  styleUrls: ['./helper.component.scss'],
+  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => HelperComponent) }]
 })
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';
@@ -45,20 +47,26 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private matrix: THREE.Matrix4 = null;
   @Input() private children: any[] = null;
   @Input() private control: any = null;
+  @Input() private range: number = null;
+  @Input() private divisionsInnerAngle: number = null;
+  @Input() private divisionsOuterAngle: number = null;
+
 
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
+    let targetMesh : THREE.Object3D = null;
     if (this.targetMesh !== null) {
-      return this.targetMesh;
-    } else if (ThreeUtil.isNotNull(this.target)) {
-      if (ThreeUtil.isNotNull(this.target.getMesh)) {
-        return this.target.getObject3d();
-      } else if (ThreeUtil.isNotNull(this.target.getLight)) {
-        return this.target.getObject3d();
-      } else if (ThreeUtil.isNotNull(this.target.getHelper)) {
-        return this.target.getHelper();
-      }
+      targetMesh = ThreeUtil.getObject3d(this.targetMesh, false);
     }
-    return target;
+    if (targetMesh === null && ThreeUtil.isNotNull(this.target)) {
+      targetMesh = ThreeUtil.getObject3d(this.target, false);
+    }
+    if (targetMesh === null && ThreeUtil.isNotNull(target)) {
+      targetMesh = ThreeUtil.getObject3d(target, false);
+    }
+    if (ThreeUtil.isNotNull(targetMesh) && targetMesh instanceof THREE.Object3D && ThreeUtil.isNotNull(targetMesh.userData.helperTarget)) {
+      targetMesh = ThreeUtil.getObject3d(targetMesh.userData.helperTarget, false) || targetMesh;
+    }
+    return targetMesh;
   }
 
   private getSize(def?: number): number {
@@ -192,11 +200,16 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   }
 
   private helper: THREE.Object3D = null;
+  
   private _refererTarget : THREE.Object3D = null;
 
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getHelper();
+      this.unSubscribeRefer('helperReset');
+      this.subscribeRefer('helperReset', ThreeUtil.getSubscribe(this.parentObject3d, (event) => {
+        this.needUpdate = true;
+      },'resettarget'));
       return true;
     } else {
       if (this._refererTarget !== this.parent) {
@@ -242,6 +255,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         this.parent.updateMatrixWorld(true);
       }
       this.helper = null;
+      let parentAdd : boolean = true;
       let basemesh: THREE.Object3D = null;
       switch (this.type.toLowerCase()) {
         case 'gyroscopehelper':
@@ -293,6 +307,16 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'polargrid':
           basemesh = new THREE.PolarGridHelper(this.getRadius(10), this.getRadials(16), this.getCircles(8), this.getDivisions(64), this.getColor1(0x444444), this.getColor2(0x888888));
           basemesh.receiveShadow = true;
+          break;
+        case 'positionalaudio':
+        case 'positionalaudiohelper':
+          let audioTarget = this.getTarget(this.parent);
+          if (audioTarget instanceof THREE.PositionalAudio) {
+            basemesh = new PositionalAudioHelper(audioTarget, this.range , this.divisionsInnerAngle, this.divisionsOuterAngle);
+            parentAdd = false;
+          } else {
+            basemesh = new THREE.AxesHelper(this.getSize(10));
+          }
           break;
         case 'camerahelper':
         case 'camera':
@@ -402,7 +426,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         if (ThreeUtil.isNotNull(this.matrix)) {
           this.helper.applyMatrix4(this.matrix);
         }
-        this.setParentObject3d(this.helper);
+        if (!parentAdd) {
+          this.setObject3d(this.helper);
+        } else {
+          this.setParentObject3d(this.helper);
+        }
       } else {
         this.helper = null;
       }

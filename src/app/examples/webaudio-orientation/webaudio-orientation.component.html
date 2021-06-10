@@ -1,7 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> webaudio - orientation<br/>
+  music by <a href="http://www.newgrounds.com/audio/listen/376737" target="_blank" rel="noopener noreferrer">skullbeatz</a>
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -16,11 +15,12 @@
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100">
+    <three-position [x]="3" [y]="2" [z]="3"></three-position>
+    <three-listener></three-listener>
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+    <three-fog [color]="'0xa0a0a0'" [near]="2" [far]="20"></three-fog>
     <three-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
@@ -33,38 +33,56 @@
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
+      [shadowCameraTop]="1"
+      [shadowCameraBottom]="-1"
+      [shadowCameraLeft]="-1"
+      [shadowCameraRight]="1"
       [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [shadowCameraFar]="20"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="5" [y]="5" [z]="0"></three-position>
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-mesh [storageName]="'models/gltf/BoomBox/glTF-Binary/BoomBox.glb'" [castShadow]="true">
+        <three-position [x]="0" [y]="0.2" [z]="0"></three-position>
+        <three-scale [multiply]="20"></three-scale>
+        <three-rotation [x]="0" [y]="-180" [z]="0"></three-rotation>
+        <three-audio 
+          [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3'"
+          [refDistance]="1"
+          [coneInnerAngle]="180"
+          [coneOuterAngle]="230"
+          [coneOuterGain]="0.1"
+        >
+          <three-helper [type]="'PositionalAudioHelper'" [range]="0.1" [windowExport]="'positionalAudioHelper'"></three-helper>
+        </three-audio>
+      </three-mesh>
+      <three-mesh>
+        <three-position [x]="0" [y]="0.5" [z]="-0.5"></three-position>
+        <three-geometry 
+          [type]="'BoxGeometry'"
+          [width]="2"
+          [height]="1"
+          [depth]="0.1"
+        ></three-geometry>
+        <three-material 
+          [type]="'MeshBasicMaterial'"
+          [color]="'0xff0000'"
+          [transparent]="true"
+          [opacity]="0.5"
+        ></three-material>
+      </three-mesh>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
+    <three-mesh>
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
       <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        [type]="'PlaneGeometry'"
+        [width]="50"
+        [height]="50"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-material [type]="'MeshPhongMaterial'" [color]="'0x999999'" [depthWrite]="false"></three-material>
     </three-mesh>
+    <three-helper [type]="'GridHelper'" [size]="50" [divisions]="50" [color1]="'0x888888'" [color2]="'0x888888'"></three-helper>
   </three-scene>
 </three-renderer>

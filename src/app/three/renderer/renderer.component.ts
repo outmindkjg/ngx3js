@@ -94,7 +94,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
   @ContentChildren(ComposerComponent, { descendants: true }) private composerList: QueryList<ComposerComponent>;
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
-  @ContentChildren(ListenerComponent, { descendants: true }) private listnerList: QueryList<ListenerComponent>;
+  @ContentChildren(ListenerComponent, { descendants: true }) private listenerList: QueryList<ListenerComponent>;
   @ContentChildren(AudioComponent, { descendants: true }) private audioList: QueryList<AudioComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
@@ -165,18 +165,18 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngAfterContentInit() {
-    this.subscribeListQuery(this.sceneList, 'sceneList', 'scene');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
-    this.subscribeListQuery(this.composerList, 'composerList', 'composer');
-    this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
-    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
-    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
-    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
-    this.subscribeListQuery(this.controlList, 'controlList', 'control');
-    this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
-    this.subscribeListQuery(this.canvas2dList, 'canvas2dList', 'canvas2d');
-    this.subscribeListQuery(this.sharedList, 'sharedList', 'shared');
+    this.subscribeListQueryChange(this.sceneList, 'sceneList', 'scene');
+    this.subscribeListQueryChange(this.cameraList, 'cameraList', 'camera');
+    this.subscribeListQueryChange(this.composerList, 'composerList', 'composer');
+    this.subscribeListQueryChange(this.viewerList, 'viewerList', 'viewer');
+    this.subscribeListQueryChange(this.listenerList, 'listenerList', 'listener');
+    this.subscribeListQueryChange(this.audioList, 'audioList', 'audio');
+    this.subscribeListQueryChange(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQueryChange(this.controlList, 'controlList', 'control');
+    this.subscribeListQueryChange(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
+    this.subscribeListQueryChange(this.canvas2dList, 'canvas2dList', 'canvas2d');
+    this.subscribeListQueryChange(this.sharedList, 'sharedList', 'shared');
     super.ngAfterContentInit();
   }
 
@@ -230,10 +230,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     event: {},
   };
 
-  private offsetTop : number = 0;
-  private offsetLeft : number = 0;
-  private offsetRight : number = 0;
-  private offsetBottom : number = 0;
+  private offsetTop: number = 0;
+  private offsetLeft: number = 0;
+  private offsetRight: number = 0;
+  private offsetBottom: number = 0;
 
   private setEvents(type: string, event: TouchInit | KeyboardEvent) {
     let clientX = 0;
@@ -366,7 +366,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.offsetTop = 0;
       this.offsetLeft = 0;
       let offsetParent = this.rendererEle.nativeElement;
-      while(offsetParent) {
+      while (offsetParent) {
         this.offsetLeft += offsetParent.offsetLeft;
         this.offsetTop += offsetParent.offsetTop;
         offsetParent = offsetParent.offsetParent;
@@ -449,7 +449,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
   }
 
-  private renderListner: THREE.AudioListener = null;
+  private renderlistener: THREE.AudioListener = null;
 
   applyChanges(changes: string[]) {
     if (this.renderer !== null) {
@@ -469,7 +469,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             'control',
             'composer',
             'viewer',
-            'listner',
+            'listener',
             'audio',
             'controller',
             'lookat',
@@ -535,27 +535,13 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listner', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol','webglrenderer']);
+        changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listener', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol', 'webglrenderer']);
       }
-      this.consoleLog('render',changes);
+      this.consoleLog('render', changes);
       if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
         changes = ThreeUtil.pushUniq(changes, ['guicontrol']);
       }
-      if (ThreeUtil.isIndexOf(changes, [
-        'localclippingenabled',
-        'globalclippingenabled',
-        'clearcolor',
-        'clearalpha',
-        'tonemapping',
-        'tonemappingexposure',
-        'shadowmapenabled',
-        'physicallycorrectlights',
-        'shadowmaptype',
-        'autoclear',
-        'autoclearcolor',
-        'outputencoding',
-        'clippingplanes',
-      ])) {
+      if (ThreeUtil.isIndexOf(changes, ['localclippingenabled', 'globalclippingenabled', 'clearcolor', 'clearalpha', 'tonemapping', 'tonemappingexposure', 'shadowmapenabled', 'physicallycorrectlights', 'shadowmaptype', 'autoclear', 'autoclearcolor', 'outputencoding', 'clippingplanes'])) {
         changes = ThreeUtil.pushUniq(changes, ['webglrenderer']);
       }
       if (
@@ -612,7 +598,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             if (ThreeUtil.isNotNull(this.guiControl) && ThreeUtil.isNotNull(this.guiParams) && this.guiParams.length > 0) {
               ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
             }
-            break;      
+            break;
           case 'useevent':
             const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
             if (useEvent.indexOf('change') > -1) {
@@ -665,7 +651,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'webglrenderer':
             if (this.renderer instanceof THREE.WebGLRenderer) {
-              this.renderer.setClearAlpha
+              this.renderer.setClearAlpha;
               if (ThreeUtil.isNotNull(this.clearColor)) {
                 this.renderer.setClearColor(this.getClearColor());
               }
@@ -722,52 +708,88 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             this.controls = this.getControls(this.cameraList, this.sceneList, this.canvasEle.nativeElement);
             break;
           case 'scene':
-            this.sceneList.forEach((scene) => {
-              scene.setRenderer(this);
-            });
+            this.unSubscribeReferList('sceneList');
+            if (ThreeUtil.isNotNull(this.sceneList)) {
+              this.sceneList.forEach((scene) => {
+                scene.setRenderer(this);
+              });
+              this.subscribeListQuery(this.sceneList, 'sceneList', 'scene');
+            }
             break;
           case 'camera':
-            this.cameraList.forEach((camera) => {
-              camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
-            });
+            this.unSubscribeReferList('cameraList');
+            if (ThreeUtil.isNotNull(this.cameraList)) {
+              this.cameraList.forEach((camera) => {
+                camera.setRenderer(this.renderer, this.cssRenderer, this.sceneList);
+              });
+              this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
+            }
             break;
           case 'composer':
-            if (this.renderer instanceof THREE.WebGLRenderer) {
-              const camera = this.cameraList.first.getCamera();
-              const scene = this.sceneList.first.getScene();
-              this.composerList.forEach(composer => {
-                composer.setRenderer(this.renderer as THREE.WebGLRenderer, camera, scene);
-              });
+            this.unSubscribeReferList('composerList');
+            if (ThreeUtil.isNotNull(this.composerList)) {
+              if (this.renderer instanceof THREE.WebGLRenderer) {
+                const camera = this.cameraList.first.getCamera();
+                const scene = this.sceneList.first.getScene();
+                this.composerList.forEach((composer) => {
+                  composer.setRenderer(this.renderer as THREE.WebGLRenderer, camera, scene);
+                });
+              }
+              this.subscribeListQuery(this.composerList, 'composerList', 'composer');
             }
             break;
           case 'viewer':
-            this.viewerList.forEach((viewer) => {
-              viewer.getViewer();
-            });
+            this.unSubscribeReferList('viewerList');
+            if (ThreeUtil.isNotNull(this.viewerList)) {
+              this.viewerList.forEach((viewer) => {
+                viewer.getViewer();
+              });
+              this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
+            }
             break;
-          case 'listner':
-            this.listnerList.forEach((listner) => {
-              this.renderListner = listner.getListener();
-            });
+          case 'listener':
+            this.unSubscribeReferList('listenerList');
+            if (ThreeUtil.isNotNull(this.listenerList)) {
+              this.listenerList.forEach((listener) => {
+                this.renderlistener = listener.getListener();
+              });
+              this.subscribeListQuery(this.listenerList, 'listenerList', 'listener');
+            }
             break;
           case 'audio':
-            this.audioList.forEach((audio) => {
-              audio.setListener(this.renderListner, this);
-            });
+            this.unSubscribeReferList('audioList');
+            if (ThreeUtil.isNotNull(this.audioList)) {
+              this.audioList.forEach((audio) => {
+                audio.setListener(this.renderlistener, this);
+              });
+              this.subscribeListQuery(this.audioList, 'audioList', 'audio');
+            }
             break;
           case 'controller':
-            this.controllerList.forEach((controller) => {
-              controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2dList);
-            });
+            this.unSubscribeReferList('controllerList');
+            if (ThreeUtil.isNotNull(this.controllerList)) {
+              this.controllerList.forEach((controller) => {
+                controller.setRenderer(this.renderer, this.sceneList, this.cameraList, this.canvas2dList);
+              });
+              this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+            }
             break;
           case 'canvas2d':
-            this.canvas2dList.forEach((canvas2d) => {
-              canvas2d.setParentNode(this.canvasEle.nativeElement);
-            });
+            this.unSubscribeReferList('canvas2dList');
+            if (ThreeUtil.isNotNull(this.canvas2dList)) {
+              this.canvas2dList.forEach((canvas2d) => {
+                canvas2d.setParentNode(this.canvasEle.nativeElement);
+              });
+              this.subscribeListQuery(this.canvas2dList, 'canvas2dList', 'canvas2d');
+            }
           case 'shared':
-            this.sharedList.forEach((shared) => {
-              shared.getShared();
-            });
+            this.unSubscribeReferList('sharedList');
+            if (ThreeUtil.isNotNull(this.sharedList)) {
+              this.sharedList.forEach((shared) => {
+                shared.getShared();
+              });
+              this.subscribeListQuery(this.sharedList, 'sharedList', 'shared');
+            }
             break;
         }
       });

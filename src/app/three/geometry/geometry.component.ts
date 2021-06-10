@@ -999,14 +999,14 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
-    this.subscribeListQuery(this.shapeList, 'shapeList', 'shape');
-    this.subscribeListQuery(this.curveList, 'curveList', 'curve');
-    this.subscribeListQuery(this.translationList, 'translationList', 'translation');
-    this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
-    this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
-    this.subscribeListQuery(this.svgList, 'svgList', 'svg');
-    this.subscribeListQuery(this.positionList, 'positionList', 'position');
+    this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
+    this.subscribeListQueryChange(this.shapeList, 'shapeList', 'shape');
+    this.subscribeListQueryChange(this.curveList, 'curveList', 'curve');
+    this.subscribeListQueryChange(this.translationList, 'translationList', 'translation');
+    this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQueryChange(this.svgList, 'svgList', 'svg');
+    this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
     super.ngAfterContentInit();
   }
 

@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { ControllerComponent } from '../controller/controller.component';
 import { FogComponent } from '../fog/fog.component';
-import { HelperComponent } from '../helper/helper.component';
 import { ThreeUtil } from '../interface';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
@@ -33,9 +32,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
   @ContentChildren(MixerComponent, { descendants: true }) private mixerList: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
-
 
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -57,13 +54,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
-    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.fogList, 'fogList', 'fog');
-    this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'sceneController');
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
+    this.subscribeListQueryChange(this.physicsList, 'physicsList', 'physics');
+    this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQueryChange(this.fogList, 'fogList', 'fog');
+    this.subscribeListQueryChange(this.sceneControllerList, 'sceneControllerList', 'sceneController');
+    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQueryChange(this.viewerList, 'viewerList', 'viewer');
     super.ngAfterContentInit();
   }
 
@@ -228,20 +224,27 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           } else {
             switch (materialType.toLowerCase()) {
               case 'environment':
-                case 'background':
-                case 'background-angular':
-                case 'backgroundangular':
-                case 'background-environment-angular':
-                case 'backgroundenvironmentangular':
-                  if (ThreeUtil.isNotNull(color)) {
-                    this.scene.background = color;
-                  }
-                  break;
+              case 'background':
+              case 'background-angular':
+              case 'backgroundangular':
+              case 'background-environment-angular':
+              case 'backgroundenvironmentangular':
+                if (ThreeUtil.isNotNull(color)) {
+                  this.scene.background = color;
+                }
+                break;
             }
           }
-          this.subscribeRefer('background', ThreeUtil.getSubscribe(material, () => {
-            this.setMaterial(material, materialTypeHint);              
-          },'material'));
+          this.subscribeRefer(
+            'background',
+            ThreeUtil.getSubscribe(
+              material,
+              () => {
+                this.setMaterial(material, materialTypeHint);
+              },
+              'material'
+            )
+          );
           break;
         case 'material':
         case 'overrideMaterial':
@@ -278,49 +281,70 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   applyChanges3d(changes: string[]) {
     if (this.scene !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'helper', 'camera', 'physics', 'fog', 'scenecontroller']);
+        changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'camera', 'physics', 'fog', 'scenecontroller']);
       }
       changes.forEach((change) => {
         switch (change) {
           case 'viewer':
-            this.viewerList.forEach((viewer) => {
-              viewer.setParent(this.scene);
-            });
-            break;
-          case 'helper':
-            this.helperList.forEach((helper) => {
-              helper.setParent(this.scene);
-            });
+            this.unSubscribeReferList('viewerList');
+            if (ThreeUtil.isNotNull(this.viewerList)) {
+              this.viewerList.forEach((viewer) => {
+                viewer.setParent(this.scene);
+              });
+              this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
+            }
             break;
           case 'rigidbody':
           case 'physics':
           case 'mixer':
-            this._physics = this.physicsList.first;
-            this.rigidbodyList.forEach((rigidbody) => {
-              rigidbody.setPhysics(this._physics);
-            });
-            this.mixerList.forEach((mixer) => {
-              mixer.setPhysics(this._physics);
-            });
+            this.unSubscribeReferList('physicsList');
+            this.unSubscribeReferList('rigidbodyList');
+            this.unSubscribeReferList('mixerList');
+            if (ThreeUtil.isNotNull(this.rigidbodyList) && ThreeUtil.isNotNull(this.physicsList) && this.physicsList.length > 0) {
+              this._physics = this.physicsList.first;
+              this.rigidbodyList.forEach((rigidbody) => {
+                rigidbody.setPhysics(this._physics);
+              });
+              this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
+              this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+            }
+            if (ThreeUtil.isNotNull(this._physics) && ThreeUtil.isNotNull(this.mixerList)) {
+              this.mixerList.forEach((mixer) => {
+                mixer.setPhysics(this._physics);
+              });
+              this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+            }
             break;
           case 'fog':
-            this.fogList.forEach((fog) => {
-              fog.setScene(this.scene);
-            });
+            this.unSubscribeReferList('fogList');
+            if (ThreeUtil.isNotNull(this.fogList)) {
+              this.fogList.forEach((fog) => {
+                fog.setScene(this.scene);
+              });
+              this.subscribeListQuery(this.fogList, 'fogList', 'fog');
+            }
             break;
+          case 'controller' :
           case 'scenecontroller':
-            this.sceneControllerList.forEach((controller) => {
-              controller.setScene(this.scene);
-            });
+            this.unSubscribeReferList('sceneControllerList');
+            if (ThreeUtil.isNotNull(this.sceneControllerList)) {
+              this.sceneControllerList.forEach((controller) => {
+                controller.setScene(this.scene);
+              });
+              this.subscribeListQuery(this.sceneControllerList, 'sceneControllerList', 'controller');
+            }
             break;
           case 'material':
-            this.materialList.forEach((material) => {
-              this.setMaterial(material);
-            });
+            this.unSubscribeReferList('materialList');
+            if (ThreeUtil.isNotNull(this.materialList)) {
+              this.materialList.forEach((material) => {
+                this.setMaterial(material);
+              });
+              this.subscribeListQuery(this.materialList, 'materialList', 'material');
+            }
             break;
         }
       });
-      window['scene'] = this.scene;
     }
     super.applyChanges3d(changes);
   }
@@ -371,17 +395,25 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           this.setMaterial(this.background, this.backgroundType);
           this.subscribeRefer(
             'background',
-            ThreeUtil.getSubscribe(this.background, () => {
-              this.setMaterial(this.background as MaterialComponent, this.backgroundType);
-            }, 'textureloaded')
+            ThreeUtil.getSubscribe(
+              this.background,
+              () => {
+                this.setMaterial(this.background as MaterialComponent, this.backgroundType);
+              },
+              'textureloaded'
+            )
           );
         } else if (this.background instanceof TextureComponent) {
           this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
           this.subscribeRefer(
             'background',
-            ThreeUtil.getSubscribe(this.background, () => {
-              this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
-            }, 'textureloaded')
+            ThreeUtil.getSubscribe(
+              this.background,
+              () => {
+                this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+              },
+              'textureloaded'
+            )
           );
         } else {
           this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);

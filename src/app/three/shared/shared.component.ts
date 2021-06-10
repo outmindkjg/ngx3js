@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { ThreeUtil } from '../interface';
@@ -65,24 +65,24 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngAfterContentInit() {
-    this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
-    this.subscribeListQuery(this.materialList, 'materialList', 'material');
-    this.subscribeListQuery(this.textureList, 'textureList', 'texture');
-    this.subscribeListQuery(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
-    this.subscribeListQuery(this.svgList, 'svgList', 'svg');
-    this.subscribeListQuery(this.listnerList, 'listnerList', 'listner');
-    this.subscribeListQuery(this.audioList, 'audioList', 'audio');
-    this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
-    this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
-    this.subscribeListQuery(this.meshList, 'meshList', 'mesh');
-    this.subscribeListQuery(this.cameraList, 'cameraList', 'camera');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
-    this.subscribeListQuery(this.lightList, 'lightList', 'light');
-    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
-    this.subscribeListQuery(this.positionList, 'positionList', 'position');
-    this.subscribeListQuery(this.rotationList, 'rotationList', 'rotation');
-    this.subscribeListQuery(this.scaleList, 'scaleList', 'scale');
-    this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
+    this.subscribeListQueryChange(this.materialList, 'materialList', 'material');
+    this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
+    this.subscribeListQueryChange(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
+    this.subscribeListQueryChange(this.svgList, 'svgList', 'svg');
+    this.subscribeListQueryChange(this.listnerList, 'listnerList', 'listner');
+    this.subscribeListQueryChange(this.audioList, 'audioList', 'audio');
+    this.subscribeListQueryChange(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
+    this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQueryChange(this.meshList, 'meshList', 'mesh');
+    this.subscribeListQueryChange(this.cameraList, 'cameraList', 'camera');
+    this.subscribeListQueryChange(this.helperList, 'helperList', 'helper');
+    this.subscribeListQueryChange(this.lightList, 'lightList', 'light');
+    this.subscribeListQueryChange(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
+    this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
     super.ngAfterContentInit();
   }
 

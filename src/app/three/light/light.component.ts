@@ -1,17 +1,15 @@
 import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
-import { HelperComponent } from '../helper/helper.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TextureComponent } from '../texture/texture.component';
 import { TagAttributes, ThreeUtil } from './../interface';
-import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
   selector: 'three-light',
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
-  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }]
+  providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }],
 })
 export class LightComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'spot';
@@ -44,9 +42,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private target: any = null;
   @Input() private renderer: any = null;
   @Input() private renderTarget: any = null;
-  
-  @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
-  @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
@@ -214,8 +209,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-    this.subscribeListQuery(this.helperList, 'helperList', 'helper');
     super.ngAfterContentInit();
   }
 
@@ -381,7 +374,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
-      this.getObject3d();
+      this.getLight();
       return true;
     }
     return false;
@@ -393,13 +386,8 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         changes = ThreeUtil.pushUniq(changes, ['helper']);
       }
       changes.forEach((change) => {
-        switch (change) {
-          case 'helper':
-            if (ThreeUtil.isNotNull(this.helperList)) {
-              this.helperList.forEach((helper) => {
-                helper.setParent(this.light);
-              });
-            }
+        switch (change.toLowerCase()) {
+          default:
             break;
         }
       });
@@ -408,8 +396,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   private light: THREE.Light = null;
-
+  
   getObject3d(): THREE.Light {
+    return this.getLight();
+  }
+  
+  getLight(): THREE.Light {
     if (this.light === null || this._needUpdate) {
       this.needUpdate = false;
       this.light = null;
@@ -432,11 +424,18 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
             if (ThreeUtil.isTextureLoaded(texture) && texture instanceof THREE.CubeTexture) {
               basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
             }
-            this.subscribeRefer('texture', ThreeUtil.getSubscribe(this.texture, () => {
-              if (ThreeUtil.isTextureLoaded(texture) && texture instanceof THREE.CubeTexture) {
-                basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
-              }
-            },'textureloaded'));
+            this.subscribeRefer(
+              'texture',
+              ThreeUtil.getSubscribe(
+                this.texture,
+                () => {
+                  if (ThreeUtil.isTextureLoaded(texture) && texture instanceof THREE.CubeTexture) {
+                    basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
+                  }
+                },
+                'textureloaded'
+              )
+            );
           } else if (ThreeUtil.isNotNull(this.renderTarget)) {
             const renderer = this.getThreeRenderer();
             let renderTarget = null;

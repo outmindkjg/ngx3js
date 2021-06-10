@@ -23,8 +23,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private rolloffFactor:number = 1;
   @Input() private distanceModel:string = "";
   @Input() private maxDistance:number = 1;
-  @Input() private coneInnerAngle:number = 1;
-  @Input() private coneOuterAngle:number = 1;
+  @Input() private coneInnerAngle:number = null;
+  @Input() private coneOuterAngle:number = null;
   @Input() private coneOuterGain:number = 1;
   @Input() private fftSize:number = 128;
 
@@ -54,7 +54,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     super.ngAfterContentInit();
   }
   
@@ -153,7 +153,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         this.video = null;
         if (ThreeUtil.isNotNull(this.videoUrl)) {
           const video = document.createElement('video');
-          video.src = this.videoUrl;
+          video.src = ThreeUtil.getStoreUrl(this.videoUrl);
           video.loop = this.loop;
           video.autoplay = this.autoplay;
           this.audio.setMediaElementSource(video);
@@ -172,7 +172,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             super.callOnLoad();
           }
         } else {
-          this.loadAudio(this.url, (buffer: AudioBuffer) => {
+          this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
             this.audio.setBuffer(buffer);
             this.resetAudio();
             super.callOnLoad();
@@ -195,13 +195,13 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           this.audio.setRolloffFactor(this.rolloffFactor);
           // this.audio.setDistanceModel(this.distanceModel);
           this.audio.setMaxDistance(this.maxDistance);
-          /*
-          this.audio.setDirectionalCone(
-            this.coneInnerAngle,
-            this.coneOuterAngle,
-            this.coneOuterGain
-          );
-          */
+          if (ThreeUtil.isNotNull(this.coneInnerAngle) && ThreeUtil.isNotNull(this.coneOuterAngle)) {
+            this.audio.setDirectionalCone(
+              ThreeUtil.getTypeSafe(this.coneInnerAngle,0),
+              ThreeUtil.getTypeSafe(this.coneOuterAngle,360),
+              ThreeUtil.getTypeSafe(this.coneOuterGain,1)
+            );
+          }
           // this.audio.play();
         }
       }
@@ -249,14 +249,20 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       changes.forEach((change) => {
         switch (change) {
           case 'mixer' :
+            this.unSubscribeReferList('mixerList');
             this.mixerList.forEach((mixer) => {
               mixer.setModel(this.audio, null);
             });
+            this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
             break;
         }
       });
       super.applyChanges3d(changes);
     }
+  }
+  
+  getObject3d(): THREE.Audio {
+    return this.audio;
   }
 
   getAudio():THREE.Audio {

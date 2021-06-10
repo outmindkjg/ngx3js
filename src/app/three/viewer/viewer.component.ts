@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ShadowMesh } from 'three/examples/jsm/objects/ShadowMesh';
 import { ShadowMapViewer } from 'three/examples/jsm/utils/ShadowMapViewer';

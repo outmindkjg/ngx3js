@@ -11,29 +11,27 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 @Component({
   selector: 'three-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent extends AbstractSubscribeComponent implements OnInit {
-  
-  @Input() public name:string = null;
+  @Input() public name: string = null;
 
-  @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
+  @ContentChildren(VisualComponent) private visualList: QueryList<VisualComponent>;
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
-	@ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+  @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
 
-  private collection : HtmlCollection = {
-    html : null,
-    name : null,
-    component : this,
-    children : []
+  private collection: HtmlCollection = {
+    html: null,
+    name: null,
+    component: this,
+    children: [],
   };
 
-  constructor() { 
+  constructor() {
     super();
   }
-
 
   ngOnInit(): void {
     super.ngOnInit('canvas');
@@ -61,11 +59,11 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   ngAfterContentInit() {
-    this.subscribeListQuery(this.childrenList, 'childrenList', 'children');
-    this.subscribeListQuery(this.htmlList, 'htmlList', 'html');
-    this.subscribeListQuery(this.transformList, 'transformList', 'transform');
-    this.subscribeListQuery(this.backgroundList, 'backgroundList', 'background');
-    this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+    this.subscribeListQueryChange(this.visualList, 'visualList', 'children');
+    this.subscribeListQueryChange(this.htmlList, 'htmlList', 'html');
+    this.subscribeListQueryChange(this.transformList, 'transformList', 'transform');
+    this.subscribeListQueryChange(this.backgroundList, 'backgroundList', 'background');
+    this.subscribeListQueryChange(this.controllerList, 'controllerList', 'controller');
     super.ngAfterContentInit();
   }
 
@@ -90,38 +88,58 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
   applyChanges2d(changes: string[]) {
     if (this.canvas !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['children','html', 'transform', 'background', 'controller']);
+        changes = ThreeUtil.pushUniq(changes, ['visual', 'html', 'transform', 'background', 'controller']);
       }
       changes.forEach((change) => {
         switch (change) {
-          case 'children':
-            if (this.eleSize !== null) {
-              this.childrenList.forEach((child) => {
-                child.setParentNode(this.canvas, this.eleSize, this.collection);
-              });
+          case 'visual':
+            this.unSubscribeReferList('visualList');
+            if (ThreeUtil.isNotNull(this.visualList)) {
+              if (this.eleSize !== null) {
+                this.visualList.forEach((child) => {
+                  child.setParentNode(this.canvas, this.eleSize, this.collection);
+                });
+              }
+              this.subscribeListQuery(this.visualList, 'visualList', 'visual');
             }
             break;
           case 'html':
-            this.htmlList.forEach((html) => {
-              html.setParent(this.canvas);
-            });
+            this.unSubscribeReferList('htmlList');
+            if (ThreeUtil.isNotNull(this.htmlList)) {
+              this.htmlList.forEach((html) => {
+                html.setParent(this.canvas);
+              });
+              this.subscribeListQuery(this.htmlList, 'htmlList', 'html');
+            }
             break;
           case 'transform':
-            if (this.canvasSize !== null) {
-              this.transformList.forEach((transform) => {
-                transform.setParentNode(this.canvas, this.canvasSize, this.eleSize);
-              });
+            this.unSubscribeReferList('transformList');
+            if (ThreeUtil.isNotNull(this.transformList)) {
+              if (this.canvasSize !== null) {
+                this.transformList.forEach((transform) => {
+                  transform.setParentNode(this.canvas, this.canvasSize, this.eleSize);
+                });
+              }
+              this.subscribeListQuery(this.transformList, 'transformList', 'transform');
             }
             break;
           case 'background':
-            this.backgroundList.forEach((background) => {
-              background.setParentNode(this.canvas);
-            });
+            this.unSubscribeReferList('backgroundList');
+            if (ThreeUtil.isNotNull(this.backgroundList)) {
+              this.backgroundList.forEach((background) => {
+                background.setParentNode(this.canvas);
+              });
+              this.subscribeListQuery(this.backgroundList, 'backgroundList', 'background');
+            }
             break;
           case 'controller':
-            this.controllerList.forEach((controller) => {
-              controller.setCanvas(this.collection);
-            });
+            this.unSubscribeReferList('controllerList');
+            if (ThreeUtil.isNotNull(this.controllerList)) {
+              this.controllerList.forEach((controller) => {
+                controller.setCanvas(this.collection);
+              });
+              this.subscribeListQuery(this.controllerList, 'controllerList', 'controller');
+            }
             break;
         }
       });
@@ -129,15 +147,15 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getCollection():HtmlCollection {
+  getCollection(): HtmlCollection {
     return this.collection;
   }
 
-  getStyle() : CssStyle {
+  getStyle(): CssStyle {
     const style: CssStyle = {
       width: '100%',
       height: '100%',
-    }
+    };
     if (this.canvasSize !== null) {
       style.width = this.canvasSize.x;
       style.height = this.canvasSize.y;
@@ -147,18 +165,18 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
 
   applyHtmlStyle() {
     if (this.canvas !== null) {
-      const style: CssStyle= this.getStyle();
+      const style: CssStyle = this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
       this.applyChanges2d(['transform', 'background', 'children']);
     }
   }
 
-  private cssClazzName : string = null;
+  private cssClazzName: string = null;
 
   getCanvas(): HTMLElement {
     if (this.canvas === null || this._needUpdate) {
       this.needUpdate = false;
-      const canvas = document.createElement("div");
+      const canvas = document.createElement('div');
       canvas.classList.add('three-canvas');
       if (this.canvas !== null && this.canvas.parentNode !== null) {
         this.canvas.parentNode.removeChild(this.canvas);

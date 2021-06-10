@@ -349,25 +349,21 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
-  protected subscribeListQuery(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
+  protected subscribeListQueryChange(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
-      this.unSubscribeReferList(subscribeKey);
-      this.unSubscribeRefer(subscribeKey + "changes");
+      this.unSubscribeRefer(subscribeKey + "Changes");
       this.subscribeRefer(
         subscribeKey,
         queryList.changes.subscribe(() => {
-          this.unSubscribeReferList(subscribeKey);
-          queryList.forEach(query => {
-            this.subscribeReferList(
-              subscribeKey,
-              ThreeUtil.getSubscribe(query, (event) => {
-                this.addChanges(event);
-              },changeKey.toLowerCase())
-            );
-          });
           this.addChanges(changeKey.toLowerCase());
         })
       );
+    }
+  }
+
+  protected subscribeListQuery(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
+    if (ThreeUtil.isNotNull(queryList)) {
+      this.unSubscribeReferList(subscribeKey);
       queryList.forEach(query => {
         this.subscribeReferList(
           subscribeKey,
@@ -378,4 +374,5 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       });
     }
   }
+  
 }

@@ -107,7 +107,7 @@ export class SvgComponent extends AbstractObject3dComponent {
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQuery(this.translationList, 'translationList', 'translation');
+    this.subscribeListQueryChange(this.translationList, 'translationList', 'translation');
     super.ngAfterContentInit();
   }
 

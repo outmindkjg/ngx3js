@@ -68,7 +68,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
 
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
-    this.subscribeListQuery(this.controllerItemList, 'controllerItemList', 'controllerItem');
+    this.subscribeListQueryChange(this.controllerItemList, 'controllerItemList', 'controllerItem');
   }
 
   applyChanges(changes: string[]) {
