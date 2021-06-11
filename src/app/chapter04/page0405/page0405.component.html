@@ -4,8 +4,12 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x0c0c0c'"></three-mesh>
-        <three-mesh [type]="'light'" [lightType]="'spot'" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
+        <three-mesh 
+            [type]="'light'" 
+            [lightOptions]="{ type : 'ambient', color : '0x0c0c0c' }"></three-mesh>
+        <three-mesh 
+            [type]="'light'" 
+            [lightOptions]="{ type : 'spot', color : '0xffffff', intensity : 0.7 }" [castShadow]="true">
             <three-position [x]="-40" [y]="60" [z]="-10"></three-position>
         </three-mesh>
         <three-mesh>

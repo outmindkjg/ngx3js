@@ -8,8 +8,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"
@@ -17,7 +16,7 @@
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
-  [useEvent]="['mousemove']"
+  [useEvent]="'mousemove'"
   (eventListener)="setEventListener($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>

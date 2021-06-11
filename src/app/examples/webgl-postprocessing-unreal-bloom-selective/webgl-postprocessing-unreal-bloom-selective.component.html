@@ -4,8 +4,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [toneMapping]="'ReinhardToneMapping'"
@@ -13,7 +12,7 @@
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
-  [useEvent]="['pointerdown']"
+  [useEvent]="'pointerdown'"
   (eventListener)="onPointerDown($event)"
   (onLoad)="setRender($event)"
 >

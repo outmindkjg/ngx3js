@@ -4,17 +4,20 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="0.8" >
+        <three-mesh [type]="'light'" [lightOptions]="{ type : 'directional', color : '0xffffff' , intensity : 0.8 }">
             <three-position [x]="30" [y]="30" [z]="30"></three-position>
         </three-mesh>
-        <three-mesh [type]="'light'" [lightType]="'Spot'" 
-            [color]="'0xffffff'" 
-            [intensity]="0.6" 
-            [shadowMapSizeWidth]="4096"
-            [shadowMapSizeHeight]="4096"
-            [shadowCameraFov]="120"
-            [shadowCameraNear]="1"
-            [shadowCameraFar]="200"
+        <three-mesh [type]="'light'" 
+            [lightOptions]="{ 
+                type : 'Spot', 
+                color : '0xffffff',
+                intensity :0.6,
+                shadowMapSizeWidth :4096,
+                shadowMapSizeHeight :4096,
+                shadowCameraFov : 120,
+                shadowCameraNear :1,
+                shadowCameraFar : 200
+            }"
         >
             <three-position [x]="-30" [y]="30" [z]="-100"></three-position>
             <three-lookat [x]="-10" [y]="0" [z]="-10"></three-lookat>

@@ -8,15 +8,12 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 2 , maxDistance: 20 }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0x263238'"
   [shadowMapEnabled]="true"
   [localClippingEnabled]="true"
-  [minDistance]="2"
-  [maxDistance] ="20"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"

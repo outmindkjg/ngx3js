@@ -1,70 +1,63 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webaudio - sandbox<br/>
+  music by <a href="http://www.newgrounds.com/audio/listen/358232" target="_blank" rel="noopener">larrylarrybb</a>,
+  <a href="http://www.newgrounds.com/audio/listen/376737" target="_blank" rel="noopener">skullbeatz</a> and
+  <a href="http://opengameart.org/content/project-utopia-seamless-loop" target="_blank" rel="noopener">congusbongus</a><br/><br/>
+  navigate with WASD / arrows / mouse
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
+    <three-position [x]="0" [y]="25" [z]="-500"></three-position>
+    <three-listener></three-listener>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
+  <three-scene #scene>
+    <three-audio [type]="'audio'" [url]="'sounds/Project_Utopia.ogg'" [volume]="0.5" [loop]="true" [autoplay]="true"></three-audio>
+    <three-fog [type]="'FogExp2'" [density]="0.0025"></three-fog>
     <three-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="0" [y]="0.5" [z]="1" [normalize]="true"></three-position>
     </three-light>
+    <three-shared>
+      <three-geometry
+        #sphere 
+        [type]="'SphereGeometry'"
+        [radius]="20"
+        [widthSegments]="32"
+        [heightSegments]="16"
+      ></three-geometry>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-mesh [geometry]="sphere">
+        <three-position [x]="-259" [y]="30" [z]="0"></three-position>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0xffaa00'" [flatShading]="true" [shininess]="0"></three-material>
+        <three-audio [type]="'PositionalAudio'" [url]="'sounds/358232_j_s_song.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+      </three-mesh>
+      <three-mesh [geometry]="sphere">
+        <three-position [x]="250" [y]="30" [z]="0"></three-position>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0xff2200'" [flatShading]="true" [shininess]="0"></three-material>
+        <three-audio [type]="'PositionalAudio'" [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+      </three-mesh>
+      <three-mesh [geometry]="sphere">
+        <three-position [x]="0" [y]="30" [z]="-250"></three-position>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0x6622aa'" [flatShading]="true" [shininess]="0"></three-material>
+        <three-audio [type]="'PositionalAudio'" [urlType]="'listener'" [volume]="0.5" [refDistance]="20"></three-audio>
+      </three-mesh>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
-    </three-mesh>
+    <three-helper [type]="'GridHelper'" [size]="1000" [divisions]="10" [color1]="'0x444444'" [color2]="'0x444444'">
+      <three-position [x]="0" [y]="0.1" [z]="0"></three-position>
+    </three-helper>
   </three-scene>
 </three-renderer>

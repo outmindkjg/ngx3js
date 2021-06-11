@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Camera, OrthographicCamera, PerspectiveCamera, Texture } from 'three';
+import { Texture } from 'three';
 import { BaseComponent } from '../../three';
-import { ShaderType, ShaderUtils } from '../../three/shader/shaderUtils';
 import { SharedComponent } from '../../three/shared/shared.component';
 
 @Component({

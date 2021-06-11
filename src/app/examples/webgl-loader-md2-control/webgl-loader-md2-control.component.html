@@ -5,16 +5,14 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enableKeys]="false"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true, enableKeys : false }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['keydown','keyup']"
+  [useEvent]="'keydown,keyup'"
   (eventListener)="setKeyDownEvent($event)"
   (onRender)="onRender($event)"
 >

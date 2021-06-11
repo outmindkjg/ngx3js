@@ -18,16 +18,20 @@
         <three-pass #effectCopy [type]="'Shader'" [shader]="'Copy'" [renderToScreen]="true"></three-pass>
     </three-camera>
     <three-scene #scene>
-        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x444444'" [intensity]="0.1"></three-mesh>
-        <three-mesh [type]="'light'" [lightType]="'spot'" 
-            [color]="'0xffffff'" 
-            [intensity]="1" 
-            [castShadow]="true" 
-            [shadowMapSizeWidth]="2048"
-            [shadowMapSizeHeight]="2048"
-            [shadowCameraFov]="120"
-            [shadowCameraNear]="1"
-            [shadowCameraFar]="1000"
+        <three-mesh [type]="'light'" [lightOptions]="{ type : 'ambient', color : '0x444444' , intensity : 0.1 }"></three-mesh>
+        <three-mesh 
+            [type]="'light'" 
+            [lightOptions]="{ 
+                type : 'spot', 
+                color:'0xffffff',
+                intensity:1,
+                castShadow:true,
+                shadowMapSizeWidth:2048,
+                shadowMapSizeHeight:2048,
+                shadowCameraFov:120,
+                shadowCameraNear:1,
+                shadowCameraFar:1000
+            }" 
             [helperType]="'camera'"
         >
             <three-position [x]="0" [y]="60" [z]="50"></three-position>

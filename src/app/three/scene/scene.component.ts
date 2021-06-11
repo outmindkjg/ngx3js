@@ -280,6 +280,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   applyChanges3d(changes: string[]) {
     if (this.scene !== null) {
+      console.error(changes);
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'camera', 'physics', 'fog', 'scenecontroller']);
       }
@@ -371,7 +372,71 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
     if (!this._sceneSynked) {
       this._sceneSynked = true;
-      this.applyChanges3d(['init']);
+      if (ThreeUtil.isNotNull(this.storageName)) {
+        this.scene = new THREE.Scene();
+        this.localStorageService.getScene(this.storageName, (scene: THREE.Scene) => {
+          this.scene = scene;
+          this.setObject3d(scene);
+        });
+      } else {
+        this.unSubscribeRefer('background');
+        if (ThreeUtil.isNotNull(this.background)) {
+          if (this.background instanceof MaterialComponent) {
+            this.setMaterial(this.background, this.backgroundType);
+            this.subscribeRefer(
+              'background',
+              ThreeUtil.getSubscribe(
+                this.background,
+                () => {
+                  this.setMaterial(this.background as MaterialComponent, this.backgroundType);
+                },
+                'textureloaded'
+              )
+            );
+          } else if (this.background instanceof TextureComponent) {
+            this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+            this.subscribeRefer(
+              'background',
+              ThreeUtil.getSubscribe(
+                this.background,
+                () => {
+                  this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+                },
+                'textureloaded'
+              )
+            );
+          } else {
+            this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);
+          }
+        }
+        this.unSubscribeRefer('environment');
+        if (ThreeUtil.isNotNull(this.environment)) {
+          if (this.environment instanceof MaterialComponent) {
+            this.setMaterial(this.environment, 'environment');
+            this.subscribeRefer(
+              'environment',
+              this.environment.getSubscribe().subscribe(() => {
+                this.setMaterial(this.environment as MaterialComponent, 'environment');
+              })
+            );
+          } else if (this.environment instanceof MeshComponent) {
+            const mesh = this.environment.getObject3d() as THREE.Scene;
+            this.scene.environment = this.getTextureFromScene(mesh);
+          } else {
+            switch (this.environment) {
+              case 'room':
+                const renderer = this.getThreeRenderer();
+                if (renderer instanceof THREE.WebGLRenderer) {
+                  const roomEnvironment = new RoomEnvironment();
+                  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+                  this.scene.environment = pmremGenerator.fromScene(roomEnvironment).texture;
+                }
+                break;
+            }
+          }
+        }
+        this.setObject3d(this.scene);
+      }
     }
     return this.scene;
   }
@@ -379,72 +444,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   getSceneDumpy(): THREE.Scene {
     if (this.scene === null || this._needUpdate) {
       this.needUpdate = false;
-      if (this.storageName !== null) {
-        this.scene = new THREE.Scene();
-        this.localStorageService.getScene(this.storageName, (scene: THREE.Scene) => {
-          this.setObject3d(scene);
-        });
-        this.setObject3d(this.scene);
-      } else {
-        this.scene = new THREE.Scene();
-        this.setObject3d(this.scene);
-      }
-      this.unSubscribeRefer('background');
-      if (ThreeUtil.isNotNull(this.background)) {
-        if (this.background instanceof MaterialComponent) {
-          this.setMaterial(this.background, this.backgroundType);
-          this.subscribeRefer(
-            'background',
-            ThreeUtil.getSubscribe(
-              this.background,
-              () => {
-                this.setMaterial(this.background as MaterialComponent, this.backgroundType);
-              },
-              'textureloaded'
-            )
-          );
-        } else if (this.background instanceof TextureComponent) {
-          this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
-          this.subscribeRefer(
-            'background',
-            ThreeUtil.getSubscribe(
-              this.background,
-              () => {
-                this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
-              },
-              'textureloaded'
-            )
-          );
-        } else {
-          this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);
-        }
-      }
-      this.unSubscribeRefer('environment');
-      if (ThreeUtil.isNotNull(this.environment)) {
-        if (this.environment instanceof MaterialComponent) {
-          this.setMaterial(this.environment, 'environment');
-          this.subscribeRefer(
-            'environment',
-            this.environment.getSubscribe().subscribe(() => {
-              this.setMaterial(this.environment as MaterialComponent, 'environment');
-            })
-          );
-        } else if (this.environment instanceof MeshComponent) {
-          const mesh = this.environment.getObject3d() as THREE.Scene;
-          this.scene.environment = this.getTextureFromScene(mesh);
-        } else {
-          switch (this.environment) {
-            case 'room':
-              const renderer = this.getThreeRenderer();
-              if (renderer instanceof THREE.WebGLRenderer) {
-                const roomEnvironment = new RoomEnvironment();
-                const pmremGenerator = new THREE.PMREMGenerator(renderer);
-                this.scene.environment = pmremGenerator.fromScene(roomEnvironment).texture;
-              }
-              break;
-          }
-        }
-      }
+      this.scene = new THREE.Scene();
       this._sceneSynked = false;
     }
     return this.scene;

@@ -4,6 +4,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect';
 import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect';
+import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect';
+
 import { RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
 import { AbstractTweenComponent } from '../tween.abstract';
@@ -34,6 +36,14 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private scissorHeight: number | string = '100%';
   @Input() private reflectFromAbove: boolean = null;
   @Input() private cameraDistance: number = null;
+
+	@Input() private charSet: string = null;
+	@Input() private resolution: number = null;
+	@Input() private scale: number = null;
+	@Input() private color: boolean = null;
+	@Input() private alpha: boolean = null;
+	@Input() private block: boolean = null;
+	@Input() private invert: boolean = null;
 
   @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
@@ -255,6 +265,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   }
 
   ngOnDestroy(): void {
+    if (this.effectComposer !== null && this.effectComposer instanceof AsciiEffect) {
+      this.effectComposer.domElement.parentNode.removeChild(this.effectComposer.domElement);
+    }
     super.ngOnDestroy();
   }
 
@@ -275,6 +288,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   setComposerSize(width: number, height: number) {
     this.composerWidth = width;
     this.composerHeight = height;
+    if (this.effectComposer !== null && this.effectComposer instanceof AsciiEffect) {
+      this.effectComposer.setSize(this.composerWidth, this.composerHeight);
+    }
   }
 
   render(renderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
@@ -296,7 +312,12 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         renderer.autoClear = false;
         renderer.clear();
       }
-      this.effectComposer.render(renderTimer.delta);
+      if (this.effectComposer instanceof AsciiEffect) {
+        this.consoleLogTime('AsciiEffect',renderTimer);
+        this.effectComposer.render(this._composerScene, this._composerCamera);
+      } else {
+        this.effectComposer.render(renderTimer.delta);
+      }
       if (this.scissorTest) {
         renderer.setScissorTest(false);
       }
@@ -376,7 +397,33 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   getComposer(): EffectComposer | any {
     if (this._composerRenderer !== null && this._composerCamera && this._composerScene && (this.effectComposer === null || this._needUpdate)) {
       this.needUpdate = false;
-      switch (this.type.toLowerCase()) {
+      if (this.effectComposer !== null && this.effectComposer instanceof AsciiEffect) {
+        this.effectComposer.domElement.parentNode.removeChild(this.effectComposer.domElement);
+      }
+        switch (this.type.toLowerCase()) {
+        case 'asciieffect' :
+        case 'ascii' :
+          const asciiEffect = new AsciiEffect( 
+            this._composerRenderer, 
+            ThreeUtil.getTypeSafe(this.charSet, ' .:-+*=%@#'), 
+            { 
+              resolution: ThreeUtil.getTypeSafe(this.resolution),
+              scale: ThreeUtil.getTypeSafe(this.scale),
+              color: ThreeUtil.getTypeSafe(this.color),
+              alpha: ThreeUtil.getTypeSafe(this.alpha),
+              block: ThreeUtil.getTypeSafe(this.block),
+              invert: ThreeUtil.getTypeSafe(this.invert),
+            } 
+          );
+          asciiEffect.domElement.style.position = 'absolute';
+          asciiEffect.domElement.style.left = '0px';
+          asciiEffect.domElement.style.top = '0px';
+          asciiEffect.domElement.style.color = 'white';
+          asciiEffect.domElement.style.backgroundColor = 'black';
+          this._composerRenderer.domElement.parentNode.appendChild(asciiEffect.domElement);
+          this.effectComposer = asciiEffect;
+          asciiEffect.setSize(this.composerWidth, this.composerHeight);
+          break;
         case 'peppersghost':
           const peppersGhostEffect = new PeppersGhostEffect(this._composerRenderer);
           peppersGhostEffect.cameraDistance = this.getCameraDistance(15);

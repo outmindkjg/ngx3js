@@ -3,8 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -40,13 +39,15 @@
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-mesh *ngFor="let color of pointLightColors;let idx = index;" 
         [type]="'light'" 
-        [lightType]="'PointLight'"
-        [color]="color"
-        [intensity]="1.5"
-        [distance]="20"
-        [shadowCameraNear]="1"
-        [shadowCameraFar]="60"
-        [shadowBias]="-0.005"
+        [lightOptions]="{
+          type : 'PointLight',
+          color: color,
+          intensity : 1.5,
+          distance : 20,
+          shadowCameraNear : 1,
+          shadowCameraFar : 60,
+          shadowBias : -0.005
+        }"
       >
         <three-position [x]="idx * 5" [y]="0" [z]="0"></three-position>
         <three-mesh>
@@ -58,7 +59,7 @@
           ></three-geometry>
           <three-material [type]="'MeshBasic'" [color]="color" [colorMultiply]="1.5"></three-material>
         </three-mesh>
-        <three-mesh [castShadow]="true" [receiveShadow]="true" [useCustomDistanceMaterial]="true">
+        <three-mesh [castShadow]="true" [receiveShadow]="true">
           <three-geometry
             [type]="'SphereGeometry'"
             [radius]="2"

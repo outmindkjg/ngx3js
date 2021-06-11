@@ -62,8 +62,8 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     if (targetMesh === null && ThreeUtil.isNotNull(target)) {
       targetMesh = ThreeUtil.getObject3d(target, false);
     }
-    if (ThreeUtil.isNotNull(targetMesh) && targetMesh instanceof THREE.Object3D && ThreeUtil.isNotNull(targetMesh.userData.helperTarget)) {
-      targetMesh = ThreeUtil.getObject3d(targetMesh.userData.helperTarget, false) || targetMesh;
+    if (ThreeUtil.isNotNull(targetMesh) && targetMesh instanceof THREE.Object3D && ThreeUtil.isNotNull(targetMesh.userData.refTarget)) {
+      targetMesh = ThreeUtil.getObject3d(targetMesh.userData.refTarget, false) || targetMesh;
     }
     return targetMesh;
   }
@@ -208,11 +208,10 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         'helperReset',
         ThreeUtil.getSubscribe(
           this.parentObject3d,
-          (event) => {
-            console.log(event);
-            // this.needUpdate = true;
+          () => {
+            this.needUpdate = true;
           },
-          'resettarget'
+          'resetTarget'
         )
       );
       return true;
@@ -411,6 +410,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           break;
         case 'skeletonhelper':
         case 'skeleton':
+
           basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));
           break;
         case 'axeshelper':
@@ -420,35 +420,36 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           break;
       }
       if (basemesh !== null) {
-        this.helper = basemesh;
-        if (this.helper instanceof THREE.Line && ThreeUtil.isNotNull(this.helper.material) && this.helper.material instanceof THREE.Material) {
+        if (basemesh instanceof THREE.Line && ThreeUtil.isNotNull(basemesh.material) && basemesh.material instanceof THREE.Material) {
           const opacity = this.getOpacity(1);
           if (opacity >= 0 && opacity < 1) {
-            this.helper.material.opacity = opacity;
-            this.helper.material.transparent = true;
+            basemesh.material.opacity = opacity;
+            basemesh.material.transparent = true;
           } else if (ThreeUtil.isNotNull(this.materialTransparent)) {
-            this.helper.material.transparent = this.materialTransparent;
+            basemesh.material.transparent = this.materialTransparent;
           }
-          if (ThreeUtil.isNotNull(this.materialColor) && this.helper.material['color'] !== undefined) {
-            this.helper.material['color'] = ThreeUtil.getColorSafe(this.materialColor);
+          if (ThreeUtil.isNotNull(this.materialColor) && basemesh.material['color'] !== undefined) {
+            basemesh.material['color'] = ThreeUtil.getColorSafe(this.materialColor);
           }
           if (ThreeUtil.isNotNull(this.materialBlending)) {
-            this.helper.material.blending = ThreeUtil.getBlendingSafe(this.materialBlending, 'NormalBlending');
+            basemesh.material.blending = ThreeUtil.getBlendingSafe(this.materialBlending, 'NormalBlending');
           }
           if (ThreeUtil.isNotNull(this.depthWrite)) {
-            this.helper.material.depthWrite = this.getDepthWrite(false);
+            basemesh.material.depthWrite = this.getDepthWrite(false);
           }
         }
         if (ThreeUtil.isNotNull(this.matrix)) {
-          this.helper.applyMatrix4(this.matrix);
-        }
-        if (!parentAdd) {
-          this.setObject3d(this.helper);
-        } else {
-          this.setParentObject3d(this.helper);
+          basemesh.applyMatrix4(this.matrix);
         }
       } else {
-        this.helper = null;
+        basemesh = new THREE.Group();
+        parentAdd = false;
+      }
+      this.helper = basemesh;
+      if (!parentAdd) {
+        this.setObject3d(this.helper);
+      } else {
+        this.setParentObject3d(this.helper);
       }
     }
     return this.helper;

@@ -126,11 +126,13 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     super.ngAfterContentInit();
   }
 
-  private parent: THREE.Object3D = null;
-  setParent(parent: THREE.Object3D) {
-    if (this.parent !== parent) {
-      this.parent = parent;
+
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
       this.resetRigidBody();
+      return true;
+    } else {
+      return false;
     }
   }
 

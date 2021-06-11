@@ -19,22 +19,24 @@
     <three-fog [color]="'0xcce0ff'" [near]="500" [far]="10000"></three-fog>
     <three-mesh
       [type]="'light'"
-      [lightType]="'ambient'"
-      [color]="'0x666666'"
+      [lightOptions]="{ type : 'ambient', color : '0x666666' }"
+     
     ></three-mesh>
     <three-mesh
       [type]="'light'"
-      [lightType]="'directional'"
-      [color]="'0xdfebff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowMapSizeWidth]="1024"
-      [shadowMapSizeHeight]="1024"
-      [shadowCameraLeft]="-300"
-      [shadowCameraRight]="300"
-      [shadowCameraTop]="300"
-      [shadowCameraBottom]="-300"
-      [shadowCameraFar]="1000"
+      [lightOptions]="{ 
+        type : 'directional', 
+        color : '0xdfebff',
+        intensity : 1,
+        castShadow : true,
+        shadowMapSizeWidth : 1024,
+        shadowMapSizeHeight : 1024,
+        shadowCameraLeft : -300,
+        shadowCameraRight : 300,
+        shadowCameraTop : 300,
+        shadowCameraBottom : -300,
+        shadowCameraFar : 1000
+      }"
     >
       <three-position
         [x]="50"

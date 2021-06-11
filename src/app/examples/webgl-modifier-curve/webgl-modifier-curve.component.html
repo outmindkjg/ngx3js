@@ -2,14 +2,13 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - curve modifier
 </div>
 <three-renderer
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['pointerdown','pointerup','pointermove']"
+  [useEvent]="'pointerdown,pointerup,pointermove'"
   (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >

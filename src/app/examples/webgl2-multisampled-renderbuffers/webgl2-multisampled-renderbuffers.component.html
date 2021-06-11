@@ -5,15 +5,13 @@
 <three-renderer
   [type]="'webgl2'"
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [autoRotate]="true"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['keydown','keyup']"
+  [useEvent]="'keydown,keyup'"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>

@@ -3,13 +3,9 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 20 , maxDistance: 50 , maxPolarAngle : 90 }"
   [statsMode]="0"
   [antialias]="true"
-  [minDistance]="20"
-  [maxDistance]="50"
-  [maxPolarAngle]="90"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"

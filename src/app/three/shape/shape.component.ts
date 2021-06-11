@@ -150,11 +150,11 @@ export class ShapeComponent extends AbstractSubscribeComponent implements OnInit
     return holes;
   }
 
-  private parent: GeometryComponent = null;
-
-  setParent(parent: GeometryComponent) {
-    if (this.parent !== parent) {
-      this.parent = parent;
+  setParent(parent: GeometryComponent) : boolean {
+    if (super.setParent(parent)) {
+      return true;
+    } else {
+      return false;
     }
   }
 

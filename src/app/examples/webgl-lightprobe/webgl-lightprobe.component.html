@@ -3,10 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [minDistance]="10"
-  [maxDistance]="50"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 10 , maxDistance: 50 }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"

@@ -3,8 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -41,7 +40,7 @@
         [uniforms]="{
           amplitude : { type : 'number', value : 5.0 },
           opacity : { type : 'number', value : 0.3 },
-          color : { type : 'color', value : '0xffffff' } 
+          color : { type : 'color', value : '0xffffff'}
         }"
         [vertexShader]="vertexshader"
         [fragmentShader]="fragmentshader"

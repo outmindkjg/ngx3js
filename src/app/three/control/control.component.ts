@@ -147,14 +147,14 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
   private _scene: QueryList<SceneComponent> = null;
   private _domElement: HTMLElement = null;
 
-  setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scene: QueryList<SceneComponent>) {
-    if (this._camera !== camera || this._domElement !== domElement || this._scene !== scene) {
+  setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>) {
+    if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes) {
       if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
         this.control.dispose();
       }
       this._camera = camera;
       this._domElement = domElement;
-      this._scene = scene;
+      this._scene = scenes;
       switch (this.type.toLowerCase()) {
         case 'csm':
           break;

@@ -58,6 +58,9 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
   decals : {scale : number, color : number, orientation : any, position : any }[] = [];
 
   shoot(intersection : THREE.Intersection) {
+    if (ThreeUtil.isNull(intersection)) {
+      return ;
+    }
     const position = new THREE.Vector3();
     const orientation =new THREE.Euler();
     position.copy( intersection.point );
@@ -73,7 +76,7 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
   }
 
   checkIntersection( mouse : THREE.Vector2 ):THREE.Intersection {
-    if ( ThreeUtil.isNull(this.mesh ) || ThreeUtil.isNull(this.camera )) return null;
+    if ( ThreeUtil.isNull(this.mesh) || ThreeUtil.isNull(this.camera )) return null;
     const intersection = this.camera.getIntersection(mouse, this.mesh.getObject3d() , true );
     if (intersection !== null && this.mouseHelper !== null) {
       const p = intersection.point;
@@ -86,7 +89,10 @@ export class WebglDecalsComponent extends BaseComponent<{ rotate : boolean ,minS
       n.add( intersection.point );
       // intersection.normal.copy( intersects[ 0 ].face.normal );
       mouseHelper.lookAt( n );
-      const line = this.mouseLine.getObject3d().children[0] as THREE.Line;
+      const line = this.mouseLine.getObject3d() as THREE.Line;
+      if (ThreeUtil.isNull(line)) {
+        return ;
+      }
       const positions = line.geometry.attributes.position;
       positions.setXYZ( 0, p.x, p.y, p.z );
       positions.setXYZ( 1, n.x, n.y, n.z );

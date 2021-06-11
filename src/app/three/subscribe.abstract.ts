@@ -6,20 +6,20 @@ import { ThreeUtil } from './interface';
   template: '',
 })
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
-
   @Input() protected debug: boolean = false;
   @Input() protected windowExport: string = null;
   @Input() public enabled: boolean = true;
-  @Input() private overrideParams: {[key : string] : any } = null;
+  @Input() private overrideParams: { [key: string]: any } = null;
+  @Input() private userData: any = null;
 
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
-  protected OBJECT_ATTR : string[] = ['init','debug','enabled','overrideparams','windowexport'];
+  protected OBJECT_ATTR: string[] = ['init', 'debug', 'enabled', 'userdata', 'overrideparams', 'windowexport'];
 
   constructor() {}
-  
-  protected id : string = '';
+
+  protected id: string = '';
 
   ngOnInit(subscribeType?: string): void {
     this.id = subscribeType + '_' + Math.round(10000 + Math.random() * 10000) + '_' + Math.round(10000 + Math.random() * 10000);
@@ -63,8 +63,8 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.subscribeType = subscribeType || 'nonamed';
   }
 
-  protected isIdEuals( id : string ):boolean {
-    if (id === null || id === '' || id === this.id) {
+  protected isIdEuals(id: string): boolean {
+    if (id === undefined || id === null || id === '' || id === this.id) {
       return true;
     } else {
       return false;
@@ -95,27 +95,27 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return changes;
   }
 
-  private _logTimeSeqn : number = 0;
-  protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
-    this._logTimeSeqn ++; 
+  private _logTimeSeqn: number = 0;
+  protected consoleLogTime(key: string, object: any, repeat: number = 300): void {
+    this._logTimeSeqn++;
     if (this._logTimeSeqn % repeat === 0) {
       this.consoleLog(key, object, 'info');
     }
   }
 
-  protected consoleLog(key: string, object: any, level : string = 'log'): void {
-    switch(level) {
-      case 'error' :
-        console.error(this.subscribeType ,key, object);
+  protected consoleLog(key: string, object: any, level: string = 'log'): void {
+    switch (level) {
+      case 'error':
+        console.error(this.subscribeType, key, object);
         break;
-      case 'info' :
-        console.info(this.subscribeType ,key, object);
+      case 'info':
+        console.info(this.subscribeType, key, object);
         break;
-      case 'trace' :
-        console.trace(this.subscribeType ,key, object);
+      case 'trace':
+        console.trace(this.subscribeType, key, object);
         break;
-      case 'log' :
-      default :
+      case 'log':
+      default:
         // console.log(this.subscribeType ,key, object);
         break;
     }
@@ -132,7 +132,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         this._changeList.push(key);
       }
     } else if (Array.isArray(key)) {
-      key.forEach(subKey => {
+      key.forEach((subKey) => {
         if (this._changeList.indexOf(subKey) === -1) {
           this._changeList.push(subKey);
         }
@@ -174,46 +174,93 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
       return;
     }
-    if (!ThreeUtil.isIndexOf(changes, 'init') && ThreeUtil.isIndexOf(changes, 'enabled')) {
-      this.setSubscribeNext(this.subscribeType);
+    if (ThreeUtil.isIndexOf(changes, ['init'])) {
+      changes = ThreeUtil.pushUniq(changes, ['userdata']);
     }
-    // this.consoleLog('changes', changes, 'info');
+    changes.forEach((change) => {
+      switch (change.toLowerCase()) {
+        case 'userdata':
+          if (ThreeUtil.isNotNull(this.userData)) {
+            Object.entries(this.userData).forEach(([key, value]) => {
+              switch (key) {
+                case 'position':
+                case 'positionUp':
+                case 'positionLookat':
+                case 'initPosition':
+                case 'rotation':
+                case 'scale':
+                case 'lookat':
+                case 'customDepthMaterial':
+                case 'customDistanceMaterial':
+                case 'material':
+                case 'geometry':
+                  this.consoleLog('userData Error', key, 'error');
+                  break;
+                default:
+                  this._userData[key] = value;
+                  break;
+              }
+            });
+          }
+          break;
+      }
+    });
     this.clearChanges();
   }
 
-  private _cashedObj : any = null;
+  private _cashedObj: any = null;
 
   protected getObject(): any {
     return this._cashedObj;
   }
 
-  private _userData : { [ key : string] : any } = {}
+  private _userData: { [key: string]: any } = {};
 
-  setUserData(key : string, value : any ) {
-    this._userData[key] = value;
+  setUserData(key: string, value: any) {
+    if (ThreeUtil.isNotNull(value)) {
+      this._userData[key] = value;
+    } else if (ThreeUtil.isNotNull(this._userData[key])) {
+      delete this._userData[key];
+    }
   }
 
-  protected setObject(obj : any) {
+  protected setObject(obj: any) {
     if (this._cashedObj !== obj) {
       this._cashedObj = obj;
       this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
         if (ThreeUtil.isNotNull(this._cashedObj.userData)) {
+          Object.entries(this._userData).forEach(([key, value]) => {
+            switch (key) {
+              case 'position':
+              case 'positionUp':
+              case 'positionLookat':
+              case 'initPosition':
+              case 'rotation':
+              case 'scale':
+              case 'lookat':
+              case 'customDepthMaterial':
+              case 'customDistanceMaterial':
+              case 'material':
+              case 'geometry':
+                delete this._userData[key];
+                break;
+            }
+          });
           this._cashedObj.userData = this._userData;
         }
         if (this.debug) {
           this.consoleLog(this.subscribeType, this._cashedObj);
         }
-        this.applyChanges(['init'])
+        this.applyChanges(['init']);
         this.callOnLoad();
-        if (ThreeUtil.isNotNull(this.windowExport) && this.windowExport != "") {
+        if (ThreeUtil.isNotNull(this.windowExport) && this.windowExport != '') {
           window[this.windowExport] = this._cashedObj;
         }
       }
-      // this.consoleLog('setobject', obj, 'error');
     }
   }
-  
+
   private _subject: Subject<string[]> = new Subject<string[]>();
 
   public getSubscribe(): Observable<string[]> {
@@ -238,13 +285,13 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         if (this._subscribeNext.indexOf(key) === -1) {
           this._subscribeNext.push(key);
         }
-        switch(key) {
-          case 'scene' :
-          case 'camera' :
-          case 'ligher' :
-          case 'mesh' :
-          case 'helper' :
-          case 'audio' :
+        switch (key) {
+          case 'scene':
+          case 'camera':
+          case 'ligher':
+          case 'mesh':
+          case 'helper':
+          case 'audio':
             if (this._subscribeNext.indexOf('object3d') === -1) {
               this._subscribeNext.push('object3d');
             }
@@ -299,7 +346,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected subscribeType: string = null;
 
-  private _localComponents : { [key : string] : OnInit & OnDestroy} = {};
+  private _localComponents: { [key: string]: OnInit & OnDestroy } = {};
 
   private _subscribeList: { [key: string]: Subscription[] } = {};
 
@@ -310,7 +357,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
-  protected initLocalComponent<T extends OnInit & OnDestroy>(key: string, component: T):T {
+  protected initLocalComponent<T extends OnInit & OnDestroy>(key: string, component: T): T {
     if (ThreeUtil.isNotNull(this._localComponents[key])) {
       this.destroyLocalComponent(key);
     }
@@ -321,20 +368,26 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return component;
   }
 
-  public updateInputParams(params : { [key : string] : any } , firstChange : boolean = true, changes : SimpleChanges = {}) {
+  public updateInputParams(params: { [key: string]: any }, firstChange: boolean = true, changes: SimpleChanges = {}, type: string = null) {
     if (ThreeUtil.isNotNull(params)) {
       Object.entries(params).forEach(([key, value]) => {
-        if (this[key] !== undefined) {
-          if (this[key] !== value && ThreeUtil.isNotNull(value)) {
-            changes[key] = new SimpleChange(this[key], value, firstChange);
-            this[key] = value;
-          }
+        if (this[key] !== undefined && this[key] !== value && ThreeUtil.isNotNull(value)) {
+          changes[key] = new SimpleChange(this[key], value, firstChange);
+          this[key] = value;
         }
       });
-      if (firstChange) {
-        this.ngAfterContentInit();
-        this.ngOnChanges(changes);
+    }
+    if (ThreeUtil.isNotNull(type)) {
+      if (this['type'] !== undefined) {
+        if (this['type'] !== type) {
+          changes.type = new SimpleChange(this['type'], type, firstChange);
+          this['type'] = type;
+        }
       }
+    }
+    if (firstChange) {
+      this.ngAfterContentInit();
+      this.ngOnChanges(changes);
     }
   }
 
@@ -358,7 +411,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected subscribeListQueryChange(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
-      this.unSubscribeRefer(subscribeKey + "Changes");
+      this.unSubscribeRefer(subscribeKey + 'Changes');
       this.subscribeRefer(
         subscribeKey,
         queryList.changes.subscribe(() => {
@@ -371,15 +424,29 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected subscribeListQuery(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
       this.unSubscribeReferList(subscribeKey);
-      queryList.forEach(query => {
+      queryList.forEach((query) => {
         this.subscribeReferList(
           subscribeKey,
-          ThreeUtil.getSubscribe(query, (event) => {
-            this.addChanges(event);
-          },changeKey.toLowerCase())
+          ThreeUtil.getSubscribe(
+            query,
+            (event) => {
+              this.addChanges(event);
+            },
+            changeKey.toLowerCase()
+          )
         );
       });
     }
   }
-  
+
+  protected parent: any = null;
+
+  setParent(parent: any): boolean {
+    if (this.parent !== parent) {
+      this.parent = parent;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

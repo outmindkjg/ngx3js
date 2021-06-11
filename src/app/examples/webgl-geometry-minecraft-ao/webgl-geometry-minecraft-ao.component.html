@@ -3,11 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'FirstPerson'"
-  [movementSpeed]="1000"
-  [lookSpeed]="0.125"
-  [lookVertical]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , movementSpeed: 1000 , lookSpeed : 0.125 , lookVertical : true }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"

@@ -29,50 +29,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() public type: string = 'webgl';
   @Input() private css3dType: string = 'none';
   @Input() private controlType: string = 'none';
-  @Input() private autoRotate: boolean = false;
-  @Input() private autoRotateSpeed: number = null;
+  @Input() private controlOptions: any = null;
   @Input() private shadowMapEnabled: boolean = true;
   @Input() private physicallyCorrectLights: boolean = false;
   @Input() private shadowMapType: string = null;
-  @Input() private screenSpacePanning: boolean = null;
-  @Input() private minDistance: number = null;
-  @Input() private maxDistance: number = null;
-  @Input() private xDistance: number = null;
-  @Input() private yDistance: number = null;
-  @Input() private enableZoom: boolean = null;
-  @Input() private minZoom: number = null;
-  @Input() private maxZoom: number = null;
-  @Input() private rotateSpeed: number = null;
-  @Input() private staticMoving: boolean = null;
-  @Input() private zoomSpeed: number = null;
-  @Input() private panSpeed: number = null;
-  @Input() private minPolarAngle: number = null;
-  @Input() private maxPolarAngle: number = null;
   @Input() private clearColor: string | number = null;
-  @Input() private target: THREE.Vector3 | LookatComponent | any = null;
   @Input() private toneMapping: string = null;
   @Input() private toneMappingExposure: number = null;
   @Input() private clearAlpha: number = null;
   @Input() private localClippingEnabled: boolean = false;
   @Input() private globalClippingEnabled: boolean = true;
-  @Input() private enablePan: boolean = true;
-  @Input() private enableKeys: boolean = true;
-  @Input() private enableDamping: boolean = false;
-  @Input() private movementSpeed: number = null;
-  @Input() private rollSpeed: number = null;
-  @Input() private dragToLook: boolean = null;
-  @Input() private autoForward: boolean = null;
-  @Input() private lookSpeed: number = null;
-  @Input() private lookVertical: boolean = null;
-  @Input() private activeLook: boolean = null;
-  @Input() private heightSpeed: boolean = null;
-  @Input() private heightCoef: number = null;
-  @Input() private heightMin: number = null;
-  @Input() private heightMax: number = null;
-  @Input() private constrainVertical: boolean = null;
-  @Input() private verticalMin: number = null;
-  @Input() private verticalMax: number = null;
-  @Input() private mouseDragOn: boolean = null;
   @Input() private antialias: boolean = false;
   @Input() public sizeType: string = 'auto';
   @Input() private width: number = -1;
@@ -85,7 +51,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private guiParams: GuiControlParam[] = [];
   @Input() private logarithmicDepthBuffer: boolean = false;
   @Input() private preserveDrawingBuffer: boolean = false;
-  @Input() private useEvent: string[] = null;
+  @Input() private useEvent: string = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
   @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
   @Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
@@ -154,6 +120,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this.renderControl !== null) {
       this.renderControl.ngOnDestroy();
     }
+    Object.entries(this._windowEventListener).forEach(([key, value]) => {
+      this.removeWindowEvent(key, value);
+      delete this._windowEventListener[key];
+    });
     super.ngOnDestroy();
   }
 
@@ -195,7 +165,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   removeWindowEvent(type: string, listener: any) {
-    if (listener !== null) {
+    if (ThreeUtil.isNotNull(listener)) {
       window.removeEventListener(type, listener);
     }
     return null;
@@ -305,7 +275,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   addWindowEvent(type: string, listener: any) {
-    if (listener === null) {
+    if (ThreeUtil.isNull(listener)) {
       listener = (event: TouchInit | KeyboardEvent) => {
         this.setEvents(type, event);
       };
@@ -314,14 +284,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return listener;
   }
 
-  private eventChange: (event: any) => void = null;
-  private eventPointerDown: (event: any) => void = null;
-  private eventPointerUp: (event: any) => void = null;
-  private eventPointerMove: (event: any) => void = null;
-  private eventKeyDown: (event: any) => void = null;
-  private eventKeyUp: (event: any) => void = null;
-  private eventKeyPress: (event: any) => void = null;
-  private eventClick: (event: any) => void = null;
+  private _windowEventListener : {
+    [ key : string ]  : (event: any) => void 
+  } = {}
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -489,42 +454,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             'clippingplanes',
             'canvas2d',
             'controltype',
-            'autorotate',
-            'autorotatespeed',
-            'screenspacepanning',
-            'mindistance',
-            'maxdistance',
-            'xdistance',
-            'ydistance',
-            'enablezoom',
-            'minzoom',
-            'maxzoom',
-            'rotatespeed',
-            'staticmoving',
-            'zoomspeed',
-            'panspeed',
-            'minpolarangle',
-            'maxpolarangle',
-            'enablepan',
-            'enablekeys',
-            'enabledamping',
-            'movementspeed',
-            'rollspeed',
-            'dragtolook',
-            'autoforward',
-            'lookspeed',
-            'lookvertical',
-            'activelook',
-            'heightspeed',
-            'heightcoef',
-            'heightmin',
-            'heightmax',
-            'constrainvertical',
-            'verticalmin',
-            'verticalmax',
-            'mousedragon',
-            'lookatlist',
-            'target',
+            'controloptions',
             'guiparams',
             'guicontrol',
           ],
@@ -537,7 +467,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listener', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol', 'webglrenderer']);
       }
-      this.consoleLog('render', changes);
+      this.consoleLog('render', changes, 'error');
       if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
         changes = ThreeUtil.pushUniq(changes, ['guicontrol']);
       }
@@ -548,42 +478,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         ThreeUtil.isIndexOf(changes, [
           'camera',
           'controltype',
-          'autorotate',
-          'autorotatespeed',
-          'screenspacepanning',
-          'mindistance',
-          'maxdistance',
-          'xdistance',
-          'ydistance',
-          'enablezoom',
-          'minzoom',
-          'maxzoom',
-          'rotatespeed',
-          'staticmoving',
-          'zoomspeed',
-          'panspeed',
-          'minpolarangle',
-          'maxpolarangle',
-          'enablepan',
-          'enablekeys',
-          'enabledamping',
-          'movementspeed',
-          'rollspeed',
-          'dragtolook',
-          'autoforward',
-          'lookspeed',
-          'lookvertical',
-          'activelook',
-          'heightspeed',
-          'heightcoef',
-          'heightmin',
-          'heightmax',
-          'constrainvertical',
-          'verticalmin',
-          'verticalmax',
-          'mousedragon',
-          'lookatlist',
-          'target',
+          'controloptions'
         ])
       ) {
         changes = ThreeUtil.pushUniq(changes, ['control']);
@@ -600,46 +495,47 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             }
             break;
           case 'useevent':
-            const useEvent = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent : [];
-            if (useEvent.indexOf('change') > -1) {
-              this.eventChange = this.addWindowEvent('change', this.eventChange);
+            const useEvents = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent.toLowerCase().split(',') : [];
+            console.log(useEvents);
+            if (useEvents.indexOf('change') > -1) {
+              this._windowEventListener.change = this.addWindowEvent('change', this._windowEventListener.change);
             } else {
-              this.eventChange = this.removeWindowEvent('change', this.eventChange);
+              this._windowEventListener.change = this.removeWindowEvent('change', this._windowEventListener.change);
             }
-            if (useEvent.indexOf('pointerdown') > -1 || useEvent.indexOf('mousedown') > -1 || useEvent.indexOf('down') > -1) {
-              this.eventPointerDown = this.addWindowEvent('pointerdown', this.eventPointerDown);
+            if (useEvents.indexOf('pointerdown') > -1 || useEvents.indexOf('mousedown') > -1 || useEvents.indexOf('down') > -1) {
+              this._windowEventListener.pointerdown = this.addWindowEvent('pointerdown', this._windowEventListener.pointerdown);
             } else {
-              this.eventPointerDown = this.removeWindowEvent('pointerdown', this.eventPointerDown);
+              this._windowEventListener.pointerdown = this.removeWindowEvent('pointerdown', this._windowEventListener.pointerdown);
             }
-            if (useEvent.indexOf('pointerup') > -1 || useEvent.indexOf('mouseup') > -1 || useEvent.indexOf('up') > -1 || useEvent.indexOf('click') > -1) {
-              this.eventPointerUp = this.addWindowEvent('pointerup', this.eventPointerUp);
+            if (useEvents.indexOf('pointerup') > -1 || useEvents.indexOf('mouseup') > -1 || useEvents.indexOf('up') > -1 || useEvents.indexOf('click') > -1) {
+              this._windowEventListener.pointerup = this.addWindowEvent('pointerup', this._windowEventListener.pointerup);
             } else {
-              this.eventPointerUp = this.removeWindowEvent('pointerup', this.eventPointerUp);
+              this._windowEventListener.pointerup = this.removeWindowEvent('pointerup', this._windowEventListener.pointerup);
             }
-            if (useEvent.indexOf('pointermove') > -1 || useEvent.indexOf('mousemove') > -1 || useEvent.indexOf('move') > -1) {
-              this.eventPointerMove = this.addWindowEvent('pointermove', this.eventPointerMove);
+            if (useEvents.indexOf('pointermove') > -1 || useEvents.indexOf('mousemove') > -1 || useEvents.indexOf('move') > -1) {
+              this._windowEventListener.pointermove = this.addWindowEvent('pointermove', this._windowEventListener.pointermove);
             } else {
-              this.eventPointerMove = this.removeWindowEvent('pointermove', this.eventPointerMove);
+              this._windowEventListener.pointermove = this.removeWindowEvent('pointermove', this._windowEventListener.pointermove);
             }
-            if (useEvent.indexOf('keydown') > -1) {
-              this.eventKeyDown = this.addWindowEvent('keydown', this.eventKeyDown);
+            if (useEvents.indexOf('keydown') > -1) {
+              this._windowEventListener.keydown = this.addWindowEvent('keydown', this._windowEventListener.keydown);
             } else {
-              this.eventKeyDown = this.removeWindowEvent('keydown', this.eventKeyDown);
+              this._windowEventListener.keydown = this.removeWindowEvent('keydown', this._windowEventListener.keydown);
             }
-            if (useEvent.indexOf('keyup') > -1) {
-              this.eventKeyUp = this.addWindowEvent('keyup', this.eventKeyUp);
+            if (useEvents.indexOf('keyup') > -1) {
+              this._windowEventListener.keyup = this.addWindowEvent('keyup', this._windowEventListener.keyup);
             } else {
-              this.eventKeyUp = this.removeWindowEvent('keyup', this.eventKeyUp);
+              this._windowEventListener.keyup = this.removeWindowEvent('keyup', this._windowEventListener.keyup);
             }
-            if (useEvent.indexOf('keypress') > -1) {
-              this.eventKeyPress = this.addWindowEvent('keypress', this.eventKeyPress);
+            if (useEvents.indexOf('keypress') > -1) {
+              this._windowEventListener.keypress = this.addWindowEvent('keypress', this._windowEventListener.keypress);
             } else {
-              this.eventKeyPress = this.removeWindowEvent('keypress', this.eventKeyPress);
+              this._windowEventListener.keypress = this.removeWindowEvent('keypress', this._windowEventListener.keypress);
             }
-            if (useEvent.indexOf('click') > -1) {
-              this.eventClick = this.addWindowEvent('click', this.eventClick);
+            if (useEvents.indexOf('click') > -1) {
+              this._windowEventListener.click = this.addWindowEvent('click', this._windowEventListener.click);
             } else {
-              this.eventClick = this.removeWindowEvent('click', this.eventClick);
+              this._windowEventListener.click = this.removeWindowEvent('click', this._windowEventListener.click);
             }
             break;
           case 'resize':
@@ -810,7 +706,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   private getControls(cameras: QueryList<CameraComponent>, scenes: QueryList<SceneComponent>, domElement: HTMLElement): ControlComponent[] {
     let cameraComp: CameraComponent = null;
     let controlType: string = this.controlType.toLowerCase();
-    let autoRotate: boolean = this.autoRotate;
     if (this.renderControl !== null) {
       this.renderControl.ngOnDestroy();
       this.renderControl = null;
@@ -821,9 +716,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         if (camera.controlType.toLowerCase() !== 'none') {
           controlType = camera.controlType;
           cameraCompFounded = true;
-          if (camera.autoRotate !== null && camera.autoRotate !== undefined) {
-            autoRotate = camera.autoRotate;
-          }
           return true;
         } else if (!cameraCompFounded) {
           cameraCompFounded = true;
@@ -843,45 +735,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'trackball':
         case 'plain':
           const control = this.initLocalComponent('control', new ControlComponent());
-          control.updateInputParams({
-            type: controlType,
-            autoRotate: autoRotate,
-            autoRotateSpeed: this.autoRotateSpeed,
-            screenSpacePanning: this.screenSpacePanning,
-            minDistance: this.minDistance,
-            maxDistance: this.maxDistance,
-            xDistance: this.xDistance,
-            yDistance: this.yDistance,
-            enableZoom: this.enableZoom,
-            minZoom: this.minZoom,
-            maxZoom: this.maxZoom,
-            rotateSpeed: this.rotateSpeed,
-            staticMoving: this.staticMoving,
-            zoomSpeed: this.zoomSpeed,
-            panSpeed: this.panSpeed,
-            minPolarAngle: this.minPolarAngle,
-            maxPolarAngle: this.maxPolarAngle,
-            enablePan: this.enablePan,
-            enableKeys: this.enableKeys,
-            enableDamping: this.enableDamping,
-            movementSpeed: this.movementSpeed,
-            rollSpeed: this.rollSpeed,
-            dragToLook: this.dragToLook,
-            autoForward: this.autoForward,
-            lookSpeed: this.lookSpeed,
-            lookVertical: this.lookVertical,
-            activeLook: this.activeLook,
-            heightSpeed: this.heightSpeed,
-            heightCoef: this.heightCoef,
-            heightMin: this.heightMin,
-            heightMax: this.heightMax,
-            constrainVertical: this.constrainVertical,
-            verticalMin: this.verticalMin,
-            verticalMax: this.verticalMax,
-            mouseDragOn: this.mouseDragOn,
-            lookatList: this.lookatList,
-            target: this.target,
-          });
+          const controlOptions = this.controlOptions || {}
+          controlOptions.lookatList = this.lookatList;
+          control.updateInputParams(controlOptions, true, {}, controlType);
           control.setCameraDomElement(camera, domElement, scenes);
           controls.push(control);
           this.renderControl = control;

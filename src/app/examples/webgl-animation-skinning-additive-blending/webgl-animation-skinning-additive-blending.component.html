@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Additive Animation Blending
   (model from <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br/>
 </div>
-<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
       <three-position [x]="1" [y]="2" [z]="-3"></three-position>
@@ -10,22 +10,35 @@
   </three-camera>
   <three-scene #scene [background]="'0xa0a0a0'">
       <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-      <three-mesh [type]="'light'" [lightType]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+      <three-mesh [type]="'light'" 
+        [lightOptions]="{
+          type : 'Hemisphere',
+          skyColor : '0xffffff',
+          groundColor : '0x444444'
+        }"
+      >
         <three-position [x]="0" [y]="20" [z]="0"></three-position>
       </three-mesh>
-      <three-mesh [type]="'light'" [lightType]="'directional'"
-        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
-        [shadowCameraTop]="2"
-        [shadowCameraBottom]="-2"
-        [shadowCameraLeft]="-2"
-        [shadowCameraRight]="2"
-        [shadowCameraNear]="0.1"
-        [shadowCameraFar]="40"
+      <three-mesh [type]="'light'" 
+        
+        [lightOptions]="{ 
+          type : 'directional', 
+          color : '0xffffff',
+          intensity : 1,
+          castShadow : true,
+          shadowCameraTop : 2,
+          shadowCameraBottom : -2,
+          shadowCameraLeft : -2,
+          shadowCameraRight : 2,
+          shadowCameraNear : 0.1,
+          shadowCameraFar : 40
+        }"
       >
           <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
       </three-mesh>
       <three-mesh [type]="'storage'" (onLoad)="setMesh($event)" [storageName]="'/assets/models/gltf/Xbot.glb'" [helperType]="'skeleton'">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
         <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
         <three-mixer [action]="controls.action" [duration]="controls.duration">
           <three-clip [name]="'idle'"></three-clip>

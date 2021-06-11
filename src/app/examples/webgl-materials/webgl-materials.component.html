@@ -3,9 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -32,9 +30,11 @@
     </three-light>
     <three-mesh
       [type]="'light'"
-      [lightType]="'point'"
-      [color]="'0xffffff'"
-      [intensity]="1"
+      [lightOptions]="{
+        type : 'point',
+        color : '0xffffff',
+        intensity : 1
+      }"
     >
       <three-position [x]="pointLightPosition.x" [y]="pointLightPosition.y" [z]="pointLightPosition.z"></three-position>
       <three-mesh>

@@ -7,21 +7,13 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
-  [staticMoving]="true"
-  [rotateSpeed]="2.0"
-  [zoomSpeed]="0.3"
-  [panSpeed]="0.2"
-  [minDistance]="0.3"
-  [maxDistance]="100"
+  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 0.3 , maxDistance: 100 , staticMoving: true , rotateSpeed: 2.0 , zoomSpeed: 0.3 , panSpeed: 0.2 }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [useEvent]="['keypress']"
+  [useEvent]="'keypress'"
   (eventListener)="setKeyPress($event)"
   (onRender)="onRender($event)"
 >

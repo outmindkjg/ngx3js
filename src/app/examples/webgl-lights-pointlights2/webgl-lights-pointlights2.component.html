@@ -3,9 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -46,7 +44,17 @@
         [heightSegments]="8"
       ></three-geometry>
     </three-shared>
-    <three-mesh *ngFor="let color of lightColors" [type]="'light'" [lightType]="'Point'" [color]="color" [intensity]="2.5" [distance]="100" [decay]="2.0" (onLoad)="addLight($event)">
+    <three-mesh *ngFor="let color of lightColors" 
+      [type]="'light'" 
+      [lightOptions]="{
+        type : 'Point',
+        color : color,
+        intensity : 2.5,
+        distance:100,
+        decay:2.0  
+      }"
+       (onLoad)="addLight($event)"
+    >
       <three-mesh [geometry]="lightGeometry">
         <three-material #objectMaterial [type]="'MeshBasic'" [color]="color"></three-material>
       </three-mesh>

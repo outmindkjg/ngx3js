@@ -4,12 +4,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [screenSpacePanning]="true"
-  [minDistance]="5"
-  [maxDistance]="40"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 5 , maxDistance: 40, screenSpacePanning : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

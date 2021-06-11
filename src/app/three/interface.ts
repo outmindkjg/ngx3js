@@ -288,7 +288,7 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
       if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)) {
         this.controls.meshShape.visible = this.mesh.getObject3d().visible;
         const helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
-        const helper = this.mesh.helper;
+        const helper = this.mesh.helperComponent;
         if (helperParams && helperParams.controller) {
           if (ThreeUtil.isNotNull(helper)) {
             if (helper instanceof THREE.SkeletonHelper) {

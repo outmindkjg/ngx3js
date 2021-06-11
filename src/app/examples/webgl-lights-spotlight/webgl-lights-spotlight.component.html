@@ -3,11 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [minDistance]="20"
-  [maxDistance]="500"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false, autoRotate : true  , minDistance: 20 , maxDistance: 500 , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

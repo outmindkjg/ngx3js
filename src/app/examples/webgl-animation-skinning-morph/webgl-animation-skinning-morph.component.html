@@ -9,26 +9,38 @@
   <a href="https://www.patreon.com/quaternius" target="_blank" rel="noopener">Tomás Laulhé</a>,
   modifications by <a href="https://donmccurdy.com/" target="_blank" rel="noopener">Don McCurdy</a>. CC0.<br />
 </div>
-<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
       <three-position [x]="-5" [y]="3" [z]="10"></three-position>
       <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
   </three-camera>
-  <three-scene #scene [background]="'0xe0e0e0'">
+  <three-scene #scene [background]="'0xe0e0e0'" [windowExport]="'scene'">
       <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
-      <three-mesh [type]="'light'" [lightType]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+      <three-mesh 
+        [type]="'light'" 
+        [lightOptions]="{
+          type : 'Hemisphere',
+          skyColor : '0xffffff',
+          groundColor : '0x444444'
+        }"
+      >
         <three-position [x]="0" [y]="20" [z]="0"></three-position>
       </three-mesh>
-      <three-mesh [type]="'light'" [lightType]="'directional'"
-        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
-        [shadowCameraTop]="5"
-        [shadowCameraBottom]="-5"
-        [shadowCameraLeft]="-5"
-        [shadowCameraRight]="5"
-        [shadowCameraNear]="0.1"
-        [shadowCameraFar]="40"
-      >
+      <three-mesh [type]="'light'" 
+        [lightOptions]="{
+          type : 'directional',
+          color : '0xffffff',
+          intensity :1,
+          shadowCameraTop :5,
+          shadowCameraBottom:-5,
+          shadowCameraLeft:-5,
+          shadowCameraRight:5,
+          shadowCameraNear:0.1,
+          shadowCameraFar:40
+        }"
+        [castShadow]="true"
+        >
           <three-position [x]="0" [y]="20" [z]="10"></three-position>
       </three-mesh>
       <three-mesh (onLoad)="setMesh($event)"  [storageName]="'/assets/examples/models/gltf/RobotExpressive/RobotExpressive.glb'">

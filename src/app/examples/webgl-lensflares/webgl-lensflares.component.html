@@ -5,12 +5,7 @@
 </div>
 <three-renderer
   [controlType]="'fly'"
-  [movementSpeed]="250"
-  [rollSpeed]="5"
-  [autoForward]="false"
-  [dragToLook]="false"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , movementSpeed: 250 , rollSpeed: 5 , autoForward: false , dragToLook: false }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -39,11 +34,14 @@
     >
       <three-position [x]="0" [y]="-1" [z]="0" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh *ngFor="let light of lightInfo" [type]="'light'" 
-      [lightType]="'Point'" 
-      [color]="light.color"
-      [intensity]="1.5"
-      [distance]="2000"
+    <three-mesh *ngFor="let light of lightInfo" 
+      [type]="'light'" 
+      [lightOptions]="{
+        type : 'Point',
+        color : light.color,
+        intensity : 1.5,
+        distance : 2000
+      }"
     >
       <three-position [x]="light.x" [y]="light.x" [z]="light.z"></three-position>
       <three-mesh [type]="'lensflare'">

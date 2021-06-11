@@ -3,10 +3,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [minZoom]="1"
-  [rollSpeed]="0.35"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true, minZoom : 1, rollSpeed : 0.35 }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

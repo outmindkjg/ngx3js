@@ -2,21 +2,29 @@
   This demo shows how clone a skinned 3d model using <strong>SkeletonUtils.clone()</strong><br/>
   Soldier model from <a href="https://www.mixamo.com" target="_blank" rel="noopener">https://www.mixamo.com</a>.
 </div>
-<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
   <three-scene #scene [background]="'0xe0e0e0'">
       <three-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></three-fog>
-      <three-mesh [type]="'light'" [lightType]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x444444'" >
+      <three-mesh 
+        [type]="'light'" 
+        [lightOptions]="{ type : 'Hemisphere', skyColor : '0xffffff', groundColor : '0x444444'}" 
+      >
         <three-position [x]="0" [y]="20" [z]="0"></three-position>
       </three-mesh>
-      <three-mesh [type]="'light'" [lightType]="'directional'"
-        [color]="'0xffffff'" [intensity]="1" [castShadow]="true"
-        [shadowCameraTop]="5"
-        [shadowCameraBottom]="-5"
-        [shadowCameraLeft]="-5"
-        [shadowCameraRight]="5"
-        [shadowCameraNear]="0.1"
-        [shadowCameraFar]="40"
+      <three-mesh [type]="'light'" 
+        [lightOptions]="{ 
+          type : 'directional', 
+          color : '0xffffff',
+          intensity : 1,
+          castShadow : true,
+          shadowCameraTop : 5,
+          shadowCameraBottom : -5,
+          shadowCameraLeft : -5,
+          shadowCameraRight : 5,
+          shadowCameraNear : 0.1,
+          shadowCameraFar : 40
+        }"
       >
           <three-position [x]="0" [y]="20" [z]="10"></three-position>
       </three-mesh>

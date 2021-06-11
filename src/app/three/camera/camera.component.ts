@@ -290,18 +290,16 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'mixer', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light']);
+        changes = ThreeUtil.pushUniq(changes, ['mixer']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'mixer':
             this.unSubscribeReferList('mixerList');
             if (ThreeUtil.isNotNull(this.mixerList)) {
-              if (this.clips !== null && this.clips.length > 0) {
-                this.mixerList.forEach((mixer) => {
-                  mixer.setModel(this.camera, this.clips);
-                });
-              }
+              this.mixerList.forEach((mixer) => {
+                mixer.setParent(this.camera);
+              });
               this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
             }
             break;
@@ -471,12 +469,13 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.isCameraChild = false;
         this.setObject3d(this.camera);
       }
+      this.setUserData('clips', null);
       if (ThreeUtil.isNotNull(this.storageName)) {
         this.localStorageService.getObject(
           this.storageName,
           (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
-            this.clips = clips;
-            this.addChanges('mixer');
+            this.setUserData('clips', clips);
+            this.setSubscribeNext('resetTarget');
           },
           { object: this.camera }
         );

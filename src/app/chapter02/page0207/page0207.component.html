@@ -4,8 +4,14 @@
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x292929'"></three-mesh>
-        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="0.7" [castShadow]="true">
+        <three-mesh 
+            [type]="'light'" 
+            [lightOptions]="{ type : 'ambient', color : '0x292929' }"></three-mesh>
+        <three-mesh 
+            [type]="'light'" 
+            [lightOptions]="{ type : 'directional', color : '0xffffff', intensity : 0.7 }"  
+            [castShadow]="true"
+        >
             <three-position [x]="-20" [y]="40" [z]="60"></three-position>
         </three-mesh>
         <three-mesh *ngFor="let cube of cubeInfo" [castShadow]="true">

@@ -3,14 +3,26 @@
   Model: <a href="https://www.artstation.com/artwork/1AGwX" target="_blank" rel="noopener">Littlest Tokyo</a> by
   <a href="https://www.artstation.com/glenatron" target="_blank" rel="noopener">Glen Fox</a>, CC Attribution.
 </div>
-<three-renderer [controlType]="'orbit'" [enablePan]="false" [enableDamping]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
       <three-position [x]="5" [y]="2" [z]="8"></three-position>
       <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   </three-camera>
   <three-scene #scene [background]="'0xbfe3dd'">
-      <three-mesh [type]="'light'" [lightType]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x000000'" [intensity]="0.4"></three-mesh>
-      <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="1" [castShadow]="true" >
+      <three-mesh 
+      [type]="'light'" 
+      [lightOptions]="{
+        type : 'Hemisphere',
+        skyColor : '0xffffff',
+        groundColor : '0x000000',
+        intensity : 0.4
+      }"
+      ></three-mesh>
+      <three-mesh 
+        [type]="'light'" 
+        [lightOptions]="{ type : 'directional',  color : '0xffffff', intensity : 1 }" 
+        [castShadow]="true" 
+      >
           <three-position [x]="5" [y]="2" [z]="8"></three-position>
       </three-mesh>
       <three-mesh [storageName]="'/assets/examples/models/gltf/LittlestTokyo.glb'" (onLoad)="setMesh($event)" [storageOption]="{ useDraco : true, decoderPath : '/assets/examples/js/libs/draco/gltf/' }">

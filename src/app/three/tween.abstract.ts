@@ -32,17 +32,11 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
     super.ngAfterContentInit();
   }
 
-  protected parent: THREE.Object3D | any = null;
   private tweenTarget: any = null;
   private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
 
   setParent(parent: THREE.Object3D | any): boolean {
-    if (this.parent !== parent) {
-      this.parent = parent;
-      return true;
-    } else {
-      return false;
-    }
+    return super.setParent(parent);
   }
 
   setTweenTarget(tweenTarget: any) {

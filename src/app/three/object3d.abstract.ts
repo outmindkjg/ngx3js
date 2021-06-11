@@ -353,12 +353,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
+      const oldParent = this.parentObject3d;
       this.parentObject3d = parent;
       if (this.object3d !== null && this.parentObject3d !== null && this.parentObject3d instanceof THREE.Object3D) {
-        if (this.parentObject3d instanceof THREE.LOD) {
-          this.parentObject3d.addLevel(this.object3d, this.getLoDistance(0));
+        if (oldParent === this.object3d.parent || this.parentObject3d.parent === null) {
+          if (this.parentObject3d instanceof THREE.LOD) {
+            this.parentObject3d.addLevel(this.object3d, this.getLoDistance(0));
+          } else {
+            this.parentObject3d.add(this.object3d);
+          }
         } else {
-          this.parentObject3d.add(this.object3d);
+          this.parentObject3d.parent.add(this.object3d);
         }
         return false;
       } else {
@@ -426,7 +431,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       this.object3d = object3d;
       if (this.object3d !== null) {
         this.setTweenTarget(this.object3d);
-        // this.setSubscribeNext('object3d');
       }
       super.setObject(this.object3d);
     }
@@ -546,7 +550,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             this.setUserData('positionLookat',null);
             this.unSubscribeRefer('position');
             if (ThreeUtil.isNotNull(this.position)) {
-              this.object3d.userData.position = 'position';
+              this.setUserData('position', 'position');
               this.object3d.position.copy(ThreeUtil.getPosition(this.position));
               this.subscribeRefer(
                 'position',
@@ -562,7 +566,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               });
               this.subscribeListQuery(this.positionList, 'positionList','position');
             }
-
             if (ThreeUtil.isNull(this.object3d.userData.initPosition)) {
               this.setUserData('initPosition', this.object3d.position.clone());
             }
@@ -570,9 +573,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             break;
           case 'rotation':
             this.unSubscribeRefer('rotation');
-            this.object3d.userData.rotation = null;
+            this.setUserData('rotation', null);
             if (ThreeUtil.isNotNull(this.rotation)) {
-              this.object3d.userData.rotation = 'rotation';
+              this.setUserData('rotation', 'rotation');
               this.object3d.rotation.copy(ThreeUtil.getRotation(this.rotation));
               this.subscribeRefer(
                 'rotation',
@@ -591,10 +594,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             this.setSubscribeNext('rotation');
             break;
           case 'scale':
-            this.object3d.userData.scale = null;
+            this.setUserData('scale', null);
             this.unSubscribeRefer('scale');
             if (ThreeUtil.isNotNull(this.scale)) {
-              this.object3d.userData.scale = 'scale';
+              this.setUserData('scale', 'scale');
               this.object3d.scale.copy(ThreeUtil.getScale(this.scale));
               this.subscribeRefer(
                 'scale',
@@ -614,9 +617,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             break;
           case 'lookat':
             this.unSubscribeRefer('lookat');
-            this.object3d.userData.lookat = null;
+            this.setUserData('lookat', null);
             if (ThreeUtil.isNotNull(this.lookat)) {
-              this.object3d.userData.lookat = 'lookat';
+              this.setUserData('lookat', 'lookat');
               this.object3d.lookAt(ThreeUtil.getLookAt(this.lookat));
               this.subscribeRefer(
                 'lookat',
@@ -656,17 +659,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           case 'material':
             this.unSubscribeRefer('customDepth');
             this.unSubscribeRefer('customDistance');
+            this.setUserData('customDepthMaterial', null);
+            this.setUserData('customDistanceMaterial', null);
+
             this.object3d.userData.customDepthMaterial = null;
             this.object3d.userData.customDistanceMaterial = null;
             if (ThreeUtil.isNotNull(this.customDepth)) {
-              this.object3d.userData.customDepthMaterial = 'customDepth';
+              this.setUserData('customDepthMaterial', 'customDepth');
                 this.object3d.customDepthMaterial = ThreeUtil.getMaterialOne(this.customDepth);
               this.subscribeRefer('customDepth', ThreeUtil.getSubscribe(this.customDepth, (event) => {
                 this.addChanges(event);
               },'material'));
             }
             if (ThreeUtil.isNotNull(this.customDistance)) {
-              this.object3d.userData.customDistanceMaterial = 'customDistance';
+              this.setUserData('customDistanceMaterial', 'customDistance');
               this.object3d.customDistanceMaterial = ThreeUtil.getMaterialOne(this.customDistance);
               this.subscribeRefer('customDistance', ThreeUtil.getSubscribe(this.customDistance, (event) => {
                 this.addChanges(event);

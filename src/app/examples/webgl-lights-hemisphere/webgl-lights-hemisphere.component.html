@@ -4,9 +4,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [autoRotate]="true"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"

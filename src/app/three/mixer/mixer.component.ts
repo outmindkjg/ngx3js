@@ -141,12 +141,52 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
   private model : THREE.Object3D | THREE.AnimationObjectGroup = null;
   private clips : THREE.AnimationClip[] | any = null;
 
-  setModel(model: THREE.Object3D | THREE.AnimationObjectGroup , clips: THREE.AnimationClip[] | any) {
+  setParent(parent: THREE.Object3D): boolean {
+    if (super.setParent(parent)) {
+      this.unSubscribeRefer('mixerReset');
+      this.subscribeRefer(
+        'mixerReset',
+        ThreeUtil.getSubscribe(
+          this.parent,
+          () => {
+            this.checkModel(parent);
+          },
+          'resetTarget'
+        )
+      );
+      this.checkModel(parent);
+      return true;
+    }
+    return false;
+  }
+
+  private getTarget(target?: THREE.Object3D): THREE.Object3D {
+    let targetMesh: THREE.Object3D = null;
+    if (targetMesh === null && ThreeUtil.isNotNull(target)) {
+      targetMesh = ThreeUtil.getObject3d(target, false);
+    }
+    if (ThreeUtil.isNotNull(targetMesh) && targetMesh instanceof THREE.Object3D && ThreeUtil.isNotNull(targetMesh.userData.refTarget)) {
+      targetMesh = ThreeUtil.getObject3d(targetMesh.userData.refTarget, false) || targetMesh;
+    }
+    return targetMesh;
+  }
+
+  checkModel(parent : THREE.Object3D) {
+    const model = this.getTarget(parent);
+    if (ThreeUtil.isNotNull(model)) {
+      const clips = parent.userData.clips || null;
+      if (ThreeUtil.isNotNull(clips)) {
+        this.setModel(model, clips);
+      }
+    }
+  }
+
+  private setModel(model: THREE.Object3D | THREE.AnimationObjectGroup , clips: THREE.AnimationClip[] | any) {
     if (this.model !== model) {
       this.model = model;
       this.clips = clips;
       this.helper = null;
-      if (this.debug) {
+      if (this.debug && this.clips) {
         const clipsNames = [];
         if (this.clips.forEach) {
           this.clips.forEach(clip => {

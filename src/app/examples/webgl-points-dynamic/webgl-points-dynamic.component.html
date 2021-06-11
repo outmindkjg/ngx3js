@@ -5,11 +5,7 @@
 </div>
 <three-renderer
   [controlType]="'plain'"
-  [xDistance]="9000"
-  [yDistance]="0"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true, xDistance : 9000, yDistance : 0 }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

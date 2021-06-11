@@ -14,6 +14,7 @@ import { MixerComponent } from './../mixer/mixer.component';
 export class AudioComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type:string = 'position';
   @Input() private url:string = null;
+  @Input() private urlType:string = 'auto';
   @Input() private videoUrl:string = null;
   @Input() private autoplay:boolean = true ;
   @Input() private play:boolean = true ;
@@ -172,12 +173,28 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             super.callOnLoad();
           }
         } else {
-          this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
-            this.audio.setBuffer(buffer);
-            this.resetAudio();
-            super.callOnLoad();
-            this.setSubscribeNext('load');
-          });
+          switch(this.urlType.toLowerCase()) {
+            case 'listener' : 
+              const oscillator = this.listener.context.createOscillator() as any;
+              oscillator.type = 'sine';
+              oscillator.frequency.setValueAtTime( 144, this.audio.context.currentTime ) ;
+              oscillator.start( 0 );
+              this.audio.setNodeSource( oscillator );
+              this.resetAudio();
+              super.callOnLoad();
+              this.setSubscribeNext('load');
+              break;
+            case 'auto' :
+            case 'audio' :
+            default :
+              this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
+                this.audio.setBuffer(buffer);
+                this.resetAudio();
+                super.callOnLoad();
+                this.setSubscribeNext('load');
+              });
+              break;
+          }
         }
         if (this.video !== null) {
           this.setObject3d(this.audio);
@@ -242,7 +259,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       this.audio.visible = this.visible;
     }
   }
-
   getAnalyser(fftSize? : number) : THREE.AudioAnalyser {
     if (this.analyser == null && this.audio !== null) {
       this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
@@ -260,7 +276,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           case 'mixer' :
             this.unSubscribeReferList('mixerList');
             this.mixerList.forEach((mixer) => {
-              mixer.setModel(this.audio, null);
+              mixer.setParent(this.audio);
             });
             this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
             break;

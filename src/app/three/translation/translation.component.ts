@@ -32,12 +32,13 @@ export class TranslationComponent extends AbstractSubscribeComponent implements 
   }
 
   private translation : THREE.Matrix4 = null;
-  private parent : THREE.Object3D | any = null;
 
-  setParent(parent : THREE.Object3D | any){
-    if (this.parent !== parent) {
-      this.parent = parent;
+  setParent(parent : THREE.Object3D | any) : boolean {
+    if (super.setParent(parent)) {
       this.resetTranslation();
+      return true;
+    } else {
+      return false;
     }
   }
 

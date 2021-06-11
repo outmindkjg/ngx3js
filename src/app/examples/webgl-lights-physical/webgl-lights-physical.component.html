@@ -5,9 +5,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -24,11 +22,13 @@
   <three-scene #scene >
     <three-mesh
       [type]="'light'"
-      [lightType]="'Point'"
-      [color]="'0xffee88'"
-      [intensity]="1"
-      [distance]="100"
-      [decay]="2"
+      [lightOptions]="{
+        type : 'Point',
+        color : '0xffee88',
+        intensity :1,
+        distance : 100,
+        decay : 2
+      }"
       [castShadow]="true"
       (onLoad)="setBulbLight($event)"
     >

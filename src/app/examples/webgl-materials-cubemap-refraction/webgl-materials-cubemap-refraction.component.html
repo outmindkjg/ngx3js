@@ -5,8 +5,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -59,9 +58,11 @@
     <three-mesh
       (onLoad)="setLight($event)"
       [type]="'light'"
-      [lightType]="'Point'"
-      [color]="'0xffffff'"
-      [intensity]="10"
+      [lightOptions]="{
+        type : 'Point',
+        color : '0xffffff',
+        intensity : 10
+      }"
     >
       <three-mesh>
         <three-scale [multiply]="0.05"></three-scale>

@@ -3,9 +3,8 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
+  [controlOptions]="{ enablePan : false, enableDamping : true }"
   [type]="'webgl2'"
-  [enableDamping]="true"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

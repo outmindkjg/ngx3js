@@ -44,7 +44,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 })
 export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'mesh';
-  @Input() private lightType: string = 'spot';
+  @Input() private lightOptions: any = null;
   @Input() private cssStyle: string | CssStyle = null;
   @Input() private skyboxType: string = 'auto';
   @Input() private skyboxRate: number = 100;
@@ -54,10 +54,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private skyboxSunX: number = 0;
   @Input() private skyboxSunY: number = 0;
   @Input() private skyboxSunZ: number = 0;
-  @Input() private helperType: string = 'none';
+  @Input() private helperType: string = null;
+  @Input() private helperOptions: any = null;
   @Input() private scaleStep: number = 1;
   @Input() private usePlaneStencil: boolean = false;
-  @Input() private useCustomDistanceMaterial: boolean = false;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private color: string | number = null;
@@ -77,49 +77,17 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private skyColor: string | number = null;
   @Input() private groundColor: string | number = null;
   @Input() private waterColor: string | number = null;
-  @Input() private intensity: number = null;
   @Input() private distance: number = null;
   @Input() private metalness: number = null;
   @Input() private roughness: number = null;
-  @Input() private angle: number = null;
-  @Input() private penumbra: number = null;
-  @Input() private decay: number = null;
   @Input() private width: number = null;
   @Input() private height: number = null;
   @Input() private count: number = null;
   @Input() private volume: Volume = null;
   @Input() private axis: string = null;
   @Input() private index: number = null;
-  @Input() private shadowBias: number = null;
-  @Input() private shadowFocus: number = null;
-  @Input() private shadowCameraNear: number = null;
-  @Input() private shadowMapSizeWidth: number = null;
-  @Input() private shadowMapSizeHeight: number = null;
-  @Input() private shadowCameraFar: number = null;
-  @Input() private shadowCameraFov: number = null;
-  @Input() private shadowCameraLeft: number = null;
-  @Input() private shadowCameraRight: number = null;
-  @Input() private shadowCameraTop: number = null;
-  @Input() private shadowCameraBottom: number = null;
-  @Input() private target: any = null;
   @Input() private size: number = null;
-  @Input() private helperVisible: boolean = null;
-  @Input() private radius: number = null;
-  @Input() private radials: number = null;
-  @Input() private circles: number = null;
   @Input() private divisions: number = null;
-  @Input() private color1: string | number = null;
-  @Input() private color2: string | number = null;
-  @Input() private helperOpacity: number = null;
-  @Input() private dirX: number = null;
-  @Input() private dirY: number = null;
-  @Input() private dirZ: number = null;
-  @Input() private originX: number = null;
-  @Input() private originY: number = null;
-  @Input() private originZ: number = null;
-  @Input() private length: number = null;
-  @Input() private headLength: number = null;
-  @Input() private headWidth: number = null;
   @Input() private usage: string = null;
   @Input() private enableUvs: boolean = null;
   @Input() private enableColors: boolean = null;
@@ -148,7 +116,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private encoding: string = null;
   @Input() private shareParts: MeshComponent = null;
   @Input() private sharedMesh: MeshComponent = null;
-  @Input() private userData: any = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
@@ -329,10 +296,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return ThreeUtil.getColorSafe(this.waterColor, def);
   }
 
-  private getHelperVisible(def?: boolean): boolean {
-    return ThreeUtil.getTypeSafe(this.helperVisible, def);
-  }
-
   private getSize(def?: number): number {
     return ThreeUtil.getTypeSafe(this.size, def);
   }
@@ -417,8 +380,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   private clipMesh: THREE.Object3D = null;
   public storageSource: any = null;
 
-  public helper: THREE.Object3D = null;
-
   getStorageSource(): any {
     return this.storageSource;
   }
@@ -469,7 +430,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return null;
   }
 
-  private getMaterials(parameters?: THREE.MeshBasicMaterialParameters): THREE.Material | THREE.Material[] {
+  private getMaterials(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material | THREE.Material[] {
     const materials: THREE.Material[] = [];
     if (this.material !== null && this.material !== undefined) {
       const material = ThreeUtil.getMaterialByType(this.material, 'material');
@@ -484,25 +445,27 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         }
       });
     }
-    if (materials.length == 0) {
+    if (materials.length == 0 && required) {
       materials.push(new THREE.MeshBasicMaterial(parameters));
     }
     if (ThreeUtil.isNotNull(this.materialIsArray)) {
       if (this.materialIsArray) {
         return materials;
-      } else {
+      } else if (materials.length > 0) {
         return materials[0];
       }
     } else {
       if (materials.length == 1) {
         return materials[0];
+      } else if (materials.length > 1){
+        return materials;
       }
-      return materials;
     }
+    return null;
   }
 
-  private getMaterialOne(parameters?: THREE.MeshBasicMaterialParameters): THREE.Material {
-    const materials = this.getMaterials(parameters);
+  private getMaterialOne(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material {
+    const materials = this.getMaterials(parameters, required);
     if (Array.isArray(materials)) {
       return materials[0];
     } else {
@@ -510,12 +473,14 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     }
   }
 
-  private getMaterialsMulti(parameters?: THREE.MeshBasicMaterialParameters): THREE.Material[] {
-    const materials = this.getMaterials(parameters);
+  private getMaterialsMulti(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material[] {
+    const materials = this.getMaterials(parameters, required);
     if (Array.isArray(materials)) {
       return materials;
-    } else {
+    } else if (materials !== null){
       return [materials];
+    } else {
+      return [];
     }
   }
 
@@ -583,9 +548,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 
   setVisible(visible: boolean, helperVisible: boolean = null) {
     super.setVisible(visible);
-    if (this.helper !== null && helperVisible !== null && helperVisible !== undefined) {
-      this.helper.visible = helperVisible;
-      this.helperVisible = helperVisible;
+    if (this.helperComponent !== null && helperVisible !== null && helperVisible !== undefined) {
+      this.helperComponent.updateInputParams({ visible: helperVisible });
     }
   }
 
@@ -600,16 +564,19 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'light', 'mesh', 'camera', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material']);
-        if (ThreeUtil.isNotNull(this.clips)) {
-          changes = ThreeUtil.pushUniq(changes, ['mixer']);
-        }
+        changes = ThreeUtil.pushUniq(changes, ['rigidbody', 'light', 'mesh', 'camera', 'geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material', 'helper', 'mixer']);
       }
       if (ThreeUtil.isIndexOf(changes, 'html')) {
         changes = ThreeUtil.pushUniq(changes, ['csschildren']);
       }
+      if (ThreeUtil.isIndexOf(changes, ['helpertype', 'helperoption'])) {
+        changes = ThreeUtil.pushUniq(changes, ['helper']);
+      }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
+          case 'helper':
+            this.resetHelper();
+            break;
           case 'rigidbody':
             this.unSubscribeReferList('rigidbodyList');
             if (ThreeUtil.isNotNull(this.rigidbodyList)) {
@@ -622,17 +589,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           case 'mixer':
             this.unSubscribeReferList('mixerList');
             if (ThreeUtil.isNotNull(this.mixerList)) {
-              if (ThreeUtil.isNotNull(this.clips)) {
-                if (ThreeUtil.isNotNull(this.clipMesh)) {
-                  this.mixerList.forEach((mixer) => {
-                    mixer.setModel(this.clipMesh, this.clips);
-                  });
-                } else {
-                  this.mixerList.forEach((mixer) => {
-                    mixer.setModel(this.mesh, this.clips);
-                  });
-                }
-              }
+              this.mixerList.forEach((mixer) => {
+                mixer.setParent(this.mesh);
+              });
               this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
             }
             break;
@@ -788,6 +747,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   getMesh(): THREE.Object3D {
     if (this.mesh === null || this._needUpdate) {
       this.needUpdate = false;
+      this.setUserData('refTarget', null);
+      this.setUserData('storageSource', null);
+      this.setUserData('clips', null);
+
       this.clips = null;
       if (this.clipMesh !== null) {
         this.removeObject3d(this.clipMesh);
@@ -1040,34 +1003,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           break;
         case 'light':
           const light = this.initLocalComponent('light', new LightComponent());
-          light.updateInputParams({
-            name: this.name,
-            visible: this.visible,
-            type: this.lightType,
-            color: this.color,
-            skyColor: this.skyColor,
-            groundColor: this.groundColor,
-            intensity: this.intensity,
-            distance: this.distance,
-            angle: this.angle,
-            penumbra: this.penumbra,
-            decay: this.decay,
-            width: this.width,
-            height: this.height,
-            castShadow: this.castShadow,
-            shadowBias: this.shadowBias,
-            shadowFocus: this.shadowFocus,
-            shadowCameraNear: this.shadowCameraNear,
-            shadowMapSizeWidth: this.shadowMapSizeWidth,
-            shadowMapSizeHeight: this.shadowMapSizeHeight,
-            shadowCameraFar: this.shadowCameraFar,
-            shadowCameraFov: this.shadowCameraFov,
-            shadowCameraLeft: this.shadowCameraLeft,
-            shadowCameraRight: this.shadowCameraRight,
-            shadowCameraTop: this.shadowCameraTop,
-            shadowCameraBottom: this.shadowCameraBottom,
-            target: this.target,
-          });
+          light.updateInputParams(this.lightOptions);
           basemesh = light.getObject3d();
           break;
         case 'lensflareelement':
@@ -1200,8 +1136,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               }
             });
           }
-          // effect.reset();
-          // effect.addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any);
           basemesh = effect;
           break;
         case 'points':
@@ -1268,7 +1202,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         default:
           if (ThreeUtil.isNotNull(this.storageName)) {
             basemesh = new THREE.Group();
-            basemesh.updateMatrixWorld(true);
             this.localStorageService.getObject(
               this.storageName,
               (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[] | any, geometry?: THREE.BufferGeometry, morphTargets?: THREE.BufferAttribute[], source?: any) => {
@@ -1305,49 +1238,52 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                     loadedMesh.material['morphTargets'] = this.morphTargets;
                   }
                 }
-                if (assignMaterial && ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
-                  const materialType: string = this.storageOption?.materialType || 'seqn';
-                  switch (materialType.toLowerCase()) {
-                    case 'namelist':
-                      this.materialList.forEach((material) => {
-                        const nameList = material.nameList;
-                        if (nameList !== null && nameList.length > 0) {
-                          const matOfName = material.getMaterial();
-                          nameList.forEach((name) => {
-                            const object = loadedMesh.getObjectByName(name) as any;
-                            if (object !== null && object !== undefined) {
-                              object.material = matOfName;
-                            }
-                          });
-                        }
-                      });
-                      break;
-                    case 'map':
-                      const texture = this.getMaterialOne()['map'];
-                      loadedMesh.traverse((child) => {
-                        if (child['isMesh']) child['material'].map = texture;
-                      });
-                      break;
-                    default:
-                      if (ThreeUtil.isNotNull(this.material) || (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0)) {
-                        const loadedMeshed: THREE.Object3D[] = loadedMesh instanceof THREE.Group ? loadedMesh.children : [loadedMesh];
-                        const materials = this.getMaterialsMulti();
-                        materials.forEach((material, idx) => {
-                          if (loadedMeshed.length > idx && loadedMeshed[idx] instanceof THREE.Mesh) {
-                            const childMesh = loadedMeshed[idx] as THREE.Mesh;
-                            childMesh.material = material;
+                if (assignMaterial) {
+                  const materials = this.getMaterialsMulti({}, false);
+                  if (materials.length > 0) {
+                    const materialType: string = this.storageOption?.materialType || 'seqn';
+                    switch (materialType.toLowerCase()) {
+                      case 'namelist':
+                        this.materialList.forEach((material) => {
+                          const nameList = material.nameList;
+                          if (nameList !== null && nameList.length > 0) {
+                            const matOfName = material.getMaterial();
+                            nameList.forEach((name) => {
+                              const object = loadedMesh.getObjectByName(name) as any;
+                              if (object !== null && object !== undefined) {
+                                object.material = matOfName;
+                              }
+                            });
                           }
                         });
-                      }
-                      break;
+                        break;
+                      case 'map':
+                        const texture = this.getMaterialOne()['map'];
+                        loadedMesh.traverse((child) => {
+                          if (child['isMesh']) child['material'].map = texture;
+                        });
+                        break;
+                      default:
+                        const loadedMeshes: THREE.Mesh[] = [];
+                        loadedMesh.traverse((object3d) => {
+                          if (object3d instanceof THREE.Mesh) {
+                            loadedMeshes.push(object3d);
+                          }
+                        });
+                        materials.forEach((material, idx) => {
+                          if (loadedMeshes.length > idx) {
+                            loadedMeshes[idx].material = material;
+                          }
+                        });
+                        break;
+                    }
                   }
                 }
-                if (clips !== null && clips !== undefined) {
-                  this.clips = clips;
-                }
-                this.clipMesh = loadedMesh;
-                this.storageSource = source;
-                this.addChildObject3d(loadedMesh, ['mixer', 'helper']);
+                this.setUserData('refTarget', loadedMesh);
+                this.setUserData('clips', clips);
+                this.setUserData('storageSource', source);
+                this.addChildObject3d(loadedMesh);
+                this.setSubscribeNext('resetTarget');
               },
               this.storageOption
             );
@@ -1486,14 +1422,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           }
         }
       }
-      if (ThreeUtil.isNotNull(this.userData)) {
-        Object.entries(this.userData).forEach(([key, value]) => {
-          mesh.userData[key] = value;
-        });
-      }
       this.mesh = mesh;
       this.setObject3d(this.mesh);
-      this.resetHelper();
     }
   }
   private createPlaneStencilGroup(geometry: THREE.BufferGeometry, plane: THREE.Plane, renderOrder: number): THREE.Group {
@@ -1525,44 +1455,19 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return group;
   }
 
+  public helperComponent: HelperComponent = null;
+
   resetHelper() {
     if (this.mesh !== null) {
-      this.removeObject3d(this.helper);
-      let basemesh: THREE.Object3D = null;
-      const helperType = this.helperType.toLowerCase();
-      if (helperType !== '' && helperType !== 'none') {
-        const helper = this.initLocalComponent('helper', new HelperComponent());
-        helper.updateInputParams({
-          type: this.helperType,
-          color: this.color,
-          target: this.target,
-          size: this.size,
-          radius: this.radius,
-          radials: this.radials,
-          circles: this.circles,
-          divisions: this.divisions,
-          color1: this.color1,
-          color2: this.color2,
-          opacity: this.helperOpacity,
-          dirX: this.dirX,
-          dirY: this.dirY,
-          dirZ: this.dirZ,
-          originX: this.originX,
-          originY: this.originY,
-          originZ: this.originZ,
-          length: this.length,
-          headLength: this.headLength,
-          headWidth: this.headWidth,
-          parent: this.mesh,
-        });
-        basemesh = helper.getHelper();
-      }
-      if (basemesh !== null) {
-        this.helper = basemesh;
-        this.helper.visible = this.getHelperVisible(true);
-        this.addParentObject3d(this.helper);
-      } else {
-        this.helper = null;
+      if (ThreeUtil.isNotNull(this.helperType)) {
+        if (this.helperComponent === null) {
+          this.helperComponent = this.initLocalComponent('helper', new HelperComponent());
+        }
+        this.helperComponent.updateInputParams(this.helperOptions, true, {}, this.helperType);
+        this.helperComponent.setParent(this.mesh);
+      } else if (this.helperComponent !== null) {
+        this.helperComponent.ngOnDestroy();
+        this.helperComponent = null;
       }
     }
   }

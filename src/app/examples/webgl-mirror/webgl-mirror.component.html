@@ -4,10 +4,7 @@
 <three-renderer
   #render
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
-  [maxDistance]="400"
-  [minDistance]="10"
+  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 10 , maxDistance: 400 }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"

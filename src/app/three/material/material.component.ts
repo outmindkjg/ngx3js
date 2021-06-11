@@ -90,7 +90,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private stencilFail: string = null;
   @Input() private stencilZFail: string = null;
   @Input() private stencilZPass: string = null;
-  @Input() private userData: any = null;
   @Input() private shader: string | ShaderType = null;
   @Input() private uniforms: { [uniform: string]: TypeUniform } = null;
   @Input() private vertexShader: string = null;
@@ -876,10 +875,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     return undefined;
   }
 
-  private getUserData(def?: any): any {
-    return ThreeUtil.getTypeSafe(this.userData, def);
-  }
-
   private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
     const uniforms: {
       [key: string]: THREE.IUniform;
@@ -1100,7 +1095,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         stencilFail: this.getStencilFail(),
         stencilZFail: this.getStencilZFail(),
         stencilZPass: this.getStencilZPass(),
-        userData: this.getUserData(),
+        userData: {},
         alphaTest: this.getAlphaTest(),
         name: this.getName(),
         side: this.getSide(),
@@ -2069,12 +2064,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
           case 'stencilzpass':
             if (ThreeUtil.isNotNull(this.stencilZPass)) {
               this.material.stencilZPass = this.getStencilZPass();
-            }
-            break;
-          case 'userdata':
-            if (ThreeUtil.isNotNull(this.userData)) {
-              this.material.userData = this.getUserData({});
-              this.material.userData.component = this;
             }
             break;
           case 'alphatest':

@@ -3,15 +3,14 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
-  [useEvent]="['pointermove']"
+  [useEvent]="'pointermove'"
   (eventListener)="onMouseDownEvent($event)"
 >
   <three-composer [scene]="scene" [camera]="camera">

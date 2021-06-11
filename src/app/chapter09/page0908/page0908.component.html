@@ -1,11 +1,13 @@
-<three-renderer [controlType]="'orbit'" [autoRotate]="true" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<three-renderer [controlType]="'orbit'" 
+    [controlOptions]="{ autoRotate : true }"
+    [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
     <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
         <three-position [x]="-20" [y]="30" [z]="40"></three-position>
         <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
     </three-camera>
     <three-scene #scene>
-        <three-mesh [type]="'light'" [lightType]="'ambient'" [color]="'0x111111'"></three-mesh>
-        <three-mesh [type]="'light'" [lightType]="'directional'" [color]="'0xffffff'" [intensity]="1.5" [castShadow]="true" >
+        <three-mesh [type]="'light'" [lightOptions]="{ type : 'ambient', color : '0x111111' }"></three-mesh>
+        <three-mesh [type]="'light'" [lightOptions]="{ type : 'directional', color : '0xffffff' , intensity : 1.5  }" [castShadow]="true" >
             <three-position [x]="-20" [y]="30" [z]="40"></three-position>
         </three-mesh>
         <three-mesh>

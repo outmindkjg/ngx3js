@@ -4,9 +4,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [autoRotate]="true"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
@@ -25,10 +23,12 @@
     </three-shared>
     <three-mesh
         [type]="'light'"
-        [lightType]="'Point'"
-        [color]="'0xff0040'"
-        [intensity]="2"
-        [distance]="50"
+        [lightOptions]="{
+          type : 'Point',
+          color : '0xff0040',
+          intensity : 2,
+          distance : 50
+        }"
         (onLoad)="setLight1($event)"
       >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>
@@ -38,10 +38,12 @@
     </three-mesh>
     <three-mesh
         [type]="'light'"
-        [lightType]="'Point'"
-        [color]="'0x0040ff'"
-        [intensity]="2"
-        [distance]="50"
+        [lightOptions]="{
+          type : 'Point',
+          color : '0x0040ff',
+          intensity : 2,
+          distance : 50
+        }"
         (onLoad)="setLight2($event)"
       >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>
@@ -51,10 +53,12 @@
     </three-mesh>
     <three-mesh
         [type]="'light'"
-        [lightType]="'Point'"
-        [color]="'0x80ff80'"
-        [intensity]="2"
-        [distance]="50"
+        [lightOptions]="{
+          type : 'Point',
+          color : '0x80ff80',
+          intensity : 2,
+          distance : 50
+        }"
         (onLoad)="setLight3($event)"
       >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>
@@ -64,10 +68,12 @@
     </three-mesh>
     <three-mesh
         [type]="'light'"
-        [lightType]="'Point'"
-        [color]="'0xffaa00'"
-        [intensity]="2"
-        [distance]="50"
+        [lightOptions]="{
+          type : 'Point',
+          color : '0xffaa00',
+          intensity : 2,
+          distance : 50
+        }"
         (onLoad)="setLight4($event)"
       >
       <three-position [x]="0" [y]="20" [z]="0"></three-position>

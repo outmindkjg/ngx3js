@@ -4,12 +4,7 @@
 </div>
 <three-renderer
   [controlType]="'orbit'"
-  [minDistance]="1000"
-  [maxDistance]="2400"
-  [minZoom]="0.5"
-  [maxZoom]="1.5"
-  [enablePan]="false"
-  [enableDamping]="true"
+  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 1000 , maxDistance: 2400 , minZoom: 0.5 , maxZoom: 1.5 }"
   [statsMode]="0"
   [antialias]="true"
   [shadowMapEnabled]="true"
