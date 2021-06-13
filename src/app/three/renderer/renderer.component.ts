@@ -156,11 +156,13 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
       }
       this.renderer.dispose();
+      this.renderer = null;
     }
     if (this.cssRenderer !== null) {
       if (this.cssRenderer.domElement && this.cssRenderer.domElement.parentNode) {
         this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
       }
+      this.cssRenderer = null;
     }
   }
 

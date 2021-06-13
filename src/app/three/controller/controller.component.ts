@@ -7,7 +7,7 @@ import { RendererEvent, RendererTimer, ThreeUtil } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
-import { ControllerItemComponent } from './controller-item/controller-item.component';
+import { ControllerItemComponent, ControlObjectItem } from './controller-item/controller-item.component';
 
 @Component({
   selector: 'three-controller',
@@ -148,7 +148,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
               }
               break;
             case 'position' :
-              this.refreshRefObject3dposition();
+              this.refreshRefObject3dPosition();
               break;
           }
         });
@@ -163,7 +163,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   private pathGuide: THREE.Object3D = null;
   private refObject3dposition : THREE.Vector3 = new THREE.Vector3();
 
-  refreshRefObject3dposition() {
+  refreshRefObject3dPosition() {
     if (ThreeUtil.isNotNull(this.refObject3d)) {
       if (ThreeUtil.isNotNull(this.refObject3d.userData.initPosition)) {
         this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
@@ -173,8 +173,49 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       if (this.pathGuide !== null) {
         this.pathGuide.children[0].position.copy(this.refObject3dposition);
       }
+      this._controlItem.object3d = this.refObject3d;
+      this._controlItem.position = this.refObject3d.position;
+      this._controlItem.rotation = this.refObject3d.rotation;
+      this._controlItem.scale = this.refObject3d.scale;
+      if (this.refObject3d instanceof THREE.Mesh) {
+        if (Array.isArray(this.refObject3d.material)) {
+          if (this.refObject3d.material.length > 0) {
+            this._controlItem.material = this.refObject3d.material[0];
+          } else {
+            this._controlItem.material = null;
+          }
+        } else {
+          this._controlItem.material = this.refObject3d.material;
+        }
+        if (ThreeUtil.isNotNull(this._controlItem.material) && this._controlItem.material instanceof THREE.ShaderMaterial) {
+          this._controlItem.uniforms = this._controlItem.material.uniforms;
+        } else {
+          this._controlItem.uniforms = null;
+        }
+        this._controlItem.geometry = this.refObject3d.geometry;
+        this._controlItem.attributes = this._controlItem.geometry.attributes;
+        this._controlItem.morphAttributes = this._controlItem.geometry.morphAttributes;
+      } else {
+        this._controlItem.material = null;
+        this._controlItem.geometry = null;
+        this._controlItem.uniforms = null;
+        this._controlItem.attributes = null;
+        this._controlItem.morphAttributes = null;
+      }
     }
   }
+
+  private _controlItem : ControlObjectItem = {
+    object3d: null,
+    position: null,
+    rotation: null,
+    scale: null,
+    material: null,
+    uniforms: null,
+    geometry: null,
+    attributes: null,
+    morphAttributes: null
+  };
 
   setObject3d(refObject3d: THREE.Object3D) {
     if (this.refObject3d !== refObject3d) {
@@ -323,12 +364,12 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
                 visible: this.visible,
                 material: this.material,
               });
-              controllerItemList.push(controllerItem.getController(this.pathGuide));
+              controllerItemList.push(controllerItem.getController(this._controlItem, this.pathGuide));
               break;
           }
           if (ThreeUtil.isNotNull(this.controllerItemList) && this.controllerItemList.length > 0) {
             this.controllerItemList.forEach((controllerItem) => {
-              controllerItemList.push(controllerItem.getController(this.pathGuide));
+              controllerItemList.push(controllerItem.getController(this._controlItem, this.pathGuide));
             });
           }
           this._controllerItems = controllerItemList;
@@ -361,7 +402,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
         delta : rendererTimer.delta 
       }
       this._controllerItems.forEach((item) => {
-        item.update(dirRendererTimer, this.refObject3d, events);
+        item.update(dirRendererTimer, events);
       });
       if (this.useEvent && events.length > 0) {
         if (this._logSeqn % this.eventSeqn === 0 && ThreeUtil.isNotNull(this.refObject3d.userData.component) && ThreeUtil.isNotNull(this.refObject3d.userData.component.setSubscribeNext)) {

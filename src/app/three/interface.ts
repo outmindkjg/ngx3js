@@ -191,6 +191,7 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   }
 
   private _logTimeSeqn : number = 0;
+
   protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
     this._logTimeSeqn ++; 
     if (this._logTimeSeqn % repeat === 0) {
@@ -315,7 +316,6 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     if (this.mesh !== null) {
       this.meshObject3d = this.mesh.getObject3d();
       this.meshChildren = this.meshObject3d.children;
-
       setTimeout(() => {
         this.updateGuiController();
       }, 100);
@@ -2054,30 +2054,33 @@ export class ThreeUtil {
 
   static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]): ThreeGuiController {
     params.forEach((param) => {
-      switch (param.type) {
-        case 'color':
-          param.controller = this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
-          break;
-        case 'folder':
-          const folder = gui.addFolder(param.name);
-          param.controller = this.setupGui(param.control ? control[param.control] : control, folder, param.children);
-          if (param.isOpen) {
-            folder.open();
-          }
-          break;
-        case 'number':
-          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen, param.title);
-          break;
-        case 'listen':
-          param.controller = gui.add(param.control ? control[param.control] : control, param.name).listen();
-          break;
-        case 'select':
-          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen, param.title);
-          break;
-        case 'button':
-        default:
-          param.controller = this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
-          break;
+      const params = param.control ? control[param.control] : control;
+      if (this.isNotNull(params)) {
+        switch (param.type) {
+          case 'color':
+            param.controller = this.setupGuiChange(gui.addColor(params, param.name), param.finishChange, param.change, param.listen, param.title);
+            break;
+          case 'folder':
+            const folder = gui.addFolder(param.name);
+            param.controller = this.setupGui(params, folder, param.children);
+            if (param.isOpen) {
+              folder.open();
+            }
+            break;
+          case 'number':
+            param.controller = this.setupGuiChange(gui.add(params, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen, param.title);
+            break;
+          case 'listen':
+            param.controller = gui.add(params, param.name).listen();
+            break;
+          case 'select':
+            param.controller = this.setupGuiChange(gui.add(params, param.name, param.select), param.finishChange, param.change, param.listen, param.title);
+            break;
+          case 'button':
+          default:
+            param.controller = this.setupGuiChange(gui.add(params, param.name), param.finishChange, param.change, param.listen, param.title);
+            break;
+        }
       }
     });
     return gui;

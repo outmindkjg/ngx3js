@@ -43,17 +43,26 @@
       <three-mesh [geometry]="sphere">
         <three-position [x]="-259" [y]="30" [z]="0"></three-position>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0xffaa00'" [flatShading]="true" [shininess]="0"></three-material>
-        <three-audio [type]="'PositionalAudio'" [url]="'sounds/358232_j_s_song.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+        <three-audio #analyser1 [type]="'PositionalAudio'" [url]="'sounds/358232_j_s_song.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+        <three-controller>
+          <three-controller-item [refRate]="analyser1" [type]="'material'" [material]="'emissive'" [colorType]="'rate'"></three-controller-item>
+        </three-controller>
       </three-mesh>
       <three-mesh [geometry]="sphere">
         <three-position [x]="250" [y]="30" [z]="0"></three-position>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0xff2200'" [flatShading]="true" [shininess]="0"></three-material>
-        <three-audio [type]="'PositionalAudio'" [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+        <three-audio #analyser2 [type]="'PositionalAudio'" [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg'" [refDistance]="20" [autoplay]="true"></three-audio>
+        <three-controller>
+          <three-controller-item [refRate]="analyser2" [type]="'material'" [material]="'emissive'" [colorType]="'rate'"></three-controller-item>
+        </three-controller>
       </three-mesh>
       <three-mesh [geometry]="sphere">
         <three-position [x]="0" [y]="30" [z]="-250"></three-position>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x6622aa'" [flatShading]="true" [shininess]="0"></three-material>
-        <three-audio [type]="'PositionalAudio'" [urlType]="'listener'" [volume]="0.5" [refDistance]="20"></three-audio>
+        <three-audio #analyser3 [type]="'PositionalAudio'" [urlType]="'listener'" [volume]="0.5" [refDistance]="20"></three-audio>
+        <three-controller>
+          <three-controller-item [refRate]="analyser3" [type]="'material'" [material]="'emissive'" [colorType]="'rate'"></three-controller-item>
+        </three-controller>
       </three-mesh>
     </three-mesh>
     <three-helper [type]="'GridHelper'" [size]="1000" [divisions]="10" [color1]="'0x444444'" [color2]="'0x444444'">

@@ -4,6 +4,22 @@ import { CurveUtils, CurvesNormal } from '../../curve/curveUtils';
 import { RendererTimer, ThreeUtil } from '../../interface';
 import { AbstractSubscribeComponent } from '../../subscribe.abstract';
 
+export interface ControlObjectItem {
+  object3d?: THREE.Object3D;
+  position?: THREE.Vector3;
+  rotation?: THREE.Euler;
+  scale?: THREE.Vector3;
+  material?: THREE.Material;
+  uniforms?: { [uniform: string]: THREE.IUniform };
+  geometry?: THREE.BufferGeometry;
+  attributes?: {[name: string]: THREE.BufferAttribute | THREE.InterleavedBufferAttribute};
+  morphAttributes?: {
+		[name: string]: ( THREE.BufferAttribute | THREE.InterleavedBufferAttribute )[];
+	};
+}
+
+const aaa = new THREE.BufferGeometry();
+aaa.attributes
 @Component({
   selector: 'three-controller-item',
   templateUrl: './controller-item.component.html',
@@ -51,6 +67,8 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   @Input() private refValue: any = null;
   @Input() private minValue: number = 0;
   @Input() private maxValue: number = 1;
+  @Input() private colorType: string = 'rgb';
+  @Input() private refRate: any = null;
 
   private getCurve(curve: string): THREE.Curve<THREE.Vector3> {
     return CurveUtils.getCurve(curve, 1, {
@@ -98,7 +116,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   applyChanges(changes: string[]) {
     if (this._curve !== null && this._parent !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
-        this.getController(this._parent);
+        this.getController(this._controlItem, this._parent);
         return;
       }
       if (!ThreeUtil.isOnlyIndexOf(changes, ['init', 'type', 'enabled'])) {
@@ -110,10 +128,13 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   }
 
   getObject() {
-    return this.getController(this._parent);
+    return this.getController(this._controlItem, this._parent);
   }
 
-  getController(parent: THREE.Object3D): this {
+  private _controlItem : ControlObjectItem = {};
+  private _rateCallBack : (timer? : RendererTimer) => number = null;
+
+  getController(controlItem : ControlObjectItem, parent: THREE.Object3D): this {
     if (this._curve === null || this._needUpdate) {
       this._needUpdate = false;
       this._lookat = false;
@@ -125,6 +146,14 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
       }
       this._helper = null;
       this._helperPoint = null;
+      this._rateCallBack = null;
+      if (ThreeUtil.isNotNull(this.refRate)) {
+        if (typeof this.refRate === 'function') {
+          this._rateCallBack = this.refRate;
+        } else if (ThreeUtil.isNotNull(this.refRate.getNumber)) {
+          this._rateCallBack = this.refRate.getNumber();
+        }
+      } 
       const curve = this.getCurve(ThreeUtil.getTypeSafe(this.curve, 'line'));
       let scale: THREE.Vector3 = ThreeUtil.getVector3Safe(ThreeUtil.getTypeSafe(this.radiusX, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusY, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusZ, this.radius, 1));
       let rotation: THREE.Euler = ThreeUtil.getEulerSafe(ThreeUtil.getTypeSafe(this.rotationX, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationY, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationZ, this.rotation, 0));
@@ -190,6 +219,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     }
     if (this._parent !== parent && parent !== null) {
       this._parent = parent;
+      this._controlItem = controlItem;
       if (this._parent !== null) {
         if (this._helper !== null) {
           if (this._helper.parent !== this._parent.children[0]) {
@@ -226,20 +256,39 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     }
   }
 
-  private getMaterial(parent: THREE.Object3D): THREE.Material {
-    if (ThreeUtil.isNotNull(parent['material'])) {
-      let material: THREE.Material = null;
-      if (Array.isArray(parent['material'])) {
-        return parent['material'][0] || null;
-      } else {
-        return parent['material'];
-      }
+  private updateColor(targetColor : THREE.Color, srcColor : THREE.Color) {
+    switch(this.colorType) {
+      case 'rate' :
+        if (this._rateCallBack !== null) {
+          targetColor.b = this._rateCallBack();
+        }
+        break;
+      case 'rgb' :
+        targetColor.setRGB(srcColor.r,srcColor.g,srcColor.b);
+        break;
+      case 'gray' :
+        const avgColor = (srcColor.r + srcColor.g + srcColor.b) / 3;
+        targetColor.setRGB(avgColor,avgColor,avgColor);
+        break;
+        default :
+        if (this.colorType.indexOf('r') > -1) {
+          targetColor.r = srcColor.r;
+        }
+        if (this.colorType.indexOf('g') > -1) {
+          targetColor.g = srcColor.g;
+        }
+        if (this.colorType.indexOf('b') > -1) {
+          targetColor.b = srcColor.b;
+        }
+        break;
     }
-    return null;
   }
 
-  update(timer: RendererTimer, parent: THREE.Object3D, events: string[]): boolean {
-    if (this._curve !== null) {
+  private _tmpColor : THREE.Color = new THREE.Color();
+  private _tmpV3 : THREE.Vector3 = new THREE.Vector3();
+
+  update(timer: RendererTimer, events: string[]): boolean {
+    if (this._curve !== null && this._controlItem.object3d !== null) {
       const itemTimer: RendererTimer = {
         elapsedTime: timer.elapsedTime / this._duration + this._delta,
         delta: timer.delta,
@@ -247,8 +296,8 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
       switch (this.type.toLowerCase()) {
         case 'positionlookat':
         case 'position':
-          if (events.indexOf('position') === -1) {
-            this._curve.getPointV3(itemTimer, parent.position);
+          if (events.indexOf('position') === -1 && this._controlItem.position !== null) {
+            this._curve.getPointV3(itemTimer, this._controlItem.position);
             events.push('position');
             if (this._lookat) {
               itemTimer.elapsedTime += this._lookathead;
@@ -257,7 +306,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
                 this._lastLookAt = this._curve.getPointV3(itemTimer, new THREE.Vector3());
               } else {
                 this._curve.getPointV3(itemTimer, this._lastLookAt);
-                parent.lookAt(this._lastLookAt);
+                this._controlItem.object3d.lookAt(this._lastLookAt);
               }
               this.updateHelperPoint(itemTimer);
               events.push('lookat');
@@ -267,8 +316,8 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             return false;
           }
         case 'scale':
-          if (events.indexOf('scale') === -1) {
-            this._curve.getPointV3(itemTimer, parent.scale);
+          if (events.indexOf('scale') === -1 && this._controlItem.scale !== null) {
+            this._curve.getPointV3(itemTimer, this._controlItem.scale);
             this.updateHelperPoint(itemTimer);
             events.push('scale');
             return true;
@@ -276,8 +325,8 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             return false;
           }
         case 'rotation':
-          if (events.indexOf('rotation') === -1) {
-            this._curve.getPointEuler(itemTimer, parent.rotation);
+          if (events.indexOf('rotation') === -1 && this._controlItem.rotation !== null) {
+            this._curve.getPointEuler(itemTimer, this._controlItem.rotation);
             this.updateHelperPoint(itemTimer);
             events.push('rotation');
             return true;
@@ -290,7 +339,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
               this._lastLookAt = this._curve.getPointV3(itemTimer, new THREE.Vector3());
             } else {
               this._curve.getPointV3(itemTimer, this._lastLookAt);
-              parent.lookAt(this._lastLookAt);
+              this._controlItem.object3d.lookAt(this._lastLookAt);
             }
             this.updateHelperPoint(itemTimer);
             events.push('lookat');
@@ -299,13 +348,14 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             return false;
           }
         case 'material':
-          if (ThreeUtil.isNotNull(this.material)) {
-            const material = this.getMaterial(parent);
+          if (ThreeUtil.isNotNull(this.material) && this._controlItem.material !== null) {
+            const material = this._controlItem.material;
             if (ThreeUtil.isNotNull(material) && ThreeUtil.isNotNull(material[this.material])) {
               let scale: number = 1;
               const oldValue = material[this.material];
               if (oldValue instanceof THREE.Color) {
-                this._curve.getPointColor(itemTimer, oldValue);
+                this._curve.getPointColor(itemTimer, this._tmpColor);
+                this.updateColor(oldValue, this._tmpColor);
               } else if (oldValue instanceof THREE.Vector2) {
                 this._curve.getPointV2(itemTimer, oldValue);
               } else if (oldValue instanceof THREE.Vector3) {
@@ -327,10 +377,10 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
           break;
         case 'uniform':
         case 'uniforms':
-          if (ThreeUtil.isNotNull(this.uniform)) {
-            const material = this.getMaterial(parent);
-            if (ThreeUtil.isNotNull(material) && ThreeUtil.isNotNull(material['uniforms']) && ThreeUtil.isNotNull(material['uniforms'][this.uniform])) {
-              const uniform: THREE.IUniform = material['uniforms'][this.uniform];
+          if (ThreeUtil.isNotNull(this.uniform) && this._controlItem.uniforms !== null) {
+            const uniforms = this._controlItem.uniforms;
+            if (ThreeUtil.isNotNull(uniforms[this.uniform])) {
+              const uniform: THREE.IUniform = uniforms[this.uniform];
               const oldValue = uniform.value;
               switch (this.valueType.toLowerCase()) {
                 case 'copyposition':

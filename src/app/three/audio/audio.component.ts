@@ -182,7 +182,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
               this.audio.setNodeSource( oscillator );
               this.resetAudio();
               super.callOnLoad();
-              this.setSubscribeNext('load');
+              this.addChanges('load');
               break;
             case 'auto' :
             case 'audio' :
@@ -191,7 +191,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                 this.audio.setBuffer(buffer);
                 this.resetAudio();
                 super.callOnLoad();
-                this.setSubscribeNext('load');
+                this.addChanges('load');
               });
               break;
           }
@@ -259,6 +259,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       this.audio.visible = this.visible;
     }
   }
+
   getAnalyser(fftSize? : number) : THREE.AudioAnalyser {
     if (this.analyser == null && this.audio !== null) {
       this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
@@ -266,6 +267,19 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return this.analyser;
   }
 
+  private _numberAnalyser : () => number = null;
+
+  getNumber() : () => number {
+    this._numberAnalyser = () => {
+      if (this.analyser !== null) {
+        return this.analyser.getAverageFrequency() / 256;
+      }
+      return 0;
+    }
+    return this._numberAnalyser;
+  }
+  
+  
   applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
@@ -279,6 +293,12 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
               mixer.setParent(this.audio);
             });
             this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
+            break;
+          case 'load' :
+            if (this._numberAnalyser !== null && this.analyser === null) {
+              this.getAnalyser();
+            }
+            this.setSubscribeNext('load');
             break;
         }
       });
