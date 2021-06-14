@@ -994,7 +994,6 @@ export class LocalStorageService {
         const geometryBonds = pdb.geometryBonds;
         const json = pdb.json;
         const cssType: string = options.cssType || 'css2d';
-        const colorSprite: {[key : string] : { image : HTMLImageElement, color : THREE.Color} } = {}; 
         const group = new THREE.Mesh();
         const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
         const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
@@ -1007,7 +1006,6 @@ export class LocalStorageService {
           position.x = positions.getX(i);
           position.y = positions.getY(i);
           position.z = positions.getZ(i);
-          const atomJson = json.atoms[ i ];
           color.r = colors.getX(i);
           color.g = colors.getY(i);
           color.b = colors.getZ(i);
@@ -1021,9 +1019,8 @@ export class LocalStorageService {
           const atom = json.atoms[i];
           const text = document.createElement('div');
           text.className = 'label';
-          text.style.color =
-            'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
-            
+          text.style.color = 'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
+          text.style.marginTop = '1.5em';
           text.textContent = atom[4];
           let label : THREE.Object3D = null;
           switch(cssType.toLowerCase()) {
@@ -1036,7 +1033,9 @@ export class LocalStorageService {
               break;
           }
           label.name = 'label';
-          label.position.copy(object.position);
+          const labelPostion = object.position.clone();
+          labelPostion.y += 13;
+          label.position.copy(labelPostion);
           group.add(label);
         }
         positions = geometryBonds.getAttribute('position');

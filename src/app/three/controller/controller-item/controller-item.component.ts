@@ -425,6 +425,27 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
            }
           }
           break;
+        case 'tween' :
+          const tween = this._controlItem.object3d.userData.tween;
+          // this.consoleLogTime('tween',tween);
+          if (ThreeUtil.isNotNull(tween) && tween.elapsedTime < 1) {
+            // tween.elapsedTime = this._curve.getPointFloat({elapsedTime : tween.elapsedTime + timer.delta / 300, delta : timer.delta / 30 }, 0, 1);
+            tween.elapsedTime = Math.min(1, Math.max(0, tween.elapsedTime + timer.delta / 40));
+            Object.entries(tween).forEach(([key, value]) => {
+              switch(key) {
+                case 'position' :
+                  this._controlItem.position.lerp(value as THREE.Vector3 , tween.elapsedTime);
+                  break;
+                case 'scale' :
+                  this._controlItem.scale.lerp(value as THREE.Vector3 , tween.elapsedTime);
+                  break;
+                case 'rotation' :
+                  // this._controlItem.rotation.slerp(value as THREE.Vector3 , tween.elapsedTime);
+                  break;
+                }
+            });
+          }
+          break;
       }
     }
     return false;

@@ -166,12 +166,12 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   refreshRefObject3dPosition() {
     if (ThreeUtil.isNotNull(this.refObject3d)) {
       if (ThreeUtil.isNotNull(this.refObject3d.userData.initPosition)) {
-        this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
+        // this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
       } else {
-        this.refObject3dposition.copy(this.refObject3d.position);
+        // this.refObject3dposition.copy(this.refObject3d.position);
       }
       if (this.pathGuide !== null) {
-        this.pathGuide.children[0].position.copy(this.refObject3dposition);
+      //  this.pathGuide.children[0].position.copy(this.refObject3dposition);
       }
       this._controlItem.object3d = this.refObject3d;
       this._controlItem.component = ThreeUtil.getThreeComponent(this.refObject3d);
@@ -337,6 +337,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
             case 'rotation':
             case 'lookat':
             case 'material':
+            case 'tween':
             case 'uniforms':
               const controllerItem = this.initLocalComponent('controllerItem', new ControllerItemComponent());
               controllerItem.updateInputParams({

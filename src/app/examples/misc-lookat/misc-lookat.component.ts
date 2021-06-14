@@ -15,11 +15,11 @@ export class MiscLookatComponent extends BaseComponent<{}> {
 
   ngOnInit() {
     this.meshInfos = [];
-    for ( let i = 0; i < 1000; i ++ ) {
+    for ( let i = 0; i < 300; i ++ ) {
       this.meshInfos.push({
-        x : Math.random() * 4000 - 2000,
-        y : Math.random() * 4000 - 2000,
-        z : Math.random() * 4000 - 2000,
+        x : Math.random() * 2000 - 1000,
+        y : Math.random() * 2000 - 1000,
+        z : Math.random() * 2000 - 1000,
         scale : Math.random() * 4 + 2
       });
     }
@@ -41,7 +41,7 @@ export class MiscLookatComponent extends BaseComponent<{}> {
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.sphere !== null) {
-      const time = timer.elapsedTime * 0.05;
+      const time = timer.elapsedTime * 0.5;
       this.sphere.position.x = Math.sin( time * 0.7 ) * 2000;
       this.sphere.position.y = Math.cos( time * 0.5 ) * 2000;
       this.sphere.position.z = Math.cos( time * 0.3 ) * 2000;

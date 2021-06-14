@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { RendererTimer, ThreeUtil } from '../interface';
@@ -13,8 +12,7 @@ export interface CurvesParameters {
 }
 
 export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
-
-  private radius: number = 1 ;
+  private radius: number = 1;
   private radiusInner: number = 0;
   private waveH: number = 0;
   private waveR: number = 0;
@@ -22,9 +20,9 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
   private rateY: number = 0.2;
   private rateZ: number = 1;
 
-  points : THREE.Vector3[] = [];
+  points: THREE.Vector3[] = [];
 
-  constructor(points : THREE.Vector3[] = [], radius : number = 1, options? : CurvesParameters ) {
+  constructor(points: THREE.Vector3[] = [], radius: number = 1, options?: CurvesParameters) {
     super();
     this.points = points;
     this.radius = ThreeUtil.isNotNull(radius) ? radius : 1;
@@ -37,12 +35,12 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
     this._rateV = new THREE.Vector3(this.rateX, this.rateY, this.rateZ);
   }
 
-  _rateV : THREE.Vector3 = null;
+  _rateV: THREE.Vector3 = null;
   clearPoints() {
     this.points = [];
   }
 
-  addPoint(p : THREE.Vector3) {
+  addPoint(p: THREE.Vector3) {
     this.points.push(p);
   }
 
@@ -68,7 +66,7 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
         waveP.x = Math.sin(waveR * len) * radiusInner;
         waveP.z = Math.cos(waveR * len) * radiusInner;
       }
-      return point.set(currentP.x,currentP.y,currentP.z).add(waveP.multiply(this._rateV)).multiplyScalar(this.radius);
+      return point.set(currentP.x, currentP.y, currentP.z).add(waveP.multiply(this._rateV)).multiplyScalar(this.radius);
     } else {
       return point;
     }
@@ -76,81 +74,80 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
 }
 
 export class CurvesRegularPolygon extends CurvesPolygon {
-  constructor(vertex : number = 3 , radius : number = 1, options : CurvesParameters = {}) {
+  constructor(vertex: number = 3, radius: number = 1, options: CurvesParameters = {}) {
     super([], radius, options);
     this.setVertex(vertex);
   }
 
-  setVertex(vertex : number) {
+  setVertex(vertex: number) {
     this.clearPoints();
-    for(let i = 0 ; i < vertex; i++) {
-      const t = 2 * Math.PI * i / vertex;
+    for (let i = 0; i < vertex; i++) {
+      const t = (2 * Math.PI * i) / vertex;
       this.addPoint(new THREE.Vector3(Math.sin(t), 0, Math.cos(t)));
     }
   }
 }
 
 export class CurvesRegularPolygonTriangle extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(3, radius, options || {});
   }
 }
 export class CurvesRegularPolygonSquare extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(4, radius, options || {});
   }
 }
 export class CurvesRegularPolygonPentagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(5, radius, options || {});
   }
 }
 export class CurvesRegularPolygonHexagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(6, radius, options || {});
   }
 }
 export class CurvesRegularPolygonHeptagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(7, radius, options || {});
   }
 }
 export class CurvesRegularPolygonOctagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(8, radius, options || {});
   }
 }
 export class CurvesRegularPolygonNonagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(9, radius, options || {});
   }
 }
 export class CurvesRegularPolygonDecagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(10, radius, options || {});
   }
 }
 export class CurvesRegularPolygonUndecagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(11, radius, options || {});
   }
 }
 export class CurvesRegularPolygonDodecagon extends CurvesRegularPolygon {
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super(12, radius, options || {});
   }
 }
 
-
 export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
-  private radius: number = 1 ;
+  private radius: number = 1;
   private radiusInner: number = 0;
   private waveH: number = 0;
   private waveR: number = 0;
   private rateX: number = 1;
   private rateY: number = 0.2;
   private rateZ: number = 1;
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super();
     options = options || {};
     this.radius = ThreeUtil.isNotNull(radius) ? radius : 1;
@@ -165,22 +162,21 @@ export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     t = 2 * Math.PI * t;
-    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(t * this.waveR) * this.radiusInner + 1 ) * this.radius : this.radius;
-    const y = this.waveH != 0  ? Math.sin(t * this.waveH) : 0;
-    return point.set(Math.sin(t) * this.rateX, y * this.rateY , Math.cos(t) * this.rateZ).multiplyScalar(radius);
+    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(t * this.waveR) * this.radiusInner + 1) * this.radius : this.radius;
+    const y = this.waveH != 0 ? Math.sin(t * this.waveH) : 0;
+    return point.set(Math.sin(t) * this.rateX, y * this.rateY, Math.cos(t) * this.rateZ).multiplyScalar(radius);
   }
 }
 
-
 export class CurvesLine extends THREE.Curve<THREE.Vector3> {
-  private radius: number = 1 ;
+  private radius: number = 1;
   private radiusInner: number = 0;
   private waveH: number = 0;
   private waveR: number = 0;
   private rateX: number = 1;
   private rateY: number = 0.2;
   private rateZ: number = 1;
-  constructor(radius : number = 1, options? : CurvesParameters ) {
+  constructor(radius: number = 1, options?: CurvesParameters) {
     super();
     options = options || {};
     this.radius = ThreeUtil.isNotNull(radius) ? radius : 1;
@@ -195,52 +191,52 @@ export class CurvesLine extends THREE.Curve<THREE.Vector3> {
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     const v = (t % 1) * 2 - 1;
-    const y = this.waveH != 0  ? Math.sin(2 * Math.PI * t * this.waveH) : 0;
-    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(2 * Math.PI * t * this.waveR) * this.radiusInner + 1 ) * this.radius : this.radius;
+    const y = this.waveH != 0 ? Math.sin(2 * Math.PI * t * this.waveH) : (t % 1) * 2 - 1;
+    const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(2 * Math.PI * t * this.waveR) * this.radiusInner + 1) * this.radius : this.radius;
     return point.set(v * this.rateX, y * this.rateY, v * this.rateZ).multiplyScalar(radius);
   }
 }
 
 export interface CurveClass {
-  new (scale? : number, options?:any): THREE.Curve<THREE.Vector3>
+  new (scale?: number, options?: any): THREE.Curve<THREE.Vector3>;
 }
-export const CurveConf : {
-  [key : string] : CurveClass
+export const CurveConf: {
+  [key: string]: CurveClass;
 } = {
-  grannyknot : Curves.GrannyKnot,
-  heartcurve : Curves.HeartCurve,
-  vivianicurve :Curves.VivianiCurve,
-  knotcurve : Curves.KnotCurve,
-  helixcurve : Curves.HelixCurve,
-  trefoilknot : Curves.TrefoilKnot,
-  torusknot : Curves.TorusKnot,
-  cinquefoilknot : Curves.CinquefoilKnot,
-  trefoilpolynomialknot : Curves.TrefoilPolynomialKnot,
-  decoratedtorusknot4b : Curves.DecoratedTorusKnot4b,
-  decoratedtorusknot4a : Curves.DecoratedTorusKnot4a,
-  figureeightpolynomialknot :Curves.FigureEightPolynomialKnot,
-  decoratedtorusknot5a : Curves.DecoratedTorusKnot5a,
-  decoratedtorusknot5c : Curves.DecoratedTorusKnot5c,
-  circle : CurvesCircle,
-  line : CurvesLine,
-  triangle : CurvesRegularPolygonTriangle,
-  square : CurvesRegularPolygonSquare,
-  pentagon : CurvesRegularPolygonPentagon,
-  hexagon : CurvesRegularPolygonHexagon,
-  heptagon : CurvesRegularPolygonHeptagon,
-  octagon : CurvesRegularPolygonOctagon,
-  nonagon : CurvesRegularPolygonNonagon,
-  decagon : CurvesRegularPolygonDecagon,
-  undecagon : CurvesRegularPolygonUndecagon,
-  dodecagon : CurvesRegularPolygonDodecagon,
-}
+  grannyknot: Curves.GrannyKnot,
+  heartcurve: Curves.HeartCurve,
+  vivianicurve: Curves.VivianiCurve,
+  knotcurve: Curves.KnotCurve,
+  helixcurve: Curves.HelixCurve,
+  trefoilknot: Curves.TrefoilKnot,
+  torusknot: Curves.TorusKnot,
+  cinquefoilknot: Curves.CinquefoilKnot,
+  trefoilpolynomialknot: Curves.TrefoilPolynomialKnot,
+  decoratedtorusknot4b: Curves.DecoratedTorusKnot4b,
+  decoratedtorusknot4a: Curves.DecoratedTorusKnot4a,
+  figureeightpolynomialknot: Curves.FigureEightPolynomialKnot,
+  decoratedtorusknot5a: Curves.DecoratedTorusKnot5a,
+  decoratedtorusknot5c: Curves.DecoratedTorusKnot5c,
+  circle: CurvesCircle,
+  line: CurvesLine,
+  triangle: CurvesRegularPolygonTriangle,
+  square: CurvesRegularPolygonSquare,
+  pentagon: CurvesRegularPolygonPentagon,
+  hexagon: CurvesRegularPolygonHexagon,
+  heptagon: CurvesRegularPolygonHeptagon,
+  octagon: CurvesRegularPolygonOctagon,
+  nonagon: CurvesRegularPolygonNonagon,
+  decagon: CurvesRegularPolygonDecagon,
+  undecagon: CurvesRegularPolygonUndecagon,
+  dodecagon: CurvesRegularPolygonDodecagon,
+};
 
-export  class CurveUtils {
-  static addCurve(key : string , curve : CurveClass) {
-    CurveConf[key.toLowerCase()] = curve;   
+export class CurveUtils {
+  static addCurve(key: string, curve: CurveClass) {
+    CurveConf[key.toLowerCase()] = curve;
   }
 
-  static getCurveClass(key : string) :CurveClass {
+  static getCurveClass(key: string): CurveClass {
     if (ThreeUtil.isNotNull(CurveConf[key.toLowerCase()])) {
       return CurveConf[key.toLowerCase()];
     } else {
@@ -249,37 +245,35 @@ export  class CurveUtils {
     }
   }
 
-  static getCurve(key : string, scale? : number, options? : any) :THREE.Curve<THREE.Vector3> {
+  static getCurve(key: string, scale?: number, options?: any): THREE.Curve<THREE.Vector3> {
     return new (this.getCurveClass(key))(scale, options);
   }
 
-  static getCurveNormal(key : string | THREE.Curve<THREE.Vector3> , normalOption? : CurvesNormalParameters, option? : any) :CurvesNormal {
+  static getCurveNormal(key: string | THREE.Curve<THREE.Vector3>, normalOption?: CurvesNormalParameters, option?: any): CurvesNormal {
     if (key instanceof THREE.Curve) {
       return new CurvesNormal(key, normalOption);
     } else {
-      return new CurvesNormal(this.getCurve(key,option), normalOption);
+      return new CurvesNormal(this.getCurve(key, option), normalOption);
     }
   }
 }
 
-
 export interface CurvesNormalParameters {
-  scale?: THREE.Vector3, 
-  rotation?: THREE.Euler, 
-  center?: THREE.Vector3, 
-  multiply?: number, 
-  options?: string
+  scale?: THREE.Vector3;
+  rotation?: THREE.Euler;
+  center?: THREE.Vector3;
+  multiply?: number;
+  options?: string;
 }
-
 
 export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
   private scale: THREE.Vector3 = null;
   private rotation: THREE.Euler = null;
   private center: THREE.Vector3 = null;
   private multiply: number = null;
-  constructor(curve: THREE.Curve<THREE.Vector3>, parameters : CurvesNormalParameters) {
+  constructor(curve: THREE.Curve<THREE.Vector3>, parameters: CurvesNormalParameters) {
     super();
-    parameters = parameters || {}
+    parameters = parameters || {};
     if (ThreeUtil.isNotNull(parameters.rotation)) {
       this.rotation = parameters.rotation;
     }
@@ -301,7 +295,7 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
 
   curve: THREE.Curve<THREE.Vector3> = null;
 
-  setOptions(options : string) {
+  setOptions(options: string) {
     if (ThreeUtil.isNotNull(options)) {
       options.split(',').forEach((option) => {
         switch (option.toLowerCase()) {
@@ -314,6 +308,12 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
           case 'absz':
             this._absZ = true;
             break;
+          case 'once':
+            this._repeatType = 'once';
+            break;
+          case 'repeat':
+            this._repeatType = 'repeat';
+            break;
           case 'yoyo':
             this._repeatType = 'yoyo';
             break;
@@ -322,17 +322,17 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     }
   }
 
-  setCurve(curve : THREE.Curve<THREE.Vector3>) {
-		let minX = + Infinity;
-		let minY = + Infinity;
-		let minZ = + Infinity;
-		let maxX = - Infinity;
-		let maxY = - Infinity;
-		let maxZ = - Infinity;
+  setCurve(curve: THREE.Curve<THREE.Vector3>) {
+    let minX = +Infinity;
+    let minY = +Infinity;
+    let minZ = +Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+    let maxZ = -Infinity;
     let sumX = 0;
-		let sumY = 0;
-		let sumZ = 0;
-    for(let i = 0 ; i <= 1; i += 0.02) {
+    let sumY = 0;
+    let sumZ = 0;
+    for (let i = 0; i <= 1; i += 0.02) {
       const v = curve.getPoint(i);
       minX = Math.min(minX, v.x);
       minY = Math.min(minY, v.y);
@@ -345,15 +345,15 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
       sumZ += v.z;
     }
     this.curve = curve;
-    this._center = new THREE.Vector3(sumX,sumY,sumZ).multiplyScalar(0.02);
+    this._center = new THREE.Vector3(sumX, sumY, sumZ).multiplyScalar(0.02);
     const maxL = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
-    this._scale = new THREE.Vector3(1,1,1);
+    this._scale = new THREE.Vector3(1, 1, 1);
     if (maxL > 2) {
       this._scale.multiplyScalar(2 / maxL);
     }
   }
-  private _center : THREE.Vector3 = null;
-  private _scale : THREE.Vector3 = null;
+  private _center: THREE.Vector3 = null;
+  private _scale: THREE.Vector3 = null;
   private _absX: boolean = false;
   private _absY: boolean = false;
   private _absZ: boolean = false;
@@ -389,7 +389,7 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return optionalTarget;
   }
 
-  private getElapsedTime(timer : RendererTimer): number {
+  private getElapsedTime(timer: RendererTimer): number {
     let t: number = timer.elapsedTime;
     switch (this._repeatType.toLowerCase()) {
       case 'yoyo':
@@ -398,6 +398,9 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
           t = 2 - t;
         }
         break;
+      case 'once':
+        t = Math.max(0, Math.min(1, t));
+        break;
       default:
         t = t % 1;
         break;
@@ -405,10 +408,10 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return t;
   }
 
-  private _lastV3 : THREE.Vector3 = null;
-  public referCenter : THREE.Vector3 = null;
+  private _lastV3: THREE.Vector3 = null;
+  public referCenter: THREE.Vector3 = null;
 
-  getPointV3(timer : RendererTimer, p : THREE.Vector3): THREE.Vector3 {
+  getPointV3(timer: RendererTimer, p: THREE.Vector3): THREE.Vector3 {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastV3 === null) {
       this._lastV3 = new THREE.Vector3(cp.x, cp.y, cp.z);
@@ -422,8 +425,8 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastV3;
   }
 
-  private _lastV2 : THREE.Vector2 = null;
-  getPointV2(timer : RendererTimer, p : THREE.Vector2): THREE.Vector2 {
+  private _lastV2: THREE.Vector2 = null;
+  getPointV2(timer: RendererTimer, p: THREE.Vector2): THREE.Vector2 {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastV2 === null) {
       this._lastV2 = new THREE.Vector2(cp.x, cp.y);
@@ -434,8 +437,8 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastV2;
   }
 
-  private _lastEuler : THREE.Euler = null;
-  getPointEuler(timer : RendererTimer, p : THREE.Euler): THREE.Euler {
+  private _lastEuler: THREE.Euler = null;
+  getPointEuler(timer: RendererTimer, p: THREE.Euler): THREE.Euler {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastEuler == null) {
       this._lastEuler = new THREE.Euler(cp.x, cp.y, cp.z);
@@ -446,11 +449,11 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastEuler;
   }
 
-  private _lastColor : THREE.Color = null;
+  private _lastColor: THREE.Color = null;
 
-  getPointColor(timer : RendererTimer, p : THREE.Color): THREE.Color {
+  getPointColor(timer: RendererTimer, p: THREE.Color): THREE.Color {
     const cp = this.getPoint(this.getElapsedTime(timer));
-    cp.clampScalar(0,1);
+    cp.clampScalar(0, 1);
     if (this._lastColor == null) {
       this._lastColor = new THREE.Color(cp.x, cp.y, cp.z);
     } else {
@@ -460,15 +463,14 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastColor;
   }
 
-  private _lastFloat : THREE.Vector3 = null;
+  private _lastFloat: THREE.Vector3 = null;
 
-  getPointFloat(timer : RendererTimer, min : number = 0, max : number = 1): number {
+  getPointFloat(timer: RendererTimer, min: number = 0, max: number = 1): number {
     if (this._lastFloat === null) {
       this._lastFloat = new THREE.Vector3();
     }
     this.getPointV3(timer, this._lastFloat);
-    const length = Math.max(0,Math.min(1,this._lastFloat.length() / 4));
+    const length = Math.max(0, Math.min(1, (this._lastFloat.y + 1) / 2));
     return min + (max - min) * length;
   }
-
 }

@@ -539,6 +539,7 @@ export class ThreeUtil {
           case 'draggable' :
             ele.draggable = value;
             break;
+          case 'innerHtml':
           case 'innerHTML':
             ele.innerHTML = value;
             break;
