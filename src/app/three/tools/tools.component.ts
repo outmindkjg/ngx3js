@@ -11,6 +11,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 export class ToolsComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() public type: string = '';
+  @Input() public url: string = null;
   @Input() public size: number = null;
   @Input() private encoding:string = null;
   @Input() private format:string = null;
@@ -45,10 +46,33 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
 
   private tool : any = null;
 
+  private audioLoader : THREE.AudioLoader = null;
+
+  getAudio() : AudioBuffer{
+    const audioBuffer = this.getTool();  
+    if (audioBuffer instanceof AudioBuffer) {
+      return audioBuffer;
+    } else {
+      return null;
+    }
+  }
+
   getTool(): any {
     if (this.tool === null || this._needUpdate) {
       this.needUpdate = false;
+      let tool : any = null;
       switch(this.type.toLowerCase()) {
+        case 'audio' :
+          if (this.audioLoader === null) {
+            this.audioLoader = new THREE.AudioLoader();
+          }
+          this.tool = {};
+          this.audioLoader.load( ThreeUtil.getStoreUrl(this.url) , ( audioBuffer: AudioBuffer ) => {
+            this.tool = audioBuffer;
+            this.setObject(this.tool);
+            this.setSubscribeNext('audio');
+          });
+          break;
         case 'cuberendertarget' :
         case 'cuberender' :
         case 'webglcuberendertarget' :
@@ -59,6 +83,7 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
           });
           break;
       }
+      this.tool = tool;
       this.setObject(this.tool);
     }
     return this.tool;

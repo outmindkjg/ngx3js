@@ -174,6 +174,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
         this.pathGuide.children[0].position.copy(this.refObject3dposition);
       }
       this._controlItem.object3d = this.refObject3d;
+      this._controlItem.component = ThreeUtil.getThreeComponent(this.refObject3d);
       this._controlItem.position = this.refObject3d.position;
       this._controlItem.rotation = this.refObject3d.rotation;
       this._controlItem.scale = this.refObject3d.scale;
@@ -207,6 +208,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
 
   private _controlItem : ControlObjectItem = {
     object3d: null,
+    component : null,
     position: null,
     rotation: null,
     scale: null,

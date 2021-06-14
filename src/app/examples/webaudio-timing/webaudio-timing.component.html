@@ -53,10 +53,12 @@
         [type]="'MeshLambertMaterial'" 
         [color]="'0xcccccc'"
       ></three-material>
+      <three-tools #audioBuffer [type]="'audio'" [url]="'sounds/ping_pong.mp3'"></three-tools>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of ballInfos" [geometry]="ballGeometry" [material]="ballMaterial" [userData]="{ down : false }">
+      <three-mesh *ngFor="let info of ballInfos" [geometry]="ballGeometry" [material]="ballMaterial" [userData]="{ down : false, speed : info.speed }">
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-audio [type]="'PositionalAudio'" [url]="audioBuffer" [autoplay]="false" [loop]="false"></three-audio>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">

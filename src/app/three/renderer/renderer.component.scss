@@ -25,6 +25,13 @@
     display: inline-block;
     position: relative;
     ::ng-deep {
+      >div {
+        background-color: transparent;
+        z-index: 2;
+      }
+      >canvas {
+        z-index: 1;
+      }
       >div.message-info {
         position: relative;
         min-width: 100px;

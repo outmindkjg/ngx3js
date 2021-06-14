@@ -1,71 +1,71 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import {
-  ColladaLoader,
-  Collada,
-} from 'three/examples/jsm/loaders/ColladaLoader';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
-import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
-import { PDBLoader, PDB } from 'three/examples/jsm/loaders/PDBLoader';
-import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
-import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as LOTTE_CANVAS from 'three/examples/js/libs/lottie_canvas';
-
-import {
-  MMDLoader,
-  MMDLoaderAnimationObject,
-} from 'three/examples/jsm/loaders/MMDLoader';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
-import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
-import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
-import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
-import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader';
+import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { AMFLoader } from 'three/examples/jsm/loaders/AMFLoader';
-import { AssimpLoader, Assimp } from 'three/examples/jsm/loaders/AssimpLoader';
-import { BVHLoader, BVH } from 'three/examples/jsm/loaders/BVHLoader';
+import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
+import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
+import { BVH, BVHLoader } from 'three/examples/jsm/loaders/BVHLoader';
+import {
+  Collada, ColladaLoader
+} from 'three/examples/jsm/loaders/ColladaLoader';
 import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GCodeLoader } from 'three/examples/jsm/loaders/GCodeLoader';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { KMZLoader } from 'three/examples/jsm/loaders/KMZLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
-import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
 import { KTXLoader } from 'three/examples/jsm/loaders/KTXLoader';
 import { LDrawLoader } from 'three/examples/jsm/loaders/LDrawLoader';
 import { LottieLoader } from 'three/examples/jsm/loaders/LottieLoader';
 import { LUT3dlLoader } from 'three/examples/jsm/loaders/LUT3dlLoader';
 import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
-import { LWOLoader, LWO } from 'three/examples/jsm/loaders/LWOLoader';
-import { MDDLoader, MDD } from 'three/examples/jsm/loaders/MDDLoader';
+import { LWO, LWOLoader } from 'three/examples/jsm/loaders/LWOLoader';
+import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
+import { MDD, MDDLoader } from 'three/examples/jsm/loaders/MDDLoader';
+import {
+  MMDLoader,
+  MMDLoaderAnimationObject
+} from 'three/examples/jsm/loaders/MMDLoader';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
-import { Volume } from 'three/examples/jsm/misc/Volume';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
+import { PDB, PDBLoader } from 'three/examples/jsm/loaders/PDBLoader';
+import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
+import { PRWMLoader } from 'three/examples/jsm/loaders/PRWMLoader';
 import { PVRLoader } from 'three/examples/jsm/loaders/PVRLoader';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
+import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
+import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
+import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
 import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
-import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
-
 import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
+import { Volume } from 'three/examples/jsm/misc/Volume';
 import {
   CSS2DObject
 } from 'three/examples/jsm/renderers/CSS2DRenderer';
-
+import { CSS3DObject, CSS3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LoadedObject, ThreeUtil } from './interface';
+
+
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -993,6 +993,8 @@ export class LocalStorageService {
         const geometryAtoms = pdb.geometryAtoms;
         const geometryBonds = pdb.geometryBonds;
         const json = pdb.json;
+        const cssType: string = options.cssType || 'css2d';
+        const colorSprite: {[key : string] : { image : HTMLImageElement, color : THREE.Color} } = {}; 
         const group = new THREE.Mesh();
         const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
         const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
@@ -1000,15 +1002,18 @@ export class LocalStorageService {
         const colors = geometryAtoms.getAttribute('color');
         const position = new THREE.Vector3();
         const color = new THREE.Color();
+        const tmpVec = new THREE.Vector3();
         for (let i = 0; i < positions.count; i++) {
           position.x = positions.getX(i);
           position.y = positions.getY(i);
           position.z = positions.getZ(i);
+          const atomJson = json.atoms[ i ];
           color.r = colors.getX(i);
           color.g = colors.getY(i);
           color.b = colors.getZ(i);
-          const material = new THREE.MeshPhongMaterial({ color: color });
+          const material = new THREE.MeshPhongMaterial({ color: color.clone() });
           const object = new THREE.Mesh(sphereGeometry, material);
+          object.name = 'atom';
           object.position.copy(position);
           object.position.multiplyScalar(75);
           object.scale.multiplyScalar(25);
@@ -1018,8 +1023,19 @@ export class LocalStorageService {
           text.className = 'label';
           text.style.color =
             'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
+            
           text.textContent = atom[4];
-          const label = new CSS2DObject(text);
+          let label : THREE.Object3D = null;
+          switch(cssType.toLowerCase()) {
+            case '3d' :
+            case 'css3d' :
+              label = new CSS3DObject(text);
+              break;
+            default :
+              label = new CSS2DObject(text);
+              break;
+          }
+          label.name = 'label';
           label.position.copy(object.position);
           group.add(label);
         }
@@ -1035,15 +1051,16 @@ export class LocalStorageService {
           end.z = positions.getZ(i + 1);
           start.multiplyScalar(75);
           end.multiplyScalar(75);
-          const object = new THREE.Mesh(
+          const bond = new THREE.Mesh(
             boxGeometry,
             new THREE.MeshPhongMaterial({ color: 0xffffff })
           );
-          object.position.copy(start);
-          object.position.lerp(end, 0.5);
-          object.scale.set(5, 5, start.distanceTo(end));
-          object.lookAt(end);
-          group.add(object);
+          bond.name = 'bone';
+          bond.position.copy(start);
+          bond.position.lerp(end, 0.5);
+          bond.scale.set(5, 5, start.distanceTo(end));
+          bond.lookAt(end);
+          group.add(bond);
         }
         callBack({ object : group, geometry: null, source: pdb });
       },

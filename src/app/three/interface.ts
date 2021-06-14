@@ -81,7 +81,10 @@ export interface TagAttributes {
 }
 
 export interface CssStyle {
+  src? : string;
+  draggable? : boolean;
   innerHTML?: string;
+  textContent? : string;
   content?: string;
   position?: string;
   pointerEvents?: string;
@@ -98,6 +101,7 @@ export interface CssStyle {
   top?: number | string;
   bottom?: number | string;
   transition?: string | string[];
+  background?: string | number | THREE.Color | THREE.Vector4;
   backgroundColor?: string | number | THREE.Color | THREE.Vector4;
   backgroundImage?: string;
   backgroundRepeat?: string;
@@ -190,6 +194,15 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     this.controls.meshRotate.applyAutoRotate();
   }
 
+  ngOnDestroy(): void {
+    if (this._subscribe !== null) {
+      for (let key in this._subscribe) {
+        this._subscribe[key].unsubscribe();
+      }
+      this._subscribe = {};
+    }
+  }
+  
   private _logTimeSeqn : number = 0;
 
   protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
@@ -214,6 +227,24 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
       default :
         // console.log(key, object);
         break;
+    }
+  }
+
+  private _subscribe: { [key: string]: Subscription } = {};
+
+  protected unSubscribeRefer(key: string) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this._subscribe[key].unsubscribe();
+      delete this._subscribe[key];
+    }
+  }
+
+  protected subscribeRefer(key: string, subscription: Subscription) {
+    if (ThreeUtil.isNotNull(this._subscribe[key])) {
+      this.unSubscribeRefer(key);
+    }
+    if (ThreeUtil.isNotNull(subscription)) {
+      this._subscribe[key] = subscription;
     }
   }
 
@@ -500,6 +531,14 @@ export class ThreeUtil {
               eventList[key] = null;
             }
             break;
+          case 'src' :
+            if (ele instanceof HTMLImageElement || ele instanceof HTMLIFrameElement || ele instanceof HTMLVideoElement || ele instanceof HTMLAudioElement) {
+              ele.src = ThreeUtil.getStoreUrl(value);
+            }
+            break;
+          case 'draggable' :
+            ele.draggable = value;
+            break;
           case 'innerHTML':
             ele.innerHTML = value;
             break;
@@ -526,10 +565,15 @@ export class ThreeUtil {
             }
             break;
           case 'color':
+          case 'background':
           case 'backgroundColor':
           case 'borderColor':
             if (typeof value == 'number' || typeof value == 'string') {
-              styleList[key] = this.getColorSafe(value).getStyle();
+              if (typeof value == 'string' && (value.indexOf('rgba') > -1 || value.indexOf('rgb') > -1 || value.indexOf('#') > -1)) {
+                styleList[key] = value;
+              } else {
+                styleList[key] = this.getColorSafe(value).getStyle();
+              }
             } else if (value instanceof THREE.Color) {
               styleList[key] = value.getStyle();
             } else if (value instanceof THREE.Vector4) {
@@ -629,6 +673,9 @@ export class ThreeUtil {
         Object.entries(styleList).forEach(([key, value]) => {
           ele.style[key] = value;
         });
+        if (this.isNotNull(styles.className)) {
+          ele.className = styles.className;
+        }
         break;
       default:
         const cssStyleList: string[] = [];

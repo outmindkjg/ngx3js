@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { WEBGL } from 'three/examples/jsm/WebGL';
+import { ARButton } from 'three/examples/jsm/webxr/ARButton';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent } from '../control/control.component';
@@ -27,7 +28,7 @@ import { SceneComponent } from './../scene/scene.component';
 })
 export class RendererComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
   @Input() public type: string = 'webgl';
-  @Input() private css3dType: string = 'none';
+  @Input() private cssType: string = 'none';
   @Input() private controlType: string = 'none';
   @Input() private controlOptions: any = null;
   @Input() private shadowMapEnabled: boolean = true;
@@ -817,10 +818,12 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this._renderCaller = () => {
         this.render();
       };
-      switch (this.css3dType.toLowerCase()) {
+      switch (this.cssType.toLowerCase()) {
+        case '3d':
         case 'css3d':
           this.cssRenderer = new CSS3DRenderer();
           break;
+        case '2d':
         case 'css2d':
           this.cssRenderer = new CSS2DRenderer();
           break;
@@ -832,12 +835,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'gl2':
         case 'webgl2':
         default:
-          this.renderer = new THREE.WebGLRenderer({
-            alpha: this.cssRenderer !== null ? true : false,
+          const webGLRenderer = new THREE.WebGLRenderer({
+            alpha: false,
             antialias: this.antialias,
             logarithmicDepthBuffer: this.logarithmicDepthBuffer,
             preserveDrawingBuffer: this.preserveDrawingBuffer,
           });
+          // webGLRenderer.xr.enabled = true;
+          this.renderer =webGLRenderer;
           break;
       }
       if (this.rendererWidth === null || this.rendererHeight === null) {

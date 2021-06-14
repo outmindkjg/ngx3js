@@ -446,8 +446,18 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       });
     }
     let texture: THREE.Texture = null;
-    if (image instanceof TextureComponent) {
+    if (ThreeUtil.isNotNull(image.getTexture)) {
       texture = image.getTexture();
+      ThreeUtil.getSubscribe(image, () => {
+        const loadedTexture = image.getTexture();
+        if (loadedTexture instanceof THREE.Texture) {
+          texture.image = loadedTexture.image;
+          texture.needsUpdate = true;
+        }
+      },'load');
+      ThreeUtil.getSubscribe(image, () => {
+        texture.needsUpdate = true;
+      },'needsupdate');
     } else if (image instanceof THREE.Texture) {
       texture = image;
     } else {
@@ -458,6 +468,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         }
       });
     }
+    this.setTextureOptions(texture, textureOption);
     return texture;
   }
 

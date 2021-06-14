@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PositionalAudio } from 'three';
 import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
 @Component({
@@ -32,19 +33,19 @@ export class WebaudioTimingComponent extends BaseComponent<{
       this.ballInfos.push({
         x : this.radius * Math.cos( s ),
         y : 0,
-        z : this.radius * Math.sin( s )
+        z : this.radius * Math.sin( s ),
+        speed : 2.5 - Math.random()*2
       })
     }
   }
 
-  ballInfos : { x : number, y : number, z : number}[] = [];
+  ballInfos : { x : number, y : number, z : number, speed : number }[] = [];
   
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.controls.position = this.meshObject3d.position;
   }
 
-  speed = 2.5;
   height = 3;
   offset = 0.5;
 
@@ -54,14 +55,18 @@ export class WebaudioTimingComponent extends BaseComponent<{
       const time = timer.elapsedTime;
       this.meshChildren.forEach((ball, i) => {
 				const previousHeight = ball.position.y;
-				ball.position.y = Math.abs( Math.sin( i * this.offset + ( time * this.speed ) ) * this.height );
-				if ( ball.position.y < previousHeight ) {
+				ball.position.y = Math.abs( Math.sin( i * this.offset + ( time * ball.userData.speed ) ) * this.height );
+        if ( ball.position.y < previousHeight ) {
 					ball.userData.down = true;
 				} else {
 					if ( ball.userData.down === true ) {
-						// ball changed direction from down to up
-						// const audio = ball.children[ 0 ];
-						// audio.play(); // play audio with perfect timing when ball hits the surface
+            const audio = ball.children[ 0 ];
+            if (audio instanceof PositionalAudio) {
+              if (audio.isPlaying) {
+                audio.stop();
+              }
+              audio.play();
+            }
 						ball.userData.down = false;
 					}
 				}

@@ -22,10 +22,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private focalLength: number = null;
   @Input() private near: number | string = null;
   @Input() private far: number | string = null;
-  @Input() private left: number = -0.5;
-  @Input() private right: number = 0.5;
-  @Input() private top: number = 0.5;
-  @Input() private bottom: number = -0.5;
+  @Input() private orthoSize: number = 0.5;
+  @Input() private left: number = null;
+  @Input() private right: number = null;
+  @Input() private top: number = null;
+  @Input() private bottom: number = null;
   @Input() private zoom: number | string = null;
   @Input() private autoClear: boolean = null;
   @Input() private material: any = null;
@@ -81,19 +82,19 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   private getLeft(width?: number): number {
-    return width * this.left;
+    return width * ThreeUtil.getTypeSafe(this.left, this.orthoSize * -1);
   }
 
   private getRight(width?: number): number {
-    return width * this.right;
+    return width * ThreeUtil.getTypeSafe(this.right, this.orthoSize);
   }
 
   private getTop(height?: number): number {
-    return height * this.top;
+    return height * ThreeUtil.getTypeSafe(this.top, this.orthoSize);
   }
 
   private getBottom(height?: number): number {
-    return height * this.bottom;
+    return height * ThreeUtil.getTypeSafe(this.bottom, this.orthoSize * -1);
   }
 
   private getZoom(def?: number | string): number {

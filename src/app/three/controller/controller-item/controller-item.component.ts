@@ -6,6 +6,7 @@ import { AbstractSubscribeComponent } from '../../subscribe.abstract';
 
 export interface ControlObjectItem {
   object3d?: THREE.Object3D;
+  component?: any;
   position?: THREE.Vector3;
   rotation?: THREE.Euler;
   scale?: THREE.Vector3;
@@ -414,6 +415,14 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
                   break;
               }
             }
+          }
+          break;
+        case 'update' :
+        case 'autoupdate' :
+          if (this._controlItem.component !== null) {
+           if (ThreeUtil.isNotNull(this._controlItem.component.update)) {
+            this._controlItem.component.update();
+           }
           }
           break;
       }

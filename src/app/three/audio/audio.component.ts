@@ -13,7 +13,7 @@ import { MixerComponent } from './../mixer/mixer.component';
 })
 export class AudioComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type:string = 'position';
-  @Input() private url:string = null;
+  @Input() private url:any = null;
   @Input() private urlType:string = 'auto';
   @Input() private videoUrl:string = null;
   @Input() private autoplay:boolean = true ;
@@ -104,12 +104,42 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   private loadedVideoTexture : THREE.VideoTexture = null;
+  private loadedAudioTexture : THREE.DataTexture = null;
 
-  getTexture():THREE.VideoTexture{
-    if (this.loadedVideoTexture === null && this.video !== null) {
+  getTexture():THREE.Texture{
+    this.getAudio();
+    if (this.loadedVideoTexture === null && ThreeUtil.isNotNull(this.videoUrl)) {
       this.loadedVideoTexture = new THREE.VideoTexture(this.video);
+      return this.loadedVideoTexture;
+    } else if (ThreeUtil.isNotNull(this.url)) {
+      const analyser = this.getAnalyser();
+      let data : Uint8Array = null;
+      let fftSize = 128;
+      if (analyser !== null) {
+        data = analyser.getFrequencyData();
+        fftSize = analyser.analyser.fftSize;
+      } else {
+        data = new Uint8Array();
+        fftSize = this.fftSize;
+      }
+      if (this.loadedAudioTexture === null) {
+        this.loadedAudioTexture = new THREE.DataTexture( data, fftSize / 2, 1, THREE.RedFormat );
+      } else {
+        (this.loadedAudioTexture.image as any ) = { data : data,  width : fftSize / 2, height : 1};
+        this.loadedAudioTexture.needsUpdate = true;
+        this.setSubscribeNext('needsUpdate');
+      }
+      return this.loadedAudioTexture;
     }
-    return this.loadedVideoTexture;
+    return new THREE.DataTexture(null,1,1);
+  }
+
+  public update() {
+    if (this.loadedAudioTexture !== null && this.analyser !== null) {
+      this.analyser.getFrequencyData();
+      this.loadedAudioTexture.needsUpdate = true;
+      this.setSubscribeNext('needsUpdate');
+    }
   }
 
   private loadedUrl : string = null;
@@ -187,12 +217,36 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             case 'auto' :
             case 'audio' :
             default :
-              this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
-                this.audio.setBuffer(buffer);
+              if (typeof this.url === 'string') {
+                this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
+                  this.audio.setBuffer(buffer);
+                  this.resetAudio();
+                  super.callOnLoad();
+                  this.addChanges('load');
+                });
+              } else {
+                this.unSubscribeRefer('url');
+                if (this.url instanceof AudioBuffer) {
+                  this.audio.setBuffer(this.url);
+                } else if (ThreeUtil.isNotNull(this.url.getAudio)){
+                  const audio = this.url.getAudio();
+                  if (audio instanceof AudioBuffer) {
+                    this.audio.setBuffer(this.url.getAudio());
+                  }
+                  this.subscribeRefer(this.url, ThreeUtil.getSubscribe(this.url, () => {
+                    const audio = this.url.getAudio();
+                    if (audio instanceof AudioBuffer) {
+                      this.audio.setBuffer(audio);
+                      this.resetAudio();
+                      super.callOnLoad();
+                      this.addChanges('load');
+                    }
+                  },'audio'));
+                }
                 this.resetAudio();
                 super.callOnLoad();
                 this.addChanges('load');
-              });
+              }
               break;
           }
         }
@@ -231,7 +285,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           // this.audio.play();
         }
       }
-      this.audio.loop = true;
+      this.audio.loop = this.loop;
       if (this.video !== null) {
         this.video.loop = this.loop;
         if (this.video.currentSrc) {
@@ -269,6 +323,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   private _numberAnalyser : () => number = null;
 
+
   getNumber() : () => number {
     this._numberAnalyser = () => {
       if (this.analyser !== null) {
@@ -297,6 +352,9 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           case 'load' :
             if (this._numberAnalyser !== null && this.analyser === null) {
               this.getAnalyser();
+            }
+            if (this.loadedAudioTexture !== null) {
+              this.getTexture();
             }
             this.setSubscribeNext('load');
             break;

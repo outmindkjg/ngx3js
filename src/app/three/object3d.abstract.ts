@@ -1,5 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { ControllerComponent } from './controller/controller.component';
 import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
@@ -375,6 +377,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   removeObject3d(object3d : THREE.Object3D) {
     if (object3d !== null && object3d.parent !== null) {
+      object3d.traverse(child => {
+        if (child instanceof CSS2DObject || child instanceof CSS3DObject) {
+          if (child.element.parentNode) {
+            child.element.parentNode.removeChild(child.element);
+          }
+        }
+      });
       object3d.parent.remove(object3d);
       object3d.parent = null;
     }
@@ -397,8 +406,14 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   addChildObject3d(object3d : THREE.Object3D, changes? : string | string[]) {
     if (ThreeUtil.isNotNull(this.object3d) && ThreeUtil.isNotNull(object3d)) {
-      this.object3d.add(object3d);
+      if (this._addedReferChild.length > 0) {
+        this._addedReferChild.forEach(child => {
+          this.removeObject3d(child);
+        })
+        this._addedReferChild = [];
+      }
       this._addedReferChild.push(object3d);
+      this.object3d.add(object3d);
       if (ThreeUtil.isNotNull(changes)) {
         this.addChanges(changes);
       }

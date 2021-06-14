@@ -45,6 +45,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'mesh';
   @Input() private lightOptions: any = null;
+  @Input() private cssTag: string = null;
   @Input() private cssStyle: string | CssStyle = null;
   @Input() private skyboxType: string = 'auto';
   @Input() private skyboxRate: number = 100;
@@ -814,61 +815,22 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         case 'css':
         case 'css3d':
         case 'css2d':
-          const cssElement: HTMLElement = document.createElement('div');
-          let cssGeometry: THREE.BufferGeometry = null;
-          let cssMaterials = this.getMaterials({
-            opacity: 0.15,
-            transparent: true,
-            color: this.getGroundColor(0x111111),
-            blending: THREE.NoBlending,
-            side: THREE.DoubleSide,
-          });
-          if (geometry !== null) {
-            cssGeometry = geometry;
-          } else {
-            cssGeometry = new THREE.BoxGeometry(this.getWidth(1), this.getHeight(1), this.getDistance(0.1));
-          }
-          if (cssGeometry instanceof THREE.BoxGeometry || cssGeometry instanceof THREE.PlaneGeometry) {
-            this.cssClazzName = ThreeUtil.addCssStyle(
-              cssElement,
-              {
-                width: cssGeometry.parameters.width,
-                height: cssGeometry.parameters.height,
-                overflow: 'hidden',
-              },
-              this.cssClazzName,
-              'mesh',
-              'inline'
-            );
-          } else if (cssGeometry instanceof THREE.CircleGeometry) {
-            this.cssClazzName = ThreeUtil.addCssStyle(
-              cssElement,
-              {
-                width: cssGeometry.parameters.radius,
-                height: cssGeometry.parameters.radius,
-                overflow: 'hidden',
-              },
-              this.cssClazzName,
-              'mesh',
-              'inline'
-            );
-          }
+
+          const cssElement: HTMLElement = document.createElement(ThreeUtil.getTypeSafe(this.cssTag ,'div'));
           if (ThreeUtil.isNotNull(this.cssStyle)) {
             this.cssClazzName = ThreeUtil.addCssStyle(cssElement, this.cssStyle, this.cssClazzName, 'mesh', 'inline');
           }
-          let cssObject: THREE.Object3D = null;
           switch (this.type.toLowerCase()) {
             case 'css2d':
-              cssObject = new CSS2DObject(cssElement);
+              basemesh = new CSS2DObject(cssElement);
               break;
             case 'css3d':
             case 'css':
             default:
-              cssObject = new CSS3DObject(cssElement);
+              basemesh = new CSS3DObject(cssElement);
               break;
           }
-          basemesh = new THREE.Mesh(cssGeometry, cssMaterials[0]);
-          basemesh.add(cssObject);
+          console.log(cssElement);
           break;
         case 'reflector':
           basemesh = new Reflector(geometry, {
@@ -1283,7 +1245,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.setUserData('clips', clips);
                 this.setUserData('storageSource', source);
                 this.addChildObject3d(loadedMesh);
-                this.setSubscribeNext('resetTarget');
+                this.setSubscribeNext(['resetTarget','load']);
               },
               this.storageOption
             );

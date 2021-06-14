@@ -51,6 +51,7 @@ import { VignetteShader } from "three/examples/jsm/shaders/VignetteShader";
 import { VolumeRenderShader1 } from "three/examples/jsm/shaders/VolumeShader";
 import { WaterRefractionShader } from "three/examples/jsm/shaders/WaterRefractionShader";
 import { ThreeUtil } from "../interface";
+import { AudioVisualizer } from './shader.audioVisualizer';
 import { CloudShader } from './shader.cloud';
 import { PerlinShader } from './shader.perlin';
 
@@ -133,6 +134,7 @@ export const ShaderConf : {
   triangleblurshader : TriangleBlurShader,
   sobeloperatorshader : SobelOperatorShader,
   cloudshader : CloudShader,
+  audiovisualizer : AudioVisualizer,
   perlinshader : PerlinShader
 }
 
