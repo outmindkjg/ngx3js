@@ -246,19 +246,19 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   private parentEle: any = null;
-  private tweenTarget: any = null;
-  private tween : GSAP.TimelineLite = null;
+  private _tweenTarget: any = null;
+  private _tween : GSAP.TimelineLite = null;
   setTween(to : any, duration? : number): any {
     if (ThreeUtil.isNotNull(to)) {
-      if (this.tween !== null) {
-        this.tween.kill();
+      if (this._tween !== null) {
+        this._tween.kill();
       }
       const fromVar = {}
-      const targets = this.getTargets(this.tweenTarget, null);
+      const targets = this.getTargets(this._tweenTarget, null);
       Object.entries(to).forEach(([key, value]) => {
         fromVar[key] = targets[key];
       });
-      this.tween = new GSAP.TimelineLite().fromTo(
+      this._tween = new GSAP.TimelineLite().fromTo(
         targets,
         fromVar,
         {
@@ -273,7 +273,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
 
   getTween(tween: GSAP.TimelineLite | GSAP.TimelineMax, tweenTarget : any,  parentEle: any): any {
     this.parentEle = parentEle;
-    this.tweenTarget = tweenTarget;
+    this._tweenTarget = tweenTarget;
     if (ThreeUtil.isNotNull(this.to)) {
       this.setTween(this.getTo(), this.getDuration());
     }

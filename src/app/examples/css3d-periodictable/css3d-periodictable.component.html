@@ -18,9 +18,13 @@
   </three-camera>
   <three-scene #scene>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of periodicInfo" [type]="'css3d'" [cssStyle]="{ innerHTML : info.innerHtml, backgroundColor : info.backgroundColor, className : 'element'}" [userData]="{ tween : info.tween }">
+      <three-mesh *ngFor="let info of periodicInfo" 
+        [type]="'css3d'" 
+        [cssStyle]="{ innerHTML : info.innerHtml, backgroundColor : info.backgroundColor, className : 'element'}" 
+        [name]="info.name"
+      >
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-controller [type]="'tween'" [curve]="'line'" [options]="'once'" [visible]="true" [scale]="500"></three-controller>
+        <three-controller [type]="'tween'" [options]="'once'" [duration]="info.duration"></three-controller>
       </three-mesh>
     </three-mesh>
   </three-scene>

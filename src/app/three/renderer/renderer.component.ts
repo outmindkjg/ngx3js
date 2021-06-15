@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
+
 import { WEBGL } from 'three/examples/jsm/WebGL';
 import { ARButton } from 'three/examples/jsm/webxr/ARButton';
 import { CanvasComponent } from '../canvas/canvas.component';
@@ -41,6 +43,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private localClippingEnabled: boolean = false;
   @Input() private globalClippingEnabled: boolean = true;
   @Input() private antialias: boolean = false;
+  @Input() private quality: string = null;
   @Input() public sizeType: string = 'auto';
   @Input() private width: number = -1;
   @Input() private height: number = -1;
@@ -287,9 +290,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return listener;
   }
 
-  private _windowEventListener : {
-    [ key : string ]  : (event: any) => void 
-  } = {}
+  private _windowEventListener: {
+    [key: string]: (event: any) => void;
+  } = {};
 
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
@@ -477,13 +480,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isIndexOf(changes, ['localclippingenabled', 'globalclippingenabled', 'clearcolor', 'clearalpha', 'tonemapping', 'tonemappingexposure', 'shadowmapenabled', 'physicallycorrectlights', 'shadowmaptype', 'autoclear', 'autoclearcolor', 'outputencoding', 'clippingplanes'])) {
         changes = ThreeUtil.pushUniq(changes, ['webglrenderer']);
       }
-      if (
-        ThreeUtil.isIndexOf(changes, [
-          'camera',
-          'controltype',
-          'controloptions'
-        ])
-      ) {
+      if (ThreeUtil.isIndexOf(changes, ['camera', 'controltype', 'controloptions'])) {
         changes = ThreeUtil.pushUniq(changes, ['control']);
       }
       changes.forEach((change) => {
@@ -738,7 +735,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'trackball':
         case 'plain':
           const control = this.initLocalComponent('control', new ControlComponent());
-          const controlOptions = this.controlOptions || {}
+          const controlOptions = this.controlOptions || {};
           controlOptions.lookatList = this.lookatList;
           control.updateInputParams(controlOptions, true, {}, controlType);
           control.setCameraDomElement(camera, domElement, scenes);
@@ -832,8 +829,20 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           break;
       }
       switch (this.type.toLowerCase()) {
+        case 'svg':
+        case 'svgrenderer':
+          const svgRenderer = new SVGRenderer();
+          if (ThreeUtil.isNotNull(this.quality)) {
+            svgRenderer.setQuality( ThreeUtil.getTypeSafe(this.quality,'high').toLowerCase());
+          }
+          this.renderer = svgRenderer as any;
+          break;
         case 'gl2':
         case 'webgl2':
+        case 'webgl2renderer':
+        case 'gl':
+        case 'webgl':
+        case 'webglrenderer':
         default:
           const webGLRenderer = new THREE.WebGLRenderer({
             alpha: false,
@@ -842,7 +851,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             preserveDrawingBuffer: this.preserveDrawingBuffer,
           });
           // webGLRenderer.xr.enabled = true;
-          this.renderer =webGLRenderer;
+          this.renderer = webGLRenderer;
           break;
       }
       if (this.rendererWidth === null || this.rendererHeight === null) {
@@ -963,7 +972,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   getCanvasJson(callback: (json) => void, options?: { width?: number; height?: number; name?: string; type?: string }) {
-    if (this.renderer !== null && this.renderer.domElement !== null) {
+    if (this.renderer !== null && this.renderer.domElement !== null && ThreeUtil.isNotNull(this.renderer.domElement.toDataURL)) {
       this._isPaused = true;
       this._renderOnce();
       options = options || {};

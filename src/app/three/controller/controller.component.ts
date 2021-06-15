@@ -44,6 +44,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   @Input() private material: string = null;
   @Input() private useEvent: boolean = false;
   @Input() private eventSeqn: number = 1000;
+  @Input() private mstDuration: number = null;
 
   @ContentChildren(ControllerItemComponent, { descendants: false }) controllerItemList: QueryList<ControllerItemComponent>;
 
@@ -162,16 +163,16 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   private refObject2d: HtmlCollection = null;
   private pathGuide: THREE.Object3D = null;
   private refObject3dposition : THREE.Vector3 = new THREE.Vector3();
-
+  private _duration : number = 1;
   refreshRefObject3dPosition() {
     if (ThreeUtil.isNotNull(this.refObject3d)) {
       if (ThreeUtil.isNotNull(this.refObject3d.userData.initPosition)) {
-        // this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
+        this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
       } else {
-        // this.refObject3dposition.copy(this.refObject3d.position);
+        this.refObject3dposition.copy(this.refObject3d.position);
       }
       if (this.pathGuide !== null) {
-      //  this.pathGuide.children[0].position.copy(this.refObject3dposition);
+        this.pathGuide.children[0].position.copy(this.refObject3dposition);
       }
       this._controlItem.object3d = this.refObject3d;
       this._controlItem.component = ThreeUtil.getThreeComponent(this.refObject3d);
@@ -297,6 +298,8 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       this._controllerItems = null;
       this._controller = null;
       let controller: any = null;
+      this._duration = ThreeUtil.getTypeSafe(this.mstDuration, 1);
+
       if (this.pathGuide !== null) {
         this.pathGuide.parent.remove(this.pathGuide);
         this.pathGuide = null;
@@ -326,8 +329,10 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
           if (this.pathGuide === null) {
             this.pathGuide = new THREE.Group();
             this.pathGuide.add(new THREE.Group());
-            this.refObject3d.parent.add(this.pathGuide);
-          } else if (this.refObject3d.parent !== this.pathGuide.parent) {
+            if (this.visible) {
+              this.refObject3d.parent.add(this.pathGuide);
+            }
+          } else if (this.visible && this.refObject3d.parent !== this.pathGuide.parent) {
             this.refObject3d.parent.add(this.pathGuide);
           }
           switch (controller.toLowerCase()) {
@@ -398,11 +403,11 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       if (this._event !== null && false) {
          this.renderTime += this._event.direction.y / 1000 * rendererTimer.delta;
       } else {
-        this.renderTime += rendererTimer.delta;
+        this.renderTime += rendererTimer.delta / this._duration;
       }
       const dirRendererTimer : RendererTimer = {
         elapsedTime : this.renderTime,
-        delta : rendererTimer.delta 
+        delta : rendererTimer.delta / this._duration
       }
       this._controllerItems.forEach((item) => {
         item.update(dirRendererTimer, events);

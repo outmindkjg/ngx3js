@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { RendererTimer, ThreeUtil } from '../interface';
+import * as GSAP from 'gsap';
 
 export interface CurvesParameters {
   radiusInner?: number;
@@ -30,7 +31,7 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
     this.waveH = ThreeUtil.isNotNull(options.waveH) ? options.waveH : 0;
     this.waveR = ThreeUtil.isNotNull(options.waveR) ? options.waveR : 0;
     this.rateX = ThreeUtil.isNotNull(options.rateX) ? options.rateX : 1;
-    this.rateY = ThreeUtil.isNotNull(options.rateY) ? options.rateY : 0.2;
+    this.rateY = ThreeUtil.isNotNull(options.rateY) ? options.rateY : 1;
     this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
     this._rateV = new THREE.Vector3(this.rateX, this.rateY, this.rateZ);
   }
@@ -46,16 +47,16 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
 
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
-    if (this.points.length >= 2) {
-      const len = this.points.length;
-      const index = this.points.length * t;
-      const prevIndex = Math.floor(index) % len;
-      const nextIndex = (prevIndex + 1) % len;
+    const len = this.points.length;
+    if (len >= 2) {
+      const index = len * t;
+      const prevIndex = t >= 1 ? (len - 1) : Math.floor(index);
+      const nextIndex = t >= 1 ? prevIndex : (prevIndex + 1) % len;
       const prevP = this.points[prevIndex].clone();
       const nextP = this.points[nextIndex].clone().sub(prevP);
       const waveT = index - prevIndex;
       const currentP = prevP.clone().addScaledVector(nextP, waveT);
-      const waveP = new THREE.Vector3();
+      const waveP = new THREE.Vector3(0,0,0);
       if (this.waveH != 0) {
         const waveR = t * 2 * Math.PI;
         waveP.y = Math.sin(waveR * this.waveH);
@@ -66,6 +67,7 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
         waveP.x = Math.sin(waveR * len) * radiusInner;
         waveP.z = Math.cos(waveR * len) * radiusInner;
       }
+      // console.log(t, currentP.x, currentP.y, currentP.z);
       return point.set(currentP.x, currentP.y, currentP.z).add(waveP.multiply(this._rateV)).multiplyScalar(this.radius);
     } else {
       return point;
@@ -184,16 +186,310 @@ export class CurvesLine extends THREE.Curve<THREE.Vector3> {
     this.waveH = ThreeUtil.isNotNull(options.waveH) ? options.waveH : 0;
     this.waveR = ThreeUtil.isNotNull(options.waveR) ? options.waveR : 0;
     this.rateX = ThreeUtil.isNotNull(options.rateX) ? options.rateX : 1;
-    this.rateY = ThreeUtil.isNotNull(options.rateY) ? options.rateY : 0.2;
+    this.rateY = ThreeUtil.isNotNull(options.rateY) ? options.rateY : 1;
     this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
   }
 
   getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
-    const v = (t % 1) * 2 - 1;
-    const y = this.waveH != 0 ? Math.sin(2 * Math.PI * t * this.waveH) : (t % 1) * 2 - 1;
+    const v = Math.max(-1, Math.min(1, t * 2 - 1));
+    const y = this.waveH != 0 ? Math.sin(2 * Math.PI * t * this.waveH) : v;
     const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(2 * Math.PI * t * this.waveR) * this.radiusInner + 1) * this.radius : this.radius;
     return point.set(v * this.rateX, y * this.rateY, v * this.rateZ).multiplyScalar(radius);
+  }
+}
+
+export class CurvesGsap extends THREE.Curve<THREE.Vector3> {
+  private easeFunction: (progress: number) => number;
+  private radius: number = 1;
+  private rateX: number = 1;
+  private rateY: number = 0.2;
+  private rateZ: number = 1;
+  constructor(easeFunction: (progress: number) => number, radius: number = 1, options?: CurvesParameters) {
+    super();
+    this.easeFunction = easeFunction || GSAP.Power1.easeIn;
+    options = options || {};
+    this.radius = ThreeUtil.isNotNull(radius) ? radius : 1;
+    this.rateX = ThreeUtil.isNotNull(options.rateX) ? options.rateX : 1;
+    this.rateY = ThreeUtil.isNotNull(options.rateY) ? options.rateY : 1;
+    this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
+  }
+
+  getPoint(t: number, optionalTarget: THREE.Vector3) {
+    const point = optionalTarget || new THREE.Vector3();
+    const v = Math.max(-1, Math.min(1, t * 2 - 1));
+    let y = this.easeFunction(t) * 2 - 1;
+    return point.set(v * this.rateX, y * this.rateY, y * this.rateZ).multiplyScalar(this.radius);
+  }
+}
+
+export class CurvesGsapLinearEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Linear.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapLinearEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Linear.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapLinearEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Linear.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapLinearEaseNone extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Linear.easeNone, radius, options);
+  }
+}
+
+export class CurvesGsapQuadEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quad.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapQuadEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quad.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapQuadEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quad.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapCubicEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Cubic.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapCubicEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Cubic.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapCubicEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Cubic.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapQuartEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quart.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapQuartEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quart.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapQuartEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quart.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapQuintEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quint.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapQuintEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quint.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapQuintEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Quint.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapStrongEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Strong.easeIn, radius, options);
+  }
+}
+
+export class CurvesGsapStrongEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Strong.easeInOut, radius, options);
+  }
+}
+
+export class CurvesGsapStrongEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Strong.easeOut, radius, options);
+  }
+}
+
+export class CurvesGsapPower1EaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power1.easeIn, radius, options);
+  }
+}
+export class CurvesGsapPower1EaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power1.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapPower1EaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power1.easeOut, radius, options);
+  }
+}
+export class CurvesGsapPower2EaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power2.easeIn, radius, options);
+  }
+}
+export class CurvesGsapPower2EaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power2.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapPower2EaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power2.easeOut, radius, options);
+  }
+}
+export class CurvesGsapPower3EaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power3.easeIn, radius, options);
+  }
+}
+export class CurvesGsapPower3EaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power3.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapPower3EaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power3.easeOut, radius, options);
+  }
+}
+export class CurvesGsapPower4EaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power4.easeIn, radius, options);
+  }
+}
+export class CurvesGsapPower4EaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power4.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapPower4EaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power4.easeOut, radius, options);
+  }
+}
+export class CurvesGsapBackEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Back.easeIn, radius, options);
+  }
+}
+export class CurvesGsapBackEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Back.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapBackEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Back.easeOut, radius, options);
+  }
+}
+export class CurvesGsapElasticEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Elastic.easeIn, radius, options);
+  }
+}
+export class CurvesGsapElasticEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Elastic.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapElasticEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Elastic.easeOut, radius, options);
+  }
+}
+export class CurvesGsapBounceEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Bounce.easeIn, radius, options);
+  }
+}
+export class CurvesGsapBounceEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Bounce.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapBounceEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Bounce.easeOut, radius, options);
+  }
+}
+export class CurvesGsapCircEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Circ.easeIn, radius, options);
+  }
+}
+export class CurvesGsapCircEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Circ.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapCircEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Circ.easeOut, radius, options);
+  }
+}
+export class CurvesGsapExpoEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Expo.easeIn, radius, options);
+  }
+}
+export class CurvesGsapExpoEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Expo.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapExpoEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Expo.easeOut, radius, options);
+  }
+}
+export class CurvesGsapSineEaseIn extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Sine.easeIn, radius, options);
+  }
+}
+export class CurvesGsapSineEaseInOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Sine.easeInOut, radius, options);
+  }
+}
+export class CurvesGsapSineEaseOut extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Sine.easeOut, radius, options);
+  }
+}
+export class CurvesGsapPower0EaseNone extends CurvesGsap {
+  constructor(radius: number = 1, options?: CurvesParameters) {
+    super(GSAP.Power0.easeNone, radius, options);
   }
 }
 
@@ -229,6 +525,56 @@ export const CurveConf: {
   decagon: CurvesRegularPolygonDecagon,
   undecagon: CurvesRegularPolygonUndecagon,
   dodecagon: CurvesRegularPolygonDodecagon,
+  linearin : CurvesGsapLinearEaseIn,
+  linearinout : CurvesGsapLinearEaseInOut,
+  linearout : CurvesGsapLinearEaseOut,
+  lineareasenone : CurvesGsapLinearEaseNone,
+  quadin : CurvesGsapQuadEaseIn,
+  quadinout : CurvesGsapQuadEaseInOut,
+  quadout : CurvesGsapQuadEaseOut,
+  cubicin : CurvesGsapCubicEaseIn,
+  cubicinout : CurvesGsapCubicEaseInOut,
+  cubicout : CurvesGsapCubicEaseOut,
+  quartin : CurvesGsapQuartEaseIn,
+  quartinout : CurvesGsapQuartEaseInOut,
+  quartout : CurvesGsapQuartEaseOut,
+  quintin : CurvesGsapQuintEaseIn,
+  quintinout : CurvesGsapQuintEaseInOut,
+  quintout : CurvesGsapQuintEaseOut,
+  strongin : CurvesGsapStrongEaseIn,
+  stronginout : CurvesGsapStrongEaseInOut,
+  strongout : CurvesGsapStrongEaseOut,
+  power1in : CurvesGsapPower1EaseIn,
+  power1inout : CurvesGsapPower1EaseInOut,
+  power1out : CurvesGsapPower1EaseOut,
+  power2in : CurvesGsapPower2EaseIn,
+  power2inout : CurvesGsapPower2EaseInOut,
+  power2out : CurvesGsapPower2EaseOut,
+  power3in : CurvesGsapPower3EaseIn,
+  power3inout : CurvesGsapPower3EaseInOut,
+  power3out : CurvesGsapPower3EaseOut,
+  power4in : CurvesGsapPower4EaseIn,
+  power4inout : CurvesGsapPower4EaseInOut,
+  power4out : CurvesGsapPower4EaseOut,
+  backin : CurvesGsapBackEaseIn,
+  backinout : CurvesGsapBackEaseInOut,
+  backout : CurvesGsapBackEaseOut,
+  elasticin : CurvesGsapElasticEaseIn,
+  elasticinout : CurvesGsapElasticEaseInOut,
+  elasticout : CurvesGsapElasticEaseOut,
+  bouncein : CurvesGsapBounceEaseIn,
+  bounceinout : CurvesGsapBounceEaseInOut,
+  bounceout : CurvesGsapBounceEaseOut,
+  circin : CurvesGsapCircEaseIn,
+  circinout : CurvesGsapCircEaseInOut,
+  circout : CurvesGsapCircEaseOut,
+  expoin : CurvesGsapExpoEaseIn,
+  expoinout : CurvesGsapExpoEaseInOut,
+  expoout : CurvesGsapExpoEaseOut,
+  sinein : CurvesGsapSineEaseIn,
+  sineinout : CurvesGsapSineEaseInOut,
+  sineout : CurvesGsapSineEaseOut,
+  power0none : CurvesGsapPower0EaseNone,
 };
 
 export class CurveUtils {
@@ -329,9 +675,6 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     let maxX = -Infinity;
     let maxY = -Infinity;
     let maxZ = -Infinity;
-    let sumX = 0;
-    let sumY = 0;
-    let sumZ = 0;
     for (let i = 0; i <= 1; i += 0.02) {
       const v = curve.getPoint(i);
       minX = Math.min(minX, v.x);
@@ -340,15 +683,12 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
       maxX = Math.max(maxX, v.x);
       maxY = Math.max(maxY, v.y);
       maxZ = Math.max(maxZ, v.z);
-      sumX += v.x;
-      sumY += v.y;
-      sumZ += v.z;
     }
     this.curve = curve;
-    this._center = new THREE.Vector3(sumX, sumY, sumZ).multiplyScalar(0.02);
+    this._center = new THREE.Vector3(minX + maxX, minY + maxY, minZ + maxZ).multiplyScalar(0.5);
     const maxL = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
     this._scale = new THREE.Vector3(1, 1, 1);
-    if (maxL > 2) {
+    if (maxL > 2.5) {
       this._scale.multiplyScalar(2 / maxL);
     }
   }

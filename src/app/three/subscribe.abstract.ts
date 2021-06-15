@@ -11,11 +11,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   @Input() public enabled: boolean = true;
   @Input() private overrideParams: { [key: string]: any } = null;
   @Input() private userData: any = null;
+  @Input() private tween: { [key: string]: any } = null;
 
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
-  protected OBJECT_ATTR: string[] = ['init', 'debug', 'enabled', 'userdata', 'overrideparams', 'windowexport'];
+  protected OBJECT_ATTR: string[] = ['init', 'debug', 'enabled', 'userdata', 'overrideparams', 'windowexport', 'tween'];
 
   constructor() {}
 
@@ -49,6 +50,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.tween) {
+      this.setTween(this.tween);
+      delete changes.tween;
+    }
     if (changes.overrideParams) {
       this.updateInputParams(this.overrideParams, false, changes);
       delete changes.overrideParams;
@@ -56,6 +61,59 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   }
 
   ngAfterContentInit(): void {}
+
+  setTween(tweenData  : { [key : string ] : any}) {
+    if (ThreeUtil.isNotNull(tweenData)) {
+      const tween: { [key: string]: any } = {
+        elapsedTime: 0,
+        elapsedAlpha : 0
+      };
+      let tweenLength = 0;
+      Object.entries(tweenData).forEach(([key, value]) => {
+        if (ThreeUtil.isNotNull(value)) {
+          switch (key.toLowerCase()) {
+            case 'position':
+              tween.position = ThreeUtil.getPosition(value);
+              tweenLength++;
+              break;
+            case 'scale':
+              tween.scale = ThreeUtil.getScale(value);
+              tweenLength++;
+              break;
+            case 'lookat':
+              tween.lookat = ThreeUtil.getLookAt(value);
+              tweenLength++;
+              break;
+            case 'rotation':
+              tween.rotation = ThreeUtil.getRotation(value);
+              tweenLength++;
+              break;
+            case 'specular':
+            case 'emissive':
+            case 'sheen':
+            case 'specular':
+            case 'specular':
+            case 'color':
+              tween[key] = ThreeUtil.getColor(value);
+              tweenLength++;
+              break;
+            default:
+              tween[key] = value;
+              tweenLength++;
+              break;
+          }
+        }
+      });
+      if (tweenLength > 0) {
+        this.setUserData('tween', tween);
+      } else {
+        this.setUserData('tween', null);
+      }
+      console.log(this._userData);
+    } else {
+      this.setUserData('tween', null);
+    }    
+  }
 
   dispose() {}
 

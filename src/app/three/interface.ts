@@ -865,11 +865,16 @@ export class ThreeUtil {
     return tags.join('\n');
   }
 
-  static getColor(color: string | number | THREE.Color): THREE.Color {
+  static getColor(color: string | number | THREE.Color | { r : number , g : number , b : number } ): THREE.Color {
     if (this.isNotNull(color)) {
-      const colorStr = color.toString();
-      if (colorStr.startsWith('0x')) {
-        return new THREE.Color(parseInt(colorStr, 16));
+      if (color instanceof THREE.Color) {
+        return color;
+      } else if (typeof color === 'string') {
+        return this.getColorSafe(color, null);
+      } else if (typeof color === 'object') {
+        if (this.isNotNull(color.r) && this.isNotNull(color.g) && this.isNotNull(color.b)) {
+          return new THREE.Color(color.r, color.g, color.b);
+        }
       } else {
         return new THREE.Color(color);
       }
@@ -954,8 +959,11 @@ export class ThreeUtil {
         return defColor;
       } else if (typeof defColor === 'string') {
         const colorStr: string = defColor;
+
         if (colorStr.startsWith('#')) {
           return new THREE.Color(colorStr);
+        } else if (colorStr === 'random') {
+          return new THREE.Color( Math.random() * 0xffffff );
         } else if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
         } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
@@ -1584,61 +1592,82 @@ export class ThreeUtil {
   }
 
   static getPosition(position: any): THREE.Vector3 {
-    if (position instanceof THREE.Vector3) {
-      return position;
-    } else if (Array.isArray(position) && position.length >= 3) {
-      return this.getVector3Safe(position[0], position[1], position[2], null, null, true);
-    } else if (this.isNotNull(position.getPosition)) {
-      return position.getPosition() as THREE.Vector3;
-    } else if (this.isNotNull(position.getLookAt)) {
-      return position.getLookAt() as THREE.Vector3;
-    } else if (this.isNotNull(position)) {
-      const object3d = this.getObject3d(position);
-      return object3d.position;
+    if (this.isNotNull(position)) {
+      if (position instanceof THREE.Vector3) {
+        return position;
+      } else if (Array.isArray(position) && position.length >= 3) {
+        return this.getVector3Safe(position[0], position[1], position[2], null, null, true);
+      } else if (this.isNotNull(position.getPosition)) {
+        return position.getPosition() as THREE.Vector3;
+      } else if (this.isNotNull(position.getLookAt)) {
+        return position.getLookAt() as THREE.Vector3;
+      } else if (this.isNotNull(position.x) && this.isNotNull(position.y) && this.isNotNull(position.z)) {
+        return this.getVector3Safe(position.x, position.y, position.z, null, null, true);
+      } else {
+        const object3d = this.getObject3d(position);
+        return object3d.position;
+      }
     }
     return new THREE.Vector3();
   }
 
   static getRotation(rotation: any): THREE.Euler {
-    if (rotation instanceof THREE.Euler) {
-      return rotation;
-    } else if (Array.isArray(rotation) && rotation.length >= 3) {
-      return this.getEulerSafe(rotation[0], rotation[1], rotation[2], null, true);
-    } else if (this.isNotNull(rotation.getRotation)) {
-      return rotation.getRotation();
-    } else if (this.isNotNull(rotation)) {
-      const object3d = this.getObject3d(rotation);
-      return object3d.rotation;
+    if (this.isNotNull(rotation)) {
+      if (rotation instanceof THREE.Euler) {
+        return rotation;
+      } else if (Array.isArray(rotation) && rotation.length >= 3) {
+        return this.getEulerSafe(rotation[0], rotation[1], rotation[2], null, true);
+      } else if (this.isNotNull(rotation.getRotation)) {
+        return rotation.getRotation();
+      } else if (this.isNotNull(rotation.x) && this.isNotNull(rotation.y) && this.isNotNull(rotation.z)) {
+        if (this.isNotNull(rotation.isEuler) && rotation.isEuler) {
+          return new THREE.Euler(rotation.x, rotation.y, rotation.z);
+        } else {
+          return this.getEulerSafe(rotation.x, rotation.y, rotation.z, null, true);
+        }
+      } else {
+        const object3d = this.getObject3d(rotation);
+        return object3d.rotation;
+      }
     }
     return new THREE.Euler();
   }
 
   static getScale(scale: any): THREE.Vector3 {
-    if (scale instanceof THREE.Vector3) {
-      return scale;
-    } else if (Array.isArray(scale) && scale.length >= 3) {
-      return this.getVector3Safe(scale[0], scale[1], scale[2], null, null, true);
-    } else if (this.isNotNull(scale.getScale)) {
-      return scale.getScale() as THREE.Vector3;
-    } else if (this.isNotNull(scale)) {
-      const object3d = this.getObject3d(scale);
-      return object3d.scale;
+    if (this.isNotNull(scale)) {
+      if (scale instanceof THREE.Vector3) {
+        return scale;
+      } else if (Array.isArray(scale) && scale.length >= 3) {
+        return this.getVector3Safe(scale[0], scale[1], scale[2], null, null, true);
+      } else if (this.isNotNull(scale.getScale)) {
+        return scale.getScale() as THREE.Vector3;
+      } else if (this.isNotNull(scale.x) && this.isNotNull(scale.y) && this.isNotNull(scale.z)) {
+        return this.getVector3Safe(scale.x, scale.y, scale.z, null, null, true);
+      } else {
+        const object3d = this.getObject3d(scale);
+        return object3d.scale;
+      }
     }
     return new THREE.Vector3();
   }
 
   static getLookAt(lookat: any): THREE.Vector3 {
-    if (lookat instanceof THREE.Vector3) {
-      return lookat;
-    } else if (Array.isArray(lookat) && lookat.length >= 3) {
-      return this.getVector3Safe(lookat[0], lookat[1], lookat[2], null, null, true);
-    } else if (this.isNotNull(lookat.getLookAt)) {
-      return lookat.getLookAt() as THREE.Vector3;
-    } else if (this.isNotNull(lookat.getPosition)) {
-      return lookat.getPosition() as THREE.Vector3;
-    } else {
-      return this.getObject3d(lookat).position;
+    if (this.isNotNull(lookat)) {
+      if (lookat instanceof THREE.Vector3) {
+        return lookat;
+      } else if (Array.isArray(lookat) && lookat.length >= 3) {
+        return this.getVector3Safe(lookat[0], lookat[1], lookat[2], null, null, true);
+      } else if (this.isNotNull(lookat.getLookAt)) {
+        return lookat.getLookAt() as THREE.Vector3;
+      } else if (this.isNotNull(lookat.getPosition)) {
+        return lookat.getPosition() as THREE.Vector3;
+      } else if (this.isNotNull(lookat.x) && this.isNotNull(lookat.y) && this.isNotNull(lookat.z)) {
+        return this.getVector3Safe(lookat.x, lookat.y, lookat.z, null, null, true);
+      } else {
+        return this.getObject3d(lookat).position;
+      }
     }
+    return new THREE.Vector3();
   }
 
   static isTextureLoaded(texture: THREE.Texture): boolean {

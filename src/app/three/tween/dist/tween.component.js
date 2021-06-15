@@ -95,56 +95,57 @@ var TweenComponent = /** @class */ (function () {
             case 'power1':
             case 'power1.easein':
                 return GSAP.Power1.easeIn;
-            case 'Power1.easeInOut':
+            case 'power1.easeinout':
                 return GSAP.Power1.easeInOut;
-            case 'Power1.easeOut':
+            case 'power1.easeout':
                 return GSAP.Power1.easeOut;
-            case 'Power2':
-            case 'Power2.easeIn':
+            case 'power2':
+            case 'power2.easein':
                 return GSAP.Power2.easeIn;
-            case 'Power2.easeInOut':
+            case 'power2.easeinout':
                 return GSAP.Power2.easeInOut;
-            case 'Power2.easeOut':
+            case 'power2.easeout':
                 return GSAP.Power2.easeOut;
-            case 'Power3':
-            case 'Power3.easeIn':
+            case 'power3':
+            case 'power3.easein':
                 return GSAP.Power3.easeIn;
-            case 'Power3.easeInOut':
+            case 'power3.easeinout':
                 return GSAP.Power3.easeInOut;
-            case 'Power3.easeOut':
+            case 'power3.easeout':
                 return GSAP.Power3.easeOut;
-            case 'Power4':
-            case 'Power4.easeIn':
+            case 'power4':
+            case 'power4.easein':
                 return GSAP.Power4.easeIn;
-            case 'Power4.easeInOut':
+            case 'power4.easeinout':
                 return GSAP.Power4.easeInOut;
-            case 'Power4.easeOut':
+            case 'power4.easeout':
                 return GSAP.Power4.easeOut;
-            case 'Back':
-            case 'Back.easeIn':
+            case 'back':
+            case 'back.easein':
                 return GSAP.Back.easeIn.config(this.getOvershoot(1.7));
-            case 'Back.easeInOut':
+            case 'back.easeinout':
                 return GSAP.Back.easeInOut.config(this.getOvershoot(1.7));
-            case 'Back.easeOut':
+            case 'back.easeout':
                 return GSAP.Back.easeOut.config(this.getOvershoot(1.7));
-            case 'Elastic':
-            case 'Elastic.easeIn':
+            case 'elastic':
+            case 'elastic.easein':
                 return GSAP.Elastic.easeIn.config(this.getAmplitude(1), this.getPeriod(0.3));
-            case 'Elastic.easeInOut':
+            case 'elastic.easeinout':
                 return GSAP.Elastic.easeInOut.config(this.getAmplitude(1), this.getPeriod(0.3));
-            case 'Elastic.easeOut':
+            case 'elastic.easeout':
                 return GSAP.Elastic.easeOut.config(this.getAmplitude(1), this.getPeriod(0.3));
-            case 'Bounce':
-            case 'Bounce.easeIn':
+            case 'bounce':
+            case 'bounce.easein':
                 return GSAP.Bounce.easeIn;
-            case 'Bounce.easeInOut':
+            case 'bounce.easeinout':
                 return GSAP.Bounce.easeInOut;
-            case 'Bounce.easeOut':
+            case 'bounce.easeout':
+            case 'bounce.easeout':
                 return GSAP.Bounce.easeOut;
-            case 'Rough':
-            case 'Rough.easeIn':
-            case 'Rough.easeInOut':
-            case 'Rough.easeOut':
+            case 'rough':
+            case 'rough.easein':
+            case 'rough.easeinout':
+            case 'rough.easeout':
             /*
             return GSAP.RoughEase.config({
               template: this.getEasing(null, true),
@@ -155,10 +156,10 @@ var TweenComponent = /** @class */ (function () {
               clamp: false,
             });
             */
-            case 'SlowMo':
-            case 'SlowMo.easeIn':
-            case 'SlowMo.easeInOut':
-            case 'SlowMo.easeOut':
+            case 'slowmo':
+            case 'slowmo.easein':
+            case 'slowmo.easeinout':
+            case 'slowmo.easeout':
             /*
             return GSAP.SlowMo.ease.config(
               this.getLinearRatio(0.7),
@@ -166,43 +167,43 @@ var TweenComponent = /** @class */ (function () {
               this.getYoyoMode(false)
             );
             */
-            case 'Stepped':
-            case 'Stepped.easeIn':
-            case 'Stepped.easeInOut':
-            case 'Stepped.easeOut':
+            case 'stepped':
+            case 'stepped.easein':
+            case 'stepped.easeinout':
+            case 'stepped.easeout':
                 //  return GSAP.SteppedEase;
                 return GSAP.SteppedEase.config(this.getSteps(12));
-            case 'Circ':
-            case 'Circ.easeIn':
+            case 'circ':
+            case 'circ.easein':
                 return GSAP.Circ.easeIn;
-            case 'Circ.easeInOut':
+            case 'circ.easeinout':
                 return GSAP.Circ.easeInOut;
-            case 'Circ.easeOut':
+            case 'circ.easeout':
                 return GSAP.Circ.easeOut;
-            case 'Expo':
-            case 'Expo.easeIn':
+            case 'expo':
+            case 'expo.easein':
                 return GSAP.Expo.easeIn;
-            case 'Expo.easeInOut':
+            case 'expo.easeinout':
                 return GSAP.Expo.easeInOut;
-            case 'Expo.easeOut':
+            case 'expo.easeout':
                 return GSAP.Expo.easeOut;
-            case 'Sine':
-            case 'Sine.easeIn':
+            case 'sine':
+            case 'sine.easein':
                 return GSAP.Sine.easeIn;
-            case 'Sine.easeInOut':
+            case 'sine.easeinout':
                 return GSAP.Sine.easeInOut;
-            case 'Sine.easeOut':
+            case 'sine.easeout':
                 return GSAP.Sine.easeOut;
-            case 'Custom':
-            case 'Custom.easeIn':
-            case 'Custom.easeInOut':
-            case 'Custom.easeOut':
+            case 'custom':
+            case 'custom.easein':
+            case 'custom.easeinout':
+            case 'custom.easeout':
                 return GSAP.Power0.easeNone;
             //  return GSAP.CustomEase.create();
-            case 'Power0':
-            case 'Power0.easeIn':
-            case 'Power0.easeInOut':
-            case 'Power0.easeOut':
+            case 'power0':
+            case 'power0.easein':
+            case 'power0.easeinout':
+            case 'power0.easeout':
             default:
                 return GSAP.Power0.easeNone;
         }

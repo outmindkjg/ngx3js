@@ -17,7 +17,7 @@ import { Sky } from 'three/examples/jsm/objects/Sky';
 import { Water } from 'three/examples/jsm/objects/Water';
 import { Water as Water2 } from 'three/examples/jsm/objects/Water2';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { CSS3DObject, CSS3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { GeometryCompressionUtils } from 'three/examples/jsm/utils/GeometryCompressionUtils';
@@ -458,7 +458,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     } else {
       if (materials.length == 1) {
         return materials[0];
-      } else if (materials.length > 1){
+      } else if (materials.length > 1) {
         return materials;
       }
     }
@@ -478,7 +478,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     const materials = this.getMaterials(parameters, required);
     if (Array.isArray(materials)) {
       return materials;
-    } else if (materials !== null){
+    } else if (materials !== null) {
       return [materials];
     } else {
       return [];
@@ -815,22 +815,26 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         case 'css':
         case 'css3d':
         case 'css2d':
-
-          const cssElement: HTMLElement = document.createElement(ThreeUtil.getTypeSafe(this.cssTag ,'div'));
+        case 'css3dsprite':
+          const cssElement: HTMLElement = document.createElement(ThreeUtil.getTypeSafe(this.cssTag, 'div'));
           if (ThreeUtil.isNotNull(this.cssStyle)) {
             this.cssClazzName = ThreeUtil.addCssStyle(cssElement, this.cssStyle, this.cssClazzName, 'mesh', 'inline');
           }
           switch (this.type.toLowerCase()) {
             case 'css2d':
+            case 'css2dobject':
               basemesh = new CSS2DObject(cssElement);
               break;
+            case 'css3dsprite':
+              basemesh = new CSS3DSprite(cssElement);
+              break;
+            case 'css3dobject':
             case 'css3d':
             case 'css':
             default:
               basemesh = new CSS3DObject(cssElement);
               break;
           }
-          console.log(cssElement);
           break;
         case 'reflector':
           basemesh = new Reflector(geometry, {
@@ -1245,7 +1249,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.setUserData('clips', clips);
                 this.setUserData('storageSource', source);
                 this.addChildObject3d(loadedMesh);
-                this.setSubscribeNext(['resetTarget','load']);
+                this.setSubscribeNext(['resetTarget', 'load']);
               },
               this.storageOption
             );

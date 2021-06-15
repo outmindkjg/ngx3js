@@ -44,7 +44,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   @Input() private centerX: number = null;
   @Input() private centerY: number = null;
   @Input() private centerZ: number = null;
-  @Input() private duration: number = null;
+  @Input() private duration: number = 1;
   @Input() private delta: number = null;
   @Input() private multiply: number = null;
   @Input() private options: string = null;
@@ -71,7 +71,17 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   @Input() private colorType: string = 'rgb';
   @Input() private refRate: any = null;
 
-  private getCurve(curve: string): THREE.Curve<THREE.Vector3> {
+  private getCurve(): THREE.Curve<THREE.Vector3> {
+    let curve: string = 'line';
+    switch(this.type.toLowerCase()) {
+      case 'tween' :
+        curve = ThreeUtil.getTypeSafe(this.curve, 'linearinout');
+        break;
+      case 'position' :
+      default :
+        curve = ThreeUtil.getTypeSafe(this.curve, 'line');
+        break;
+    }
     return CurveUtils.getCurve(curve, 1, {
       radiusInner: ThreeUtil.getTypeSafe(this.radiusInner, 0),
       waveH: ThreeUtil.getTypeSafe(this.waveH, this.wave, 0),
@@ -114,6 +124,15 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   private _parent: THREE.Object3D;
   private _lookathead: number = 0.05;
 
+  private getOptions() : string {
+    switch(this.type.toLowerCase()) {
+      case 'tween' :
+        return ThreeUtil.getTypeSafe(this.options,'') + ',once';
+      default :
+        return ThreeUtil.getTypeSafe(this.options,'yoyo');
+    }
+  }
+
   applyChanges(changes: string[]) {
     if (this._curve !== null && this._parent !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -155,7 +174,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
           this._rateCallBack = this.refRate.getNumber();
         }
       } 
-      const curve = this.getCurve(ThreeUtil.getTypeSafe(this.curve, 'line'));
+      const curve = this.getCurve();
       let scale: THREE.Vector3 = ThreeUtil.getVector3Safe(ThreeUtil.getTypeSafe(this.radiusX, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusY, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusZ, this.radius, 1));
       let rotation: THREE.Euler = ThreeUtil.getEulerSafe(ThreeUtil.getTypeSafe(this.rotationX, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationY, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationZ, this.rotation, 0));
       let center: THREE.Vector3 = ThreeUtil.getVector3Safe(ThreeUtil.getTypeSafe(this.centerX, this.center, 0), ThreeUtil.getTypeSafe(this.centerY, this.center, 0), ThreeUtil.getTypeSafe(this.centerZ, this.center, 0));
@@ -165,7 +184,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
         rotation: rotation,
         center: center,
         multiply: ThreeUtil.getTypeSafe(this.multiply, 1),
-        options: this.options,
+        options: this.getOptions(),
       });
       this._duration = ThreeUtil.getTypeSafe(this.duration, 60);
       this._delta = ThreeUtil.getTypeSafe(this.delta, 0);
@@ -286,13 +305,16 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
   }
 
   private _tmpColor : THREE.Color = new THREE.Color();
-  private _tmpV3 : THREE.Vector3 = new THREE.Vector3();
+
+  private getLerpFloat(s : number, e : number, alpha : number): number  {
+    return s + (e - s) * alpha;
+  }
 
   update(timer: RendererTimer, events: string[]): boolean {
-    if (this._curve !== null && this._controlItem.object3d !== null) {
+    if (this._curve !== null && this._controlItem.object3d !== null && this._controlItem.object3d.userData.initPosition) {
       const itemTimer: RendererTimer = {
         elapsedTime: timer.elapsedTime / this._duration + this._delta,
-        delta: timer.delta,
+        delta: timer.delta / this._duration,
       };
       switch (this.type.toLowerCase()) {
         case 'positionlookat':
@@ -427,21 +449,29 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
           break;
         case 'tween' :
           const tween = this._controlItem.object3d.userData.tween;
-          // this.consoleLogTime('tween',tween);
           if (ThreeUtil.isNotNull(tween) && tween.elapsedTime < 1) {
-            // tween.elapsedTime = this._curve.getPointFloat({elapsedTime : tween.elapsedTime + timer.delta / 300, delta : timer.delta / 30 }, 0, 1);
-            tween.elapsedTime = Math.min(1, Math.max(0, tween.elapsedTime + timer.delta / 40));
+            tween.elapsedTime = Math.min(1, tween.elapsedTime + timer.delta / this._duration);
+            const lastElapsedAlpha = Math.min(0.99999, tween.elapsedAlpha || 0);
+            const tweenTimer = { elapsedTime : tween.elapsedTime, delta : timer.delta / this._duration };
+            tween.elapsedAlpha = this._curve.getPointFloat(tweenTimer, 0, 1);
+            const elapsedAlpha =  Math.max(0, Math.min(1, (tween.elapsedAlpha - lastElapsedAlpha) / (1 - lastElapsedAlpha)));
+            this.updateHelperPoint(tweenTimer);
             Object.entries(tween).forEach(([key, value]) => {
-              switch(key) {
-                case 'position' :
-                  this._controlItem.position.lerp(value as THREE.Vector3 , tween.elapsedTime);
-                  break;
-                case 'scale' :
-                  this._controlItem.scale.lerp(value as THREE.Vector3 , tween.elapsedTime);
-                  break;
-                case 'rotation' :
-                  // this._controlItem.rotation.slerp(value as THREE.Vector3 , tween.elapsedTime);
-                  break;
+              if (ThreeUtil.isNotNull(value)) {
+                switch(key) {
+                  case 'position' :
+                    this._controlItem.position.lerp(value as THREE.Vector3 , elapsedAlpha);
+                    break;
+                  case 'scale' :
+                    this._controlItem.scale.lerp(value as THREE.Vector3 , elapsedAlpha);
+                    break;
+                  case 'rotation' :
+                    const rotationX = this.getLerpFloat(this._controlItem.rotation.x, value['x'], elapsedAlpha);
+                    const rotationY = this.getLerpFloat(this._controlItem.rotation.y, value['y'], elapsedAlpha);
+                    const rotationZ = this.getLerpFloat(this._controlItem.rotation.z, value['z'], elapsedAlpha);
+                    this._controlItem.rotation.set(rotationX, rotationY, rotationZ);
+                    break;
+                  }
                 }
             });
           }
