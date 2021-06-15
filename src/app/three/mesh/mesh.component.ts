@@ -18,6 +18,8 @@ import { Water } from 'three/examples/jsm/objects/Water';
 import { Water as Water2 } from 'three/examples/jsm/objects/Water2';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject, CSS3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { SVGObject } from 'three/examples/jsm/renderers/SVGRenderer';
+
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { GeometryCompressionUtils } from 'three/examples/jsm/utils/GeometryCompressionUtils';
@@ -45,7 +47,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() public type: string = 'mesh';
   @Input() private lightOptions: any = null;
-  @Input() private cssTag: string = null;
+  @Input() private cssTag: string | any = null;
   @Input() private cssStyle: string | CssStyle = null;
   @Input() private skyboxType: string = 'auto';
   @Input() private skyboxRate: number = 100;
@@ -163,6 +165,16 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     } else {
       return 10000;
     }
+  }
+
+  private getCssTag(): any {
+    const cssTag = ThreeUtil.getTypeSafe(this.cssTag, 'div');
+    if (typeof cssTag === 'string') {
+      return document.createElement(cssTag);
+    } else if (cssTag instanceof Element) {
+      return cssTag.cloneNode();
+    }
+    return document.createElement('div');
   }
 
   private getSkySunPosition(): THREE.Euler {
@@ -812,15 +824,23 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               break;
           }
           break;
+        case 'svg':
+        case 'svgobject':
         case 'css':
-        case 'css3d':
         case 'css2d':
+        case 'css2dobject':
+        case 'css3d':
+        case 'css3dobject':
         case 'css3dsprite':
-          const cssElement: HTMLElement = document.createElement(ThreeUtil.getTypeSafe(this.cssTag, 'div'));
+          const cssElement: any = this.getCssTag();
           if (ThreeUtil.isNotNull(this.cssStyle)) {
             this.cssClazzName = ThreeUtil.addCssStyle(cssElement, this.cssStyle, this.cssClazzName, 'mesh', 'inline');
           }
           switch (this.type.toLowerCase()) {
+            case 'svg':
+            case 'svgobject':
+              basemesh = new SVGObject(cssElement as SVGElement);
+              break;
             case 'css2d':
             case 'css2dobject':
               basemesh = new CSS2DObject(cssElement);

@@ -70,6 +70,20 @@
         <three-geometry [type]="'CylinderGeometry'" [radiusTop]="20" [radiusBottom]="100" [height]="200" [heightSegments]="10"></three-geometry>
         <three-material [type]="'MeshBasicMaterial'" [color]="'random'"></three-material>
       </three-mesh>
+      <three-mesh name="group">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-scale [multiply]="2"></three-scale>
+        <three-geometry [type]="'BufferGeometry'" [attrPosition]="vertices" [attrColor]="colors"></three-geometry>
+        <three-material [type]="'MeshBasicMaterial'" [vertexColors]="true" [side]="'double'"></three-material>
+      </three-mesh>
+      <three-mesh *ngFor="let info of spriteInfos" [type]="'Sprite'">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-scale [x]="64" [y]="64" [z]="1"></three-scale>
+        <three-material [type]="'SpriteMaterial'" [color]="info.color"></three-material>
+      </three-mesh>
+      <three-mesh *ngFor="let info of nodeInfos" [type]="'svg'" [cssTag]="node">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

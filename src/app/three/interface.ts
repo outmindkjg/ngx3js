@@ -267,7 +267,7 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
   }
 
   public mesh: MeshComponent = null;
-  public meshObject3d : THREE.Object3D;
+  public meshObject3d : THREE.Object3D = null;
   protected meshChildren: THREE.Object3D[] = null;
 
   protected updateGuiController() {
