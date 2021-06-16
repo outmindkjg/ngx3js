@@ -108,6 +108,11 @@ Ensure that WebGL is enabled, and not disabled (You'll need to relaunch Chrome f
 
 ----------------------
 
+node_modules\three\examples\jsm\utils\UVsDebug.d.ts
+import { BufferGeometry } from '../../../src/Three';
+
+export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasElement;
+
 
 ----------------------
 

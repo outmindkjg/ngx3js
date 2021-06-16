@@ -5,9 +5,7 @@ import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
-
 import { WEBGL } from 'three/examples/jsm/WebGL';
-import { ARButton } from 'three/examples/jsm/webxr/ARButton';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent } from '../control/control.component';
@@ -124,9 +122,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this.renderControl !== null) {
       this.renderControl.ngOnDestroy();
     }
-    Object.entries(this._windowEventListener).forEach(([key, value]) => {
-      this.removeWindowEvent(key, value);
-      delete this._windowEventListener[key];
+    Object.entries(this._eventListener).forEach(([key, value]) => {
+      this.removeEvent(key, value);
+      delete this._eventListener[key];
     });
     super.ngOnDestroy();
   }
@@ -170,9 +168,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  removeWindowEvent(type: string, listener: any) {
+  removeEvent(type: string, listener: any) {
     if (ThreeUtil.isNotNull(listener)) {
-      window.removeEventListener(type, listener);
+      this.rendererEle.nativeElement.removeEventListener(type, listener);
     }
     return null;
   }
@@ -257,40 +255,34 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       clientX = event.clientX;
       clientY = event.clientY;
     }
-    if (clientX >= this.offsetLeft && clientX <= this.offsetRight && clientY >= this.offsetTop && clientY <= this.offsetBottom) {
-      const offsetX = clientX - this.offsetLeft;
-      const offsetY = clientY - this.offsetTop;
-      this.events.type = type;
-      this.events.clientX = clientX;
-      this.events.clientY = clientY;
-      this.events.client.set(clientX, clientY);
-      this.events.offsetX = offsetX;
-      this.events.offsetY = offsetY;
-      this.events.offset.set(offsetX, offsetY);
-      this.events.rateX = offsetX / this.rendererWidth;
-      this.events.rateY = offsetY / this.rendererHeight;
-      this.events.rate.set(this.events.rateX, this.events.rateY);
-      this.events.mouse.set((offsetX / this.rendererWidth) * 2 - 1, -(offsetY / this.rendererHeight) * 2 + 1);
-      this.events.event = event;
-      this.eventListener.emit(this.events);
-      // this.consoleLogTime('event', this.events, 10);
-    } else {
-      this.events.type = 'none';
-    }
-    // this.consoleLog('event', this.events.event, 'info');
+    const offsetX = clientX - this.offsetLeft;
+    const offsetY = clientY - this.offsetTop;
+    this.events.type = type;
+    this.events.clientX = clientX;
+    this.events.clientY = clientY;
+    this.events.client.set(clientX, clientY);
+    this.events.offsetX = offsetX;
+    this.events.offsetY = offsetY;
+    this.events.offset.set(offsetX, offsetY);
+    this.events.rateX = offsetX / this.rendererWidth;
+    this.events.rateY = offsetY / this.rendererHeight;
+    this.events.rate.set(this.events.rateX, this.events.rateY);
+    this.events.mouse.set((offsetX / this.rendererWidth) * 2 - 1, -(offsetY / this.rendererHeight) * 2 + 1);
+    this.events.event = event;
+    this.eventListener.emit(this.events);
   }
 
-  addWindowEvent(type: string, listener: any) {
+  addEvent(type: string, listener: any) {
     if (ThreeUtil.isNull(listener)) {
       listener = (event: TouchInit | KeyboardEvent) => {
         this.setEvents(type, event);
       };
-      window.addEventListener(type, listener);
+      this.rendererEle.nativeElement.addEventListener(type, listener);
     }
     return listener;
   }
 
-  private _windowEventListener: {
+  private _eventListener: {
     [key: string]: (event: any) => void;
   } = {};
 
@@ -496,46 +488,55 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'useevent':
             const useEvents = ThreeUtil.isNotNull(this.useEvent) ? this.useEvent.toLowerCase().split(',') : [];
-            console.log(useEvents);
             if (useEvents.indexOf('change') > -1) {
-              this._windowEventListener.change = this.addWindowEvent('change', this._windowEventListener.change);
+              this._eventListener.change = this.addEvent('change', this._eventListener.change);
             } else {
-              this._windowEventListener.change = this.removeWindowEvent('change', this._windowEventListener.change);
+              this._eventListener.change = this.removeEvent('change', this._eventListener.change);
             }
             if (useEvents.indexOf('pointerdown') > -1 || useEvents.indexOf('mousedown') > -1 || useEvents.indexOf('down') > -1) {
-              this._windowEventListener.pointerdown = this.addWindowEvent('pointerdown', this._windowEventListener.pointerdown);
+              this._eventListener.pointerdown = this.addEvent('pointerdown', this._eventListener.pointerdown);
             } else {
-              this._windowEventListener.pointerdown = this.removeWindowEvent('pointerdown', this._windowEventListener.pointerdown);
+              this._eventListener.pointerdown = this.removeEvent('pointerdown', this._eventListener.pointerdown);
             }
             if (useEvents.indexOf('pointerup') > -1 || useEvents.indexOf('mouseup') > -1 || useEvents.indexOf('up') > -1 || useEvents.indexOf('click') > -1) {
-              this._windowEventListener.pointerup = this.addWindowEvent('pointerup', this._windowEventListener.pointerup);
+              this._eventListener.pointerup = this.addEvent('pointerup', this._eventListener.pointerup);
             } else {
-              this._windowEventListener.pointerup = this.removeWindowEvent('pointerup', this._windowEventListener.pointerup);
+              this._eventListener.pointerup = this.removeEvent('pointerup', this._eventListener.pointerup);
             }
             if (useEvents.indexOf('pointermove') > -1 || useEvents.indexOf('mousemove') > -1 || useEvents.indexOf('move') > -1) {
-              this._windowEventListener.pointermove = this.addWindowEvent('pointermove', this._windowEventListener.pointermove);
+              this._eventListener.pointermove = this.addEvent('pointermove', this._eventListener.pointermove);
             } else {
-              this._windowEventListener.pointermove = this.removeWindowEvent('pointermove', this._windowEventListener.pointermove);
+              this._eventListener.pointermove = this.removeEvent('pointermove', this._eventListener.pointermove);
             }
             if (useEvents.indexOf('keydown') > -1) {
-              this._windowEventListener.keydown = this.addWindowEvent('keydown', this._windowEventListener.keydown);
+              this._eventListener.keydown = this.addEvent('keydown', this._eventListener.keydown);
             } else {
-              this._windowEventListener.keydown = this.removeWindowEvent('keydown', this._windowEventListener.keydown);
+              this._eventListener.keydown = this.removeEvent('keydown', this._eventListener.keydown);
             }
             if (useEvents.indexOf('keyup') > -1) {
-              this._windowEventListener.keyup = this.addWindowEvent('keyup', this._windowEventListener.keyup);
+              this._eventListener.keyup = this.addEvent('keyup', this._eventListener.keyup);
             } else {
-              this._windowEventListener.keyup = this.removeWindowEvent('keyup', this._windowEventListener.keyup);
+              this._eventListener.keyup = this.removeEvent('keyup', this._eventListener.keyup);
             }
             if (useEvents.indexOf('keypress') > -1) {
-              this._windowEventListener.keypress = this.addWindowEvent('keypress', this._windowEventListener.keypress);
+              this._eventListener.keypress = this.addEvent('keypress', this._eventListener.keypress);
             } else {
-              this._windowEventListener.keypress = this.removeWindowEvent('keypress', this._windowEventListener.keypress);
+              this._eventListener.keypress = this.removeEvent('keypress', this._eventListener.keypress);
             }
             if (useEvents.indexOf('click') > -1) {
-              this._windowEventListener.click = this.addWindowEvent('click', this._windowEventListener.click);
+              this._eventListener.click = this.addEvent('click', this._eventListener.click);
             } else {
-              this._windowEventListener.click = this.removeWindowEvent('click', this._windowEventListener.click);
+              this._eventListener.click = this.removeEvent('click', this._eventListener.click);
+            }
+            if (useEvents.indexOf('mouseover') > -1) {
+              this._eventListener.mouseover = this.addEvent('mouseover', this._eventListener.mouseover);
+            } else {
+              this._eventListener.mouseover = this.removeEvent('mouseover', this._eventListener.mouseover);
+            }
+            if (useEvents.indexOf('mouseout') > -1) {
+              this._eventListener.mouseout = this.addEvent('mouseout', this._eventListener.mouseout);
+            } else {
+              this._eventListener.mouseout = this.removeEvent('mouseout', this._eventListener.mouseout);
             }
             break;
           case 'resize':
@@ -833,7 +834,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'svgrenderer':
           const svgRenderer = new SVGRenderer();
           if (ThreeUtil.isNotNull(this.quality)) {
-            svgRenderer.setQuality( ThreeUtil.getTypeSafe(this.quality,'high').toLowerCase());
+            svgRenderer.setQuality(ThreeUtil.getTypeSafe(this.quality, 'high').toLowerCase());
           }
           this.renderer = svgRenderer as any;
           break;

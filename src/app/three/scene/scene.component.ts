@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { ControllerComponent } from '../controller/controller.component';
 import { FogComponent } from '../fog/fog.component';
-import { ThreeUtil } from '../interface';
+import { TextureOption, ThreeUtil } from '../interface';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { PhysicsComponent } from '../physics/physics.component';
@@ -23,7 +23,7 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 })
 export class SceneComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private storageName: string = null;
-  @Input() private background: string | number | MaterialComponent | TextureComponent = null;
+  @Input() private background: string | TextureComponent | MaterialComponent | THREE.Texture | TextureOption | any = null;
   @Input() private backgroundType: string = 'background';
   @Input() private environment: string | MaterialComponent | MeshComponent = null;
 
@@ -382,30 +382,32 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
         this.unSubscribeRefer('background');
         if (ThreeUtil.isNotNull(this.background)) {
           if (this.background instanceof MaterialComponent) {
-            this.setMaterial(this.background, this.backgroundType);
+            const materialBackground = this.background;
+            this.setMaterial(materialBackground, this.backgroundType);
             this.subscribeRefer(
               'background',
               ThreeUtil.getSubscribe(
                 this.background,
                 () => {
-                  this.setMaterial(this.background as MaterialComponent, this.backgroundType);
+                  this.setMaterial(materialBackground, this.backgroundType);
                 },
                 'textureloaded'
               )
             );
-          } else if (this.background instanceof TextureComponent) {
-            this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+          } else if (ThreeUtil.isNotNull(this.background['getTexture'])) {
+            const textureBackground:TextureComponent = this.background as any;
+            this.setBackgroundTexture(textureBackground.getTexture(), this.backgroundType);
             this.subscribeRefer(
               'background',
               ThreeUtil.getSubscribe(
                 this.background,
                 () => {
-                  this.setBackgroundTexture((this.background as TextureComponent).getTexture(), this.backgroundType);
+                  this.setBackgroundTexture(textureBackground.getTexture(), this.backgroundType);
                 },
                 'textureloaded'
               )
             );
-          } else {
+          } else if (typeof this.background === 'string' || typeof this.background === 'number' || this.background instanceof THREE.Color){
             this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);
           }
         }

@@ -16,6 +16,13 @@ export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
 }
 
+export interface TextureOption {
+  type: string;
+  value: string;
+  options?: string;
+  cubeImage?: string[];
+}
+
 export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;

@@ -5,7 +5,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
 import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
 import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
-import { ThreeUtil } from '../interface';
+import { ThreeUtil, TextureOption } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
@@ -17,14 +17,7 @@ export type TypeUniform = { type: string; value: any; options?: any } | THREE.IU
 
 export type TypeUniforms = { [uniform: string]: TypeUniform };
 
-export type TextureValue = string | TextureComponent | THREE.Texture | TextureOption;
-
-export interface TextureOption {
-  type: string;
-  value: string;
-  options?: string;
-  cubeImage?: string[];
-}
+export type TextureValue = string | TextureComponent | THREE.Texture | TextureOption | any;
 
 export interface MeshMaterialRaw {
   geometry?: THREE.BufferGeometry;
@@ -404,7 +397,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     return ThreeUtil.getTypeSafe(this.sizeAttenuation, def);
   }
 
-  private getTextureOption(map: string | TextureComponent | THREE.Texture | TextureOption, name: string): THREE.Texture {
+  private getTextureOption(map: TextureOption, name: string): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
       if (typeof map == 'string') {
         const texture = TextureComponent.getTextureImageOption(map, null, 'texture', null, () => {

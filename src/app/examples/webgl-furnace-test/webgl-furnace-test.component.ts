@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { Mesh } from 'three';
+import { BaseComponent, RendererEvent } from '../../three';
 
 @Component({
   selector: 'app-webgl-furnace-test',
@@ -12,4 +13,45 @@ export class WebglFurnaceTestComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  ngOnInit() {
+    this.objectInfos = [];
+    for ( let x = 0; x <= 10; x ++ ) {
+      for ( let y = 0; y <= 10; y ++ ) {
+        this.objectInfos.push({
+          roughness : x / 10,
+          metalness : y / 10,
+          x : x - 5,
+          y : 5 - y
+        })
+      }
+    }
+  }
+
+  mouseEvent(event : RendererEvent) {
+    if (this.meshObject3d !== null) {
+      switch(event.type) {
+        case 'mouseover' :
+          this.meshObject3d.traverse((child) => {
+						if ( child instanceof Mesh ) {
+              (child.material as any).color.setHex( 0xaaaaff );
+            }
+          });
+          break;
+        case 'mouseout' :
+          this.meshObject3d.traverse((child) => {
+						if ( child instanceof Mesh ) {
+              (child.material as any).color.setHex( 0xffffff );
+            }
+          });
+          break;
+      }
+    }
+  }
+
+  objectInfos : {
+    roughness : number;
+    metalness : number;
+    x : number;
+    y : number;
+  }[] = [];
 }

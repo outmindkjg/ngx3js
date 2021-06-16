@@ -17,6 +17,10 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   @Input() private multiply: number = null;
   @Input() private normalize: boolean = false;
   @Input() public camera: any = null;
+  @Input() public setfrom: string = null;
+  @Input() public radius: number = null;
+  @Input() public phi: number = null;
+  @Input() public theta: number = null;
 
   ngOnInit(): void {
     super.ngOnInit('position');
@@ -137,6 +141,26 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
     }
     if (position === null) {
       position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+      if (ThreeUtil.isNotNull(this.setfrom)) {
+        switch(this.setfrom.toLowerCase()) {
+          case 'spherical' :
+          case 'sphericalcoords' :
+            position.setFromSphericalCoords(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getAngleSafe(this.phi, 0),
+              ThreeUtil.getAngleSafe(this.theta, 0),
+            );
+            break;
+          case 'cylindrical' :
+          case 'cylindricalcoords' :
+            position.setFromCylindricalCoords(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getAngleSafe(this.phi, 0),
+              ThreeUtil.getTypeSafe(this.y, 0),
+            );
+            break;
+        }
+      }
       if (this.normalize) {
         position.normalize();
       }
