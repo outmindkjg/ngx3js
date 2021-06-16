@@ -511,9 +511,19 @@ import { SvgSandboxComponent } from './examples/svg-sandbox/svg-sandbox.componen
 import { WebglFurnaceTestComponent } from './examples/webgl-furnace-test/webgl-furnace-test.component';
 import { WebglPmremTestComponent } from './examples/webgl-pmrem-test/webgl-pmrem-test.component';
 import { MiscUvTestsComponent } from './examples/misc-uv-tests/misc-uv-tests.component';
+import { ApiComponent } from './api/api.component';
+import { DocComponent } from './api/doc/doc.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
+  {
+    path: 'api',
+    component: ApiComponent,
+    children: [
+      { path: '**', component: DocComponent },
+      { path: '', pathMatch: 'full', redirectTo: 'en/animation/tracks/BooleanKeyframeTrack' },
+    ]
+  },
   {
     path: 'ch01',
     component: Chapter01Component,

@@ -1,8 +1,7 @@
 import {
-  AfterContentInit,
   AfterViewInit, Component,
-  ContentChildren, ElementRef, OnInit,
-  QueryList, ViewChild
+  ElementRef, OnInit,
+  ViewChild
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       const links : HTMLAnchorElement[] = this.ele.nativeElement.getElementsByTagName('a');
       let selected : HTMLAnchorElement = null;
       for(let i = 0; i < links.length ; i++) {
-        if (links[i].getAttribute('href') == menuId) {
+        if (links[i].getAttribute('href') === '#' +menuId) {
           selected = links[i];
           break;
         }
@@ -84,7 +83,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (ThreeUtil.lastRenderer !== null) {
       const lastRenderer = ThreeUtil.lastRenderer as RendererComponent;
       lastRenderer.getCanvasJson((json) => {
-        console.log(json);
       }, { width : 400, height : 250, name : 'auto', type : 'jpg'})
     }
     return false;

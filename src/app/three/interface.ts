@@ -727,7 +727,7 @@ export class ThreeUtil {
     return CHROMA.scale(scales);
   }
 
-  public static lastRenderer: any;
+  public static lastRenderer: any = null;
 
   static setRenderer(lastRenderer: any) {
     this.lastRenderer = lastRenderer;

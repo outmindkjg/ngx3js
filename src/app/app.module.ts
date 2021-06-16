@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule } from "@angular/common/http";
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Chapter01Component } from './chapter01/chapter01.component';
@@ -511,6 +514,8 @@ import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster
 import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
+import { ApiComponent } from './api/api.component';
+import { DocComponent } from './api/doc/doc.component';
 
 import { MenuComponent } from './menu/menu.component';
 import { AudioComponent } from './three/audio/audio.component';
@@ -1111,13 +1116,16 @@ import { ControllerItemComponent } from './three/controller/controller-item/cont
     MiscUvTestsComponent,
     WebglMirrorNodesComponent,
     GeometryBirdComponent,
-    ControllerItemComponent
+    ControllerItemComponent,
+    ApiComponent,
+    DocComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
