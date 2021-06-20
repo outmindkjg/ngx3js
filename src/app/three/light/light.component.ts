@@ -433,7 +433,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
                     basemesh.copy(LightProbeGenerator.fromCubeTexture(texture));
                   }
                 },
-                'textureloaded'
+                'loaded'
               )
             );
           } else if (ThreeUtil.isNotNull(this.renderTarget)) {

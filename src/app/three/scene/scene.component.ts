@@ -391,7 +391,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
                 () => {
                   this.setMaterial(materialBackground, this.backgroundType);
                 },
-                'textureloaded'
+                'loaded'
               )
             );
           } else if (ThreeUtil.isNotNull(this.background['getTexture'])) {
@@ -404,7 +404,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
                 () => {
                   this.setBackgroundTexture(textureBackground.getTexture(), this.backgroundType);
                 },
-                'textureloaded'
+                'loaded'
               )
             );
           } else if (typeof this.background === 'string' || typeof this.background === 'number' || this.background instanceof THREE.Color){

@@ -84,7 +84,7 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
                 if (texture !== null) {
                   this.tool = pmremGenerator.fromEquirectangular(texture).texture;
                   super.setObject(this.tool);
-                  this.setSubscribeNext(['texture', 'textureloaded']);
+                  this.setSubscribeNext(['texture', 'loaded']);
                   pmremGenerator.dispose();
                 }
               },

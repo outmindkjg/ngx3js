@@ -130,6 +130,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private referencePositionZ: number = null;
   @Input() private clearcoat: number = null;
   @Input() private clearcoatRoughness: number = null;
+  @Input() private clearcoatNormalScale: number = null;
   @Input() private clearcoatNormalScaleX: number = null;
   @Input() private clearcoatNormalScaleY: number = null;
   @Input() private ior: number = null;
@@ -145,11 +146,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private sizeAttenuation: boolean = null;
   @Input() private envMap: TextureValue = null;
   @Input() private map: TextureValue = null;
+  @Input() private matcap: TextureValue = null;
   @Input() private specularMap: TextureValue = null;
   @Input() private alphaMap: TextureValue = null;
   @Input() private bumpMap: TextureValue = null;
   @Input() private normalMap: TextureValue = null;
   @Input() private displacementMap: TextureValue = null;
+  @Input() private clearcoatNormalMap: TextureValue = null;
   @Input() private aoMap: TextureValue = null;
   @Input() private dashed: boolean = null;
   @Input() private dashScale: number = null;
@@ -354,7 +357,11 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   }
 
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(this.clearcoatNormalScaleX, this.clearcoatNormalScaleY, def);
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(this.clearcoatNormalScaleX, this.clearcoatNormalScale),
+      ThreeUtil.getTypeSafe(this.clearcoatNormalScaleY, this.clearcoatNormalScale),
+      def
+    );
   }
 
   private getIor(def?: number): number {
@@ -468,6 +475,11 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       case 'displacementmap':
         if (ThreeUtil.isNotNull(this.displacementMap)) {
           return this.getTextureOption(this.displacementMap, 'displacementMap');
+        }
+        break;
+      case 'clearcoatnormalmap' :
+        if (ThreeUtil.isNotNull(this.clearcoatNormalMap)) {
+          return this.getTextureOption(this.clearcoatNormalMap, 'clearcoatNormalMap');
         }
         break;
     }
@@ -1314,6 +1326,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         case 'displacementmap':
           this.material['displacementMap'] = materialClone;
           break;
+        case 'clearcoatnormalmap' :
+          this.material['clearcoatNormalMap'] = materialClone;
+          break;
         case 'matcap':
           this.material['matcap'] = materialClone;
           break;
@@ -1533,7 +1548,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               specular: this.getSpecular(),
               shininess: this.getShininess(),
               opacity: this.getOpacity(),
-              specularMap: this.getTexture('clearcoatNormalMap'),
+              specularMap: this.getTexture('specularMap'),
               combine: this.getCombine(),
               wireframeLinecap: this.getWireframeLinecap(),
               wireframeLinejoin: this.getWireframeLinejoin(),
@@ -1862,6 +1877,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         switch (change.toLowerCase()) {
           case 'texture':
             this.synkTexture(this.envMap, 'envMap');
+            this.synkTexture(this.matcap, 'matcap');
             this.synkTexture(this.map, 'map');
             this.synkTexture(this.specularMap, 'specularMap');
             this.synkTexture(this.alphaMap, 'alphaMap');

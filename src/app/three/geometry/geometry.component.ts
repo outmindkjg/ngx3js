@@ -1369,6 +1369,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           } else {
             this.setGeometry(loadGeometry);
           }
+          this.setSubscribeNext(['geometry','loaded']);
         });
       }
       if (geometry === null) {

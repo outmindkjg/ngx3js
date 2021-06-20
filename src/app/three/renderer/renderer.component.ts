@@ -801,6 +801,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
   getRenderer(): THREE.Renderer {
     if (this.renderer === null || this._needUpdate) {
+      console.clear();
       this.needUpdate = false;
       this.dispose();
       if (this.renderer !== null) {

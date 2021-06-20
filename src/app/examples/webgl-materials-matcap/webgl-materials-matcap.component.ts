@@ -6,10 +6,19 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-materials-matcap.component.html',
   styleUrls: ['./webgl-materials-matcap.component.scss']
 })
-export class WebglMaterialsMatcapComponent extends BaseComponent<{}> {
+export class WebglMaterialsMatcapComponent extends BaseComponent<{
+  color : number;
+  exposure : number;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      color : 0xffffff,
+      exposure : 1.0
+    },[
+      { name : 'color', type : 'color'},
+      { name : 'exposure' , type : 'number', min : 0, max : 2 }
+    ]);
   }
 
 }

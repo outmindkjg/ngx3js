@@ -4,6 +4,7 @@ import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
+import { FlakesTexture } from 'three/examples/jsm/textures/FlakesTexture';
 import { Lut } from 'three/examples/jsm/math/Lut';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -19,6 +20,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private refer: any = null;
   @Input() public textureType: string = 'map';
   @Input() private loaderType: string = null;
+  @Input() private cubeType: string = null;
   @Input() public name: string = null;
   @Input() private image: string = null;
   @Input() private premultiplyAlpha: boolean = null;
@@ -75,6 +77,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if (ThreeUtil.isNull(this.canvas) || typeof this.canvas === 'string') {
       const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '') as string;
       switch (canvas.toLowerCase()) {
+        case 'flakes' :
+        case 'flakestexture' :
+          return new FlakesTexture();
         case 'lut':
         default:
           return new Lut().createCanvas();
@@ -115,9 +120,12 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if (changes && this.texture) {
+    if (changes) {
+      if (changes.useDropImage) {
+        this.setUseDropImage(this.useDropImage);   
+        delete changes.useDropImage;
+      }
       this.addChanges(changes);
-      // this.setUseDropImage(this.useDropImage); // todo
     }
   }
 
@@ -155,6 +163,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             reader.addEventListener('load', (event) => {
               texture.image.src = event.target.result;
               texture.needsUpdate = true;
+              this.applyMaterial();
             });
             reader.readAsDataURL(event.dataTransfer.files[0]);
           }
@@ -796,6 +805,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   private applyMaterial() {
     if (this._material !== null && this.texture !== null) {
       switch (this.textureType.toLowerCase()) {
+        case 'matcap':
+          this._material['matcap'] = this.texture;
+          break;
         case 'env':
         case 'envmap':
           this._material['envMap'] = this.texture;
@@ -825,6 +837,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         case 'displacementmap':
           this._material['displacementMap'] = this.texture;
           break;
+        case 'clearcoatnormal':
+        case 'clearcoatnormalmap':
+          this._material['clearcoatNormalMap'] = this.texture;
+          break;
         case 'map':
         default:
           this._material['map'] = this.texture;
@@ -852,7 +868,44 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
-  
+  private _pmremGenerator: THREE.PMREMGenerator = null;
+
+  private getPmremGenerator(): THREE.PMREMGenerator {
+    if (this._pmremGenerator == null) {
+      this._pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
+      this._pmremGenerator.compileEquirectangularShader();
+    }
+    return this._pmremGenerator;
+  }
+
+  private setTextureLoaded(texture : THREE.Texture ) {
+    if (texture !== null && texture.image !== null) {
+      if (ThreeUtil.isNotNull(this.cubeType)) {
+        switch(this.cubeType.toLowerCase()) {
+          case 'equirectangular' :
+            const pmremGenerator = this.getPmremGenerator();
+            texture = pmremGenerator.fromEquirectangular(texture).texture;
+            pmremGenerator.dispose();
+            this._pmremGenerator = null;
+            break;
+          case 'cubemap' :
+            if (texture instanceof THREE.CubeTexture) {
+              texture = this.getPmremGenerator().fromCubemap(texture).texture;
+            }
+            break;
+        }
+      }
+      if (this.texture !== texture && texture.image !== null) {
+        console.log(texture);
+        this.texture = texture;
+        super.setObject(this.texture);
+        TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+        this.applyMaterial();
+      }
+      this.setSubscribeNext(['texture','loaded']);
+    }
+  }
+
   getTexture() {
     if (this.texture === null || this._needUpdate) {
       this.needUpdate = false;
@@ -888,11 +941,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         this.localStorageService.getTexture(
           this.storageName,
           (texture) => {
-            if (texture !== null) {
-              this.texture = texture;
-              super.setObject(this.texture);
-              this.setSubscribeNext(['texture','textureloaded']);
-            }
+            this.setTextureLoaded(texture);
           },
           this.storageOption
         );
@@ -903,8 +952,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           this.texture = new THREE.CanvasTexture(this.perlin.getPerlinGeometry().getTexture(ThreeUtil.getVector3Safe(this.sunX, this.sunY, this.sunZ, new THREE.Vector3(1, 1, 1)), ThreeUtil.getColorSafe(this.color, 0x602000), ThreeUtil.getColorSafe(this.add, 0xe08060)));
         } else {
           this.texture = this.getTextureImage(this.getImage(null), this.getCubeImage(null), this.getProgram(null), () => {
-            this.texture.needsUpdate = true;
-            this.setSubscribeNext(['texture','textureloaded']);
+            this.setTextureLoaded(this.texture);
           });
         }
         this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);

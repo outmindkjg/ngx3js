@@ -131,7 +131,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected callOnLoad() {
     this.onLoad.emit(this);
-    this.setSubscribeNext(this.subscribeType);
+    // this.setSubscribeNext(this.subscribeType);
   }
 
   protected _needUpdate: boolean = true;

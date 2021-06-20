@@ -734,7 +734,11 @@ export class ThreeUtil {
   }
 
   static getRenderer(): THREE.Renderer {
-    return this.lastRenderer.renderer;
+    if (this.lastRenderer !== null) {
+      return this.lastRenderer.renderer;
+    } else {
+      return new THREE.WebGLRenderer();
+    }
   }
 
   private static renderTimer: RendererTimer;
@@ -1558,7 +1562,7 @@ export class ThreeUtil {
               }
               break;
             case 'texture' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','material','texture','textureloaded'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','material','texture','loaded'])) {
                 callBack('texture');
               }
               break;
