@@ -107,7 +107,11 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
 
   ngOnDestroy(): void {
     if (this.texture != null) {
+      if (this.texture.image instanceof HTMLMediaElement) {
+        this.texture.image.pause();
+      }
       this.texture.dispose();
+      this.texture = null;
     }
     if (this.refTexture != null) {
       this.refTexture.dispose();
@@ -536,18 +540,12 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           const video = document.createElement('video');
           const videoTexture = new THREE.VideoTexture(video);
           video.loop = true;
-          video.muted = true;
           video.crossOrigin = 'anonymous';
-          video.autoplay = true;
           video.src = ThreeUtil.getStoreUrl(image);
-          video.load();
-          try {
-            video.play();
-          } catch (e) {
-            setTimeout(() => {
-              video.play();
-            }, 10);
-          }
+          video.addEventListener( 'play', () => {
+            onLoad();
+          });
+          video.play();
           return videoTexture;
         case 'imagebitmap':
         case 'image':

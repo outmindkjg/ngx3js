@@ -1,5 +1,4 @@
 import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
@@ -15,11 +14,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() public type:string = 'position';
   @Input() private url:any = null;
   @Input() private urlType:string = 'auto';
-  @Input() private videoUrl:string = null;
   @Input() private autoplay:boolean = true ;
   @Input() private play:boolean = true ;
   @Input() private loop:boolean = true ;
-  @Input() private volume:number = 1;
+  @Input() private volume:number = null;
   @Input() private refDistance:number = null;
   @Input() private rolloffFactor:number = null;
   @Input() private distanceModel:string = null; // "exponential" | "inverse" | "linear"
@@ -91,13 +89,22 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     if (this.listener !== listener) {
       this.listener = listener;
       this._renderer = renderer;
-      this.resetAudio();
+      this.addChanges('listener');
     }
   }
 
+  private getListener(): THREE.AudioListener {
+    if (this.listener !== null) {
+      return this.listener;
+    } else {
+      return new THREE.AudioListener();
+    }
+  }
+
+
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
-      this.resetAudio();
+      this.getAudio();
       return true;
     }
     return false;
@@ -107,11 +114,9 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   private loadedAudioTexture : THREE.DataTexture = null;
 
   getTexture():THREE.Texture{
-    if (ThreeUtil.isNotNull(this.videoUrl)) {
-      if (this.video === null) {
-        this.resetAudio();
-      }
-      if (this.loadedVideoTexture === null && this.video !== null) {
+    this.getAudio();
+    if (this.video !== null) {
+      if (this.loadedVideoTexture === null) {
         this.loadedVideoTexture = new THREE.VideoTexture(this.video);
       }
       return this.loadedVideoTexture;
@@ -149,178 +154,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   private loadedUrl : string = null;
 
-  private checkAudioPlay() {
-    let hasError = false;
-    if (this.video !== null && this.play) {
-      if (this.video.played.length === 0) {
-        hasError = true;
-      }
-    } else if (this.audio !== null && this.play) {
-      if (this.audio.source.context.currentTime === 0) {
-        hasError = true;
-      }
-    }
-    if (hasError && this._renderer && this._renderer.userGestureSubscribe) {
-      const userGestureSubscribe : Subscription = this._renderer.userGestureSubscribe().subscribe((result : boolean) => {
-        if (result) {
-          this.video = null;
-          this.audio = null;
-          this.loadedUrl = null;
-          this.resetAudio();
-        }
-        userGestureSubscribe.unsubscribe();
-      })
-    } else {
-      this.applyChanges3d(['mixer'])
-    }
-  }
-
-  resetAudio() {
-    if (this.audio === null || this._needUpdate) {
-      this.audio = this.getAudio();
-    }
-    if (this.audio !== null) {
-      if (this.audio.listener !== this.listener) {
-        this.audio.listener = this.listener;
-      }
-      if (this.url !== null && this.loadedUrl !== this.url) {
-        this.loadedUrl = this.url;
-        this.loadedVideoTexture = null;
-        this.video = null;
-        if (ThreeUtil.isNotNull(this.videoUrl)) {
-          const video = document.createElement('video');
-          video.src = ThreeUtil.getStoreUrl(this.videoUrl);
-          video.loop = this.loop;
-          video.autoplay = this.autoplay;
-          this.audio.setMediaElementSource(video);
-          this.video = video;
-          if (this.autoplay || this.play) {
-            this.video.play().then(() => {
-              this.resetAudio();
-              super.callOnLoad();
-              this.setSubscribeNext('loaded');
-            }).catch(() => {
-              setTimeout(( ) => {
-                this.checkAudioPlay();
-              }, 1000)
-            })
-          } else {
-            this.resetAudio();
-            super.callOnLoad();
-            this.setSubscribeNext('loaded');
-          }
-        } else {
-          switch(this.urlType.toLowerCase()) {
-            case 'listener' : 
-              const oscillator = this.listener.context.createOscillator() as any;
-              oscillator.type = 'sine';
-              oscillator.frequency.setValueAtTime( 144, this.audio.context.currentTime ) ;
-              oscillator.start( 0 );
-              this.audio.setNodeSource( oscillator );
-              this.resetAudio();
-              super.callOnLoad();
-              this.addChanges('loaded');
-              break;
-            case 'auto' :
-            case 'audio' :
-            default :
-              if (typeof this.url === 'string') {
-                this.loadAudio(ThreeUtil.getStoreUrl(this.url), (buffer: AudioBuffer) => {
-                  this.audio.setBuffer(buffer);
-                  this.resetAudio();
-                  super.callOnLoad();
-                  this.addChanges('loaded');
-                });
-              } else {
-                this.unSubscribeRefer('url');
-                if (this.url instanceof AudioBuffer) {
-                  this.audio.setBuffer(this.url);
-                } else if (ThreeUtil.isNotNull(this.url.getAudio)){
-                  const audio = this.url.getAudio();
-                  if (audio instanceof AudioBuffer) {
-                    this.audio.setBuffer(this.url.getAudio());
-                  }
-                  this.subscribeRefer(this.url, ThreeUtil.getSubscribe(this.url, () => {
-                    const audio = this.url.getAudio();
-                    if (audio instanceof AudioBuffer) {
-                      this.audio.setBuffer(audio);
-                      this.resetAudio();
-                      super.callOnLoad();
-                      this.addChanges('loaded');
-                    }
-                  },'audio'));
-                }
-                this.resetAudio();
-                super.callOnLoad();
-                this.addChanges('loaded');
-              }
-              break;
-          }
-        }
-        if (this.video !== null) {
-          this.setObject3d(this.audio);
-        }
-      }
-      if (!this.visible) {
-        this.setObject3d(null);
-        this.audio.setVolume(0);
-      } else if (this.visible) {
-        if (this.audio.parent === null && this.audio.parent !== this.parent) {
-          this.setObject3d(this.audio);
-        }
-        this.audio.setVolume(this.volume);
-        if (this.audio instanceof THREE.PositionalAudio) {
-          if (ThreeUtil.isNotNull(this.refDistance)) {
-            this.audio.setRefDistance(this.refDistance);
-          }
-          if (ThreeUtil.isNotNull(this.rolloffFactor)) {
-            this.audio.setRolloffFactor(this.rolloffFactor);
-          }
-          if (ThreeUtil.isNotNull(this.distanceModel)) {
-            this.audio.setDistanceModel(this.distanceModel);
-          }
-          if (ThreeUtil.isNotNull(this.maxDistance)) {
-            this.audio.setMaxDistance(this.maxDistance);
-          }
-          if (ThreeUtil.isNotNull(this.coneInnerAngle) && ThreeUtil.isNotNull(this.coneOuterAngle)) {
-            this.audio.setDirectionalCone(
-              ThreeUtil.getTypeSafe(this.coneInnerAngle,0),
-              ThreeUtil.getTypeSafe(this.coneOuterAngle,360),
-              ThreeUtil.getTypeSafe(this.coneOuterGain,1)
-            );
-          }
-          // this.audio.play();
-        }
-      }
-      this.audio.loop = this.loop;
-      if (this.video !== null) {
-        this.video.loop = this.loop;
-        if (this.video.currentSrc) {
-          if (this.play && this.video.paused) {
-            this.video.play();
-          } else if (!this.play && !this.video.paused) {
-            this.video.pause();
-          }
-          setTimeout(() => {
-            this.checkAudioPlay();
-          }, 1000);
-        }
-      } else {
-        if (this.audio.sourceType !== 'empty') {
-          if (this.play && !this.audio.isPlaying) {
-            this.audio.play();
-          } else if (!this.play && this.audio.isPlaying) {
-            this.audio.pause();
-          }
-          setTimeout(() => {
-            this.checkAudioPlay();
-          }, 1000);
-        }
-      }
-      this.audio.visible = this.visible;
-    }
-  }
-
   getAnalyser(fftSize? : number) : THREE.AudioAnalyser {
     if (this.analyser == null && this.audio !== null) {
       this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
@@ -329,7 +162,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   private _numberAnalyser : () => number = null;
-
 
   getNumber() : () => number {
     this._numberAnalyser = () => {
@@ -341,14 +173,13 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return this._numberAnalyser;
   }
   
-  
   applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['mixer']);
+        changes = ThreeUtil.pushUniq(changes, ['volume','loop','url','mixer','positionalaudio','play','autoplay']);
       }
       changes.forEach((change) => {
-        switch (change) {
+        switch (change.toLowerCase()) {
           case 'mixer' :
             this.unSubscribeReferList('mixerList');
             this.mixerList.forEach((mixer) => {
@@ -365,6 +196,125 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             }
             this.setSubscribeNext('loaded');
             break;
+          case 'url' :
+            if (this.loadedUrl !== this.url) {
+              this.loadedUrl = this.url;
+              let urlType : string = 'audio';
+              let audioUrl : string = null;
+              switch(this.urlType.toLowerCase()) {
+                case 'audio' :
+                case 'video' :
+                  urlType = this.urlType.toLowerCase();
+                  break;
+                case 'auto' :
+                default :
+                  if (typeof this.url === 'string') {
+                    if (this.url.endsWith('.mp4') || this.url.endsWith('.ogv')) {
+                      urlType = 'video';
+                    } else {
+                      urlType = 'audio';
+                    }
+                    audioUrl = this.url;
+                  } else {
+                    urlType = this.urlType;
+                  }
+                  break;
+              }
+              if (audioUrl !== null) {
+                switch(urlType.toLowerCase()) {
+                  case 'audio' :
+                    this.loadAudio(ThreeUtil.getStoreUrl(audioUrl), (buffer: AudioBuffer) => {
+                      this.audio.setBuffer(buffer);
+                      this.addChanges('loaded');
+                    });
+                    break;
+                  case 'video' :
+                    if (this.video !== null) {
+                      this.video = document.createElement('video');
+                    }
+                    this.audio.setMediaElementSource(this.video);
+                    break;
+                }
+              } else {
+                if (this.url instanceof AudioBuffer) {
+                  this.audio.setBuffer(this.url);
+                } else if (this.url instanceof MediaStream) {
+                  this.audio.setMediaStreamSource(this.url);
+                } else if (this.url instanceof AudioBufferSourceNode) {
+                  this.audio.setNodeSource(this.url);
+                } else if (this.url instanceof HTMLMediaElement) {
+                  this.audio.setMediaElementSource(this.url);
+                } else {
+                  switch(urlType.toLowerCase()) {
+                    case 'listener' : 
+                      const oscillator = this.listener.context.createOscillator() as any;
+                      oscillator.type = 'sine';
+                      oscillator.frequency.setValueAtTime( 144, this.audio.context.currentTime ) ;
+                      oscillator.start( 0 );
+                      this.audio.setNodeSource( oscillator );
+                      break;
+                  }
+                }
+              }
+            }
+            break;
+          case 'listener' :
+            const listener = this.getListener();
+            if (this.audio.listener !== listener) {
+              this.audio.listener = listener;
+            }
+            break;
+          case 'loop' :
+            if (ThreeUtil.isNotNull(this.loop)) {
+              this.audio.loop = this.loop;
+            }
+            break;
+          case 'volume' :
+            if (ThreeUtil.isNotNull(this.volume)) {
+              this.audio.setVolume(this.volume);
+            }
+            break;
+          case 'positionalaudio' :
+            if (this.audio instanceof THREE.PositionalAudio) {
+              if (ThreeUtil.isNotNull(this.refDistance)) {
+                this.audio.setRefDistance(this.refDistance);
+              }
+              if (ThreeUtil.isNotNull(this.rolloffFactor)) {
+                this.audio.setRolloffFactor(this.rolloffFactor);
+              }
+              if (ThreeUtil.isNotNull(this.distanceModel)) {
+                this.audio.setDistanceModel(this.distanceModel);
+              }
+              if (ThreeUtil.isNotNull(this.maxDistance)) {
+                this.audio.setMaxDistance(this.maxDistance);
+              }
+              if (ThreeUtil.isNotNull(this.coneInnerAngle) && ThreeUtil.isNotNull(this.coneOuterAngle)) {
+                this.audio.setDirectionalCone(
+                  ThreeUtil.getTypeSafe(this.coneInnerAngle,0),
+                  ThreeUtil.getTypeSafe(this.coneOuterAngle,360),
+                  ThreeUtil.getTypeSafe(this.coneOuterGain,1)
+                );
+              }
+            }
+            break;
+          case 'play' :
+            if (ThreeUtil.isNotNull(this.play)) {
+              if (this.play) {
+                if (!this.audio.isPlaying) {
+                  this.audio.play();  
+                }
+              } else {
+                if (this.audio.isPlaying) {
+                  this.audio.pause();  
+                }
+              }
+            }
+            break;
+          case 'autoplay' :
+            if (ThreeUtil.isNotNull(this.autoplay)) {
+              this.audio.autoplay = this.autoplay;
+            }
+            break;
         }
       });
       super.applyChanges3d(changes);
@@ -376,21 +326,20 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   getAudio():THREE.Audio {
-    if (this.listener !== null && (this.audio === null || this._needUpdate)) {
+    if (this.audio === null || this._needUpdate) {
       this.needUpdate = false;
       this.loadedVideoTexture = null;
       this.video = null;
       switch (this.type.toLowerCase()) {
         case 'audio':
-          this.audio = new THREE.Audio(this.listener);
+          this.audio = new THREE.Audio(this.getListener());
           break;
         case 'position':
         default:
-          this.audio = new THREE.PositionalAudio(this.listener);
+          this.audio = new THREE.PositionalAudio(this.getListener());
           break;
       }
-      this.audio.autoplay = this.autoplay;
-      this.applyChanges3d(['init']);
+      this.setObject3d(this.audio);
     }
     return this.audio;
   }
