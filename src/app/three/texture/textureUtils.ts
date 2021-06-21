@@ -147,8 +147,10 @@ export const CanvasConf : {
     ctx.fillStyle = gradient;
     ctx.fillRect( 0, 0, calc(1,s.x), calc(32,s.y) );
   },
-  test2 : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number) => {
-    const s = TextureUtils.scale(width, height, 16, 16);
+  white : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number) => {
+    const s = TextureUtils.scale(width, height, 2, 2);
+    ctx.fillStyle = 'white';
+    ctx.fillRect( 0, calc(1,s.y), calc(2,s.x), calc(1,s.y));
   },
   test3 : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number) => {
     const s = TextureUtils.scale(width, height, 16, 16);

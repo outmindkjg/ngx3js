@@ -463,7 +463,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           texture.image = loadedTexture.image;
           texture.needsUpdate = true;
         }
-      },'load');
+      },'loaded');
       ThreeUtil.getSubscribe(image, () => {
         texture.needsUpdate = true;
       },'needsupdate');
@@ -841,7 +841,17 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         case 'clearcoatnormalmap':
           this._material['clearcoatNormalMap'] = this.texture;
           break;
+        case 'metalness' :
+        case 'metalnessmap' :
+          this._material['metalnessMap'] = this.texture;
+          break;
+        case 'roughness' :
+        case 'roughnessmap' :
+          this._material['roughnessMap'] = this.texture;
+          break;
         case 'map':
+          this._material['map'] = this.texture;
+          break;
         default:
           this._material['map'] = this.texture;
           break;
@@ -868,38 +878,43 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
-  private _pmremGenerator: THREE.PMREMGenerator = null;
-
   private getPmremGenerator(): THREE.PMREMGenerator {
-    if (this._pmremGenerator == null) {
-      this._pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
-      this._pmremGenerator.compileEquirectangularShader();
-    }
-    return this._pmremGenerator;
+    return new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
   }
 
   private setTextureLoaded(texture : THREE.Texture ) {
-    if (texture !== null && texture.image !== null) {
-      if (ThreeUtil.isNotNull(this.cubeType)) {
-        switch(this.cubeType.toLowerCase()) {
-          case 'equirectangular' :
-            const pmremGenerator = this.getPmremGenerator();
-            texture = pmremGenerator.fromEquirectangular(texture).texture;
-            pmremGenerator.dispose();
-            this._pmremGenerator = null;
-            break;
-          case 'cubemap' :
-            if (texture instanceof THREE.CubeTexture) {
-              texture = this.getPmremGenerator().fromCubemap(texture).texture;
-            }
-            break;
-        }
-      }
+    if (texture !== null) {
       if (this.texture !== texture && texture.image !== null) {
-        console.log(texture);
         this.texture = texture;
         super.setObject(this.texture);
         TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+        if (ThreeUtil.isNotNull(this.cubeType)) {
+          this.texture.onUpdate = () => {
+            switch(this.cubeType.toLowerCase()) {
+              case 'angular' :
+              case 'equirectangular' :
+              case 'fromequirectangular' :
+                const pmremGenerator = this.getPmremGenerator();
+                this.texture = pmremGenerator.fromEquirectangular(texture).texture;
+                pmremGenerator.dispose();
+                TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+                this.applyMaterial();
+                this.setSubscribeNext(['texture','loaded']);
+                break;
+              case 'cubemap' :
+                if (texture instanceof THREE.CubeTexture) {
+                  const pmremGenerator = this.getPmremGenerator();
+                  this.texture = pmremGenerator.fromCubemap(texture).texture;
+                  pmremGenerator.dispose();
+                  TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+                  this.applyMaterial();
+                  this.setSubscribeNext(['texture','loaded']);
+                }
+                break;
+            }
+            this.texture.onUpdate = null;
+          };
+        }
         this.applyMaterial();
       }
       this.setSubscribeNext(['texture','loaded']);

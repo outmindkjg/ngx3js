@@ -2,9 +2,9 @@ import { Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryL
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import * as Nodes from 'three/examples/jsm/nodes/Nodes';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
-import { NodeFrame } from 'three/examples/jsm/nodes/core/NodeFrame';
-import { NodeMaterial } from 'three/examples/jsm/nodes/materials/NodeMaterial';
+
 import { ThreeUtil, TextureOption } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
@@ -41,7 +41,6 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() public nameList: string[] = null;
   @Input() public materialType: string = 'material';
   @Input() private refer: any = null;
-  @Input() private referOverride: boolean = false;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private color: string | number | THREE.Color = null;
@@ -161,6 +160,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private resolutionY: number = null;
   @Input() private control: any = null;
   @Input() private glslVersion: string = null;
+  @Input() private extensions: string = null;
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -357,11 +357,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   }
 
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(
-      ThreeUtil.getTypeSafe(this.clearcoatNormalScaleX, this.clearcoatNormalScale),
-      ThreeUtil.getTypeSafe(this.clearcoatNormalScaleY, this.clearcoatNormalScale),
-      def
-    );
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.clearcoatNormalScaleX, this.clearcoatNormalScale), ThreeUtil.getTypeSafe(this.clearcoatNormalScaleY, this.clearcoatNormalScale), def);
   }
 
   private getIor(def?: number): number {
@@ -477,7 +473,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
           return this.getTextureOption(this.displacementMap, 'displacementMap');
         }
         break;
-      case 'clearcoatnormalmap' :
+      case 'clearcoatnormalmap':
         if (ThreeUtil.isNotNull(this.clearcoatNormalMap)) {
           return this.getTextureOption(this.clearcoatNormalMap, 'clearcoatNormalMap');
         }
@@ -508,6 +504,34 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         return THREE.GLSL3;
     }
     return null;
+  }
+
+  private getExtensions(extensions: { derivatives?: boolean; fragDepth?: boolean; drawBuffers?: boolean; shaderTextureLOD?: boolean }): any {
+    const extensionsList = ThreeUtil.getTypeSafe(this.extensions, '').split(',');
+    extensionsList.forEach((txt) => {
+      switch (txt.toLowerCase()) {
+        case 'derivatives':
+          extensions.derivatives = true;
+          break;
+        case 'frag':
+        case 'depth':
+        case 'fragdepth':
+          extensions.fragDepth = true;
+          break;
+        case 'buffer':
+        case 'buffers':
+        case 'drawbuffers':
+          extensions.drawBuffers = true;
+          break;
+        case 'lod':
+        case 'texture':
+        case 'texturelod':
+        case 'shadertexturelod':
+          extensions.shaderTextureLOD = true;
+          break;
+      }
+    });
+    return extensions;
   }
 
   private getAlphaTest(def?: number): number {
@@ -1008,7 +1032,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       } else if (value['value'] !== undefined) {
         resultUniforms[key] = value;
       } else {
-        resultUniforms[key] = { value : value };
+        resultUniforms[key] = { value: value };
       }
     });
     if (this.debug) {
@@ -1326,7 +1350,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         case 'displacementmap':
           this.material['displacementMap'] = materialClone;
           break;
-        case 'clearcoatnormalmap' :
+        case 'clearcoatnormalmap':
           this.material['clearcoatNormalMap'] = materialClone;
           break;
         case 'matcap':
@@ -1393,13 +1417,21 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
         }
       } else if (ThreeUtil.isNotNull(this.refer)) {
-        material = ThreeUtil.getMaterialOne(this.refer);
-        if (material !== null && this.referOverride) {
-          material = material.clone();
-          if (ThreeUtil.isNotNull(this.side)) {
-            material.side = this.getSide();
-          }
+        this.unSubscribeRefer('refer');
+        const refMaterial = ThreeUtil.getMaterialOne(this.refer);
+        if (refMaterial !== null) {
+          material = refMaterial.clone();
         }
+        this.subscribeRefer(
+          'refer',
+          ThreeUtil.getSubscribe(
+            this.refer,
+            () => {
+              this.needUpdate = true;
+            },
+            'material'
+          )
+        );
       }
       if (material === null) {
         switch (this.type.toLowerCase()) {
@@ -1598,7 +1630,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               reflectivity: this.getReflectivity(),
               // ior: this.getIor(),
               sheen: this.getSheen(),
-              // transmission: this.getTransmission(),
+              transmission: this.getTransmission(),
               // transmissionMap: this.getTexture('transmissionMap')
             };
             material = new THREE.MeshPhysicalMaterial(this.getMaterialParameters(parametersMeshPhysicalMaterial));
@@ -1704,6 +1736,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             if (ThreeUtil.isNotNull(this.glslVersion)) {
               rawShaderMaterial.glslVersion = this.getGlslVersion();
             }
+            if (ThreeUtil.isNotNull(this.extensions)) {
+              this.getExtensions(rawShaderMaterial.extensions);
+            }
             material = rawShaderMaterial;
             break;
           case 'shadermaterial':
@@ -1724,6 +1759,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             const shaderMaterial = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
             if (ThreeUtil.isNotNull(this.glslVersion)) {
               shaderMaterial.glslVersion = this.getGlslVersion();
+            }
+            if (ThreeUtil.isNotNull(this.extensions)) {
+              this.getExtensions(shaderMaterial.extensions);
             }
             material = shaderMaterial;
             break;
@@ -1761,6 +1799,59 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             };
             material = new THREE.SpriteMaterial(this.getMaterialParameters(parametersSpriteMaterial));
             break;
+          case 'standardnodematerial':
+          case 'standardnode':
+            const standardNodeMaterial = new Nodes.StandardNodeMaterial();
+            if (ThreeUtil.isNotNull(this.side)) {
+              standardNodeMaterial.side = this.getSide();
+            }
+            if (ThreeUtil.isNotNull(this.metalness)) {
+              standardNodeMaterial.metalness = new Nodes.FloatNode(this.getMetalness());
+            }
+            if (ThreeUtil.isNotNull(this.reflectivity)) {
+              standardNodeMaterial.reflectivity = new Nodes.FloatNode(this.getReflectivity());
+            }
+            if (ThreeUtil.isNotNull(this.clearcoat)) {
+              standardNodeMaterial.clearcoat = new Nodes.FloatNode(this.getClearcoat());
+            }
+            if (ThreeUtil.isNotNull(this.clearcoatRoughness)) {
+              standardNodeMaterial.clearcoatRoughness = new Nodes.FloatNode(this.getClearcoatRoughness());
+            }
+            if (ThreeUtil.isNotNull(this.emissive)) {
+              standardNodeMaterial.emissive = new Nodes.ColorNode(this.getEmissive());
+            }
+            if (ThreeUtil.isNotNull(this.sheen)) {
+              standardNodeMaterial.sheen = new Nodes.ColorNode(this.getSheen());
+            }
+            if (ThreeUtil.isNotNull(this.roughness)) {
+              standardNodeMaterial.roughness = new Nodes.FloatNode(this.getRoughness());
+            }
+            if (ThreeUtil.isNotNull(this.color)) {
+              standardNodeMaterial.color = new Nodes.ColorNode(this.getColor());
+            }
+
+            material = standardNodeMaterial;
+            break;
+          case 'basicnodematerial':
+          case 'basicnode':
+            const basicNodeMaterial = new Nodes.BasicNodeMaterial();
+            material = basicNodeMaterial;
+            break;
+          case 'meshstandardnodematerial':
+          case 'meshstandardnode':
+            const meshStandardNodeMaterial = new Nodes.MeshStandardNodeMaterial();
+            material = meshStandardNodeMaterial;
+            break;
+          case 'phongnodematerial':
+          case 'phongnode':
+            const phongNodeMaterial = new Nodes.PhongNodeMaterial();
+            material = phongNodeMaterial;
+            break;
+          case 'spritenodematerial':
+          case 'spritenode':
+            const spriteNodeMaterial = new Nodes.SpriteNodeMaterial();
+            material = spriteNodeMaterial;
+            break;
           case 'meshlambertmaterial':
           case 'meshlambert':
           default:
@@ -1788,7 +1879,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
-            material = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
+            const meshLambertMaterial = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
+            material = meshLambertMaterial;
             break;
         }
       }
@@ -1869,6 +1961,54 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['texture']);
+        if (ThreeUtil.isNotNull(this.refer)) {
+          changes = ThreeUtil.pushUniq(changes, [
+            'blending',
+            'blenddst',
+            'blenddstalpha',
+            'blendequation',
+            'blendequationalpha',
+            'blendsrc',
+            'blendsrcalpha',
+            'clipintersection',
+            'clippingplanes',
+            'clipshadows',
+            'colorwrite',
+            'defines',
+            'depthfunc',
+            'depthtest',
+            'depthwrite',
+            'fog',
+            'opacity',
+            'polygonoffset',
+            'polygonoffsetfactor',
+            'polygonoffsetunits',
+            'precision',
+            'premultipliedalpha',
+            'dithering',
+            'flatshading',
+            'shadowside',
+            'tonemapped',
+            'transparent',
+            'stencilwrite',
+            'stencilfunc',
+            'stencilref',
+            'stencilwritemask',
+            'stencilfuncmask',
+            'stencilfail',
+            'stencilzfail',
+            'stencilzpass',
+            'userdata',
+            'alphatest',
+            'name',
+            'side',
+            'vertexcolors',
+            'visible',
+            'texture',
+            'color',
+            'colormultiply',
+          ]);
+        }
       }
       if (ThreeUtil.isIndexOf(changes, 'colormultiply')) {
         changes = ThreeUtil.pushUniq(changes, ['color']);
@@ -1890,7 +2030,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               this.textureList.forEach((texture) => {
                 texture.setMaterial(this.material);
               });
-              this.subscribeListQuery(this.textureList, 'textureList','texture');
+              this.subscribeListQuery(this.textureList, 'textureList', 'texture');
             }
             break;
           case 'color':
@@ -1942,7 +2082,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             this.unSubscribeReferList('clippingPlanesList');
             this.material.clippingPlanes = this.getClippingPlanes();
             if (ThreeUtil.isNotNull(this.clippingPlanesList)) {
-              this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList','clippingPlanes');
+              this.subscribeListQuery(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
             }
             break;
           case 'clipshadows':
@@ -2135,9 +2275,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   private _nodeFrame: any = null;
 
   updateNode(delta) {
-    if (this.material instanceof NodeMaterial) {
+    if (this.material instanceof Nodes.NodeMaterial) {
       if (this._nodeFrame == null) {
-        this._nodeFrame = new NodeFrame(0);
+        this._nodeFrame = new Nodes.NodeFrame(0);
       }
       this._nodeFrame.update(delta).updateNode(this.material);
     }

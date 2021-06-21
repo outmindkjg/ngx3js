@@ -209,11 +209,11 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
       this._subscribe = {};
     }
   }
-  
+
   private _logTimeSeqn : number = 0;
 
   protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
-    this._logTimeSeqn ++; 
+    this._logTimeSeqn ++;
     if (this._logTimeSeqn % repeat === 0) {
       this.consoleLog(key, object, 'info');
     }
@@ -735,7 +735,7 @@ export class ThreeUtil {
 
   static getRenderer(): THREE.Renderer {
     if (this.lastRenderer !== null) {
-      return this.lastRenderer.renderer;
+      return this.lastRenderer.getRenderer();
     } else {
       return new THREE.WebGLRenderer();
     }

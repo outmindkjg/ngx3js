@@ -147,6 +147,8 @@ export  class ShaderUtils {
     if (typeof key === 'string') {
       if (ThreeUtil.isNotNull(ShaderConf[key.toLowerCase()])) {
         return ShaderConf[key.toLowerCase()];
+      } else if (ThreeUtil.isNotNull(ShaderConf[key.toLowerCase() + 'shader'])) {
+        return ShaderConf[key.toLowerCase() + 'shader'];
       } else {
         console.error('unknown shader :' + key);
         return {

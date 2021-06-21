@@ -110,7 +110,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
             break;
           case 'texture':
             this.textureList.forEach((texture) => {
-              texture.getTexture();
+              // texture.getTexture();
             });
             break;
           case 'lensflare':

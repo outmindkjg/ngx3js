@@ -65,8 +65,8 @@ export class Css3dMoleculesComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.subscribeRefer('load', ThreeUtil.getSubscribe(mesh, () => {
+    this.subscribeRefer('loaded', ThreeUtil.getSubscribe(mesh, () => {
       this.changeVisible();
-    }, 'load'));
+    }, 'loaded'));
   }
 }

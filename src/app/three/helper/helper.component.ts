@@ -322,7 +322,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
                     positionalAudioHelper.material[0].visible = true;
                     this.setUpdate();
                   },
-                  'load'
+                  'loaded'
                 )
               );
             } else {

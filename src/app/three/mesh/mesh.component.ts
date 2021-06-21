@@ -1269,7 +1269,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.setUserData('clips', clips);
                 this.setUserData('storageSource', source);
                 this.addChildObject3d(loadedMesh);
-                this.setSubscribeNext(['resetTarget', 'load']);
+                this.setSubscribeNext(['resetTarget', 'loaded']);
               },
               this.storageOption
             );

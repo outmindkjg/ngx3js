@@ -18,9 +18,9 @@
   <three-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
     <three-position [x]="0" [y]="0" [z]="1000"></three-position>
   </three-camera>
-  <three-scene #scene [background]="hdrCubeMap" [backgroundType]="'background-environment-cubemap'">
+  <three-scene #scene [background]="hdrCubeMap" >
     <three-shared>
-      <three-texture #hdrCubeMap [image]="'textures/cube/pisaHDR/'" [cubeImage]="['','hdr']" [loaderType]="'hdrcubetexture'"></three-texture>
+      <three-texture #hdrCubeMap [image]="'textures/cube/pisaHDR/'" [cubeImage]="['','hdr']" [loaderType]="'hdrcubetexture'" [cubeType]="'cubemap'"></three-texture>
       <three-geometry
         #geometry
         [type]="'SphereGeometry'"

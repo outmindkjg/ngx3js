@@ -107,11 +107,16 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   private loadedAudioTexture : THREE.DataTexture = null;
 
   getTexture():THREE.Texture{
-    this.getAudio();
-    if (this.loadedVideoTexture === null && ThreeUtil.isNotNull(this.videoUrl)) {
-      this.loadedVideoTexture = new THREE.VideoTexture(this.video);
+    if (ThreeUtil.isNotNull(this.videoUrl)) {
+      if (this.video === null) {
+        this.resetAudio();
+      }
+      if (this.loadedVideoTexture === null && this.video !== null) {
+        this.loadedVideoTexture = new THREE.VideoTexture(this.video);
+      }
       return this.loadedVideoTexture;
     } else if (ThreeUtil.isNotNull(this.url)) {
+      this.getAudio();
       const analyser = this.getAnalyser();
       let data : Uint8Array = null;
       let fftSize = 128;
@@ -193,6 +198,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             this.video.play().then(() => {
               this.resetAudio();
               super.callOnLoad();
+              this.setSubscribeNext('loaded');
             }).catch(() => {
               setTimeout(( ) => {
                 this.checkAudioPlay();
@@ -201,6 +207,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
           } else {
             this.resetAudio();
             super.callOnLoad();
+            this.setSubscribeNext('loaded');
           }
         } else {
           switch(this.urlType.toLowerCase()) {
@@ -212,7 +219,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
               this.audio.setNodeSource( oscillator );
               this.resetAudio();
               super.callOnLoad();
-              this.addChanges('load');
+              this.addChanges('loaded');
               break;
             case 'auto' :
             case 'audio' :
@@ -222,7 +229,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                   this.audio.setBuffer(buffer);
                   this.resetAudio();
                   super.callOnLoad();
-                  this.addChanges('load');
+                  this.addChanges('loaded');
                 });
               } else {
                 this.unSubscribeRefer('url');
@@ -239,13 +246,13 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                       this.audio.setBuffer(audio);
                       this.resetAudio();
                       super.callOnLoad();
-                      this.addChanges('load');
+                      this.addChanges('loaded');
                     }
                   },'audio'));
                 }
                 this.resetAudio();
                 super.callOnLoad();
-                this.addChanges('load');
+                this.addChanges('loaded');
               }
               break;
           }
@@ -349,14 +356,14 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             });
             this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
             break;
-          case 'load' :
+          case 'loaded' :
             if (this._numberAnalyser !== null && this.analyser === null) {
               this.getAnalyser();
             }
             if (this.loadedAudioTexture !== null) {
               this.getTexture();
             }
-            this.setSubscribeNext('load');
+            this.setSubscribeNext('loaded');
             break;
         }
       });

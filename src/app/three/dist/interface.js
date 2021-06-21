@@ -19,25 +19,93 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ThreeGui = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.BaseComponent = void 0;
+exports.ThreeGui = exports.ThreeGeometryCustom = exports.ThreeStats = exports.ThreeClock = exports.ThreeUtil = exports.BaseComponent = exports.THREE = void 0;
 var core_1 = require("@angular/core");
 var CHROMA = require("chroma-js");
 var THREE = require("three");
+exports.THREE = THREE;
 var dat_gui_module_1 = require("three/examples/jsm/libs/dat.gui.module");
 var stats_module_1 = require("three/examples/jsm/libs/stats.module");
+var DDSLoader_1 = require("three/examples/jsm/loaders/DDSLoader");
 var BaseComponent = /** @class */ (function () {
     function BaseComponent(controls, controlsParams) {
         if (controlsParams === void 0) { controlsParams = []; }
+        this._logTimeSeqn = 0;
+        this._subscribe = {};
+        this.renderer = null;
+        this.scene = null;
+        this.camera = null;
         this.mesh = null;
+        this.meshObject3d = null;
+        this.meshChildren = null;
         this.controls = ThreeUtil.getControls(controls, this);
-        this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
+        this.setControlsParams(controlsParams);
     }
+    BaseComponent.prototype.setControlsParams = function (controlsParams) {
+        if (controlsParams === void 0) { controlsParams = []; }
+        this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
+    };
     BaseComponent.prototype.ngOnInit = function () { };
     BaseComponent.prototype.ngAfterViewInit = function () {
         this.controls.meshRotate.applyAutoRotate();
     };
-    BaseComponent.prototype.setMesh = function (mesh) {
-        this.mesh = mesh;
+    BaseComponent.prototype.ngOnDestroy = function () {
+        if (this._subscribe !== null) {
+            for (var key in this._subscribe) {
+                this._subscribe[key].unsubscribe();
+            }
+            this._subscribe = {};
+        }
+    };
+    BaseComponent.prototype.consoleLogTime = function (key, object, repeat) {
+        if (repeat === void 0) { repeat = 300; }
+        this._logTimeSeqn++;
+        if (this._logTimeSeqn % repeat === 0) {
+            this.consoleLog(key, object, 'info');
+        }
+    };
+    BaseComponent.prototype.consoleLog = function (key, object, level) {
+        if (level === void 0) { level = 'log'; }
+        switch (level) {
+            case 'error':
+                console.error(key, object);
+                break;
+            case 'info':
+                console.info(key, object);
+                break;
+            case 'trace':
+                console.trace(key, object);
+                break;
+            case 'log':
+            default:
+                // console.log(key, object);
+                break;
+        }
+    };
+    BaseComponent.prototype.unSubscribeRefer = function (key) {
+        if (ThreeUtil.isNotNull(this._subscribe[key])) {
+            this._subscribe[key].unsubscribe();
+            delete this._subscribe[key];
+        }
+    };
+    BaseComponent.prototype.subscribeRefer = function (key, subscription) {
+        if (ThreeUtil.isNotNull(this._subscribe[key])) {
+            this.unSubscribeRefer(key);
+        }
+        if (ThreeUtil.isNotNull(subscription)) {
+            this._subscribe[key] = subscription;
+        }
+    };
+    BaseComponent.prototype.setRender = function (renderer) {
+        this.renderer = renderer;
+    };
+    BaseComponent.prototype.setScene = function (scene) {
+        this.scene = scene;
+    };
+    BaseComponent.prototype.setCamera = function (camera) {
+        this.camera = camera;
+    };
+    BaseComponent.prototype.updateGuiController = function () {
         if (this.mesh !== null) {
             var position = this.mesh.getPosition();
             this.controls.meshPositionOrg = {
@@ -59,34 +127,67 @@ var BaseComponent = /** @class */ (function () {
             this.controls.meshScale.z = this.controls.meshScaleOrg.z;
             var rotation = this.mesh.getRotation();
             this.controls.meshRotateOrg = {
-                x: rotation.x / Math.PI * 180,
-                y: rotation.y / Math.PI * 180,
-                z: rotation.z / Math.PI * 180
+                x: (rotation.x / Math.PI) * 180,
+                y: (rotation.y / Math.PI) * 180,
+                z: (rotation.z / Math.PI) * 180
             };
             this.controls.meshRotate.x = this.controls.meshRotateOrg.x;
             this.controls.meshRotate.y = this.controls.meshRotateOrg.y;
             this.controls.meshRotate.z = this.controls.meshRotateOrg.z;
+            if (this.controls.meshScale.x !== 1) {
+                var controlsParams_1 = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Scale');
+                var minScale_1 = this.controls.meshScale.x * 0.01;
+                var maxScale_1 = this.controls.meshScale.x * 1.5;
+                var stepScale_1 = (maxScale_1 - minScale_1) / 30;
+                controlsParams_1.children.forEach(function (child) {
+                    if (ThreeUtil.isNotNull(child.controller['min'])) {
+                        child.controller['min'](minScale_1);
+                    }
+                    if (ThreeUtil.isNotNull(child.controller['max'])) {
+                        child.controller['max'](maxScale_1);
+                    }
+                    if (ThreeUtil.isNotNull(child.controller['step'])) {
+                        child.controller['step'](stepScale_1);
+                    }
+                });
+            }
             var controlsParams = ThreeUtil.getGuiControlParam(this.controlsParams, 'Mesh Visible');
             if (ThreeUtil.isNotNull(controlsParams) && ThreeUtil.isNotNull(this.controls.meshShape)) {
-                this.controls.meshShape.visible = this.mesh.getMesh().visible;
+                this.controls.meshShape.visible = this.mesh.getObject3d().visible;
                 var helperParams = ThreeUtil.getGuiControlParam(controlsParams.children, 'helperVisible');
-                var helper = this.mesh.helper;
-                if (ThreeUtil.isNotNull(helper)) {
-                    if (helper instanceof THREE.SkeletonHelper) {
-                        helperParams.controler.name('Skeleton');
+                var helper = this.mesh.helperComponent;
+                if (helperParams && helperParams.controller) {
+                    if (ThreeUtil.isNotNull(helper)) {
+                        if (helper instanceof THREE.SkeletonHelper) {
+                            helperParams.controller.name('Skeleton');
+                        }
+                        else {
+                            helperParams.controller.name('Helper');
+                        }
+                        this.controls.meshShape.helperVisible = helper.visible;
+                        ThreeUtil.setGuiEnabled(helperParams.controller, true);
                     }
                     else {
-                        helperParams.controler.name('Helper');
+                        this.controls.meshShape.helperVisible = false;
+                        helperParams.controller.name('Not Supported');
+                        ThreeUtil.setGuiEnabled(helperParams.controller, false);
                     }
-                    this.controls.meshShape.helperVisible = helper.visible;
-                    ThreeUtil.setGuiEnabled(helperParams.controler, true);
                 }
                 else {
-                    this.controls.meshShape.helperVisible = false;
-                    helperParams.controler.name('Not Supported');
-                    ThreeUtil.setGuiEnabled(helperParams.controler, false);
+                    console.log(helperParams);
                 }
             }
+        }
+    };
+    BaseComponent.prototype.setMesh = function (mesh) {
+        var _this = this;
+        this.mesh = mesh;
+        if (this.mesh !== null) {
+            this.meshObject3d = this.mesh.getObject3d();
+            this.meshChildren = this.meshObject3d.children;
+            setTimeout(function () {
+                _this.updateGuiController();
+            }, 100);
         }
     };
     BaseComponent.prototype.onRender = function (timer) {
@@ -275,6 +376,15 @@ var ThreeUtil = /** @class */ (function () {
                             eventList[key] = null;
                         }
                         break;
+                    case 'src':
+                        if (ele instanceof HTMLImageElement || ele instanceof HTMLIFrameElement || ele instanceof HTMLVideoElement || ele instanceof HTMLAudioElement) {
+                            ele.src = ThreeUtil.getStoreUrl(value);
+                        }
+                        break;
+                    case 'draggable':
+                        ele.draggable = value;
+                        break;
+                    case 'innerHtml':
                     case 'innerHTML':
                         ele.innerHTML = value;
                         break;
@@ -303,25 +413,22 @@ var ThreeUtil = /** @class */ (function () {
                         }
                         break;
                     case 'color':
+                    case 'background':
                     case 'backgroundColor':
                     case 'borderColor':
                         if (typeof value == 'number' || typeof value == 'string') {
-                            styleList[key] = _this.getColorSafe(value).getStyle();
+                            if (typeof value == 'string' && (value.indexOf('rgba') > -1 || value.indexOf('rgb') > -1 || value.indexOf('#') > -1)) {
+                                styleList[key] = value;
+                            }
+                            else {
+                                styleList[key] = _this.getColorSafe(value).getStyle();
+                            }
                         }
                         else if (value instanceof THREE.Color) {
                             styleList[key] = value.getStyle();
                         }
                         else if (value instanceof THREE.Vector4) {
-                            styleList[key] =
-                                'rgba(' +
-                                    value.x * 255 +
-                                    ',' +
-                                    value.y * 255 +
-                                    ',' +
-                                    value.z * 255 +
-                                    ',' +
-                                    value.w +
-                                    ')';
+                            styleList[key] = 'rgba(' + value.x * 255 + ',' + value.y * 255 + ',' + value.z * 255 + ',' + value.w + ')';
                         }
                         break;
                     case 'transform':
@@ -420,6 +527,9 @@ var ThreeUtil = /** @class */ (function () {
                     var key = _a[0], value = _a[1];
                     ele.style[key] = value;
                 });
+                if (this.isNotNull(styles.className)) {
+                    ele.className = styles.className;
+                }
                 break;
             default:
                 var cssStyleList_1 = [];
@@ -427,12 +537,7 @@ var ThreeUtil = /** @class */ (function () {
                     var key = _a[0], value = _a[1];
                     cssStyleList_1.push(_this.camelCaseToDash(key) + ': ' + value);
                 });
-                this.cssInject('.' +
-                    clazzName +
-                    (vertualClass ? ':' + vertualClass : '') +
-                    '{' +
-                    cssStyleList_1.join(';') +
-                    '}', clazzName);
+                this.cssInject('.' + clazzName + (vertualClass ? ':' + vertualClass : '') + '{' + cssStyleList_1.join(';') + '}', clazzName);
                 if (!ele.classList.contains(clazzName)) {
                     ele.classList.add(clazzName);
                 }
@@ -476,7 +581,12 @@ var ThreeUtil = /** @class */ (function () {
         this.lastRenderer = lastRenderer;
     };
     ThreeUtil.getRenderer = function () {
-        return this.lastRenderer;
+        if (this.lastRenderer !== null && ThreeUtil.isNotNull(this.lastRenderer.renderer)) {
+            return this.lastRenderer.renderer;
+        }
+        else {
+            return new THREE.WebGLRenderer();
+        }
     };
     ThreeUtil.render = function (renderTimer) {
         if (this.renderTimer !== renderTimer) {
@@ -491,11 +601,132 @@ var ThreeUtil = /** @class */ (function () {
     ThreeUtil.isNotNull = function (value) {
         return !this.isNull(value);
     };
+    ThreeUtil.isArray = function (value) {
+        return Array.isArray(value);
+    };
+    ThreeUtil.getFirst = function (value) {
+        if (Array.isArray(value)) {
+            return value[0] || null;
+        }
+        else {
+            return value;
+        }
+    };
+    ThreeUtil.isIndexOf = function (data, findMe) {
+        if (Array.isArray(findMe)) {
+            var result_1 = false;
+            findMe.forEach(function (txt) {
+                if (data.indexOf(txt) > -1) {
+                    result_1 = true;
+                }
+            });
+            return result_1;
+        }
+        else {
+            return data.indexOf(findMe) > -1;
+        }
+    };
+    ThreeUtil.isOnlyIndexOf = function (data, findMe, addedFindMe) {
+        if (data.length === 0) {
+            return true;
+        }
+        else {
+            if (this.isNotNull(addedFindMe)) {
+                findMe = this.pushUniq(findMe, addedFindMe);
+            }
+            var result_2 = true;
+            data.forEach(function (txt) {
+                if (findMe.indexOf(txt) === -1) {
+                    result_2 = false;
+                }
+            });
+            return result_2;
+        }
+    };
+    ThreeUtil.pushUniq = function (data, addMe) {
+        if (Array.isArray(addMe)) {
+            addMe.forEach(function (obj) {
+                if (data.indexOf(obj) === -1) {
+                    data.push(obj);
+                }
+            });
+        }
+        else if (ThreeUtil.isNotNull(addMe)) {
+            if (data.indexOf(addMe) === -1) {
+                data.push(addMe);
+            }
+        }
+        return data;
+    };
+    ThreeUtil.getStoreUrl = function (url) {
+        if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        else {
+            return '/assets/examples/' + url;
+        }
+    };
+    ThreeUtil.getLoadingManager = function () {
+        if (this._manager === null) {
+            this._manager = new THREE.LoadingManager(function () {
+                console.log('loaded');
+            }, function (url, loaded, total) {
+                console.log(url, loaded, total);
+            }, function (url) {
+                console.error(url);
+            });
+            this._manager.addHandler(/\.dds$/i, new DDSLoader_1.DDSLoader());
+        }
+        return this._manager;
+    };
+    ThreeUtil.getHtmlCode = function (info, preTab) {
+        var _this = this;
+        if (preTab === void 0) { preTab = ''; }
+        var tag = info.tag;
+        var attributes = info.attributes;
+        var tags = [];
+        tags.push(preTab + '<' + tag);
+        attributes.forEach(function (attr) {
+            var key = attr.name;
+            var value = attr.value;
+            if (_this.isNotNull(value)) {
+                if (value instanceof THREE.Color) {
+                    tags.push(preTab + '\t[' + key + ']="\'#' + value.getHexString() + '\'"');
+                }
+                else if (typeof value == 'number') {
+                    if (Math.round(value) !== value) {
+                        tags.push(preTab + '\t[' + key + ']="' + parseFloat(value.toFixed(4)) + '"');
+                    }
+                    else {
+                        tags.push(preTab + '\t[' + key + ']="' + value + '"');
+                    }
+                }
+                else if (typeof value == 'string') {
+                    tags.push(preTab + '\t[' + key + ']="\'' + value + '\'"');
+                }
+            }
+        });
+        tags.push(preTab + '>');
+        if (info.children && info.children.length > 0) {
+            info.children.forEach(function (child) {
+                tags.push(_this.getHtmlCode(child.getTagAttribute(info.options), preTab + '\t'));
+            });
+        }
+        tags.push(preTab + '</' + tag + '>');
+        return tags.join('\n');
+    };
     ThreeUtil.getColor = function (color) {
         if (this.isNotNull(color)) {
-            var colorStr = color.toString();
-            if (colorStr.startsWith('0x')) {
-                return new THREE.Color(parseInt(colorStr, 16));
+            if (color instanceof THREE.Color) {
+                return color;
+            }
+            else if (typeof color === 'string') {
+                return this.getColorSafe(color, null);
+            }
+            else if (typeof color === 'object') {
+                if (this.isNotNull(color.r) && this.isNotNull(color.g) && this.isNotNull(color.b)) {
+                    return new THREE.Color(color.r, color.g, color.b);
+                }
             }
             else {
                 return new THREE.Color(color);
@@ -504,18 +735,14 @@ var ThreeUtil = /** @class */ (function () {
         return undefined;
     };
     ThreeUtil.getColorRGB = function (r, g, b, color) {
-        var colorObj = this.isNotNull(color)
-            ? this.getColor(color)
-            : new THREE.Color(0x000000);
+        var colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
         if (this.isNotNull(colorObj)) {
             return colorObj.setRGB(this.isNotNull(r) ? r : colorObj.r, this.isNotNull(g) ? g : colorObj.g, this.isNotNull(b) ? b : colorObj.b);
         }
         return undefined;
     };
     ThreeUtil.getColorHSL = function (h, s, l, color) {
-        var colorObj = this.isNotNull(color)
-            ? this.getColor(color)
-            : new THREE.Color(0x000000);
+        var colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
         if (this.isNotNull(colorObj)) {
             var hsl = colorObj.getHSL({ h: 0, s: 0, l: 0 });
             return colorObj.setHSL(this.isNotNull(h) ? h : hsl.h, this.isNotNull(s) ? s : hsl.s, this.isNotNull(l) ? l : hsl.l);
@@ -543,16 +770,71 @@ var ThreeUtil = /** @class */ (function () {
         }
         return undefined;
     };
-    ThreeUtil.getColorSafe = function (color, altColor) {
-        var defColor = this.isNotNull(color) ? color : altColor;
+    ThreeUtil.getColorMultiplySafe = function (color, altColor, multiply) {
+        var safeColor = this.getColorSafe(color, altColor);
+        if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
+            safeColor.multiplyScalar(multiply);
+            if (safeColor.r < 0 || safeColor.r > 1) {
+                safeColor.r = Math.min(1, Math.max(0, safeColor.r));
+            }
+            if (safeColor.g < 0 || safeColor.g > 1) {
+                safeColor.g = Math.min(1, Math.max(0, safeColor.g));
+            }
+            if (safeColor.b < 0 || safeColor.b > 1) {
+                safeColor.b = Math.min(1, Math.max(0, safeColor.b));
+            }
+        }
+        return safeColor;
+    };
+    ThreeUtil.getParseFloat = function (value, max) {
+        if (max === void 0) { max = 1; }
+        if (/^(\+|\-|)[0-9]+(\.|)[0-9]*$/.test(value)) {
+            return parseFloat(value);
+        }
+        else {
+            switch (value.toLowerCase()) {
+                case 'random':
+                default:
+                    return Math.random() * max;
+            }
+        }
+    };
+    ThreeUtil.getColorSafe = function (color, altColor, nullColor) {
+        var defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
         if (this.isNotNull(defColor)) {
             if (defColor instanceof THREE.Color) {
                 return defColor;
             }
             else if (typeof defColor === 'string') {
                 var colorStr = defColor;
-                if (colorStr.startsWith('0x')) {
+                if (colorStr.startsWith('#')) {
+                    return new THREE.Color(colorStr);
+                }
+                else if (colorStr === 'random') {
+                    return new THREE.Color(Math.random() * 0xffffff);
+                }
+                else if (colorStr.startsWith('0x')) {
                     return new THREE.Color(parseInt(colorStr, 16));
+                }
+                else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
+                    var _a = (colorStr + ',,,')
+                        .replace('(', ',')
+                        .replace(')', ',')
+                        .replace(':', ',')
+                        .replace(/[^A-Za-z\-0-9\.,]/g, '')
+                        .split(','), type = _a[0], val1 = _a[1], val2 = _a[2], val3 = _a[3];
+                    switch (type.toLowerCase()) {
+                        case 'hsl':
+                            var h = this.getParseFloat(val1);
+                            var s = this.getParseFloat(val2);
+                            var l = this.getParseFloat(val3);
+                            return new THREE.Color().setHSL(h, s, l);
+                        case 'rgb':
+                            var r = this.getParseFloat(val1, 255);
+                            var g = this.getParseFloat(val2, 255);
+                            var b = this.getParseFloat(val3, 255);
+                            return new THREE.Color(r / 255, g / 255, b / 255);
+                    }
                 }
             }
             return new THREE.Color(defColor);
@@ -589,36 +871,782 @@ var ThreeUtil = /** @class */ (function () {
     ThreeUtil.getAngleSafe = function (angle, altangle) {
         var defValue = this.getTypeSafe(angle, altangle);
         if (this.isNotNull(defValue)) {
+            if (typeof angle === 'string') {
+                return Math.random() * 2 * Math.PI;
+            }
+            else {
+                return (defValue / 180) * Math.PI;
+            }
+        }
+        return undefined;
+    };
+    ThreeUtil.getBooleanSafe = function (bl, altbl) {
+        var defValue = this.getTypeSafe(bl, altbl);
+        if (typeof defValue === 'boolean') {
+            return defValue;
+        }
+        else if (typeof defValue === 'string') {
+            switch (defValue.toLowerCase()) {
+                case '1':
+                case 'y':
+                case 'yes':
+                case 'true':
+                case 't':
+                case 'on':
+                    return true;
+                case '':
+                case '0':
+                case 'n':
+                case 'no':
+                case 'false':
+                case 'f':
+                case 'off':
+                    return false;
+            }
+        }
+        else if (typeof defValue === 'number') {
+            if (defValue > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return undefined;
+    };
+    ThreeUtil.getAngle2RadianSafe = function (angle, altangle) {
+        var defValue = this.getTypeSafe(angle, altangle);
+        if (this.isNotNull(defValue)) {
             return (defValue / 180) * Math.PI;
         }
         return undefined;
     };
-    ThreeUtil.getVector2Safe = function (x, y, altValue) {
-        var defValue = this.isNotNull(x) || this.isNotNull(y)
-            ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x))
-            : altValue;
+    ThreeUtil.getRadian2AngleSafe = function (angle, altangle) {
+        var defValue = this.getTypeSafe(angle, altangle);
         if (this.isNotNull(defValue)) {
-            return defValue;
+            return (defValue / Math.PI) * 180;
         }
         return undefined;
     };
-    ThreeUtil.getVector3Safe = function (x, y, z, altValue) {
-        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
-            ? new THREE.Vector3(this.getTypeSafe(x, y, z), this.getTypeSafe(y, z, x), this.getTypeSafe(z, x, y))
-            : altValue;
-        if (this.isNotNull(defValue)) {
-            return defValue;
+    ThreeUtil.getVector2VSafe = function (v2, altValue) {
+        if (v2 instanceof THREE.Vector2) {
+            return v2;
+        }
+        else if (this.isNotNull(v2) && v2.length >= 2) {
+            return this.getVector2Safe(v2[0], v2[1], altValue);
         }
         return undefined;
     };
-    ThreeUtil.getEulerSafe = function (x, y, z, altValue) {
-        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z)
-            ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x, y, z), 0), this.getAngleSafe(this.getTypeSafe(y, x, z), 0), this.getAngleSafe(this.getTypeSafe(z, x, y), 0))
-            : altValue;
+    ThreeUtil.getVector2Safe = function (x, y, altValue, v2, isRequired) {
+        var defValue = this.isNotNull(x) || this.isNotNull(y) ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x)) : null;
         if (this.isNotNull(defValue)) {
             return defValue;
         }
+        if (this.isNotNull(v2)) {
+            return this.getVector2VSafe(v2, altValue);
+        }
+        if (this.isNotNull(altValue)) {
+            return altValue;
+        }
+        if (isRequired) {
+            return new THREE.Vector2();
+        }
         return undefined;
+    };
+    ThreeUtil.getVector3VSafe = function (v3, altValue) {
+        if (v3 instanceof THREE.Vector3) {
+            return v3;
+        }
+        else if (this.isNotNull(v3) && v3.length >= 3) {
+            return this.getVector3Safe(v3[0], v3[1], v3[2], altValue);
+        }
+        return undefined;
+    };
+    ThreeUtil.getVector3Safe = function (x, y, z, altValue, v3, isRequired) {
+        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Vector3(this.getTypeSafe(x, y, z), this.getTypeSafe(y, z, x), this.getTypeSafe(z, x, y)) : null;
+        if (this.isNotNull(defValue)) {
+            return defValue;
+        }
+        if (this.isNotNull(v3)) {
+            return this.getVector3VSafe(v3, altValue);
+        }
+        if (this.isNotNull(altValue)) {
+            return altValue;
+        }
+        if (isRequired) {
+            return new THREE.Vector3();
+        }
+        return undefined;
+    };
+    ThreeUtil.getMatrix4Safe = function (obj, matrixType) {
+        if (matrixType === void 0) { matrixType = 'maxtix'; }
+        if (this.isNotNull(obj)) {
+            switch (matrixType.toLowerCase()) {
+                case 'projectionmatrixinverse':
+                    if (this.isNotNull(obj['projectionMatrixInverse'])) {
+                        return new THREE.Matrix4().copy(obj['projectionMatrixInverse']);
+                    }
+                    break;
+                case 'projectionmatrix':
+                    if (this.isNotNull(obj['projectionMatrix'])) {
+                        return obj['projectionMatrix'];
+                    }
+                    break;
+                case 'matrixworldinverse':
+                    if (this.isNotNull(obj['matrixWorldInverse'])) {
+                        return obj['matrixWorldInverse'];
+                    }
+                    break;
+                case 'matrixworld':
+                    return obj.matrixWorld;
+                case 'matrix':
+                default:
+                    return obj.matrix;
+            }
+        }
+        return new THREE.Matrix4();
+    };
+    ThreeUtil.getEulerSafe = function (x, y, z, altValue, isRequired) {
+        var defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x, y, z), 0), this.getAngleSafe(this.getTypeSafe(y, x, z), 0), this.getAngleSafe(this.getTypeSafe(z, x, y), 0)) : altValue;
+        if (this.isNotNull(defValue)) {
+            return defValue;
+        }
+        if (isRequired) {
+            return new THREE.Euler(0, 0, 0);
+        }
+        return undefined;
+    };
+    ThreeUtil.getWrappingSafe = function (baseWrap, altWrap, def) {
+        var wrap = this.getTypeSafe(baseWrap, altWrap, def || '');
+        switch (wrap.toLowerCase()) {
+            case 'wraprepeat':
+            case 'repeatwrapping':
+            case 'repeat':
+                return THREE.RepeatWrapping;
+            case 'mirroredrepeatwrapping':
+            case 'mirroredrepeat':
+                return THREE.MirroredRepeatWrapping;
+            case 'clamptoedgewrapping':
+            case 'clamptoedge':
+            default:
+                return THREE.ClampToEdgeWrapping;
+        }
+    };
+    ThreeUtil.getTextureFilterSafe = function (baseFilter, altFilter, def) {
+        var filter = this.getTypeSafe(baseFilter, altFilter, def || '');
+        switch (filter) {
+            case 'nearestfilter':
+            case 'nearest':
+                return THREE.NearestFilter;
+            case 'nearestmipmapnearestfilter':
+            case 'nearestmipmapnearest':
+                return THREE.NearestMipmapNearestFilter;
+            case 'nearestmipmaplinearfilter':
+            case 'nearestmipmaplinear':
+                return THREE.NearestMipmapLinearFilter;
+            case 'linearmipmapnearestfilter':
+            case 'linearmipmapnearest':
+                return THREE.LinearMipmapNearestFilter;
+            case 'linearmipmaplinearfilter':
+            case 'linearmipmaplinear':
+                return THREE.LinearMipmapLinearFilter;
+            case 'linearfilter':
+            case 'linear':
+            default:
+                return THREE.LinearFilter;
+        }
+    };
+    ThreeUtil.getBlendingSafe = function (baseBlending, altBlending, def) {
+        var blending = this.getTypeSafe(baseBlending, altBlending, def || '');
+        switch (blending.toLowerCase()) {
+            case 'noblending':
+            case 'no':
+                return THREE.NoBlending;
+            case 'normalblending':
+            case 'normal':
+                return THREE.NormalBlending;
+            case 'additiveblending':
+            case 'additive':
+                return THREE.AdditiveBlending;
+            case 'subtractiveblending':
+            case 'subtractive':
+                return THREE.SubtractiveBlending;
+            case 'multiplyblending':
+            case 'multiply':
+                return THREE.MultiplyBlending;
+            case 'customblending':
+            case 'custom':
+                return THREE.CustomBlending;
+        }
+        return undefined;
+    };
+    ThreeUtil.getPixelFormatSafe = function (baseFormat, altFormat, def) {
+        var format = this.getTypeSafe(baseFormat, altFormat, def || '');
+        switch (format.toLowerCase()) {
+            case 'alphaformat':
+            case 'alpha':
+                return THREE.AlphaFormat;
+            case 'redformat':
+            case 'red':
+                return THREE.RedFormat;
+            case 'redintegerformat':
+            case 'redinteger':
+                return THREE.RedIntegerFormat;
+            case 'rgformat':
+            case 'rg':
+                return THREE.RGFormat;
+            case 'rgintegerformat':
+            case 'rginteger':
+                return THREE.RGIntegerFormat;
+            case 'rgbformat':
+            case 'rgb':
+                return THREE.RGBFormat;
+            case 'rgbintegerformat':
+            case 'rgbinteger':
+                return THREE.RGBIntegerFormat;
+            case 'rgbaintegerformat':
+            case 'rgbainteger':
+                return THREE.RGBAIntegerFormat;
+            case 'luminanceformat':
+            case 'luminance':
+                return THREE.LuminanceFormat;
+            case 'luminancealphaformat':
+            case 'luminancealpha':
+                return THREE.LuminanceAlphaFormat;
+            case 'rgbeformat':
+            case 'rgbe':
+                return THREE.RGBEFormat;
+            case 'depthformat':
+            case 'depth':
+                return THREE.DepthFormat;
+            case 'depthstencilformat':
+            case 'depthstencil':
+                return THREE.DepthStencilFormat;
+            case 'rgbaformat':
+            case 'rgba':
+                return THREE.RGBAFormat;
+            default:
+                break;
+        }
+        return undefined;
+    };
+    ThreeUtil.getTextureDataTypeSafe = function (baseFormat, altFormat, def) {
+        var type = this.getTypeSafe(baseFormat, altFormat, def || '');
+        switch (type.toLowerCase()) {
+            case 'bytetype':
+            case 'byte':
+                return THREE.ByteType;
+            case 'shorttype':
+            case 'short':
+                return THREE.ShortType;
+            case 'unsignedshorttype':
+            case 'unsignedshort':
+                return THREE.UnsignedShortType;
+            case 'inttype':
+            case 'int':
+                return THREE.IntType;
+            case 'unsignedinttype':
+            case 'unsignedint':
+                return THREE.UnsignedIntType;
+            case 'floattype':
+            case 'float':
+                return THREE.FloatType;
+            case 'halffloattype':
+            case 'halffloat':
+                return THREE.HalfFloatType;
+            case 'unsignedshort4444type':
+            case 'unsignedshort4444':
+                return THREE.UnsignedShort4444Type;
+            case 'unsignedshort5551type':
+            case 'unsignedshort5551':
+                return THREE.UnsignedShort5551Type;
+            case 'unsignedshort565type':
+            case 'unsignedshort565':
+                return THREE.UnsignedShort565Type;
+            case 'unsignedint248type':
+            case 'unsignedint248':
+                return THREE.UnsignedInt248Type;
+            case 'unsignedbytetype':
+            case 'unsignedbyte':
+            default:
+                return THREE.UnsignedByteType;
+        }
+    };
+    ThreeUtil.getObject3d = function (object3d, isRequired) {
+        if (isRequired === void 0) { isRequired = true; }
+        if (object3d instanceof THREE.Object3D) {
+            return object3d;
+        }
+        else if (this.isNotNull(object3d.getMesh)) {
+            return object3d.getObject3d();
+        }
+        else if (this.isNotNull(object3d.getLight)) {
+            return object3d.getObject3d();
+        }
+        else if (this.isNotNull(object3d.getHelper)) {
+            return object3d.getHelper();
+        }
+        else if (this.isNotNull(object3d.getAudio)) {
+            return object3d.getAudio();
+        }
+        else if (this.isNotNull(object3d.getCamera)) {
+            return object3d.getObject3d();
+        }
+        else if (this.isNotNull(object3d.getScene)) {
+            return object3d.getScene();
+        }
+        else if (this.isNotNull(object3d.getObject3d)) {
+            return object3d.getObject3d();
+        }
+        if (!isRequired) {
+            return null;
+        }
+        return new THREE.Object3D();
+    };
+    ThreeUtil.getMeshFind = function (mesh) {
+        if (mesh instanceof THREE.Mesh) {
+            return mesh;
+        }
+        else if (this.isNotNull(mesh.getHelper)) {
+            mesh = mesh.getHelper();
+        }
+        else if (this.isNotNull(mesh.getMesh)) {
+            mesh = mesh.getObject3d();
+        }
+        else if (this.isNotNull(mesh)) {
+            mesh = this.getObject3d(mesh);
+        }
+        if (mesh instanceof THREE.Mesh) {
+            return mesh;
+        }
+        else if (mesh instanceof THREE.Group) {
+            var childMesh_1 = null;
+            mesh.children.forEach(function (child) {
+                if (childMesh_1 === null && child instanceof THREE.Mesh) {
+                    childMesh_1 = child;
+                }
+            });
+            if (childMesh_1 !== null) {
+                return childMesh_1;
+            }
+        }
+        return null;
+    };
+    ThreeUtil.getMesh = function (mesh) {
+        var findedMesh = this.getMeshFind(mesh);
+        if (findedMesh !== null) {
+            return findedMesh;
+        }
+        return new THREE.Mesh();
+    };
+    ThreeUtil.getLight = function (light) {
+        if (light instanceof THREE.Light) {
+            return light;
+        }
+        else if (this.isNotNull(light)) {
+            var mesh = this.getObject3d(light);
+            if (mesh instanceof THREE.Light) {
+                return mesh;
+            }
+        }
+        return new THREE.Light();
+    };
+    ThreeUtil.getMaterialByType = function (material, materialType) {
+        var _this = this;
+        var matchedMat = null;
+        if (this.isNotNull(materialType) && materialType != '') {
+            var matList = this.getMaterial(material);
+            if (Array.isArray(matList)) {
+                matList.forEach(function (mat) {
+                    if (_this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType) {
+                        matchedMat = mat;
+                    }
+                });
+            }
+            else if (this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType) {
+                matchedMat = matList;
+            }
+        }
+        else {
+            var matList = this.getMaterial(material);
+            if (Array.isArray(matList)) {
+                if (matList.length > 0) {
+                    matchedMat = matList[0];
+                }
+            }
+            else {
+                matchedMat = matList;
+            }
+        }
+        return matchedMat;
+    };
+    ThreeUtil.getMaterial = function (material) {
+        if (material instanceof THREE.Material) {
+            return material;
+        }
+        else if (Array.isArray(material)) {
+            return material;
+        }
+        else if (this.isNotNull(material.getMaterial)) {
+            return material.getMaterial();
+        }
+        else if (this.isNotNull(material)) {
+            var mesh = this.getObject3d(material);
+            if (mesh instanceof THREE.Mesh) {
+                if (this.isNotNull(material.material)) {
+                    return material.material;
+                }
+            }
+        }
+        return new THREE.Material();
+    };
+    ThreeUtil.getMaterialOne = function (material) {
+        var materialList = this.getMaterial(material);
+        if (Array.isArray(materialList)) {
+            if (materialList.length > 0) {
+                materialList[0];
+            }
+        }
+        else {
+            return materialList;
+        }
+        return new THREE.Material();
+    };
+    ThreeUtil.getGeometry = function (geometry) {
+        if (geometry instanceof THREE.BufferGeometry) {
+            return geometry;
+        }
+        else if (this.isNotNull(geometry.getGeometry)) {
+            return geometry.getGeometry();
+        }
+        else if (this.isNotNull(geometry)) {
+            var mesh = this.getObject3d(geometry);
+            if (mesh instanceof THREE.Mesh) {
+                if (this.isNotNull(mesh.geometry)) {
+                    return mesh.geometry;
+                }
+            }
+        }
+        return new THREE.BufferGeometry();
+    };
+    ThreeUtil.setThreeComponent = function (key, object) {
+        if (this.isNotNull(object)) {
+            this.loadedComponent[key] = object;
+        }
+        else {
+            delete this.loadedComponent[key];
+        }
+    };
+    ThreeUtil.isThreeComponent = function (object) {
+        if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    ThreeUtil.getThreeComponent = function (object) {
+        if (this.isThreeComponent(object)) {
+            return this.loadedComponent[object.userData.component] || {};
+        }
+        else {
+            return null;
+        }
+    };
+    ThreeUtil.setSubscribeNext = function (object, key) {
+        if (this.isNotNull(object.setSubscribeNext)) {
+            object.setSubscribeNext(key);
+        }
+        else if (this.isThreeComponent(object)) {
+            var threeComponent = this.getThreeComponent(object);
+            if (this.isNotNull(threeComponent.setSubscribeNext)) {
+                threeComponent.setSubscribeNext(key);
+            }
+        }
+    };
+    ThreeUtil.getSubscribe = function (object, callBack, nextKey) {
+        var _this = this;
+        if (this.isThreeComponent(object)) {
+            var threeComponent = this.getThreeComponent(object);
+            if (this.isNotNull(threeComponent.getSubscribe)) {
+                object = threeComponent;
+            }
+        }
+        if (this.isNotNull(object.getSubscribe)) {
+            return object.getSubscribe().subscribe(function (keyList) {
+                if (_this.isNull(nextKey)) {
+                    callBack('anyevent');
+                }
+                else {
+                    switch (nextKey.toLowerCase()) {
+                        case 'lookat':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'position', 'lookat'])) {
+                                callBack('lookat');
+                            }
+                            break;
+                        case 'position':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'position'])) {
+                                callBack('position');
+                            }
+                            break;
+                        case 'rotation':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'rotation'])) {
+                                callBack('rotation');
+                            }
+                            break;
+                        case 'scale':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'scale'])) {
+                                callBack('scale');
+                            }
+                            break;
+                        case 'geometry':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'geometry'])) {
+                                callBack('geometry');
+                            }
+                            break;
+                        case 'material':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'material'])) {
+                                callBack('material');
+                            }
+                            break;
+                        case 'texture':
+                            if (_this.isIndexOf(keyList, ['object3d', 'mesh', 'material', 'texture', 'loaded'])) {
+                                callBack('texture');
+                            }
+                            break;
+                        default:
+                            if (keyList.indexOf(nextKey.toLowerCase()) > -1) {
+                                callBack(nextKey);
+                            }
+                            break;
+                    }
+                }
+            });
+        }
+        return null;
+    };
+    ThreeUtil.getTexture = function (texture, refType, isRequired) {
+        if (refType === void 0) { refType = 'map'; }
+        if (isRequired === void 0) { isRequired = true; }
+        if (texture instanceof THREE.Texture) {
+            return texture;
+        }
+        else if (this.isNotNull(texture.getTexture)) {
+            return texture.getTexture();
+        }
+        else if (this.isNotNull(texture)) {
+            var material = this.getMaterial(texture);
+            if (Array.isArray(material) && material.length > 0) {
+                var firstMaterial = material[0];
+                if (this.isNotNull(firstMaterial[refType]) && firstMaterial[refType] instanceof THREE.Texture) {
+                    return firstMaterial[refType];
+                }
+            }
+            else {
+                if (this.isNotNull(material[refType]) && material[refType] instanceof THREE.Texture) {
+                    return material[refType];
+                }
+            }
+        }
+        if (!isRequired) {
+            return null;
+        }
+        return new THREE.Texture();
+    };
+    ThreeUtil.getPosition = function (position) {
+        if (this.isNotNull(position)) {
+            if (position instanceof THREE.Vector3) {
+                return position;
+            }
+            else if (Array.isArray(position) && position.length >= 3) {
+                return this.getVector3Safe(position[0], position[1], position[2], null, null, true);
+            }
+            else if (this.isNotNull(position.getPosition)) {
+                return position.getPosition();
+            }
+            else if (this.isNotNull(position.getLookAt)) {
+                return position.getLookAt();
+            }
+            else if (this.isNotNull(position.x) && this.isNotNull(position.y) && this.isNotNull(position.z)) {
+                return this.getVector3Safe(position.x, position.y, position.z, null, null, true);
+            }
+            else {
+                var object3d = this.getObject3d(position);
+                return object3d.position;
+            }
+        }
+        return new THREE.Vector3();
+    };
+    ThreeUtil.getRotation = function (rotation) {
+        if (this.isNotNull(rotation)) {
+            if (rotation instanceof THREE.Euler) {
+                return rotation;
+            }
+            else if (Array.isArray(rotation) && rotation.length >= 3) {
+                return this.getEulerSafe(rotation[0], rotation[1], rotation[2], null, true);
+            }
+            else if (this.isNotNull(rotation.getRotation)) {
+                return rotation.getRotation();
+            }
+            else if (this.isNotNull(rotation.x) && this.isNotNull(rotation.y) && this.isNotNull(rotation.z)) {
+                if (this.isNotNull(rotation.isEuler) && rotation.isEuler) {
+                    return new THREE.Euler(rotation.x, rotation.y, rotation.z);
+                }
+                else {
+                    return this.getEulerSafe(rotation.x, rotation.y, rotation.z, null, true);
+                }
+            }
+            else {
+                var object3d = this.getObject3d(rotation);
+                return object3d.rotation;
+            }
+        }
+        return new THREE.Euler();
+    };
+    ThreeUtil.getScale = function (scale) {
+        if (this.isNotNull(scale)) {
+            if (scale instanceof THREE.Vector3) {
+                return scale;
+            }
+            else if (Array.isArray(scale) && scale.length >= 3) {
+                return this.getVector3Safe(scale[0], scale[1], scale[2], null, null, true);
+            }
+            else if (this.isNotNull(scale.getScale)) {
+                return scale.getScale();
+            }
+            else if (this.isNotNull(scale.x) && this.isNotNull(scale.y) && this.isNotNull(scale.z)) {
+                return this.getVector3Safe(scale.x, scale.y, scale.z, null, null, true);
+            }
+            else {
+                var object3d = this.getObject3d(scale);
+                return object3d.scale;
+            }
+        }
+        return new THREE.Vector3();
+    };
+    ThreeUtil.getLookAt = function (lookat) {
+        if (this.isNotNull(lookat)) {
+            if (lookat instanceof THREE.Vector3) {
+                return lookat;
+            }
+            else if (Array.isArray(lookat) && lookat.length >= 3) {
+                return this.getVector3Safe(lookat[0], lookat[1], lookat[2], null, null, true);
+            }
+            else if (this.isNotNull(lookat.getLookAt)) {
+                return lookat.getLookAt();
+            }
+            else if (this.isNotNull(lookat.getPosition)) {
+                return lookat.getPosition();
+            }
+            else if (this.isNotNull(lookat.x) && this.isNotNull(lookat.y) && this.isNotNull(lookat.z)) {
+                return this.getVector3Safe(lookat.x, lookat.y, lookat.z, null, null, true);
+            }
+            else {
+                return this.getObject3d(lookat).position;
+            }
+        }
+        return new THREE.Vector3();
+    };
+    ThreeUtil.isTextureLoaded = function (texture) {
+        if (texture instanceof THREE.CubeTexture || texture['isCubeTexture']) {
+            if (this.isNotNull(texture.image) && texture.image.length === 6) {
+                return true;
+            }
+        }
+        if (texture instanceof THREE.DataTexture || texture['isDataTexture']) {
+            if (this.isNotNull(texture.image) && this.isNotNull(texture.image.data) && texture.image.data.length > 0) {
+                return true;
+            }
+        }
+        else if (texture instanceof THREE.VideoTexture || texture['isVideoTexture']) {
+            if (this.isNotNull(texture.image) && texture.image instanceof HTMLVideoElement && texture.image.error === null) {
+                return true;
+            }
+        }
+        else if (texture instanceof THREE.Texture && this.isNotNull(texture.image)) {
+            if (texture.image instanceof HTMLImageElement || texture.image instanceof HTMLCanvasElement || texture.image instanceof HTMLVideoElement) {
+                return true;
+            }
+            if (Array.isArray(texture.image) && texture.image.length >= 6) {
+                return true;
+            }
+            if (ThreeUtil.isNotNull(texture.image.data) && texture.image.data.length > 0) {
+                return true;
+            }
+        }
+        return false;
+    };
+    ThreeUtil.getTextureEncodingSafe = function (baseEncoding, altEncoding, def) {
+        var encoding = this.getTypeSafe(baseEncoding, altEncoding, def || '');
+        switch (encoding.toLowerCase()) {
+            case 'srgbencoding':
+            case 'srgb':
+                return THREE.sRGBEncoding;
+            case 'gammaencoding':
+            case 'gamma':
+                return THREE.GammaEncoding;
+            case 'rgbeencoding':
+            case 'rgbe':
+                return THREE.RGBEEncoding;
+            case 'logluvencoding':
+            case 'logluv':
+                return THREE.LogLuvEncoding;
+            case 'rgbm7encoding':
+            case 'rgbm7':
+                return THREE.RGBM7Encoding;
+            case 'rgbm16encoding':
+            case 'rgbm16':
+                return THREE.RGBM16Encoding;
+            case 'rgbdencoding':
+            case 'rgbd':
+                return THREE.RGBDEncoding;
+            case 'linearencoding':
+            case 'linear':
+                return THREE.LinearEncoding;
+            default:
+                break;
+        }
+        return undefined;
+    };
+    ThreeUtil.getMappingSafe = function (baseMapping, altMapping, def) {
+        var mapping = this.getTypeSafe(baseMapping, altMapping, def || '');
+        switch (mapping.toLowerCase()) {
+            case 'uvmapping':
+            case 'uv':
+                return THREE.UVMapping;
+            case 'cubereflectionmapping':
+            case 'cubereflection':
+                return THREE.CubeReflectionMapping;
+            case 'cuberefractionmapping':
+            case 'cuberefraction':
+                return THREE.CubeRefractionMapping;
+            case 'equirectangularreflectionmapping':
+            case 'equirectangularreflection':
+                return THREE.EquirectangularReflectionMapping;
+            case 'equirectangularrefractionmapping':
+            case 'equirectangularrefraction':
+                return THREE.EquirectangularRefractionMapping;
+            case 'cubeuvreflectionmapping':
+            case 'cubeuvreflection':
+                return THREE.CubeUVReflectionMapping;
+            case 'cubeuvrefractionmapping':
+            case 'cubeuvrefraction':
+                return THREE.CubeUVRefractionMapping;
+            default:
+                return THREE.Texture.DEFAULT_MAPPING;
+        }
+    };
+    ThreeUtil.getCubeImage = function (cubeImage) {
+        if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length !== 6 && cubeImage.length >= 1) {
+            var prefix = cubeImage[0];
+            var postfix = cubeImage[1] || 'png';
+            var prefix1 = cubeImage[2] || 'p';
+            var prefix2 = cubeImage[3] || 'n';
+            return [prefix + prefix1 + 'x.' + postfix, prefix + prefix2 + 'x.' + postfix, prefix + prefix1 + 'y.' + postfix, prefix + prefix2 + 'y.' + postfix, prefix + prefix1 + 'z.' + postfix, prefix + prefix2 + 'z.' + postfix];
+        }
+        else {
+            return cubeImage;
+        }
     };
     ThreeUtil.getClock = function (autoStart) {
         return new ThreeClock(autoStart);
@@ -655,25 +1683,25 @@ var ThreeUtil = /** @class */ (function () {
                         var controlsParams = _this.getGuiControlParam(component.controlsParams, 'Mesh Rotation');
                         if (_this.isNotNull(controlsParams)) {
                             if (component.controls.meshRotate.autoRotate) {
-                                _this.setGuiEnabled(controlsParams.children[1].controler, false);
-                                _this.setGuiEnabled(controlsParams.children[4].controler, true);
+                                _this.setGuiEnabled(controlsParams.children[1].controller, false);
+                                _this.setGuiEnabled(controlsParams.children[4].controller, true);
                             }
                             else {
                                 if (_this.isNotNull(component.mesh)) {
                                     var meshRotate = component.mesh.getRotation();
-                                    component.controls.meshRotate.x = (meshRotate.x / Math.PI * 180) % 360;
-                                    component.controls.meshRotate.y = (meshRotate.y / Math.PI * 180) % 360;
-                                    component.controls.meshRotate.z = (meshRotate.z / Math.PI * 180) % 360;
+                                    component.controls.meshRotate.x = ((meshRotate.x / Math.PI) * 180) % 360;
+                                    component.controls.meshRotate.y = ((meshRotate.y / Math.PI) * 180) % 360;
+                                    component.controls.meshRotate.z = ((meshRotate.z / Math.PI) * 180) % 360;
                                 }
-                                _this.setGuiEnabled(controlsParams.children[1].controler, true);
-                                _this.setGuiEnabled(controlsParams.children[4].controler, false);
+                                _this.setGuiEnabled(controlsParams.children[1].controller, true);
+                                _this.setGuiEnabled(controlsParams.children[4].controller, false);
                             }
                         }
                     }
                 },
                 update: function () {
                     if (_this.isNotNull(component.mesh) && _this.isNotNull(component.controls.meshRotate)) {
-                        component.mesh.setRotation(component.controls.meshRotate.x, (component.controls.meshRotate.autoRotate) ? null : component.controls.meshRotate.y, component.controls.meshRotate.z);
+                        component.mesh.setRotation(component.controls.meshRotate.x, component.controls.meshRotate.autoRotate ? null : component.controls.meshRotate.y, component.controls.meshRotate.z);
                     }
                 }
             },
@@ -718,63 +1746,188 @@ var ThreeUtil = /** @class */ (function () {
     };
     ThreeUtil.getControlsParams = function (params, component) {
         var _this = this;
-        params.push({ name: 'Mesh Visible', type: 'folder', control: 'meshShape', children: [
-                { name: 'visible', type: 'checkbox', listen: true, change: function () {
+        params.push({
+            name: 'Mesh Visible',
+            type: 'folder',
+            control: 'meshShape',
+            children: [
+                {
+                    name: 'visible',
+                    type: 'checkbox',
+                    listen: true,
+                    change: function () {
                         if (_this.isNotNull(component.mesh)) {
                             component.mesh.setVisible(component.controls.meshShape.visible, null);
                         }
-                    } },
-                { name: 'helperVisible', type: 'checkbox', listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'helperVisible',
+                    type: 'checkbox',
+                    listen: true,
+                    change: function () {
                         if (_this.isNotNull(component.mesh)) {
                             component.mesh.setVisible(null, component.controls.meshShape.helperVisible);
                         }
-                    } },
-                { name: 'wireframe', type: 'checkbox', listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'wireframe',
+                    type: 'checkbox',
+                    listen: true,
+                    change: function () {
                         if (_this.isNotNull(component.mesh)) {
                             component.mesh.setWireFrame(component.controls.meshShape.wireframe);
                         }
-                    } },
-            ], isOpen: true });
-        params.push({ name: 'Mesh Rotation', type: 'folder', control: 'meshRotate', children: [
-                { name: 'x', type: 'number', min: -360, max: 360, step: 5, listen: true, change: function () {
+                    }
+                },
+            ],
+            isOpen: false
+        });
+        params.push({
+            name: 'Mesh Rotation',
+            type: 'folder',
+            control: 'meshRotate',
+            children: [
+                {
+                    name: 'x',
+                    type: 'number',
+                    min: -360,
+                    max: 360,
+                    step: 5,
+                    listen: true,
+                    change: function () {
                         component.controls.meshRotate.update();
-                    } },
-                { name: 'y', type: 'number', min: -360, max: 360, step: 5, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'y',
+                    type: 'number',
+                    min: -360,
+                    max: 360,
+                    step: 5,
+                    listen: true,
+                    change: function () {
                         component.controls.meshRotate.update();
-                    } },
-                { name: 'z', type: 'number', min: -360, max: 360, step: 5, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'z',
+                    type: 'number',
+                    min: -360,
+                    max: 360,
+                    step: 5,
+                    listen: true,
+                    change: function () {
                         component.controls.meshRotate.update();
-                    } },
-                { name: 'autoRotate', type: 'checkbox', title: 'Auto Rotation', listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'autoRotate',
+                    type: 'checkbox',
+                    title: 'Auto Rotation',
+                    listen: true,
+                    change: function () {
                         component.controls.meshRotate.applyAutoRotate();
-                    } },
-                { name: 'speed', type: 'number', min: -90, max: 90, step: 1, listen: true, title: 'Auto DegPSec' },
-                { name: 'reset', type: 'button', title: 'Reset Rotation' }
-            ], isOpen: false });
-        params.push({ name: 'Mesh Position', type: 'folder', control: 'meshPosition', children: [
-                { name: 'x', type: 'number', min: -3, max: 3, step: 0.01, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'speed',
+                    type: 'number',
+                    min: -90,
+                    max: 90,
+                    step: 1,
+                    listen: true,
+                    title: 'Auto DegPSec'
+                },
+                { name: 'reset', type: 'button', title: 'Reset Rotation' },
+            ],
+            isOpen: false
+        });
+        params.push({
+            name: 'Mesh Position',
+            type: 'folder',
+            control: 'meshPosition',
+            children: [
+                {
+                    name: 'x',
+                    type: 'number',
+                    min: -3,
+                    max: 3,
+                    step: 0.01,
+                    listen: true,
+                    change: function () {
                         component.controls.meshPosition.update();
-                    } },
-                { name: 'y', type: 'number', min: -3, max: 3, step: 0.01, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'y',
+                    type: 'number',
+                    min: -3,
+                    max: 3,
+                    step: 0.01,
+                    listen: true,
+                    change: function () {
                         component.controls.meshPosition.update();
-                    } },
-                { name: 'z', type: 'number', min: -3, max: 3, step: 0.01, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'z',
+                    type: 'number',
+                    min: -3,
+                    max: 3,
+                    step: 0.01,
+                    listen: true,
+                    change: function () {
                         component.controls.meshPosition.update();
-                    } },
-                { name: 'reset', type: 'button', title: 'Reset Position' }
-            ], isOpen: false });
-        params.push({ name: 'Mesh Scale', type: 'folder', control: 'meshScale', children: [
-                { name: 'x', type: 'number', min: 0.001, max: 5, step: 0.001, listen: true, change: function () {
+                    }
+                },
+                { name: 'reset', type: 'button', title: 'Reset Position' },
+            ],
+            isOpen: false
+        });
+        params.push({
+            name: 'Mesh Scale',
+            type: 'folder',
+            control: 'meshScale',
+            children: [
+                {
+                    name: 'x',
+                    type: 'number',
+                    min: 0.001,
+                    max: 5,
+                    step: 0.001,
+                    listen: true,
+                    change: function () {
                         component.controls.meshScale.update();
-                    } },
-                { name: 'y', type: 'number', min: 0.001, max: 5, step: 0.001, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'y',
+                    type: 'number',
+                    min: 0.001,
+                    max: 5,
+                    step: 0.001,
+                    listen: true,
+                    change: function () {
                         component.controls.meshScale.update();
-                    } },
-                { name: 'z', type: 'number', min: 0.001, max: 5, step: 0.001, listen: true, change: function () {
+                    }
+                },
+                {
+                    name: 'z',
+                    type: 'number',
+                    min: 0.001,
+                    max: 5,
+                    step: 0.001,
+                    listen: true,
+                    change: function () {
                         component.controls.meshScale.update();
-                    } },
-                { name: 'reset', type: 'button', title: 'Reset Scale' }
-            ], isOpen: false });
+                    }
+                },
+                { name: 'reset', type: 'button', title: 'Reset Scale' },
+            ],
+            isOpen: false
+        });
         return params;
     };
     ThreeUtil.getControlsOnRender = function (timer, component) {
@@ -843,37 +1996,41 @@ var ThreeUtil = /** @class */ (function () {
     ThreeUtil.setupGui = function (control, gui, params) {
         var _this = this;
         params.forEach(function (param) {
-            switch (param.type) {
-                case 'color':
-                    param.controler = _this.setupGuiChange(gui.addColor(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
-                    break;
-                case 'folder':
-                    var folder = gui.addFolder(param.name);
-                    param.controler = _this.setupGui(param.control ? control[param.control] : control, folder, param.children);
-                    if (param.isOpen) {
-                        folder.open();
-                    }
-                    break;
-                case 'number':
-                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen, param.title);
-                    break;
-                case 'listen':
-                    param.controler = gui
-                        .add(param.control ? control[param.control] : control, param.name)
-                        .listen();
-                    break;
-                case 'select':
-                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name, param.select), param.finishChange, param.change, param.listen, param.title);
-                    break;
-                case 'button':
-                default:
-                    param.controler = _this.setupGuiChange(gui.add(param.control ? control[param.control] : control, param.name), param.finishChange, param.change, param.listen, param.title);
-                    break;
+            var params = param.control ? control[param.control] : control;
+            if (_this.isNotNull(params)) {
+                switch (param.type) {
+                    case 'color':
+                        param.controller = _this.setupGuiChange(gui.addColor(params, param.name), param.finishChange, param.change, param.listen, param.title);
+                        break;
+                    case 'folder':
+                        var folder = gui.addFolder(param.name);
+                        param.controller = _this.setupGui(params, folder, param.children);
+                        if (param.isOpen) {
+                            folder.open();
+                        }
+                        break;
+                    case 'number':
+                        param.controller = _this.setupGuiChange(gui.add(params, param.name, param.min, param.max, param.step), param.finishChange, param.change, param.listen, param.title);
+                        break;
+                    case 'listen':
+                        param.controller = gui.add(params, param.name).listen();
+                        break;
+                    case 'select':
+                        param.controller = _this.setupGuiChange(gui.add(params, param.name, param.select), param.finishChange, param.change, param.listen, param.title);
+                        break;
+                    case 'button':
+                    default:
+                        param.controller = _this.setupGuiChange(gui.add(params, param.name), param.finishChange, param.change, param.listen, param.title);
+                        break;
+                }
             }
         });
         return gui;
     };
     ThreeUtil._elementEvents = {};
+    ThreeUtil.lastRenderer = null;
+    ThreeUtil._manager = null;
+    ThreeUtil.loadedComponent = {};
     ThreeUtil.stats = null;
     return ThreeUtil;
 }());
@@ -932,6 +2089,38 @@ var ThreeStats = /** @class */ (function () {
     return ThreeStats;
 }());
 exports.ThreeStats = ThreeStats;
+var ThreeGeometryCustom = /** @class */ (function () {
+    function ThreeGeometryCustom() {
+        this.scale = null;
+        this.geometry = null;
+    }
+    ThreeGeometryCustom.prototype.initGeometry = function () {
+        return new THREE.BufferGeometry();
+    };
+    ThreeGeometryCustom.prototype.setGeometry = function (geometry) {
+        if (ThreeUtil.isNotNull(this.scale)) {
+            var scale = ThreeUtil.getTypeSafe(this.scale, 1);
+            geometry.scale(scale, scale, scale);
+        }
+        this.geometry = geometry;
+    };
+    ThreeGeometryCustom.prototype.getGeometry = function () {
+        if (this.geometry == null) {
+            this.setGeometry(this.initGeometry());
+        }
+        return this.geometry;
+    };
+    __decorate([
+        core_1.Input()
+    ], ThreeGeometryCustom.prototype, "scale");
+    ThreeGeometryCustom = __decorate([
+        core_1.Component({
+            template: ''
+        })
+    ], ThreeGeometryCustom);
+    return ThreeGeometryCustom;
+}());
+exports.ThreeGeometryCustom = ThreeGeometryCustom;
 var ThreeGui = /** @class */ (function () {
     function ThreeGui(style, pars) {
         this.gui = null;
@@ -1012,7 +2201,7 @@ var ThreeGui = /** @class */ (function () {
         this.gui.remove(controller);
         return this;
     };
-    ThreeGui.customCss = ".no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}";
+    ThreeGui.customCss = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
     return ThreeGui;
 }());
 exports.ThreeGui = ThreeGui;
