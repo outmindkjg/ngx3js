@@ -225,11 +225,11 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     );
   }
 
-  static getTextureImageOption(image: any, optionsTxt?: string, loadType?: string, cubeImage?: string[], onLoad? : () => void ): THREE.Texture {
+  static getTextureImageOption(image: any, optionsTxt?: string, loaderType?: string, cubeImage?: string[], onLoad? : () => void ): THREE.Texture {
     const loadOption: { [key: string]: any } = {
       width: 10,
       height: 10,
-      type: loadType,
+      type: loaderType,
     };
     const textureOption: { [key: string]: any } = {};
     if (ThreeUtil.isNotNull(optionsTxt)) {
@@ -418,7 +418,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
                 case 'depth':
                   loadOption[key.toLowerCase()] = parseInt(value);
                   break;
-                case 'loadtype':
+                case 'loaderType':
                   loadOption.type = value;
                   break;
                 case 'name':
@@ -488,10 +488,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   static getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string , options?: any, onLoad?: () => void): THREE.Texture {
     options = options || {};
     onLoad = onLoad || (() => {});
-    const loadType = options.type || '';
+    let loaderType = (options.type || 'auto').toLowerCase();
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length > 0) {
       cubeImage = ThreeUtil.getCubeImage(cubeImage);
-      switch ((loadType || 'cubetexture').toLowerCase()) {
+      switch ((loaderType || 'cubetexture')) {
         case 'hdrcube':
         case 'hdrcubetexture':
           if (this.hdrCubeMapLoader == null) {
@@ -535,7 +535,23 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           });
       }
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
-      switch ((loadType || 'texture').toLowerCase()) {
+      if (loaderType === 'auto') {
+        const fileName = image.toLowerCase();
+        if(fileName.endsWith('.mp4') || 
+          fileName.endsWith('.m4v') || 
+          fileName.endsWith('.f4v') || 
+          fileName.endsWith('.mov') || 
+          fileName.endsWith('.mpg') || 
+          fileName.endsWith('.mpeg') || 
+          fileName.endsWith('.mpeg4') || 
+          fileName.endsWith('.wmv') || 
+          fileName.endsWith('.avi') || 
+          fileName.endsWith('.mkv') || 
+          fileName.endsWith('.ogv')) {
+          loaderType = 'video';
+        }
+      }
+      switch ((loaderType || 'texture').toLowerCase()) {
         case 'video':
           const video = document.createElement('video');
           const videoTexture = new THREE.VideoTexture(video);
@@ -565,7 +581,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             const width = options.width || 1;
             const height = options.height || 1;
             const depth = options.depth || 1;
-            switch ((loadType || 'texture').toLowerCase()) {
+            switch ((loaderType || 'texture').toLowerCase()) {
               case 'datatexture2d':
               case 'texture2d':
                 texture = new THREE.DataTexture2DArray(null, width, height, depth);
@@ -611,7 +627,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             });
             return texture;
           } else {
-            switch ((loadType || 'texture').toLowerCase()) {
+            switch ((loaderType || 'texture').toLowerCase()) {
               case 'datatexture':
               case 'datatexture2d':
               case 'datatexture3d':

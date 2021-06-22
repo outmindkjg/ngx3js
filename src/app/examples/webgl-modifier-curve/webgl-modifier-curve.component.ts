@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Object3D, Vector2 } from 'three';
-import { Flow } from 'three/examples/jsm/modifiers/CurveModifier';
 import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
 import { ControlComponent } from '../../three/control/control.component';
 
@@ -9,10 +8,16 @@ import { ControlComponent } from '../../three/control/control.component';
   templateUrl: './webgl-modifier-curve.component.html',
   styleUrls: ['./webgl-modifier-curve.component.scss']
 })
-export class WebglModifierCurveComponent extends BaseComponent<{}> {
+export class WebglModifierCurveComponent extends BaseComponent<{
+  moveAlongCurve : number;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      moveAlongCurve : 0.001
+    },[
+      { name : 'moveAlongCurve', type : 'number', min : 0.001, max : 0.01, step : 0.001}
+    ]);
   }
 
   initialPoints : {x : number, y : number, z : number }[] = [
@@ -23,13 +28,6 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
   ];
 
   curvePath : {x : number, y : number, z : number }[] = this.initialPoints;
-
-  setFlow(mesh : MeshComponent) {
-    mesh.getObject3d();
-    this.flow = mesh.getStorageSource();
-  }
-
-  flow : Flow = null;
 
   onUpPosition = new Vector2();
   onDownPosition = new Vector2();
@@ -44,7 +42,6 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
     this.transformControl = transformControl;
   }
 
-
   setTransformEventListener(event : { type : string, event : any}) {
     if (this.orbitControl !== null) {
       switch(event.type) {
@@ -54,6 +51,7 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
           break;
         case 'objectChange' :
           const curvePath : {x : number , y : number , z : number}[] = [];
+
           this.pointMesh.forEach(mesh => {
             const position = mesh.position;
             curvePath.push({
@@ -108,9 +106,6 @@ export class WebglModifierCurveComponent extends BaseComponent<{}> {
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.flow !== null) {
-      this.flow.moveAlongCurve(0.001);
-    } 
   }
 
 }

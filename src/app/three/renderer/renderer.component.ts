@@ -639,7 +639,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             this.unSubscribeReferList('viewerList');
             if (ThreeUtil.isNotNull(this.viewerList)) {
               this.viewerList.forEach((viewer) => {
-                viewer.getViewer();
+                viewer.setRenderer(this.renderer);
               });
               this.subscribeListQuery(this.viewerList, 'viewerList', 'viewer');
             }
@@ -944,7 +944,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         });
       }
       this.viewerList.forEach((viewer) => {
-        viewer.render(this.renderer, renderTimer);
+        viewer.render(this.renderer, this.sceneList, renderTimer);
       });
     }
     if (this.stats != null) {

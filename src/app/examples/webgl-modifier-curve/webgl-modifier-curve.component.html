@@ -65,7 +65,7 @@
       <three-mesh [type]="'lineloop'" [curve]="curve" [divisions]="50">
         <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
       </three-mesh>
-      <three-mesh [type]="'flow'" [curve]="curve" (onLoad)="setFlow($event)">
+      <three-mesh [type]="'flow'" [curve]="curve" [moveAlongCurve]="controls.moveAlongCurve">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-geometry
           [type]="'Text'"

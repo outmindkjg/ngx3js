@@ -85,7 +85,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  applyChanges2d(changes: string[]) {
+  applyChanges(changes: string[]) {
     if (this.canvas !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['visual', 'html', 'transform', 'background', 'controller']);
@@ -167,7 +167,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     if (this.canvas !== null) {
       const style: CssStyle = this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
-      this.applyChanges2d(['transform', 'background', 'children']);
+      this.applyChanges(['transform', 'background', 'children']);
     }
   }
 

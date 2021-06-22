@@ -280,7 +280,6 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   applyChanges3d(changes: string[]) {
     if (this.scene !== null) {
-      console.error(changes);
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'camera', 'physics', 'fog', 'scenecontroller']);
       }

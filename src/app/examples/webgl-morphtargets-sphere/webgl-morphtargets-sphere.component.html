@@ -36,7 +36,7 @@
     ></three-light>
     <three-mesh (onLoad)="setMesh($event)" #baseMesh [storageName]="'models/gltf/AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf'" [morphTargets]="true">
       <three-rotation [x]="0" [y]="0" [z]="90"></three-rotation>
-      <three-mesh [geometry]="baseMesh" [type]="'Points'">
+      <three-mesh [geometry]="baseMesh" [type]="'Points'" (onLoad)="setPoints($event)">
         <three-material 
           [type]="'Points'"
           [size]="10"

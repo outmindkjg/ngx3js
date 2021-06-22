@@ -54,6 +54,7 @@ import { ThreeUtil } from "../interface";
 import { AudioVisualizer } from './shader.audioVisualizer';
 import { CloudShader } from './shader.cloud';
 import { PerlinShader } from './shader.perlin';
+import { WireFrame } from './shader.wireframe';
 
 export interface ShaderType {
   defines? : {
@@ -135,6 +136,7 @@ export const ShaderConf : {
   sobeloperatorshader : SobelOperatorShader,
   cloudshader : CloudShader,
   audiovisualizer : AudioVisualizer,
+  wireframe : WireFrame,
   perlinshader : PerlinShader
 }
 

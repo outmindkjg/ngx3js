@@ -33,20 +33,6 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
 
   curvePath2 : {x : number, y : number, z : number }[] = this.initialPoints2;
 
-  setFlow1(mesh : MeshComponent) {
-    mesh.getObject3d();
-    this.flow1 = mesh.getStorageSource();
-  }
-
-  flow1 : Flow = null;
-
-  setFlow2(mesh : MeshComponent) {
-    mesh.getObject3d();
-    this.flow1 = mesh.getStorageSource();
-  }
-
-  flow2 : Flow = null;
-
   onUpPosition = new Vector2();
   onDownPosition = new Vector2();
 
@@ -137,15 +123,5 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
         break;
     }
   }  
-
-  onRender(timer : RendererTimer) {
-    super.onRender(timer);
-    if (this.flow1 !== null) {
-      // this.flow.moveAlongCurve(0.001);
-    } 
-    if (this.flow2 !== null) {
-      // this.flow.moveAlongCurve(0.001);
-    } 
-  }
 
 }

@@ -1,10 +1,6 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Standard Material Variations by <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.<br/><br/>
+  Note: Every second sphere has an IBL environment map on it.  
 </div>
 <three-renderer
   [controlType]="'orbit'"
@@ -13,61 +9,72 @@
   [antialias]="true"
   [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
+  [toneMapping]="'ACESFilmicToneMapping'"
+  [toneMappingExposure]="0.75"
+  [outputEncoding]="'sRGBEncoding'"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2500">
+    <three-position [x]="0.0" [y]="400" [z]="400 * 3.5"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene [background]="hdrEquirect">
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
+      [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="1" [y]="1" [z]="1" [normalize]="true"></three-position>
     </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-mesh (onLoad)="setPointLight($event)">
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [type]="'SphereGeometry'"
+        [radius]="4"
+        [widthSegments]="8"
+        [heightSegments]="8"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
+      <three-light
+        [type]="'PointLight'"
+        [color]="'0xffffff'"
+        [intensity]="2"
+        [distance]="800"
+      ></three-light>
     </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+    <three-mesh>
+      <three-mesh *ngFor="let info of labelInfos" [material]="label">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-geometry [type]="'TextGeometry'" [text]="info.text" [font]="'gentilis_regular'" [size]="20" [height]="1" [curveSegments]="1" [center]="true"></three-geometry>
+      </three-mesh>
+    </three-mesh>
+    <three-shared>
+      <three-texture #hdrEquirect [storageName]="'pedestrian_overpass_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'Equirectangular'"></three-texture>
+      <three-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
       <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+        #geometry
+        [type]="'SphereGeometry'"
+        [radius]="400/5*0.8*0.5"
+        [widthSegments]="32"
+        [heightSegments]="16"
       ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-texture #imgTexture [image]="'textures/planets/moon_1024.jpg'" [wrap]="'RepeatWrapping'" [anisotropy]="16"></three-texture>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-material 
+          [type]="'MeshStandardMaterial'"
+          [map]="imgTexture"
+          [bumpMap]="imgTexture"
+          [color]="info.color"
+          [bumpScale]="1"
+          [metalness]="info.metalness"
+          [roughness]="info.roughness"
+          [envMap]="info.envMap ? hdrEquirect : null"
+        ></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

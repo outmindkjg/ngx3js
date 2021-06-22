@@ -209,7 +209,18 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                 case 'auto' :
                 default :
                   if (typeof this.url === 'string') {
-                    if (this.url.endsWith('.mp4') || this.url.endsWith('.ogv')) {
+                    const fileName = this.url.toLowerCase();
+                    if(fileName.endsWith('.mp4') || 
+                      fileName.endsWith('.m4v') || 
+                      fileName.endsWith('.f4v') || 
+                      fileName.endsWith('.mov') || 
+                      fileName.endsWith('.mpg') || 
+                      fileName.endsWith('.mpeg') || 
+                      fileName.endsWith('.mpeg4') || 
+                      fileName.endsWith('.wmv') || 
+                      fileName.endsWith('.avi') || 
+                      fileName.endsWith('.mkv') || 
+                      fileName.endsWith('.ogv')) {
                       urlType = 'video';
                     } else {
                       urlType = 'audio';

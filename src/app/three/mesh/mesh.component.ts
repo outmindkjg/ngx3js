@@ -8,6 +8,7 @@ import { Wireframe } from 'three/examples/jsm/lines/Wireframe';
 import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 import { MorphAnimMesh } from 'three/examples/jsm/misc/MorphAnimMesh';
 import { Volume } from 'three/examples/jsm/misc/Volume';
+import { VolumeSlice } from 'three/examples/jsm/misc/VolumeSlice';
 import { Flow, InstancedFlow } from 'three/examples/jsm/modifiers/CurveModifier';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
 import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes';
@@ -78,13 +79,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private compressUvs: boolean = null;
 
   @Input() private skyColor: string | number = null;
-  @Input() private groundColor: string | number = null;
   @Input() private waterColor: string | number = null;
   @Input() private distance: number = null;
   @Input() private metalness: number = null;
   @Input() private roughness: number = null;
-  @Input() private width: number = null;
-  @Input() private height: number = null;
   @Input() private count: number = null;
   @Input() private volume: Volume = null;
   @Input() private axis: string = null;
@@ -119,6 +117,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @Input() private encoding: string = null;
   @Input() private shareParts: MeshComponent = null;
   @Input() private sharedMesh: MeshComponent = null;
+  @Input() private moveAlongCurve: number = null;
+  @Input() private moveIndividualAlongCurve: number[] | string = null;
+  @Input() private colors: number[] | string = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
@@ -181,24 +182,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return new THREE.Euler(ThreeUtil.getAngleSafe(this.skyboxSunX, 0), ThreeUtil.getAngleSafe(this.skyboxSunY, 0), ThreeUtil.getAngleSafe(this.skyboxSunZ, 0));
   }
 
-  private getDistance(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.distance, def);
-  }
-
   private getMetalness(def?: number): number {
     return ThreeUtil.getTypeSafe(this.metalness, def);
   }
 
   private getRoughness(def?: number): number {
     return ThreeUtil.getTypeSafe(this.roughness, def);
-  }
-
-  private getWidth(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.width, def);
-  }
-
-  private getHeight(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.height, def);
   }
 
   private getCount(def?: number): number {
@@ -301,10 +290,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return ThreeUtil.getColorSafe(this.skyColor, def);
   }
 
-  private getGroundColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.groundColor, def);
-  }
-
   private getWaterColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.waterColor, def);
   }
@@ -398,9 +383,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   }
 
   getGeometry(): THREE.BufferGeometry {
-    if (this.mesh !== null && this.mesh['geometry'] !== null && this.mesh['geometry'] instanceof THREE.BufferGeometry) {
-      return this.mesh['geometry'];
-    }
     if (this.geometry !== null) {
       return ThreeUtil.getGeometry(this.geometry);
     }
@@ -413,6 +395,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       });
       if (geometry !== null) {
         return geometry;
+      }
+    } else if (this.mesh !== null) {
+      if (ThreeUtil.isNotNull(this.mesh.userData.refTarget) && ThreeUtil.isNotNull(this.mesh.userData.refTarget.geometry)) {
+        return this.mesh.userData.refTarget.geometry;
+      } else if (ThreeUtil.isNotNull(this.mesh['geometry'])) {
+        return this.mesh['geometry'];
       }
     }
     return new THREE.BufferGeometry();
@@ -431,10 +419,15 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 
   getCurve(): THREE.Curve<THREE.Vector3> {
     if (this.curve !== null) {
+      this.unSubscribeRefer('curve');
       if (this.curve instanceof THREE.Curve) {
         return this.curve;
       } else {
-        return this.curve.getCurve() as THREE.Curve<THREE.Vector3>;
+        const curve = this.curve.getCurve() as THREE.Curve<THREE.Vector3>;
+        this.subscribeRefer('curve', ThreeUtil.getSubscribe(this.curve, () => {
+          this.needUpdate = true;
+        }, 'curve'));
+        return curve;
       }
     }
     if (this.curveList !== null && this.curveList.length > 0) {
@@ -727,15 +720,18 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   private cssClazzName: string = null;
   private mesh: THREE.Object3D = null;
 
-  getRealMesh(): THREE.Mesh | THREE.LineSegments | THREE.Line {
-    if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.LineSegments || this.mesh instanceof THREE.Line) {
+  getRealMesh(): THREE.Mesh | THREE.LineSegments | THREE.Line | THREE.Points {
+    if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.LineSegments || this.mesh instanceof THREE.Line || this.mesh instanceof THREE.Points ) {
       return this.mesh;
+    }
+    if (ThreeUtil.isNotNull(this.mesh.userData.refTarget) && (this.mesh.userData.refTarget instanceof THREE.Mesh || this.mesh.userData.refTarget instanceof THREE.LineSegments || this.mesh.userData.refTarget instanceof THREE.Line || this.mesh.userData.refTarget instanceof THREE.Points)) {
+      return this.mesh.userData.refTarget;
     }
     let mesh: THREE.Object3D = this.mesh;
     while (mesh.children && mesh.children.length > 0) {
       mesh = mesh.children[0];
-      if (mesh instanceof THREE.Mesh || mesh instanceof THREE.LineSegments || mesh instanceof THREE.Line) {
-        return mesh as THREE.Mesh;
+      if (mesh instanceof THREE.Mesh || mesh instanceof THREE.LineSegments || mesh instanceof THREE.Line || mesh instanceof THREE.Points) {
+        return mesh;
       }
     }
     return null;
@@ -770,7 +766,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         this.clipMesh = null;
       }
       this.unSubscribeRefer('customGeometry');
-      this.storageSource = null;
       let geometry: THREE.BufferGeometry = null;
       if ((this.geometryList != null && this.geometryList.length > 0) || this.geometry !== null) {
         geometry = this.getGeometry();
@@ -934,11 +929,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           if (ThreeUtil.isNotNull(flowCurve)) {
             flow.updateCurve(0, flowCurve);
           }
-          this.storageSource = flow;
+          this.setUserData('storageSource', flow);
           basemesh = flow.object3D;
-          basemesh.onBeforeRender = () => {
-            flow.moveAlongCurve(0.001);
-          };
+          if (ThreeUtil.isNotNull(this.moveAlongCurve)) {
+            basemesh.onBeforeRender = () => {
+              flow.moveAlongCurve(ThreeUtil.getTypeSafe(this.moveAlongCurve,0.001));
+            };
+          }
           this.subscribeRefer(
             'customGeometry',
             ThreeUtil.getSubscribe(
@@ -946,27 +943,114 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               () => {
                 this.needUpdate = true;
               },
-              'geometry'
+              'loaded'
             )
           );
           break;
         case 'instancedflow':
           const instancedFlowMaterial = this.getMaterialOne();
-          const instancedFlow = new InstancedFlow(this.getCount(1), 1, geometry, instancedFlowMaterial);
+          const instancedFlowCount = this.getCount(1);
+          const instancedFlow = new InstancedFlow(instancedFlowCount, 1, geometry, instancedFlowMaterial);
           const instancedFlowCurve = this.getCurve();
           if (ThreeUtil.isNotNull(instancedFlowCurve)) {
             instancedFlow.updateCurve(0, instancedFlowCurve);
             instancedFlow.setCurve(0, 0);
-            for (let i = 0; i < this.getCount(1); i++) {
-              instancedFlow.moveIndividualAlongCurve(i, (i * 1) / this.getCount(1));
-              instancedFlow.object3D.setColorAt(i, new THREE.Color(0xffffff * Math.random()));
+            const instancedFlowColor = ThreeUtil.getTypeSafe(this.colors, 'rand');
+            const instancedFlowColors : THREE.Color[] = [];
+            if (typeof instancedFlowColor === 'string' ) {
+              switch(instancedFlowColor.toLowerCase()) {
+                case 'null' :
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    instancedFlowColors.push(null);
+                  }
+                  break;
+                case 'rand' :
+                case 'random' :
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    instancedFlowColors.push(new THREE.Color(0xffffff * Math.random()));
+                  }
+                  break;
+                default :
+                  const colorList = instancedFlowColor.split(',');
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    if (colorList.length > i) {
+                      instancedFlowColors.push(ThreeUtil.getColorSafe(colorList[i]));
+                    } else {
+                      instancedFlowColors.push(null);
+                    }
+                  }
+                  break;
+              }
+            } else if (Array.isArray(instancedFlowColor)) {
+              const colorList = instancedFlowColor;
+              for (let i = 0; i < instancedFlowCount ; i++) {
+                if (colorList.length > i) {
+                  instancedFlowColors.push(ThreeUtil.getColorSafe(colorList[i]));
+                } else {
+                  instancedFlowColors.push(null);
+                }
+              }
+            } else {
+              for (let i = 0; i < instancedFlowCount ; i++) {
+                instancedFlowColors.push(null);
+              }
+            }
+            const instancedFlowOffset = ThreeUtil.getTypeSafe(this.moveIndividualAlongCurve, 'equals');
+            const instancedFlowOffsets : number[] = [];
+            if (typeof instancedFlowOffset === 'string' ) {
+              switch(instancedFlowOffset.toLowerCase()) {
+                case 'equals' :
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    instancedFlowOffsets.push(i / instancedFlowCount);
+                  }
+                  break;
+                case 'rand' :
+                case 'random' :
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    instancedFlowOffsets.push(Math.random());
+                  }
+                  break;
+                default :
+                  const offsetList = instancedFlowOffset.split(',');
+                  for (let i = 0; i < instancedFlowCount ; i++) {
+                    if (offsetList.length > i) {
+                      instancedFlowOffsets.push(Math.min(1, Math.max(0, parseFloat(offsetList[0]))));
+                    } else {
+                      instancedFlowOffsets.push(null);
+                    }
+                  }
+                  break;
+              }
+            } else if (Array.isArray(instancedFlowOffset)) {
+              const offsetList = instancedFlowOffset;
+              for (let i = 0; i < instancedFlowCount ; i++) {
+                if (offsetList.length > i) {
+                  instancedFlowOffsets.push(offsetList[i]);
+                } else {
+                  instancedFlowOffsets.push(null);
+                }
+              }
+            } else {
+              for (let i = 0; i < instancedFlowCount ; i++) {
+                instancedFlowOffsets.push(null);
+              }
+            }
+            for (let i = 0; i < instancedFlowCount ; i++) {
+              if (ThreeUtil.isNotNull(instancedFlowOffsets[i])) {
+                instancedFlow.moveIndividualAlongCurve(i, instancedFlowOffsets[i] );
+              }
+              if (ThreeUtil.isNotNull(instancedFlowColors[i])) {
+                instancedFlow.object3D.setColorAt(i, instancedFlowColors[i]);
+              }
             }
           }
-          this.storageSource = instancedFlow;
+          this.setUserData('storageSource', instancedFlow);
           basemesh = instancedFlow.object3D;
-          basemesh.onBeforeRender = () => {
-            instancedFlow.moveAlongCurve(0.001);
-          };
+          if (ThreeUtil.isNotNull(this.moveAlongCurve)) {
+            basemesh.onBeforeRender = () => {
+              instancedFlow.moveAlongCurve(ThreeUtil.getTypeSafe(this.moveAlongCurve,0.001));
+            };
+          }
           this.subscribeRefer(
             'customGeometry',
             ThreeUtil.getSubscribe(
@@ -974,7 +1058,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
               () => {
                 this.needUpdate = true;
               },
-              'geometry'
+              'loaded'
             )
           );
           break;
@@ -1002,19 +1086,21 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
           break;
         case 'volume':
           if (ThreeUtil.isNotNull(this.volume)) {
+            let volumeSlice : VolumeSlice = null;
             switch (this.getAxis('z').toLowerCase()) {
               case 'x':
-                this.storageSource = this.volume.extractSlice('x', this.getIndex(this.volume['RASDimensions'][0], 0.5));
+                volumeSlice = this.volume.extractSlice('x', this.getIndex(this.volume['RASDimensions'][0], 0.5));
                 break;
               case 'y':
-                this.storageSource = this.volume.extractSlice('y', this.getIndex(this.volume['RASDimensions'][1], 0.5));
+                volumeSlice = this.volume.extractSlice('y', this.getIndex(this.volume['RASDimensions'][1], 0.5));
                 break;
               case 'z':
               default:
-                this.storageSource = this.volume.extractSlice('z', this.getIndex(this.volume['RASDimensions'][2], 0.5));
+                volumeSlice = this.volume.extractSlice('z', this.getIndex(this.volume['RASDimensions'][2], 0.5));
                 break;
             }
-            basemesh = this.storageSource.mesh;
+            this.setUserData('storageSource', volumeSlice);
+            basemesh = volumeSlice.mesh;
           } else {
             basemesh = new THREE.Group();
           }

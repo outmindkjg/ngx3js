@@ -1552,12 +1552,12 @@ export class ThreeUtil {
               }
               break;
             case 'geometry' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','geometry'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','geometry','loaded'])) {
                 callBack('geometry');
               }
               break;
             case 'material' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','material'])) {
+              if (this.isIndexOf(keyList, ['object3d','mesh','material','loaded'])) {
                 callBack('material');
               }
               break;

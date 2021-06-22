@@ -18,7 +18,6 @@ export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
     const ygrid = 10;
     const ux = 1 / xgrid;
     const uy = 1 / ygrid;
-
     const xsize = 480 / xgrid;
     const ysize = 204 / ygrid;
     this.boxInfos = [];
@@ -81,7 +80,7 @@ export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.meshChildren !== null) {
-      const time = timer.elapsedTime * 0.05;
+      const time = timer.elapsedTime * 0.5;
       this.meshChildren.forEach(child => {
         const material = child['material'] as any;
         const h = ( 360 * ( material.userData.hue + time ) % 360 ) / 360;

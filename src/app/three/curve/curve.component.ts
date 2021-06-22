@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { GeometriesVector3 } from '../geometry/geometry.component';
+import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
@@ -124,10 +125,10 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.curve !== null) {
-      this.needUpdate = true;
-    }
     super.ngOnChanges(changes);
+    if (changes && this.curve) {
+      this.addChanges(changes);
+    }
   }
 
   ngAfterContentInit(): void {
@@ -135,6 +136,29 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   private curve: THREE.Curve<THREE.Vector> = null;
+
+  applyChanges(changes: string[]) {
+    if (this.curve !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getCurve();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, [], this.OBJECT_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, []);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          default:
+            break;
+        }
+      });
+      super.applyChanges(changes);
+    }
+  }
 
   getCurve(): THREE.Curve<THREE.Vector> {
     if (this.curve === null || this._needUpdate) {
@@ -225,6 +249,7 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
           );
           break;
       }
+      this.setObject(this.curve);
       this.setSubscribeNext('curve');
     }
     return this.curve;

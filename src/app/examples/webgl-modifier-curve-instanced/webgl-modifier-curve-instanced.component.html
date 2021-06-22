@@ -78,7 +78,7 @@
       <three-mesh [type]="'lineloop'" [curve]="curve2" [divisions]="50">
         <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
       </three-mesh>
-      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve1" (onLoad)="setFlow1($event)">
+      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve1" [moveAlongCurve]="0.001" [colors]="'0xff0000,random,random'">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-geometry
           [type]="'Text'"
@@ -97,7 +97,7 @@
         </three-geometry>
         <three-material [type]="'MeshStandard'" [color]="'0x99ffff'"></three-material>
       </three-mesh>
-      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve2" (onLoad)="setFlow2($event)">
+      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve2" [moveAlongCurve]="0.001">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-geometry
           [type]="'Text'"

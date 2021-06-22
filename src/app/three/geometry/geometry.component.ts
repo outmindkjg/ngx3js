@@ -47,6 +47,7 @@ export interface MeshGeometry {
   geometry: THREE.BufferGeometry;
   userData?: any;
   material?: THREE.Material | THREE.Material[];
+  updateMorphTargets? : () => void;
 }
 
 @Component({
@@ -1167,6 +1168,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             this._meshGeometry.computeLineDistances();
           }
           this._meshGeometry.geometry = this.geometry;
+          if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
+            this._meshGeometry.updateMorphTargets();
+          }
         }
       } else if (this.geometry !== geometry) {
         this.geometry = geometry;
@@ -1318,6 +1322,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isNotNull(this.onInit)) {
         this.onInit(this.geometry);
       }
+      console.log(this.geometry);
       this.synkMesh(this.geometry);
       super.setObject(this.geometry);
     }
@@ -1369,7 +1374,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           } else {
             this.setGeometry(loadGeometry);
           }
-          this.setSubscribeNext(['geometry','loaded']);
+          this.setSubscribeNext(['loaded']);
         });
       }
       if (geometry === null) {
@@ -1574,6 +1579,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                   break;
               }
               this.setGeometry(shapeGeometry);
+              this.setSubscribeNext('loaded');
             });
             break;
           case 'icosahedronbuffergeometry':
@@ -1671,7 +1677,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                 case 'textbuffer':
                 case 'text':
                 default:
+                  console.log('loaded text');
                   this.setGeometry(new THREE.TextBufferGeometry(this.getText('test'), textParameters));
+                  this.setSubscribeNext('loaded');
                   break;
               }
             });
