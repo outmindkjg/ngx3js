@@ -191,6 +191,11 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
           }
         }
         break;
+      case 'background-environment':
+      case 'backgroundenvironment':
+        this.scene.environment = background;
+        this.scene.background = background;
+        break;
       case 'environment':
         this.scene.environment = background;
         break;

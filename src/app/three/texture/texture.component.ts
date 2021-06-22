@@ -48,6 +48,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private offset: number = null;
   @Input() private offsetX: number = null;
   @Input() private offsetY: number = null;
+  @Input() private center: number = null;
+  @Input() private centerX: number = null;
+  @Input() private centerY: number = null;
   @Input() private width: number = null;
   @Input() private height: number = null;
   @Input() private perlin: any = null;
@@ -95,6 +98,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
 
   private getOffset(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.offsetX, this.offset), ThreeUtil.getTypeSafe(this.offsetY, this.offset), new THREE.Vector2(defX, defY));
+  }
+
+  private getCenter(defX: number, defY: number): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.centerX, this.center), ThreeUtil.getTypeSafe(this.centerY, this.center), new THREE.Vector2(defX, defY));
   }
 
   constructor(private localStorageService: LocalStorageService) {
@@ -730,6 +737,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
     if ((ThreeUtil.isNotNull(this.offsetX) && ThreeUtil.isNotNull(this.offsetY)) || ThreeUtil.isNotNull(this.offset)) {
       options.offset = this.getOffset(0, 0);
     }
+    if ((ThreeUtil.isNotNull(this.centerX) && ThreeUtil.isNotNull(this.centerY)) || ThreeUtil.isNotNull(this.center)) {
+      options.center = this.getCenter(0, 0);
+    }
+    
     if (this.debug) {
       this.consoleLog('texture-option', options);
     }
@@ -760,9 +771,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             break;
           case 'premultiplyalpha':
             texture.premultiplyAlpha = ThreeUtil.getTypeSafe(value, true);
-            if (ThreeUtil.isNotNull(texture.image)) {
-              texture.needsUpdate = true;
-            }
             break;
           case 'magfilter':
             texture.magFilter = ThreeUtil.getTextureFilterSafe(value, 'linear');
@@ -796,6 +804,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             break;
           case 'offset':
             texture.offset.copy(value);
+            break;
+          case 'center':
+            texture.center.copy(value);
             break;
         }
       }
@@ -885,7 +896,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         return;
       }
       TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-      if (ThreeUtil.isNotNull(this.texture.image)) {
+      if (ThreeUtil.isTextureLoaded(this.texture)) {
         this.texture.needsUpdate = true;
       }
       super.applyChanges(changes);
@@ -898,40 +909,39 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
 
   private setTextureLoaded(texture : THREE.Texture ) {
     if (texture !== null) {
+      if (ThreeUtil.isNotNull(this.cubeType)) {
+        switch(this.cubeType.toLowerCase()) {
+          case 'angular' :
+          case 'equirectangular' :
+          case 'fromequirectangular' :
+            {
+              TextureComponent.setTextureOptions(texture, this.getTextureOptions());
+              const pmremGenerator = this.getPmremGenerator();
+              const equirectangular = pmremGenerator.fromEquirectangular(texture).texture;
+              texture.dispose();
+              texture = equirectangular;
+              pmremGenerator.dispose();
+            }
+            break;
+          case 'cubemap' :
+            if (texture instanceof THREE.CubeTexture) {
+              TextureComponent.setTextureOptions(texture, this.getTextureOptions());
+              const pmremGenerator = this.getPmremGenerator();
+              const cubemap = pmremGenerator.fromCubemap(texture).texture;
+              texture.dispose();
+              texture = cubemap;
+              pmremGenerator.dispose();
+            }
+            break;
+        }
+      }
       if (this.texture !== texture && texture.image !== null) {
         this.texture = texture;
         super.setObject(this.texture);
         TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-        if (ThreeUtil.isNotNull(this.cubeType)) {
-          this.texture.onUpdate = () => {
-            switch(this.cubeType.toLowerCase()) {
-              case 'angular' :
-              case 'equirectangular' :
-              case 'fromequirectangular' :
-                const pmremGenerator = this.getPmremGenerator();
-                this.texture = pmremGenerator.fromEquirectangular(texture).texture;
-                pmremGenerator.dispose();
-                TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-                this.applyMaterial();
-                this.setSubscribeNext(['texture','loaded']);
-                break;
-              case 'cubemap' :
-                if (texture instanceof THREE.CubeTexture) {
-                  const pmremGenerator = this.getPmremGenerator();
-                  this.texture = pmremGenerator.fromCubemap(texture).texture;
-                  pmremGenerator.dispose();
-                  TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-                  this.applyMaterial();
-                  this.setSubscribeNext(['texture','loaded']);
-                }
-                break;
-            }
-            this.texture.onUpdate = null;
-          };
-        }
         this.applyMaterial();
+        this.setSubscribeNext(['texture','loaded']);
       }
-      this.setSubscribeNext(['texture','loaded']);
     }
   }
 
@@ -961,7 +971,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
-          this.texture = new THREE.DataTexture(null, 1, 1);
+          this.texture = new THREE.DataTexture(new Uint8Array( 6 ), 1, 1);
         } else if (this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
           this.texture = new THREE.CompressedTexture(null, 1, 1);
         } else {

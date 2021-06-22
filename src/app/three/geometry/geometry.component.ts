@@ -1322,7 +1322,6 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isNotNull(this.onInit)) {
         this.onInit(this.geometry);
       }
-      console.log(this.geometry);
       this.synkMesh(this.geometry);
       super.setObject(this.geometry);
     }
@@ -1677,7 +1676,6 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                 case 'textbuffer':
                 case 'text':
                 default:
-                  console.log('loaded text');
                   this.setGeometry(new THREE.TextBufferGeometry(this.getText('test'), textParameters));
                   this.setSubscribeNext('loaded');
                   break;

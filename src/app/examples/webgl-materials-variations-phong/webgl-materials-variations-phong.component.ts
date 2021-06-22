@@ -9,7 +9,6 @@ import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 })
 export class WebglMaterialsVariationsPhongComponent extends BaseComponent<{}> {
 
-
   constructor() {
     super({},[]);
   }

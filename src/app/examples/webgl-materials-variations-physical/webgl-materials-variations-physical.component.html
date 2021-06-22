@@ -51,7 +51,7 @@
     </three-mesh>
     <three-shared>
       <three-texture #hdrEquirect [storageName]="'pedestrian_overpass_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'Equirectangular'"></three-texture>
-      <three-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
+      <three-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [opacity]="0.6" [transparent]="true"></three-material>
       <three-geometry
         #geometry
         [type]="'SphereGeometry'"
