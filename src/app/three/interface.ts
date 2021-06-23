@@ -1198,7 +1198,7 @@ export class ThreeUtil {
 
   static getTextureFilterSafe(baseFilter: string, altFilter?: string, def?: string): THREE.TextureFilter {
     const filter = this.getTypeSafe(baseFilter, altFilter, def || '');
-    switch (filter) {
+    switch (filter.toLowerCase()) {
       case 'nearestfilter':
       case 'nearest':
         return THREE.NearestFilter;

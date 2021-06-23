@@ -666,15 +666,15 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       canvas.height = canvasHeight;
       if (ThreeUtil.isNotNull(program)) {
         const _context = canvas.getContext('2d', {
-          // alpha: true,
+          alpha: true,
         });
         TextureUtils.drawCanvas(program, _context, text, canvasWidth, canvasHeight, options.programParam);
       }
       const canvasTexture = new THREE.CanvasTexture(canvas);
       if (ThreeUtil.isNotNull(program) && ThreeUtil.isNotNull(options.programMipmaps)) {
         canvasTexture.generateMipmaps = false;
-        canvasTexture.mipmaps = [];
-        canvasTexture.mipmaps.push(canvas);
+        canvasTexture.mipmaps.length = 0 ;
+        canvasTexture.mipmaps[0] = canvas;
         let mipmapWidth = canvasWidth;
         let mipmapHeight = canvasHeight;
         const programMipmaps : any[] = options.programMipmaps;
@@ -688,13 +688,12 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           mipmapCanvas.width = mipmapWidth;
           mipmapCanvas.height = mipmapHeight;
           const mipmapContext = mipmapCanvas.getContext('2d', {
-            // alpha: true,
+            alpha: true,
           });
           TextureUtils.drawCanvas(program, mipmapContext, text, mipmapWidth, mipmapHeight, programMipmaps[i]);
-          canvasTexture.mipmaps.push(mipmapCanvas);
+          canvasTexture.mipmaps[i + 1] = mipmapCanvas;
         }
       }
-      console.log(canvasTexture.mipmaps);
       canvasTexture.needsUpdate = true;
       return canvasTexture;
     }
@@ -823,7 +822,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           case 'generatemipmaps':
             texture.generateMipmaps = ThreeUtil.getTypeSafe(value, true);
             if (texture.generateMipmaps) {
-              texture.mipmaps = [];
+              texture.mipmaps.length = 0;
             }
             break;
           case 'encoding':
@@ -1017,7 +1016,13 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         );
       } else {
         if (ThreeUtil.isNotNull(this.canvas)) {
-          this.texture = new THREE.CanvasTexture(this.getCanvas());
+          const canvas = this.getCanvas();
+          this.texture = new THREE.CanvasTexture(canvas);
+          if (canvas instanceof HTMLCanvasElement) {
+            canvas.addEventListener('needupdate', () => {
+              this.texture.needsUpdate = true;
+            })
+          }
         } else if (ThreeUtil.isNotNull(this.perlin) && this.perlin.getPerlinGeometry) {
           this.texture = new THREE.CanvasTexture(this.perlin.getPerlinGeometry().getTexture(ThreeUtil.getVector3Safe(this.sunX, this.sunY, this.sunZ, new THREE.Vector3(1, 1, 1)), ThreeUtil.getColorSafe(this.color, 0x602000), ThreeUtil.getColorSafe(this.add, 0xe08060)));
         } else {
@@ -1025,7 +1030,9 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             this.setTextureLoaded(this.texture);
           });
         }
-        this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
+        if (ThreeUtil.isNotNull(this.mapping)) {
+          this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
+        }
       }
       this.applyMaterial();
       super.setObject(this.texture);

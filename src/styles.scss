@@ -53,7 +53,7 @@ form.three-visual>label{
   pointer-events: none;
 }
 
-
+#bottom,
 #info {
 	position: absolute;
 	top: 0px;
@@ -86,5 +86,51 @@ form.three-visual>label{
       color : #08f;
     }
   }
+  .lbl {
+    text-align: left;
+    position: absolute; 
+    bottom:5px; 
+    z-index:100; 
+    text-shadow:#000 1px 1px 1px; 
+    background-color:rgba(151, 80, 80, 0.85); 
+    padding:1em;
+    border:2px solid #000;
+    .g { color:#aaa }
+    .c { color:#fa0 }
+    &.canvas {
+      pointer-events: all;
+      padding: 0;
+      overflow: hidden;
+      >canvas {
+        background-color: white;
+      }
+      >button.clear-btn {
+        position: absolute;
+        left : 3px;
+        bottom: 3px;
+        border-radius: 2px;
+        border:1px solid #909090;
+        font-size: 0.7em;
+        background-color: #ffffff;
+        margin:0;
+        padding:0;
+      }
+    }
+    &#lbl_left {
+      border-radius: 2px 15px 2px 2px;
+      left: 5px;
+    }
+    &#lbl_right {
+      border-radius: 15px 2px 2px 2px;
+      right: 5px;
+    }
+  }
 }
 
+#bottom{
+	position: absolute;
+	top: auto;
+  bottom: 0;
+	left: 0;
+  right:0;
+}

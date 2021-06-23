@@ -47,6 +47,7 @@ ng g c three/rigidbody
 ng g c three/control
 ng g c three/tools
 ng g c three/viewer
+ng g directive three/drawing-canvas
 
 
 
