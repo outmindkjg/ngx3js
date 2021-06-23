@@ -2178,6 +2178,7 @@ export class ThreeUtil {
 export interface RendererTimer {
   delta: number;
   elapsedTime: number;
+  renderer? : THREE.Renderer;
 }
 
 export interface RendererInfo {
@@ -2220,12 +2221,13 @@ export interface RendererEvent {
 }
 
 export class ThreeClock extends THREE.Clock {
-  getTimer(): RendererTimer {
+  getTimer(renderer : THREE.Renderer): RendererTimer {
     const delta = this.getDelta();
     const elapsedTime = this.getElapsedTime();
     return {
       delta: delta,
       elapsedTime: elapsedTime,
+      renderer : renderer
     };
   }
 }

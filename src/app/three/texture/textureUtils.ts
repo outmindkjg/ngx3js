@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { ThreeUtil } from "../interface";
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 
-export type CanvasFunctionType = (ctx?: CanvasRenderingContext2D, text?: string, width? : number, height? : number) => void;
+export type CanvasFunctionType = (ctx?: CanvasRenderingContext2D, text?: string, width? : number, height? : number, options ? : any) => void;
 export type DataFunctionType = (scale? : number, options?:any) => THREE.DataTexture | THREE.DataTexture3D;
 
 export const calc = (v : number, scale : number): number => {
@@ -152,8 +152,15 @@ export const CanvasConf : {
     ctx.fillStyle = 'white';
     ctx.fillRect( 0, calc(1,s.y), calc(2,s.x), calc(1,s.y));
   },
-  test3 : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number) => {
-    const s = TextureUtils.scale(width, height, 16, 16);
+  checkpattern : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number, options : any) => {
+    options = options || {}
+    const color = options.color || '#f00';
+    console.log(width, height, color);
+    ctx.fillStyle = "#444";
+    ctx.fillRect( 0, 0, width, height );
+    ctx.fillStyle = color;
+    ctx.fillRect( 0, 0, width / 2, height / 2 );
+    ctx.fillRect( width / 2, height / 2, width / 2, height / 2 );
   },
   test4 : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number) => {
     const s = TextureUtils.scale(width, height, 16, 16);
@@ -251,9 +258,9 @@ export  class TextureUtils {
     }
   }
 
-  static drawCanvas(program : string | CanvasFunctionType, ctx?: CanvasRenderingContext2D, text?: string, width? : number, height? : number) {
+  static drawCanvas(program : string | CanvasFunctionType, ctx?: CanvasRenderingContext2D, text?: string, width? : number, height? : number, programParam? : any) {
     const canvasProgram = this.getCanvas(program);
-    canvasProgram(ctx, text, width, height);
+    canvasProgram(ctx, text, width, height, programParam);
   }
 
   static dataTexture(value : any, onload? : () => void) : THREE.DataTexture | THREE.DataTexture3D {

@@ -917,7 +917,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this.stats != null) {
       this.stats.begin();
     }
-    const renderTimer = this.clock.getTimer();
+    const renderTimer = this.clock.getTimer(this.renderer);
     this.events.direction.lerp(this.events.keyInfo.xy, renderTimer.delta / 3);
     this.onRender.emit(renderTimer);
     this.controllerList.forEach((controller) => {
@@ -944,7 +944,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         });
       }
       this.viewerList.forEach((viewer) => {
-        viewer.render(this.renderer, this.sceneList, renderTimer);
+        viewer.render(this.renderer, this.sceneList, this.cameraList ,renderTimer);
       });
     }
     if (this.stats != null) {

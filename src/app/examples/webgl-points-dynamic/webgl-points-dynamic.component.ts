@@ -83,30 +83,33 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
   
   setGeometry(idx : number , mesh : MeshComponent) {
     const realMesh = mesh.getObject3d() as THREE.Points;
-    const geometry = realMesh.geometry;
-    if (geometry == null && geometry == undefined) {
-      return ;
-    }
-    const positions = geometry.getAttribute('position');
-    if (positions !== null && positions !== undefined) {
-      const info = this.meshInfos[idx];
-      if (!info.isClone) {
-        const groupId = info.groupId; 
-        const meshGeometry = new THREE.BufferGeometry();
-        meshGeometry.setAttribute( 'position', positions.clone() );
-        (meshGeometry.getAttribute( 'position') as any).setUsage( THREE.DynamicDrawUsage );
-        meshGeometry.setAttribute( 'initialPosition', positions.clone() );
-        realMesh.geometry = meshGeometry;
-        info.geometry = meshGeometry;
-        this.meshInfos.forEach(child => {
-          if (child.groupId == groupId && child.geometry === null && child.mesh !== null) {
-            child.geometry = meshGeometry;
-            child.mesh.geometry = meshGeometry;
-          }
-        });
+    console.log(realMesh);
+    setTimeout(() => {
+      const geometry = realMesh.geometry;
+      if (geometry == null && geometry == undefined) {
+        return ;
       }
-      info.mesh = realMesh;
-    }
+      const positions = geometry.getAttribute('position');
+      if (positions !== null && positions !== undefined) {
+        const info = this.meshInfos[idx];
+        if (!info.isClone) {
+          const groupId = info.groupId; 
+          const meshGeometry = new THREE.BufferGeometry();
+          meshGeometry.setAttribute( 'position', positions.clone() );
+          (meshGeometry.getAttribute( 'position') as any).setUsage( THREE.DynamicDrawUsage );
+          meshGeometry.setAttribute( 'initialPosition', positions.clone() );
+          realMesh.geometry = meshGeometry;
+          info.geometry = meshGeometry;
+          this.meshInfos.forEach(child => {
+            if (child.groupId == groupId && child.geometry === null && child.mesh !== null) {
+              child.geometry = meshGeometry;
+              child.mesh.geometry = meshGeometry;
+            }
+          });
+        }
+        info.mesh = realMesh;
+      }
+    }, 5000);
   }
 
   onRender(timer : RendererTimer) {

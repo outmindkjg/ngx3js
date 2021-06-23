@@ -301,7 +301,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  render(renderer: THREE.Renderer, scenes: QueryList<any> , renderTimer?: RendererTimer) {
+  render(renderer: THREE.Renderer, scenes: QueryList<any> , cameras : QueryList<any>, renderTimer?: RendererTimer) {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':
@@ -310,7 +310,8 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           break;
         case 'canvas':
           const scene = scenes.first.getScene();
-          this.viewer.render(renderer, scene);
+          const camera = cameras.first.getCamera();
+          this.viewer.render(renderer, scene, camera);
           break;
         default:
           break;

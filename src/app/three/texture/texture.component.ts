@@ -28,6 +28,8 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private program: CanvasFunctionType | string = null;
+  @Input() private programParam: any = null;
+  @Input() private programMipmaps: any[] = null;
   @Input() private text: string = null;
   @Input() private canvas: HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap | string = null;
   @Input() private mapping: string = null;
@@ -227,6 +229,8 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         height: this.height,
         type: this.loaderType,
         text: this.text,
+        programParam : this.programParam,
+        programMipmaps : this.programMipmaps
       },
       onLoad
     );
@@ -662,11 +666,37 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       canvas.height = canvasHeight;
       if (ThreeUtil.isNotNull(program)) {
         const _context = canvas.getContext('2d', {
-          alpha: true,
+          // alpha: true,
         });
-        TextureUtils.drawCanvas(program, _context, text, canvasWidth, canvasHeight);
+        TextureUtils.drawCanvas(program, _context, text, canvasWidth, canvasHeight, options.programParam);
       }
-      return new THREE.CanvasTexture(canvas);
+      const canvasTexture = new THREE.CanvasTexture(canvas);
+      if (ThreeUtil.isNotNull(program) && ThreeUtil.isNotNull(options.programMipmaps)) {
+        canvasTexture.generateMipmaps = false;
+        canvasTexture.mipmaps = [];
+        canvasTexture.mipmaps.push(canvas);
+        let mipmapWidth = canvasWidth;
+        let mipmapHeight = canvasHeight;
+        const programMipmaps : any[] = options.programMipmaps;
+        for(let i = 0 ; i < programMipmaps.length; i++) {
+          mipmapWidth /= 2;
+          mipmapHeight /= 2;
+          if (mipmapWidth < 1 || mipmapHeight < 1) {
+            break;
+          }
+          const mipmapCanvas: HTMLCanvasElement = document.createElement('canvas');
+          mipmapCanvas.width = mipmapWidth;
+          mipmapCanvas.height = mipmapHeight;
+          const mipmapContext = mipmapCanvas.getContext('2d', {
+            // alpha: true,
+          });
+          TextureUtils.drawCanvas(program, mipmapContext, text, mipmapWidth, mipmapHeight, programMipmaps[i]);
+          canvasTexture.mipmaps.push(mipmapCanvas);
+        }
+      }
+      console.log(canvasTexture.mipmaps);
+      canvasTexture.needsUpdate = true;
+      return canvasTexture;
     }
   }
 
@@ -899,6 +929,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       if (ThreeUtil.isTextureLoaded(this.texture)) {
         this.texture.needsUpdate = true;
       }
+      console.log(this.texture);
       super.applyChanges(changes);
     }
   }
