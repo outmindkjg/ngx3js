@@ -43,7 +43,7 @@
       <three-material [type]="'ShaderMaterial'"
         [uniforms]="{
           color : { type : 'color', value : '0xffffff'},
-          pointTexture : { type : 'texture', value : 'textures/sprites/disc.png', options : 'RepeatWrapping'}
+          pointTexture : { type : 'texture', value : 'textures/sprites/disc.png', options : 'RepeatWrapping,RGBAFormat'}
         }"
         [vertexShader]="vertexshader"
         [fragmentShader]="fragmentshader"

@@ -257,10 +257,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   private getCombine(def?: string): THREE.Combine {
     const combine = ThreeUtil.getTypeSafe(this.combine, def, '');
     switch (combine.toLowerCase()) {
+      case 'multiplyoperation':
       case 'multiply':
         return THREE.MultiplyOperation;
+      case 'mixoperation':
       case 'mix':
         return THREE.MixOperation;
+      case 'addoperation':
       case 'add':
         return THREE.AddOperation;
     }
@@ -482,7 +485,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     if (ThreeUtil.isNotNull(this.textureList) && this.textureList.length > 0) {
       type = type.toLowerCase();
       const foundTexture = this.textureList.find((texture) => {
-        return (texture.textureType.toLowerCase() === type || (texture.textureType + 'map').toLowerCase() === type);
+        return texture.textureType.toLowerCase() === type || (texture.textureType + 'map').toLowerCase() === type;
       });
       if (ThreeUtil.isNotNull(foundTexture)) {
         return foundTexture.getTexture();

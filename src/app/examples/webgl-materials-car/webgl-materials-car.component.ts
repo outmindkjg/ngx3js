@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil } from '../../three';
 import { HelperComponent } from '../../three/helper/helper.component';
 
 @Component({
@@ -31,16 +31,18 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const carModel = mesh.getObject3d();
-    const body = carModel.getObjectByName( 'body' );
-    if (body !== null && body !== undefined) {
-      this.wheels = [
-        carModel.getObjectByName( 'wheel_fl' ),
-        carModel.getObjectByName( 'wheel_fr' ),
-        carModel.getObjectByName( 'wheel_rl' ),
-        carModel.getObjectByName( 'wheel_rr' )
-      ];
-    }
+    this.subscribeRefer('loaded', ThreeUtil.getSubscribe(mesh, () => {
+      const carModel = mesh.getObject3d();
+      const body = carModel.getObjectByName( 'body' );
+      if (body !== null && body !== undefined) {
+        this.wheels = [
+          carModel.getObjectByName( 'wheel_fl' ),
+          carModel.getObjectByName( 'wheel_fr' ),
+          carModel.getObjectByName( 'wheel_rl' ),
+          carModel.getObjectByName( 'wheel_rr' )
+        ];
+      }
+    }, 'loaded'));
   }
 
   grid : any = null;

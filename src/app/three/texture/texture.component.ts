@@ -306,7 +306,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           case 'wrapsmirroredrepeat':
           case 'wrapsclamptoedgewrapping':
           case 'wrapsclamptoedge':
-            textureOption.wrapS = ThreeUtil.getTypeSafe(option.substr(4), 'repeat');
+            textureOption.wrapS = ThreeUtil.getTypeSafe(option.substr(5), 'repeat');
             break;
           case 'wraptrepeatwrapping':
           case 'wraptrepeat':
@@ -314,7 +314,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           case 'wraptmirroredrepeat':
           case 'wraptclamptoedgewrapping':
           case 'wraptclamptoedge':
-            textureOption.wrapT = ThreeUtil.getTypeSafe(option.substr(4), 'repeat');
+            textureOption.wrapT = ThreeUtil.getTypeSafe(option.substr(5), 'repeat');
             break;
           case 'alphaformat':
           case 'alpha':
@@ -958,7 +958,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       if (ThreeUtil.isTextureLoaded(this.texture)) {
         this.texture.needsUpdate = true;
       }
-      console.log(this.texture);
       super.applyChanges(changes);
     }
   }
@@ -998,11 +997,11 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       if (this.texture !== texture && texture.image !== null) {
         this.texture = texture;
         super.setObject(this.texture);
-        TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-        this.applyMaterial();
-        this.setSubscribeNext(['texture','loaded']);
       }
-    }
+      TextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
+      this.applyMaterial();
+      this.setSubscribeNext(['texture','loaded']);
+  }
   }
 
   getTexture() {

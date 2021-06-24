@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { LightComponent } from '../../three/light/light.component';
 
 @Component({
   selector: 'app-webgl-materials-cubemap-refraction',
@@ -13,7 +14,7 @@ export class WebglMaterialsCubemapRefractionComponent extends BaseComponent<{}> 
   }
 
   pointLight : any = null;
-  setLight(mesh : MeshComponent) {
+  setLight(mesh : LightComponent) {
     this.pointLight = mesh.getObject3d();
   }
 

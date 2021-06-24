@@ -4,7 +4,7 @@
   Texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank" rel="noopener">Humus</a>
 </div>
 <three-renderer
-  [controlType]="'orbit'"
+  [controlType]="'plane'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
@@ -18,28 +18,10 @@
     <three-position [x]="0" [y]="0" [z]="-4000"></three-position>
   </three-camera>
   <three-scene #scene [background]="textureCube">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
+      [type]="'AmbientLight'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
+    ></three-light>
     <three-shared>
       <three-texture
         #textureCube
@@ -47,45 +29,41 @@
         [cubeImage]="['','jpg']"
         [mapping]="'CubeRefraction'"
       ></three-texture>
-      <three-geometry #geometry [storageName]="'models/ply/binary/Lucy100k.ply'"></three-geometry>
+      <three-geometry #geometry [storageName]="'models/ply/binary/Lucy100k.ply'" [computeVertexNormals]="true"></three-geometry>
     </three-shared>
     <three-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
-      [intensity]="5"
     >
     </three-light>
-    <three-mesh
+    <three-light
       (onLoad)="setLight($event)"
-      [type]="'light'"
-      [lightOptions]="{
-        type : 'Point',
-        color : '0xffffff',
-        intensity : 10
-      }"
+      [type]="'PointLight'"
+      [color]="'0xffffff'"
+      [intensity]="2"
     >
       <three-mesh>
         <three-scale [multiply]="0.05"></three-scale>
         <three-geometry [type]="'Sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="8"></three-geometry>
         <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
       </three-mesh>
-    </three-mesh>
+    </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh [geometry]="geometry">
+      <three-mesh [geometry]="geometry" [windowExport]="'mesh01'"> 
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-scale [multiply]="1.5"></three-scale>
-        <three-material [type]="'MeshPhong'" [color]="'0xffffff'" [envMap]="textureCube" [refractionRatio]="0.98" [opacity]="0.5"></three-material>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [envMap]="textureCube" [refractionRatio]="0.98"></three-material>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="-1500" [y]="0" [z]="0"></three-position>
         <three-scale [multiply]="1.5"></three-scale>
-        <three-material [type]="'MeshPhong'" [color]="'0xccfffd'" [envMap]="textureCube" [refractionRatio]="0.985"></three-material>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0xccfffd'" [envMap]="textureCube" [refractionRatio]="0.985"></three-material>
       </three-mesh>
       <three-mesh [geometry]="geometry">
         <three-position [x]="1500" [y]="0" [z]="0"></three-position>
         <three-scale [multiply]="1.5"></three-scale>
-        <three-material [type]="'MeshPhong'" [color]="'0xccddff'" [envMap]="textureCube" [refractionRatio]="0.985" [reflectivity]="0.9"></three-material>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0xccddff'" [envMap]="textureCube" [refractionRatio]="0.985" [reflectivity]="0.9"></three-material>
       </three-mesh>
     </three-mesh>
   </three-scene>

@@ -20,11 +20,11 @@
   </three-camera>
   <three-scene #scene [background]="texture">
     <three-shared>
-      <three-texture #texture [image]="'textures/2294472375_24a3b8ef46_o.jpg'" [encoding]="'sRGB'" [mapping]="'EquirectangularReflection'"></three-texture>
+      <three-texture #texture [image]="'textures/2294472375_24a3b8ef46_o.jpg'" [encoding]="'sRGBEncoding'" [mapping]="'EquirectangularReflectionMapping'"></three-texture>
       <three-material 
         #material
-        [type]="'MeshBasic'"
-        [combine]="'Multiply'"
+        [type]="'MeshBasicMaterial'"
+        [combine]="'MultiplyOperation'"
         [reflectivity]="1"
       ></three-material>
     </three-shared>
@@ -32,7 +32,7 @@
       <three-mesh [material]="material">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-geometry 
-          [type]="'Icosahedron'"
+          [type]="'IcosahedronGeometry'"
           [radius]="20"
           [detail]="8"
         ></three-geometry>

@@ -60,21 +60,6 @@
         <three-material 
           [type]="'MeshPhysicalMaterial'" 
           [color]="gemBackMaterialColor"
-          [metalness]="0"
-          [roughness]="0"
-          [opacity]="0.25"
-          [side]="'FrontSide'"
-          [transparent]="true"
-          [reflectivity]="controls.reflectivity"
-          [envMap]="hdrEquirect"
-          [envMapIntensity]="10"
-          [premultipliedAlpha]="true"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="emerald">
-        <three-material 
-          [type]="'MeshPhysicalMaterial'" 
-          [color]="gemBackMaterialColor"
           [metalness]="1"
           [roughness]="0"
           [opacity]="0.5"
@@ -84,6 +69,22 @@
           [envMap]="hdrEquirect"
           [envMapIntensity]="5"
           [premultipliedAlpha]="true"
+        ></three-material>
+      </three-mesh>
+      <three-mesh [geometry]="emerald">
+        <three-material 
+          [type]="'MeshPhysicalMaterial'" 
+          [color]="gemBackMaterialColor"
+          [metalness]="0"
+          [roughness]="0"
+          [opacity]="0.25"
+          [side]="'FrontSide'"
+          [transparent]="true"
+          [reflectivity]="controls.reflectivity"
+          [envMap]="hdrEquirect"
+          [envMapIntensity]="10"
+          [premultipliedAlpha]="true"
+          [windowExport]="'MeshPhysicalMaterial'"
         ></three-material>
       </three-mesh>
     </three-mesh>
