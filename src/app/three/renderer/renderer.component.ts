@@ -43,8 +43,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private antialias: boolean = false;
   @Input() private quality: string = null;
   @Input() public sizeType: string = 'auto';
-  @Input() private width: number = -1;
-  @Input() private height: number = -1;
+  @Input() private width: number | string = -1;
+  @Input() private height: number | string = -1;
+  @Input() private x: number | string = 0;
+  @Input() private y: number | string = 0;
   @Input() private statsMode: number = -1;
   @Input() private autoClear: boolean = true;
   @Input() private autoClearColor: boolean = true;
@@ -54,6 +56,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private logarithmicDepthBuffer: boolean = false;
   @Input() private preserveDrawingBuffer: boolean = false;
   @Input() private useEvent: string = null;
+  @Input() private camera: CameraComponent = null;
+  @Input() private scene: SceneComponent = null;
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
   @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
   @Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
@@ -71,9 +75,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @ContentChildren(CanvasComponent) private canvas2dList: QueryList<CanvasComponent>;
   @ContentChildren(SharedComponent, { descendants: true }) private sharedList: QueryList<SharedComponent>;
 
-  @ViewChild('canvas') private canvasEle: ElementRef;
-  @ViewChild('debug') private debugEle: ElementRef;
-  @ViewChild('renderer') private rendererEle: ElementRef;
+  @ViewChild('canvas') private canvasEle: ElementRef = null;
+  @ViewChild('debug') private debugEle: ElementRef = null;
+  @ViewChild('renderer') private rendererEle: ElementRef = null;
 
   private getShadowMapType(def?: string): THREE.ShadowMapType {
     const shadowMapType = ThreeUtil.getTypeSafe(this.shadowMapType, def, '');
@@ -316,14 +320,48 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  setSize(width: number, height: number) {
-    if (this._lastConfirmHtml !== null) {
-      this._lastConfirmHtml.style.width = width + 'px';
-      this._lastConfirmHtml.style.height = height + 'px';
+  private getRenderSize(size: number | string, renderSize: number, def?: number | string): number {
+    const baseSize = ThreeUtil.getTypeSafe(size, def);
+    if (ThreeUtil.isNotNull(baseSize)) {
+      if (typeof baseSize == 'string') {
+        if (baseSize.indexOf('%') > 0) {
+          const [percent, extra] = baseSize.split('%');
+          const viewSize = Math.ceil(renderSize * parseFloat(percent) / 100);
+          if (extra === '') {
+            return viewSize;
+          } else {
+            return viewSize + parseInt(extra);
+          }
+        } else {
+          return parseFloat(baseSize);
+        }
+      } else if (baseSize >= 0){
+        return baseSize;
+      }
     }
-    if (this.renderer !== null) {
-      this.rendererWidth = width;
-      this.rendererHeight = height;
+    return renderSize;
+  }
+
+  setSize(width: number, height: number) {
+    const rendererWidth = this.getRenderSize(this.width , width);
+    const rendererHeight = this.getRenderSize(this.height , height);
+    const left = this.getRenderSize(this.x , width);
+    const top = this.getRenderSize(this.y , height);
+    if (this._lastConfirmHtml !== null) {
+      this._lastConfirmHtml.style.width = rendererWidth + 'px';
+      this._lastConfirmHtml.style.height = rendererHeight + 'px';
+      this._lastConfirmHtml.style.left = left + 'px';
+      this._lastConfirmHtml.style.top = top + 'px';
+    }
+    if (this.canvasEle !== null) {
+      this.canvasEle.nativeElement.style.width = rendererWidth + 'px';
+      this.canvasEle.nativeElement.style.height = rendererHeight + 'px';
+      this.canvasEle.nativeElement.style.left = left + 'px';
+      this.canvasEle.nativeElement.style.top = top + 'px';
+    }
+    this.rendererWidth = rendererWidth;
+    this.rendererHeight = rendererHeight;
+  if (this.renderer !== null) {
       this.events.width = this.rendererWidth;
       this.events.height = this.rendererHeight;
       this.offsetTop = 0;
@@ -426,6 +464,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           [
             'useevent',
             'shared',
+            'width',
+            'height',
+            'x',
+            'y',
             'resize',
             'scene',
             'camera',
@@ -464,6 +506,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listener', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol', 'webglrenderer']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['width','height','x','y'])) {
+        changes = ThreeUtil.pushUniq(changes, ['resize']);
       }
       this.consoleLog('render', changes, 'error');
       if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
@@ -540,11 +585,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
             }
             break;
           case 'resize':
-            if (this.width > 0 && this.height > 0) {
-              this.setSize(this.width, this.height);
-            } else {
-              this.resizeRender();
-            }
+            this.resizeRender();
             break;
           case 'webglrenderer':
             if (this.renderer instanceof THREE.WebGLRenderer) {
@@ -625,7 +666,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           case 'composer':
             this.unSubscribeReferList('composerList');
             if (ThreeUtil.isNotNull(this.composerList)) {
-              if (this.renderer instanceof THREE.WebGLRenderer) {
+              if (this.composerList.length > 0 && this.cameraList.length > 0 && this.sceneList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
                 const camera = this.cameraList.first.getCamera();
                 const scene = this.sceneList.first.getScene();
                 this.composerList.forEach((composer) => {
@@ -696,8 +737,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
   public renderer: THREE.Renderer = null;
   private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
-  public rendererWidth: number = null;
-  public rendererHeight: number = null;
+  public rendererWidth: number = 1024;
+  public rendererHeight: number = 768;
 
   private stats: ThreeStats = null;
   private gui: ThreeGui = null;
@@ -734,7 +775,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         case 'firstperson':
         case 'transform':
         case 'trackball':
-        case 'plain':
+        case 'plane':
           const control = this.initLocalComponent('control', new ControlComponent());
           const controlOptions = this.controlOptions || {};
           controlOptions.lookatList = this.lookatList;
@@ -856,11 +897,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           this.renderer = webGLRenderer;
           break;
       }
-      if (this.rendererWidth === null || this.rendererHeight === null) {
-        const [width, height] = this.width > 0 && this.height > 0 ? [this.width, this.height] : [window.innerWidth, window.innerHeight];
-        this.rendererWidth = width;
-        this.rendererHeight = height;
-      }
       if (this.cssRenderer !== null) {
         this.cssRenderer.domElement.style.position = 'absolute';
         this.cssRenderer.domElement.style.top = '0px';
@@ -938,13 +974,15 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.composerList.forEach((composer) => {
           composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);
         });
-      } else {
+      } else if (this.cameraList && this.cameraList.length > 0){
         this.cameraList.forEach((camera) => {
-          camera.render(this.renderer, this.cssRenderer, this.sceneList, renderTimer);
+          camera.render(this.renderer, this.cssRenderer, this.scene || this.sceneList, renderTimer);
         });
+      } else if (ThreeUtil.isNotNull(this.camera)) {
+        this.camera.render(this.renderer, this.cssRenderer, this.scene || this.sceneList, renderTimer);
       }
       this.viewerList.forEach((viewer) => {
-        viewer.render(this.renderer, this.sceneList, this.cameraList ,renderTimer);
+        viewer.render(this.renderer, this.scene || this.sceneList, this.camera || this.cameraList ,renderTimer);
       });
     }
     if (this.stats != null) {
@@ -964,12 +1002,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
   @HostListener('window:resize')
   resizeRender() {
-    if (this.width <= 0 || this.height <= 0) {
+    if (typeof this.width === 'string' || typeof this.height === 'string' || this.width <= 0 || this.height <= 0) {
       if (this.sizeType === 'auto') {
         this.setSize(this.rendererEle.nativeElement.clientWidth, this.rendererEle.nativeElement.clientHeight);
       } else {
         this.setSize(window.innerWidth, window.innerHeight);
       }
+    } else {
+      this.setSize(this.width, this.height);
     }
   }
 

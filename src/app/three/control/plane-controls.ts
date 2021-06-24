@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export class PlainControls {
+export class PlaneControls {
   constructor(private camera: THREE.Camera, private domElement: HTMLElement) { 
     if ( domElement === undefined ) {
       console.warn( 'THREE.PlainControls: The second parameter "domElement" is now mandatory.' );
@@ -59,7 +59,7 @@ export class PlainControls {
           const cameraPosition = new THREE.Vector2(this.xDistance, this.yDistance);
           cameraPosition.multiply(this.mouse);
           cameraPosition.add(new THREE.Vector2(this.target.x, this.target.y));
-          this.cameraPosition = new THREE.Vector3(cameraPosition.x, cameraPosition.y, this.camera.position.z);
+          this.cameraPosition = new THREE.Vector3(cameraPosition.x, Math.max(0.5,cameraPosition.y), this.camera.position.z);
         }
         this.domElement.addEventListener('pointermove', this._mouseMoveHandler);
       }

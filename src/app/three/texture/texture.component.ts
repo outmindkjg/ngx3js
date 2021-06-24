@@ -25,6 +25,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private image: string = null;
   @Input() private premultiplyAlpha: boolean = null;
   @Input() private cubeImage: string[] = null;
+  @Input() private data: THREE.TypedArray | number[] = null;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private program: CanvasFunctionType | string = null;
@@ -230,7 +231,8 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         type: this.loaderType,
         text: this.text,
         programParam : this.programParam,
-        programMipmaps : this.programMipmaps
+        programMipmaps : this.programMipmaps,
+        data : this.data
       },
       onLoad
     );
@@ -657,6 +659,30 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
             }
           }
       }
+    } else if (ThreeUtil.isNotNull(options.data)){
+      const dataWidth: number = ThreeUtil.getTypeSafe(options.width, 32);
+      let dataHeight: number = ThreeUtil.getTypeSafe(options.height, 32);
+      const data = options.data;
+      let textureData : THREE.TypedArray = null;
+      if (
+        data instanceof Int8Array ||
+        data instanceof Uint8Array ||
+        data instanceof Uint8ClampedArray ||
+        data instanceof Int16Array ||
+        data instanceof Uint16Array ||
+        data instanceof Int32Array ||
+        data instanceof Uint32Array ||
+        data instanceof Float32Array ||
+        data instanceof Float64Array
+      ) {
+        textureData = data;
+      } else if(Array.isArray(data)){
+        textureData = new Float32Array(data.length);
+        data.forEach((value, idx) => {
+          textureData[idx] = parseFloat(value);
+        });
+      }
+      return new THREE.DataTexture(data, dataWidth, dataHeight);
     } else {
       const canvas: HTMLCanvasElement = document.createElement('canvas');
       const canvasWidth: number = ThreeUtil.getTypeSafe(options.width, 32);
@@ -902,6 +928,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         case 'roughness' :
         case 'roughnessmap' :
           this._material['roughnessMap'] = this.texture;
+          break;
+        case 'gradient' :
+        case 'gradientmap' :
+          this._material['gradientMap'] = this.texture;
           break;
         case 'map':
           this._material['map'] = this.texture;

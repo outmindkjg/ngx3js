@@ -8,24 +8,74 @@
   [antialias]="true"
   [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
+  [toneMapping]="'ACESFilmicToneMapping'"
+  [toneMappingExposure]="0.75"
+  [outputEncoding]="'sRGBEncoding'"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2500">
-    <three-position [x]="0.0" [y]="400" [z]="400*3.5"></three-position>
+    <three-position [x]="0.0" [y]="400" [z]="400 * 3.5"></three-position>
   </three-camera>
+  <three-composer [type]="'OutlineEffect'"></three-composer>
   <three-scene #scene [background]="'0x444488'">
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
+    <three-light
+      [type]="'AmbientLight'"
+      [color]="'0x888888'"
+    ></three-light>
+    <three-mesh (onLoad)="setPointLight($event)">
       <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [type]="'SphereGeometry'"
+        [radius]="4"
+        [widthSegments]="8"
+        [heightSegments]="8"
       ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
+      <three-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
+      <three-light
+        [type]="'PointLight'"
+        [color]="'0xffffff'"
+        [intensity]="2"
+        [distance]="800"
+      ></three-light>
+    </three-mesh>
+    <three-mesh>
+      <three-mesh *ngFor="let info of labelInfos" [material]="label">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-geometry [type]="'TextGeometry'" [text]="info.text" [font]="'gentilis_regular'" [size]="20" [height]="1" [curveSegments]="1" [center]="true"></three-geometry>
+      </three-mesh>
+    </three-mesh>
+    <three-shared>
+      <three-texture #hdrEquirect [storageName]="'pedestrian_overpass_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'Equirectangular'"></three-texture>
+      <three-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
+      <three-geometry
+        #geometry
+        [type]="'SphereGeometry'"
+        [radius]="400/5*0.8*0.5"
+        [widthSegments]="32"
+        [heightSegments]="16"
+      ></three-geometry>
+    </three-shared>
+    <three-mesh (onLoad)="setMesh($event)">
+      <three-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
+        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+        <three-material 
+          [type]="'MeshToonMaterial'"
+          [color]="info.color"
+        >
+          <three-texture 
+            [textureType]="'gradientMap'"
+            [data]="info.dataColors" 
+            [width]="info.dataColors.length" 
+            [height]="1" 
+            [format]="'LuminanceFormat'"
+            [minFilter]="'NearestFilter'"
+            [magFilter]="'NearestFilter'"
+            [generateMipmaps]="false"
+          ></three-texture>
+        </three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -482,7 +482,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     if (ThreeUtil.isNotNull(this.textureList) && this.textureList.length > 0) {
       type = type.toLowerCase();
       const foundTexture = this.textureList.find((texture) => {
-        return texture.textureType.toLowerCase() === type;
+        return (texture.textureType.toLowerCase() === type || (texture.textureType + 'map').toLowerCase() === type);
       });
       if (ThreeUtil.isNotNull(foundTexture)) {
         return foundTexture.getTexture();

@@ -312,11 +312,11 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         renderer.autoClear = false;
         renderer.clear();
       }
-      if (this.effectComposer instanceof AsciiEffect) {
-        this.consoleLogTime('AsciiEffect',renderTimer);
-        this.effectComposer.render(this._composerScene, this._composerCamera);
-      } else {
+      
+      if (this.effectComposer instanceof EffectComposer) {
         this.effectComposer.render(renderTimer.delta);
+      } else {
+        this.effectComposer.render(this._composerScene, this._composerCamera);
       }
       if (this.scissorTest) {
         renderer.setScissorTest(false);
@@ -348,7 +348,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         this.getComposer();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','pass'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','pass', 'clear', 'viewportaspect','viewport', 'scissortest', 'x','y','width','height','scissorx','scissory','scissorwidth','scissorheight'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
@@ -424,16 +424,19 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
           this.effectComposer = asciiEffect;
           asciiEffect.setSize(this.composerWidth, this.composerHeight);
           break;
+        case 'peppersghosteffect':
         case 'peppersghost':
           const peppersGhostEffect = new PeppersGhostEffect(this._composerRenderer);
           peppersGhostEffect.cameraDistance = this.getCameraDistance(15);
           peppersGhostEffect.reflectFromAbove = this.getReflectFromAbove(false);
           this.effectComposer = peppersGhostEffect;
           break;
+        case 'outlineeffect':
         case 'outline':
           const outlineEffect = new OutlineEffect(this._composerRenderer, {});
           this.effectComposer = outlineEffect;
           break;
+        case 'parallaxbarriereffect':
         case 'parallaxbarrier':
           this.effectComposer = new ParallaxBarrierEffect(this._composerRenderer);
           break;

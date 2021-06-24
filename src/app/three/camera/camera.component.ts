@@ -485,21 +485,28 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return this.camera;
   }
 
-  getScene(scenes?: QueryList<any>): THREE.Scene {
-    if (this.scene !== null) {
+  getScene(scenes?: QueryList<any> | any): THREE.Scene {
+    if (ThreeUtil.isNotNull(this.scene) && ThreeUtil.isNotNull(this.scene.getScene)) {
       return this.scene.getScene();
-    } else if (scenes && scenes.length > 0) {
-      return scenes.first.getScene();
-    } else if (this.rendererScenes && this.rendererScenes.length > 0) {
-      return this.rendererScenes.first.getScene();
-    } else {
-      return new THREE.Scene();
     }
+    if (ThreeUtil.isNotNull(scenes)) {
+      if (scenes instanceof QueryList && scenes.length > 0) {
+        return scenes.first.getScene();
+      } else if (ThreeUtil.isNotNull(scenes.getScene)){
+        return scenes.getScene()
+      }
+    }
+    if (ThreeUtil.isNotNull(this.rendererScenes)) {
+      if (this.rendererScenes.length > 0) {
+        return this.rendererScenes.first.getScene();
+      }
+    }
+    return new THREE.Scene();
   }
 
   private _cubeRenderCount = 0;
 
-  render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any>, renderTimer: RendererTimer) {
+  render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any> | any, renderTimer: RendererTimer) {
     if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }

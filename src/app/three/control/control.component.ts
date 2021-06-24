@@ -10,7 +10,7 @@ import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
-import { PlainControls } from './plain-controls';
+import { PlaneControls } from './plane-controls';
 
 @Component({
   selector: 'three-control',
@@ -290,8 +290,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
           });
           control = csm;
           break;
-        case 'plain':
-          const mouseMoveControls = new PlainControls(camera, domElement);
+        case 'plane':
+          const mouseMoveControls = new PlaneControls(camera, domElement);
           if (ThreeUtil.isNotNull(this.rotateSpeed)) {
             mouseMoveControls.rotateSpeed = this.rotateSpeed;
           }
@@ -384,7 +384,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
         this.control.update(renderTimer.delta);
       } else if (this.control instanceof TrackballControls) {
         this.control.update();
-      } else if (this.control instanceof PlainControls) {
+      } else if (this.control instanceof PlaneControls) {
         this.control.update(renderTimer.delta);
       }
     }

@@ -21,9 +21,8 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private plane: MeshComponent | HelperComponent | THREE.Object3D | THREE.Plane = null;
   @Input() private x: number | string = 0;
   @Input() private y: number | string = 0;
-  @Input() private width: number | string = '50%';
-  @Input() private height: number | string = '50%';
-  @Input() private cssClassName: string = 'viewer-canvas';
+  @Input() private width: number | string = '100%';
+  @Input() private height: number | string = '100%';
   @Input() private canvasOptions: any = null;
   
 
@@ -226,6 +225,35 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  protected applyChanges(changes: string[]) {
+    if (this.viewer !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getViewer();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['x', 'y', 'width', 'height','canvasoptions'], this.OBJECT_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, ['x', 'y', 'width', 'height'])) {
+        changes = ThreeUtil.pushUniq(changes, ['reset']);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'reset':
+            this.resizeViewer();
+            break;
+          case 'canvasoptions' :
+            if (this.viewer instanceof ViewerCanvas) {
+              this.viewer.setOptions(this.canvasOptions);
+            }
+            break;
+        }
+      });
+      super.applyChanges(changes);
+    }
+  }
+
   resetViewer() {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
@@ -253,7 +281,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
       this.unSubscribeRefer('referTarget');
       switch (this.type.toLowerCase()) {
         case 'canvas' :
-          this.viewer = new ViewerCanvas(this.renderer, this.cssClassName, this.canvasOptions);
+          this.viewer = new ViewerCanvas(this.renderer, this.canvasOptions);
           this.resizeViewer();
           super.setObject(this.viewer);
           break;
@@ -301,7 +329,33 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  render(renderer: THREE.Renderer, scenes: QueryList<any> , cameras : QueryList<any>, renderTimer?: RendererTimer) {
+  getScene(scenes?: QueryList<any> | any): THREE.Scene {
+    if (ThreeUtil.isNotNull(scenes)) {
+      if (scenes instanceof QueryList && scenes.length > 0) {
+        return scenes.first.getScene();
+      } else if (scenes instanceof THREE.Scene){
+        return scenes;
+      } else if (ThreeUtil.isNotNull(scenes.getScene)){
+        return scenes.getScene()
+      }
+    }
+    return new THREE.Scene();
+  }
+
+  getCamera(cameras?: QueryList<any> | any): THREE.Camera {
+    if (ThreeUtil.isNotNull(cameras)) {
+      if (cameras instanceof QueryList && cameras.length > 0) {
+        return cameras.first.getCamera();
+      } else if (cameras instanceof THREE.Camera){
+        return cameras;
+      } else if (ThreeUtil.isNotNull(cameras.getCamera)){
+        return cameras.getCamera()
+      }
+    }
+    return new THREE.Camera();
+  }
+  
+  render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras : QueryList<any> | any , renderTimer?: RendererTimer) {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':
@@ -309,8 +363,8 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           this.viewer.render(renderer);
           break;
         case 'canvas':
-          const scene = scenes.first.getScene();
-          const camera = cameras.first.getCamera();
+          const scene = this.getScene(scenes);
+          const camera = this.getCamera(cameras);
           this.viewer.render(renderer, scene, camera);
           break;
         default:

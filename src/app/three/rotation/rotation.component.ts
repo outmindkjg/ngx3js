@@ -13,6 +13,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
   @Input() private x: number | string = 0;
   @Input() private y: number | string = 0;
   @Input() private z: number | string = 0;
+  @Input() private isRadian: boolean = false;
 
   constructor() {
     super();
@@ -74,6 +75,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
       this.y = ThreeUtil.getTypeSafe(y, 0);
       this.z = ThreeUtil.getTypeSafe(z, 0);
     }
+    this.isRadian = false;
     this.needUpdate = true;
   }
 
@@ -114,7 +116,11 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
       rotation = ThreeUtil.getRotation(this.refer);
     }
     if (rotation === null) {
-      rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, null, true);
+      if (this.isRadian && typeof this.x === 'number' && typeof this.y === 'number' && typeof this.z === 'number') {
+        rotation = new THREE.Euler(this.x, this.y, this.z);
+      } else {
+        rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, null, true);
+      }
     }
     return rotation;
   }

@@ -986,15 +986,18 @@ export class ThreeUtil {
             .split(',');
           switch (type.toLowerCase()) {
             case 'hsl':
-              const h = this.getParseFloat(val1);
-              const s = this.getParseFloat(val2);
-              const l = this.getParseFloat(val3);
+              const h = this.getParseFloat(val1,1);
+              const s = this.getParseFloat(val2,1);
+              const l = this.getParseFloat(val3,1);
               return new THREE.Color().setHSL(h, s, l);
             case 'rgb':
               const r = this.getParseFloat(val1,255);
               const g = this.getParseFloat(val2,255);
               const b = this.getParseFloat(val3,255);
               return new THREE.Color(r / 255, g / 255, b / 255);
+            case 'color':
+            case 'rgbf':
+              return new THREE.Color(this.getParseFloat(val1,1), this.getParseFloat(val2,1), this.getParseFloat(val3,1));
           }
         }
       }

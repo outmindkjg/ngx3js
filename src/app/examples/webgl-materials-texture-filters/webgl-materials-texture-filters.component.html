@@ -41,7 +41,7 @@
     <three-pass #renderPass [type]="'RenderPass'" [scene]="scene2" [camera]="camera"></three-pass>
     <three-pass [refer]="copyPass"></three-pass>
   </three-composer>
-  <three-control [type]="'plain'"></three-control>
+  <three-control [type]="'plane'"></three-control>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera #camera [type]="'perspective'" [fov]="35" [near]="1" [far]="5000">
     <three-position [x]="0" [y]="0" [z]="1500"></three-position>

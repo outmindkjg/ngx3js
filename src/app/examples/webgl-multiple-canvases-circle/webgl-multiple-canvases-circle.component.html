@@ -17,7 +17,7 @@
   <three-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="20000">
     <three-position [x]="0" [y]="0" [z]="1800"></three-position>
   </three-camera>
-  <three-viewer [type]="'canvas'" [x]="'0%'" [y]="'0%'" [width]="'100%'" [height]="'100%'"></three-viewer>
+  <three-viewer [type]="'canvas'" [canvasOptions]="canvasOptions" [x]="viewPort.x" [y]="viewPort.y" [width]="viewPort.width" [height]="viewPort.height"></three-viewer>
   <three-scene #scene [background]="'0xffffff'">
     <three-light
       [type]="'AmbientLight'"
@@ -49,6 +49,7 @@
       <three-material 
         #shadowMaterial 
         [type]="'MeshBasicMaterial'" 
+        [transparent]="true"
       >
         <three-texture [textureType]="'map'" [program]="'shadow'" [width]="128" [height]="128"></three-texture>
       </three-material>

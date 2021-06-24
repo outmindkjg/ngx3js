@@ -1,5 +1,6 @@
 .renderer {
   position: relative;
+  pointer-events: none;
   &.auto-size {
     position: absolute;
     box-sizing: border-box;
@@ -13,6 +14,7 @@
     display: none;
   }
   .debug {
+    pointer-events: all;
     display: block;
     position: absolute;
     left: 0;
@@ -30,9 +32,11 @@
         z-index: 2;
       }
       >canvas {
+        pointer-events: all;
         z-index: 1;
       }
       >div.message-info {
+        pointer-events: all;
         position: relative;
         min-width: 100px;
         min-height: 100px;

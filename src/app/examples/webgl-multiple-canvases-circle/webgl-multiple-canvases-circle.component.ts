@@ -7,14 +7,70 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-multiple-canvases-circle.component.html',
   styleUrls: ['./webgl-multiple-canvases-circle.component.scss']
 })
-export class WebglMultipleCanvasesCircleComponent extends BaseComponent<{}> {
+export class WebglMultipleCanvasesCircleComponent extends BaseComponent<{
+  screenCnt : number;
+  screenWidth : number;
+  screenHeight : number;
+  useClear : boolean;
+  clearColor : number;
+  x : number;
+  y : number;
+  width : number;
+  height : number;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      screenCnt : 5,
+      screenWidth : 175,
+      screenHeight : 297,
+      useClear : true,
+      clearColor : 0x555555,
+      x : 0,
+      y : 0,
+      width : 100,
+      height : 100
+    },[
+      { name : 'screenCnt', type : 'number', min : 1, max : 5, step : 1, change : () => { this.updateScreen();}},
+      { name : 'screenWidth', type : 'number', min : 100, max : 200, step : 1, change : () => { this.updateScreen();}},
+      { name : 'screenHeight', type : 'number', min : 100, max : 300, step : 1, change : () => { this.updateScreen();}},
+      { name : 'useClear', type : 'checkbox', change : () => { this.updateScreen();}},
+      { name : 'clearColor', type : 'color', change : () => { this.updateScreen();}},
+      { name : 'x', type : 'number', min : 0, max : 30, step : 1, change : () => { this.updateScreen();}},
+      { name : 'y', type : 'number', min : 0, max : 30, step : 1, change : () => { this.updateScreen();}},
+      { name : 'width', type : 'number', min : 70, max : 100, step : 1, change : () => { this.updateScreen();}},
+      { name : 'height', type : 'number', min : 70, max : 100, step : 1, change : () => { this.updateScreen();}},
+    ]);
   }
 
+  updateScreen() {
+    this.canvasOptions = {
+      type : 'circlescreen',
+      cnt : this.controls.screenCnt,
+      width : this.controls.screenWidth,
+      height : this.controls.screenHeight,
+      useClear : this.controls.useClear,
+      clearColor : this.controls.clearColor
+    }
+
+    this.viewPort = {
+      x : this.controls.x + '%',
+      y : this.controls.y + '%',
+      width : (this.controls.width - this.controls.x * 2) + '%',
+      height : (this.controls.height - this.controls.y * 2) + '%',
+    }
+  }
+  viewPort : {
+    x : number | string;
+    y : number | string;
+    width : number | string;
+    height : number | string;
+  } = null;
+
+  canvasOptions : any = null;
 
   ngOnInit() {
+    this.updateScreen();
     this.ballInfos = [];
     const noof_balls = 51;
     for ( let i = 0; i < noof_balls; i ++ ) { 

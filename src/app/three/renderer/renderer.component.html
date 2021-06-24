@@ -1,7 +1,7 @@
-<div [class]="'renderer'" #renderer [ngClass]="sizeType == 'auto' ? 'auto-size' : 'fix-size'" >
-  <div [class]="'debug'" #debug></div>
-  <div [class]="'canvas'" #canvas (resize)="changeAutoSize()"></div>
-  <div [class]="'hidden-wraper'">
+<div class="renderer" #renderer [ngClass]="sizeType == 'auto' ? 'auto-size' : 'fix-size'" >
+  <div class="debug" #debug></div>
+  <div class="canvas" #canvas (resize)="changeAutoSize()"></div>
+  <div class="hidden-wraper">
       <ng-content></ng-content>
   </div>
 </div>
