@@ -52,8 +52,7 @@
         <three-position [x]="-1.5" [y]="-0.5" [z]="0"></three-position>
         <three-material 
           [type]="'Shader'"
-          [vertexShader]="vertexShader"
-          [fragmentShader]="fragment_shader1"
+          [shader]="'ShaderDemo1'"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
         <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
@@ -62,8 +61,7 @@
         <three-position [x]="-0.5" [y]="0.5" [z]="0"></three-position>
         <three-material 
           [type]="'Shader'"
-          [vertexShader]="vertexShader"
-          [fragmentShader]="fragment_shader2"
+          [shader]="'ShaderDemo2'"
           [uniforms]="{ time : { type : 'number', value : 1.0 }, colorTexture : { type : 'texture', value : 'textures/disturb.jpg', options : 'wrapRepeat'}}"
         ></three-material>
         <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
@@ -72,8 +70,7 @@
         <three-position [x]="0.5" [y]="-0.5" [z]="0"></three-position>
         <three-material 
           [type]="'Shader'"
-          [vertexShader]="vertexShader"
-          [fragmentShader]="fragment_shader3"
+          [shader]="'ShaderDemo3'"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
         <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5 }"></three-controller>
@@ -82,8 +79,7 @@
         <three-position [x]="1.5" [y]="0.5" [z]="0"></three-position>
         <three-material 
           [type]="'Shader'"
-          [vertexShader]="vertexShader"
-          [fragmentShader]="fragment_shader4"
+          [shader]="'ShaderDemo4'"
           [uniforms]="{ time : { type : 'number', value : 1.0 }}"
         ></three-material>
         <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed * 5}"></three-controller>

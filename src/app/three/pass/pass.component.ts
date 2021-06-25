@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LUTCubeLoader, LUTCubeResult } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
@@ -78,6 +78,8 @@ import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader';
 import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 import { ThreeUtil } from '../interface';
+import { ShaderComponent } from '../shader/shader.component';
+import { ShaderUtils } from '../shader/shaders/shaderUtils';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -123,6 +125,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private useNormals: boolean = null;
   @Input() private renderTarget: THREE.WebGLRenderTarget = null;
   @Input() private shader: string = null;
+  @Input() private materialShader: string = null;
   @Input() private textureId: string = null;
   @Input() private map: THREE.Texture | TextureComponent | any = null;
   @Input() private texture: THREE.Texture | TextureComponent = null;
@@ -165,6 +168,8 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private vertexShader: string = null;
   @Input() private fragmentShader: string = null;
   @Input() private bloomTexture: any = null;
+
+  @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
 
   constructor() {
     super();
@@ -701,20 +706,12 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
         break;
       case 'shadermaterial':
       case 'material':
-        const shaderMaterialParameters: THREE.ShaderMaterialParameters = {};
-        if (ThreeUtil.isNotNull(this.vertexShader)) {
-          shaderMaterialParameters.vertexShader = this.vertexShader;
-        }
-        if (ThreeUtil.isNotNull(this.fragmentShader)) {
-          shaderMaterialParameters.fragmentShader = this.fragmentShader;
-        }
-        if (ThreeUtil.isNotNull(this.uniforms)) {
-          const uniforms: { [uniform: string]: THREE.IUniform } = {};
-          Object.entries(this.uniforms).forEach(([key, value]) => {
-            uniforms[key] = { value: null };
-          });
-          shaderMaterialParameters.uniforms = uniforms;
-        }
+      default :
+        const shaderMaterialParameters: THREE.ShaderMaterialParameters = {
+          vertexShader : this.getMaterialShader('x-shader/x-vertex'),
+          fragmentShader : this.getMaterialShader('x-shader/x-fragment'),
+          uniforms: this.getUniforms({})
+        };
         shaderUniforms = new THREE.ShaderMaterial(shaderMaterialParameters);
         break;
     }
@@ -723,6 +720,169 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     }
     return undefined;
   }
+
+  private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
+    const uniforms: {
+      [key: string]: THREE.IUniform;
+    } = ThreeUtil.getTypeSafe(this.uniforms, def);
+    const resultUniforms = ShaderUtils.getUniforms(this.materialShader);
+    Object.entries(uniforms).forEach(([key, value]) => {
+      if (ThreeUtil.isNotNull(value) && ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+        const valueType: string = value['type'];
+        const valueValue: any = value['value'];
+        switch (valueType.toLowerCase()) {
+          case 'projectionmatrixinverse':
+          case 'projectionmatrix':
+          case 'matrixworldinverse':
+          case 'matrixworld':
+          case 'matrix':
+            if (ThreeUtil.isNotNull(valueValue.getObject3d)) {
+              this.unSubscribeRefer('unforms_' + key);
+              const object3d: THREE.Object3D = valueValue.getObject3d();
+              resultUniforms[key] = {
+                value: ThreeUtil.getMatrix4Safe(object3d, valueType),
+              };
+              if (ThreeUtil.isNotNull(valueValue.getSubscribe)) {
+                this.subscribeRefer(
+                  'unforms_' + key,
+                  valueValue.getSubscribe().subscribe((e) => {
+                    resultUniforms[key].value = ThreeUtil.getMatrix4Safe(e, valueType);
+                  })
+                );
+              }
+            } else {
+              resultUniforms[key] = {
+                value: new THREE.Matrix4(),
+              };
+            }
+            break;
+          case 'vector2':
+          case 'v2':
+            if (ThreeUtil.isNotNull(valueValue.getSize)) {
+              this.unSubscribeRefer('unforms_' + key);
+              resultUniforms[key] = {
+                value: valueValue.getSize(),
+              };
+              if (ThreeUtil.isNotNull(valueValue.sizeSubscribe)) {
+                this.subscribeRefer(
+                  'unforms_' + key,
+                  valueValue.sizeSubscribe().subscribe((e) => {
+                    resultUniforms[key].value = e;
+                  })
+                );
+              }
+            } else {
+              resultUniforms[key] = {
+                value: ThreeUtil.getVector2Safe(valueValue[0], valueValue[1], new THREE.Vector2()),
+              };
+            }
+            break;
+          case 'vector3':
+          case 'vector':
+          case 'v3':
+            resultUniforms[key] = {
+              value: ThreeUtil.getVector3Safe(valueValue[0], valueValue[1], valueValue[2], new THREE.Vector3()),
+            };
+            break;
+          case 'color':
+            resultUniforms[key] = {
+              value: ThreeUtil.getColorSafe(valueValue, 0xffffff),
+            };
+            break;
+          case 'image':
+          case 'texture2d':
+          case 'texture3d':
+          case 'texture':
+          case 'datatexture2d':
+          case 'datatexture3d':
+          case 'datatexture':
+          case 'video':
+          case 'videotexture':
+            resultUniforms[key] = {
+              value: TextureComponent.getTextureImageOption(valueValue, value['options'], valueType.toLowerCase()),
+            };
+            break;
+          case 'imagelist':
+          case 'texturelist':
+          case 'imagearray':
+          case 'texturearray':
+            const textureList: THREE.Texture[] = [];
+            const texturePathList: string[] = [];
+            const textureOption = value['options'];
+            if (typeof valueValue === 'string') {
+              valueValue.split(',').forEach((path) => {
+                if (path !== '' && path.length > 3) {
+                  texturePathList.push(path);
+                }
+              });
+            } else if (ThreeUtil.isNotNull(valueValue.forEach)) {
+              valueValue.forEach((path) => {
+                if (path !== '' && path.length > 3) {
+                  texturePathList.push(path);
+                }
+              });
+            }
+            texturePathList.forEach((texturePath) => {
+              textureList.push(TextureComponent.getTextureImageOption(texturePath, textureOption, 'texture'));
+            });
+            resultUniforms[key] = {
+              value: textureList,
+            };
+            break;
+          case 'int':
+          case 'integer':
+            resultUniforms[key] = { value: parseInt(valueValue) };
+            break;
+          case 'str':
+          case 'string':
+            resultUniforms[key] = { value: valueValue.toString() };
+            break;
+          case 'double':
+          case 'float':
+          case 'number':
+            resultUniforms[key] = { value: parseFloat(valueValue) };
+            break;
+          default:
+            resultUniforms[key] = { value: valueValue };
+            break;
+        }
+      } else if (ThreeUtil.isNotNull(value) && value['value'] !== undefined) {
+        resultUniforms[key] = value;
+      } else {
+        resultUniforms[key] = { value: value };
+      }
+    });
+    Object.entries(resultUniforms).forEach(([key, value]) => {
+      uniforms[key] = value;
+    });
+    if (this.debug) {
+      this.consoleLog('pass-uniforms', resultUniforms);
+    }
+    return resultUniforms;
+  }
+
+  private getMaterialShader(type: string) {
+    if (type === 'x-shader/x-vertex') {
+      if (ThreeUtil.isNotNull(this.vertexShader) || ThreeUtil.isNotNull(this.materialShader)) {
+        return ShaderUtils.getVertexShader(ThreeUtil.getTypeSafe(this.vertexShader, this.materialShader));
+      }
+    } else if (type === 'x-shader/x-fragment') {
+      if (ThreeUtil.isNotNull(this.fragmentShader) || ThreeUtil.isNotNull(this.materialShader)) {
+        return ShaderUtils.getFragmentShader(ThreeUtil.getTypeSafe(this.fragmentShader, this.materialShader));
+      }
+    }
+    if (this.shaderList != null && this.shaderList.length > 0) {
+      const foundShader = this.shaderList.find((shader) => {
+        return shader.type.toLowerCase() === type;
+      });
+      if (foundShader !== null && foundShader !== undefined) {
+        return foundShader.getShader();
+      }
+    }
+    return undefined;
+  }
+
+
 
   private getTextureId(def?: string): string {
     return ThreeUtil.getTypeSafe(this.textureId, def);

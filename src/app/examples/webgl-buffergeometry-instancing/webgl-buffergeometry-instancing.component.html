@@ -34,8 +34,7 @@
           time : { type : 'number', value : 1.0 },
           sineTime : { type : 'number', value : 1.0 }
         }"
-        [vertexShader]="vertexShader"
-        [fragmentShader]="fragmentShader"
+        [shader]="'instancing'"
         [side]="'double'"
         [transparent]="true"
       ></three-material>

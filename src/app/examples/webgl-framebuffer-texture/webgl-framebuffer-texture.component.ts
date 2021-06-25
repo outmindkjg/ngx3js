@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { GeometryUtils } from 'three/examples/jsm/utils/GeometryUtils';
 import { BaseComponent, RendererTimer } from '../../three';
 import * as THREE from 'three';
+import { TextureComponent } from '../../three/texture/texture.component';
+import { DataTexture, Vector2, WebGLRenderer } from 'three';
 
 @Component({
   selector: 'app-webgl-framebuffer-texture',
@@ -29,7 +31,25 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
     this.textureSize = 128 * this.dpr;
     this.vector = new THREE.Vector2();
     this.color = new THREE.Color();
+    this.onBeforeRenderOrthographicCamera = (timer : RendererTimer) => {
+      if (this.texture !== null && timer.renderer instanceof WebGLRenderer) {
+        this.vector.x = ( timer.event.width * this.dpr / 2 ) - ( this.textureSize / 2 );
+        this.vector.y = ( timer.event.height * this.dpr / 2 ) - ( this.textureSize / 2 );
+        timer.renderer.copyFramebufferToTexture( this.vector, this.texture);
+				timer.renderer.clearDepth();
+      }
+    }
+    this.spriteData = new Uint8Array(this.textureSize * this.textureSize * 3);
   }
+
+  setTexture(texture : TextureComponent) {
+    this.texture = texture.getTexture() as DataTexture;
+  }
+
+  texture : DataTexture = null;
+
+  spriteData : Uint8Array = null;
+
   offset = 0;
   dpr = 0;
 
@@ -50,10 +70,13 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
     this.offset -= 25;
   }
 
+  onBeforeRenderOrthographicCamera : any = null;
+
+  varctor : Vector2 = new Vector2();
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {
-      const mesh = this.mesh.getObject3d().children[0] as THREE.Line;
+      const mesh = this.mesh.getObject3d() as THREE.Line;
       if (mesh.geometry) {
         const geometry = mesh.geometry;
         const colorAttribute = geometry.getAttribute( 'color' );

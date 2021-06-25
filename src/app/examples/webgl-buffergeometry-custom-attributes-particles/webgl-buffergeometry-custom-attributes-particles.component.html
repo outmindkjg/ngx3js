@@ -27,8 +27,6 @@
       ></three-geometry>
       <three-material [type]="'ShaderMaterial'" 
         [uniforms]="{ pointTexture : { value : 'textures/sprites/spark1.png', type : 'texture'}}"
-        [vertexShader]="vertexShader"
-        [fragmentShader]="fragmentShader"
         [blending]="'AdditiveBlending'"
         [depthTest]="false"
         [transparent]="true"

@@ -23,7 +23,7 @@
         [attrPosition]="positions"
         [attrScale]="scales"
       ></three-geometry>
-      <three-material [type]="'Shader'" [uniforms]="{ color : { type : 'color', value : '0xffffff'} }" [vertexShader]="vertexshader" [fragmentShader]="fragmentshader"></three-material>
+      <three-material [type]="'Shader'" [uniforms]="{ color : { type : 'color', value : '0xffffff'} }" [shader]="'PointsWaves'"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -15,17 +15,6 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 
   radius = 200;
 
-  
-  setShadowCanvas(context : CanvasRenderingContext2D) {
-    const canvas = context.canvas;
-    const gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
-    gradient.addColorStop( 0.1, 'rgba(210,210,210,1)' );
-    gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
-    context.fillStyle = gradient;
-    context.fillRect( 0, 0, canvas.width, canvas.height );
-    console.log(context);
-  }
-
   setGeometry1(geometry : THREE.BufferGeometry) {
     const count = geometry.attributes.position.count;
     geometry.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( count * 3 ), 3 ) );

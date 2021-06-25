@@ -679,6 +679,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                     const geometry = ThreeUtil.getGeometry(this.geometry);
                     if (meshGeometry.geometry !== geometry) {
                       meshGeometry.geometry = geometry;
+                      if (ThreeUtil.isNotNull(meshGeometry.updateMorphTargets)) {
+                        meshGeometry.updateMorphTargets();
+                      }
                     }
                     this.subscribeRefer(
                       'geometry',
@@ -686,6 +689,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                         this.geometry,
                         (event) => {
                           this.addChanges(event);
+                          this.setSubscribeNext('loaded');
                         },
                         'geometry'
                       )
@@ -749,11 +753,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     return null;
   }
 
-  getObject3d(): THREE.Object3D {
+  getObject3d<T extends THREE.Object3D>(): T {
     return this.getMesh();
   }
 
-  getMesh(): THREE.Object3D {
+  getMesh<T extends THREE.Object3D>(): T {
     if (this.mesh === null || this._needUpdate) {
       this.needUpdate = false;
       this.setUserData('refTarget', null);
@@ -1355,7 +1359,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.setUserData('clips', clips);
                 this.setUserData('storageSource', source);
                 this.addChildObject3d(loadedMesh);
-                this.setSubscribeNext(['resetTarget', 'loaded']);
+                this.setSubscribeNext(['loaded']);
               },
               this.storageOption
             );
@@ -1408,7 +1412,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       }
       this.setMesh(basemesh);
     }
-    return this.mesh;
+    return this.mesh as T;
   }
 
   private setMesh(mesh: THREE.Object3D) {

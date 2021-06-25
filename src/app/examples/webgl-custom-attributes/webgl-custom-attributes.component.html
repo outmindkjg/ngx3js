@@ -28,13 +28,12 @@
       ></three-geometry>
       <three-material 
         [type]="'ShaderMaterial'"
-        [vertexShader]="vertexshader"
-        [fragmentShader]="fragmentshader"
         [uniforms]="{
           amplitude : { type : 'number', value : 1.0 },
           color : { type : 'color', value : '0xff2200' },
           colorTexture : { type : 'texture', value : 'textures/water.jpg', options : 'wraprepeat'}
         }"
+        [shader]="'CustomAttributes'"
       ></three-material>
     </three-mesh>
   </three-scene>

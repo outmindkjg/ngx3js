@@ -51,7 +51,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private scissorWidth: number | string = '100%';
   @Input() private scissorHeight: number | string = '100%';
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
-
+  @Input() private onBeforeRender: (timer : RendererTimer) => void = null;
+  
   @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
 
   private getFov(def?: number | string): number {
@@ -351,8 +352,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   setCameraSize(width: number, height: number) {
     if (this.isCameraChild) {
-      this.cameraWidth = width * window.devicePixelRatio;
-      this.cameraHeight = height * window.devicePixelRatio;
+      this.cameraWidth = width;
+      this.cameraHeight = height;
     } else {
       this.cameraWidth = width;
       this.cameraHeight = height;
@@ -392,11 +393,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return undefined;
   }
 
-  getObject3d(): THREE.Camera {
-    return this.getCamera();
+  getObject3d<T extends THREE.Object3D>(): T {
+    return this.getCamera() as any;
   }
 
-  getCamera(): THREE.Camera {
+  getCamera<T extends THREE.Camera>(): T {
     if (this.camera === null || this._needUpdate) {
       this.needUpdate = false;
       const width = this.cameraWidth;
@@ -445,7 +446,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           if (ThreeUtil.isNotNull(this.zoom)) {
             orthographicCamera.zoom = this.getZoom(1);
           }
-          console.log(orthographicCamera.zoom);
           this.camera = orthographicCamera;
           break;
         case 'perspectivecamera':
@@ -482,7 +482,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         );
       }
     }
-    return this.camera;
+    return this.camera as T;
   }
 
   getScene(scenes?: QueryList<any> | any): THREE.Scene {
@@ -510,7 +510,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }
-    const camera = this.getObject3d();
+    const camera = this.getCamera();
     if (ThreeUtil.isNotNull(this.referObject3d)) {
       const object3d = this.referObject3d instanceof AbstractObject3dComponent ? this.referObject3d.getObject3d() : this.referObject3d;
       if (ThreeUtil.isNotNull(this.object3d)) {
@@ -536,6 +536,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (ThreeUtil.isNotNull(this.clearColor)) {
         renderer.setClearColor(this.getClearColor(), this.getClearAlpha(1));
       }
+    }
+    if (ThreeUtil.isNotNull(this.onBeforeRender)) {
+      this.onBeforeRender(renderTimer);
     }
     if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {

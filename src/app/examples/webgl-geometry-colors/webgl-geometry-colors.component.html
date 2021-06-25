@@ -33,8 +33,9 @@
       <three-material #shadowMaterial
         [type]="'MeshBasic'"
         [side]="'double'"
+        [transparent]="true"
       >
-        <three-texture [width]="128" [height]="128" [program]="setShadowCanvas"></three-texture>
+        <three-texture [width]="128" [height]="128" [program]="'shadow'" ></three-texture>
       </three-material>
       <three-material #material
         [type]="'MeshPhong'"
@@ -53,19 +54,19 @@
         [type]="'Icosahedron'"
         [radius]="200"
         [detail]="1"
-        [onInit]="setGeometry1"
+        [program]="'rainbowcolor1'"
       ></three-geometry>
       <three-geometry #geometry2
         [type]="'Icosahedron'"
         [radius]="200"
         [detail]="1"
-        [onInit]="setGeometry2"
+        [program]="'rainbowcolor2'"
       ></three-geometry>
       <three-geometry #geometry3
         [type]="'Icosahedron'"
         [radius]="200"
         [detail]="1"
-        [onInit]="setGeometry3"
+        [program]="'rainbowcolor3'"
       ></three-geometry>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">

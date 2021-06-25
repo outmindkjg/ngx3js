@@ -168,10 +168,6 @@ export class ViewerCanvas {
           renderer.render(this.scene, this.camera);
           break;
         case 'multiview' :
-          this.logSeqn ++;
-          if (this.logSeqn % 100 === 0) {
-            console.log(this.viewList);
-          }
           this.viewList.forEach(view => {
             renderer.setViewport(view.left, view.top, view.width, view.height);
             renderer.setScissor(view.left, view.top, view.width, view.height);
@@ -199,6 +195,5 @@ export class ViewerCanvas {
       }
     }
   }
-  private logSeqn  = 0;
 
 }

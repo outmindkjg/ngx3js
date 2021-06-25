@@ -397,11 +397,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   private light: THREE.Light = null;
   
-  getObject3d(): THREE.Light {
-    return this.getLight();
+  getObject3d<T extends THREE.Object3D>(): T {
+    return this.getLight() as any;
   }
   
-  getLight(): THREE.Light {
+  getLight<T extends THREE.Light>(): T {
     if (this.light === null || this._needUpdate) {
       this.needUpdate = false;
       this.light = null;
@@ -542,6 +542,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       }
       this.setObject3d(this.light);
     }
-    return this.light;
+    return this.light as T;
   }
 }

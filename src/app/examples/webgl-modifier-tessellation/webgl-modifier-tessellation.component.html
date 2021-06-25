@@ -34,7 +34,7 @@
         [maxIterations]="6"
         (onLoad)="setGeometry($event)"
       ></three-geometry>
-      <three-material [visible]="true" [type]="'Shader'" [uniforms]="uniforms" [fragmentShader]="fragmentShader" [vertexShader]="vertexShader"></three-material>
+      <three-material [visible]="true" [type]="'Shader'" [uniforms]="uniforms" [shader]="'ModifierTessellation'"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -52,12 +52,16 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private divisionsOuterAngle: number = null;
 
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
+    this.unSubscribeRefer('target');
     let targetMesh: THREE.Object3D = null;
     if (this.targetMesh !== null) {
       targetMesh = ThreeUtil.getObject3d(this.targetMesh, false);
     }
     if (targetMesh === null && ThreeUtil.isNotNull(this.target)) {
       targetMesh = ThreeUtil.getObject3d(this.target, false);
+      this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
+        this.needUpdate = true;
+      },'loaded'));
     }
     if (targetMesh === null && ThreeUtil.isNotNull(target)) {
       targetMesh = ThreeUtil.getObject3d(target, false);
@@ -211,7 +215,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           () => {
             this.needUpdate = true;
           },
-          'resetTarget'
+          'loaded'
         )
       );
       return true;
@@ -242,11 +246,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  getObject3d(): THREE.Object3D {
+  getObject3d<T extends THREE.Object3D>(): T {
     return this.getHelper();
   }
 
-  public getHelper(): THREE.Object3D {
+  public getHelper<T extends THREE.Object3D>(): T {
     if (this.helper === null || this._needUpdate) {
       this.needUpdate = false;
       this.removeObject3d(this.helper);
@@ -452,6 +456,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         this.setParentObject3d(this.helper);
       }
     }
-    return this.helper;
+    return this.helper as T;
   }
 }

@@ -57,7 +57,7 @@
     <three-mesh>
       <three-position [x]="0" [y]="0" [z]="-200"></three-position>
       <three-geometry [type]="'plane'" [width]="10000" [height]="10000"></three-geometry>
-      <three-material [type]="'Shader'" [vertexShader]="vertexShader" [fragmentShader]="fragment_shader_pass_1" [uniforms]="{ time: { type : 'number', value: 0.0 } }" (onLoad)="setMaterial($event)"></three-material>
+      <three-material [type]="'Shader'" [shader]="'ColorRandom'" [uniforms]="{ time: { type : 'number', value: 0.0 } }" (onLoad)="setMaterial($event)"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

@@ -953,7 +953,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     if (this.stats != null) {
       this.stats.begin();
     }
-    const renderTimer = this.clock.getTimer(this.renderer);
+    const renderTimer = this.clock.getTimer(this.renderer, this.events);
     this.events.direction.lerp(this.events.keyInfo.xy, renderTimer.delta / 3);
     this.onRender.emit(renderTimer);
     this.controllerList.forEach((controller) => {

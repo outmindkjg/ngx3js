@@ -30,8 +30,7 @@
           color : { type : 'color', value : '0xffffff'},
           pointTexture : { type : 'texture', value : 'textures/sprites/spark1.png'}
         }"
-        [fragmentShader]="fragmentshader"
-        [vertexShader]="vertexshader"
+        [shader]="'CustomAttributesPoints'"
         [blending]="'AdditiveBlending'"
         [depthTest]="false"
         [transparent]="true"

@@ -27,5 +27,15 @@
       <three-material [type]="'Shader'" [vertexShader]="vertexShader" [fragmentShader]="fragmentShader" [uniforms]="{ time : { type : 'number', value : 1.0 }}"></three-material>
       <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
     </three-mesh>
+    <three-mesh>
+      <three-position [x]="0" [y]="0" [z]="-2"></three-position>
+      <three-geometry
+        [type]="'box'"
+        [width]="2"
+        [height]="2"
+        [depth]="2"
+      ></three-geometry>
+      <three-material [type]="'MeshBasic'" [color]="'0x550000'" [specular]="'0xff2200'" [shininess]="5" [depthTest]="false"></three-material>
+    </three-mesh>
   </three-scene>
 </three-renderer>

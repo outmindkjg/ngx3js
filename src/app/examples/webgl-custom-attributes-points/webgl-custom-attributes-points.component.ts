@@ -43,39 +43,6 @@ export class WebglCustomAttributesPointsComponent extends BaseComponent<{}> {
   colors : Float32Array = null;
   sizes : Float32Array = null;
 
-  vertexshader = `
-  attribute float size;
-  attribute vec3 customColor;
-
-  varying vec3 vColor;
-
-  void main() {
-
-    vColor = customColor;
-
-    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-
-    gl_PointSize = size * ( 300.0 / -mvPosition.z );
-
-    gl_Position = projectionMatrix * mvPosition;
-
-  }
-  `;
-
-  fragmentshader = `
-  uniform vec3 color;
-  uniform sampler2D pointTexture;
-
-  varying vec3 vColor;
-
-  void main() {
-
-    gl_FragColor = vec4( color * vColor, 1.0 );
-    gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-
-  }
-  `;
-
   object3d : Object3D = null;
   geometry : BufferGeometry = null;
   setMesh(mesh : MeshComponent) {

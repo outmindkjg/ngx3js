@@ -15,7 +15,6 @@ export class WebglHelpersComponent extends BaseComponent<{}> {
   selectStoreMesh(object : THREE.Object3D): THREE.Object3D {
     const mesh = object.children[ 0 ] as THREE.Mesh;
     if (mesh.geometry){
-      // mesh.geometry.scale(30,30,30);
       mesh.geometry.computeTangents();
     }
     return mesh;

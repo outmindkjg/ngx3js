@@ -989,7 +989,9 @@ export class ThreeUtil {
               const h = this.getParseFloat(val1,1);
               const s = this.getParseFloat(val2,1);
               const l = this.getParseFloat(val3,1);
-              return new THREE.Color().setHSL(h, s, l);
+              const tmp = new THREE.Color().setHSL(h, s, l);
+              console.log(colorStr, tmp.getHexString());
+              return tmp;
             case 'rgb':
               const r = this.getParseFloat(val1,255);
               const g = this.getParseFloat(val2,255);
@@ -1343,28 +1345,28 @@ export class ThreeUtil {
     }
   }
 
-  static getObject3d(object3d: any, isRequired : boolean = true): THREE.Object3D {
+  static getObject3d<T extends THREE.Object3D>(object3d: any, isRequired : boolean = true): T {
     if (object3d instanceof THREE.Object3D) {
-      return object3d;
+      return object3d as T;
     } else if (this.isNotNull(object3d.getMesh)) {
-      return object3d.getObject3d() as THREE.Object3D;
+      return object3d.getMesh() as T;
     } else if (this.isNotNull(object3d.getLight)) {
-      return object3d.getObject3d() as THREE.Object3D;
+      return object3d.getLight() as T;
     } else if (this.isNotNull(object3d.getHelper)) {
-      return object3d.getHelper() as THREE.Object3D;
+      return object3d.getHelper() as T;
     } else if (this.isNotNull(object3d.getAudio)) {
-      return object3d.getAudio() as THREE.Object3D;
+      return object3d.getAudio() as T;
     } else if (this.isNotNull(object3d.getCamera)) {
-      return object3d.getObject3d() as THREE.Camera;
+      return object3d.getCamera() as T;
     } else if (this.isNotNull(object3d.getScene)) {
-      return object3d.getScene() as THREE.Scene;
+      return object3d.getScene() as T;
     } else if (this.isNotNull(object3d.getObject3d)) {
-      return object3d.getObject3d() as THREE.Object3D;
+      return object3d.getObject3d() as T;
     }
     if (!isRequired) {
       return null;
     }
-    return new THREE.Object3D();
+    return new THREE.Object3D() as T;
   }
   static getMeshFind(mesh: any): THREE.Mesh {
     if (mesh instanceof THREE.Mesh) {
@@ -2182,6 +2184,7 @@ export interface RendererTimer {
   delta: number;
   elapsedTime: number;
   renderer? : THREE.Renderer;
+  event? : RendererEvent
 }
 
 export interface RendererInfo {
@@ -2224,13 +2227,14 @@ export interface RendererEvent {
 }
 
 export class ThreeClock extends THREE.Clock {
-  getTimer(renderer : THREE.Renderer): RendererTimer {
+  getTimer(renderer : THREE.Renderer, event : RendererEvent): RendererTimer {
     const delta = this.getDelta();
     const elapsedTime = this.getElapsedTime();
     return {
       delta: delta,
       elapsedTime: elapsedTime,
-      renderer : renderer
+      renderer : renderer,
+      event : event
     };
   }
 }

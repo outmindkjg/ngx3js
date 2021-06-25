@@ -81,11 +81,16 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
 
   private getCanvas(def?: string): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
     if (ThreeUtil.isNull(this.canvas) || typeof this.canvas === 'string') {
-      const canvas = ThreeUtil.getTypeSafe(this.canvas, def, '') as string;
-      switch (canvas.toLowerCase()) {
+      const canvas = (ThreeUtil.getTypeSafe(this.canvas, def, '') as string).toLowerCase().replace(/[^a-z0-9]/gi,'');
+      switch (canvas) {
         case 'flakes' :
         case 'flakestexture' :
           return new FlakesTexture();
+        case 'lutrainbow' :
+        case 'lutcooltowarm' :
+        case 'lutblackbody' :
+        case 'lutgrayscale' :
+          return new Lut(canvas.toLowerCase().substr(3)).createCanvas();
         case 'lut':
         default:
           return new Lut().createCanvas();
@@ -950,7 +955,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         this.getTexture();
         return;
       }
-      if (ThreeUtil.isIndexOf(changes, ['image','storagename','storageoption','cubeimage','loadertype'])) {
+      if (ThreeUtil.isIndexOf(changes, ['image','storagename','storageoption','cubeimage','loadertype', 'canvas'])) {
         this.needUpdate = true;
         return;
       }

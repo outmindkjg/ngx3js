@@ -42,8 +42,7 @@
           opacity : { type : 'number', value : 0.3 },
           color : { type : 'color', value : '0xffffff'}
         }"
-        [vertexShader]="vertexshader"
-        [fragmentShader]="fragmentshader"
+        [shader]="'CustomAttributesLines'"
         [blending]="'AdditiveBlending'"
         [depthTest]="false"
         [transparent]="true"

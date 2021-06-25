@@ -332,11 +332,11 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
   
-  getObject3d(): THREE.Audio {
-    return this.audio;
+  getObject3d<T extends THREE.Object3D>(): T {
+    return this.getAudio() as any;
   }
 
-  getAudio():THREE.Audio {
+  getAudio<T extends THREE.Audio>():T {
     if (this.audio === null || this._needUpdate) {
       this.needUpdate = false;
       this.loadedVideoTexture = null;
@@ -352,6 +352,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       }
       this.setObject3d(this.audio);
     }
-    return this.audio;
+    return this.audio as T;
   }
 }

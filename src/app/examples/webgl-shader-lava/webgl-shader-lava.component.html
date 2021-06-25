@@ -35,8 +35,7 @@
           texture1 : { type : 'texture', value : 'textures/lava/cloud.png', options : 'wrapRepeat'},
           texture2 : { type : 'texture', value : 'textures/lava/lavatile.jpg', options : 'wrapRepeat'}
         }"
-        [fragmentShader]="fragmentShader"
-        [vertexShader]="vertexShader"
+        [shader]="'ShaderLava'"
       ></three-material>
       <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
     </three-mesh>

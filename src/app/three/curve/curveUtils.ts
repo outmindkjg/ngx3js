@@ -50,13 +50,13 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
     const len = this.points.length;
     if (len >= 2) {
       const index = len * t;
-      const prevIndex = t >= 1 ? (len - 1) : Math.floor(index);
+      const prevIndex = t >= 1 ? len - 1 : Math.floor(index);
       const nextIndex = t >= 1 ? prevIndex : (prevIndex + 1) % len;
       const prevP = this.points[prevIndex].clone();
       const nextP = this.points[nextIndex].clone().sub(prevP);
       const waveT = index - prevIndex;
       const currentP = prevP.clone().addScaledVector(nextP, waveT);
-      const waveP = new THREE.Vector3(0,0,0);
+      const waveP = new THREE.Vector3(0, 0, 0);
       if (this.waveH != 0) {
         const waveR = t * 2 * Math.PI;
         waveP.y = Math.sin(waveR * this.waveH);
@@ -67,7 +67,6 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
         waveP.x = Math.sin(waveR * len) * radiusInner;
         waveP.z = Math.cos(waveR * len) * radiusInner;
       }
-      // console.log(t, currentP.x, currentP.y, currentP.z);
       return point.set(currentP.x, currentP.y, currentP.z).add(waveP.multiply(this._rateV)).multiplyScalar(this.radius);
     } else {
       return point;
@@ -497,94 +496,184 @@ export interface CurveClass {
   new (scale?: number, options?: any): THREE.Curve<THREE.Vector3>;
 }
 export const CurveConf: {
-  [key: string]: CurveClass;
+  [key: string]: CurveClass | string;
 } = {
-  grannyknot: Curves.GrannyKnot,
+  grannyknotcurve: Curves.GrannyKnot,
+  grannyknot: 'grannyknotcurve',
   heartcurve: Curves.HeartCurve,
+  heart: 'heartcurve',
   vivianicurve: Curves.VivianiCurve,
+  viviani: 'vivianicurve',
   knotcurve: Curves.KnotCurve,
+  knot: 'knotcurve',
   helixcurve: Curves.HelixCurve,
-  trefoilknot: Curves.TrefoilKnot,
-  torusknot: Curves.TorusKnot,
-  cinquefoilknot: Curves.CinquefoilKnot,
-  trefoilpolynomialknot: Curves.TrefoilPolynomialKnot,
-  decoratedtorusknot4b: Curves.DecoratedTorusKnot4b,
-  decoratedtorusknot4a: Curves.DecoratedTorusKnot4a,
-  figureeightpolynomialknot: Curves.FigureEightPolynomialKnot,
-  decoratedtorusknot5a: Curves.DecoratedTorusKnot5a,
-  decoratedtorusknot5c: Curves.DecoratedTorusKnot5c,
-  circle: CurvesCircle,
-  line: CurvesLine,
-  triangle: CurvesRegularPolygonTriangle,
-  square: CurvesRegularPolygonSquare,
-  pentagon: CurvesRegularPolygonPentagon,
-  hexagon: CurvesRegularPolygonHexagon,
-  heptagon: CurvesRegularPolygonHeptagon,
-  octagon: CurvesRegularPolygonOctagon,
-  nonagon: CurvesRegularPolygonNonagon,
-  decagon: CurvesRegularPolygonDecagon,
-  undecagon: CurvesRegularPolygonUndecagon,
-  dodecagon: CurvesRegularPolygonDodecagon,
-  linearin : CurvesGsapLinearEaseIn,
-  linearinout : CurvesGsapLinearEaseInOut,
-  linearout : CurvesGsapLinearEaseOut,
-  lineareasenone : CurvesGsapLinearEaseNone,
-  quadin : CurvesGsapQuadEaseIn,
-  quadinout : CurvesGsapQuadEaseInOut,
-  quadout : CurvesGsapQuadEaseOut,
-  cubicin : CurvesGsapCubicEaseIn,
-  cubicinout : CurvesGsapCubicEaseInOut,
-  cubicout : CurvesGsapCubicEaseOut,
-  quartin : CurvesGsapQuartEaseIn,
-  quartinout : CurvesGsapQuartEaseInOut,
-  quartout : CurvesGsapQuartEaseOut,
-  quintin : CurvesGsapQuintEaseIn,
-  quintinout : CurvesGsapQuintEaseInOut,
-  quintout : CurvesGsapQuintEaseOut,
-  strongin : CurvesGsapStrongEaseIn,
-  stronginout : CurvesGsapStrongEaseInOut,
-  strongout : CurvesGsapStrongEaseOut,
-  power1in : CurvesGsapPower1EaseIn,
-  power1inout : CurvesGsapPower1EaseInOut,
-  power1out : CurvesGsapPower1EaseOut,
-  power2in : CurvesGsapPower2EaseIn,
-  power2inout : CurvesGsapPower2EaseInOut,
-  power2out : CurvesGsapPower2EaseOut,
-  power3in : CurvesGsapPower3EaseIn,
-  power3inout : CurvesGsapPower3EaseInOut,
-  power3out : CurvesGsapPower3EaseOut,
-  power4in : CurvesGsapPower4EaseIn,
-  power4inout : CurvesGsapPower4EaseInOut,
-  power4out : CurvesGsapPower4EaseOut,
-  backin : CurvesGsapBackEaseIn,
-  backinout : CurvesGsapBackEaseInOut,
-  backout : CurvesGsapBackEaseOut,
-  elasticin : CurvesGsapElasticEaseIn,
-  elasticinout : CurvesGsapElasticEaseInOut,
-  elasticout : CurvesGsapElasticEaseOut,
-  bouncein : CurvesGsapBounceEaseIn,
-  bounceinout : CurvesGsapBounceEaseInOut,
-  bounceout : CurvesGsapBounceEaseOut,
-  circin : CurvesGsapCircEaseIn,
-  circinout : CurvesGsapCircEaseInOut,
-  circout : CurvesGsapCircEaseOut,
-  expoin : CurvesGsapExpoEaseIn,
-  expoinout : CurvesGsapExpoEaseInOut,
-  expoout : CurvesGsapExpoEaseOut,
-  sinein : CurvesGsapSineEaseIn,
-  sineinout : CurvesGsapSineEaseInOut,
-  sineout : CurvesGsapSineEaseOut,
-  power0none : CurvesGsapPower0EaseNone,
+  helix: 'helixcurve',
+  trefoilknotcurve: Curves.TrefoilKnot,
+  trefoilknot: 'trefoilknotcurve',
+  torusknotcurve: Curves.TorusKnot,
+  torusknot: 'torusknotcurve',
+  cinquefoilknotcurve: Curves.CinquefoilKnot,
+  cinquefoilknot: 'cinquefoilknotcurve',
+  trefoilpolynomialknotcurve: Curves.TrefoilPolynomialKnot,
+  trefoilpolynomialknot: 'trefoilpolynomialknotcurve',
+  decoratedtorusknot4bcurve: Curves.DecoratedTorusKnot4b,
+  decoratedtorusknot4b: 'decoratedtorusknot4bcurve',
+  decoratedtorusknot4acurve: Curves.DecoratedTorusKnot4a,
+  decoratedtorusknot4a: 'decoratedtorusknot4acurve',
+  figureeightpolynomialknotcurve: Curves.FigureEightPolynomialKnot,
+  figureeightpolynomialknot: 'figureeightpolynomialknotcurve',
+  decoratedtorusknot5acurve: Curves.DecoratedTorusKnot5a,
+  decoratedtorusknot5a: 'decoratedtorusknot5acurve',
+  decoratedtorusknot5ccurve: Curves.DecoratedTorusKnot5c,
+  decoratedtorusknot5c: 'decoratedtorusknot5ccurve',
+  circlecurve: CurvesCircle,
+  circle: 'circlecurve',
+  linecurve: CurvesLine,
+  line: 'linecurve',
+  trianglecurve: CurvesRegularPolygonTriangle,
+  triangle: 'trianglecurve',
+  squarecurve: CurvesRegularPolygonSquare,
+  square: 'squarecurve',
+  pentagoncurve: CurvesRegularPolygonPentagon,
+  pentagon: 'pentagoncurve',
+  hexagoncurve: CurvesRegularPolygonHexagon,
+  hexagon: 'hexagoncurve',
+  heptagoncurve: CurvesRegularPolygonHeptagon,
+  heptagon: 'heptagoncurve',
+  octagoncurve: CurvesRegularPolygonOctagon,
+  octagon: 'octagoncurve',
+  nonagoncurve: CurvesRegularPolygonNonagon,
+  nonagon: 'nonagoncurve',
+  decagoncurve: CurvesRegularPolygonDecagon,
+  decagon: 'decagoncurve',
+  undecagoncurve: CurvesRegularPolygonUndecagon,
+  undecagon: 'undecagoncurve',
+  dodecagoncurve: CurvesRegularPolygonDodecagon,
+  dodecagon: 'dodecagoncurve',
+  linearincurve: CurvesGsapLinearEaseIn,
+  linearin: 'linearincurve',
+  linearinoutcurve: CurvesGsapLinearEaseInOut,
+  linearinout: 'linearinoutcurve',
+  linearoutcurve: CurvesGsapLinearEaseOut,
+  linearout: 'linearoutcurve',
+  lineareasenonecurve: CurvesGsapLinearEaseNone,
+  lineareasenone: 'lineareasenonecurve',
+  quadincurve: CurvesGsapQuadEaseIn,
+  quadin: 'quadincurve',
+  quadinoutcurve: CurvesGsapQuadEaseInOut,
+  quadinout: 'quadinoutcurve',
+  quadoutcurve: CurvesGsapQuadEaseOut,
+  quadout: 'quadoutcurve',
+  cubicincurve: CurvesGsapCubicEaseIn,
+  cubicin: 'cubicincurve',
+  cubicinoutcurve: CurvesGsapCubicEaseInOut,
+  cubicinout: 'cubicinoutcurve',
+  cubicoutcurve: CurvesGsapCubicEaseOut,
+  cubicout: 'cubicoutcurve',
+  quartincurve: CurvesGsapQuartEaseIn,
+  quartin: 'quartincurve',
+  quartinoutcurve: CurvesGsapQuartEaseInOut,
+  quartinout: 'quartinoutcurve',
+  quartoutcurve: CurvesGsapQuartEaseOut,
+  quartout: 'quartoutcurve',
+  quintincurve: CurvesGsapQuintEaseIn,
+  quintin: 'quintincurve',
+  quintinoutcurve: CurvesGsapQuintEaseInOut,
+  quintinout: 'quintinoutcurve',
+  quintoutcurve: CurvesGsapQuintEaseOut,
+  quintout: 'quintoutcurve',
+  strongincurve: CurvesGsapStrongEaseIn,
+  strongin: 'strongincurve',
+  stronginoutcurve: CurvesGsapStrongEaseInOut,
+  stronginout: 'stronginoutcurve',
+  strongoutcurve: CurvesGsapStrongEaseOut,
+  strongout: 'strongoutcurve',
+  power1incurve: CurvesGsapPower1EaseIn,
+  power1in: 'power1incurve',
+  power1inoutcurve: CurvesGsapPower1EaseInOut,
+  power1inout: 'power1inoutcurve',
+  power1outcurve: CurvesGsapPower1EaseOut,
+  power1out: 'power1outcurve',
+  power2incurve: CurvesGsapPower2EaseIn,
+  power2in: 'power2incurve',
+  power2inoutcurve: CurvesGsapPower2EaseInOut,
+  power2inout: 'power2inoutcurve',
+  power2outcurve: CurvesGsapPower2EaseOut,
+  power2out: 'power2outcurve',
+  power3incurve: CurvesGsapPower3EaseIn,
+  power3in: 'power3incurve',
+  power3inoutcurve: CurvesGsapPower3EaseInOut,
+  power3inout: 'power3inoutcurve',
+  power3outcurve: CurvesGsapPower3EaseOut,
+  power3out: 'power3outcurve',
+  power4incurve: CurvesGsapPower4EaseIn,
+  power4in: 'power4incurve',
+  power4inoutcurve: CurvesGsapPower4EaseInOut,
+  power4inout: 'power4inoutcurve',
+  power4outcurve: CurvesGsapPower4EaseOut,
+  power4out: 'power4outcurve',
+  backincurve: CurvesGsapBackEaseIn,
+  backin: 'backincurve',
+  backinoutcurve: CurvesGsapBackEaseInOut,
+  backinout: 'backinoutcurve',
+  backoutcurve: CurvesGsapBackEaseOut,
+  backout: 'backoutcurve',
+  elasticincurve: CurvesGsapElasticEaseIn,
+  elasticin: 'elasticincurve',
+  elasticinoutcurve: CurvesGsapElasticEaseInOut,
+  elasticinout: 'elasticinoutcurve',
+  elasticoutcurve: CurvesGsapElasticEaseOut,
+  elasticout: 'elasticoutcurve',
+  bounceincurve: CurvesGsapBounceEaseIn,
+  bouncein: 'bounceincurve',
+  bounceinoutcurve: CurvesGsapBounceEaseInOut,
+  bounceinout: 'bounceinoutcurve',
+  bounceoutcurve: CurvesGsapBounceEaseOut,
+  bounceout: 'bounceoutcurve',
+  circincurve: CurvesGsapCircEaseIn,
+  circin: 'circincurve',
+  circinoutcurve: CurvesGsapCircEaseInOut,
+  circinout: 'circinoutcurve',
+  circoutcurve: CurvesGsapCircEaseOut,
+  circout: 'circoutcurve',
+  expoincurve: CurvesGsapExpoEaseIn,
+  expoin: 'expoincurve',
+  expoinoutcurve: CurvesGsapExpoEaseInOut,
+  expoinout: 'expoinoutcurve',
+  expooutcurve: CurvesGsapExpoEaseOut,
+  expoout: 'expooutcurve',
+  sineincurve: CurvesGsapSineEaseIn,
+  sinein: 'sineincurve',
+  sineinoutcurve: CurvesGsapSineEaseInOut,
+  sineinout: 'sineinoutcurve',
+  sineoutcurve: CurvesGsapSineEaseOut,
+  sineout: 'sineoutcurve',
+  power0nonecurve: CurvesGsapPower0EaseNone,
+  power0none: 'power0nonecurve',
 };
 
 export class CurveUtils {
-  static addCurve(key: string, curve: CurveClass) {
-    CurveConf[key.toLowerCase()] = curve;
+  static addCurve(key: string, curve: CurveClass, alias?: string[]) {
+    key = key.toLowerCase();
+    if (ThreeUtil.isNotNull(alias)) {
+      alias.forEach((aliasKey) => {
+        if (aliasKey !== null && aliasKey.length > 3) {
+          CurveConf[aliasKey.toLowerCase()] = key;
+        }
+      });
+    }
+    CurveConf[key] = curve;
   }
 
   static getCurveClass(key: string): CurveClass {
-    if (ThreeUtil.isNotNull(CurveConf[key.toLowerCase()])) {
-      return CurveConf[key.toLowerCase()];
+    key = key.toLowerCase();
+    if (ThreeUtil.isNotNull(CurveConf[key])) {
+      const curve = CurveConf[key.toLowerCase()];
+      if (typeof curve === 'string') {
+        return this.getCurveClass(curve);
+      } else {
+        return curve;
+      }
     } else {
       console.error('unknown curve :' + key);
       return CurvesLine;

@@ -335,8 +335,8 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 
   protected object3d: THREE.Object3D = null;
 
-  getObject3d(): THREE.Object3D {
-    return this.object3d;
+  getObject3d<T extends THREE.Object3D>(): T {
+    return this.object3d as T;
   }
 
   getTagAttributeObject3d(tagAttributes: TagAttributes) {

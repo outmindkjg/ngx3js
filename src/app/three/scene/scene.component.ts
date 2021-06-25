@@ -82,8 +82,8 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  getObject3d(): THREE.Object3D {
-    return this.getScene();
+  getObject3d<T extends THREE.Object3D>(): T {
+    return this.getScene() as any;
   }
 
   getJson(): any {

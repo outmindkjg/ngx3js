@@ -22,17 +22,8 @@
         [type]="'BufferGeometry'"
         [attrPosition]="vertices"
       ></three-geometry>
-      <three-material [type]="'ShaderMaterial'" [uniforms]="{
-          map : { type : 'video', value : 'textures/kinect.mp4', options : 'nearest'},
-          width : { type : 'number', value : 640},
-          height : { type : 'number', value : 480},
-          nearClipping : { type : 'number', value : 850},
-          farClipping : { type : 'number', value : 4000},
-          pointSize : { type : 'number', value : 2},
-          zOffset : { type : 'number', value : 1000}
-        }"
-        [vertexShader]="vertexShader"
-        [fragmentShader]="fragmentShader"
+      <three-material [type]="'ShaderMaterial'" [uniforms]="uniforms"
+        [shader]="'VideoKinect'"
         [blending]="'AdditiveBlending'"
         [depthTest]="false"
         [depthWrite]="false"

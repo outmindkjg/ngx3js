@@ -5,17 +5,19 @@
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
+  [autoClear]="false"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000" [scene]="scene">
     <three-position [x]="0" [y]="0" [z]="20"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+  </three-camera>
+  <three-camera [type]="'OrthographicCamera'" [near]="0.001" [far]="1000" [scene]="sceneOrtho" [onBeforeRender]="onBeforeRenderOrthographicCamera">
+    <three-position [x]="0" [y]="0" [z]="10"></three-position>
   </three-camera>
   <three-scene #scene>
     <three-mesh (onLoad)="setMesh($event)" [type]="'line'">
@@ -26,6 +28,21 @@
         [type]="'geometry'"
       ></three-geometry>
       <three-material [type]="'LineBasic'" [vertexColors]="true"></three-material>
+    </three-mesh>
+  </three-scene>
+  <three-scene #sceneOrtho>
+    <three-mesh [type]="'Sprite'">
+      <three-position [x]="-300" [y]="300" [z]="1"></three-position>
+      <three-scale [x]="textureSize" [y]="textureSize" [z]="1"></three-scale>
+      <three-material [type]="'SpriteMaterial'">
+        <three-texture [textureType]="'map'" [data]="spriteData" [width]="textureSize" [height]="textureSize" [format]="'RGBFormat'" (onLoad)="setTexture($event)"></three-texture>
+      </three-material>
+    </three-mesh>
+    <three-mesh >
+      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-scale [x]="textureSize" [y]="textureSize" [z]="1"></three-scale>
+      <three-geometry [type]="'PlaneGeometry'" [width]="1" [height]="1"></three-geometry>
+      <three-material [type]="'meshbasic'" [color]="'0xffffff'" [wireframe]="true"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

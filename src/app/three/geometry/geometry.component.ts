@@ -13,7 +13,7 @@ import { SimplifyModifier } from 'three/examples/jsm/modifiers/SimplifyModifier'
 import { TessellateModifier } from 'three/examples/jsm/modifiers/TessellateModifier';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { CurveComponent } from '../curve/curve.component';
-import { CurvesNormalParameters, CurveUtils } from '../curve/curveUtils';
+import { CurveUtils } from '../curve/curveUtils';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PositionComponent } from '../position/position.component';
@@ -23,6 +23,7 @@ import { ShapeComponent } from '../shape/shape.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { SvgComponent } from '../svg/svg.component';
 import { TranslationComponent } from '../translation/translation.component';
+import { GeometryUtils } from './geometryUtils';
 import { PlanePerlinGeometry } from './plane-perlin-geometry';
 
 type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
@@ -227,6 +228,8 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   @Input() private tessellate: boolean = null;
   @Input() private maxEdgeLength: number = null;
   @Input() private maxIterations: number = null;
+  @Input() private program: string = null;
+  @Input() private programParam: any = null;
 
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
@@ -496,7 +499,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
 
   private getSubGeometry(): THREE.BufferGeometry {
     let geometry : THREE.BufferGeometry = null;
-    if (this.targetMesh !== null && this.targetMesh.geometry) {
+    if (this.targetMesh !== null) {
       geometry = this.targetMesh.geometry;
     } else if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
       if (this.refGeometry.getGeometry) {
@@ -539,7 +542,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     return ThreeUtil.getTypeSafe(this.bevelSegments, def);
   }
 
-  private getObject3d(def?: number | string): THREE.Color {
+  private getLight(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.light, def);
   }
 
@@ -1184,6 +1187,9 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
         this.geometry.dispose();
       }
       if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
+        if (ThreeUtil.isNotNull(this.program)) {
+          GeometryUtils.getGeometry(this.program, geometry, this.programParam);          
+        }
         if (this.center) {
           geometry.center();
         }
@@ -1459,7 +1465,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
             switch (this.perlinType.toLowerCase()) {
               case 'minecraftao':
               case 'minecraft_ao':
-                geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getObject3d(0xffffff), this.getShadow(0x505050));
+                geometry = planePerlin.getMinecraftAo(this.getWidth(100), this.getHeight(100), this.getDepth(100), this.getLight(0xffffff), this.getShadow(0x505050));
                 break;
               case 'terrain':
                 geometry = planePerlin.getTerrain(this.getWidth(100), this.getHeight(100), this.getDepth(100));

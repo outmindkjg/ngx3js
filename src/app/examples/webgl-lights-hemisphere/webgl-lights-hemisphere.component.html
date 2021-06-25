@@ -56,7 +56,7 @@
         [widthSegments]="32"
         [heightSegments]="15"
       ></three-geometry>
-      <three-material [type]="'Shader'" [uniforms]="uniforms" [vertexShader]="vertexShader" [fragmentShader]="fragmentShader" [side]="'Back'"></three-material>
+      <three-material [type]="'Shader'" [shader]="'lightshemisphere'" [side]="'Back'"></three-material>
     </three-mesh>
     <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Flamingo.glb'" [castShadow]="true" [receiveShadow]="true">
       <three-scale [x]="0.35" [y]="0.35" [z]="0.35"></three-scale>

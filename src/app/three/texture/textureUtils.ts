@@ -155,7 +155,6 @@ export const CanvasConf : {
   checkpattern : (ctx: CanvasRenderingContext2D, _ : string, width : number, height : number, options : any) => {
     options = options || {}
     const color = options.color || '#f00';
-    console.log(width, height, color);
     ctx.fillStyle = "#444";
     ctx.fillRect( 0, 0, width, height );
     ctx.fillStyle = color;

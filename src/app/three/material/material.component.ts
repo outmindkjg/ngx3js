@@ -9,7 +9,7 @@ import { ThreeUtil, TextureOption } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { PlaneComponent } from '../plane/plane.component';
 import { ShaderComponent } from '../shader/shader.component';
-import { ShaderType, ShaderUtils } from '../shader/shaderUtils';
+import { ShaderType, ShaderUtils } from '../shader/shaders/shaderUtils';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -913,7 +913,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
     } = ThreeUtil.getTypeSafe(this.uniforms, def);
     const resultUniforms = ShaderUtils.getUniforms(this.shader);
     Object.entries(uniforms).forEach(([key, value]) => {
-      if (ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+      if (ThreeUtil.isNotNull(value) && ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
         const valueType: string = value['type'];
         const valueValue: any = value['value'];
         switch (valueType.toLowerCase()) {
@@ -1032,11 +1032,14 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             resultUniforms[key] = { value: valueValue };
             break;
         }
-      } else if (value['value'] !== undefined) {
+      } else if (ThreeUtil.isNotNull(value) && value['value'] !== undefined) {
         resultUniforms[key] = value;
       } else {
         resultUniforms[key] = { value: value };
       }
+    });
+    Object.entries(resultUniforms).forEach(([key, value]) => {
+      uniforms[key] = value;
     });
     if (this.debug) {
       this.consoleLog('material-uniforms', resultUniforms);

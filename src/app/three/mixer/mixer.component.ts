@@ -151,7 +151,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
           () => {
             this.checkModel(parent);
           },
-          'resetTarget'
+          'loaded'
         )
       );
       this.checkModel(parent);

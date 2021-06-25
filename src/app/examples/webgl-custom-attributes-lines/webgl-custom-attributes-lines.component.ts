@@ -13,38 +13,6 @@ export class WebglCustomAttributesLinesComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
-  vertexshader = `
-  uniform float amplitude;
-
-  attribute vec3 displacement;
-  attribute vec3 customColor;
-
-  varying vec3 vColor;
-
-  void main() {
-
-    vec3 newPosition = position + amplitude * displacement;
-
-    vColor = customColor;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
-
-  }
-  `;
-
-  fragmentshader = `
-  uniform vec3 color;
-  uniform float opacity;
-
-  varying vec3 vColor;
-
-  void main() {
-
-    gl_FragColor = vec4( vColor * color, opacity );
-
-  }
-  `;
-
   object3d : Object3D = null;
   geometry : BufferGeometry = null;
   uniforms : { [uniform: string]: IUniform } = null;

@@ -131,7 +131,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected callOnLoad() {
     this.onLoad.emit(this);
-    // this.setSubscribeNext(this.subscribeType);
   }
 
   protected _needUpdate: boolean = true;
@@ -174,7 +173,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         break;
       case 'log':
       default:
-        // console.log(this.subscribeType ,key, object);
         break;
     }
   }
@@ -360,12 +358,14 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         this._subscribeTimeout = setTimeout(() => {
           this._subscribeTimeout = null;
           if (this._subscribeNext.length > 0) {
-            // this.consoleLog('subscribeNext',this._subscribeNext, 'info');
             const subscribeNext: string[] = [];
             this._subscribeNext.forEach((text) => {
               subscribeNext.push(text);
             });
             this._subscribeNext = [];
+            if (subscribeNext.indexOf('loaded') > -1) {
+              this.onLoad.emit(this);
+            }
             this._subject.next(subscribeNext);
           }
         }, 30);

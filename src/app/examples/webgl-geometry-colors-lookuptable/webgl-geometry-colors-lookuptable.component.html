@@ -25,11 +25,11 @@
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
       </three-light>
     </three-camera>
-    <three-mesh (onLoad)="setSprite($event)" [type]="'Sprite'">
+    <three-mesh [type]="'Sprite'">
       <three-position [x]="-2" [y]="0" [z]="0"></three-position>
       <three-scale [x]="1.25" [y]="7" [z]="1"></three-scale>
       <three-material [type]="'Sprite'">
-        <three-texture [canvas]="'lut'"></three-texture>
+        <three-texture [canvas]="'lut_' + controls.colorMap"></three-texture>
       </three-material>
     </three-mesh>
     <three-mesh (onLoad)="setMesh($event)">
