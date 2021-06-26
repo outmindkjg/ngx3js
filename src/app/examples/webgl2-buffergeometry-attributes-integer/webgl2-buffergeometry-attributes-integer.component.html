@@ -30,8 +30,7 @@
       <three-material 
         [type]="'ShaderMaterial'"
         [uniforms]="{ uTextures : { type : 'textureList', value : ['textures/crate.gif','textures/floors/FloorsCheckerboard_S_Diffuse.jpg', 'textures/terrain/grasslight-big.jpg']} }"
-        [vertexShader]="vertexShader"
-        [fragmentShader]="fragmentShader"
+        [shader]="'ShaderDemo5'"
         [side]="'double'"
         [glslVersion]="'GLSL3'"
       ></three-material>

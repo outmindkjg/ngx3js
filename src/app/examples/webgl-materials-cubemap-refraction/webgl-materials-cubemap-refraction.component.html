@@ -50,7 +50,7 @@
     </three-light>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh [geometry]="geometry" [windowExport]="'mesh01'"> 
+      <three-mesh [geometry]="geometry"> 
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-scale [multiply]="1.5"></three-scale>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [envMap]="textureCube" [refractionRatio]="0.98"></three-material>

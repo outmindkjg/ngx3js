@@ -4,7 +4,8 @@ import { BasicShader } from 'three/examples/jsm/shaders/BasicShader';
 import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader';
 import { BlendShader } from 'three/examples/jsm/shaders/BlendShader';
 import { BokehShader } from 'three/examples/jsm/shaders/BokehShader';
-import { BokehShader as BokehShader2 } from 'three/examples/jsm/shaders/BokehShader2';
+import { BokehDepthShader, BokehShader as BokehShader2 } from 'three/examples/jsm/shaders/BokehShader2';
+
 import { BrightnessContrastShader } from 'three/examples/jsm/shaders/BrightnessContrastShader';
 import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader';
 import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader';
@@ -52,8 +53,11 @@ import { VolumeRenderShader1 } from 'three/examples/jsm/shaders/VolumeShader';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 import { ThreeUtil } from '../../interface';
 import { AttributesParticles } from './shader.attributes_particles';
+import { AttributeSizeColor } from './shader.attributes_size_color';
+import { AttributeSizeColor1 } from './shader.attributes_size_color1';
 import { AudioVisualizer } from './shader.audio_visualizer';
 import { CloudShader } from './shader.cloud';
+import { ColorRainbow } from './shader.color_rainbow';
 import { ColorRandom } from './shader.color_random';
 import { ColorScreen } from './shader.color_screen';
 import { CustomAttributes } from './shader.custom_attributes';
@@ -63,13 +67,19 @@ import { ShaderDemo1 } from './shader.demo1';
 import { ShaderDemo2 } from './shader.demo2';
 import { ShaderDemo3 } from './shader.demo3';
 import { ShaderDemo4 } from './shader.demo4';
+import { ShaderDemo5 } from './shader.demo5';
 import { BufferGeometryInstancing } from './shader.instancing';
 import { ShaderLava } from './shader.lava';
 import { LightsHemisphere } from './shader.lights_hemisphere';
 import { ModifierTessellation } from './shader.modifier_tessellation';
+import { ShaderNoiseRandom1D } from './shader.noise_random_1d';
+import { ShaderNoiseRandom2D } from './shader.noise_random_2d';
+import { ShaderNoiseRandom3D } from './shader.noise_random_3d';
 import { PerlinShader } from './shader.perlin';
 import { PointsWaves } from './shader.points_waves';
+import { ScaleColor } from './shader.scale_color';
 import { SelectiveDraw } from './shader.selective_draw';
+import { SinColor } from './shader.sin_color';
 import { VideoKinect } from './shader.video_kinect';
 import { WireFrame } from './shader.wireframe';
 
@@ -77,7 +87,7 @@ export interface ShaderType {
   defines?: {
     [key: string]: any;
   };
-  uniforms: {
+  uniforms?: {
     [key: string]: THREE.IUniform;
   };
   fragmentShader: string;
@@ -204,7 +214,10 @@ export const ShaderConf: {
   waterrefractionshader: WaterRefractionShader,
   waterrefraction: 'waterrefractionshader',
   bokeh2shader: BokehShader2,
+  bokehshader2: 'bokeh2shader',
   bokeh2: 'bokeh2shader',
+  bokehdepthshader: BokehDepthShader,
+  bokehdepth: 'bokehdepthshader',
   normalmapshader: NormalMapShader,
   normalmap: 'normalmapshader',
   afterimageshader: AfterimageShader,
@@ -264,6 +277,39 @@ export const ShaderConf: {
   demo4shader : ShaderDemo4,
   shaderdemo4 : "demo4shader",
   demo4 : "demo4shader",
+  
+  demo5shader : ShaderDemo5,
+  shaderdemo5 : "demo5shader",
+  demo5 : "demo5shader",
+  
+  scalecolorshader : ScaleColor,
+  scalecolor : "scalecolorshader",
+
+  sincolorshader : SinColor,
+  sincolor : "sincolorshader",
+
+  attributesizecolorshader : AttributeSizeColor,
+  attributesizecolor : "attributesizecolorshader",
+  sizecolor : "attributesizecolorshader",
+  attributesizecolor1shader : AttributeSizeColor1,
+  attributesizecolor1 : "attributesizecolor1shader",
+  sizecolor1 : "attributesizecolor1shader",
+
+  noiserandom1dshader : ShaderNoiseRandom1D,
+  shadernoiserandom1d : "noiserandom1dshader",
+  noiserandom1d : "noiserandom1dshader",
+
+  noiserandom2dshader : ShaderNoiseRandom2D,
+  shadernoiserandom2d : "noiserandom2dshader",
+  noiserandom2d : "noiserandom2dshader",
+
+  noiserandom3dshader : ShaderNoiseRandom3D,
+  shadernoiserandom3d : "noiserandom3dshader",
+  noiserandom3d : "noiserandom3dshader",
+
+  colorrainbowshader : ColorRainbow,
+  colorrainbow : "colorrainbowshader",
+
   colorrandomshader : ColorRandom,
   colorrandom : "colorrandomshader",
   colorscreenshader : ColorScreen,
@@ -302,7 +348,7 @@ export class ShaderUtils {
     } else {
       return {
         defines: key.defines,
-        uniforms: key.defines,
+        uniforms: key.uniforms,
         vertexShader: key.vertexShader,
         fragmentShader: key.fragmentShader,
       };
@@ -313,7 +359,7 @@ export class ShaderUtils {
     return {
       vertexShader: shader.vertexShader,
       fragmentShader: shader.fragmentShader,
-      uniforms: THREE.UniformsUtils.clone(shader.uniforms),
+      uniforms: ThreeUtil.isNotNull(shader.uniforms) ? THREE.UniformsUtils.clone(shader.uniforms) : undefined,
       defines: ThreeUtil.isNotNull(shader.defines) ? THREE.UniformsUtils.clone(shader.defines) : undefined,
     };
   }

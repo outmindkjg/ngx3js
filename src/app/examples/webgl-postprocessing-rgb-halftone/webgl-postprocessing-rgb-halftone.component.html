@@ -14,7 +14,7 @@
 >
   <three-composer [scene]="scene" [camera]="camera">
     <three-pass [type]="'RenderPass'"></three-pass>
-    <three-pass [type]="'HalftonePass'" [width]="1024" [height]="1024" (onLoad)="setHalftonePass($event)"></three-pass>
+    <three-pass [type]="'HalftonePass'" [uniforms]="uniforms" [width]="1024" [height]="1024"></three-pass>
   </three-composer>
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-camera #camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1000">
@@ -29,7 +29,7 @@
         [height]="2"
         [depth]="2"
       ></three-geometry>
-      <three-material #boxMaterial [type]="'ShaderMaterial'" [vertexShader]="vertexShader" [fragmentShader]="fragmentShader"></three-material>
+      <three-material #boxMaterial [type]="'ShaderMaterial'" [shader]="'ColorRainbow'"></three-material>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-mesh *ngFor="let info of boxInfos" [material]="boxMaterial" [geometry]="boxGeometry">

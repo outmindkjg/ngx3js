@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Procedural Effects Example by <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a><br/><br/>
 </div>
 <three-renderer
-  [controlType]="'or1bit'"
+  [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
@@ -26,7 +26,7 @@
         [width]="2"
         [height]="2"
       ></three-geometry>
-      <three-material [type]="'ShaderMaterial'" [vertexShader]="vertexShader" [fragmentShader]="fragmentShader"></three-material>
+      <three-material [type]="'ShaderMaterial'" [shader]="controls.procedure"></three-material>
     </three-mesh>
   </three-scene>
 </three-renderer>

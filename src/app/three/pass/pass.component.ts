@@ -459,260 +459,32 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     return ThreeUtil.getTypeSafe(this.renderTarget, def);
   }
 
-  private getShader(def?: string): object {
+  private getShader(def?: string): {
+    uniforms? : any;
+    vertexShader? : any;
+    fragmentShader? : any;
+  } {
     const shader = ThreeUtil.getTypeSafe(this.shader, def, '');
-    let shaderUniforms = null;
+    let shaderUniforms : {
+      uniforms? : any;
+      vertexShader? : any;
+      fragmentShader? : any;
+    } = null;
     switch (shader.toLowerCase()) {
-      case 'afterimageshader':
-      case 'afterimage':
-        shaderUniforms = AfterimageShader;
-        break;
-      case 'basicshader':
-      case 'basic':
-        shaderUniforms = BasicShader;
-        break;
-      case 'bleachbypassshader':
-      case 'bleachbypass':
-        shaderUniforms = BleachBypassShader;
-        break;
-      case 'blendshader':
-      case 'blend':
-        shaderUniforms = BlendShader;
-        break;
-      case 'bokehshader':
-      case 'bokeh':
-        shaderUniforms = BokehShader;
-        break;
-      case 'bokehshader2':
-      case 'bokeh2shader':
-      case 'bokeh2':
-        shaderUniforms = BokehShader2;
-        break;
-      case 'bokehdepthshader':
-      case 'bokehdepth':
-        shaderUniforms = BokehDepthShader;
-        break;
-      case 'brightnesscontrastshader':
-      case 'brightnesscontrast':
-        shaderUniforms = BrightnessContrastShader;
-        break;
-      case 'colorcorrectionshader':
-      case 'colorcorrection':
-        shaderUniforms = ColorCorrectionShader;
-        break;
-      case 'colorifyshader':
-      case 'colorify':
-        shaderUniforms = ColorifyShader;
-        break;
-      case 'convolutionshader':
-      case 'convolution':
-        shaderUniforms = ConvolutionShader;
-        break;
-      case 'copyshader':
-      case 'copy':
-        shaderUniforms = CopyShader;
-        break;
-      case 'depthlimitedblurshader':
-      case 'depthlimitedblur':
-        shaderUniforms = DepthLimitedBlurShader;
-        break;
-      case 'digitalglitchshader':
-      case 'digitalglitch':
-        shaderUniforms = DigitalGlitch;
-        break;
-      case 'dofmipmapshader':
-      case 'dofmipmap':
-        shaderUniforms = DOFMipMapShader;
-        break;
-      case 'dotscreenshader':
-      case 'dotscreen':
-        shaderUniforms = DotScreenShader;
-        break;
-      case 'filmshader':
-      case 'film':
-        shaderUniforms = FilmShader;
-        break;
-      case 'focusshader':
-      case 'focus':
-        shaderUniforms = FocusShader;
-        break;
-      case 'freichenshader':
-      case 'freichen':
-        shaderUniforms = FreiChenShader;
-        break;
-      case 'fresnelshader':
-      case 'fresnel':
-        shaderUniforms = FresnelShader;
-        break;
-      case 'fxaashader':
-      case 'fxaa':
-        shaderUniforms = FXAAShader;
-        break;
-      case 'gammacorrectionshader':
-      case 'gammacorrection':
-        shaderUniforms = GammaCorrectionShader;
-        break;
-      case 'godraysdepthmaskshader':
-      case 'godraysdepthmask':
-        shaderUniforms = GodRaysDepthMaskShader;
-        break;
-      case 'godraysgenerateshader':
-      case 'godraysgenerate':
-        shaderUniforms = GodRaysGenerateShader;
-        break;
-      case 'godrayscombineshader':
-      case 'godrayscombine':
-        shaderUniforms = GodRaysCombineShader;
-        break;
-      case 'godraysfakesunshader':
-      case 'godraysfakesun':
-        shaderUniforms = GodRaysFakeSunShader;
-        break;
-      case 'halftoneshader':
-      case 'halftone':
-        shaderUniforms = HalftoneShader;
-        break;
-      case 'horizontalblurshader':
-      case 'horizontalblur':
-        shaderUniforms = HorizontalBlurShader;
-        break;
-      case 'horizontaltiltshiftshader':
-      case 'horizontaltiltshift':
-        shaderUniforms = HorizontalTiltShiftShader;
-        break;
-      case 'huesaturationshader':
-      case 'huesaturation':
-        shaderUniforms = HueSaturationShader;
-        break;
-      case 'kaleidoshader':
-      case 'kaleido':
-        shaderUniforms = KaleidoShader;
-        break;
-      case 'luminosityhighpassshader':
-      case 'luminosityhighpass':
-        shaderUniforms = LuminosityHighPassShader;
-        break;
-      case 'luminosityshader':
-      case 'luminosity':
-        shaderUniforms = LuminosityShader;
-        break;
-      case 'mirrorshader':
-      case 'mirror':
-        shaderUniforms = MirrorShader;
-        break;
-      case 'normalmapshader':
-      case 'normalmap':
-        shaderUniforms = NormalMapShader;
-        break;
-      case 'oceanshader':
-      case 'ocean':
-        shaderUniforms = OceanShaders;
-        break;
-      case 'parallaxshader':
-      case 'parallax':
-        shaderUniforms = ParallaxShader;
-        break;
-      case 'pixelshader':
-      case 'pixel':
-        shaderUniforms = PixelShader;
-        break;
-      case 'rgbshiftshader':
-      case 'rgbshift':
-        shaderUniforms = RGBShiftShader;
-        break;
-      case 'saoshader':
-      case 'sao':
-        shaderUniforms = SAOShader;
-        break;
-      case 'sepiashader':
-      case 'sepia':
-        shaderUniforms = SepiaShader;
-        break;
-      case 'smaaedgesshader':
-      case 'smaaedges':
-        shaderUniforms = SMAAEdgesShader;
-        break;
-      case 'smaaweightsshader':
-      case 'smaaweights':
-        shaderUniforms = SMAAWeightsShader;
-        break;
-      case 'smaablendshader':
-      case 'smaablend':
-        shaderUniforms = SMAABlendShader;
-        break;
-      case 'sobeloperatorshader':
-      case 'sobeloperator':
-        shaderUniforms = SobelOperatorShader;
-        break;
-      case 'ssaoshader':
-      case 'ssao':
-        shaderUniforms = SSAOShader;
-        break;
-      case 'subsurfacescatteringshader':
-      case 'subsurfacescattering':
-        shaderUniforms = SubsurfaceScatteringShader;
-        break;
-      case 'technicolorshader':
-      case 'technicolor':
-        shaderUniforms = TechnicolorShader;
-        break;
-      case 'tonemapshader':
-      case 'tonemap':
-        shaderUniforms = ToneMapShader;
-        break;
-      case 'toon2shader':
-      case 'toon2':
-        shaderUniforms = ToonShader1;
-        break;
-      case 'toon1shader':
-      case 'toon1':
-        shaderUniforms = ToonShader2;
-        break;
-      case 'toondottedshader':
-      case 'toondotted':
-        shaderUniforms = ToonShaderDotted;
-        break;
-      case 'toonhatchingshader':
-      case 'toonhatching':
-        shaderUniforms = ToonShaderHatching;
-        break;
-      case 'triangleblurshader':
-      case 'triangleblur':
-        shaderUniforms = TriangleBlurShader;
-        break;
-      case 'unpackdepthrgbashader':
-      case 'unpackdepthrgba':
-        shaderUniforms = UnpackDepthRGBAShader;
-        break;
-      case 'verticalblurshader':
-      case 'verticalblur':
-        shaderUniforms = VerticalBlurShader;
-        break;
-      case 'verticaltiltshiftshader':
-      case 'verticaltiltshift':
-        shaderUniforms = VerticalTiltShiftShader;
-        break;
-      case 'vignetteshader':
-      case 'vignette':
-        shaderUniforms = VignetteShader;
-        break;
-      case 'volumeshader':
-      case 'volume':
-        shaderUniforms = VolumeRenderShader1;
-        break;
-      case 'waterrefractionshader':
-      case 'waterrefraction':
-        shaderUniforms = WaterRefractionShader;
-        break;
       case 'shadermaterial':
       case 'material':
-      default :
         const shaderMaterialParameters: THREE.ShaderMaterialParameters = {
           vertexShader : this.getMaterialShader('x-shader/x-vertex'),
           fragmentShader : this.getMaterialShader('x-shader/x-fragment'),
-          uniforms: this.getUniforms({})
+          uniforms: this.getUniforms(ShaderUtils.getUniforms(this.materialShader))
         };
         shaderUniforms = new THREE.ShaderMaterial(shaderMaterialParameters);
+        break;
+      default :
+        shaderUniforms = ShaderUtils.getShaderClone(shader);
+        if (ThreeUtil.isNotNull(shaderUniforms.uniforms)) {
+          this.getUniforms(shaderUniforms.uniforms);
+        }
         break;
     }
     if (shaderUniforms !== null) {
@@ -721,11 +493,10 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     return undefined;
   }
 
-  private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
+  private getUniforms(resultUniforms : { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
     const uniforms: {
-      [key: string]: THREE.IUniform;
-    } = ThreeUtil.getTypeSafe(this.uniforms, def);
-    const resultUniforms = ShaderUtils.getUniforms(this.materialShader);
+      [key: string]: any;
+    } = ThreeUtil.getTypeSafe(this.uniforms, {});
     Object.entries(uniforms).forEach(([key, value]) => {
       if (ThreeUtil.isNotNull(value) && ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
         const valueType: string = value['type'];
@@ -849,16 +620,56 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       } else if (ThreeUtil.isNotNull(value) && value['value'] !== undefined) {
         resultUniforms[key] = value;
       } else {
-        resultUniforms[key] = { value: value };
+        switch (key) {
+          case 'color':
+            resultUniforms.color.value = ThreeUtil.getColorSafe(value, resultUniforms.color.value);
+            break;
+          case 'deltaX':
+            resultUniforms.delta.value = ThreeUtil.getVector2Safe(uniforms.deltaX , uniforms.deltaY , resultUniforms.delta.value);
+            break;
+          case 'powRGBx':
+            resultUniforms.powRGB.value = ThreeUtil.getVector3Safe(uniforms.powRGBx , uniforms.powRGBy, uniforms.powRGBz , resultUniforms.powRGB.value);
+            break;
+          case 'mulRGBx':
+            resultUniforms.mulRGB.value = ThreeUtil.getVector3Safe(uniforms.mulRGBx , uniforms.mulRGBy, uniforms.mulRGBz , resultUniforms.mulRGB.value);
+            break;
+          case 'addRGBx':
+            resultUniforms.addRGB.value = ThreeUtil.getVector3Safe(uniforms.addRGBx , uniforms.addRGBy, uniforms.addRGBz , resultUniforms.addRGB.value);
+            break;
+          default:
+            resultUniforms[key] = { value: value };
+            break;
+        }
       }
     });
     Object.entries(resultUniforms).forEach(([key, value]) => {
-      uniforms[key] = value;
+      switch(key) {
+        case 'resolution':
+          resultUniforms.resolution.value = ThreeUtil.getVector2Safe(
+            uniforms.resolutionX || this.width || 1024 , 
+            uniforms.resolutionY || this.height || 1024 , 
+            resultUniforms.resolution.value
+          );
+          break;
+        case 'bloomTexture':
+          if (ThreeUtil.isNotNull(this.bloomTexture) && ThreeUtil.isNotNull(this.bloomTexture.getRenderTarget2)) {
+            resultUniforms.bloomTexture.value = this.bloomTexture.getRenderTarget2().texture;
+          }
+          break;
+      }
     });
     if (this.debug) {
       this.consoleLog('pass-uniforms', resultUniforms);
     }
     return resultUniforms;
+  }
+
+  private setAssignUniforms(resultUniforms : {[key : string] : THREE.IUniform }) {
+    if (ThreeUtil.isNotNull(this.uniforms)) {
+      Object.entries(resultUniforms).forEach(([key, value]) => {
+        this.uniforms[key] = value;
+      });
+    }
   }
 
   private getMaterialShader(type: string) {
@@ -1008,6 +819,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     }
   }
 
+
   getPass(): Pass {
     if (this.pass === null || this._needUpdate) {
       this.needUpdate = false;
@@ -1066,11 +878,12 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'halftonepass':
           case 'halftone':
-            pass = new HalftonePass(
+            const halftonePass = new HalftonePass(
               this.getWidth(),
               this.getHeight(),
               null // this.getParams(null)
             );
+            pass = halftonePass;
             break;
           case 'clearmaskpass':
           case 'clearmask':
@@ -1153,50 +966,6 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
           case 'shaderpass':
           case 'shader':
             const shaderPass = new ShaderPass(this.getShader(), this.getTextureId());
-            if (ThreeUtil.isNotNull(shaderPass.uniforms) && ThreeUtil.isNotNull(this.uniforms)) {
-              Object.entries(shaderPass.uniforms).forEach(([key, value]) => {
-                switch (key) {
-                  case 'color':
-                    if (this.uniforms['color'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getColorSafe(this.uniforms['color'], shaderPass.uniforms[key].value);
-                    }
-                    break;
-                  case 'delta':
-                    if (this.uniforms['deltaX'] !== null || this.uniforms['deltaY'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(this.uniforms['deltaX'], this.uniforms['deltaY'], shaderPass.uniforms[key].value);
-                    }
-                    break;
-                  case 'powRGB':
-                    if (this.uniforms['powRGBx'] !== null || this.uniforms['powRGBy'] !== null || this.uniforms['powRGBz'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['powRGBx'], this.uniforms['powRGBy'], this.uniforms['powRGBz'], shaderPass.uniforms[key].value);
-                    }
-                    break;
-                  case 'mulRGB':
-                    if (this.uniforms['mulRGBx'] !== null || this.uniforms['mulRGBy'] !== null || this.uniforms['mulRGBz'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['mulRGBx'], this.uniforms['mulRGBy'], this.uniforms['mulRGBz'], shaderPass.uniforms[key].value);
-                    }
-                    break;
-                  case 'resolution':
-                    shaderPass.uniforms[key].value = ThreeUtil.getVector2Safe(this.uniforms['resolutionX'] || this.width | 1024, this.uniforms['resolutionY'] || this.height | 1024, shaderPass.uniforms[key].value);
-                    break;
-                  case 'addRGB':
-                    if (this.uniforms['addRGBx'] !== null || this.uniforms['addRGBy'] !== null || this.uniforms['addRGBz'] !== null) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getVector3Safe(this.uniforms['addRGBx'], this.uniforms['addRGBy'], this.uniforms['addRGBz'], shaderPass.uniforms[key].value);
-                    }
-                    break;
-                  case 'bloomTexture':
-                    if (ThreeUtil.isNotNull(this.bloomTexture) && ThreeUtil.isNotNull(this.bloomTexture.getRenderTarget2)) {
-                      shaderPass.uniforms[key].value = this.bloomTexture.getRenderTarget2().texture;
-                    }
-                    break;
-                  default:
-                    if (this.uniforms[key] !== null && this.uniforms[key] !== undefined) {
-                      shaderPass.uniforms[key].value = ThreeUtil.getTypeSafe(this.uniforms[key], value['value'], null);
-                    }
-                    break;
-                }
-              });
-            }
             pass = shaderPass;
             break;
           case 'smaapass':
@@ -1279,6 +1048,10 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
           this.effectComposer.insertPass(pass, passIndex);
         }
       }
+      if (ThreeUtil.isNotNull(pass['uniforms']) && ThreeUtil.isNotNull(this.uniforms)) {
+        this.setAssignUniforms(pass['uniforms']);
+      }
+
       this.pass = pass;
       this.setObject(this.pass);
     }

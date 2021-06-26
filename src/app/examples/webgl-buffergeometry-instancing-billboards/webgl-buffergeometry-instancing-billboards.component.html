@@ -32,8 +32,7 @@
           map : { type : 'texture', value : 'textures/sprites/circle.png'},
           time : { type : 'number', value : 0.0 }
         }"
-        [vertexShader]="vshader"
-        [fragmentShader]="fshader"
+        [shader]="'ScaleColor'"
         [depthTest]="true"
         [depthWrite]="true"
       ></three-material>

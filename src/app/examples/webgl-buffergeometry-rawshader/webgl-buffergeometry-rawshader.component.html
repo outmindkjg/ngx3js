@@ -29,8 +29,7 @@
       <three-material 
         [type]="'RawShaderMaterial'"
         [uniforms]="{ time : { type : 'number', value : 1.0 }}"
-        [vertexShader]="vertexShader"
-        [fragmentShader]="fragmentShader"
+        [shader]="'SinColor'"
         [side]="'double'"
         [transparent]="true"
       ></three-material>
