@@ -9,7 +9,6 @@ export const ColorRainbow = {
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
   }
   `,
-
   fragmentShader: `
   varying vec2 vUV;
   varying vec3 vNormal;
@@ -18,5 +17,4 @@ export const ColorRainbow = {
     gl_FragColor = c;
   }
   `,
-
 };

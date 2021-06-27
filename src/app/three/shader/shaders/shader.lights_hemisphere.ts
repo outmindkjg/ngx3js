@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-
 export const LightsHemisphere = {
   vertexShader: `
   varying vec3 vWorldPosition;
@@ -9,7 +8,6 @@ export const LightsHemisphere = {
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
   }
   `,
-
   fragmentShader: `
   uniform vec3 topColor;
   uniform vec3 bottomColor;
@@ -21,7 +19,6 @@ export const LightsHemisphere = {
     gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
   }  
   `,
-
   uniforms: {
     topColor: { value: new THREE.Color(0x3284ff) },
     bottomColor: { value: new THREE.Color(0xffffff) },

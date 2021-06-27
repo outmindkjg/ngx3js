@@ -1,9 +1,7 @@
 import * as THREE from 'three';
-
 export const ShaderDemo1 = {
   vertexShader: `
   varying vec2 vUv;
-
   void main()
   {
     vUv = uv;
@@ -11,18 +9,13 @@ export const ShaderDemo1 = {
     gl_Position = projectionMatrix * mvPosition;
   }
   `,
-
   fragmentShader: `
   uniform float time;
-
   varying vec2 vUv;
-
   void main(void) {
-
     vec2 p = - 1.0 + 2.0 * vUv;
     float a = time * 40.0;
     float d, e, f, g = 1.0 / 40.0 ,h ,i ,r ,q;
-
     e = 400.0 * ( p.x * 0.5 + 0.5 );
     f = 400.0 * ( p.y * 0.5 + 0.5 );
     i = 200.0 + sin( e * g + a / 150.0 ) * 20.0;
@@ -44,10 +37,8 @@ export const ShaderDemo1 = {
     d += sin( d * d * 8.0 ) * 0.52;
     f = ( sin( a * g ) + 1.0 ) / 2.0;
     gl_FragColor = vec4( vec3( f * i / 1.6, i / 2.0 + d / 13.0, i ) * d * p.x + vec3( i / 1.3 + d / 8.0, i / 2.0 + d / 18.0, i ) * d * ( 1.0 - p.x ), 1.0 );
-
   }
   `,
-
   uniforms: {
     time : { value : 1.0 }
   },
