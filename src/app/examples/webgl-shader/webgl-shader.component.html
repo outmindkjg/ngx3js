@@ -24,7 +24,7 @@
         [width]="2"
         [height]="2"
       ></three-geometry>
-      <three-material [type]="'Shader'" [vertexShader]="vertexShader" [fragmentShader]="fragmentShader" [uniforms]="{ time : { type : 'number', value : 1.0 }}"></three-material>
+      <three-material [type]="'Shader'" [shader]="'ShaderDemo7'" [uniforms]="{ time : { type : 'number', value : 1.0 }}"></three-material>
       <three-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></three-controller>
     </three-mesh>
     <three-mesh>

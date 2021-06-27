@@ -34,8 +34,7 @@
           cameraWorldMatrix : { type : 'matrixWorld', value : camera },
           cameraProjectionMatrixInverse : { type : 'projectionMatrixInverse', value : camera }
         }"
-        [vertexShader]="vertex_shader"
-        [fragmentShader]="fragment_shader"
+        [shader]="'RaymarchingReflect'"
       ></three-material>
     </three-mesh>
   </three-scene>

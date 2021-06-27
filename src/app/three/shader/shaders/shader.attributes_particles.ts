@@ -18,6 +18,6 @@ export const AttributesParticles = {
   }
   `,
   uniforms: {
-    pointTexture: { value: null },
+    pointTexture: { value: [] },
   },
 };

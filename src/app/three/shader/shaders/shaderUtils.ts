@@ -68,6 +68,8 @@ import { ShaderDemo2 } from './shader.demo2';
 import { ShaderDemo3 } from './shader.demo3';
 import { ShaderDemo4 } from './shader.demo4';
 import { ShaderDemo5 } from './shader.demo5';
+import { ShaderDemo6 } from './shader.demo6';
+import { ShaderDemo7 } from './shader.demo7';
 import { BufferGeometryInstancing } from './shader.instancing';
 import { ShaderLava } from './shader.lava';
 import { LightsHemisphere } from './shader.lights_hemisphere';
@@ -77,6 +79,7 @@ import { ShaderNoiseRandom2D } from './shader.noise_random_2d';
 import { ShaderNoiseRandom3D } from './shader.noise_random_3d';
 import { PerlinShader } from './shader.perlin';
 import { PointsWaves } from './shader.points_waves';
+import { RaymarchingReflect } from './shader.raymarching_reflect';
 import { ScaleColor } from './shader.scale_color';
 import { SelectiveDraw } from './shader.selective_draw';
 import { SinColor } from './shader.sin_color';
@@ -281,7 +284,15 @@ export const ShaderConf: {
   demo5shader : ShaderDemo5,
   shaderdemo5 : "demo5shader",
   demo5 : "demo5shader",
+
+  demo6shader : ShaderDemo6,
+  shaderdemo6 : "demo6shader",
+  demo6 : "demo6shader",
   
+  demo7shader : ShaderDemo7,
+  shaderdemo7 : "demo7shader",
+  demo7 : "demo7shader",
+
   scalecolorshader : ScaleColor,
   scalecolor : "scalecolorshader",
 
@@ -310,6 +321,9 @@ export const ShaderConf: {
   colorrainbowshader : ColorRainbow,
   colorrainbow : "colorrainbowshader",
 
+  raymarchingreflectshader : RaymarchingReflect,
+  raymarchingreflect : "raymarchingreflectshader",
+  
   colorrandomshader : ColorRandom,
   colorrandom : "colorrandomshader",
   colorscreenshader : ColorScreen,
