@@ -33,15 +33,11 @@
         [autoDisplacementSize]="3"
         [autoCustomColor]="true"
         [autoCustomColorSize]="3"
+        (onLoad)="setGeometry($event)"
       ></three-geometry>
       <three-material 
         [type]="'ShaderMaterial'" 
-        [color]="'0xff0000'"
-        [uniforms]="{
-          amplitude : { type : 'number', value : 5.0 },
-          opacity : { type : 'number', value : 0.3 },
-          color : { type : 'color', value : '0xffffff'}
-        }"
+        [uniforms]="uniforms"
         [shader]="'CustomAttributesLines'"
         [blending]="'AdditiveBlending'"
         [depthTest]="false"

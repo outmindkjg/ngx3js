@@ -18,28 +18,6 @@
     <three-position [x]="0" [y]="0" [z]="500"></three-position>
   </three-camera>
   <three-scene #scene>
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
     <three-shared>
       <three-geometry
         #sphere
@@ -51,7 +29,8 @@
       <three-texture #texture8 
         [image]="'textures/cube/angus/'" 
         [cubeImage]="['cube_m08_c00.jpg', 'cube_m08_c01.jpg', 'cube_m08_c02.jpg', 'cube_m08_c03.jpg', 'cube_m08_c04.jpg', 'cube_m08_c05.jpg']"  
-        [mapping]="'EquirectangularReflection'"
+        [minFilter]="'LinearMipMapLinearFilter'"
+        [magFilter]="'LinearFilter'"
         [generateMipmaps]="true"
       ></three-texture>
     </three-shared>

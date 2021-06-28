@@ -40,12 +40,14 @@
           [segments]="10"
         ></three-geometry>
       </three-geometry>
-      <three-material [type]="'ShaderMaterial'"
+      <three-material 
+        [type]="'ShaderMaterial'"
         [uniforms]="{
           color : { type : 'color', value : '0xffffff'},
           pointTexture : { type : 'texture', value : 'textures/sprites/disc.png', options : 'RepeatWrapping'}
         }"
         [shader]="'AttributeSizeColor'"
+        [transparent]="true"
       ></three-material>
     </three-mesh>
   </three-scene>

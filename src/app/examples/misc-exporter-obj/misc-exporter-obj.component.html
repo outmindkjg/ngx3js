@@ -1,69 +1,136 @@
 <div id="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - exporter - obj<br /><br />
 </div>
 <three-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
+  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+    <three-position [x]="0" [y]="0" [z]="400"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
+  <three-scene #scene (onLoad)="setScene($event)">
     <three-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
-      [type]="'directional'"
+      [type]="'AmbientLight'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [intensity]="0.2"
+    ></three-light>
+    <three-light
+      [type]="'DirectionalLight'"
+      [color]="'0xffffff'"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+      <three-position [x]="200" [y]="100" [z]="400" [normalize]="true"></three-position>
     </three-light>
+    <three-shared>
+      <three-material #material [type]="'MeshLambertMaterial'" [color]="'0x00cc00'" [side]="'doubleside'"></three-material>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></three-geometry>
-      <three-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></three-material>
+      <three-mesh *ngIf="controls.type === 'triangle'" [material]="material">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'BufferGeometry'"
+          [attrPosition]="vertices"
+          [computeVertexNormals]="true"
+        ></three-geometry>
+      </three-mesh>
+      <three-mesh *ngIf="controls.type === 'cube'" [material]="material">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'BoxGeometry'"
+          [width]="100"
+          [height]="100"
+          [depth]="100"
+        ></three-geometry>
+      </three-mesh>
+      <three-mesh *ngIf="controls.type === 'cylinder'" [material]="material">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'CylinderGeometry'"
+          [radiusTop]="50"
+          [radiusBottom]="50"
+          [height]="100"
+          [radialSegments]="30"
+          [heightSegments]="1"
+        ></three-geometry>
+      </three-mesh>
+      <three-mesh *ngIf="controls.type === 'multiple'">
+        <three-mesh [material]="material">
+          <three-position [x]="-200" [y]="0" [z]="0"></three-position>
+          <three-geometry
+            [type]="'BufferGeometry'"
+            [attrPosition]="vertices"
+            [computeVertexNormals]="true"
+          ></three-geometry>
+        </three-mesh>
+        <three-mesh [material]="material">
+          <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-geometry
+            [type]="'BoxGeometry'"
+            [width]="100"
+            [height]="100"
+            [depth]="100"
+          ></three-geometry>
+        </three-mesh>
+        <three-mesh [material]="material">
+          <three-position [x]="200" [y]="0" [z]="0"></three-position>
+          <three-geometry
+            [type]="'CylinderGeometry'"
+            [radiusTop]="50"
+            [radiusBottom]="50"
+            [height]="100"
+            [radialSegments]="30"
+            [heightSegments]="1"
+          ></three-geometry>
+        </three-mesh>
+      </three-mesh>
+      <three-mesh *ngIf="controls.type === 'transformed'">
+        <three-mesh [material]="material">
+          <three-position [x]="-200" [y]="0" [z]="0"></three-position>
+          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
+          <three-geometry
+            [type]="'BufferGeometry'"
+            [attrPosition]="vertices"
+            [computeVertexNormals]="true"
+          ></three-geometry>
+        </three-mesh>
+        <three-mesh [material]="material">
+          <three-position [x]="0" [y]="0" [z]="0"></three-position>
+          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
+          <three-geometry
+            [type]="'BoxGeometry'"
+            [width]="100"
+            [height]="100"
+            [depth]="100"
+          ></three-geometry>
+        </three-mesh>
+        <three-mesh [material]="material">
+          <three-position [x]="200" [y]="0" [z]="0"></three-position>
+          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
+          <three-geometry
+            [type]="'CylinderGeometry'"
+            [radiusTop]="50"
+            [radiusBottom]="50"
+            [height]="100"
+            [radialSegments]="30"
+            [heightSegments]="1"
+          ></three-geometry>
+        </three-mesh>
+      </three-mesh>
+      <three-mesh *ngIf="controls.type === 'points'" [type]="'Points'">
+        <three-position [x]="0" [y]="0" [z]="0"></three-position>
+        <three-geometry
+          [type]="'BufferGeometry'"
+          [attrPosition]="points"
+          [attrColor]="colors"
+        ></three-geometry>
+        <three-material [type]="'PointsMaterial'" [size]="10" [vertexColors]="true"></three-material>
+      </three-mesh>
     </three-mesh>
   </three-scene>
 </three-renderer>

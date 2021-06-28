@@ -23,10 +23,9 @@
   <three-composer [scene]="scene" [camera]="camera">
     <three-pass [type]="'RenderPass'"></three-pass>
     <three-pass [type]="'ShaderPass'" [shader]="'ShaderMaterial'" 
-      [fragmentShader]="fragmentshader" 
-      [vertexShader]="vertexshader" 
       [textureId]="'baseTexture'" 
       [uniforms]="{ baseTexture : null, bloomTexture : null }"
+      [materialShader]="'UnrealBloomSelective'"
       [bloomTexture]="bloomComposer"
       [needsSwap]="true"
     ></three-pass>

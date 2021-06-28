@@ -107,7 +107,6 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
             depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
             encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
           });
-          break;          
         default :
           return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
             wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),

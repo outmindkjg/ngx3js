@@ -40,6 +40,9 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private sh: string = null;
   @Input() private texture: TextureComponent = null;
   @Input() private target: any = null;
+  @Input() private targetX: number = null;
+  @Input() private targetY: number = null;
+  @Input() private targetZ: number = null;
   @Input() private renderer: any = null;
   @Input() private renderTarget: any = null;
 
@@ -409,11 +412,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       switch (this.type.toLowerCase()) {
         case 'directionallight':
         case 'directional':
-          basemesh = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
+          const directionalLight = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
+          basemesh = directionalLight;
           break;
         case 'hemispherelight':
         case 'hemisphere':
-          basemesh = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
+          const hemisphereLight = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
+          basemesh = hemisphereLight;
           break;
         case 'lightprobe':
         case 'probe':
@@ -453,7 +458,8 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
         case 'pointlight':
         case 'point':
-          basemesh = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
+          const pointLight = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
+          basemesh = pointLight; 
           break;
         case 'arealight':
         case 'area':
@@ -474,6 +480,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         default:
           basemesh = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
           break;
+      }
+      if (ThreeUtil.isNotNull(basemesh['target'])) {
+        if (ThreeUtil.isNotNull(this.target)) {
+          basemesh['target'] = this.getTarget();
+        } else if (ThreeUtil.isNotNull(this.targetX) && ThreeUtil.isNotNull(this.targetY) && ThreeUtil.isNotNull(this.targetZ)) {
+          basemesh['target'].position.copy(ThreeUtil.getVector3Safe(this.targetX,this.targetY,this.targetZ));
+        }
       }
       this.light = basemesh;
       if (this.light instanceof THREE.SpotLight || this.light instanceof THREE.DirectionalLight) {

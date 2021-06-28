@@ -36,29 +36,6 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
     this.sizes = sizes;
   }
 
-  shaderFragment = `
-uniform vec3 color;
-uniform sampler2D pointTexture;
-varying vec3 vColor;
-void main() {
-  gl_FragColor = vec4( color * vColor, 1.0 );
-  gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-  if ( gl_FragColor.a < ALPHATEST ) discard;
-}
-  `;
-
-  shaderVertex = `
-attribute float size;
-attribute vec3 customColor;
-varying vec3 vColor;
-void main() {
-  vColor = customColor;
-  vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-  gl_PointSize = size * ( 300.0 / -mvPosition.z );
-  gl_Position = projectionMatrix * mvPosition;
-}
-  `
-
   uniforms = {
     color: { type : 'color', value: 0xffffff },
     pointTexture: { type : 'Texture', value: '/assets/examples/textures/sprites/disc.png' }

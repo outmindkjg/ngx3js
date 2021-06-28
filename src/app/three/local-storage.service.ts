@@ -28,6 +28,16 @@ import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { LWO, LWOLoader } from 'three/examples/jsm/loaders/LWOLoader';
 import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
 import { MDD, MDDLoader } from 'three/examples/jsm/loaders/MDDLoader';
+import { ColladaExporter } from 'three/examples/jsm/exporters/ColladaExporter';
+import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
+import { DRACOExporter } from 'three/examples/jsm/exporters/DRACOExporter';
+import * as draco_encoder from 'three/examples/js/libs/draco/draco_encoder';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
+import { MMDExporter } from 'three/examples/jsm/exporters/MMDExporter';
+import { PLYExporter } from 'three/examples/jsm/exporters/PLYExporter';
+import { USDZExporter } from 'three/examples/jsm/exporters/USDZExporter';
+import { STLExporter } from 'three/examples/jsm/exporters/STLExporter';
+
 import {
   MMDLoader,
   MMDLoaderAnimationObject
@@ -176,7 +186,126 @@ export class LocalStorageService {
     return object;
   }
 
+  private colladaExporter : ColladaExporter = null;
+  private objExporter : OBJExporter = null;
+  private dracoExporter : DRACOExporter = null;
+  private gltfExporter : GLTFExporter = null;
+  private mmdExporter : MMDExporter = null;
+  private plyExporter : PLYExporter = null;
+  private usdzExporter : USDZExporter = null;
+  private stlExporter : STLExporter = null;
+  
+  public getExportObject(fileName : string, object : THREE.Object3D | THREE.Object3D[], options? : any ) {
+    if (fileName.endsWith('.dae')) {
+      if (this.colladaExporter === null) {
+        this.colladaExporter = new ColladaExporter();
+      }
+      if (object instanceof THREE.Object3D) {
+        this.colladaExporter.parse( object , (res) => {
+          this.saveString(res.data, fileName);
+          res.textures.forEach((tex : any) => {
+            this.saveArrayBuffer( tex.data, `${ tex.name }.${ tex.ext }` );
+          });
+        }, {});
+      }
+    } else if (fileName.endsWith('.drc')) {
+      if (this.dracoExporter === null) {
+        this.dracoExporter = new DRACOExporter();
+        window['DracoEncoderModule'] = draco_encoder;
+      }
+      if (object instanceof THREE.Mesh || object instanceof THREE.Points) {
+        const result = this.dracoExporter.parse(object, {});
+				this.saveArrayBuffer( result, fileName );
+      }
+    } else if (fileName.endsWith('.gltf') || fileName.endsWith('.glb')) {
+      if (this.gltfExporter === null) {
+        this.gltfExporter = new GLTFExporter();
+      }
+      const fileNameOnly = fileName.substr(0, fileName.lastIndexOf('.'));
+      this.gltfExporter.parse(object as any, (result) => {
+        if ( result instanceof ArrayBuffer ) {
+          this.saveArrayBuffer( result, fileNameOnly + '.glb');
+        } else {
+          const output = JSON.stringify( result, null, 2 );
+          console.log( output );
+          this.saveString( output, fileNameOnly + '.gltf' );
+        }
+      }, options);
+    } else if (fileName.endsWith('.obj')) {
+      if (this.objExporter === null) {
+        this.objExporter = new OBJExporter();
+      }
+      const result = this.objExporter.parse(object as any);
+      this.saveString( result, fileName );
+    } else if (fileName.endsWith('.ply')) {
+      if (this.plyExporter === null) {
+        this.plyExporter = new PLYExporter();
+      }
+      this.plyExporter.parse(object as any, (result : any) => {
+        if ( result instanceof ArrayBuffer ) {
+          this.saveArrayBuffer( result, fileName );
+        } else {
+          this.saveString( result, fileName );
+        }
+      }, options);
+    } else if (fileName.endsWith('.stl')) {
+      if (this.stlExporter === null) {
+        this.stlExporter = new STLExporter();
+      }
+      const result : any = this.stlExporter.parse(object as any, options);
+      if ( result instanceof ArrayBuffer ) {
+        this.saveArrayBuffer( result, fileName );
+      } else {
+        this.saveString( result, fileName );
+      }
+    } else if (
+      fileName.endsWith('.pmd') ||
+      fileName.endsWith('.pmx') ||
+      fileName.endsWith('.vmd') ||
+      fileName.endsWith('.vpd')
+    ) {
+      if (this.mmdExporter === null) {
+        this.mmdExporter = new MMDExporter();
+      }
+      const result : any = this.mmdExporter.parseVpd(object as any, false, false);
+      if ( result instanceof ArrayBuffer ) {
+        this.saveArrayBuffer( result, fileName );
+      } else {
+        this.saveString( result, fileName );
+      }
+    } else if (fileName.endsWith('.usdz')) {
+      if (this.usdzExporter === null) {
+        this.usdzExporter = new USDZExporter();
+      }
+      const result : any = this.usdzExporter.parse(object as any);
+      if ( result instanceof ArrayBuffer ) {
+        this.saveArrayBuffer( result, fileName );
+      } else {
+        this.saveString( result, fileName );
+      }
+    }
+    
+  }
+  private save( blob, filename ) {
+    const link = document.createElement( 'a' );
+    link.style.display = 'none';
+    document.body.appendChild( link );
+    link.href = URL.createObjectURL( blob );
+    link.download = filename;
+    link.click();
+    link.parentNode.removeChild(link);
+  }
+
+  private saveArrayBuffer( buffer, filename ) {
+    this.save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
+  }
+
+  private saveString( text , filename ) {
+    this.save( new Blob( [ text ], { type: 'text/plain' } ), filename );
+  }
+
   _loadedObject : { [key : string] : LoadedObject} = {}
+
   public getObjectFromKey(
     key: string,
     callBack: (mesh: LoadedObject) => void,

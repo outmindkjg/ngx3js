@@ -325,7 +325,7 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   }
 
   private getSegments(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.segments, def);
+    return ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, def);
   }
 
   private getPhiSegments(def?: number): number {

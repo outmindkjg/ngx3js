@@ -64,12 +64,17 @@ import { CustomAttributes } from './shader.custom_attributes';
 import { CustomAttributesLines } from './shader.custom_attributes_lines';
 import { CustomAttributesPoints } from './shader.custom_attributes_points';
 import { ShaderDemo1 } from './shader.demo1';
+import { ShaderDemo10 } from './shader.demo10';
+import { ShaderDemo11 } from './shader.demo11';
+import { ShaderDemo12 } from './shader.demo12';
 import { ShaderDemo2 } from './shader.demo2';
 import { ShaderDemo3 } from './shader.demo3';
 import { ShaderDemo4 } from './shader.demo4';
 import { ShaderDemo5 } from './shader.demo5';
 import { ShaderDemo6 } from './shader.demo6';
 import { ShaderDemo7 } from './shader.demo7';
+import { ShaderDemo8 } from './shader.demo8';
+import { ShaderDemo9 } from './shader.demo9';
 import { BufferGeometryInstancing } from './shader.instancing';
 import { ShaderLava } from './shader.lava';
 import { LightsHemisphere } from './shader.lights_hemisphere';
@@ -83,6 +88,7 @@ import { RaymarchingReflect } from './shader.raymarching_reflect';
 import { ScaleColor } from './shader.scale_color';
 import { SelectiveDraw } from './shader.selective_draw';
 import { SinColor } from './shader.sin_color';
+import { UnrealBloomSelective } from './shader.unreal_bloom_selective';
 import { VideoKinect } from './shader.video_kinect';
 import { WireFrame } from './shader.wireframe';
 
@@ -205,6 +211,7 @@ export const ShaderConf: {
   filmshader: FilmShader,
   film: 'filmshader',
   volumerender1shader: VolumeRenderShader1,
+  volumerendershader1: 'volumerender1shader',
   volumerender1: 'volumerender1shader',
   verticaltiltshiftshader: VerticalTiltShiftShader,
   verticaltiltshift: 'verticaltiltshiftshader',
@@ -293,6 +300,26 @@ export const ShaderConf: {
   shaderdemo7 : "demo7shader",
   demo7 : "demo7shader",
 
+  demo8shader : ShaderDemo8,
+  shaderdemo8 : "demo8shader",
+  demo8 : "demo8shader",
+  
+  demo9shader : ShaderDemo9,
+  shaderdemo9 : "demo9shader",
+  demo9 : "demo9shader",
+
+  demo10shader : ShaderDemo10,
+  shaderdemo10 : "demo10shader",
+  demo10 : "demo10shader",
+
+  demo11shader : ShaderDemo11,
+  shaderdemo11 : "demo11shader",
+  demo11 : "demo11shader",
+
+  demo12shader : ShaderDemo12,
+  shaderdemo12 : "demo12shader",
+  demo12 : "demo12shader",
+
   scalecolorshader : ScaleColor,
   scalecolor : "scalecolorshader",
 
@@ -320,6 +347,9 @@ export const ShaderConf: {
 
   colorrainbowshader : ColorRainbow,
   colorrainbow : "colorrainbowshader",
+
+  unrealbloomselectiveshader : UnrealBloomSelective,
+  unrealbloomselective : "unrealbloomselectiveshader",
 
   raymarchingreflectshader : RaymarchingReflect,
   raymarchingreflect : "raymarchingreflectshader",

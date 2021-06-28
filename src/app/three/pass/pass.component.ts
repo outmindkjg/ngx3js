@@ -484,6 +484,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
         shaderUniforms = ShaderUtils.getShaderClone(shader);
         if (ThreeUtil.isNotNull(shaderUniforms.uniforms)) {
           this.getUniforms(shaderUniforms.uniforms);
+          console.log(shaderUniforms.uniforms);
         }
         break;
     }
@@ -648,7 +649,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
           resultUniforms.resolution.value = ThreeUtil.getVector2Safe(
             uniforms.resolutionX || this.width || 1024 , 
             uniforms.resolutionY || this.height || 1024 , 
-            resultUniforms.resolution.value
+            value.value
           );
           break;
         case 'bloomTexture':

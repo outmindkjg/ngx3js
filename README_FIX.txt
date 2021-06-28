@@ -115,7 +115,9 @@ export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasEl
 
 
 ----------------------
+node_modules\three\examples\jsm\exporters\OBJExporter.js
 
+138 : } else if (vertices !== undefined){
 
 ----------------------
 
