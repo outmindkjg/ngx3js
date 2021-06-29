@@ -10,6 +10,7 @@ import { PositionComponent } from './position/position.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { ScaleComponent } from './scale/scale.component';
 import { AbstractTweenComponent } from './tween.abstract';
+import { RigidbodyComponent } from './rigidbody/rigidbody.component';
 
 @Component({
   template: ''
@@ -41,6 +42,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
   @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
   @ContentChildren(AbstractObject3dComponent, { descendants: false }) protected object3dList: QueryList<AbstractObject3dComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
 
   protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','debug','enabled','overrideparams','windowexport','helper','tween'];
 
@@ -174,6 +176,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
     this.subscribeListQueryChange(this.materialList, 'materialList', 'material');
+    this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
     super.ngAfterContentInit();
   }
 
@@ -474,7 +477,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           'rotation', 
           'scale', 
           'lookat', 
-          'controller',
           'visible',
           'name',
           'matrixautoupdate',
@@ -484,7 +486,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           'frustumculled',
           'renderorder',
           'lodistance',
-          'material'
+          'material',
+          'rigidbody',
+          'controller',
         ]);
       }
       if (ThreeUtil.isIndexOf(changes, ['customdepth','customdistance'])) {
@@ -708,6 +712,15 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 });
               }
               this.subscribeListQuery(this.materialList, 'materialList','material');
+            }
+            break;
+          case 'rigidbody':
+            this.unSubscribeReferList('rigidbodyList');
+            if (ThreeUtil.isNotNull(this.rigidbodyList)) {
+              this.rigidbodyList.forEach((rigidbody) => {
+                rigidbody.setParent(this.object3d);
+              });
+              this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
             }
             break;
         }

@@ -320,20 +320,18 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   private raycaster: THREE.Raycaster = null;
 
-  getRaycaster(event: any = null): THREE.Raycaster {
+  getRaycaster(mouse: THREE.Vector2 = null): THREE.Raycaster {
     if (this.raycaster === null) {
       this.raycaster = new THREE.Raycaster();
     }
-    if (event !== null) {
-      const mouse = new THREE.Vector2((event.clientX / this.cameraWidth) * 2 - 1, -(event.clientY / this.cameraHeight) * 2 + 1);
-      this.raycaster.setFromCamera(mouse, this.getObject3d());
+    if (mouse !== null) {
+      this.raycaster.setFromCamera(mouse, this.getCamera());
     }
     return this.raycaster;
   }
 
   getIntersections(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection[] {
-    const raycaster = this.getRaycaster();
-    raycaster.setFromCamera(mouse, this.getObject3d());
+    const raycaster = this.getRaycaster(mouse);
     if (mesh instanceof THREE.Object3D) {
       return raycaster.intersectObject(mesh, recursive);
     } else {

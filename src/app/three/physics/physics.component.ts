@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
+import { AmmoPhysics } from 'three/examples/jsm/physics/AmmoPhysics';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
+import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker.js';
 
 @Component({
   selector: 'three-physics',
@@ -9,6 +11,7 @@ import { RendererTimer, ThreeUtil } from './../interface';
   styleUrls: ['./physics.component.scss'],
 })
 export class PhysicsComponent extends AbstractSubscribeComponent implements OnInit {
+  @Input() private type:string = "";
   @Input() private gravity:number = null;
   @Input() private gravityX:number = null;
   @Input() private gravityY:number = null;
@@ -50,34 +53,59 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   private ammo: typeof Ammo = null;
-  private physics: Ammo.btDiscreteDynamicsWorld = null;
+  private physics: Ammo.btDiscreteDynamicsWorld | AmmoPhysics = null;
 
   getAmmo() {
     return this.ammo;
   }
 
-  getPhysics(): Ammo.btDiscreteDynamicsWorld {
+  convexBreaker : ConvexObjectBreaker = null;
+  
+  getConvexObjectBreaker() :ConvexObjectBreaker {
+    if (this.convexBreaker == null) {
+      this.convexBreaker = new ConvexObjectBreaker();
+    }
+    return this.convexBreaker;
+  }
+
+  getPhysics(): Ammo.btDiscreteDynamicsWorld | AmmoPhysics {
     if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
       this.needUpdate = false;
-      const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
-      const dispatcher = new this.ammo.btCollisionDispatcher(
-        collisionConfiguration
-      );
-      const broadphase = new this.ammo.btDbvtBroadphase();
-      const solver = new this.ammo.btSequentialImpulseConstraintSolver();
-      const softBodySolver = new this.ammo.btDefaultSoftBodySolver();
-      const physics = new this.ammo.btSoftRigidDynamicsWorld(
-        dispatcher,
-        broadphase,
-        solver,
-        collisionConfiguration,
-        softBodySolver
-      );
-      const gravity = this.getGravity(-9.8);
-      physics.setGravity(gravity);
-      physics.getWorldInfo().set_m_gravity(gravity);
-      this.physics = physics;
-      super.setObject(this.physics);
+      switch(this.type.toLowerCase()) {
+        case 'ammophysics' :
+        case 'physics' :
+          window['Ammo'] = () => {
+            return this.ammo;
+          };
+          AmmoPhysics().then(physics => {
+            this.physics = physics;
+            super.setObject(this.physics);
+            this.setSubscribeNext(this.subscribeType);
+          });
+          break;
+        default :
+          const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
+          const dispatcher = new this.ammo.btCollisionDispatcher(
+            collisionConfiguration
+          );
+          const broadphase = new this.ammo.btDbvtBroadphase();
+          const solver = new this.ammo.btSequentialImpulseConstraintSolver();
+          const softBodySolver = new this.ammo.btDefaultSoftBodySolver();
+          const physics = new this.ammo.btSoftRigidDynamicsWorld(
+            dispatcher,
+            broadphase,
+            solver,
+            collisionConfiguration,
+            softBodySolver
+          );
+          const gravity = this.getGravity(-9.8);
+          physics.setGravity(gravity);
+          physics.getWorldInfo().set_m_gravity(gravity);
+          this.physics = physics;
+          super.setObject(this.physics);
+          this.setSubscribeNext(this.subscribeType);
+          break;
+      }
     }
     return this.physics;
   }

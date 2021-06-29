@@ -28,7 +28,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private environment: string | MaterialComponent | MeshComponent = null;
 
   @ContentChildren(PhysicsComponent, { descendants: false }) private physicsList: QueryList<PhysicsComponent>;
-  @ContentChildren(RigidbodyComponent, { descendants: true }) private rigidbodyList: QueryList<RigidbodyComponent>;
+  @ContentChildren(RigidbodyComponent, { descendants: true }) private sceneRigidbodyList: QueryList<RigidbodyComponent>;
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
   @ContentChildren(MixerComponent, { descendants: true }) private mixerList: QueryList<MixerComponent>;
@@ -55,7 +55,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 
   ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.physicsList, 'physicsList', 'physics');
-    this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQueryChange(this.sceneRigidbodyList, 'sceenrigidbodyList', 'rigidbody');
     this.subscribeListQueryChange(this.fogList, 'fogList', 'fog');
     this.subscribeListQueryChange(this.sceneControllerList, 'sceneControllerList', 'sceneController');
     this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
@@ -305,13 +305,13 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
             this.unSubscribeReferList('physicsList');
             this.unSubscribeReferList('rigidbodyList');
             this.unSubscribeReferList('mixerList');
-            if (ThreeUtil.isNotNull(this.rigidbodyList) && ThreeUtil.isNotNull(this.physicsList) && this.physicsList.length > 0) {
+            if (ThreeUtil.isNotNull(this.sceneRigidbodyList) && ThreeUtil.isNotNull(this.physicsList) && this.physicsList.length > 0) {
               this._physics = this.physicsList.first;
-              this.rigidbodyList.forEach((rigidbody) => {
+              this.sceneRigidbodyList.forEach((rigidbody) => {
                 rigidbody.setPhysics(this._physics);
               });
               this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
-              this.subscribeListQuery(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+              this.subscribeListQuery(this.sceneRigidbodyList, 'rigidbodyList', 'rigidbody');
             }
             if (ThreeUtil.isNotNull(this._physics) && ThreeUtil.isNotNull(this.mixerList)) {
               this.mixerList.forEach((mixer) => {
@@ -364,7 +364,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.physicsList.forEach((physics) => {
       physics.update(timer);
     });
-    this.rigidbodyList.forEach((rigidbody) => {
+    this.sceneRigidbodyList.forEach((rigidbody) => {
       rigidbody.update(timer);
     });
   }

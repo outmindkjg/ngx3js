@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
+import { AmmoPhysics } from 'three/examples/jsm/physics/AmmoPhysics';
 
 @Component({
   selector: 'three-rigidbody',
@@ -25,8 +26,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   @Input() private inertiaX: number = null;
   @Input() private inertiaY: number = null;
   @Input() private inertiaZ: number = null;
+  @Input() private velocityX: number = null;
+  @Input() private velocityY: number = null;
+  @Input() private velocityZ: number = null;
+  @Input() private velocityType: string = null;
   @Input() private linDamping: number = null;
   @Input() private angDamping: number = null;
+  @Input() private breakable: boolean = null;
+  
 
   private getBoxHalfExtents(geometry: THREE.BufferGeometry, def?: THREE.Vector3): Ammo.btVector3 {
     let boxHalfExtents = ThreeUtil.getVector3Safe(this.width, this.height, this.depth);
@@ -138,7 +145,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
 
   private physics: PhysicsComponent = null;
   private _ammo: typeof Ammo = null;
-  private _physics: Ammo.btDiscreteDynamicsWorld = null;
+  private _physics: Ammo.btDiscreteDynamicsWorld | AmmoPhysics = null;
 
   setPhysics(physics: PhysicsComponent) {
     this.physics = physics;
@@ -162,6 +169,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       );
     }
   }
+
   private rigidBody: Ammo.btRigidBody = null;
 
   setVelocity(x: number, y: number, z: number, type: string = 'linear') {
@@ -319,185 +327,220 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   }
 
   resetRigidBody(): Ammo.btRigidBody {
-    if (this.parent !== null && this._physics !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
+    if (this.parent !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
-      let shape: Ammo.btCollisionShape = null;
-      let type: string = this.type;
-      let geometry: THREE.BufferGeometry = null;
-      if (this.parent instanceof THREE.Mesh) {
-        geometry = this.parent.geometry;
-      } else {
-        type = 'empty';
-      }
-      if (type.toLowerCase() === 'auto') {
-        if (ThreeUtil.isNotNull(geometry)) {
-          if (geometry instanceof THREE.BoxGeometry) {
-            type = 'box';
-          } else if (geometry instanceof THREE.SphereGeometry) {
-            type = 'sphere';
-          } else if (geometry instanceof THREE.ConeGeometry) {
-            type = 'cone';
-          } else if (geometry instanceof THREE.CylinderGeometry) {
-            type = 'cylinder';
-          } else if (geometry instanceof THREE.PlaneGeometry) {
-            type = 'staticplane';
-          } else {
-            type = 'empty';
-          }
+      if (this._physics instanceof this._ammo.btDynamicsWorld) {
+        let shape: Ammo.btCollisionShape = null;
+        let type: string = this.type;
+        let geometry: THREE.BufferGeometry = null;
+        if (this.parent instanceof THREE.Mesh) {
+          geometry = this.parent.geometry;
         } else {
           type = 'empty';
         }
+        if (type.toLowerCase() === 'auto') {
+          if (ThreeUtil.isNotNull(geometry)) {
+            if (geometry instanceof THREE.BoxGeometry) {
+              type = 'box';
+            } else if (geometry instanceof THREE.SphereGeometry) {
+              type = 'sphere';
+            } else if (geometry instanceof THREE.ConeGeometry) {
+              type = 'cone';
+            } else if (geometry instanceof THREE.CylinderGeometry) {
+              type = 'cylinder';
+            } else if (geometry instanceof THREE.PlaneGeometry) {
+              type = 'staticplane';
+            } else {
+              type = 'convexhull';
+            }
+          } else {
+            type = 'empty';
+          }
+        }
+        switch (type.toLowerCase()) {
+          case 'convextriangle':
+            {
+              const meshInterface: Ammo.btStridingMeshInterface = null;
+              const calcAabb: boolean = false;
+              shape = new this._ammo.btConvexTriangleMeshShape(meshInterface, calcAabb);
+            }
+            break;
+          case 'box':
+            {
+              shape = new this._ammo.btBoxShape(this.getBoxHalfExtents(geometry));
+            }
+            break;
+          case 'capsule':
+            {
+              shape = new this._ammo.btCapsuleShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'capsulex':
+            {
+              shape = new this._ammo.btCapsuleShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'capsulez':
+            {
+              shape = new this._ammo.btCapsuleShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'cylinder':
+            {
+              shape = new this._ammo.btCylinderShape(this.getBoxHalfExtents(geometry));
+            }
+            break;
+          case 'cylinderx':
+            {
+              shape = new this._ammo.btCylinderShapeX(this.getBoxHalfExtents(geometry));
+            }
+            break;
+          case 'cylinderz':
+            {
+              shape = new this._ammo.btCylinderShapeZ(this.getBoxHalfExtents(geometry));
+            }
+            break;
+          case 'sphere':
+            {
+              shape = new this._ammo.btSphereShape(this.getRadius(geometry, 0));
+            }
+            break;
+          case 'multisphere':
+            {
+              const positions: Ammo.btVector3 = null;
+              const radii: ReadonlyArray<number> = null;
+              const numPoints: number = null;
+              shape = new this._ammo.btMultiSphereShape(positions, radii, numPoints);
+            }
+            break;
+          case 'cone':
+            {
+              shape = new this._ammo.btConeShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'conex':
+            {
+              shape = new this._ammo.btConeShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'conez':
+            {
+              shape = new this._ammo.btConeShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            }
+            break;
+          case 'convexhull':
+            {
+              const btConvexHullShape = new this._ammo.btConvexHullShape();
+              if (ThreeUtil.isNotNull(geometry)) {
+                const coords = geometry.attributes.position.array;
+                const tempBtVec3 = new this._ammo.btVector3( 0, 0, 0 );
+                for ( let i = 0, il = coords.length; i < il; i += 3 ) {
+                  tempBtVec3.setValue( coords[ i ], coords[ i + 1 ], coords[ i + 2 ] );
+                  const lastOne = ( i >= ( il - 3 ) );
+                  btConvexHullShape.addPoint(tempBtVec3, lastOne);
+                }
+              }
+              shape = btConvexHullShape;
+            }
+            break;
+          case 'compound':
+            {
+              const enableDynamicAabbTree: boolean = false;
+              shape = new this._ammo.btCompoundShape(enableDynamicAabbTree);
+            }
+            break;
+          case 'staticplane':
+            {
+              const planeNormal: Ammo.btVector3 = null;
+              const planeConstant: number = null;
+              shape = new this._ammo.btStaticPlaneShape(planeNormal, planeConstant);
+            }
+            break;
+          case 'bvhtriangle':
+            {
+              const meshInterface: Ammo.btStridingMeshInterface = null;
+              const useQuantizedAabbCompression: boolean = null;
+              const buildBvh: boolean = null;
+              shape = new this._ammo.btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, buildBvh);
+            }
+            break;
+          case 'heightfieldterrain':
+            {
+              const heightStickWidth: number = null;
+              const heightStickLength: number = null;
+              const heightfieldData: unknown = null;
+              const heightScale: number = null;
+              const minHeight: number = null;
+              const maxHeight: number = null;
+              const upAxis: number = null;
+              const hdt: Ammo.PHY_ScalarType = null;
+              const flipQuadEdges: boolean = null;
+              shape = new this._ammo.btHeightfieldTerrainShape(heightStickWidth, heightStickLength, heightfieldData, heightScale, minHeight, maxHeight, upAxis, hdt, flipQuadEdges);
+            }
+            break;
+          case 'empty':
+          default:
+            shape = new this._ammo.btEmptyShape();
+            break;
+        }
+        const scale = this.parent.scale;
+        shape.setLocalScaling(new this._ammo.btVector3(scale.x, scale.y, scale.z));
+        shape.setMargin(this.getMargin(0.05));
+        const mass = this.getMass();
+        const localInertia = this.getInertia(0);
+        shape.calculateLocalInertia(mass, localInertia);
+        const transform = new this._ammo.btTransform();
+        transform.setIdentity();
+        const quaternion = this.parent.quaternion;
+        transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+        const pos = this.parent.position;
+        transform.setOrigin(new this._ammo.btVector3(pos.x, pos.y, pos.z));
+        const motionState = new this._ammo.btDefaultMotionState(transform);
+        const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
+        const body = new this._ammo.btRigidBody(rbInfo);
+        if (mass > 0) {
+          body.setActivationState(4);
+        }
+        if (ThreeUtil.isNotNull(this.friction)) {
+          body.setFriction(this.getFriction(0));
+        }
+        if (ThreeUtil.isNotNull(this.rollingFriction)) {
+          body.setRollingFriction(this.getRollingFriction(0));
+        }
+        if (ThreeUtil.isNotNull(this.restitution)) {
+          body.setRestitution(this.getRestitution(0));
+        }
+        body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+        body['object3d'] = this.parent;
+        this.transformAux = new this._ammo.btTransform();
+        this.rigidBody = body;
+        this._physics.addRigidBody(body);
+        this.parent.userData.physicsBody = body;
+        this.parent.userData.physicsComponent = this;
+        this.parent.addEventListener('collision', (e) => {
+          this.consoleLog('collision', e);
+        });
+        super.setObject(this.rigidBody);
+        if (ThreeUtil.isNotNull(this.velocityX) || ThreeUtil.isNotNull(this.velocityY) || ThreeUtil.isNotNull(this.velocityZ)) {
+          this.setVelocity(ThreeUtil.getTypeSafe(this.velocityX, 0),ThreeUtil.getTypeSafe(this.velocityY, 0),ThreeUtil.getTypeSafe(this.velocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'linear'));
+        }
+        if (this.breakable) {
+          this.physics.getConvexObjectBreaker().prepareBreakableObject(
+            this.parent, mass, 
+            new THREE.Vector3(), new THREE.Vector3(),
+            true
+          );
+          const btVecUserData = new this._ammo.btVector3( 0, 0, 0 );
+          btVecUserData['threeObject'] = this.parent;
+          body.setUserPointer( btVecUserData );
+        }
+      } else if (ThreeUtil.isNotNull(this._physics.addMesh)){
+        if (this.parent instanceof THREE.Mesh) {
+          this._physics.addMesh(this.parent, this.getMass(0));
+        }
+      } else {
+        console.log(this._physics);
       }
-      switch (type.toLowerCase()) {
-        case 'convextriangle':
-          {
-            const meshInterface: Ammo.btStridingMeshInterface = null;
-            const calcAabb: boolean = false;
-            shape = new this._ammo.btConvexTriangleMeshShape(meshInterface, calcAabb);
-          }
-          break;
-        case 'box':
-          {
-            shape = new this._ammo.btBoxShape(this.getBoxHalfExtents(geometry));
-          }
-          break;
-        case 'capsule':
-          {
-            shape = new this._ammo.btCapsuleShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'capsulex':
-          {
-            shape = new this._ammo.btCapsuleShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'capsulez':
-          {
-            shape = new this._ammo.btCapsuleShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'cylinder':
-          {
-            shape = new this._ammo.btCylinderShape(this.getBoxHalfExtents(geometry));
-          }
-          break;
-        case 'cylinderx':
-          {
-            shape = new this._ammo.btCylinderShapeX(this.getBoxHalfExtents(geometry));
-          }
-          break;
-        case 'cylinderz':
-          {
-            shape = new this._ammo.btCylinderShapeZ(this.getBoxHalfExtents(geometry));
-          }
-          break;
-        case 'sphere':
-          {
-            shape = new this._ammo.btSphereShape(this.getRadius(geometry, 0));
-          }
-          break;
-        case 'multisphere':
-          {
-            const positions: Ammo.btVector3 = null;
-            const radii: ReadonlyArray<number> = null;
-            const numPoints: number = null;
-            shape = new this._ammo.btMultiSphereShape(positions, radii, numPoints);
-          }
-          break;
-        case 'cone':
-          {
-            shape = new this._ammo.btConeShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'conex':
-          {
-            shape = new this._ammo.btConeShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'conez':
-          {
-            shape = new this._ammo.btConeShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          }
-          break;
-        case 'convexhull':
-          {
-            const points: ReadonlyArray<number> = null;
-            const numPoints: number = null;
-            shape = new this._ammo.btConvexHullShape(points, numPoints);
-          }
-          break;
-        case 'compound':
-          {
-            const enableDynamicAabbTree: boolean = false;
-            shape = new this._ammo.btCompoundShape(enableDynamicAabbTree);
-          }
-          break;
-        case 'staticplane':
-          {
-            const planeNormal: Ammo.btVector3 = null;
-            const planeConstant: number = null;
-            shape = new this._ammo.btStaticPlaneShape(planeNormal, planeConstant);
-          }
-          break;
-        case 'bvhtriangle':
-          {
-            const meshInterface: Ammo.btStridingMeshInterface = null;
-            const useQuantizedAabbCompression: boolean = null;
-            const buildBvh: boolean = null;
-            shape = new this._ammo.btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, buildBvh);
-          }
-          break;
-        case 'heightfieldterrain':
-          {
-            const heightStickWidth: number = null;
-            const heightStickLength: number = null;
-            const heightfieldData: unknown = null;
-            const heightScale: number = null;
-            const minHeight: number = null;
-            const maxHeight: number = null;
-            const upAxis: number = null;
-            const hdt: Ammo.PHY_ScalarType = null;
-            const flipQuadEdges: boolean = null;
-            shape = new this._ammo.btHeightfieldTerrainShape(heightStickWidth, heightStickLength, heightfieldData, heightScale, minHeight, maxHeight, upAxis, hdt, flipQuadEdges);
-          }
-          break;
-        case 'empty':
-        default:
-          shape = new this._ammo.btEmptyShape();
-          break;
-      }
-      const scale = this.parent.scale;
-      shape.setLocalScaling(new this._ammo.btVector3(scale.x, scale.y, scale.z));
-      shape.setMargin(this.getMargin(0.05));
-      const mass = this.getMass();
-      const localInertia = this.getInertia(0);
-      shape.calculateLocalInertia(mass, localInertia);
-      const transform = new this._ammo.btTransform();
-      transform.setIdentity();
-      const quaternion = this.parent.quaternion;
-      transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-      const pos = this.parent.position;
-      transform.setOrigin(new this._ammo.btVector3(pos.x, pos.y, pos.z));
-      const motionState = new this._ammo.btDefaultMotionState(transform);
-      const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
-      const body = new this._ammo.btRigidBody(rbInfo);
-      if (mass > 0) {
-        body.setActivationState(4);
-      }
-      body.setFriction(this.getFriction(0));
-      body.setRollingFriction(this.getRollingFriction(0));
-      body.setRestitution(this.getRestitution(0));
-      body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
-      body['object3d'] = this.parent;
-      this.transformAux = new this._ammo.btTransform();
-      this.rigidBody = body;
-      this._physics.addRigidBody(body);
-      this.parent.userData.physicsBody = body;
-      this.parent.userData.physicsComponent = this;
-      this.parent.addEventListener('collision', (e) => {
-        this.consoleLog('collision', e);
-      });
-      super.setObject(this.rigidBody);
     }
     return this.rigidBody;
   }

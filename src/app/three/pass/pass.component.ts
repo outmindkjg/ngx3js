@@ -484,7 +484,6 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
         shaderUniforms = ShaderUtils.getShaderClone(shader);
         if (ThreeUtil.isNotNull(shaderUniforms.uniforms)) {
           this.getUniforms(shaderUniforms.uniforms);
-          console.log(shaderUniforms.uniforms);
         }
         break;
     }
