@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
-import { AmmoPhysics } from 'three/examples/jsm/physics/AmmoPhysics';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker.js';
@@ -53,7 +52,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   private ammo: typeof Ammo = null;
-  private physics: Ammo.btDiscreteDynamicsWorld | AmmoPhysics = null;
+  private physics: Ammo.btDiscreteDynamicsWorld = null;
 
   getAmmo() {
     return this.ammo;
@@ -68,21 +67,10 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     return this.convexBreaker;
   }
 
-  getPhysics(): Ammo.btDiscreteDynamicsWorld | AmmoPhysics {
+  getPhysics(): Ammo.btDiscreteDynamicsWorld {
     if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
       this.needUpdate = false;
       switch(this.type.toLowerCase()) {
-        case 'ammophysics' :
-        case 'physics' :
-          window['Ammo'] = () => {
-            return this.ammo;
-          };
-          AmmoPhysics().then(physics => {
-            this.physics = physics;
-            super.setObject(this.physics);
-            this.setSubscribeNext(this.subscribeType);
-          });
-          break;
         default :
           const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
           const dispatcher = new this.ammo.btCollisionDispatcher(

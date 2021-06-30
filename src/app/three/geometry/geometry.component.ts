@@ -24,7 +24,9 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { SvgComponent } from '../svg/svg.component';
 import { TranslationComponent } from '../translation/translation.component';
 import { GeometryUtils } from './geometryUtils';
-import { PlanePerlinGeometry } from './plane-perlin-geometry';
+import { PlanePerlinGeometry } from './geometry.plane_perlin';
+import { RopeGeometry } from './geometry.rope';
+import { CapsuleGeometry } from './geometry.capsule';
 
 type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
 
@@ -1475,6 +1477,27 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                 geometry = planePerlin.getMinecraft(this.getWidth(100), this.getHeight(100), this.getDepth(100));
                 break;
             }
+            break;
+          case 'ropebuffergeometry':
+          case 'ropegeometry':
+          case 'ropebuffer':
+          case 'rope':
+            const ropeGeometry = new RopeGeometry(this.getWidth(1), this.getWidthSegments(1));
+            geometry = ropeGeometry;
+            break;
+          case 'capsulebuffergeometry':
+          case 'capsulegeometry':
+          case 'capsulebuffer':
+          case 'capsule':
+            const capsuleGeometry = new CapsuleGeometry(
+              this.getRadius(1), 
+              this.getRadiusSegments(8), 
+              this.getHeight(10), 
+              this.getHeightSegments(3),
+              this.getPhiStart(0), 
+              this.getPhiLength(360), 
+            );
+            geometry = capsuleGeometry;
             break;
           case 'linebuffergeometry':
           case 'linegeometry':

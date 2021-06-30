@@ -9,6 +9,7 @@ import { CameraComponent } from './camera/camera.component';
 import { MeshComponent } from './mesh/mesh.component';
 import { RendererComponent } from './renderer/renderer.component';
 import { SceneComponent } from './scene/scene.component';
+import Ammo from 'ammojs-typed';
 
 export { THREE };
 
@@ -1496,8 +1497,8 @@ export class ThreeUtil {
     }
   }
 
-  static isThreeComponent(object: any):boolean {
-    if (this.isNotNull(object.userData) && this.isNotNull(object.userData.component)) {
+  static isThreeComponent(object: any, key : string = 'component'):boolean {
+    if (this.isNotNull(object.userData) && this.isNotNull(object.userData[key])) {
       return true;
     } else {
       return false;
@@ -1505,13 +1506,29 @@ export class ThreeUtil {
   }
 
   static getThreeComponent(object: any) : any {
-    if (this.isThreeComponent(object)) {
-      return this.loadedComponent[object.userData.component] || { };
+    if (this.isThreeComponent(object,'component')) {
+      return this.loadedComponent[object.userData.component] || null;
     } else {
       return null;
     }
- }
+  }
 
+  static getRigidbodyComponent(object: any) : any {
+    if (this.isThreeComponent(object,'rigidBody')) {
+      return this.loadedComponent[object.userData.rigidBody] || null;
+    } else {
+      return null;
+    }
+  }
+
+  static getRigidbody(object: any) : Ammo.btRigidBody {
+    const rigidbodyComponent = this.getRigidbodyComponent(object);
+    if (rigidbodyComponent !== null && this.isNotNull(rigidbodyComponent.getRigidBody)) {
+      return rigidbodyComponent.getRigidBody;
+    }
+    return null;
+  }
+  
   static setSubscribeNext(object: any, key: string | string[]) {
     if (this.isNotNull(object.setSubscribeNext)) {
       object.setSubscribeNext(key);

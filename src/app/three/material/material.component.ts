@@ -1537,6 +1537,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshnormalmaterial':
           case 'meshnormal':
+          case 'normalmaterial':
+          case 'normal':
             const parametersMeshNormalMaterial: THREE.MeshNormalMaterialParameters = {
               bumpMap: this.getTexture('bumpMap'),
               bumpScale: this.getBumpScale(),
@@ -1556,6 +1558,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshphongmaterial':
           case 'meshphong':
+          case 'phongmaterial':
+          case 'phong':
             const parametersMeshPhongMaterial: THREE.MeshPhongMaterialParameters = {
               color: this.getColor(),
               map: this.getTexture('map'),
@@ -1595,6 +1599,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshphysicalmaterial':
           case 'meshphysical':
+          case 'physicalmaterial':
+          case 'physical':
             const parametersMeshPhysicalMaterial: THREE.MeshPhysicalMaterialParameters = {
               color: this.getColor(),
               roughness: this.getRoughness(),
@@ -1643,6 +1649,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshstandardmaterial':
           case 'meshstandard':
+          case 'standardmaterial':
+          case 'standard':
             const parametersMeshStandardMaterial: THREE.MeshStandardMaterialParameters = {
               color: this.getColor(),
               roughness: this.getRoughness(),
@@ -1680,6 +1688,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshtoonmaterial':
           case 'meshtoon':
+          case 'toonmaterial':
+          case 'toon':
             const parametersMeshToonMaterial: THREE.MeshToonMaterialParameters = {
               color: this.getColor(),
               opacity: this.getOpacity(),
@@ -1860,6 +1870,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'meshlambertmaterial':
           case 'meshlambert':
+          case 'lambertmaterial':
+          case 'lambert':
           default:
             const parametersMeshLambertMaterial: THREE.MeshLambertMaterialParameters = {
               color: this.getColor(),

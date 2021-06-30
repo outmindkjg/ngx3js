@@ -140,7 +140,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
             break;
           case 'rigidbody':
             this.rigidbodyList.forEach((rigidbody) => {
-              rigidbody.resetRigidBody();
+              rigidbody.getRigidBody();
             });
             break;
           case 'mesh':

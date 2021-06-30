@@ -36,7 +36,9 @@ export class PhysicsAmmoBreakComponent extends BaseComponent<{}> {
       case 'pointerdown' :
         if (this.camera !== null) {
           const raycaster = this.camera.getRaycaster(event.mouse);
-          console.log(raycaster.ray);
+          if (this.ballInfos.length > 10) {
+            this.ballInfos.shift();
+          }
           this.ballInfos.push({
            x : raycaster.ray.direction.x + raycaster.ray.origin.x,
            y : raycaster.ray.direction.y + raycaster.ray.origin.y,
@@ -45,7 +47,6 @@ export class PhysicsAmmoBreakComponent extends BaseComponent<{}> {
            vy : raycaster.ray.direction.y * 24,
            vz : raycaster.ray.direction.z * 24,
           })
-          console.log(this.ballInfos);
         }
         break;
     }

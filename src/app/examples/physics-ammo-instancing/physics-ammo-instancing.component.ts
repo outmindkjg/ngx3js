@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Color, InstancedMesh, Matrix4, Vector3 } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer, ThreeUtil } from '../../three';
 import { PhysicsComponent } from '../../three/physics/physics.component';
+import { RigidbodyComponent } from '../../three/rigidbody/rigidbody.component';
 
 @Component({
   selector: 'app-physics-ammo-instancing',
@@ -33,12 +34,15 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
     if (this.physics !== null && this.meshChildren !== null && this.meshChildren.length > 0) {
       const position = new Vector3();
       this.meshChildren.forEach((child : InstancedMesh) => {
-        for(let i = 0 ; i < 5; i ++) {
-          let index = Math.min(child.count - 1, Math.floor( Math.random() * child.count ));
-          position.set( Math.random() * 0.2, Math.random() + 1, Math.random() * 0.2 );
-          try {
-            this.physics.setMeshPosition( child, position, index );
-          } catch(ex) {}
+        const rigidbodyComponent : RigidbodyComponent = ThreeUtil.getRigidbodyComponent(child);
+        if (rigidbodyComponent !== null) {
+          for(let i = 0 ; i < 5; i ++) {
+            let index = Math.min(child.count - 1, Math.floor( Math.random() * child.count ));
+            position.set( Math.random() * 0.2, Math.random() + 1, Math.random() * 0.2 );
+            try {
+              rigidbodyComponent.setPosition( position.x,position.y,position.z, index );
+            } catch(ex) {}
+          }
         }
       });
     }
