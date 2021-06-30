@@ -9,6 +9,7 @@ export class RopeGeometry extends THREE.BufferGeometry {
    */
   constructor(width: number = 1, widthSegments: number = 1) {
     super();
+    this.type = 'RopeGeometry';
 		widthSegments = Math.max( 1, widthSegments);
     width = Math.max( 1, width);
 		this.parameters = {

@@ -1,12 +1,14 @@
 <three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" [cssType]="'css3d'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true">
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="200" [y]="200" [z]="200"></three-position>
+  <three-lookat [x]="0" [y]="-100" [z]="0"></three-lookat>
+  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="5000">
+    <three-position [x]="400" [y]="400" [z]="400"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xf0f0f0'">
+    <three-physics></three-physics>
     <three-light
       [type]="'Ambient'"
-      [color]="'0x111111'"
+      [color]="'0xffffff'"
+      [intensity]="0.3"
     >
     </three-light>
     <three-light
@@ -14,18 +16,17 @@
       [color]="'0xffffff'"
       [intensity]="1.525"
     >
-      <three-position [x]="1" [y]="0" [z]="0" [normalize]="true"></three-position>
+      <three-position [x]="1" [y]="1" [z]="3" [normalize]="true"></three-position>
     </three-light>
-    <three-helper [type]="'axis'" [size]="10"></three-helper>
     <three-mesh>
       <three-geometry 
         [type]="'capsule'" 
-        [radius]="50" 
+        [radius]="30" 
         [phiStart]="0"
         [phiLength]="360"
         [radialSegments]="30" 
         [heightSegments]="2"
-        [height]="150"
+        [height]="100"
       ></three-geometry>
       <three-material [type]="'lambert'" [color]="'0xffffff'" [flatShading]="true">
         <three-texture 
@@ -34,10 +35,29 @@
           [repeat]="40"
         ></three-texture>
       </three-material>
+      <three-rigidbody [type]="'box'" [width]="60" [height]="160" [depth]="60" [mass]="1"></three-rigidbody>
     </three-mesh>
-    <three-mesh [type]="'LineSegments'">
-        <three-geometry [type]="'rope'" [width]="300" [widthSegments]="30"></three-geometry>
-        <three-material [type]="'LineBasicMaterial'" [color]="'0xff0000'" [linewidth]="5"></three-material>
+    <three-mesh [receiveShadow]="true">
+      <three-position [x]="0" [y]="-200" [z]="0"></three-position>
+      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+      <three-geometry
+        [type]="'box'"
+        [width]="1000"
+        [height]="1000"
+        [depth]="40"
+      ></three-geometry>
+      <three-material
+        [type]="'MeshPhong'"
+        [color]="'0xf0f0f0'"
+        [depthWrite]="false"
+      >
+        <three-texture 
+          [image]="'textures/grid.png'"
+          [wrap]="'RepeatWrapping'"
+          [repeat]="40"
+        ></three-texture>
+      </three-material>
+      <three-rigidbody [mass]="0"></three-rigidbody>
     </three-mesh>
   </three-scene>
 </three-renderer>

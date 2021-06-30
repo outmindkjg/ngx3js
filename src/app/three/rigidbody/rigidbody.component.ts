@@ -128,7 +128,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       if (this.rigidBody instanceof this._ammo.btRigidBody) {
         this._physics.removeRigidBody(this.rigidBody);
       } else {
-        this.rigidBody.bodies.forEach(rigidBody => {
+        this.rigidBody.bodies.forEach((rigidBody) => {
           this._physics.removeRigidBody(rigidBody);
         });
         this.rigidBody.bodies = [];
@@ -185,19 +185,19 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  private rigidBody: Ammo.btRigidBody | { bodies : Ammo.btRigidBody[] } = null;
+  private rigidBody: Ammo.btRigidBody | { bodies: Ammo.btRigidBody[] } = null;
 
-  private _getRigidBodies(index : number = null): Ammo.btRigidBody[] {
-    const rigidBodies : Ammo.btRigidBody[] = [];
+  private _getRigidBodies(index: number = null): Ammo.btRigidBody[] {
+    const rigidBodies: Ammo.btRigidBody[] = [];
     if (this.rigidBody !== null) {
       if (this.rigidBody instanceof this._ammo.btRigidBody) {
         rigidBodies.push(this.rigidBody);
       } else {
         if (ThreeUtil.isNull(index)) {
-          this.rigidBody.bodies.forEach(rigidBody => {
+          this.rigidBody.bodies.forEach((rigidBody) => {
             rigidBodies.push(rigidBody);
           });
-        } else if (ThreeUtil.isNotNull(this.rigidBody.bodies[index])){
+        } else if (ThreeUtil.isNotNull(this.rigidBody.bodies[index])) {
           rigidBodies.push(this.rigidBody.bodies[index]);
         }
       }
@@ -205,10 +205,10 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return rigidBodies;
   }
 
-  setVelocity(x: number, y: number, z: number, type: string = 'linear', index : number = null) {
+  setVelocity(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
     if (this.rigidBody !== null) {
       const velocity: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'angular':
             rigidBody.setAngularVelocity(velocity);
@@ -222,10 +222,10 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getVelocity(type: string = 'linear', index : number = null): THREE.Vector3 {
+  getVelocity(type: string = 'linear', index: number = null): THREE.Vector3 {
     if (this.rigidBody !== null) {
       let velocity: Ammo.btVector3 = null;
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'angular':
             velocity = rigidBody.getAngularVelocity();
@@ -243,10 +243,10 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return null;
   }
 
-  setFactor(x: number, y: number, z: number, type: string = 'linear', index : number = null) {
+  setFactor(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
     if (this.rigidBody !== null) {
       const factor: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'angular':
             rigidBody.setAngularFactor(factor);
@@ -260,10 +260,10 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getFactor(type: string = 'linear', index : number = null): THREE.Vector3 {
+  getFactor(type: string = 'linear', index: number = null): THREE.Vector3 {
     if (this.rigidBody !== null) {
       let factor: Ammo.btVector3 = null;
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'angular':
             factor = rigidBody.getAngularFactor();
@@ -281,18 +281,18 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return null;
   }
 
-  clearForces(index : number = null) {
+  clearForces(index: number = null) {
     if (this.rigidBody !== null) {
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         rigidBody.clearForces();
       });
     }
   }
 
-  applyTorque(x: number, y: number, z: number, type: string = 'torque', index : number = null) {
+  applyTorque(x: number, y: number, z: number, type: string = 'torque', index: number = null) {
     if (this.rigidBody !== null) {
       const torque: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'local':
             rigidBody.applyLocalTorque(torque);
@@ -309,25 +309,25 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getMotionState(index : number = null): Ammo.btMotionState {
+  getMotionState(index: number = null): Ammo.btMotionState {
     let motionState = null;
     if (this.rigidBody !== null) {
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         motionState = rigidBody.getMotionState();
       });
     }
     return motionState;
   }
 
-  setMotionState(motionState: Ammo.btMotionState, index : number = null) {
+  setMotionState(motionState: Ammo.btMotionState, index: number = null) {
     if (this.rigidBody !== null) {
-      this._getRigidBodies(index).forEach(rigidBody => {
-          rigidBody.setMotionState(motionState);
+      this._getRigidBodies(index).forEach((rigidBody) => {
+        rigidBody.setMotionState(motionState);
       });
     }
   }
 
-  setMotionStatePosition(x: number = null, y: number = null, z: number = null, rx: number = null, ry: number = null, rz: number = null, index : number = null) {
+  setMotionStatePosition(x: number = null, y: number = null, z: number = null, rx: number = null, ry: number = null, rz: number = null, index: number = null) {
     if (this.rigidBody !== null) {
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
@@ -348,7 +348,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  setMotionStateRotation(x: number, y: number, z: number, index : number = null) {
+  setMotionStateRotation(x: number, y: number, z: number, index: number = null) {
     if (this.rigidBody !== null) {
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
@@ -362,29 +362,29 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  setPosition(x: number, y: number, z: number, index : number = null) {
+  setPosition(x: number, y: number, z: number, index: number = null) {
     if (this.rigidBody !== null) {
-      let rigidBody : Ammo.btRigidBody = null;
+      let rigidBody: Ammo.btRigidBody = null;
       if (this.rigidBody instanceof this._ammo.btRigidBody) {
         rigidBody = this.rigidBody;
-      } else if (ThreeUtil.isNotNull(index) && ThreeUtil.isNotNull(this.rigidBody.bodies[index])){
+      } else if (ThreeUtil.isNotNull(index) && ThreeUtil.isNotNull(this.rigidBody.bodies[index])) {
         rigidBody = this.rigidBody.bodies[index];
       }
       if (rigidBody !== null) {
-        rigidBody.setAngularVelocity( new this._ammo.btVector3( 0, 0, 0 ) );
-        rigidBody.setLinearVelocity( new this._ammo.btVector3( 0, 0, 0 ) );
+        rigidBody.setAngularVelocity(new this._ammo.btVector3(0, 0, 0));
+        rigidBody.setLinearVelocity(new this._ammo.btVector3(0, 0, 0));
         const transform = new this._ammo.btTransform();
         transform.setIdentity();
-        transform.setOrigin( new this._ammo.btVector3( x, y, z ) );
-        rigidBody.setWorldTransform( transform );
+        transform.setOrigin(new this._ammo.btVector3(x, y, z));
+        rigidBody.setWorldTransform(transform);
       }
     }
   }
 
-  applyForce(x: number, y: number, z: number, type: string = 'force', relX: number = 0, relY: number = 0, relZ: number = 0, index : number = null) {
+  applyForce(x: number, y: number, z: number, type: string = 'force', relX: number = 0, relY: number = 0, relZ: number = 0, index: number = null) {
     if (this.rigidBody !== null) {
       const force: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
-      this._getRigidBodies(index).forEach(rigidBody => {
+      this._getRigidBodies(index).forEach((rigidBody) => {
         switch (type.toLowerCase()) {
           case 'centrallocal':
             rigidBody.applyCentralLocalForce(force);
@@ -408,16 +408,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         this.getRigidBody();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['velocity','velocityx','velocityy','velocityz','velocitytype'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['velocity', 'velocityx', 'velocityy', 'velocityz', 'velocitytype'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
-      if (ThreeUtil.isIndexOf(changes, ['velocityx','velocityy','velocityz','velocitytype'])) {
+      if (ThreeUtil.isIndexOf(changes, ['velocityx', 'velocityy', 'velocityz', 'velocitytype'])) {
         changes = ThreeUtil.pushUniq(changes, ['velocity']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'velocity' :
+          case 'velocity':
             if (ThreeUtil.isNotNull(this.velocityX) || ThreeUtil.isNotNull(this.velocityY) || ThreeUtil.isNotNull(this.velocityZ)) {
               this.setVelocity(ThreeUtil.getTypeSafe(this.velocityX, 0), ThreeUtil.getTypeSafe(this.velocityY, 0), ThreeUtil.getTypeSafe(this.velocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'linear'));
             }
@@ -428,14 +428,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getRigidBody(): Ammo.btRigidBody | { bodies : Ammo.btRigidBody[] }{
+  getRigidBody(): Ammo.btRigidBody | { bodies: Ammo.btRigidBody[] } {
     if (this.parent !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
       if (this.rigidBody !== null) {
         if (this.rigidBody instanceof this._ammo.btRigidBody) {
           this._physics.removeRigidBody(this.rigidBody);
         } else {
-          this.rigidBody.bodies.forEach(rigidBody => {
+          this.rigidBody.bodies.forEach((rigidBody) => {
             this._physics.removeRigidBody(rigidBody);
           });
         }
@@ -451,18 +451,31 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       }
       if (type.toLowerCase() === 'auto') {
         if (ThreeUtil.isNotNull(geometry)) {
-          if (geometry instanceof THREE.BoxGeometry) {
-            type = 'box';
-          } else if (geometry instanceof THREE.SphereGeometry) {
-            type = 'sphere';
-          } else if (geometry instanceof THREE.ConeGeometry) {
-            type = 'cone';
-          } else if (geometry instanceof THREE.CylinderGeometry) {
-            type = 'cylinder';
-          } else if (geometry instanceof THREE.PlaneGeometry) {
-            type = 'staticplane';
-          } else {
-            type = 'convexhull';
+          switch (geometry.type.toLowerCase()) {
+            case 'boxgeometry':
+              type = 'box';
+              break;
+            case 'spheregeometry':
+              type = 'sphere';
+              break;
+            case 'conegeometry':
+              type = 'cone';
+              break;
+            case 'cylindergeometry':
+              type = 'cylinder';
+              break;
+            case 'planegeometry':
+              type = 'staticplane';
+              break;
+            case 'capsulegeometry':
+              type = 'capsule';
+              break;
+            case 'ropegeometry':
+              type = 'capsule';
+              break;
+            default:
+              type = 'convexhull';
+              break;
           }
         } else {
           type = 'empty';
@@ -602,16 +615,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       shape.calculateLocalInertia(mass, localInertia);
       if (this.parent instanceof THREE.InstancedMesh) {
         const array = this.parent.instanceMatrix.array as [];
-        const bodies:Ammo.btRigidBody[] = [];
-        for ( let i = 0; i < this.parent.count; i ++ ) {
+        const bodies: Ammo.btRigidBody[] = [];
+        for (let i = 0; i < this.parent.count; i++) {
           const index = i * 16;
           const transform = new this._ammo.btTransform();
-          transform.setFromOpenGLMatrix( array.slice( index, index + 16 ) );
-          const motionState = new this._ammo.btDefaultMotionState( transform );
-          const localInertia = new this._ammo.btVector3( 0, 0, 0 );
-          shape.calculateLocalInertia( mass, localInertia );
-          const rbInfo = new this._ammo.btRigidBodyConstructionInfo( mass, motionState, shape, localInertia );
-          const body = new this._ammo.btRigidBody( rbInfo );
+          transform.setFromOpenGLMatrix(array.slice(index, index + 16));
+          const motionState = new this._ammo.btDefaultMotionState(transform);
+          const localInertia = new this._ammo.btVector3(0, 0, 0);
+          shape.calculateLocalInertia(mass, localInertia);
+          const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
+          const body = new this._ammo.btRigidBody(rbInfo);
           if (mass > 0) {
             body.setActivationState(4);
           }
@@ -625,14 +638,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             body.setRestitution(this.getRestitution(0));
           }
           body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
-          this._physics.addRigidBody( body );
-          bodies.push( body );
+          this._physics.addRigidBody(body);
+          bodies.push(body);
         }
-        if ( mass > 0 ) {
-          this.parent.instanceMatrix.setUsage( THREE.DynamicDrawUsage );
+        if (mass > 0) {
+          this.parent.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
         }
         this.rigidBody = {
-          bodies : bodies
+          bodies: bodies,
         };
       } else {
         const transform = new this._ammo.btTransform();
@@ -672,60 +685,71 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       }
       this.parent.userData.rigidBody = this.id;
       super.setObject(this.rigidBody);
-      this.applyChanges(['velocity'])
+      this.applyChanges(['velocity']);
     }
     return this.rigidBody;
   }
 
   private transformAux: Ammo.btTransform = null;
 
-  private _instancedMeshCompose( position : Ammo.btVector3, quaternion : Ammo.btQuaternion, array : number[], index : number) {
-    const x = quaternion.x(), y = quaternion.y(), z = quaternion.z(), w = quaternion.w();
-    const x2 = x + x, y2 = y + y, z2 = z + z;
-    const xx = x * x2, xy = x * y2, xz = x * z2;
-    const yy = y * y2, yz = y * z2, zz = z * z2;
-    const wx = w * x2, wy = w * y2, wz = w * z2;
-    array[ index + 0 ] = ( 1 - ( yy + zz ) );
-    array[ index + 1 ] = ( xy + wz );
-    array[ index + 2 ] = ( xz - wy );
-    array[ index + 3 ] = 0;
-    array[ index + 4 ] = ( xy - wz );
-    array[ index + 5 ] = ( 1 - ( xx + zz ) );
-    array[ index + 6 ] = ( yz + wx );
-    array[ index + 7 ] = 0;
-    array[ index + 8 ] = ( xz + wy );
-    array[ index + 9 ] = ( yz - wx );
-    array[ index + 10 ] = ( 1 - ( xx + yy ) );
-    array[ index + 11 ] = 0;
-    array[ index + 12 ] = position.x();
-    array[ index + 13 ] = position.y();
-    array[ index + 14 ] = position.z();
-    array[ index + 15 ] = 1;
+  private _instancedMeshCompose(position: Ammo.btVector3, quaternion: Ammo.btQuaternion, array: number[], index: number) {
+    const x = quaternion.x(),
+      y = quaternion.y(),
+      z = quaternion.z(),
+      w = quaternion.w();
+    const x2 = x + x,
+      y2 = y + y,
+      z2 = z + z;
+    const xx = x * x2,
+      xy = x * y2,
+      xz = x * z2;
+    const yy = y * y2,
+      yz = y * z2,
+      zz = z * z2;
+    const wx = w * x2,
+      wy = w * y2,
+      wz = w * z2;
+    array[index + 0] = 1 - (yy + zz);
+    array[index + 1] = xy + wz;
+    array[index + 2] = xz - wy;
+    array[index + 3] = 0;
+    array[index + 4] = xy - wz;
+    array[index + 5] = 1 - (xx + zz);
+    array[index + 6] = yz + wx;
+    array[index + 7] = 0;
+    array[index + 8] = xz + wy;
+    array[index + 9] = yz - wx;
+    array[index + 10] = 1 - (xx + yy);
+    array[index + 11] = 0;
+    array[index + 12] = position.x();
+    array[index + 13] = position.y();
+    array[index + 14] = position.z();
+    array[index + 15] = 1;
   }
 
   update(timer: RendererTimer) {
     if (this.rigidBody !== null) {
       if (this.rigidBody instanceof this._ammo.btRigidBody) {
         const worldTransform = this.transformAux;
-				const motionState = this.rigidBody.getMotionState();
-				motionState.getWorldTransform( worldTransform );
-				const position = worldTransform.getOrigin();
-				const quaternion = worldTransform.getRotation();
-				this.parent.position.set( position.x(), position.y(), position.z() );
-				this.parent.quaternion.set( quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w() );
-      } else if (this.parent instanceof THREE.InstancedMesh){
-				const array = this.parent.instanceMatrix.array as number[];
-				const bodies = this.rigidBody.bodies;
+        const motionState = this.rigidBody.getMotionState();
+        motionState.getWorldTransform(worldTransform);
+        const position = worldTransform.getOrigin();
+        const quaternion = worldTransform.getRotation();
+        this.parent.position.set(position.x(), position.y(), position.z());
+        this.parent.quaternion.set(quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w());
+      } else if (this.parent instanceof THREE.InstancedMesh) {
+        const array = this.parent.instanceMatrix.array as number[];
+        const bodies = this.rigidBody.bodies;
         const worldTransform = this.transformAux;
-				for ( let j = 0; j < bodies.length; j ++ ) {
-					const body = bodies[ j ];
-					const motionState = body.getMotionState();
-					motionState.getWorldTransform( worldTransform );
-					const position = worldTransform.getOrigin();
-					const quaternion = worldTransform.getRotation();
-					this._instancedMeshCompose( position, quaternion, array, j * 16 );
-				}
-				this.parent.instanceMatrix.needsUpdate = true;
+        for (let j = 0; j < bodies.length; j++) {
+          const body = bodies[j];
+          const motionState = body.getMotionState();
+          motionState.getWorldTransform(worldTransform);
+          const position = worldTransform.getOrigin();
+          const quaternion = worldTransform.getRotation();
+          this._instancedMeshCompose(position, quaternion, array, j * 16);
+        }
+        this.parent.instanceMatrix.needsUpdate = true;
       }
     }
   }
