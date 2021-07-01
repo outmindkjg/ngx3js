@@ -174,7 +174,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
   removeEvent(type: string, listener: any) {
     if (ThreeUtil.isNotNull(listener)) {
-      this.rendererEle.nativeElement.removeEventListener(type, listener);
+      switch(type) {
+        case 'keydown' :
+        case 'keyup' :
+        case 'keypress' :
+          window.removeEventListener(type, listener);
+          break;
+        default :
+          this.rendererEle.nativeElement.removeEventListener(type, listener);
+          break;
+      }
     }
     return null;
   }
@@ -279,9 +288,19 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   addEvent(type: string, listener: any) {
     if (ThreeUtil.isNull(listener)) {
       listener = (event: TouchInit | KeyboardEvent) => {
+        console.log(event);
         this.setEvents(type, event);
       };
-      this.rendererEle.nativeElement.addEventListener(type, listener);
+      switch(type) {
+        case 'keydown' :
+        case 'keyup' :
+        case 'keypress' :
+          window.addEventListener(type, listener);
+          break;
+        default :
+          this.rendererEle.nativeElement.addEventListener(type, listener);
+          break;
+      }
     }
     return listener;
   }

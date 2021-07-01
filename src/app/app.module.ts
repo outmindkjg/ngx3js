@@ -561,6 +561,8 @@ import { VisualComponent } from './three/visual/visual.component';
 import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
 import { ControllerItemComponent } from './three/controller/controller-item/controller-item.component';
 import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
+import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
+import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
 
 
 @NgModule({
@@ -1120,7 +1122,9 @@ import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
     ControllerItemComponent,
     ApiComponent,
     DocComponent,
-    DrawingCanvasDirective
+    DrawingCanvasDirective,
+    PhysicsConstraintComponent,
+    RigidbodyNodeComponent
   ],
   imports: [
     BrowserModule,

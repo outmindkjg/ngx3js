@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker.js';
+import { PhysicsConstraintComponent } from './physics-constraint/physics-constraint.component';
 
 @Component({
   selector: 'three-physics',
@@ -15,6 +16,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private gravityX:number = null;
   @Input() private gravityY:number = null;
   @Input() private gravityZ:number = null;
+  @ContentChildren(PhysicsConstraintComponent, { descendants: false }) private constraintList: QueryList<PhysicsConstraintComponent>;
 
   private getGravity(def?: number): Ammo.btVector3 {
     const gravity = ThreeUtil.getTypeSafe(this.gravity, def);
@@ -48,13 +50,14 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
   }
 
   ngAfterContentInit(): void {
+    this.subscribeListQueryChange(this.constraintList, 'constraintList', 'constraint');
     super.ngAfterContentInit();
   }
 
   private ammo: typeof Ammo = null;
-  private physics: Ammo.btDiscreteDynamicsWorld = null;
+  private physics: Ammo.btSoftRigidDynamicsWorld = null;
 
-  getAmmo() {
+  getAmmo(){
     return this.ammo;
   }
 
@@ -67,7 +70,42 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     return this.convexBreaker;
   }
 
-  getPhysics(): Ammo.btDiscreteDynamicsWorld {
+  protected applyChanges(changes: string[]) {
+    if (this.physics !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getPhysics();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['constraint','gravity', 'gravityX', 'gravityY', 'gravityZ'], this.OBJECT_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, ['gravityX', 'gravityY', 'gravityZ'])) {
+        changes = ThreeUtil.pushUniq(changes, ['gravity']);
+      }
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'constraint':
+            this.unSubscribeReferList('constraintList');
+            if (ThreeUtil.isNotNull(this.constraintList)) {
+              this.constraintList.forEach((constraint) => {
+                constraint.setPhysics(this.physics, this.ammo);
+              });
+              this.subscribeListQuery(this.constraintList, 'constraintList', 'constraint');
+            }
+            break;
+          case 'gravity' :
+            const gravity = this.getGravity(-9.8);
+            this.physics.setGravity(gravity);
+            this.physics.getWorldInfo().set_m_gravity(gravity);
+            break;
+        }
+      });
+      super.applyChanges(changes);
+    }
+  }
+
+  getPhysics(): Ammo.btSoftRigidDynamicsWorld {
     if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
       this.needUpdate = false;
       switch(this.type.toLowerCase()) {
@@ -86,12 +124,10 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
             collisionConfiguration,
             softBodySolver
           );
-          const gravity = this.getGravity(-9.8);
-          physics.setGravity(gravity);
-          physics.getWorldInfo().set_m_gravity(gravity);
           this.physics = physics;
           super.setObject(this.physics);
-          this.setSubscribeNext(this.subscribeType);
+          this.runSubscribeNext(this.subscribeType);
+          this.applyChanges(['constraint','gravity']);
           break;
       }
     }
@@ -113,6 +149,9 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
       this.ammo !== null &&
       this.physics instanceof this.ammo.btSoftRigidDynamicsWorld
     ) {
+      this.constraintList.forEach((constraint) => {
+        constraint.update(timer);
+      });
       this.physics.stepSimulation(timer.delta, 10);
       this.logSeq++;
       if (this.logSeq % 1000 === 0) {

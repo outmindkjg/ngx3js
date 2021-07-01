@@ -272,6 +272,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   private _userData: { [key: string]: any } = {};
 
+  getUserData() {
+    return this._userData;
+  }
+
   setUserData(key: string, value: any) {
     if (ThreeUtil.isNotNull(value)) {
       this._userData[key] = value;
@@ -373,6 +377,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     } else {
       console.trace(this);
     }
+  }
+
+  public runSubscribeNext(key: string | string[]) {
+    this._subject.next(Array.isArray(key) ? key : [ key ] );
   }
 
   protected unSubscription(subscriptions: Subscription[]): Subscription[] {

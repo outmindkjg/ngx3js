@@ -43,7 +43,10 @@ ng g c three/transform
 ng g c three/controller
 ng g c three/controller/controller-item
 ng g c three/physics
+ng g c three/physics/physics-constraint
 ng g c three/rigidbody
+ng g c three/rigidbody/rigidbody-node
+
 ng g c three/control
 ng g c three/tools
 ng g c three/viewer

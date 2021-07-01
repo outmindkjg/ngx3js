@@ -1498,7 +1498,9 @@ export class ThreeUtil {
   }
 
   static isThreeComponent(object: any, key : string = 'component'):boolean {
-    if (this.isNotNull(object.userData) && this.isNotNull(object.userData[key])) {
+    if (this.isNotNull(object.getObject3d)) {
+      return true;
+    } else if (this.isNotNull(object.userData) && this.isNotNull(object.userData[key])) {
       return true;
     } else {
       return false;
@@ -1506,25 +1508,38 @@ export class ThreeUtil {
   }
 
   static getThreeComponent(object: any) : any {
+    if (this.isNotNull(object.getObject3d)) {
+      return object;
+    }
     if (this.isThreeComponent(object,'component')) {
       return this.loadedComponent[object.userData.component] || null;
-    } else {
-      return null;
     }
+    return null;
   }
 
   static getRigidbodyComponent(object: any) : any {
-    if (this.isThreeComponent(object,'rigidBody')) {
-      return this.loadedComponent[object.userData.rigidBody] || null;
-    } else {
-      return null;
+    if (this.isNotNull(object.getRigidBody)) {
+      return object;
     }
+    if (this.isThreeComponent(object,'rigidBody')) {
+      if (this.isNotNull(object.getUserData)) {
+        const userData = object.getUserData();
+        if (this.isNotNull(userData.rigidBody)) {
+          return this.loadedComponent[userData.rigidBody] || null;
+        }
+      } else {
+        return this.loadedComponent[object.userData.rigidBody] || null;
+      }
+    }
+    return null;
   }
 
   static getRigidbody(object: any) : Ammo.btRigidBody {
     const rigidbodyComponent = this.getRigidbodyComponent(object);
+    console.log(rigidbodyComponent);
     if (rigidbodyComponent !== null && this.isNotNull(rigidbodyComponent.getRigidBody)) {
-      return rigidbodyComponent.getRigidBody;
+      const rigidBody = rigidbodyComponent.getRigidBody();
+      return rigidBody;
     }
     return null;
   }

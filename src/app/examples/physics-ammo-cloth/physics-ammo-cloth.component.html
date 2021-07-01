@@ -10,6 +10,8 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="'keydown,keyup'"
+  (eventListener)="onKeyDown($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
@@ -17,7 +19,23 @@
     <three-position [x]="-12" [y]="7" [z]="4"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xbfd1e5'">
-    <three-physics [gravity]="-9.8"></three-physics>
+    <three-physics [gravity]="-9.8">
+      <three-physics-constraint 
+        [type]="'hinge'"
+        [source1]="pylon"
+        [source2]="arm"
+        [pivot1x]="0"
+        [pivot1y]="pylonHeight * 0.5"
+        [pivot1z]="0"
+        [pivot2x]="0"
+        [pivot2y]="-0.2"
+        [pivot2z]="-armLength * 0.5"
+        [axisy]="1"
+        [enableMotor]="true"
+        [targetVelocity]="armMovement * 30"
+        [maxMotorImpulse]="50"
+      ></three-physics-constraint>
+    </three-physics>
     <three-light
       [type]="'AmbientLight'"
       [color]="'0x404040'"
@@ -60,7 +78,7 @@
           [heightSegments]="clothNumSegmentsY"
         >
           <three-position [type]="'rotate'" [y]="90"></three-position>
-          <three-position [type]="'translate'" [x]="clothPos.x" [y]="clothPos.y+clothHeight * 0.5" [z]="clothPos.z - clothWidth * 0.5"></three-position>
+          <three-position [type]="'translate'" [x]="0" [y]="clothHeight * 0.5" [z]="- clothWidth * 0.5"></three-position>
         </three-geometry>
         <three-material 
           [type]="'MeshLambertMaterial'"
@@ -73,6 +91,22 @@
             [repeatY]="3*5"
           ></three-texture>
         </three-material>
+        <three-rigidbody [mass]="0.9">
+          <three-rigidbody-node 
+            [type]="'Anchor'" 
+            [node]="0" 
+            [body]="arm" 
+            [disableCollisionBetweenLinkedBodies]="false" 
+            [influence]="0.5"
+          ></three-rigidbody-node>
+          <three-rigidbody-node 
+            [type]="'Anchor'" 
+            [node]="clothNumSegmentsZ" 
+            [body]="arm" 
+            [disableCollisionBetweenLinkedBodies]="false" 
+            [influence]="0.5"
+          ></three-rigidbody-node>
+        </three-rigidbody>
       </three-mesh>
       <three-mesh #base [receiveShadow]="true" [castShadow]="true">
         <three-position [x]="clothPos.x" [y]="0.1" [z]="clothPos.z - armLength"></three-position>
@@ -105,7 +139,7 @@
           [depth]="armLength + 0.4"
         ></three-geometry>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="0"></three-rigidbody>
+        <three-rigidbody [mass]="2"></three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
