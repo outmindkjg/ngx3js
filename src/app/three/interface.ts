@@ -1536,7 +1536,6 @@ export class ThreeUtil {
 
   static getRigidbody(object: any) : Ammo.btRigidBody {
     const rigidbodyComponent = this.getRigidbodyComponent(object);
-    console.log(rigidbodyComponent);
     if (rigidbodyComponent !== null && this.isNotNull(rigidbodyComponent.getRigidBody)) {
       const rigidBody = rigidbodyComponent.getRigidBody();
       return rigidBody;

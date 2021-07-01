@@ -288,7 +288,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   addEvent(type: string, listener: any) {
     if (ThreeUtil.isNull(listener)) {
       listener = (event: TouchInit | KeyboardEvent) => {
-        console.log(event);
         this.setEvents(type, event);
       };
       switch(type) {

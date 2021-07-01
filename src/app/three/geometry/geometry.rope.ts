@@ -18,8 +18,10 @@ export class RopeGeometry extends THREE.BufferGeometry {
 		};
     const ropePositions = [];
     const ropeIndices = [];
+    const halfWidth = width / 2;
+    const segmentLength = width / widthSegments;
     for ( let i = 0; i < widthSegments + 1; i ++ ) {
-      ropePositions.push( 0, (i / widthSegments - 0.5) * width, 0 );
+      ropePositions.push( 0, (i * segmentLength) - halfWidth, 0 );
     }
     for ( let i = 0; i < widthSegments; i ++ ) {
       ropeIndices.push( i, i + 1 );

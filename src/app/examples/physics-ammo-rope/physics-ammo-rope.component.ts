@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, RendererEvent } from '../../three';
 
 @Component({
   selector: 'app-physics-ammo-rope',
@@ -77,4 +77,24 @@ export class PhysicsAmmoRopeComponent extends BaseComponent<{}> {
     color : number;
   }[] = [];
 
+  armMovement : number = 0;
+  onKeyDown(event : RendererEvent) {
+    switch(event.type) {
+      case 'keydown' :
+        switch(event.keyInfo.code) {
+          case "KeyQ" : 
+            this.armMovement = 1;
+            break;
+          case "KeyA" :
+            this.armMovement = -1;
+            break;
+          default :
+            break;
+        }
+        break;
+      case 'keyup' :
+        this.armMovement = 0;
+        break;
+    }
+  }
 }

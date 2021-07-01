@@ -91,7 +91,7 @@
             [repeatY]="3*5"
           ></three-texture>
         </three-material>
-        <three-rigidbody [mass]="0.9">
+        <three-rigidbody [mass]="0.9" [margin]="0.05*3" [softBody]="true">
           <three-rigidbody-node 
             [type]="'Anchor'" 
             [node]="0" 

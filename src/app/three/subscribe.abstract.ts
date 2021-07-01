@@ -213,7 +213,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected getChanges(): string[] {
     const changes: string[] = [];
     (this._changeList || []).forEach((change) => {
-      changes.push(change.toLowerCase());
+      const key = change.toLowerCase();
+      if (changes.indexOf(key) === -1) {
+        changes.push(key);
+      }
     });
     if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
       this._needUpdate = true;
