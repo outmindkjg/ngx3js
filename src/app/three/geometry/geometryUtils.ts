@@ -48,6 +48,34 @@ export const GeometryConf: {
     }
     return geometry;
   },
+  terrainsin : (geometry : THREE.BufferGeometry, options? : any) => {
+    switch (geometry.type) {
+      case 'PlaneGeometry' :
+        geometry.rotateX(-Math.PI/2);
+        break;
+    }
+    const positions = geometry.getAttribute('position') as THREE.BufferAttribute;
+    const count = positions.count;
+    const radius = GeometryUtils.getGeometryRadius(geometry, options);
+    geometry.computeBoundingBox();
+    const box = geometry.boundingBox;
+    const center = box.min.clone().add(box.max).multiplyScalar(0.2);
+    const minHeight = ThreeUtil.getTypeSafe(options.minHeight, radius * -0.1);
+    const maxHeight = ThreeUtil.getTypeSafe(options.maxHeight, radius * 0.3);
+    const repeat = ThreeUtil.getTypeSafe(options.repeat , 4);
+    const hRange = maxHeight - minHeight;
+    const distLength =  Math.PI * 2 / radius * repeat;
+    for(let i = 0 ; i < count ; i++) {
+      const x = positions.getX(i) - center.x;
+      const z = positions.getZ(i) - center.z;
+      const dist = Math.sqrt(x * x + z * z);
+      const y = positions.getY(i) + (Math.sin(dist * distLength) + 0.5) * hRange + minHeight ;
+      positions.setY(i, y);
+    }
+    positions.needsUpdate = true;
+    geometry.computeVertexNormals();
+    return geometry;
+  },
   rainbow3 : "rainbowcolor3",
 };
 

@@ -1512,7 +1512,11 @@ export class ThreeUtil {
       return object;
     }
     if (this.isThreeComponent(object,'component')) {
-      return this.loadedComponent[object.userData.component] || null;
+      if (this.isNotNull(this.loadedComponent[object.userData.component])) {
+        return this.loadedComponent[object.userData.component];
+      } else {
+        console.log(object.userData.component, this.loadedComponent);
+      }
     }
     return null;
   }
@@ -1538,7 +1542,9 @@ export class ThreeUtil {
     const rigidbodyComponent = this.getRigidbodyComponent(object);
     if (rigidbodyComponent !== null && this.isNotNull(rigidbodyComponent.getRigidBody)) {
       const rigidBody = rigidbodyComponent.getRigidBody();
-      return rigidBody;
+      if (this.isNotNull(rigidBody) && this.isNotNull(rigidBody.rigidBodies) && rigidBody.rigidBodies.length > 0) {
+        return rigidBody.rigidBodies[0];
+      }
     }
     return null;
   }
@@ -1548,9 +1554,16 @@ export class ThreeUtil {
       object.setSubscribeNext(key);
     } else if (this.isThreeComponent(object)) {
       const threeComponent = this.getThreeComponent(object);
-      if (this.isNotNull(threeComponent.setSubscribeNext)) {
-        threeComponent.setSubscribeNext(key);
+      if (threeComponent === null) {
+        console.log(threeComponent, object);
       }
+      if (this.isNotNull(threeComponent)) {
+        this.setSubscribeNext(threeComponent, key);
+      } else {
+        console.error(object);
+      }
+    } else {
+      console.error(object);
     }
   }
 

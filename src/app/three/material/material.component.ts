@@ -1201,6 +1201,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               if (this.isIdEuals(this._meshMaterial.userData.customDepthMaterial)) {
                 this._meshMaterial.userData.customDepthMaterial = this.id;
                 this._meshMaterial.customDepthMaterial = this.material;
+                ThreeUtil.setSubscribeNext(this._meshMaterial,this.subscribeType);
               }
             }
             break;
@@ -1210,6 +1211,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               if (this.isIdEuals(this._meshMaterial.userData.customDistanceMaterial)) {
                 this._meshMaterial.userData.customDistanceMaterial = this.id;
                 this._meshMaterial.customDistanceMaterial = this.material;
+                ThreeUtil.setSubscribeNext(this._meshMaterial,this.subscribeType);
               }
             }
             break;
@@ -1285,11 +1287,13 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
                 }
                 if (this._meshMaterial.material.indexOf(this.material) === -1) {
                   this._meshMaterial.material.push(this.material);
+                  ThreeUtil.setSubscribeNext(this._meshMaterial,this.subscribeType);
                 }
               } else if (this._meshMaterial.material !== this.material) {
                 if (this.isIdEuals(this._meshMaterial.userData.material)) {
                   this._meshMaterial.userData.material = this.id;
                   this._meshMaterial.material = this.material;
+                  ThreeUtil.setSubscribeNext(this._meshMaterial,this.subscribeType);
                 }
               }
             }

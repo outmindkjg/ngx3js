@@ -305,6 +305,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
               case 'customDepthMaterial':
               case 'customDistanceMaterial':
               case 'material':
+              case 'rigidBody':
               case 'geometry':
                 delete this._userData[key];
                 break;

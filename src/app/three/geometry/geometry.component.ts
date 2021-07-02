@@ -1168,14 +1168,16 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isNotNull(this._meshGeometry)) {
         if (this.isIdEuals(this._meshGeometry.userData.geometry)) {
           this._meshGeometry.userData.geometry = this.id;
-          if (this._meshGeometry instanceof THREE.Line && this.geometry.getIndex() !== null) {
-            this.geometry.setIndex(null);
-            this._meshGeometry.computeLineDistances();
+          if (this._meshGeometry instanceof THREE.Line) {
+            if (this.geometry.getIndex() === null) {
+              this._meshGeometry.computeLineDistances();
+            }
           }
           this._meshGeometry.geometry = this.geometry;
           if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
             this._meshGeometry.updateMorphTargets();
           }
+          ThreeUtil.setSubscribeNext(this._meshGeometry,this.subscribeType);
         }
       } else if (this.geometry !== geometry) {
         this.geometry = geometry;

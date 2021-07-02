@@ -61,13 +61,22 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     return this.ammo;
   }
 
-  convexBreaker : ConvexObjectBreaker = null;
+  private convexBreaker : ConvexObjectBreaker = null;
   
   getConvexObjectBreaker() :ConvexObjectBreaker {
     if (this.convexBreaker == null) {
       this.convexBreaker = new ConvexObjectBreaker();
     }
     return this.convexBreaker;
+  }
+
+  private softBodyHelpers : Ammo.btSoftBodyHelpers = null;
+
+  getSoftBodyHelpers () :Ammo.btSoftBodyHelpers {
+    if (this.softBodyHelpers == null) {
+      this.softBodyHelpers = new this.ammo.btSoftBodyHelpers();
+    }
+    return this.softBodyHelpers;
   }
 
   protected applyChanges(changes: string[]) {

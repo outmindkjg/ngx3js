@@ -73,7 +73,7 @@ export class RigidbodyNodeComponent extends AbstractSubscribeComponent implement
       switch(this.type.toLowerCase()) {
         case "anchor" :
           const body = this.getRigidBody(this.body,'body');
-          if (body !== null) {
+          if (ThreeUtil.isNotNull(body)) {
             this.rigidBody.appendAnchor( 
               ThreeUtil.getTypeSafe(this.node, 0),
               body, 
@@ -86,9 +86,12 @@ export class RigidbodyNodeComponent extends AbstractSubscribeComponent implement
               disableCollisionBetweenLinkedBodies : this.disableCollisionBetweenLinkedBodies,
               influence : this.influence,
             }
+          } else {
+            this.rigidbodyNode = null;
           }
           break;
       }
+      this.setObject(this.rigidbodyNode);
     }
     return this.rigidbodyNode;
   }

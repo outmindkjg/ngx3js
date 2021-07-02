@@ -79,6 +79,39 @@
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></three-material>
         <three-rigidbody [mass]="1.2" [friction]="0.5"></three-rigidbody>
       </three-mesh>
+      <three-mesh #base [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="clothPos.x" [y]="0.1" [z]="clothPos.z - armLength"></three-position>
+        <three-geometry
+          [type]="'box'"
+          [width]="1"
+          [height]="0.2"
+          [depth]="1"
+        ></three-geometry>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
+        <three-rigidbody [mass]="0"></three-rigidbody>
+      </three-mesh>
+      <three-mesh #pylon [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="clothPos.x" [y]="pylonHeight * 0.5" [z]="clothPos.z - armLength"></three-position>
+        <three-geometry
+          [type]="'box'"
+          [width]="0.4"
+          [height]="pylonHeight"
+          [depth]="0.4"
+        ></three-geometry>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
+        <three-rigidbody [mass]="0"></three-rigidbody>
+      </three-mesh>
+      <three-mesh #arm [name]="'Arm'" [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="clothPos.x" [y]="pylonHeight + 0.2" [z]="clothPos.z - 0.5*armLength"></three-position>
+        <three-geometry
+          [type]="'box'"
+          [width]="0.4"
+          [height]="0.4"
+          [depth]="armLength + 0.4"
+        ></three-geometry>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
+        <three-rigidbody [mass]="2"></three-rigidbody>
+      </three-mesh>
       <three-mesh #rope [name]="'Rope'" [type]="'LineSegments'">
         <three-position [x]="-3" [y]="4" [z]="0"></three-position>
         <three-geometry
@@ -107,39 +140,6 @@
             [influence]="1"
           ></three-rigidbody-node>
         </three-rigidbody>
-      </three-mesh>
-      <three-mesh #base [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="clothPos.x" [y]="0.1" [z]="clothPos.z - armLength"></three-position>
-        <three-geometry
-          [type]="'box'"
-          [width]="1"
-          [height]="0.2"
-          [depth]="1"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="0"></three-rigidbody>
-      </three-mesh>
-      <three-mesh #pylon [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="clothPos.x" [y]="pylonHeight * 0.5" [z]="clothPos.z - armLength"></three-position>
-        <three-geometry
-          [type]="'box'"
-          [width]="0.4"
-          [height]="pylonHeight"
-          [depth]="0.4"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="0"></three-rigidbody>
-      </three-mesh>
-      <three-mesh #arm [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="clothPos.x" [y]="pylonHeight + 0.2" [z]="clothPos.z - 0.5*armLength"></three-position>
-        <three-geometry
-          [type]="'box'"
-          [width]="0.4"
-          [height]="0.4"
-          [depth]="armLength + 0.4"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="2"></three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">
