@@ -185,48 +185,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     super.ngAfterContentInit();
   }
 
-  private isEqual(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): boolean {
-    const delta = 0.000001;
-    return Math.abs(x2 - x1) < delta && Math.abs(y2 - y1) < delta && Math.abs(z2 - z1) < delta;
-  }
-
-  private _mapIndicesInfo: {
-    ammoVertices: THREE.BufferAttribute;
-    ammoIndices: THREE.BufferAttribute;
-    ammoIndexAssociation: number[][];
-  } = null;
-
-  private processGeometry(bufGeometry: THREE.BufferGeometry) {
-    const posOnlyBufGeometry = new THREE.BufferGeometry();
-    posOnlyBufGeometry.setAttribute('position', bufGeometry.getAttribute('position'));
-    posOnlyBufGeometry.setIndex(bufGeometry.getIndex());
-    const indexedBufferGeom = BufferGeometryUtils.mergeVertices(posOnlyBufGeometry);
-    this.mapIndices(bufGeometry, indexedBufferGeom);
-  }
-
-  private mapIndices(bufGeometry: THREE.BufferGeometry, indexedBufferGeom: THREE.BufferGeometry) {
-    const vertices = bufGeometry.getAttribute('position') as THREE.BufferAttribute;
-    const idxVertices = indexedBufferGeom.getAttribute('position') as THREE.BufferAttribute;
-    const indices = indexedBufferGeom.getIndex();
-    const numIdxVertices = idxVertices.count;
-    const numVertices = vertices.count;
-    const ammoVertices = idxVertices;
-    const ammoIndices = indices;
-    const ammoIndexAssociation = [];
-    for (let i = 0; i < numIdxVertices; i++) {
-      const association = [];
-      ammoIndexAssociation.push(association);
-      for (let j = 0; j < numVertices; j++) {
-        if (this.isEqual(idxVertices.getX(i), idxVertices.getY(i), idxVertices.getZ(i), vertices.getX(j), vertices.getY(j), vertices.getZ(j))) {
-          association.push(j);
-        }
-      }
+  private getAbsoluteGeometry(bufGeometry: THREE.BufferGeometry, object3d: THREE.Object3D): THREE.BufferGeometry {
+    const absBufGeometry = bufGeometry.clone();
+    const positions = absBufGeometry.getAttribute('position');
+    const tmp = new THREE.Vector3();
+    for (let i = 0; i < positions.count; i++) {
+      tmp.set(positions.getX(i), positions.getY(i), positions.getZ(i));
+      const wTmp = object3d.localToWorld(tmp);
+      positions.setXYZ(i, wTmp.x, wTmp.y, wTmp.z);
     }
-    this._mapIndicesInfo = {
-      ammoVertices: ammoVertices,
-      ammoIndices: ammoIndices,
-      ammoIndexAssociation: ammoIndexAssociation,
-    };
+    return absBufGeometry;
   }
 
   private object3d: THREE.Object3D = null;
@@ -586,7 +554,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       let softBody: Ammo.btSoftBody = null;
       let type: string = this.type;
       let geometry: THREE.BufferGeometry = null;
-      this._mapIndicesInfo = null;
       const localScaling = new THREE.Vector3(1, 1, 1);
       if (ThreeUtil.isNotNull(this.object3d['geometry'])) {
         geometry = this.object3d['geometry'];
@@ -690,14 +657,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         case 'convexhull':
           {
             const btConvexHullShape = new this._ammo.btConvexHullShape();
-            if (ThreeUtil.isNotNull(geometry)) {
-              const coords = geometry.attributes.position.array;
-              const tempBtVec3 = new this._ammo.btVector3(0, 0, 0);
-              for (let i = 0, il = coords.length; i < il; i += 3) {
-                tempBtVec3.setValue(coords[i], coords[i + 1], coords[i + 2]);
-                const lastOne = i >= il - 3;
-                btConvexHullShape.addPoint(tempBtVec3, lastOne);
-              }
+            const coords = geometry.attributes.position.array;
+            const tempBtVec3 = new this._ammo.btVector3(0, 0, 0);
+            for (let i = 0, il = coords.length; i < il; i += 3) {
+              tempBtVec3.setValue(coords[i], coords[i + 1], coords[i + 2]);
+              const lastOne = i >= il - 3;
+              btConvexHullShape.addPoint(tempBtVec3, lastOne);
             }
             shape = btConvexHullShape;
           }
@@ -758,15 +723,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         case 'rope':
           switch (geometry.type.toLowerCase()) {
             case 'ropegeometry':
-              const attrPos = geometry.getAttribute('position') as THREE.BufferAttribute;
+              const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
+              const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
               let index = 0;
-              const corner00 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
+              console.log(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index))
+              const ropeStart = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = attrPos.count - 1;
-              const corner01 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
-              const ropeStart = new this._ammo.btVector3(corner00.x, corner00.y, corner00.z);
-              const ropeEnd = new this._ammo.btVector3(corner01.x, corner01.y, corner01.z);
+              console.log(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index))
+              const ropeEnd = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               softBody = this.physics.getSoftBodyHelpers().CreateRope(this._physics.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
-              attrPos.setUsage(THREE.DynamicDrawUsage);
+              (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
               break;
             default:
               console.log(geometry.type);
@@ -775,11 +741,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           break;
         case 'trimesh':
         case 'softtrimesh':
-          this.processGeometry(geometry);
-          this.object3d.frustumCulled = false;
-          softBody = this.physics
-            .getSoftBodyHelpers()
-            .CreateFromTriMesh(this._physics.getWorldInfo(), this._mapIndicesInfo.ammoVertices.array as number[], this._mapIndicesInfo.ammoIndices.array as number[], this._mapIndicesInfo.ammoIndices.count / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+          {
+            const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
+            const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
+            const attrIndex = absGeometry.getIndex() as THREE.BufferAttribute;
+            this.object3d.frustumCulled = false;
+            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this._physics.getWorldInfo(), attrPos.array as number[], attrIndex.array as number[], attrIndex.array.length / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+            (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
+          }
           break;
         case 'ellipsoid':
         case 'softellipsoid':
@@ -801,26 +770,22 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           break;
         case 'softpatch':
           switch (geometry.type.toLowerCase()) {
-            case 'planegeometry':
+            case 'planegeometry': {
               const segments = this.getGeometrySegments(geometry, 1);
-              const attrPos = geometry.getAttribute('position') as THREE.BufferAttribute;
-              const attrNormal = geometry.getAttribute('normal') as THREE.BufferAttribute;
+              const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
+              const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
               const attrCount = attrPos.count;
               let index = 0;
-              const corner00 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
+              const clothCorner00 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = segments.x;
-              const corner01 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
+              const clothCorner01 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = attrCount - segments.x - 1;
-              const corner10 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
+              const clothCorner10 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = attrCount - 1;
-              const corner11 = this.object3d.localToWorld(new THREE.Vector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index)));
-              const clothCorner00 = new this._ammo.btVector3(corner00.x, corner00.y, corner00.z);
-              const clothCorner01 = new this._ammo.btVector3(corner01.x, corner01.y, corner01.z);
-              const clothCorner10 = new this._ammo.btVector3(corner10.x, corner10.y, corner10.z);
-              const clothCorner11 = new this._ammo.btVector3(corner11.x, corner11.y, corner11.z);
+              const clothCorner11 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               softBody = this.physics.getSoftBodyHelpers().CreatePatch(this._physics.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, segments.x + 1, segments.y + 1, 0, true);
               attrPos.setUsage(THREE.DynamicDrawUsage);
-              attrNormal.setUsage(THREE.DynamicDrawUsage);
+            }
               break;
           }
           break;
@@ -838,16 +803,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         sbConfig.set_viterations(10);
         sbConfig.set_piterations(10);
         // Soft-soft and soft-rigid collisions
-				sbConfig.set_collisions( 0x11 );
-				// Friction
-				sbConfig.set_kDF( 0.1 );
-				// Damping
-				sbConfig.set_kDP( 0.01 );
-				// Pressure
-				sbConfig.set_kPR( 250 );
-				// Stiffness
-				softBody.get_m_materials().at( 0 ).set_m_kLST( 0.9 );
-				softBody.get_m_materials().at( 0 ).set_m_kAST( 0.9 );
+        // sbConfig.set_collisions(0x11);
+        // Friction
+        // sbConfig.set_kDF(0.1);
+        // Damping
+        // sbConfig.set_kDP(0.01);
+        // Pressure
+        // sbConfig.set_kPR(250);
+        // Stiffness
+        // softBody.get_m_materials().at(0).set_m_kLST(0.9);
+        // softBody.get_m_materials().at(0).set_m_kAST(0.9);
 
         softBody.setActivationState(0);
         softBody.activate(false);
@@ -990,46 +955,20 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const softBody = this.rigidBody.softBody;
             const geometry: THREE.BufferGeometry = this.object3d['geometry'];
             const meshPositions = geometry.getAttribute('position') as THREE.BufferAttribute;
-            const meshNormals = geometry.getAttribute('normal') as THREE.BufferAttribute;
             const numVerts = meshPositions.count;
             const nodes = softBody.get_m_nodes();
             const position = this.positionAux;
-            if (this._mapIndicesInfo !== null) {
-              const volumePositions = meshPositions;
-              const volumeNormals = meshNormals;
-              const association = this._mapIndicesInfo.ammoIndexAssociation;
-              const numVerts = association.length;
-              for (let j = 0; j < numVerts; j++) {
-                const node = nodes.at(j);
-                const nodePos = node.get_m_x();
-                const x = nodePos.x();
-                const y = nodePos.y();
-                const z = nodePos.z();
-                const nodeNormal = node.get_m_n();
-                const nx = nodeNormal.x();
-                const ny = nodeNormal.y();
-                const nz = nodeNormal.z();
-                const assocVertex = association[j];
-                for (let k = 0, kl = assocVertex.length; k < kl; k++) {
-                  let indexVertex = assocVertex[k];
-                  volumePositions.setXYZ(indexVertex,x,y,z);
-                  volumeNormals.setXYZ(indexVertex,nx,ny,nz);
-                }
-              }
-            } else {
-              for (let i = 0; i < numVerts; i++) {
-                const node = nodes.at(i);
-                const nodePos = node.get_m_x();
-                position.set(nodePos.x(), nodePos.y(), nodePos.z());
-                const vPos = this.object3d.worldToLocal(position);
-                meshPositions.setXYZ(i, vPos.x, vPos.y, vPos.z);
-              }
+            for (let i = 0; i < numVerts; i++) {
+              const node = nodes.at(i);
+              const nodePos = node.get_m_x();
+              position.set(nodePos.x(), nodePos.y(), nodePos.z());
+              const lPos = this.object3d.worldToLocal(position);
+              meshPositions.setXYZ(i, lPos.x, lPos.y, lPos.z);
             }
             meshPositions.needsUpdate = true;
-            if (ThreeUtil.isNotNull(meshNormals)) {
-              geometry.computeVertexNormals();
-              meshNormals.needsUpdate = true;
-            }
+            geometry.computeVertexNormals();
+            const meshNormals = geometry.getAttribute('normal') as THREE.BufferAttribute;
+            meshNormals.needsUpdate = true;
           }
           break;
         case 'rigidbody':

@@ -14,7 +14,9 @@ export class PhysicsAmmoTerrainComponent extends BaseComponent<{
   constructor() {
     super({
       addShape : () => {
-        this.addShape();
+        for(let i = 0 ; i < 10; i++) {
+          this.addShape();
+        }
       }
     },[
       { name : 'addShape', title : 'add', type : 'button'}
@@ -28,7 +30,7 @@ export class PhysicsAmmoTerrainComponent extends BaseComponent<{
   }
 
   addShape() {
-    if (this.shapeInfos.length > 20) {
+    if (this.shapeInfos.length > 120) {
       this.shapeInfos.shift();
     }
     let type = 'box';

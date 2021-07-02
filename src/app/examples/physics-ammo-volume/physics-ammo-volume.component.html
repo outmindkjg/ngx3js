@@ -47,14 +47,14 @@
       <three-mesh *ngFor="let info of shapeInfos" name="'box'">
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
         <three-geometry
-          [type]="info.type"
+          [type]="'box'"
           [radius]="3"
           [width]="4"
-          [height]="5"
-          [depth]="7"
-          [widthSegments]="40"
-          [heightSegments]="40"
-          [depthSegments]="40"
+          [height]="4"
+          [depth]="4"
+          [widthSegments]="1"
+          [heightSegments]="1"
+          [depthSegments]="1"
         ></three-geometry>
         <three-material [type]="'meshlambert'" [color]="info.color" [map]="colorTexture"></three-material>
         <three-rigidbody [mass]="1" [softBody]="true"></three-rigidbody>
