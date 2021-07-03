@@ -75,7 +75,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   private getHeight(geometry: THREE.BufferGeometry, def?: number): number {
     let height = this.height;
     if (ThreeUtil.isNull(height)) {
-      height = this.getGeometrySize(geometry, def).y / 2;
+      height = this.getGeometrySize(geometry, def).y;
     }
     return height;
   }
@@ -758,7 +758,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
             const attrIndex = absGeometry.getIndex() as THREE.BufferAttribute;
             this.object3d.frustumCulled = false;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this._physics.getWorldInfo(), attrPos.array as number[], attrIndex.array as number[], attrIndex.array.length / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this._physics.getWorldInfo(), attrPos.array as number[], attrIndex.array as number[], attrIndex.array.length / 3 , ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
             (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
           }
           break;
@@ -977,6 +977,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
 
   update(timer: RendererTimer) {
     if (this.rigidBody !== null) {
+      this.object3d.updateMatrixWorld(true);
       switch (this.rigidBody.type) {
         case 'softbody':
           if (ThreeUtil.isNotNull(this.object3d['geometry']) && ThreeUtil.isNotNull(this.rigidBody.softBody)) {
@@ -996,7 +997,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             meshPositions.needsUpdate = true;
             geometry.computeVertexNormals();
             const meshNormals = geometry.getAttribute('normal') as THREE.BufferAttribute;
-            meshNormals.needsUpdate = true;
+            if (ThreeUtil.isNotNull(meshNormals)) {
+              meshNormals.needsUpdate = true;
+            }
           }
           break;
         case 'rigidbody':

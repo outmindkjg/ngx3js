@@ -59,7 +59,7 @@
         <three-material [type]="'meshlambert'" [color]="info.color" [map]="colorTexture"></three-material>
         <three-rigidbody 
           [mass]="1" 
-          [softBody]="true" 
+          [softBody]="info.softBody" 
           [viterations]="40"
           [piterations]="40"
           [collisions]="'0x11'"
@@ -81,12 +81,13 @@
         [widthSegments]="128"
         [heightSegments]="128"
         [program]="'terrainSin'"
-        [programParam]="{minHeight : -1, maxHeight : 3, repeat : 3 }"
+        [programParam]="{minHeight : 0, maxHeight : 0, repeat : 3 }"
       ></three-geometry>
       <three-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xFFFFFF'"
         [wireframe]="true"
+        [side]="'double'"
       >
         <three-texture 
           [image]="'textures/grid.png'"

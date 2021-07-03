@@ -53,7 +53,7 @@
           [depthSegments]="10"
         ></three-geometry>
         <three-material [type]="'meshlambert'" [color]="info.color"></three-material>
-        <three-rigidbody [mass]="1"></three-rigidbody>
+        <three-rigidbody [mass]="1" [margin]="0.5"></three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh  name="'terrain'" [receiveShadow]="true">
@@ -72,6 +72,7 @@
       <three-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xFFFFFF'"
+        [side]="'double'"
       >
         <three-texture 
           [image]="'textures/grid.png'"

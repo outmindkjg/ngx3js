@@ -32,25 +32,27 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{
     }
     let type = 'box';
     switch(Math.round(Math.random() * 3)) {
-      case 0 : 
-      case 3 : 
-        type = 'box';
-        break;
+      // case 0 : 
+      // case 3 : 
+      //  type = 'box';
+      //  break;
       case 1 : 
-      case 2 : 
+      case 2 :
+      default :
         type = 'SphereGeometry';
         break;
     }
     this.shapeInfos.push({
-      x : Math.random() * 100 - 50,
-      y : Math.random() * 10 + 10,
-      z : Math.random() * 100 - 50,
+      x : Math.random() * 70 - 35,
+      y : Math.random() * 10 + 50,
+      z : Math.random() * 70 - 35,
       type : 'SphereGeometry',
-      radius : 5,
-      width : 10,
-      height : 10,
-      depth : 10,
-      widthSegments : 20,
+      softBody : (Math.random() > 0.5) ? true : false,
+      radius : (Math.random() * 15 + 5),
+      width : (Math.random() * 10 + 10),
+      height : (Math.random() * 10 + 10),
+      depth : (Math.random() * 20 + 30),
+      widthSegments : 40,
       heightSegments : 20,
       depthSegments : 20,
       pressure : 250,
@@ -62,6 +64,7 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{
     x : number,
     y : number,
     z : number,
+    softBody : boolean,
     type : string;
     radius : number;
     width : number;
