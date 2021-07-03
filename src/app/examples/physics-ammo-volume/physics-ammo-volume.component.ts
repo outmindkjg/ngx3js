@@ -45,7 +45,15 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{
       x : Math.random() * 100 - 50,
       y : Math.random() * 10 + 10,
       z : Math.random() * 100 - 50,
-      type : type,
+      type : 'SphereGeometry',
+      radius : 5,
+      width : 10,
+      height : 10,
+      depth : 10,
+      widthSegments : 20,
+      heightSegments : 20,
+      depthSegments : 20,
+      pressure : 250,
       color : Math.random() * 0xffffff
     })
   }
@@ -55,7 +63,15 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{
     y : number,
     z : number,
     type : string;
+    radius : number;
+    width : number;
+    height : number;
+    depth : number;
+    widthSegments : number;
+    heightSegments : number;
+    depthSegments : number;
     color : number;
+    pressure : number;
   }[] = [];
 
 }

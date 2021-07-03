@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { random } from 'chroma-js';
 import { BaseComponent } from '../../three';
 
 @Component({
@@ -35,12 +34,13 @@ export class PhysicsAmmoTerrainComponent extends BaseComponent<{
     }
     let type = 'box';
     switch(Math.round(Math.random() * 3)) {
-      case 0 : 
-      case 3 : 
-        type = 'box';
-        break;
+      //case 0 : 
+      // case 3 : 
+      //  type = 'box';
+      //  break;
       case 1 : 
       case 2 : 
+      default :
         type = 'SphereGeometry';
         break;
     }
@@ -49,7 +49,7 @@ export class PhysicsAmmoTerrainComponent extends BaseComponent<{
       y : Math.random() * 10 + 10,
       z : Math.random() * 100 - 50,
       type : type,
-      color : Math.random() * 0xffffff
+      color : Math.random() * 0xffffff,
     })
   }
 

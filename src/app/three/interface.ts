@@ -1035,6 +1035,21 @@ export class ThreeUtil {
     }
   }
 
+  static getNumberSafe(num: number | string, altnum?: number): number {
+    const defValue = this.getTypeSafe(num, altnum);
+    if (this.isNotNull(defValue)) {
+      if (typeof defValue === 'string') {
+        if (defValue.startsWith('0x')) {
+          return parseInt(defValue, 16);
+        }
+        return Math.random();
+      } else {
+        return defValue;
+      }
+    }
+    return undefined;
+  }
+
   static getAngleSafe(angle: number | string, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {

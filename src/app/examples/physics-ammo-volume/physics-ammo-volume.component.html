@@ -47,17 +47,27 @@
       <three-mesh *ngFor="let info of shapeInfos" name="'box'">
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
         <three-geometry
-          [type]="'box'"
-          [radius]="3"
-          [width]="4"
-          [height]="4"
-          [depth]="4"
-          [widthSegments]="1"
-          [heightSegments]="1"
-          [depthSegments]="1"
+          [type]="info.type"
+          [radius]="info.radius"
+          [width]="info.width"
+          [height]="info.height"
+          [depth]="info.depth"
+          [widthSegments]="info.widthSegments"
+          [heightSegments]="info.heightSegments"
+          [depthSegments]="info.depthSegments"
         ></three-geometry>
         <three-material [type]="'meshlambert'" [color]="info.color" [map]="colorTexture"></three-material>
-        <three-rigidbody [mass]="1" [softBody]="true"></three-rigidbody>
+        <three-rigidbody 
+          [mass]="1" 
+          [softBody]="true" 
+          [viterations]="40"
+          [piterations]="40"
+          [collisions]="'0x11'"
+          [friction]="0.1"
+          [damping]="0.01"
+          [stiffness]="0.9"
+          [pressure]="info.pressure"
+        ></three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh  name="'terrain'" [receiveShadow]="true">
@@ -76,6 +86,7 @@
       <three-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xFFFFFF'"
+        [wireframe]="true"
       >
         <three-texture 
           [image]="'textures/grid.png'"
