@@ -6,12 +6,14 @@ import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
 import { RigidbodyNodeComponent } from './rigidbody-node/rigidbody-node.component';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { GeometryUtils } from '../geometry/geometryUtils';
 
 export interface RigidbodyType {
   type: 'instanced' | 'rigidbody' | 'softbody' | 'debris';
   rigidBodies: Ammo.btRigidBody[];
   softBody: Ammo.btSoftBody;
   debris: RigidbodyComponent[];
+  ammoIndexAssociation? : number[][]
 }
 
 @Component({
@@ -21,7 +23,7 @@ export interface RigidbodyType {
 })
 export class RigidbodyComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() public type: string = 'auto';
-  @Input() private softBody: boolean = false;
+  @Input() private isSoftBody: boolean = false;
   @Input() private width: number = null;
   @Input() private height: number = null;
   @Input() private depth: number = null;
@@ -38,6 +40,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   @Input() private velocityX: number = null;
   @Input() private velocityY: number = null;
   @Input() private velocityZ: number = null;
+  @Input() private angularVelocityX: number = null;
+  @Input() private angularVelocityY: number = null;
+  @Input() private angularVelocityZ: number = null;
   @Input() private velocityType: string = null;
   @Input() private damping: number = null;
   @Input() private linDamping: number = null;
@@ -48,8 +53,8 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   @Input() private stiffness: number = null;  
   @Input() private linStiffness: number = null;  
   @Input() private angStiffness: number = null;  
-  @Input() private viterations: number = 10;  
-  @Input() private piterations: number = 10;  
+  @Input() private viterations: number = null;  
+  @Input() private piterations: number = null;  
 
   @Input() private randomizeConstraints: boolean = true;
 
@@ -126,7 +131,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           return new THREE.Vector3(parameters.radius * 2, parameters.radius * 2, parameters.radius * 2);
         case 'planegeometry':
           return new THREE.Vector3(parameters.width, parameters.height, 0.01);
-      }
+        case 'cylindergeometry':
+          return new THREE.Vector3(Math.max(parameters.radiusTop, parameters.radiusBottom) * 2, parameters.height, Math.max(parameters.radiusTop, parameters.radiusBottom) * 2);
+        case 'conegeometry':
+          return new THREE.Vector3(parameters.radius * 2, parameters.height, parameters.radius * 2);
+        }
     }
     if (ThreeUtil.isNotNull(def)) {
       if (def instanceof THREE.Vector3) {
@@ -490,7 +499,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         this.getRigidBody();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['physics', 'rigidbodynode', 'velocity', 'velocityx', 'velocityy', 'velocityz', 'velocitytype'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['physics', 'rigidbodynode', 'velocity', 'velocityx', 'velocityy', 'velocityz', 'angularvelocityx', 'angularvelocityy', 'angularvelocityz', 'velocitytype'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
@@ -505,6 +514,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           case 'velocity':
             if (ThreeUtil.isNotNull(this.velocityX) || ThreeUtil.isNotNull(this.velocityY) || ThreeUtil.isNotNull(this.velocityZ)) {
               this.setVelocity(ThreeUtil.getTypeSafe(this.velocityX, 0), ThreeUtil.getTypeSafe(this.velocityY, 0), ThreeUtil.getTypeSafe(this.velocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'linear'));
+            }
+            if (ThreeUtil.isNotNull(this.angularVelocityX) || ThreeUtil.isNotNull(this.angularVelocityY) || ThreeUtil.isNotNull(this.angularVelocityZ)) {
+              this.setVelocity(ThreeUtil.getTypeSafe(this.angularVelocityX, 0), ThreeUtil.getTypeSafe(this.angularVelocityY, 0), ThreeUtil.getTypeSafe(this.angularVelocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'angular'));
             }
             break;
           case 'rigidbodynode':
@@ -546,6 +558,98 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  private _createDebrisFromBreakableObject( objects : THREE.Object3D[] ) {
+    this.rigidBody.debris = [];
+    const castShadow = this.object3d.castShadow;
+    const receiveShadow = this.object3d.receiveShadow;
+    objects.forEach((object, idx) => {
+      object.castShadow = castShadow;
+      object.receiveShadow = receiveShadow;
+      this.object3d.parent.add(object);
+      const rigidBody = new RigidbodyComponent();
+      this.initLocalComponent('debris_' + idx,rigidBody);
+      const velocity = object.userData.velocity;
+      const angularVelocity = object.userData.angularVelocity;
+      
+      rigidBody.updateInputParams({
+        mass : object.userData.mass,
+        margin : this.margin,
+        velocityX : velocity ? velocity.x : null,
+        velocityY : velocity ? velocity.y : null,
+        velocityZ : velocity ? velocity.z : null,
+        angularVelocityX : angularVelocity ? angularVelocity.x : null,
+        angularVelocityY : angularVelocity ? angularVelocity.y : null,
+        angularVelocityZ : angularVelocity ? angularVelocity.z : null,
+        friction : this.friction,
+        breakable : this.breakable
+      }, true, {}, 'convexhull');
+      rigidBody.setPhysics(this.physics);
+      rigidBody.setParent(object);
+      this.rigidBody.debris.push(rigidBody);
+    });
+    this.rigidBody.rigidBodies.forEach((rigidBody) => {
+      this._physics.removeRigidBody(rigidBody);
+    });
+    if (ThreeUtil.isNotNull(this.rigidBody.softBody)) {
+      this._physics.removeSoftBody(this.rigidBody.softBody);
+    }
+    this.rigidBody.type = 'debris';
+    this.object3d.parent.remove(this.object3d);
+  }
+
+  private _processGeometry( bufGeometry: THREE.BufferGeometry ): {
+    ammoVertices : number[],
+    ammoIndices : number[],
+    ammoIndexAssociation : number[][]
+  }{
+    // Ony consider the position values when merging the vertices
+    const posOnlyBufGeometry = new THREE.BufferGeometry();
+    posOnlyBufGeometry.setAttribute( 'position', bufGeometry.getAttribute( 'position' ) );
+    posOnlyBufGeometry.setIndex( bufGeometry.getIndex() );
+    // Merge the vertices so the triangle soup is converted to indexed triangles
+    const indexedBufferGeom = GeometryUtils.mergeVertices( posOnlyBufGeometry );
+    // Create index arrays mapping the indexed vertices to bufGeometry vertices
+    return this._mapIndices( bufGeometry, indexedBufferGeom );
+  }
+
+  private _isEqual( x1 : number, y1 : number, z1 : number, x2 : number, y2 : number, z2 : number ) :boolean {
+    const delta = 0.000001;
+    return Math.abs( x2 - x1 ) < delta &&
+        Math.abs( y2 - y1 ) < delta &&
+        Math.abs( z2 - z1 ) < delta;
+  }  
+
+  private _mapIndices( bufGeometry : THREE.BufferGeometry, indexedBufferGeom : THREE.BufferGeometry ): {
+    ammoVertices : number[],
+    ammoIndices : number[],
+    ammoIndexAssociation : number[][]
+  }
+   {
+    const vertices = bufGeometry.attributes.position.array as number[];
+    const idxVertices = indexedBufferGeom.attributes.position.array as number[];
+    const indices = indexedBufferGeom.index.array as number[];
+    const numIdxVertices = idxVertices.length / 3;
+    const numVertices = vertices.length / 3;
+    const ammoIndexAssociation = [];
+    for ( let i = 0; i < numIdxVertices; i ++ ) {
+      const association = [];
+      ammoIndexAssociation.push( association );
+      const i3 = i * 3;
+      for ( let j = 0; j < numVertices; j ++ ) {
+        const j3 = j * 3;
+        if ( this._isEqual( idxVertices[ i3 ], idxVertices[ i3 + 1 ], idxVertices[ i3 + 2 ],
+          vertices[ j3 ], vertices[ j3 + 1 ], vertices[ j3 + 2 ] ) ) {
+          association.push( j );
+        }
+      }
+    }
+    return {
+      ammoVertices : idxVertices,
+      ammoIndices : indices,
+      ammoIndexAssociation : ammoIndexAssociation
+    };
+  }
+
   getRigidBody(): RigidbodyType {
     if (this.object3d !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
@@ -566,6 +670,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       let softBody: Ammo.btSoftBody = null;
       let type: string = this.type;
       let geometry: THREE.BufferGeometry = null;
+      let ammoIndexAssociation : number[][] = null;
       const localScaling = new THREE.Vector3(1, 1, 1);
       if (ThreeUtil.isNotNull(this.object3d['geometry'])) {
         geometry = this.object3d['geometry'];
@@ -600,7 +705,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
               type = 'convexhull';
               break;
           }
-          if (this.softBody) {
+          if (this.isSoftBody) {
             switch (type) {
               case 'rope':
                 type = 'rope';
@@ -738,10 +843,8 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
               const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
               const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
               let index = 0;
-              console.log(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               const ropeStart = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = attrPos.count - 1;
-              console.log(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               const ropeEnd = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               softBody = this.physics.getSoftBodyHelpers().CreateRope(this._physics.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
               (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
@@ -755,10 +858,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         case 'softtrimesh':
           {
             const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
-            const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
-            const attrIndex = absGeometry.getIndex() as THREE.BufferAttribute;
-            this.object3d.frustumCulled = false;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this._physics.getWorldInfo(), attrPos.array as number[], attrIndex.array as number[], attrIndex.array.length / 3 , ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+            const processGeometryInfo = this._processGeometry( absGeometry );
+            ammoIndexAssociation = processGeometryInfo.ammoIndexAssociation;
+            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(
+              this._physics.getWorldInfo(), 
+              processGeometryInfo.ammoVertices, 
+              processGeometryInfo.ammoIndices, 
+              processGeometryInfo.ammoIndices.length / 3 , 
+              ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
             (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
           }
           break;
@@ -843,7 +950,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           softBody.get_m_materials().at(0).set_m_kAST(ThreeUtil.getTypeSafe(this.angStiffness, this.stiffness));
         }
         softBody.setActivationState(0);
-        softBody.activate(false);
         const softShape = softBody.getCollisionShape();
         softShape.setMargin(margin);
         this.rigidBody = {
@@ -851,6 +957,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           rigidBodies: [],
           softBody: softBody,
           debris: [],
+          ammoIndexAssociation : ammoIndexAssociation
         };
       } else if (shape !== null) {
         localScaling.multiply(this.object3d.getWorldScale(new THREE.Vector3(1, 1, 1)));
@@ -879,7 +986,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             if (ThreeUtil.isNotNull(this.restitution)) {
               body.setRestitution(this.getRestitution(0));
             }
-            body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+            if (ThreeUtil.isNotNull(this.linDamping)) {
+              body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+            }
             body.setActivationState(0);
             bodies.push(body);
           }
@@ -902,7 +1011,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           const motionState = new this._ammo.btDefaultMotionState(transform);
           const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
           const body = new this._ammo.btRigidBody(rbInfo);
-          body.setActivationState(0);
           if (ThreeUtil.isNotNull(this.friction)) {
             body.setFriction(this.getFriction(0));
           }
@@ -912,7 +1020,10 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           if (ThreeUtil.isNotNull(this.restitution)) {
             body.setRestitution(this.getRestitution(0));
           }
-          body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+          if (ThreeUtil.isNotNull(this.linDamping)) {
+            body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+          }
+          body.setActivationState(0);
           body['object3d'] = this.object3d;
           this.rigidBody = {
             type: 'rigidbody',
@@ -921,13 +1032,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             debris: [],
           };
           this.object3d.addEventListener('collision', (e) => {
-            this.consoleLog('collision', e);
+            // this.consoleLog('collision', e, 'info');
           });
           if (this.breakable) {
             this.physics.getConvexObjectBreaker().prepareBreakableObject(this.object3d, mass, new THREE.Vector3(), new THREE.Vector3(), true);
             const btVecUserData = new this._ammo.btVector3(0, 0, 0);
             btVecUserData['threeObject'] = this.object3d;
             body.setUserPointer(btVecUserData);
+            this.object3d.addEventListener('debris', (e) => {
+              this._createDebrisFromBreakableObject(e.fragments);
+            });
           }
         }
       }
@@ -984,23 +1098,35 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const softBody = this.rigidBody.softBody;
             const geometry: THREE.BufferGeometry = this.object3d['geometry'];
             const meshPositions = geometry.getAttribute('position') as THREE.BufferAttribute;
-            const numVerts = meshPositions.count;
             const nodes = softBody.get_m_nodes();
             const position = this.positionAux;
-            for (let i = 0; i < numVerts; i++) {
-              const node = nodes.at(i);
-              const nodePos = node.get_m_x();
-              position.set(nodePos.x(), nodePos.y(), nodePos.z());
-              const lPos = this.object3d.worldToLocal(position);
-              meshPositions.setXYZ(i, lPos.x, lPos.y, lPos.z);
+            if (ThreeUtil.isNotNull(this.rigidBody.ammoIndexAssociation)) {
+              const association = this.rigidBody.ammoIndexAssociation;
+              const numVerts = association.length;
+              for ( let j = 0; j < numVerts; j ++ ) {
+                const node = nodes.at( j );
+                const nodePos = node.get_m_x();
+                position.set(nodePos.x(), nodePos.y(), nodePos.z());
+                const lPos = this.object3d.worldToLocal(position);
+                const assocVertex = association[ j ];
+                for ( let k = 0, kl = assocVertex.length; k < kl; k ++ ) {
+                  let indexVertex = assocVertex[ k ];
+                  meshPositions.setXYZ(indexVertex, lPos.x,lPos.y, lPos.z);
+                }
+              }
+            } else {
+              const numVerts = meshPositions.count;
+              for (let i = 0; i < numVerts; i++) {
+                const node = nodes.at(i);
+                const nodePos = node.get_m_x();
+                position.set(nodePos.x(), nodePos.y(), nodePos.z());
+                const lPos = this.object3d.worldToLocal(position);
+                meshPositions.setXYZ(i, lPos.x, lPos.y, lPos.z);
+              }
             }
             meshPositions.needsUpdate = true;
             geometry.computeVertexNormals();
-            const meshNormals = geometry.getAttribute('normal') as THREE.BufferAttribute;
-            if (ThreeUtil.isNotNull(meshNormals)) {
-              meshNormals.needsUpdate = true;
-            }
-          }
+        }
           break;
         case 'rigidbody':
           if (this.rigidBody.rigidBodies.length > 0) {
@@ -1011,6 +1137,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const quaternion = worldTransform.getRotation();
             this.object3d.position.set(position.x(), position.y(), position.z());
             this.object3d.quaternion.set(quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w());
+            this.object3d.userData.collided = false;
           }
           break;
         case 'instanced':

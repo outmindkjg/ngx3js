@@ -68,17 +68,6 @@
         <three-material [type]="'MeshPhongMaterial'" [color]="info.color"></three-material>
         <three-rigidbody [mass]="info.mass" [friction]="0.5"></three-rigidbody>
       </three-mesh>
-      <three-mesh #ball [name]="'Ball'">
-        <three-position [x]="-3" [y]="2" [z]="0"></three-position>
-        <three-geometry
-          [type]="'SphereGeometry'"
-          [radius]="0.6"
-          [widthSegments]="20"
-          [heightSegments]="20"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></three-material>
-        <three-rigidbody [mass]="1.2" [friction]="0.5"></three-rigidbody>
-      </three-mesh>
       <three-mesh #base [receiveShadow]="true" [castShadow]="true">
         <three-position [x]="clothPos.x" [y]="0.1" [z]="clothPos.z - armLength"></three-position>
         <three-geometry
@@ -99,7 +88,7 @@
           [depth]="0.4"
         ></three-geometry>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="0"></three-rigidbody>
+        <three-rigidbody [mass]="0" [margin]="0.05"></three-rigidbody>
       </three-mesh>
       <three-mesh #arm [name]="'Arm'" [receiveShadow]="true" [castShadow]="true">
         <three-position [x]="clothPos.x" [y]="pylonHeight + 0.2" [z]="clothPos.z - 0.5*armLength"></three-position>
@@ -110,10 +99,21 @@
           [depth]="armLength + 0.4"
         ></three-geometry>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
-        <three-rigidbody [mass]="2"></three-rigidbody>
+        <three-rigidbody [mass]="2" [margin]="0.05"></three-rigidbody>
+      </three-mesh>
+      <three-mesh #ball [name]="'Ball'">
+        <three-position [x]="-3" [y]="2" [z]="0"></three-position>
+        <three-geometry
+          [type]="'SphereGeometry'"
+          [radius]="0.6"
+          [widthSegments]="20"
+          [heightSegments]="20"
+        ></three-geometry>
+        <three-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></three-material>
+        <three-rigidbody [mass]="1.2" [friction]="0.5"></three-rigidbody>
       </three-mesh>
       <three-mesh #rope [name]="'Rope'" [type]="'LineSegments'">
-        <three-position [x]="-3" [y]="4" [z]="0"></three-position>
+        <three-position [x]="-3" [y]="2+0.3+2" [z]="0"></three-position>
         <three-geometry
           [type]="'RopeGeometry'"
           [width]="4"
@@ -124,7 +124,13 @@
           [color]="'0x000000'"
         >
         </three-material>
-        <three-rigidbody [mass]="3" [margin]="0.05*3" [softBody]="true">
+        <three-rigidbody 
+          [mass]="3" 
+          [margin]="0.05*3" 
+          [isSoftBody]="true"
+          [viterations]="10"
+          [piterations]="10"
+          >
           <three-rigidbody-node 
             [type]="'Anchor'" 
             [node]="0" 

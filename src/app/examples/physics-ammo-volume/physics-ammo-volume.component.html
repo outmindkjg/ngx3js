@@ -11,11 +11,13 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="'pointerdown'"
+  (eventListener)="onMouseClick($event)"
   (onRender)="onRender($event)"
 >
   <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000">
-    <three-position [x]="-12" [y]="7" [z]="4" [multiply]="5"></three-position>
+  <three-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000" (onLoad)="setCamera($event)">
+    <three-position [x]="-7" [y]="5" [z]="8"></three-position>
   </three-camera>
   <three-scene #scene [background]="'0xbfd1e5'">
     <three-physics [gravity]="-9.8"></three-physics>    
@@ -28,66 +30,120 @@
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
-      [shadowCameraTop]="10"
-      [shadowCameraBottom]="-10"
-      [shadowCameraLeft]="-10"
-      [shadowCameraRight]="10"
+      [shadowCameraTop]="20"
+      [shadowCameraBottom]="-20"
+      [shadowCameraLeft]="-20"
+      [shadowCameraRight]="20"
       [shadowCameraNear]="2"
       [shadowCameraFar]="50"
       [shadowMapSize]="1024"
-      [shadowBias]="-0.003"
     >
-      <three-position [x]="-7" [y]="10" [z]="15"></three-position>
+      <three-position [x]="-10" [y]="10" [z]="5"></three-position>
     </three-light>
     <three-shared>
       <three-texture #colorTexture [image]="'textures/colors.png'"></three-texture>
     </three-shared>
+    <three-mesh *ngFor="let info of ballInfos;let idx = index;" [name]="'Ball ' + idx" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+      <three-geometry
+        [type]="'SphereGeometry'"
+        [radius]="0.4"
+        [widthSegments]="18"
+        [heightSegments]="16"
+      ></three-geometry>
+      <three-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></three-material>
+      <three-rigidbody [mass]="3" [friction]="0.5" [velocityX]="info.vx" [velocityY]="info.vy" [velocityZ]="info.vz"></three-rigidbody>
+    </three-mesh>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let info of shapeInfos" name="'box'">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
+      <three-mesh #Ramp [receiveShadow]="true" [castShadow]="true">
+        <three-position [x]="3" [y]="1" [z]="0"></three-position>
+        <three-rotation [x]="0" [y]="0" [z]="30"></three-rotation>
         <three-geometry
-          [type]="info.type"
-          [radius]="info.radius"
-          [width]="info.width"
-          [height]="info.height"
-          [depth]="info.depth"
-          [widthSegments]="info.widthSegments"
-          [heightSegments]="info.heightSegments"
-          [depthSegments]="info.depthSegments"
+          [type]="'BoxGeometry'"
+          [width]="10"
+          [height]="1"
+          [depth]="4"
+          [widthSegments]="1"
+          [heightSegments]="1"
+          [depthSegments]="1"
         ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="info.color" [map]="colorTexture"></three-material>
+        <three-material
+          [type]="'MeshPhongMaterial'"
+          [color]="'0x606060'"
+        ></three-material>
+        <three-rigidbody [mass]="0"></three-rigidbody>
+      </three-mesh>
+      <three-mesh [receiveShadow]="true" [castShadow]="true" [frustumCulled]="false">
+        <three-position [x]="5" [y]="5" [z]="0"></three-position>
+        <three-geometry
+          [type]="'SphereGeometry'"
+          [radius]="1.5"
+          [widthSegments]="40"
+          [heightSegments]="25"
+        ></three-geometry>
+        <three-material
+          [type]="'MeshPhongMaterial'"
+          [color]="'0xFFFFFF'"
+          [map]="colorTexture"
+        ></three-material>
         <three-rigidbody 
-          [mass]="1" 
-          [softBody]="info.softBody" 
+          [isSoftBody]="true" 
+          [mass]="15" 
           [viterations]="40"
           [piterations]="40"
           [collisions]="'0x11'"
           [friction]="0.1"
           [damping]="0.01"
           [stiffness]="0.9"
-          [pressure]="info.pressure"
+          [pressure]="250"
+        ></three-rigidbody>
+      </three-mesh>
+      <three-mesh [receiveShadow]="true" [castShadow]="true" [frustumCulled]="false">
+        <three-position [x]="-2" [y]="5" [z]="0"></three-position>
+        <three-geometry
+          [type]="'BoxGeometry'"
+          [width]="1"
+          [height]="1"
+          [depth]="5"
+          [widthSegments]="4"
+          [heightSegments]="4"
+          [depthSegments]="20"
+        ></three-geometry>
+        <three-material
+          [type]="'MeshPhongMaterial'"
+          [color]="'0xFFFFFF'"
+          [map]="colorTexture"
+        ></three-material>
+        <three-rigidbody 
+          [isSoftBody]="true" 
+          [mass]="15" 
+          [viterations]="40"
+          [piterations]="40"
+          [collisions]="'0x11'"
+          [friction]="0.1"
+          [damping]="0.01"
+          [stiffness]="0.9"
+          [pressure]="120"
         ></three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh  name="'terrain'" [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
+      <three-position [x]="0" [y]="-0.5" [z]="0"></three-position>
       <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
       <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
       <three-geometry
-        [type]="'PlaneGeometry'"
-        [width]="100"
-        [height]="100"
-        [widthSegments]="128"
-        [heightSegments]="128"
-        [program]="'terrainSin'"
-        [programParam]="{minHeight : 0, maxHeight : 0, repeat : 3 }"
+        [type]="'BoxGeometry'"
+        [width]="40"
+        [height]="1"
+        [depth]="40"
+        [widthSegments]="1"
+        [heightSegments]="1"
+        [depthSegments]="1"
       ></three-geometry>
       <three-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xFFFFFF'"
-        [wireframe]="true"
-        [side]="'double'"
       >
         <three-texture 
           [image]="'textures/grid.png'"
@@ -95,7 +151,7 @@
           [repeat]="40"
         ></three-texture>
       </three-material>
-      <three-rigidbody [type]="'terrain'" [mass]="0"></three-rigidbody>
+      <three-rigidbody [mass]="0"></three-rigidbody>
     </three-mesh>
   </three-scene>
 </three-renderer>

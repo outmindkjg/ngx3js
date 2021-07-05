@@ -1325,7 +1325,8 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
           }
         }
       }
-      this.geometry = GeometryUtils.mergeVertices(geometry);
+      this.geometry = geometry;
+      // this.geometry = GeometryUtils.mergeVertices(geometry);
       if (ThreeUtil.isNotNull(this.name)) {
         this.geometry.name = this.name;
       }

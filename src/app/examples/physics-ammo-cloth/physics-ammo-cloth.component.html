@@ -68,46 +68,6 @@
         <three-material [type]="'MeshPhongMaterial'" [color]="info.color"></three-material>
         <three-rigidbody [mass]="info.mass" [friction]="0.5"></three-rigidbody>
       </three-mesh>
-      <three-mesh [name]="'cloth'">
-        <three-position [x]="clothPos.x" [y]="clothPos.y" [z]="clothPos.z"></three-position>
-        <three-geometry
-          [type]="'PlaneGeometry'"
-          [width]="clothWidth"
-          [height]="clothHeight"
-          [widthSegments]="clothNumSegmentsZ"
-          [heightSegments]="clothNumSegmentsY"
-        >
-          <three-position [type]="'rotate'" [y]="90"></three-position>
-          <three-position [type]="'translate'" [x]="0" [y]="clothHeight * 0.5" [z]="- clothWidth * 0.5"></three-position>
-        </three-geometry>
-        <three-material 
-          [type]="'MeshLambertMaterial'"
-          [side]="'DoubleSide'"
-        >
-          <three-texture 
-            [image]="'textures/grid.png'"
-            [wrap]="'RepeatWrapping'"
-            [repeatX]="4*5"
-            [repeatY]="3*5"
-          ></three-texture>
-        </three-material>
-        <three-rigidbody [mass]="0.9" [margin]="0.05*3" [softBody]="true">
-          <three-rigidbody-node 
-            [type]="'Anchor'" 
-            [node]="0" 
-            [body]="arm" 
-            [disableCollisionBetweenLinkedBodies]="false" 
-            [influence]="0.5"
-          ></three-rigidbody-node>
-          <three-rigidbody-node 
-            [type]="'Anchor'" 
-            [node]="clothNumSegmentsZ" 
-            [body]="arm" 
-            [disableCollisionBetweenLinkedBodies]="false" 
-            [influence]="0.5"
-          ></three-rigidbody-node>
-        </three-rigidbody>
-      </three-mesh>
       <three-mesh #base [receiveShadow]="true" [castShadow]="true">
         <three-position [x]="clothPos.x" [y]="0.1" [z]="clothPos.z - armLength"></three-position>
         <three-geometry
@@ -140,6 +100,52 @@
         ></three-geometry>
         <three-material [type]="'MeshPhongMaterial'" [color]="'0x606060'"></three-material>
         <three-rigidbody [mass]="2"></three-rigidbody>
+      </three-mesh>
+      <three-mesh [name]="'cloth'">
+        <three-position [x]="clothPos.x" [y]="clothPos.y" [z]="clothPos.z"></three-position>
+        <three-geometry
+          [type]="'PlaneGeometry'"
+          [width]="clothWidth"
+          [height]="clothHeight"
+          [widthSegments]="clothNumSegmentsZ"
+          [heightSegments]="clothNumSegmentsY"
+        >
+          <three-position [type]="'rotate'" [y]="90"></three-position>
+          <three-position [type]="'translate'" [x]="0" [y]="clothHeight * 0.5" [z]="- clothWidth * 0.5"></three-position>
+        </three-geometry>
+        <three-material 
+          [type]="'MeshLambertMaterial'"
+          [side]="'DoubleSide'"
+        >
+          <three-texture 
+            [image]="'textures/grid.png'"
+            [wrap]="'RepeatWrapping'"
+            [repeatX]="4*5"
+            [repeatY]="3*5"
+          ></three-texture>
+        </three-material>
+        <three-rigidbody 
+          [mass]="0.9" 
+          [margin]="0.05*3" 
+          [isSoftBody]="true"
+          [viterations]="10"
+          [piterations]="10"
+        >
+          <three-rigidbody-node 
+            [type]="'Anchor'" 
+            [node]="0" 
+            [body]="arm" 
+            [disableCollisionBetweenLinkedBodies]="false" 
+            [influence]="0.5"
+          ></three-rigidbody-node>
+          <three-rigidbody-node 
+            [type]="'Anchor'" 
+            [node]="clothNumSegmentsZ" 
+            [body]="arm" 
+            [disableCollisionBetweenLinkedBodies]="false" 
+            [influence]="0.5"
+          ></three-rigidbody-node>
+        </three-rigidbody>
       </three-mesh>
     </three-mesh>
     <three-mesh [receiveShadow]="true">

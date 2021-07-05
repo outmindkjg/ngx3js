@@ -4,6 +4,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker.js';
 import { PhysicsConstraintComponent } from './physics-constraint/physics-constraint.component';
+import * as THREE from 'three';
 
 @Component({
   selector: 'three-physics',
@@ -12,6 +13,7 @@ import { PhysicsConstraintComponent } from './physics-constraint/physics-constra
 })
 export class PhysicsComponent extends AbstractSubscribeComponent implements OnInit {
   @Input() private type:string = "";
+  @Input() private useCollision :boolean = false;
   @Input() private gravity:number = null;
   @Input() private gravityX:number = null;
   @Input() private gravityY:number = null;
@@ -85,11 +87,11 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
         this.getPhysics();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['constraint','gravity', 'gravityX', 'gravityY', 'gravityZ'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['constraint','usecollision','gravity', 'gravityx', 'gravityy', 'gravityz'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
-      if (ThreeUtil.isIndexOf(changes, ['gravityX', 'gravityY', 'gravityZ'])) {
+      if (ThreeUtil.isIndexOf(changes, ['gravityx', 'gravityy', 'gravityz'])) {
         changes = ThreeUtil.pushUniq(changes, ['gravity']);
       }
       changes.forEach((change) => {
@@ -114,20 +116,22 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
+  dispatcher : Ammo.btCollisionDispatcher = null;
+
   getPhysics(): Ammo.btSoftRigidDynamicsWorld {
     if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
       this.needUpdate = false;
       switch(this.type.toLowerCase()) {
         default :
           const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
-          const dispatcher = new this.ammo.btCollisionDispatcher(
+          this.dispatcher = new this.ammo.btCollisionDispatcher(
             collisionConfiguration
           );
           const broadphase = new this.ammo.btDbvtBroadphase();
           const solver = new this.ammo.btSequentialImpulseConstraintSolver();
           const softBodySolver = new this.ammo.btDefaultSoftBodySolver();
           const physics = new this.ammo.btSoftRigidDynamicsWorld(
-            dispatcher,
+            this.dispatcher,
             broadphase,
             solver,
             collisionConfiguration,
@@ -145,13 +149,24 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
 
   logSeq : number = 0;
 
+  getRigidBody(body : Ammo.btCollisionObject) : Ammo.btRigidBody {
+    return this.ammo['castObject']( body, this.ammo.btRigidBody );
+  }
+
   getCollisionObject(body : Ammo.btCollisionObject) : THREE.Object3D {
-    const btRigidBody =  this.ammo['castObject'](body, this.ammo.btRigidBody);
-    if (btRigidBody !== null && btRigidBody !== undefined && btRigidBody['object3d'] !== null && btRigidBody['object3d'] !== undefined ) {
-      return btRigidBody['object3d'];
+    const rigidBody = this.getRigidBody(body);
+    if (rigidBody instanceof this.ammo.btRigidBody && ThreeUtil.isNotNull(rigidBody['object3d'])) {
+      return rigidBody['object3d'];
     }
     return null;
   }
+
+  getBtVector3(pointer : any) : Ammo.btVector3 {
+    return this.ammo['castObject']( pointer, this.ammo.btVector3 );
+  }
+
+  impactPoint = new THREE.Vector3();
+  impactNormal = new THREE.Vector3();
 
   update(timer: RendererTimer) {
     if (
@@ -161,26 +176,110 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
       this.constraintList.forEach((constraint) => {
         constraint.update(timer);
       });
-      this.physics.stepSimulation(timer.delta, 10);
-      this.logSeq++;
-      if (this.logSeq % 1000 === 0) {
-        let dispatcher = this.physics.getDispatcher();
-        let numManifolds = dispatcher.getNumManifolds();
+      this.physics.stepSimulation(timer.delta , 10);
+      let numManifolds = this.dispatcher.getNumManifolds();
+      if (this.useCollision) {
         for (let i = 0; i < numManifolds; i++) {
-          let contactManifold = dispatcher.getManifoldByIndexInternal(i);
+          let contactManifold = this.dispatcher.getManifoldByIndexInternal(i);
           const body0 = this.getCollisionObject(contactManifold.getBody0());
           const body1 = this.getCollisionObject(contactManifold.getBody1());
-          let numContacts = contactManifold.getNumContacts();
-          const contactPoints : Ammo.btManifoldPoint[] = [];
-          for (let j = 0; j < numContacts; j++) {
-            contactPoints.push(contactManifold.getContactPoint(j));
-          }
-          if (body0 !== null) {
+          if (body0 !== null && body1 !== null) {
+            let numContacts = contactManifold.getNumContacts();
+            const contactPoints : Ammo.btManifoldPoint[] = [];
+            for (let j = 0; j < numContacts; j++) {
+              contactPoints.push(contactManifold.getContactPoint(j));
+            }
             body0.dispatchEvent({
               type : 'collision',
               points : contactPoints,
               collision : body1
-            })
+            });
+          }
+        }
+      }
+      const convexBreaker = this.convexBreaker;
+      if (convexBreaker !== null) {
+        for (let i = 0; i < numManifolds; i++) {
+          let contactManifold = this.dispatcher.getManifoldByIndexInternal(i);
+          const rb0 = this.getRigidBody(contactManifold.getBody0());
+          const rb1 = this.getRigidBody(contactManifold.getBody1());
+          if ( ! rb0 || ! rb1 ) {
+            continue;
+          }
+          const threeObject0 = this.getBtVector3(rb0.getUserPointer())['threeObject'];
+          const threeObject1 = this.getBtVector3(rb1.getUserPointer())['threeObject'];
+          if ( ! threeObject0 && ! threeObject1 ) {
+            continue;
+          }
+          const userData0 = threeObject0 ? threeObject0.userData : null;
+          const userData1 = threeObject1 ? threeObject1.userData : null;
+          const breakable0 = userData0 ? userData0.breakable : false;
+          const breakable1 = userData1 ? userData1.breakable : false;
+          const collided0 = userData0 ? userData0.collided : false;
+          const collided1 = userData1 ? userData1.collided : false;
+          if ( ( ! breakable0 && ! breakable1 ) || ( collided0 && collided1 ) ) {
+            continue;
+          }
+          let contact = false;
+          let maxImpulse = 0;
+          for ( let j = 0, jl = contactManifold.getNumContacts(); j < jl; j ++ ) {
+            const contactPoint = contactManifold.getContactPoint( j );
+            if ( contactPoint.getDistance() < 0 ) {
+              contact = true;
+              const impulse = contactPoint.getAppliedImpulse();
+              if ( impulse > maxImpulse ) {
+                maxImpulse = impulse;
+                const pos = contactPoint.get_m_positionWorldOnB();
+                const normal = contactPoint.get_m_normalWorldOnB();
+                this.impactPoint.set( pos.x(), pos.y(), pos.z() );
+                this.impactNormal.set( normal.x(), normal.y(), normal.z() );
+              }
+              break;
+            }
+          }
+          if ( ! contact ) continue;
+
+          // Subdivision
+
+          const fractureImpulse = 250;
+          if ( breakable0 && ! collided0 && maxImpulse > fractureImpulse ) {
+            const fragments : THREE.Object3D[] = []; 
+            const debris = convexBreaker.subdivideByImpact( threeObject0, this.impactPoint, this.impactNormal, 1, 2, 1.5 );
+            const numObjects = debris.length;
+            for ( let j = 0; j < numObjects; j ++ ) {
+              const vel = rb0.getLinearVelocity();
+              const angVel = rb0.getAngularVelocity();
+              const fragment = debris[ j ];
+              fragment.userData.velocity.set( vel.x(), vel.y(), vel.z() );
+              fragment.userData.angularVelocity.set( angVel.x(), angVel.y(), angVel.z() );
+              fragments.push(fragment);
+            }
+            userData0.collided = true;
+            threeObject0.dispatchEvent({
+              type : 'debris',
+              fragments : fragments,
+              collided : true,
+              debris : debris
+            });
+          }
+          if ( breakable1 && ! collided1 && maxImpulse > fractureImpulse ) {
+            const fragments : THREE.Object3D[] = []; 
+            const debris = convexBreaker.subdivideByImpact( threeObject1, this.impactPoint, this.impactNormal, 1, 2, 1.5 );
+            const numObjects = debris.length;
+            for ( let j = 0; j < numObjects; j ++ ) {
+              const vel = rb1.getLinearVelocity();
+              const angVel = rb1.getAngularVelocity();
+              const fragment = debris[ j ];
+              fragment.userData.velocity.set( vel.x(), vel.y(), vel.z() );
+              fragment.userData.angularVelocity.set( angVel.x(), angVel.y(), angVel.z() );
+              fragments.push(fragment);
+            }
+            threeObject1.dispatchEvent({
+              type : 'debris',
+              fragments : fragments,
+              collided : true,
+              debris : debris
+            });
           }
         }
       }

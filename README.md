@@ -2,6 +2,8 @@
 ```bash
 git clone it@github.com:josdirksen/learning-threejs.git
 npm install -g @angular/cli
+npm update ammojs-typed
+
 ng new my-app
 cd my-app
 ng serve --open

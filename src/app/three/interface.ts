@@ -1578,7 +1578,7 @@ export class ThreeUtil {
         console.error(object);
       }
     } else {
-      console.error(object);
+      // console.error(object);
     }
   }
 
