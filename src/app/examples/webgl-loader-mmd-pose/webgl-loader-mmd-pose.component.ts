@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as THREE from 'three';
 import { BaseComponent } from '../../three';
 import { CameraComponent } from '../../three/camera/camera.component';
 import { MixerComponent } from '../../three/mixer/mixer.component';

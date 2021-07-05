@@ -3,6 +3,7 @@ import * as GSAP from 'gsap';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TweenComponent } from './tween/tween.component';
+import * as THREE from 'three';
 
 @Component({
   template: '',

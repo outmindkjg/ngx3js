@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as THREE from 'three';
 import { BaseComponent, RendererTimer } from '../../three';
 
 @Component({

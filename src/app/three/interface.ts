@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Injectable, Input, OnInit } from '@angular/core';
+import Ammo from 'ammojs-typed';
 import * as CHROMA from 'chroma-js';
 import { Observable, Subscription } from 'rxjs';
 import * as THREE from 'three';
@@ -9,7 +10,6 @@ import { CameraComponent } from './camera/camera.component';
 import { MeshComponent } from './mesh/mesh.component';
 import { RendererComponent } from './renderer/renderer.component';
 import { SceneComponent } from './scene/scene.component';
-import Ammo from 'ammojs-typed';
 
 export { THREE };
 

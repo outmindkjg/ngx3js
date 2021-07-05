@@ -1,12 +1,11 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
 import * as THREE from 'three';
+import { GeometryUtils } from '../geometry/geometryUtils';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
 import { RigidbodyNodeComponent } from './rigidbody-node/rigidbody-node.component';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import { GeometryUtils } from '../geometry/geometryUtils';
 
 export interface RigidbodyType {
   type: 'instanced' | 'rigidbody' | 'softbody' | 'debris';
@@ -55,7 +54,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   @Input() private angStiffness: number = null;  
   @Input() private viterations: number = null;  
   @Input() private piterations: number = null;  
-
   @Input() private randomizeConstraints: boolean = true;
 
   @ContentChildren(RigidbodyNodeComponent, { descendants: false }) private rigidbodyNodeList: QueryList<RigidbodyNodeComponent>;
@@ -650,6 +648,15 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     };
   }
 
+  private worldInfo : Ammo.btSoftBodyWorldInfo = null;
+
+  getWorldInfo() : Ammo.btSoftBodyWorldInfo {
+    if (this.worldInfo === null) {
+      this.worldInfo = this._physics.getWorldInfo();
+    }
+    return this.worldInfo;
+  }
+
   getRigidBody(): RigidbodyType {
     if (this.object3d !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
@@ -846,7 +853,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
               const ropeStart = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
               index = attrPos.count - 1;
               const ropeEnd = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-              softBody = this.physics.getSoftBodyHelpers().CreateRope(this._physics.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
+              softBody = this.physics.getSoftBodyHelpers().CreateRope(this.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
               (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
               break;
             default:
@@ -861,7 +868,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const processGeometryInfo = this._processGeometry( absGeometry );
             ammoIndexAssociation = processGeometryInfo.ammoIndexAssociation;
             softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(
-              this._physics.getWorldInfo(), 
+              this.getWorldInfo(), 
               processGeometryInfo.ammoVertices, 
               processGeometryInfo.ammoIndices, 
               processGeometryInfo.ammoIndices.length / 3 , 
@@ -875,7 +882,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const center: Ammo.btVector3 = null;
             const radius: Ammo.btVector3 = null;
             const res: number = null;
-            softBody = this.physics.getSoftBodyHelpers().CreateEllipsoid(this._physics.getWorldInfo(), center, radius, res);
+            softBody = this.physics.getSoftBodyHelpers().CreateEllipsoid(this.getWorldInfo(), center, radius, res);
           }
           break;
         case 'softconvex':
@@ -884,7 +891,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const vertices: Ammo.btVector3 = null;
             const nvertices: number = null;
             const randomizeConstraints: boolean = null;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromConvexHull(this._physics.getWorldInfo(), vertices, nvertices, randomizeConstraints);
+            softBody = this.physics.getSoftBodyHelpers().CreateFromConvexHull(this.getWorldInfo(), vertices, nvertices, randomizeConstraints);
           }
           break;
         case 'softpatch':
@@ -903,7 +910,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
                 const clothCorner10 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
                 index = attrCount - 1;
                 const clothCorner11 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-                softBody = this.physics.getSoftBodyHelpers().CreatePatch(this._physics.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, segments.x + 1, segments.y + 1, 0, true);
+                softBody = this.physics.getSoftBodyHelpers().CreatePatch(this.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, segments.x + 1, segments.y + 1, 0, true);
                 attrPos.setUsage(THREE.DynamicDrawUsage);
               }
               break;
@@ -973,8 +980,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             const transform = new this._ammo.btTransform();
             transform.setFromOpenGLMatrix(array.slice(index, index + 16));
             const motionState = new this._ammo.btDefaultMotionState(transform);
-            const localInertia = new this._ammo.btVector3(0, 0, 0);
-            shape.calculateLocalInertia(mass, localInertia);
             const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
             const body = new this._ammo.btRigidBody(rbInfo);
             if (ThreeUtil.isNotNull(this.friction)) {

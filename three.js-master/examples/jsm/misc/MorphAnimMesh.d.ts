@@ -2,14 +2,13 @@ import {
 	AnimationAction,
 	AnimationMixer,
 	BufferGeometry,
-	Geometry,
 	Material,
 	Mesh
 } from '../../../src/Three';
 
 export class MorphAnimMesh extends Mesh {
 
-	constructor( geometry: BufferGeometry | Geometry, material: Material );
+	constructor( geometry: BufferGeometry, material: Material );
 	mixer: AnimationMixer;
 	activeAction: AnimationAction | null;
 

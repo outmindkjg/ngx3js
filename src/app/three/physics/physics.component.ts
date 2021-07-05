@@ -107,7 +107,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
             break;
           case 'gravity' :
             const gravity = this.getGravity(-9.8);
-            this.physics.setGravity(gravity);
+            // this.physics.setGravity(gravity);
             this.physics.getWorldInfo().set_m_gravity(gravity);
             break;
         }
@@ -244,7 +244,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
           const fractureImpulse = 250;
           if ( breakable0 && ! collided0 && maxImpulse > fractureImpulse ) {
             const fragments : THREE.Object3D[] = []; 
-            const debris = convexBreaker.subdivideByImpact( threeObject0, this.impactPoint, this.impactNormal, 1, 2, 1.5 );
+            const debris = convexBreaker.subdivideByImpact( threeObject0, this.impactPoint, this.impactNormal, 1, 2 );
             const numObjects = debris.length;
             for ( let j = 0; j < numObjects; j ++ ) {
               const vel = rb0.getLinearVelocity();
@@ -264,7 +264,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
           }
           if ( breakable1 && ! collided1 && maxImpulse > fractureImpulse ) {
             const fragments : THREE.Object3D[] = []; 
-            const debris = convexBreaker.subdivideByImpact( threeObject1, this.impactPoint, this.impactNormal, 1, 2, 1.5 );
+            const debris = convexBreaker.subdivideByImpact( threeObject1, this.impactPoint, this.impactNormal, 1, 2);
             const numObjects = debris.length;
             for ( let j = 0; j < numObjects; j ++ ) {
               const vel = rb1.getLinearVelocity();

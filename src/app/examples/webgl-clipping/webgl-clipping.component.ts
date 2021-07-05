@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import * as THREE from 'three';
 import { BaseComponent, RendererComponent, RendererTimer } from '../../three';
 import { MaterialComponent } from '../../three/material/material.component';
 import { PlaneComponent } from '../../three/plane/plane.component';

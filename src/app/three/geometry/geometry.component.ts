@@ -51,6 +51,7 @@ export interface MeshGeometry {
   userData?: any;
   material?: THREE.Material | THREE.Material[];
   updateMorphTargets? : () => void;
+  computeLineDistances? : () => void;
 }
 
 @Component({

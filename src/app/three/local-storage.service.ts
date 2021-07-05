@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
+import * as draco_encoder from 'three/examples/js/libs/draco/draco_encoder';
 import * as LOTTE_CANVAS from 'three/examples/js/libs/lottie_canvas';
+import { ColladaExporter } from 'three/examples/jsm/exporters/ColladaExporter';
+import { DRACOExporter } from 'three/examples/jsm/exporters/DRACOExporter';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
+import { MMDExporter } from 'three/examples/jsm/exporters/MMDExporter';
+import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
+import { PLYExporter } from 'three/examples/jsm/exporters/PLYExporter';
+import { STLExporter } from 'three/examples/jsm/exporters/STLExporter';
+import { USDZExporter } from 'three/examples/jsm/exporters/USDZExporter';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader';
 import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
@@ -28,16 +37,6 @@ import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { LWO, LWOLoader } from 'three/examples/jsm/loaders/LWOLoader';
 import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
 import { MDD, MDDLoader } from 'three/examples/jsm/loaders/MDDLoader';
-import { ColladaExporter } from 'three/examples/jsm/exporters/ColladaExporter';
-import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
-import { DRACOExporter } from 'three/examples/jsm/exporters/DRACOExporter';
-import * as draco_encoder from 'three/examples/js/libs/draco/draco_encoder';
-import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
-import { MMDExporter } from 'three/examples/jsm/exporters/MMDExporter';
-import { PLYExporter } from 'three/examples/jsm/exporters/PLYExporter';
-import { USDZExporter } from 'three/examples/jsm/exporters/USDZExporter';
-import { STLExporter } from 'three/examples/jsm/exporters/STLExporter';
-
 import {
   MMDLoader,
   MMDLoaderAnimationObject
@@ -58,7 +57,6 @@ import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
-import { VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
@@ -70,8 +68,9 @@ import { Volume } from 'three/examples/jsm/misc/Volume';
 import {
   CSS2DObject
 } from 'three/examples/jsm/renderers/CSS2DRenderer';
-import { CSS3DObject, CSS3DSprite } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LoadedObject, ThreeUtil } from './interface';
+
 
 
 
@@ -138,7 +137,6 @@ export class LocalStorageService {
   private tiltLoader: TiltLoader = null;
   private rgbmLoader: RGBMLoader = null;
   private ttfLoader: TTFLoader = null;
-  private voxLoader: VOXLoader = null;
   private vrmlLoader: VRMLLoader = null;
   private vrmLoader: VRMLoader = null;
   private xLoader: XLoader = null;
@@ -1209,26 +1207,6 @@ export class LocalStorageService {
           callBack({
             object: mesh,
             source: geometry,
-          });
-        },
-        this.onProgress,
-        this.onError
-      );
-    } else if (key.endsWith('.vox')) {
-      if (this.voxLoader === null) {
-        this.voxLoader = new VOXLoader(ThreeUtil.getLoadingManager());
-      }
-      this.setLoaderWithOption(this.voxLoader, options);
-      this.voxLoader.load(
-        key,
-        (chunks: any[]) => {
-          const group = new THREE.Group();
-          chunks.forEach(chunk => {
-            group.add(new VOXMesh(chunk));
-          })
-          callBack({
-            object: group,
-            source: chunks,
           });
         },
         this.onProgress,

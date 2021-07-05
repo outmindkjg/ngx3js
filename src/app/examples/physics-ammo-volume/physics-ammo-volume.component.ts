@@ -26,9 +26,9 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{}> {
            x : raycaster.ray.direction.x + raycaster.ray.origin.x,
            y : raycaster.ray.direction.y + raycaster.ray.origin.y,
            z : raycaster.ray.direction.z + raycaster.ray.origin.z,
-           vx : raycaster.ray.direction.x * 24,
-           vy : raycaster.ray.direction.y * 24,
-           vz : raycaster.ray.direction.z * 24,
+           vx : raycaster.ray.direction.x * 14,
+           vy : raycaster.ray.direction.y * 14,
+           vz : raycaster.ray.direction.z * 14,
           })
         }
         break;

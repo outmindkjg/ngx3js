@@ -1,8 +1,8 @@
-import { Geometry, Group, InstancedMesh, Material, Object3D, Scene } from '../../../src/Three';
+import { BufferGeometry, Group, InstancedMesh, Material, Object3D, Scene } from '../../../src/Three';
 
 export namespace SceneUtils {
 	export function createMeshesFromInstancedMesh( instancedMesh: InstancedMesh ): Group;
-	export function createMultiMaterialObject( geometry: Geometry, materials: Material[] ): Group;
+	export function createMultiMaterialObject( geometry: BufferGeometry, materials: Material[] ): Group;
 	/**
 	 * @deprecated Use scene.attach( child ) instead.
 	 */

@@ -20,6 +20,10 @@
   <three-scene #scene [background]="'0xbfd1e5'">
     <three-physics [gravity]="-6"></three-physics>    
     <three-light
+      [type]="'AmbientLight'"
+      [color]="'0x404040'"
+    ></three-light>
+    <three-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"

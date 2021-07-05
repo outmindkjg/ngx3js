@@ -31,7 +31,7 @@ import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityH
 import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader';
 import { MirrorShader } from 'three/examples/jsm/shaders/MirrorShader';
 import { NormalMapShader } from 'three/examples/jsm/shaders/NormalMapShader';
-import { OceanShaders } from 'three/examples/jsm/shaders/OceanShaders';
+// import { OceanShaders } from 'three/examples/jsm/shaders/OceanShaders';
 import { ParallaxShader } from 'three/examples/jsm/shaders/ParallaxShader';
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader';
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader';
@@ -154,18 +154,6 @@ export const ShaderConf: {
   colorcorrection: 'colorcorrectionshader',
   blendshader: BlendShader,
   blend: 'blendshader',
-  oceansubtransformshader: OceanShaders.ocean_subtransform,
-  oceansubtransform: 'oceansubtransformshader',
-  oceaninitialspectrumshader: OceanShaders.ocean_initial_spectrum,
-  oceaninitialspectrum: 'oceaninitialspectrumshader',
-  oceanphaseshader: OceanShaders.ocean_phase,
-  oceanphase: 'oceanphaseshader',
-  oceanspectrumshader: OceanShaders.ocean_spectrum,
-  oceanspectrum: 'oceanspectrumshader',
-  oceannormalsshader: OceanShaders.ocean_normals,
-  oceannormals: 'oceannormalsshader',
-  oceanmainshader: OceanShaders.ocean_main,
-  oceanmain: 'oceanmainshader',
   halftoneshader: HalftoneShader,
   halftone: 'halftoneshader',
   technicolorshader: TechnicolorShader,
