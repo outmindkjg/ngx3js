@@ -1,8 +1,9 @@
 import InputNode from '../core/InputNode.js';
+import { Color } from 'three';
 
 class ColorNode extends InputNode {
 
-	constructor( value ) {
+	constructor( value = new Color() ) {
 
 		super( 'color' );
 
@@ -11,5 +12,7 @@ class ColorNode extends InputNode {
 	}
 
 }
+
+ColorNode.prototype.isColorNode = true;
 
 export default ColorNode;

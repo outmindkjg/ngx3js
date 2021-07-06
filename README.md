@@ -4,6 +4,8 @@ git clone it@github.com:josdirksen/learning-threejs.git
 npm install -g @angular/cli
 npm update ammojs-typed
 npm update three
+npm i @types/three
+
 ng new my-app
 cd my-app
 ng serve --open
@@ -357,6 +359,17 @@ ng g c examples/webgl_shadowmap_performance
 ng g c examples/webgl_shadowmap_pointlight
 ng g c examples/webgl_shadowmap_viewer
 ng g c examples/webgl_shadowmap_vsm
+
+ng g c examples/webgl_shadowmap_progressive
+ng g c examples/webgl2_materials_texture3d_partialupdate
+ng g c examples/webgl2_multiple_rendertargets
+ng g c examples/webgl_postprocessing_ssr
+ng g c examples/webgl_postprocessing_ssrr
+ng g c examples/physics_oimo_instancing
+ng g c examples/webgl_loader_ifc
+ng g c examples/webgl_loader_gltf_transmission
+
+
 ng g c examples/webgl_shadowmesh
 ng g c examples/webgl_skinning_simple
 ng g c examples/webgl_sprites

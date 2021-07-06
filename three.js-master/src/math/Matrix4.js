@@ -4,8 +4,6 @@ class Matrix4 {
 
 	constructor() {
 
-		Object.defineProperty( this, 'isMatrix4', { value: true } );
-
 		this.elements = [
 
 			1, 0, 0, 0,
@@ -675,13 +673,13 @@ class Matrix4 {
 
 	}
 
-	makeShear( x, y, z ) {
+	makeShear( xy, xz, yx, yz, zx, zy ) {
 
 		this.set(
 
-			1, y, z, 0,
-			x, 1, z, 0,
-			x, y, 1, 0,
+			1, yx, zx, 0,
+			xy, 1, zy, 0,
+			xz, yz, 1, 0,
 			0, 0, 0, 1
 
 		);
@@ -873,6 +871,8 @@ class Matrix4 {
 	}
 
 }
+
+Matrix4.prototype.isMatrix4 = true;
 
 const _v1 = /*@__PURE__*/ new Vector3();
 const _m1 = /*@__PURE__*/ new Matrix4();

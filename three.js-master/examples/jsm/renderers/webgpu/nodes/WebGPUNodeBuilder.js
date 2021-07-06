@@ -1,11 +1,16 @@
 import WebGPUNodeUniformsGroup from './WebGPUNodeUniformsGroup.js';
-import { FloatNodeUniform, Vector2NodeUniform, Vector3NodeUniform, Vector4NodeUniform, ColorNodeUniform } from './WebGPUNodeUniform.js';
-import WebGPUSampler from '../WebGPUSampler.js';
-import { WebGPUSampledTexture } from '../WebGPUSampledTexture.js';
+import {
+	FloatNodeUniform, Vector2NodeUniform, Vector3NodeUniform, Vector4NodeUniform,
+	ColorNodeUniform, Matrix3NodeUniform, Matrix4NodeUniform
+} from './WebGPUNodeUniform.js';
+import WebGPUNodeSampler from './WebGPUNodeSampler.js';
+import { WebGPUNodeSampledTexture } from './WebGPUNodeSampledTexture.js';
 
 import NodeSlot from '../../nodes/core/NodeSlot.js';
 import NodeBuilder from '../../nodes/core/NodeBuilder.js';
-
+import MaterialNode from '../../nodes/accessors/MaterialNode.js';
+import ModelViewProjectionNode from '../../nodes/accessors/ModelViewProjectionNode.js';
+import LightContextNode from '../../nodes/lights/LightContextNode.js';
 import ShaderLib from './ShaderLib.js';
 
 class WebGPUNodeBuilder extends NodeBuilder {
@@ -14,11 +19,8 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 		super( material, renderer );
 
-		this.bindingIndex = 2;
 		this.bindings = { vertex: [], fragment: [] };
-
-		this.attributeIndex = 1;
-		this.varyIndex = 0;
+		this.bindingsOffset = { vertex: 0, fragment: 0 };
 
 		this.uniformsGroup = {};
 
@@ -34,37 +36,94 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 		// get shader
 
-		if ( material.isMeshBasicMaterial ) {
+		let shader = null;
 
-			this.nativeShader = ShaderLib.meshBasic;
+		if ( material.isMeshPhongMaterial ) {
 
-		} else if ( material.isPointsMaterial ) {
-
-			this.nativeShader = ShaderLib.pointsBasic;
-
-		} else if ( material.isLineBasicMaterial ) {
-
-			this.nativeShader = ShaderLib.lineBasic;
+			shader = ShaderLib.phong;
 
 		} else {
 
-			console.error( 'THREE.WebGPURenderer: Unknwon shader type.' );
+			shader = ShaderLib.common;
 
 		}
 
+		this.nativeShader = shader;
+
 		// parse inputs
 
-		if ( material.isMeshBasicMaterial || material.isPointsMaterial || material.isLineBasicMaterial ) {
+		if ( material.isMeshPhongMaterial || material.isMeshBasicMaterial || material.isPointsMaterial || material.isLineBasicMaterial ) {
+
+			const mvpNode = new ModelViewProjectionNode();
+			const lightNode = material.lightNode;
+
+			if ( material.positionNode !== undefined ) {
+
+				mvpNode.position = material.positionNode;
+
+			}
+
+			this.addSlot( 'vertex', new NodeSlot( mvpNode, 'MVP', 'vec4' ) );
+
+			if ( material.alphaTestNode !== undefined ) {
+
+				this.addSlot( 'fragment', new NodeSlot( material.alphaTestNode, 'ALPHA_TEST', 'float' ) );
+
+			} else {
+
+				this.addSlot( 'fragment', new NodeSlot( new MaterialNode( MaterialNode.ALPHA_TEST ), 'ALPHA_TEST', 'float' ) );
+
+			}
 
 			if ( material.colorNode !== undefined ) {
 
 				this.addSlot( 'fragment', new NodeSlot( material.colorNode, 'COLOR', 'vec4' ) );
+
+			} else {
+
+				this.addSlot( 'fragment', new NodeSlot( new MaterialNode( MaterialNode.COLOR ), 'COLOR', 'vec4' ) );
 
 			}
 
 			if ( material.opacityNode !== undefined ) {
 
 				this.addSlot( 'fragment', new NodeSlot( material.opacityNode, 'OPACITY', 'float' ) );
+
+			} else {
+
+				this.addSlot( 'fragment', new NodeSlot( new MaterialNode( MaterialNode.OPACITY ), 'OPACITY', 'float' ) );
+
+			}
+
+			if ( material.isMeshPhongMaterial ) {
+
+				if ( material.specularNode !== undefined ) {
+
+					this.addSlot( 'fragment', new NodeSlot( material.specularNode, 'SPECULAR', 'vec3' ) );
+
+				} else {
+
+					this.addSlot( 'fragment', new NodeSlot( new MaterialNode( MaterialNode.SPECULAR ), 'SPECULAR', 'vec3' ) );
+
+				}
+
+				if ( material.shininessNode !== undefined ) {
+
+					this.addSlot( 'fragment', new NodeSlot( material.shininessNode, 'SHININESS', 'float' ) );
+
+				} else {
+
+					this.addSlot( 'fragment', new NodeSlot( new MaterialNode( MaterialNode.SHININESS ), 'SHININESS', 'float' ) );
+
+				}
+
+			}
+
+			if ( lightNode !== undefined ) {
+
+				const lightContextNode = new LightContextNode( lightNode );
+
+				this.addSlot( 'fragment', new NodeSlot( lightContextNode, 'LIGHT', 'vec3' ) );
 
 			}
 
@@ -78,23 +137,34 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 	}
 
-	getPropertyName( nodeUniform ) {
+	getPropertyName( node ) {
 
-		if ( nodeUniform.type === 'texture' ) {
+		if ( node.isNodeUniform === true ) {
 
-			return nodeUniform.name;
+			const name = node.name;
+			const type = node.type;
 
-		} else {
+			if ( type === 'texture' ) {
 
-			return `nodeUniforms.${nodeUniform.name}`;
+				return name;
+
+			} else {
+
+				return `nodeUniforms.${name}`;
+
+			}
 
 		}
 
+		return super.getPropertyName( node );
+
 	}
 
-	getBindings( shaderStage ) {
+	getBindings() {
 
-		return this.bindings[ shaderStage ];
+		const bindings = this.bindings;
+
+		return [ ...bindings.vertex, ...bindings.fragment ];
 
 	}
 
@@ -111,8 +181,8 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 			if ( type === 'texture' ) {
 
-				const sampler = new WebGPUSampler( `${uniformNode.name}_sampler`, uniformNode.value );
-				const texture = new WebGPUSampledTexture( uniformNode.name, uniformNode.value );
+				const sampler = new WebGPUNodeSampler( `${uniformNode.name}_sampler`, uniformNode.node );
+				const texture = new WebGPUNodeSampledTexture( uniformNode.name, uniformNode.node );
 
 				// add first textures in sequence and group for last
 				const lastBinding = bindings[ bindings.length - 1 ];
@@ -156,6 +226,14 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 					uniformGPU = new ColorNodeUniform( uniformNode );
 
+				} else if ( type === 'mat3' ) {
+
+					uniformGPU = new Matrix3NodeUniform( uniformNode );
+
+				} else if ( type === 'mat4' ) {
+
+					uniformGPU = new Matrix4NodeUniform( uniformNode );
+
 				} else {
 
 					throw new Error( `Uniform "${type}" not declared.` );
@@ -168,6 +246,12 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 			nodeData.uniformGPU = uniformGPU;
 
+			if ( shaderStage === 'vertex' ) {
+
+				this.bindingsOffset[ 'fragment' ] = bindings.length;
+
+			}
+
 		}
 
 		return uniformNode;
@@ -178,26 +262,15 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 		let snippet = '';
 
-		const attributes = this.attributes;
+		if ( shaderStage === 'vertex' ) {
 
-		let attributeIndex = this.attributeIndex;
-		let varyIndex = this.varyIndex;
+			const attributes = this.attributes;
 
-		for ( const name in attributes ) {
+			for ( let index = 0; index < attributes.length; index ++ ) {
 
-			const attribute = attributes[ name ];
+				const attribute = attributes[ index ];
 
-			const type = attribute.type;
-			const property = attribute.property;
-
-			if ( shaderStage === 'vertex' ) {
-
-				snippet += `layout(location = ${attributeIndex ++}) in ${type} ${name};`;
-				snippet += `layout(location = ${varyIndex ++}) out ${type} ${property};`;
-
-			} else if ( shaderStage === 'fragment' ) {
-
-				snippet += `layout(location = ${varyIndex ++}) in ${type} ${property};`;
+				snippet += `layout(location = ${index}) in ${attribute.type} ${attribute.name}; `;
 
 			}
 
@@ -207,19 +280,75 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 	}
 
-	getAttributesBodySnippet( /* shaderStage */ ) {
+	getVarysHeaderSnippet( shaderStage ) {
 
 		let snippet = '';
 
-		const attributes = this.attributes;
+		const varys = this.varys;
 
-		for ( const name in attributes ) {
+		const ioStage = shaderStage === 'vertex' ? 'out' : 'in';
 
-			const attribute = attributes[ name ];
+		for ( let index = 0; index < varys.length; index ++ ) {
 
-			const property = attribute.property;
+			const vary = varys[ index ];
 
-			snippet += `${property} = ${name};`;
+			snippet += `layout(location = ${index}) ${ioStage} ${vary.type} ${vary.name}; `;
+
+		}
+
+		return snippet;
+
+	}
+
+	getVarysBodySnippet( shaderStage ) {
+
+		let snippet = '';
+
+		if ( shaderStage === 'vertex' ) {
+
+			for ( const vary of this.varys ) {
+
+				snippet += `${vary.name} = ${vary.snippet}; `;
+
+			}
+
+		}
+
+		return snippet;
+
+	}
+
+	getVarsHeaderSnippet( shaderStage ) {
+
+		let snippet = '';
+
+		const vars = this.vars[ shaderStage ];
+
+		for ( let index = 0; index < vars.length; index ++ ) {
+
+			const variable = vars[ index ];
+
+			snippet += `${variable.type} ${variable.name}; `;
+
+		}
+
+		return snippet;
+
+	}
+
+	getVarsBodySnippet( shaderStage ) {
+
+		let snippet = '';
+
+		const vars = this.vars[ shaderStage ];
+
+		for ( const variable of vars ) {
+
+			if ( variable.snippet !== '' ) {
+
+				snippet += `${variable.name} = ${variable.snippet}; `;
+
+			}
 
 		}
 
@@ -234,20 +363,20 @@ class WebGPUNodeBuilder extends NodeBuilder {
 		let snippet = '';
 		let groupSnippet = '';
 
-		let bindingIndex = this.bindingIndex;
+		let index = this.bindingsOffset[ shaderStage ];
 
 		for ( const uniform of uniforms ) {
 
 			if ( uniform.type === 'texture' ) {
 
-				snippet += `layout(set = 0, binding = ${bindingIndex ++}) uniform sampler ${uniform.name}_sampler;`;
-				snippet += `layout(set = 0, binding = ${bindingIndex ++}) uniform texture2D ${uniform.name};`;
+				snippet += `layout(set = 0, binding = ${index ++}) uniform sampler ${uniform.name}_sampler; `;
+				snippet += `layout(set = 0, binding = ${index ++}) uniform texture2D ${uniform.name}; `;
 
 			} else {
 
 				const vectorType = this.getVectorType( uniform.type );
 
-				groupSnippet += `uniform ${vectorType} ${uniform.name};`;
+				groupSnippet += `uniform ${vectorType} ${uniform.name}; `;
 
 			}
 
@@ -255,7 +384,7 @@ class WebGPUNodeBuilder extends NodeBuilder {
 
 		if ( groupSnippet ) {
 
-			snippet += `layout(set = 0, binding = ${bindingIndex ++}) uniform NodeUniforms { ${groupSnippet} } nodeUniforms;`;
+			snippet += `layout(set = 0, binding = ${index ++}) uniform NodeUniforms { ${groupSnippet} } nodeUniforms; `;
 
 		}
 
@@ -279,6 +408,16 @@ class WebGPUNodeBuilder extends NodeBuilder {
 	}
 
 	build() {
+
+		const keywords = this.getContextParameter( 'keywords' );
+
+		for ( const shaderStage of [ 'vertex', 'fragment' ] ) {
+
+			this.shaderStage = shaderStage;
+
+			keywords.include( this, this.nativeShader.fragmentShader );
+
+		}
 
 		super.build();
 

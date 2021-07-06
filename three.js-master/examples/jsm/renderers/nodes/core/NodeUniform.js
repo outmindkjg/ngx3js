@@ -23,4 +23,6 @@ class NodeUniform {
 
 }
 
+NodeUniform.prototype.isNodeUniform = true;
+
 export default NodeUniform;

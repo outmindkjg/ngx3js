@@ -14,7 +14,7 @@ import WebGPUNodes from './nodes/WebGPUNodes.js';
 
 import glslang from '../../libs/glslang.js';
 
-import { Frustum, Matrix4, Vector3, Color } from '../../../../build/three.module.js';
+import { Frustum, Matrix4, Vector3, Color, LinearEncoding } from 'three';
 
 console.info( 'THREE.WebGPURenderer: Modified Matrix4.makePerspective() and Matrix4.makeOrtographic() to work with WebGPU, see https://github.com/mrdoob/three.js/issues/20276.' );
 
@@ -76,6 +76,8 @@ class WebGPURenderer {
 		this.autoClearDepth = true;
 		this.autoClearStencil = true;
 
+		this.outputEncoding = LinearEncoding;
+
 		this.sortObjects = true;
 
 		// internals
@@ -136,8 +138,8 @@ class WebGPURenderer {
 
 		}
 
-		this._parameters.extensions = ( parameters.extensions === undefined ) ? [] : parameters.extensions;
-		this._parameters.limits = ( parameters.limits === undefined ) ? {} : parameters.limits;
+		this._parameters.requiredFeatures = ( parameters.requiredFeatures === undefined ) ? [] : parameters.requiredFeatures;
+		this._parameters.requiredLimits = ( parameters.requiredLimits === undefined ) ? {} : parameters.requiredLimits;
 
 	}
 
@@ -152,8 +154,8 @@ class WebGPURenderer {
 		const adapter = await navigator.gpu.requestAdapter( adapterOptions );
 
 		const deviceDescriptor = {
-			extensions: parameters.extensions,
-			limits: parameters.limits
+			requiredFeatures: parameters.requiredFeatures,
+			requiredLimits: parameters.requiredLimits
 		};
 
 		const device = await adapter.requestDevice( deviceDescriptor );
@@ -162,7 +164,7 @@ class WebGPURenderer {
 
 		const context = ( parameters.context !== undefined ) ? parameters.context : this.domElement.getContext( 'gpupresent' );
 
-		const swapChain = context.configureSwapChain( {
+		const swapChain = context.configure( {
 			device: device,
 			format: GPUTextureFormat.BRGA8Unorm // this is the only valid swap chain format right now (r121)
 		} );
@@ -189,10 +191,10 @@ class WebGPURenderer {
 
 		this._renderPassDescriptor = {
 			colorAttachments: [ {
-				attachment: null
+				view: null
 			} ],
 			 depthStencilAttachment: {
-				attachment: null,
+				view: null,
 				depthStoreOp: GPUStoreOp.Store,
 				stencilStoreOp: GPUStoreOp.Store
 			}
@@ -246,24 +248,24 @@ class WebGPURenderer {
 
 			const renderTargetProperties = this._properties.get( renderTarget );
 
-			colorAttachment.attachment = renderTargetProperties.colorTextureGPU.createView();
-			depthStencilAttachment.attachment = renderTargetProperties.depthTextureGPU.createView();
+			colorAttachment.view = renderTargetProperties.colorTextureGPU.createView();
+			depthStencilAttachment.view = renderTargetProperties.depthTextureGPU.createView();
 
 		} else {
 
 			if ( this._parameters.antialias === true ) {
 
-				colorAttachment.attachment = this._colorBuffer.createView();
-				colorAttachment.resolveTarget = this._swapChain.getCurrentTexture().createView();
+				colorAttachment.view = this._colorBuffer.createView();
+				colorAttachment.resolveTarget = this._context.getCurrentTexture().createView();
 
 			} else {
 
-				colorAttachment.attachment = this._swapChain.getCurrentTexture().createView();
+				colorAttachment.view = this._context.getCurrentTexture().createView();
 				colorAttachment.resolveTarget = undefined;
 
 			}
 
-			depthStencilAttachment.attachment = this._depthBuffer.createView();
+			depthStencilAttachment.view = this._depthBuffer.createView();
 
 		}
 
@@ -312,7 +314,7 @@ class WebGPURenderer {
 		// finish render pass
 
 		passEncoder.endPass();
-		device.defaultQueue.submit( [ cmdEncoder.finish() ] );
+		device.queue.submit( [ cmdEncoder.finish() ] );
 
 	}
 
@@ -463,6 +465,55 @@ class WebGPURenderer {
 
 	}
 
+	getCurrentEncoding() {
+
+		const renderTarget = this.getRenderTarget();
+		return ( renderTarget !== null ) ? renderTarget.texture.encoding : this.outputEncoding;
+
+	}
+
+	getCurrentColorFormat() {
+
+		let format;
+
+		const renderTarget = this.getRenderTarget();
+
+		if ( renderTarget !== null ) {
+
+			const renderTargetProperties = this._properties.get( renderTarget );
+			format = renderTargetProperties.colorTextureFormat;
+
+		} else {
+
+			format = GPUTextureFormat.BRGA8Unorm; // default swap chain format
+
+		}
+
+		return format;
+
+	}
+
+	getCurrentDepthStencilFormat() {
+
+		let format;
+
+		const renderTarget = this.getRenderTarget();
+
+		if ( renderTarget !== null ) {
+
+			const renderTargetProperties = this._properties.get( renderTarget );
+			format = renderTargetProperties.depthTextureFormat;
+
+		} else {
+
+			format = GPUTextureFormat.Depth24PlusStencil8;
+
+		}
+
+		return format;
+
+	}
+
 	getClearColor( target ) {
 
 		return target.copy( this._clearColor );
@@ -568,7 +619,7 @@ class WebGPURenderer {
 		}
 
 		passEncoder.endPass();
-		device.defaultQueue.submit( [ cmdEncoder.finish() ] );
+		device.queue.submit( [ cmdEncoder.finish() ] );
 
 	}
 
@@ -757,8 +808,8 @@ class WebGPURenderer {
 
 		// pipeline
 
-		const pipeline = this._renderPipelines.get( object );
-		passEncoder.setPipeline( pipeline );
+		const renderPipeline = this._renderPipelines.get( object );
+		passEncoder.setPipeline( renderPipeline.pipeline );
 
 		// bind group
 
@@ -780,7 +831,7 @@ class WebGPURenderer {
 
 		// vertex buffers
 
-		this._setupVertexBuffers( geometry.attributes, passEncoder, pipeline );
+		this._setupVertexBuffers( geometry.attributes, passEncoder, renderPipeline );
 
 		// draw
 
@@ -818,9 +869,9 @@ class WebGPURenderer {
 
 	}
 
-	_setupVertexBuffers( geometryAttributes, encoder, pipeline ) {
+	_setupVertexBuffers( geometryAttributes, encoder, renderPipeline ) {
 
-		const shaderAttributes = this._renderPipelines.getShaderAttributes( pipeline );
+		const shaderAttributes = renderPipeline.shaderAttributes;
 
 		for ( const shaderAttribute of shaderAttributes ) {
 
@@ -852,11 +903,11 @@ class WebGPURenderer {
 				size: {
 					width: this._width * this._pixelRatio,
 					height: this._height * this._pixelRatio,
-					depth: 1
+					depthOrArrayLayers: 1
 				},
 				sampleCount: this._parameters.sampleCount,
 				format: GPUTextureFormat.BRGA8Unorm,
-				usage: GPUTextureUsage.OUTPUT_ATTACHMENT
+				usage: GPUTextureUsage.RENDER_ATTACHMENT
 			} );
 
 		}
@@ -875,11 +926,11 @@ class WebGPURenderer {
 				size: {
 					width: this._width * this._pixelRatio,
 					height: this._height * this._pixelRatio,
-					depth: 1
+					depthOrArrayLayers: 1
 				},
 				sampleCount: this._parameters.sampleCount,
 				format: GPUTextureFormat.Depth24PlusStencil8,
-				usage: GPUTextureUsage.OUTPUT_ATTACHMENT
+				usage: GPUTextureUsage.RENDER_ATTACHMENT
 			} );
 
 		}

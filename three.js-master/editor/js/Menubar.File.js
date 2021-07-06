@@ -1,20 +1,10 @@
 import * as THREE from '../../build/three.module.js';
 
-import { zipSync, strToU8 } from './libs/fflate-deflate.min.module.js';
+import { zipSync, strToU8 } from '../../examples/jsm/libs/fflate.module.js';
 
 import { UIPanel, UIRow, UIHorizontalRule } from './libs/ui.js';
 
 function MenubarFile( editor ) {
-
-	function parseNumber( key, value ) {
-
-		var precision = config.getKey( 'exportPrecision' );
-
-		return typeof value === 'number' ? parseFloat( value.toFixed( precision ) ) : value;
-
-	}
-
-	//
 
 	var config = editor.config;
 	var strings = editor.strings;
@@ -111,7 +101,7 @@ function MenubarFile( editor ) {
 
 		try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
+			output = JSON.stringify( output, null, '\t' );
 			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
 		} catch ( e ) {
@@ -145,7 +135,7 @@ function MenubarFile( editor ) {
 
 		try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
+			output = JSON.stringify( output, null, '\t' );
 			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
 		} catch ( e ) {
@@ -170,7 +160,7 @@ function MenubarFile( editor ) {
 
 		try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
+			output = JSON.stringify( output, null, '\t' );
 			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
 		} catch ( e ) {
@@ -228,8 +218,18 @@ function MenubarFile( editor ) {
 
 		var exporter = new DRACOExporter();
 
+		const options = {
+			decodeSpeed: 5,
+			encodeSpeed: 5,
+			encoderMethod: DRACOExporter.MESH_EDGEBREAKER_ENCODING,
+			quantization: [ 16, 8, 8, 8, 8 ],
+			exportUvs: true,
+			exportNormals: true,
+			exportColor: object.geometry.hasAttribute( 'color' )
+		};
+
 		// TODO: Change to DRACOExporter's parse( geometry, onParse )?
-		var result = exporter.parse( object );
+		var result = exporter.parse( object, options );
 		saveArrayBuffer( result, 'model.drc' );
 
 	} );
@@ -390,7 +390,7 @@ function MenubarFile( editor ) {
 
 		var exporter = new USDZExporter();
 
-		saveArrayBuffer( exporter.parse( editor.scene, { binary: true } ), 'model.usdz' );
+		saveArrayBuffer( await exporter.parse( editor.scene, { binary: true } ), 'model.usdz' );
 
 	} );
 	options.add( option );
@@ -414,7 +414,7 @@ function MenubarFile( editor ) {
 		output.metadata.type = 'App';
 		delete output.history;
 
-		output = JSON.stringify( output, parseNumber, '\t' );
+		output = JSON.stringify( output, null, '\t' );
 		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
 		toZip[ 'app.json' ] = strToU8( output );
@@ -488,11 +488,15 @@ function MenubarFile( editor ) {
 	var link = document.createElement( 'a' );
 	function save( blob, filename ) {
 
+		if ( link.href ) {
+
+			URL.revokeObjectURL( link.href );
+
+		}
+
 		link.href = URL.createObjectURL( blob );
 		link.download = filename || 'data.json';
 		link.dispatchEvent( new MouseEvent( 'click' ) );
-
-		// URL.revokeObjectURL( url ); breaks Firefox...
 
 	}
 

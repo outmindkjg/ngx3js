@@ -563,6 +563,14 @@ import { ControllerItemComponent } from './three/controller/controller-item/cont
 import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
 import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
 import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
+import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
+import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
+import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
+import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
+import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
+import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
+import { WebglLoaderIfcComponent } from './examples/webgl-loader-ifc/webgl-loader-ifc.component';
+import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
 
 
 @NgModule({
@@ -1124,7 +1132,15 @@ import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbo
     DocComponent,
     DrawingCanvasDirective,
     PhysicsConstraintComponent,
-    RigidbodyNodeComponent
+    RigidbodyNodeComponent,
+    WebglShadowmapProgressiveComponent,
+    Webgl2MaterialsTexture3dPartialupdateComponent,
+    Webgl2MultipleRendertargetsComponent,
+    WebglPostprocessingSsrComponent,
+    WebglPostprocessingSsrrComponent,
+    PhysicsOimoInstancingComponent,
+    WebglLoaderIfcComponent,
+    WebglLoaderGltfTransmissionComponent
   ],
   imports: [
     BrowserModule,

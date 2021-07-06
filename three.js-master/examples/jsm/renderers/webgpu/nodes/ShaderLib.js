@@ -1,146 +1,147 @@
 const ShaderLib = {
-	meshBasic: {
-		vertexShader: `#version 450
 
-		layout(location = 0) in vec3 position;
+	common: {
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+		vertexShader:
+			`#version 450
 
-		layout(set = 0, binding = 0) uniform ModelUniforms {
-			mat4 modelMatrix;
-			mat4 modelViewMatrix;
-			mat3 normalMatrix;
-		} modelUniforms;
+			NODE_HEADER_ATTRIBUTES
+			NODE_HEADER_UNIFORMS
+			NODE_HEADER_VARYS
 
-		layout(set = 0, binding = 1) uniform CameraUniforms {
-			mat4 projectionMatrix;
-			mat4 viewMatrix;
-		} cameraUniforms;
+			void main(){
 
-		void main(){
-			NODE_BODY_ATTRIBUTES
-			gl_Position = cameraUniforms.projectionMatrix * modelUniforms.modelViewMatrix * vec4( position, 1.0 );
-		}`,
-		fragmentShader: `#version 450
+				NODE_BODY_VARYS
+				NODE_BODY_VARS
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+				gl_Position = NODE_MVP;
 
-		layout(location = 0) out vec4 outColor;
+			}`,
 
-		void main() {
+		fragmentShader:
+			`#version 450
 
-			outColor = vec4( 1.0, 1.0, 1.0, 1.0 );
+			NODE_HEADER_ATTRIBUTES
+			NODE_HEADER_UNIFORMS
+			NODE_HEADER_VARYS
 
-			#ifdef NODE_COLOR
+			layout(location = 0) out vec4 outColor;
 
-				outColor = NODE_COLOR;
+			void main() {
 
-			#endif
+				NODE_BODY_VARS
 
-			#ifdef NODE_OPACITY
+				MaterialDiffuseColor = vec4( 1.0 );
 
-				outColor.a *= NODE_OPACITY;
+				#ifdef NODE_COLOR
 
-			#endif
+					NODE_CODE_COLOR
 
-		}`
+					MaterialDiffuseColor = NODE_COLOR;
+
+				#endif
+
+				#ifdef NODE_OPACITY
+
+					NODE_CODE_OPACITY
+
+					MaterialDiffuseColor.a *= NODE_OPACITY;
+
+				#endif
+
+				#ifdef NODE_ALPHA_TEST
+
+					if ( MaterialDiffuseColor.a < NODE_ALPHA_TEST ) discard;
+
+				#endif
+
+				#ifdef NODE_LIGHT
+
+					NODE_CODE_LIGHT
+
+					outColor.rgb = NODE_LIGHT;
+					outColor.a = MaterialDiffuseColor.a;
+
+				#else
+
+					outColor = MaterialDiffuseColor;
+
+				#endif
+
+			}`
+
 	},
-	pointsBasic: {
-		vertexShader: `#version 450
 
-		layout(location = 0) in vec3 position;
+	phong: {
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+		vertexShader:
+			`#version 450
 
-		layout(set = 0, binding = 0) uniform ModelUniforms {
-			mat4 modelMatrix;
-			mat4 modelViewMatrix;
-		} modelUniforms;
+			NODE_HEADER_ATTRIBUTES
+			NODE_HEADER_UNIFORMS
+			NODE_HEADER_VARYS
 
-		layout(set = 0, binding = 1) uniform CameraUniforms {
-			mat4 projectionMatrix;
-			mat4 viewMatrix;
-		} cameraUniforms;
+			void main(){
 
-		void main(){
-			NODE_BODY_ATTRIBUTES
-			gl_Position = cameraUniforms.projectionMatrix * modelUniforms.modelViewMatrix * vec4( position, 1.0 );
-		}`,
-		fragmentShader: `#version 450
+				NODE_BODY_VARYS
+				NODE_BODY_VARS
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+				gl_Position = NODE_MVP;
 
-		layout(location = 0) out vec4 outColor;
+			}`,
 
-		void main() {
+		fragmentShader:
+			`#version 450
 
-			outColor = vec4( 1.0, 1.0, 1.0, 1.0 );
+			NODE_HEADER_ATTRIBUTES
+			NODE_HEADER_UNIFORMS
+			NODE_HEADER_VARYS
 
-			#ifdef NODE_COLOR
+			layout(location = 0) out vec4 outColor;
 
-				outColor = NODE_COLOR;
+			void main() {
 
-			#endif
+				NODE_BODY_VARS
 
-			#ifdef NODE_OPACITY
+				MaterialDiffuseColor = vec4( 1.0 );
+				MaterialSpecularColor = vec3( 1.0 );
+				MaterialSpecularShininess = 30.0;
 
-				outColor.a = NODE_OPACITY;
+				NODE_CODE_COLOR
+				MaterialDiffuseColor = NODE_COLOR;
 
-			#endif
+				NODE_CODE_OPACITY
+				MaterialDiffuseColor.a *= NODE_OPACITY;
 
-		}`
-	},
-	lineBasic: {
-		vertexShader: `#version 450
+				#ifdef NODE_ALPHA_TEST
 
-		layout(location = 0) in vec3 position;
+					if ( MaterialDiffuseColor.a < NODE_ALPHA_TEST ) discard;
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+				#endif
 
-		layout(set = 0, binding = 0) uniform ModelUniforms {
-			mat4 modelMatrix;
-			mat4 modelViewMatrix;
-		} modelUniforms;
+				NODE_CODE_SPECULAR
+				MaterialSpecularColor = NODE_SPECULAR;
 
-		layout(set = 0, binding = 1) uniform CameraUniforms {
-			mat4 projectionMatrix;
-			mat4 viewMatrix;
-		} cameraUniforms;
+				NODE_CODE_SHININESS
+				MaterialSpecularShininess = NODE_SHININESS;
 
-		void main(){
-			NODE_BODY_ATTRIBUTES
-			gl_Position = cameraUniforms.projectionMatrix * modelUniforms.modelViewMatrix * vec4( position, 1.0 );
-		}`,
-		fragmentShader: `#version 450
+				#ifdef NODE_LIGHT
 
-		NODE_HEADER_ATTRIBUTES
-		NODE_HEADER_UNIFORMS
+					NODE_CODE_LIGHT
 
-		layout(location = 0) out vec4 outColor;
+					outColor.rgb = NODE_LIGHT;
+					outColor.a = MaterialDiffuseColor.a;
 
-		void main() {
+				#else
 
-			outColor = vec4( 1.0, 1.0, 1.0, 1.0 );
+					outColor = MaterialDiffuseColor;
 
-			#ifdef NODE_COLOR
+				#endif
 
-				outColor = NODE_COLOR;
+			}`
 
-			#endif
-
-			#ifdef NODE_OPACITY
-
-				outColor.a = NODE_OPACITY;
-
-			#endif
-
-		}`
 	}
+
 };
 
 export default ShaderLib;

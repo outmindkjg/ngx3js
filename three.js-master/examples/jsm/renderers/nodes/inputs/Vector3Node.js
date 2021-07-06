@@ -1,8 +1,9 @@
 import InputNode from '../core/InputNode.js';
+import { Vector3 } from 'three';
 
 class Vector3Node extends InputNode {
 
-	constructor( value ) {
+	constructor( value = new Vector3() ) {
 
 		super( 'vec3' );
 
@@ -11,5 +12,7 @@ class Vector3Node extends InputNode {
 	}
 
 }
+
+Vector3Node.prototype.isVector3Node = true;
 
 export default Vector3Node;

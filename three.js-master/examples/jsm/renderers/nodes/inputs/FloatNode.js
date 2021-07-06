@@ -12,4 +12,6 @@ class FloatNode extends InputNode {
 
 }
 
+FloatNode.prototype.isFloatNode = true;
+
 export default FloatNode;
