@@ -26,6 +26,9 @@ import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass';
 import { TAARenderPass } from 'three/examples/jsm/postprocessing/TAARenderPass';
 import { TexturePass } from 'three/examples/jsm/postprocessing/TexturePass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass';
+import { SSRrPass } from 'three/examples/jsm/postprocessing/SSRrPass';
+
 import { ThreeUtil } from '../interface';
 import { ShaderComponent } from '../shader/shader.component';
 import { ShaderUtils } from '../shader/shaders/shaderUtils';
@@ -962,6 +965,35 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
           case 'unrealbloompass':
           case 'unrealbloom':
             pass = new UnrealBloomPass(ThreeUtil.getVector2Safe(this.width | 512, this.height | 512, new THREE.Vector2(512, 512)), this.getStrength(1.5), this.getRadius(0.4), this.getThreshold(0.85));
+            break;
+          case 'ssrpass':
+          case 'ssr': // todo
+            pass = new SSRPass({
+              renderer: null,// WebGLRenderer;
+              scene : null,// this.getScene(this.effectScene), 
+              camera: null, // this.getCamera(this.effectCamera),
+              width: null, // number | undefined;
+              height: null, // number | undefined;
+              selects: null, // Mesh[] | null;
+              encoding: null, // TextureEncoding;
+              isPerspectiveCamera: null, // boolean | undefined;
+              isBouncing: null, // boolean | undefined;
+              morphTargets: null, // boolean | undefined;
+              groundReflector: null, // Reflector | null;
+            });
+            break;
+          case 'ssrrpass':
+          case 'ssrr': // todo
+            pass = new SSRrPass({
+              renderer: null, //  WebGLRenderer;
+              scene: null, //  Scene;
+              camera: null, //  Camera;
+              width: null, //  number | undefined;
+              height: null, //  number | undefined;
+              selects: null, //  Mesh[] | null;
+              encoding: null, //  TextureEncoding;
+              morphTargets: null, //  boolean | undefined;
+            });
             break;
           case 'lutpass':
           case 'lut':

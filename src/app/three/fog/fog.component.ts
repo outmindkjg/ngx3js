@@ -55,7 +55,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.far, def);
   }
 
-  private fog : THREE.IFog = null;
+  private fog : THREE.FogBase = null;
   
   private refScene : THREE.Scene = null;
 
@@ -66,7 +66,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     }
   }
 
-  getFog() : THREE.IFog{
+  getFog() : THREE.FogBase{
     if (this.fog === null || this._needUpdate) {
       this.needUpdate = false;
       switch(this.type.toLowerCase()) {

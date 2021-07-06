@@ -26,7 +26,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
   @Input() private image: string = null;
   @Input() private premultiplyAlpha: boolean = null;
   @Input() private cubeImage: string[] = null;
-  @Input() private data: THREE.TypedArray | number[] = null;
+  @Input() private data: BufferSource | number[] = null;
   @Input() private storageName: string = null;
   @Input() private storageOption: any = null;
   @Input() private program: CanvasFunctionType | string = null;
@@ -671,7 +671,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
       const dataWidth: number = ThreeUtil.getTypeSafe(options.width, 32);
       let dataHeight: number = ThreeUtil.getTypeSafe(options.height, 32);
       const data = options.data;
-      let textureData : THREE.TypedArray = null;
+      let textureData : BufferSource = null;
       if (
         data instanceof Int8Array ||
         data instanceof Uint8Array ||

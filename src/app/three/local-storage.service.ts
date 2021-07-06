@@ -14,7 +14,7 @@ import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader';
 import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { AMFLoader } from 'three/examples/jsm/loaders/AMFLoader';
-import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
+// import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
 import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
 import { BVH, BVHLoader } from 'three/examples/jsm/loaders/BVHLoader';
 import {
@@ -60,7 +60,7 @@ import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
-import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
+// import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
 import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
@@ -70,10 +70,6 @@ import {
 } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LoadedObject, ThreeUtil } from './interface';
-
-
-
-
 
 
 @Injectable({
@@ -114,7 +110,7 @@ export class LocalStorageService {
   private tgaLoader: TGALoader = null;
   private md2Loader: MD2Loader = null;
   private amfLoader: AMFLoader = null;
-  private assimpLoader: AssimpLoader = null;
+  // private assimpLoader: AssimpLoader = null;
   private bvhLoader: BVHLoader = null;
   private ddsLoader: DDSLoader = null;
   private exrLoader: EXRLoader = null;
@@ -139,7 +135,7 @@ export class LocalStorageService {
   private ttfLoader: TTFLoader = null;
   private vrmlLoader: VRMLLoader = null;
   private vrmLoader: VRMLoader = null;
-  private xLoader: XLoader = null;
+  // private xLoader: XLoader = null;
   private xyzLoader: XYZLoader = null;
   private threeMFLoader: ThreeMFLoader = null;
 
@@ -494,6 +490,7 @@ export class LocalStorageService {
         this.onError
       );
     } else if (key.endsWith('.assimp')) {
+      /*
       if (this.assimpLoader === null) {
         this.assimpLoader = new AssimpLoader(ThreeUtil.getLoadingManager());
       }
@@ -510,7 +507,7 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-      
+      */
     } else if (key.endsWith('.exr')) {
       if (this.exrLoader === null) {
         this.exrLoader = new EXRLoader(ThreeUtil.getLoadingManager());
@@ -610,12 +607,14 @@ export class LocalStorageService {
             object.skeleton.bones &&
             object.skeleton.bones.length > 0
           ) {
+            /*
             const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
             mesh.skeleton = object.skeleton;
             callBack({
               object: mesh,
               source: object,
             });
+            */
           }
         },
         this.onProgress,
@@ -1019,6 +1018,7 @@ export class LocalStorageService {
         this.onError
       );
     } else if (key.endsWith('.x')) {
+      /*
       if (this.xLoader === null) {
         this.xLoader = new XLoader(ThreeUtil.getLoadingManager());
       }
@@ -1034,6 +1034,7 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+      */
     } else if (key.endsWith('.mdd')) {
       if (this.mddLoader === null) {
         this.mddLoader = new MDDLoader(ThreeUtil.getLoadingManager());
@@ -1261,7 +1262,7 @@ export class LocalStorageService {
 									THREE.Material.prototype.copy.call( material, object.material[ i ] );
 									material.color.copy( objectMaterial['color']);
 									material.map = objectMaterial['map'];
-									material.skinning = objectMaterial['skinning'];
+									// material.skinning = objectMaterial['skinning'];
 									material.morphTargets = objectMaterial['morphTargets'];
 									material.morphNormals = objectMaterial['morphNormals'];
 									object.material[ i ] = material;
@@ -1272,7 +1273,7 @@ export class LocalStorageService {
 								THREE.Material.prototype.copy.call( material, object.material );
 								material.color.copy( objectMaterial['color'] );
 								material.map = objectMaterial['map'];
-								material.skinning = objectMaterial['skinning'];
+								// material.skinning = objectMaterial['skinning'];
 								material.morphTargets = objectMaterial['morphTargets'];
 								material.morphNormals = objectMaterial['morphNormals'];
 								object.material = material;

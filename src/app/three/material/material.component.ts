@@ -1476,7 +1476,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               refractionRatio: this.getRefractionRatio(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               reflectivity: this.getReflectivity(),
               combine: this.getCombine(),
@@ -1533,7 +1533,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               displacementMap: this.getTexture('displacementMap'),
               displacementScale: this.getDisplacementScale(),
               displacementBias: this.getDisplacementBias(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -1554,7 +1554,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               displacementBias: this.getDisplacementBias(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -1587,7 +1587,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               refractionRatio: this.getRefractionRatio(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
               reflectivity: this.getReflectivity(),
@@ -1633,7 +1633,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               refractionRatio: this.getRefractionRatio(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               vertexTangents: this.getVertexTangents(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
@@ -1683,7 +1683,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               refractionRatio: this.getRefractionRatio(),
               wireframe: this.getWireframe(),
               wireframeLinewidth: this.getWireframeLinewidth(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               vertexTangents: this.getVertexTangents(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
@@ -1719,7 +1719,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               wireframeLinewidth: this.getWireframeLinewidth(),
               wireframeLinecap: this.getWireframeLinecap('round'),
               wireframeLinejoin: this.getWireframeLinejoin('round'),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -1748,7 +1748,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               wireframeLinewidth: this.getWireframeLinewidth(),
               lights: this.getLights(),
               clipping: this.getClipping(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -1772,7 +1772,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               wireframeLinewidth: this.getWireframeLinewidth(),
               lights: this.getLights(),
               clipping: this.getClipping(),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -1897,7 +1897,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
               wireframeLinewidth: this.getWireframeLinewidth(),
               wireframeLinecap: this.getWireframeLinecap('round'),
               wireframeLinejoin: this.getWireframeLinejoin('round'),
-              skinning: this.getSkinning(),
+              // skinning: this.getSkinning(),
               morphTargets: this.getMorphTargets(),
               morphNormals: this.getMorphNormals(),
             };
@@ -2179,7 +2179,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
             break;
           case 'flatshading':
             if (ThreeUtil.isNotNull(this.flatShading)) {
-              this.material.flatShading = this.getFlatShading();
+            //  this.material.flatShading = this.getFlatShading();
             }
             break;
           case 'shadowside':
