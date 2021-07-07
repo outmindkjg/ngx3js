@@ -14,12 +14,9 @@ import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader';
 import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { AMFLoader } from 'three/examples/jsm/loaders/AMFLoader';
-// import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
 import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader';
 import { BVH, BVHLoader } from 'three/examples/jsm/loaders/BVHLoader';
-import {
-  Collada, ColladaLoader
-} from 'three/examples/jsm/loaders/ColladaLoader';
+import { Collada, ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader';
 import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader';
@@ -27,6 +24,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GCodeLoader } from 'three/examples/jsm/loaders/GCodeLoader';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
+import { IFC, IFCLoader } from 'three/examples/jsm/loaders/IFCLoader';
 import { KMZLoader } from 'three/examples/jsm/loaders/KMZLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
 import { KTXLoader } from 'three/examples/jsm/loaders/KTXLoader';
@@ -37,10 +35,7 @@ import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader';
 import { LWO, LWOLoader } from 'three/examples/jsm/loaders/LWOLoader';
 import { MD2Loader } from 'three/examples/jsm/loaders/MD2Loader';
 import { MDD, MDDLoader } from 'three/examples/jsm/loaders/MDDLoader';
-import {
-  MMDLoader,
-  MMDLoaderAnimationObject
-} from 'three/examples/jsm/loaders/MMDLoader';
+import { MMDLoader, MMDLoaderAnimationObject } from 'three/examples/jsm/loaders/MMDLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -57,20 +52,19 @@ import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
+import { Chunk, VOXLoader } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
-// import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
+// import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
+// import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
 import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 import { Volume } from 'three/examples/jsm/misc/Volume';
-import {
-  CSS2DObject
-} from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LoadedObject, ThreeUtil } from './interface';
-
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +118,10 @@ export class LocalStorageService {
   private lottieLoader: LottieLoader = null;
   private lut3dlLoader: LUT3dlLoader = null;
   private lutCubeLoader: LUTCubeLoader = null;
+  private ifcLoader: IFCLoader = null;
+  private _ifc : IFC = null;
+  private voxLoader: VOXLoader = null;
+  private _chunk : Chunk = null;
   private lwoLoader: LWOLoader = null;
   private mddLoader: MDDLoader = null;
   private nrrdLoader: NRRDLoader = null;

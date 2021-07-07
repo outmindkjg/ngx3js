@@ -1,6 +1,6 @@
 import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator.js';
+import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TextureComponent } from '../texture/texture.component';
 import { TagAttributes, ThreeUtil } from './../interface';
@@ -175,11 +175,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   private getTarget(): THREE.Object3D {
     if (ThreeUtil.isNotNull(this.target)) {
-      if (this.target.getObject3d) {
-        return this.target.getObject3d();
-      } else if (this.target instanceof THREE.Object3D) {
-        return this.target;
-      }
+      return ThreeUtil.getObject3d(this.target);
     }
     return undefined;
   }

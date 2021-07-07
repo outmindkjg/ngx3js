@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BaseComponent } from '../../three';
 
 @Component({
   selector: 'app-webgl2-materials-texture3d-partialupdate',
   templateUrl: './webgl2-materials-texture3d-partialupdate.component.html',
   styleUrls: ['./webgl2-materials-texture3d-partialupdate.component.scss']
 })
-export class Webgl2MaterialsTexture3dPartialupdateComponent implements OnInit {
+export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponent<{}> {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    super({},[]);
   }
 
 }

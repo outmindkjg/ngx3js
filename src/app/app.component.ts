@@ -1,15 +1,11 @@
-import {
-  AfterViewInit, Component,
-  ElementRef, OnInit,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RendererComponent, ThreeUtil } from './three';
 
 export interface SearchMenu {
   id: string;
-  safeId? : string;
+  safeId?: string;
   name: string;
   image: string;
   selected: boolean;
@@ -18,7 +14,7 @@ export interface SearchMenu {
 
 export interface SearchMenuTop {
   name: string;
-  children : SearchMenu[];
+  children: SearchMenu[];
 }
 
 @Component({
@@ -31,14 +27,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private subscription: Subscription;
 
-  constructor(private router: Router, private ele : ElementRef) {
+  constructor(private router: Router, private ele: ElementRef) {
     this.subscription = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         this.changeRouter(event.urlAfterRedirects || event.url);
       }
     });
   }
-
 
   ngOnDestroy(): void {
     if (this.subscription !== null) {
@@ -61,20 +56,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setFocus(menuId : string) {
+  setFocus(menuId: string) {
     setTimeout(() => {
-      const links : HTMLAnchorElement[] = this.ele.nativeElement.getElementsByTagName('a');
-      let selected : HTMLAnchorElement = null;
-      for(let i = 0; i < links.length ; i++) {
-        if (links[i].getAttribute('href') === '#' +menuId) {
+      const links: HTMLAnchorElement[] = this.ele.nativeElement.getElementsByTagName('a');
+      let selected: HTMLAnchorElement = null;
+      for (let i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('href') === '#' + menuId) {
           selected = links[i];
           break;
         }
       }
       if (selected !== null) {
-        selected.scrollIntoView({ block: "nearest" , behavior : 'smooth'});
+        selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-    },1000);
+    }, 1000);
   }
 
   ngAfterViewInit() {}
@@ -82,8 +77,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   downloadThumbFile() {
     if (ThreeUtil.lastRenderer !== null) {
       const lastRenderer = ThreeUtil.lastRenderer as RendererComponent;
-      lastRenderer.getCanvasJson((json) => {
-      }, { width : 400, height : 250, name : 'auto', type : 'jpg'})
+      lastRenderer.getCanvasJson((json) => {}, { width: 400, height: 250, name: 'auto', type: 'jpg' });
     }
     return false;
   }
@@ -126,7 +120,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.searchFocused = true;
       filter = filter.toLowerCase();
     }
-    const searchMenu : SearchMenuTop[] = [];
+    const searchMenu: SearchMenuTop[] = [];
     Object.entries(this.files).forEach(([key, value]) => {
       const children = this.getSearchChildren(value, filter, key);
       if (children.length > 0) {
@@ -139,20 +133,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.searchMenu = this.checkSearchMenuSelected(searchMenu);
   }
 
-  checkSearchMenuSelected(searchMenu : SearchMenuTop[]) : SearchMenuTop[] {
-    searchMenu.forEach(menu => {
-      menu.children.forEach(child => {
+  checkSearchMenuSelected(searchMenu: SearchMenuTop[]): SearchMenuTop[] {
+    searchMenu.forEach((menu) => {
+      menu.children.forEach((child) => {
         child.selected = child.id === this.menuId;
       });
-    })
+    });
     return searchMenu;
   }
 
-  private getSearchChildren(
-    menu: string[],
-    keyword: string,
-    parentId: string
-  ): SearchMenu[] {
+  private getSearchChildren(menu: string[], keyword: string, parentId: string): SearchMenu[] {
     const children: SearchMenu[] = [];
     menu.forEach((id) => {
       const child = this.getSearchItem(id, keyword, parentId);
@@ -163,17 +153,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     return children;
   }
 
-  private getSearchItem(
-    id: string,
-    keyword: string,
-    parentId: string
-  ): SearchMenu {
+  private getSearchItem(id: string, keyword: string, parentId: string): SearchMenu {
     const tags: string[] = this.tags[id] !== undefined ? this.tags[id] : [];
-    if (
-      keyword == '' ||
-      tags.indexOf(keyword) > -1 ||
-      id.indexOf(keyword) > -1
-    ) {
+    if (keyword == '' || tags.indexOf(keyword) > -1 || id.indexOf(keyword) > -1) {
       const itemTags: string[] = [];
       id.split('_').forEach((key) => {
         if (parentId !== key && itemTags.indexOf(key) === -1) {
@@ -206,14 +188,14 @@ export class AppComponent implements OnInit, AfterViewInit {
           image = '/assets/examples/screenshots/' + id + '.jpg';
           url = '/examples/' + id;
           break;
-        default :
+        default:
           image = '/assets/examples/screenshots/css2d_label.jpg';
           url = '/' + parentId + '/' + id;
           break;
       }
       return {
         id: url,
-        safeId : url.replace(/_/gi,'-'),
+        safeId: url.replace(/_/gi, '-'),
         name: id.split('_').join(' '),
         image: image,
         tags: itemTags.join(' / '),
@@ -263,17 +245,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_geometry_extrude_shapes',
       'webgl_geometry_extrude_shapes2',
       'webgl_geometry_extrude_splines',
-      'webgl_geometry_hierarchy',
-      'webgl_geometry_hierarchy2',
       'webgl_geometry_minecraft',
-      'webgl_geometry_minecraft_ao',
-      'webgl_geometry_normals',
       'webgl_geometry_nurbs',
       'webgl_geometry_shapes',
       'webgl_geometry_spline_editor',
       'webgl_geometry_teapot',
       'webgl_geometry_terrain',
-      'webgl_geometry_terrain_fog',
       'webgl_geometry_terrain_raycast',
       'webgl_geometry_text',
       'webgl_geometry_text_shapes',
@@ -298,7 +275,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_lights_hemisphere',
       'webgl_lights_physical',
       'webgl_lights_pointlights',
-      'webgl_lights_pointlights2',
       'webgl_lights_spotlight',
       'webgl_lights_spotlights',
       'webgl_lights_rectarealight',
@@ -312,7 +288,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_loader_3mf',
       'webgl_loader_3mf_materials',
       'webgl_loader_amf',
-      'webgl_loader_assimp',
       'webgl_loader_bvh',
       'webgl_loader_collada',
       'webgl_loader_collada_kinematics',
@@ -324,7 +299,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_loader_gltf',
       'webgl_loader_gltf_compressed',
       'webgl_loader_gltf_extensions',
+      'webgl_loader_gltf_transmission',
       'webgl_loader_gltf_variants',
+      'webgl_loader_ifc',
       'webgl_loader_imagebitmap',
       'webgl_loader_kmz',
       'webgl_loader_ldraw',
@@ -360,11 +337,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_loader_vrm',
       'webgl_loader_vrml',
       'webgl_loader_vtk',
-      'webgl_loader_x',
       'webgl_loader_xyz',
-      'webgl_loader',
-      'webgl_loader_ifc',
-      'webgl_loader_gltf_transmission',
+      'webgl_lod',
       'webgl_marchingcubes',
       'webgl_materials',
       'webgl_materials_blending',
@@ -373,8 +347,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_materials_car',
       'webgl_materials_channels',
       'webgl_materials_cubemap',
-      'webgl_materials_cubemap_balls_reflection',
-      'webgl_materials_cubemap_balls_refraction',
       'webgl_materials_cubemap_dynamic',
       'webgl_materials_cubemap_refraction',
       'webgl_materials_cubemap_mipmaps',
@@ -384,7 +356,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_materials_envmaps_exr',
       'webgl_materials_envmaps_hdr',
       'webgl_materials_envmaps_parallax',
-      'webgl_materials_grass',
       'webgl_materials_lightmap',
       'webgl_materials_matcap',
       'webgl_materials_normalmap',
@@ -439,20 +410,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_points_dynamic',
       'webgl_points_sprites',
       'webgl_points_waves',
+      'webgl_portal',
       'webgl_raycast_sprite',
       'webgl_raycast_texture',
       'webgl_read_float_buffer',
       'webgl_refraction',
       'webgl_rtt',
-      'webgl_sandbox',
       'webgl_shader',
       'webgl_shader_lava',
       'webgl_shader2',
       'webgl_shaders_ocean',
-      'webgl_shaders_ocean2',
       'webgl_shaders_sky',
       'webgl_shaders_tonemapping',
-      'webgl_shaders_vector',
       'webgl_shading_physical',
       'webgl_shadow_contact',
       'webgl_shadowmap',
@@ -460,7 +429,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_shadowmap_pointlight',
       'webgl_shadowmap_viewer',
       'webgl_shadowmap_vsm',
-      'webgl_shadowmap_progressive',
       'webgl_shadowmesh',
       'webgl_skinning_simple',
       'webgl_sprites',
@@ -479,6 +447,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_materials_envmaps_hdr_nodes',
       'webgl_materials_envmaps_pmrem_nodes',
       'webgl_materials_nodes',
+      'webgl_materials_standard_nodes',
       'webgl_mirror_nodes',
       'webgl_performance_nodes',
       'webgl_postprocessing_nodes',
@@ -507,11 +476,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_postprocessing_smaa',
       'webgl_postprocessing_sobel',
       'webgl_postprocessing_ssao',
+      'webgl_postprocessing_ssr',
+      'webgl_postprocessing_ssrr',
       'webgl_postprocessing_taa',
       'webgl_postprocessing_unreal_bloom',
       'webgl_postprocessing_unreal_bloom_selective',
-      'webgl_postprocessing_ssr',
-      'webgl_postprocessing_ssrr',
     ],
     'webgl / advanced': [
       'webgl_buffergeometry',
@@ -545,6 +514,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl_raymarching_reflect',
       'webgl_shadowmap_csm',
       'webgl_shadowmap_pcss',
+      'webgl_shadowmap_progressive',
       'webgl_simple_gi',
       'webgl_tiled_forward',
       'webgl_worker_offscreencanvas',
@@ -554,22 +524,19 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webgl2_materials_texture2darray',
       'webgl2_materials_texture3d',
       'webgl2_materials_texture3d_partialupdate',
-      'webgl2_multisampled_renderbuffers',
       'webgl2_multiple_rendertargets',
+      'webgl2_multisampled_renderbuffers',
+      'webgl2_rendertarget_texture2darray',
       'webgl2_volume_cloud',
       'webgl2_volume_instancing',
       'webgl2_volume_perlin',
     ],
-    webgpu: ['webgpu_sandbox', 'webgpu_rtt', 'webgpu_compute'],
-    webaudio: [
-      'webaudio_orientation',
-      'webaudio_sandbox',
-      'webaudio_timing',
-      'webaudio_visualizer',
-    ],
+    webgpu: ['webgpu_compute', 'webgpu_instance_uniform', 'webgpu_lights_custom', 'webgpu_lights_selective', 'webgpu_materials', 'webgpu_rtt', 'webgpu_sandbox'],
+    webaudio: ['webaudio_orientation', 'webaudio_sandbox', 'webaudio_timing', 'webaudio_visualizer'],
     webxr: [
       'webxr_ar_cones',
       'webxr_ar_hittest',
+      'webxr_ar_lighting',
       'webxr_ar_paint',
       'webxr_vr_ballshooter',
       'webxr_vr_cubes',
@@ -577,7 +544,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webxr_vr_handinput',
       'webxr_vr_handinput_cubes',
       'webxr_vr_handinput_profiles',
+      'webxr_vr_handinput_pointerclick',
+      'webxr_vr_handinput_pointerdrag',
+      'webxr_vr_handinput_pressbutton',
       'webxr_vr_haptics',
+      'webxr_vr_layers',
       'webxr_vr_lorenzattractor',
       'webxr_vr_panorama',
       'webxr_vr_panorama_depth',
@@ -588,15 +559,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       'webxr_vr_video',
     ],
     games: ['games_fps'],
-    physics: [
-      'physics_ammo_break',
-      'physics_ammo_cloth',
-      'physics_ammo_instancing',
-      'physics_ammo_rope',
-      'physics_ammo_terrain',
-      'physics_ammo_volume',
-      'physics_oimo_instancing'
-    ],
+    physics: ['physics_ammo_break', 'physics_ammo_cloth', 'physics_ammo_instancing', 'physics_ammo_rope', 'physics_ammo_terrain', 'physics_ammo_volume', 'physics_oimo_instancing'],
     misc: [
       'misc_animation_groups',
       'misc_animation_keys',
@@ -615,281 +578,130 @@ export class AppComponent implements OnInit, AfterViewInit {
       'misc_exporter_obj',
       'misc_exporter_ply',
       'misc_exporter_stl',
-      'misc_legacy',
+      'misc_exporter_usdz',
       'misc_lookat',
     ],
     css2d: ['css2d_label'],
-    css3d: [
-      'css3d_molecules',
-      'css3d_orthographic',
-      'css3d_panorama',
-      'css3d_panorama_deviceorientation',
-      'css3d_periodictable',
-      'css3d_sandbox',
-      'css3d_sprites',
-      'css3d_youtube',
-    ],
+    css3d: ['css3d_molecules', 'css3d_orthographic', 'css3d_periodictable', 'css3d_sandbox', 'css3d_sprites', 'css3d_youtube'],
     svg: ['svg_lines', 'svg_sandbox'],
     tests: ['webgl_furnace_test', 'webgl_pmrem_test', 'misc_uv_tests'],
-    ch01: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch02: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch03: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch04: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch05: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch06: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch07: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch08: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch09: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch10: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch11: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch12: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ],
-    ch13: [
-      'pg01',
-      'pg02',
-      'pg03',
-      'pg04',
-      'pg05',
-      'pg06',
-      'pg07',
-      'pg08',
-      'pg09',
-      'pg10',
-    ]
+    ch01: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch02: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch03: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch04: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch05: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch06: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch07: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch08: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch09: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch10: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch11: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch12: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
+    ch13: ['pg01', 'pg02', 'pg03', 'pg04', 'pg05', 'pg06', 'pg07', 'pg08', 'pg09', 'pg10'],
   };
 
   tags = {
-    webgl_animation_cloth: ['physics', 'integration', 'shadow'],
-    webgl_clipping: ['solid'],
-    webgl_clipping_advanced: ['solid'],
-    webgl_clipping_intersection: ['solid'],
-    webgl_clipping_stencil: ['solid'],
-    webgl_decals: ['normals'],
-    webgl_depth_texture: ['renderTarget'],
-    webgl_framebuffer_texture: ['renderTarget'],
-    webgl_geometry_colors_lookuptable: ['vertex'],
-    webgl_geometry_hierarchy: ['group'],
-    webgl_geometry_hierarchy2: ['scene graph'],
-    webgl_geometry_minecraft_ao: ['ambient occlusion'],
-    webgl_geometry_nurbs: ['curve', 'surface'],
-    webgl_geometry_spline_editor: ['curve'],
-    webgl_geometry_text: ['font'],
-    webgl_geometry_text_shapes: ['font'],
-    webgl_geometry_text_stroke: ['font'],
-    webgl_helpers: ['normals', 'tangents', 'bounding box'],
-    webgl_instancing_performance: ['batching', 'merging'],
-    webgl_interactive_buffergeometry: ['raycast', 'outline'],
-    webgl_interactive_cubes: ['raycast', 'highlinght'],
-    webgl_interactive_cubes_gpu: ['raycast', 'highlight'],
-    webgl_interactive_cubes_ortho: ['raycast', 'highlight'],
-    webgl_interactive_lines: ['raycast'],
-    webgl_interactive_points: ['raycast'],
-    webgl_interactive_raycasting_points: ['raycast'],
-    webgl_interactive_voxelpainter: ['raycast'],
-    webgl_layers: ['groups'],
-    webgl_lights_hemisphere: ['directional'],
-    webgl_lights_pointlights: ['multiple'],
-    webgl_loader_ttf: ['text', 'font'],
-    webgl_loader_pdb: ['molecules', 'css2d'],
-    webgl_lod: ['level', 'details'],
-    webgl_materials_blending: ['alpha'],
-    webgl_materials_blending_custom: ['alpha'],
-    webgl_materials_channels: ['normal', 'depth', 'rgba packing'],
-    webgl_materials_cubemap_mipmaps: ['envmap'],
-    webgl_materials_envmaps_parallax: ['onBeforeCompile'],
-    webgl_materials_lightmap: ['shadow'],
-    webgl_materials_physical_clearcoat: ['anisotropy'],
-    webgl_materials_physical_transmission: ['alpha'],
-    webgl_materials_shaders_fresnel: ['refraction'],
-    webgl_materials_standard: ['pbr'],
-    webgl_materials_texture_canvas: ['paint'],
-    webgl_materials_texture_filters: ['mipmap', 'min', 'mag'],
-    webgl_materials_texture_manualmipmap: ['mipmap', 'min', 'mag'],
-    webgl_materials_subsurface_scattering: ['derivatives', 'translucency'],
-    webgl_materials_wireframe: ['derivatives'],
-    webgl_math_obb: ['intersection', 'bounding'],
-    webgl_math_orientation_transform: ['rotation'],
-    webgl_mirror: ['reflection'],
-    webgl_morphtargets_horse: ['animation'],
-    webgl_multiple_elements: ['differential equations', 'physics'],
-    webgl_multiple_elements_text: ['font'],
-    webgl_panorama_cube: ['envmap'],
-    webgl_panorama_equirectangular: ['envmap'],
-    webgl_points_billboards: ['particles'],
-    webgl_points_dynamic: ['particles'],
-    webgl_points_sprites: ['particles', 'snow'],
-    webgl_points_waves: ['particles'],
-    webgl_read_float_buffer: ['texture'],
-    webgl_refraction: ['water'],
-    webgl_rtt: ['renderTarget', 'texture'],
-    webgl_shaders_ocean: ['water'],
-    webgl_shaders_ocean2: ['water'],
-    webgl_shaders_sky: ['sun'],
-    webgl_shaders_tonemapping: ['hrd'],
-    webgl_shaders_vector: ['font'],
-    webgl_shading_physical: ['pbr'],
-    webgl_shadow_contact: ['onBeforeCompile', 'soft'],
-    webgl_shadowmap_viewer: ['directional', 'spot'],
-    webgl_skinning_simple: ['animation'],
-    webgl_tonemapping: ['gltf'],
-    webgl_loader_nodes: ['caustics', 'displace', 'xray'],
-    webgl_postprocessing_afterimage: ['trails'],
-    webgl_postprocessing_dof: ['bokeh'],
-    webgl_postprocessing_dof2: ['bokeh'],
-    webgl_postprocessing_fxaa: ['msaa', 'multisampled'],
-    webgl_postprocessing_godrays: ['light scattering'],
-    webgl_postprocessing_ssaa: ['msaa', 'multisampled'],
-    webgl_postprocessing_ssaa_unbiased: ['msaa', 'multisampled'],
-    webgl_postprocessing_sao: ['ambient occlusion'],
-    webgl_postprocessing_smaa: ['msaa', 'multisampled'],
-    webgl_postprocessing_sobel: ['filter', 'edge detection'],
-    webgl_postprocessing_ssao: ['ambient occlusion'],
-    webgl_postprocessing_unreal_bloom: ['glow'],
-    webgl_postprocessing_unreal_bloom_selective: ['glow'],
-    webgl_postprocessing_3dlut: ['color grading'],
-    webgl_materials_modified: ['onBeforeCompile'],
-    webgl_shadowmap_csm: ['cascade'],
-    webgl_shadowmap_pcss: ['soft'],
-    webgl_simple_gi: ['global illumination'],
-    webgl_tiled_forward: ['derivatives'],
-    webgl2_multisampled_renderbuffers: ['msaa'],
-    physics_ammo_cloth: ['integration'],
-    misc_controls_deviceorientation: ['accelerometer', 'sensors'],
-    misc_controls_drag: ['translate'],
-    misc_controls_map: ['drag'],
-    misc_controls_orbit: ['rotation'],
-    misc_controls_trackball: ['rotation'],
-    misc_controls_transform: ['scale', 'rotate', 'translate'],
+    "webgl_animation_cloth": [ "physics", "integration", "shadow" ],
+    "webgl_clipping": [ "solid" ],
+    "webgl_clipping_advanced": [ "solid" ],
+    "webgl_clipping_intersection": [ "solid" ],
+    "webgl_clipping_stencil": [ "solid" ],
+    "webgl_decals": [ "normals" ],
+    "webgl_depth_texture": [ "renderTarget" ],
+    "webgl_framebuffer_texture": [ "renderTarget" ],
+    "webgl_geometry_colors_lookuptable": [ "vertex" ],
+    "webgl_geometry_nurbs": [ "curve", "surface" ],
+    "webgl_geometry_spline_editor": [ "curve" ],
+    "webgl_geometry_terrain": [ "fog" ],
+    "webgl_geometry_text": [ "font" ],
+    "webgl_geometry_text_shapes": [ "font" ],
+    "webgl_geometry_text_stroke": [ "font" ],
+    "webgl_helpers": [ "normals", "tangents", "bounding box" ],
+    "webgl_instancing_performance": [ "batching", "merging" ],
+    "webgl_interactive_buffergeometry": [ "raycast", "outline" ],
+    "webgl_interactive_cubes": [ "raycast", "highlinght" ],
+    "webgl_interactive_cubes_gpu": [ "raycast", "highlight" ],
+    "webgl_interactive_cubes_ortho": [ "raycast", "highlight" ],
+    "webgl_interactive_lines": [ "raycast" ],
+    "webgl_interactive_points": [ "raycast" ],
+    "webgl_interactive_raycasting_points": [ "raycast" ],
+    "webgl_interactive_voxelpainter": [ "raycast" ],
+    "webgl_layers": [ "groups" ],
+    "webgl_lights_hemisphere": [ "directional" ],
+    "webgl_lights_pointlights": [ "multiple" ],
+    "webgl_lines_fat": [ "gpu", "stats", "panel" ],
+    "webgl_loader_ttf": [ "text", "font" ],
+    "webgl_loader_pdb": [ "molecules", "css2d" ],
+    "webgl_lod": [ "level", "details" ],
+    "webgl_materials_blending": [ "alpha" ],
+    "webgl_materials_blending_custom": [ "alpha" ],
+    "webgl_materials_channels": [ "normal", "depth", "rgba packing" ],
+    "webgl_materials_cubemap_mipmaps": [ "envmap" ],
+    "webgl_materials_envmaps_hdr": [ "rgbm" ],
+    "webgl_materials_envmaps_parallax": [ "onBeforeCompile" ],
+    "webgl_materials_lightmap": [ "shadow" ],
+    "webgl_materials_physical_clearcoat": [ "anisotropy" ],
+    "webgl_materials_physical_transmission": [ "alpha" ],
+    "webgl_materials_shaders_fresnel": [ "refraction" ],
+    "webgl_materials_standard": [ "pbr" ],
+    "webgl_materials_texture_canvas": [ "paint" ],
+    "webgl_materials_texture_filters": [ "mipmap", "min", "mag" ],
+    "webgl_materials_texture_manualmipmap": [ "mipmap", "min", "mag" ],
+    "webgl_materials_subsurface_scattering": [ "derivatives", "translucency" ],
+    "webgl_materials_wireframe": [ "derivatives" ],
+    "webgl_math_obb": [ "intersection", "bounding" ],
+    "webgl_math_orientation_transform": [ "rotation" ],
+    "webgl_mirror": [ "reflection" ],
+    "webgl_portal": [ "frameCorners", "renderTarget" ],
+    "webgl_morphtargets_horse": [ "animation" ],
+    "webgl_multiple_elements": [ "differential equations", "physics" ],
+    "webgl_multiple_elements_text": [ "font" ],
+    "webgl_panorama_cube": [ "envmap" ],
+    "webgl_panorama_equirectangular": [ "envmap" ],
+    "webgl_points_billboards": [ "particles" ],
+    "webgl_points_dynamic": [ "particles" ],
+    "webgl_points_sprites": [ "particles", "snow" ],
+    "webgl_points_waves": [ "particles" ],
+    "webgl_read_float_buffer": [ "texture" ],
+    "webgl_refraction": [ "water" ],
+    "webgl_rtt": [ "renderTarget", "texture" ],
+    "webgl_shaders_ocean": [ "water" ],
+    "webgl_shaders_sky": [ "sun" ],
+    "webgl_shaders_tonemapping": [ "hrd" ],
+    "webgl_shading_physical": [ "pbr" ],
+    "webgl_shadow_contact": [ "onBeforeCompile", "soft" ],
+    "webgl_shadowmap_viewer": [ "directional", "spot" ],
+    "webgl_skinning_simple": [ "animation" ],
+    "webgl_tonemapping": [ "gltf" ],
+    "webgl_loader_nodes": [ "caustics", "displace", "xray" ],
+    "webgl_postprocessing_afterimage": [ "trails" ],
+    "webgl_postprocessing_dof": [ "bokeh" ],
+    "webgl_postprocessing_dof2": [ "bokeh" ],
+    "webgl_postprocessing_fxaa": [ "msaa", "multisampled" ],
+    "webgl_postprocessing_godrays": [ "light scattering" ],
+    "webgl_shadowmap_progressive": [ "shadow", "soft", "lightmap", "onBeforeCompile" ],
+    "webgl_postprocessing_ssaa": [ "msaa", "multisampled" ],
+    "webgl_postprocessing_ssaa_unbiased": [ "msaa", "multisampled" ],
+    "webgl_postprocessing_sao": [ "ambient occlusion" ],
+    "webgl_postprocessing_smaa": [ "msaa", "multisampled" ],
+    "webgl_postprocessing_sobel": [ "filter", "edge detection" ],
+    "webgl_postprocessing_ssao": [ "ambient occlusion" ],
+    "webgl_postprocessing_unreal_bloom": [ "glow" ],
+    "webgl_postprocessing_unreal_bloom_selective": [ "glow" ],
+    "webgl_postprocessing_3dlut": [ "color grading" ],
+    "webgl_materials_modified": [ "onBeforeCompile" ],
+    "webgl_shadowmap_csm": [ "cascade" ],
+    "webgl_shadowmap_pcss": [ "soft" ],
+    "webgl_simple_gi": [ "global illumination" ],
+    "webgl_tiled_forward": [ "derivatives" ],
+    "webgl2_multiple_rendertargets": [ "mrt" ],
+    "webgl2_multisampled_renderbuffers": [ "msaa" ],
+    "physics_ammo_cloth": [ "integration" ],
+    "misc_controls_deviceorientation": [ "accelerometer", "sensors" ],
+    "misc_controls_drag": [ "translate" ],
+    "misc_controls_map": [ "drag" ],
+    "misc_controls_orbit": [ "rotation" ],
+    "misc_controls_trackball": [ "rotation" ],
+    "misc_controls_transform": [ "scale", "rotate", "translate" ]
   };
 }

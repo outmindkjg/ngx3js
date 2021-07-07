@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 
 export class PlanePerlinGeometry {
   data : number[] = [];

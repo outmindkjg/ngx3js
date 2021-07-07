@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
 import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGeometries';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';

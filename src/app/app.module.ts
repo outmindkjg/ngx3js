@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -514,6 +514,15 @@ import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster
 import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
+import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
+import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
+import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
+import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
+import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
+import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
+import { WebglLoaderIfcComponent } from './examples/webgl-loader-ifc/webgl-loader-ifc.component';
+import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
+
 import { ApiComponent } from './api/api.component';
 import { DocComponent } from './api/doc/doc.component';
 
@@ -563,14 +572,6 @@ import { ControllerItemComponent } from './three/controller/controller-item/cont
 import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
 import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
 import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
-import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
-import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
-import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
-import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
-import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
-import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
-import { WebglLoaderIfcComponent } from './examples/webgl-loader-ifc/webgl-loader-ifc.component';
-import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
 
 
 @NgModule({
@@ -1140,14 +1141,10 @@ import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gl
     WebglPostprocessingSsrrComponent,
     PhysicsOimoInstancingComponent,
     WebglLoaderIfcComponent,
-    WebglLoaderGltfTransmissionComponent
+    WebglLoaderGltfTransmissionComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

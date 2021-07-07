@@ -2,6 +2,8 @@ import { Component, Input, OnInit, QueryList, SimpleChanges } from '@angular/cor
 import * as THREE from 'three';
 import { ShadowMesh } from 'three/examples/jsm/objects/ShadowMesh';
 import { ShadowMapViewer } from 'three/examples/jsm/utils/ShadowMapViewer';
+import { ProgressiveLightMap } from 'three/examples/jsm/misc/ProgressiveLightMap';
+
 import { HelperComponent } from '../helper/helper.component';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LightComponent } from '../light/light.component';
@@ -23,8 +25,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private y: number | string = 0;
   @Input() private width: number | string = '100%';
   @Input() private height: number | string = '100%';
+  @Input() private lightMapRes: number = 1024;
+  @Input() private blendWindow: number = 200;
+  @Input() private blurEdges: boolean = true;
+  @Input() private debugLightmap: boolean = false;
   @Input() private canvasOptions: any = null;
-  
 
   private getLight(): THREE.Light {
     this.unSubscribeRefer('light');
@@ -209,7 +214,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   resizeViewer() {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
-        case 'canvas' :
+        case 'canvas':
         case 'shadowmapviewer':
         case 'shadowmap':
           this.viewer.position.x = this.getX();
@@ -231,7 +236,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
         this.getViewer();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['x', 'y', 'width', 'height','canvasoptions'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['x', 'y', 'width', 'height', 'canvasoptions'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
@@ -243,7 +248,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           case 'reset':
             this.resizeViewer();
             break;
-          case 'canvasoptions' :
+          case 'canvasoptions':
             if (this.viewer instanceof ViewerCanvas) {
               this.viewer.setOptions(this.canvasOptions);
             }
@@ -280,7 +285,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
       this.needUpdate = false;
       this.unSubscribeRefer('referTarget');
       switch (this.type.toLowerCase()) {
-        case 'canvas' :
+        case 'canvas':
           this.viewer = new ViewerCanvas(this.renderer, this.canvasOptions);
           this.resizeViewer();
           super.setObject(this.viewer);
@@ -301,6 +306,14 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           if (this.parent !== null) {
             this.parent.add(this.viewer);
           }
+          super.setObject(this.viewer);
+          break;
+        case 'progressivelightmap':
+        case 'progressivelight':
+          const progressiveSurfacemap = new ProgressiveLightMap(this.getRenderer() as THREE.WebGLRenderer, ThreeUtil.getTypeSafe(this.lightMapRes, 1024));
+          const lightmapObjects = [];
+          progressiveSurfacemap.addObjectsToLightMap(lightmapObjects);
+          this.viewer = progressiveSurfacemap;
           super.setObject(this.viewer);
           break;
         default:
@@ -333,10 +346,10 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     if (ThreeUtil.isNotNull(scenes)) {
       if (scenes instanceof QueryList && scenes.length > 0) {
         return scenes.first.getScene();
-      } else if (scenes instanceof THREE.Scene){
+      } else if (scenes instanceof THREE.Scene) {
         return scenes;
-      } else if (ThreeUtil.isNotNull(scenes.getScene)){
-        return scenes.getScene()
+      } else if (ThreeUtil.isNotNull(scenes.getScene)) {
+        return scenes.getScene();
       }
     }
     return new THREE.Scene();
@@ -346,16 +359,16 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     if (ThreeUtil.isNotNull(cameras)) {
       if (cameras instanceof QueryList && cameras.length > 0) {
         return cameras.first.getCamera();
-      } else if (cameras instanceof THREE.Camera){
+      } else if (cameras instanceof THREE.Camera) {
         return cameras;
-      } else if (ThreeUtil.isNotNull(cameras.getCamera)){
-        return cameras.getCamera()
+      } else if (ThreeUtil.isNotNull(cameras.getCamera)) {
+        return cameras.getCamera();
       }
     }
     return new THREE.Camera();
   }
-  
-  render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras : QueryList<any> | any , renderTimer?: RendererTimer) {
+
+  render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras: QueryList<any> | any, renderTimer?: RendererTimer) {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':
@@ -363,9 +376,21 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           this.viewer.render(renderer);
           break;
         case 'canvas':
-          const scene = this.getScene(scenes);
-          const camera = this.getCamera(cameras);
-          this.viewer.render(renderer, scene, camera);
+          {
+            const scene = this.getScene(scenes);
+            const camera = this.getCamera(cameras);
+            this.viewer.render(renderer, scene, camera);
+          }
+          break;
+        case 'progressivelightmap':
+        case 'progressivelight':
+          if (this.viewer instanceof ProgressiveLightMap) {
+            const camera = this.getCamera(cameras);
+            this.viewer.update(camera, ThreeUtil.getTypeSafe(this.blendWindow, 200), ThreeUtil.getTypeSafe(this.blurEdges, true));
+            if (!this.viewer.firstUpdate) {
+              this.viewer.showDebugLightmap(ThreeUtil.getTypeSafe(this.debugLightmap, false));
+            }
+          }
           break;
         default:
           break;

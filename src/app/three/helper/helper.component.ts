@@ -9,7 +9,7 @@ import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsH
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { ThreeUtil } from './../interface';
-import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper.js';
+import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper';
 
 @Component({
   selector: 'three-helper',

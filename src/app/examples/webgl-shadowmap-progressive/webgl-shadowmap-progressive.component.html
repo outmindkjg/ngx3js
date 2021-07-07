@@ -1,1 +1,63 @@
-<p>webgl-shadowmap-progressive works!</p>
+<div id="info">
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Progressive Lightmaps by <a href="https://github.com/zalo" target="_blank" rel="noopener">zalo</a><br/>
+  [Inspired by <a href="http://madebyevan.com/shaders/lightmap/" target="_blank" rel="noopener">evanw's Lightmap Generation</a>]
+</div>
+<three-renderer
+  [controlType]="'orbit'"
+  [controlOptions]="{ enablePan : false , enableDamping : true, dampingFactor : 0.05, screenSpacePanning : true, minDistance : 100, maxDistance : 500, maxPolarAngle : 120 }"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0xffffff'"
+  [shadowMapEnabled]="true"
+  [guiControl]="controls"
+  [guiParams]="controlsParams"
+  (onRender)="onRender($event)"
+>
+  <three-lookat [x]="0" [y]="100" [z]="0"></three-lookat>
+  <three-camera [name]="'Camera'" [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+    <three-position [x]="0" [y]="100" [z]="200"></three-position>
+  </three-camera>
+  <three-scene #scene [background]="'0x949494'">
+    <three-fog [color]="'0x949494'" [near]="1000" [far]="3000"></three-fog>
+    <three-light
+      [type]="'Hemisphere'"
+      [skyColor]="'0xffffff'"
+      [groundColor]="'0x444444'"
+    >
+      <three-position [x]="0" [y]="20" [z]="0"></three-position>
+    </three-light>
+    <three-light
+      [type]="'directional'"
+      [color]="'0xffffff'"
+      [intensity]="1"
+      [castShadow]="true"
+      [shadowCameraTop]="2"
+      [shadowCameraBottom]="-2"
+      [shadowCameraLeft]="-2"
+      [shadowCameraRight]="2"
+      [shadowCameraNear]="0.1"
+      [shadowCameraFar]="40"
+    >
+      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
+    </three-light>
+    <three-mesh [name]="'Loaded Mesh'" (onLoad)="setMesh($event)" [storageName]="'models/gltf/ShadowmappableMesh.glb'" [castShadow]="true" [receiveShadow]="true">
+      <three-position [x]="0" [y]="-16" [z]="0"></three-position>
+      <three-scale [multiply]="2"></three-scale>
+      <three-material [type]="'MeshPhongMaterial'"></three-material>
+    </three-mesh>
+    <three-mesh [name]="'Ground Mesh'" [receiveShadow]="true">
+      <three-position [x]="0" [y]="-0.1" [z]="0"></three-position>
+      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
+      <three-geometry
+        [type]="'PlaneBufferGeometry'"
+        [width]="600"
+        [height]="600"
+      ></three-geometry>
+      <three-material
+        [type]="'MeshPhongMaterial'"
+        [color]="'0xffffff'"
+        [depthWrite]="false"
+      ></three-material>
+    </three-mesh>
+  </three-scene>
+</three-renderer>

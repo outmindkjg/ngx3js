@@ -1,7 +1,7 @@
 import { Component, ContentChildren, ElementRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractTweenComponent } from '../tween.abstract';
 

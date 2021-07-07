@@ -2,7 +2,7 @@ import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } f
 import Ammo from 'ammojs-typed';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
-import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker.js';
+import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker';
 import { PhysicsConstraintComponent } from './physics-constraint/physics-constraint.component';
 import * as THREE from 'three';
 
