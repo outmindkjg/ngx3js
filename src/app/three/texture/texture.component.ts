@@ -1,12 +1,11 @@
 import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-// import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
-
+import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
-import { FlakesTexture } from 'three/examples/jsm/textures/FlakesTexture';
 import { Lut } from 'three/examples/jsm/math/Lut';
+import { FlakesTexture } from 'three/examples/jsm/textures/FlakesTexture';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
@@ -616,7 +615,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
                 break;
             }
             this.fileLoader.load(ThreeUtil.getStoreUrl(image), (data) => {
-              /*
               const zip = unzipSync(new Uint8Array(data as ArrayBuffer));
               let fileName = (options.fileName || '').toLowerCase();
               let fileObject = null;
@@ -628,7 +626,6 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
               texture.image.data = new Uint8Array(fileObject.buffer);
               texture.needsUpdate = true;
               onLoad();
-              */
             });
             return texture;
           } else if (image.endsWith('.nrrd')) {

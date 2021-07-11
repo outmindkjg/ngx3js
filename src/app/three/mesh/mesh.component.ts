@@ -36,7 +36,6 @@ import { TextureComponent } from '../texture/texture.component';
 import { HelperComponent } from './../helper/helper.component';
 import { LightComponent } from './../light/light.component';
 import { LocalStorageService } from './../local-storage.service';
-import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
   selector: 'three-mesh',
@@ -124,7 +123,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
   @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
-  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
 
@@ -151,7 +149,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
     this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
     this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
     this.subscribeListQueryChange(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
-    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     this.subscribeListQueryChange(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
     this.subscribeListQueryChange(this.curveList, 'curveList', 'curve');
     super.ngAfterContentInit();
@@ -580,15 +577,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         switch (change.toLowerCase()) {
           case 'helper':
             this.resetHelper();
-            break;
-          case 'mixer':
-            this.unSubscribeReferList('mixerList');
-            if (ThreeUtil.isNotNull(this.mixerList)) {
-              this.mixerList.forEach((mixer) => {
-                mixer.setParent(this.mesh);
-              });
-              this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
-            }
             break;
           case 'csschildren':
             this.unSubscribeReferList('cssChildrenList');

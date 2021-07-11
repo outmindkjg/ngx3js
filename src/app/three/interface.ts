@@ -1212,8 +1212,9 @@ export class ThreeUtil {
         return THREE.MirroredRepeatWrapping;
       case 'clamptoedgewrapping':
       case 'clamptoedge':
-      default:
         return THREE.ClampToEdgeWrapping;
+      default:
+        return undefined;
     }
   }
 
@@ -1237,8 +1238,9 @@ export class ThreeUtil {
         return THREE.LinearMipmapLinearFilter;
       case 'linearfilter':
       case 'linear':
-      default:
         return THREE.LinearFilter;
+      default:
+        return undefined;
     }
   }
 
@@ -1356,8 +1358,9 @@ export class ThreeUtil {
         return THREE.UnsignedInt248Type;
       case 'unsignedbytetype':
       case 'unsignedbyte':
-      default:
         return THREE.UnsignedByteType;
+      default:
+        return undefined;
     }
   }
 
@@ -1801,9 +1804,8 @@ export class ThreeUtil {
       case 'linear':
         return THREE.LinearEncoding;
       default:
-        break;
+        return undefined;
     }
-    return undefined;
   }
 
   static getMappingSafe(baseMapping: string, altMapping?: string, def?: string): THREE.Mapping {

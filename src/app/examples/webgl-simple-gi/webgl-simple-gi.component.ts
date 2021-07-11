@@ -12,4 +12,12 @@ export class WebglSimpleGiComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  ngOnInit() {
+    this.boxColors = [];
+    for (let i = 0 ; i < 8; i++) {
+      this.boxColors.push( Math.random() * 0xffffff);
+    }
+  }
+  boxColors : number[] = [];
+
 }

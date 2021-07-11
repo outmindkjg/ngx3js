@@ -23,6 +23,8 @@ ng g c three/position
 ng g c three/rotation
 ng g c three/scale
 ng g c three/line
+ng g c three/clip
+ng g c three/keyframe
 ng g c three/lookat
 ng g c three/texture
 ng g c three/lensflareelement
@@ -32,6 +34,7 @@ ng g c three/shape
 ng g c three/curve
 ng g c three/svg
 ng g c three/shared
+ng g c three/animation-group
 ng g c three/translation
 ng g s three/local-storage-service
 ng g c three/composer
@@ -310,7 +313,6 @@ ng g c examples/webgl_materials_video_webcam
 ng g c examples/webgl_materials_wireframe
 
 
-
 ng g c examples/webgl_math_obb
 ng g c examples/webgl_math_orientation_transform
 ng g c examples/webgl_mirror
@@ -453,6 +455,7 @@ ng g c examples/webgl2_buffergeometry_attributes_integer
 ng g c examples/webgl2_materials_texture2darray
 ng g c examples/webgl2_materials_texture3d
 ng g c examples/webgl2_multisampled_renderbuffers
+ng g c examples/webgl2_rendertarget_texture2darray
 ng g c examples/webgl2_volume_cloud
 ng g c examples/webgl2_volume_instancing
 ng g c examples/webgl2_volume_perlin

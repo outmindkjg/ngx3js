@@ -31,7 +31,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @ContentChildren(RigidbodyComponent, { descendants: true }) private sceneRigidbodyList: QueryList<RigidbodyComponent>;
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
-  @ContentChildren(MixerComponent, { descendants: true }) private mixerList: QueryList<MixerComponent>;
+  @ContentChildren(MixerComponent, { descendants: true }) private sceneMixerList: QueryList<MixerComponent>;
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
@@ -58,7 +58,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.subscribeListQueryChange(this.sceneRigidbodyList, 'sceenrigidbodyList', 'rigidbody');
     this.subscribeListQueryChange(this.fogList, 'fogList', 'fog');
     this.subscribeListQueryChange(this.sceneControllerList, 'sceneControllerList', 'sceneController');
-    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
+    this.subscribeListQueryChange(this.sceneMixerList, 'sceneMixerList', 'mixer');
     this.subscribeListQueryChange(this.viewerList, 'viewerList', 'viewer');
     super.ngAfterContentInit();
   }
@@ -313,11 +313,11 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               this.subscribeListQuery(this.physicsList, 'physicsList', 'physics');
               this.subscribeListQuery(this.sceneRigidbodyList, 'rigidbodyList', 'rigidbody');
             }
-            if (ThreeUtil.isNotNull(this._physics) && ThreeUtil.isNotNull(this.mixerList)) {
-              this.mixerList.forEach((mixer) => {
+            if (ThreeUtil.isNotNull(this._physics) && ThreeUtil.isNotNull(this.sceneMixerList)) {
+              this.sceneMixerList.forEach((mixer) => {
                 mixer.setPhysics(this._physics);
               });
-              this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+              this.subscribeListQuery(this.sceneMixerList, 'sceneMixerList', 'mixer');
             }
             break;
           case 'fog':
@@ -358,7 +358,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     this.viewerList.forEach((viewer) => {
       viewer.update(timer);
     });
-    this.mixerList.forEach((mixer) => {
+    this.sceneMixerList.forEach((mixer) => {
       mixer.update(timer);
     });
     this.physicsList.forEach((physics) => {

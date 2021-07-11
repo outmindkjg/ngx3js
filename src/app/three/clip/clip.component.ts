@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { KeyframeComponent } from '../keyframe/keyframe.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ThreeUtil } from './../interface';
 
@@ -19,8 +20,10 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private fps: number = null;
   @Input() private weight: number = 1;
   @Input() private timeScale: number = 1;
+  @Input() private duration: number = 3;
   @Input() private clampWhenFinished: boolean = false;
   @Input() private loop: string = null;
+  @ContentChildren(KeyframeComponent, { descendants: false }) private keyframeList: QueryList<KeyframeComponent>;
 
   private getBlendMode(def?: string): THREE.AnimationBlendMode {
     const blendMode = ThreeUtil.getTypeSafe(this.blendMode, def, '');
@@ -74,6 +77,7 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
+    this.subscribeListQueryChange(this.keyframeList, 'keyframeList', 'keyframe');
     super.ngAfterContentInit();
   }
 
@@ -81,11 +85,13 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   private clips: THREE.AnimationClip[] = null;
   private clip: THREE.AnimationClip = null;
   public action: THREE.AnimationAction = null;
+
   setMixer(mixer: THREE.AnimationMixer, clips: THREE.AnimationClip[], fps?: number) {
     if (this.mixer !== mixer) {
       this.mixer = mixer;
-      this.clips = clips;
+      this.clips = clips || null;
       this.resetAnimation();
+      console.log(this.mixer);
     }
     if (fps !== null && fps !== undefined) {
       this.setFps(fps);
@@ -99,38 +105,7 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   resetAnimation() {
-    if (this.clips !== null) {
-      const clip = this.index > -1 ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name);
-      if (clip !== null) {
-        if (this.action !== null) {
-          this.action.stop();
-        }
-        if (this.additive) {
-          THREE.AnimationUtils.makeClipAdditive(clip);
-          if (this.subclip) {
-            const subClip = THREE.AnimationUtils.subclip(clip, clip.name, this.startFrame, this.endFrame, this.getFps());
-            this.action = this.mixer.clipAction(subClip, null, this.getBlendMode());
-            this.clip = subClip;
-          } else {
-            this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
-            this.clip = clip;
-          }
-          this.action.enabled = true;
-          this.action.setEffectiveTimeScale(this.timeScale);
-          this.action.setEffectiveWeight(this.weight);
-          this.action.play();
-        } else {
-          this.clip = clip;
-          this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
-        }
-        if (this.getClampWhenFinished(false)) {
-          this.action.clampWhenFinished = true;
-        }
-        this.action.loop = this.getLoop('repeat');
-      } else {
-        this.action = null;
-      }
-    }
+    this.getClip();
   }
 
   play() {
@@ -180,5 +155,82 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
     if (this.action !== null) {
       this.action.stop();
     }
+  }
+
+  applyChanges(changes: string[]) {
+    if (this.clip !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getClip();
+        return;
+      }
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','keyframe'], this.OBJECT_ATTR)) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['keyframe']);
+      }
+      
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'keyframe':
+            this.unSubscribeReferList('keyframeList');
+            if (ThreeUtil.isNotNull(this.keyframeList)) {
+              this.keyframeList.forEach((keyframe) => {
+                keyframe.setClip(this.clip);
+              });
+              this.subscribeListQuery(this.keyframeList, 'keyframeList', 'keyframe');
+            }
+            break;
+        }
+      });
+      super.applyChanges(changes);
+    }
+  }
+
+  getClip() {
+    if (this.clip == null  || this._needUpdate) {
+      this.needUpdate = false;
+      let clip : THREE.AnimationClip = null;
+      if (this.clips !== null) {
+        clip = this.index > -1 ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name)
+        console.log(clip, this.clips);
+
+      } else {
+        clip = new THREE.AnimationClip(this.name, this.duration, [], this.getBlendMode());
+      }
+      if (clip !== null) {
+        if (this.action !== null) {
+          this.action.stop();
+        }
+        if (this.additive) {
+          THREE.AnimationUtils.makeClipAdditive(clip);
+          if (this.subclip) {
+            const subClip = THREE.AnimationUtils.subclip(clip, clip.name, this.startFrame, this.endFrame, this.getFps());
+            this.action = this.mixer.clipAction(subClip, null, this.getBlendMode());
+            this.clip = subClip;
+          } else {
+            this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
+            this.clip = clip;
+          }
+          this.action.enabled = true;
+          this.action.setEffectiveTimeScale(this.timeScale);
+          this.action.setEffectiveWeight(this.weight);
+          this.action.play();
+        } else {
+          this.clip = clip;
+          this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
+        }
+        if (this.getClampWhenFinished(false)) {
+          this.action.clampWhenFinished = true;
+        }
+        console.log(this.clip, this.clips);
+        this.action.loop = this.getLoop('repeat');
+      } else {
+        this.action = null;
+      }
+      this.setObject(this.clip);
+    }
+    return this.clip;
   }
 }

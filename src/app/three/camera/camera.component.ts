@@ -53,8 +53,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
   @Input() private onBeforeRender: (timer : RendererTimer) => void = null;
   
-  @ContentChildren(MixerComponent, { descendants: false }) mixerList: QueryList<MixerComponent>;
-
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
     if (typeof fov === 'string') {
@@ -245,7 +243,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     super.ngAfterContentInit();
   }
 
@@ -287,24 +284,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.getObject3d();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody','mixer', 'mesh', 'rigidbody', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody','mesh', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['mixer']);
+        changes = ThreeUtil.pushUniq(changes, []);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'mixer':
-            this.unSubscribeReferList('mixerList');
-            if (ThreeUtil.isNotNull(this.mixerList)) {
-              this.mixerList.forEach((mixer) => {
-                mixer.setParent(this.camera);
-              });
-              this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
-            }
-            break;
         }
       });
       super.applyChanges3d(changes);

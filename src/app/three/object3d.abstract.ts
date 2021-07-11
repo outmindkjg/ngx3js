@@ -11,6 +11,8 @@ import { RotationComponent } from './rotation/rotation.component';
 import { ScaleComponent } from './scale/scale.component';
 import { AbstractTweenComponent } from './tween.abstract';
 import { RigidbodyComponent } from './rigidbody/rigidbody.component';
+import { MixerComponent } from './mixer/mixer.component';
+import { AnimationGroupComponent } from './animation-group/animation-group.component';
 
 @Component({
   template: ''
@@ -34,6 +36,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() private loDistance: number = null;
   @Input() private customDepth: MaterialComponent | THREE.Material | any = null;
   @Input() private customDistance: MaterialComponent | THREE.Material | any  = null;
+  @Input() private animationGroup: AnimationGroupComponent | THREE.AnimationObjectGroup  = null;
 
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
@@ -43,8 +46,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
   @ContentChildren(AbstractObject3dComponent, { descendants: false }) protected object3dList: QueryList<AbstractObject3dComponent>;
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
+  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
-  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','debug','enabled','overrideparams','windowexport','helper','tween'];
+  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','debug','enabled','overrideparams','windowexport','helper','mixer','animationgroup','tween'];
 
   private getLoDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.loDistance, def);
@@ -177,6 +181,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
     this.subscribeListQueryChange(this.materialList, 'materialList', 'material');
     this.subscribeListQueryChange(this.rigidbodyList, 'rigidbodyList', 'rigidbody');
+    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     super.ngAfterContentInit();
   }
 
@@ -487,6 +492,8 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
           'renderorder',
           'lodistance',
           'material',
+          'mixer',
+          'animationgroup',
           'rigidbody',
           'controller',
         ]);
@@ -712,6 +719,37 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
                 });
               }
               this.subscribeListQuery(this.materialList, 'materialList','material');
+            }
+            break;
+          case 'mixer':
+            this.unSubscribeReferList('mixerList');
+            if (ThreeUtil.isNotNull(this.mixerList)) {
+              this.mixerList.forEach((mixer) => {
+                mixer.setParent(this.object3d);
+              });
+              this.subscribeListQuery(this.mixerList, 'mixerList', 'mixer');
+            }
+            break;
+          case 'animationgroup' :
+            if (ThreeUtil.isNotNull(this.animationGroup)) {
+              let animationGroup : THREE.AnimationObjectGroup = null;
+              if (this.animationGroup instanceof AnimationGroupComponent) {
+                animationGroup = this.animationGroup.getAnimationGroup();
+              } else {
+                animationGroup = this.animationGroup;
+              }
+              if (animationGroup !== null) {
+                let oldObject : THREE.Object3D = null;
+                animationGroup['_objects'].forEach(object => {
+                  if (object.userData.component == this.id) {
+                    oldObject = object;
+                  }
+                }); 
+                if (oldObject !== null) {
+                  animationGroup.remove(oldObject);
+                }
+                animationGroup.add(this.object3d);
+              }
             }
             break;
           case 'rigidbody':

@@ -12,4 +12,21 @@ export class WebglTiledForwardComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  ngOnInit() {
+    this.headInfos = [];
+    const RADIUS = 75;
+    for(let i = 0 ; i < 4; i ++) {
+      this.headInfos.push({
+        x : Math.sin( i * Math.PI / 2 ) * RADIUS,
+        ry : 90 * i,
+        z : Math.cos( i * Math.PI / 2 ) * RADIUS
+      }) 
+    }
+  }
+
+  headInfos : {
+    x : number;
+    ry : number;
+    z : number;
+  }[] = [];
 }

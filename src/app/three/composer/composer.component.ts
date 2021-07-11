@@ -73,18 +73,20 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         case 'multisamplerendertarget' :
         case 'multisamplerender' :
         case 'multisample' :
-          return new THREE.WebGLMultisampleRenderTarget( this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
+          return new THREE.WebGLMultisampleRenderTarget( 
+            this.getWidth() * renderer.getPixelRatio(), 
+            this.getHeight() * renderer.getPixelRatio(), {
             wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
             wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
             magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
+            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter),
             format: ThreeUtil.getPixelFormatSafe(this.format),
             type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
             anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
             depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
             stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
             generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
+            // depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
             encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
           });
         case 'webglcuberendertarget' :

@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { AnimationGroupComponent } from '../animation-group/animation-group.component';
 import { GeometryComponent } from '../geometry/geometry.component';
 import { HtmlComponent } from '../html/html.component';
 import { ThreeUtil } from '../interface';
@@ -44,6 +45,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+  @ContentChildren(AnimationGroupComponent, { descendants: false }) private animationGroupList: QueryList<AnimationGroupComponent>;
 
   constructor() {
     super();
@@ -83,6 +85,8 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
     this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
+    this.subscribeListQueryChange(this.animationGroupList, 'animationGroupList', 'animation-group');
+    
     super.ngAfterContentInit();
   }
 
@@ -91,7 +95,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   applyChanges(changes: string[]) {
     if (this.sharedObj !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareElement', 'svg', 'listner', 'audio', 'cssChildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'lookat']);
+        changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareelement', 'svg', 'listner', 'audio', 'csschildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'animation-group','lookat']);
       }
       if (ThreeUtil.isIndexOf(changes, ['type'])) {
         return;
@@ -178,6 +182,11 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
               scale.getScale();
             });
             break;
+          case 'animation-group' :
+            this.animationGroupList.forEach((animationGroup) => {
+              animationGroup.getAnimationGroup();
+            });
+            break;
           case 'lookat':
             this.lookatList.forEach((lookat) => {
               lookat.getLookAt();
@@ -208,6 +217,10 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
 
   getTextureComponents(): TextureComponent[] {
     return this.getComponents(this.textureList);
+  }
+
+  getAnimationGroupComponents(): AnimationGroupComponent[] {
+    return this.getComponents(this.animationGroupList);
   }
 
   getComponents(list: QueryList<any>): any[] {

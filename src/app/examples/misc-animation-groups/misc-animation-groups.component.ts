@@ -12,4 +12,21 @@ export class MiscAnimationGroupsComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  ngOnInit() {
+    this.boxInfos = [];
+    for ( let i = 0; i < 5; i ++ ) {
+      for ( let j = 0; j < 5; j ++ ) {
+        this.boxInfos.push({
+          x : 32 - ( 16 * i ),
+          y : 0,
+          z : 32 - ( 16 * j )
+        });
+      }
+    }
+  }
+  boxInfos : {
+    x : number;
+    y : number;
+    z : number;
+  }[] = [];
 }

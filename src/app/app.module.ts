@@ -493,6 +493,10 @@ import { Webgl2MultisampledRenderbuffersComponent } from './examples/webgl2-mult
 import { Webgl2VolumeCloudComponent } from './examples/webgl2-volume-cloud/webgl2-volume-cloud.component';
 import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instancing/webgl2-volume-instancing.component';
 import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
+import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
+import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
+import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
+
 import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
 import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
@@ -515,8 +519,6 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
-import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
-import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
 import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
 import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
 import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
@@ -572,6 +574,8 @@ import { ControllerItemComponent } from './three/controller/controller-item/cont
 import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
 import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
 import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
+import { KeyframeComponent } from './three/keyframe/keyframe.component';
+import { AnimationGroupComponent } from './three/animation-group/animation-group.component';
 
 
 @NgModule({
@@ -1142,6 +1146,9 @@ import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbo
     PhysicsOimoInstancingComponent,
     WebglLoaderIfcComponent,
     WebglLoaderGltfTransmissionComponent,
+    Webgl2RendertargetTexture2darrayComponent,
+    KeyframeComponent,
+    AnimationGroupComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],

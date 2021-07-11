@@ -5,7 +5,6 @@ import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShade
 import { BlendShader } from 'three/examples/jsm/shaders/BlendShader';
 import { BokehShader } from 'three/examples/jsm/shaders/BokehShader';
 import { BokehDepthShader, BokehShader as BokehShader2 } from 'three/examples/jsm/shaders/BokehShader2';
-
 import { BrightnessContrastShader } from 'three/examples/jsm/shaders/BrightnessContrastShader';
 import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader';
 import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader';
@@ -67,6 +66,9 @@ import { ShaderDemo1 } from './shader.demo1';
 import { ShaderDemo10 } from './shader.demo10';
 import { ShaderDemo11 } from './shader.demo11';
 import { ShaderDemo12 } from './shader.demo12';
+import { ShaderDemo13 } from './shader.demo13';
+import { ShaderDemo14 } from './shader.demo14';
+import { ShaderDemo15 } from './shader.demo15';
 import { ShaderDemo2 } from './shader.demo2';
 import { ShaderDemo3 } from './shader.demo3';
 import { ShaderDemo4 } from './shader.demo4';
@@ -91,6 +93,7 @@ import { SinColor } from './shader.sin_color';
 import { UnrealBloomSelective } from './shader.unreal_bloom_selective';
 import { VideoKinect } from './shader.video_kinect';
 import { WireFrame } from './shader.wireframe';
+
 
 export interface ShaderType {
   defines?: {
@@ -211,9 +214,9 @@ export const ShaderConf: {
   ssao: 'ssaoshader',
   waterrefractionshader: WaterRefractionShader,
   waterrefraction: 'waterrefractionshader',
-  // bokeh2shader: BokehShader2,
-  // bokehshader2: 'bokeh2shader',
-  // bokeh2: 'bokeh2shader',
+  bokeh2shader: BokehShader2 as any,
+  bokehshader2: 'bokeh2shader',
+  bokeh2: 'bokeh2shader',
   bokehdepthshader: BokehDepthShader,
   bokehdepth: 'bokehdepthshader',
   normalmapshader: NormalMapShader,
@@ -307,6 +310,18 @@ export const ShaderConf: {
   demo12shader : ShaderDemo12,
   shaderdemo12 : "demo12shader",
   demo12 : "demo12shader",
+
+  demo13shader : ShaderDemo13,
+  shaderdemo13 : "demo13shader",
+  demo13 : "demo13shader",
+
+  demo14shader : ShaderDemo14,
+  shaderdemo14 : "demo14shader",
+  demo14 : "demo14shader",
+
+  demo15shader : ShaderDemo15,
+  shaderdemo15 : "demo15shader",
+  demo15 : "demo15shader",
 
   scalecolorshader : ScaleColor,
   scalecolor : "scalecolorshader",

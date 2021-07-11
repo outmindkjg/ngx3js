@@ -1,8 +1,7 @@
-import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
   selector: 'three-audio',
@@ -26,8 +25,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private coneOuterAngle:number = null;
   @Input() private coneOuterGain:number = 1;
   @Input() private fftSize:number = 128;
-
-  @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
   ngOnInit(): void {
     super.ngOnInit('audio');
@@ -53,7 +50,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   }
 
   ngAfterContentInit(): void {
-    this.subscribeListQueryChange(this.mixerList, 'mixerList', 'mixer');
     super.ngAfterContentInit();
   }
   
@@ -176,17 +172,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['volume','loop','url','mixer','positionalaudio','play','autoplay']);
+        changes = ThreeUtil.pushUniq(changes, ['volume','loop','url','positionalaudio','play','autoplay']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'mixer' :
-            this.unSubscribeReferList('mixerList');
-            this.mixerList.forEach((mixer) => {
-              mixer.setParent(this.audio);
-            });
-            this.subscribeListQuery(this.mixerList, 'mixerList','mixer');
-            break;
           case 'loaded' :
             if (this._numberAnalyser !== null && this.analyser === null) {
               this.getAnalyser();

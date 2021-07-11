@@ -498,6 +498,8 @@ import { Webgl2MultisampledRenderbuffersComponent } from './examples/webgl2-mult
 import { Webgl2VolumeCloudComponent } from './examples/webgl2-volume-cloud/webgl2-volume-cloud.component';
 import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instancing/webgl2-volume-instancing.component';
 import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
+import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
+
 import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
 import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
@@ -1568,6 +1570,8 @@ const routes: Routes = [
         component: Webgl2VolumeInstancingComponent,
       },
       { path: 'webgl2_volume_perlin', component: Webgl2VolumePerlinComponent },
+      { path: 'webgl2_rendertarget_texture2darray', component: Webgl2RendertargetTexture2darrayComponent },
+      
       { path: 'webgpu_sandbox', component: WebgpuSandboxComponent },
       { path: 'webgpu_rtt', component: WebgpuRttComponent },
       { path: 'webgpu_compute', component: WebgpuComputeComponent },
