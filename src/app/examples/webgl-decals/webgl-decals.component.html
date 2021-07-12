@@ -46,8 +46,8 @@
     </three-mesh>
     <three-mesh *ngFor="let decal of decals">
       <three-material [type]="'MeshPhong'" [color]="decal.color" [specular]="'0x444444'" [normalScaleX]="1" [normalScaleY]="1" [shininess]="30" [transparent]="true" [depthTest]="true" [depthWrite]="true" [polygonOffset]="true" [polygonOffsetFactor]="-4" [wireframe]="false">
-        <three-texture [textureType]="'map'" [image]="'/assets/examples/textures/decal/decal-diffuse.png'"></three-texture>
-        <three-texture [textureType]="'normalMap'" [image]="'/assets/examples/textures/decal/decal-normal.jpg'"></three-texture>
+        <three-texture [textureType]="'map'" [image]="'textures/decal/decal-diffuse.png'"></three-texture>
+        <three-texture [textureType]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></three-texture>
       </three-material>
       <three-geometry
         [type]="'decal'"
@@ -63,13 +63,13 @@
         [mesh]="mesh"
       ></three-geometry>
     </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'/assets/models/gltf/LeePerrySmith/LeePerrySmith.glb'">
+    <three-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
       <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
       <three-material [type]="'MeshPhong'" [specular]="'0x111111'" [shininess]="25">
-        <three-texture [textureType]="'map'" [image]="'/assets/models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>
-        <three-texture [textureType]="'specularMap'" [image]="'/assets/models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>
-        <three-texture [textureType]="'normalMap'" [image]="'/assets/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>
+        <three-texture [textureType]="'map'" [image]="'models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>
+        <three-texture [textureType]="'specularMap'" [image]="'models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>
+        <three-texture [textureType]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>
       </three-material>
     </three-mesh>
   </three-scene>

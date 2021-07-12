@@ -33,7 +33,7 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
       case 'additive':
         return THREE.AdditiveAnimationBlendMode;
     }
-    return undefined;
+    return THREE.NormalAnimationBlendMode;
   }
 
   private getFps(def?: number): number {
@@ -90,8 +90,9 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
     if (this.mixer !== mixer) {
       this.mixer = mixer;
       this.clips = clips || null;
-      this.resetAnimation();
-      console.log(this.mixer);
+      this.clip = null;
+      this.action = null;
+      this.getClip();
     }
     if (fps !== null && fps !== undefined) {
       this.setFps(fps);
@@ -148,7 +149,7 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   isPlayable() {
-    return this.action !== null && !this.additive;
+    return this.clip !== null && this.action !== null && !this.additive;
   }
 
   stop() {
@@ -163,41 +164,25 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
         this.getClip();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','keyframe'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['keyframe']);
+        changes = ThreeUtil.pushUniq(changes, []);
       }
-      
-      changes.forEach((change) => {
-        switch (change.toLowerCase()) {
-          case 'keyframe':
-            this.unSubscribeReferList('keyframeList');
-            if (ThreeUtil.isNotNull(this.keyframeList)) {
-              this.keyframeList.forEach((keyframe) => {
-                keyframe.setClip(this.clip);
-              });
-              this.subscribeListQuery(this.keyframeList, 'keyframeList', 'keyframe');
-            }
-            break;
-        }
-      });
       super.applyChanges(changes);
     }
   }
 
   getClip() {
-    if (this.clip == null  || this._needUpdate) {
+    if (this.clip === null  || this._needUpdate) {
       this.needUpdate = false;
       let clip : THREE.AnimationClip = null;
       if (this.clips !== null) {
         clip = this.index > -1 ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name)
-        console.log(clip, this.clips);
-
       } else {
-        clip = new THREE.AnimationClip(this.name, this.duration, [], this.getBlendMode());
+        clip = new THREE.AnimationClip(ThreeUtil.getTypeSafe(this.name , 'default'), this.duration, [], this.getBlendMode());
       }
       if (clip !== null) {
         if (this.action !== null) {
@@ -219,12 +204,16 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
           this.action.play();
         } else {
           this.clip = clip;
+          if (ThreeUtil.isNotNull(this.keyframeList)) {
+            this.keyframeList.forEach((keyframe) => {
+              keyframe.setClip(this.clip);
+            });
+          }
           this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
         }
         if (this.getClampWhenFinished(false)) {
           this.action.clampWhenFinished = true;
         }
-        console.log(this.clip, this.clips);
         this.action.loop = this.getLoop('repeat');
       } else {
         this.action = null;

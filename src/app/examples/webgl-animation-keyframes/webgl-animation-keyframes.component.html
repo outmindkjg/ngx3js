@@ -25,7 +25,7 @@
       >
           <three-position [x]="5" [y]="2" [z]="8"></three-position>
       </three-mesh>
-      <three-mesh [storageName]="'/assets/examples/models/gltf/LittlestTokyo.glb'" (onLoad)="setMesh($event)" [storageOption]="{ useDraco : true, decoderPath : '/assets/examples/js/libs/draco/gltf/' }">
+      <three-mesh [storageName]="'models/gltf/LittlestTokyo.glb'" (onLoad)="setMesh($event)" [storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
           <three-position [x]="1" [y]="1" [z]="0"></three-position>
           <three-scale [x]="0.01" [y]="0.01" [z]="0.01"></three-scale>
           <three-mixer [action]="'base'">

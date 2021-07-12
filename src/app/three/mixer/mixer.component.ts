@@ -178,8 +178,8 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
           });
         }
       }
-      console.log(this.model, this.clips);
       this.resetMixer();
+      this.lastAction = null;
       if (this.lastAction !== this.action) {
         if (this.delayTime > 0) {
           setTimeout(() => {
@@ -358,6 +358,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
   }
 
   resetMixer() {
+    this.lastPlayedClip = null;
     switch (this.type.toLowerCase()) {
       case 'mmd':
       case 'mmdanimation':
@@ -420,14 +421,13 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 
   lastPlayedClip: ClipComponent = null;
   play(name: string, duration: number = this.duration): boolean {
-    if (ThreeUtil.isNotNull(name) && name !== '' && this.mixer !== null && this.clipList !== null && this.clipList !== undefined && this.clipList.length > 0) {
+    if (ThreeUtil.isNotNull(name) && name !== '' && this.mixer !== null && ThreeUtil.isNotNull(this.clipList) && this.clipList.length > 0) {
       duration = ThreeUtil.getTypeSafe(duration, this.duration);
-      this.lastAction = name.toLowerCase();
       let foundAction: ClipComponent = null;
       this.clipList.forEach((clip) => {
         if (clip.isPlayable()) {
           clip.action.paused = false;
-          if (clip.name.toLowerCase() == this.lastAction) {
+          if (clip.name.toLowerCase() === name.toLowerCase()) {
             foundAction = clip;
           }
         }
@@ -441,7 +441,10 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
       } else if (foundAction !== null) {
         foundAction.fadeIn(duration);
       }
-      this.lastPlayedClip = foundAction;
+      if (foundAction !== null) {
+        this.lastAction = name.toLowerCase();
+        this.lastPlayedClip = foundAction;
+      }
       return true;
     } else if (this.clips && this.clips.setAnimation) {
       this.clips.setAnimation(name);

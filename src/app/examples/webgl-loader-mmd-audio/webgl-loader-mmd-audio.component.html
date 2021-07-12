@@ -12,7 +12,7 @@
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000"
-    [storageName]="'/assets/models/mmd/vmds/wavefile_camera.vmd'">
+    [storageName]="'models/mmd/vmds/wavefile_camera.vmd'">
     <three-mixer [type]="'MMDAnimationHelper'" [animationHelper]="animationHelper"></three-mixer>
     <three-position [x]="0" [y]="20" [z]="30"></three-position>
     <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
@@ -36,12 +36,12 @@
     </three-mesh>
     <three-mesh [helperType]="'polargrid'" [helperOptions]="{ radius : 30 , radials : 10 }">
       <three-position [x]="0" [y]="-10" [z]="0"></three-position>
-      <three-audio [type]="'audio'" [url]="'/assets/models/mmd/audios/wavefile_short.mp3'">
+      <three-audio [type]="'audio'" [url]="'models/mmd/audios/wavefile_short.mp3'">
         <three-mixer [type]="'MMDAnimationHelper'" [animationHelper]="animationHelper" [delayTime]="160 * 1 / 30">
         </three-mixer>
       </three-audio>
     </three-mesh>
-    <three-mesh [storageName]="'/assets/models/mmd/miku/miku_v2.pmd'" [storageOption]="{
+    <three-mesh [storageName]="'models/mmd/miku/miku_v2.pmd'" [storageOption]="{
           vmdUrl : ['/assets/models/mmd/vmds/wavefile_v2.vmd']
         }" [castShadow]="true">
       <three-mixer [type]="'MMDAnimationHelper'" #animationHelper [afterglow]="2.0" [gravity]="-9.8 * 10"

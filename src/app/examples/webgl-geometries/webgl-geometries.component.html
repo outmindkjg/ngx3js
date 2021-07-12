@@ -15,7 +15,7 @@
   <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
   <three-shared>
     <three-material #material [type]="'MeshPhong'" [side]="'double'">
-      <three-texture [textureType]="'map'" [image]="'/assets/examples/textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></three-texture>
+      <three-texture [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></three-texture>
     </three-material>
     <three-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></three-rotation>
   </three-shared>

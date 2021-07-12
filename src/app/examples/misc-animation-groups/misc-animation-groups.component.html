@@ -15,23 +15,32 @@
   <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
     <three-position [x]="50" [y]="50" [z]="100"></three-position>
   </three-camera>
-  <three-shared>
-    <three-geometry
-      #geometry
-      [type]="'BoxGeometry'"
-      [width]="5"
-      [height]="5"
-      [depth]="5"
-    ></three-geometry>
-    <three-material 
-      #material
-      [type]="'MeshBasicMaterial'" 
-      [transparent]="true"
-    ></three-material>
-  </three-shared>
   <three-scene #scene>
+    <three-shared>
+      <three-geometry
+        #geometry
+        [type]="'BoxGeometry'"
+        [width]="5"
+        [height]="5"
+        [depth]="5"
+      ></three-geometry>
+      <three-material 
+        #material
+        [type]="'MeshBasicMaterial'" 
+        [transparent]="true"
+      ></three-material>
+      <three-animation-group #animationGroup>
+        <three-mixer [action]="'default'" [duration]="3">
+          <three-clip [duration]="3" [name]="'default'">
+            <three-keyframe [type]="'quaternion'" [times]="[0,1,2]" [quaternions]="[{x : 0, y : 0, z : 0},{x : 180, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></three-keyframe>
+            <three-keyframe [type]="'color'" [times]="[0,1,2]" [colors]="['0xff0000','0x00ff00','0x0000ff']" [interpolation]="'InterpolateDiscrete'"></three-keyframe>
+            <three-keyframe [type]="'opacity'" [times]="[0,1,2]" [values]="[1,0,1]"></three-keyframe>
+          </three-clip>
+        </three-mixer>
+      </three-animation-group>
+    </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of boxInfos" [geometry]="geometry" [material]="material">
+      <three-mesh *ngFor="let info of boxInfos" [geometry]="geometry" [material]="material" [animationGroup]="animationGroup">
         <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
       </three-mesh>
     </three-mesh>

@@ -36,7 +36,7 @@
       >
         <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
       </three-mesh>
-      <three-mesh (onLoad)="setMesh($event)" [storageName]="'/assets/examples/models/gltf/Soldier.glb'" [helperType]="'skeleton'">
+      <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Soldier.glb'" [helperType]="'skeleton'">
         <three-position [x]="0" [y]="0" [z]="0"></three-position>
         <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
         <three-mixer (onLoad)="setMixer($event)" [action]="'walk'" [duration]="0.2">
