@@ -26,6 +26,15 @@
         [depth]="5"
       ></three-geometry>
       <three-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [transparent]="true"></three-material>
+      <three-mixer [action]="'default'" [duration]="3">
+        <three-clip [duration]="3" [name]="'default'">
+          <three-keyframe [type]="'position'" [times]="[0,1,2]" [vectors]="[0, 0, 0, 30, 0, 0, 0, 0, 0]"></three-keyframe>
+          <three-keyframe [type]="'scale'" [times]="[0,1,2]" [vectors]="[1, 1, 1, 2, 2, 2, 1, 1, 1]" ></three-keyframe>
+          <three-keyframe [type]="'quaternion'" [times]="[0,1,2]" [quaternions]="[{x : 0, y : 0, z : 0},{x : 180, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></three-keyframe>
+          <three-keyframe [type]="'color'" [times]="[0,1,2]" [colors]="['0xff0000','0x00ff00','0x0000ff']" [interpolation]="'InterpolateDiscrete'"></three-keyframe>
+          <three-keyframe [type]="'opacity'" [times]="[0,1,2]" [values]="[1,0,1]"></three-keyframe>
+        </three-clip>
+      </three-mixer>
     </three-mesh>
     <three-helper [type]="'AxesHelper'" [size]="10"></three-helper>
   </three-scene>
