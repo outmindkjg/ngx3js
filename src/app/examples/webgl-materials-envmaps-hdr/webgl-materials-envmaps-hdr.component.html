@@ -19,16 +19,10 @@
   <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
     <three-position [x]="0" [y]="0" [z]="120"></three-position>
   </three-camera>
-  <three-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'backgroundangular'">
-    <three-light
-      [type]="'Ambient'"
-      [color]="'0xffffff'"
-      [intensity]="0.5"
-    >
-    </three-light>
+  <three-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'background'">
     <three-shared>
-      <three-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'"></three-texture>
-      <three-texture #exrBackground [storageName]="'textures/piz_compressed.exr'"></three-texture>
+      <three-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></three-texture>
+      <three-texture #exrBackground [storageName]="'textures/piz_compressed.exr'" [cubeType]="'equirectangular'"></three-texture>
     </three-shared>
     <three-mesh (onLoad)="setMesh($event)">
       <three-position [x]="0" [y]="0" [z]="0"></three-position>
@@ -44,8 +38,8 @@
         [metalness]="controls.metalness" 
         [roughness]="controls.roughness" 
         [envMapIntensity]="1.0"
+        [envMap]="controls.envMap == 'EXR' ? exrBackground : pngBackground"
       >
-        <three-texture [textureType]="'envMap'" [image]="'textures/equirectangular.png'" [encoding]="'sRGBA'"></three-texture>
       </three-material>
     </three-mesh>
     <three-mesh [receiveShadow]="true" [visible]="controls.debug">
