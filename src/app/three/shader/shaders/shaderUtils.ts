@@ -90,6 +90,7 @@ import { RaymarchingReflect } from './shader.raymarching_reflect';
 import { ScaleColor } from './shader.scale_color';
 import { SelectiveDraw } from './shader.selective_draw';
 import { SinColor } from './shader.sin_color';
+import { ShaderSkyDome } from './shader.skydome';
 import { UnrealBloomSelective } from './shader.unreal_bloom_selective';
 import { VideoKinect } from './shader.video_kinect';
 import { WireFrame } from './shader.wireframe';
@@ -262,6 +263,10 @@ export const ShaderConf: {
   lava : "lavashader",
   videokinectshader : VideoKinect,
   videokinect : "videokinectshader",
+
+  skydomeshader : ShaderSkyDome,
+  shaderskydome : "skydomeshader",
+  skydome : "skydomeshader",
 
   demo1shader : ShaderDemo1,
   shaderdemo1 : "demo1shader",

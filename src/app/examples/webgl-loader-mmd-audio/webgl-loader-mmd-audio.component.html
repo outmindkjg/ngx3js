@@ -1,4 +1,4 @@
-<div id="info">
+<div id="info" class="dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MMDLoader test<br />
   <a href="https://github.com/mrdoob/three.js/tree/master/examples/models/mmd#readme" target="_blank" rel="noopener">MMD
     Assets license</a><br />
@@ -11,14 +11,14 @@
 </div>
 <three-renderer [controlType]="'orbit'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000"
-    [storageName]="'models/mmd/vmds/wavefile_camera.vmd'">
-    <three-mixer [type]="'MMDAnimationHelper'" [animationHelper]="animationHelper"></three-mixer>
-    <three-position [x]="0" [y]="20" [z]="30"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-    <three-listener></three-listener>
-  </three-camera>
   <three-scene #scene>
+    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000"
+      [storageName]="'models/mmd/vmds/wavefile_camera.vmd'">
+      <three-mixer [type]="'MMDAnimationHelper'" [animationHelper]="animationHelper"></three-mixer>
+      <three-position [x]="0" [y]="20" [z]="30"></three-position>
+      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
+      <three-listener></three-listener>
+    </three-camera>
     <three-physics></three-physics>
     <three-mesh [type]="'light'" 
       [lightOptions]="{
@@ -42,7 +42,7 @@
       </three-audio>
     </three-mesh>
     <three-mesh [storageName]="'models/mmd/miku/miku_v2.pmd'" [storageOption]="{
-          vmdUrl : ['/assets/models/mmd/vmds/wavefile_v2.vmd']
+          vmdUrl : ['models/mmd/vmds/wavefile_v2.vmd']
         }" [castShadow]="true">
       <three-mixer [type]="'MMDAnimationHelper'" #animationHelper [afterglow]="2.0" [gravity]="-9.8 * 10"
         [physics]="true"></three-mixer>

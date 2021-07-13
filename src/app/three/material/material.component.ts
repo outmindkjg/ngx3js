@@ -152,6 +152,7 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private normalMap: TextureValue = null;
   @Input() private displacementMap: TextureValue = null;
   @Input() private clearcoatNormalMap: TextureValue = null;
+  @Input() private roughnessMap: TextureValue = null;
   @Input() private aoMap: TextureValue = null;
   @Input() private dashed: boolean = null;
   @Input() private dashScale: number = null;
@@ -161,6 +162,8 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
   @Input() private control: any = null;
   @Input() private glslVersion: string = null;
   @Input() private extensions: string = null;
+  @Input() private onBeforeCompile: (shader: THREE.Shader, renderer?: THREE.WebGLRenderer) => void = null;
+  
 
   meshPositions: THREE.Vector3[] = [];
   meshRotations: THREE.Euler[] = [];
@@ -479,6 +482,11 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       case 'clearcoatnormalmap':
         if (ThreeUtil.isNotNull(this.clearcoatNormalMap)) {
           return this.getTextureOption(this.clearcoatNormalMap, 'clearcoatNormalMap');
+        }
+        break;
+      case 'roughnessmap' :
+        if (ThreeUtil.isNotNull(this.roughnessMap)) {
+          return this.getTextureOption(this.roughnessMap, 'roughnessMap');
         }
         break;
     }
@@ -1345,37 +1353,51 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
         case 'map':
           this.material['map'] = materialClone;
           break;
+        case 'env':
         case 'envmap':
           this.material['envMap'] = materialClone;
           break;
+        case 'ao':
         case 'aomap':
           this.material['aoMap'] = materialClone;
           break;
+        case 'specular':
         case 'specularmap':
           this.material['specularMap'] = materialClone;
           break;
-        case 'alphamap':
+          case 'alpha':
+            case 'alphamap':
           this.material['alphaMap'] = materialClone;
           break;
-        case 'displacementmap':
+          case 'displacement':
+            case 'displacementmap':
           this.material['displacementMap'] = materialClone;
           break;
-        case 'clearcoatnormalmap':
+          case 'roughness' :
+            case 'roughnessmap' :
+          this.material['roughnessMap'] = materialClone;
+          break;
+          case 'clearcoatnormal':
+            case 'clearcoatnormalmap':
           this.material['clearcoatNormalMap'] = materialClone;
           break;
         case 'matcap':
           this.material['matcap'] = materialClone;
           break;
-        case 'bumpmap':
+          case 'bump':
+            case 'bumpmap':
           this.material['bumpMap'] = materialClone;
           break;
-        case 'normalmap':
+          case 'normal':
+            case 'normalmap':
           this.material['normalMap'] = materialClone;
           break;
-        case 'lightmap':
+          case 'light':
+            case 'lightmap':
           this.material['lightMap'] = materialClone;
           break;
-        case 'emissivemap':
+          case 'emissive':
+            case 'emissivemap':
           this.material['emissiveMap'] = materialClone;
           break;
       }
@@ -2287,6 +2309,9 @@ export class MaterialComponent extends AbstractSubscribeComponent implements OnI
       }
       material.userData.id = this.id;
       material.userData.materialType = this.materialType.toLowerCase();
+      if (ThreeUtil.isNotNull(this.onBeforeCompile)) {
+        material.onBeforeCompile = this.onBeforeCompile;
+      }
       this.material = material;
       this.synkMesh(this.material);
       super.setObject(this.material);

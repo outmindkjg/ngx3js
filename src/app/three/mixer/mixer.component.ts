@@ -249,7 +249,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
   synkAnimationHelper(helper: MMDAnimationHelper) {
     if (helper !== null && !this.isAdded) {
       if (this.model instanceof THREE.SkinnedMesh || this.model instanceof THREE.Camera) {
-        if (this._ammo || this.getPhysics(false) == false) {
+        if (ThreeUtil.isNotNull(this.clips) && Array.isArray(this.clips) && (this._ammo || this.getPhysics(false) == false)) {
           const skinnedMesh = this.model;
           const oldParent = skinnedMesh.parent;
           if (ThreeUtil.isNotNull(oldParent)) {
@@ -264,7 +264,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
               // unitStep: this.getUnitStep(),
               // maxStepNum: this.getMaxStepNum(),
               // gravity: this.getGravity(),
-              //gravity: -1000,
+              // gravity: -1000,
               // gravity : new THREE.Vector3(0,0,-90),
               // delayTime: this.getDelayTime()
             });
@@ -306,12 +306,19 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
           this.isAdded = true;
         }
       } else if (this.model instanceof THREE.Audio) {
-        if (this.model.buffer !== null) {
-          helper.add(this.model, {
+        const audioMode = this.model;
+        if (audioMode.buffer !== null) {
+          helper.add(audioMode, {
             delayTime: this.getDelayTime(),
           });
         } else {
-          console.error('mix error');
+          this.subscribeRefer('audioLoad',
+            ThreeUtil.getSubscribe(audioMode, () => {
+              helper.add(audioMode, {
+                delayTime: this.getDelayTime(),
+              });
+            }, 'loaded')
+          );
         }
       }
     }
@@ -370,8 +377,16 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
               afterglow: this.getAfterglow(),
               resetPhysicsOnLoop: this.getResetPhysicsOnLoop(),
             });
-            this.synkAnimationHelper(this.helper);
-            this.setSubscribeNext('animation');
+            if (ThreeUtil.isNotNull(this.clips)) {
+              this.synkAnimationHelper(this.helper);
+              this.setSubscribeNext('animation');
+            } else {
+              this.subscribeRefer('mmdLoad', ThreeUtil.getSubscribe(this.model, () => {
+                this.synkAnimationHelper(this.helper);
+                this.setSubscribeNext('animation');
+              }, 'loaded'));
+            }
+
           } else {
             this.unSubscribeRefer('animation');
             this.subscribeRefer(

@@ -1347,6 +1347,7 @@ export class LocalStorageService {
                 key,
                 (result) => {
                   callBack({
+                    object : result,
                     source: result,
                   });
                 },

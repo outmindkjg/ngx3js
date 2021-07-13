@@ -373,10 +373,16 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (this.camera === null) {
       this.getObject3d();
     }
-    if (this.type == 'cube') {
-      return this.cubeCamera1.renderTarget;
+    switch(this.type.toLowerCase()) {
+      case 'cube' :
+      case 'cubecamera' :
+        return this.cubeCamera1.renderTarget;
     }
     return undefined;
+  }
+
+  getTexture() : THREE.WebGLCubeRenderTarget {
+    return this.getCubeRenderTarget();
   }
 
   getObject3d<T extends THREE.Object3D>(): T {
@@ -398,7 +404,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           const cubeCamera1 = new THREE.CubeCamera(
             this.getNear(0.1),
             this.getFar(2000),
-            new THREE.WebGLCubeRenderTarget(256, {
+            new THREE.WebGLCubeRenderTarget(512, {
               encoding: THREE.sRGBEncoding,
               format: THREE.RGBFormat,
               generateMipmaps: true,
@@ -408,7 +414,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           const cubeCamera2 = new THREE.CubeCamera(
             this.getNear(0.1),
             this.getFar(2000),
-            new THREE.WebGLCubeRenderTarget(256, {
+            new THREE.WebGLCubeRenderTarget(512, {
               encoding: THREE.sRGBEncoding,
               format: THREE.RGBFormat,
               generateMipmaps: true,
@@ -462,7 +468,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           this.storageName,
           (_: THREE.Object3D, clips?: THREE.AnimationClip[]) => {
             this.setUserData('clips', clips);
-            this.setSubscribeNext('resetTarget');
+            this.setSubscribeNext('loaded');
           },
           { object: this.camera }
         );
@@ -505,10 +511,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       }
     }
     if (renderer instanceof THREE.WebGLRenderer) {
-      if (this.type === 'cube' && this.cubeCamera1 !== null && this.cubeCamera2 !== null) {
+      if (this.cubeCamera1 !== null) {
         this._cubeRenderCount++;
         this._cubeRenderCount = this._cubeRenderCount % 2;
-        const cubeCamera = this._cubeRenderCount % 2 === 0 ? this.cubeCamera1 : this.cubeCamera2;
+        // const cubeCamera = this._cubeRenderCount % 2 === 0 ? this.cubeCamera1 : this.cubeCamera2;
+        const cubeCamera = this.cubeCamera1;
         cubeCamera.update(renderer, this.getScene(scenes));
         if (ThreeUtil.isNotNull(this.material) && this.material.getMaterial) {
           const material = this.material.getMaterial();

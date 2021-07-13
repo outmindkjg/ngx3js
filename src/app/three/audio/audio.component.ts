@@ -66,16 +66,12 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   static loadAudio(url : string, onLoad: ( audioBuffer: AudioBuffer ) => void) {
     if (this.audioLoader === null) {
-      this.audioLoader = new THREE.AudioLoader();
+      this.audioLoader = new THREE.AudioLoader(ThreeUtil.getLoadingManager());
     }
     this.audioLoader.load(
       url,
       ( audioBuffer: AudioBuffer ) : void => {
         onLoad(audioBuffer);
-      },
-      ( request: ProgressEvent ) : void => {
-      },
-      ( event: ErrorEvent ) : void => {
       }
     );
   }
@@ -298,7 +294,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             }
             break;
           case 'play' :
-            if (ThreeUtil.isNotNull(this.play)) {
+            if (ThreeUtil.isNotNull(this.play) && this.audio.buffer !== null) {
               if (this.play) {
                 if (!this.audio.isPlaying) {
                   this.audio.play();  

@@ -1344,6 +1344,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 this.setUserData('refTarget', loadedMesh);
                 this.setUserData('clips', clips);
                 this.setUserData('storageSource', source);
+                loadedMesh.userData = this.getUserData();
                 this.addChildObject3d(loadedMesh);
                 this.setSubscribeNext(['loaded']);
               },
