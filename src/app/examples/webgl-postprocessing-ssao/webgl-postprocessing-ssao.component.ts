@@ -57,7 +57,6 @@ export class WebglPostprocessingSsaoComponent extends BaseComponent<{
       this.pass.kernelRadius = this.controls.kernelRadius;
       this.pass.minDistance = this.controls.minDistance;
       this.pass.maxDistance = this.controls.maxDistance;
-      console.log(this.pass);
     }
   }
 

@@ -21,7 +21,8 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
   colors : number[] = [];
 
   add_vertex( v ) {
-    if ( this.next_positions_index == 0xffff ) console.error( 'Too many points.' );
+    if ( this.next_positions_index == 0xffff ) 
+      console.error( 'Too many points.' );
     this.positions.push( v.x, v.y, v.z );
     this.colors.push( Math.random() * 0.5 + 0.5, Math.random() * 0.5 + 0.5, 1 );
     return this.next_positions_index ++;

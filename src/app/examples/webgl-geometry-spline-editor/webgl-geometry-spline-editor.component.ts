@@ -36,7 +36,6 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 					const p = this.positions[i];
 					strplace.push( `new THREE.Vector3(${p.x}, ${p.y}, ${p.z})` );
 				}
-				console.log( strplace.join( ',\n' ) );
 				const code = '[' + ( strplace.join( ',\n\t' ) ) + ']';
 				prompt( 'copy and paste code', code );
       }

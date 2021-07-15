@@ -67,6 +67,5 @@ export class WebglLoaderDm3Component extends BaseComponent<{
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.loadedMesh = mesh.getObject3d().children[0] as THREE.Mesh;
-    console.log(this.loadedMesh);
   }
 }

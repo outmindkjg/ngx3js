@@ -421,6 +421,7 @@ import { WebglPointsBillboardsComponent } from './examples/webgl-points-billboar
 import { WebglPointsDynamicComponent } from './examples/webgl-points-dynamic/webgl-points-dynamic.component';
 import { WebglPointsSpritesComponent } from './examples/webgl-points-sprites/webgl-points-sprites.component';
 import { WebglPointsWavesComponent } from './examples/webgl-points-waves/webgl-points-waves.component';
+import { WebglPortalComponent } from './examples/webgl-portal/webgl-portal.component';
 import { WebglPostprocessingAdvancedComponent } from './examples/webgl-postprocessing-advanced/webgl-postprocessing-advanced.component';
 import { WebglPostprocessingAfterimageComponent } from './examples/webgl-postprocessing-afterimage/webgl-postprocessing-afterimage.component';
 import { WebglPostprocessingBackgroundsComponent } from './examples/webgl-postprocessing-backgrounds/webgl-postprocessing-backgrounds.component';
@@ -495,11 +496,10 @@ import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl
 import { Webgl2MaterialsTexture3dComponent } from './examples/webgl2-materials-texture3d/webgl2-materials-texture3d.component';
 import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
 import { Webgl2MultisampledRenderbuffersComponent } from './examples/webgl2-multisampled-renderbuffers/webgl2-multisampled-renderbuffers.component';
+import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
 import { Webgl2VolumeCloudComponent } from './examples/webgl2-volume-cloud/webgl2-volume-cloud.component';
 import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instancing/webgl2-volume-instancing.component';
 import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
-import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
-
 import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
 import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
@@ -522,6 +522,7 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'ch01' },
   {
@@ -530,7 +531,7 @@ const routes: Routes = [
     children: [
       { path: '**', component: DocComponent },
       { path: '', pathMatch: 'full', redirectTo: 'en/animation/tracks/BooleanKeyframeTrack' },
-    ]
+    ],
   },
   {
     path: 'ch01',
@@ -1247,6 +1248,7 @@ const routes: Routes = [
       { path: 'webgl_points_dynamic', component: WebglPointsDynamicComponent },
       { path: 'webgl_points_sprites', component: WebglPointsSpritesComponent },
       { path: 'webgl_points_waves', component: WebglPointsWavesComponent },
+      { path: 'webgl_portal', component: WebglPortalComponent },
       { path: 'webgl_raycast_sprite', component: WebglRaycastSpriteComponent },
       {
         path: 'webgl_raycast_texture',
@@ -1571,7 +1573,7 @@ const routes: Routes = [
       },
       { path: 'webgl2_volume_perlin', component: Webgl2VolumePerlinComponent },
       { path: 'webgl2_rendertarget_texture2darray', component: Webgl2RendertargetTexture2darrayComponent },
-      
+
       { path: 'webgpu_sandbox', component: WebgpuSandboxComponent },
       { path: 'webgpu_rtt', component: WebgpuRttComponent },
       { path: 'webgpu_compute', component: WebgpuComputeComponent },

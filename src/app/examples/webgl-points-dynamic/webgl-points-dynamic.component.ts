@@ -83,7 +83,6 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
   
   setGeometry(idx : number , mesh : MeshComponent) {
     const realMesh = mesh.getObject3d() as THREE.Points;
-    console.log(realMesh);
     setTimeout(() => {
       const geometry = realMesh.geometry;
       if (geometry == null && geometry == undefined) {
@@ -109,7 +108,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
         }
         info.mesh = realMesh;
       }
-    }, 5000);
+    }, 1000);
   }
 
   onRender(timer : RendererTimer) {

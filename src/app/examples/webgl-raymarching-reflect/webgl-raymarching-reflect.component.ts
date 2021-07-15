@@ -17,7 +17,6 @@ export class WebglRaymarchingReflectComponent extends BaseComponent<{
       saveImage : () => {
         if (this.renderer !== null) {
           this.renderer.getCanvasJson((json) => {
-            console.log(json);
           }, { width : 200, height : 200, name : 'auto'})
         }
       },

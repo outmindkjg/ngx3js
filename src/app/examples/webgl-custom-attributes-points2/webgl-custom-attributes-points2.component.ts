@@ -43,8 +43,6 @@ export class WebglCustomAttributesPoints2Component extends BaseComponent<{}> {
       attributes.size.needsUpdate = true;
       attributes.ca.needsUpdate = true;
       (this.object3d as any).material.needsUpdate = true;
-      // console.log(this.geometry);
-      // console.log((this.object3d as any).material);
     }
   }
 

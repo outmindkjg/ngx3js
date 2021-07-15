@@ -36,7 +36,6 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
       }
       geometry.setAttribute( 'center', new BufferAttribute( centers, 3 ) );
     }
-    console.log(geometry);
   }
 
 }

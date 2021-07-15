@@ -65,7 +65,6 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
   setOutlinePass(pass : PassComponent) {
     this.outlinePass = pass.getPass();
     this.outlinePass.selectedObjects = this.selectedObjects;
-    // console.log(this.outlinePass);
   }
 
   onMouseDownEvent(event : RendererEvent) {

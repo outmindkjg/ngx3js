@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ApiComponent } from './api/api.component';
+import { DocComponent } from './api/doc/doc.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Chapter01Component } from './chapter01/chapter01.component';
@@ -171,6 +172,7 @@ import { PhysicsAmmoInstancingComponent } from './examples/physics-ammo-instanci
 import { PhysicsAmmoRopeComponent } from './examples/physics-ammo-rope/physics-ammo-rope.component';
 import { PhysicsAmmoTerrainComponent } from './examples/physics-ammo-terrain/physics-ammo-terrain.component';
 import { PhysicsAmmoVolumeComponent } from './examples/physics-ammo-volume/physics-ammo-volume.component';
+import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
 import { SvgLinesComponent } from './examples/svg-lines/svg-lines.component';
 import { SvgSandboxComponent } from './examples/svg-sandbox/svg-sandbox.component';
 import { UnderConstructionComponent } from './examples/under-construction/under-construction.component';
@@ -296,8 +298,10 @@ import { WebglLoaderFbxComponent } from './examples/webgl-loader-fbx/webgl-loade
 import { WebglLoaderGcodeComponent } from './examples/webgl-loader-gcode/webgl-loader-gcode.component';
 import { WebglLoaderGltfCompressedComponent } from './examples/webgl-loader-gltf-compressed/webgl-loader-gltf-compressed.component';
 import { WebglLoaderGltfExtensionsComponent } from './examples/webgl-loader-gltf-extensions/webgl-loader-gltf-extensions.component';
+import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
 import { WebglLoaderGltfVariantsComponent } from './examples/webgl-loader-gltf-variants/webgl-loader-gltf-variants.component';
 import { WebglLoaderGltfComponent } from './examples/webgl-loader-gltf/webgl-loader-gltf.component';
+import { WebglLoaderIfcComponent } from './examples/webgl-loader-ifc/webgl-loader-ifc.component';
 import { WebglLoaderImagebitmapComponent } from './examples/webgl-loader-imagebitmap/webgl-loader-imagebitmap.component';
 import { WebglLoaderKmzComponent } from './examples/webgl-loader-kmz/webgl-loader-kmz.component';
 import { WebglLoaderLdrawComponent } from './examples/webgl-loader-ldraw/webgl-loader-ldraw.component';
@@ -421,6 +425,7 @@ import { WebglPointsBillboardsComponent } from './examples/webgl-points-billboar
 import { WebglPointsDynamicComponent } from './examples/webgl-points-dynamic/webgl-points-dynamic.component';
 import { WebglPointsSpritesComponent } from './examples/webgl-points-sprites/webgl-points-sprites.component';
 import { WebglPointsWavesComponent } from './examples/webgl-points-waves/webgl-points-waves.component';
+import { WebglPortalComponent } from './examples/webgl-portal/webgl-portal.component';
 import { WebglPostprocessingAdvancedComponent } from './examples/webgl-postprocessing-advanced/webgl-postprocessing-advanced.component';
 import { WebglPostprocessingAfterimageComponent } from './examples/webgl-postprocessing-afterimage/webgl-postprocessing-afterimage.component';
 import { WebglPostprocessingBackgroundsComponent } from './examples/webgl-postprocessing-backgrounds/webgl-postprocessing-backgrounds.component';
@@ -443,6 +448,8 @@ import { WebglPostprocessingSmaaComponent } from './examples/webgl-postprocessin
 import { WebglPostprocessingSobelComponent } from './examples/webgl-postprocessing-sobel/webgl-postprocessing-sobel.component';
 import { WebglPostprocessingSsaaComponent } from './examples/webgl-postprocessing-ssaa/webgl-postprocessing-ssaa.component';
 import { WebglPostprocessingSsaoComponent } from './examples/webgl-postprocessing-ssao/webgl-postprocessing-ssao.component';
+import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
+import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
 import { WebglPostprocessingTaaComponent } from './examples/webgl-postprocessing-taa/webgl-postprocessing-taa.component';
 import { WebglPostprocessingUnrealBloomSelectiveComponent } from './examples/webgl-postprocessing-unreal-bloom-selective/webgl-postprocessing-unreal-bloom-selective.component';
 import { WebglPostprocessingUnrealBloomComponent } from './examples/webgl-postprocessing-unreal-bloom/webgl-postprocessing-unreal-bloom.component';
@@ -468,6 +475,7 @@ import { WebglShadowmapCsmComponent } from './examples/webgl-shadowmap-csm/webgl
 import { WebglShadowmapPcssComponent } from './examples/webgl-shadowmap-pcss/webgl-shadowmap-pcss.component';
 import { WebglShadowmapPerformanceComponent } from './examples/webgl-shadowmap-performance/webgl-shadowmap-performance.component';
 import { WebglShadowmapPointlightComponent } from './examples/webgl-shadowmap-pointlight/webgl-shadowmap-pointlight.component';
+import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
 import { WebglShadowmapViewerComponent } from './examples/webgl-shadowmap-viewer/webgl-shadowmap-viewer.component';
 import { WebglShadowmapVsmComponent } from './examples/webgl-shadowmap-vsm/webgl-shadowmap-vsm.component';
 import { WebglShadowmapComponent } from './examples/webgl-shadowmap/webgl-shadowmap.component';
@@ -488,15 +496,14 @@ import { WebglWaterComponent } from './examples/webgl-water/webgl-water.componen
 import { WebglWorkerOffscreencanvasComponent } from './examples/webgl-worker-offscreencanvas/webgl-worker-offscreencanvas.component';
 import { Webgl2BuffergeometryAttributesIntegerComponent } from './examples/webgl2-buffergeometry-attributes-integer/webgl2-buffergeometry-attributes-integer.component';
 import { Webgl2MaterialsTexture2darrayComponent } from './examples/webgl2-materials-texture2darray/webgl2-materials-texture2darray.component';
+import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
 import { Webgl2MaterialsTexture3dComponent } from './examples/webgl2-materials-texture3d/webgl2-materials-texture3d.component';
+import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
 import { Webgl2MultisampledRenderbuffersComponent } from './examples/webgl2-multisampled-renderbuffers/webgl2-multisampled-renderbuffers.component';
+import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
 import { Webgl2VolumeCloudComponent } from './examples/webgl2-volume-cloud/webgl2-volume-cloud.component';
 import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instancing/webgl2-volume-instancing.component';
 import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
-import { Webgl2MaterialsTexture3dPartialupdateComponent } from './examples/webgl2-materials-texture3d-partialupdate/webgl2-materials-texture3d-partialupdate.component';
-import { Webgl2MultipleRendertargetsComponent } from './examples/webgl2-multiple-rendertargets/webgl2-multiple-rendertargets.component';
-import { Webgl2RendertargetTexture2darrayComponent } from './examples/webgl2-rendertarget-texture2darray/webgl2-rendertarget-texture2darray.component';
-
 import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
 import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
@@ -518,17 +525,8 @@ import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster
 import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
-import { WebglShadowmapProgressiveComponent } from './examples/webgl-shadowmap-progressive/webgl-shadowmap-progressive.component';
-import { WebglPostprocessingSsrComponent } from './examples/webgl-postprocessing-ssr/webgl-postprocessing-ssr.component';
-import { WebglPostprocessingSsrrComponent } from './examples/webgl-postprocessing-ssrr/webgl-postprocessing-ssrr.component';
-import { PhysicsOimoInstancingComponent } from './examples/physics-oimo-instancing/physics-oimo-instancing.component';
-import { WebglLoaderIfcComponent } from './examples/webgl-loader-ifc/webgl-loader-ifc.component';
-import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
-
-import { ApiComponent } from './api/api.component';
-import { DocComponent } from './api/doc/doc.component';
-
 import { MenuComponent } from './menu/menu.component';
+import { AnimationGroupComponent } from './three/animation-group/animation-group.component';
 import { AudioComponent } from './three/audio/audio.component';
 import { BackgroundComponent } from './three/background/background.component';
 import { CameraComponent } from './three/camera/camera.component';
@@ -536,12 +534,16 @@ import { CanvasComponent } from './three/canvas/canvas.component';
 import { ClipComponent } from './three/clip/clip.component';
 import { ComposerComponent } from './three/composer/composer.component';
 import { ControlComponent } from './three/control/control.component';
+import { ControllerItemComponent } from './three/controller/controller-item/controller-item.component';
 import { ControllerComponent } from './three/controller/controller.component';
 import { CurveComponent } from './three/curve/curve.component';
+import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
 import { FogComponent } from './three/fog/fog.component';
+import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
 import { GeometryComponent } from './three/geometry/geometry.component';
 import { HelperComponent } from './three/helper/helper.component';
 import { HtmlComponent } from './three/html/html.component';
+import { KeyframeComponent } from './three/keyframe/keyframe.component';
 import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
 import { LightComponent } from './three/light/light.component';
 import { ListenerComponent } from './three/listener/listener.component';
@@ -550,10 +552,12 @@ import { MaterialComponent } from './three/material/material.component';
 import { MeshComponent } from './three/mesh/mesh.component';
 import { MixerComponent } from './three/mixer/mixer.component';
 import { PassComponent } from './three/pass/pass.component';
+import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
 import { PhysicsComponent } from './three/physics/physics.component';
 import { PlaneComponent } from './three/plane/plane.component';
 import { PositionComponent } from './three/position/position.component';
 import { RendererComponent } from './three/renderer/renderer.component';
+import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
 import { RigidbodyComponent } from './three/rigidbody/rigidbody.component';
 import { RotationComponent } from './three/rotation/rotation.component';
 import { ScaleComponent } from './three/scale/scale.component';
@@ -569,13 +573,6 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { ViewerComponent } from './three/viewer/viewer.component';
 import { VisualComponent } from './three/visual/visual.component';
-import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
-import { ControllerItemComponent } from './three/controller/controller-item/controller-item.component';
-import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
-import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
-import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
-import { KeyframeComponent } from './three/keyframe/keyframe.component';
-import { AnimationGroupComponent } from './three/animation-group/animation-group.component';
 
 
 @NgModule({
@@ -1149,6 +1146,7 @@ import { AnimationGroupComponent } from './three/animation-group/animation-group
     Webgl2RendertargetTexture2darrayComponent,
     KeyframeComponent,
     AnimationGroupComponent,
+    WebglPortalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],

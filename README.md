@@ -145,7 +145,7 @@ ng g c examples/webgl_clipping_intersection
 ng g c examples/webgl_clipping_stencil
 ng g c examples/webgl_decals
 ng g c examples/webgl_depth_texture
-
+ng g c examples/webgl-portal
 ng g c examples/webgl_effects_anaglyph
 ng g c examples/webgl_effects_ascii
 ng g c examples/webgl_effects_parallaxbarrier

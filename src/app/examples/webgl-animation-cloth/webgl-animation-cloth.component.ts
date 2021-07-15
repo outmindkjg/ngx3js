@@ -117,7 +117,6 @@ export class WebglAnimationClothComponent
     this.pins = this.pinsFormation[
       ~~(Math.random() * this.pinsFormation.length)
     ];
-    console.log(this.pins);
   }
 
   diff = new THREE.Vector3();

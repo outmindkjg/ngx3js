@@ -17,7 +17,6 @@ export class WebglModifierTessellationComponent extends BaseComponent<{}> {
 
   setGeometry(geometryCom : GeometryComponent) {
     const geometry = geometryCom.getGeometry();
-    this.consoleLog('geometry', geometry);
     if (geometry.attributes.position !== undefined) {
       const numFaces = geometry.attributes.position.count / 3;
       const colors = new Float32Array( numFaces * 3 * 3 );

@@ -553,9 +553,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           });
       }
     } else if (ThreeUtil.isNotNull(image) && image !== '') {
+      const fileName = image.toLowerCase();
       if (loaderType === 'auto') {
-        const fileName = image.toLowerCase();
-        if(fileName.endsWith('.mp4') || 
+        if(fileName.endsWith('.webcam') || 
+          fileName.endsWith('.mp4') || 
           fileName.endsWith('.m4v') || 
           fileName.endsWith('.f4v') || 
           fileName.endsWith('.mov') || 
@@ -575,11 +576,24 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           const videoTexture = new THREE.VideoTexture(video);
           video.loop = true;
           video.crossOrigin = 'anonymous';
-          video.src = ThreeUtil.getStoreUrl(image);
-          video.addEventListener( 'play', () => {
-            onLoad();
-          });
-          video.play();
+          if (fileName.endsWith('.webcam')) {
+            if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
+              navigator.mediaDevices.getUserMedia( { video: { width: 1280, height: 720, facingMode: 'user' } } ).then( stream => {
+                video.srcObject = stream;
+                video.play();
+              }).catch( error   => {
+                console.error( 'Unable to access the camera/webcam.', error );
+              });
+            } else {
+              console.error( 'MediaDevices interface not available.' );
+            }
+          } else {
+            video.addEventListener( 'play', () => {
+              onLoad();
+            });
+            video.src = ThreeUtil.getStoreUrl(image);
+            video.play();
+          }
           return videoTexture;
         case 'imagebitmap':
         case 'image':
@@ -905,6 +919,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         case 'alphamap':
           this._material['alphaMap'] = this.texture;
           break;
+        case 'emissive':
+        case 'emissivemap':
+          this._material['emissiveMap'] = this.texture;
+          break;
         case 'bump':
         case 'bumpmap':
           this._material['bumpMap'] = this.texture;
@@ -934,6 +952,10 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
         case 'roughnessmap' :
           this._material['roughnessMap'] = this.texture;
           break;
+        case 'light' :
+        case 'lightmap' :
+          this._material['lightMap'] = this.texture;
+          break;
         case 'gradient' :
         case 'gradientmap' :
           this._material['gradientMap'] = this.texture;
@@ -942,7 +964,7 @@ export class TextureComponent extends AbstractSubscribeComponent implements OnIn
           this._material['map'] = this.texture;
           break;
         default:
-          this._material['map'] = this.texture;
+          // this._material['map'] = this.texture;
           break;
       }
       this._material.needsUpdate = true;

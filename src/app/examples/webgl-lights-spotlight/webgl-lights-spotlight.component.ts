@@ -86,9 +86,6 @@ export class WebglLightsSpotlightComponent extends BaseComponent<{
     if (this.shadowCameraHelper !== null) {
       this.shadowCameraHelper.update();
     }
-    if (this.spotLightObj3d !== null) {
-      console.log(ThreeUtil.getHtmlCode(this.spotLightObj3d.getTagAttribute({ position : true, rotation : true })));
-    }
   }
 
   onRender(timer : RendererTimer) {

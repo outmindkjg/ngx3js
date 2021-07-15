@@ -30,7 +30,6 @@ export class WebglVideoKinectComponent extends BaseComponent<{}> {
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    this.consoleLogTime("uniforms",this.uniforms);
   }
 
 }

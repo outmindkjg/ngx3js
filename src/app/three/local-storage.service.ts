@@ -52,7 +52,7 @@ import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
-import { Chunk, VOXLoader } from 'three/examples/jsm/loaders/VOXLoader';
+import { Chunk, VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
@@ -470,7 +470,6 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-      
     } else if (key.endsWith('.amf')) {
       if (this.amfLoader === null) {
         this.amfLoader = new AMFLoader(ThreeUtil.getLoadingManager());
@@ -482,6 +481,26 @@ export class LocalStorageService {
           callBack({
             object: object,
             source: object,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.vox')) {
+      if (this.voxLoader === null) {
+        this.voxLoader = new VOXLoader(ThreeUtil.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.voxLoader, options);
+      this.voxLoader.load(
+        key,
+        (chunks: Chunk[]) => {
+          const object3d = new THREE.Group();
+          chunks.forEach(chunk => {
+            object3d.add(new VOXMesh( chunk ));
+          });
+          callBack({
+            object: object3d,
+            source: chunks,
           });
         },
         this.onProgress,

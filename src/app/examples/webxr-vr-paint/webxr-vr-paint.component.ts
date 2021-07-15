@@ -290,7 +290,6 @@ export class WebxrVrPaintComponent extends BaseComponent<{
       rotation : rotation,
       scale : scale
     };
-    console.log(this.tween);
   }
 
   tween: any = null;

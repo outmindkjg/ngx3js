@@ -134,8 +134,6 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
       const surface = this.surface;
       const vertexCount = this.surface.geometry.getAttribute( 'position' ).count;
       console.info( 'Sampling ' + count + ' points from a surface with ' + vertexCount + ' vertices...' );
-      //
-
       console.time( '.build()' );
 
       this.sampler = new MeshSurfaceSampler( surface )
