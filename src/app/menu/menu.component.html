@@ -1,10 +1,8 @@
-<div class="menu-wraper"  [ngClass]="menuType">
-    <button type="button" (click)="toggleMenu()" *ngIf="activeMenu">
-        {{ activeMenu.name }}
-    </button>
-    <ul class="menu" *ngIf="showMenu">
-        <li *ngFor="let item of menuList" [class.selected]="item.selected">
-            <a [routerLink]="item.url">{{ item.name }}</a>
-        </li>
-    </ul>
+<div id="header">
+    <h1><a href="https://threejs.org">three-ngx.js</a></h1>
+
+    <div id="sections">
+        <a *ngFor="let menu of menuList" [routerLink]="'/' + menu.url" [ngClass]="menu.url === menuType ? 'selected' : ''">{{ menu.name }}</a>
+    </div>
+
 </div>

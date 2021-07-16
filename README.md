@@ -524,6 +524,8 @@ ng g c examples/svg_sandbox
 ng g c examples/webgl_furnace_test 
 ng g c examples/webgl_pmrem_test 
 ng g c examples/misc_uv_tests
+ng g c docs/api-read
+
 
 
 

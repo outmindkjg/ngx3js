@@ -1,55 +1,54 @@
-.menu-wraper {
-    z-index: 10;
-    position: fixed;
-    left : 5px;
-    top : 0;
-    display: none;
-    &.page {
-        left : 200px;
-    }
-    >button:active,
-    >button:focus,
-    >button {
-        max-width : 190px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        background-color: #d0d0d0;
-        color: #121212;
-        border-radius: 3px;
-        border: 1px solid #a0a0a0;
-        outline: 0;
-    }
-    ul.menu {
-        max-width: 300px;
-        position: absolute;
-        left : 0;
-        top : 25px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: block;
-        margin-bottom: 5px;
-        border-bottom: 2px solid #d0d0d0;
-        border:1px solid #d0d0d0;
-        background-color: #e0e0e0;
-        border-radius: 3px;
-        >li {
-            margin: 0;
-            padding: 3px 5px;
-            display: block;
-            font-size: 12px;
-            >a {
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                display: block;
-                color : #363636;
-            }
-            &:hover,
-            &.selected {
-                background-color: #a0a0a0;
-            }
-        }
-    }
+#header {
+	display: flex;
+	height: var(--header-height);
+	border-bottom: var(--border-style);
+	align-items: center;
+	h1 {
+		padding-left: var(--panel-padding);
+		flex: 1;
+		display: flex;
+		align-items: center;
+		color: var(--color-blue);
+		font-size: 18px;
+		line-height: 24px;
+		font-weight: 500;
+	}	
+	#sections {
+		display: flex;
+		justify-content: center;
+		z-index: 1000;
+		position: relative;
+		height: 100%;
+		align-items: center;
+		font-weight: 500;
+		a {
+			padding: 0 7px;
+			height: 100%;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+			color: var(--secondary-text-color);
+			&.selected {
+				color: var(--text-color);
+				&:after {
+					content: "";
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: -1px;
+					border-bottom: 1px solid var(--text-color);
+				}
+			}		
+		}
+	}
+	#version {
+		border: 1px solid var(--color-blue);
+		color: var(--color-blue);
+		border-radius: 4px;
+		line-height: 16px;
+		padding: 0px 2px;
+		margin-left: 6px;
+		font-size: .9rem;
+	}
 }

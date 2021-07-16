@@ -1,0 +1,57 @@
+<div id="docs">
+  <div id="panel">
+    <app-menu [menuType]="'docs'"></app-menu>
+
+    <div id="panelScrim"></div>
+
+    <div id="contentWrapper">
+      <div id="inputWrapper">
+        <input
+          #search
+          placeholder=""
+          type="text"
+          id="filterInput"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          (keyup)="searchKeyUp()"
+          (focus)="searchFocus()"
+          (blur)="searchBlur()"
+        />
+        <div id="exitSearchButton" (click)="searchClear()"></div>
+        <select id="language">
+          <option value="en">en</option>
+          <option value="ar">ar</option>
+          <option value="ko">한국어</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+      <div id="content">
+        <div *ngFor="let item of searchMenu" class="menu-item">
+          <h2>{{ item.name }}</h2>
+          <div *ngFor="let child of item.children" [ngClass]="child.selected ? 'selected' : 'unselected'" >
+            <div *ngIf="child?.children && child?.children.length > 0" class="menu-item">
+              <h3>{{ child.name }}</h3>
+              <div *ngFor="let gchild of child?.children" [ngClass]="gchild.selected ? 'selected' : 'unselected'" >
+                <a href="#" [routerLink]="gchild.id">
+                  <div class="title">{{ gchild.name }}</div>
+                </a>
+              </div>
+            </div>
+            <a href="#" *ngIf="child?.children == null || child.children.length == 0" [routerLink]="child.id">
+              <div class="title">{{ child.name }}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="viewer">
+    <div id="viewer-inner">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <a class="button github" target="_blank" href="#" title="View source code for animation / cloth on GitHub"><img src="/assets/examples/files/ic_code_black_24dp.svg" /></a>
+
+</div>
