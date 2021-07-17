@@ -53,6 +53,17 @@ export class DocsComponent implements OnInit {
 
   changeRouter(url: string) {
     this.menuId = url;
+    if (this.menuId.indexOf('/ar/') > 0) {
+      this.language = 'ar';
+    } else if (this.menuId.indexOf('/ja/') > 0) {
+      this.language = 'ja';
+    } else if (this.menuId.indexOf('/zh/') > 0) {
+      this.language = 'zh';
+    } else if (this.menuId.indexOf('/ko/') > 0) {
+      this.language = 'ko';
+    } else {
+      this.language = 'en';
+    }
     if (this.menuId !== null && this.menuId !== undefined) {
       this.checkSearchMenuSelected(this.searchMenu);
       this.setFocus(this.menuId);
@@ -109,11 +120,63 @@ export class DocsComponent implements OnInit {
   }
 
   language : string = "ko";
+
+  localeInfos : { value : string; text : string}[] = [
+    {value : 'en', text : 'English'},
+    {value : 'ar', text : 'ar'},
+    {value : 'ko', text : '한국어'},
+    {value : 'zh', text : '中文'},
+    {value : 'ja', text : '日本語'},
+  ];
+
+  loadedPageInfo : { [key : string] : string } = {}
+
+  changePage(url : string) {
+    let pageName = '';
+    let hashTag = '';
+    if (url.indexOf('.') > 0) {
+      [pageName, hashTag] = url.split('.');
+    } else {
+      pageName = url;
+    }
+    if (this.loadedPageInfo[pageName] !== undefined) {
+      let viewUrl = this.loadedPageInfo[pageName];
+      // console.log(this.loadedPageInfo, pageName, viewUrl);
+      this.router.navigateByUrl(viewUrl + ( hashTag != '' ? '.' + hashTag : ''));
+      this.checkSearch('');
+    } else {
+      // console.log(this.loadedPageInfo, pageName);
+    }
+  }
+
+  changeLocale(locale : Event) {
+    const language = (locale.target as any).value;
+    this.menuId = this.menuId.replace('/'+this.language+'/','/'+language+'/');
+    this.language = language;
+    this.router.navigateByUrl(this.menuId);
+    this.checkSearch('');
+  }
+
+  setList(response: any) {
+    this.list = response;
+    this.checkLoadedPageInfo(this.list['en']);
+  }
+
+  checkLoadedPageInfo(object: any) {
+    Object.entries(object).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        this.getSearchItem(key, value, '', '');
+      } else {
+        this.checkLoadedPageInfo(value);
+      }
+    });
+  }
+
   checkSearch(filter: string) {
     if (this.list === null ) {
       this.http.get('assets/list.json').subscribe ( 
         response => { 
-          this.list = response as any;
+          this.setList(response);
           this.checkSearch(filter);
         }
       )
@@ -192,6 +255,9 @@ export class DocsComponent implements OnInit {
       } else {
         saveUrl = '/' + url;
       }
+      const urlInfos = url.split('/');
+      this.loadedPageInfo[urlInfos[urlInfos.length -1]] = saveUrl;
+  
       return {
         id: saveUrl,
         safeId: url.replace(/_/gi, '-'),

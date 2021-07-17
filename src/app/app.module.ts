@@ -2,12 +2,11 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DocsComponent } from './docs/docs.component';
-import { ApiReadComponent } from './docs/api-read/api-read.component';
-
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { ApiReadComponent } from './docs/api-read/api-read.component';
+import { DocsComponent } from './docs/docs.component';
 import { Css2dLabelComponent } from './examples/css2d-label/css2d-label.component';
 import { Css3dMoleculesComponent } from './examples/css3d-molecules/css3d-molecules.component';
 import { Css3dOrthographicComponent } from './examples/css3d-orthographic/css3d-orthographic.component';
@@ -446,6 +445,8 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { ViewerComponent } from './three/viewer/viewer.component';
 import { VisualComponent } from './three/visual/visual.component';
+
+
 
 
 @NgModule({
@@ -891,9 +892,17 @@ import { VisualComponent } from './three/visual/visual.component';
     KeyframeComponent,
     AnimationGroupComponent,
     WebglPortalComponent,
+    
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,HighlightModule],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js')
+      }
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

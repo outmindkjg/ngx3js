@@ -30,6 +30,7 @@
     "chroma-js": "^2.1.0",
     "fs": "0.0.1-security",
     "gsap": "^3.6.0",
+    "ngx-highlightjs": "^4.1.4",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "three": "^0.130.0",
