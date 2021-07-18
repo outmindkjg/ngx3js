@@ -4,7 +4,7 @@ import Ammo from 'ammojs-typed';
 import { ThreeUtil } from '../../interface';
 
 @Component({
-  selector: 'three-rigidbody-node',
+  selector: 'ngx3js-rigidbody-node',
   templateUrl: './rigidbody-node.component.html',
   styleUrls: ['./rigidbody-node.component.scss']
 })

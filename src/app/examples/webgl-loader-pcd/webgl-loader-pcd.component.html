@@ -5,7 +5,7 @@
   <div>+/-: Increase/Decrease point size</div>
   <div>c: Change color</div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 0.3 , maxDistance: 100 , staticMoving: true , rotateSpeed: 2.0 , zoomSpeed: 0.3 , panSpeed: 0.2 }"
   [statsMode]="0"
@@ -17,14 +17,14 @@
   (eventListener)="setKeyPress($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0x000000'">
-    <three-camera [type]="'perspective'" [fov]="15" [near]="0.01" [far]="40">
-      <three-position [x]="0.4" [y]="0" [z]="-2"></three-position>
-    </three-camera>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/pcd/binary/Zaghetto.pcd'" [storageOption]="{ autoCenter : true }">
-      <three-rotation [x]="-180" [y]="0" [z]="0"></three-rotation>
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0x000000'">
+    <ngx3js-camera [type]="'perspective'" [fov]="15" [near]="0.01" [far]="40">
+      <ngx3js-position [x]="0.4" [y]="0" [z]="-2"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/pcd/binary/Zaghetto.pcd'" [storageOption]="{ autoCenter : true }">
+      <ngx3js-rotation [x]="-180" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

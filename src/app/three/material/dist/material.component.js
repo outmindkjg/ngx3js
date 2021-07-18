@@ -1526,7 +1526,7 @@ var MaterialComponent = /** @class */ (function () {
     ], MaterialComponent.prototype, "clippingPlanes");
     MaterialComponent = __decorate([
         core_1.Component({
-            selector: 'three-material',
+            selector: 'ngx3js-material',
             templateUrl: './material.component.html',
             styleUrls: ['./material.component.scss']
         })

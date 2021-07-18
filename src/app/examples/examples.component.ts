@@ -25,7 +25,9 @@ export interface SearchMenuTop {
 })
 export class ExamplesComponent implements OnInit, AfterViewInit {
   @ViewChild('search') search: ElementRef;
-
+  @ViewChild('github') gitHub: ElementRef;
+  @ViewChild('ngxGithub') ngxGithub: ElementRef;
+  
   private subscription: Subscription;
 
   constructor(private router: Router, private ele: ElementRef, private http: HttpClient ) {
@@ -159,7 +161,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
       menu.children.forEach((child) => {
         child.selected = child.id === this.menuId;
         if (child.selected) {
-          document.title = child.name + ' :: Three.js examples + ngx';
+          document.title = child.name + ' :: Three.js examples';
+          this.gitHub.nativeElement.href = 'https://github.com/mrdoob/three.js/blob/master'+child.id+'.html';
+          this.gitHub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub';
+          this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/ngx3js-sample/tree/master/src/app'+child.safeId+ '';
+          this.ngxGithub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub ngx';
         }
       });
     });

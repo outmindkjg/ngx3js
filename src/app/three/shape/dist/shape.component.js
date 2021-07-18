@@ -228,7 +228,7 @@ var ShapeComponent = /** @class */ (function () {
     ], ShapeComponent.prototype, "holes");
     ShapeComponent = ShapeComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-shape',
+            selector: 'ngx3js-shape',
             templateUrl: './shape.component.html',
             styleUrls: ['./shape.component.scss']
         })

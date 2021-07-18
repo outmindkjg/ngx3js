@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - misc_legacy
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true, autoRotateSpeed : -1.0 }"
   [statsMode]="0"
@@ -13,18 +13,18 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="20">
-    <three-position [x]="1.5" [y]="0.2" [z]="1.5"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="envMap" [backgroundType]="'background-environment'">
-    <three-shared>
-      <three-texture #envMap [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" [cubeType]="'Equirectangular'"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/BoomBox/glTF-Binary/BoomBox.glb'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
-      <three-scale [multiply]="50"></three-scale>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="20">
+    <ngx3js-position [x]="1.5" [y]="0.2" [z]="1.5"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="envMap" [backgroundType]="'background-environment'">
+    <ngx3js-shared>
+      <ngx3js-texture #envMap [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" [cubeType]="'Equirectangular'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/BoomBox/glTF-Binary/BoomBox.glb'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+      <ngx3js-scale [multiply]="50"></ngx3js-scale>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

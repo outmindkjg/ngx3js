@@ -5,7 +5,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
 @Component({
-  selector: 'three-lensflareelement',
+  selector: 'ngx3js-lensflareelement',
   templateUrl: './lensflareelement.component.html',
   styleUrls: ['./lensflareelement.component.scss'],
 })

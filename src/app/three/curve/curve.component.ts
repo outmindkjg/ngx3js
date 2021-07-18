@@ -5,7 +5,7 @@ import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-curve',
+  selector: 'ngx3js-curve',
   templateUrl: './curve.component.html',
   styleUrls: ['./curve.component.scss']
 })

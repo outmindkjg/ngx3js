@@ -4,7 +4,7 @@
   <div>Assimp loader by <a href="https://virtulo.us" target="_blank" rel="noopener">Virtulous</a></div>
   <div>Octaminator model from <a href="http://opengameart.org/content/octaminator-engine-ready" target="_blank" rel="noopener">Teh_Bucket and raymoohawk</a></div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 750 , maxDistance: 2500 }"
   [statsMode]="0"
@@ -14,33 +14,33 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="-100" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="25" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="1" [type]="'up'"></three-position>
-    <three-position [x]="600" [y]="1150" [z]="5"></three-position>
-    <three-lookat [x]="-100" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="-100" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="25" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1" [type]="'up'"></ngx3js-position>
+    <ngx3js-position [x]="600" [y]="1150" [z]="5"></ngx3js-position>
+    <ngx3js-lookat [x]="-100" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [intensity]="0.5"
       [skyColor]="'0x8888fff'"
       [groundColor]="'0xff8888'"
     >
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
       [castShadow]="true"
     >
-      <three-position [x]="0" [y]="4" [z]="4" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/assimp/octaminator/Octaminator.assimp'">
-      <three-position [x]="0" [y]="-100" [z]="0"></three-position>
-      <three-rotation [x]="90" [y]="0" [z]="0"></three-rotation>
-      <three-mixer [type]="'Virtulous'" [debug]="true" [timeScale]="1"></three-mixer>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="0" [y]="4" [z]="4" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/assimp/octaminator/Octaminator.assimp'">
+      <ngx3js-position [x]="0" [y]="-100" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-mixer [type]="'Virtulous'" [debug]="true" [timeScale]="1"></ngx3js-mixer>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

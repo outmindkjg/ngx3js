@@ -6,7 +6,7 @@
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
   or (0,0,1)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 2 , maxDistance: 20 }"
   [statsMode]="0"
@@ -18,24 +18,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-shared>
-    <three-plane #plane1 (onLoad)="setLocalPlane($event)" [x]="-1" [y]="0" [z]="0" [w]="0"></three-plane>
-    <three-plane #plane2 (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0"></three-plane>
-    <three-plane #plane3 (onLoad)="setLocalPlane($event)" [x]="0" [y]="0" [z]="-1" [w]="0"></three-plane>
-  </three-shared>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="36" [near]="1" [far]="100">
-    <three-position [x]="2" [y]="2" [z]="2"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene>
-    <three-light
+  <ngx3js-shared>
+    <ngx3js-plane #plane1 (onLoad)="setLocalPlane($event)" [x]="-1" [y]="0" [z]="0" [w]="0"></ngx3js-plane>
+    <ngx3js-plane #plane2 (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0"></ngx3js-plane>
+    <ngx3js-plane #plane3 (onLoad)="setLocalPlane($event)" [x]="0" [y]="0" [z]="-1" [w]="0"></ngx3js-plane>
+  </ngx3js-shared>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="36" [near]="1" [far]="100">
+    <ngx3js-position [x]="2" [y]="2" [z]="2"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -47,20 +47,20 @@
       [shadowMapSizeWidth]="1024"
       [shadowMapSizeHeight]="1024"
     >
-      <three-helper [type]="'light'" [color]="'0xffffff'" [size]="1"></three-helper>
-      <three-position [x]="5" [y]="10" [z]="7.5"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [castShadow]="true" [color]="'0xE91E63'" [metalness]="0.1" [roughness]="0.75" [renderOrder]="6" [usePlaneStencil]="true">
-      <three-helper (onLoad)="setLocalHelper($event)" [type]="'plane'" [visible]="false" [size]="1.3" [color]="'0xffffff'"></three-helper>
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-helper [type]="'light'" [color]="'0xffffff'" [size]="1"></ngx3js-helper>
+      <ngx3js-position [x]="5" [y]="10" [z]="7.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true" [color]="'0xE91E63'" [metalness]="0.1" [roughness]="0.75" [renderOrder]="6" [usePlaneStencil]="true">
+      <ngx3js-helper (onLoad)="setLocalHelper($event)" [type]="'plane'" [visible]="false" [size]="1.3" [color]="'0xffffff'"></ngx3js-helper>
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusKnot'"
         [radius]="0.4"
         [tube]="0.15"
         [radialSegments]="220"
         [tubularSegments]="60"
-      ></three-geometry>
-      <three-material [type]="'MeshStandard'" 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshStandard'" 
         [color]="'0xFFC107'"
         [metalness]="0.1"
         [roughness]="0.75"
@@ -68,13 +68,13 @@
         [clipShadows]="true"
         [side]="'double'"
         [shadowSide]="'double'"
-      ></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [castShadow]="false">
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-position [x]="0" [y]="-1" [z]="0"></three-position>
-        <three-geometry [type]="'plane'" [width]="9" [height]="9"></three-geometry>
-        <three-material [type]="'MeshPhong'" [color]="'0x121212'" [opacity]="0.25" [side]="'double'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
+        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+        <ngx3js-geometry [type]="'plane'" [width]="9" [height]="9"></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhong'" [color]="'0x121212'" [opacity]="0.25" [side]="'double'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

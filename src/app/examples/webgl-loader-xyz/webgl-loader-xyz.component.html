@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - XYZ loader<br/>
   asset from <a href="https://people.math.sc.edu/Burkardt/data/xyz/xyz.html" target="_blank" rel="noopener">people.math.sc.edu</a> via GNU LGPL
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -12,17 +12,17 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
-      <three-position [x]="10" [y]="7" [z]="10"></three-position>
-    </three-camera>
-    <three-mesh (onLoad)="setMesh($event)" [type]="'Points'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry [storageName]="'models/xyz/helix_201.xyz'"
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
+      <ngx3js-position [x]="10" [y]="7" [z]="10"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry [storageName]="'models/xyz/helix_201.xyz'"
         [center]="true"
-      ></three-geometry>
-      <three-material [type]="'Points'" [size]="0.1" [vertexColors]="false"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'Points'" [size]="0.1" [vertexColors]="false"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - materials - clearcoat
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,44 +14,44 @@
   [outputEncoding]="'sRGBEncoding'"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="1000"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="hdrCubeMap" >
-    <three-shared>
-      <three-texture #hdrCubeMap [image]="'textures/cube/pisaHDR/'" [cubeImage]="['','hdr']" [loaderType]="'hdrcubetexture'" [cubeType]="'cubemap'"></three-texture>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="hdrCubeMap" >
+    <ngx3js-shared>
+      <ngx3js-texture #hdrCubeMap [image]="'textures/cube/pisaHDR/'" [cubeImage]="['','hdr']" [loaderType]="'hdrcubetexture'" [cubeType]="'cubemap'"></ngx3js-texture>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="80"
         [widthSegments]="64"
         [heightSegments]="32"
-      ></three-geometry>
-      <three-texture #diffuse [image]="'textures/carbon/Carbon.png'" [encoding]="'sRGBEncoding'" [wrap]="'RepeatWrapping'" [repeat]="10"></three-texture>
-      <three-texture #normalMap [image]="'textures/carbon/Carbon_Normal.png'" [wrap]="'RepeatWrapping'"></three-texture>
-      <three-texture #normalMap2 [image]="'textures/water/Water_1_M_Normal.jpg'"></three-texture>
-      <three-texture #normalMap3 [canvas]="'FlakesTexture'" [wrap]="'RepeatWrapping'" [repeatX]="10" [repeatY]="6" [anisotropy]="16"></three-texture>
-      <three-texture #normalMap4 [image]="'textures/golfball.jpg'"></three-texture>
-      <three-texture #clearcoatNormalMap [image]="'textures/pbr/Scratched_gold/Scratched_gold_01_1K_Normal.png'"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh (onLoad)="setParticleLight($event)">
-        <three-geometry 
+      ></ngx3js-geometry>
+      <ngx3js-texture #diffuse [image]="'textures/carbon/Carbon.png'" [encoding]="'sRGBEncoding'" [wrap]="'RepeatWrapping'" [repeat]="10"></ngx3js-texture>
+      <ngx3js-texture #normalMap [image]="'textures/carbon/Carbon_Normal.png'" [wrap]="'RepeatWrapping'"></ngx3js-texture>
+      <ngx3js-texture #normalMap2 [image]="'textures/water/Water_1_M_Normal.jpg'"></ngx3js-texture>
+      <ngx3js-texture #normalMap3 [canvas]="'FlakesTexture'" [wrap]="'RepeatWrapping'" [repeatX]="10" [repeatY]="6" [anisotropy]="16"></ngx3js-texture>
+      <ngx3js-texture #normalMap4 [image]="'textures/golfball.jpg'"></ngx3js-texture>
+      <ngx3js-texture #clearcoatNormalMap [image]="'textures/pbr/Scratched_gold/Scratched_gold_01_1K_Normal.png'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh (onLoad)="setParticleLight($event)">
+        <ngx3js-geometry 
           [type]="'SphereGeometry'"
           [radius]="4"
           [widthSegments]="8"
           [heightSegments]="8"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [type]="'MeshBasicMaterial'" 
           [color]="'0xffffff'"
-        ></three-material>
-        <three-light [type]="'PointLight'" [color]="'0xffffff'" [intensity]="1"></three-light>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="-100" [y]="100" [z]="0"></three-position>
-        <three-material 
+        ></ngx3js-material>
+        <ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [intensity]="1"></ngx3js-light>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="-100" [y]="100" [z]="0"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'"
           [clearcoat]="1.0"
           [clearcoatRoughness]="0.1"
@@ -60,22 +60,22 @@
           [color]="'0x0000ff'"
           [normalMap]="normalMap3"
           [normalScale]="0.15"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="100" [y]="100" [z]="0"></three-position>
-        <three-material 
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="100" [y]="100" [z]="0"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'"
           [roughness]="0.5"
           [clearcoat]="1.0"
           [clearcoatRoughness]="0.1"
           [map]="diffuse"
           [normalMap]="normalMap"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="-100" [y]="-100" [z]="0"></three-position>
-        <three-material 
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="-100" [y]="-100" [z]="0"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'"
           [metalness]="0.0"
           [roughness]="0.1"
@@ -84,11 +84,11 @@
           [clearcoatNormalMap]="clearcoatNormalMap"
           [clearcoatNormalScaleX]="2.0"
           [clearcoatNormalScaleY]="-2.0"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="100" [y]="-100" [z]="0"></three-position>
-        <three-material 
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="100" [y]="-100" [z]="0"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'"
           [clearcoat]="1.0"
           [metalness]="1.0"
@@ -98,9 +98,9 @@
           [clearcoatNormalMap]="clearcoatNormalMap"
           [clearcoatNormalScaleX]="2.0"
           [clearcoatNormalScaleY]="-2.0"
-        ></three-material>
-      </three-mesh>
+        ></ngx3js-material>
+      </ngx3js-mesh>
 
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

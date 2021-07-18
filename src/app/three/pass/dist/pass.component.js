@@ -777,7 +777,7 @@ var PassComponent = /** @class */ (function () {
     ], PassComponent.prototype, "uniforms");
     PassComponent = __decorate([
         core_1.Component({
-            selector: 'three-pass',
+            selector: 'ngx3js-pass',
             templateUrl: './pass.component.html',
             styleUrls: ['./pass.component.scss']
         })

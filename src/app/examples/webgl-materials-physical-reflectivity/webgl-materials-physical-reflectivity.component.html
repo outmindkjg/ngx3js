@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Physical Material Reflectivity (reflectance at F0)<br/>
   example by <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,50 +14,50 @@
   [toneMappingExposure]="controls.exposure"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="-10" [z]="20*3.5"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x000000'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="-10" [z]="20*3.5"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x000000'">
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0x222222'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xffffff'"
       [castShadow]="true"
-    ><three-position [x]="150" [y]="10" [z]="0"></three-position></three-light>
-    <three-light
+    ><ngx3js-position [x]="150" [y]="10" [z]="0"></ngx3js-position></ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xffffff'"
       [castShadow]="true"
-    ><three-position [x]="-150" [y]="0" [z]="0"></three-position></three-light>
-    <three-light
+    ><ngx3js-position [x]="-150" [y]="0" [z]="0"></ngx3js-position></ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xffffff'"
       [castShadow]="true"
-    ><three-position [x]="0" [y]="-10" [z]="-150"></three-position></three-light>
-    <three-light
+    ><ngx3js-position [x]="0" [y]="-10" [z]="-150"></ngx3js-position></ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xffffff'"
       [castShadow]="true"
-    ><three-position [x]="0" [y]="0" [z]="150"></three-position></three-light>
-    <three-shared>
-      <three-geometry
+    ><ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position></ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #emerald
         [storageName]="'models/obj/emerald.obj'"
-      ></three-geometry>
-      <three-texture #hdrEquirect 
+      ></ngx3js-geometry>
+      <ngx3js-texture #hdrEquirect 
         [storageName]="'royal_esplanade_1k.hdr'" 
         [storageOption]="{ path : 'textures/equirectangular/'}"
         [cubeType]="'Equirectangular'"
-      ></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh [geometry]="emerald">
-        <three-material 
+      ></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh [geometry]="emerald">
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'" 
           [color]="gemBackMaterialColor"
           [metalness]="1"
@@ -69,10 +69,10 @@
           [envMap]="hdrEquirect"
           [envMapIntensity]="5"
           [premultipliedAlpha]="true"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="emerald">
-        <three-material 
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="emerald">
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'" 
           [color]="gemBackMaterialColor"
           [metalness]="0"
@@ -84,8 +84,8 @@
           [envMap]="hdrEquirect"
           [envMapIntensity]="10"
           [premultipliedAlpha]="true"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

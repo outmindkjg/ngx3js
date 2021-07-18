@@ -534,7 +534,7 @@ var RendererComponent = /** @class */ (function () {
     ], RendererComponent.prototype, "resizeRender");
     RendererComponent = __decorate([
         core_1.Component({
-            selector: 'three-renderer',
+            selector: 'ngx3js-renderer',
             templateUrl: './renderer.component.html',
             styleUrls: ['./renderer.component.scss']
         })

@@ -1,5 +1,5 @@
 <div class="info"><a href="https://threejs.org" target="_blank">three.js</a> - fat lines</div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 10 , maxDistance: 500 }"
   [statsMode]="0"
@@ -11,38 +11,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" 
     #mainCamera
     [clearColor]="'0x000000'" [clearAlpha]="0" 
     [fov]="40" [near]="1" [far]="1000" 
     [viewport]="true" [x]="0" [y]="0" [width]="'100%'" [height]="'100%'"
   >
-    <three-position [x]="-50" [y]="0" [z]="50"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-camera [type]="'perspective'" 
+    <ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-camera [type]="'perspective'" 
     [clearColor]="'0x222222'" [clearAlpha]="1" [clearDepth]="true" 
     [fov]="40" [near]="1" [far]="1000" 
     [viewport]="true" [x]="20" [y]="20" [width]="'25%'" [height]="'width'"
     [scissorTest]="true" [scissorX]="'x'" [scissorY]="'y'" [scissorWidth]="'width'" [scissorHeight]="'height'"
     [referObject3d]="mainCamera"
   >
-    <three-position [x]="-50" [y]="0" [z]="50"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" >
-      <three-mesh [type]="'Wireframe'" [visible]="controls.lineType == 'LineGeometry'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry [type]="'WireframeGeometry2'" >
-          <three-geometry
+    <ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)" >
+      <ngx3js-mesh [type]="'Wireframe'" [visible]="controls.lineType == 'LineGeometry'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry [type]="'WireframeGeometry2'" >
+          <ngx3js-geometry
             [type]="'Icosahedron'"
             [radius]="20"
             [detail]="1"
-          ></three-geometry>
-        </three-geometry>
-        <three-material
+          ></ngx3js-geometry>
+        </ngx3js-geometry>
+        <ngx3js-material
           #matLine 
           [type]="'Line'" 
           [color]="'0x4080ff'" 
@@ -51,16 +51,16 @@
           [dashScale]="controls.dashScale"
           [resolutionX]="1024" 
           [resolutionY]="1024"
-        ></three-material>
-      </three-mesh>
-      <three-mesh [type]="'LineSegments'" [visible]="controls.lineType != 'LineGeometry'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'LineSegments'" [visible]="controls.lineType != 'LineGeometry'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Icosahedron'"
           [radius]="20"
           [detail]="1"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [type]="controls.dashed ? 'LineBasic' : 'LineDashed'" 
           [color]="'0x4080ff'" 
           [scale]="2"
@@ -70,8 +70,8 @@
           [dashed]="controls.dashed" 
           [resolutionX]="1024" 
           [resolutionY]="1024"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -4,7 +4,7 @@ import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-lookat',
+  selector: 'ngx3js-lookat',
   templateUrl: './lookat.component.html',
   styleUrls: ['./lookat.component.scss'],
 })
@@ -79,7 +79,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
-      tag: 'three-lookat',
+      tag: 'ngx3js-lookat',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.lookat)) {

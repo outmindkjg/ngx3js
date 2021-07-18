@@ -4,7 +4,7 @@ import { ApplyMatrix4 } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-translation',
+  selector: 'ngx3js-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss']
 })

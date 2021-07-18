@@ -6,7 +6,7 @@
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
   or (0,0,1)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -20,8 +20,8 @@
   (onRender)="onRender($event)"
   (onLoad)="setRenderer($event)"
 >
-  <three-shared>
-    <three-material
+  <ngx3js-shared>
+    <ngx3js-material
       #boxmaterial
       (onLoad)="setMaterial($event)"
       [type]="'MeshPhong'"
@@ -30,38 +30,38 @@
       [side]="'double'"
       [clipShadows]="true"
     >
-      <three-plane
+      <ngx3js-plane
         (onLoad)="setLocalPlane($event)"
         *ngFor="let plane of localPlanes"
         [x]="plane.x"
         [y]="plane.y"
         [z]="plane.z"
         [w]="plane.w"
-      ></three-plane>
-    </three-material>
-    <three-geometry
+      ></ngx3js-plane>
+    </ngx3js-material>
+    <ngx3js-geometry
       #boxgeometry
       [type]="'Box'"
       [width]="0.18"
       [height]="0.18"
       [depth]="0.18"
-    ></three-geometry>
-  </three-shared>
-  <three-plane
+    ></ngx3js-geometry>
+  </ngx3js-shared>
+  <ngx3js-plane
     *ngFor="let plane of globalPlanes"
     [x]="plane.x"
     [y]="plane.y"
     [z]="plane.z"
     [w]="plane.w"
-  ></three-plane>
-  <three-lookat [x]="0" [y]="0.3" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
-    <three-position [x]="0" [y]="1.3" [z]="3"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light [type]="'Ambient'" [color]="'0x505050'"> </three-light>
-    <three-light
+  ></ngx3js-plane>
+  <ngx3js-lookat [x]="0" [y]="0.3" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
+    <ngx3js-position [x]="0" [y]="1.3" [z]="3"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light [type]="'Ambient'" [color]="'0x505050'"> </ngx3js-light>
+    <ngx3js-light
       [type]="'Spot'"
       [color]="'0xffffff'"
       [angle]="36"
@@ -72,9 +72,9 @@
       [shadowMapSizeWidth]="1024"
       [shadowMapSizeHeight]="1024"
     >
-      <three-position [x]="2" [y]="3" [z]="3"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="2" [y]="3" [z]="3"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0x55505a'"
       [intensity]="1"
@@ -86,46 +86,46 @@
       [shadowCameraNear]="1"
       [shadowCameraFar]="10"
     >
-      <three-position [x]="0" [y]="3" [z]="0"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh [visible]="controls.localClipping.visualize" [castShadow]="false" [receiveShadow]="false">
-        <three-helper [visible]="controls.localClipping.visualize" [type]="'plane'" [size]="1" [color]="'0xffffff'">
-        </three-helper>
-        <three-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></three-geometry>
-        <three-material [opacity]="0.3" [transparent]="true" [color]="'0xffffff'">
-          <three-plane
+      <ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh [visible]="controls.localClipping.visualize" [castShadow]="false" [receiveShadow]="false">
+        <ngx3js-helper [visible]="controls.localClipping.visualize" [type]="'plane'" [size]="1" [color]="'0xffffff'">
+        </ngx3js-helper>
+        <ngx3js-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></ngx3js-geometry>
+        <ngx3js-material [opacity]="0.3" [transparent]="true" [color]="'0xffffff'">
+          <ngx3js-plane
             (onLoad)="setLocalPlane($event)"
             *ngFor="let plane of localPlanes"
             [x]="plane.x"
             [y]="plane.y"
             [z]="plane.z"
             [w]="plane.w"
-          ></three-plane>
-        </three-material>
-      </three-mesh>
-      <three-mesh
+          ></ngx3js-plane>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh
         *ngFor="let box of boxes"
         [geometry]="boxgeometry"
         [material]="boxmaterial"
       >
-        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-1" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="9"
         [height]="9"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0xa0adaf'"
         [shininess]="150"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

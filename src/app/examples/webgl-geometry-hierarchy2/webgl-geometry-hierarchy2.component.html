@@ -6,7 +6,7 @@
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
   or (0,0,1)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -19,30 +19,30 @@
   [useEvent]="'mousemove'"
   (eventListener)="setEventListener($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="60" [near]="1" [far]="15000">
-    <three-position [x]="0" [y]="0" [z]="500"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xffffff'">
-    <three-shared>
-      <three-geometry 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="60" [near]="1" [far]="15000">
+    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xffffff'">
+    <ngx3js-shared>
+      <ngx3js-geometry 
         #geometry
         [type]="'box'"
         [width]="100"
         [height]="100"
         [depth]="100"
-      ></three-geometry>
-      <three-material #material [type]="'MeshNormal'" ></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh>
-        <three-position [x]="1000" [y]="0" [z]="0"></three-position>
-        <three-mesh *ngFor="let info of meshInfos" [material]="material" [geometry]="geometry" (onLoad)="addChildMesh($event,info)">
-          <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material #material [type]="'MeshNormal'" ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="1000" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-mesh *ngFor="let info of meshInfos" [material]="material" [geometry]="geometry" (onLoad)="addChildMesh($event,info)">
+          <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

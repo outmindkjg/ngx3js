@@ -309,7 +309,7 @@ var SvgComponent = /** @class */ (function () {
     ], SvgComponent.prototype, "translation");
     SvgComponent = __decorate([
         core_1.Component({
-            selector: 'three-svg',
+            selector: 'ngx3js-svg',
             templateUrl: './svg.component.html',
             styleUrls: ['./svg.component.scss']
         })

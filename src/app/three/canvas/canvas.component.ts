@@ -9,7 +9,7 @@ import { ControllerComponent } from '../controller/controller.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-canvas',
+  selector: 'ngx3js-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
 })
@@ -177,7 +177,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     if (this.canvas === null || this._needUpdate) {
       this.needUpdate = false;
       const canvas = document.createElement('div');
-      canvas.classList.add('three-canvas');
+      canvas.classList.add('ngx3js-canvas');
       if (this.canvas !== null && this.canvas.parentNode !== null) {
         this.canvas.parentNode.removeChild(this.canvas);
       }

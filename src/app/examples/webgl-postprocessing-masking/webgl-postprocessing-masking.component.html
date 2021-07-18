@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl_postprocessing_masking
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,7 +13,7 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-composer 
+  <ngx3js-composer 
     [scene]="scene1"
     [camera]="camera"
     [useRenderTarget]="true" 
@@ -23,46 +23,46 @@
     [stencilBuffer]="true"
     [clear]="true"
   >
-    <three-pass [type]="'ClearPass'"></three-pass>
-    <three-pass [type]="'MaskPass'" [scene]="scene1" [camera]="camera"></three-pass>
-    <three-pass [type]="'TexturePass'" [texture]="texture1"></three-pass>
-    <three-pass [type]="'ClearMaskPass'"></three-pass>
-    <three-pass [type]="'MaskPass'" [scene]="scene2" [camera]="camera"></three-pass>
-    <three-pass [type]="'TexturePass'" [texture]="texture2"></three-pass>
-    <three-pass [type]="'ClearMaskPass'"></three-pass>
-    <three-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></three-pass>
-  </three-composer>
-  <three-shared>
-    <three-texture #texture1 [image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'" [minFilter]="'LinearFilter'"></three-texture>
-    <three-texture #texture2 [image]="'textures/2294472375_24a3b8ef46_o.jpg'"></three-texture>
-    <three-pass #clearMaskPass [type]="'ClearMaskPass'"></three-pass>
-  </three-shared>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="10"></three-position>
-  </three-camera>
-  <three-scene #scene1>
-    <three-mesh (onLoad)="setBox($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+    <ngx3js-pass [type]="'ClearPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'MaskPass'" [scene]="scene1" [camera]="camera"></ngx3js-pass>
+    <ngx3js-pass [type]="'TexturePass'" [texture]="texture1"></ngx3js-pass>
+    <ngx3js-pass [type]="'ClearMaskPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'MaskPass'" [scene]="scene2" [camera]="camera"></ngx3js-pass>
+    <ngx3js-pass [type]="'TexturePass'" [texture]="texture2"></ngx3js-pass>
+    <ngx3js-pass [type]="'ClearMaskPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-shared>
+    <ngx3js-texture #texture1 [image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'" [minFilter]="'LinearFilter'"></ngx3js-texture>
+    <ngx3js-texture #texture2 [image]="'textures/2294472375_24a3b8ef46_o.jpg'"></ngx3js-texture>
+    <ngx3js-pass #clearMaskPass [type]="'ClearMaskPass'"></ngx3js-pass>
+  </ngx3js-shared>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene1>
+    <ngx3js-mesh (onLoad)="setBox($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="4"
         [height]="4"
         [depth]="4"
-      ></three-geometry>
-    </three-mesh>
-  </three-scene>
-  <three-scene #scene2>
-    <three-mesh (onLoad)="setTorus($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+  <ngx3js-scene #scene2>
+    <ngx3js-mesh (onLoad)="setTorus($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusGeometry'"
         [radius]="3"
         [tube]="1"
         [radialSegments]="16"
         [tubularSegments]="32"
-      ></three-geometry>
-    </three-mesh>
-  </three-scene>
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+  </ngx3js-scene>
 
-</three-renderer>
+</ngx3js-renderer>

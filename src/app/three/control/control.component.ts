@@ -13,7 +13,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { PlaneControls } from './plane-controls';
 
 @Component({
-  selector: 'three-control',
+  selector: 'ngx3js-control',
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.scss'],
 })

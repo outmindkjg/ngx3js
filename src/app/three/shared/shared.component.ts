@@ -22,7 +22,7 @@ import { RotationComponent } from './../rotation/rotation.component';
 import { ScaleComponent } from './../scale/scale.component';
 
 @Component({
-  selector: 'three-shared',
+  selector: 'ngx3js-shared',
   templateUrl: './shared.component.html',
   styleUrls: ['./shared.component.scss'],
 })

@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - geometry extrude shapes
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'Trackball'"
   [controlOptions]="{ minDistance: 200 , maxDistance: 500 }"
   [statsMode]="0"
@@ -12,49 +12,49 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0x222222'">
-    <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-      <three-position [x]="0" [y]="0" [z]="500"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0x222222'">
+    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+      <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
       >
-      </three-light>
-    </three-camera>
-    <three-light
+      </ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x222222'"
     >
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Extrude'"
           [shapes]="shapes1"
           [steps]="100"
           [bevelEnabled]="false"
           [extrudePath]="extrudePath"
           [closed]="true"
-          ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+          ></ngx3js-geometry>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Extrude'"
           [shapes]="shapes2"
           [steps]="200"
           [bevelEnabled]="false"
           [extrudePath]="randomPoints"
-          ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="50" [y]="100" [z]="50"></three-position>
-        <three-geometry
+          ></ngx3js-geometry>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="50" [y]="100" [z]="50"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Extrude'"
           [shapes]="shapes2"
           [depth]="20"
@@ -63,11 +63,11 @@
           [bevelThickness]="2"
           [bevelSize]="4"
           [bevelSegments]="1"
-        ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
-        <three-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></three-material>
-        <three-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></ngx3js-material>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xff8000'" [wireframe]="false"></ngx3js-material>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xb00000'" [wireframe]="false"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

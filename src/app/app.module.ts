@@ -398,103 +398,14 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { MenuComponent } from './menu/menu.component';
-import { AnimationGroupComponent } from './three/animation-group/animation-group.component';
-import { AudioComponent } from './three/audio/audio.component';
-import { BackgroundComponent } from './three/background/background.component';
-import { CameraComponent } from './three/camera/camera.component';
-import { CanvasComponent } from './three/canvas/canvas.component';
-import { ClipComponent } from './three/clip/clip.component';
-import { ComposerComponent } from './three/composer/composer.component';
-import { ControlComponent } from './three/control/control.component';
-import { ControllerItemComponent } from './three/controller/controller-item/controller-item.component';
-import { ControllerComponent } from './three/controller/controller.component';
-import { CurveComponent } from './three/curve/curve.component';
-import { DrawingCanvasDirective } from './three/drawing-canvas.directive';
-import { FogComponent } from './three/fog/fog.component';
-import { GeometryBirdComponent } from './three/geometry/bird/bird.component';
-import { GeometryComponent } from './three/geometry/geometry.component';
-import { HelperComponent } from './three/helper/helper.component';
-import { HtmlComponent } from './three/html/html.component';
-import { KeyframeComponent } from './three/keyframe/keyframe.component';
-import { LensflareelementComponent } from './three/lensflareelement/lensflareelement.component';
-import { LightComponent } from './three/light/light.component';
-import { ListenerComponent } from './three/listener/listener.component';
-import { LookatComponent } from './three/lookat/lookat.component';
-import { MaterialComponent } from './three/material/material.component';
-import { MeshComponent } from './three/mesh/mesh.component';
-import { MixerComponent } from './three/mixer/mixer.component';
-import { PassComponent } from './three/pass/pass.component';
-import { PhysicsConstraintComponent } from './three/physics/physics-constraint/physics-constraint.component';
-import { PhysicsComponent } from './three/physics/physics.component';
-import { PlaneComponent } from './three/plane/plane.component';
-import { PositionComponent } from './three/position/position.component';
-import { RendererComponent } from './three/renderer/renderer.component';
-import { RigidbodyNodeComponent } from './three/rigidbody/rigidbody-node/rigidbody-node.component';
-import { RigidbodyComponent } from './three/rigidbody/rigidbody.component';
-import { RotationComponent } from './three/rotation/rotation.component';
-import { ScaleComponent } from './three/scale/scale.component';
-import { SceneComponent } from './three/scene/scene.component';
-import { ShaderComponent } from './three/shader/shader.component';
-import { ShapeComponent } from './three/shape/shape.component';
-import { SharedComponent } from './three/shared/shared.component';
-import { SvgComponent } from './three/svg/svg.component';
-import { TextureComponent } from './three/texture/texture.component';
-import { ToolsComponent } from './three/tools/tools.component';
-import { TransformComponent } from './three/transform/transform.component';
-import { TranslationComponent } from './three/translation/translation.component';
-import { TweenComponent } from './three/tween/tween.component';
-import { ViewerComponent } from './three/viewer/viewer.component';
-import { VisualComponent } from './three/visual/visual.component';
 import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-exporter-usdz.component';
-
-
-
+import { Ngx3JsModule } from './three/ngx3js.module';
 
 @NgModule({
   declarations: [
-    LookatComponent,
-    FogComponent,
-    TextureComponent,
-    LensflareelementComponent,
-    ShaderComponent,
-    SceneComponent,
-    CameraComponent,
-    RendererComponent,
-    GeometryComponent,
-    MaterialComponent,
-    MeshComponent,
-    PositionComponent,
-    RotationComponent,
-    ScaleComponent,
-    ShapeComponent,
-    CurveComponent,
-    SvgComponent,
-    TranslationComponent,
-    PassComponent,
-    ComposerComponent,
-    TweenComponent,
-    SharedComponent,
-    MixerComponent,
-    ClipComponent,
-    ListenerComponent,
-    AudioComponent,
-    PlaneComponent,
-    HtmlComponent,
-    CanvasComponent,
-    VisualComponent,
-    TransformComponent,
-    BackgroundComponent,
-    ControllerComponent,
-    PhysicsComponent,
-    RigidbodyComponent,
-    ControlComponent,
-    ToolsComponent,
-    LightComponent,
-    HelperComponent,
-    ViewerComponent,
     AppComponent,
     MenuComponent,
-    DocsComponent,    
+    DocsComponent,
     ApiReadComponent,
     ExamplesComponent,
     WebglAnimationClothComponent,
@@ -876,11 +787,6 @@ import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-ex
     WebglPmremTestComponent,
     MiscUvTestsComponent,
     WebglMirrorNodesComponent,
-    GeometryBirdComponent,
-    ControllerItemComponent,
-    DrawingCanvasDirective,
-    PhysicsConstraintComponent,
-    RigidbodyNodeComponent,
     WebglShadowmapProgressiveComponent,
     Webgl2MaterialsTexture3dPartialupdateComponent,
     Webgl2MultipleRendertargetsComponent,
@@ -890,20 +796,18 @@ import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-ex
     WebglLoaderIfcComponent,
     WebglLoaderGltfTransmissionComponent,
     Webgl2RendertargetTexture2darrayComponent,
-    KeyframeComponent,
-    AnimationGroupComponent,
     WebglPortalComponent,
     MiscExporterUsdzComponent,
-    
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,HighlightModule],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        fullLibraryLoader: () => import('highlight.js')
-      }
-    }
+        fullLibraryLoader: () => import('highlight.js'),
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

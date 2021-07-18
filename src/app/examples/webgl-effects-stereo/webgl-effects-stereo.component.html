@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - stereo. skybox by <a href="http://www.zfight.com/" target="_blank" rel="noopener">Jochum Skoglund</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,36 +12,36 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
-    <three-position [x]="0" [y]="0" [z]="3200"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene>
-    <three-shared>
-      <three-geometry #geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
+    <ngx3js-position [x]="0" [y]="0" [z]="3200"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene>
+    <ngx3js-shared>
+      <ngx3js-geometry #geometry
         [type]="'Sphere'"
         [radius]="100"
         [widthSegments]="32"
         [heightSegments]="16"
-      ></three-geometry>
-      <three-material #material [type]="'MeshBasic'" [color]="'0xffffff'" [refractionRatio]="controls.refractionRatio">
-        <three-texture 
+      ></ngx3js-geometry>
+      <ngx3js-material #material [type]="'MeshBasic'" [color]="'0xffffff'" [refractionRatio]="controls.refractionRatio">
+        <ngx3js-texture 
           [textureType]="'envMap'" 
           [image]="'textures/cube/Park3Med/'" 
           [cubeImage]="['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']"
           [mapping]="'CubeRefraction'"
-        ></three-texture>
-      </three-material>
+        ></ngx3js-texture>
+      </ngx3js-material>
 
-    </three-shared>
-    <three-material [materialType]="'background'">
-      <three-texture 
+    </ngx3js-shared>
+    <ngx3js-material [materialType]="'background'">
+      <ngx3js-texture 
         [image]="'textures/cube/Park3Med/'" 
         [cubeImage]="['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']"
-    ></three-texture>
-    </three-material>
-    <three-light
+    ></ngx3js-texture>
+    </ngx3js-material>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -53,13 +53,13 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let model of models" [geometry]="geometry" [material]="material" (onLoad)="setSpheres($event)">
-        <three-position [x]="model.x" [y]="model.y" [z]="model.z"></three-position>
-        <three-scale [x]="model.scale" [y]="model.scale" [z]="model.scale"></three-scale>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let model of models" [geometry]="geometry" [material]="material" (onLoad)="setSpheres($event)">
+        <ngx3js-position [x]="model.x" [y]="model.y" [z]="model.z"></ngx3js-position>
+        <ngx3js-scale [x]="model.scale" [y]="model.scale" [z]="model.scale"></ngx3js-scale>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

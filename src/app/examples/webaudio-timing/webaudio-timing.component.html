@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> webaudio - timing<br/>
   sound effect by <a href="https://freesound.org/people/michorvath/sounds/269718/" target="_blank" rel="noopener noreferrer">michorvath</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,19 +13,19 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100">
-    <three-position [x]="7" [y]="3" [z]="7"></three-position>
-    <three-listener></three-listener>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="7" [y]="3" [z]="7"></ngx3js-position>
+    <ngx3js-listener></ngx3js-listener>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0xcccccc'"
       [intensity]="0.4"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.7"
@@ -38,41 +38,41 @@
       [shadowCameraFar]="20"
       [shadowMapSize]="1024"
     >
-      <three-position [x]="0" [y]="5" [z]="5"></three-position>
-    </three-light>
-    <three-shared>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="5" [z]="5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #ballGeometry
         [type]="'SphereGeometry'"
         [radius]="0.3"
         [widthSegments]="32"
         [heightSegments]="16"
-      ><three-translation [y]="0.3"></three-translation></three-geometry>
-      <three-material
+      ><ngx3js-translation [y]="0.3"></ngx3js-translation></ngx3js-geometry>
+      <ngx3js-material
         #ballMaterial 
         [type]="'MeshLambertMaterial'" 
         [color]="'0xcccccc'"
-      ></three-material>
-      <three-tools #audioBuffer [type]="'audio'" [url]="'sounds/ping_pong.mp3'"></three-tools>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of ballInfos" [geometry]="ballGeometry" [material]="ballMaterial" [userData]="{ down : false, speed : info.speed }">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-audio [type]="'PositionalAudio'" [url]="audioBuffer" [autoplay]="false" [loop]="false"></three-audio>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-material>
+      <ngx3js-tools #audioBuffer [type]="'audio'" [url]="'sounds/ping_pong.mp3'"></ngx3js-tools>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of ballInfos" [geometry]="ballGeometry" [material]="ballMaterial" [userData]="{ down : false, speed : info.speed }">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-audio [type]="'PositionalAudio'" [url]="audioBuffer" [autoplay]="false" [loop]="false"></ngx3js-audio>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="10"
         [height]="10"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshLambertMaterial'"
         [color]="'0x4676b6'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

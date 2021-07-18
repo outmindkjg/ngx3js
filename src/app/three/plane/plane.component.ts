@@ -4,7 +4,7 @@ import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-plane',
+  selector: 'ngx3js-plane',
   templateUrl: './plane.component.html',
   styleUrls: ['./plane.component.scss'],
 })

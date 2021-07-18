@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - orthographic
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [cssType]="'css3d'"
@@ -12,27 +12,27 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'OrthographicCamera'" [orthoSize]="0.3" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="-200" [y]="200" [z]="200"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-shared>
-      <three-material #material [type]="'MeshBasicMaterial'" [color]="'0x000000'" [wireframe]="true" [wireframeLinewidth]="1" [side]="'double'"></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of planeInfos">
-        <three-position [x]="info.px" [y]="info.py" [z]="info.pz"></three-position>
-        <three-rotation [x]="info.rx" [y]="info.ry" [z]="info.rz"></three-rotation>
-        <three-mesh [material]="material">
-          <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'OrthographicCamera'" [orthoSize]="0.3" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="-200" [y]="200" [z]="200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'MeshBasicMaterial'" [color]="'0x000000'" [wireframe]="true" [wireframeLinewidth]="1" [side]="'double'"></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of planeInfos">
+        <ngx3js-position [x]="info.px" [y]="info.py" [z]="info.pz"></ngx3js-position>
+        <ngx3js-rotation [x]="info.rx" [y]="info.ry" [z]="info.rz"></ngx3js-rotation>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-geometry
             [type]="'PlaneGeometry'"
             [width]="info.width"
             [height]="info.height"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh [type]="'css3d'" [cssStyle]="{ width : info.width , height : info.height , opacity : 0.75, background : info.color }"></three-mesh>        
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh [type]="'css3d'" [cssStyle]="{ width : info.width , height : info.height , opacity : 0.75, background : info.color }"></ngx3js-mesh>        
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

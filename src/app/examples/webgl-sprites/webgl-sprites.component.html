@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - sprites
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,58 +11,58 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2100" [scene]="scene" [autoClear]="false">
-    <three-position [x]="0" [y]="0" [z]="1500"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-fog [color]="'0x000000'" [near]="1500" [far]="2100"></three-fog>
-    <three-shared>
-      <three-texture #mapB [image]="'textures/sprite1.png'"></three-texture>
-      <three-texture #mapC [image]="'textures/sprite2.png'" [offset]="-0.5" [repeat]="2"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let sprite of spritePositions" [type]="'sprite'" [name]="sprite.mapType">
-        <three-position [x]="sprite.x" [y]="sprite.y" [z]="sprite.z" [normalize]="true" [multiply]="500"></three-position>
-        <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-        <three-material 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2100" [scene]="scene" [autoClear]="false">
+    <ngx3js-position [x]="0" [y]="0" [z]="1500"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-fog [color]="'0x000000'" [near]="1500" [far]="2100"></ngx3js-fog>
+    <ngx3js-shared>
+      <ngx3js-texture #mapB [image]="'textures/sprite1.png'"></ngx3js-texture>
+      <ngx3js-texture #mapC [image]="'textures/sprite2.png'" [offset]="-0.5" [repeat]="2"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let sprite of spritePositions" [type]="'sprite'" [name]="sprite.mapType">
+        <ngx3js-position [x]="sprite.x" [y]="sprite.y" [z]="sprite.z" [normalize]="true" [multiply]="500"></ngx3js-position>
+        <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+        <ngx3js-material 
           [type]="'SpriteMaterial'"
           [color]="sprite.color"
           [fog]="true"
           [map]="sprite.mapType == 'b' ? mapB : mapC"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-  <three-camera #cameraOrtho [type]="'OrthographicCamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="0.01" [far]="10000"  [scene]="orthScene" [clearDepth]="true" [autoClear]="false">
-    <three-rotation [x]="10" [y]="0" [z]="0"></three-rotation>
-    <three-position [x]="0" [y]="0" [z]="10"></three-position>
-  </three-camera>
-  <three-scene #orthScene>
-    <three-shared>
-      <three-material #material [type]="'Sprite'" [transparent]="true">
-        <three-texture [image]="'textures/sprite0.png'"></three-texture>
-      </three-material>
-    </three-shared>
-    <three-mesh #spriteTL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="1.0">
-      <three-position [x]="-1" [y]="1" [z]="-10" [camera]="cameraOrtho"></three-position>
-        <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-    </three-mesh>
-    <three-mesh #spriteTR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="1.0">
-      <three-position [x]="1" [y]="1" [z]="-10" [camera]="cameraOrtho"></three-position>
-      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-    </three-mesh>
-    <three-mesh #spriteBL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="0.0">
-      <three-position [x]="-1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></three-position>
-      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-    </three-mesh>
-    <three-mesh #spriteBR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="0.0">
-      <three-position [x]="1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></three-position>
-      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-    </three-mesh>
-    <three-mesh #spriteC [type]="'Sprite'" [material]="material" [centerX]="0.5" [centerY]="0.5">
-      <three-position [x]="0" [y]="0" [z]="-10" [camera]="cameraOrtho"></three-position>
-      <three-scale [x]="128" [y]="128" [z]="1"></three-scale>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+  <ngx3js-camera #cameraOrtho [type]="'OrthographicCamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="0.01" [far]="10000"  [scene]="orthScene" [clearDepth]="true" [autoClear]="false">
+    <ngx3js-rotation [x]="10" [y]="0" [z]="0"></ngx3js-rotation>
+    <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #orthScene>
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'Sprite'" [transparent]="true">
+        <ngx3js-texture [image]="'textures/sprite0.png'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh #spriteTL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="1.0">
+      <ngx3js-position [x]="-1" [y]="1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
+        <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+    </ngx3js-mesh>
+    <ngx3js-mesh #spriteTR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="1.0">
+      <ngx3js-position [x]="1" [y]="1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
+      <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+    </ngx3js-mesh>
+    <ngx3js-mesh #spriteBL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="0.0">
+      <ngx3js-position [x]="-1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
+      <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+    </ngx3js-mesh>
+    <ngx3js-mesh #spriteBR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="0.0">
+      <ngx3js-position [x]="1" [y]="-1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
+      <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+    </ngx3js-mesh>
+    <ngx3js-mesh #spriteC [type]="'Sprite'" [material]="material" [centerX]="0.5" [centerY]="0.5">
+      <ngx3js-position [x]="0" [y]="0" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
+      <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

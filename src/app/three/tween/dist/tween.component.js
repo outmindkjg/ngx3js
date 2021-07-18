@@ -288,7 +288,7 @@ var TweenComponent = /** @class */ (function () {
     ], TweenComponent.prototype, "steps");
     TweenComponent = __decorate([
         core_1.Component({
-            selector: 'three-tween',
+            selector: 'ngx3js-tween',
             templateUrl: './tween.component.html',
             styleUrls: ['./tween.component.scss']
         })

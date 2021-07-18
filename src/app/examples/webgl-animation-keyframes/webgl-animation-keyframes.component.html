@@ -3,13 +3,13 @@
   Model: <a href="https://www.artstation.com/artwork/1AGwX" target="_blank" rel="noopener">Littlest Tokyo</a> by
   <a href="https://www.artstation.com/glenatron" target="_blank" rel="noopener">Glen Fox</a>, CC Attribution.
 </div>
-<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
-      <three-position [x]="5" [y]="2" [z]="8"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xbfe3dd'">
-      <three-mesh 
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
+      <ngx3js-position [x]="5" [y]="2" [z]="8"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xbfe3dd'">
+      <ngx3js-mesh 
       [type]="'light'" 
       [lightOptions]="{
         type : 'Hemisphere',
@@ -17,20 +17,20 @@
         groundColor : '0x000000',
         intensity : 0.4
       }"
-      ></three-mesh>
-      <three-mesh 
+      ></ngx3js-mesh>
+      <ngx3js-mesh 
         [type]="'light'" 
         [lightOptions]="{ type : 'directional',  color : '0xffffff', intensity : 1 }" 
         [castShadow]="true" 
       >
-          <three-position [x]="5" [y]="2" [z]="8"></three-position>
-      </three-mesh>
-      <three-mesh [storageName]="'models/gltf/LittlestTokyo.glb'" (onLoad)="setMesh($event)" [storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
-          <three-position [x]="1" [y]="1" [z]="0"></three-position>
-          <three-scale [x]="0.01" [y]="0.01" [z]="0.01"></three-scale>
-          <three-mixer [action]="'base'">
-            <three-clip [name]="'base'" [index]="0"></three-clip>
-          </three-mixer>
-      </three-mesh>
-  </three-scene>
-</three-renderer>
+          <ngx3js-position [x]="5" [y]="2" [z]="8"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh [storageName]="'models/gltf/LittlestTokyo.glb'" (onLoad)="setMesh($event)" [storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
+          <ngx3js-position [x]="1" [y]="1" [z]="0"></ngx3js-position>
+          <ngx3js-scale [x]="0.01" [y]="0.01" [z]="0.01"></ngx3js-scale>
+          <ngx3js-mixer [action]="'base'">
+            <ngx3js-clip [name]="'base'" [index]="0"></ngx3js-clip>
+          </ngx3js-mixer>
+      </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

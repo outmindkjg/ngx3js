@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl depth-of-field with bokeh example<br/>
   shader by <a href="http://artmartinsh.blogspot.com/2010/02/glsl-lens-blur-filter-with-bokeh.html">Martins Upitis</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,31 +12,31 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="3000">
-    <three-position [x]="0" [y]="0" [z]="200"></three-position>
-  </three-camera>
-  <three-shared>
-    <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="3000">
+    <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-shared>
+    <ngx3js-geometry
       #geo
       [type]="'SphereGeometry'"
       [radius]="1"
       [widthSegments]="20"
       [heightSegments]="20"
-    ></three-geometry>
-    <three-texture #envMap [image]="'textures/cube/SwedishRoyalCastle/'" [cubeImage]="['', 'jpg']"></three-texture>
-  </three-shared>
-  <three-composer [scene]="scene" [camera]="camera">
-    <three-pass [type]="'RenderPass'"></three-pass>
-    <three-pass [type]="'BokehPass'" [focus]="controls.focus" [aperture]="controls.aperture * 0.00001" [maxblur]="controls.maxblur"></three-pass>
-  </three-composer>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of meshInfos" [geometry]="geo">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-scale [multiply]="info.scale"></three-scale>        
-        <three-material [type]="'MeshBasicMaterial'" [color]="'0xff1100'" [envMap]="envMap"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+    ></ngx3js-geometry>
+    <ngx3js-texture #envMap [image]="'textures/cube/SwedishRoyalCastle/'" [cubeImage]="['', 'jpg']"></ngx3js-texture>
+  </ngx3js-shared>
+  <ngx3js-composer [scene]="scene" [camera]="camera">
+    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'BokehPass'" [focus]="controls.focus" [aperture]="controls.aperture * 0.00001" [maxblur]="controls.maxblur"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geo">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>        
+        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xff1100'" [envMap]="envMap"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

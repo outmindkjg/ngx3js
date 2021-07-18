@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - color lines<br/>
   <a href="http://en.wikipedia.org/wiki/Hilbert_curve">Hilbert curve</a> thanks to <a href="http://www.openprocessing.org/visuals/?visualID=15599">Thomas Diewald</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,24 +12,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="33" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="1000"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let line of geometryInfos" [type]="'line'">
-        <three-position [x]="line.x" [y]="line.y" [z]="line.z"></three-position>
-        <three-scale [x]="line.scale" [y]="line.scale" [z]="line.scale"></three-scale>
-        <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="33" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let line of geometryInfos" [type]="'line'">
+        <ngx3js-position [x]="line.x" [y]="line.y" [z]="line.z"></ngx3js-position>
+        <ngx3js-scale [x]="line.scale" [y]="line.scale" [z]="line.scale"></ngx3js-scale>
+        <ngx3js-geometry
           [type]="'Buffer'"
           [attrPosition]="line.position"
           [attrColor]="line.color"
-        ></three-geometry>
-        <three-material [type]="'LineBasic'" [color]="'0xffffff'" [vertexColors]="true"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasic'" [color]="'0xffffff'" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

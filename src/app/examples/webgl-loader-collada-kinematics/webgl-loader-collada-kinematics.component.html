@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader - kinematics<br/>
   robot from <a href="https://github.com/rdiankov/collada_robots" target="_blank" rel="noopener">collada robots</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,41 +12,41 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="5" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <three-position [x]="20" [y]="10" [z]="0"></three-position>
-    <three-lookat [x]="0" [y]="5" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene >
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="5" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+    <ngx3js-position [x]="20" [y]="10" [z]="0"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="5" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffeeee'"
       [groundColor]="'0x111122'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.8"
       [castShadow]="true"
     >
-      <three-position [x]="1" [y]="1" [z]="0" [normalize]="true"></three-position>
-    </three-light>
-    <three-helper [type]="'Grid'" [size]="20" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></three-helper>
-    <three-mesh>
-      <three-position [x]="300" [y]="400" [z]="0"></three-position>
-      <three-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="8" [heightSegments]="8"></three-geometry>
-      <three-material [type]="'MeshBasic'" [color]="'0xffffff'"></three-material>
-      <three-light
+      <ngx3js-position [x]="1" [y]="1" [z]="0" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-helper [type]="'Grid'" [size]="20" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></ngx3js-helper>
+    <ngx3js-mesh>
+      <ngx3js-position [x]="300" [y]="400" [z]="0"></ngx3js-position>
+      <ngx3js-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="8" [heightSegments]="8"></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'"></ngx3js-material>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="1"
       >
-      </three-light>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/abb_irb52_7_120.dae'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      </ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/abb_irb52_7_120.dae'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

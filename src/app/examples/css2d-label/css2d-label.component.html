@@ -1,6 +1,7 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css2d - label</div>
-<three-renderer
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css2d - label
+</div>
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [cssType]="'css2d'"
@@ -11,28 +12,28 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
-    <three-position [x]="10" [y]="5" [z]="20"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
+    <ngx3js-position [x]="10" [y]="5" [z]="20"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >
-      <three-position [x]="0" [y]="0" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh #earth>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh #earth>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'SphereGeometry'"
           [radius]="1"
           [widthSegments]="16"
           [heightSegments]="16"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [type]="'MeshPhongMaterial'" 
           [specular]="'0x333333'"
           [shininess]="5"
@@ -40,34 +41,34 @@
           [specularMap]="'textures/planets/earth_specular_2048.jpg'"
           [normalMap]="'textures/planets/earth_normal_2048.jpg'"
           [normalScale]="0.85"
-        ></three-material>
-        <three-mesh [type]="'css2d'" [cssStyle]="{ 
+        ></ngx3js-material>
+        <ngx3js-mesh [type]="'css2d'" [cssStyle]="{ 
           textContent : 'Earth' , 
           className : 'label'
         }">
-          <three-position [x]="0" [y]="1" [z]="0"></three-position>
-        </three-mesh>
-      </three-mesh>
-      <three-mesh #moon (onLoad)="setMoon($event)">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+          <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh #moon (onLoad)="setMoon($event)">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'SphereGeometry'"
           [radius]="0.27"
           [widthSegments]="16"
           [heightSegments]="16"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [shininess]="5"
           [map]="'textures/planets/moon_1024.jpg'"
-        ></three-material>
-        <three-mesh [type]="'css2d'" [cssStyle]="{ 
+        ></ngx3js-material>
+        <ngx3js-mesh [type]="'css2d'" [cssStyle]="{ 
           textContent : 'Moon' , 
           className : 'label'
         }">
-          <three-position [x]="0" [y]="0.27" [z]="0"></three-position>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-    <three-helper [type]="'AxesHelper'" [size]="5"></three-helper>
-  </three-scene>
-</three-renderer>
+          <ngx3js-position [x]="0" [y]="0.27" [z]="0"></ngx3js-position>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-helper [type]="'AxesHelper'" [size]="5"></ngx3js-helper>
+  </ngx3js-scene>
+</ngx3js-renderer>

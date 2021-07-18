@@ -3,7 +3,7 @@
   <a href="http://github.khronos.org/KTX-Specification/" target="_blank" rel="noopener">KTX2</a> with
   <a href="https://github.com/binomialLLC/basis_universal" target="_blank">Basis Universal GPU Texture Codec</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,24 +13,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100">
-    <three-position [x]="2" [y]="1.5" [z]="1"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0x202020'">
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="2" [y]="1.5" [z]="1"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x202020'">
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="1"
         [height]="1"
         [depth]="1"
         [flipY]="true"
-      ></three-geometry>
-      <three-material [type]="'MeshBasic'" [color]="'0xFFFFFF'" [side]="'double'" [transparent]="true">
-        <three-texture [storageName]="'textures/compressed/sample_uastc.ktx2'" [storageOption]="{ transcoderPath : 'js/libs/basis/'}"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'" [color]="'0xFFFFFF'" [side]="'double'" [transparent]="true">
+        <ngx3js-texture [storageName]="'textures/compressed/sample_uastc.ktx2'" [storageOption]="{ transcoderPath : 'js/libs/basis/'}"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

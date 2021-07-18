@@ -5,7 +5,7 @@
   <a href="https://sites.google.com/view/evpvp/" target="_blank" rel="noopener">Model Data</a>
   <a href="http://www.nicovideo.jp/watch/sm13147122" target="_blank" rel="noopener">Dance Data</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 10 , maxDistance: 100 }"
   [statsMode]="0"
@@ -16,32 +16,32 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000" (onLoad)="setCamera($event)">
-    <three-position [x]="0" [y]="0" [z]="30"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xffffff'">
-    <three-physics></three-physics>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="0" [y]="0" [z]="30"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xffffff'">
+    <ngx3js-physics></ngx3js-physics>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x666666'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0x887766'"
       [intensity]="1"
       [castShadow]="true"
     >
-      <three-position [x]="-1" [y]="1" [z]="1" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/mmd/miku/miku_v2.pmd'" [storageOption]="{ vmdUrl : 'models/mmd/vmds/wavefile_v2.vmd'}">
-      <three-position [x]="0" [y]="-10" [z]="0"></three-position>
-      <three-mixer [type]="'MMDAnimationHelper'" [mmdHelpers]="['iksolver','physics']" [afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true" (onLoad)="setMixer($event)"></three-mixer>
-    </three-mesh>
-    <three-helper [type]="'PolarGrid'" [radius]="30" [radials]="10">
-      <three-position [x]="0" [y]="-10" [z]="0"></three-position>
-    </three-helper>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="-1" [y]="1" [z]="1" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/mmd/miku/miku_v2.pmd'" [storageOption]="{ vmdUrl : 'models/mmd/vmds/wavefile_v2.vmd'}">
+      <ngx3js-position [x]="0" [y]="-10" [z]="0"></ngx3js-position>
+      <ngx3js-mixer [type]="'MMDAnimationHelper'" [mmdHelpers]="['iksolver','physics']" [afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true" (onLoad)="setMixer($event)"></ngx3js-mixer>
+    </ngx3js-mesh>
+    <ngx3js-helper [type]="'PolarGrid'" [radius]="30" [radials]="10">
+      <ngx3js-position [x]="0" [y]="-10" [z]="0"></ngx3js-position>
+    </ngx3js-helper>
+  </ngx3js-scene>
+</ngx3js-renderer>

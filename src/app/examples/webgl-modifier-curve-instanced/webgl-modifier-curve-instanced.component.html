@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - curve modifier - instanced
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
@@ -12,75 +12,75 @@
   (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
-  <three-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></three-control>
-  <three-control
+  <ngx3js-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></ngx3js-control>
+  <ngx3js-control
     [type]="'orbit'"
     [enablePan]="false"
     [enableDamping]="true"
     (onLoad)="setOrbitControl($event)"
-  ></three-control>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-    <three-position [x]="2" [y]="2" [z]="4"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  ></ngx3js-control>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffaa33'"
       [intensity]="1"
     >
-      <three-position [x]="-10" [y]="10" [z]="10"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="-10" [y]="10" [z]="10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x003973'"
       [intensity]="1"
     >
-    </three-light>
-    <three-shared>
-      <three-geometry 
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry 
         #boxGeometry
         [type]="'box'"
         [width]="0.1"
         [height]="0.1"
         [depth]="0.1"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         #boxMaterial
         [type]="'MeshBasic'"
         [color]="'0xffff00'"
-      ></three-material>
-      <three-curve 
+      ></ngx3js-material>
+      <ngx3js-curve 
         #curve1
         [type]="'catmullrom'" 
         [points]="curvePath1"
         [closed]="true"
         [curveType]="'centripetal'"
-      ></three-curve>
-      <three-curve 
+      ></ngx3js-curve>
+      <ngx3js-curve 
         #curve2
         [type]="'catmullrom'" 
         [points]="curvePath2"
         [closed]="true"
         [curveType]="'centripetal'"
-      ></three-curve>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let box of initialPoints1" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh1($event)">
-        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
-      </three-mesh>
-      <three-mesh *ngFor="let box of initialPoints2" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh2($event)">
-        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
-      </three-mesh>
-      <three-mesh [type]="'lineloop'" [curve]="curve1" [divisions]="50">
-        <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'lineloop'" [curve]="curve2" [divisions]="50">
-        <three-material [type]="'LineBasic'" [color]="'0x00ff00'"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve1" [moveAlongCurve]="0.001" [colors]="'0xff0000,random,random'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-curve>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let box of initialPoints1" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh1($event)">
+        <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngFor="let box of initialPoints2" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh2($event)">
+        <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'lineloop'" [curve]="curve1" [divisions]="50">
+        <ngx3js-material [type]="'LineBasic'" [color]="'0x00ff00'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'lineloop'" [curve]="curve2" [divisions]="50">
+        <ngx3js-material [type]="'LineBasic'" [color]="'0x00ff00'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'instancedflow'" [count]="4" [curve]="curve1" [moveAlongCurve]="0.001" [colors]="'0xff0000,random,random'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Text'"
           [font]="'helvetiker_regular'"
           [text]="'Hello three.js!'"
@@ -93,13 +93,13 @@
           [bevelOffset]="0"
           [bevelSegments]="5"
         >
-          <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
-        </three-geometry>
-        <three-material [type]="'MeshStandard'" [color]="'0x99ffff'"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'instancedflow'" [count]="4" [curve]="curve2" [moveAlongCurve]="0.001">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+          <ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+        </ngx3js-geometry>
+        <ngx3js-material [type]="'MeshStandard'" [color]="'0x99ffff'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'instancedflow'" [count]="4" [curve]="curve2" [moveAlongCurve]="0.001">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Text'"
           [font]="'helvetiker_regular'"
           [text]="'Hello three.js!'"
@@ -112,10 +112,10 @@
           [bevelOffset]="0"
           [bevelSegments]="5"
         >
-          <three-rotation [x]="180" [y]="0" [z]="0"></three-rotation>
-        </three-geometry>
-        <three-material [type]="'MeshStandard'" [color]="'0x99ffff'"></three-material>
-      </three-mesh>      
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+          <ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+        </ngx3js-geometry>
+        <ngx3js-material [type]="'MeshStandard'" [color]="'0x99ffff'"></ngx3js-material>
+      </ngx3js-mesh>      
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

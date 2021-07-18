@@ -127,13 +127,12 @@ export class ApiReadComponent implements OnInit {
     const codes = this.docEle.nativeElement.getElementsByTagName('code');
     for (let i = 0; i < codes.length; i++) {
       const code = codes[i];
+      const innerText = code.innerText
+      .replace(/\n([\t ]{1,2})/g, '\n')
+      .trim();
       this.highlightJS
         .highlightAuto(
-          code.innerText
-            .replace(/\n([\t ]{1,2})/g, '\n')
-            .replace(/&gt;/g, '>')
-            .replace(/&lt;/g, '<')
-            .trim(),
+          innerText,
           undefined
         )
         .subscribe((hi: HighlightResult) => {

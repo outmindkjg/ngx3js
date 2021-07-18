@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - geometry - catmull spline editor
 </div>
-<three-renderer
+<ngx3js-renderer
   [statsMode]="0"
   [antialias]="true"
   [clearColor]="'0xffffff'"
@@ -12,25 +12,25 @@
   (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
-  <three-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></three-control>
-  <three-control
+  <ngx3js-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></ngx3js-control>
+  <ngx3js-control
     [type]="'orbit'"
     [enablePan]="false"
     [enableDamping]="true"
     (onLoad)="setOrbitControl($event)"
-  ></three-control>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
-      <three-position [x]="0" [y]="250" [z]="1000"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-    </three-camera>
-    <three-light
+  ></ngx3js-control>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
+      <ngx3js-position [x]="0" [y]="250" [z]="1000"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+    </ngx3js-camera>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xf0f0f0'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Spot'"
       [color]="'0xffffff'"
       [intensity]="1.5"
@@ -42,46 +42,46 @@
       [shadowMapSizeWidth]="1024"
       [shadowMapSizeHeight]="1024"
     >
-      <three-position [x]="0" [y]="1500" [z]="200"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let curve of catmullRomCurves" [type]="'line'" [visible]="curve.visible" [castShadow]="true">
-        <three-geometry
+      <ngx3js-position [x]="0" [y]="1500" [z]="200"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let curve of catmullRomCurves" [type]="'line'" [visible]="curve.visible" [castShadow]="true">
+        <ngx3js-geometry
           [type]="'geometry'"
           [curveSegments]="200"
           [tension]="curve.tension"
           [curvePath]="curve.curvePath"
           [curveType]="curve.curveType"
-        ></three-geometry>
-        <three-material [type]="'LineBasic'" [opacity]="0.35" [color]="curve.color"></three-material>
-      </three-mesh>
-      <three-mesh *ngFor="let box of positions" (onLoad)="setPointMesh($event)" (onDestory)="unsetPointMesh($event)">
-        <three-position [x]="box.x" [y]="box.y" [z]="box.z"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasic'" [opacity]="0.35" [color]="curve.color"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngFor="let box of positions" (onLoad)="setPointMesh($event)" (onDestory)="unsetPointMesh($event)">
+        <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'box'"
           [width]="20"
           [height]="20"
           [depth]="20"
-        ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="box.color"></three-material>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-200" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'meshlambert'" [color]="box.color"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-200" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="2000"
         [height]="2000"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'Shadow'"
         [opacity]="0.2"
-      ></three-material>
-      <three-helper [type]="'Grid'" [size]="2000" [divisions]="100">
-        <three-position [x]="0" [y]="-199" [z]="0"></three-position>
-      </three-helper>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+      <ngx3js-helper [type]="'Grid'" [size]="2000" [divisions]="100">
+        <ngx3js-position [x]="0" [y]="-199" [z]="0"></ngx3js-position>
+      </ngx3js-helper>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

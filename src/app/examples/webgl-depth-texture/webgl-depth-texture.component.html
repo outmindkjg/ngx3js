@@ -8,7 +8,7 @@
   This demo will not work.
   </div>
 </div>
-<three-renderer
+<ngx3js-renderer
 [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -19,13 +19,13 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
-    <three-position [x]="0" [y]="0" [z]="4"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
+    <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -37,22 +37,22 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let model of models">
-        <three-position [x]="model.position.x" [y]="model.position.y" [z]="model.position.z"></three-position>
-        <three-rotation [x]="model.rotation.x" [y]="model.rotation.y" [z]="model.rotation.z"></three-rotation>
-        <three-geometry
+      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let model of models">
+        <ngx3js-position [x]="model.position.x" [y]="model.position.y" [z]="model.position.z"></ngx3js-position>
+        <ngx3js-rotation [x]="model.rotation.x" [y]="model.rotation.y" [z]="model.rotation.z"></ngx3js-rotation>
+        <ngx3js-geometry
           [type]="'TorusKnot'"
           [radius]="1"
           [tube]="0.3"
           [radialSegments]="128"
           [tubularSegments]="64"
-        ></three-geometry>
-        <three-material [type]="'MeshBasic'" [color]="'blue'"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasic'" [color]="'blue'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

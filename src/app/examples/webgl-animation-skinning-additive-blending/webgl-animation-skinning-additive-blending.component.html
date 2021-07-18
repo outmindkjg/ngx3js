@@ -2,24 +2,24 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Skeletal Additive Animation Blending
   (model from <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br/>
 </div>
-<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-      <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-      <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-      <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-      <three-mesh [type]="'light'" 
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+      <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+      <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+      <ngx3js-mesh [type]="'light'" 
         [lightOptions]="{
           type : 'Hemisphere',
           skyColor : '0xffffff',
           groundColor : '0x444444'
         }"
       >
-        <three-position [x]="0" [y]="20" [z]="0"></three-position>
-      </three-mesh>
-      <three-mesh [type]="'light'" 
+        <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'light'" 
         [lightOptions]="{ 
           type : 'directional', 
           color : '0xffffff',
@@ -33,27 +33,27 @@
           shadowCameraFar : 40
         }"
       >
-          <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-      </three-mesh>
-      <three-mesh [type]="'storage'" (onLoad)="setMesh($event)" [storageName]="'models/gltf/Xbot.glb'" [helperType]="'skeleton'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
-        <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-        <three-mixer [action]="controls.action" [duration]="controls.duration">
-          <three-clip [name]="'idle'"></three-clip>
-          <three-clip [name]="'run'"></three-clip>
-          <three-clip [name]="'walk'"></three-clip>
-          <three-clip [weight]="controls.agree" [additive]="true" [name]="'agree'"></three-clip>
-          <three-clip [weight]="controls.head_shake" [additive]="true" [name]="'headShake'"></three-clip>
-          <three-clip [weight]="controls.sad_pose" [additive]="true" [subclip]="true" [name]="'sad_pose'"></three-clip>
-          <three-clip [weight]="controls.sneak_pose" [additive]="true" [subclip]="true" [name]="'sneak_pose'"></three-clip>
-        </three-mixer>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry [type]="'Plane'" [width]="100" [height]="100"></three-geometry>
-      <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
-    </three-mesh>
-</three-scene>
-</three-renderer>
+          <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'storage'" (onLoad)="setMesh($event)" [storageName]="'models/gltf/Xbot.glb'" [helperType]="'skeleton'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+        <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
+        <ngx3js-mixer [action]="controls.action" [duration]="controls.duration">
+          <ngx3js-clip [name]="'idle'"></ngx3js-clip>
+          <ngx3js-clip [name]="'run'"></ngx3js-clip>
+          <ngx3js-clip [name]="'walk'"></ngx3js-clip>
+          <ngx3js-clip [weight]="controls.agree" [additive]="true" [name]="'agree'"></ngx3js-clip>
+          <ngx3js-clip [weight]="controls.head_shake" [additive]="true" [name]="'headShake'"></ngx3js-clip>
+          <ngx3js-clip [weight]="controls.sad_pose" [additive]="true" [subclip]="true" [name]="'sad_pose'"></ngx3js-clip>
+          <ngx3js-clip [weight]="controls.sneak_pose" [additive]="true" [subclip]="true" [name]="'sneak_pose'"></ngx3js-clip>
+        </ngx3js-mixer>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry [type]="'Plane'" [width]="100" [height]="100"></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></ngx3js-material>
+    </ngx3js-mesh>
+</ngx3js-scene>
+</ngx3js-renderer>

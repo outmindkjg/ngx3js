@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - simple global illumination (<a href="http://www.iquilezles.org/www/articles/simplegi/simplegi.htm">article</a>)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,38 +11,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="0.1" [far]="100">
-    <three-position [x]="0" [y]="0" [z]="4"></three-position>
-  </three-camera>
-  <three-scene >
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene >
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="0.75"
         [tube]="0.3"
         [radialSegments]="128"
         [tubularSegments]="32"
         [p]="1"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'" [vertexColors]="true"></three-material>
-    </three-mesh>
-    <three-mesh>
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'" [vertexColors]="true"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh>
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'BoxGeometry'"
         [width]="3"
         [height]="3"
         [depth]="3"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         *ngFor="let color of boxColors"
         [type]="'MeshBasicMaterial'"
         [color]="color"
         [side]="'backside'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - sky + sun shader
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,13 +14,13 @@
   (onRender)="onRender($event)"
   (onLoad)="setRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="100" [far]="2000000">
-    <three-position [x]="0" [y]="100" [z]="2000"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-helper [type]="'grid'" [size]="10000" [divisions]="2" [color1]="'0xffffff'" [color2]="'0xffffff'"></three-helper>
-    <three-mesh 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="100" [far]="2000000">
+    <ngx3js-position [x]="0" [y]="100" [z]="2000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-helper [type]="'grid'" [size]="10000" [divisions]="2" [color1]="'0xffffff'" [color2]="'0xffffff'"></ngx3js-helper>
+    <ngx3js-mesh 
       (onLoad)="setMesh($event)" 
       [type]="'sky'"
       [uniforms]="{
@@ -31,7 +31,7 @@
         mieDirectionalG : { type : 'number', value : controls.mieDirectionalG }
       }"
     >
-      <three-scale [multiply]="450000"></three-scale>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-scale [multiply]="450000"></ngx3js-scale>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

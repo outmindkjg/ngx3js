@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - bump mapping without tangents<br/>
   <a href="http://graphics.cs.williams.edu/data/meshes.xml#14" target="_blank" rel="noopener">Lee Perry-Smith</a> head
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,18 +12,18 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="1200"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x060708'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x060708'">
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Spot'"
       [color]="'0xffffbb'"
       [intensity]="2"
@@ -35,23 +35,23 @@
       [shadowCameraFov]="40"
       [shadowBias]="-0.005"
     >
-      <three-position [x]="0.5" [y]="0" [z]="1" [multiply]="700"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="0" [y]="-50" [z]="0"></three-position>
-      <three-scale [x]="100" [y]="100" [z]="100"></three-scale>
-      <three-geometry 
+      <ngx3js-position [x]="0.5" [y]="0" [z]="1" [multiply]="700"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+      <ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
+      <ngx3js-geometry 
         [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'MeshPhong'" 
         [color]="'0x552811'"
         [specular]="'0x222222'"
         [shininess]="25"
         [bumpScale]="12"
       >
-        <three-texture [textureType]="'bumpMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-texture [textureType]="'bumpMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

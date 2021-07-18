@@ -6,7 +6,7 @@ import { TextureComponent } from '../texture/texture.component';
 import { TagAttributes, ThreeUtil } from './../interface';
 
 @Component({
-  selector: 'three-light',
+  selector: 'ngx3js-light',
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss'],
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }],
@@ -213,7 +213,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 
   getTagAttribute(options: any = {}) {
     const tagAttributes: TagAttributes = {
-      tag: 'three-light',
+      tag: 'ngx3js-light',
       attributes: [],
       options: options,
       children: [],

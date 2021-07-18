@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - multiple canvases - circle
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,74 +13,74 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="20000">
-    <three-position [x]="0" [y]="0" [z]="1800"></three-position>
-  </three-camera>
-  <three-viewer [type]="'canvas'" [canvasOptions]="canvasOptions" [x]="viewPort.x" [y]="viewPort.y" [width]="viewPort.width" [height]="viewPort.height"></three-viewer>
-  <three-scene #scene [background]="'0xffffff'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="20000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1800"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-viewer [type]="'canvas'" [canvasOptions]="canvasOptions" [x]="viewPort.x" [y]="viewPort.y" [width]="viewPort.width" [height]="viewPort.height"></ngx3js-viewer>
+  <ngx3js-scene #scene [background]="'0xffffff'">
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0xffffff'"
       [intensity]="0.2"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="0" [y]="0" [z]="1" [normalize]="true"></three-position>
-    </three-light>
-    <three-shared>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="0" [z]="1" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #geometry1
         [type]="'IcosahedronGeometry'"
         [radius]="200"
         [detail]="1"
         [onInit]="setIcosahedronGeometry"
-      ></three-geometry>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-geometry
         #shadowGeo
         [type]="'PlaneGeometry'"
         [width]="300"
         [height]="300"
         [widthSegments]="1"
         [heightSegments]="1"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         #shadowMaterial 
         [type]="'MeshBasicMaterial'" 
         [transparent]="true"
       >
-        <three-texture [textureType]="'map'" [program]="'shadow'" [width]="128" [height]="128"></three-texture>
-      </three-material>
-      <three-material 
+        <ngx3js-texture [textureType]="'map'" [program]="'shadow'" [width]="128" [height]="128"></ngx3js-texture>
+      </ngx3js-material>
+      <ngx3js-material 
         #material 
         [type]="'MeshPhongMaterial'" 
         [color]="'0xffffff'" 
         [flatShading]="true" 
         [vertexColors]="true" 
         [shininess]="0"
-      ></three-material>
-      <three-material 
+      ></ngx3js-material>
+      <ngx3js-material 
         #wireframeMaterial 
         [type]="'MeshBasicMaterial'" 
         [color]="'0x000000'"
         [wireframe]="true"
         [transparent]="true"
-      ></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of ballInfos">
-        <three-mesh [geometry]="geometry1" [material]="material">
-          <three-position [x]="info.x" [y]="0" [z]="0"></three-position>
-          <three-rotation [x]="info.rx" [y]="0" [z]="0"></three-rotation>
-          <three-mesh [geometry]="geometry1" [material]="wireframeMaterial"></three-mesh>
-        </three-mesh>
-        <three-mesh [geometry]="shadowGeo" [material]="shadowMaterial">
-          <three-position [x]="info.x" [y]="-250" [z]="0"></three-position>
-          <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of ballInfos">
+        <ngx3js-mesh [geometry]="geometry1" [material]="material">
+          <ngx3js-position [x]="info.x" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="info.rx" [y]="0" [z]="0"></ngx3js-rotation>
+          <ngx3js-mesh [geometry]="geometry1" [material]="wireframeMaterial"></ngx3js-mesh>
+        </ngx3js-mesh>
+        <ngx3js-mesh [geometry]="shadowGeo" [material]="shadowMaterial">
+          <ngx3js-position [x]="info.x" [y]="-250" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

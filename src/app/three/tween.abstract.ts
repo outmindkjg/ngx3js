@@ -59,5 +59,4 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
       this.tweenTimer = null;
     }
   }
-
 }

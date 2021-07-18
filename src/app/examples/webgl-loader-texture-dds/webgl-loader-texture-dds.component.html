@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - compressed textures<br/>
   leaf texture by <a href="http://opengameart.org/node/10505">lauris71</a>, explosion texture by <a href="http://opengameart.org/node/7728">bart</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,135 +12,135 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
-    <three-position [x]="0" [y]="0" [z]="1000"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #boxGeometry
         [type]="'box'"
         [width]="200"
         [height]="200"
         [depth]="200"
-      ></three-geometry>
-      <three-texture 
+      ></ngx3js-geometry>
+      <ngx3js-texture 
         #map1
         [textureType]="'map'" 
         [storageName]="'textures/compressed/disturb_dxt1_nomip.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #map2
         [textureType]="'map'" 
         [storageName]="'textures/compressed/disturb_dxt1_mip.dds'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #map3
         [textureType]="'map'" 
         [storageName]="'textures/compressed/hepatica_dxt3_mip.dds'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #map4
         [textureType]="'map'" 
         [storageName]="'textures/compressed/explosion_dxt5_mip.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #map5
         [textureType]="'map'" 
         [storageName]="'textures/compressed/disturb_argb_nomip.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #map6
         [textureType]="'map'" 
         [storageName]="'textures/compressed/disturb_argb_mip.dds'"
         [anisotropy]="4"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #cubemap1
         [textureType]="'envMap'" 
         [storageName]="'textures/compressed/Mountains.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [mapping]="'CubeReflection'"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #cubemap2
         [textureType]="'envMap'" 
         [storageName]="'textures/compressed/Mountains_argb_mip.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [mapping]="'CubeReflection'"
-      ></three-texture>
-      <three-texture 
+      ></ngx3js-texture>
+      <ngx3js-texture 
         #cubemap3
         [textureType]="'envMap'" 
         [storageName]="'textures/compressed/Mountains_argb_nomip.dds'"
         [minFilter]="'Linear'"
         [magFilter]="'Linear'"
         [mapping]="'CubeReflection'"
-      ></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh>
-        <three-position [x]="-600" [y]="-200" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh>
+        <ngx3js-position [x]="-600" [y]="-200" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Torus'"
           [radius]="100"
           [tube]="50"
           [radialSegments]="32"
           [tubularSegments]="16"
-        ></three-geometry>
-        <three-material [type]="'MeshBasic'" [map]="map1" [envMap]="cubemap1">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="-200" [y]="-200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [map]="map2">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="-200" [y]="200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [map]="map3" [alphaTest]="0.5" [side]="'bouble'">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="-600" [y]="200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [map]="map4" [side]="'bouble'" [blending]="'Additive'">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="200" [y]="200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [envMap]="cubemap2">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="200" [y]="-200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [envMap]="cubemap3">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="600" [y]="-200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [map]="map5">
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="600" [y]="200" [z]="0"></three-position>
-        <three-material [type]="'MeshBasic'" [map]="map6">
-        </three-material>
-      </three-mesh>
-    </three-mesh>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map1" [envMap]="cubemap1">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="-200" [y]="-200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map2">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="-200" [y]="200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map3" [alphaTest]="0.5" [side]="'bouble'">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="-600" [y]="200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map4" [side]="'bouble'" [blending]="'Additive'">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="200" [y]="200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [envMap]="cubemap2">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="200" [y]="-200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [envMap]="cubemap3">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="600" [y]="-200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map5">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="600" [y]="200" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasic'" [map]="map6">
+        </ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
 
-  </three-scene>
-</three-renderer>
+  </ngx3js-scene>
+</ngx3js-renderer>

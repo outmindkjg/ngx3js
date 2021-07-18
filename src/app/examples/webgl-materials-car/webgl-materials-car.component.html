@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> car materials<br/>
   Ferrari 458 Italia model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -13,13 +13,13 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0.5" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="0.1" [far]="100">
-    <three-position [x]="4.25" [y]="1.4" [z]="-4.5"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xeeeeee'" [environment]="'room'">
-    <three-fog [color]="'0xeeeeee'" [near]="10" [far]="50"></three-fog>
-    <three-helper 
+  <ngx3js-lookat [x]="0" [y]="0.5" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="4.25" [y]="1.4" [z]="-4.5"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xeeeeee'" [environment]="'room'">
+    <ngx3js-fog [color]="'0xeeeeee'" [near]="10" [far]="50"></ngx3js-fog>
+    <ngx3js-helper 
       (onLoad)="setGridHelp($event)"
       [type]="'grid'" 
       [size]="100" 
@@ -28,9 +28,9 @@
       [color2]="'0x000000'"
       [opacity]="0.1"
       [depthWrite]="false"
-    ></three-helper>
-    <three-shared>
-      <three-material 
+    ></ngx3js-helper>
+    <ngx3js-shared>
+      <ngx3js-material 
         [type]="'MeshPhysical'"
         [color]="'0xff0000'"
         [metalness]="0.6"
@@ -38,11 +38,11 @@
         [clearcoat]="0.05"
         [clearcoatRoughness]="0.05"
       >
-      </three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ materialType : 'nameList', useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-material 
+      </ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ materialType : 'nameList', useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-material 
         [type]="'MeshPhysical'"
         [color]="controls.glass"
         [nameList]="['glass']"
@@ -52,8 +52,8 @@
         [opacity]="0.5"
         [transparent]="true"
       >
-      </three-material>
-      <three-material 
+      </ngx3js-material>
+      <ngx3js-material 
         [type]="'MeshPhysical'"
         [color]="controls.body"
         [nameList]="['body']"
@@ -62,15 +62,15 @@
         [clearcoat]="0.05"
         [clearcoatRoughness]="0.05"
       >
-      </three-material>
-      <three-material 
+      </ngx3js-material>
+      <ngx3js-material 
         [type]="'MeshStandard'"
         [color]="controls.detail"
         [nameList]="['rim_fl','rim_fr','rim_rr','rim_rl','trim']"
         [metalness]="1.0"
         [roughness]="0.5"
       >
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

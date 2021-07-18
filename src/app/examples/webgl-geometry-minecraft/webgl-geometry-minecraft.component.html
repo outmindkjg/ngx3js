@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - <a href="http://www.minecraft.net/" target="_blank" rel="noopener">minecraft</a> demo. featuring <a href="http://painterlypack.net/" target="_blank" rel="noopener">painterly pack</a><br />(left click: forward, right click: backward)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'FirstPerson'"
   [controlOptions]="{ enablePan : false , enableDamping : true , movementSpeed: 1000 , lookSpeed : 0.125 , lookVertical : true }"
   [statsMode]="0"
@@ -12,26 +12,26 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="20000">
-    <three-position [x]="0" [y]="1000" [z]="-100"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xbfd1e5'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="20000">
+    <ngx3js-position [x]="0" [y]="1000" [z]="-100"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xbfd1e5'">
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xcccccc'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="2"
     >
-      <three-position [x]="1" [y]="1" [z]="0.5" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="1" [y]="1" [z]="0.5" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'perlin'"
         [perlinType]="'minecraft'"
         [width]="100"
@@ -40,10 +40,10 @@
         [widthSegments]="128"
         [depthSegments]="128"
         [quality]="2"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [side]="'double'">
-        <three-texture [image]="'textures/minecraft/atlas.png'" [magFilter]="'nearest'"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'meshlambert'" [side]="'double'">
+        <ngx3js-texture [image]="'textures/minecraft/atlas.png'" [magFilter]="'nearest'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

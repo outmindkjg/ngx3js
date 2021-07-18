@@ -8,7 +8,7 @@
   <br>Mouse-over is a PMREM of the skybox: a single bright pixel representing the same directional light source.
   <br>The difference between these renders indicates the error in the PMREM approximations.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, minDistance : 4, maxDistance : 20 }"
   [statsMode]="0"
@@ -23,41 +23,41 @@
   (eventListener)="mouseEvent($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="30">
-    <three-position [x]="0" [y]="0" [z]="16"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="radianceMap">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="30">
+    <ngx3js-position [x]="0" [y]="0" [z]="16"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="radianceMap">
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="0"
       (onLoad)="setLight($event)"
     >
-      <three-position [setfrom]="'SphericalCoords'" [radius]="100" [phi]="-(213+0.5)/512*2" [theta]="90-(597+0.5)/512*2"></three-position>
-    </three-light>
-    <three-shared>
-      <three-geometry
+      <ngx3js-position [setfrom]="'SphericalCoords'" [radius]="100" [phi]="-(213+0.5)/512*2" [theta]="90-(597+0.5)/512*2"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="0.4"
         [widthSegments]="32"
         [heightSegments]="32"
-      ></three-geometry>
-      <three-tools #radianceMap [type]="'pmremtexture'" [storageName]="'spot1Lux.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}"></three-tools>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of meshInfos" [geometry]="geometry">
-        <three-position [x]="info.x" [y]="info.y" [z]="0"></three-position>
-        <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-tools #radianceMap [type]="'pmremtexture'" [storageName]="'spot1Lux.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}"></ngx3js-tools>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="0"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshPhysicalMaterial'" 
           [color]="info.color"
           [roughness]="info.roughness"
           [metalness]="info.metalness"
           [envMap]="radianceMap"
           [envMapIntensity]="1"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

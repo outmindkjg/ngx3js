@@ -1010,7 +1010,7 @@ var GeometryComponent = /** @class */ (function () {
     ], GeometryComponent.prototype, "translation");
     GeometryComponent = GeometryComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-geometry',
+            selector: 'ngx3js-geometry',
             templateUrl: './geometry.component.html',
             styleUrls: ['./geometry.component.scss']
         })

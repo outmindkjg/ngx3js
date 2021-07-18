@@ -3,7 +3,7 @@
   Octahedron and Quantization encoding methods from Tarek Sherif
   todo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,40 +13,40 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="10000000">
-    <three-position [x]="200" [y]="200" [z]="200"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setLightGroup($event)">
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="10000000">
+    <ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setLightGroup($event)">
+      <ngx3js-light
         [type]="'PointLight'"
         [color]="'0xffffff'"
         [intensity]="1"
         [distance]="0"
       >
-        <three-position [x]="0" [y]="200" [z]="0"></three-position>
-      </three-light>
-      <three-light
+        <ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
+      </ngx3js-light>
+      <ngx3js-light
         [type]="'PointLight'"
         [color]="'0xffffff'"
         [intensity]="1"
         [distance]="0"
       >
-        <three-position [x]="200" [y]="-200" [z]="200"></three-position>
-      </three-light>
-      <three-light
+        <ngx3js-position [x]="200" [y]="-200" [z]="200"></ngx3js-position>
+      </ngx3js-light>
+      <ngx3js-light
         [type]="'PointLight'"
         [color]="'0xffffff'"
         [intensity]="1"
         [distance]="0"
       >
-        <three-position [x]="-200" [y]="-200" [z]="-200"></three-position>
-      </three-light>
-    </three-mesh>
-    <three-helper [type]="'AxesHelper'" [size]="500"></three-helper>
-    <three-shared>
-      <three-geometry
+        <ngx3js-position [x]="-200" [y]="-200" [z]="-200"></ngx3js-position>
+      </ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-helper [type]="'AxesHelper'" [size]="500"></ngx3js-helper>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #geometry
         [type]="modelInfo.type"
         [radius]="modelInfo.radius"
@@ -67,25 +67,25 @@
         [tubularSegments]="modelInfo.tubularSegments"
         [p]="modelInfo.p"
         [q]="modelInfo.q"
-      ></three-geometry>
-      <three-texture #texture [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh 
+      ></ngx3js-geometry>
+      <ngx3js-texture #texture [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh 
         [geometry]="geometry" 
         (onLoad)="setGeometry($event)" 
         [compressPositions]="controls.QuantizePosEncoding"
         [compressNormals]="controls.NormEncodingMethods"
         [compressUvs]="controls.DefaultUVEncoding"
       >
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [emissive]="'0x111111'" [map]="controls.texture? texture : null"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'LineSegments'" [visible]="controls.wireframe">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry [type]="'WireframeGeometry'" [refGeometry]="geometry" [refType]="'geometry'"></three-geometry>
-        <three-material [type]="'LineBasicMaterial'" [color]="'0xaaaaaa'" [transparent]="true" [opacity]="0.8"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [emissive]="'0x111111'" [map]="controls.texture? texture : null"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'LineSegments'" [visible]="controls.wireframe">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry [type]="'WireframeGeometry'" [refGeometry]="geometry" [refType]="'geometry'"></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xaaaaaa'" [transparent]="true" [opacity]="0.8"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

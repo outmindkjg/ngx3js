@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - refraction
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,44 +12,44 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xcccccc'"
       [intensity]="0.4"
     >
-    </three-light>
-    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
-      <three-position [x]="-10" [y]="0" [z]="15"></three-position>
-      <three-light
+    </ngx3js-light>
+    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
+      <ngx3js-position [x]="-10" [y]="0" [z]="15"></ngx3js-position>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >
-      </three-light>
-    </three-camera>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      </ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'TorusKnot'"
           [radius]="3"
           [tube]="1"
           [radialSegments]="256"
           [tubularSegments]="32"
-        ></three-geometry>
-        <three-material [type]="'MeshStandard'" [color]="'0x6083c2'"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'refractor'" [color]="'0x999999'" [textureWidth]="1024" [textureHeight]="1024" [shader]="'WaterRefraction'" (onLoad)="setRefractor($event)">
-        <three-position [x]="0" [y]="0" [z]="5"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshStandard'" [color]="'0x6083c2'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'refractor'" [color]="'0x999999'" [textureWidth]="1024" [textureHeight]="1024" [shader]="'WaterRefraction'" (onLoad)="setRefractor($event)">
+        <ngx3js-position [x]="0" [y]="0" [z]="5"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Plane'"
           [width]="10"
           [height]="10"
-        ></three-geometry>
-        <three-texture [textureType]="'tdudv'" [image]="'textures/waterdudv.jpg'" [wrapT]="'repeat'" [wrapS]="'repeat'"></three-texture>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-texture [textureType]="'tdudv'" [image]="'textures/waterdudv.jpg'" [wrapT]="'repeat'" [wrapS]="'repeat'"></ngx3js-texture>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

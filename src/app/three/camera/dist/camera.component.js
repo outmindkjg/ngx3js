@@ -534,7 +534,7 @@ var CameraComponent = /** @class */ (function (_super) {
     ], CameraComponent.prototype, "helpers");
     CameraComponent = __decorate([
         core_1.Component({
-            selector: 'three-camera',
+            selector: 'ngx3js-camera',
             templateUrl: './camera.component.html',
             styleUrls: ['./camera.component.scss']
         })

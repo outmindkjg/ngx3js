@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - the Utah Teapot<br />
   from <a href="https://www.udacity.com/course/interactive-3d-graphics--cs291" target="_blank" rel="noopener">Udacity Interactive 3D Graphics</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,38 +13,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
-    <three-position [x]="-600" [y]="500" [z]="1300"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-shared >
-    <three-texture #map [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></three-texture>
-    <three-texture #envMap [textureType]="'env'" [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']" [encoding]="'sRGB'"></three-texture>
-    <three-material 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
+    <ngx3js-position [x]="-600" [y]="500" [z]="1300"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-shared >
+    <ngx3js-texture #map [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></ngx3js-texture>
+    <ngx3js-texture #envMap [textureType]="'env'" [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']" [encoding]="'sRGB'"></ngx3js-texture>
+    <ngx3js-material 
       #background
       [materialType]="'background'"
       [map]="envMap"
     >
-    </three-material>
-  </three-shared>
-  <three-scene #scene [background]="material.env ? background : '0xAAAAAA'">
-    <three-light
+    </ngx3js-material>
+  </ngx3js-shared>
+  <ngx3js-scene #scene [background]="material.env ? background : '0xAAAAAA'">
+    <ngx3js-light
       [type]="'0x333333'"
       [color]="ambientLight"
       [intensity]="controls.ka"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="lightColor"
       [intensity]="controls.llightness"
     >
-      <three-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [geometry]="teapot" >
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-material 
+      <ngx3js-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="teapot" >
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-material 
         [type]="material.type" 
         [color]="material.color" 
         [side]="material.side" 
@@ -54,7 +54,7 @@
         [map]="material.map ? map : null" 
         [envMap]="material.env ? envMap : null"
       >
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

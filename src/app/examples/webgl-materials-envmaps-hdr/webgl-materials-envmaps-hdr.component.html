@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Example of an IBL (Image based lighting) pipeline based around<br> equirectangular EXR lightprobe data. Created by <a href="https://github.com/richardmonette" target="_blank" rel="noopener">Richard Monette</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,42 +15,42 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="120"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'background'">
-    <three-shared>
-      <three-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></three-texture>
-      <three-texture #exrBackground [storageName]="'textures/piz_compressed.exr'" [cubeType]="'equirectangular'"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'background'">
+    <ngx3js-shared>
+      <ngx3js-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></ngx3js-texture>
+      <ngx3js-texture #exrBackground [storageName]="'textures/piz_compressed.exr'" [cubeType]="'equirectangular'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusKnot'"
         [radius]="18"
         [tube]="8"
         [radialSegments]="150"
         [tubularSegments]="20"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'MeshStandard'" 
         [metalness]="controls.metalness" 
         [roughness]="controls.roughness" 
         [envMapIntensity]="1.0"
         [envMap]="controls.envMap == 'EXR' ? exrBackground : pngBackground"
       >
-      </three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [visible]="controls.debug">
-      <three-position [x]="0" [y]="-50" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      </ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
+      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="200"
         [height]="200"
-      ></three-geometry>
-      <three-material [type]="'MeshBasic'" ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'" ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

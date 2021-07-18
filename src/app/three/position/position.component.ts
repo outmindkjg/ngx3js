@@ -4,7 +4,7 @@ import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
-  selector: 'three-position',
+  selector: 'ngx3js-position',
   templateUrl: './position.component.html',
   styleUrls: ['./position.component.scss'],
 })
@@ -102,7 +102,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
-      tag: 'three-position',
+      tag: 'ngx3js-position',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.position)) {

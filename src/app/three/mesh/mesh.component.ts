@@ -38,7 +38,7 @@ import { LightComponent } from './../light/light.component';
 import { LocalStorageService } from './../local-storage.service';
 
 @Component({
-  selector: 'three-mesh',
+  selector: 'ngx3js-mesh',
   templateUrl: './mesh.component.html',
   styleUrls: ['./mesh.component.scss'],
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => MeshComponent) }],

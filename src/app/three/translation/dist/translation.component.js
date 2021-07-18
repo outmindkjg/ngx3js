@@ -68,7 +68,7 @@ var TranslationComponent = /** @class */ (function () {
     ], TranslationComponent.prototype, "z");
     TranslationComponent = __decorate([
         core_1.Component({
-            selector: 'three-translation',
+            selector: 'ngx3js-translation',
             templateUrl: './translation.component.html',
             styleUrls: ['./translation.component.scss']
         })

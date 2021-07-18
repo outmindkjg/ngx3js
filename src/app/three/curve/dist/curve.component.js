@@ -203,7 +203,7 @@ var CurveComponent = /** @class */ (function () {
     ], CurveComponent.prototype, "aRotation");
     CurveComponent = __decorate([
         core_1.Component({
-            selector: 'three-curve',
+            selector: 'ngx3js-curve',
             templateUrl: './curve.component.html',
             styleUrls: ['./curve.component.scss']
         })

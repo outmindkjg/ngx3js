@@ -107,7 +107,7 @@ var PhysicsComponent = /** @class */ (function () {
     ], PhysicsComponent.prototype, "gravityZ");
     PhysicsComponent = __decorate([
         core_1.Component({
-            selector: 'three-physics',
+            selector: 'ngx3js-physics',
             templateUrl: './physics.component.html',
             styleUrls: ['./physics.component.scss']
         })

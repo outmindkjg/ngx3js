@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> <br>
   Physics threejs demo with convex objects breaking in real time<br />Press mouse to throw balls and move the camera.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,17 +14,17 @@
   (eventListener)="onMouseClick($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000" (onLoad)="setCamera($event)">
-    <three-position [x]="-14" [y]="8" [z]="16"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xbfd1e5'">
-    <three-physics [gravity]="-7.8"></three-physics>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="-14" [y]="8" [z]="16"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xbfd1e5'">
+    <ngx3js-physics [gravity]="-7.8"></ngx3js-physics>
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0x707070'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -37,94 +37,94 @@
       [shadowCameraFar]="50"
       [shadowMapSize]="1024"
     >
-      <three-position [x]="-10" [y]="18" [z]="5"></three-position>
-    </three-light>
-    <three-mesh *ngFor="let info of ballInfos;let idx = index;" [name]="'Ball ' + idx" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="-10" [y]="18" [z]="5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh *ngFor="let info of ballInfos;let idx = index;" [name]="'Ball ' + idx" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="0.4"
         [widthSegments]="14"
         [heightSegments]="10"
-      ></three-geometry>
-      <three-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></three-material>
-      <three-rigidbody [mass]="35" [friction]="0.5" [velocityX]="info.vx" [velocityY]="info.vy" [velocityZ]="info.vz"></three-rigidbody>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [name]="'Tower 1'">
-        <three-position [x]="-8" [y]="5" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></ngx3js-material>
+      <ngx3js-rigidbody [mass]="35" [friction]="0.5" [velocityX]="info.vx" [velocityY]="info.vy" [velocityZ]="info.vz"></ngx3js-rigidbody>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [name]="'Tower 1'">
+        <ngx3js-position [x]="-8" [y]="5" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BoxGeometry'"
           [width]="4"
           [height]="10"
           [depth]="4"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xB03014'"></three-material>
-        <three-rigidbody [mass]="1000" [friction]="0.5" [breakable]="true"></three-rigidbody>
-      </three-mesh>
-      <three-mesh [name]="'Tower 2'">
-        <three-position [x]="8" [y]="5" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xB03014'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="1000" [friction]="0.5" [breakable]="true"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+      <ngx3js-mesh [name]="'Tower 2'">
+        <ngx3js-position [x]="8" [y]="5" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BoxGeometry'"
           [width]="4"
           [height]="10"
           [depth]="4"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xB03014'"></three-material>
-        <three-rigidbody [mass]="1000" [friction]="0.5" [breakable]="true"></three-rigidbody>
-      </three-mesh>
-      <three-mesh [name]="'Bridge'">
-        <three-position [x]="0" [y]="10.2" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xB03014'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="1000" [friction]="0.5" [breakable]="true"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+      <ngx3js-mesh [name]="'Bridge'">
+        <ngx3js-position [x]="0" [y]="10.2" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BoxGeometry'"
           [width]="14"
           [height]="0.4"
           [depth]="3"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xB3B865'"></three-material>
-        <three-rigidbody [mass]="100" [friction]="0.5" [breakable]="true"></three-rigidbody>
-      </three-mesh>
-      <three-mesh *ngFor="let info of stoneInfos;let idx = index;" [name]="'Stone ' + idx">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xB3B865'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="100" [friction]="0.5" [breakable]="true"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngFor="let info of stoneInfos;let idx = index;" [name]="'Stone ' + idx">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BoxGeometry'"
           [width]="2"
           [height]="4"
           [depth]="0.15"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xB0B0B0'"></three-material>
-        <three-rigidbody [mass]="120" [friction]="0.5" [breakable]="true"></three-rigidbody>
-      </three-mesh>
-      <three-mesh [name]="'Mountain'">
-        <three-position [x]="5" [y]="0.25" [z]="-7"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xB0B0B0'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="120" [friction]="0.5" [breakable]="true"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+      <ngx3js-mesh [name]="'Mountain'">
+        <ngx3js-position [x]="5" [y]="0.25" [z]="-7"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'ConvexGeometry'"
           [points]="mountainPoints"
-        ></three-geometry>
-        <three-material [type]="'MeshPhongMaterial'" [color]="'0xB03814'"></three-material>
-        <three-rigidbody [mass]="860" [friction]="0.5" [breakable]="true"></three-rigidbody>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-0.5" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xB03814'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="860" [friction]="0.5" [breakable]="true"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-0.5" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'BoxGeometry'"
         [width]="40"
         [height]="1"
         [depth]="40"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xFFFFFF'"
       >
-        <three-texture 
+        <ngx3js-texture 
           [image]="'textures/grid.png'"
           [wrap]="'RepeatWrapping'"
           [repeat]="40"
-        ></three-texture>
-      </three-material>
-      <three-rigidbody [mass]="0" [friction]="0.5"></three-rigidbody>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-texture>
+      </ngx3js-material>
+      <ngx3js-rigidbody [mass]="0" [friction]="0.5"></ngx3js-rigidbody>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

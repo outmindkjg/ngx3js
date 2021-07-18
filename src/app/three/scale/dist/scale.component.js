@@ -144,7 +144,7 @@ var ScaleComponent = /** @class */ (function () {
     ], ScaleComponent.prototype, "scaleMode");
     ScaleComponent = __decorate([
         core_1.Component({
-            selector: 'three-scale',
+            selector: 'ngx3js-scale',
             templateUrl: './scale.component.html',
             styleUrls: ['./scale.component.scss']
         })

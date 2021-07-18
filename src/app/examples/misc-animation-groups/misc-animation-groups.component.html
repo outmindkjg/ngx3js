@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - animation - groups
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,38 +11,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <three-position [x]="50" [y]="50" [z]="100"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+    <ngx3js-position [x]="50" [y]="50" [z]="100"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #geometry
         [type]="'BoxGeometry'"
         [width]="5"
         [height]="5"
         [depth]="5"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         #material
         [type]="'MeshBasicMaterial'" 
         [transparent]="true"
-      ></three-material>
-      <three-animation-group #animationGroup>
-        <three-mixer [action]="'default'" [duration]="3">
-          <three-clip [duration]="3" [name]="'default'">
-            <three-keyframe [type]="'quaternion'" [times]="[0,1,2]" [quaternions]="[{x : 0, y : 0, z : 0},{x : 180, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></three-keyframe>
-            <three-keyframe [type]="'color'" [times]="[0,1,2]" [colors]="['0xff0000','0x00ff00','0x0000ff']" [interpolation]="'InterpolateDiscrete'"></three-keyframe>
-            <three-keyframe [type]="'opacity'" [times]="[0,1,2]" [values]="[1,0,1]"></three-keyframe>
-          </three-clip>
-        </three-mixer>
-      </three-animation-group>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of boxInfos" [geometry]="geometry" [material]="material" [animationGroup]="animationGroup">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+      <ngx3js-animation-group #animationGroup>
+        <ngx3js-mixer [action]="'default'" [duration]="3">
+          <ngx3js-clip [duration]="3" [name]="'default'">
+            <ngx3js-keyframe [type]="'quaternion'" [times]="[0,1,2]" [quaternions]="[{x : 0, y : 0, z : 0},{x : 180, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></ngx3js-keyframe>
+            <ngx3js-keyframe [type]="'color'" [times]="[0,1,2]" [colors]="['0xff0000','0x00ff00','0x0000ff']" [interpolation]="'InterpolateDiscrete'"></ngx3js-keyframe>
+            <ngx3js-keyframe [type]="'opacity'" [times]="[0,1,2]" [values]="[1,0,1]"></ngx3js-keyframe>
+          </ngx3js-clip>
+        </ngx3js-mixer>
+      </ngx3js-animation-group>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of boxInfos" [geometry]="geometry" [material]="material" [animationGroup]="animationGroup">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

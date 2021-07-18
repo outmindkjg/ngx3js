@@ -46,6 +46,7 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <a class="button download" href="#" title="Download" (click)="downloadThumbFile()"><img src="/assets/examples/files/icon.svg"></a>
-  <a class="button github" target="_blank" href="#" title="View source code for animation / cloth on GitHub"><img src="/assets/examples/files/ic_code_black_24dp.svg"></a>
+  <a class="button download" #download href="#" title="Screenshot Download" (click)="downloadThumbFile()"><img src="./../../assets/examples/files/camera.svg"></a>
+  <a class="button github" #github target="_blank" href="#" title="View source code"><img src="./../../assets/examples/files/ic_code_black_24dp.svg"></a>
+  <a class="button ngxgithub" #ngxGithub target="_blank" href="#" title="View source code"><img src="./../../assets/examples/files/angular.svg"></a>
 </div>

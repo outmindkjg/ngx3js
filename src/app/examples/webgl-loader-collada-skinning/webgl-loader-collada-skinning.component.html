@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader - skinning<br/>
   Dancing Stormtrooper by <a href="https://sketchfab.com/strykerdoesgames" target="_blank" rel="noopener">StrykerDoesAnimation</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC Attribution</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 5 , maxDistance: 40, screenSpacePanning : true }"
   [statsMode]="0"
@@ -12,25 +12,25 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-camera [type]="'perspective'" [fov]="25" [near]="1" [far]="1000">
-      <three-position [x]="15" [y]="10" [z]="-15"></three-position>
-      <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-      <three-light [type]="'Point'" [color]="'0xffffff'" [intensity]="0.8"></three-light>
-    </three-camera>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-camera [type]="'perspective'" [fov]="25" [near]="1" [far]="1000">
+      <ngx3js-position [x]="15" [y]="10" [z]="-15"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+      <ngx3js-light [type]="'Point'" [color]="'0xffffff'" [intensity]="0.8"></ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.2"
     >
-    </three-light>
-    <three-helper [type]="'grid'" [size]="10" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></three-helper>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/stormtrooper/stormtrooper.dae'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mixer [action]="'dance'">
-        <three-clip [name]="'dance'" [index]="0"></three-clip>
-      </three-mixer>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+    </ngx3js-light>
+    <ngx3js-helper [type]="'grid'" [size]="10" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/stormtrooper/stormtrooper.dae'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mixer [action]="'dance'">
+        <ngx3js-clip [name]="'dance'" [index]="0"></ngx3js-clip>
+      </ngx3js-mixer>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

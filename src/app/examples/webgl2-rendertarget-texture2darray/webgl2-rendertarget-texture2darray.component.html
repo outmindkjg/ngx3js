@@ -13,7 +13,7 @@
   licensed under
   <a href="https://www.codeproject.com/info/cpol10.aspx" target="_blank" rel="noopener">CPOL</a>
 </div>
-  <three-renderer
+  <ngx3js-renderer
     [controlType]="'orbit'"
     [controlOptions]="{ enablePan : false , enableDamping : true }"
     [statsMode]="0"
@@ -23,24 +23,24 @@
     [guiParams]="controlsParams"
     (onRender)="onRender($event)"
   >
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-    <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-      <three-position [x]="0" [y]="0" [z]="70"></three-position>
-    </three-camera>
-    <three-scene #scene>
-      <three-mesh (onLoad)="setMesh($event)">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+      <ngx3js-position [x]="0" [y]="0" [z]="70"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-scene #scene>
+      <ngx3js-mesh (onLoad)="setMesh($event)">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'PlaneBufferGeometry'"
           [width]="50"
           [height]="50"
-        ></three-geometry>
-        <three-material [type]="'ShaderMaterial'" [shader]="'ShaderDemo15'" [uniforms]="{
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'ShaderMaterial'" [shader]="'ShaderDemo15'" [uniforms]="{
 					diffuse: { type :'texture2d', value : 'textures/3d/head256x256x109.zip', options : 'width=256,height=256,depth=109,filename=head256x256x109,RedFormat,UnsignedByteType' },
           depth: { value: 55 },
           size: { type : 'vector2', value: [50, 50] }
-        }"></three-material>
-      </three-mesh>
-    </three-scene>
-  </three-renderer>
+        }"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-scene>
+  </ngx3js-renderer>
   

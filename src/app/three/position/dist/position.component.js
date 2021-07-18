@@ -132,7 +132,7 @@ var PositionComponent = /** @class */ (function (_super) {
     ], PositionComponent.prototype, "multiply");
     PositionComponent = __decorate([
         core_1.Component({
-            selector: 'three-position',
+            selector: 'ngx3js-position',
             templateUrl: './position.component.html',
             styleUrls: ['./position.component.scss']
         })

@@ -36,7 +36,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
 @Component({
-  selector: 'three-pass',
+  selector: 'ngx3js-pass',
   templateUrl: './pass.component.html',
   styleUrls: ['./pass.component.scss'],
 })

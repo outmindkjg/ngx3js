@@ -1,5 +1,5 @@
 <div class="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - buffergeometry</div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
@@ -12,60 +12,60 @@
   (eventListener)="onMouseMove($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="3500" (onLoad)="setCamera($event)">
-    <three-position [x]="0" [y]="0" [z]="2750"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0x050505'">
-    <three-fog [color]="'0x050505'" [far]="3500" [near]="2000"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="3500" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="0" [y]="0" [z]="2750"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x050505'">
+    <ngx3js-fog [color]="'0x050505'" [far]="3500" [near]="2000"></ngx3js-fog>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x444444'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-      <three-position [x]="1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1.5"
     >
-      <three-position [x]="0" [y]="-1" [z]="0"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'Buffer'"
         [attrPosition]="positions"
         [attrColor]="colors"
         [attrNormal]="normals"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'MeshPhong'" 
         [color]="'0xaaaaaa'"
         [specular]="'0xffffff'"
         [shininess]="250"
         [side]="'double'"
         [vertexColors]="true"
-      ></three-material>
-      <three-mesh (onLoad)="setLine($event)" [type]="'line'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-material>
+      <ngx3js-mesh (onLoad)="setLine($event)" [type]="'line'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Buffer'"
           [attrPosition]="linePosition"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [type]="'LineBasic'" 
           [color]="'0xffffff'"
           [transparent]="true"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

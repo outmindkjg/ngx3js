@@ -490,7 +490,7 @@ var BackgroundComponent = /** @class */ (function () {
     ], BackgroundComponent.prototype, "wordSpacing");
     BackgroundComponent = __decorate([
         core_1.Component({
-            selector: 'three-background',
+            selector: 'ngx3js-background',
             templateUrl: './background.component.html',
             styleUrls: ['./background.component.scss']
         })

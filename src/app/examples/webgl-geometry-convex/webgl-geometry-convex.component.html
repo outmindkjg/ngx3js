@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - convex geometry
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 20 , maxDistance: 50 , maxPolarAngle : 90 }"
   [statsMode]="0"
@@ -11,50 +11,50 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-      <three-position [x]="15" [y]="20" [z]="30"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+      <ngx3js-position [x]="15" [y]="20" [z]="30"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="1"
       >
-      </three-light>
-    </three-camera>
-    <three-light
+      </ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x222222'"
     >
-    </three-light>
-    <three-shared>
-      <three-material #meshMaterial 
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-material #meshMaterial 
         [type]="'meshlambert'" 
         [color]="'0xffffff'" 
         [opacity]="0.5" 
         [transparent]="true"
         [side]="'back'"
       >
-      </three-material>
-      <three-geometry #dodecahedron [type]="'Dodecahedron'" [radius]="10"></three-geometry>
-      <three-geometry #meshGeometry [type]="'convex'"  [pointsGeometry]="dodecahedron"></three-geometry>
-    </three-shared>
-    <three-helper [type]="'Axes'" [size]="10"></three-helper>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0">
-      </three-mesh>
-      <three-mesh [geometry]="meshGeometry" [renderOrder]="1">
-        <three-material [refer]="meshMaterial" [side]="'Front'">
-        </three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'">
-        <three-geometry [type]="'buffer'" [pointsGeometry]="dodecahedron"></three-geometry>
-        <three-material [type]="'Points'" [color]="'0x0080ff'" [size]="1" [alphaTest]="0.5">
-          <three-texture [image]="'textures/sprites/disc.png'"></three-texture>
-        </three-material>
-      </three-mesh>
+      </ngx3js-material>
+      <ngx3js-geometry #dodecahedron [type]="'Dodecahedron'" [radius]="10"></ngx3js-geometry>
+      <ngx3js-geometry #meshGeometry [type]="'convex'"  [pointsGeometry]="dodecahedron"></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-helper [type]="'Axes'" [size]="10"></ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0">
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="meshGeometry" [renderOrder]="1">
+        <ngx3js-material [refer]="meshMaterial" [side]="'Front'">
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'">
+        <ngx3js-geometry [type]="'buffer'" [pointsGeometry]="dodecahedron"></ngx3js-geometry>
+        <ngx3js-material [type]="'Points'" [color]="'0x0080ff'" [size]="1" [alphaTest]="0.5">
+          <ngx3js-texture [image]="'textures/sprites/disc.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
 
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

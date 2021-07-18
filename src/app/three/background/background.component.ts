@@ -4,7 +4,7 @@ import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-background',
+  selector: 'ngx3js-background',
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.scss']
 })

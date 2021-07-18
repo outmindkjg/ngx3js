@@ -3,7 +3,7 @@
   <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br />
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,24 +14,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="90" [near]="0.1" [far]="100">
-    <three-position [x]="0" [y]="0" [z]="0.01"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-mesh *ngIf="canvasList && canvasList.length == 6" (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="90" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="0" [y]="0" [z]="0.01"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-mesh *ngIf="canvasList && canvasList.length == 6" (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
       >
-        <three-scale [x]="1" [y]="1" [z]="-1"></three-scale>
-      </three-geometry>
-      <three-material *ngFor="let canvas of canvasList" [type]="'MeshBasic'">
-        <three-texture [canvas]="canvas"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-scale [x]="1" [y]="1" [z]="-1"></ngx3js-scale>
+      </ngx3js-geometry>
+      <ngx3js-material *ngFor="let canvas of canvasList" [type]="'MeshBasic'">
+        <ngx3js-texture [canvas]="canvas"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

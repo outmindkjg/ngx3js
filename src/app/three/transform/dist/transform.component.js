@@ -227,7 +227,7 @@ var TransformComponent = /** @class */ (function () {
     ], TransformComponent.prototype, "scaleZ");
     TransformComponent = __decorate([
         core_1.Component({
-            selector: 'three-transform',
+            selector: 'ngx3js-transform',
             templateUrl: './transform.component.html',
             styleUrls: ['./transform.component.scss']
         })

@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - dragging
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, target : lookat }"
   [statsMode]="0"
@@ -12,19 +12,19 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x444444'"
     >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -36,31 +36,31 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh #lookat (onLoad)="setMesh($event)">
-      <three-position [x]="controls.lookat.x" [y]="controls.lookat.y" [z]="controls.lookat.z"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh #lookat (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="controls.lookat.x" [y]="controls.lookat.y" [z]="controls.lookat.z"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-1" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="10"
         [height]="10"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [depthWrite]="false"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

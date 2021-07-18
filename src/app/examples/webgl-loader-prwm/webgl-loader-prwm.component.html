@@ -10,7 +10,7 @@
     See your console for stats.
   </div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -20,26 +20,26 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <three-position [x]="0" [y]="0" [z]="250"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+    <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x101030'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffeedd'"
     >
-      <three-position [x]="0" [y]="0" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/prwm/smooth-suzanne.*.prwm'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [multiply]="50"></three-scale>
-      <three-material [type]="'MeshPhong'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/prwm/smooth-suzanne.*.prwm'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [multiply]="50"></ngx3js-scale>
+      <ngx3js-material [type]="'MeshPhong'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - custom attributes example
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
@@ -11,22 +11,22 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="300"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x050505'">
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x050505'">
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="50"
         [widthSegments]="128"
         [heightSegments]="64"
         [autoDisplacement]="true"
         [autoDisplacementSize]="1"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'ShaderMaterial'"
         [uniforms]="{
           amplitude : { type : 'number', value : 1.0 },
@@ -34,7 +34,7 @@
           colorTexture : { type : 'texture', value : 'textures/water.jpg', options : 'wraprepeat'}
         }"
         [shader]="'CustomAttributes'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

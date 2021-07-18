@@ -5,7 +5,7 @@ import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-tween',
+  selector: 'ngx3js-tween',
   templateUrl: './tween.component.html',
   styleUrls: ['./tween.component.scss'],
 })

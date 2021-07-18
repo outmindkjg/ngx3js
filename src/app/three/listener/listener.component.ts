@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
 @Component({
-  selector: 'three-listener',
+  selector: 'ngx3js-listener',
   templateUrl: './listener.component.html',
   styleUrls: ['./listener.component.scss'],
   providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => ListenerComponent) }]

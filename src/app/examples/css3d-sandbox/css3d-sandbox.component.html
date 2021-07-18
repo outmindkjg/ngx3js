@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - sandbox
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [cssType]="'css3d'"
@@ -13,35 +13,35 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="200" [y]="200" [z]="200"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-shared>
-      <three-material 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-shared>
+      <ngx3js-material 
         #material 
         [type]="'MeshBasicMaterial'" 
         [color]="'0x000000'"
         [wireframe]="true"
         [wireframeLinewidth]="1"
         [side]="'double'"
-      ></three-material>
-      <three-geometry
+      ></ngx3js-material>
+      <ngx3js-geometry
         #geometry
         [type]="'PlaneGeometry'"
         [width]="100"
         [height]="100"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of boxInfos">
-        <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></three-position>
-        <three-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></three-rotation>
-        <three-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></three-scale>
-        <three-mesh [material]="material" [geometry]="geometry"></three-mesh>
-        <three-mesh [type]="'css3d'" [cssStyle]="info.cssStyle"></three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of boxInfos">
+        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
+        <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
+        <ngx3js-mesh [material]="material" [geometry]="geometry"></ngx3js-mesh>
+        <ngx3js-mesh [type]="'css3d'" [cssStyle]="info.cssStyle"></ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - VSM Shadows example by <a href="https://github.com/supereggbert">Paul Brunt</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [clearColor]="'0xCCCCCC'"
@@ -13,18 +13,18 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="10" [z]="30"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-fog [color]="'0xCCCCCC'" [near]="50" [far]="100"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="10" [z]="30"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-fog [color]="'0xCCCCCC'" [near]="50" [far]="100"></ngx3js-fog>
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0x444444'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       #spotLight
       [type]="'SpotLight'"
       [color]="'0x888888'"
@@ -39,10 +39,10 @@
       [shadowBias]="-0.002"
       (onLoad)="setSpotLight($event)"
     >
-      <three-position [x]="8" [y]="10" [z]="5"></three-position>
-    </three-light>
-    <three-mesh>
-      <three-light
+      <ngx3js-position [x]="8" [y]="10" [z]="5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh>
+      <ngx3js-light
         #dirLight
         [type]="'DirectionalLight'"
         [color]="'0xffffff'"
@@ -60,18 +60,18 @@
         [shadowBias]="-0.0005"
         (onLoad)="setDirLight($event)"
       >
-        <three-position [x]="3" [y]="12" [z]="17"></three-position>
-      </three-light>
-    </three-mesh>
-    <three-shared>
-      <three-material 
+        <ngx3js-position [x]="3" [y]="12" [z]="17"></ngx3js-position>
+      </ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-material 
         #material
         [type]="'MeshPhongMaterial'" 
         [color]="'0x999999'"
         [shininess]="0"
         [specular]="'0x222222'"
-      ></three-material>
-      <three-geometry
+      ></ngx3js-material>
+      <ngx3js-geometry
         #cylinderGeometry
         [type]="'CylinderGeometry'"
         [radiusTop]="0.75"
@@ -79,46 +79,46 @@
         [height]="7"
         [radialSegments]="32"
       >
-      </three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [material]="material" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="0" [y]="3" [z]="0"></three-position>
-      <three-scale [multiply]="1/18"></three-scale>
-      <three-geometry
+      </ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [material]="material" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
+      <ngx3js-scale [multiply]="1/18"></ngx3js-scale>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="25"
         [tube]="8"
         [radialSegments]="75"
         [tubularSegments]="20"
-      ></three-geometry>
-    </three-mesh>
-    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="10" [y]="3.5" [z]="10"></three-position>
-    </three-mesh>
-    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="10" [y]="3.5" [z]="-10"></three-position>
-    </three-mesh>
-    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="-10" [y]="3.5" [z]="10"></three-position>
-    </three-mesh>
-    <three-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
-      <three-position [x]="-10" [y]="3.5" [z]="-10"></three-position>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-scale [multiply]="3"></three-scale>
-      <three-geometry
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+    <ngx3js-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="10" [y]="3.5" [z]="10"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="10" [y]="3.5" [z]="-10"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="-10" [y]="3.5" [z]="10"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-mesh [material]="material" [geometry]="cylinderGeometry" [castShadow]="true" [receiveShadow]="true">
+      <ngx3js-position [x]="-10" [y]="3.5" [z]="-10"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-scale [multiply]="3"></ngx3js-scale>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="200"
         [height]="200"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [shininess]="0"
         [specular]="'0x111111'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

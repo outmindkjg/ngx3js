@@ -205,7 +205,7 @@ var ComposerComponent = /** @class */ (function (_super) {
     ], ComposerComponent.prototype, "pass");
     ComposerComponent = __decorate([
         core_1.Component({
-            selector: 'three-composer',
+            selector: 'ngx3js-composer',
             templateUrl: './composer.component.html',
             styleUrls: ['./composer.component.scss']
         })

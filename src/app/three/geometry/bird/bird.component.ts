@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { ThreeGeometryCustom, ThreeUtil } from '../../interface';
 
 @Component({
-  selector: 'three-geometry-bird',
+  selector: 'ngx3js-geometry-bird',
   templateUrl: './bird.component.html',
   styleUrls: ['./bird.component.scss']
 })

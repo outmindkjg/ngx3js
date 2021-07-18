@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - High dynamic range (RGBE) Image-based Lighting (IBL)<br />using run-time generated pre-filtered roughness mipmaps (PMREM)<br/>
   Created by Prashant Sharma and <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -17,63 +17,63 @@
   (onRender)="onRender($event)"
   (onLoad)="setRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="120"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="background" [backgroundType]="'background-cubemap'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="background" [backgroundType]="'background-cubemap'">
+    <ngx3js-light
       [type]="'ambientlight'"
       [color]="'0xffffff'"
       [intensity]="0.2"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directionallight'"
       [color]="'0xffffff'"
       [intensity]="0.8"
     >
-      <three-position [x]="3" [y]="10" [z]="10"></three-position>
-    </three-light>
-    <three-shared>
-      <three-texture 
+      <ngx3js-position [x]="3" [y]="10" [z]="10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-texture 
         #background 
         [image]="envMapInfo.image" 
         [cubeImage]="envMapInfo.cubeImage" 
         [loaderType]="envMapInfo.loaderType"
         [magFilter]="envMapInfo.magFilter"
         [encoding]="envMapInfo.encoding"
-      ></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      ></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="18"
         [tube]="8"
         [radiusSegments]="150"
         [tubularSegments]="20"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'MeshStandard'" 
         [color]="'0xffffff'" 
         [roughness]="controls.roughness"
         [metalness]="controls.metalness"
         [envMap]="background"
-      ></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [visible]="controls.debug">
-      <three-position [x]="0" [y]="-50" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
+      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="200"
         [height]="200"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshBasicMaterial'"
         [map]="background"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -22,7 +22,7 @@ export interface ControlObjectItem {
 const aaa = new THREE.BufferGeometry();
 aaa.attributes
 @Component({
-  selector: 'three-controller-item',
+  selector: 'ngx3js-controller-item',
   templateUrl: './controller-item.component.html',
   styleUrls: ['./controller-item.component.scss'],
 })

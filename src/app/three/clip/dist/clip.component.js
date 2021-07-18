@@ -197,7 +197,7 @@ var ClipComponent = /** @class */ (function () {
     ], ClipComponent.prototype, "loop");
     ClipComponent = __decorate([
         core_1.Component({
-            selector: 'three-clip',
+            selector: 'ngx3js-clip',
             templateUrl: './clip.component.html',
             styleUrls: ['./clip.component.scss']
         })

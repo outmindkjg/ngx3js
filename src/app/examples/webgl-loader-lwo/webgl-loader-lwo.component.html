@@ -3,7 +3,7 @@
   <P>Lightwave Object loader by <a href="https://discoverthreejs.com/" target="_blank" rel="noopener">Discover three.js</a></P>
   Models by <a href="https://onthez.com/" target="_blank" rel="noopener">on the z</a> - Environment images by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,19 +14,19 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="200">
-    <three-position [x]="-0.7" [y]="14.6" [z]="43.2"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="200">
+    <ngx3js-position [x]="-0.7" [y]="14.6" [z]="43.2"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xaaaaaa'"
       [intensity]="1.75"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -36,32 +36,32 @@
       [shadowCameraLeft]="-120"
       [shadowCameraRight]="120"
     >
-      <three-position [x]="0" [y]="200" [z]="100"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="0" [y]="200" [z]="100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.7"
     >
-      <three-position [x]="-100" [y]="200" [z]="-100"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="-100" [y]="200" [z]="-100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.4"
     >
-      <three-position [x]="100" [y]="-200" [z]="100"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="100" [y]="-200" [z]="100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >
-      <three-position [x]="-100" [y]="-100" [z]="100"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/lwo/Objects/LWO3/Demo.lwo'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-    </three-mesh>
-    <three-helper [type]="'grid'" [size]="200" [divisions]="20" [color1]="'0x000000'" [color2]="'0x000000'"></three-helper>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="-100" [y]="-100" [z]="100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/lwo/Objects/LWO3/Demo.lwo'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-helper [type]="'grid'" [size]="200" [divisions]="20" [color1]="'0x000000'" [color2]="'0x000000'"></ngx3js-helper>
+  </ngx3js-scene>
+</ngx3js-renderer>

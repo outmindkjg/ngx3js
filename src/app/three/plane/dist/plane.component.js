@@ -63,7 +63,7 @@ var PlaneComponent = /** @class */ (function () {
     ], PlaneComponent.prototype, "w");
     PlaneComponent = __decorate([
         core_1.Component({
-            selector: 'three-plane',
+            selector: 'ngx3js-plane',
             templateUrl: './plane.component.html',
             styleUrls: ['./plane.component.scss']
         })

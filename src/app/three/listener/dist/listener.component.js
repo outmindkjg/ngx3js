@@ -74,7 +74,7 @@ var ListenerComponent = /** @class */ (function () {
     ], ListenerComponent.prototype, "visible");
     ListenerComponent = __decorate([
         core_1.Component({
-            selector: 'three-listener',
+            selector: 'ngx3js-listener',
             templateUrl: './listener.component.html',
             styleUrls: ['./listener.component.scss']
         })

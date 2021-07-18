@@ -4,7 +4,7 @@ import { GeometriesVector3, GeometryComponent } from '../geometry/geometry.compo
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-shape',
+  selector: 'ngx3js-shape',
   templateUrl: './shape.component.html',
   styleUrls: ['./shape.component.scss'],
 })

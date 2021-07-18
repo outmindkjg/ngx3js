@@ -63,7 +63,7 @@ var FogComponent = /** @class */ (function () {
     ], FogComponent.prototype, "far");
     FogComponent = __decorate([
         core_1.Component({
-            selector: 'three-fog',
+            selector: 'ngx3js-fog',
             templateUrl: './fog.component.html',
             styleUrls: ['./fog.component.scss']
         })

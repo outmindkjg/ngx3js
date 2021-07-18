@@ -132,7 +132,7 @@ var CanvasComponent = /** @class */ (function () {
     CanvasComponent.prototype.getCanvas = function () {
         if (this.canvas === null) {
             var canvas = document.createElement("div");
-            canvas.classList.add('three-canvas');
+            canvas.classList.add('ngx3js-canvas');
             if (this.canvas !== null && this.canvas.parentNode !== null) {
                 this.canvas.parentNode.removeChild(this.canvas);
             }
@@ -169,7 +169,7 @@ var CanvasComponent = /** @class */ (function () {
     ], CanvasComponent.prototype, "controller");
     CanvasComponent = __decorate([
         core_1.Component({
-            selector: 'three-canvas',
+            selector: 'ngx3js-canvas',
             templateUrl: './canvas.component.html',
             styleUrls: ['./canvas.component.scss']
         })

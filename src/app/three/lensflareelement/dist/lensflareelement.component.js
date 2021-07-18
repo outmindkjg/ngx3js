@@ -83,7 +83,7 @@ var LensflareelementComponent = /** @class */ (function () {
     ], LensflareelementComponent.prototype, "color");
     LensflareelementComponent = __decorate([
         core_1.Component({
-            selector: 'three-lensflareelement',
+            selector: 'ngx3js-lensflareelement',
             templateUrl: './lensflareelement.component.html',
             styleUrls: ['./lensflareelement.component.scss']
         })

@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - voxel painter - webgl<br>
   <strong>click</strong>: add voxel, <strong>shift + click</strong>: remove voxel
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,17 +15,17 @@
   (eventListener)="onMouseEvent($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
-    <three-position [x]="500" [y]="800" [z]="1300"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="500" [y]="800" [z]="1300"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x606060'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -37,54 +37,54 @@
       [shadowCameraNear]="0.1"
       [shadowCameraFar]="40"
     >
-      <three-position [x]="1" [y]="0.75" [z]="0.5" [normalize]="true"></three-position>
-    </three-light>
-    <three-helper [type]="'grid'" [size]="1000" [divisions]="20"></three-helper>
-    <three-mesh (onLoad)="setRollOver($event)">
-      <three-position [x]="50" [y]="25" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="1" [y]="0.75" [z]="0.5" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-helper [type]="'grid'" [size]="1000" [divisions]="20"></ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setRollOver($event)">
+      <ngx3js-position [x]="50" [y]="25" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="50"
         [height]="50"
         [depth]="50"
-      ></three-geometry>
-      <three-material [type]="'MeshBasic'" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></three-material>
-    </three-mesh>
-    <three-shared>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'" [color]="'0xff0000'" [opacity]="0.5" [transparent]="true"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #boxGeometry
         [type]="'box'"
         [width]="50"
         [height]="50"
         [depth]="50"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         #boxMaterial
         [type]="'MeshLambert'" 
         [color]="'0xfeb74c'"
       >
-        <three-texture [image]="'textures/square-outline-textured.png'"></three-texture>
-      </three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let pos of cubePositions" [geometry]="boxGeometry" [material]="boxMaterial">
-        <three-position [x]="pos.x" [y]="pos.y" [z]="pos.z"></three-position>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" (onLoad)="setPlane($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        <ngx3js-texture [image]="'textures/square-outline-textured.png'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let pos of cubePositions" [geometry]="boxGeometry" [material]="boxMaterial">
+        <ngx3js-position [x]="pos.x" [y]="pos.y" [z]="pos.z"></ngx3js-position>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" (onLoad)="setPlane($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="1000"
         [height]="1000"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0xa0a0a0'"
         [depthWrite]="false"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

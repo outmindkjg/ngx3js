@@ -4,7 +4,7 @@ import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
 @Component({
-  selector: 'three-audio',
+  selector: 'ngx3js-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
   providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => AudioComponent) }]

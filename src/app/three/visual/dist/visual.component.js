@@ -349,7 +349,7 @@ var VisualComponent = /** @class */ (function () {
             this.collection.html = this.visual;
             this.collection.name = this.name;
             this.collection.children = [];
-            this.visual.classList.add('three-visual');
+            this.visual.classList.add('ngx3js-visual');
         }
         if (this.parentNode !== null && this.visual.parentNode !== this.parentNode) {
             this.parentNode.appendChild(this.visual);
@@ -442,7 +442,7 @@ var VisualComponent = /** @class */ (function () {
     ], VisualComponent.prototype, "controller");
     VisualComponent = VisualComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-visual',
+            selector: 'ngx3js-visual',
             templateUrl: './visual.component.html',
             styleUrls: ['./visual.component.scss']
         })

@@ -4,7 +4,7 @@
   <div>3MF loader test by <a href="https://github.com/technohippy" target="_blank" rel="noopener">technohippy</a></div>
   <div>Files from <a href="https://github.com/3MFConsortium/3mf-samples" target="_blank" rel="noopener">3mf-samples</a></div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 50 , maxDistance: 400 }"
   [statsMode]="0"
@@ -15,26 +15,26 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-    <three-position [x]="-100" [y]="-250" [z]="100"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0x333333'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+    <ngx3js-position [x]="-100" [y]="-250" [z]="100"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x333333'">
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.2"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Point'"
       [color]="'0xffffff'"
       [intensity]="0.8"
     >
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/3mf/'+controls.assets+'.3mf'" [storageOption]="{ autoCenter : true }">
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/3mf/'+controls.assets+'.3mf'" [storageOption]="{ autoCenter : true }">
+      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

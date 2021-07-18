@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MDDLoader
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,24 +11,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="35" [near]="0.1" [far]="100">
-    <three-position [x]="8" [y]="8" [z]="8"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/mdd/cube.mdd'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="8" [y]="8" [z]="8"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/mdd/cube.mdd'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'MeshNormal'" [morphTargets]="true"></three-material>
-      <three-mixer [action]="'base'">
-        <three-clip [name]="'base'" [index]="0"></three-clip>
-      </three-mixer>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshNormal'" [morphTargets]="true"></ngx3js-material>
+      <ngx3js-mixer [action]="'base'">
+        <ngx3js-clip [name]="'base'" [index]="0"></ngx3js-clip>
+      </ngx3js-mixer>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

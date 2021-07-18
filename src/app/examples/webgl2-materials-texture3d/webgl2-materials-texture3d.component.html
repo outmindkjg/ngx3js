@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Float volume render test (mip / isosurface)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false, enableDamping : true }"
   [type]="'webgl2'"
@@ -12,27 +12,27 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="64" [y]="64" [z]="128"></three-lookat>
-  <three-camera [type]="'OrthographicCamera'" [near]="1" [far]="1000" [zoom]="'auto'">
-    <three-position [x]="0" [y]="64" [z]="128"></three-position>
-    <three-position [type]="'up'" [x]="0" [y]="0" [z]="1"></three-position>
-  </three-camera>
-  <three-shared (onLoad)="setColorMapTexture($event)">
-    <three-texture #viridis [name]="'viridis'" [image]="'textures/cm_viridis.png'"></three-texture>
-    <three-texture #gray [name]="'gray'" [image]="'textures/cm_gray.png'"></three-texture>
-  </three-shared>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="64" [y]="64" [z]="128"></ngx3js-lookat>
+  <ngx3js-camera [type]="'OrthographicCamera'" [near]="1" [far]="1000" [zoom]="'auto'">
+    <ngx3js-position [x]="0" [y]="64" [z]="128"></ngx3js-position>
+    <ngx3js-position [type]="'up'" [x]="0" [y]="0" [z]="1"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-shared (onLoad)="setColorMapTexture($event)">
+    <ngx3js-texture #viridis [name]="'viridis'" [image]="'textures/cm_viridis.png'"></ngx3js-texture>
+    <ngx3js-texture #gray [name]="'gray'" [image]="'textures/cm_gray.png'"></ngx3js-texture>
+  </ngx3js-shared>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="128"
         [height]="128"
         [depth]="256"
       >
-        <three-position [type]="'translate'" [x]="63.5" [y]="63.5" [z]="127.5"></three-position>
-      </three-geometry>
-      <three-material [type]="'ShaderMaterial'" 
+        <ngx3js-position [type]="'translate'" [x]="63.5" [y]="63.5" [z]="127.5"></ngx3js-position>
+      </ngx3js-geometry>
+      <ngx3js-material [type]="'ShaderMaterial'" 
         [shader]="'VolumeRenderShader1'"
         [uniforms]="{
           u_data : { type : 'texture3d', value : 'models/nrrd/stent.nrrd', options : 'RedFormat,FloatType,LinearFilter,unpackAlignment=1'},
@@ -43,7 +43,7 @@
           u_cmdata : { type : 'texture', value : viridis }
         }"
         [side]="'backside'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

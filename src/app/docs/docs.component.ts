@@ -28,7 +28,8 @@ export class DocsComponent implements OnInit {
 
   @ViewChild('search') search: ElementRef;
   @ViewChild('panel') panel: ElementRef;
-  
+  @ViewChild('gitHub') gitHub: ElementRef;
+    
 
   private subscription: Subscription;
 
@@ -301,6 +302,12 @@ export class DocsComponent implements OnInit {
             gchild.selected = gchild.id === this.menuId;
             if (gchild.selected) {
               document.title = gchild.name + ' :: Three.js docs + ngx';
+              if (gchild.id.startsWith('/docs/ngxapi/') || gchild.id.startsWith('/docs/ngxmanual/')) {
+                this.gitHub.nativeElement.href = 'https://github.com/outmindkjg/three-sample/tree/master/src/assets/' + gchild.id.substr(6) + '.html';
+              } else {
+                this.gitHub.nativeElement.href = 'https://github.com/mrdoob/three.js/blob/dev' + gchild.id + '.html';
+              }
+              this.gitHub.nativeElement.title = 'View source code for "' + gchild.name + '" on GitHub';
             }
           });
         }
@@ -315,7 +322,7 @@ export class DocsComponent implements OnInit {
       if (typeof value === 'object') {
         const childChildren = this.getSearchChildren(value, keyword, key);
         if (childChildren.length > 0) {
-          const child = this.getSearchItem(key, childChildren[0].id, '', parentId);
+          const child = this.getSearchItem(key, childChildren[0].id, '', parentId + ' '+ key);
           child.children = childChildren;
           children.push(child);
         }
@@ -329,14 +336,13 @@ export class DocsComponent implements OnInit {
     return children;
   }
 
-
   private getSearchItem(name: string, url : string, keyword: string, parentId: string): SearchMenu {
     const tags: string[] = [];
     url.toLowerCase().split('/').forEach(txt => {
       tags.push(txt.toLowerCase());
     });
-    tags.push(name);
-    tags.push(parentId);
+    tags.push(name.toLowerCase());
+    tags.push(parentId.toLowerCase());
     const tagTxt = tags.join(' ');
     if (keyword == '' || tagTxt.indexOf(keyword) > -1) {
       const itemTags: string[] = [];

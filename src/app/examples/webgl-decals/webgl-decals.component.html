@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - decal splatter<br />
   click to shoot
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan: false, enableDamping: true, minDistance: 50, maxDistance: 200 }"
   [statsMode]="0"
@@ -15,41 +15,41 @@
   (eventListener)="setEventListener($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="120"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light [type]="'Ambient'" [color]="'0x443333'">
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light [type]="'directional'" [color]="'0xffddcc'" [intensity]="1">
-      <three-position [x]="1" [y]="0.75" [z]="0.5"></three-position>
-    </three-light>
-    <three-light [type]="'directional'" [color]="'0xccccff'" [intensity]="1">
-      <three-position [x]="-1" [y]="0.75" [z]="-0.5"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMouseHelper($event)" [visible]="true">
-      <three-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></three-geometry>
-      <three-material [type]="'MeshNormal'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [type]="'line'" (onLoad)="setMouseLine($event)" [visible]="true">
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light [type]="'Ambient'" [color]="'0x443333'">
+      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light [type]="'directional'" [color]="'0xffddcc'" [intensity]="1">
+      <ngx3js-position [x]="1" [y]="0.75" [z]="0.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light [type]="'directional'" [color]="'0xccccff'" [intensity]="1">
+      <ngx3js-position [x]="-1" [y]="0.75" [z]="-0.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMouseHelper($event)" [visible]="true">
+      <ngx3js-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshNormal'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [type]="'line'" (onLoad)="setMouseLine($event)" [visible]="true">
+      <ngx3js-geometry
         [type]="'geometry'"
         [points]="[
           { x: 0, y: 0, z: 0 },
           { x: 0, y: 0, z: 0 }
         ]"
-      ></three-geometry>
-      <three-material [type]="'LineBasic'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh *ngFor="let decal of decals">
-      <three-material [type]="'MeshPhong'" [color]="decal.color" [specular]="'0x444444'" [normalScaleX]="1" [normalScaleY]="1" [shininess]="30" [transparent]="true" [depthTest]="true" [depthWrite]="true" [polygonOffset]="true" [polygonOffsetFactor]="-4" [wireframe]="false">
-        <three-texture [textureType]="'map'" [image]="'textures/decal/decal-diffuse.png'"></three-texture>
-        <three-texture [textureType]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></three-texture>
-      </three-material>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'LineBasic'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh *ngFor="let decal of decals">
+      <ngx3js-material [type]="'MeshPhong'" [color]="decal.color" [specular]="'0x444444'" [normalScaleX]="1" [normalScaleY]="1" [shininess]="30" [transparent]="true" [depthTest]="true" [depthWrite]="true" [polygonOffset]="true" [polygonOffsetFactor]="-4" [wireframe]="false">
+        <ngx3js-texture [textureType]="'map'" [image]="'textures/decal/decal-diffuse.png'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></ngx3js-texture>
+      </ngx3js-material>
+      <ngx3js-geometry
         [type]="'decal'"
         [positionX]="decal.position.x"
         [positionY]="decal.position.y"
@@ -61,16 +61,16 @@
         [sizeY]="decal.scale"
         [sizeZ]="decal.scale"
         [mesh]="mesh"
-      ></three-geometry>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [x]="10" [y]="10" [z]="10"></three-scale>
-      <three-material [type]="'MeshPhong'" [specular]="'0x111111'" [shininess]="25">
-        <three-texture [textureType]="'map'" [image]="'models/gltf/LeePerrySmith/Map-COL.jpg'"></three-texture>
-        <three-texture [textureType]="'specularMap'" [image]="'models/gltf/LeePerrySmith/Map-SPEC.jpg'"></three-texture>
-        <three-texture [textureType]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)" #mesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
+      <ngx3js-material [type]="'MeshPhong'" [specular]="'0x111111'" [shininess]="25">
+        <ngx3js-texture [textureType]="'map'" [image]="'models/gltf/LeePerrySmith/Map-COL.jpg'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'specularMap'" [image]="'models/gltf/LeePerrySmith/Map-SPEC.jpg'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl particle sprites example<br/>
   snowflakes by <a href="http://en.wikipedia.org/wiki/File:Sketch_of_snow_crystal_by_Ren%C3%A9_Descartes.jpg">Ren&eacute;  Descartes</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'plane'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,51 +12,51 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="2000">
-    <three-position [x]="0" [y]="0" [z]="1000"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-fog [type]="'FogExp2'" [color]="'0x000000'" [density]="0.0008"></three-fog>
-    <three-shared>
-      <three-geometry #geometry [type]="'buffer'" [attrPosition]="vertices"></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [type]="'Points'" [geometry]="geometry">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="''" [y]="''" [z]="''"></three-rotation>
-        <three-material [type]="'Points'" [color]="'HSL(1,0.2,0.5)'" [size]="20" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
-          <three-texture [image]="'textures/sprites/snowflake2.png'"></three-texture>
-        </three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'" [geometry]="geometry">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="''" [y]="''" [z]="''"></three-rotation>
-        <three-material [type]="'Points'" [color]="'HSL(0.95,0.1,0.5)'" [size]="15" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
-          <three-texture [image]="'textures/sprites/snowflake3.png'"></three-texture>
-        </three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'" [geometry]="geometry">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="''" [y]="''" [z]="''"></three-rotation>
-        <three-material [type]="'Points'" [color]="'HSL(0.90,0.05,0.5)'" [size]="10" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
-          <three-texture [image]="'textures/sprites/snowflake1.png'"></three-texture>
-        </three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'" [geometry]="geometry">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="''" [y]="''" [z]="''"></three-rotation>
-        <three-material [type]="'Points'" [color]="'HSL(0.85,0,0.5)'" [size]="8" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
-          <three-texture [image]="'textures/sprites/snowflake5.png'"></three-texture>
-        </three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'" [geometry]="geometry">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-rotation [x]="''" [y]="''" [z]="''"></three-rotation>
-        <three-material [type]="'Points'" [color]="'HSL(0.80,0,0.5)'" [size]="5" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
-          <three-texture [image]="'textures/sprites/snowflake4.png'"></three-texture>
-        </three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="2000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0x000000'" [density]="0.0008"></ngx3js-fog>
+    <ngx3js-shared>
+      <ngx3js-geometry #geometry [type]="'buffer'" [attrPosition]="vertices"></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [type]="'Points'" [geometry]="geometry">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="''" [y]="''" [z]="''"></ngx3js-rotation>
+        <ngx3js-material [type]="'Points'" [color]="'HSL(1,0.2,0.5)'" [size]="20" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
+          <ngx3js-texture [image]="'textures/sprites/snowflake2.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'" [geometry]="geometry">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="''" [y]="''" [z]="''"></ngx3js-rotation>
+        <ngx3js-material [type]="'Points'" [color]="'HSL(0.95,0.1,0.5)'" [size]="15" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
+          <ngx3js-texture [image]="'textures/sprites/snowflake3.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'" [geometry]="geometry">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="''" [y]="''" [z]="''"></ngx3js-rotation>
+        <ngx3js-material [type]="'Points'" [color]="'HSL(0.90,0.05,0.5)'" [size]="10" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
+          <ngx3js-texture [image]="'textures/sprites/snowflake1.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'" [geometry]="geometry">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="''" [y]="''" [z]="''"></ngx3js-rotation>
+        <ngx3js-material [type]="'Points'" [color]="'HSL(0.85,0,0.5)'" [size]="8" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
+          <ngx3js-texture [image]="'textures/sprites/snowflake5.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'" [geometry]="geometry">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="''" [y]="''" [z]="''"></ngx3js-rotation>
+        <ngx3js-material [type]="'Points'" [color]="'HSL(0.80,0,0.5)'" [size]="5" [transparent]="true" [blending]="'Additive'" [depthTest]="false" (onLoad)="setMaterial($event)">
+          <ngx3js-texture [image]="'textures/sprites/snowflake4.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

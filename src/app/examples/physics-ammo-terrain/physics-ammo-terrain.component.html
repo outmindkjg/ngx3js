@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a><br>
   Ammo.js physics terrain heightfield demo  
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,17 +13,17 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000">
-    <three-position [x]="0" [y]="35" [z]="50"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xbfd1e5'">
-    <three-physics [gravity]="-6"></three-physics>    
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000">
+    <ngx3js-position [x]="0" [y]="35" [z]="50"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xbfd1e5'">
+    <ngx3js-physics [gravity]="-6"></ngx3js-physics>    
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0x404040'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -36,13 +36,13 @@
       [shadowCameraFar]="200"
       [shadowMapSize]="2048"
     >
-      <three-position [x]="100" [y]="100" [z]="50"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let info of shapeInfos; let idx = index" name="'shape_' + index">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-geometry
+      <ngx3js-position [x]="100" [y]="100" [z]="50"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let info of shapeInfos; let idx = index" name="'shape_' + index">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-geometry
           [type]="info.type"
           [radius]="info.radius"
           [radiusTop]="info.radiusTop"
@@ -54,16 +54,16 @@
           [heightSegments]="info.heightSegments"
           [depthSegments]="info.depthSegments"
           [radialSegments]="info.radialSegments"
-        ></three-geometry>
-        <three-material [type]="'meshlambert'" [color]="info.color"></three-material>
-        <three-rigidbody [mass]="15" [margin]="0.05"></three-rigidbody>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh  name="'terrain'" [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-      <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'meshlambert'" [color]="info.color"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="15" [margin]="0.05"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh  name="'terrain'" [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
+      <ngx3js-geometry
         [type]="'PlaneGeometry'"
         [width]="100"
         [height]="100"
@@ -71,18 +71,18 @@
         [heightSegments]="128-1"
         [program]="'terrainSin'"
         [programParam]="{minHeight : -2, maxHeight : 4, repeat : 3 }"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhongMaterial'"
         [color]="'0xC7C7C7'"
       >
-        <three-texture 
+        <ngx3js-texture 
           [image]="'textures/grid.png'"
           [wrap]="'RepeatWrapping'"
           [repeat]="128-1"
-        ></three-texture>
-      </three-material>
-      <three-rigidbody [type]="'terrain'" [mass]="0" [margin]="0.05"></three-rigidbody>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-texture>
+      </ngx3js-material>
+      <ngx3js-rigidbody [type]="'terrain'" [mass]="0" [margin]="0.05"></ngx3js-rigidbody>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

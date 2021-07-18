@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - spline extrusion examples<br/>
   by <a href="http://www.lab4games.net/zz85/blog" target="_blank" rel="noopener">zz85</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,32 +13,32 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [active]="!controls.animationView" [fov]="50" [near]="0.01" [far]="10000">
-    <three-position [x]="1" [y]="50" [z]="500"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [active]="!controls.animationView" [fov]="50" [near]="0.01" [far]="10000">
+    <ngx3js-position [x]="1" [y]="50" [z]="500"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-light
       [type]="'Directional'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="0" [y]="0" [z]="1"></three-position>
-    </three-light>
-    <three-mesh>
-      <three-camera [type]="'perspective'" [active]="controls.animationView" [fov]="84" [near]="0.01" [far]="1000"  (onLoad)="setSplineCamera($event)">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-helper [type]="'camera'" [visible]="controls.cameraHelper" (onLoad)="setCameraHelper($event)"></three-helper>
-      </three-camera>
-      <three-mesh [name]="'cameraEye'" [visible]="controls.cameraHelper" (onLoad)="setCameraEye($event)">
-        <three-geometry [type]="'Sphere'" [radius]="5"></three-geometry>
-        <three-material [type]="'MeshBasic'" [color]="'0xdddddd'"></three-material>
-      </three-mesh>
-    </three-mesh>
-    <three-shared>
-      <three-material #material [type]="'meshlambert'" [color]="'0xff00ff'"></three-material>
-      <three-material #wireframeMaterial [type]="'MeshBasic'" [color]="'0x000000'" [opacity]="0.3" [transparent]="true" [wireframe]="true"></three-material>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh>
+      <ngx3js-camera [type]="'perspective'" [active]="controls.animationView" [fov]="84" [near]="0.01" [far]="1000"  (onLoad)="setSplineCamera($event)">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-helper [type]="'camera'" [visible]="controls.cameraHelper" (onLoad)="setCameraHelper($event)"></ngx3js-helper>
+      </ngx3js-camera>
+      <ngx3js-mesh [name]="'cameraEye'" [visible]="controls.cameraHelper" (onLoad)="setCameraEye($event)">
+        <ngx3js-geometry [type]="'Sphere'" [radius]="5"></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasic'" [color]="'0xdddddd'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'meshlambert'" [color]="'0xff00ff'"></ngx3js-material>
+      <ngx3js-material #wireframeMaterial [type]="'MeshBasic'" [color]="'0x000000'" [opacity]="0.3" [transparent]="true" [wireframe]="true"></ngx3js-material>
+      <ngx3js-geometry
         (onLoad)="setTubeGeometry($event)"
         #geometry
         [type]="'Tube'"
@@ -49,13 +49,13 @@
         [radius]="2"
         [radialSegments]="controls.radiusSegments"
         [closed]="controls.closed"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [material]="material" [geometry]="geometry">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [multiply]="controls.scale"></three-scale>
-      <three-mesh [material]="wireframeMaterial" [geometry]="geometry">
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [material]="material" [geometry]="geometry">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [multiply]="controls.scale"></ngx3js-scale>
+      <ngx3js-mesh [material]="wireframeMaterial" [geometry]="geometry">
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

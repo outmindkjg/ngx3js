@@ -15,7 +15,7 @@ export interface HtmlCollection {
 }
 
 @Component({
-  selector: 'three-visual',
+  selector: 'ngx3js-visual',
   templateUrl: './visual.component.html',
   styleUrls: ['./visual.component.scss'],
 })
@@ -380,7 +380,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
       this.collection.html = this.visual;
       this.collection.name = this.name;
       this.collection.children = [];
-      this.visual.classList.add('three-visual');
+      this.visual.classList.add('ngx3js-visual');
       super.setObject(this.visual);
     }
     if (this.parentNode !== null && this.visual.parentNode !== this.parentNode) {

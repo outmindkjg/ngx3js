@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - parametric geometries
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,75 +12,75 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-shared>
-    <three-material #material [type]="'MeshPhong'" [side]="'double'">
-      <three-texture [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></three-texture>
-    </three-material>
-    <three-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></three-rotation>
-  </three-shared>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-shared>
+    <ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
+      <ngx3js-texture [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></ngx3js-texture>
+    </ngx3js-material>
+    <ngx3js-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+  </ngx3js-shared>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xcccccc'"
       [intensity]="0.4"
     >
-    </three-light>
-    <three-camera [type]="'perspective'" (onLoad)="setCamera($event)" [fov]="45" [near]="1" [far]="2000">
-      <three-position [x]="0" [y]="400" [z]="800"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-      <three-light
+    </ngx3js-light>
+    <ngx3js-camera [type]="'perspective'" (onLoad)="setCamera($event)" [fov]="45" [near]="1" [far]="2000">
+      <ngx3js-position [x]="0" [y]="400" [z]="800"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >
-      </three-light>
-    </three-camera>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="-200" [y]="0" [z]="200"></three-position>
-        <three-geometry
+      </ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="-200" [y]="0" [z]="200"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'Parametric'"
           [parametric]="'plane'"
           [width]="100"
           [height]="100"
           [slices]="10"
           [stacks]="10"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="0" [y]="0" [z]="200"></three-position>
-        <three-scale [x]="5" [y]="5" [z]="5"></three-scale>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
+        <ngx3js-scale [x]="5" [y]="5" [z]="5"></ngx3js-scale>
+        <ngx3js-geometry
           [type]="'Parametric'"
           [parametric]="'klein'"
           [slices]="20"
           [stacks]="20"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="200" [y]="0" [z]="200"></three-position>
-        <three-scale [x]="30" [y]="30" [z]="30"></three-scale>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
+        <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
+        <ngx3js-geometry
           [type]="'Parametric'"
           [parametric]="'mobius'"
           [slices]="20"
           [stacks]="20"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="200" [y]="0" [z]="200"></three-position>
-        <three-scale [x]="30" [y]="30" [z]="30"></three-scale>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
+        <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
+        <ngx3js-geometry
           [type]="'Parametric'"
           [parametric]="'mobius'"
           [slices]="20"
           [stacks]="20"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="-200" [y]="0" [z]="-200"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="-200" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'parametrictorusknot'"
           [radius]="50"
           [tube]="10"
@@ -88,21 +88,21 @@
           [tubularSegments]="20"
           [p]="2"
           [q]="3"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="0" [y]="0" [z]="-200"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="0" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'parametricSphere'"
           [radius]="50"
           [widthSegments]="20"
           [heightSegments]="10"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh [material]="material" [rotation]="rotation">
-        <three-position [x]="200" [y]="0" [z]="-200"></three-position>
-        <three-scale  [x]="2" [y]="2" [z]="2"></three-scale>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [rotation]="rotation">
+        <ngx3js-position [x]="200" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-scale  [x]="2" [y]="2" [z]="2"></ngx3js-scale>
+        <ngx3js-geometry
           [type]="'parametricTube'"
           [curve]="'GrannyKnot'"
           [radius]="50"
@@ -110,8 +110,8 @@
           [radius]="3"
           [radiusSegments]="8"
           [closed]="true"
-        ></three-geometry>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

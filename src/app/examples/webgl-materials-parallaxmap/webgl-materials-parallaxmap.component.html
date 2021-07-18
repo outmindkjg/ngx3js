@@ -5,7 +5,7 @@
   <a href="http://mmikkelsen3d.blogspot.sk/2012/02/parallaxpoc-mapping-and-no-tangent.html">Morten S. Mikkelsen</a><br />
   Texture by <a href="http://agf81.deviantart.com/">AGF81</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,20 +15,20 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
-    <three-position [x]="0" [y]="0" [z]="2"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
+    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1.0"
         [height]="1.0"
         [depth]="1.0"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'ShaderMaterial'" 
         [shader]="'ParallaxShader'"
         [uniforms]="{ 
@@ -36,9 +36,9 @@
           bumpMap : { type : 'texture', value : bumpMap }
         }"
       >
-        <three-texture #map [textureType]="'map'" [image]="'textures/brick_diffuse.jpg'" [anisotropy]="4"></three-texture>
-        <three-texture #bumpMap [textureType]="'bumpMap'" [image]="'textures/brick_bump.jpg'" [anisotropy]="4"></three-texture>
-    </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-texture #map [textureType]="'map'" [image]="'textures/brick_diffuse.jpg'" [anisotropy]="4"></ngx3js-texture>
+        <ngx3js-texture #bumpMap [textureType]="'bumpMap'" [image]="'textures/brick_bump.jpg'" [anisotropy]="4"></ngx3js-texture>
+    </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

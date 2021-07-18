@@ -7,7 +7,7 @@ import { PhysicsConstraintComponent } from './physics-constraint/physics-constra
 import * as THREE from 'three';
 
 @Component({
-  selector: 'three-physics',
+  selector: 'ngx3js-physics',
   templateUrl: './physics.component.html',
   styleUrls: ['./physics.component.scss'],
 })

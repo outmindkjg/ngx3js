@@ -9,7 +9,7 @@ import { LocalStorageService } from './../local-storage.service';
 import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
-  selector: 'three-camera',
+  selector: 'ngx3js-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
   providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => CameraComponent) }]

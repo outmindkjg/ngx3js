@@ -12,7 +12,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { CanvasFunctionType, TextureUtils } from './textureUtils';
 
 @Component({
-  selector: 'three-texture',
+  selector: 'ngx3js-texture',
   templateUrl: './texture.component.html',
   styleUrls: ['./texture.component.scss'],
 })

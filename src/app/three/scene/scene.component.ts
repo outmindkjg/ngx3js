@@ -17,7 +17,7 @@ import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 
 @Component({
-  selector: 'three-scene',
+  selector: 'ngx3js-scene',
   templateUrl: './scene.component.html',
   styleUrls: ['./scene.component.scss'],
 })

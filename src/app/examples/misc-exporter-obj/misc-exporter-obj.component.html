@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - exporter - obj<br /><br />
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,126 +11,126 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="400"></three-position>
-  </three-camera>
-  <three-scene #scene (onLoad)="setScene($event)">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene (onLoad)="setScene($event)">
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0xffffff'"
       [intensity]="0.2"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="200" [y]="100" [z]="400" [normalize]="true"></three-position>
-    </three-light>
-    <three-shared>
-      <three-material #material [type]="'MeshLambertMaterial'" [color]="'0x00cc00'" [side]="'doubleside'"></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngIf="controls.type === 'triangle'" [material]="material">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      <ngx3js-position [x]="200" [y]="100" [z]="400" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'MeshLambertMaterial'" [color]="'0x00cc00'" [side]="'doubleside'"></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngIf="controls.type === 'triangle'" [material]="material">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BufferGeometry'"
           [attrPosition]="vertices"
           [computeVertexNormals]="true"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh *ngIf="controls.type === 'cube'" [material]="material">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.type === 'cube'" [material]="material">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BoxGeometry'"
           [width]="100"
           [height]="100"
           [depth]="100"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh *ngIf="controls.type === 'cylinder'" [material]="material">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.type === 'cylinder'" [material]="material">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'CylinderGeometry'"
           [radiusTop]="50"
           [radiusBottom]="50"
           [height]="100"
           [radialSegments]="30"
           [heightSegments]="1"
-        ></three-geometry>
-      </three-mesh>
-      <three-mesh *ngIf="controls.type === 'multiple'">
-        <three-mesh [material]="material">
-          <three-position [x]="-200" [y]="0" [z]="0"></three-position>
-          <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.type === 'multiple'">
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="-200" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'BufferGeometry'"
             [attrPosition]="vertices"
             [computeVertexNormals]="true"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh [material]="material">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'BoxGeometry'"
             [width]="100"
             [height]="100"
             [depth]="100"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh [material]="material">
-          <three-position [x]="200" [y]="0" [z]="0"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="200" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'CylinderGeometry'"
             [radiusTop]="50"
             [radiusBottom]="50"
             [height]="100"
             [radialSegments]="30"
             [heightSegments]="1"
-          ></three-geometry>
-        </three-mesh>
-      </three-mesh>
-      <three-mesh *ngIf="controls.type === 'transformed'">
-        <three-mesh [material]="material">
-          <three-position [x]="-200" [y]="0" [z]="0"></three-position>
-          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.type === 'transformed'">
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="-200" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
+          <ngx3js-geometry
             [type]="'BufferGeometry'"
             [attrPosition]="vertices"
             [computeVertexNormals]="true"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh [material]="material">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
+          <ngx3js-geometry
             [type]="'BoxGeometry'"
             [width]="100"
             [height]="100"
             [depth]="100"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh [material]="material">
-          <three-position [x]="200" [y]="0" [z]="0"></three-position>
-          <three-rotation [x]="0" [y]="45" [z]="0"></three-rotation>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="200" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
+          <ngx3js-geometry
             [type]="'CylinderGeometry'"
             [radiusTop]="50"
             [radiusBottom]="50"
             [height]="100"
             [radialSegments]="30"
             [heightSegments]="1"
-          ></three-geometry>
-        </three-mesh>
-      </three-mesh>
-      <three-mesh *ngIf="controls.type === 'points'" [type]="'Points'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.type === 'points'" [type]="'Points'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'BufferGeometry'"
           [attrPosition]="points"
           [attrColor]="colors"
-        ></three-geometry>
-        <three-material [type]="'PointsMaterial'" [size]="10" [vertexColors]="true"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'PointsMaterial'" [size]="10" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

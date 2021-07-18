@@ -304,7 +304,7 @@ var HelperComponent = /** @class */ (function (_super) {
     ], HelperComponent.prototype, "onLoad");
     HelperComponent = __decorate([
         core_1.Component({
-            selector: 'three-helper',
+            selector: 'ngx3js-helper',
             templateUrl: './helper.component.html',
             styleUrls: ['./helper.component.scss']
         })

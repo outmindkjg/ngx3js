@@ -554,7 +554,7 @@ var RigidbodyComponent = /** @class */ (function () {
     ], RigidbodyComponent.prototype, "onLoad");
     RigidbodyComponent = __decorate([
         core_1.Component({
-            selector: 'three-rigidbody',
+            selector: 'ngx3js-rigidbody',
             templateUrl: './rigidbody.component.html',
             styleUrls: ['./rigidbody.component.scss']
         })

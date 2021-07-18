@@ -3,24 +3,24 @@
   (model from <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a>)<br/>
   Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
 </div>
-<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-      <three-position [x]="1" [y]="2" [z]="-3"></three-position>
-      <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-      <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-      <three-mesh [type]="'light'" 
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+      <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+      <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+      <ngx3js-mesh [type]="'light'" 
         [lightOptions]="{
           type : 'Hemisphere',
           skyColor : '0xffffff',
           groundColor : '0x444444'
         }"
       >
-        <three-position [x]="0" [y]="20" [z]="0"></three-position>
-      </three-mesh>
-      <three-mesh [type]="'light'" 
+        <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'light'" 
         [lightOptions]="{
           type : 'directional',
           color : '0xffffff',
@@ -34,23 +34,23 @@
         }"
         [castShadow]="true"
       >
-        <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-      </three-mesh>
-      <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Soldier.glb'" [helperType]="'skeleton'">
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-        <three-mixer (onLoad)="setMixer($event)" [action]="'walk'" [duration]="0.2">
-          <three-clip [name]="'idle'" [index]="0"></three-clip>
-          <three-clip [name]="'walk'" [index]="3"></three-clip>
-          <three-clip [name]="'run'" [index]="1"></three-clip>
-          <three-clip [name]="'tpose'" [index]="2"></three-clip>
-        </three-mixer>
-      </three-mesh>
-      <three-mesh [receiveShadow]="true">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-          <three-geometry [type]="'Plane'" [width]="100" [height]="100"></three-geometry>
-          <three-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></three-material>
-      </three-mesh>
-    </three-scene>
-</three-renderer>
+        <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Soldier.glb'" [helperType]="'skeleton'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
+        <ngx3js-mixer (onLoad)="setMixer($event)" [action]="'walk'" [duration]="0.2">
+          <ngx3js-clip [name]="'idle'" [index]="0"></ngx3js-clip>
+          <ngx3js-clip [name]="'walk'" [index]="3"></ngx3js-clip>
+          <ngx3js-clip [name]="'run'" [index]="1"></ngx3js-clip>
+          <ngx3js-clip [name]="'tpose'" [index]="2"></ngx3js-clip>
+        </ngx3js-mixer>
+      </ngx3js-mesh>
+      <ngx3js-mesh [receiveShadow]="true">
+          <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+          <ngx3js-geometry [type]="'Plane'" [width]="100" [height]="100"></ngx3js-geometry>
+          <ngx3js-material [type]="'MeshPhong'" [color]="'0x999999'" [depthWrite]="false"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-scene>
+</ngx3js-renderer>

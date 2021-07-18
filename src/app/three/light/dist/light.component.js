@@ -297,7 +297,7 @@ var LightComponent = /** @class */ (function (_super) {
     ], LightComponent.prototype, "mixer");
     LightComponent = __decorate([
         core_1.Component({
-            selector: 'three-light',
+            selector: 'ngx3js-light',
             templateUrl: './light.component.html',
             styleUrls: ['./light.component.scss']
         })

@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js webgl</a> - equirectangular panorama demo. photo by <a href="http://www.flickr.com/photos/jonragnarsson/2294472375/" target="_blank" rel="noopener">Jón Ragnarsson</a>.<br />
   drag equirectangular texture into the page.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,24 +12,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1100">
-    <three-position [x]="0" [y]="0" [z]="-10"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1100">
+    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'Sphere'"
         [radius]="500"
         [widthSegments]="60"
         [heightSegments]="40"
       >
-        <three-scale [x]="-1" [y]="1" [z]="1"></three-scale>
-      </three-geometry>
-      <three-material [type]="'MeshBasic'">
-        <three-texture [image]="'textures/2294472375_24a3b8ef46_o.jpg'" [useDropImage]="true"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
+      </ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'">
+        <ngx3js-texture [image]="'textures/2294472375_24a3b8ef46_o.jpg'" [useDropImage]="true"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

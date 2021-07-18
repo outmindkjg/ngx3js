@@ -7,7 +7,7 @@ import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
 
 @Component({
-  selector: 'three-mixer',
+  selector: 'ngx3js-mixer',
   templateUrl: './mixer.component.html',
   styleUrls: ['./mixer.component.scss'],
 })

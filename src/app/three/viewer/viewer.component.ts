@@ -12,7 +12,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ViewerCanvas } from './viewer-canvas';
 
 @Component({
-  selector: 'three-viewer',
+  selector: 'ngx3js-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss'],
 })

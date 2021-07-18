@@ -55,7 +55,7 @@ export interface MeshGeometry {
 }
 
 @Component({
-  selector: 'three-geometry',
+  selector: 'ngx3js-geometry',
   templateUrl: './geometry.component.html',
   styleUrls: ['./geometry.component.scss'],
 })

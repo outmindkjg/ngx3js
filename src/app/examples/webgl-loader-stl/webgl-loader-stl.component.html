@@ -3,7 +3,7 @@
   STL loader test by <a href="https://github.com/aleeper" target="_blank" rel="noopener">aleeper</a>.<br/>
   PR2 head from <a href="http://www.ros.org/wiki/pr2_description">www.ros.org</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -14,19 +14,19 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="-0.25" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="15">
-    <three-position [x]="3" [y]="0.15" [z]="3"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x72645b'">
-    <three-fog [color]="'0x72645b'" [near]="2" [far]="15"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="-0.25" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="15">
+    <ngx3js-position [x]="3" [y]="0.15" [z]="3"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x72645b'">
+    <ngx3js-fog [color]="'0x72645b'" [near]="2" [far]="15"></ngx3js-fog>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1.35"
@@ -39,9 +39,9 @@
       [shadowCameraFar]="4"
       [shadowBias]="-0.002"
     >
-      <three-position [x]="1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffaa00'"
       [intensity]="1"
@@ -54,49 +54,49 @@
       [shadowCameraFar]="4"
       [shadowBias]="-0.002"
     >
-      <three-position [x]="0.5" [y]="1" [z]="-1"></three-position>
-    </three-light>
-    <three-shared>
-      <three-material #material [type]="'MeshPhong'" [color]="'0xAAAAAA'" [specular]="'0x111111'" [shininess]="200"></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh [storageName]="'models/stl/ascii/slotted_disk.stl'" [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="0" [y]="-0.25" [z]="0.6"></three-position>
-        <three-rotation [x]="0" [y]="-90" [z]="0"></three-rotation>
-        <three-scale [multiply]="0.5"></three-scale>
-        <three-material [type]="'MeshPhong'" [color]="'0xff5533'" [specular]="'0x111111'" [shininess]="200"></three-material>
-      </three-mesh>
-      <three-mesh [material]="material" [storageName]="'models/stl/binary/pr2_head_pan.stl'" [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="0" [y]="-0.37" [z]="-0.6"></three-position>
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-scale [multiply]="2"></three-scale>
-      </three-mesh>
-      <three-mesh [material]="material" [storageName]="'models/stl/binary/pr2_head_tilt.stl'" [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="0.136" [y]="-0.37" [z]="-0.6"></three-position>
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-scale [multiply]="2"></three-scale>
-      </three-mesh>
-      <three-mesh [storageName]="'models/stl/binary/colored.stl'" [receiveShadow]="true" [castShadow]="true">
-        <three-position [x]="0.5" [y]="0.2" [z]="0"></three-position>
-        <three-rotation [x]="-90" [y]="90" [z]="0"></three-rotation>
-        <three-scale [multiply]="0.3"></three-scale>
-        <three-material [type]="'MeshPhong'" [opacity]="0.7" [vertexColors]="true"></three-material>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-0.5" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      <ngx3js-position [x]="0.5" [y]="1" [z]="-1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'MeshPhong'" [color]="'0xAAAAAA'" [specular]="'0x111111'" [shininess]="200"></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh [storageName]="'models/stl/ascii/slotted_disk.stl'" [receiveShadow]="true" [castShadow]="true">
+        <ngx3js-position [x]="0" [y]="-0.25" [z]="0.6"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="0.5"></ngx3js-scale>
+        <ngx3js-material [type]="'MeshPhong'" [color]="'0xff5533'" [specular]="'0x111111'" [shininess]="200"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [storageName]="'models/stl/binary/pr2_head_pan.stl'" [receiveShadow]="true" [castShadow]="true">
+        <ngx3js-position [x]="0" [y]="-0.37" [z]="-0.6"></ngx3js-position>
+        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="2"></ngx3js-scale>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="material" [storageName]="'models/stl/binary/pr2_head_tilt.stl'" [receiveShadow]="true" [castShadow]="true">
+        <ngx3js-position [x]="0.136" [y]="-0.37" [z]="-0.6"></ngx3js-position>
+        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="2"></ngx3js-scale>
+      </ngx3js-mesh>
+      <ngx3js-mesh [storageName]="'models/stl/binary/colored.stl'" [receiveShadow]="true" [castShadow]="true">
+        <ngx3js-position [x]="0.5" [y]="0.2" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="-90" [y]="90" [z]="0"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="0.3"></ngx3js-scale>
+        <ngx3js-material [type]="'MeshPhong'" [opacity]="0.7" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-0.5" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="40"
         [height]="40"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [specular]="'0x101010'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

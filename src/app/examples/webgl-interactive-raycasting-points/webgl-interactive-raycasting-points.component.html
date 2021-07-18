@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - raycasting - points 
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
   [statsMode]="0"
@@ -13,58 +13,58 @@
   (eventListener)="onMouseMove($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100000" (onLoad)="setCamera($event)">
-    <three-position [x]="10" [y]="10" [z]="10"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="10" [y]="10" [z]="10"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #sphereGeometry
         [type]="'Sphere'"
         [radius]="0.1"
         [widthSegments]="32"
         [heightSegments]="32"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         #sphereMaterial
         [type]="'MeshBasic'"
         [color]="'0xff0000'"
-      ></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setSphere($event)">
-      <three-mesh *ngFor="let info of sphereIndex" [geometry]="sphereGeometry" [material]="sphereMaterial"></three-mesh>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [type]="'Points'">
-        <three-scale [x]="5" [y]="10" [z]="10"></three-scale>
-        <three-position [x]="-5" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setSphere($event)">
+      <ngx3js-mesh *ngFor="let info of sphereIndex" [geometry]="sphereGeometry" [material]="sphereMaterial"></ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [type]="'Points'">
+        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+        <ngx3js-position [x]="-5" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'buffer'"
           [attributes]="pointCloudInfo"
-        ></three-geometry>
-        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'">
-        <three-scale [x]="5" [y]="10" [z]="10"></three-scale>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'">
+        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'buffer'"
           [attributes]="indexedPointcloud"
-        ></three-geometry>
-        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
-      </three-mesh>
-      <three-mesh [type]="'Points'">
-        <three-scale [x]="5" [y]="10" [z]="10"></three-scale>
-        <three-position [x]="5" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'Points'">
+        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+        <ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'buffer'"
           [attributes]="indexedWithOffsetPointcloud"
           [addGroup]="true"
-        ></three-geometry>
-        <three-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

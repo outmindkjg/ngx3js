@@ -1,8 +1,8 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - cascaded shadow maps<br>
-  by <a href="https://github.com/vHawk" target="_blank" rel="noopener">vHawk</a> (<a href="https://github.com/vHawk/three-csm" target="_blank" rel="noopener">original repository</a>)
+  by <a href="https://github.com/vHawk" target="_blank" rel="noopener">vHawk</a> (<a href="https://github.com/vHawk/ngx3js-csm" target="_blank" rel="noopener">original repository</a>)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,7 +12,7 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-control 
+  <ngx3js-control 
     #csm
     [type]="'csm'" 
     [maxFar]="1000"
@@ -25,53 +25,53 @@
     [lightDirectionZ]="-1"
     [camera]="camera"
     (onLoad)="setCsm($event)"
-  ></three-control>
-  <three-lookat [x]="-100" [y]="10" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'PerspectiveCamera'" [fov]="70" [near]="0.1" [far]="5000" (onLoad)="setPerspectiveCamera($event)">
-    <three-position [x]="60" [y]="60" [z]="0"></three-position>
-  </three-camera>
-  <three-camera #orthoCamera [type]="'OrthographicCamera'" [visible]="false" [left]="0.5" [right]="0.5" [top]="0.5" [bottom]="0.5" [near]="0.1" [far]="5000"  (onLoad)="setOrthographicCamera($event)">
-    <three-position [x]="60" [y]="60" [z]="0"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x454e61'">
-    <three-light
+  ></ngx3js-control>
+  <ngx3js-lookat [x]="-100" [y]="10" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'PerspectiveCamera'" [fov]="70" [near]="0.1" [far]="5000" (onLoad)="setPerspectiveCamera($event)">
+    <ngx3js-position [x]="60" [y]="60" [z]="0"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-camera #orthoCamera [type]="'OrthographicCamera'" [visible]="false" [left]="0.5" [right]="0.5" [top]="0.5" [bottom]="0.5" [near]="0.1" [far]="5000"  (onLoad)="setOrthographicCamera($event)">
+    <ngx3js-position [x]="60" [y]="60" [z]="0"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x454e61'">
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0xffffff'"
       [intensity]="0.5"
-    ></three-light>
-    <three-helper [visible]="false" [type]="'csmhelper'" [control]="csm" (onLoad)="setHelper($event)"></three-helper>
-    <three-shared>
-      <three-material #material1 [type]="'MeshPhongMaterial'" [color]="'0x08d9d6'" [control]="csm"></three-material>
-      <three-material #material2 [type]="'MeshPhongMaterial'" [color]="'0xff2e63'" [control]="csm"></three-material>
-      <three-geometry
+    ></ngx3js-light>
+    <ngx3js-helper [visible]="false" [type]="'csmhelper'" [control]="csm" (onLoad)="setHelper($event)"></ngx3js-helper>
+    <ngx3js-shared>
+      <ngx3js-material #material1 [type]="'MeshPhongMaterial'" [color]="'0x08d9d6'" [control]="csm"></ngx3js-material>
+      <ngx3js-material #material2 [type]="'MeshPhongMaterial'" [color]="'0xff2e63'" [control]="csm"></ngx3js-material>
+      <ngx3js-geometry
         #geometry
         [type]="'box'"
         [width]="10"
         [height]="10"
         [depth]="10"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of cubeInfos" [geometry]="geometry" [material]="info.matrial?material1:material2" [castShadow]="true" [receiveShadow]="true">
-        <three-position [x]="info.px" [y]="20" [z]="info.pz"></three-position>
-        <three-scale [x]="1" [y]="info.sy" [z]="1"></three-scale>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [castShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of cubeInfos" [geometry]="geometry" [material]="info.matrial?material1:material2" [castShadow]="true" [receiveShadow]="true">
+        <ngx3js-position [x]="info.px" [y]="20" [z]="info.pz"></ngx3js-position>
+        <ngx3js-scale [x]="1" [y]="info.sy" [z]="1"></ngx3js-scale>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [castShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="10000"
         [height]="10000"
         [widthSegments]="8"
         [heightSegments]="8"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhongMaterial'"
         [color]="'0x252a34'"
         [control]="csm"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

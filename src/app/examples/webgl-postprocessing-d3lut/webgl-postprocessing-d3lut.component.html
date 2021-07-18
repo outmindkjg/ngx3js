@@ -5,7 +5,7 @@
   <a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a><br />
   LUTs from <a href="https://www.rocketstock.com/free-after-effects-templates/35-free-luts-for-color-grading-videos/">RocketStock</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -16,20 +16,20 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-composer [scene]="scene" [camera]="camera">
-    <three-pass [type]="'RenderPass'"></three-pass>
-    <three-pass [type]="'ShaderPass'" [shader]="'GammaCorrectionShader'"></three-pass>
-    <three-pass [type]="'LUTPass'" [enabled]="controls.enabled" [lut]="controls.lut" [use2DLut]="controls.use2dLut" [intensity]="controls.intensity"></three-pass>
-  </three-composer>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-    <three-position [x]="-1.8" [y]="0.6" [z]="2.7"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="background" [backgroundType]="'background-environment-angular'">
-    <three-shared>
-      <three-texture #background [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'DamagedHelmet.gltf'" [storageOption]="{ path : 'models/gltf/DamagedHelmet/glTF/'}">
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-composer [scene]="scene" [camera]="camera">
+    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'ShaderPass'" [shader]="'GammaCorrectionShader'"></ngx3js-pass>
+    <ngx3js-pass [type]="'LUTPass'" [enabled]="controls.enabled" [lut]="controls.lut" [use2DLut]="controls.use2dLut" [intensity]="controls.intensity"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+    <ngx3js-position [x]="-1.8" [y]="0.6" [z]="2.7"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="background" [backgroundType]="'background-environment-angular'">
+    <ngx3js-shared>
+      <ngx3js-texture #background [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'DamagedHelmet.gltf'" [storageOption]="{ path : 'models/gltf/DamagedHelmet/glTF/'}">
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

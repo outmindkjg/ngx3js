@@ -272,7 +272,7 @@ var HtmlComponent = /** @class */ (function (_super) {
     ], HtmlComponent.prototype, "children");
     HtmlComponent = HtmlComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-html',
+            selector: 'ngx3js-html',
             templateUrl: './html.component.html',
             styleUrls: ['./html.component.scss']
         })

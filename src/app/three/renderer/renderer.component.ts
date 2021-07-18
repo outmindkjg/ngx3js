@@ -22,7 +22,7 @@ import { LookatComponent } from './../lookat/lookat.component';
 import { SceneComponent } from './../scene/scene.component';
 
 @Component({
-  selector: 'three-renderer',
+  selector: 'ngx3js-renderer',
   templateUrl: './renderer.component.html',
   styleUrls: ['./renderer.component.scss'],
 })
@@ -1051,7 +1051,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       }
       let imageName = ThreeUtil.getTypeSafe(options.name, 'auto');
       if (imageName == '' || imageName == 'auto') {
-        imageName = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
+        imageName = window.location.hash.substr(window.location.hash.lastIndexOf('/') + 1);
       }
       const resultJson = {
         content: null,

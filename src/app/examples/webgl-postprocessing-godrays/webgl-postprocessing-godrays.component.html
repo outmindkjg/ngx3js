@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl god-rays example - tree by <a href="http://www.turbosquid.com/3d-models/free-tree-3d-model/592617" target="_blank" rel="noopener">stanloshka</a>
   todo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,31 +13,31 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="3000">
-    <three-position [x]="0" [y]="0" [z]="200"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-material 
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="3000">
+    <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-material 
       [materialType]="'overrideMaterial'"
       [type]="'MeshDepthMaterial'"
-    ></three-material>
-    <three-shared>
-      <three-material 
+    ></ngx3js-material>
+    <ngx3js-shared>
+      <ngx3js-material 
         #materialScene
         [type]="'MeshBasicMaterial'"
         [color]="'0x000000'"
-      ></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [storageName]="'models/obj/tree.obj'" [material]="materialScene">
-        <three-position [x]="0" [y]="-150" [z]="-150"></three-position>
-        <three-scale [multiply]="400"></three-scale>
-      </three-mesh>
-      <three-mesh (onLoad)="setSphere($event)">
-        <three-geometry [type]="'SphereGeometry'" [radius]="1" [widthSegments]="20" [heightSegments]="10"></three-geometry>
-        <three-scale [multiply]="20"></three-scale>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [storageName]="'models/obj/tree.obj'" [material]="materialScene">
+        <ngx3js-position [x]="0" [y]="-150" [z]="-150"></ngx3js-position>
+        <ngx3js-scale [multiply]="400"></ngx3js-scale>
+      </ngx3js-mesh>
+      <ngx3js-mesh (onLoad)="setSphere($event)">
+        <ngx3js-geometry [type]="'SphereGeometry'" [radius]="1" [widthSegments]="20" [heightSegments]="10"></ngx3js-geometry>
+        <ngx3js-scale [multiply]="20"></ngx3js-scale>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

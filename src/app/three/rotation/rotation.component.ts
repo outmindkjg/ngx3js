@@ -4,7 +4,7 @@ import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-rotation',
+  selector: 'ngx3js-rotation',
   templateUrl: './rotation.component.html',
   styleUrls: ['./rotation.component.scss'],
 })
@@ -81,7 +81,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
-      tag: 'three-rotation',
+      tag: 'ngx3js-rotation',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.rotation)) {

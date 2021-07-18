@@ -141,7 +141,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
     }
     const target = new Vector3(-100, 10, 0);
     const camera = this.pCamera;
-    // <three-lookat [x]="-100" [y]="10" [z]="0"></three-lookat>
+    // <ngx3js-lookat [x]="-100" [y]="10" [z]="0"></ngx3js-lookat>
     const size = target.distanceTo( camera.position );
     const aspect = camera.aspect;
     const orthoCamera = this.oCamera;

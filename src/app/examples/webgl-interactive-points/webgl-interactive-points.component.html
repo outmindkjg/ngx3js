@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - particles
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
   [statsMode]="0"
@@ -13,25 +13,25 @@
   (eventListener)="onMouseMove($event)"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
-    <three-position [x]="0" [y]="0" [z]="250"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" [type]="'Points'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'Buffer'"
         [attrPosition]="position"
         [attrCustomColor]="colors"
         [attrSize]="sizes"
-      ></three-geometry>
-      <three-material [type]="'Shader'" [alphaTest]="0.9"
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'Shader'" [alphaTest]="0.9"
         [uniforms]="uniforms"
         [shader]="'ShaderDemo9'"
       >
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

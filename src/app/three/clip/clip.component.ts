@@ -5,7 +5,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ThreeUtil } from './../interface';
 
 @Component({
-  selector: 'three-clip',
+  selector: 'ngx3js-clip',
   templateUrl: './clip.component.html',
   styleUrls: ['./clip.component.scss'],
 })

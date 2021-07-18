@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - TGA texture example by <a href="https://github.com/DaoshengMu/" target="_blank" rel="noopener">Daosheng Mu</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,47 +11,47 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="1000">
-    <three-position [x]="0" [y]="50" [z]="250"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="50" [z]="250"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
       [intensity]="0.4"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
     >
-      <three-position [x]="1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-shared>
-      <three-geometry
+      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #boxGeometry
         [type]="'box'"
         [width]="50"
         [height]="50"
         [depth]="50"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="-50" [y]="0" [z]="0"></three-position>
-        <three-material [type]="'MeshPhong'" [color]="'0xffffff'">
-          <three-texture [storageName]="'textures/crate_grey8.tga'"></three-texture>
-        </three-material>
-      </three-mesh>
-      <three-mesh [geometry]="boxGeometry">
-        <three-position [x]="50" [y]="0" [z]="0"></three-position>
-        <three-material [type]="'MeshPhong'" [color]="'0xffffff'">
-          <three-texture [storageName]="'textures/crate_color8.tga'"></three-texture>
-        </three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="-50" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'">
+          <ngx3js-texture [storageName]="'textures/crate_grey8.tga'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="boxGeometry">
+        <ngx3js-position [x]="50" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'">
+          <ngx3js-texture [storageName]="'textures/crate_color8.tga'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

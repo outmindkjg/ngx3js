@@ -150,7 +150,7 @@ var AnimationComponent = /** @class */ (function () {
     ], AnimationComponent.prototype, "timeScale");
     AnimationComponent = __decorate([
         core_1.Component({
-            selector: 'three-clip',
+            selector: 'ngx3js-clip',
             templateUrl: './animation.component.html',
             styleUrls: ['./animation.component.scss']
         })

@@ -114,7 +114,7 @@ var RotationComponent = /** @class */ (function () {
     ], RotationComponent.prototype, "z");
     RotationComponent = __decorate([
         core_1.Component({
-            selector: 'three-rotation',
+            selector: 'ngx3js-rotation',
             templateUrl: './rotation.component.html',
             styleUrls: ['./rotation.component.scss']
         })

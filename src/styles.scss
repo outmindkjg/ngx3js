@@ -153,17 +153,24 @@ div#docs {
   position: relative;
   a.button {
     position: absolute;
+    opacity: 0.2;
     right :1rem;
     bottom :1rem;
     z-index: 100;
     padding: 12px;
     border-radius: 25px;
-    border:var(--border-style);
+    border:2px solid var(--background-color);
     background-color: var(--text-color);
   }
+
   a.button.download {
     bottom: 80px;
   }
+
+  a.button.ngxgithub {
+    right: 80px;
+  }
+  
   a.button:hover {
     cursor: pointer;
     opacity: 1;

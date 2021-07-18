@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - vox loader (<a href="https://ephtracy.github.io/" target="_blank" rel="noopener">Magica Voxel</a>)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -11,36 +11,36 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="10">
-    <three-position [x]="0.175" [y]="0.075" [z]="0.175"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="10">
+    <ngx3js-position [x]="0.175" [y]="0.075" [z]="0.175"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0x888888'"
       [groundColor]="'0x444444'"
       [intensity]="1"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.75"
     >
-      <three-position [x]="1.5" [y]="3" [z]="2.5"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="1.5" [y]="3" [z]="2.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-      <three-position [x]="-1.5" [y]="-3" [z]="-2.5"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/vox/monu10.vox'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-scale [multiply]="0.0015"></three-scale>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="-1.5" [y]="-3" [z]="-2.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/vox/monu10.vox'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [multiply]="0.0015"></ngx3js-scale>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

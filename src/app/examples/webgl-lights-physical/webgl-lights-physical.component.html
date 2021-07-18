@@ -3,7 +3,7 @@
   Real world scale: Brick cube is 50 cm in size. Globe is 50 cm in diameter.<br/>
   Reinhard inline tonemapping with real-world light falloff (decay = 2).
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
   [statsMode]="0"
@@ -14,13 +14,13 @@
   (onRender)="onRender($event)"
   (onLoad)="setRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
-    <three-position [x]="-4" [y]="2" [z]="4"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene >
-    <three-mesh
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="-4" [y]="2" [z]="4"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-mesh
       [type]="'light'"
       [lightOptions]="{
         type : 'Point',
@@ -32,75 +32,75 @@
       [castShadow]="true"
       (onLoad)="setBulbLight($event)"
     >
-      <three-position [x]="0" [y]="2" [z]="0"></three-position>
-      <three-mesh [castShadow]="false" [receiveShadow]="false">
-        <three-geometry
+      <ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+      <ngx3js-mesh [castShadow]="false" [receiveShadow]="false">
+        <ngx3js-geometry
           [type]="'Sphere'"
           [radius]="0.02"
           [widthSegments]="16"
           [heightSegments]="8"
-        ></three-geometry>
-        <three-material [type]="'MeshStandard'" [emissive]="'0xffffee'" [emissiveIntensity]="1" [color]="'0x000000'"></three-material>
-      </three-mesh>
-    </three-mesh>
-    <three-light
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshStandard'" [emissive]="'0xffffee'" [emissiveIntensity]="1" [color]="'0x000000'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xddeeff'"
       [groundColor]="'0x0f0e0d'"
       [intensity]="0.02"
     >
-      <three-position [x]="-3" [y]="10" [z]="-10"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh #ballMesh [castShadow]="true">
-        <three-position [x]="1" [y]="0.25" [z]="1"></three-position>
-        <three-rotation [x]="0" [y]="180" [z]="0"></three-rotation>
-        <three-geometry
+      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh #ballMesh [castShadow]="true">
+        <ngx3js-position [x]="1" [y]="0.25" [z]="1"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
           [type]="'Sphere'"
           [radius]="0.25"
           [widthSegments]="32"
           [heightSegments]="32"
-        ></three-geometry>
-        <three-material
+        ></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshStandard'"
           [color]="'0xffffff'"
           [roughness]="0.5"
           [metalness]="0.1"
           >
-          <three-texture 
+          <ngx3js-texture 
             [textureType]="'map'"
             [image]="'textures/planets/earth_atmos_2048.jpg'" 
             [anisotropy]="4"
             [encoding]="'sRGB'"
-          ></three-texture>
-          <three-texture 
+          ></ngx3js-texture>
+          <ngx3js-texture 
             [textureType]="'metalnessMap'"
             [image]="'textures/planets/earth_specular_2048.jpg'" 
             [anisotropy]="4"
             [encoding]="'sRGB'"
-          ></three-texture>
-        </three-material>            
-      </three-mesh>
-      <three-mesh #boxMesh [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
-        <three-position [x]="-0.5" [y]="0.25" [z]="-1"></three-position>
-      </three-mesh>
-      <three-mesh #boxMesh2 [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
-        <three-position [x]="0" [y]="0.25" [z]="-5"></three-position>
-      </three-mesh>
-      <three-mesh #boxMesh3 [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
-        <three-position [x]="7" [y]="0.25" [z]="0"></three-position>
-      </three-mesh>
-    </three-mesh>
-    <three-shared>
-      <three-geometry
+          ></ngx3js-texture>
+        </ngx3js-material>            
+      </ngx3js-mesh>
+      <ngx3js-mesh #boxMesh [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
+        <ngx3js-position [x]="-0.5" [y]="0.25" [z]="-1"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh #boxMesh2 [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
+        <ngx3js-position [x]="0" [y]="0.25" [z]="-5"></ngx3js-position>
+      </ngx3js-mesh>
+      <ngx3js-mesh #boxMesh3 [castShadow]="true" [geometry]="boxGeometry" [material]="boxMaterial">
+        <ngx3js-position [x]="7" [y]="0.25" [z]="0"></ngx3js-position>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #boxGeometry
         [type]="'Box'"
         [width]="0.5"
         [height]="0.5"
         [depth]="0.5"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         #boxMaterial
         [type]="'MeshStandard'"
         [color]="'0xffffff'"
@@ -108,7 +108,7 @@
         [metalness]="0.2"
         [bumpScale]="0.002"
         >
-        <three-texture 
+        <ngx3js-texture 
           [textureType]="'map'"
           [image]="'textures/brick_diffuse.jpg'" 
           [wrapS]="'Repeat'"
@@ -117,8 +117,8 @@
           [repeatX]="1"
           [repeatY]="1"
           [encoding]="'sRGB'"
-        ></three-texture>
-        <three-texture 
+        ></ngx3js-texture>
+        <ngx3js-texture 
           [textureType]="'bumpMap'"
           [image]="'textures/brick_bump.jpg'" 
           [wrapS]="'Repeat'"
@@ -126,25 +126,25 @@
           [anisotropy]="4"
           [repeatX]="1"
           [repeatY]="1"
-        ></three-texture>
-      </three-material>      
-    </three-shared>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        ></ngx3js-texture>
+      </ngx3js-material>      
+    </ngx3js-shared>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="20"
         [height]="20"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshStandard'"
         [color]="'0xffffff'"
         [roughness]="0.8"
         [metalness]="0.2"
         [bumpScale]="0.0005"
       >
-        <three-texture 
+        <ngx3js-texture 
           [textureType]="'map'"
           [image]="'textures/hardwood2_diffuse.jpg'" 
           [wrapS]="'Repeat'"
@@ -153,8 +153,8 @@
           [repeatX]="10"
           [repeatY]="24"
           [encoding]="'sRGB'"
-        ></three-texture>
-        <three-texture 
+        ></ngx3js-texture>
+        <ngx3js-texture 
           [textureType]="'bumpMap'"
           [image]="'textures/hardwood2_bump.jpg'" 
           [wrapS]="'Repeat'"
@@ -162,8 +162,8 @@
           [anisotropy]="4"
           [repeatX]="10"
           [repeatY]="24"
-        ></three-texture>
-        <three-texture 
+        ></ngx3js-texture>
+        <ngx3js-texture 
           [textureType]="'roughnessMap'"
           [image]="'textures/hardwood2_roughness.jpg'" 
           [wrapS]="'Repeat'"
@@ -171,8 +171,8 @@
           [anisotropy]="4"
           [repeatX]="10"
           [repeatY]="24"
-        ></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

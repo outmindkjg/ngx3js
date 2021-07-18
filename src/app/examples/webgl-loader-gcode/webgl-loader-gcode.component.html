@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GCode loader
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 10 , maxDistance: 100 }"
   [statsMode]="0"
@@ -11,14 +11,14 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="70"></three-position>
-    <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gcode/benchy.gcode'">
-      <three-position [x]="-100" [y]="-20" [z]="100"></three-position>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="70"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gcode/benchy.gcode'">
+      <ngx3js-position [x]="-100" [y]="-20" [z]="100"></ngx3js-position>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

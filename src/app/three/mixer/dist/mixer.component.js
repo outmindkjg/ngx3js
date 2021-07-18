@@ -320,7 +320,7 @@ var MixerComponent = /** @class */ (function () {
     ], MixerComponent.prototype, "clip");
     MixerComponent = __decorate([
         core_1.Component({
-            selector: 'three-mixer',
+            selector: 'ngx3js-mixer',
             templateUrl: './mixer.component.html',
             styleUrls: ['./mixer.component.scss']
         })

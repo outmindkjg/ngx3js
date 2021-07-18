@@ -16,7 +16,7 @@ export interface RigidbodyType {
 }
 
 @Component({
-  selector: 'three-rigidbody',
+  selector: 'ngx3js-rigidbody',
   templateUrl: './rigidbody.component.html',
   styleUrls: ['./rigidbody.component.scss'],
 })

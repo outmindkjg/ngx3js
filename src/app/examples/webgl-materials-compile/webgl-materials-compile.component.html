@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Node-Based Material
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,44 +11,44 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="200" [z]="-300"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="200" [z]="-300"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'0x464646'"
       [color]="'0x464646'"
     >
-      <three-position [x]="0" [y]="20" [z]="0"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffddcc'"
       [intensity]="1"
     >
-      <three-position [x]="1" [y]="0.75" [z]="0.5"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="1" [y]="0.75" [z]="0.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xccccff'"
       [intensity]="1"
     >
-      <three-position [x]="-1" [y]="0.75" [z]="-0.5"></three-position>
-    </three-light>
-    <three-shared>
-      <three-geometry
+      <ngx3js-position [x]="-1" [y]="0.75" [z]="-0.5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #teapot
         [type]="'Teapot'"
         [size]="15"
         [segments]="18"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of teapotInfos" [geometry]="teapot">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of teapotInfos" [geometry]="teapot">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

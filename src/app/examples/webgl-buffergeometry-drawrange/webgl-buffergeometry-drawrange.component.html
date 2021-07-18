@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - buffergeometry drawrange<br/>
   by <a href="https://twitter.com/fernandojsg">fernandojsg</a> todo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,33 +12,33 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="4000">
-    <three-position [x]="0" [y]="0" [z]="1750"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-mesh #box>
-        <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="4000">
+    <ngx3js-position [x]="0" [y]="0" [z]="1750"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-mesh #box>
+        <ngx3js-geometry
           [type]="'box'"
           [width]="800"
           [height]="800"
           [depth]="800"
-        ></three-geometry>
-      </three-mesh>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-helper [type]="'BoxHelper'" [target]="box" [materialColor]="'0x101010'" [materialBlending]="'AdditiveBlending'" [materialTransparent]="true">
-      </three-helper>
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-helper [type]="'BoxHelper'" [target]="box" [materialColor]="'0x101010'" [materialBlending]="'AdditiveBlending'" [materialTransparent]="true">
+      </ngx3js-helper>
 
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

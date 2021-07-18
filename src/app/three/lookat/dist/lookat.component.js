@@ -82,7 +82,7 @@ var LookatComponent = /** @class */ (function () {
     ], LookatComponent.prototype, "z");
     LookatComponent = __decorate([
         core_1.Component({
-            selector: 'three-lookat',
+            selector: 'ngx3js-lookat',
             templateUrl: './lookat.component.html',
             styleUrls: ['./lookat.component.scss']
         })

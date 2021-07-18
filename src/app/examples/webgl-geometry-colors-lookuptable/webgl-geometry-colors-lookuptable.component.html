@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - lookup table<br/>
   vertex color values from a range of data values
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,34 +13,34 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-camera [scene]="scene" [type]="'perspective'" [fov]="60" [near]="1" [far]="100">
-      <three-position [x]="0" [y]="0" [z]="10"></three-position>
-      <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-camera [scene]="scene" [type]="'perspective'" [fov]="60" [near]="1" [far]="100">
+      <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
       >
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      </three-light>
-    </three-camera>
-    <three-mesh [type]="'Sprite'">
-      <three-position [x]="-2" [y]="0" [z]="0"></three-position>
-      <three-scale [x]="1.25" [y]="7" [z]="1"></three-scale>
-      <three-material [type]="'Sprite'">
-        <three-texture [canvas]="'lut_' + controls.colorMap"></three-texture>
-      </three-material>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="2" [y]="0" [z]="0"></three-position>
-      <three-geometry 
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      </ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-mesh [type]="'Sprite'">
+      <ngx3js-position [x]="-2" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-scale [x]="1.25" [y]="7" [z]="1"></ngx3js-scale>
+      <ngx3js-material [type]="'Sprite'">
+        <ngx3js-texture [canvas]="'lut_' + controls.colorMap"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="2" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry 
         [storageName]="'models/json/pressure.json'"
         [onInit]="setGeometry"
         [center]="true"
         [computeVertexNormals]="true"
-      ></three-geometry>
-      <three-material [type]="'meshlambert'" [color]="'0xF5F5F5'" [vertexColors]="true" [side]="'double'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'meshlambert'" [color]="'0xF5F5F5'" [vertexColors]="true" [side]="'double'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

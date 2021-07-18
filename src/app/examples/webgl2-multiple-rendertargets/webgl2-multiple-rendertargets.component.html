@@ -4,7 +4,7 @@
   Visualized here is the color and normal data from the G-Buffer.<br/>
   Created by <a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,27 +14,27 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10">
-    <three-position [x]="0" [y]="0" [z]="4"></three-position>
-  </three-camera>
-  <three-scene #scene >
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10">
+    <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="1"
         [tube]="0.3"
         [radiusSegments]="128"
         [tubularSegments]="64"
-      ></three-geometry>
-      <three-material [type]="'RawShaderMaterial'" [shader]="'ShaderDemo13'"
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'RawShaderMaterial'" [shader]="'ShaderDemo13'"
         [uniforms]="{
           tDiffuse: { type : 'texture', value: 'textures/brick_diffuse.jpg', options : 'RepeatWrapping' },
           repeat: { type : 'v2', value: [ 5, 0.5] }
         }"
         [glslVersion]="'GLSL3'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

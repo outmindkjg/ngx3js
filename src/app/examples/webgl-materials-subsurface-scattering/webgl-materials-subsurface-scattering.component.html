@@ -3,7 +3,7 @@
   <br/>Fast subsurface scattering in Blinn-Phong shading demo<br/>
   [Thanks for the art support from <a href="https://github.com/shaochun" target="_blank" rel="noopener">Shaochun Lin</a>]
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,49 +14,49 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="5000">
-    <three-position [x]="0" [y]="300" [z]="1600"></three-position>
-  </three-camera>
-  <three-scene #scene >
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="5000">
+    <ngx3js-position [x]="0" [y]="300" [z]="1600"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0x888888'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="0.03"
     >
-      <three-position [x]="0" [y]="0.5" [z]="0.5" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh>
-      <three-position [x]="0" [y]="-50" [z]="350"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="0.5" [z]="0.5" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh>
+      <ngx3js-position [x]="0" [y]="-50" [z]="350"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="4"
         [widthSegments]="8"
         [heightSegments]="8"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></three-material>
-      <three-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="7" [distance]="300"></three-light>
-    </three-mesh>
-    <three-mesh>
-      <three-position [x]="-100" [y]="20" [z]="-260"></three-position>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></ngx3js-material>
+      <ngx3js-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="7" [distance]="300"></ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-mesh>
+      <ngx3js-position [x]="-100" [y]="20" [z]="-260"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="4"
         [widthSegments]="8"
         [heightSegments]="8"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></three-material>
-      <three-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="1" [distance]="500"></three-light>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="10"></three-position>
-      <three-scale [x]="1" [y]="1" [z]="1"></three-scale>
-      <three-geometry [storageName]="'models/fbx/stanford-bunny.fbx'"></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></ngx3js-material>
+      <ngx3js-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="1" [distance]="500"></ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+      <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
+      <ngx3js-geometry [storageName]="'models/fbx/stanford-bunny.fbx'"></ngx3js-geometry>
+      <ngx3js-material 
         [type]="'ShaderMaterial'" 
         [shader]="'SubsurfaceScatteringShader'"
         [uniforms]="{
@@ -74,7 +74,7 @@
         [lights]="true"
         [extensions]="'derivatives'"
         (onLoad)="setMatrial($event)"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

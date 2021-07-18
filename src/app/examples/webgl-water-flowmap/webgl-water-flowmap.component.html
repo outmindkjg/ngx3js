@@ -4,7 +4,7 @@
   >
   - water flow map
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,59 +14,59 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
-    <three-position [x]="0" [y]="25" [z]="0"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-texture #flowMap [image]="'textures/water/Water_1_M_Flow.jpg'"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [visible]="controls.visible">
-        <three-position [x]="0" [y]="1.01" [z]="0"></three-position>
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
+    <ngx3js-position [x]="0" [y]="25" [z]="0"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-texture #flowMap [image]="'textures/water/Water_1_M_Flow.jpg'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [visible]="controls.visible">
+        <ngx3js-position [x]="0" [y]="1.01" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
           [type]="'Plane'"
           [width]="20"
           [height]="20"
-        ></three-geometry>
-        <three-material [type]="'MeshBasicMaterial'" [map]="flowMap"></three-material>
-      </three-mesh>
-      <three-mesh
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasicMaterial'" [map]="flowMap"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh
         [type]="'water2'"
         [waterScale]="2"
         [textureWidth]="1024"
         [textureHeight]="1024"
         [flowMap]="flowMap" 
       >
-        <three-position [x]="0" [y]="1" [z]="0"></three-position>
-        <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-        <three-geometry
+        <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
           [type]="'Plane'"
           [width]="20"
           [height]="20"
-        ></three-geometry>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="20"
         [height]="20"
         [widthSegments]="10"
         [heightSegments]="10"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'" [color]="'0xcccccc'">
-        <three-texture
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xcccccc'">
+        <ngx3js-texture
           [image]="'textures/floors/FloorsCheckerboard_S_Diffuse.jpg'"
           [wrap]="'repeat'"
           [anisotropy]="16"
           [repeat]="4"
-        ></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

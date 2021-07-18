@@ -3,7 +3,7 @@
   vtk formats loader test<br />
   Legacy vtk model from <a href="http://www.cc.gatech.edu/projects/large_models/" target="_blank" rel="noopener">The GeorgiaTech Lagre Geometric Model Archive</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 0.1 , maxDistance: 0.5 , rotateSpeed: 5.0 }"
   [statsMode]="0"
@@ -13,62 +13,62 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="'1e10'">
-      <three-position [x]="0" [y]="0" [z]="0.2"></three-position>
-    </three-camera>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="'1e10'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0.2"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x000000'"
       [intensity]="1"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-      <three-position [x]="2" [y]="2" [z]="2"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh>
-        <three-position [x]="-0.075" [y]="0.005" [z]="0"></three-position>
-        <three-scale [multiply]="0.2"></three-scale>
-        <three-geometry [storageName]="'models/vtk/bunny.vtk'" [center]="true" [computeVertexNormals]="true"></three-geometry>
-        <three-material
+      <ngx3js-position [x]="2" [y]="2" [z]="2"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh>
+        <ngx3js-position [x]="-0.075" [y]="0.005" [z]="0"></ngx3js-position>
+        <ngx3js-scale [multiply]="0.2"></ngx3js-scale>
+        <ngx3js-geometry [storageName]="'models/vtk/bunny.vtk'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshLambert'"
           [color]="'0xffffff'"
-        ></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="-0.025" [y]="0" [z]="0"></three-position>
-        <three-scale [multiply]="0.01"></three-scale>
-        <three-geometry [storageName]="'models/vtk/cube_ascii.vtp'" [center]="true" [computeVertexNormals]="true"></three-geometry>
-        <three-material
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="-0.025" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+        <ngx3js-geometry [storageName]="'models/vtk/cube_ascii.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshLambert'"
           [color]="'0x00ff00'"
-        ></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="0.025" [y]="0" [z]="0"></three-position>
-        <three-scale [multiply]="0.01"></three-scale>
-        <three-geometry [storageName]="'models/vtk/cube_binary.vtp'" [center]="true" [computeVertexNormals]="true"></three-geometry>
-        <three-material
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0.025" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+        <ngx3js-geometry [storageName]="'models/vtk/cube_binary.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshLambert'"
           [color]="'0x0000ff'"
-        ></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="0.075" [y]="0" [z]="0"></three-position>
-        <three-scale [multiply]="0.01"></three-scale>
-        <three-geometry [storageName]="'models/vtk/cube_no_compression.vtp'" [center]="true" [computeVertexNormals]="true"></three-geometry>
-        <three-material
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0.075" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+        <ngx3js-geometry [storageName]="'models/vtk/cube_no_compression.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshLambert'"
           [color]="'0xff0000'"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

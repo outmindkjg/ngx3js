@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - water
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,41 +11,41 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
-    <three-position [x]="-15" [y]="7" [z]="15"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="cubeTexture">
-    <three-shared>
-      <three-texture #cubeTexture [image]="'textures/cube/Park2/'" [cubeImage]="['','jpg','pos','neg']"></three-texture>
-    </three-shared>
-    <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="200">
+    <ngx3js-position [x]="-15" [y]="7" [z]="15"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="cubeTexture">
+    <ngx3js-shared>
+      <ngx3js-texture #cubeTexture [image]="'textures/cube/Park2/'" [cubeImage]="['','jpg','pos','neg']"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+    <ngx3js-light
       [type]="'AmbientLight'"
       [color]="'0xcccccc'"
       [intensity]="0.4"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="0.6"
     >
-      <three-position [x]="-1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="4" [z]="0"></three-position>
-      <three-scale [multiply]="0.5"></three-scale>
-      <three-geometry
+      <ngx3js-position [x]="-1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="4" [z]="0"></ngx3js-position>
+      <ngx3js-scale [multiply]="0.5"></ngx3js-scale>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="3"
         [tube]="1"
         [radialSegments]="256"
         [tubularSegments]="32"
-      ></three-geometry>
-      <three-material [type]="'MeshNormalMaterial'"></three-material>
-    </three-mesh>
-    <three-mesh 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshNormalMaterial'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh 
       [type]="'water2'" 
       [color]="'#ffffff'" 
       [waterScale]="4" 
@@ -56,27 +56,27 @@
       [textureHeight]="1024"
       (onLoad)="setWater($event)"
     >
-      <three-position [x]="0" [y]="1" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="20"
         [height]="20"
-      ></three-geometry>
-    </three-mesh>
-    <three-mesh >
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+    <ngx3js-mesh >
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="20"
         [height]="20"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshStandardMaterial'"
         [roughness]="0.8"
         [metalness]="0.4"
-      ><three-texture [image]="'textures/hardwood2_diffuse.jpg'" [wrap]="'repeat'" [anisotropy]="16" [repeat]="4"></three-texture></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ><ngx3js-texture [image]="'textures/hardwood2_diffuse.jpg'" [wrap]="'repeat'" [anisotropy]="16" [repeat]="4"></ngx3js-texture></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

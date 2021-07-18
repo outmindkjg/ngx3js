@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl terrain + fog demo <br />(left click: forward, right click: backward)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,15 +12,15 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="-100" [y]="810" [z]="-800"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="10000">
-    <three-position [x]="100" [y]="800" [z]="-800"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xefd1b5'">
-    <three-fog [type]="'FogExp2'" [color]="'0xefd1b5'" [density]="0.00055"></three-fog>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="-100" [y]="810" [z]="-800"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="10000">
+    <ngx3js-position [x]="100" [y]="800" [z]="-800"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xefd1b5'">
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0xefd1b5'" [density]="0.00055"></ngx3js-fog>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         #geometry
         [type]="'perlin'"
         [perlinType]="'terrain'"
@@ -29,10 +29,10 @@
         [depth]="7500"
         [widthSegments]="256"
         [depthSegments]="256"
-      ></three-geometry>
-      <three-material [type]="'MeshBasic'">
-        <three-texture [perlin]="geometry" [wrapS]="'ClampToEdge'" [wrapT]="'ClampToEdge'"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasic'">
+        <ngx3js-texture [perlin]="geometry" [wrapS]="'ClampToEdge'" [wrapT]="'ClampToEdge'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

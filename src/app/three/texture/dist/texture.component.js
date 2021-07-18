@@ -426,7 +426,7 @@ var TextureComponent = /** @class */ (function () {
     ], TextureComponent.prototype, "textureHeight");
     TextureComponent = TextureComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-texture',
+            selector: 'ngx3js-texture',
             templateUrl: './texture.component.html',
             styleUrls: ['./texture.component.scss']
         })

@@ -12,7 +12,7 @@ import { ThreeUtil } from './../interface';
 import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper';
 
 @Component({
-  selector: 'three-helper',
+  selector: 'ngx3js-helper',
   templateUrl: './helper.component.html',
   styleUrls: ['./helper.component.scss'],
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => HelperComponent) }],

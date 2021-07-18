@@ -105,7 +105,7 @@ var ControllerComponent = /** @class */ (function () {
     ], ControllerComponent.prototype, "params");
     ControllerComponent = __decorate([
         core_1.Component({
-            selector: 'three-controller',
+            selector: 'ngx3js-controller',
             templateUrl: './controller.component.html',
             styleUrls: ['./controller.component.scss']
         })

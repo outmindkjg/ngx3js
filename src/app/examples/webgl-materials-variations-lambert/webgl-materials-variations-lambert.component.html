@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Lambert Material Variantions by <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,61 +15,61 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2500">
-    <three-position [x]="0.0" [y]="400" [z]="400 * 3.5"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="reflectionCube">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2500">
+    <ngx3js-position [x]="0.0" [y]="400" [z]="400 * 3.5"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="reflectionCube">
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="1"
     >
-      <three-position [x]="1" [y]="1" [z]="1" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setPointLight($event)">
-      <three-geometry
+      <ngx3js-position [x]="1" [y]="1" [z]="1" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setPointLight($event)">
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="4"
         [widthSegments]="8"
         [heightSegments]="8"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
-      <three-light
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></ngx3js-material>
+      <ngx3js-light
         [type]="'PointLight'"
         [color]="'0xffffff'"
         [intensity]="2"
         [distance]="800"
-      ></three-light>
-    </three-mesh>
-    <three-mesh>
-      <three-mesh *ngFor="let info of labelInfos" [material]="label">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-geometry [type]="'TextGeometry'" [text]="info.text" [font]="'gentilis_regular'" [size]="20" [height]="1" [curveSegments]="1" [center]="true"></three-geometry>
-      </three-mesh>
-    </three-mesh>
-    <three-shared>
-      <three-texture #reflectionCube [image]="'textures/cube/SwedishRoyalCastle/'" [cubeImage]="['','jpg']" [encoding]="'sRGBEncoding'"></three-texture>
-      <three-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [transparent]="true" [opacity]="0.7"></three-material>
-      <three-geometry
+      ></ngx3js-light>
+    </ngx3js-mesh>
+    <ngx3js-mesh>
+      <ngx3js-mesh *ngFor="let info of labelInfos" [material]="label">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-geometry [type]="'TextGeometry'" [text]="info.text" [font]="'gentilis_regular'" [size]="20" [height]="1" [curveSegments]="1" [center]="true"></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-texture #reflectionCube [image]="'textures/cube/SwedishRoyalCastle/'" [cubeImage]="['','jpg']" [encoding]="'sRGBEncoding'"></ngx3js-texture>
+      <ngx3js-material #label [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [transparent]="true" [opacity]="0.7"></ngx3js-material>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="400/5*0.8*0.5"
         [widthSegments]="32"
         [heightSegments]="16"
-      ></three-geometry>
-      <three-texture #imgTexture [image]="'textures/planets/moon_1024.jpg'" [encoding]="'sRGBEncoding'" [wrap]="'RepeatWrapping'" [anisotropy]="16"></three-texture>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-texture #imgTexture [image]="'textures/planets/moon_1024.jpg'" [encoding]="'sRGBEncoding'" [wrap]="'RepeatWrapping'" [anisotropy]="16"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-material 
           [type]="'MeshLambertMaterial'"
           [color]="info.color"
           [reflectivity]="info.reflectivity"
           [envMap]="info.envMap ? reflectionCube : null"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

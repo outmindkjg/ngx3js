@@ -4,7 +4,7 @@ import Ammo from 'ammojs-typed';
 import { RendererTimer, ThreeUtil } from '../../interface';
 
 @Component({
-  selector: 'three-physics-constraint',
+  selector: 'ngx3js-physics-constraint',
   templateUrl: './physics-constraint.component.html',
   styleUrls: ['./physics-constraint.component.scss']
 })

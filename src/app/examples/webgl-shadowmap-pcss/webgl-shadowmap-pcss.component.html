@@ -1,7 +1,7 @@
 <div class="info">
   Percent Closer Soft-Shadows (PCSS) by <a href="http://eduperiment.com">spidersharma03</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,16 +13,16 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="2.5" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
-      <three-position [x]="7" [y]="13" [z]="7"></three-position>
-    </three-camera>
-    <three-fog [color]="'0xcce0ff'" [near]="5" [far]="100"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="2.5" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
+      <ngx3js-position [x]="7" [y]="13" [z]="7"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-fog [color]="'0xcce0ff'" [near]="5" [far]="100"></ngx3js-fog>
+    <ngx3js-light
       [type]="'0x666666'"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xdfebff'"
       [intensity]="1.75"
@@ -30,49 +30,49 @@
       [shadowMapSize]="1024"
       [shadowCameraFar]="20"
     >
-      <three-position [x]="2" [y]="8" [z]="4"></three-position>
-      <three-helper [type]="'CameraHelper'"></three-helper>
-    </three-light>
-    <three-shared>
-      <three-material
+      <ngx3js-position [x]="2" [y]="8" [z]="4"></ngx3js-position>
+      <ngx3js-helper [type]="'CameraHelper'"></ngx3js-helper>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-material
         #groundMaterial
         [type]="'MeshPhong'"
         [color]="'0x404040'"
         [specular]="'0x111111'"
-      ></three-material>
-      <three-geometry
+      ></ngx3js-material>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="0.3"
         [widthSegments]="20"
         [heightSegments]="20"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of sphereInfos" [geometry]="geometry" [receiveShadow]="true" [castShadow]="true" [userData]="{ phase : info.phase }">
-        <three-position [x]="info.px" [y]="0" [z]="info.pz" [normalize]="true" [multiply]="info.ps"></three-position>
-        <three-material [type]="'MeshPhongMaterial'" [color]="info.color"></three-material>
-      </three-mesh>
-      <three-mesh [material]="groundMaterial" [castShadow]="true" [receiveShadow]="true">
-        <three-position [x]="0" [y]="2" [z]="0"></three-position>
-        <three-geometry
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of sphereInfos" [geometry]="geometry" [receiveShadow]="true" [castShadow]="true" [userData]="{ phase : info.phase }">
+        <ngx3js-position [x]="info.px" [y]="0" [z]="info.pz" [normalize]="true" [multiply]="info.ps"></ngx3js-position>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="info.color"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [material]="groundMaterial" [castShadow]="true" [receiveShadow]="true">
+        <ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'box'"
           [width]="1"
           [height]="4"
           [depth]="1"
-        ></three-geometry>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [material]="groundMaterial">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [material]="groundMaterial">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="20000"
         [height]="20000"
         [widthSegments]="8"
         [heightSegments]="8"
-      ></three-geometry>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

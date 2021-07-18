@@ -3,7 +3,7 @@
   reflect by <a href="https://github.com/gam0022" target="_blank" rel="noopener">gam0022</a> (<a href="http://qiita.com/gam0022/items/03699a07e4a4b5f2d41f" target="_blank" rel="noopener">article</a>)
   todo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,28 +14,28 @@
   (onRender)="onRender($event)"
   (onLoad)="setRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-scene #scene>
-    <three-mesh #dolly (onLoad)="setDolly($event)">
-      <three-camera #camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2000">
-        <three-position [x]="0" [y]="0" [z]="4"></three-position>
-      </three-camera>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)" [frustumCulled]="false">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh #dolly (onLoad)="setDolly($event)">
+      <ngx3js-camera #camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2000">
+        <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+      </ngx3js-camera>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [frustumCulled]="false">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'PlaneGeometry'"
         [width]="2.0"
         [height]="2.0"
-      ></three-geometry>
-      <three-material [type]="'RawShaderMaterial'" 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'RawShaderMaterial'" 
         [uniforms]="{
           resolution : { type : 'vector2', value : camera },
           cameraWorldMatrix : { type : 'matrixWorld', value : camera },
           cameraProjectionMatrixInverse : { type : 'projectionMatrixInverse', value : camera }
         }"
         [shader]="'RaymarchingReflect'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

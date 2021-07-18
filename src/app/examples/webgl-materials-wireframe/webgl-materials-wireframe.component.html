@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl wireframe demo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,27 +11,27 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="500">
-    <three-position [x]="0" [y]="0" [z]="150"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-shared>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="500">
+    <ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #geometry
         [storageName]="'models/json/WaltHeadLo_buffergeometry.json'"
         [onInit]="setGeometry"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="-40" [y]="0" [z]="0"></three-position>
-        <three-material [type]="'MeshBasicMaterial'" [color]="'0xe0e0ff'" [wireframe]="true"></three-material>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="40" [y]="0" [z]="0"></three-position>
-        <three-material [type]="'ShaderMaterial'" [shader]="'wireframe'" [uniforms]="{ widthFactor : { type :'number', value : controls.widthFactor } }" [extensions]="'derivatives'"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="-40" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xe0e0ff'" [wireframe]="true"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="40" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [type]="'ShaderMaterial'" [shader]="'wireframe'" [uniforms]="{ widthFactor : { type :'number', value : controls.widthFactor } }" [extensions]="'derivatives'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

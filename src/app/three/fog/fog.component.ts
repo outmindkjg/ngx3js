@@ -4,7 +4,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ThreeUtil } from './../interface';
 
 @Component({
-  selector: 'three-fog',
+  selector: 'ngx3js-fog',
   templateUrl: './fog.component.html',
   styleUrls: ['./fog.component.scss']
 })

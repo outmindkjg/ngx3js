@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - pixel shader by <a href="http://wongbryan.github.io">wongbryan</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,83 +11,83 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-composer [scene]="scene" [camera]="camera">
-    <three-pass [type]="'RenderPass'"></three-pass>
-    <three-pass [type]="'ShaderPass'" [shader]="'PixelShader'" [uniforms]="{ 
+  <ngx3js-composer [scene]="scene" [camera]="camera">
+    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'ShaderPass'" [shader]="'PixelShader'" [uniforms]="{ 
       pixelSize : controls.pixelSize,
       resolutionX : 1024,
       resolutionY : 1024
-    }" [enabled]="controls.postprocessing"></three-pass>
-  </three-composer>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="75" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="30"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+    }" [enabled]="controls.postprocessing"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="75" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="30"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xfceafc'"
       [groundColor]="'0x000000'"
       [intensity]="0.8"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-      <three-position [x]="150" [y]="75" [z]="150"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="150" [y]="75" [z]="150"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.2"
     >
-      <three-position [x]="-150" [y]="75" [z]="-150"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="-150" [y]="75" [z]="-150"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.1"
     >
-      <three-position [x]="0" [y]="125" [z]="0"></three-position>
-    </three-light>
-    <three-shared (onLoad)="setShared($event)">
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="125" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared (onLoad)="setShared($event)">
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="1"
         [widthSegments]="64"
         [heightSegments]="64"
-      ></three-geometry>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-geometry
         [type]="'BoxGeometry'"
         [width]="1"
         [height]="1"
         [depth]="1"
-      ></three-geometry>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-geometry
         [type]="'ConeGeometry'"
         [radius]="1"
         [height]="1"
         [radialSegments]="1"
-      ></three-geometry>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-geometry
         [type]="'TetrahedronGeometry'"
         [radius]="1"
-      ></three-geometry>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-geometry
         [type]="'TorusKnotGeometry'"
         [radius]="1"
         [tube]="0.4"
-      ></three-geometry>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" *ngIf="meshInfos">
-      <three-mesh *ngFor="let info of meshInfos" [geometry]="info.geometry">
-        <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [normalize]="true" [multiply]="info.position.multiply"></three-position>
-        <three-scale [multiply]="info.scale"></three-scale>
-        <three-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></three-rotation>
-        <three-material [type]="'MeshPhongMaterial'" [color]="info.color" [shininess]="200"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" *ngIf="meshInfos">
+      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="info.geometry">
+        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [normalize]="true" [multiply]="info.position.multiply"></ngx3js-position>
+        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="info.color" [shininess]="200"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

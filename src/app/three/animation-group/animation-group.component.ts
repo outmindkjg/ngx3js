@@ -5,7 +5,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import * as THREE from 'three';
 
 @Component({
-  selector: 'three-animation-group',
+  selector: 'ngx3js-animation-group',
   templateUrl: './animation-group.component.html',
   styleUrls: ['./animation-group.component.scss']
 })

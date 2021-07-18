@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl gpgpu birds<br/>
   Move mouse to disturb birds. todo
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,15 +13,15 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="3000">
-    <three-position [x]="0" [y]="0" [z]="350"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xffffff'">
-    <three-fog [color]="'0xffffff'" [near]="100" [far]="1000"></three-fog>
-    <three-shared>
-      <three-geometry-bird #bird [scale]="0.2"></three-geometry-bird>
-      <three-material
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="3000">
+    <ngx3js-position [x]="0" [y]="0" [z]="350"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xffffff'">
+    <ngx3js-fog [color]="'0xffffff'" [near]="100" [far]="1000"></ngx3js-fog>
+    <ngx3js-shared>
+      <ngx3js-geometry-bird #bird [scale]="0.2"></ngx3js-geometry-bird>
+      <ngx3js-material
         #material
         [type]="'ShaderMaterial'"
         [uniforms]="{
@@ -33,12 +33,12 @@
         }"
         [shader]="'ShaderDemo11'"
         [side]="'double'"
-      ></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)" [geometry]="bird">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
-      <three-material [type]="'meshlambert'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="bird">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
+      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

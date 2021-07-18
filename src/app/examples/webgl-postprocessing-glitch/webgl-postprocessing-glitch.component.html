@@ -1,7 +1,7 @@
 <div class="info">
   This example may potentially trigger seizures for people with <strong>photosensitive epilepsy</strong>.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -11,42 +11,42 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-composer [scene]="scene" [camera]="camera">
-    <three-pass [type]="'RenderPass'"></three-pass>
-    <three-pass [type]="'GlitchPass'" [goWild]="controls.wildGlitch"></three-pass>
-  </three-composer>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="400"></three-position>
-  </three-camera>
-  <three-shared>
-    <three-geometry
+  <ngx3js-composer [scene]="scene" [camera]="camera">
+    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'GlitchPass'" [goWild]="controls.wildGlitch"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-shared>
+    <ngx3js-geometry
       #geometry
       [type]="'SphereGeometry'"
       [radius]="1"
       [widthSegments]="4"
       [heightSegments]="4"
-    ></three-geometry>
-  </three-shared>
-  <three-scene #scene>
-    <three-fog [color]="'0x000000'" [near]="1" [far]="1000"></three-fog>
-    <three-light 
+    ></ngx3js-geometry>
+  </ngx3js-shared>
+  <ngx3js-scene #scene>
+    <ngx3js-fog [color]="'0x000000'" [near]="1" [far]="1000"></ngx3js-fog>
+    <ngx3js-light 
       [type]="'AmbientLight'"
       [color]="'0x222222'"
-    ></three-light>
-    <three-light 
+    ></ngx3js-light>
+    <ngx3js-light 
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
-        <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [normalize]="true" [multiply]="info.position.multiply"></three-position>
-        <three-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></three-rotation>
-        <three-scale [multiply]="info.scale"></three-scale>
-        <three-material [type]="'MeshPhongMaterial'" [color]="info.color" [flatShading]="true"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of sphereInfos" [geometry]="geometry">
+        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [normalize]="true" [multiply]="info.position.multiply"></ngx3js-position>
+        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="info.color" [flatShading]="true"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

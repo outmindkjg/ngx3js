@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
   Simple procedurally-generated shapes
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,98 +13,98 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="150" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0xf0f0f0'">
-    <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-      <three-position [x]="0" [y]="150" [z]="500"></three-position>
-      <three-lookat [x]="0" [y]="150" [z]="0"></three-lookat>
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0xf0f0f0'">
+    <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+      <ngx3js-position [x]="0" [y]="150" [z]="500"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
-      ></three-light>
-    </three-camera>
-    <three-shared>
-      <three-geometry
+      ></ngx3js-light>
+    </ngx3js-camera>
+    <ngx3js-shared>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="1"
         [height]="1"
         [depth]="1"
-      ></three-geometry>
-      <three-material #material [type]="'MeshPhong'" [side]="'double'">
-        <three-texture [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [repeatX]="0.008" [repeatY]="0.008"></three-texture>
-      </three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="50" [z]="0"></three-position>
-      <three-mesh *ngFor="let shapesInfo of shapesInfos">
-        <three-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></three-position>
-        <three-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></three-rotation>
-        <three-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></three-scale>
-        <three-mesh [material]="material">
-          <three-position [x]="0" [y]="0" [z]="-175"></three-position>
-          <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
+        <ngx3js-texture [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [repeatX]="0.008" [repeatY]="0.008"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="50" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let shapesInfo of shapesInfos">
+        <ngx3js-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></ngx3js-position>
+        <ngx3js-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></ngx3js-rotation>
+        <ngx3js-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></ngx3js-scale>
+        <ngx3js-mesh [material]="material">
+          <ngx3js-position [x]="0" [y]="0" [z]="-175"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Shape'"
             [shapes]="shapesInfo.shape"
-          ></three-geometry>
-        </three-mesh>
-        <three-mesh>
-          <three-position [x]="0" [y]="0" [z]="-125"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+        </ngx3js-mesh>
+        <ngx3js-mesh>
+          <ngx3js-position [x]="0" [y]="0" [z]="-125"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Shape'"
             [shapes]="shapesInfo.shape"
-          ></three-geometry>
-          <three-material [type]="'MeshPhong'" [side]="'double'" [color]="shapesInfo.color">
-          </three-material>
-        </three-mesh>
-        <three-mesh>
-          <three-position [x]="0" [y]="0" [z]="-75"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'MeshPhong'" [side]="'double'" [color]="shapesInfo.color">
+          </ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh>
+          <ngx3js-position [x]="0" [y]="0" [z]="-75"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Extrude'"
             [shapes]="shapesInfo.shape"
             [overrideParams]="shapesInfo.extrudeSettings"
-          ></three-geometry>
-          <three-material [type]="'MeshPhong'" [color]="shapesInfo.color">
-          </three-material>
-        </three-mesh>
-      </three-mesh>
-      <three-mesh *ngFor="let shapesInfo of lineShapesInfos">
-        <three-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></three-position>
-        <three-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></three-rotation>
-        <three-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></three-scale>
-        <three-mesh [type]="'Line'">
-          <three-position [x]="0" [y]="0" [z]="-25"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'MeshPhong'" [color]="shapesInfo.color">
+          </ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngFor="let shapesInfo of lineShapesInfos">
+        <ngx3js-position [x]="shapesInfo.x" [y]="shapesInfo.y" [z]="shapesInfo.z"></ngx3js-position>
+        <ngx3js-rotation [x]="shapesInfo.rx" [y]="shapesInfo.ry" [z]="shapesInfo.rz"></ngx3js-rotation>
+        <ngx3js-scale [x]="shapesInfo.s" [y]="shapesInfo.s" [z]="shapesInfo.s"></ngx3js-scale>
+        <ngx3js-mesh [type]="'Line'">
+          <ngx3js-position [x]="0" [y]="0" [z]="-25"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Buffer'"
             [points]="shapesInfo.points"
-          ></three-geometry>
-          <three-material [type]="'LineBasic'" [color]="shapesInfo.color"></three-material>
-        </three-mesh>
-        <three-mesh [type]="'Line'">
-          <three-position [x]="0" [y]="0" [z]="25"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'LineBasic'" [color]="shapesInfo.color"></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh [type]="'Line'">
+          <ngx3js-position [x]="0" [y]="0" [z]="25"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Buffer'"
             [points]="shapesInfo.spacedPoints"
-          ></three-geometry>
-          <three-material [type]="'LineBasic'" [color]="shapesInfo.color"></three-material>
-        </three-mesh>
-        <three-mesh [type]="'Points'">
-          <three-position [x]="0" [y]="0" [z]="75"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'LineBasic'" [color]="shapesInfo.color"></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh [type]="'Points'">
+          <ngx3js-position [x]="0" [y]="0" [z]="75"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Buffer'"
             [points]="shapesInfo.points"
-          ></three-geometry>
-          <three-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></three-material>
-        </three-mesh>
-        <three-mesh [type]="'Points'">
-          <three-position [x]="0" [y]="0" [z]="125"></three-position>
-          <three-geometry
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh [type]="'Points'">
+          <ngx3js-position [x]="0" [y]="0" [z]="125"></ngx3js-position>
+          <ngx3js-geometry
             [type]="'Buffer'"
             [points]="shapesInfo.spacedPoints"
-          ></three-geometry>
-          <three-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></three-material>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'Points'" [color]="shapesInfo.color" [size]="4"></ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

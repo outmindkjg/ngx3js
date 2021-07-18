@@ -2,7 +2,7 @@
     <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras - logarithmic depth buffer<br/>
     mousewheel to dolly out
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'or1bit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,46 +15,46 @@
   (onRender)="onRender($event)"
   (onLoad)="setRenderer($event)"
 >
-  <three-lookat [x]="0" [y]="1" [z]="0"></three-lookat>
-  <three-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'">
-  </three-camera>
-  <three-scene #scene>
-    <three-light [type]="'Ambient'" [color]="'0x222222'"></three-light>
-    <three-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
-      <three-position [x]="100" [y]="100" [z]="100"></three-position>
-    </three-light>
-    <three-geometry
+  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'">
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light [type]="'Ambient'" [color]="'0x222222'"></ngx3js-light>
+    <ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
+      <ngx3js-position [x]="100" [y]="100" [z]="100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-geometry
       #geometry
       [type]="'Sphere'"
       [radius]="0.5"
       [widthSegments]="24"
       [heightSegments]="12"
-    ></three-geometry>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let label of labelData">
-        <three-position [x]="0" [y]="0" [z]="label.size * label.scale * -1"></three-position>
-        <three-mesh>
-          <three-position [x]="0" [y]="label.size / 4 * label.scale" [z]=" - label.size * label.scale"></three-position>
-          <three-scale [x]="label.scale" [y]="label.scale" [z]="label.scale"></three-scale>
-          <three-geometry [type]="'text'" [font]="'helvetiker'" [align]="'center'" [text]="label.label" [size]="label.size" [height]="label.size/2"></three-geometry>
-          <three-material [type]="'MeshPhong'" 
+    ></ngx3js-geometry>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let label of labelData">
+        <ngx3js-position [x]="0" [y]="0" [z]="label.size * label.scale * -1"></ngx3js-position>
+        <ngx3js-mesh>
+          <ngx3js-position [x]="0" [y]="label.size / 4 * label.scale" [z]=" - label.size * label.scale"></ngx3js-position>
+          <ngx3js-scale [x]="label.scale" [y]="label.scale" [z]="label.scale"></ngx3js-scale>
+          <ngx3js-geometry [type]="'text'" [font]="'helvetiker'" [align]="'center'" [text]="label.label" [size]="label.size" [height]="label.size/2"></ngx3js-geometry>
+          <ngx3js-material [type]="'MeshPhong'" 
             [color]="label.color"
             [specular]="'0x050505'"
             [shininess]="50"
             [emissive]="'0x000000'"
-          ></three-material>
-        </three-mesh>
-        <three-mesh [geometry]="geometry">
-          <three-position [x]="0" [y]="- label.size / 4 * label.scale" [z]="0"></three-position>
-          <three-scale [x]="label.scale * label.size" [y]="label.scale * label.size" [z]="label.scale * label.size"></three-scale>
-          <three-material [type]="'MeshPhong'" 
+          ></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh [geometry]="geometry">
+          <ngx3js-position [x]="0" [y]="- label.size / 4 * label.scale" [z]="0"></ngx3js-position>
+          <ngx3js-scale [x]="label.scale * label.size" [y]="label.scale * label.size" [z]="label.scale * label.size"></ngx3js-scale>
+          <ngx3js-material [type]="'MeshPhong'" 
             [color]="label.color"
             [specular]="'0x050505'"
             [shininess]="50"
             [emissive]="'0x000000'"
-          ></three-material>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+          ></ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

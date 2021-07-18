@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shadowmap - models by <a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from <a href="http://www.ro.me" target="_blank" rel="noopener">rome</a><br />
   move camera with WASD / RF + mouse
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,18 +12,18 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="23" [near]="10" [far]="3000">
-    <three-position [x]="700" [y]="50" [z]="1900"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x59472b'">
-    <three-fog [color]="'0x59472b'" [near]="1000" [far]="3000"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="23" [near]="10" [far]="3000">
+    <ngx3js-position [x]="700" [y]="50" [z]="1900"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x59472b'">
+    <ngx3js-fog [color]="'0x59472b'" [near]="1000" [far]="3000"></ngx3js-fog>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0xffffff'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Spot'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -37,28 +37,28 @@
       [shadowMapSizeWidth]="2048"
       [shadowMapSizeHeight]="2048"
       >
-      <three-position [x]="0" [y]="1500" [z]="1000"></three-position>
-    </three-light>
-    <three-shared>
-      <three-material
+      <ngx3js-position [x]="0" [y]="1500" [z]="1000"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-material
         #planeMaterial
         [type]="'MeshPhong'"
         [color]="'0xffb851'"
-      ></three-material>
-      <three-mesh #horse [storageName]="'models/gltf/Horse.glb'"></three-mesh>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
-        <three-rotation [x]="0" [y]="90" [z]="0"></three-rotation>
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-mixer [action]="'run'" [delayTime]="info.delay">
-          <three-clip [name]="'run'" [index]="0"></three-clip>
-        </three-mixer>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh>
-      <three-position [x]="0" [y]="-80" [z]="0"></three-position>
-      <three-geometry
+      ></ngx3js-material>
+      <ngx3js-mesh #horse [storageName]="'models/gltf/Horse.glb'"></ngx3js-mesh>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
+        <ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-mixer [action]="'run'" [delayTime]="info.delay">
+          <ngx3js-clip [name]="'run'" [index]="0"></ngx3js-clip>
+        </ngx3js-mixer>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh>
+      <ngx3js-position [x]="0" [y]="-80" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'text'"
         [font]="'helvetiker_bold'"
         [text]="'THREE.JS'"
@@ -69,38 +69,38 @@
         [bevelSize]="5"
         [bevelEnabled]="true"
         [center]="true"
-      ></three-geometry>
-      <three-material [type]="'MeshPhong'" [color]="'0xff0000'" [specular]="'0xffffff'"></three-material>
-    </three-mesh>
-    <three-mesh #cubes1 [material]="planeMaterial"> 
-      <three-position [x]="0" [y]="-300" [z]="20"></three-position>
-      <three-geometry 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhong'" [color]="'0xff0000'" [specular]="'0xffffff'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh #cubes1 [material]="planeMaterial"> 
+      <ngx3js-position [x]="0" [y]="-300" [z]="20"></ngx3js-position>
+      <ngx3js-geometry 
         [type]="'box'"
         [width]="1500"
         [height]="220"
         [depth]="150"
       >
-      </three-geometry>
-    </three-mesh>
-    <three-mesh #cubes2 [material]="planeMaterial"> 
-      <three-position [x]="0" [y]="-300" [z]="20"></three-position>
-      <three-geometry 
+      </ngx3js-geometry>
+    </ngx3js-mesh>
+    <ngx3js-mesh #cubes2 [material]="planeMaterial"> 
+      <ngx3js-position [x]="0" [y]="-300" [z]="20"></ngx3js-position>
+      <ngx3js-geometry 
         [type]="'box'"
         [width]="1500"
         [height]="170"
         [depth]="250"
       >
-      </three-geometry>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [material]="planeMaterial">
-      <three-position [x]="0" [y]="-250" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-scale [multiply]="100"></three-scale>
-      <three-geometry
+      </ngx3js-geometry>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [material]="planeMaterial">
+      <ngx3js-position [x]="0" [y]="-250" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-scale [multiply]="100"></ngx3js-scale>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="100"
         [height]="100"
-      ></three-geometry>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

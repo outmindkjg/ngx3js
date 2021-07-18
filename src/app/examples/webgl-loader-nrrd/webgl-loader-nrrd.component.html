@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
   NRRD format loader test
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 100 , maxDistance: 500 , rotateSpeed: 5.0 , zoomSpeed: 5 , panSpeed: 2 }"
   [statsMode]="0"
@@ -12,48 +12,48 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="'1e10'">
-    <three-position [x]="0" [y]="0" [z]="300"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="'1e10'">
+    <ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x000000'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.5"
     >
-      <three-position [x]="200" [y]="200" [z]="200"></three-position>
-    </three-light>
-    <three-shared>
-      <three-mesh #nrrd [storageName]="'models/nrrd/I.nrrd'" (onLoad)="setVolume($event)"></three-mesh>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [visible]="false" #hiddenBox>
-        <three-position [x]="0" [y]="1" [z]="0"></three-position>
-        <three-geometry
+      <ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-mesh #nrrd [storageName]="'models/nrrd/I.nrrd'" (onLoad)="setVolume($event)"></ngx3js-mesh>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [visible]="false" #hiddenBox>
+        <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'box'"
           [refGeometry]="nrrd"
           [refType]="'size'"
           [width]="1"
           [height]="1"
           [depth]="1"
-        ></three-geometry>
-        <three-material [type]="'MeshBasic'" [color]="'0x00ff00'"></three-material>
-        <three-helper [type]="'box'" [target]="hiddenBox" [matrix]="nrrd.storageSource?.matrix"></three-helper>
-      </three-mesh>
-      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'x'" [index]="controls.indexX"></three-mesh>
-      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'y'" [index]="controls.indexY"></three-mesh>
-      <three-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'z'" [index]="controls.indexZ"></three-mesh>
-      <three-mesh [storageName]="'models/vtk/liver.vtk'" [visible]="controls.modelVisible">
-        <three-material [type]="'MeshLambert'" [color]="'0xff0000'" [wireframe]="false" [morphTargets]="false" [side]="'double'"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasic'" [color]="'0x00ff00'"></ngx3js-material>
+        <ngx3js-helper [type]="'box'" [target]="hiddenBox" [matrix]="nrrd.storageSource?.matrix"></ngx3js-helper>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'x'" [index]="controls.indexX"></ngx3js-mesh>
+      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'y'" [index]="controls.indexY"></ngx3js-mesh>
+      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'z'" [index]="controls.indexZ"></ngx3js-mesh>
+      <ngx3js-mesh [storageName]="'models/vtk/liver.vtk'" [visible]="controls.modelVisible">
+        <ngx3js-material [type]="'MeshLambert'" [color]="'0xff0000'" [wireframe]="false" [morphTargets]="false" [side]="'double'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

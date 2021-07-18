@@ -10,7 +10,7 @@ import { HtmlCollection } from '../visual/visual.component';
 import { ControllerItemComponent, ControlObjectItem } from './controller-item/controller-item.component';
 
 @Component({
-  selector: 'three-controller',
+  selector: 'ngx3js-controller',
   templateUrl: './controller.component.html',
   styleUrls: ['./controller.component.scss'],
 })

@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Backgrounds: ClearPass, TexturePass and CubeTexturePass<br/>
   by <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -13,52 +13,52 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-composer [scene]="scene" [camera]="camera">
-    <three-pass [type]="'ClearPass'" [enabled]="controls.clearPass" [clearColor]="controls.clearColor" [clearAlpha]="controls.clearAlpha"></three-pass>
-    <three-pass [type]="'TexturePass'" [texture]="map" [enabled]="controls.texturePass" [opacity]="controls.texturePassOpacity"></three-pass>
-    <three-pass [type]="'CubeTexturePass'" [texture]="cubeMap" [enabled]="controls.cubeTexturePass" [opacity]="controls.cubeTexturePassOpacity"></three-pass>
-    <three-pass [type]="'RenderPass'" [enabled]="controls.renderPass" [clear]="false"></three-pass>
-    <three-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></three-pass>
-  </three-composer>
-  <three-shared>
-    <three-texture #map [image]="'textures/hardwood2_diffuse.jpg'"></three-texture>
-    <three-texture #cubeMap [image]="'textures/cube/pisa/'" [cubeImage]="['','png']"></three-texture>
-  </three-shared>
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera #camera [type]="'perspective'" [fov]="65" [near]="1" [far]="10">
-    <three-position [x]="0" [y]="0" [z]="7"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-composer [scene]="scene" [camera]="camera">
+    <ngx3js-pass [type]="'ClearPass'" [enabled]="controls.clearPass" [clearColor]="controls.clearColor" [clearAlpha]="controls.clearAlpha"></ngx3js-pass>
+    <ngx3js-pass [type]="'TexturePass'" [texture]="map" [enabled]="controls.texturePass" [opacity]="controls.texturePassOpacity"></ngx3js-pass>
+    <ngx3js-pass [type]="'CubeTexturePass'" [texture]="cubeMap" [enabled]="controls.cubeTexturePass" [opacity]="controls.cubeTexturePassOpacity"></ngx3js-pass>
+    <ngx3js-pass [type]="'RenderPass'" [enabled]="controls.renderPass" [clear]="false"></ngx3js-pass>
+    <ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-shared>
+    <ngx3js-texture #map [image]="'textures/hardwood2_diffuse.jpg'"></ngx3js-texture>
+    <ngx3js-texture #cubeMap [image]="'textures/cube/pisa/'" [cubeImage]="['','png']"></ngx3js-texture>
+  </ngx3js-shared>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera #camera [type]="'perspective'" [fov]="65" [near]="1" [far]="10">
+    <ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xddffdd'"
       [intensity]="1.0"
     >
-      <three-position [x]="70" [y]="-70" [z]="-70"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="70" [y]="-70" [z]="-70"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xddffdd'"
       [intensity]="1.0"
     >
-      <three-position [x]="70" [y]="-70" [z]="70"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="70" [y]="-70" [z]="70"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'PointLight'"
       [color]="'0xddffdd'"
       [intensity]="1.0"
     >
-      <three-position [x]="70" [y]="70" [z]="-70"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="70" [y]="70" [z]="-70"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="1"
         [widthSegments]="48"
         [heightSegments]="24"
-      ></three-geometry>
-      <three-material [type]="'MeshStandardMaterial'" [roughness]="0.75" [color]="'hsl(0.5,1.0,0.3)'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshStandardMaterial'" [roughness]="0.75" [color]="'hsl(0.5,1.0,0.3)'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

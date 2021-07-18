@@ -27,7 +27,7 @@ export interface SvgGeometry {
 }
 
 @Component({
-  selector: 'three-svg',
+  selector: 'ngx3js-svg',
   templateUrl: './svg.component.html',
   styleUrls: ['./svg.component.scss'],
   providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => SvgComponent) }]

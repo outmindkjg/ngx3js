@@ -13,7 +13,7 @@ import { CameraComponent } from '../camera/camera.component';
 import { SceneComponent } from '../scene/scene.component';
 
 @Component({
-  selector: 'three-composer',
+  selector: 'ngx3js-composer',
   templateUrl: './composer.component.html',
   styleUrls: ['./composer.component.scss'],
 })

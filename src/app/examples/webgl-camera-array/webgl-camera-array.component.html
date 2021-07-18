@@ -1,29 +1,29 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 </div>
-<three-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'array'">
-    <three-position [x]="0" [y]="0" [z]="3"></three-position>
-    <three-camera *ngFor="let info of cameraInfos" [type]="'perspective'" [fov]="40" [near]="0.1" [far]="10" [viewportType]="'camera'" [viewport]="true" [x]="info.viewport.x" [y]="info.viewport.y" [width]="info.viewport.width" [height]="info.viewport.height">
-      <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [multiply]="2"></three-position>
-    </three-camera>
-  </three-camera>
-  <three-scene #scene>
-    <three-light [type]="'ambient'" [color]="'0x222244'"></three-light>
-    <three-light [type]="'DirectionalLight'" [color]="'0xffffff'" [castShadow]="true" [shadowCameraZoom]="4">
-      <three-position [x]="0.5" [y]="0.5" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [receiveShadow]="true" [castShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry [type]="'Cylinder'" [radiusTop]="0.5" [radiusBottom]="0.5" [height]="1" [radialSegments]="32"></three-geometry>
-      <three-material [type]="'MeshPhongMaterial'" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true" [castShadow]="false">
-      <three-position [x]="0" [y]="0" [z]="-1"></three-position>
-      <three-rotation [x]="0" [y]="0" [z]="0"></three-rotation>
-      <three-geometry [type]="'PlaneGeometry'" [width]="100" [height]="100"></three-geometry>
-      <three-material [type]="'MeshPhongMaterial'" [color]="'0x000066'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'array'">
+    <ngx3js-position [x]="0" [y]="0" [z]="3"></ngx3js-position>
+    <ngx3js-camera *ngFor="let info of cameraInfos" [type]="'perspective'" [fov]="40" [near]="0.1" [far]="10" [viewportType]="'camera'" [viewport]="true" [x]="info.viewport.x" [y]="info.viewport.y" [width]="info.viewport.width" [height]="info.viewport.height">
+      <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" [multiply]="2"></ngx3js-position>
+    </ngx3js-camera>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light [type]="'ambient'" [color]="'0x222244'"></ngx3js-light>
+    <ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [castShadow]="true" [shadowCameraZoom]="4">
+      <ngx3js-position [x]="0.5" [y]="0.5" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [receiveShadow]="true" [castShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry [type]="'Cylinder'" [radiusTop]="0.5" [radiusBottom]="0.5" [height]="1" [radialSegments]="32"></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
+      <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry [type]="'PlaneGeometry'" [width]="100" [height]="100"></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x000066'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -1,7 +1,7 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl_materials_lightmap
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,30 +12,30 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
-    <three-position [x]="700" [y]="200" [z]="-500"></three-position>
-  </three-camera>
-  <three-scene #scene >
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
+    <ngx3js-position [x]="700" [y]="200" [z]="-500"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xaabbff'"
       [intensity]="0.3"
     >
-      <three-position [x]="300" [y]="250" [z]="-500"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/json/lightmap/lightmap.json'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-    </three-mesh>
-    <three-mesh [name]="'SKYDOME'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="300" [y]="250" [z]="-500"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/json/lightmap/lightmap.json'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+    </ngx3js-mesh>
+    <ngx3js-mesh [name]="'SKYDOME'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'SphereGeometry'"
         [radius]="4000"
         [widthSegments]="32"
         [heightSegments]="15"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'ShaderMaterial'"
         [shader]="'ShaderSkyDome'"
         [uniforms]="{
@@ -45,7 +45,7 @@
 					exponent: { type : 'number', value: 0.6 }
         }"
         [side]="'BackSide'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

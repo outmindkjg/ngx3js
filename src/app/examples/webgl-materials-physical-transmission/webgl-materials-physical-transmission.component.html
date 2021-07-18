@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Transmission with Premultiplied Alpha (right) and without (left)
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,37 +14,37 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
-    <three-position [x]="0" [y]="0" [z]="120"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="hdrCubeRenderTarget">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
+    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="hdrCubeRenderTarget">
+    <ngx3js-light
       [type]="'SpotLight'"
       [color]="'0xffffff'"
       [intensity]="controls.lightIntensity"
       [angle]="30"
     >
-      <three-position [x]="100" [y]="200" [z]="100"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'SpotLight'"
       [color]="'0xffffff'"
       [intensity]="controls.lightIntensity"
       [angle]="30"
     >
-      <three-position [x]="-100" [y]="-200" [z]="-100"></three-position>
-    </three-light>
-    <three-shared>
-      <three-texture #hdrCubeRenderTarget [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'angular'"></three-texture>
-      <three-geometry
+      <ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-texture #hdrCubeRenderTarget [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'angular'"></ngx3js-texture>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="20"
         [widthSegments]="64"
         [heightSegments]="32"
-      ></three-geometry>
-      <three-material 
+      ></ngx3js-geometry>
+      <ngx3js-material 
         #material
         [type]="'MeshPhysicalMaterial'" 
         [color]="controls.color"
@@ -58,26 +58,26 @@
         [opacity]="1"
         [transparent]="true"
       >
-        <three-texture [textureType]="'alphaMap'" [canvas]="'white'" [magFilter]="'NearestFilter'" [wrap]="'RepeatWrapping'" [repeatX]="1" [repeatY]="3.5"></three-texture>
-      </three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="-30" [y]="0" [z]="0"></three-position>
-        <three-material [refer]="material"></three-material>
-        <three-mesh  [geometry]="geometry" [renderOrder]="-1">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-material [refer]="material" [side]="'BackSide'"></three-material>
-        </three-mesh>
-      </three-mesh>
-      <three-mesh [geometry]="geometry">
-        <three-position [x]="30" [y]="0" [z]="0"></three-position>
-        <three-material [refer]="material" [premultipliedAlpha]="true"></three-material>
-        <three-mesh  [geometry]="geometry" [renderOrder]="-1">
-          <three-position [x]="0" [y]="0" [z]="0"></three-position>
-          <three-material [refer]="material" [premultipliedAlpha]="true" [side]="'BackSide'"></three-material>
-        </three-mesh>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-texture [textureType]="'alphaMap'" [canvas]="'white'" [magFilter]="'NearestFilter'" [wrap]="'RepeatWrapping'" [repeatX]="1" [repeatY]="3.5"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="-30" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [refer]="material"></ngx3js-material>
+        <ngx3js-mesh  [geometry]="geometry" [renderOrder]="-1">
+          <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-material [refer]="material" [side]="'BackSide'"></ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="geometry">
+        <ngx3js-position [x]="30" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-material [refer]="material" [premultipliedAlpha]="true"></ngx3js-material>
+        <ngx3js-mesh  [geometry]="geometry" [renderOrder]="-1">
+          <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+          <ngx3js-material [refer]="material" [premultipliedAlpha]="true" [side]="'BackSide'"></ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

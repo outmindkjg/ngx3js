@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - indexed instancing (single box), interleaved buffers
   <div id="notSupported" style="display:none">Sorry your graphics card + browser does not support hardware instancing</div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,22 +12,22 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="50"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x101010'">
-    <three-mesh (onLoad)="setMesh($event)" [type]="'InstancedMesh'" [makeMatrix]="makeMatrix" [count]="5000">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="50"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x101010'">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'InstancedMesh'" [makeMatrix]="makeMatrix" [count]="5000">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'InstancedBufferGeometry'"
         [vertexBuffer]="vertexBuffer"
         [vertexBufferStride]="8"
         [attrIndex]="indices"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'">
-        <three-texture [image]="'textures/crate.gif'" [flipY]="true"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'">
+        <ngx3js-texture [image]="'textures/crate.gif'" [flipY]="true"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

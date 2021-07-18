@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl cube Fresnel shader demo.<br/>texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank" rel="noopener">Humus</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,27 +12,27 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
-    <three-position [x]="0" [y]="0" [z]="3200"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="textureCube">
-    <three-shared>
-      <three-texture #textureCube [image]="'textures/cube/Park2/'" [cubeImage]="['','jpg','pos','neg']"></three-texture>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
+    <ngx3js-position [x]="0" [y]="0" [z]="3200"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="textureCube">
+    <ngx3js-shared>
+      <ngx3js-texture #textureCube [image]="'textures/cube/Park2/'" [cubeImage]="['','jpg','pos','neg']"></ngx3js-texture>
+      <ngx3js-geometry
         #geometry
         [type]="'SphereGeometry'"
         [radius]="100"
         [widthSegments]="32"
         [heightSegments]="16"
-      ></three-geometry>
-      <three-material #material [type]="'ShaderMaterial'" [shader]="'FresnelShader'" [uniforms]="{ tCube : { type : 'texture', value : textureCube } }"></three-material>
-    </three-shared>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of meshIninfos" [geometry]="geometry" [material]="material">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-scale [multiply]="info.scale"></three-scale>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-geometry>
+      <ngx3js-material #material [type]="'ShaderMaterial'" [shader]="'FresnelShader'" [uniforms]="{ tCube : { type : 'texture', value : textureCube } }"></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of meshIninfos" [geometry]="geometry" [material]="material">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

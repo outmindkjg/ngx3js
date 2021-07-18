@@ -30,7 +30,7 @@ export interface MeshMaterialRaw {
 export type MeshMaterial = MeshMaterialRaw | THREE.Scene;
 
 @Component({
-  selector: 'three-material',
+  selector: 'ngx3js-material',
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.scss'],
 })

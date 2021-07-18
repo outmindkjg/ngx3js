@@ -4,7 +4,7 @@ import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-scale',
+  selector: 'ngx3js-scale',
   templateUrl: './scale.component.html',
   styleUrls: ['./scale.component.scss'],
 })
@@ -81,7 +81,7 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
 
   getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
-      tag: 'three-scale',
+      tag: 'ngx3js-scale',
       attributes: [],
     };
     if (ThreeUtil.isNotNull(options.scale)) {

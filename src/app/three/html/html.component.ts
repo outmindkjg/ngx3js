@@ -6,7 +6,7 @@ import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractTweenComponent } from '../tween.abstract';
 
 @Component({
-  selector: 'three-html',
+  selector: 'ngx3js-html',
   templateUrl: './html.component.html',
   styleUrls: ['./html.component.scss'],
 })

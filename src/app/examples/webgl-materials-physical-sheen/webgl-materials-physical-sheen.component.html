@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a><br>
   Sheen demo by <a href="https://github.com/DanielSturk">DanielSturk</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -14,38 +14,38 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="2" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000">
-    <three-position [x]="-12" [y]="7" [z]="4"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0xbfd1e5'">
-    <three-light 
+  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000">
+    <ngx3js-position [x]="-12" [y]="7" [z]="4"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0xbfd1e5'">
+    <ngx3js-light 
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
       [intensity]="0.5"
       [castShadow]="true"
     >
-      <three-position [x]="0" [y]="10" [z]="0"></three-position>
-      <three-mesh>
-        <three-geometry [type]="'SphereGeometry'" [radius]="0.5"></three-geometry>
-        <three-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></three-material>
-      </three-mesh>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh [storageName]="'models/fbx/cloth.fbx'">
-        <three-scale [multiply]="0.5"></three-scale>
-        <three-material [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></three-material>
-      </three-mesh>
-      <three-mesh>
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+      <ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>
+      <ngx3js-mesh>
+        <ngx3js-geometry [type]="'SphereGeometry'" [radius]="0.5"></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh [storageName]="'models/fbx/cloth.fbx'">
+        <ngx3js-scale [multiply]="0.5"></ngx3js-scale>
+        <ngx3js-material [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'SphereGeometry'"
           [radius]="1"
           [widthSegments]="100"
           [heightSegments]="100"
-        ></three-geometry>
-        <three-material [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
   <a href="http://3mf.io" target="_blank" rel="noopener">3MF</a> file with materials
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 50 , maxDistance: 200 }"
   [statsMode]="0"
@@ -13,21 +13,21 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="20" [z]="0"></three-lookat>
-  <three-scene #scene [background]="'0xa0a0a0'">
-    <three-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-      <three-position [x]="-50" [y]="40" [z]="50"></three-position>
-      <three-lookat [x]="0" [y]="20" [z]="0"></three-lookat>
-    </three-camera>
-    <three-fog [color]="'0xa0a0a0'" [far]="500" [near]="10"></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="20" [z]="0"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+    <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+      <ngx3js-position [x]="-50" [y]="40" [z]="50"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="20" [z]="0"></ngx3js-lookat>
+    </ngx3js-camera>
+    <ngx3js-fog [color]="'0xa0a0a0'" [far]="500" [near]="10"></ngx3js-fog>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0xffffff'"
       [groundColor]="'0x444444'"
     >
-      <three-position [x]="0" [y]="100" [z]="0"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="0" [y]="100" [z]="0"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -41,24 +41,24 @@
       [shadowMapSizeWidth]="1024"
       [shadowMapSizeHeight]="1024"
     >
-      <three-position [x]="0" [y]="40" [z]="50"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/3mf/truck.3mf'">
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="11" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      <ngx3js-position [x]="0" [y]="40" [z]="50"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/3mf/truck.3mf'">
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="11" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="1000"
         [height]="1000"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [depthWrite]="false"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

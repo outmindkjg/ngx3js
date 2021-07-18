@@ -3,7 +3,7 @@
   models by <a href="http://sketchup.google.com/3dwarehouse/details?mid=2c6fd128fca34052adc5f5b98d513da1" target="_blank" rel="noopener">Reallusion</a>
   <a href="http://sketchup.google.com/3dwarehouse/details?mid=f526cc4abf7cb68d76cab47c765b7255" target="_blank" rel="noopener">iClone</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'plane'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true, xDistance : 9000, yDistance : 0 }"
   [statsMode]="0"
@@ -13,34 +13,34 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="50000">
-    <three-position [x]="0" [y]="700" [z]="7000"></three-position>
-    <!-- three-composer>
-      <three-pass [type]="'render'"></three-pass>
-      <three-pass [type]="'bloom'" [strength]="0.75"></three-pass>
-      <three-pass [type]="'film'" [noiseIntensity]="0.5" [scanlinesIntensity]="0.5" [scanlinesCount]="1448" [grayscale]="false"></three-pass>
-      <three-pass [type]="'shader'" [shader]="'focus'" [uniforms]="{ screenWidth : 1024, screenHeight : 1024 }"></three-pass>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="50000">
+    <ngx3js-position [x]="0" [y]="700" [z]="7000"></ngx3js-position>
+    <!-- ngx3js-composer>
+      <ngx3js-pass [type]="'render'"></ngx3js-pass>
+      <ngx3js-pass [type]="'bloom'" [strength]="0.75"></ngx3js-pass>
+      <ngx3js-pass [type]="'film'" [noiseIntensity]="0.5" [scanlinesIntensity]="0.5" [scanlinesCount]="1448" [grayscale]="false"></ngx3js-pass>
+      <ngx3js-pass [type]="'shader'" [shader]="'focus'" [uniforms]="{ screenWidth : 1024, screenHeight : 1024 }"></ngx3js-pass>
     </!-->
-  </three-camera>
-  <three-scene #scene [background]="'0x000104'">
-    <three-fog [type]="'FogExp2'" [color]="'0x000104'" [density]="0.0000675"></three-fog>
-    <three-shared>
-      <three-geometry #male [storageName]="'models/obj/male02/male02.obj'" [storage2Buffer]="true"></three-geometry>
-      <three-geometry #female [storageName]="'models/obj/female02/female02.obj'" [storage2Buffer]="true"></three-geometry>
-    </three-shared>
-    <three-mesh [type]="'Points'">
-      <three-position [x]="0" [y]="-400" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry [type]="'Plane'" [width]="15000" [height]="15000" [widthSegments]="64" [heightSegments]="64"></three-geometry>
-      <three-material [type]="'Points'" [size]="40" [color]="'0xff0000'"></three-material>
-    </three-mesh>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of meshInfos;let idx=index;" [type]="'Points'" [geometry]="info.geoType == 'female' ? female : male"  (onLoad)="setGeometry(idx, $event)">
-        <three-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></three-position>
-        <three-scale [multiply]="info.scale"></three-scale>
-        <three-material [type]="'Points'" [size]="30" [color]="info.color"></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x000104'">
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0x000104'" [density]="0.0000675"></ngx3js-fog>
+    <ngx3js-shared>
+      <ngx3js-geometry #male [storageName]="'models/obj/male02/male02.obj'" [storage2Buffer]="true"></ngx3js-geometry>
+      <ngx3js-geometry #female [storageName]="'models/obj/female02/female02.obj'" [storage2Buffer]="true"></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh [type]="'Points'">
+      <ngx3js-position [x]="0" [y]="-400" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry [type]="'Plane'" [width]="15000" [height]="15000" [widthSegments]="64" [heightSegments]="64"></ngx3js-geometry>
+      <ngx3js-material [type]="'Points'" [size]="40" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of meshInfos;let idx=index;" [type]="'Points'" [geometry]="info.geoType == 'female' ? female : male"  (onLoad)="setGeometry(idx, $event)">
+        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+        <ngx3js-material [type]="'Points'" [size]="30" [color]="info.color"></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

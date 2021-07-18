@@ -36,7 +36,7 @@ var ShaderComponent = /** @class */ (function () {
     ], ShaderComponent.prototype, "refShader");
     ShaderComponent = __decorate([
         core_1.Component({
-            selector: 'three-shader',
+            selector: 'ngx3js-shader',
             templateUrl: './shader.component.html',
             styleUrls: ['./shader.component.scss']
         })

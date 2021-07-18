@@ -6,7 +6,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
 @Component({
-  selector: 'three-tools',
+  selector: 'ngx3js-tools',
   templateUrl: './tools.component.html',
   styleUrls: ['./tools.component.scss'],
 })

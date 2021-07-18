@@ -345,7 +345,7 @@ var AudioComponent = /** @class */ (function () {
     ], AudioComponent.prototype, "mixer");
     AudioComponent = AudioComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-audio',
+            selector: 'ngx3js-audio',
             templateUrl: './audio.component.html',
             styleUrls: ['./audio.component.scss']
         })

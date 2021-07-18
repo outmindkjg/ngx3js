@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-shader',
+  selector: 'ngx3js-shader',
   templateUrl: './shader.component.html',
   styleUrls: ['./shader.component.scss'],
 })

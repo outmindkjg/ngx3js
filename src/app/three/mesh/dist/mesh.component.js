@@ -971,7 +971,7 @@ var MeshComponent = /** @class */ (function (_super) {
     ], MeshComponent.prototype, "lights");
     MeshComponent = MeshComponent_1 = __decorate([
         core_1.Component({
-            selector: 'three-mesh',
+            selector: 'ngx3js-mesh',
             templateUrl: './mesh.component.html',
             styleUrls: ['./mesh.component.scss']
         })

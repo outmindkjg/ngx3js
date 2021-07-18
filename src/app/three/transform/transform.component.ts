@@ -4,7 +4,7 @@ import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
-  selector: 'three-transform',
+  selector: 'ngx3js-transform',
   templateUrl: './transform.component.html',
   styleUrls: ['./transform.component.scss']
 })

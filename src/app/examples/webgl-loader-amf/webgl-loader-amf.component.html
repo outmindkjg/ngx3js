@@ -4,7 +4,7 @@
   <div>AMF loader test by <a href="https://github.com/tamarintech" target="_blank" rel="noopener">tamarintech</a></div>
   <div>Rook manufacturing file from <a href="http://amf.wikispaces.com/AMF+test+files" target="_blank" rel="noopener">AMF test files</a></div>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -14,42 +14,42 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="1.2" [z]="2"></three-lookat>
-  <three-scene #scene [background]="'0x999999'">
-    <three-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-      <three-position [x]="0" [y]="0" [z]="1" [type]="'up'"></three-position>
-      <three-position [x]="0" [y]="-9" [z]="6"></three-position>
-      <three-lookat [x]="0" [y]="1.2" [z]="2"></three-lookat>
-      <three-light
+  <ngx3js-lookat [x]="0" [y]="1.2" [z]="2"></ngx3js-lookat>
+  <ngx3js-scene #scene [background]="'0x999999'">
+    <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+      <ngx3js-position [x]="0" [y]="0" [z]="1" [type]="'up'"></ngx3js-position>
+      <ngx3js-position [x]="0" [y]="-9" [z]="6"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="1.2" [z]="2"></ngx3js-lookat>
+      <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
         [intensity]="0.8"
       >
-      </three-light>
-    </three-camera>
-      <three-light
+      </ngx3js-light>
+    </ngx3js-camera>
+      <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x999999'"
     >
-    </three-light>
-    <three-helper [type]="'Grid'" [size]="50" [divisions]="50" [color1]="'0x444444'" [color2]="'0x888888'">
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-    </three-helper>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/amf/rook.amf'">
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+    </ngx3js-light>
+    <ngx3js-helper [type]="'Grid'" [size]="50" [divisions]="50" [color1]="'0x444444'" [color2]="'0x888888'">
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+    </ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/amf/rook.amf'">
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="100"
         [height]="100"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [depthWrite]="false"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

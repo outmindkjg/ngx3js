@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
   <a href="https://github.com/google/draco" target="_blank" rel="noopener">DRACO</a> loader
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -13,45 +13,45 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0.1" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="35" [near]="0.1" [far]="15">
-    <three-position [x]="0" [y]="0.25" [z]="0.5"></three-position>
-    <three-lookat [x]="0" [y]="0.1" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene [background]="'0x443333'">
-    <three-fog [color]="'0x443333'" [near]="1" [far]="4" ></three-fog>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0.1" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="0.1" [far]="15">
+    <ngx3js-position [x]="0" [y]="0.25" [z]="0.5"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0.1" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x443333'">
+    <ngx3js-fog [color]="'0x443333'" [near]="1" [far]="4" ></ngx3js-fog>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x111122'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Spot'"
       [angle]="11.25"
       [penumbra]="0.5"
       [distance]="1000"
       [castShadow]="true"
     >
-      <three-position [x]="-1" [y]="1" [z]="1"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/draco/bunny.drc'" [receiveShadow]="true">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-material [type]="'MeshStandard'" [color]="'0x606060'"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="0.03" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      <ngx3js-position [x]="-1" [y]="1" [z]="1"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/draco/bunny.drc'" [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-material [type]="'MeshStandard'" [color]="'0x606060'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="0.03" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="8"
         [height]="8"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshPhong'"
         [color]="'0x999999'"
         [specular]="'0x101010'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

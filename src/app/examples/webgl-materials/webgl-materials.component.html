@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl materials
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
@@ -11,24 +11,24 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <three-position [x]="0" [y]="200" [z]="1000"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+    <ngx3js-position [x]="0" [y]="200" [z]="1000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'Ambient'"
       [color]="'0x111111'"
     >
-    </three-light>
-    <three-light
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
       [intensity]="0.125"
     >
-      <three-position [x]="1" [y]="0" [z]="0" [normalize]="true"></three-position>
-    </three-light>
-    <three-mesh
+      <ngx3js-position [x]="1" [y]="0" [z]="0" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh
       [type]="'light'"
       [lightOptions]="{
         type : 'point',
@@ -36,42 +36,42 @@
         intensity : 1
       }"
     >
-      <three-position [x]="pointLightPosition.x" [y]="pointLightPosition.y" [z]="pointLightPosition.z"></three-position>
-      <three-mesh>
-        <three-geometry
+      <ngx3js-position [x]="pointLightPosition.x" [y]="pointLightPosition.y" [z]="pointLightPosition.z"></ngx3js-position>
+      <ngx3js-mesh>
+        <ngx3js-geometry
           [type]="'Sphere'"
           [radius]="4"
           [width]="8"
           [height]="8"
-        ></three-geometry>
-        <three-material
+        ></ngx3js-geometry>
+        <ngx3js-material
           [type]="'MeshBasic'"
           [color]="'0xffffff'"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-    <three-shared>
-      <three-geometry
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-shared>
+      <ngx3js-geometry
         #sphereGeometry
         [type]="'Sphere'"
         [radius]="70"
         [widthSegments]="32"
         [heightSegments]="16"
-      ></three-geometry>
-      <three-texture 
+      ></ngx3js-geometry>
+      <ngx3js-texture 
         #texture
         [width]="256" [height]="256" [program]="canvasProgram"
-      ></three-texture>
-    </three-shared>
-    <three-helper [type]="'Grid'" [size]="1000" [divisions]="40" [color1]="'0x303030'" [color2]="'0x303030'">
-      <three-position [x]="0" [y]="-75" [z]="0"></three-position>
-    </three-helper>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-mesh *ngFor="let mesh of meshInfos" [geometry]="sphereGeometry">
-        <three-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></three-position>
-        <three-rotation [x]="mesh.rotation.x" [y]="mesh.rotation.y" [z]="mesh.rotation.z"></three-rotation>
-        <three-material 
+      ></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-helper [type]="'Grid'" [size]="1000" [divisions]="40" [color1]="'0x303030'" [color2]="'0x303030'">
+      <ngx3js-position [x]="0" [y]="-75" [z]="0"></ngx3js-position>
+    </ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-mesh *ngFor="let mesh of meshInfos" [geometry]="sphereGeometry">
+        <ngx3js-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></ngx3js-position>
+        <ngx3js-rotation [x]="mesh.rotation.x" [y]="mesh.rotation.y" [z]="mesh.rotation.z"></ngx3js-rotation>
+        <ngx3js-material 
           [type]="mesh.material.type" 
           [map]="mesh.material.map ? texture : null"          
           [transparent]="mesh.material.transparent"
@@ -83,8 +83,8 @@
           [wireframe]="mesh.material.wireframe"
           [emissive]="mesh.material.emissive"
           [opacity]="mesh.material.opacity"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

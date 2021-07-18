@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - texture rotation
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,21 +11,21 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <three-position [x]="10" [y]="15" [z]="25"></three-position>
-  </three-camera>
-  <three-scene #scene >
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+    <ngx3js-position [x]="10" [y]="15" [z]="25"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene >
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'box'"
         [width]="10"
         [height]="10"
         [depth]="10"
-      ></three-geometry>
-      <three-material [type]="'MeshBasicMaterial'">
-        <three-texture 
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshBasicMaterial'">
+        <ngx3js-texture 
           [textureType]="'map'"
           [image]="'textures/uv_grid_opengl.jpg'"
           [wrap]="'RepeatWrapping'"
@@ -37,8 +37,8 @@
           [centerY]="controls.centerY"
           [rotation]="controls.rotation"
           [anisotropy]="16"
-        ></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

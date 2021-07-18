@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - ascii
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,48 +12,48 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <three-position [x]="0" [y]="150" [z]="500"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-composer [type]="'AsciiEffect'" [invert]="true"></three-composer>
-  <three-scene #scene [background]="'0x000000'">
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="150" [z]="500"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-composer [type]="'AsciiEffect'" [invert]="true"></ngx3js-composer>
+  <ngx3js-scene #scene [background]="'0x000000'">
+    <ngx3js-light
       [type]="'Point'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="500" [y]="500" [z]="500"></three-position>
-    </three-light>
-    <three-light
+      <ngx3js-position [x]="500" [y]="500" [z]="500"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-light
       [type]="'Point'"
       [color]="'0xffffff'"
       [intensity]="0.25"
     >
-      <three-position [x]="-500" [y]="-500" [z]="-500"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+      <ngx3js-position [x]="-500" [y]="-500" [z]="-500"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'Sphere'"
         [radius]="200"
         [widthSegments]="20"
         [heightSegments]="10"
-      ></three-geometry>
-      <three-material [type]="'MeshPhong'" [flatShading]="true"></three-material>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-200" [z]="0"></three-position>
-      <three-rotation [x]="-90" [y]="0" [z]="0"></three-rotation>
-      <three-geometry
+      ></ngx3js-geometry>
+      <ngx3js-material [type]="'MeshPhong'" [flatShading]="true"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-200" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-geometry
         [type]="'Plane'"
         [width]="400"
         [height]="400"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'MeshBasic'"
         [color]="'0xe0e0e0'"
-      ></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

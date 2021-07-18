@@ -249,7 +249,7 @@ var SceneComponent = /** @class */ (function (_super) {
     ], SceneComponent.prototype, "mixer");
     SceneComponent = __decorate([
         core_1.Component({
-            selector: 'three-scene',
+            selector: 'ngx3js-scene',
             templateUrl: './scene.component.html',
             styleUrls: ['./scene.component.scss']
         })

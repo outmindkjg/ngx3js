@@ -4,7 +4,7 @@
   <a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener">theblueturtle_</a><br />
   <a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 2 , maxDistance: 10 }"
   [statsMode]="0"
@@ -14,15 +14,15 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="-0.2"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-    <three-position [x]="-1.8" [y]="0.6" [z]="2.7"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="-0.2"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-material [materialType]="'background-environment-angular'" [storageName]="'textures/equirectangular/royal_esplanade_1k.hdr'"></three-material>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="-0.2"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+    <ngx3js-position [x]="-1.8" [y]="0.6" [z]="2.7"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="-0.2"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-material [materialType]="'background-environment-angular'" [storageName]="'textures/equirectangular/royal_esplanade_1k.hdr'"></ngx3js-material>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

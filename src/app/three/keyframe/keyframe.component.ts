@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 
 @Component({
-  selector: 'three-keyframe',
+  selector: 'ngx3js-keyframe',
   templateUrl: './keyframe.component.html',
   styleUrls: ['./keyframe.component.scss'],
 })

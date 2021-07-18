@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl physically based material<br/>
   <a href="http://www.polycount.com/forum/showthread.php?t=130641" target="_blank" rel="noopener">Cerberus(FFVII Gun) model</a> by Andrew Maximov.
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -15,32 +15,32 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="1000">
-    <three-position [x]="0" [y]="0" [z]="2"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="hdrEquirect">
-    <three-shared>
-      <three-texture #hdrEquirect [storageName]="controls.environment" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'equirectangular'"></three-texture>
-    </three-shared>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="hdrEquirect">
+    <ngx3js-shared>
+      <ngx3js-texture #hdrEquirect [storageName]="controls.environment" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'equirectangular'"></ngx3js-texture>
+    </ngx3js-shared>
+    <ngx3js-light
       [type]="'HemisphereLight'"
       [skyColor]="'0x443333'"
       [groundColor]="'0x222233'"
       [intensity]="4"
-    ></three-light>
-    <three-mesh (onLoad)="setMesh($event)" [storageName]="'Cerberus.obj'" [storageOption]="{ path : 'models/obj/cerberus/'}">
-      <three-position [x]="-0.45" [y]="0" [z]="0"></three-position>
-      <three-rotation [x]="0" [y]="-90" [z]="0"></three-rotation>
-      <three-material [type]="'MeshStandardMaterial'"
+    ></ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'Cerberus.obj'" [storageOption]="{ path : 'models/obj/cerberus/'}">
+      <ngx3js-position [x]="-0.45" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
+      <ngx3js-material [type]="'MeshStandardMaterial'"
         [roughness]="1"
         [metalness]="1"
       >
-        <three-texture [textureType]="'map'" [image]="'models/obj/cerberus/Cerberus_A.jpg'" [encoding]="'sRGBEncoding'" [wrapS]="'RepeatWrapping'"></three-texture>
-        <three-texture [textureType]="'metalnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"></three-texture>
-        <three-texture [textureType]="'roughnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"></three-texture>
-        <three-texture [textureType]="'normalMap'" [image]="'models/obj/cerberus/Cerberus_N.jpg'" [wrapS]="'RepeatWrapping'"></three-texture>
-      </three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        <ngx3js-texture [textureType]="'map'" [image]="'models/obj/cerberus/Cerberus_A.jpg'" [encoding]="'sRGBEncoding'" [wrapS]="'RepeatWrapping'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'metalnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'roughnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"></ngx3js-texture>
+        <ngx3js-texture [textureType]="'normalMap'" [image]="'models/obj/cerberus/Cerberus_N.jpg'" [wrapS]="'RepeatWrapping'"></ngx3js-texture>
+      </ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

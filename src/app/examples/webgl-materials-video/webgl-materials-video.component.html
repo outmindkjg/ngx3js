@@ -2,7 +2,7 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl video demo<br/>
   playing <a href="http://durian.blender.org/" target="_blank" rel="noopener">sintel</a> trailer
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,35 +12,35 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
-    <three-position [x]="0" [y]="0" [z]="500"></three-position>
-  </three-camera>
-  <three-scene #scene>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [color]="'0xffffff'"
     >
-      <three-position [x]="0.5" [y]="1" [z]="1" [normalize]="true"></three-position>
-    </three-light>
-    <three-texture #texture [image]="'textures/sintel.mp4'" [loaderType]="'video'"></three-texture>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh *ngFor="let info of boxInfos" [userData]="{ dx : info.dx, dy : info.dy }">
-        <three-position [x]="info.x" [y]="info.y" [z]="info.z"></three-position>
-        <three-geometry 
+      <ngx3js-position [x]="0.5" [y]="1" [z]="1" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-texture #texture [image]="'textures/sintel.mp4'" [loaderType]="'video'"></ngx3js-texture>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngFor="let info of boxInfos" [userData]="{ dx : info.dx, dy : info.dy }">
+        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+        <ngx3js-geometry 
           [type]="'box'"
           [width]="info.xsize"
           [height]="info.ysize"
           [depth]="info.zsize"
           (onLoad)="setGeometry($event, info.ux, info.uy, info.ox, info.oy)"
-        ></three-geometry>
-        <three-material 
+        ></ngx3js-geometry>
+        <ngx3js-material 
           [type]="'MeshLambertMaterial'" 
           [color]="info.color" 
           [userData]="{ hue : info.hue, saturation : info.saturation }"
           [map]="texture"
-        ></three-material>
-      </three-mesh>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

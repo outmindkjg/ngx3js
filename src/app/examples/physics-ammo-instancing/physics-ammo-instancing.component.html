@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> physics - ammo.js instancing
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -12,25 +12,25 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0.5" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
-    <three-position [x]="-1" [y]="1.5" [z]="2"></three-position>
-  </three-camera>
-  <three-scene #scene [background]="'0x666666'">
-    <three-physics  [type]="'physics'" [gravity]="-9.8" (onLoad)="setPhysics($event)"></three-physics>
-    <three-light
+  <ngx3js-lookat [x]="0" [y]="0.5" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="-1" [y]="1.5" [z]="2"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x666666'">
+    <ngx3js-physics  [type]="'physics'" [gravity]="-9.8" (onLoad)="setPhysics($event)"></ngx3js-physics>
+    <ngx3js-light
       [type]="'Hemisphere'"
       [intensity]="0.35"
-    ></three-light>
-    <three-light
+    ></ngx3js-light>
+    <ngx3js-light
       [type]="'DirectionalLight'"
       [castShadow]="true"
       [shadowCameraZoom]="2"
     >
-      <three-position [x]="5" [y]="5" [z]="5"></three-position>
-    </three-light>
-    <three-mesh (onLoad)="setMesh($event)">
-      <three-mesh 
+      <ngx3js-position [x]="5" [y]="5" [z]="5"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh 
         [castShadow]="true" 
         [receiveShadow]="true" 
         [type]="'InstancedMesh'"
@@ -38,17 +38,17 @@
         [makeMatrix]="makeMatrix"
         [makeColor]="makeColor"
       >
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'box'"
           [width]="0.1"
           [height]="0.1"
           [depth]="0.1"
-        ></three-geometry>
-        <three-material [type]="'MeshLambertMaterial'"></three-material>
-        <three-rigidbody [mass]="1"></three-rigidbody>
-      </three-mesh>
-      <three-mesh 
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshLambertMaterial'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="1"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+      <ngx3js-mesh 
         [castShadow]="true" 
         [receiveShadow]="true" 
         [type]="'InstancedMesh'"
@@ -56,29 +56,29 @@
         [makeMatrix]="makeMatrix"
         [makeColor]="makeColor"
       >
-        <three-position [x]="0" [y]="0" [z]="0"></three-position>
-        <three-geometry
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
           [type]="'IcosahedronGeometry'"
           [radius]="0.075"
           [detail]="3"
-        ></three-geometry>
-        <three-material [type]="'MeshLambertMaterial'"></three-material>
-        <three-rigidbody [mass]="1"></three-rigidbody>
-      </three-mesh>
-    </three-mesh>
-    <three-mesh [receiveShadow]="true">
-      <three-position [x]="0" [y]="-2.5" [z]="0"></three-position>
-      <three-geometry
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshLambertMaterial'"></ngx3js-material>
+        <ngx3js-rigidbody [mass]="1"></ngx3js-rigidbody>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh [receiveShadow]="true">
+      <ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [type]="'BoxGeometry'"
         [width]="10"
         [height]="5"
         [depth]="10"
-      ></three-geometry>
-      <three-material
+      ></ngx3js-geometry>
+      <ngx3js-material
         [type]="'ShadowMaterial'"
         [color]="'0x111111'"
-      ></three-material>
-      <three-rigidbody [mass]="0"></three-rigidbody>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      ></ngx3js-material>
+      <ngx3js-rigidbody [mass]="0"></ngx3js-rigidbody>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

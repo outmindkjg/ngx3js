@@ -1,7 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 </div>
-<three-renderer
+<ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
@@ -11,21 +11,21 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  <three-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="10000">
-    <three-position [x]="9" [y]="9" [z]="9"></three-position>
-    <three-lookat [x]="0" [y]="0" [z]="0"></three-lookat>
-  </three-camera>
-  <three-scene #scene>
-    <three-mesh (onLoad)="setMesh($event)" [type]="'Instanced'" [count]="controls.count" [usage]="'DynamicDraw'">
-      <three-position [x]="0" [y]="0" [z]="0"></three-position>
-      <three-geometry
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="10000">
+    <ngx3js-position [x]="9" [y]="9" [z]="9"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
+  <ngx3js-scene #scene>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Instanced'" [count]="controls.count" [usage]="'DynamicDraw'">
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-geometry
         [storageName]="'models/json/suzanne_buffergeometry.json'"
         [computeVertexNormals]="true"
         [geometryScale]="0.5"
       >
-      </three-geometry>
-      <three-material [type]="'MeshNormal'"></three-material>
-    </three-mesh>
-  </three-scene>
-</three-renderer>
+      </ngx3js-geometry>
+      <ngx3js-material [type]="'MeshNormal'"></ngx3js-material>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>
