@@ -401,7 +401,7 @@ const routes: Routes = [
     path: 'docs',
     component: DocsComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'en/animation/tracks/BooleanKeyframeTrack' },
+      { path: '', pathMatch: 'full', redirectTo: 'manual/en/introduction/Creating-a-scene' },
       { path: '**', component: ApiReadComponent },
     ],
   },

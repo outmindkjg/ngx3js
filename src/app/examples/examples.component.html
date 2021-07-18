@@ -1,6 +1,7 @@
 <div id="example">
   <div id="panel" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
-    <app-menu [menuType]="'examples'"></app-menu>
+    <app-menu [menuType]="'examples'" #menu></app-menu>
+    <div id="panelScrim" (click)="menu.toggleMenu()"></div>
     <div id="contentWrapper">
       <div id="inputWrapper">
         <input
@@ -17,7 +18,6 @@
         />
         <div id="exitSearchButton" (click)="searchClear()"></div>
       </div>
-
       <div id="content" [ngClass]="minimal ? 'minimal' : 'maximal'">
         <img
           id="previewsToggler"

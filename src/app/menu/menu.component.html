@@ -1,8 +1,8 @@
-<div id="header">
+<div id="header" #header>
     <h1><a href="https://threejs.org">three.js<span>ngx</span></a></h1>
 
     <div id="sections">
         <a *ngFor="let menu of menuList" [routerLink]="'/' + menu.url" [ngClass]="menu.url === menuType ? 'selected' : ''">{{ menu.name }}</a>
     </div>
-
+    <div id="expandButton" #expandButton (click)="toggleMenu()"></div>
 </div>

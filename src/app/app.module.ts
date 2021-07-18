@@ -445,6 +445,7 @@ import { TranslationComponent } from './three/translation/translation.component'
 import { TweenComponent } from './three/tween/tween.component';
 import { ViewerComponent } from './three/viewer/viewer.component';
 import { VisualComponent } from './three/visual/visual.component';
+import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-exporter-usdz.component';
 
 
 
@@ -892,6 +893,7 @@ import { VisualComponent } from './three/visual/visual.component';
     KeyframeComponent,
     AnimationGroupComponent,
     WebglPortalComponent,
+    MiscExporterUsdzComponent,
     
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,HighlightModule],

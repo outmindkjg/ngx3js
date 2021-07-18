@@ -1,171 +1,165 @@
 @import 'assets/examples/files/main.scss';
 @import 'assets/examples/files/page.scss';
 
-@import 'assets/examples/files/prettify/prettify.scss';
 @import 'assets/examples/files/prettify/threejs.scss';
 
 @import '~highlight.js/styles/github.css';
 
-.debug {
-  display: block;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 0;
-  z-index: 10;
-}
-.canvas {
-  display: inline-block;
-}
 
-.three-canvas {
-  position: absolute;
-  perspective: 200px;
-  left: 0;
-  top: 0;
-  right: auto;
-  bottom: auto;
-}
-input.three-visual,
-textarea.three-visual,
-label.three-visual,
-form.three-visual > label {
-  display: block;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  resize: none;
-}
-.three-visual {
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  pointer-events: none;
-}
-
-#bottom,
-#info {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  font-size: 13px;
-  box-sizing: border-box;
-  text-align: center;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  z-index: 3;
-  a {
-    pointer-events: auto;
-    color: #ff0;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  &.dark {
-    color: #444;
-    a {
-      color: #08f;
-    }
-  }
-  .lbl {
-    text-align: left;
+#example #viewer-inner {
+  .debug {
+    display: block;
     position: absolute;
-    bottom: 5px;
-    z-index: 100;
-    text-shadow: #000 1px 1px 1px;
-    background-color: rgba(151, 80, 80, 0.85);
-    padding: 1em;
-    border: 2px solid #000;
-    .g {
-      color: #aaa;
-    }
-    .c {
-      color: #fa0;
-    }
-    &.canvas {
-      pointer-events: all;
-      padding: 0;
-      overflow: hidden;
-      > canvas {
-        background-color: white;
-      }
-      > button.clear-btn {
-        position: absolute;
-        left: 3px;
-        bottom: 3px;
-        border-radius: 2px;
-        border: 1px solid #909090;
-        font-size: 0.7em;
-        background-color: #ffffff;
-        margin: 0;
-        padding: 0;
-      }
-    }
-    &#lbl_left {
-      border-radius: 2px 15px 2px 2px;
-      left: 5px;
-    }
-    &#lbl_right {
-      border-radius: 15px 2px 2px 2px;
-      right: 5px;
-    }
-  }
-}
-
-#bottom {
-  position: absolute;
-  top: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-#docs,
-#example {
-  #viewer {
-    position: absolute;
-    border: 0px;
     left: 0;
     right: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    padding-left: var(--panel-width);
-    #viewer-inner {
-      position: relative;
-      box-sizing: border-box;
-      height: 100%;
-      overflow: hidden;
+    top: 0;
+    height: 0;
+    z-index: 10;
+  }
+  .canvas {
+    display: inline-block;
+  }
+
+  .three-canvas {
+    position: absolute;
+    perspective: 200px;
+    left: 0;
+    top: 0;
+    right: auto;
+    bottom: auto;
+  }
+  input.three-visual,
+  textarea.three-visual,
+  label.three-visual,
+  form.three-visual > label {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    resize: none;
+  }
+  .three-visual {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    pointer-events: none;
+  }
+
+  div.bottom,
+  div.info {
+    opacity: 0.6;
+    transition: opacity 0.5s;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 13px;
+    box-sizing: border-box;
+    text-align: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    p {
+      margin: 0.2em 0;
+    }
+    a {
+      pointer-events: auto;
+      color: #ff0;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &.dark {
+      color: #444;
+      a {
+        color: #08f;
+      }
+    }
+    .lbl {
+      text-align: left;
+      position: absolute;
+      bottom: 5px;
+      z-index: 100;
+      text-shadow: #000 1px 1px 1px;
+      background-color: rgba(151, 80, 80, 0.85);
+      padding: 1em;
+      border: 2px solid #000;
+      .g {
+        color: #aaa;
+      }
+      .c {
+        color: #fa0;
+      }
+      &.canvas {
+        pointer-events: all;
+        padding: 0;
+        overflow: hidden;
+        > canvas {
+          background-color: white;
+        }
+        > button.clear-btn {
+          position: absolute;
+          left: 3px;
+          bottom: 3px;
+          border-radius: 2px;
+          border: 1px solid #909090;
+          font-size: 0.7em;
+          background-color: #ffffff;
+          margin: 0;
+          padding: 0;
+        }
+      }
+      &#lbl_left {
+        border-radius: 2px 15px 2px 2px;
+        left: 5px;
+      }
+      &#lbl_right {
+        border-radius: 15px 2px 2px 2px;
+        right: 5px;
+      }
     }
   }
 
+  .bottom {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+#example #viewer-inner:hover {
+  div.bottom,
+  div.info {
+    opacity: 1;
+  }
+}
+
+div#example,
+div#docs {
+  height: 100%;
+  position: relative;
   a.button {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-
+    position: absolute;
+    right :1rem;
+    bottom :1rem;
+    z-index: 100;
     padding: 12px;
-    border-radius: 50%;
-    margin-bottom: 0px;
-
-    background-color: #fff;
-    opacity: 0.9;
-    z-index: 999;
-
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    border:var(--border-style);
+    background-color: var(--text-color);
   }
   a.button.download {
     bottom: 80px;
@@ -179,11 +173,46 @@ form.three-visual > label {
     width: var(--icon-size);
   }
   a.button.text {
-    border-radius: 25px;
     padding-right: 20px;
     padding-left: 20px;
     color: var(--color-blue);
     opacity: 1;
     font-weight: 500;
+  }
+  
+}
+
+div#example div#viewer #viewer-inner {
+  overflow: hidden;
+}
+div#viewer {
+  position: absolute;
+  border: 0px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-left: var(--panel-width);
+  #viewer-inner {
+    position: relative;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+
+
+/* mobile */
+
+@media all and (max-width: 640px) {
+  div#docs,
+  div#example {
+    div#viewer {
+      height: calc(100% - var(--header-height));
+      padding-left: 0;
+    }
   }
 }

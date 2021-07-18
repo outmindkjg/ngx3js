@@ -1,7 +1,7 @@
 <div id="docs">
-  <div id="panel" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
-    <app-menu [menuType]="'docs'"></app-menu>
-    <div id="panelScrim"></div>
+  <div id="panel" #panel [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
+    <app-menu [menuType]="'docs'" #menu></app-menu>
+    <div id="panelScrim" (click)="menu.toggleMenu()"></div>
     <div id="contentWrapper">
       <div id="inputWrapper">
         <input #search placeholder="" type="text" id="filterInput" autocorrect="off" autocapitalize="off" spellcheck="false" (keyup)="searchKeyUp()" (focus)="searchFocus()" (blur)="searchBlur()" />

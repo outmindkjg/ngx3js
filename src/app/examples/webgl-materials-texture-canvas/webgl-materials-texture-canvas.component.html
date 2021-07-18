@@ -1,8 +1,8 @@
-<div id="info">
+<div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - canvas as a texture
   <div>click and draw in the white box</div>
 </div>
-<div id="bottom">
+<div class="bottom">
   <canvas height="128" width="128" #canvas threeDrawingCanvas></canvas>
 </div>
 <three-renderer
@@ -10,7 +10,6 @@
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
@@ -20,7 +19,7 @@
   <three-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
     <three-position [x]="1" [y]="2" [z]="-3"></three-position>
   </three-camera>
-  <three-scene #scene [background]="'0xa0a0a0'">
+  <three-scene #scene>
     <three-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></three-fog>
     <three-light
       [type]="'Hemisphere'"

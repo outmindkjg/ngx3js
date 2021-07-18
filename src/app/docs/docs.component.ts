@@ -27,6 +27,8 @@ export interface SearchMenuTop {
 export class DocsComponent implements OnInit {
 
   @ViewChild('search') search: ElementRef;
+  @ViewChild('panel') panel: ElementRef;
+  
 
   private subscription: Subscription;
 
@@ -38,6 +40,7 @@ export class DocsComponent implements OnInit {
     });
   }
 
+  
   ngOnDestroy(): void {
     if (this.subscription !== null) {
       this.subscription.unsubscribe();
@@ -83,6 +86,7 @@ export class DocsComponent implements OnInit {
       if (selected !== null) {
         selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
+      this.panel.nativeElement.classList.remove('open');
     }, 1000);
   }
 
@@ -157,17 +161,99 @@ export class DocsComponent implements OnInit {
     this.checkSearch('');
   }
 
-  setList(response: any) {
+  setList(response: any, ngxResponse : any) {
     this.list = response;
-    this.checkLoadedPageInfo(this.list['en']);
+    Object.entries(ngxResponse).forEach(([locale, value]) => {
+      const parentObj =this.list[locale];
+      Object.entries(value).forEach(([key, ngxValue]) => {
+        parentObj[key] = ngxValue;
+      });
+    });
+    this.checkLoadedPageInfo(this.list['en'], [this.list['ar'], this.list['ko'], this.list['zh'], this.list['ja']]);
   }
 
-  checkLoadedPageInfo(object: any) {
+  docsAlias : {[key : string] : string[]} = {
+    "Manual": ["الكتيب", "手册", "매뉴얼", "マニュアル"],
+    "Getting Started": ["البدء", "起步", "시작하기", "はじめてみましょう"],
+    "Next Steps": ["الخطوات التالية", "进阶", "심화 과정", "次の段階"],
+    "Build Tools": ["أدوات البناء", "构建工具", "빌드 도구", "ビルドツール"],
+    "Reference": ["المرجع", "参考", "레퍼런스"],
+    "Animation": ["الحركات", "动画", "애니메이션"],
+    "Animation / Tracks": ["الحركات / Tracks", "动画 / 轨道", "애니메이션 / 트랙"],
+    "Audio": ["音频", "오디오"],
+    "Cameras": ["摄像机", "카메라"],
+    "Constants": ["常量", "상수"],
+    "Core": ["核心"],
+    "Core / BufferAttributes": ["核心 / BufferAttributes"],
+    "Extras": ["附件"],
+    "Extras / Core": ["附件 / 核心"],
+    "Extras / Curves": ["附件 / 曲线"],
+    "Extras / Objects": ["附件 / 物体"],
+    "Geometries": ["几何体"],
+    "Helpers": ["辅助对象"],
+    "Lights": ["灯光"],
+    "Lights / Shadows": ["灯光 / 阴影"],
+    "Loaders": ["加载器"],
+    "Loaders / Managers": ["加载器 / 管理器"],
+    "Materials": ["材质"],
+    "Math": ["数学库"],
+    "Math / Interpolants": ["数学库 / 插值"],
+    "Objects": ["物体"],
+    "Renderers": ["渲染器"],
+    "Renderers / Shaders": ["渲染器 / 着色器"],
+    "Renderers / WebXR": ["渲染器 / WebXR"],
+    "Scenes": ["场景"],
+    "Textures": ["纹理贴图"],
+    "Examples": ["示例"],
+    "Animations": ["动画"],
+    "Controls": ["控制", "컨트롤"],
+    "Post-Processing": ["后期处理"],
+    "Exporters": ["导出器"],
+    "ConvexHull": ["QuickHull"],
+    "Utils": ["实用工具"],
+    "Developer Reference": ["开发者参考"],
+    "Polyfills": ["差异化支持"],
+    "WebGLRenderer": ["WebGL渲染器"],
+    "ngx - Manual": ["الكتيب - ngx", "ngx - 手册", "ngx - 매뉴얼", "ngx - マニュアル"],
+    "ngx - Reference": ["المرجع - ngx", "ngx - 参考", "ngx - 레퍼런스"],
+    "ngx - Examples": ["ngx - 示例"],
+    "ngx - Developer Reference": ["ngx - 开发者参考"],
+  }
+
+  checkLoadedPageInfo(object: any, synkObj : any[]) {
     Object.entries(object).forEach(([key, value]) => {
       if (typeof value === 'string') {
         this.getSearchItem(key, value, '', '');
+        const refKey = /[\-A-z0-9]+$/.exec( value ).toString();
+        refKey.endsWith
+        synkObj.forEach(obj => {
+          let refFound = false;
+          Object.entries(obj as {[ key : string] : string}).forEach(([_, refValue]) => {
+            if (refValue.endsWith(refKey)) {
+              refFound = true;
+            }
+          });
+          if (!refFound) {
+            obj[key] = value;
+          }
+        })
       } else {
-        this.checkLoadedPageInfo(value);
+        const childSynkObj : any[] = [];
+        let aliasKey : string[] = this.docsAlias[key] || [];
+        synkObj.forEach(obj => {
+          let foundObj = null;
+          aliasKey.forEach(altKey => {
+            if (obj[altKey] !== undefined) {
+              foundObj = obj[altKey];
+            }
+          });
+          if (foundObj === null) {
+            obj[key] = value;
+          } else {
+            childSynkObj.push(foundObj);
+          }
+        })
+        this.checkLoadedPageInfo(value, childSynkObj);
       }
     });
   }
@@ -176,10 +262,14 @@ export class DocsComponent implements OnInit {
     if (this.list === null ) {
       this.http.get('assets/list.json').subscribe ( 
         response => { 
-          this.setList(response);
-          this.checkSearch(filter);
+          this.http.get('assets/ngx-list.json').subscribe ( 
+            ngxResponse => { 
+              this.setList(response, ngxResponse);
+              this.checkSearch(filter);
+            }
+          )
         }
-      )
+      );
       return ;
     }
     if (filter.split(' ').join('') === '') {
@@ -209,6 +299,9 @@ export class DocsComponent implements OnInit {
         if (child.children !== null && child.children.length > 0) {
           child.children.forEach((gchild) => {
             gchild.selected = gchild.id === this.menuId;
+            if (gchild.selected) {
+              document.title = gchild.name + ' :: Three.js docs + ngx';
+            }
           });
         }
       });
@@ -238,8 +331,14 @@ export class DocsComponent implements OnInit {
 
 
   private getSearchItem(name: string, url : string, keyword: string, parentId: string): SearchMenu {
-    const tags: string[] = url.toLowerCase().split('/');
-    if (keyword == '' || tags.indexOf(keyword) > -1 || name.indexOf(keyword) > -1) {
+    const tags: string[] = [];
+    url.toLowerCase().split('/').forEach(txt => {
+      tags.push(txt.toLowerCase());
+    });
+    tags.push(name);
+    tags.push(parentId);
+    const tagTxt = tags.join(' ');
+    if (keyword == '' || tagTxt.indexOf(keyword) > -1) {
       const itemTags: string[] = [];
       name.split(' ').forEach((key) => {
         if (parentId !== key && itemTags.indexOf(key) === -1) {
@@ -250,7 +349,7 @@ export class DocsComponent implements OnInit {
       if (url.startsWith('/docs/')) {
         url = url.substr(6);
       }
-      if (url.startsWith('manual/') || url.startsWith('api/')) {
+      if (url.startsWith('manual/') || url.startsWith('api/') || url.startsWith('ngxmanual/') || url.startsWith('ngxapi/')) {
         saveUrl = '/docs/' + url;
       } else {
         saveUrl = '/' + url;

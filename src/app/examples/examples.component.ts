@@ -70,7 +70,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
       if (selected !== null) {
         selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-    }, 1000);
+    }, 2000);
   }
 
   ngAfterViewInit() {}
@@ -158,6 +158,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     searchMenu.forEach((menu) => {
       menu.children.forEach((child) => {
         child.selected = child.id === this.menuId;
+        if (child.selected) {
+          document.title = child.name + ' :: Three.js examples + ngx';
+        }
       });
     });
     return searchMenu;

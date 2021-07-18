@@ -19,7 +19,9 @@
           "options": {
             "allowedCommonJsDependencies" : [
               "ammojs-typed",
-              "three/examples/js/libs/lottie_canvas"
+              "three/examples/js/libs/lottie_canvas",
+              "three/examples/js/libs/draco/draco_encoder",
+              "highlight.js"
             ],
             "outputPath": "dist/three-sample",
             "index": "src/index.html",

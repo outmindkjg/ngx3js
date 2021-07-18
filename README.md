@@ -311,7 +311,7 @@ ng g c examples/webgl_materials_variations_toon
 ng g c examples/webgl_materials_video
 ng g c examples/webgl_materials_video_webcam
 ng g c examples/webgl_materials_wireframe
-
+ng g c examples/misc-exporter-usdz
 
 ng g c examples/webgl_math_obb
 ng g c examples/webgl_math_orientation_transform
