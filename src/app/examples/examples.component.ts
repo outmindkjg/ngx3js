@@ -164,7 +164,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
           document.title = child.name + ' :: Three.js examples';
           this.gitHub.nativeElement.href = 'https://github.com/mrdoob/three.js/blob/master'+child.id+'.html';
           this.gitHub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub';
-          this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/ngx3js-sample/tree/master/src/app'+child.safeId+ '';
+          this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/three-sample/tree/master/src/app'+child.safeId+ '';
           this.ngxGithub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub ngx';
         }
       });

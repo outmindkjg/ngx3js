@@ -57,6 +57,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
         if (this.isIdEuals(this._object3d.userData.lookat)) {
           this._object3d.userData.lookat = this.id;
           this._object3d.lookAt(this.lookat);
+          this._object3d.updateMatrixWorld();
         }
       } else {
         this.lookat.copy(lookat);

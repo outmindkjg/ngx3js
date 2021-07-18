@@ -354,7 +354,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       } else if (this.camera instanceof THREE.PerspectiveCamera) {
         this.camera.aspect = this.getAspect(width, height);
         if (this.viewport && this.viewportType === 'camera') {
-          this.camera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+          this.camera['viewport'].set(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(window.devicePixelRatio);
         }
         this.camera.updateProjectionMatrix();
       }
@@ -442,14 +442,13 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           break;
         case 'perspectivecamera':
         case 'perspective':
-        case 'per':
         default:
           const perspectiveCamera = new THREE.PerspectiveCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.focalLength)) {
             perspectiveCamera.setFocalLength(ThreeUtil.getTypeSafe(this.focalLength, 35));
           }
           if (this.viewport && this.viewportType === 'camera') {
-            perspectiveCamera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+            perspectiveCamera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(window.devicePixelRatio);
           }
           this.camera = perspectiveCamera;
           break;
@@ -457,7 +456,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (this.parentObject3d instanceof THREE.ArrayCamera) {
         this.isCameraChild = true;
         this.parentObject3d.cameras.push(this.camera as THREE.PerspectiveCamera);
+        this.object3d = this.camera;
         this.setObject(this.camera);
+
       } else {
         this.isCameraChild = false;
         this.setObject3d(this.camera);
