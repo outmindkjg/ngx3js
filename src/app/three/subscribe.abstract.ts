@@ -135,7 +135,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected _needUpdate: boolean = true;
 
-  protected set needUpdate(value: boolean) {
+  public set needUpdate(value: boolean) {
     if (value && !this._needUpdate) {
       this._needUpdate = true;
       this.clearChanges();

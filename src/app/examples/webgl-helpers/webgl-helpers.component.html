@@ -35,19 +35,18 @@
       <ngx3js-mesh #baseMesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'" [storageOption]="{ onLoad : selectStoreMesh }">
         
       </ngx3js-mesh>
-      <ngx3js-helper [type]="'VertexNormals'" [size]="5" [target]="baseMesh"></ngx3js-helper>
-      <ngx3js-helper [type]="'VertexTangents'" [size]="5" [target]="baseMesh"></ngx3js-helper>
+      <ngx3js-helper [type]="'VertexNormals'" [size]="5" [target]="baseMesh" (onLoad)="setHelper($event,'normals')"></ngx3js-helper>
+      <ngx3js-helper [type]="'VertexTangents'" [size]="5" [target]="baseMesh" (onLoad)="setHelper($event,'tangents')"></ngx3js-helper>
       <ngx3js-helper [type]="'box'" [target]="baseMesh"></ngx3js-helper>
       <ngx3js-mesh [type]="'linesegments'">
-        <ngx3js-helper [type]="'box'"></ngx3js-helper>
         <ngx3js-position [x]="4" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'Wireframe'" [refGeometry]="baseMesh"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'Wireframe'" [refGeometry]="baseMesh" [refType]="'geometry'"></ngx3js-geometry>
         <ngx3js-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></ngx3js-material>
         <ngx3js-helper [type]="'box'"></ngx3js-helper>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'linesegments'">
         <ngx3js-position [x]="-4" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'Edges'" [refGeometry]="baseMesh"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'Edges'" [refGeometry]="baseMesh" [refType]="'geometry'"></ngx3js-geometry>
         <ngx3js-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></ngx3js-material>
         <ngx3js-helper [type]="'box'"></ngx3js-helper>
       </ngx3js-mesh>

@@ -1369,7 +1369,7 @@ export class ThreeUtil {
       return object3d as T;
     } else if (this.isNotNull(object3d.getMesh)) {
       const mesh : THREE.Object3D = object3d.getMesh();
-      if (this.isNotNull(mesh.userData.refTarget)) {
+      if (mesh !== null && this.isNotNull(mesh.userData.refTarget)) {
         return mesh.userData.refTarget as T;
       } else {
         return mesh as T;
@@ -1497,8 +1497,6 @@ export class ThreeUtil {
   static getGeometry(geometry: any): THREE.BufferGeometry {
     if (geometry instanceof THREE.BufferGeometry) {
       return geometry;
-    } else if (this.isNotNull(geometry.getGeometry)) {
-      return geometry.getGeometry();
     } else if (this.isNotNull(geometry)) {
       const mesh = this.getObject3d(geometry);
       if (mesh instanceof THREE.Mesh) {

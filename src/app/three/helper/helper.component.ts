@@ -393,7 +393,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
           const vertexMesh = this.getTarget(this.parent);
           if (vertexMesh instanceof THREE.Mesh && vertexMesh.geometry instanceof THREE.BufferGeometry && vertexMesh.geometry.attributes.normal) {
             vertexMesh.geometry.computeTangents();
-            this.parent.updateMatrixWorld( true );
+            // this.parent.updateMatrixWorld( true );
             if (ThreeUtil.isNotNull(vertexMesh.parent)) {
               vertexMesh.parent.updateMatrixWorld( true );
             }
@@ -408,7 +408,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
                 basemesh = new VertexNormalsHelper(vertexMesh, this.getSize(), this.getColorHex());
                 break;
             }
-            console.log(basemesh, vertexMesh);
           } else {
             basemesh = new THREE.AxesHelper(this.getSize(10));
           }

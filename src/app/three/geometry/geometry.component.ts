@@ -498,23 +498,21 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
     return ThreeUtil.getTypeSafe(this.thresholdAngle, def);
   }
 
-  private targetMesh: THREE.Mesh = null;
-
   private getSubGeometry(): THREE.BufferGeometry {
     let geometry : THREE.BufferGeometry = null;
-    if (this.targetMesh !== null) {
-      geometry = this.targetMesh.geometry;
-    } else if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
-      if (this.refGeometry.getGeometry) {
-        geometry = this.refGeometry.getGeometry();
-      }
+    this.unSubscribeRefer('subGeometry');
+    if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
+      geometry = ThreeUtil.getGeometry(this.refGeometry);
+      this.subscribeRefer('subGeometry', ThreeUtil.getSubscribe(this.refGeometry, () => {
+        this.needUpdate = true;
+      },'loaded'));
     } else if (this.geometryList !== null && this.geometryList.length > 0) {
       geometry = this.geometryList.first.getGeometry();
     }
     if (geometry !== null && ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
       return geometry;
     }
-    return new THREE.PlaneGeometry(1, 1, 1, 1);
+    return new THREE.PlaneGeometry(0.01, 0.01, 1, 1);
   }
 
   private getCurveSegments(def?: number): number {
@@ -958,21 +956,22 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
   private getMesh(def?: THREE.Mesh | any): THREE.Mesh {
     let value = ThreeUtil.getTypeSafe(this.mesh, def);
     let mesh: THREE.Object3D = null;
-    if (value.getMesh) {
-      mesh = value.getObject3d();
-    } else {
-      mesh = value;
+    if (ThreeUtil.isNotNull(value)) {
+      if (ThreeUtil.isNotNull(value.getObject3d)) {
+        mesh = value.getObject3d();
+      } else {
+        mesh = value;
+      }
+      while (mesh instanceof THREE.Group) {
+        mesh = mesh.children[0];
+      }
+      if (mesh instanceof THREE.Mesh) {
+        return mesh;
+      } else if (mesh.children.length > 0 && mesh.children[0] instanceof THREE.Mesh) {
+        return mesh.children[0] as THREE.Mesh;
+      }
     }
-    while (mesh instanceof THREE.Group) {
-      mesh = mesh.children[0];
-    }
-    if (mesh instanceof THREE.Mesh) {
-      return mesh;
-    } else if (mesh.children.length > 0 && mesh.children[0] instanceof THREE.Mesh) {
-      return mesh.children[0] as THREE.Mesh;
-    } else {
-      return null;
-    }
+    return null;
   }
 
   private getPositionV3(def?: THREE.Vector3): THREE.Vector3 {
@@ -1103,8 +1102,8 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
                         break;
                       case 'target':
                       case 'targetmesh':
+                      case 'geometry' :
                       default:
-                        this.targetMesh = ThreeUtil.getMesh(this.refGeometry);
                         this.needUpdate = true;
                         break;
                     }
@@ -1174,7 +1173,16 @@ export class GeometryComponent extends AbstractSubscribeComponent implements OnI
               this._meshGeometry.computeLineDistances();
             }
           }
-          this._meshGeometry.geometry = this.geometry;
+          if (this._meshGeometry instanceof THREE.LineSegments) {
+            if (this._meshGeometry.geometry !== this.geometry) {
+              const threeComponent = ThreeUtil.getThreeComponent(this._meshGeometry);
+              if (threeComponent !== null) {
+                threeComponent.needUpdate = true;
+              }
+            }
+          } else {
+            this._meshGeometry.geometry = this.geometry;
+          }
           if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
             this._meshGeometry.updateMorphTargets();
           }

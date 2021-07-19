@@ -13,18 +13,19 @@ export class WebglLoaderPcdComponent extends BaseComponent<{}> {
   }
 
   setKeyPress(event : RendererEvent) {
-    if (this.mesh !== null && this.mesh.storageSource !== null && this.mesh.storageSource !== undefined) {
-      const points = this.mesh.storageSource;
-      switch( event.event.key || String.fromCharCode( event.event.keyCode || event.event.charCode)) {
-        case '+':
+    if (this.meshObject3d !== null && this.meshObject3d.userData.storageSource !== null && this.meshObject3d.userData.storageSource !== undefined) {
+      const points = this.meshObject3d.userData.storageSource;
+      console.log(event.keyInfo.code);
+      switch( event.keyInfo.code) {
+        case 'Equal':
           points.material.size *= 1.2;
           points.material.needsUpdate = true;
           break;
-        case '-':
+        case 'Minus':
           points.material.size /= 1.2;
           points.material.needsUpdate = true;
           break;
-        case 'c':
+        case 'KeyC':
           points.material.color.setHex( Math.random() * 0xffffff );
           points.material.needsUpdate = true;
           break;

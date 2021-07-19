@@ -1223,7 +1223,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
         case 'linesegments':
           const lineSegments = new THREE.LineSegments(geometry, this.getMaterials());
           if (geometry.index === null) {
-            lineSegments.computeLineDistances();
+            // lineSegments.computeLineDistances();
           }
           lineSegments.castShadow = this.castShadow;
           basemesh = lineSegments;
