@@ -16,22 +16,8 @@
 		<p>Before you can use three.js, you need somewhere to display it. Save the following HTML to a file on your computer, along with a copy of [link:https://threejs.org/build/three.js three.js] in the js/ directory, and open it in your browser.</p>
 
 		<code>
-		&lt;!DOCTYPE html&gt;
-		&lt;html&gt;
-			&lt;head&gt;
-				&lt;meta charset="utf-8"&gt;
-				&lt;title&gt;My first three.js app&lt;/title&gt;
-				&lt;style&gt;
-					body { margin: 0; }
-				&lt;/style&gt;
-			&lt;/head&gt;
-			&lt;body&gt;
-				&lt;script src="js/three.js"&gt;&lt;/script&gt;
-				&lt;script&gt;
-					// Our Javascript will go here.
-				&lt;/script&gt;
-			&lt;/body&gt;
-		&lt;/html&gt;
+		&lt;ngx3js-renderer&gt;
+		&lt;/ngx3js-renderer&gt;
 		</code>
 
 		<p>That's all. All the code below goes into the empty &lt;script&gt; tag.</p>
@@ -41,12 +27,11 @@
 		<p>To actually be able to display anything with three.js, we need three things: scene, camera and renderer, so that we can render the scene with camera.</p>
 
 		<code>
-		const scene = new THREE.Scene();
-		const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
-		const renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		document.body.appendChild( renderer.domElement );
+		&lt;ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000"&gt;
+			&lt;ngx3js-position&gt; [x]="0" [y]="0" [z]="-5"&gt;&lt;/ngx3js-position&gt;
+		&lt;/ngx3js-camera&gt;
+		&lt;ngx3js-scene&gt; #scene [background]="'0xa0a0a0'"&gt;
+		&lt;/ngx3js-scene&gt;
 		</code>
 
 		<p>Let's take a moment to explain what's going on here. We have now set up the scene, our camera and the renderer.</p>
@@ -70,12 +55,16 @@
 		<p><em>"That's all good, but where's that cube you promised?"</em> Let's add it now.</p>
 
 		<code>
-		const geometry = new THREE.BoxGeometry();
-		const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		const cube = new THREE.Mesh( geometry, material );
-		scene.add( cube );
-
-		camera.position.z = 5;
+		&lt;ngx3js-mesh&gt;
+      &lt;ngx3js-position [x]="0" [y]="0" [z]="0"&gt;&lt;/ngx3js-position&gt;
+      &lt;ngx3js-geometry
+        [type]="'BoxGeometry'"
+        [width]="1"
+        [height]="1"
+        [depth]="1"
+      &gt;&lt;/ngx3js-geometry&gt;
+      &lt;ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x00ff00'"&gt;&lt;/ngx3js-material&gt;
+    &lt;/ngx3js-mesh&gt;
 		</code>
 
 		<p>To create a cube, we need a <strong>BoxGeometry</strong>. This is an object that contains all the points (<strong>vertices</strong>) and fill (<strong>faces</strong>) of the cube. We'll explore this more in the future.</p>
@@ -91,11 +80,7 @@
 		<p>If you copied the code from above into the HTML file we created earlier, you wouldn't be able to see anything. This is because we're not actually rendering anything yet. For that, we need what's called a <strong>render or animate loop</strong>.</p>
 
 		<code>
-		function animate() {
-			requestAnimationFrame( animate );
-			renderer.render( scene, camera );
-		}
-		animate();
+		Not Need any Code
 		</code>
 
 		<p>This will create a loop that causes the renderer to draw the scene every time the screen is refreshed (on a typical screen this means 60 times per second). If you're new to writing games in the browser, you might say <em>"why don't we just create a setInterval ?"</em> The thing is - we could, but <strong>requestAnimationFrame</strong> has a number of advantages. Perhaps the most important one is that it pauses when the user navigates to another browser tab, hence not wasting their precious processing power and battery life.</p>
@@ -120,45 +105,48 @@
 
 
 		<code>
-		&lt;!DOCTYPE html&gt;
-		&lt;html&gt;
-			&lt;head&gt;
-				&lt;meta charset="utf-8"&gt;
-				&lt;title&gt;My first three.js app&lt;/title&gt;
-				&lt;style&gt;
-					body { margin: 0; }
-				&lt;/style&gt;
-			&lt;/head&gt;
-			&lt;body&gt;
-				&lt;script src="js/three.js"&gt;&lt;/script&gt;
-				&lt;script&gt;
-					const scene = new THREE.Scene();
-					const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		---- HTML xxxxx.component.html 
+		&lt;ngx3js-renderer (onRender)="onRender($event)" &gt;
+			&lt;ngx3js-camera [type]="'perspective'" [fov]="75" [near]="0.1" [far]="1000"&gt;
+				&lt;ngx3js-position&gt; [x]="0" [y]="0" [z]="-5"&gt;&lt;/ngx3js-position&gt;
+			&lt;/ngx3js-camera&gt;
+			&lt;ngx3js-scene #scene [background]="'0xa0a0a0'"&gt;
+				&lt;ngx3js-mesh (onLoad)="setMesh($event)"&gt;
+					&lt;ngx3js-position [x]="0" [y]="0" [z]="0"&gt;&lt;/ngx3js-position&gt;
+					&lt;ngx3js-geometry
+						[type]="'BoxGeometry'"
+						[width]="1"
+						[height]="1"
+						[depth]="1"
+					&gt;&lt;/ngx3js-geometry&gt;
+					&lt;ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x00ff00'"&gt;&lt;/ngx3js-material&gt;
+				&lt;/ngx3js-mesh&gt;
+			&lt;/ngx3js-scene&gt;
+		&lt;/ngx3js-renderer&gt;
 
-					const renderer = new THREE.WebGLRenderer();
-					renderer.setSize( window.innerWidth, window.innerHeight );
-					document.body.appendChild( renderer.domElement );
 
-					const geometry = new THREE.BoxGeometry();
-					const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-					const cube = new THREE.Mesh( geometry, material );
-					scene.add( cube );
+		---- TS xxxxx.component.ts 
+		import { Component } from '@angular/core';
+		import * as THREE from 'three';
+		import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
-					camera.position.z = 5;
-
-					const animate = function () {
-						requestAnimationFrame( animate );
-
-						cube.rotation.x += 0.01;
-						cube.rotation.y += 0.01;
-
-						renderer.render( scene, camera );
-					};
-
-					animate();
-				&lt;/script&gt;
-			&lt;/body&gt;
-		&lt;/html&gt;
+		@Component({
+			selector: 'app-xxxx',
+			templateUrl: './xxxxx.component.html',
+			styleUrls: ['./xxxxx.component.scss']
+		})
+		export class XXXXXComponent {
+			private cube : THREE.Object3d = null;
+			setMesh(mesh : MeshComponent) {
+				this.cube = mesh.getMesh();
+			}
+			onRender(renderTimer : RendererTimer) {
+				if (this.cube !== null) {
+					this.cube.rotation.x += 0.01;
+					this.cube.rotation.y += 0.01;
+				}
+			}
+		}
 		</code>
 	</body>
 </html>

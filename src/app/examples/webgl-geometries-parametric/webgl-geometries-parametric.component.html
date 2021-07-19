@@ -17,7 +17,6 @@
     <ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
       <ngx3js-texture [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></ngx3js-texture>
     </ngx3js-material>
-    <ngx3js-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
   </ngx3js-shared>
   <ngx3js-scene #scene>
     <ngx3js-light
@@ -37,7 +36,7 @@
       </ngx3js-light>
     </ngx3js-camera>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-200" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Parametric'"
@@ -48,7 +47,7 @@
           [stacks]="10"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-scale [x]="5" [y]="5" [z]="5"></ngx3js-scale>
         <ngx3js-geometry
@@ -58,7 +57,7 @@
           [stacks]="20"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
         <ngx3js-geometry
@@ -68,7 +67,7 @@
           [stacks]="20"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
         <ngx3js-geometry
@@ -78,7 +77,7 @@
           [stacks]="20"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-200" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'parametrictorusknot'"
@@ -90,7 +89,7 @@
           [q]="3"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="0" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'parametricSphere'"
@@ -99,7 +98,7 @@
           [heightSegments]="10"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="200" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-scale  [x]="2" [y]="2" [z]="2"></ngx3js-scale>
         <ngx3js-geometry

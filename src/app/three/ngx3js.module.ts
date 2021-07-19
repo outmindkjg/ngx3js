@@ -49,6 +49,7 @@ import { TranslationComponent } from './translation/translation.component';
 import { TweenComponent } from './tween/tween.component';
 import { ViewerComponent } from './viewer/viewer.component';
 import { VisualComponent } from './visual/visual.component';
+import { RenderTargetComponent } from './render-target/render-target.component';
 
 const COMMON_PIPES = [];
 const COMMON_DIRECTIVES = [
@@ -100,7 +101,8 @@ const MODULE_COMPONENTS = [
   ControllerItemComponent,
   KeyframeComponent,
   PhysicsConstraintComponent,
-  RigidbodyNodeComponent
+  RigidbodyNodeComponent,
+  RenderTargetComponent
 ];
 
 /**

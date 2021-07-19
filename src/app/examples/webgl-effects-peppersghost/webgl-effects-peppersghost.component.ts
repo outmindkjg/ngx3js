@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 import * as THREE from 'three';
 
 @Component({
@@ -51,9 +51,13 @@ export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
         cube.position.z = Math.random() * 2 - 1;
         cube.scale.multiplyScalar( Math.random() + 0.5 );
         meshTree.add( cube );
-
       }
-
     } 
+  }
+
+  onRender(timer : RendererTimer) {
+    if (this.meshObject3d !== null) {
+      this.meshObject3d.rotation.y += 0.01 * 40 * timer.delta;
+    }
   }
 }

@@ -289,7 +289,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   setComposerSize(width: number, height: number) {
     this.composerWidth = width;
     this.composerHeight = height;
-    if (this.effectComposer !== null && this.effectComposer instanceof AsciiEffect) {
+    if (this.effectComposer !== null && (this.effectComposer instanceof AsciiEffect || this.effectComposer instanceof PeppersGhostEffect)) {
       this.effectComposer.setSize(this.composerWidth, this.composerHeight);
     }
   }

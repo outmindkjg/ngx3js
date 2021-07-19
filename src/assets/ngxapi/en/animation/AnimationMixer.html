@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>[name]  - AnimationMixer</h1>
 
 		<p class="desc">
 			The AnimationMixer is a player for animations on a particular object in the scene. When
@@ -19,34 +19,48 @@
 		</p>
 
 
-		<h2>Constructor</h2>
+		<h2>Ngx3js Tag</h2>
 
 
-		<h3>[name]( [param:Object3D rootObject] )</h3>
+		<h3>&lt;ngx3js-mixer&gt;&lt;/ngx3js-mixer&gt;</h3>
+
+
+		<h2>@Input Properties</h2>
+		<h3>[property:String type]</h3>
 		<p>
-			[page:Object3D rootObject] - the object whose animations shall be played by this mixer.<br />
+			mmd,mmdanimation,mmdanimationhelper -  <br>
+			mixer-  <br>
+			virtulous-  <br>
 		</p>
 
-
-		<h2>Properties</h2>
-
-
-		<h3>[property:Number time]</h3>
+		<h3>[property:String action]</h3>
 		<p>
-			The global mixer time (in seconds; starting with 0 on the mixer's creation).
+			Default Play Clip name
+		</p>
+
+		<h3>[property:Number fps]</h3>
+		<p>
+			Frame per second.
+		</p>
+
+		<h3>[property:Number duration]</h3>
+		<p>
+			The duration.
 		</p>
 
 		<h3>[property:Number timeScale]</h3>
 		<p>
-			A scaling factor for the global [page:.time mixer time].<br /><br />
-
-			Note: Setting the mixer's timeScale to 0 and later back to 1 is a possibility to pause/unpause
-			all actions that are controlled by this mixer.
+			The timeScale.
 		</p>
-
+		
+		<h2>@Output Properties</h2>
+		<h3>[property:Function onLoad]</h3>
+		<p>
+			(mixer : MixerComponent) => void;
+		</p>
+		
 
 		<h2>Methods</h2>
-
 
 		<h3>[method:AnimationAction clipAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
 		<p>
@@ -110,9 +124,8 @@
 
 		<h2>Source</h2>
 
-
 		<p>
-			[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
+			[link:https://github.com/outmindkjg/three-sample/tree/master/src/three/[path].ts src/three/[path].ts]
 		</p>
 	</body>
 </html>

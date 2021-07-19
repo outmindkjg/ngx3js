@@ -1,4 +1,4 @@
-import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -6,7 +6,6 @@ import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
-import { MixerComponent } from './../mixer/mixer.component';
 
 @Component({
   selector: 'ngx3js-camera',

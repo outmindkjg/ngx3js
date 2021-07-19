@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RendererComponent, ThreeUtil } from './../three';
-import { HttpClient } from "@angular/common/http";
 
 export interface SearchMenu {
   id: string;
@@ -39,6 +38,16 @@ export class DocsComponent implements OnInit {
         this.changeRouter(event.urlAfterRedirects || event.url);
       }
     });
+		console.log( [
+			'    __     __',
+			' __/ __\\  / __\\__   ____   _____   _____',
+			'/ __/  /\\/ /  /___\\/ ____\\/ _____\\/ _____\\  with NGX3JS',
+			'\\/_   __/ /   _   / /  __/ / __  / / __  /_   __   _____',
+			'/ /  / / /  / /  / /  / / /  ___/ /  ___/\\ _\\/ __\\/ _____\\',
+			'\\/__/  \\/__/\\/__/\\/__/  \\/_____/\\/_____/\\/__/ /  / /  ___/',
+			'                                         / __/  /  \\__  \\',
+			'                                         \\/____/\\/_____/'
+		].join( '\n' ) );
   }
 
   

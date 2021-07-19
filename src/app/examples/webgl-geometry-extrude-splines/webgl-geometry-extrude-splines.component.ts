@@ -28,7 +28,7 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
       extrusionSegments: 100,
       radiusSegments: 3,
       closed: true,
-      animationView: true,
+      animationView: false,
       lookAhead: false,
       cameraHelper: false,
       cameraSpeed : 1000

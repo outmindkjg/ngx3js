@@ -17,7 +17,6 @@
     <ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
       <ngx3js-texture [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></ngx3js-texture>
     </ngx3js-material>
-    <ngx3js-rotation (onLoad)="setRotation($event)" [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
   </ngx3js-shared>
   <ngx3js-scene #scene>
     <ngx3js-light
@@ -37,7 +36,7 @@
       </ngx3js-light>
     </ngx3js-camera>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-300" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Sphere'"
@@ -46,7 +45,7 @@
           [heightSegments]="10"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-100" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Icosahedron'"
@@ -54,7 +53,7 @@
           [detail]="1"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="100" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Octahedron'"
@@ -62,7 +61,7 @@
           [detail]="2"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="300" [y]="0" [z]="200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Tetrahedron'"
@@ -70,7 +69,7 @@
           [detail]="0"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-300" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Plane'"
@@ -80,7 +79,7 @@
           [heightSegments]="4"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-100" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Box'"
@@ -92,7 +91,7 @@
           [depthSegments]="4"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="100" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Circle'"
@@ -110,7 +109,7 @@
           [phiSegments]="5"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-300" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Cylinder'"
@@ -121,7 +120,7 @@
           [heightSegments]="5"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="-100" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Lathe'"
@@ -129,7 +128,7 @@
           [points]="points"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="100" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Torus'"
@@ -139,7 +138,7 @@
           [tubularSegments]="20"
         ></ngx3js-geometry>
       </ngx3js-mesh>
-      <ngx3js-mesh [material]="material" [rotation]="rotation">
+      <ngx3js-mesh [material]="material">
         <ngx3js-position [x]="300" [y]="0" [z]="-200"></ngx3js-position>
         <ngx3js-geometry
           [type]="'TorusKnot'"

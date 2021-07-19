@@ -1,4 +1,4 @@
-<div class="info">
+<div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes
 </div>
 <ngx3js-renderer
@@ -15,9 +15,8 @@
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'Orthographic'" [left]="-1" [right]="1" [top]="1" [bottom]="-1" [near]="1" [far]="10000" (onLoad)="setCamera($event)">
+  <ngx3js-camera [type]="'Orthographic'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
     <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0xf0f0f0'">
     <ngx3js-light

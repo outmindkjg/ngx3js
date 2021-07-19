@@ -13,11 +13,11 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
+    <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
   </ngx3js-camera>
+  <ngx3js-composer [type]="'PeppersGhostEffect'" [cameraDistance]="5"></ngx3js-composer>
   <ngx3js-scene #scene>
     <ngx3js-light
       [type]="'Hemisphere'"
@@ -41,7 +41,7 @@
       <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
     </ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry
         [type]="'box'"
         [width]="1"

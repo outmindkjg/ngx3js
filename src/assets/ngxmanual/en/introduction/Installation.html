@@ -29,23 +29,95 @@
 
 		<code>
 		npm install --save three
+		npm install --save ngx3js
 		</code>
 
+		<code>
+		/* app.modules.ts */
+		
+		import { NgModule } from '@angular/core';
+		import { Ngx3JsModule } from './three/ngx3js.module';
+
+		@NgModule({
+			~~~~~
+			imports: [Ngx3JsModule],
+			~~~~~
+		})
+		export class AppModule {}
+		</code>
+	
 		<p>
-			The package will be downloaded and installed. Then you're ready to import it in your code:
+			The package will be downloaded and installed. Then you're ready to import it in your code:<br>
+			Fix Some bug in ThreeJS (current Version 0.130.0)
 		</p>
 
 		<code>
-		// Option 1: Import the entire three.js core library.
-		import * as THREE from 'three';
-
-		const scene = new THREE.Scene();
-
-
-		// Option 2: Import just the parts you need.
-		import { Scene } from 'three';
-
-		const scene = new Scene();
+		node_modules/three/examples/jsm/misc/MorphAnimMesh.d.ts
+		node_modules/three/examples/jsm/utils/SceneUtils.d.ts
+		----------------------
+		node_modules/ammojs-typed/ammo/ammo.d.ts
+		7 + function castObject(obj1 : any, obj2 : any) : any;
+		----------------------
+		node_modules\three\examples\jsm\loaders\SVGLoader.d.ts
+		Line 6 :
+			Vector2
+		Line 40
+			static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
+			static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
+		----------------------
+		node_modules/three/examples/jsm/lines/WireframeGeometry2.d.ts
+		import {
+			BufferGeometry
+		} from '../../../src/Three';
+		import { LineSegmentsGeometry } from './LineSegmentsGeometry';
+		export class WireframeGeometry2 extends LineSegmentsGeometry {
+			constructor( geometry: BufferGeometry );
+			readonly sWireframeGeometry2: boolean;
+		}
+		----------------------
+		node_modules/three/examples/jsm/loaders/TiltLoader.js
+		const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
+		----------------------
+		node_modules\three\examples\jsm\loaders\VOXLoader.d.ts
+		export class VOXMesh extends Mesh {
+			constructor( chunk );
+		}
+		----------------------
+		node_modules\three\examples\jsm\math\OBB.d.ts
+		constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
+		intersectsOBB( obb: OBB, epsilon?: number ): boolean;
+		----------------------
+		node_modules\three\examples\jsm\modifiers\CurveModifier.d.ts
+		7		BufferGeometry,
+		43	constructor( count: Number, curveCount: Number, geometry: BufferGeometry, material: Material );
+		----------------------
+		node_modules/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts
+		modify( geometry: BufferGeometry, cutOffPoint: number, tryKeepNormals: boolean ): BufferGeometry;
+		----------------------
+		node_modules\three\examples\jsm\modifiers\SimplifyModifier.d.ts
+		modify( geometry: BufferGeometry , count: number ): BufferGeometry;
+		----------------------
+		node_modules\three\examples\jsm\objects\Water.d.ts
+		----------------------
+		node_modules\three\examples\jsm\objects\ShadowMesh.d.ts
+		constructor(mesh : Mesh);
+		----------------------
+		node_modules\three\examples\jsm\objects\Water2.d.ts
+		constructor( geometry: BufferGeometry, options: WaterOptions );
+		----------------------
+		node_modules/three/examples/jsm/postprocessing/SAOPass.d.ts
+			saoBlur: boolean;
+		----------------------
+		node_modules\three\examples\jsm\geometries\TeapotGeometry.d.ts
+		constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, body?: boolean, fitLid?: boolean, blinn?: boolean );
+		----------------------
+		node_modules\three\examples\jsm\utils\UVsDebug.d.ts
+		import { BufferGeometry } from '../../../src/Three';
+		export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasElement;
+		----------------------
+		node_modules\three\examples\jsm\exporters\OBJExporter.js
+		138 : } else if (vertices !== undefined){
+		----------------------
 		</code>
 
 		<p>
@@ -59,62 +131,6 @@
 		<p>
 			Learn more about npm modules from [link:https://eloquentjavascript.net/20_node.html#h_J6hW/SmL/a Eloquent JavaScript: Installing with npm].
 		</p>
-
-		<h2>Install from CDN or static hosting</h2>
-
-		<p>
-			The three.js library can be used without any build system, either by uploading files to your own web server or by using an existing CDN. Because the library relies on ES modules, any script that references it must use <em>type="module"</em> as shown below:
-		</p>
-
-		<code>
-		&lt;script type="module">
-
-		  // Find the latest version by visiting https://cdn.skypack.dev/three.
-
-		  import * as THREE from 'https://cdn.skypack.dev/three@&lt;version&gt;';
-
-		  const scene = new THREE.Scene();
-
-		&lt;/script>
-		</code>
-
-		<p>
-			Not all features are accessed through the <em>three</em> entrypoint. Other popular parts of the library — such as controls, loaders, and post-processing effects — must be imported from the [link:https://github.com/mrdoob/three.js/tree/dev/examples/jsm examples/jsm] subfolder. To learn more, see <em>Examples</em> below.
-		</p>
-
-
-		<h2>Examples</h2>
-
-		<p>
-			The core of three.js is focused on the most important components of a 3D engine. Many other useful components — such as controls, loaders, and post-processing effects — are part of the [link:https://github.com/mrdoob/three.js/tree/dev/examples/jsm examples/jsm] directory. They are referred to as "examples," because while you can use them off the shelf, they're also meant to be remixed and customized. These components are always kept in sync with the core library, whereas similar third-party packages on npm are maintained by different people and may not be up to date.
-		</p>
-
-		<p>
-			Examples do not need to be <em>installed</em> separately, but do need to be <em>imported</em> separately. If three.js was installed with npm, you can load the [page:OrbitControls] component with:
-		</p>
-
-
-		<code>
-		import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
-		const controls = new OrbitControls();
-		</code>
-
-		<p>
-			If three.js was installed from a CDN, use the same CDN to install other components:
-		</p>
-
-		<code>
-		&lt;script type="module">
-
-		  // Find the latest version by visiting https://cdn.skypack.dev/three.
-
-		  import { OrbitControls } from 'https://cdn.skypack.dev/three@&lt;version&gt;/examples/jsm/controls/OrbitControls.js';
-
-		  const controls = new OrbitControls();
-
-		&lt;/script>
-		</code>
 
 		<p>
 			It's important that all files use the same version. Do not import different examples from different versions, or use examples from a different version than the three.js library itself.

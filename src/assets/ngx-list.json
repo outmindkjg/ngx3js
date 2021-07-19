@@ -4,8 +4,6 @@
       "Getting Started": {
         "Creating a scene": "ngxmanual/en/introduction/Creating-a-scene",
         "Installation": "ngxmanual/en/introduction/Installation",
-        "Browser support": "ngxmanual/en/introduction/Browser-support",
-        "WebGL compatibility check": "ngxmanual/en/introduction/WebGL-compatibility-check",
         "How to run things locally": "ngxmanual/en/introduction/How-to-run-things-locally",
         "Drawing lines": "ngxmanual/en/introduction/Drawing-lines",
         "Creating text": "ngxmanual/en/introduction/Creating-text",

@@ -69,6 +69,7 @@ import { ShaderDemo12 } from './shader.demo12';
 import { ShaderDemo13 } from './shader.demo13';
 import { ShaderDemo14 } from './shader.demo14';
 import { ShaderDemo15 } from './shader.demo15';
+import { ShaderDemo16 } from './shader.demo16';
 import { ShaderDemo2 } from './shader.demo2';
 import { ShaderDemo3 } from './shader.demo3';
 import { ShaderDemo4 } from './shader.demo4';
@@ -327,6 +328,10 @@ export const ShaderConf: {
   demo15shader : ShaderDemo15,
   shaderdemo15 : "demo15shader",
   demo15 : "demo15shader",
+
+  demo16shader : ShaderDemo16,
+  shaderdemo16 : "demo16shader",
+  demo16 : "demo16shader",
 
   scalecolorshader : ScaleColor,
   scalecolor : "scalecolorshader",

@@ -14,12 +14,12 @@
 			[link:https://en.wikipedia.org/wiki/WebGL WebGL].
 		</p>
 
-		<h2>Constructor</h2>
+		<h2>Ngx3js Tag</h2>
 
 		<h3>[name]( [param:Object parameters] )</h3>
 		<p>
 		[page:Object parameters] - (optional) object with properties defining the renderer's behaviour.
-			The constructor also accepts no parameters at all. In all cases, it will assume sane defaults
+			The Ngx3js Tag also accepts no parameters at all. In all cases, it will assume sane defaults
 			when parameters are missing. The following are valid parameters:<br /><br />
 
 		[page:DOMElement canvas] - A [link:https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas canvas]
@@ -115,7 +115,7 @@
 		- [page:Method getMaxAnisotropy](): Returns the maximum available anisotropy.<br />
 		- [page:Method getMaxPrecision](): Returns the maximum available precision for vertex and fragment shaders. <br />
 		- [page:Boolean isWebGL2]: *true* if the context in use is a WebGL2RenderingContext object.<br />
-		- [page:Boolean logarithmicDepthBuffer]: *true* if the [page:parameter logarithmicDepthBuffer] was set to true in the constructor and
+		- [page:Boolean logarithmicDepthBuffer]: *true* if the [page:parameter logarithmicDepthBuffer] was set to true in the Ngx3js Tag and
 		the context supports the [link:https://developer.mozilla.org/en-US/docs/Web/API/EXT_frag_depth EXT_frag_depth] extension.
 			According to [link:https://webglstats.com/ WebGLStats], as of February 2016 around 66% of WebGL enabled devices support this.<br />
 		- [page:Integer maxAttributes]: The value of *gl.MAX_VERTEX_ATTRIBS*.<br />
@@ -147,7 +147,7 @@
 		<h3>[property:DOMElement domElement]</h3>
 		<p>
 		A [link:https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas canvas] where the renderer draws its output.<br />
-			This is automatically created by the renderer in the constructor (if not provided already);
+			This is automatically created by the renderer in the Ngx3js Tag (if not provided already);
 			you just need to add it to your page like so:<br />
 		<code>
 			document.body.appendChild( renderer.domElement );

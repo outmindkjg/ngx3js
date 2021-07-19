@@ -1,5 +1,5 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - helpers
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - helpers todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -27,9 +27,13 @@
     <ngx3js-helper [type]="'PolarGrid'" [radius]="200" [radials]="16" [circles]="8" [divisions]="64" [color1]="'0x0000ff'" [color2]="'0x808080'">
       <ngx3js-position [x]="200" [y]="-150" [z]="0"></ngx3js-position>
     </ngx3js-helper>
+    <ngx3js-shared>
+
+    </ngx3js-shared>
     <ngx3js-mesh #mainMesh (onLoad)="setMesh($event)">
       <ngx3js-scale [multiply]="30"></ngx3js-scale>
       <ngx3js-mesh #baseMesh [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'" [storageOption]="{ onLoad : selectStoreMesh }">
+        
       </ngx3js-mesh>
       <ngx3js-helper [type]="'VertexNormals'" [size]="5" [target]="baseMesh"></ngx3js-helper>
       <ngx3js-helper [type]="'VertexTangents'" [size]="5" [target]="baseMesh"></ngx3js-helper>

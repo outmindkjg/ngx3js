@@ -1,10 +1,5 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Skeletal Animation Blending (model from
-  <a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
-  >)<br />
-  Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0)
-  or (0,0,1)
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl_clipping
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -69,7 +64,7 @@
         [tubularSegments]="20"
       ></ngx3js-geometry>
       <ngx3js-material (onLoad)="setMaterial($event)"  [type]="'MeshPhong'" [color]="'0x80ee10'" [shininess]="100" [side]="'double'" [clipShadows]="true">
-          <ngx3js-plane  (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0"></ngx3js-plane>
+          <ngx3js-plane  (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0.8"></ngx3js-plane>
       </ngx3js-material>
     </ngx3js-mesh>
     <ngx3js-mesh [receiveShadow]="true">

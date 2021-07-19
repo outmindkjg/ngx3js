@@ -54,10 +54,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     this.unSubscribeRefer('target');
     let targetMesh: THREE.Object3D = null;
-    if (this.targetMesh !== null) {
-      targetMesh = ThreeUtil.getObject3d(this.targetMesh, false);
-    }
-    if (targetMesh === null && ThreeUtil.isNotNull(this.target)) {
+    if (ThreeUtil.isNotNull(this.target)) {
       targetMesh = ThreeUtil.getObject3d(this.target, false);
       this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
         this.needUpdate = true;
@@ -190,8 +187,6 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
   }
-
-  private targetMesh: THREE.Mesh = null;
 
   setUpdate() {
     const helper: any = this.helper;
@@ -397,24 +392,29 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'vertextangents':
           const vertexMesh = this.getTarget(this.parent);
           if (vertexMesh instanceof THREE.Mesh && vertexMesh.geometry instanceof THREE.BufferGeometry && vertexMesh.geometry.attributes.normal) {
+            vertexMesh.geometry.computeTangents();
+            this.parent.updateMatrixWorld( true );
+            if (ThreeUtil.isNotNull(vertexMesh.parent)) {
+              vertexMesh.parent.updateMatrixWorld( true );
+            }
             switch (this.type.toLowerCase()) {
               case 'vertextangentshelper':
               case 'vertextangents':
-                basemesh = new VertexTangentsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
+                basemesh = new VertexTangentsHelper(vertexMesh, this.getSize(), this.getColorHex());
                 break;
               case 'vertexnormalshelper':
               case 'vertexnormals':
               default:
-                basemesh = new VertexNormalsHelper(this.getTarget(this.parent), this.getSize(), this.getColorHex());
+                basemesh = new VertexNormalsHelper(vertexMesh, this.getSize(), this.getColorHex());
                 break;
             }
+            console.log(basemesh, vertexMesh);
           } else {
             basemesh = new THREE.AxesHelper(this.getSize(10));
           }
           break;
         case 'skeletonhelper':
         case 'skeleton':
-
           basemesh = new THREE.SkeletonHelper(this.getTarget(this.parent));
           break;
         case 'axeshelper':

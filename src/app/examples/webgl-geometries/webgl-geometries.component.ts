@@ -20,13 +20,8 @@ export class WebglGeometriesComponent extends BaseComponent<{}> {
     }
   }
 
-  rotation : RotationComponent = null;
-
-  setRotation(rotation : RotationComponent) {
-    this.rotation = rotation;
-  }
-
   onRender(timer : RendererTimer) {
+    super.onRender(timer);
     const elapsedTime = timer.elapsedTime / 10;
     if (this.camera !== null) {
       this.camera.setPosition(
@@ -40,12 +35,11 @@ export class WebglGeometriesComponent extends BaseComponent<{}> {
         0
       )
     }
-    if (this.rotation !== null) {
-      this.rotation.setRotation(
-        elapsedTime * 120,
-        elapsedTime * 90,
-        null
-      );
+    if (this.meshObject3d !== null && this.meshChildren !== null) {
+      this.meshChildren.forEach(child => {
+        child.rotation.x = elapsedTime * 5;
+        child.rotation.y = elapsedTime * 2.5;
+      });
     }
   }
 }

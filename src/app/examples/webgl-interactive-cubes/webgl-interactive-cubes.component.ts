@@ -20,7 +20,7 @@ export class WebglInteractiveCubesComponent extends BaseComponent<{}> {
   }[] = [];
   ngOnInit() {
     this.cubeInfos =[];
-    for ( let i = 0; i < 2000; i ++ ) {
+    for ( let i = 0; i < 1000; i ++ ) {
       this.cubeInfos.push({
         color : Math.random() * 0xffffff,
         position : {

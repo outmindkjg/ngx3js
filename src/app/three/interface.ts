@@ -1368,7 +1368,12 @@ export class ThreeUtil {
     if (object3d instanceof THREE.Object3D) {
       return object3d as T;
     } else if (this.isNotNull(object3d.getMesh)) {
-      return object3d.getMesh() as T;
+      const mesh : THREE.Object3D = object3d.getMesh();
+      if (this.isNotNull(mesh.userData.refTarget)) {
+        return mesh.userData.refTarget as T;
+      } else {
+        return mesh as T;
+      }
     } else if (this.isNotNull(object3d.getLight)) {
       return object3d.getLight() as T;
     } else if (this.isNotNull(object3d.getHelper)) {

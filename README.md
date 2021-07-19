@@ -53,6 +53,7 @@ ng g c three/physics
 ng g c three/physics/physics-constraint
 ng g c three/rigidbody
 ng g c three/rigidbody/rigidbody-node
+ng g c three/render-target
 
 ng g c three/control
 ng g c three/tools

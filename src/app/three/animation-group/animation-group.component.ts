@@ -1,8 +1,8 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { MixerComponent } from '../mixer/mixer.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
-import * as THREE from 'three';
 
 @Component({
   selector: 'ngx3js-animation-group',
@@ -10,7 +10,9 @@ import * as THREE from 'three';
   styleUrls: ['./animation-group.component.scss']
 })
 export class AnimationGroupComponent extends AbstractSubscribeComponent implements OnInit {
+  
   @Input() public name: string = '';
+  
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
   constructor() { 
