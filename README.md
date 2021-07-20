@@ -6,6 +6,8 @@ npm update ammojs-typed
 npm update three
 npm i @types/three
 npx typedoc --out docs
+npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
+npx typedoc --json 
 
 
 ng new my-app

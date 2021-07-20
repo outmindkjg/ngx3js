@@ -20,7 +20,7 @@
     ]
   },
   "typedocOptions" : {
-    "mode" : "modules",
+    "entryPoints": ["src/app/three/index.ts"],
     "out" : "docs"
   },
   "angularCompilerOptions" : {

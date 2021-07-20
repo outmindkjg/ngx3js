@@ -1532,13 +1532,17 @@ export class ThreeUtil {
   }
 
   static getGeometry(geometry: any): THREE.BufferGeometry {
-    if (geometry instanceof THREE.BufferGeometry) {
-      return geometry;
-    } else if (this.isNotNull(geometry)) {
-      const mesh = this.getObject3d(geometry);
-      if (mesh instanceof THREE.Mesh) {
-        if (this.isNotNull(mesh.geometry)) {
-          return mesh.geometry;
+    if (this.isNotNull(geometry)) {
+      if (geometry instanceof THREE.BufferGeometry) {
+        return geometry;
+      } else if (this.isNotNull(geometry.getGeometry)) {
+        return geometry.getGeometry();
+      } else {
+        const mesh = this.getObject3d(geometry);
+        if (mesh instanceof THREE.Mesh) {
+          if (this.isNotNull(mesh.geometry)) {
+            return mesh.geometry;
+          }
         }
       }
     }

@@ -10,7 +10,7 @@ export class DrawingCanvasDirective{
   drawingCanvas : HTMLCanvasElement = null;
   drawingContext : CanvasRenderingContext2D = null;
 
-  constructor(private ele : ElementRef) { 
+  constructor(ele : ElementRef) { 
     this.drawingCanvas = ele.nativeElement;
     const parentEle = document.createElement('div');
     parentEle.id = 'lbl_left';

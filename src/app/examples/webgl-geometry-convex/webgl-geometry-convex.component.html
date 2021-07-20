@@ -38,11 +38,11 @@
       >
       </ngx3js-material>
       <ngx3js-geometry #dodecahedron [type]="'Dodecahedron'" [radius]="10"></ngx3js-geometry>
-      <ngx3js-geometry #meshGeometry [type]="'convex'"  [pointsGeometry]="dodecahedron"></ngx3js-geometry>
+      <ngx3js-geometry [windowExport]="'convex'" #meshGeometry [type]="'convex'"  [pointsGeometry]="dodecahedron"></ngx3js-geometry>
     </ngx3js-shared>
     <ngx3js-helper [type]="'Axes'" [size]="10"></ngx3js-helper>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0" [castShadow]="true">
+      <ngx3js-mesh [windowExport]="'test'" [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0" [castShadow]="true">
       </ngx3js-mesh>
       <ngx3js-mesh [geometry]="meshGeometry" [renderOrder]="1">
         <ngx3js-material [refer]="meshMaterial" [side]="'Front'"></ngx3js-material>
