@@ -14,14 +14,42 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public name: string = null;
 
+
+  /**
+   * 
+   */
   @ContentChildren(VisualComponent) private visualList: QueryList<VisualComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
 
+
+  /**
+   * 
+   */
   private collection: HtmlCollection = {
     html: null,
     name: null,

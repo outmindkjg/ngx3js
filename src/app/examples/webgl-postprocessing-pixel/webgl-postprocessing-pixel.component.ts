@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer } from '../../three';
+import { AbstractGeometryComponent } from '../../three/geometry.abstract';
 import { SharedComponent } from '../../three/shared/shared.component';
 
 @Component({
@@ -29,7 +30,7 @@ export class WebglPostprocessingPixelComponent extends BaseComponent<{
     }, 100);
   }
   
-  geometries : GeometryComponent[] = null;
+  geometries : AbstractGeometryComponent[] = null;
 
   setMeshInfos(len : number) {
     this.meshInfos = [];
@@ -46,7 +47,7 @@ export class WebglPostprocessingPixelComponent extends BaseComponent<{
   }
 
   meshInfos : {
-    geometry : GeometryComponent,
+    geometry : AbstractGeometryComponent,
     color : string,
     scale : number,
     position : { x : number, y : number, z : number, multiply : number },

@@ -18,50 +18,216 @@ import { SceneComponent } from '../scene/scene.component';
   styleUrls: ['./composer.component.scss'],
 })
 export class ComposerComponent extends AbstractTweenComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private type: string = 'composer';
+
+  /**
+   * 
+   */
   @Input() private scene: THREE.Scene | SceneComponent = null;
+
+  /**
+   * 
+   */
   @Input() private camera: THREE.Camera | CameraComponent = null;
+
+  /**
+   * 
+   */
   @Input() private clear: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private viewport: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private viewportAspect: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private renderToScreen: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private x: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private y: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private width: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private height: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private scissorTest: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private scissorX: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private scissorY: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private scissorWidth: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private scissorHeight: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private reflectFromAbove: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private cameraDistance: number = null;
 
+  /**
+   * 
+   */
 	@Input() private charSet: string = null;
+
+  /**
+   * 
+   */
 	@Input() private resolution: number = null;
+
+  /**
+   * 
+   */
 	@Input() private scale: number = null;
+
+  /**
+   * 
+   */
 	@Input() private color: boolean = null;
+
+  /**
+   * 
+   */
 	@Input() private alpha: boolean = null;
+
+  /**
+   * 
+   */
 	@Input() private block: boolean = null;
+
+  /**
+   * 
+   */
 	@Input() private invert: boolean = null;
 
+  /**
+   * 
+   */
   @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
+
+  /**
+   * 
+   */
   @Input() private useRenderTarget: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private renderTargetType: string = "WebGLRenderTarget";
+
+  /**
+   * 
+   */
   @Input() private wrap: string = null;
+
+  /**
+   * 
+   */
   @Input() private wrapS: string = null;
+
+  /**
+   * 
+   */
   @Input() private wrapT: string = null;
+
+  /**
+   * 
+   */
   @Input() private filter: string = null;
+
+  /**
+   * 
+   */
   @Input() private magFilter: string = null;
+
+  /**
+   * 
+   */
   @Input() private minFilter: string = null;
+
+  /**
+   * 
+   */
   @Input() private format: string = null;
+
+  /**
+   * 
+   */
   @Input() private dataType: string = null;
+
+  /**
+   * 
+   */
   @Input() private anisotropy: number = null;
+
+  /**
+   * 
+   */
   @Input() private encoding: string = null;
+
+  /**
+   * 
+   */
   @Input() private depthBuffer: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private stencilBuffer: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private generateMipmaps: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private depthTexture: any = null;
 
   private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {

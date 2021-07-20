@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { GeometriesVector3 } from '../geometry/geometry.component';
-import { ThreeUtil } from '../interface';
+import { ThreeUtil, ThreeVector } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
@@ -11,19 +10,75 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 })
 export class CurveComponent extends AbstractSubscribeComponent implements OnInit {
 
+
+  /**
+   * 
+   */
   @Input() public type:string = 'spline';
+
+  /**
+   * 
+   */
   @Input() private aX:number = null;
+
+  /**
+   * 
+   */
   @Input() private aY:number = null;
+
+  /**
+   * 
+   */
   @Input() private aRadius:number = null;
+
+  /**
+   * 
+   */
   @Input() private aStartAngle:number = null;
+
+  /**
+   * 
+   */
   @Input() private aEndAngle:number = null;
+
+  /**
+   * 
+   */
   @Input() private aClockwise:boolean = null;
-  @Input() private points:GeometriesVector3[] = null;
+
+  /**
+   * 
+   */
+  @Input() private points:ThreeVector[] = null;
+
+  /**
+   * 
+   */
   @Input() private closed:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private curveType:string = null;
+
+  /**
+   * 
+   */
   @Input() private tension:number = null;
+
+  /**
+   * 
+   */
   @Input() private xRadius:number = null;
+
+  /**
+   * 
+   */
   @Input() private yRadius:number = null;
+
+  /**
+   * 
+   */
   @Input() private aRotation:number = null;
 
   private getAX(def: number): number {
@@ -56,7 +111,7 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
     return aClockwise;
   }
 
-  private getPointsV3(def: GeometriesVector3[], min: number): THREE.Vector3[] {
+  private getPointsV3(def: ThreeVector[], min: number): THREE.Vector3[] {
     const points: THREE.Vector3[] = [];
     (this.points === null ? def : this.points).forEach(p => {
       points.push(new THREE.Vector3(p.x, p.y, p.z))
@@ -69,7 +124,7 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
     return points;
   }
 
-  private getPointsV2(def: GeometriesVector3[], min: number): THREE.Vector2[] {
+  private getPointsV2(def: ThreeVector[], min: number): THREE.Vector2[] {
     const points: THREE.Vector2[] = [];
     (this.points === null ? def : this.points).forEach(p => {
       points.push(new THREE.Vector2(p.x, p.y))

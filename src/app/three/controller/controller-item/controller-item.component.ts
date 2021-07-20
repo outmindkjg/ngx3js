@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CurveUtils, CurvesNormal } from '../../curve/curveUtils';
-import { RendererTimer, ThreeUtil } from '../../interface';
+import { RendererTimer, ThreeColor, ThreeUtil } from '../../interface';
 import { AbstractSubscribeComponent } from '../../subscribe.abstract';
 
 export interface ControlObjectItem {
@@ -19,56 +19,226 @@ export interface ControlObjectItem {
 	};
 }
 
-const aaa = new THREE.BufferGeometry();
-aaa.attributes
 @Component({
   selector: 'ngx3js-controller-item',
   templateUrl: './controller-item.component.html',
   styleUrls: ['./controller-item.component.scss'],
 })
 export class ControllerItemComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'position';
+
+  /**
+   * 
+   */
   @Input() private lookathead: number = null;
+
+  /**
+   * 
+   */
   @Input() private curve: string = null;
+
+  /**
+   * 
+   */
   @Input() private scale: number = null;
+
+  /**
+   * 
+   */
   @Input() private radius: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusInner: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusX: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusY: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotation: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationX: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationY: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private center: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerX: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerY: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private duration: number = 1;
+
+  /**
+   * 
+   */
   @Input() private delta: number = null;
+
+  /**
+   * 
+   */
   @Input() private multiply: number = null;
+
+  /**
+   * 
+   */
   @Input() private options: string = null;
+
+  /**
+   * 
+   */
   @Input() private visible: boolean = null;
-  @Input() private color: string | number | THREE.Color = null;
+
+  /**
+   * 
+   */
+  @Input() private color: ThreeColor = null;
+
+  /**
+   * 
+   */
   @Input() private opacity: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubularSegments: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubeRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubeRadiusSegments: number = null;
+
+  /**
+   * 
+   */
   @Input() private closed: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private material: string = null;
+
+  /**
+   * 
+   */
   @Input() private uniform: string = null;
+
+  /**
+   * 
+   */
   @Input() private wave: number = 0;
+
+  /**
+   * 
+   */
   @Input() private waveR: number = 0;
+
+  /**
+   * 
+   */
   @Input() private waveH: number = 0;
+
+  /**
+   * 
+   */
   @Input() private rate: number = 1;
+
+  /**
+   * 
+   */
   @Input() private rateX: number = null;
+
+  /**
+   * 
+   */
   @Input() private rateY: number = null;
+
+  /**
+   * 
+   */
   @Input() private rateZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private valueType: string = 'auto';
+
+  /**
+   * 
+   */
   @Input() private refValue: any = null;
+
+  /**
+   * 
+   */
   @Input() private minValue: number = 0;
+
+  /**
+   * 
+   */
   @Input() private maxValue: number = 1;
+
+  /**
+   * 
+   */
   @Input() private colorType: string = 'rgb';
+
+  /**
+   * 
+   */
   @Input() private refRate: any = null;
 
   private getCurve(): THREE.Curve<THREE.Vector3> {

@@ -20,41 +20,145 @@ export interface HtmlCollection {
   styleUrls: ['./visual.component.scss'],
 })
 export class VisualComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'div';
+
+  /**
+   * 
+   */
   @Input() public name: string = null;
+
+  /**
+   * 
+   */
   @Input() private childType: string = 'innerHTML';
+
+  /**
+   * 
+   */
   @Input() private src: string = null;
+
+  /**
+   * 
+   */
   @Input() private value: string | number = '';
+
+  /**
+   * 
+   */
   @Input() private inputType: string | number = 'text';
+
+  /**
+   * 
+   */
   @Input() private checked: string | number = 'false';
 
+
+  /**
+   * 
+   */
   @Input() private radioValues: {
     value?: string;
     text?: string;
   }[] = null;
 
+
+  /**
+   * 
+   */
   @Input() private selectOptions: {
     value?: string;
     text?: string;
   }[] = null;
 
+
+  /**
+   * 
+   */
   @Output() private change: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private click: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private dblclick: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private focus: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private keyup: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private keydown: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private load: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private select: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private mousedown: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private mouseout: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private mouseover: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private mousemove: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * 
+   */
   @Output() private mouseup: EventEmitter<any> = new EventEmitter<any>();
 
+
+  /**
+   * 
+   */
   @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
   // @ContentChildren(ControllerComponent, { descendants: false }) private controllerList: QueryList<ControllerComponent>;
 

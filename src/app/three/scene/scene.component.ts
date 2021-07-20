@@ -3,12 +3,12 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { ControllerComponent } from '../controller/controller.component';
 import { FogComponent } from '../fog/fog.component';
-import { TextureOption, ThreeUtil } from '../interface';
-import { MaterialComponent } from '../material/material.component';
+import { TextureOption, ThreeTexture, ThreeUtil } from '../interface';
+import { AbstractMaterialComponent } from '../material.abstract';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { PhysicsComponent } from '../physics/physics.component';
 import { RendererComponent } from '../renderer/renderer.component';
-import { TextureComponent } from '../texture/texture.component';
+import { AbstractTextureComponent } from '../texture.abstract';
 import { ViewerComponent } from '../viewer/viewer.component';
 import { RendererTimer } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
@@ -22,16 +22,57 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
   styleUrls: ['./scene.component.scss'],
 })
 export class SceneComponent extends AbstractObject3dComponent implements OnInit {
-  @Input() private storageName: string = null;
-  @Input() private background: string | TextureComponent | MaterialComponent | THREE.Texture | TextureOption | any = null;
-  @Input() private backgroundType: string = 'background';
-  @Input() private environment: string | MaterialComponent | MeshComponent = null;
 
+  /**
+   * 
+   */
+  @Input() private storageName: string = null;
+
+  /**
+   * If not null, sets the background used when rendering the scene, and is always rendered first.
+	 * Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
+   */
+  @Input() private background: ThreeTexture = null;
+
+  /**
+   * 
+   */
+  @Input() private backgroundType: string = 'background';
+
+  /**
+   * If not null, this texture is set as the environment map for all physical materials in the scene.
+   * However, it's not possible to overwrite an existing texture assigned to [page:MeshStandardMaterial.envMap]. Default is null.
+   */
+  @Input() private environment: ThreeTexture = null;
+
+  /**
+   * 
+   */
   @ContentChildren(PhysicsComponent, { descendants: false }) private physicsList: QueryList<PhysicsComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(RigidbodyComponent, { descendants: true }) private sceneRigidbodyList: QueryList<RigidbodyComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(MixerComponent, { descendants: true }) private sceneMixerList: QueryList<MixerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
 
   constructor(private localStorageService: LocalStorageService) {
@@ -206,12 +247,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  setMaterial(material: MaterialComponent | THREE.Material, materialTypeHint: string = null) {
+  setMaterial(material: AbstractMaterialComponent | THREE.Material, materialTypeHint: string = null) {
     if (this.scene !== null) {
-      const materialClone = material instanceof MaterialComponent ? material.getMaterial() : material;
+      const materialClone = material instanceof AbstractMaterialComponent ? material.getMaterial() : material;
       const map: THREE.Texture = materialClone['map'] && materialClone['map'] instanceof THREE.Texture ? materialClone['map'] : null;
       const color: THREE.Color = materialClone['color'] && materialClone['color'] instanceof THREE.Color ? materialClone['color'] : null;
-      const materialType = material instanceof MaterialComponent ? ThreeUtil.getTypeSafe(materialTypeHint, material.materialType, 'material') : materialTypeHint;
+      const materialType = material instanceof AbstractMaterialComponent ? ThreeUtil.getTypeSafe(materialTypeHint, material.materialType, 'material') : materialTypeHint;
       switch (materialType.toLowerCase()) {
         case 'environment':
         case 'background':
@@ -385,7 +426,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       } else {
         this.unSubscribeRefer('background');
         if (ThreeUtil.isNotNull(this.background)) {
-          if (this.background instanceof MaterialComponent) {
+          if (this.background instanceof AbstractMaterialComponent) {
             const materialBackground = this.background;
             this.setMaterial(materialBackground, this.backgroundType);
             this.subscribeRefer(
@@ -399,7 +440,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               )
             );
           } else if (ThreeUtil.isNotNull(this.background['getTexture'])) {
-            const textureBackground:TextureComponent = this.background as any;
+            const textureBackground:AbstractTextureComponent = this.background as any;
             this.setBackgroundTexture(textureBackground.getTexture(), this.backgroundType);
             this.subscribeRefer(
               'background',
@@ -417,12 +458,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
         }
         this.unSubscribeRefer('environment');
         if (ThreeUtil.isNotNull(this.environment)) {
-          if (this.environment instanceof MaterialComponent) {
+          if (this.environment instanceof AbstractMaterialComponent) {
             this.setMaterial(this.environment, 'environment');
             this.subscribeRefer(
               'environment',
               this.environment.getSubscribe().subscribe(() => {
-                this.setMaterial(this.environment as MaterialComponent, 'environment');
+                this.setMaterial(this.environment as AbstractMaterialComponent, 'environment');
               })
             );
           } else if (this.environment instanceof MeshComponent) {

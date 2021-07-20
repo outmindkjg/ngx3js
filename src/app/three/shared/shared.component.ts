@@ -1,13 +1,13 @@
 import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { AnimationGroupComponent } from '../animation-group/animation-group.component';
-import { GeometryComponent } from '../geometry/geometry.component';
+import { AbstractGeometryComponent } from '../geometry.abstract';
 import { HtmlComponent } from '../html/html.component';
 import { ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
-import { MaterialComponent } from '../material/material.component';
+import { AbstractMaterialComponent } from '../material.abstract';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { SvgComponent } from '../svg/svg.component';
-import { TextureComponent } from '../texture/texture.component';
+import { AbstractTextureComponent } from '../texture.abstract';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
 import { ControllerComponent } from './../controller/controller.component';
@@ -27,24 +27,100 @@ import { ScaleComponent } from './../scale/scale.component';
   styleUrls: ['./shared.component.scss'],
 })
 export class SharedComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit {
-  @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) private materialList: QueryList<MaterialComponent>;
-  @ContentChildren(TextureComponent, { descendants: false }) private textureList: QueryList<TextureComponent>;
+
+  /**
+   * 
+   */
+  @ContentChildren(AbstractGeometryComponent, { descendants: false }) private geometryList: QueryList<AbstractGeometryComponent>;
+
+  /**
+   * 
+   */
+  @ContentChildren(AbstractMaterialComponent, { descendants: false }) private materialList: QueryList<AbstractMaterialComponent>;
+
+  /**
+   * 
+   */
+  @ContentChildren(AbstractTextureComponent, { descendants: false }) private textureList: QueryList<AbstractTextureComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(AnimationGroupComponent, { descendants: false }) private animationGroupList: QueryList<AnimationGroupComponent>;
 
   constructor() {
@@ -207,15 +283,15 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     return this.sharedObj;
   }
 
-  getGeometryComponents(): GeometryComponent[] {
+  getGeometryComponents(): AbstractGeometryComponent[] {
     return this.getComponents(this.geometryList);
   }
 
-  getMaterialComponents(): MaterialComponent[] {
+  getMaterialComponents(): AbstractMaterialComponent[] {
     return this.getComponents(this.materialList);
   }
 
-  getTextureComponents(): TextureComponent[] {
+  getTextureComponents(): AbstractTextureComponent[] {
     return this.getComponents(this.textureList);
   }
 

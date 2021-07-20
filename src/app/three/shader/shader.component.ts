@@ -7,7 +7,15 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./shader.component.scss'],
 })
 export class ShaderComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'x-shader/x-fragment';
+
+  /**
+   * 
+   */
   @Input() private refShader: ShaderComponent = null;
 
   constructor(private ele: ElementRef) {

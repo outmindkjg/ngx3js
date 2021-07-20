@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
 import * as THREE from 'three';
-import { ThreeUtil } from '../interface';
+import { ThreeColor, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
@@ -10,19 +10,75 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./tween.component.scss'],
 })
 export class TweenComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public targets:string = null;
+
+  /**
+   * 
+   */
   @Input() private to:any = null;
+
+  /**
+   * 
+   */
   @Input() private duration:number = null;
+
+  /**
+   * 
+   */
   @Input() private easing:string = null;
+
+  /**
+   * 
+   */
   @Input() private template:string = null;
+
+  /**
+   * 
+   */
   @Input() private repeat:number = null;
+
+  /**
+   * 
+   */
   @Input() private yoyo:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private overshoot:number = null;
+
+  /**
+   * 
+   */
   @Input() private amplitude:number = null;
+
+  /**
+   * 
+   */
   @Input() private period:number = null;
+
+  /**
+   * 
+   */
   @Input() private linearRatio:number = null;
+
+  /**
+   * 
+   */
   @Input() private power:number = null;
+
+  /**
+   * 
+   */
   @Input() private yoyoMode:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private steps:number = null;
 
   private getDuration(def?: number): number {
@@ -186,18 +242,6 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
       default:
         return GSAP.Power0.easeNone;
     }
-  }
-
-  private getColor(color: string | number | THREE.Color): THREE.Color {
-    if (ThreeUtil.isNotNull(color)) {
-      const colorStr = color.toString();
-      if (colorStr.startsWith('0x')) {
-        return new THREE.Color(parseInt(colorStr, 16));
-      } else {
-        return new THREE.Color(color);
-      }
-    }
-    return undefined;
   }
 
   private getTargets(target : any, def?: string): any {

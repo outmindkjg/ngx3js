@@ -17,18 +17,70 @@ import { ViewerCanvas } from './viewer-canvas';
   styleUrls: ['./viewer.component.scss'],
 })
 export class ViewerComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private type: string = 'shadowmap';
+
+  /**
+   * 
+   */
   @Input() private light: LightComponent | MeshComponent | THREE.Light = null;
+
+  /**
+   * 
+   */
   @Input() private mesh: MeshComponent | HelperComponent | THREE.Mesh = null;
+
+  /**
+   * 
+   */
   @Input() private plane: MeshComponent | HelperComponent | THREE.Object3D | THREE.Plane = null;
+
+  /**
+   * 
+   */
   @Input() private x: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private y: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private width: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private height: number | string = '100%';
+
+  /**
+   * 
+   */
   @Input() private lightMapRes: number = 1024;
+
+  /**
+   * 
+   */
   @Input() private blendWindow: number = 200;
+
+  /**
+   * 
+   */
   @Input() private blurEdges: boolean = true;
+
+  /**
+   * 
+   */
   @Input() private debugLightmap: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private canvasOptions: any = null;
 
   private getLight(): THREE.Light {

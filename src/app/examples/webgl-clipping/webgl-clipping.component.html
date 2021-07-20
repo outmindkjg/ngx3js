@@ -54,7 +54,7 @@
     >
        <ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
       <ngx3js-position [x]="0" [y]="0.8" [z]="0"></ngx3js-position>
       <ngx3js-geometry
         [type]="'TorusKnot'"

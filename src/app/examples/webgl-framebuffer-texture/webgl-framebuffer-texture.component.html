@@ -35,7 +35,7 @@
       <ngx3js-position [x]="-300" [y]="300" [z]="1"></ngx3js-position>
       <ngx3js-scale [x]="textureSize" [y]="textureSize" [z]="1"></ngx3js-scale>
       <ngx3js-material [type]="'SpriteMaterial'">
-        <ngx3js-texture [textureType]="'map'" [data]="spriteData" [width]="textureSize" [height]="textureSize" [format]="'RGBFormat'" (onLoad)="setTexture($event)"></ngx3js-texture>
+        <ngx3js-texture [type]="'map'" [data]="spriteData" [width]="textureSize" [height]="textureSize" [format]="'RGBFormat'" (onLoad)="setTexture($event)"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>
     <ngx3js-mesh >

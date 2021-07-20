@@ -21,41 +21,181 @@ export interface RigidbodyType {
   styleUrls: ['./rigidbody.component.scss'],
 })
 export class RigidbodyComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'auto';
+
+  /**
+   * 
+   */
   @Input() private isSoftBody: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private width: number = null;
+
+  /**
+   * 
+   */
   @Input() private height: number = null;
+
+  /**
+   * 
+   */
   @Input() private depth: number = null;
+
+  /**
+   * 
+   */
   @Input() private radius: number = null;
+
+  /**
+   * 
+   */
   @Input() private mass: number = null;
+
+  /**
+   * 
+   */
   @Input() private margin: number = null;
+
+  /**
+   * 
+   */
   @Input() private friction: number = null;
+
+  /**
+   * 
+   */
   @Input() private rollingFriction: number = null;
+
+  /**
+   * 
+   */
   @Input() private restitution: number = null;
+
+  /**
+   * 
+   */
   @Input() private inertia: number = null;
+
+  /**
+   * 
+   */
   @Input() private inertiaX: number = null;
+
+  /**
+   * 
+   */
   @Input() private inertiaY: number = null;
+
+  /**
+   * 
+   */
   @Input() private inertiaZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private velocityX: number = null;
+
+  /**
+   * 
+   */
   @Input() private velocityY: number = null;
+
+  /**
+   * 
+   */
   @Input() private velocityZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private angularVelocityX: number = null;
+
+  /**
+   * 
+   */
   @Input() private angularVelocityY: number = null;
+
+  /**
+   * 
+   */
   @Input() private angularVelocityZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private velocityType: string = null;
+
+  /**
+   * 
+   */
   @Input() private damping: number = null;
+
+  /**
+   * 
+   */
   @Input() private linDamping: number = null;
+
+  /**
+   * 
+   */
   @Input() private angDamping: number = null;
+
+  /**
+   * 
+   */
   @Input() private breakable: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private collisions: number | string = null;
+
+  /**
+   * 
+   */
   @Input() private pressure: number = null;  
+
+  /**
+   * 
+   */
   @Input() private stiffness: number = null;  
+
+  /**
+   * 
+   */
   @Input() private linStiffness: number = null;  
+
+  /**
+   * 
+   */
   @Input() private angStiffness: number = null;  
+
+  /**
+   * 
+   */
   @Input() private viterations: number = null;  
+
+  /**
+   * 
+   */
   @Input() private piterations: number = null;  
+
+  /**
+   * 
+   */
   @Input() private randomizeConstraints: boolean = true;
 
+
+  /**
+   * 
+   */
   @ContentChildren(RigidbodyNodeComponent, { descendants: false }) private rigidbodyNodeList: QueryList<RigidbodyNodeComponent>;
 
   private getBoxHalfExtents(geometry: THREE.BufferGeometry, def?: THREE.Vector3): Ammo.btVector3 {

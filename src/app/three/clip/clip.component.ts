@@ -10,19 +10,75 @@ import { ThreeUtil } from './../interface';
   styleUrls: ['./clip.component.scss'],
 })
 export class ClipComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public name: string = '';
+
+  /**
+   * 
+   */
   @Input() private index: number = -1;
+
+  /**
+   * 
+   */
   @Input() private blendMode: string = '';
+
+  /**
+   * 
+   */
   @Input() private additive: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private subclip: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private startFrame: number = 2;
+
+  /**
+   * 
+   */
   @Input() private endFrame: number = 3;
+
+  /**
+   * 
+   */
   @Input() private fps: number = null;
+
+  /**
+   * 
+   */
   @Input() private weight: number = 1;
+
+  /**
+   * 
+   */
   @Input() private timeScale: number = 1;
+
+  /**
+   * 
+   */
   @Input() private duration: number = 3;
+
+  /**
+   * 
+   */
   @Input() private clampWhenFinished: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private loop: string = null;
+
+  /**
+   * 
+   */
   @ContentChildren(KeyframeComponent, { descendants: false }) private keyframeList: QueryList<KeyframeComponent>;
 
   private getBlendMode(def?: string): THREE.AnimationBlendMode {

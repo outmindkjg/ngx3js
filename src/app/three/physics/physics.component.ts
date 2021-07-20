@@ -12,12 +12,40 @@ import * as THREE from 'three';
   styleUrls: ['./physics.component.scss'],
 })
 export class PhysicsComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private type:string = "";
+
+  /**
+   * 
+   */
   @Input() private useCollision :boolean = false;
+
+  /**
+   * 
+   */
   @Input() private gravity:number = null;
+
+  /**
+   * 
+   */
   @Input() private gravityX:number = null;
+
+  /**
+   * 
+   */
   @Input() private gravityY:number = null;
+
+  /**
+   * 
+   */
   @Input() private gravityZ:number = null;
+
+  /**
+   * 
+   */
   @ContentChildren(PhysicsConstraintComponent, { descendants: false }) private constraintList: QueryList<PhysicsConstraintComponent>;
 
   private getGravity(def?: number): Ammo.btVector3 {

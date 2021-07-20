@@ -36,7 +36,7 @@
       >
         <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
       </ngx3js-mesh>
-      <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Soldier.glb'" [helperType]="'skeleton'">
+      <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Soldier.glb'" [helperType]="'skeleton'" [castShadow]="true">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
         <ngx3js-mixer (onLoad)="setMixer($event)" [action]="'walk'" [duration]="0.2">

@@ -1,8 +1,8 @@
-import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { TextureComponent } from '../texture/texture.component';
+import { AbstractTextureComponent } from '../texture.abstract';
 import { TagAttributes, ThreeUtil } from './../interface';
 
 @Component({
@@ -12,38 +12,185 @@ import { TagAttributes, ThreeUtil } from './../interface';
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }],
 })
 export class LightComponent extends AbstractObject3dComponent implements OnInit {
+
+  /**
+   * The type of light
+   * 
+   * PointLight - point, pointlight
+   * RectAreaLight - arealight,area, rectarealight, rectarea
+   * SpotLight - spot, spotlight
+   * DirectionalLight - directional, directionallight
+   * HemisphereLight - hemispherelight, hemisphere
+   * LightProbe - lightprobe, probe
+   * AmbientLight - ambientlight, ambient
+   */
   @Input() public type: string = 'spot';
+
+  /**
+   * (optional) Numeric value of the RGB component of the color. Default is 0xffffff.
+   */
   @Input() private color: string | number = null;
+
+  /**
+   * (optional) hexadecimal color of the sky. Default is 0xffffff.
+   */
   @Input() private skyColor: string | number = null;
+
+  /**
+   * (optional) hexadecimal color of the ground. Default is 0xffffff.
+   */
   @Input() private groundColor: string | number = null;
+
+  /**
+   * (optional) Numeric value of the light's strength/intensity. Default is 1.
+   */
   @Input() private intensity: number = null;
+
+  /**
+   * Maximum range of the light. Default is 0 (no limit).
+   */
   @Input() private distance: number = null;
+
+  /**
+   * Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).
+   */
   @Input() private angle: number = null;
+
+  /**
+   * Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.
+   */
   @Input() private penumbra: number = null;
+
+  /**
+   * The amount the light dims along the distance of the light. Default is 1.
+   */
   @Input() private decay: number = null;
+
+  /**
+   * (optional) width of the light. Default is 10.
+   */
   @Input() private width: number = null;
+
+  /**
+   * (optional) height of the light. Default is 10.
+   */
   @Input() private height: number = null;
+
+  /**
+   * Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
+   * The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
+   */
   @Input() private shadowBias: number = null;
+
+  /**
+   * Setting this to values greater than 1 will blur the edges of the shadow.<br />
+   * High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]
+   * will allow for a higher value to be used here before these effects become visible.<br />
+   * If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has
+   * no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br /><br />
+   * Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+   */
   @Input() private shadowRadius: number = null;
+
+  /**
+   * Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.
+   */
   @Input() private shadowFocus: number = null;
+
+  /**
+   * 
+   */
   @Input() private shadowCameraNear: number = null;
+
+  /**
+   * 
+   */
   @Input() private shadowMapSize: number = null;
+
+  /**
+   * 
+   */
   @Input() private shadowMapSizeWidth: number = null;
+
+  /**
+   * 
+   */
   @Input() private shadowMapSizeHeight: number = null;
+
+  /**
+   * Camera frustum far plane. Default is *2000*.<br /><br />
+   * Must be greater than the current value of [page:.near near] plane.
+   */
   @Input() private shadowCameraFar: number = null;
+
+  /**
+   * Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+   */
   @Input() private shadowCameraFov: number = null;
+
+  /**
+   * Camera frustum left plane.
+   */
   @Input() private shadowCameraLeft: number = null;
+
+  /**
+   * Camera frustum right plane.
+   */
   @Input() private shadowCameraRight: number = null;
+
+  /**
+   * Camera frustum top plane.
+   */
   @Input() private shadowCameraTop: number = null;
+
+  /**
+   * Camera frustum bottom plane.
+   */
   @Input() private shadowCameraBottom: number = null;
+
+  /**
+   * Gets or sets the zoom factor of the camera. Default is *1*.
+   */
   @Input() private shadowCameraZoom: number = null;
+
+  /**
+   * (optional) An instance of [page:SphericalHarmonics3].
+   */
   @Input() private sh: string = null;
-  @Input() private texture: TextureComponent = null;
+
+  /**
+   * 
+   */
+  @Input() private texture: AbstractTextureComponent = null;
+
+  /**
+   * 
+   */
   @Input() private target: any = null;
+
+  /**
+   * 
+   */
   @Input() private targetX: number = null;
+
+  /**
+   * 
+   */
   @Input() private targetY: number = null;
+
+  /**
+   * 
+   */
   @Input() private targetZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private renderer: any = null;
+
+  /**
+   * 
+   */
   @Input() private renderTarget: any = null;
 
   private getIntensity(def?: number): number {

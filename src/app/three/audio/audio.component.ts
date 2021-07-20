@@ -7,24 +7,90 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
   selector: 'ngx3js-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss'],
-  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => AudioComponent) }]
+  providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => AudioComponent) }],
 })
 export class AudioComponent extends AbstractObject3dComponent implements OnInit {
-  @Input() public type:string = 'position';
-  @Input() private url:any = null;
-  @Input() private urlType:string = 'auto';
-  @Input() private autoplay:boolean = true ;
-  @Input() private play:boolean = true ;
-  @Input() private loop:boolean = true ;
-  @Input() private volume:number = null;
-  @Input() private refDistance:number = null;
-  @Input() private rolloffFactor:number = null;
-  @Input() private distanceModel:string = null; // "exponential" | "inverse" | "linear"
-  @Input() private maxDistance:number = null;
-  @Input() private coneInnerAngle:number = null;
-  @Input() private coneOuterAngle:number = null;
-  @Input() private coneOuterGain:number = 1;
-  @Input() private fftSize:number = 128;
+  /**
+   *
+   */
+  @Input() public type: string = 'position';
+
+  /**
+   * The Audio/Video Url
+   */
+  @Input() private url: any = null;
+
+  /**
+   * The Url Type
+   *
+   * audio,
+   * video,
+   * auto,
+   * listener
+   */
+  @Input() private urlType: string = 'auto';
+
+  /**
+   * Whether to start playback automatically. Default is *false*.
+   */
+  @Input() private autoplay: boolean = true;
+
+  /**
+   * Setup the [page:Audio.source source] to the audioBuffer, and sets [page:Audio.sourceType sourceType] to 'buffer'.<br />
+   * If [page:Audio.autoplay autoplay], also starts playback.
+   */
+  @Input() private play: boolean = true;
+
+  /**
+   * Set [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop source.loop] to *value*
+   * (whether playback should loop).
+   */
+  @Input() private loop: boolean = true;
+
+  /**
+   * Set the volume.
+   */
+  @Input() private volume: number = null;
+
+  /**
+   * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance panner.refDistance].
+   */
+  @Input() private refDistance: number = null;
+
+  /**
+   * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
+   */
+  @Input() private rolloffFactor: number = null;
+
+  /**
+   * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
+   */
+  @Input() private distanceModel: string = null; // "exponential" | "inverse" | "linear"
+
+  /**
+   * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance].
+   */
+  @Input() private maxDistance: number = null;
+
+  /**
+   * This method can be used in order to transform an omnidirectional sound into a [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode directional sound].
+   */
+  @Input() private coneInnerAngle: number = null;
+
+  /**
+   * This method can be used in order to transform an omnidirectional sound into a [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode directional sound].
+   */
+  @Input() private coneOuterAngle: number = null;
+
+  /**
+   * This method can be used in order to transform an omnidirectional sound into a [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode directional sound].
+   */
+  @Input() private coneOuterGain: number = 1;
+
+  /**
+   *
+   */
+  @Input() private fftSize: number = 128;
 
   ngOnInit(): void {
     super.ngOnInit('audio');
@@ -52,32 +118,29 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
   }
-  
+
   private audio: THREE.Audio<any> = null;
-  private video : HTMLVideoElement = null;
+  private video: HTMLVideoElement = null;
   private listener: THREE.AudioListener = null;
   private analyser: THREE.AudioAnalyser = null;
 
-  private static audioLoader : THREE.AudioLoader = null;
+  private static audioLoader: THREE.AudioLoader = null;
 
-  private loadAudio(url : string, onLoad: ( audioBuffer: AudioBuffer ) => void) {
+  private loadAudio(url: string, onLoad: (audioBuffer: AudioBuffer) => void) {
     AudioComponent.loadAudio(url, onLoad);
   }
 
-  static loadAudio(url : string, onLoad: ( audioBuffer: AudioBuffer ) => void) {
+  static loadAudio(url: string, onLoad: (audioBuffer: AudioBuffer) => void) {
     if (this.audioLoader === null) {
       this.audioLoader = new THREE.AudioLoader(ThreeUtil.getLoadingManager());
     }
-    this.audioLoader.load(
-      url,
-      ( audioBuffer: AudioBuffer ) : void => {
-        onLoad(audioBuffer);
-      }
-    );
+    this.audioLoader.load(url, (audioBuffer: AudioBuffer): void => {
+      onLoad(audioBuffer);
+    });
   }
 
-  private _renderer : any = null;
-  setListener(listener : THREE.AudioListener, renderer : any) {
+  private _renderer: any = null;
+  setListener(listener: THREE.AudioListener, renderer: any) {
     if (this.listener !== listener) {
       this.listener = listener;
       this._renderer = renderer;
@@ -93,7 +156,6 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getAudio();
@@ -102,10 +164,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return false;
   }
 
-  private loadedVideoTexture : THREE.VideoTexture = null;
-  private loadedAudioTexture : THREE.DataTexture = null;
+  private loadedVideoTexture: THREE.VideoTexture = null;
+  private loadedAudioTexture: THREE.DataTexture = null;
 
-  getTexture():THREE.Texture{
+  getTexture(): THREE.Texture {
     this.getAudio();
     if (this.video !== null) {
       if (this.loadedVideoTexture === null) {
@@ -115,7 +177,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     } else if (ThreeUtil.isNotNull(this.url)) {
       this.getAudio();
       const analyser = this.getAnalyser();
-      let data : Uint8Array = null;
+      let data: Uint8Array = null;
       let fftSize = 128;
       if (analyser !== null) {
         data = analyser.getFrequencyData();
@@ -125,15 +187,15 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         fftSize = this.fftSize;
       }
       if (this.loadedAudioTexture === null) {
-        this.loadedAudioTexture = new THREE.DataTexture( data, fftSize / 2, 1, THREE.RedFormat );
+        this.loadedAudioTexture = new THREE.DataTexture(data, fftSize / 2, 1, THREE.RedFormat);
       } else {
-        (this.loadedAudioTexture.image as any ) = { data : data,  width : fftSize / 2, height : 1};
+        (this.loadedAudioTexture.image as any) = { data: data, width: fftSize / 2, height: 1 };
         this.loadedAudioTexture.needsUpdate = true;
         this.setSubscribeNext('needsUpdate');
       }
       return this.loadedAudioTexture;
     }
-    return new THREE.DataTexture(null,1,1);
+    return new THREE.DataTexture(null, 1, 1);
   }
 
   public update() {
@@ -144,35 +206,35 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  private loadedUrl : string = null;
+  private loadedUrl: string = null;
 
-  getAnalyser(fftSize? : number) : THREE.AudioAnalyser {
+  getAnalyser(fftSize?: number): THREE.AudioAnalyser {
     if (this.analyser == null && this.audio !== null) {
       this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
     }
     return this.analyser;
   }
 
-  private _numberAnalyser : () => number = null;
+  private _numberAnalyser: () => number = null;
 
-  getNumber() : () => number {
+  getNumber(): () => number {
     this._numberAnalyser = () => {
       if (this.analyser !== null) {
         return this.analyser.getAverageFrequency() / 256;
       }
       return 0;
-    }
+    };
     return this._numberAnalyser;
   }
-  
+
   applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['volume','loop','url','positionalaudio','play','autoplay']);
+        changes = ThreeUtil.pushUniq(changes, ['volume', 'loop', 'url', 'positionalaudio', 'play', 'autoplay']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'loaded' :
+          case 'loaded':
             if (this._numberAnalyser !== null && this.analyser === null) {
               this.getAnalyser();
             }
@@ -181,31 +243,33 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
             }
             this.setSubscribeNext('loaded');
             break;
-          case 'url' :
+          case 'url':
             if (this.loadedUrl !== this.url) {
               this.loadedUrl = this.url;
-              let urlType : string = 'audio';
-              let audioUrl : string = null;
-              switch(this.urlType.toLowerCase()) {
-                case 'audio' :
-                case 'video' :
+              let urlType: string = 'audio';
+              let audioUrl: string = null;
+              switch (this.urlType.toLowerCase()) {
+                case 'audio':
+                case 'video':
                   urlType = this.urlType.toLowerCase();
                   break;
-                case 'auto' :
-                default :
+                case 'auto':
+                default:
                   if (typeof this.url === 'string') {
                     const fileName = this.url.toLowerCase();
-                    if(fileName.endsWith('.mp4') || 
-                      fileName.endsWith('.m4v') || 
-                      fileName.endsWith('.f4v') || 
-                      fileName.endsWith('.mov') || 
-                      fileName.endsWith('.mpg') || 
-                      fileName.endsWith('.mpeg') || 
-                      fileName.endsWith('.mpeg4') || 
-                      fileName.endsWith('.wmv') || 
-                      fileName.endsWith('.avi') || 
-                      fileName.endsWith('.mkv') || 
-                      fileName.endsWith('.ogv')) {
+                    if (
+                      fileName.endsWith('.mp4') ||
+                      fileName.endsWith('.m4v') ||
+                      fileName.endsWith('.f4v') ||
+                      fileName.endsWith('.mov') ||
+                      fileName.endsWith('.mpg') ||
+                      fileName.endsWith('.mpeg') ||
+                      fileName.endsWith('.mpeg4') ||
+                      fileName.endsWith('.wmv') ||
+                      fileName.endsWith('.avi') ||
+                      fileName.endsWith('.mkv') ||
+                      fileName.endsWith('.ogv')
+                    ) {
                       urlType = 'video';
                     } else {
                       urlType = 'audio';
@@ -217,14 +281,14 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                   break;
               }
               if (audioUrl !== null) {
-                switch(urlType.toLowerCase()) {
-                  case 'audio' :
+                switch (urlType.toLowerCase()) {
+                  case 'audio':
                     this.loadAudio(ThreeUtil.getStoreUrl(audioUrl), (buffer: AudioBuffer) => {
                       this.audio.setBuffer(buffer);
                       this.addChanges('loaded');
                     });
                     break;
-                  case 'video' :
+                  case 'video':
                     if (this.video !== null) {
                       this.video = document.createElement('video');
                     }
@@ -241,36 +305,36 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                 } else if (this.url instanceof HTMLMediaElement) {
                   this.audio.setMediaElementSource(this.url);
                 } else {
-                  switch(urlType.toLowerCase()) {
-                    case 'listener' : 
+                  switch (urlType.toLowerCase()) {
+                    case 'listener':
                       const oscillator = this.listener.context.createOscillator() as any;
                       oscillator.type = 'sine';
-                      oscillator.frequency.setValueAtTime( 144, this.audio.context.currentTime ) ;
-                      oscillator.start( 0 );
-                      this.audio.setNodeSource( oscillator );
+                      oscillator.frequency.setValueAtTime(144, this.audio.context.currentTime);
+                      oscillator.start(0);
+                      this.audio.setNodeSource(oscillator);
                       break;
                   }
                 }
               }
             }
             break;
-          case 'listener' :
+          case 'listener':
             const listener = this.getListener();
             if (this.audio.listener !== listener) {
               this.audio.listener = listener;
             }
             break;
-          case 'loop' :
+          case 'loop':
             if (ThreeUtil.isNotNull(this.loop)) {
               this.audio.loop = this.loop;
             }
             break;
-          case 'volume' :
+          case 'volume':
             if (ThreeUtil.isNotNull(this.volume)) {
               this.audio.setVolume(this.volume);
             }
             break;
-          case 'positionalaudio' :
+          case 'positionalaudio':
             if (this.audio instanceof THREE.PositionalAudio) {
               if (ThreeUtil.isNotNull(this.refDistance)) {
                 this.audio.setRefDistance(this.refDistance);
@@ -285,28 +349,24 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
                 this.audio.setMaxDistance(this.maxDistance);
               }
               if (ThreeUtil.isNotNull(this.coneInnerAngle) && ThreeUtil.isNotNull(this.coneOuterAngle)) {
-                this.audio.setDirectionalCone(
-                  ThreeUtil.getTypeSafe(this.coneInnerAngle,0),
-                  ThreeUtil.getTypeSafe(this.coneOuterAngle,360),
-                  ThreeUtil.getTypeSafe(this.coneOuterGain,1)
-                );
+                this.audio.setDirectionalCone(ThreeUtil.getTypeSafe(this.coneInnerAngle, 0), ThreeUtil.getTypeSafe(this.coneOuterAngle, 360), ThreeUtil.getTypeSafe(this.coneOuterGain, 1));
               }
             }
             break;
-          case 'play' :
+          case 'play':
             if (ThreeUtil.isNotNull(this.play) && this.audio.buffer !== null) {
               if (this.play) {
                 if (!this.audio.isPlaying) {
-                  this.audio.play();  
+                  this.audio.play();
                 }
               } else {
                 if (this.audio.isPlaying) {
-                  this.audio.pause();  
+                  this.audio.pause();
                 }
               }
             }
             break;
-          case 'autoplay' :
+          case 'autoplay':
             if (ThreeUtil.isNotNull(this.autoplay)) {
               this.audio.autoplay = this.autoplay;
             }
@@ -316,12 +376,12 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
       super.applyChanges3d(changes);
     }
   }
-  
+
   getObject3d<T extends THREE.Object3D>(): T {
     return this.getAudio() as any;
   }
 
-  getAudio<T extends THREE.Audio>():T {
+  getAudio<T extends THREE.Audio>(): T {
     if (this.audio === null || this._needUpdate) {
       this.needUpdate = false;
       this.loadedVideoTexture = null;

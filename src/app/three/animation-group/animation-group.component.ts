@@ -11,8 +11,16 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 })
 export class AnimationGroupComponent extends AbstractSubscribeComponent implements OnInit {
   
+
+  /**
+   * The name of AnimationGroup
+   */
   @Input() public name: string = '';
   
+
+  /**
+   * 
+   */
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
   constructor() { 

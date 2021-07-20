@@ -19,8 +19,8 @@
     <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-shared >
-    <ngx3js-texture #map [textureType]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></ngx3js-texture>
-    <ngx3js-texture #envMap [textureType]="'env'" [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']" [encoding]="'sRGB'"></ngx3js-texture>
+    <ngx3js-texture #map [type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></ngx3js-texture>
+    <ngx3js-texture #envMap [type]="'env'" [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']" [encoding]="'sRGB'"></ngx3js-texture>
     <ngx3js-material 
       #background
       [materialType]="'background'"

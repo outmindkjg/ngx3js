@@ -69,13 +69,13 @@
           [metalness]="0.1"
           >
           <ngx3js-texture 
-            [textureType]="'map'"
+            [type]="'map'"
             [image]="'textures/planets/earth_atmos_2048.jpg'" 
             [anisotropy]="4"
             [encoding]="'sRGB'"
           ></ngx3js-texture>
           <ngx3js-texture 
-            [textureType]="'metalnessMap'"
+            [type]="'metalnessMap'"
             [image]="'textures/planets/earth_specular_2048.jpg'" 
             [anisotropy]="4"
             [encoding]="'sRGB'"
@@ -109,7 +109,7 @@
         [bumpScale]="0.002"
         >
         <ngx3js-texture 
-          [textureType]="'map'"
+          [type]="'map'"
           [image]="'textures/brick_diffuse.jpg'" 
           [wrapS]="'Repeat'"
           [wrapT]="'Repeat'"
@@ -119,7 +119,7 @@
           [encoding]="'sRGB'"
         ></ngx3js-texture>
         <ngx3js-texture 
-          [textureType]="'bumpMap'"
+          [type]="'bumpMap'"
           [image]="'textures/brick_bump.jpg'" 
           [wrapS]="'Repeat'"
           [wrapT]="'Repeat'"
@@ -145,7 +145,7 @@
         [bumpScale]="0.0005"
       >
         <ngx3js-texture 
-          [textureType]="'map'"
+          [type]="'map'"
           [image]="'textures/hardwood2_diffuse.jpg'" 
           [wrapS]="'Repeat'"
           [wrapT]="'Repeat'"
@@ -155,7 +155,7 @@
           [encoding]="'sRGB'"
         ></ngx3js-texture>
         <ngx3js-texture 
-          [textureType]="'bumpMap'"
+          [type]="'bumpMap'"
           [image]="'textures/hardwood2_bump.jpg'" 
           [wrapS]="'Repeat'"
           [wrapT]="'Repeat'"
@@ -164,7 +164,7 @@
           [repeatY]="24"
         ></ngx3js-texture>
         <ngx3js-texture 
-          [textureType]="'roughnessMap'"
+          [type]="'roughnessMap'"
           [image]="'textures/hardwood2_roughness.jpg'" 
           [wrapS]="'Repeat'"
           [wrapT]="'Repeat'"

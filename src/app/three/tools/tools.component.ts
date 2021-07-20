@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
-import { TextureComponent } from '../texture/texture.component';
+import { AbstractTextureComponent } from '../texture.abstract';
 
 @Component({
   selector: 'ngx3js-tools',
@@ -11,13 +11,45 @@ import { TextureComponent } from '../texture/texture.component';
   styleUrls: ['./tools.component.scss'],
 })
 export class ToolsComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = '';
+
+  /**
+   * 
+   */
   @Input() public url: string = null;
+
+  /**
+   * 
+   */
   @Input() public size: number = null;
+
+  /**
+   * 
+   */
   @Input() private encoding: string = null;
+
+  /**
+   * 
+   */
   @Input() private format: string = null;
-  @Input() private background: string | number | TextureComponent = null;
+
+  /**
+   * 
+   */
+  @Input() private background: string | number | AbstractTextureComponent = null;
+
+  /**
+   * 
+   */
   @Input() private storageName: string = null;
+
+  /**
+   * 
+   */
   @Input() private storageOption: any = null;
 
   private getSize(def?: number): number {
@@ -94,7 +126,7 @@ export class ToolsComponent extends AbstractSubscribeComponent implements OnInit
           } else {
             const envScene = new THREE.Scene();
             if (ThreeUtil.isNotNull(this.background)) {
-              if (this.background instanceof TextureComponent) {
+              if (this.background instanceof AbstractTextureComponent) {
                 envScene.background = this.background.getTexture();
               } else {
                 envScene.background = ThreeUtil.getColorSafe(this.background);

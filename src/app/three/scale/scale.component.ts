@@ -9,11 +9,35 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./scale.component.scss'],
 })
 export class ScaleComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private refer: any = null;
+
+  /**
+   * The current value of the x component. Default value is *1*.
+   */
   @Input() private x: number = 1;
+
+  /**
+   * The current value of the y component. Default value is *1*.
+   */
   @Input() private y: number = 1;
+
+  /**
+   * The current value of the z component. Default value is *1*.
+   */
   @Input() private z: number = 1;
+
+  /**
+   * Multiplies this vector by scalar [page:Float s].
+   */
   @Input() private multiply: number = null;
+
+  /**
+   * 
+   */
   @Input() private scaleMode: string = 'max';
 
   constructor() {

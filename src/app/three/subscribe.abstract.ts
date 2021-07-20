@@ -6,14 +6,45 @@ import { ThreeUtil } from './interface';
   template: '',
 })
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
+
+  /**
+   * 
+   */
   @Input() protected debug: boolean = false;
+
+  /**
+   * 
+   */
   @Input() protected windowExport: string = null;
+
+  /**
+   * 
+   */
   @Input() public enabled: boolean = true;
+
+  /**
+   * 
+   */
   @Input() private overrideParams: { [key: string]: any } = null;
+
+  /**
+   * 
+   */
   @Input() private userData: any = null;
+
+  /**
+   * 
+   */
   @Input() private tween: { [key: string]: any } = null;
 
+  /**
+   * 
+   */
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
+
+  /**
+   * 
+   */
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
   protected OBJECT_ATTR: string[] = ['init', 'debug', 'enabled', 'userdata', 'overrideparams', 'windowexport', 'tween'];

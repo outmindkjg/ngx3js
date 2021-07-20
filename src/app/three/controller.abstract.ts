@@ -4,7 +4,7 @@ import * as GSAP from 'gsap';
 import { CameraComponent } from './camera/camera.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RendererTimer, ThreeUtil } from './interface';
-import { MaterialComponent } from './material/material.component';
+import { AbstractMaterialComponent } from './material.abstract';
 import { SceneComponent } from './scene/scene.component';
 import { HtmlCollection, VisualComponent } from './visual/visual.component';
 import { IUniform } from 'three';
@@ -36,6 +36,7 @@ export abstract class AbstractThreeController {
   protected getDuration(def?: number): number {
     return ThreeUtil.getTypeSafe(this.duration, def, 3);
   }
+  
   protected getRepeat(def?: number): number {
     return ThreeUtil.getTypeSafe(this.repeat, def, 0);
   }
@@ -425,7 +426,7 @@ export abstract class AbstractThreeController {
     return undefined;
   }
 
-  getMaterialComponent(refObject?: THREE.Object3D): MaterialComponent {
+  getAbstractMaterialComponent(refObject?: THREE.Object3D): AbstractMaterialComponent {
     const object3d = refObject || this.refObject;
     if (
       ThreeUtil.isNotNull(object3d) &&
@@ -446,7 +447,7 @@ export abstract class AbstractThreeController {
       }
       if (
         ThreeUtil.isNotNull(materialComp) &&
-        materialComp instanceof MaterialComponent
+        materialComp instanceof AbstractMaterialComponent
       ) {
         return materialComp;
       }

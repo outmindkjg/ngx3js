@@ -11,47 +11,199 @@ import { LocalStorageService } from './../local-storage.service';
   selector: 'ngx3js-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
-  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => CameraComponent) }]
+  providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => CameraComponent) }],
 })
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
+  /**
+   *
+   */
   @Input() public type: string = 'perspective';
+
+  /**
+   *
+   */
   @Input() private active: boolean = true;
-  @Input() private fov: number | string = 45;
+
+  /**
+   * Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+   */
+  @Input() private fov: number | string = 50;
+
+  /**
+   * Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).
+   */
   @Input() private aspect: number = 1;
+
+  /**
+   * Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br /><br />
+   * By default, the focal length is specified for a 35mm (full frame) camera.
+   */
   @Input() private focalLength: number = null;
+
+  /**
+   * Camera frustum near plane. Default is *0.1*.<br /><br />
+   * The valid range is between 0 and the current value of the [page:.far far] plane.
+   * Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an
+   * OrthographicCamera's near plane.
+   */
   @Input() private near: number | string = null;
+
+  /**
+   * Camera frustum far plane. Default is *2000*.<br /><br />
+   * Must be greater than the current value of [page:.near near] plane.
+   */
   @Input() private far: number | string = null;
+
+  /**
+   *
+   */
   @Input() private orthoSize: number = 0.5;
+
+  /**
+   * Camera frustum left plane.
+   */
   @Input() private left: number = null;
+
+  /**
+   * Camera frustum right plane.
+   */
   @Input() private right: number = null;
+
+  /**
+   * Camera frustum top plane.
+   */
   @Input() private top: number = null;
+
+  /**
+   * Camera frustum bottom plane.
+   */
   @Input() private bottom: number = null;
+
+  /**
+   * Gets or sets the zoom factor of the camera. Default is *1*.
+   */
   @Input() private zoom: number | string = null;
+
+  /**
+   *
+   */
   @Input() private autoClear: boolean = null;
+
+  /**
+   *
+   */
   @Input() private material: any = null;
+
+  /**
+   *
+   */
   @Input() public controlType: string = 'none';
+
+  /**
+   *
+   */
   @Input() public autoRotate: boolean = null;
+
+  /**
+   *
+   */
   @Input() private scene: any = null;
+
+  /**
+   *
+   */
   @Input() private scenes: any[] = null;
+
+  /**
+   *
+   */
   @Input() private storageName: string = null;
+
+  /**
+   *
+   */
   @Input() private viewport: boolean = false;
+
+  /**
+   *
+   */
   @Input() private viewportType: string = 'renderer';
+
+  /**
+   *
+   */
   @Input() private x: number | string = 0;
+
+  /**
+   *
+   */
   @Input() private y: number | string = 0;
+
+  /**
+   *
+   */
   @Input() private width: number | string = '100%';
+
+  /**
+   *
+   */
   @Input() private height: number | string = '100%';
+
+  /**
+   *
+   */
   @Input() private clearColor: string | number = null;
+
+  /**
+   *
+   */
   @Input() private clearAlpha: number = null;
+
+  /**
+   *
+   */
   @Input() private clearDepth: boolean = null;
+
+  /**
+   *
+   */
   @Input() private clear: boolean = null;
+
+  /**
+   *
+   */
   @Input() private scissorTest: boolean = false;
+
+  /**
+   *
+   */
   @Input() private scissorX: number | string = 0;
+
+  /**
+   *
+   */
   @Input() private scissorY: number | string = 0;
+
+  /**
+   *
+   */
   @Input() private scissorWidth: number | string = '100%';
+
+  /**
+   *
+   */
   @Input() private scissorHeight: number | string = '100%';
+
+  /**
+   *
+   */
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
-  @Input() private onBeforeRender: (timer : RendererTimer) => void = null;
-  
+
+  /**
+   *
+   */
+  @Input() private onBeforeRender: (timer: RendererTimer) => void = null;
+
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
     if (typeof fov === 'string') {
@@ -175,7 +327,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       if (typeof baseSize == 'string') {
         if (baseSize.indexOf('%') > 0) {
           const [percent, extra] = baseSize.split('%');
-          const viewSize = Math.ceil(cameraSize * parseFloat(percent) / 100);
+          const viewSize = Math.ceil((cameraSize * parseFloat(percent)) / 100);
           if (extra === '') {
             return viewSize;
           } else {
@@ -283,7 +435,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.getObject3d();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody','mesh', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'mesh', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
         this.needUpdate = true;
         return;
       }
@@ -372,15 +524,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (this.camera === null) {
       this.getObject3d();
     }
-    switch(this.type.toLowerCase()) {
-      case 'cube' :
-      case 'cubecamera' :
+    switch (this.type.toLowerCase()) {
+      case 'cube':
+      case 'cubecamera':
         return this.cubeCamera1.renderTarget;
     }
     return undefined;
   }
 
-  getTexture() : THREE.WebGLCubeRenderTarget {
+  getTexture(): THREE.WebGLCubeRenderTarget {
     return this.getCubeRenderTarget();
   }
 
@@ -457,7 +609,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         this.parentObject3d.cameras.push(this.camera as THREE.PerspectiveCamera);
         this.object3d = this.camera;
         this.setObject(this.camera);
-
       } else {
         this.isCameraChild = false;
         this.setObject3d(this.camera);
@@ -484,8 +635,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (ThreeUtil.isNotNull(scenes)) {
       if (scenes instanceof QueryList && scenes.length > 0) {
         return scenes.first.getScene();
-      } else if (ThreeUtil.isNotNull(scenes.getScene)){
-        return scenes.getScene()
+      } else if (ThreeUtil.isNotNull(scenes.getScene)) {
+        return scenes.getScene();
       }
     }
     if (ThreeUtil.isNotNull(this.rendererScenes)) {

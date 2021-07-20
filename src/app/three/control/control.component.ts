@@ -18,53 +18,241 @@ import { PlaneControls } from './plane-controls';
   styleUrls: ['./control.component.scss'],
 })
 export class ControlComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy, OnChanges, AfterContentInit {
+
+  /**
+   * 
+   */
   @Input() type: string = 'orbit';
+
+  /**
+   * 
+   */
   @Input() private autoRotate: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private autoRotateSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private screenSpacePanning: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private minDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private xDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private yDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private enableZoom: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private minZoom: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxZoom: number = null;
+
+  /**
+   * 
+   */
   @Input() private staticMoving: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private rotateSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private zoomSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private panSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private minPolarAngle: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxPolarAngle: number = null;
+
+  /**
+   * 
+   */
   @Input() private enableKeys: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private enablePan: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private enableDamping: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private movementSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private rollSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private dragToLook: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private autoForward: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private lookSpeed: number = null;
+
+  /**
+   * 
+   */
   @Input() private lookVertical: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private activeLook: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private heightSpeed: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private heightCoef: number = null;
+
+  /**
+   * 
+   */
   @Input() private heightMin: number = null;
+
+  /**
+   * 
+   */
   @Input() private heightMax: number = null;
+
+  /**
+   * 
+   */
   @Input() private constrainVertical: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private verticalMin: number = null;
+
+  /**
+   * 
+   */
   @Input() private verticalMax: number = null;
+
+  /**
+   * 
+   */
   @Input() private mouseDragOn: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private maxFar: number = null;
+
+  /**
+   * 
+   */
   @Input() private cascades: number = null;
+
+  /**
+   * 
+   */
   @Input() private mode: string = null;
+
+  /**
+   * 
+   */
   @Input() private scene: any = null;
+
+  /**
+   * 
+   */
   @Input() private shadowMapSize: number = null;
+
+  /**
+   * 
+   */
   @Input() private lightDirectionX: number = null;
+
+  /**
+   * 
+   */
   @Input() private lightDirectionY: number = null;
+
+  /**
+   * 
+   */
   @Input() private lightDirectionZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private target: THREE.Vector3 | LookatComponent | any = null;
+
+  /**
+   * 
+   */
   @Input() private camera: any = null;
 
+
+  /**
+   * 
+   */
   @Output() private eventListener: EventEmitter<{ type: string; event: any }> = new EventEmitter<{ type: string; event: any }>();
+
+  /**
+   * 
+   */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent> = null;
 
   constructor() {

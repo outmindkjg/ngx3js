@@ -313,7 +313,7 @@ var GeometryComponent = /** @class */ (function () {
         return colors;
     };
     /*
-     private getFaces(def: GeometriesVector3[]): THREE.Face3[] {
+     private getFaces(def: ThreeVector[]): THREE.Face3[] {
        const faces: THREE.Face3[] = [];
        (this.faces === null ? def : this.faces).forEach((p) => {
          faces.push(new THREE.Face3(p.a, p.b, p.c));

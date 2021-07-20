@@ -9,15 +9,50 @@ import { ThreeUtil } from '../interface';
   styleUrls: ['./keyframe.component.scss'],
 })
 export class KeyframeComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public name: string = '';
+
+  /**
+   * 
+   */
   @Input() public type: string = '';
+
+  /**
+   * 
+   */
   @Input() public times: number[] = null;
+
+  /**
+   * 
+   */
   @Input() public vectors: number[] | { x : number, y : number, z : number}[] = [];
+
+  /**
+   * 
+   */
   @Input() public quaternions: number[] | { x : number, y : number, z : number, w? : number }[] = [];
+
+  /**
+   * 
+   */
   @Input() public colors: number[] | { r : number, g : number, b : number }[] | string[] = [];
+
+  /**
+   * 
+   */
   @Input() public values: number[] = [];
+
+  /**
+   * 
+   */
   @Input() public booleans: boolean[] | number[] = [];
   
+  /**
+   * 
+   */
   @Input() public interpolation: string = '';
 
   constructor() {

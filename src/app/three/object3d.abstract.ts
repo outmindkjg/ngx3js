@@ -5,7 +5,7 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { ControllerComponent } from './controller/controller.component';
 import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
-import { MaterialComponent, MeshMaterialRaw } from './material/material.component';
+import { AbstractMaterialComponent, MeshMaterialRaw } from './material.abstract';
 import { PositionComponent } from './position/position.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { ScaleComponent } from './scale/scale.component';
@@ -19,57 +19,213 @@ import { AnimationGroupComponent } from './animation-group/animation-group.compo
 })
 export abstract class AbstractObject3dComponent extends AbstractTweenComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
  
+  /**
+   * Object gets rendered if *true*. Default is *true*.
+   */
   @Input() public visible: boolean = true;
+ 
+  /**
+   * Optional name of the object (doesn't need to be unique). Default is an empty string.
+   */
   @Input() public name: string = '';
+ 
+  /**
+   * When this is set, it calculates the matrix of position, (rotation or quaternion) and
+   * scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+   */
   @Input() protected matrixAutoUpdate: boolean = null;
+ 
+  /**
+   * The layer membership of the object. The object is only visible if it has at least one
+   * layer in common with the [page:Camera] in use. This property can also be used to filter out
+   * unwanted objects in ray-intersection tests when using [page:Raycaster].
+   */
   @Input() private layers: number[] = null;
-  @Input() protected castShadow: boolean = true;
+ 
+  /**
+   * Whether the object gets rendered into shadow map. Default is *false*.
+   */
+  @Input() protected castShadow: boolean = null;
+ 
+  /**
+   * Whether the material receives shadows. Default is *false*.
+   */
   @Input() protected receiveShadow: boolean = null;
+ 
+  /**
+   * When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+   */
   @Input() protected frustumCulled: boolean = null;
+ 
+  /**
+   * This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]
+   * objects to be overridden although opaque and transparent objects remain sorted independently. When this property
+   * is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.
+   * Sorting is from lowest to highest renderOrder. Default value is *0*.
+   * 
+   */
   @Input() private renderOrder: number = null;
-  
+ 
+  /**
+   * 
+   */
   @Input() private controller: ControllerComponent = null;
+ 
+  /**
+   * A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
+   */
   @Input() private position: THREE.Vector3 | number[] | PositionComponent | any = null;
+ 
+  /**
+   * Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
+   */
   @Input() private rotation: THREE.Vector3 | number[] | RotationComponent | any = null;
+ 
+  /**
+   * The object's local scale. Default is [page:Vector3]( 1, 1, 1 ).
+   */
   @Input() private scale: THREE.Vector3 | number[] | ScaleComponent | any = null;
+ 
+  /**
+   * vector - A vector representing a position in world space.<br /><br />
+   * Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br /><br />
+   * Rotates the object to face a point in world space.<br /><br />
+   * This method does not support objects having non-uniformly-scaled parent(s).
+   */
   @Input() private lookat: THREE.Vector3 | number[] | LookatComponent | any = null;
+ 
+  /**
+   * 
+   */
   @Input() private loDistance: number = null;
-  @Input() private customDepth: MaterialComponent | THREE.Material | any = null;
-  @Input() private customDistance: MaterialComponent | THREE.Material | any  = null;
+ 
+  /**
+   * Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.
+   * When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader,
+   * (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest,
+   * you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+   * 
+   */
+  @Input() private customDepth: AbstractMaterialComponent | THREE.Material | any = null;
+ 
+  /**
+   * Same as [page:.customDepthMaterial customDepthMaterial], but used with [page:PointLight]. Default is *undefined*.
+   */
+  @Input() private customDistance: AbstractMaterialComponent | THREE.Material | any  = null;
+ 
+  /**
+   * 
+   */
   @Input() private animationGroup: AnimationGroupComponent | THREE.AnimationObjectGroup  = null;
 
+  /**
+   * 
+   */
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
-  @ContentChildren(MaterialComponent, { descendants: false }) protected materialList: QueryList<MaterialComponent>;
+ 
+  /**
+   * 
+   */
+  @ContentChildren(AbstractMaterialComponent, { descendants: false }) protected materialList: QueryList<AbstractMaterialComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(AbstractObject3dComponent, { descendants: false }) protected object3dList: QueryList<AbstractObject3dComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
+ 
+  /**
+   * 
+   */
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
-  protected OBJECT3D_ATTR : string[] = ['init','name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','debug','enabled','overrideparams','windowexport','helper','mixer','animationgroup','tween'];
+ 
+  /**
+   * 
+   */
+  protected OBJECT3D_ATTR : string[] = ['name','position','rotation','scale','layers','visible','castshadow','receiveshadow','frustumculled','renderorder','customdepthmaterial','customdistancematerial','material','helper','lodistance','helper','mixer','animationgroup'];
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   private getLoDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.loDistance, def);
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected getVisible(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.visible, def);
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected getName(def?: string): string {
     return ThreeUtil.getTypeSafe(this.name, def);
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   constructor() {
     super();
+    this.OBJECT3D_ATTR.push(...this.OBJECT_ATTR);
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   ngOnInit(subscribeType?: string): void {
     super.ngOnInit(subscribeType || 'object3d');
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   ngOnDestroy(): void {
     if (this.object3d != null) {
       if (this.object3d.parent !== null) {
@@ -87,6 +243,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     super.ngOnDestroy();
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes && this.object3d !== null) {
@@ -172,6 +334,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.object3dList, 'object3dList', 'object3d');
     this.subscribeListQueryChange(this.controllerList, 'controllerList', 'controller');
@@ -185,6 +353,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     super.ngAfterContentInit();
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getPosition(): THREE.Vector3 {
     if (this.object3d !== null) {
       return this.object3d.position;
@@ -195,6 +369,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setPosition(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       if (x === null) {
@@ -212,6 +392,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   addPosition(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       if (x === null) {
@@ -232,6 +418,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getScale(): THREE.Vector3 {
     if (this.object3d !== null) {
       return this.object3d.scale;
@@ -242,6 +434,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setScale(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       if (x === null) {
@@ -259,6 +457,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setScaleScalar(scalar: number): this {
     if (this.object3d !== null) {
       this.object3d.scale.setScalar(scalar);
@@ -266,6 +470,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getRotation(): THREE.Euler {
     if (this.object3d !== null) {
       return this.object3d.rotation;
@@ -276,6 +486,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setRotation(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       if (x === null) {
@@ -293,6 +509,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   addRotation(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       x += (this.object3d.rotation.x / Math.PI) * 180;
@@ -304,6 +526,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setLookat(x: number, y: number, z: number): this {
     if (this.object3d !== null) {
       const position = ThreeUtil.getVector3Safe(x, y, z);
@@ -313,6 +541,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return this;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setVisible(visible: boolean, _: boolean = null) {
     if (this.object3d !== null && visible !== null && visible !== undefined) {
       this.object3d.visible = visible;
@@ -320,6 +554,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getObjectByName(name: string): THREE.Object3D | undefined {
     if (this.object3d !== null) {
       return this.object3d.getObjectByName(name);
@@ -327,6 +567,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return null;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getObjectById(id: number): THREE.Object3D | undefined {
     if (this.object3d !== null) {
       return this.object3d.getObjectById(id);
@@ -334,6 +580,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return null;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getObjectByProperty(name: string, value: string): THREE.Object3D | undefined {
     if (this.object3d !== null) {
       return this.object3d.getObjectByProperty(name, value);
@@ -341,12 +593,30 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return null;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected object3d: THREE.Object3D = null;
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getObject3d<T extends THREE.Object3D>(): T {
     return this.object3d as T;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getTagAttributeObject3d(tagAttributes: TagAttributes) {
     if (tagAttributes.options.position !== null && this.positionList && this.positionList.length > 0) {
       tagAttributes.options.position = this.object3d.position;
@@ -358,8 +628,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected parentObject3d : THREE.Object3D = null;
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       const oldParent = this.parentObject3d;
@@ -382,6 +664,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return false;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   removeObject3d(object3d : THREE.Object3D) {
     if (object3d !== null && object3d.parent !== null) {
       object3d.traverse(child => {
@@ -396,7 +684,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   private _addedReferChild : THREE.Object3D[] = [];
+
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   addParentObject3d(object3d : THREE.Object3D, changes? : string | string[]) {
     if (ThreeUtil.isNotNull(this.object3d) && ThreeUtil.isNotNull(object3d)) {
       if (this.object3d.parent !== null) {
@@ -411,6 +712,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   addChildObject3d(object3d : THREE.Object3D, changes? : string | string[]) {
     if (ThreeUtil.isNotNull(this.object3d) && ThreeUtil.isNotNull(object3d)) {
       if (this._addedReferChild.length > 0) {
@@ -427,6 +734,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
   
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setParentObject3d(object3d: THREE.Object3D) {
     if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
       this.setObject3d(object3d);
@@ -436,6 +749,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   setObject3d(object3d: THREE.Object3D) {
     if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
       if (this.object3d !== null && this.object3d.parent !== null) {
@@ -458,6 +777,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   getObjectTop(): THREE.Object3D {
     let parent: THREE.Object3D = this.parent;
     while (parent.parent !== null) {
@@ -466,10 +791,22 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     return parent;
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected applyChanges(changes : string[]) {
     this.applyChanges3d(changes);
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   protected applyChanges3d(changes: string[]) {
     if (this.object3d !== null) {
       if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
@@ -705,7 +1042,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
             }
             this.unSubscribeReferList('materialList');
             if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
-              const meshMaterial = MaterialComponent.getMeshMaterial(this.object3d) as MeshMaterialRaw;
+              const meshMaterial = AbstractMaterialComponent.getMeshMaterial(this.object3d) as MeshMaterialRaw;
               if (meshMaterial !== null) {
                 this.materialList.forEach((material) => {
                   switch(material.materialType.toLowerCase()) {
@@ -770,6 +1107,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     }
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   showDebug(obj: THREE.Object3D) {
     const lines: string[] = [];
     lines.push(obj.name || obj.id.toString());
@@ -777,6 +1120,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.consoleLog('object : ',lines.join('\n'));
   }
 
+  /**
+   * todo
+   * 
+   * @param def 
+   * @returns 
+   */
   addDebugLine(objs: THREE.Object3D[], lines: string[], prefix: string): string[] {
     if (objs.length > 0) {
       objs.forEach((obj) => {

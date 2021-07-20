@@ -1,5 +1,5 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - stereo. skybox by <a href="http://www.zfight.com/" target="_blank" rel="noopener">Jochum Skoglund</a>
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - stereo. skybox by <a href="http://www.zfight.com/" target="_blank" rel="noopener">Jochum Skoglund</a> todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -27,7 +27,7 @@
       ></ngx3js-geometry>
       <ngx3js-material #material [type]="'MeshBasic'" [color]="'0xffffff'" [refractionRatio]="controls.refractionRatio">
         <ngx3js-texture 
-          [textureType]="'envMap'" 
+          [type]="'envMap'" 
           [image]="'textures/cube/Park3Med/'" 
           [cubeImage]="['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']"
           [mapping]="'CubeRefraction'"

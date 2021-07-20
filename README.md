@@ -5,6 +5,8 @@ npm install -g @angular/cli
 npm update ammojs-typed
 npm update three
 npm i @types/three
+npx typedoc --out docs
+
 
 ng new my-app
 cd my-app

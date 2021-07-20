@@ -6,17 +6,41 @@ import { ThreeUtil } from './../interface';
 @Component({
   selector: 'ngx3js-fog',
   templateUrl: './fog.component.html',
-  styleUrls: ['./fog.component.scss']
+  styleUrls: ['./fog.component.scss'],
 })
 export class FogComponent extends AbstractSubscribeComponent implements OnInit {
+  /**
+   * The Fog type.
+   *
+   * Fog - fog (default),
+   * FogExp2 - exp, exp2, fogexp2
+   */
+  @Input() public type: string = 'fog';
 
-  @Input() public type:string = "fog";
-  @Input() private color:string | number = null;
-  @Input() private density:number = 0.00025;
-  @Input() private near:number = 1;
-  @Input() private far:number = 1000;
+  /**
+   * Fog color.  Example: If set to black, far away objects will be rendered black.
+   */
+  @Input() private color: string | number = null;
 
-  constructor() { 
+  /**
+   * Defines how fast the fog will grow dense.
+   * Default is 0.00025.
+   */
+  @Input() private density: number = 0.00025;
+
+  /**
+   * The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.
+   * Default is 1.
+   */
+  @Input() private near: number = 1;
+
+  /**
+   * The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.
+   * Default is 1000.
+   */
+  @Input() private far: number = 1000;
+
+  constructor() {
     super();
   }
 
@@ -24,7 +48,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     super.ngOnInit('fog');
   }
 
-  ngOnDestroy() : void {
+  ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
@@ -39,51 +63,45 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     super.ngAfterContentInit();
   }
 
-  private getColor(def? : number | string) : THREE.Color{
+  private getColor(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
-  private getDensity(def? : number) : number{
+  private getDensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.density, def);
   }
-  
-  private getNear(def? : number) : number{
+
+  private getNear(def?: number): number {
     return ThreeUtil.getTypeSafe(this.near, def);
   }
 
-  private getFar(def? : number) : number{
+  private getFar(def?: number): number {
     return ThreeUtil.getTypeSafe(this.far, def);
   }
 
-  private fog : THREE.FogBase = null;
-  
-  private refScene : THREE.Scene = null;
+  private fog: THREE.FogBase = null;
 
-  setScene(refScene : THREE.Scene) {
+  private refScene: THREE.Scene = null;
+
+  setScene(refScene: THREE.Scene) {
     if (this.refScene !== refScene) {
       this.refScene = refScene;
       this.refScene.fog = this.getFog();
     }
   }
 
-  getFog() : THREE.FogBase{
+  getFog(): THREE.FogBase {
     if (this.fog === null || this._needUpdate) {
       this.needUpdate = false;
-      switch(this.type.toLowerCase()) {
-        case 'exp2' :
-        case 'fogexp2' :
-          this.fog = new THREE.FogExp2(
-            this.getColor(0xffffff).getHex(),
-            this.getDensity()
-          );
+      switch (this.type.toLowerCase()) {
+        case 'exp':
+        case 'exp2':
+        case 'fogexp2':
+          this.fog = new THREE.FogExp2(this.getColor(0xffffff).getHex(), this.getDensity());
           break;
-        case 'fog' :
-        default :
-          this.fog = new THREE.Fog(
-            this.getColor(0xffffff),
-            this.getNear(),
-            this.getFar()
-          );
+        case 'fog':
+        default:
+          this.fog = new THREE.Fog(this.getColor(0xffffff), this.getNear(), this.getFar());
           break;
       }
       super.setObject(this.fog);

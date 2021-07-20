@@ -10,30 +10,124 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 })
 export class TransformComponent extends AbstractSubscribeComponent implements OnInit {
 
+  /**
+   * 
+   */
   @Input() private visible:boolean = true;
+
+  /**
+   * 
+   */
   @Input() private anchorSeparat:boolean = false;
+
+  /**
+   * 
+   */
   @Input() private x:number = null;
+
+  /**
+   * 
+   */
   @Input() private y:number = null;
+
+  /**
+   * 
+   */
   @Input() private z:number = null;
+
+  /**
+   * 
+   */
   @Input() private width:number = null;
+
+  /**
+   * 
+   */
   @Input() private height:number = null;
+
+  /**
+   * 
+   */
   @Input() private left:number = null;
+
+  /**
+   * 
+   */
   @Input() private top:number = null;
+
+  /**
+   * 
+   */
   @Input() private right:number = null;
+
+  /**
+   * 
+   */
   @Input() private bottom:number = null;
+
+  /**
+   * 
+   */
   @Input() private anchorMinX:number = null;
+
+  /**
+   * 
+   */
   @Input() private anchorMinY:number = null;
+
+  /**
+   * 
+   */
   @Input() private anchorMaxX:number = null;
+
+  /**
+   * 
+   */
   @Input() private anchorMaxY:number = null;
+
+  /**
+   * 
+   */
   @Input() private pivotX:number = null;
+
+  /**
+   * 
+   */
   @Input() private pivotY:number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationX:number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationY:number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationZ:number = null;
+
+  /**
+   * 
+   */
   @Input() private scaleX:number = null;
+
+  /**
+   * 
+   */
   @Input() private scaleY:number = null;
+
+  /**
+   * 
+   */
   @Input() private scaleZ:number = null;
 
+  /**
+   * 
+   */
   private getLeft(def? : number) : number {
     return ThreeUtil.getTypeSafe(this.left, def);
   }

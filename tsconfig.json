@@ -19,6 +19,10 @@
       "dom"
     ]
   },
+  "typedocOptions" : {
+    "mode" : "modules",
+    "out" : "docs"
+  },
   "angularCompilerOptions" : {
     "strictTemplates" : true
   }

@@ -1,6 +1,7 @@
 import { Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
 import * as THREE from 'three';
-import { GeometriesVector3, GeometryComponent } from '../geometry/geometry.component';
+import { AbstractGeometryComponent } from '../geometry.abstract';
+import { ThreeVector } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 @Component({
@@ -9,26 +10,105 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./shape.component.scss'],
 })
 export class ShapeComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'fromPoints';
-  @Input() private points: GeometriesVector3[] = null;
+
+  /**
+   * 
+   */
+  @Input() private points: ThreeVector[] = null;
+
+  /**
+   * 
+   */
   @Input() private x: number = null;
+
+  /**
+   * 
+   */
   @Input() private y: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCPx: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCPy: number = null;
+
+  /**
+   * 
+   */
   @Input() private aX: number = null;
+
+  /**
+   * 
+   */
   @Input() private aY: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCP1x: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCP1y: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCP2x: number = null;
+
+  /**
+   * 
+   */
   @Input() private aCP2y: number = null;
+
+  /**
+   * 
+   */
   @Input() private aRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private aStartAngle: number = null;
+
+  /**
+   * 
+   */
   @Input() private aEndAngle: number = null;
+
+  /**
+   * 
+   */
   @Input() private aClockwise: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private xRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private yRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private aRotation: number = null;
 
+  /**
+   * 
+   */
   @ContentChildren(ShapeComponent, { descendants: false }) private holes: QueryList<ShapeComponent>;
 
   constructor() {
@@ -47,7 +127,7 @@ export class ShapeComponent extends AbstractSubscribeComponent implements OnInit
     super.ngAfterContentInit();
   }
 
-  private getPoints(def: GeometriesVector3[]): THREE.Vector2[] {
+  private getPoints(def: ThreeVector[]): THREE.Vector2[] {
     const points = [];
     (this.points === null ? def : this.points).forEach((p) => {
       points.push(new THREE.Vector2(p.x, p.y));
@@ -150,7 +230,7 @@ export class ShapeComponent extends AbstractSubscribeComponent implements OnInit
     return holes;
   }
 
-  setParent(parent: GeometryComponent) : boolean {
+  setParent(parent: AbstractGeometryComponent) : boolean {
     if (super.setParent(parent)) {
       return true;
     } else {

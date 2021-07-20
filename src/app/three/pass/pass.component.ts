@@ -29,7 +29,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass';
 import { SSRrPass } from 'three/examples/jsm/postprocessing/SSRrPass';
 
-import { ThreeUtil } from '../interface';
+import { ThreeColor, ThreeUtil } from '../interface';
 import { ShaderComponent } from '../shader/shader.component';
 import { ShaderUtils } from '../shader/shaders/shaderUtils';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
@@ -41,86 +41,405 @@ import { TextureComponent } from '../texture/texture.component';
   styleUrls: ['./pass.component.scss'],
 })
 export class PassComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = '';
+
+  /**
+   * 
+   */
   @Input() private refer: PassComponent = null;
+
+  /**
+   * 
+   */
   @Input() private needsSwap: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private clear: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private renderToScreen: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private adaptive: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private resolution: number = null;
+
+  /**
+   * 
+   */
   @Input() private damp: number = null;
+
+  /**
+   * 
+   */
   @Input() private strength: number = null;
+
+  /**
+   * 
+   */
   @Input() private kernelSize: number = null;
+
+  /**
+   * 
+   */
   @Input() private sigma: number = null;
+
+  /**
+   * 
+   */
   @Input() private scene: any = null;
+
+  /**
+   * 
+   */
   @Input() private camera: any = null;
+
+  /**
+   * 
+   */
   @Input() private params: BokehPassParamters = null;
+
+  /**
+   * 
+   */
   @Input() private intensity: number = null;
+
+  /**
+   * 
+   */
   @Input() private clearColor: THREE.Color | string | number = null;
+
+  /**
+   * 
+   */
   @Input() private clearAlpha: number = null;
+
+  /**
+   * 
+   */
   @Input() private envMap: THREE.CubeTexture | TextureComponent = null;
+
+  /**
+   * 
+   */
   @Input() private opacity: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerX: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerY: number = null;
+
+  /**
+   * 
+   */
   @Input() private angle: number = null;
+
+  /**
+   * 
+   */
   @Input() private scale: number = null;
+
+  /**
+   * 
+   */
   @Input() private noiseIntensity: number = null;
+
+  /**
+   * 
+   */
   @Input() private scanlinesIntensity: number = null;
+
+  /**
+   * 
+   */
   @Input() private scanlinesCount: number = null;
+
+  /**
+   * 
+   */
   @Input() private grayscale: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private dtSize: number = null;
+
+  /**
+   * 
+   */
   @Input() private width: number = null;
+
+  /**
+   * 
+   */
   @Input() private height: number = null;
+
+  /**
+   * 
+   */
   @Input() private selectedObjects: (THREE.Object3D | any)[] = null;
+
+  /**
+   * 
+   */
   @Input() private overrideMaterial: THREE.Material = null;
+
+  /**
+   * 
+   */
   @Input() private depthTexture: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private useNormals: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private renderTarget: THREE.WebGLRenderTarget = null;
+
+  /**
+   * 
+   */
   @Input() private shader: string = null;
+
+  /**
+   * 
+   */
   @Input() private materialShader: string = null;
+
+  /**
+   * 
+   */
   @Input() private textureId: string = null;
+
+  /**
+   * 
+   */
   @Input() private map: THREE.Texture | TextureComponent | any = null;
+
+  /**
+   * 
+   */
   @Input() private texture: THREE.Texture | TextureComponent = null;
+
+  /**
+   * 
+   */
   @Input() private patternTexture: THREE.Texture | TextureComponent = null;
+
+  /**
+   * 
+   */
   @Input() private radius: number = null;
+
+  /**
+   * 
+   */
   @Input() private threshold: number = null;
+
+  /**
+   * 
+   */
   @Input() private goWild: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private uniforms: { [key: string]: any } = null;
+
+  /**
+   * 
+   */
   @Input() private lut: string = null;
+
+  /**
+   * 
+   */
   @Input() private use2DLut: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private inverse: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private focus: number = null;
+
+  /**
+   * 
+   */
   @Input() private aspect: number = null;
+
+  /**
+   * 
+   */
   @Input() private aperture: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxblur: number = null;
+
+  /**
+   * 
+   */
   @Input() private sampleLevel: number = null;
+
+  /**
+   * 
+   */
   @Input() private unbiased: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private accumulate: boolean = null;
-  @Input() private visibleEdgeColor: string | number | THREE.Color = null;
-  @Input() private hiddenEdgeColor: string | number | THREE.Color = null;
+
+  /**
+   * 
+   */
+  @Input() private visibleEdgeColor: ThreeColor = null;
+
+  /**
+   * 
+   */
+  @Input() private hiddenEdgeColor: ThreeColor = null;
+
+  /**
+   * 
+   */
   @Input() private edgeGlow: number = null;
+
+  /**
+   * 
+   */
   @Input() private usePatternTexture: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private edgeThickness: number = null;
+
+  /**
+   * 
+   */
   @Input() private edgeStrength: number = null;
+
+  /**
+   * 
+   */
   @Input() private downSampleRatio: number = null;
+
+  /**
+   * 
+   */
   @Input() private pulsePeriod: number = null;
+
+  /**
+   * 
+   */
   @Input() private output: string = null;
+
+  /**
+   * 
+   */
   @Input() private kernelRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private minDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxDistance: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoBias: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoIntensity: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoScale: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoKernelRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoMinResolution: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoBlur: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private saoBlurRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoBlurStdDev: number = null;
+
+  /**
+   * 
+   */
   @Input() private saoBlurDepthCutoff: number = null;
+
+  /**
+   * 
+   */
   @Input() private vertexShader: string = null;
+
+  /**
+   * 
+   */
   @Input() private fragmentShader: string = null;
+
+  /**
+   * 
+   */
   @Input() private bloomTexture: any = null;
 
+  /**
+   * 
+   */
   @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
 
   constructor() {

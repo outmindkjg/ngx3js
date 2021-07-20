@@ -9,25 +9,105 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./render-target.component.scss'],
 })
 export class RenderTargetComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy {
+
+  /**
+   * 
+   */
   @Input() private type: string = 'RenderTarget';
+
+  /**
+   * 
+   */
   @Input() private size: number = 1024;
+
+  /**
+   * 
+   */
   @Input() private width: number = 1024;
+
+  /**
+   * 
+   */
   @Input() private height: number = 1024;
+
+  /**
+   * 
+   */
   @Input() private count: number = 1;
+
+  /**
+   * 
+   */
   @Input() private wrap: string = null;
+
+  /**
+   * 
+   */
   @Input() private wrapS: string = null;
+
+  /**
+   * 
+   */
   @Input() private wrapT: string = null;
+
+  /**
+   * 
+   */
   @Input() private filter: string = null;
+
+  /**
+   * 
+   */
   @Input() private magFilter: string = null;
+
+  /**
+   * 
+   */
   @Input() private minFilter: string = null;
+
+  /**
+   * 
+   */
   @Input() private format: string = null;
+
+  /**
+   * 
+   */
   @Input() private dataType: string = null;
+
+  /**
+   * 
+   */
   @Input() private anisotropy: number = null;
+
+  /**
+   * 
+   */
   @Input() private depthBuffer: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private stencilBuffer: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private generateMipmaps: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private depthTexture: string = null;
+
+  /**
+   * 
+   */
   @Input() private encoding: string = null;
+
+  /**
+   * 
+   */
 
   private getDepthTexture(): THREE.DepthTexture {
     return new THREE.DepthTexture(

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
-import { TextureComponent } from '../texture/texture.component';
+import { AbstractTextureComponent } from '../texture.abstract';
 
 @Component({
   selector: 'ngx3js-lensflareelement',
@@ -10,9 +10,25 @@ import { TextureComponent } from '../texture/texture.component';
   styleUrls: ['./lensflareelement.component.scss'],
 })
 export class LensflareelementComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private image: string = null;
+
+  /**
+   * 
+   */
   @Input() private size: number = null;
+
+  /**
+   * 
+   */
   @Input() private distance: number = null;
+
+  /**
+   * 
+   */
   @Input() private color: string | number = null;
 
   constructor() {
@@ -73,7 +89,7 @@ export class LensflareelementComponent extends AbstractSubscribeComponent implem
   }
 
   getTexture(): THREE.Texture {
-    return TextureComponent.getTextureImage(this.getImage(''));
+    return AbstractTextureComponent.getTextureImage(this.getImage(''));
   }
 
   private lensflareElement: LensflareElement = null;

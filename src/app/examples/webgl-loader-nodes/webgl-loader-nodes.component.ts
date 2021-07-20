@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Material } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer, ThreeUtil } from '../../three';
 import { MaterialComponent } from '../../three/material/material.component';
 
 @Component({
@@ -39,8 +39,9 @@ export class WebglLoaderNodesComponent extends BaseComponent<{
   storageName : string = "";
 
   setMaterial(material : MaterialComponent) {
-    if (material.storageSource !== null) {
-      const timerNode = material.storageSource.getObjectByName( "time" );
+    const loadedMaterial = material.getMaterial();
+    if (ThreeUtil.isNotNull(loadedMaterial.userData.storageSource)) {
+      const timerNode = loadedMaterial.userData.storageSource.getObjectByName( "time" );
       if (timerNode !== null && timerNode !== undefined) {
         this.timerNode = timerNode;
         this.timerNode.timeScale = true;

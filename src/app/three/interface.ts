@@ -24,6 +24,44 @@ export interface TextureOption {
   cubeImage?: string[];
 }
 
+export type ThreeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
+
+export type ThreeUniforms = { [key: string]: ThreeUniform };
+
+
+export type ThreeTexture = string | THREE.Texture | TextureOption | any;
+
+/**
+ * Three Color
+ * string hexcode - #ffffff
+ * string hsl(0,1,1)
+ * string rgb(255,255,255)
+ * string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...
+ * string random
+ * number 0xffffff
+ * THREE.Color
+ */
+export type ThreeColor = string | number | THREE.Color;
+
+/**
+ * Three Vector
+ */
+export interface ThreeVector {
+  x: number;
+  y: number;
+  z?: number;
+  w?: number;
+}
+
+/**
+ * Three Face 
+ */
+export interface ThreeFace {
+  a: number;
+  b: number;
+  c: number;
+}
+
 export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;
@@ -109,8 +147,8 @@ export interface CssStyle {
   top?: number | string;
   bottom?: number | string;
   transition?: string | string[];
-  background?: string | number | THREE.Color | THREE.Vector4;
-  backgroundColor?: string | number | THREE.Color | THREE.Vector4;
+  background?: ThreeColor | THREE.Vector4;
+  backgroundColor?: ThreeColor | THREE.Vector4;
   backgroundImage?: string;
   backgroundRepeat?: string;
   backgroundRepeatX?: string;
@@ -133,7 +171,7 @@ export interface CssStyle {
   marginRight?: number | string;
   marginBottom?: number | string;
   border?: number | string;
-  borderColor?: string | number | THREE.Color | THREE.Vector4;
+  borderColor?: ThreeColor | THREE.Vector4;
   borderStyle?: string;
   borderWidth?: number | string;
   borderRadius?: number | string;
@@ -148,7 +186,7 @@ export interface CssStyle {
   borderImageRepeat?: string;
   borderImageWidth?: number | string;
   opacity?: number;
-  color?: string | number | THREE.Color | THREE.Vector4;
+  color?: ThreeColor | THREE.Vector4;
   fontFamily?: string;
   fontSize?: number | string;
   fontStyle?: string;
@@ -877,7 +915,7 @@ export class ThreeUtil {
     return tags.join('\n');
   }
 
-  static getColor(color: string | number | THREE.Color | { r : number , g : number , b : number } ): THREE.Color {
+  static getColor(color: ThreeColor | { r : number , g : number , b : number } ): THREE.Color {
     if (this.isNotNull(color)) {
       if (color instanceof THREE.Color) {
         return color;
@@ -894,7 +932,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorRGB(r: number, g: number, b: number, color?: string | number | THREE.Color): THREE.Color {
+  static getColorRGB(r: number, g: number, b: number, color?: ThreeColor): THREE.Color {
     const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
       return colorObj.setRGB(this.isNotNull(r) ? r : colorObj.r, this.isNotNull(g) ? g : colorObj.g, this.isNotNull(b) ? b : colorObj.b);
@@ -902,7 +940,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHSL(h?: number, s?: number, l?: number, color?: string | number | THREE.Color): THREE.Color {
+  static getColorHSL(h?: number, s?: number, l?: number, color?: ThreeColor): THREE.Color {
     const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
       const hsl = colorObj.getHSL({ h: 0, s: 0, l: 0 });
@@ -911,7 +949,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHex(color?: string | number | THREE.Color): number {
+  static getColorHex(color?: ThreeColor): number {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getHex();
@@ -919,7 +957,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHexString(color?: string | number | THREE.Color): string {
+  static getColorHexString(color?: ThreeColor): string {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getHexString();
@@ -927,7 +965,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorStyle(color?: string | number | THREE.Color): string {
+  static getColorStyle(color?: ThreeColor): string {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getStyle();
@@ -935,7 +973,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorMultiplySafe(color: string | number | THREE.Color, altColor?: string | number | THREE.Color, multiply?: number): THREE.Color {
+  static getColorMultiplySafe(color: ThreeColor, altColor?: ThreeColor, multiply?: number): THREE.Color {
     const safeColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
       safeColor.multiplyScalar(multiply);
@@ -964,14 +1002,13 @@ export class ThreeUtil {
     }
   }
 
-  static getColorSafe(color: string | number | THREE.Color, altColor?: string | number | THREE.Color, nullColor?: string | number | THREE.Color): THREE.Color {
+  static getColorSafe(color: ThreeColor, altColor?: ThreeColor, nullColor?: ThreeColor): THREE.Color {
     const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
     if (this.isNotNull(defColor)) {
       if (defColor instanceof THREE.Color) {
         return defColor;
       } else if (typeof defColor === 'string') {
         const colorStr: string = defColor;
-
         if (colorStr.startsWith('#')) {
           return new THREE.Color(colorStr);
         } else if (colorStr === 'random') {
@@ -1009,7 +1046,7 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorAlphaSafe(color: string | number | THREE.Color, alpha: number, altColor?: string | number | THREE.Color): THREE.Color | THREE.Vector4 {
+  static getColorAlphaSafe(color: ThreeColor, alpha: number, altColor?: ThreeColor): THREE.Color | THREE.Vector4 {
     const defColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(defColor)) {
       if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {

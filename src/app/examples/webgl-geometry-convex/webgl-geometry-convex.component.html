@@ -42,11 +42,10 @@
     </ngx3js-shared>
     <ngx3js-helper [type]="'Axes'" [size]="10"></ngx3js-helper>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0">
+      <ngx3js-mesh [material]="meshMaterial" [geometry]="meshGeometry" [renderOrder]="0" [castShadow]="true">
       </ngx3js-mesh>
       <ngx3js-mesh [geometry]="meshGeometry" [renderOrder]="1">
-        <ngx3js-material [refer]="meshMaterial" [side]="'Front'">
-        </ngx3js-material>
+        <ngx3js-material [refer]="meshMaterial" [side]="'Front'"></ngx3js-material>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Points'">
         <ngx3js-geometry [type]="'buffer'" [pointsGeometry]="dodecahedron"></ngx3js-geometry>

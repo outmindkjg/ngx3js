@@ -46,8 +46,8 @@
     </ngx3js-mesh>
     <ngx3js-mesh *ngFor="let decal of decals">
       <ngx3js-material [type]="'MeshPhong'" [color]="decal.color" [specular]="'0x444444'" [normalScaleX]="1" [normalScaleY]="1" [shininess]="30" [transparent]="true" [depthTest]="true" [depthWrite]="true" [polygonOffset]="true" [polygonOffsetFactor]="-4" [wireframe]="false">
-        <ngx3js-texture [textureType]="'map'" [image]="'textures/decal/decal-diffuse.png'"></ngx3js-texture>
-        <ngx3js-texture [textureType]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></ngx3js-texture>
+        <ngx3js-texture [type]="'map'" [image]="'textures/decal/decal-diffuse.png'"></ngx3js-texture>
+        <ngx3js-texture [type]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></ngx3js-texture>
       </ngx3js-material>
       <ngx3js-geometry
         [type]="'decal'"
@@ -67,9 +67,9 @@
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
       <ngx3js-material [type]="'MeshPhong'" [specular]="'0x111111'" [shininess]="25">
-        <ngx3js-texture [textureType]="'map'" [image]="'models/gltf/LeePerrySmith/Map-COL.jpg'"></ngx3js-texture>
-        <ngx3js-texture [textureType]="'specularMap'" [image]="'models/gltf/LeePerrySmith/Map-SPEC.jpg'"></ngx3js-texture>
-        <ngx3js-texture [textureType]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></ngx3js-texture>
+        <ngx3js-texture [type]="'map'" [image]="'models/gltf/LeePerrySmith/Map-COL.jpg'"></ngx3js-texture>
+        <ngx3js-texture [type]="'specularMap'" [image]="'models/gltf/LeePerrySmith/Map-SPEC.jpg'"></ngx3js-texture>
+        <ngx3js-texture [type]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>

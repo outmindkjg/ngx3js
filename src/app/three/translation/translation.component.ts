@@ -10,9 +10,24 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 })
 export class TranslationComponent extends AbstractSubscribeComponent implements OnInit {
 
+  /**
+   * 
+   */
   @Input() private visible:boolean = true;
+
+  /**
+   * 
+   */
   @Input() private x:number = 0;
+
+  /**
+   * 
+   */
   @Input() private y:number = 0;
+
+  /**
+   * 
+   */
   @Input() private z:number = 0;
 
   constructor() { 

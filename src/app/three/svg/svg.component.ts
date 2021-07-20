@@ -1,17 +1,11 @@
 import { Component, ContentChildren, ElementRef, forwardRef, Input, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
-import { ThreeUtil } from '../interface';
+import { ThreeUtil, ThreeVector } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
-import { MaterialComponent } from '../material/material.component';
+import { AbstractMaterialComponent } from '../material.abstract';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TranslationComponent } from '../translation/translation.component';
-
-export interface GeometriesVector3 {
-  x: number;
-  y: number;
-  z?: number;
-}
 
 export interface SvgGeometry {
   geometry: THREE.BufferGeometry
@@ -34,50 +28,207 @@ export interface SvgGeometry {
 })
 export class SvgComponent extends AbstractObject3dComponent {
 
+
+  /**
+   * 
+   */
   @Input() public type:string = 'mesh';
+
+  /**
+   * 
+   */
   @Input() public geometryType:string = 'shape';
+
+  /**
+   * 
+   */
   @Input() public name:string = null;
+
+  /**
+   * 
+   */
   @Input() private url:string = null;
+
+  /**
+   * 
+   */
   @Input() private path:string = null;
+
+  /**
+   * 
+   */
   @Input() private curveSegments:number = null;
+
+  /**
+   * 
+   */
   @Input() private depth:number = null;
+
+  /**
+   * 
+   */
   @Input() private steps:number = null;
+
+  /**
+   * 
+   */
   @Input() private bevelEnabled:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private bevelThickness:number = null;
+
+  /**
+   * 
+   */
   @Input() private bevelSize:number = null;
+
+  /**
+   * 
+   */
   @Input() private bevelOffset:number = null;
+
+  /**
+   * 
+   */
   @Input() private bevelSegments:number = null;
+
+  /**
+   * 
+   */
   @Input() private closed:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private isCCW:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private noHoles:boolean = null;
 
-  @Input() private material : MaterialComponent = null;
+  /**
+   * 
+   */
+  @Input() private material : AbstractMaterialComponent = null;
+
+  /**
+   * 
+   */
   @Input() private translation : TranslationComponent = null;
+
+  /**
+   * 
+   */
   @Input() private text:string = null;
+
+  /**
+   * 
+   */
   @Input() private textAlign:string = null;
+
+  /**
+   * 
+   */
   @Input() private align:string = null;
+
+  /**
+   * 
+   */
   @Input() private center:boolean = false;
+
+  /**
+   * 
+   */
   @Input() private computeVertexNormals:boolean = false;
+
+  /**
+   * 
+   */
   @Input() private font:string = null;
+
+  /**
+   * 
+   */
   @Input() private size:number = null;
+
+  /**
+   * 
+   */
   @Input() private weight:string = null;
 
+  /**
+   * 
+   */
   @Input() private color:string | number = null;
+
+  /**
+   * 
+   */
   @Input() private opacity:number = null;
+
+  /**
+   * 
+   */
   @Input() private transparent:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private wireframe:boolean = null;
+
+  /**
+   * 
+   */
   @Input() private shininess:number = null;
+
+  /**
+   * 
+   */
   @Input() private stroke:number = null;
   
-  @Input() private extrudePath:GeometriesVector3[] = null;
+
+  /**
+   * 
+   */
+  @Input() private extrudePath:ThreeVector[] = null;
+
+  /**
+   * 
+   */
   @Input() private extrudePathType:string = null;
-  @Input() private curvePath:GeometriesVector3[] = null;
+
+  /**
+   * 
+   */
+  @Input() private curvePath:ThreeVector[] = null;
+
+  /**
+   * 
+   */
   @Input() private curvePathType:string = null;
+
+  /**
+   * 
+   */
   @Input() private curveType:string = null;
+
+  /**
+   * 
+   */
   @Input() private tension:number = null;
 
+  /**
+   * 
+   */
   @Input() private uVGenerator:string = null;
 
+
+  /**
+   * 
+   */
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   meshPositions: THREE.Vector3[] = [];

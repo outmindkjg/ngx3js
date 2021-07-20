@@ -11,19 +11,59 @@ import { AbstractTweenComponent } from '../tween.abstract';
   styleUrls: ['./html.component.scss'],
 })
 export class HtmlComponent extends AbstractTweenComponent implements OnInit {
+
+  /**
+   * The html tag.
+   */
   @Input() public type: string = 'div';
+
+  /**
+   * The child append method.
+   */
   @Input() private childType: string = 'innerHTML';
+
+  /**
+   * The src of image or iframe
+   */
   @Input() private src: string = null;
+
+  /**
+   * The Style 
+   */
   @Input() private style: string | CssStyle = null;
+
+  /**
+   * 
+   */
   @Input() private list: (string | CssStyle)[] = null;
+
+  /**
+   * 
+   */
   @Input() private table: (string | CssStyle)[][] = null;
+
+  /**
+   * 
+   */
   @Input() private tableHead: (string | CssStyle)[] = null;
+
+  /**
+   * 
+   */
   @Input() private tableFoot: (string | CssStyle)[] = null;
+
+  /**
+   * 
+   */
   @Input() private dlList: {
     dt?: string | CssStyle;
     dd?: string | CssStyle;
   }[] = null;
 
+
+  /**
+   * 
+   */
   @ContentChildren(HtmlComponent, { descendants: false }) private childrenList: QueryList<HtmlComponent>;
 
   constructor(private ele: ElementRef) {

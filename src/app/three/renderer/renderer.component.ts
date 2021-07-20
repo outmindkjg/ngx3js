@@ -27,56 +27,262 @@ import { SceneComponent } from './../scene/scene.component';
   styleUrls: ['./renderer.component.scss'],
 })
 export class RendererComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'webgl';
+
+  /**
+   * 
+   */
   @Input() private cssType: string = 'none';
+
+  /**
+   * 
+   */
   @Input() private controlType: string = 'none';
+
+  /**
+   * 
+   */
   @Input() private controlOptions: any = null;
+
+  /**
+   * If set, use shadow maps in the scene. Default is *true*.
+   */
   @Input() private shadowMapEnabled: boolean = true;
+
+  /**
+   * Whether to use physically correct lighting mode. Default is *false*.
+   * See the [example:webgl_lights_physical lights / physical] example.
+   */
   @Input() private physicallyCorrectLights: boolean = false;
+
+  /**
+   * Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)
+   * Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.
+   */
   @Input() private shadowMapType: string = null;
+
+  /**
+   * Sets the clear color
+   */
   @Input() private clearColor: string | number = null;
-  @Input() private toneMapping: string = null;
-  @Input() private toneMappingExposure: number = null;
+
+  /**
+   * Sets the alpha of the clear color 
+   */
   @Input() private clearAlpha: number = null;
+
+  /**
+   * Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.
+   */
+  @Input() private toneMapping: string = null;
+
+  /**
+   * Exposure level of tone mapping. Default is *1*.
+   */
+  @Input() private toneMappingExposure: number = null;
+
+  /**
+   * Defines whether the renderer respects object-level clipping planes. Default is *false*.
+   */
   @Input() private localClippingEnabled: boolean = false;
+
+  /**
+   * User-defined clipping planes specified as THREE.Plane objects in world space.
+   */
   @Input() private globalClippingEnabled: boolean = true;
+
+  /**
+   * whether to perform antialiasing. Default is *false*.
+   */
   @Input() private antialias: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private quality: string = null;
+
+  /**
+   * 
+   */
   @Input() public sizeType: string = 'auto';
+
+  /**
+   * 
+   */
   @Input() private width: number | string = -1;
+
+  /**
+   * 
+   */
   @Input() private height: number | string = -1;
+
+  /**
+   * 
+   */
   @Input() private x: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private y: number | string = 0;
+
+  /**
+   * 
+   */
   @Input() private statsMode: number = -1;
+
+  /**
+   * Defines whether the renderer should automatically clear its output before rendering a frame.
+   */
   @Input() private autoClear: boolean = true;
+
+  /**
+   * If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.
+   * 	Default is *true*.
+   */
   @Input() private autoClearColor: boolean = true;
+
+  /**
+   * Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].
+   * If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.
+   * See the [page:Textures texture constants] page for details of other formats.
+   */
   @Input() private outputEncoding: string = null;
+
+  /**
+   * 
+   */
   @Input() private guiControl: any = null;
+
+  /**
+   * 
+   */
   @Input() private guiParams: GuiControlParam[] = [];
+
+  /**
+   * whether to use a logarithmic depth buffer. It may
+   * be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting
+   * uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test]
+   * optimization and can cause a decrease in performance.
+   * Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
+   */
   @Input() private logarithmicDepthBuffer: boolean = false;
+
+  /**
+   * whether to preserve the buffers until manually cleared
+   * or overwritten. Default is *false*.
+   */
   @Input() private preserveDrawingBuffer: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private useEvent: string = null;
+
+  /**
+   * 
+   */
   @Input() private camera: CameraComponent = null;
+
+  /**
+   * 
+   */
   @Input() private scene: SceneComponent = null;
+
+  /**
+   * 
+   */
   @Input() private beforeRender: (info: RendererInfo) => boolean = null;
+
+  /**
+   * 
+   */
   @Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
+
+  /**
+   * 
+   */
   @Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
+
+  /**
+   * 
+   */
   @ContentChildren(SceneComponent, { descendants: false }) private sceneList: QueryList<SceneComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(CameraComponent, { descendants: true }) private cameraList: QueryList<CameraComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ComposerComponent, { descendants: true }) private composerList: QueryList<ComposerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ListenerComponent, { descendants: true }) private listenerList: QueryList<ListenerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(AudioComponent, { descendants: true }) private audioList: QueryList<AudioComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(ControlComponent, { descendants: false }) private controlList: QueryList<ControlComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(CanvasComponent) private canvas2dList: QueryList<CanvasComponent>;
+
+  /**
+   * 
+   */
   @ContentChildren(SharedComponent, { descendants: true }) private sharedList: QueryList<SharedComponent>;
 
+
+  /**
+   * 
+   */
   @ViewChild('canvas') private canvasEle: ElementRef = null;
+
+  /**
+   * 
+   */
   @ViewChild('debug') private debugEle: ElementRef = null;
+
+  /**
+   * 
+   */
   @ViewChild('renderer') private rendererEle: ElementRef = null;
 
   private getShadowMapType(def?: string): THREE.ShadowMapType {

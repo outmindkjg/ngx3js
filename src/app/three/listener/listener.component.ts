@@ -9,6 +9,10 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
   providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => ListenerComponent) }]
 })
 export class ListenerComponent extends AbstractObject3dComponent implements OnInit {
+
+  /**
+   * Set the volume.
+   */
   @Input() private volume: number = 1;
 
   constructor() {

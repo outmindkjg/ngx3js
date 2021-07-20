@@ -8,7 +8,7 @@ import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHel
 import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { ThreeUtil } from './../interface';
+import { ThreeColor, ThreeUtil } from './../interface';
 import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper';
 
 @Component({
@@ -18,39 +18,170 @@ import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudi
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => HelperComponent) }],
 })
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'spot';
+
+  /**
+   * color -- The desired color.
+   */
   @Input() private color: string | number = null;
+
+  /**
+   * 
+   */
   @Input() private target: any = null;
+
+  /**
+   * (optional) size of the lines representing the axes. Default is *1*.
+   */
   @Input() private size: number = null;
+
+  /**
+   * The radius of the polar grid. This can be any positive number. Default is 10.
+   */
   @Input() private radius: number = null;
+
+  /**
+   * The number of radial lines. This can be any positive integer. Default is 16.
+   */
   @Input() private radials: number = null;
+
+  /**
+   * The number of circles. This can be any positive integer. Default is 8.
+   */
   @Input() private circles: number = null;
+
+  /**
+   * The number of line segments used for each circle. This can be any positive integer that is 3 or greater. Default is 64.
+   */
   @Input() private divisions: number = null;
-  @Input() private color1: string | number = null;
-  @Input() private color2: string | number = null;
+
+  /**
+   * The first color used for grid elements. This can be a [page:Color], a hexadecimal value and an CSS-Color name. Default is 0x444444
+   */
+  @Input() private color1: ThreeColor = null;
+
+  /**
+   * The second color used for grid elements. This can be a [page:Color], a hexadecimal value and an CSS-Color name. Default is 0x888888
+   */
+  @Input() private color2: ThreeColor = null;
+
+  /**
+   * 
+   */
   @Input() private opacity: number = null;
+
+  /**
+   * 
+   */
   @Input() private depthWrite: boolean = null;
-  @Input() private materialColor: string | number = null;
+
+  /**
+   * 
+   */
+  @Input() private materialColor: ThreeColor = null;
+
+  /**
+   * 
+   */
   @Input() private materialBlending: string = null;
+
+  /**
+   * 
+   */
   @Input() private materialTransparent: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private dirX: number = null;
+
+  /**
+   * 
+   */
   @Input() private dirY: number = null;
+
+  /**
+   * 
+   */
   @Input() private dirZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private originX: number = null;
+
+  /**
+   * 
+   */
   @Input() private originY: number = null;
+
+  /**
+   * 
+   */
   @Input() private originZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private arrowFrom: any = null;
+
+  /**
+   * 
+   */
   @Input() private arrowTo: any = null;
+
+  /**
+   * length of the arrow. Default is *1*.
+   */
   @Input() private length: number = null;
+
+  /**
+   * The length of the head of the arrow. Default is 0.2 * length.
+   */
   @Input() private headLength: number = null;
+
+  /**
+   * The width of the head of the arrow. Default is 0.2 * headLength.
+   */
   @Input() private headWidth: number = null;
+
+  /**
+   * 
+   */
   @Input() private matrix: THREE.Matrix4 = null;
+
+  /**
+   * 
+   */
   @Input() private children: any[] = null;
+
+  /**
+   * 
+   */
   @Input() private control: any = null;
+
+  /**
+   * 
+   */
   @Input() private range: number = null;
+
+  /**
+   * 
+   */
   @Input() private divisionsInnerAngle: number = null;
+
+  /**
+   * 
+   */
   @Input() private divisionsOuterAngle: number = null;
 
+  /**
+   * 
+   */
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     this.unSubscribeRefer('target');
     let targetMesh: THREE.Object3D = null;
@@ -102,11 +233,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return ThreeUtil.getTypeSafe(this.divisions, def);
   }
 
-  private getColor1(def?: string | number | THREE.Color): THREE.Color {
+  private getColor1(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorSafe(this.color1, this.color, def);
   }
 
-  private getColor2(def?: string | number | THREE.Color): THREE.Color {
+  private getColor2(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorSafe(this.color2, this.color1 || this.color, def);
   }
 

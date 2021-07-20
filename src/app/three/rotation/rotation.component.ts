@@ -9,10 +9,30 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./rotation.component.scss'],
 })
 export class RotationComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private refer: any = null;
+
+  /**
+   * The current value of the x component.
+   */
   @Input() private x: number | string = 0;
+
+  /**
+   * The current value of the y component.
+   */
   @Input() private y: number | string = 0;
+
+  /**
+   * The current value of the z component.
+   */
   @Input() private z: number | string = 0;
+
+  /**
+   * The value type is radian. Default value is *false*.
+   */
   @Input() private isRadian: boolean = false;
 
   constructor() {

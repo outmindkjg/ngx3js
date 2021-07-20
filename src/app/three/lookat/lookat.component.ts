@@ -9,10 +9,26 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./lookat.component.scss'],
 })
 export class LookatComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private refer: any = null;
-  @Input() private x: number = null;
-  @Input() private y: number = null;
-  @Input() private z: number = null;
+
+  /**
+   * The current value of the x component. Default value is *0*.
+   */
+  @Input() private x: number = 0;
+
+  /**
+   * The current value of the y component. Default value is *0*.
+   */
+  @Input() private y: number = 0;
+
+  /**
+   * The current value of the z component. Default value is *0*.
+   */
+  @Input() private z: number = 0;
 
   constructor() {
     super();

@@ -9,17 +9,66 @@ import { AbstractTweenComponent } from '../tween.abstract';
   styleUrls: ['./position.component.scss'],
 })
 export class PositionComponent extends AbstractTweenComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'position';
+
+  /**
+   * 
+   */
   @Input() private refer: any = null;
+
+  /**
+   * The current value of the x component.
+   */
   @Input() private x: number = null;
+
+  /**
+   * The current value of the y component.
+   */
   @Input() private y: number = null;
+
+  /**
+   * The current value of the z component.
+   */
   @Input() private z: number = null;
+
+  /**
+   * Multiplies this vector by scalar [page:Float s].
+   */
   @Input() private multiply: number = null;
+
+  /**
+   * Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction
+   * as this one, but [page:.length length] 1.
+   */
   @Input() private normalize: boolean = false;
+
+  /**
+   * 
+   */
   @Input() public camera: any = null;
+
+  /**
+   * 
+   */
   @Input() public setfrom: string = null;
+
+  /**
+   * 
+   */
   @Input() public radius: number = null;
+
+  /**
+   * 
+   */
   @Input() public phi: number = null;
+
+  /**
+   * 
+   */
   @Input() public theta: number = null;
 
   ngOnInit(): void {

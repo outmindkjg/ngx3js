@@ -9,9 +9,25 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./plane.component.scss'],
 })
 export class PlaneComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private x: number = null;
+
+  /**
+   * 
+   */
   @Input() private y: number = null;
+
+  /**
+   * 
+   */
   @Input() private z: number = null;
+
+  /**
+   * 
+   */
   @Input() private w: number = null;
 
   constructor() {

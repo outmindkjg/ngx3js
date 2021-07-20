@@ -12,27 +12,105 @@ import { PhysicsComponent } from './../physics/physics.component';
   styleUrls: ['./mixer.component.scss'],
 })
 export class MixerComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() public type: string = 'mixer';
+
+  /**
+   * 
+   */
   @Input() private action: string = '';
+
+  /**
+   * 
+   */
   @Input() private fps: number = null;
+
+  /**
+   * 
+   */
   @Input() private duration: number = 0.5;
+
+  /**
+   * 
+   */
   @Input() private timeScale: number = 1;
 
+  /**
+   * 
+   */
   @Input() private sync: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private afterglow: number = null;
+
+  /**
+   * 
+   */
   @Input() private resetPhysicsOnLoop: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private physics: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private warmup: number = null;
+
+  /**
+   * 
+   */
   @Input() private unitStep: number = null;
+
+  /**
+   * 
+   */
   @Input() private maxStepNum: number = null;
+
+  /**
+   * 
+   */
   @Input() private gravity: number = null;
+
+  /**
+   * 
+   */
   @Input() private delayTime: number = null;
+
+  /**
+   * 
+   */
   @Input() private animationHelper: MixerComponent = null;
+
+  /**
+   * 
+   */
   @Input() private skin: number = null;
+
+  /**
+   * 
+   */
   @Input() private weapon: number = null;
+
+  /**
+   * 
+   */
   @Input() private controls: any = null;
+
+  /**
+   * 
+   */
   @Input() private mmdHelpers: string[] = null;
 
+  /**
+   * 
+   */
   @ContentChildren(ClipComponent, { descendants: false }) private clipList: QueryList<ClipComponent>;
 
   private getFps(def?: number): number {

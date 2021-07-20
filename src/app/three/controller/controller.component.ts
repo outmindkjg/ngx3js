@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { CameraComponent } from '../camera/camera.component';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
-import { RendererEvent, RendererTimer, ThreeUtil } from '../interface';
+import { RendererEvent, RendererTimer, ThreeColor, ThreeUtil } from '../interface';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
@@ -15,37 +15,160 @@ import { ControllerItemComponent, ControlObjectItem } from './controller-item/co
   styleUrls: ['./controller.component.scss'],
 })
 export class ControllerComponent extends AbstractSubscribeComponent implements OnInit {
+
+  /**
+   * 
+   */
   @Input() private type: string = 'auto';
+
+  /**
+   * 
+   */
   @Input() private controlComponent: { new (ref3d: THREE.Object3D, ref2d: HtmlCollection): AbstractThreeController } = null;
+
+  /**
+   * 
+   */
   @Input() private controlParams: { [key: string]: any } = null;
+
+  /**
+   * 
+   */
   @Input() private curve: string = null;
+
+  /**
+   * 
+   */
   @Input() private scale: number = null;
+
+  /**
+   * 
+   */
   @Input() private radius: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusX: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusY: number = null;
+
+  /**
+   * 
+   */
   @Input() private radiusZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationX: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationY: number = null;
+
+  /**
+   * 
+   */
   @Input() private rotationZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerX: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerY: number = null;
+
+  /**
+   * 
+   */
   @Input() private centerZ: number = null;
+
+  /**
+   * 
+   */
   @Input() private duration: number = null;
+
+  /**
+   * 
+   */
   @Input() private delta: number = null;
+
+  /**
+   * 
+   */
   @Input() private multiply: number = null;
+
+  /**
+   * 
+   */
   @Input() private options: string = null;
+
+  /**
+   * 
+   */
   @Input() private visible: boolean = false;
-  @Input() private color: string | number | THREE.Color = null;
+
+  /**
+   * 
+   */
+  @Input() private color: ThreeColor = null;
+
+  /**
+   * 
+   */
   @Input() private opacity: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubularSegments: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubeRadius: number = null;
+
+  /**
+   * 
+   */
   @Input() private tubeRadiusSegments: number = null;
+
+  /**
+   * 
+   */
   @Input() private closed: boolean = null;
+
+  /**
+   * 
+   */
   @Input() private material: string = null;
+
+  /**
+   * 
+   */
   @Input() private useEvent: boolean = false;
+
+  /**
+   * 
+   */
   @Input() private eventSeqn: number = 1000;
+
+  /**
+   * 
+   */
   @Input() private mstDuration: number = null;
 
+  /**
+   * 
+   */
   @ContentChildren(ControllerItemComponent, { descendants: false }) controllerItemList: QueryList<ControllerItemComponent>;
 
   constructor() {
