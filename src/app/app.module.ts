@@ -35,6 +35,7 @@ import { MiscExporterGltfComponent } from './examples/misc-exporter-gltf/misc-ex
 import { MiscExporterObjComponent } from './examples/misc-exporter-obj/misc-exporter-obj.component';
 import { MiscExporterPlyComponent } from './examples/misc-exporter-ply/misc-exporter-ply.component';
 import { MiscExporterStlComponent } from './examples/misc-exporter-stl/misc-exporter-stl.component';
+import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-exporter-usdz.component';
 import { MiscLegacyComponent } from './examples/misc-legacy/misc-legacy.component';
 import { MiscLookatComponent } from './examples/misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './examples/misc-uv-tests/misc-uv-tests.component';
@@ -249,6 +250,7 @@ import { WebglMaterialsPhysicalReflectivityComponent } from './examples/webgl-ma
 import { WebglMaterialsPhysicalSheenComponent } from './examples/webgl-materials-physical-sheen/webgl-materials-physical-sheen.component';
 import { WebglMaterialsPhysicalTransmissionComponent } from './examples/webgl-materials-physical-transmission/webgl-materials-physical-transmission.component';
 import { WebglMaterialsShadersFresnelComponent } from './examples/webgl-materials-shaders-fresnel/webgl-materials-shaders-fresnel.component';
+import { WebglMaterialsStandardNodesComponent } from './examples/webgl-materials-standard-nodes/webgl-materials-standard-nodes.component';
 import { WebglMaterialsStandardComponent } from './examples/webgl-materials-standard/webgl-materials-standard.component';
 import { WebglMaterialsSubsurfaceScatteringComponent } from './examples/webgl-materials-subsurface-scattering/webgl-materials-subsurface-scattering.component';
 import { WebglMaterialsTextureAnisotropyComponent } from './examples/webgl-materials-texture-anisotropy/webgl-materials-texture-anisotropy.component';
@@ -398,7 +400,6 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { MenuComponent } from './menu/menu.component';
-import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-exporter-usdz.component';
 import { Ngx3JsModule } from './three/ngx3js.module';
 
 @NgModule({
@@ -798,6 +799,7 @@ import { Ngx3JsModule } from './three/ngx3js.module';
     Webgl2RendertargetTexture2darrayComponent,
     WebglPortalComponent,
     MiscExporterUsdzComponent,
+    WebglMaterialsStandardNodesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
   providers: [

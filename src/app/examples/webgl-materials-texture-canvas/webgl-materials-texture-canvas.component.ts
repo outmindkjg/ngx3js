@@ -6,10 +6,19 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-materials-texture-canvas.component.html',
   styleUrls: ['./webgl-materials-texture-canvas.component.scss']
 })
-export class WebglMaterialsTextureCanvasComponent extends BaseComponent<{}> {
+export class WebglMaterialsTextureCanvasComponent extends BaseComponent<{
+  backgroundColor : number,
+  lineColor : number
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      backgroundColor : 0xffffff,
+      lineColor : 0x000000
+    },[
+      { name : 'backgroundColor', type : 'color'},
+      { name : 'lineColor', type : 'color'},
+    ]);
   }
 
 }

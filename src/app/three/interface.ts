@@ -234,12 +234,23 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.controls.meshRotate.applyAutoRotate();
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     if (this._subscribe !== null) {
       for (let key in this._subscribe) {

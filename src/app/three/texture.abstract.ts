@@ -4,6 +4,7 @@ import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
+import { TextureNode, NodeMaterial } from 'three/examples/jsm/nodes/Nodes';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { CanvasFunctionType, TextureUtils } from './texture/textureUtils';
@@ -228,26 +229,33 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    */
   @Input() private flipY: boolean = null;
 
-  protected getRepeat(defX: number, defY: number): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.repeatX, this.repeat), ThreeUtil.getTypeSafe(this.repeatY, this.repeat), new THREE.Vector2(defX, defY));
-  }
-
-  protected getOffset(defX: number, defY: number): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.offsetX, this.offset), ThreeUtil.getTypeSafe(this.offsetY, this.offset), new THREE.Vector2(defX, defY));
-  }
-
-  private getCenter(defX: number, defY: number): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.centerX, this.center), ThreeUtil.getTypeSafe(this.centerY, this.center), new THREE.Vector2(defX, defY));
-  }
+  /**
+   * The base attribute can be fine without re-make Texture
+   */
+  protected TEXTURE_ATTR: string[] = []
 
   constructor() {
     super();
+    this.TEXTURE_ATTR.push(...this.OBJECT_ATTR);
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   * 
+   * @param subscribeType
+   */
   ngOnInit(subscribeType?: string): void {
     super.ngOnInit(subscribeType || 'texture');
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     if (this.texture != null) {
       if (this.texture.image instanceof HTMLMediaElement) {
@@ -262,6 +270,14 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     super.ngOnDestroy();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   * 
+   * @param changes The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes) {
@@ -269,8 +285,26 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
+  }
+
+  protected getRepeat(defX: number, defY: number): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.repeatX, this.repeat), ThreeUtil.getTypeSafe(this.repeatY, this.repeat), new THREE.Vector2(defX, defY));
+  }
+
+  protected getOffset(defX: number, defY: number): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.offsetX, this.offset), ThreeUtil.getTypeSafe(this.offsetY, this.offset), new THREE.Vector2(defX, defY));
+  }
+
+  private getCenter(defX: number, defY: number): THREE.Vector2 {
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.centerX, this.center), ThreeUtil.getTypeSafe(this.centerY, this.center), new THREE.Vector2(defX, defY));
   }
 
   private refTexture: THREE.Texture = null;
@@ -967,70 +1001,84 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
+  protected applyTexture2Material(material : THREE.Material, key : string, texture : THREE.Texture) : void {
+    if (material instanceof NodeMaterial) {
+      if (key !== 'diffuseMap') {
+        if (material[key] instanceof TextureNode) {
+          material[key].value = texture;
+        } else {
+          material[key] = new TextureNode(texture);
+        }
+      }
+    } else if (material[key] !== undefined){
+      material[key] = texture;
+    }
+  }
+
   protected applyMaterial() {
     if (this.material !== null && this.texture !== null) {
       switch (this.type.toLowerCase()) {
         case 'matcap':
-          this.material['matcap'] = this.texture;
+          this.applyTexture2Material(this.material, 'matcap', this.texture);
           break;
         case 'env':
         case 'envmap':
-          this.material['envMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'envMap', this.texture);
           break;
         case 'specular':
         case 'specularmap':
-          this.material['specularMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'specularMap', this.texture);
           break;
         case 'alpha':
         case 'alphamap':
-          this.material['alphaMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'alphaMap', this.texture);
           break;
         case 'emissive':
         case 'emissivemap':
-          this.material['emissiveMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'emissiveMap', this.texture);
           break;
         case 'bump':
         case 'bumpmap':
-          this.material['bumpMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'bumpMap', this.texture);
           break;
         case 'normal':
         case 'normalmap':
-          this.material['normalMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'normalMap', this.texture);
           break;
         case 'ao':
         case 'aomap':
-          this.material['aoMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'aoMap', this.texture);
           break;
         case 'displace':
         case 'displacement':
         case 'displacementmap':
-          this.material['displacementMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'displacementMap', this.texture);
           break;
         case 'clearcoatnormal':
         case 'clearcoatnormalmap':
-          this.material['clearcoatNormalMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'clearcoatNormalMap', this.texture);
           break;
         case 'metalness':
         case 'metalnessmap':
-          this.material['metalnessMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'metalnessMap', this.texture);
           break;
         case 'roughness':
         case 'roughnessmap':
-          this.material['roughnessMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'roughnessMap', this.texture);
           break;
         case 'light':
         case 'lightmap':
-          this.material['lightMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'lightMap', this.texture);
           break;
         case 'gradient':
         case 'gradientmap':
-          this.material['gradientMap'] = this.texture;
+          this.applyTexture2Material(this.material, 'gradientMap', this.texture);
           break;
         case 'map':
-          this.material['map'] = this.texture;
+          this.applyTexture2Material(this.material, 'map', this.texture);
           break;
         default:
-          this.material[this.type] = this.texture;
+          this.applyTexture2Material(this.material, this.type, this.texture);
           break;
       }
       this.material.needsUpdate = true;

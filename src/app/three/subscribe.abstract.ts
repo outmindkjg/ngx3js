@@ -53,6 +53,15 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
 
   protected id: string = '';
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   * 
+   * @param subscribeType
+   */
   ngOnInit(subscribeType?: string): void {
     this.id = subscribeType + '_' + Math.round(10000 + Math.random() * 10000) + '_' + Math.round(10000 + Math.random() * 10000);
     this.setSubscribeType(subscribeType);
@@ -60,6 +69,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this._userData.component = this.id;
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     if (this._subscribe !== null) {
       for (let key in this._subscribe) {
@@ -80,6 +93,14 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.onDestory.emit(this);
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   * 
+   * @param changes The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.tween) {
       this.setTween(this.tween);
@@ -91,7 +112,15 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
-  ngAfterContentInit(): void {}
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
+
+  }
 
   setTween(tweenData  : { [key : string ] : any}) {
     if (ThreeUtil.isNotNull(tweenData)) {

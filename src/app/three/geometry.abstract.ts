@@ -22,382 +22,425 @@ export interface MeshGeometry {
   geometry: THREE.BufferGeometry;
   userData?: any;
   material?: THREE.Material | THREE.Material[];
-  updateMorphTargets? : () => void;
-  computeLineDistances? : () => void;
+  updateMorphTargets?: () => void;
+  computeLineDistances?: () => void;
 }
 
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class AbstractGeometryComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
- 
-
   /**
-   * 
+   *
    */
   @Input() private name: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private align: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private center: boolean = false;
 
   /**
-   * 
+   *
    */
   @Input() private computeVertexNormals: boolean = false;
 
   /**
-   * 
+   *
    */
   @Input() private computeBoundingBox: boolean = false;
 
   /**
-   * 
+   *
    */
   @Input() private computeBoundingSphere: boolean = false;
 
   /**
-   * 
+   *
    */
   @Input() private computeTangents: boolean = false;
 
   /**
-   * 
+   *
    */
   @Input() protected scale: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private sphereScale: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private attributes: { [key: string]: AttrBufferAttribute } = null;
 
   /**
-   * 
+   *
    */
   @Input() private morphAttributes: { [key: string]: AttrBufferAttribute[] } = null;
 
   /**
-   * 
+   *
    */
   @Input() private autoDisplacement: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private autoDisplacementSize: number = 3;
 
   /**
-   * 
+   *
    */
   @Input() private autoCustomColor: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private autoCustomColorSize: number = 3;
 
   /**
-   * 
+   *
    */
   @Input() private autoCustomColorKey: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private autoSize: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private autoSizeSize: number = 1;
 
-
   /**
-   * 
+   *
    */
   @Input() protected attrPosition: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrPositionUsage: string = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrUv: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrUvUsage: string = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrTextureIndex: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrTextureIndexUsage: string = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrVertColor: AttrBufferAttribute = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrVisible: AttrBufferAttribute = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private vertexBuffer: Float32Array | THREE.InterleavedBuffer | number[] = null;
 
   /**
-   * 
+   *
    */
   @Input() private vertexBufferStride: number = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrOffset: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrOffsetUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrTranslate: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrTranslateUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrOrientationStart: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrOrientationStartUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrOrientationEnd: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrOrientationEndUsage: string = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrNormal: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrNormalUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrNormalNormalized: boolean = false;
 
-
   /**
-   * 
+   *
    */
   @Input() protected attrColor: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrColorUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrColorSize: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrColorKey: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrColorNormalized: boolean = false;
 
-
   /**
-   * 
+   *
    */
   @Input() private attrCustomColor: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrCustomColorUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrSize: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrSizeUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrScale: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrScaleUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrIndex: AttrBufferAttribute = null;
 
   /**
-   * 
+   *
    */
   @Input() private attrIndexUsage: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private toNonIndexed: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private flipY: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private mergeVertices: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private edgeSplit: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private cutOffAngle: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private tryKeepNormals: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private simplify: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private count: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private tessellate: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private maxEdgeLength: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private maxIterations: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private program: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private programParam: any = null;
 
   /**
-   * 
+   *
    */
   @Input() private onInit: (geometry: THREE.BufferGeometry) => void = null;
 
-
   /**
-   * 
+   *
    */
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 
+  /**
+   *
+   */
+  protected GEOMETRY_ATTR: string[] = ['name', 'align'];
+
+  constructor() {
+    super();
+    this.GEOMETRY_ATTR.push(...this.OBJECT_ATTR);
+  }
 
   /**
-   * 
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   *
+   * @param subscribeType
    */
-  protected GEOMETRY_ATTR : string[] = ['name', 'align'];
+  ngOnInit(subscribeType?: string): void {
+    super.ngOnInit(subscribeType || 'geometry');
+  }
+
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
+  ngOnDestroy(): void {
+    if (this.geometry != null) {
+      this.geometry.dispose();
+    }
+    super.ngOnDestroy();
+  }
+
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.geometry !== null) {
+    }
+  }
+
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
+    this.subscribeListQueryChange(this.translationList, 'translationList', 'translation');
+    this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
+    this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
+    this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
+    super.ngAfterContentInit();
+  }
 
   protected getMorphAttributes(): { key: string; value: THREE.BufferAttribute[] }[] {
     const attributes: { key: string; value: THREE.BufferAttribute[] }[] = [];
@@ -678,37 +721,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     bufferAttribute.needsUpdate = true;
     return bufferAttribute;
   }
-
-  constructor() {
-    super();
-    this.GEOMETRY_ATTR.push(...this.OBJECT_ATTR);
-  }
-
-  ngOnInit(subscribeType?: string): void {
-    super.ngOnInit(subscribeType || 'geometry');
-  }
-
-  ngOnDestroy(): void {
-    if (this.geometry != null) {
-      this.geometry.dispose();
-    }
-    super.ngOnDestroy();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    if (changes && this.geometry !== null) {
-    }
-  }
-
-  ngAfterContentInit(): void {
-    this.subscribeListQueryChange(this.translationList, 'translationList', 'translation');
-    this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
-    this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
-    this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
-    super.ngAfterContentInit();
-  }
-
+  
   private _meshGeometry: MeshGeometry = null;
 
   static isMeshGeometry(mesh: any): boolean {
@@ -776,7 +789,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
           if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
             this._meshGeometry.updateMorphTargets();
           }
-          ThreeUtil.setSubscribeNext(this._meshGeometry,this.subscribeType);
+          ThreeUtil.setSubscribeNext(this._meshGeometry, this.subscribeType);
         }
       } else if (this.geometry !== geometry) {
         this.geometry = geometry;
@@ -793,7 +806,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
       }
       if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
         if (ThreeUtil.isNotNull(this.program)) {
-          GeometryUtils.getGeometry(this.program, geometry, this.programParam);          
+          GeometryUtils.getGeometry(this.program, geometry, this.programParam);
         }
         if (this.center) {
           geometry.center();

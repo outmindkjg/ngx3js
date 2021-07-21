@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
-import { TextureOption, ThreeColor, ThreeTexture, ThreeUtil } from './interface';
+import { ThreeColor, ThreeTexture, ThreeUtil } from './interface';
 import { PlaneComponent } from './plane/plane.component';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { AbstractTextureComponent } from './texture.abstract';
@@ -17,10 +17,9 @@ export interface MeshMaterialRaw {
 export type MeshMaterial = MeshMaterialRaw | THREE.Scene;
 
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class AbstractMaterialComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-
   /**
    * Optional name of the object (doesn't need to be unique). Default is an empty string.
    */
@@ -47,84 +46,74 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   @Input() protected refer: any = null;
 
   /**
-   * Color of the material, by default set to white (0xffffff).
-   */
-  @Input() protected color: ThreeColor = null;
-
-  /**
-   * Color of the material multiply (1)
-   */
-  @Input() private colorMultiply: number = null;
-
-  /**
    * Float in the range of *0.0* - *1.0* indicating how transparent the material is.
    * A value of *0.0* indicates fully transparent, *1.0* is fully opaque.<br />
    * If the material's [page:Boolean transparent] property is not set to *true*, the material will remain
    * fully opaque and this value will only affect its color. <br />
    * Default is *1.0*.
    */
-  @Input() private opacity: number = null;
+  @Input() protected opacity: number = null;
 
   /**
    * Enables alpha to coverage. Can only be used with MSAA-enabled contexts (meaning when the renderer was created with *antialias* parameter set to *true*). Default is *false*.
    */
-  @Input() private alphaToCoverage: number = null;
+  @Input() protected alphaToCoverage: number = null;
 
   /**
    * Sets the alpha value to be used when running an alpha test.
    * The material will not be renderered if the opacity is lower than this value.
    * Default is *0*.
    */
-  @Input() private alphaTest: number = null;
+  @Input() protected alphaTest: number = null;
 
   /**
    * Which blending to use when displaying objects with this material. <br />
    * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
    * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
    */
-  @Input() private blendDst: string = null;
+  @Input() protected blendDst: string = null;
 
   /**
    * The transparency of the [page:.blendDst]. Uses [page:.blendDst] value if null. Default is *null*.
    */
-  @Input() private blendDstAlpha: number = null;
+  @Input() protected blendDstAlpha: number = null;
 
   /**
    * Blending equation to use when applying blending. Default is [page:CustomBlendingEquation AddEquation].
    * See the blending equation [page:CustomBlendingEquation constants] for all possible values.<br />
    * The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
    */
-  @Input() private blendEquation: string = null;
+  @Input() protected blendEquation: string = null;
 
   /**
    * The transparency of the [page:.blendEquation]. Uses [page:.blendEquation] value if null. Default is *null*.
    */
-  @Input() private blendEquationAlpha: number = null;
+  @Input() protected blendEquationAlpha: number = null;
 
   /**
    * Which blending to use when displaying objects with this material. <br />
    * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
    * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
    */
-  @Input() private blending: string = null;
+  @Input() protected blending: string = null;
 
   /**
    * Blending source. Default is [page:CustomBlendingEquation SrcAlphaFactor].
    * See the source factors [page:CustomBlendingEquation constants] for all possible values.<br />
    * The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
    */
-  @Input() private blendSrc: string = null;
+  @Input() protected blendSrc: string = null;
 
   /**
    * The transparency of the [page:.blendSrc]. Uses [page:.blendSrc] value if null. Default is *null*.
    */
-  @Input() private blendSrcAlpha: number = null;
+  @Input() protected blendSrcAlpha: number = null;
 
   /**
    * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union.
    * Default is *false*.
    */
-  @Input() private clipIntersection: boolean = null;
+  @Input() protected clipIntersection: boolean = null;
 
   /**
    * User-defined clipping planes specified as THREE.Plane objects in world space.
@@ -134,83 +123,83 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * See the [example:webgl_clipping_intersection WebGL / clipping /intersection] example.
    * Default is *null*.
    */
-  @Input() private clippingPlanes: PlaneComponent[] | THREE.Plane[] = null;
+  @Input() protected clippingPlanes: PlaneComponent[] | THREE.Plane[] = null;
 
   /**
    * Defines whether to clip shadows according to the clipping planes specified on this material. Default is *false*.
    */
-  @Input() private clipShadows: boolean = null;
+  @Input() protected clipShadows: boolean = null;
 
   /**
    * Whether to render the material's color.
    * This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is *true*.
    */
-  @Input() private colorWrite: boolean = null;
+  @Input() protected colorWrite: boolean = null;
 
   /**
    * Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is *undefined*.
    */
-  @Input() private defines: any = null;
+  @Input() protected defines: any = null;
 
   /**
    * Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.
    */
-  @Input() private depthFunc: string = null;
+  @Input() protected depthFunc: string = null;
 
   /**
    * Whether to have depth test enabled when rendering this material. Default is *true*.
    */
-  @Input() private depthTest: boolean = null;
+  @Input() protected depthTest: boolean = null;
 
   /**
    * Whether rendering this material has any effect on the depth buffer. Default is *true*.<br /><br />
    * When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
    */
-  @Input() private depthWrite: boolean = null;
+  @Input() protected depthWrite: boolean = null;
 
   /**
    * Whether the material is affected by fog. Default is *true*.
    */
-  @Input() private fog: boolean = null;
+  @Input() protected fog: boolean = null;
 
   /**
    * Whether to use polygon offset. Default is *false*. This corresponds to the *GL_POLYGON_OFFSET_FILL* WebGL feature.
    */
-  @Input() private polygonOffset: boolean = null;
+  @Input() protected polygonOffset: boolean = null;
 
   /**
    * Sets the polygon offset factor. Default is *0*.
    */
-  @Input() private polygonOffsetFactor: number = null;
+  @Input() protected polygonOffsetFactor: number = null;
 
   /**
    * Sets the polygon offset units. Default is *0*.
    */
-  @Input() private polygonOffsetUnits: number = null;
+  @Input() protected polygonOffsetUnits: number = null;
 
   /**
    * Override the renderer's default precision for this material. Can be "*highp*", "*mediump*" or "*lowp*".
    * Default is *null*.
    */
-  @Input() private precision: string = null;
+  @Input() protected precision: string = null;
 
   /**
    * Whether to premultiply the alpha (transparency) value.
    * See [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission] for an example of the difference.
    * Default is *false*.
    */
-  @Input() private premultipliedAlpha: boolean = null;
+  @Input() protected premultipliedAlpha: boolean = null;
 
   /**
    * Whether to apply dithering to the color to remove the appearance of banding.
    * Default is *false*.
    */
-  @Input() private dithering: boolean = null;
+  @Input() protected dithering: boolean = null;
 
   /**
    * Define whether the material is rendered with flat shading. Default is false.
    */
-  @Input() private flatShading: boolean = null;
+  @Input() protected flatShading: boolean = null;
 
   /**
    * Defines which side of faces will be rendered - front, back or both.
@@ -225,57 +214,57 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * If *null*, the side casting shadows is determined as follows: <br />
 
    */
-  @Input() private shadowSide: string = null;
+  @Input() protected shadowSide: string = null;
 
   /**
    * Defines whether this material is tone mapped according to the renderer's [page:WebGLRenderer.toneMapping toneMapping] setting. Default is *true*.
    */
-  @Input() private toneMapped: boolean = null;
+  @Input() protected toneMapped: boolean = null;
 
   /**
    * Defines whether vertex coloring is used. Default is *false*.
    */
-  @Input() private vertexColors: boolean = null;
+  @Input() protected vertexColors: boolean = null;
 
   /**
    * Whether stencil operations are performed against the stencil buffer. In order to perform writes or comparisons against the stencil buffer this value must be *true*. Default is *false*.
    */
-  @Input() private stencilWrite: boolean = null;
+  @Input() protected stencilWrite: boolean = null;
 
   /**
    * The stencil comparison function to use. Default is [page:Materials AlwaysStencilFunc]. See stencil function [page:Materials constants] for all possible values.
    */
-  @Input() private stencilFunc: string = null;
+  @Input() protected stencilFunc: string = null;
 
   /**
    * The value to use when performing stencil comparisons or stencil operations. Default is *0*.
    */
-  @Input() private stencilRef: number = null;
+  @Input() protected stencilRef: number = null;
 
   /**
    * The bit mask to use when writing to the stencil buffer. Default is *0xFF*.
    */
-  @Input() private stencilWriteMask: number = null;
+  @Input() protected stencilWriteMask: number = null;
 
   /**
    * The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.
    */
-  @Input() private stencilFuncMask: number = null;
+  @Input() protected stencilFuncMask: number = null;
 
   /**
    * Which stencil operation to perform when the comparison function returns false. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
    */
-  @Input() private stencilFail: string = null;
+  @Input() protected stencilFail: string = null;
 
   /**
    * Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
    */
-  @Input() private stencilZFail: string = null;
+  @Input() protected stencilZFail: string = null;
 
   /**
    * Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
    */
-  @Input() private stencilZPass: string = null;
+  @Input() protected stencilZPass: string = null;
 
   /**
    * Defines whether this material is transparent. This has an effect on rendering
@@ -285,120 +274,29 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * controlled by setting its [page:Float opacity] property. <br />
    * Default is *false*.
    */
-  @Input() private transparent: boolean = null;
+  @Input() protected transparent: boolean = null;
 
   /**
-   * The environment map. Default is null.
+   *
    */
-  @Input() private envMap: ThreeTexture = null;
-
-  /**
-   * The color map. Default is  null.
-   */
-  @Input() private map: ThreeTexture = null;
-
-  /**
-   * The matcap map. Default is null.
-   */
-  @Input() private matcap: ThreeTexture = null;
-
-  /**
-   * Specular map used by the material. Default is null.
-   */
-  @Input() private specularMap: ThreeTexture = null;
-
-  /**
-   * The alpha map is a grayscale texture that controls the opacity across the surface
-   * (black: fully transparent; white: fully opaque). Default is null.<br /><br />
-   * Only the color of the texture is used, ignoring the alpha channel if one exists.
-   * For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the
-   * green channel when sampling this texture due to the extra bit of precision provided
-   * for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and
-   * luminance/alpha textures will also still work as expected.
-   */
-  @Input() private alphaMap: ThreeTexture = null;
-
-  /**
-   * The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.
-   * Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will
-   * be ignored.
-   */
-  @Input() private bumpMap: ThreeTexture = null;
-
-  /**
-   * The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change
-   * the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.
-   * In case the material has a normal map authored using the left handed convention, the y component of normalScale
-   * should be negated to compensate for the different handedness.
-   */
-  @Input() private normalMap: ThreeTexture = null;
-
-  /**
-   * The displacement map affects the position of the mesh's vertices. Unlike other maps
-   * which only affect the light and shade of the material the displaced vertices can cast shadows,
-   * block other objects, and otherwise act as real geometry. The displacement texture is
-   * an image where the value of each pixel (white being the highest) is mapped against,
-   * and repositions, the vertices of the mesh.
-   */
-  @Input() private displacementMap: ThreeTexture = null;
-
-  /**
-   * Can be used to enable independent normals for the clear coat layer. Default is *null*.
-   */
-  @Input() private clearcoatNormalMap: ThreeTexture = null;
-
-  /**
-   * The green channel of this texture is used to alter the roughness of the material.
-   */
-  @Input() private roughnessMap: ThreeTexture = null;
-
-  /**
-   * The light map. Default is null. The lightMap requires a second set of UVs.
-   */
-  @Input() private lightMap: ThreeTexture = null;
-
-  /**
-   * The red channel of this texture is used as the ambient occlusion map. Default is null.
-   * The aoMap requires a second set of UVs.
-   */
-  @Input() private aoMap: ThreeTexture = null;
-
-  /**
-   * 
-   */
-  @Input() private control: any = null;
+  @Input() protected control: any = null;
 
   /**
    * An optional callback that is executed immediately before the shader program is compiled.
    * This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.
    */
-  @Input() private onBeforeCompile: (shader: THREE.Shader, renderer?: THREE.WebGLRenderer) => void = null;
+  @Input() protected onBeforeCompile: (shader: THREE.Shader, renderer?: THREE.WebGLRenderer) => void = null;
 
   /**
-   * 
+   *
    */
-  @ContentChildren(AbstractTextureComponent) private textureList: QueryList<AbstractTextureComponent>;
- 
-  /**
-   * 
-   */
-  @ContentChildren(PlaneComponent) private clippingPlanesList: QueryList<PlaneComponent>;
-
-  /**
-   * [page:Color] of the material, by default set to white (0xffffff).
-   * 
-   * @param def 
-   * @returns 
-   */
-  protected getColor(def?: ThreeColor): THREE.Color {
-    return ThreeUtil.getColorMultiplySafe(this.color, def, this.colorMultiply);
-  }
+  @ContentChildren(PlaneComponent) protected clippingPlanesList: QueryList<PlaneComponent>;
 
   /**
    * todo
-   * 
-   * @param materialType 
-   * @returns 
+   *
+   * @param materialType
+   * @returns
    */
   public isMaterialType(materialType: string): boolean {
     return this.materialType.toLowerCase() === materialType.toLowerCase() && (this.visible === null || this.visible);
@@ -406,11 +304,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getBlendDst(def?: string): THREE.BlendingDstFactor {
+  protected getBlendDst(def?: string): THREE.BlendingDstFactor {
     const blendDst = ThreeUtil.getTypeSafe(this.blendDst, def, '');
     switch (blendDst.toLowerCase()) {
       case 'zero':
@@ -439,11 +337,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getBlendEquation(def?: string): THREE.BlendingEquation {
+  protected getBlendEquation(def?: string): THREE.BlendingEquation {
     const blendEquation = ThreeUtil.getTypeSafe(this.blendEquation, def, '');
     switch (blendEquation.toLowerCase()) {
       case 'add':
@@ -462,11 +360,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
+  protected getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
     const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
     switch (blendSrc.toLowerCase()) {
       case 'srcalphasaturatefactor':
@@ -508,11 +406,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getDepthFunc(def?: string): THREE.DepthModes {
+  protected getDepthFunc(def?: string): THREE.DepthModes {
     const depthFunc = ThreeUtil.getTypeSafe(this.depthFunc, def, '');
     switch (depthFunc.toLowerCase()) {
       case 'never':
@@ -537,11 +435,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getPrecision(def?: string): 'highp' | 'mediump' | 'lowp' | null {
+  protected getPrecision(def?: string): 'highp' | 'mediump' | 'lowp' | null {
     const precision = ThreeUtil.getTypeSafe(this.precision, def, '');
     switch (precision.toLowerCase()) {
       case 'highp':
@@ -556,9 +454,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected getSide(def?: string): THREE.Side {
     const side = ThreeUtil.getTypeSafe(this.side, def, '');
@@ -578,11 +476,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getShadowSide(def?: string): THREE.Side {
+  protected getShadowSide(def?: string): THREE.Side {
     const shadowSide = ThreeUtil.getTypeSafe(this.shadowSide, def, '');
     switch (shadowSide.toLowerCase()) {
       case 'backside':
@@ -600,9 +498,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected getVertexColors(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.vertexColors, def);
@@ -610,11 +508,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getStencilFunc(def?: string): THREE.StencilFunc {
+  protected getStencilFunc(def?: string): THREE.StencilFunc {
     const stencilFunc = ThreeUtil.getTypeSafe(this.stencilFunc, def, '');
     switch (stencilFunc.toLowerCase()) {
       case 'never':
@@ -639,11 +537,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getStencilFail(def?: string): THREE.StencilOp {
+  protected getStencilFail(def?: string): THREE.StencilOp {
     const stencilFail = ThreeUtil.getTypeSafe(this.stencilFail, def, '');
     switch (stencilFail.toLowerCase()) {
       case 'zero':
@@ -668,11 +566,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getStencilZFail(def?: string): THREE.StencilOp {
+  protected getStencilZFail(def?: string): THREE.StencilOp {
     const stencilZFail = ThreeUtil.getTypeSafe(this.stencilZFail, def, '');
     switch (stencilZFail.toLowerCase()) {
       case 'zero':
@@ -697,11 +595,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getStencilZPass(def?: string): THREE.StencilOp {
+  protected getStencilZPass(def?: string): THREE.StencilOp {
     const stencilZPass = ThreeUtil.getTypeSafe(this.stencilZPass, def, '');
     switch (stencilZPass.toLowerCase()) {
       case 'zero':
@@ -726,11 +624,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
+  protected getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
       const clippingPlanes: THREE.Plane[] = [];
       this.clippingPlanes.forEach((plane) => {
@@ -757,11 +655,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  private getTextureOption(map: ThreeTexture, name: string): THREE.Texture {
+  protected getTextureOption(map: ThreeTexture, name: string): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
       if (typeof map === 'string') {
         const texture = AbstractTextureComponent.getTextureImageOption(map, null, 'texture', null, () => {
@@ -793,109 +691,79 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * The base attribute can be fine without re-make Material
    */
-  protected getTexture(type: string): THREE.Texture {
-    switch (type.toLowerCase()) {
-      case 'envmap':
-        if (ThreeUtil.isNotNull(this.envMap)) {
-          return this.getTextureOption(this.envMap, 'envMap');
-        }
-        break;
-      case 'map':
-        if (ThreeUtil.isNotNull(this.map)) {
-          return this.getTextureOption(this.map, 'map');
-        }
-        break;
-      case 'specularmap':
-        if (ThreeUtil.isNotNull(this.specularMap)) {
-          return this.getTextureOption(this.specularMap, 'specularMap');
-        }
-        break;
-      case 'alphamap':
-        if (ThreeUtil.isNotNull(this.alphaMap)) {
-          return this.getTextureOption(this.alphaMap, 'alphaMap');
-        }
-        break;
-      case 'bumpmap':
-        if (ThreeUtil.isNotNull(this.bumpMap)) {
-          return this.getTextureOption(this.bumpMap, 'bumpMap');
-        }
-        break;
-      case 'normalmap':
-        if (ThreeUtil.isNotNull(this.normalMap)) {
-          return this.getTextureOption(this.normalMap, 'normalMap');
-        }
-        break;
-      case 'aomap':
-        if (ThreeUtil.isNotNull(this.aoMap)) {
-          return this.getTextureOption(this.aoMap, 'aoMap');
-        }
-        break;
-      case 'displacementmap':
-        if (ThreeUtil.isNotNull(this.displacementMap)) {
-          return this.getTextureOption(this.displacementMap, 'displacementMap');
-        }
-        break;
-      case 'clearcoatnormalmap':
-        if (ThreeUtil.isNotNull(this.clearcoatNormalMap)) {
-          return this.getTextureOption(this.clearcoatNormalMap, 'clearcoatNormalMap');
-        }
-        break;
-      case 'roughnessmap':
-        if (ThreeUtil.isNotNull(this.roughnessMap)) {
-          return this.getTextureOption(this.roughnessMap, 'roughnessMap');
-        }
-        break;
-      case 'lightmap':
-        if (ThreeUtil.isNotNull(this.lightMap)) {
-          return this.getTextureOption(this.lightMap, 'lightMap');
-        }
-        break;
-      }
-    if (ThreeUtil.isNotNull(this.textureList) && this.textureList.length > 0) {
-      const foundTexture = this.textureList.find((texture) => {
-        return texture.isTexture(type);
-      });
-      if (ThreeUtil.isNotNull(foundTexture)) {
-        return foundTexture.getTexture();
-      }
-    }
-    return undefined;
-  }
-
-  /**
-   * todo
-   * 
-   */
-  protected MATERIAL_ATTR : string[] = [];
+  protected MATERIAL_ATTR: string[] = [
+    'blending',
+    'blenddst',
+    'blenddstalpha',
+    'blendequation',
+    'blendequationalpha',
+    'blendsrc',
+    'blendsrcalpha',
+    'clipintersection',
+    'clippingplanes',
+    'clipshadows',
+    'colorwrite',
+    'defines',
+    'depthfunc',
+    'depthtest',
+    'depthwrite',
+    'fog',
+    'opacity',
+    'polygonoffset',
+    'polygonoffsetfactor',
+    'polygonoffsetunits',
+    'precision',
+    'premultipliedalpha',
+    'dithering',
+    'flatshading',
+    'shadowside',
+    'tonemapped',
+    'transparent',
+    'stencilwrite',
+    'stencilfunc',
+    'stencilref',
+    'stencilwritemask',
+    'stencilfuncmask',
+    'stencilfail',
+    'stencilzfail',
+    'stencilzpass',
+    'userdata',
+    'alphatest',
+    'name',
+    'side',
+    'vertexcolors',
+    'visible',
+    'texture',
+    'color',
+    'colormultiply',
+  ];
 
   /**
    * todo
    */
   constructor() {
     super();
-
+    this.MATERIAL_ATTR.push(...this.OBJECT_ATTR);
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   *
+   * @param subscribeType
    */
   ngOnInit(subscribeType?: string): void {
     super.ngOnInit(subscribeType || 'material');
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
     if (this.material != null) {
@@ -905,10 +773,12 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
@@ -917,10 +787,10 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
    */
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
@@ -933,9 +803,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   setMesh(meshMaterial: MeshMaterial) {
     if (this.material === null) {
@@ -949,9 +819,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected synkMesh(material: THREE.Material = null) {
     if (ThreeUtil.isNotNull(material) && this.enabled) {
@@ -1069,9 +939,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   static isMeshMaterial(mesh: any): boolean {
     if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite || mesh instanceof THREE.Scene) {
@@ -1083,9 +953,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   static getMeshMaterial(mesh: any): MeshMaterial {
     if (this.isMeshMaterial(mesh)) {
@@ -1113,9 +983,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected getMaterialParameters(extendObj: any): THREE.MaterialParameters {
     const materialParameters: THREE.MaterialParameters = Object.assign(
@@ -1181,9 +1051,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   public getMaterial<T extends THREE.Material>(): T {
     return this.material as T;
@@ -1191,24 +1061,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
-   */
-  protected synkTexture(texture: any, textureType: string) {
-    if (ThreeUtil.isNotNull(texture) && this.material !== null && this.material[textureType] !== undefined) {
-      const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
-      if (foundTexture !== null) {
-        this.material[textureType] = foundTexture;
-      }
-    }
-  }
-
-  /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected setMaterial(material: THREE.Material) {
     if (this.material !== material && ThreeUtil.isNotNull(material)) {
@@ -1238,150 +1093,17 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   protected applyChanges(changes: string[]) {
     if (this.material !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
-        this.getMaterial();
         return;
-      }
-      if (
-        !ThreeUtil.isOnlyIndexOf(
-          changes,
-          [
-            'blending',
-            'blenddst',
-            'blenddstalpha',
-            'blendequation',
-            'blendequationalpha',
-            'blendsrc',
-            'blendsrcalpha',
-            'clipintersection',
-            'clippingplanes',
-            'clipshadows',
-            'colorwrite',
-            'defines',
-            'depthfunc',
-            'depthtest',
-            'depthwrite',
-            'fog',
-            'opacity',
-            'polygonoffset',
-            'polygonoffsetfactor',
-            'polygonoffsetunits',
-            'precision',
-            'premultipliedalpha',
-            'dithering',
-            'flatshading',
-            'shadowside',
-            'tonemapped',
-            'transparent',
-            'stencilwrite',
-            'stencilfunc',
-            'stencilref',
-            'stencilwritemask',
-            'stencilfuncmask',
-            'stencilfail',
-            'stencilzfail',
-            'stencilzpass',
-            'userdata',
-            'alphatest',
-            'name',
-            'side',
-            'vertexcolors',
-            'visible',
-            'texture',
-            'color',
-            'colormultiply',
-          ],
-          this.OBJECT_ATTR
-        )
-      ) {
-        this.needUpdate = true;
-        return;
-      }
-      if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['texture']);
-        if (ThreeUtil.isNotNull(this.refer)) {
-          changes = ThreeUtil.pushUniq(changes, [
-            'blending',
-            'blenddst',
-            'blenddstalpha',
-            'blendequation',
-            'blendequationalpha',
-            'blendsrc',
-            'blendsrcalpha',
-            'clipintersection',
-            'clippingplanes',
-            'clipshadows',
-            'colorwrite',
-            'defines',
-            'depthfunc',
-            'depthtest',
-            'depthwrite',
-            'fog',
-            'opacity',
-            'polygonoffset',
-            'polygonoffsetfactor',
-            'polygonoffsetunits',
-            'precision',
-            'premultipliedalpha',
-            'dithering',
-            'flatshading',
-            'shadowside',
-            'tonemapped',
-            'transparent',
-            'stencilwrite',
-            'stencilfunc',
-            'stencilref',
-            'stencilwritemask',
-            'stencilfuncmask',
-            'stencilfail',
-            'stencilzfail',
-            'stencilzpass',
-            'userdata',
-            'alphatest',
-            'name',
-            'side',
-            'vertexcolors',
-            'visible',
-            'texture',
-            'color',
-            'colormultiply',
-          ]);
-        }
-      }
-      if (ThreeUtil.isIndexOf(changes, 'colormultiply')) {
-        changes = ThreeUtil.pushUniq(changes, ['color']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
-          case 'texture':
-            this.synkTexture(this.envMap, 'envMap');
-            this.synkTexture(this.matcap, 'matcap');
-            this.synkTexture(this.map, 'map');
-            this.synkTexture(this.specularMap, 'specularMap');
-            this.synkTexture(this.alphaMap, 'alphaMap');
-            this.synkTexture(this.bumpMap, 'bumpMap');
-            this.synkTexture(this.normalMap, 'normalMap');
-            this.synkTexture(this.aoMap, 'aoMap');
-            this.synkTexture(this.displacementMap, 'displacementMap');
-            this.unSubscribeReferList('textureList');
-            if (ThreeUtil.isNotNull(this.textureList)) {
-              this.textureList.forEach((texture) => {
-                texture.setMaterial(this.material);
-              });
-              this.subscribeListQuery(this.textureList, 'textureList', 'texture');
-            }
-            break;
-          case 'color':
-            if (ThreeUtil.isNotNull(this.color) && this.material['color'] !== undefined) {
-              this.material['color'] = this.getColor();
-            }
-            break;
           case 'blending':
             if (ThreeUtil.isNotNull(this.blending)) {
               this.material.blending = ThreeUtil.getBlendingSafe(this.blending);
@@ -1592,5 +1314,4 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
     }
     super.applyChanges(changes);
   }
-  
 }

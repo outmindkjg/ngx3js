@@ -20,144 +20,139 @@ export interface HtmlCollection {
   styleUrls: ['./visual.component.scss'],
 })
 export class VisualComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   *
    */
   @Input() public type: string = 'div';
 
   /**
-   * 
+   *
    */
   @Input() public name: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private childType: string = 'innerHTML';
 
   /**
-   * 
+   *
    */
   @Input() private src: string = null;
 
   /**
-   * 
+   *
    */
   @Input() private value: string | number = '';
 
   /**
-   * 
+   *
    */
   @Input() private inputType: string | number = 'text';
 
   /**
-   * 
+   *
    */
   @Input() private checked: string | number = 'false';
 
-
   /**
-   * 
+   *
    */
   @Input() private radioValues: {
     value?: string;
     text?: string;
   }[] = null;
 
-
   /**
-   * 
+   *
    */
   @Input() private selectOptions: {
     value?: string;
     text?: string;
   }[] = null;
 
-
   /**
-   * 
+   *
    */
   @Output() private change: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private click: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private dblclick: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private focus: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private keyup: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private keydown: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private load: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private select: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private mousedown: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private mouseout: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private mouseover: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private mousemove: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * 
+   *
    */
   @Output() private mouseup: EventEmitter<any> = new EventEmitter<any>();
 
-
   /**
-   * 
+   *
    */
   @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
   // @ContentChildren(ControllerComponent, { descendants: false }) private controllerList: QueryList<ControllerComponent>;
@@ -173,10 +168,21 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     super();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
     super.ngOnInit('visual');
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     if (this.visual !== null) {
       if (ThreeUtil.isNotNull(this.visual.parentNode)) {
@@ -191,6 +197,14 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     super.ngOnDestroy();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes && this.visual) {
@@ -198,7 +212,13 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  ngAfterContentInit() {
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.childrenList, 'childrenList', 'children');
     this.subscribeListQueryChange(this.htmlList, 'htmlList', 'html');
     this.subscribeListQueryChange(this.transformList, 'transformList', 'transform');

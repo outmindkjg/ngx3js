@@ -110,12 +110,15 @@
         }
         > button.clear-btn {
           position: absolute;
-          left: 3px;
-          bottom: 3px;
-          border-radius: 2px;
-          border: 1px solid #909090;
-          font-size: 0.7em;
-          background-color: #ffffff;
+          left: 0px;
+          top: 0px;
+          border-radius: 0 0 3px 0;
+          width:1rem;
+          height:1rem;
+          border: 0 none;
+          font-size: 0.7rem;
+          background-color: #000000;
+          color : white;
           margin: 0;
           padding: 0;
         }

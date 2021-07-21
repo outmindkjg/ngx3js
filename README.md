@@ -24,6 +24,7 @@ ng g c three/renderer
 ng g c three/geometry
 ng g c three/geometry/bird
 ng g c three/material
+ng g c three/node-material
 ng g c three/mesh
 ng g c three/light
 ng g c three/position
@@ -180,6 +181,7 @@ ng g c examples/webgl_geometry_shapes
 ng g c examples/webgl_geometry_spline_editor
 ng g c examples/webgl_geometry_teapot
 ng g c examples/webgl_geometry_terrain
+ng g c examples/webgl_materials_standard_nodes
 ng g c examples/webgl_geometry_terrain_fog
 ng g c examples/webgl_geometry_terrain_raycast
 ng g c examples/webgl_geometry_text

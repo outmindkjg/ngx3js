@@ -60,6 +60,13 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     super();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
     Ammo().then((AmmoLib: typeof Ammo) => {
       this.ammo = AmmoLib;
@@ -68,10 +75,22 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     super.ngOnInit('physics');
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   * 
+   * @param changes The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes && this.physics) {
@@ -79,6 +98,12 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.constraintList, 'constraintList', 'constraint');
     super.ngAfterContentInit();

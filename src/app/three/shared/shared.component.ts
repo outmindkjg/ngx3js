@@ -27,99 +27,98 @@ import { ScaleComponent } from './../scale/scale.component';
   styleUrls: ['./shared.component.scss'],
 })
 export class SharedComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit {
-
   /**
-   * 
+   *
    */
   @ContentChildren(AbstractGeometryComponent, { descendants: false }) private geometryList: QueryList<AbstractGeometryComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(AbstractMaterialComponent, { descendants: false }) private materialList: QueryList<AbstractMaterialComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(AbstractTextureComponent, { descendants: false }) private textureList: QueryList<AbstractTextureComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
 
   /**
-   * 
+   *
    */
   @ContentChildren(AnimationGroupComponent, { descendants: false }) private animationGroupList: QueryList<AnimationGroupComponent>;
 
@@ -127,14 +126,33 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     super();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
     super.ngOnInit('shared');
   }
 
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes) {
@@ -142,7 +160,13 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  ngAfterContentInit() {
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
     this.subscribeListQueryChange(this.materialList, 'materialList', 'material');
     this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
@@ -162,7 +186,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
     this.subscribeListQueryChange(this.animationGroupList, 'animationGroupList', 'animation-group');
-    
+
     super.ngAfterContentInit();
   }
 
@@ -171,7 +195,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   applyChanges(changes: string[]) {
     if (this.sharedObj !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareelement', 'svg', 'listner', 'audio', 'csschildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'animation-group','lookat']);
+        changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareelement', 'svg', 'listner', 'audio', 'csschildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'animation-group', 'lookat']);
       }
       if (ThreeUtil.isIndexOf(changes, ['type'])) {
         return;
@@ -258,7 +282,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
               scale.getScale();
             });
             break;
-          case 'animation-group' :
+          case 'animation-group':
             this.animationGroupList.forEach((animationGroup) => {
               animationGroup.getAnimationGroup();
             });

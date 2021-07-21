@@ -211,20 +211,21 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   /**
-   * todo
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
    * 
-   * @param def 
-   * @returns 
+   * @param subscribeType
    */
   ngOnInit(subscribeType?: string): void {
     super.ngOnInit(subscribeType || 'object3d');
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
     if (this.object3d != null) {
@@ -244,10 +245,12 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   /**
-   * todo
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
    * 
-   * @param def 
-   * @returns 
+   * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
@@ -335,10 +338,10 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
    */
   ngAfterContentInit(): void {
     this.subscribeListQueryChange(this.object3dList, 'object3dList', 'object3d');

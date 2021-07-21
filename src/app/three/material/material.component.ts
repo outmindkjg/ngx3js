@@ -3,7 +3,8 @@ import * as THREE from 'three';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
 import * as Nodes from 'three/examples/jsm/nodes/Nodes';
-import { ThreeColor, ThreeUniforms, ThreeUtil } from '../interface';
+import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
+import { ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractMaterialComponent } from '../material.abstract';
 import { ShaderComponent } from '../shader/shader.component';
@@ -14,13 +15,12 @@ import { AbstractTextureComponent } from '../texture.abstract';
   selector: 'ngx3js-material',
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.scss'],
-  providers: [{provide: AbstractMaterialComponent, useExisting: forwardRef(() => MaterialComponent) }]
+  providers: [{ provide: AbstractMaterialComponent, useExisting: forwardRef(() => MaterialComponent) }],
 })
 export class MaterialComponent extends AbstractMaterialComponent implements OnInit, OnDestroy, OnChanges {
-
   /**
-   * The matrial type. can be , 
-   * lambert - 
+   * The matrial type. can be ,
+   * lambert -
    */
   @Input() public type: string = 'lambert';
 
@@ -34,6 +34,26 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    */
   @Input() private storageOption: any = null;
 
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   */
+  @Input() protected color: ThreeColor = null;
+
+  /**
+   * Color of the material multiply (1)
+   */
+  @Input() protected colorMultiply: number = null;
+
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   */
+  @Input() protected diffuseColor: ThreeColor = null;
+
+  /**
+   * Color of the material multiply (1)
+   */
+  @Input() protected diffuseColorMultiply: number = null;
+  
   /**
    * The shader type
    */
@@ -90,7 +110,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private specular: ThreeColor = null;
 
   /**
-   * 
+   *
    */
   @Input() private specularMultiply: number = null;
 
@@ -112,12 +132,12 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   /**
    * Emissive (light) color of the material, essentially a solid color unaffected by other lighting.
    * Default is black.
-   * 
+   *
    */
   @Input() private emissive: ThreeColor = null;
 
   /**
-   * 
+   *
    */
   @Input() private emissiveMultiply: number = null;
 
@@ -133,23 +153,25 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 
   /**
    * The type of normal map.<br /><br />
-	 * Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].
+   * Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].
    */
   @Input() private normalMapType: string = null;
 
   /**
    * How much the normal map affects the material. Typical ranges are 0-1.
-   * Default is a [page:Vector2] set to (1,1).
+   * Default is a [page:Vector2] set to (1,1) *1*.
    */
   @Input() private normalScale: number = null;
 
   /**
-   * 
+   * How much the normal map affects the material. Typical ranges are 0-1.
+   * Default is a [page:Vector2] set to (1,1).
    */
   @Input() private normalScaleX: number = null;
 
   /**
-   * 
+   * How much the normal map affects the material. Typical ranges are 0-1.
+   * Default is a [page:Vector2] set to (1,1).
    */
   @Input() private normalScaleY: number = null;
 
@@ -321,7 +343,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private sheen: ThreeColor = null;
 
   /**
-   * 
+   *
    */
   @Input() private sheenMultiply: number = null;
 
@@ -355,7 +377,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Defines whether precomputed vertex tangents, which must be provided in a vec4 "tangent" attribute,
    * are used. When disabled, tangents are derived automatically. Using precomputed tangents will give
    * more accurate normal map details in some cases, such as with mirrored UVs. Default is false.
-   * 
+   *
    */
   @Input() private vertexTangents: boolean = null;
 
@@ -376,27 +398,27 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private sizeAttenuation: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private dashed: boolean = null;
 
   /**
-   * 
+   *
    */
   @Input() private dashScale: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private dashOffset: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private resolutionX: number = null;
 
   /**
-   * 
+   *
    */
   @Input() private resolutionY: number = null;
 
@@ -409,52 +431,188 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   /**
    * 	An object with the following properties:
    * <code>
-this.extensions = {
-	derivatives: false, // set to use derivatives
-	fragDepth: false, // set to use fragment depth values
-	drawBuffers: false, // set to use draw buffers
-	shaderTextureLOD: false // set to use shader texture LOD
-};
+   * this.extensions = {
+   * 	derivatives: false, // set to use derivatives
+   * 	fragDepth: false, // set to use fragment depth values
+   * 	drawBuffers: false, // set to use draw buffers
+   * 	shaderTextureLOD: false // set to use shader texture LOD
+   * };
    * </code>
-
    */
   @Input() private extensions: string = null;
 
   /**
-   * 
+   * The environment map. Default is null.
    */
-  meshPositions: THREE.Vector3[] = [];
+  @Input() protected envMap: ThreeTexture = null;
 
   /**
-   * 
+   * The color map. Default is  null.
    */
-  meshRotations: THREE.Euler[] = [];
+  @Input() protected map: ThreeTexture = null;
 
   /**
-   * 
+   * The matcap map. Default is null.
    */
-  meshScales: THREE.Vector3[] = [];
+  @Input() protected matcap: ThreeTexture = null;
 
   /**
-   * 
+   * Specular map used by the material. Default is null.
    */
-  meshTranslations: THREE.BufferGeometry[] = [];
+  @Input() protected specularMap: ThreeTexture = null;
 
   /**
-   * 
+   * The alpha map is a grayscale texture that controls the opacity across the surface
+   * (black: fully transparent; white: fully opaque). Default is null.<br /><br />
+   * Only the color of the texture is used, ignoring the alpha channel if one exists.
+   * For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the
+   * green channel when sampling this texture due to the extra bit of precision provided
+   * for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and
+   * luminance/alpha textures will also still work as expected.
    */
-  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+  @Input() protected alphaMap: ThreeTexture = null;
 
   /**
-   * 
+   * The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.
+   * Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will
+   * be ignored.
+   */
+  @Input() protected bumpMap: ThreeTexture = null;
+
+  /**
+   * The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change
+   * the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.
+   * In case the material has a normal map authored using the left handed convention, the y component of normalScale
+   * should be negated to compensate for the different handedness.
+   */
+  @Input() protected normalMap: ThreeTexture = null;
+
+  /**
+   * The displacement map affects the position of the mesh's vertices. Unlike other maps
+   * which only affect the light and shade of the material the displaced vertices can cast shadows,
+   * block other objects, and otherwise act as real geometry. The displacement texture is
+   * an image where the value of each pixel (white being the highest) is mapped against,
+   * and repositions, the vertices of the mesh.
+   */
+  @Input() protected displacementMap: ThreeTexture = null;
+
+  /**
+   * Can be used to enable independent normals for the clear coat layer. Default is *null*.
+   */
+  @Input() protected clearcoatNormalMap: ThreeTexture = null;
+
+  /**
+   * The green channel of this texture is used to alter the roughness of the material.
+   */
+  @Input() protected roughnessMap: ThreeTexture = null;
+
+  /**
+   * The light map. Default is null. The lightMap requires a second set of UVs.
+   */
+  @Input() protected lightMap: ThreeTexture = null;
+
+  /**
+   * The red channel of this texture is used as the ambient occlusion map. Default is null.
+   * The aoMap requires a second set of UVs.
+   */
+  @Input() protected aoMap: ThreeTexture = null;
+
+  /**
+   *
+   */
+  @ContentChildren(AbstractTextureComponent) protected textureList: QueryList<AbstractTextureComponent>;
+
+  /**
+   *
    */
   @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
 
   /**
+   *
+   */
+  meshPositions: THREE.Vector3[] = [];
+
+  /**
+   *
+   */
+  meshRotations: THREE.Euler[] = [];
+
+  /**
+   *
+   */
+  meshScales: THREE.Vector3[] = [];
+
+  /**
+   *
+   */
+  meshTranslations: THREE.BufferGeometry[] = [];
+
+  /**
+   *
+   */
+  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+
+  /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
+   */
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
+
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngOnInit(): void {
+    super.ngOnInit('material');
+  }
+
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.material) {
+      this.addChanges(changes);
+    }
+  }
+
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
+    this.subscribeListQueryChange(this.shaderList, 'shaderList', 'shader');
+    this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
+    super.ngAfterContentInit();
+  }
+
+  /**
+   * todo
+   *
+   * @param def
+   * @returns
    */
   private getEmissive(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.emissive, def, this.emissiveMultiply);
@@ -462,9 +620,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getNormalMapType(def?: string): THREE.NormalMapTypes {
     const normalMapType = ThreeUtil.getTypeSafe(this.normalMapType, def, '');
@@ -478,20 +636,20 @@ this.extensions = {
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * How much the normal map affects the material. Typical ranges are 0-1.
+   *
+   * @param def
+   * @returns
    */
   private getNormalScale(def?: THREE.Vector2): THREE.Vector2 {
-    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.normalScaleX, this.normalScaleY, this.normalScale), ThreeUtil.getTypeSafe(this.normalScaleY, this.normalScaleX, this.normalScale), def);
+    return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.normalScaleX, this.normalScale, 1), ThreeUtil.getTypeSafe(this.normalScaleY, this.normalScale, 1), def);
   }
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getCombine(def?: string): THREE.Combine {
     const combine = ThreeUtil.getTypeSafe(this.combine, def, '');
@@ -511,9 +669,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getDepthPacking(def?: string): THREE.DepthPackingStrategies {
     const depthPacking = ThreeUtil.getTypeSafe(this.depthPacking, def, '');
@@ -530,9 +688,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getReferencePosition(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.referencePositionX, this.referencePositionY, this.referencePositionZ, def);
@@ -540,19 +698,39 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.clearcoatNormalScaleX, this.clearcoatNormalScale), ThreeUtil.getTypeSafe(this.clearcoatNormalScaleY, this.clearcoatNormalScale), def);
   }
 
   /**
+   * [page:Color] of the material, by default set to white (0xffffff).
+   *
+   * @param def
+   * @returns
+   */
+  private getColor(def?: ThreeColor): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.color, def, this.colorMultiply);
+  }
+
+  /**
+   * [page:Color] of the material, by default set to white (0xffffff).
+   *
+   * @param def
+   * @returns
+   */
+  private getDiffuseColor(def?: ThreeColor): THREE.Color {
+    return ThreeUtil.getColorMultiplySafe(this.diffuseColor, def, this.diffuseColorMultiply);
+  }
+
+  /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getSheen(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.sheen, def, this.sheenMultiply);
@@ -560,19 +738,291 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getSpecular(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.specular, def, this.specularMultiply);
   }
 
   /**
+   * The getter Color Node
+   *
+   * @param color
+   * @returns
+   */
+  private getColorNode(color?: THREE.Color): Nodes.ColorNode {
+    return new Nodes.ColorNode(color);
+  }
+
+  /**
+   * The getter Float Node
+   *
+   * @param value
+   * @returns
+   */
+  private getFloatNode(value?: number): Nodes.FloatNode {
+    return new Nodes.FloatNode(value);
+  }
+
+  /**
+   * The getter Int Node
+   *
+   * @param value
+   * @returns
+   */
+  private getIntNode(value?: number): Nodes.IntNode {
+    return new Nodes.IntNode(value);
+  }
+
+  /**
+   * The getter Bool Node
+   *
+   * @param value
+   * @returns
+   */
+  private getBoolNode(value?: boolean): Nodes.BoolNode {
+    return new Nodes.BoolNode(value);
+  }
+
+  /**
+   * The getter Matrix3 Node
+   *
+   * @param matrix
+   * @returns
+   */
+  private getMatrix3Node(matrix?: THREE.Matrix3): Nodes.Matrix3Node {
+    return new Nodes.Matrix3Node(matrix);
+  }
+
+  /**
+   * The getter Matrix4 Node
+   *
+   * @param matrix
+   * @returns
+   */
+  private getMatrix4Node(matrix?: THREE.Matrix4): Nodes.Matrix4Node {
+    return new Nodes.Matrix4Node(matrix);
+  }
+
+  /**
+   * The getter Property Node
+   *
+   * @param object
+   * @param property
+   * @param type
+   * @returns
+   */
+  private getPropertyNode(object: object, property: string, type: string): Nodes.PropertyNode {
+    return new Nodes.PropertyNode(object, property, type);
+  }
+
+  /**
+   * The getter Screen Node
+   *
+   * @param uv
+   * @returns
+   */
+  private getScreenNode(uv?: Nodes.UVNode): Nodes.ScreenNode {
+    return new Nodes.ScreenNode(uv);
+  }
+
+  /**
+   * The getter Texture Node
+   *
+   * @param value
+   * @param uv
+   * @param bias
+   * @param project
+   * @returns
+   */
+  private getTextureNode(value: THREE.Texture, uv?: Nodes.UVNode, bias?: Nodes.Node, project?: boolean): Nodes.TextureNode {
+    return new Nodes.TextureNode(value, uv, bias, project);
+  }
+
+  /**
+   * The getter CubeTexture Node
+   *
+   * @param value
+   * @param uv
+   * @param bias
+   * @returns
+   */
+  private getCubeTextureNode(value: THREE.CubeTexture, uv?: Nodes.UVNode, bias?: Nodes.Node): Nodes.CubeTextureNode {
+    return new Nodes.CubeTextureNode(value, uv, bias);
+  }
+
+  /**
+   * The getter Reflector Node
+   *
+   * @param mirror
+   * @returns
+   */
+  private getReflectorNode(mirror: ReflectorRTT): Nodes.ReflectorNode {
+    return new Nodes.ReflectorNode(mirror);
+  }
+
+  /**
+   * The getter NodeFrame
+   *
+   * @param time
+   * @returns
+   */
+  private getNodeFrame(time: number): Nodes.NodeFrame {
+    return new Nodes.NodeFrame(time);
+  }
+
+  /**
+   * The getter CondNode Node
+   *
+   * @param a
+   * @param b
+   * @param op
+   * @param ifNode
+   * @param elseNode
+   * @returns
+   */
+  private getCondNode(a: Nodes.Node, b: Nodes.Node, op: string, ifNode?: Nodes.Node, elseNode?: Nodes.Node): Nodes.CondNode {
+    return new Nodes.CondNode(a, b, op, ifNode, elseNode);
+  }
+
+  /**
+   * The getter Math Node
+   *
+   * @param a
+   * @param bOrMethod
+   * @param cOrMethod
+   * @param method
+   * @returns
+   */
+  private getMathNode(a: Nodes.Node, bOrMethod: Nodes.Node | string, cOrMethod?: Nodes.Node | string, method?: string): Nodes.MathNode {
+    return new Nodes.MathNode(a, bOrMethod, cOrMethod, method);
+  }
+
+  /**
+   * The getter Operator Node
+   *
+   * @param a
+   * @param b
+   * @param op
+   * @returns
+   */
+  private getOperatorNode(a: Nodes.Node, b: Nodes.Node, op: string): Nodes.OperatorNode {
+    return new Nodes.OperatorNode(a, b, op);
+  }
+
+  /**
+   * The getter Timer Node
+   *
+   * @param scale
+   * @param scope
+   * @param timeScale
+   * @returns
+   */
+  private getTimerNode(scale?: number, scope?: string, timeScale?: boolean): Nodes.TimerNode {
+    return new Nodes.TimerNode(scale, scope, timeScale);
+  }
+
+  /**
+   * The getter Function Node
+   *
+   * @param scale
+   * @param scope
+   * @param timeScale
+   * @returns
+   */
+  private getFunctionNode(src: string, includes?: object[], extensions?: object, keywords?: object, type?: string): Nodes.FunctionNode {
+    return new Nodes.FunctionNode(src, includes, extensions, keywords, type);
+  }
+
+  /**
+   * The getter FunctionCallNode Node
+   *
+   * @param func
+   * @param inputs
+   * @returns
+   */
+  private getFunctionCallNode(func: Nodes.FunctionNode, inputs?: Nodes.Node[]): Nodes.FunctionCallNode {
+    return new Nodes.FunctionCallNode(func, inputs);
+  }
+
+  /**
+   * The getter PositionNode Node
+   *
+   * @param scope
+   * @returns
+   */
+  private getPositionNode(scope?: string): Nodes.PositionNode {
+    return new Nodes.PositionNode(scope);
+  }
+
+  /**
+   * The getter UVNode Node
+   *
+   * @param index
+   * @returns
+   */
+  private getUVNode(index?: number): Nodes.UVNode {
+    return new Nodes.UVNode(index);
+  }
+
+  /**
+   * The getter RTTN Node
+   *
+   * @param width
+   * @param height
+   * @param input
+   * @param options
+   * @returns
+   */
+  private getRTTNode(width: number, height: number, input: Nodes.TextureNode, options?: Nodes.RTTNodeOptions): Nodes.RTTNode {
+    return new Nodes.RTTNode(width, height, input, options);
+  }
+
+  /**
+   * The getter Vector2 Node
+   *
+   * @param x
+   * @param y
+   * @returns
+   */
+  private getVector2Node(x: number | THREE.Vector2, y?: number): Nodes.Vector2Node {
+    return new Nodes.Vector2Node(x, y);
+  }
+
+  /**
+   * The getter Vector3 Node
+   *
+   * @param x
+   * @param y
+   * @param z
+   * @returns
+   */
+  private getVector3Node(x: number | THREE.Vector3 | THREE.Color , y?: number, z?: number): Nodes.Vector3Node {
+    if (x instanceof THREE.Color) {
+      return new Nodes.Vector3Node(x.r, x.g, x.b);
+    } else {
+      return new Nodes.Vector3Node(x, y, z);
+    }
+  }
+
+  /**
+   * The getter Vector4 Node
+   *
+   * @param x
+   * @param y
+   * @returns
+   */
+  private getVector4Node(x: number, y: number, z: number, w: number): Nodes.Vector4Node {
+    return new Nodes.Vector4Node(x, y, z, w);
+  }
+
+  /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getGlslVersion(def?: string): THREE.GLSLVersion {
     const glslVersion = ThreeUtil.getTypeSafe(this.glslVersion, def, '');
@@ -591,9 +1041,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getExtensions(extensions: { derivatives?: boolean; fragDepth?: boolean; drawBuffers?: boolean; shaderTextureLOD?: boolean }): any {
     const extensionsList = ThreeUtil.getTypeSafe(this.extensions, '').split(',');
@@ -625,9 +1075,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
     const uniforms: {
@@ -771,9 +1221,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getResolution(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.resolutionX, this.resolutionY, def);
@@ -781,9 +1231,9 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private getShader(type: string) {
     if (type === 'x-shader/x-vertex') {
@@ -808,63 +1258,685 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  constructor(private localStorageService: LocalStorageService) {
-    super();
+  protected getTexture(type: string): THREE.Texture {
+    switch (type.toLowerCase()) {
+      case 'envmap':
+        if (ThreeUtil.isNotNull(this.envMap)) {
+          return this.getTextureOption(this.envMap, 'envMap');
+        }
+        break;
+      case 'map':
+        if (ThreeUtil.isNotNull(this.map)) {
+          return this.getTextureOption(this.map, 'map');
+        }
+        break;
+      case 'specularmap':
+        if (ThreeUtil.isNotNull(this.specularMap)) {
+          return this.getTextureOption(this.specularMap, 'specularMap');
+        }
+        break;
+      case 'alphamap':
+        if (ThreeUtil.isNotNull(this.alphaMap)) {
+          return this.getTextureOption(this.alphaMap, 'alphaMap');
+        }
+        break;
+      case 'bumpmap':
+        if (ThreeUtil.isNotNull(this.bumpMap)) {
+          return this.getTextureOption(this.bumpMap, 'bumpMap');
+        }
+        break;
+      case 'normalmap':
+        if (ThreeUtil.isNotNull(this.normalMap)) {
+          return this.getTextureOption(this.normalMap, 'normalMap');
+        }
+        break;
+      case 'aomap':
+        if (ThreeUtil.isNotNull(this.aoMap)) {
+          return this.getTextureOption(this.aoMap, 'aoMap');
+        }
+        break;
+      case 'displacementmap':
+        if (ThreeUtil.isNotNull(this.displacementMap)) {
+          return this.getTextureOption(this.displacementMap, 'displacementMap');
+        }
+        break;
+      case 'clearcoatnormalmap':
+        if (ThreeUtil.isNotNull(this.clearcoatNormalMap)) {
+          return this.getTextureOption(this.clearcoatNormalMap, 'clearcoatNormalMap');
+        }
+        break;
+      case 'roughnessmap':
+        if (ThreeUtil.isNotNull(this.roughnessMap)) {
+          return this.getTextureOption(this.roughnessMap, 'roughnessMap');
+        }
+        break;
+      case 'lightmap':
+        if (ThreeUtil.isNotNull(this.lightMap)) {
+          return this.getTextureOption(this.lightMap, 'lightMap');
+        }
+        break;
+    }
+    if (ThreeUtil.isNotNull(this.textureList) && this.textureList.length > 0) {
+      const foundTexture = this.textureList.find((texture) => {
+        return texture.isTexture(type);
+      });
+      if (ThreeUtil.isNotNull(foundTexture)) {
+        return foundTexture.getTexture();
+      }
+    }
+    return undefined;
   }
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
-  ngOnInit(): void {
-    super.ngOnInit('material');
-  }
-
-  /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
-   */
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
-
-  /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    if (changes && this.material) {
-      this.addChanges(changes);
+  private synkTexture(texture: any, textureType: string) {
+    if (ThreeUtil.isNotNull(texture) && this.material !== null) {
+      const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
+      if (foundTexture !== null) {
+        if (this.material instanceof Nodes.NodeMaterial) {
+          if (this.material[textureType] instanceof Nodes.TextureNode) {
+            this.material[textureType].value = foundTexture;
+          } else {
+            this.material[textureType] = this.getTextureNode(foundTexture);
+          }
+        } else if (this.material[textureType] !== undefined){
+          this.material[textureType] = foundTexture;
+        }
+      }
     }
   }
 
   /**
-   * todo
-   * 
-   * @param def 
-   * @returns 
+   * Apply changes to material
+   *
+   * @param changes
+   * @returns
    */
-  ngAfterContentInit(): void {
-    this.subscribeListQueryChange(this.shaderList, 'shaderList', 'shader');
-    super.ngAfterContentInit();
+  protected applyChanges(changes: string[]): void {
+    if (this.material !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+        this.getMaterial();
+        return;
+      }
+      if (
+        !ThreeUtil.isOnlyIndexOf(
+          changes,
+          [
+            'color',
+            'texture',
+            'map',
+            'envmap',
+            'matcap',
+            'specularmap',
+            'alphamap',
+            'bumpmap',
+            'normalmap',
+            'aomap',
+            'displacementmap',
+            'lights',
+            'clipping',
+            'wireframe',
+            'specular',
+            'specularmultiply',
+            'shininess',
+            'lightmapintensity',
+            'aomapintensity',
+            'emissive',
+            'emissivemultiply',
+            'emissiveintensity',
+            'bumpscale',
+            'normalmaptype',
+            'normalscale',
+            'normalscalex',
+            'normalscaley',
+            'displacementscale',
+            'displacementbias',
+            'combine',
+            'reflectivity',
+            'refractionratio',
+            'wireframelinewidth',
+            'wireframelinecap',
+            'wireframelinejoin',
+            'morphtargets',
+            'morphnormals',
+            'linewidth',
+            'linecap',
+            'linejoin',
+            'scale',
+            'dashsize',
+            'gapsize',
+            'depthpacking',
+            'fardistance',
+            'neardistance',
+            'referencepositionx',
+            'referencepositiony',
+            'referencepositionz',
+            'clearcoat',
+            'clearcoatroughness',
+            'clearcoatnormalscale',
+            'clearcoatnormalscalex',
+            'clearcoatnormalscaley',
+            'sheen',
+            'sheenmultiply',
+            'transmission',
+            'roughness',
+            'metalness',
+            'envmapintensity',
+            'vertextangents',
+            'rotation',
+            'size',
+            'sizeattenuation',
+            'dashed',
+            'dashscale',
+            'dashoffset',
+            'resolutionx',
+            'resolutiony',
+            'extensions',
+          ],
+          this.MATERIAL_ATTR
+        )
+      ) {
+        this.needUpdate = true;
+        return;
+      }
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['texture']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['map', 'envmap', 'matcap', 'specularmap', 'alphamap', 'bumpmap', 'normalmap', 'aomap', 'displacementmap'])) {
+        changes = ThreeUtil.pushUniq(changes, ['texture']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'colormultiply')) {
+        changes = ThreeUtil.pushUniq(changes, ['color']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'emissivemultiply')) {
+        changes = ThreeUtil.pushUniq(changes, ['emissive']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'specularmultiply')) {
+        changes = ThreeUtil.pushUniq(changes, ['specular']);
+      }
+      if (ThreeUtil.isIndexOf(changes, 'sheenmultiply')) {
+        changes = ThreeUtil.pushUniq(changes, ['sheen']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['normalscalex', 'normalscaley'])) {
+        changes = ThreeUtil.pushUniq(changes, ['normalscale']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['referencepositionx', 'referencepositiony', 'referencepositionz'])) {
+        changes = ThreeUtil.pushUniq(changes, ['referenceposition']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['clearcoatnormalscalex', 'clearcoatnormalscaley'])) {
+        changes = ThreeUtil.pushUniq(changes, ['clearcoatnormalscale']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['clearcoatnormalscalex', 'clearcoatnormalscaley'])) {
+        changes = ThreeUtil.pushUniq(changes, ['clearcoatnormalscale']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['resolutionx', 'resolutiony'])) {
+        changes = ThreeUtil.pushUniq(changes, ['resolution']);
+      }
+
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'texture':
+            this.synkTexture(this.envMap, 'envMap');
+            this.synkTexture(this.matcap, 'matcap');
+            this.synkTexture(this.map, 'map');
+            this.synkTexture(this.specularMap, 'specularMap');
+            this.synkTexture(this.alphaMap, 'alphaMap');
+            this.synkTexture(this.bumpMap, 'bumpMap');
+            this.synkTexture(this.normalMap, 'normalMap');
+            this.synkTexture(this.aoMap, 'aoMap');
+            this.synkTexture(this.displacementMap, 'displacementMap');
+            this.unSubscribeReferList('textureList');
+            if (ThreeUtil.isNotNull(this.textureList)) {
+              this.textureList.forEach((texture) => {
+                texture.setMaterial(this.material);
+              });
+              this.subscribeListQuery(this.textureList, 'textureList', 'texture');
+            }
+            break;
+          case 'color':
+            if (ThreeUtil.isNotNull(this.color) && this.material['color'] !== undefined) {
+              if (this.material['color'] instanceof Nodes.ColorNode) {
+                this.material['color'].value = this.getColor();
+              } else {
+                this.material['color'] = this.getColor();
+              }
+            }
+            break;
+          case 'lights':
+            if (ThreeUtil.isNotNull(this.lights) && this.material['lights'] !== undefined) {
+              if (this.material['lights'] instanceof Nodes.BoolNode) {
+                this.material['lights'].value = ThreeUtil.getTypeSafe(this.lights, true);
+              } else {
+                this.material['lights'] = ThreeUtil.getTypeSafe(this.lights, true);
+              }
+            }
+            break;
+          case 'clipping':
+            if (ThreeUtil.isNotNull(this.clipping) && this.material['clipping'] !== undefined) {
+              if (this.material['clipping'] instanceof Nodes.BoolNode) {
+                this.material['clipping'].value = ThreeUtil.getTypeSafe(this.clipping, true);
+              } else {
+                this.material['clipping'] = ThreeUtil.getTypeSafe(this.clipping, true);
+              }
+            }
+            break;
+          case 'wireframe':
+            if (ThreeUtil.isNotNull(this.wireframe) && this.material['wireframe'] !== undefined) {
+              if (this.material['wireframe'] instanceof Nodes.BoolNode) {
+                this.material['wireframe'].value = ThreeUtil.getTypeSafe(this.wireframe, false);
+              } else {
+                this.material['wireframe'] = ThreeUtil.getTypeSafe(this.wireframe, false);
+              }
+            }
+            break;
+          case 'specular':
+            if (ThreeUtil.isNotNull(this.specular) && this.material['specular'] !== undefined) {
+              if (this.material['specular'] instanceof Nodes.ColorNode) {
+                this.material['specular'].value = this.getSpecular();
+              } else {
+                this.material['specular'] = this.getSpecular();
+              }
+            }
+            break;
+          case 'shininess':
+            if (ThreeUtil.isNotNull(this.shininess) && this.material['shininess'] !== undefined) {
+              if (this.material['shininess'] instanceof Nodes.FloatNode) {
+                this.material['shininess'].value = ThreeUtil.getTypeSafe(this.shininess, 1);
+              } else {
+                this.material['shininess'] = ThreeUtil.getTypeSafe(this.shininess, 1);
+              }
+            }
+            break;
+          case 'lightmapintensity':
+            if (ThreeUtil.isNotNull(this.lightMapIntensity) && this.material['lightMapIntensity'] !== undefined) {
+              if (this.material['lightMapIntensity'] instanceof Nodes.FloatNode) {
+                this.material['lightMapIntensity'].value = ThreeUtil.getTypeSafe(this.lightMapIntensity, 1);
+              } else {
+                this.material['lightMapIntensity'] = ThreeUtil.getTypeSafe(this.lightMapIntensity, 1);
+              }
+            }
+            break;
+          case 'aomapintensity':
+            if (ThreeUtil.isNotNull(this.aoMapIntensity) && this.material['aoMapIntensity'] !== undefined) {
+              if (this.material['aoMapIntensity'] instanceof Nodes.FloatNode) {
+                this.material['aoMapIntensity'].value = ThreeUtil.getTypeSafe(this.aoMapIntensity, 1);
+              } else {
+                this.material['aoMapIntensity'] = ThreeUtil.getTypeSafe(this.aoMapIntensity, 1);
+              }
+            }
+
+            break;
+          case 'emissive':
+            if (ThreeUtil.isNotNull(this.emissive) && this.material['emissive'] !== undefined) {
+              if (this.material['emissive'] instanceof Nodes.ColorNode) {
+                this.material['emissive'].value = this.getEmissive();
+              } else {
+                this.material['emissive'] = this.getEmissive();
+              }
+            }
+            break;
+          case 'emissiveintensity':
+            if (ThreeUtil.isNotNull(this.emissiveIntensity) && this.material['emissiveIntensity'] !== undefined) {
+              if (this.material['emissiveIntensity'] instanceof Nodes.FloatNode) {
+                this.material['emissiveIntensity'].value = ThreeUtil.getTypeSafe(this.emissiveIntensity, 1);
+              } else {
+                this.material['emissiveIntensity'] = ThreeUtil.getTypeSafe(this.emissiveIntensity, 1);
+              }
+            }
+            break;
+          case 'bumpscale':
+            if (ThreeUtil.isNotNull(this.bumpScale) && this.material['bumpScale'] !== undefined) {
+              if (this.material['bumpScale'] instanceof Nodes.FloatNode) {
+                this.material['bumpScale'].value = ThreeUtil.getTypeSafe(this.bumpScale, 1);
+              } else {
+                this.material['bumpScale'] = ThreeUtil.getTypeSafe(this.bumpScale, 1);
+              }
+            }
+            break;
+          case 'normalmaptype':
+            if (ThreeUtil.isNotNull(this.normalMapType) && this.material['normalMapType'] !== undefined) {
+              this.material['normalMapType'] = this.getNormalMapType();
+            }
+            break;
+          case 'normalscale':
+            if (ThreeUtil.isNotNull(this.roughness) && this.material['normalScale'] !== undefined) {
+              if (this.material['normalScale'] instanceof Nodes.Vector2Node) {
+                this.material['normalScale'].value = this.getNormalScale();
+              } else {
+                this.material['normalScale'] = this.getNormalScale();
+              }
+            }
+            break;
+          case 'displacementscale':
+            if (ThreeUtil.isNotNull(this.displacementScale) && this.material['displacementScale'] !== undefined) {
+              if (this.material['displacementScale'] instanceof Nodes.FloatNode) {
+                this.material['displacementScale'].value = ThreeUtil.getTypeSafe(this.displacementScale, 1);
+              } else {
+                this.material['displacementScale'] = ThreeUtil.getTypeSafe(this.displacementScale, 1);
+              }
+            }
+            break;
+          case 'displacementbias':
+            if (ThreeUtil.isNotNull(this.displacementBias) && this.material['displacementBias'] !== undefined) {
+              if (this.material['displacementBias'] instanceof Nodes.FloatNode) {
+                this.material['displacementBias'].value = ThreeUtil.getTypeSafe(this.displacementBias, 1);
+              } else {
+                this.material['displacementBias'] = ThreeUtil.getTypeSafe(this.displacementBias, 1);
+              }
+            }
+            break;
+          case 'combine':
+            if (ThreeUtil.isNotNull(this.combine) && this.material['combine'] !== undefined) {
+              this.material['combine'] = this.getCombine();
+            }
+            break;
+          case 'reflectivity':
+            if (ThreeUtil.isNotNull(this.reflectivity) && this.material['reflectivity'] !== undefined) {
+              if (this.material['reflectivity'] instanceof Nodes.FloatNode) {
+                this.material['reflectivity'].value = ThreeUtil.getTypeSafe(this.reflectivity, 1);
+              } else {
+                this.material['reflectivity'] = ThreeUtil.getTypeSafe(this.reflectivity, 1);
+              }
+            }
+            break;
+          case 'refractionratio':
+            if (ThreeUtil.isNotNull(this.refractionRatio) && this.material['refractionRatio'] !== undefined) {
+              if (this.material['refractionRatio'] instanceof Nodes.FloatNode) {
+                this.material['refractionRatio'].value = ThreeUtil.getTypeSafe(this.refractionRatio, 1);
+              } else {
+                this.material['refractionRatio'] = ThreeUtil.getTypeSafe(this.refractionRatio, 1);
+              }
+            }
+            break;
+          case 'wireframelinewidth':
+            if (ThreeUtil.isNotNull(this.wireframeLinewidth) && this.material['wireframeLinewidth'] !== undefined) {
+              if (this.material['wireframeLinewidth'] instanceof Nodes.FloatNode) {
+                this.material['wireframeLinewidth'].value = ThreeUtil.getTypeSafe(this.wireframeLinewidth, 1);
+              } else {
+                this.material['wireframeLinewidth'] = ThreeUtil.getTypeSafe(this.wireframeLinewidth, 1);
+              }
+            }
+            break;
+          case 'wireframelinecap':
+            if (ThreeUtil.isNotNull(this.wireframeLinecap) && this.material['wireframeLinecap'] !== undefined) {
+              this.material['wireframeLinecap'] = ThreeUtil.getTypeSafe(this.wireframeLinecap, 'round');
+            }
+            break;
+          case 'wireframelinejoin':
+            if (ThreeUtil.isNotNull(this.wireframeLinejoin) && this.material['wireframeLinejoin'] !== undefined) {
+              this.material['wireframeLinejoin'] = ThreeUtil.getTypeSafe(this.wireframeLinejoin, 'round');
+            }
+            break;
+          case 'morphtargets':
+            if (ThreeUtil.isNotNull(this.morphTargets) && this.material['morphTargets'] !== undefined) {
+              if (this.material['morphTargets'] instanceof Nodes.BoolNode) {
+                this.material['morphTargets'].value = ThreeUtil.getTypeSafe(this.morphTargets, false);
+              } else {
+                this.material['morphTargets'] = ThreeUtil.getTypeSafe(this.morphTargets, false);
+              }
+            }
+            break;
+          case 'morphNormals':
+            if (ThreeUtil.isNotNull(this.morphNormals) && this.material['morphNormals'] !== undefined) {
+              if (this.material['morphNormals'] instanceof Nodes.BoolNode) {
+                this.material['morphNormals'].value = ThreeUtil.getTypeSafe(this.morphNormals, false);
+              } else {
+                this.material['morphNormals'] = ThreeUtil.getTypeSafe(this.morphNormals, false);
+              }
+            }
+            break;
+          case 'linewidth':
+            if (ThreeUtil.isNotNull(this.linewidth) && this.material['linewidth'] !== undefined) {
+              if (this.material['linewidth'] instanceof Nodes.FloatNode) {
+                this.material['linewidth'].value = ThreeUtil.getTypeSafe(this.linewidth, 1);
+              } else {
+                this.material['linewidth'] = ThreeUtil.getTypeSafe(this.linewidth, 1);
+              }
+            }
+            break;
+          case 'linecap':
+            if (ThreeUtil.isNotNull(this.linecap) && this.material['linecap'] !== undefined) {
+              this.material['linecap'] = ThreeUtil.getTypeSafe(this.linecap);
+            }
+            break;
+          case 'linejoin':
+            if (ThreeUtil.isNotNull(this.linejoin) && this.material['linejoin'] !== undefined) {
+              this.material['linejoin'] = ThreeUtil.getTypeSafe(this.linejoin);
+            }
+
+            break;
+          case 'scale':
+            if (ThreeUtil.isNotNull(this.scale) && this.material['scale'] !== undefined) {
+              if (this.material['scale'] instanceof Nodes.FloatNode) {
+                this.material['scale'].value = ThreeUtil.getTypeSafe(this.scale, 1);
+              } else {
+                this.material['scale'] = ThreeUtil.getTypeSafe(this.scale, 1);
+              }
+            }
+            break;
+          case 'dashsize':
+            if (ThreeUtil.isNotNull(this.dashSize) && this.material['dashSize'] !== undefined) {
+              if (this.material['dashSize'] instanceof Nodes.FloatNode) {
+                this.material['dashSize'].value = ThreeUtil.getTypeSafe(this.dashSize, 1);
+              } else {
+                this.material['dashSize'] = ThreeUtil.getTypeSafe(this.dashSize, 1);
+              }
+            }
+            break;
+          case 'gapsize':
+            if (ThreeUtil.isNotNull(this.gapSize) && this.material['gapSize'] !== undefined) {
+              if (this.material['gapSize'] instanceof Nodes.FloatNode) {
+                this.material['gapSize'].value = ThreeUtil.getTypeSafe(this.gapSize, 1);
+              } else {
+                this.material['gapSize'] = ThreeUtil.getTypeSafe(this.gapSize, 1);
+              }
+            }
+            break;
+          case 'depthpacking':
+            if (ThreeUtil.isNotNull(this.depthPacking) && this.material['depthPacking'] !== undefined) {
+              this.material['depthPacking'] = this.getDepthPacking();
+            }
+            break;
+          case 'fardistance':
+            if (ThreeUtil.isNotNull(this.farDistance) && this.material['farDistance'] !== undefined) {
+              if (this.material['farDistance'] instanceof Nodes.FloatNode) {
+                this.material['farDistance'].value = ThreeUtil.getTypeSafe(this.farDistance, 1);
+              } else {
+                this.material['farDistance'] = ThreeUtil.getTypeSafe(this.farDistance, 1);
+              }
+            }
+            break;
+          case 'neardistance':
+            if (ThreeUtil.isNotNull(this.nearDistance) && this.material['nearDistance'] !== undefined) {
+              if (this.material['nearDistance'] instanceof Nodes.FloatNode) {
+                this.material['nearDistance'].value = ThreeUtil.getTypeSafe(this.nearDistance, 1);
+              } else {
+                this.material['nearDistance'] = ThreeUtil.getTypeSafe(this.nearDistance, 1);
+              }
+            }
+            break;
+          case 'referenceposition':
+            if (ThreeUtil.isNotNull(this.referencePositionX) && ThreeUtil.isNotNull(this.referencePositionY) && ThreeUtil.isNotNull(this.referencePositionZ) && this.material['referencePosition'] !== undefined) {
+              if (this.material['referencePosition'] instanceof Nodes.Vector3Node) {
+                this.material['referencePosition'].value = this.getReferencePosition();
+              } else {
+                this.material['referencePosition'] = this.getReferencePosition();
+              }
+            }
+            break;
+          case 'clearcoat':
+            if (ThreeUtil.isNotNull(this.clearcoat) && this.material['clearcoat'] !== undefined) {
+              if (this.material['clearcoat'] instanceof Nodes.FloatNode) {
+                this.material['clearcoat'].value = ThreeUtil.getTypeSafe(this.clearcoat, 1);
+              } else {
+                this.material['clearcoat'] = ThreeUtil.getTypeSafe(this.clearcoat, 1);
+              }
+            }
+            break;
+          case 'clearcoatroughness':
+            if (ThreeUtil.isNotNull(this.clearcoatRoughness) && this.material['clearcoatRoughness'] !== undefined) {
+              if (this.material['clearcoatRoughness'] instanceof Nodes.FloatNode) {
+                this.material['clearcoatRoughness'].value = ThreeUtil.getTypeSafe(this.clearcoatRoughness, 1);
+              } else {
+                this.material['clearcoatRoughness'] = ThreeUtil.getTypeSafe(this.clearcoatRoughness, 1);
+              }
+            }
+            break;
+          case 'clearcoatNormalScale':
+            if (ThreeUtil.isNotNull(this.clearcoatNormalScale) && ThreeUtil.isNotNull(this.clearcoatNormalScaleX) && ThreeUtil.isNotNull(this.clearcoatNormalScaleY) && this.material['clearcoatNormalScale'] !== undefined) {
+              if (this.material['clearcoatNormalScale'] instanceof Nodes.Vector2Node) {
+                this.material['clearcoatNormalScale'].value = this.getClearcoatNormalScale();
+              } else {
+                this.material['clearcoatNormalScale'] = this.getClearcoatNormalScale();
+              }
+            }
+            break;
+          case 'sheen':
+            if (ThreeUtil.isNotNull(this.sheen) && this.material['sheen'] !== undefined) {
+              if (this.material['sheen'] instanceof Nodes.ColorNode) {
+                this.material['sheen'].value = this.getSheen();
+              } else {
+                this.material['sheen'] = this.getSheen();
+              }
+            }
+            break;
+          case 'transmission':
+            if (ThreeUtil.isNotNull(this.roughness) && this.material['transmission'] !== undefined) {
+              if (this.material['transmission'] instanceof Nodes.FloatNode) {
+                this.material['transmission'].value = ThreeUtil.getTypeSafe(this.transmission, 1);
+              } else {
+                this.material['transmission'] = ThreeUtil.getTypeSafe(this.transmission, 1);
+              }
+            }
+            break;
+          case 'roughness':
+            if (ThreeUtil.isNotNull(this.roughness) && this.material['roughness'] !== undefined) {
+              if (this.material['roughness'] instanceof Nodes.FloatNode) {
+                this.material['roughness'].value = ThreeUtil.getTypeSafe(this.roughness, 1);
+              } else {
+                this.material['roughness'] = ThreeUtil.getTypeSafe(this.roughness, 1);
+              }
+            }
+            break;
+          case 'metalness':
+            if (ThreeUtil.isNotNull(this.metalness) && this.material['metalness'] !== undefined) {
+              if (this.material['metalness'] instanceof Nodes.FloatNode) {
+                this.material['metalness'].value = ThreeUtil.getTypeSafe(this.metalness, 1);
+              } else {
+                this.material['metalness'] = ThreeUtil.getTypeSafe(this.metalness, 1);
+              }
+            }
+
+            break;
+          case 'envmapintensity':
+            if (ThreeUtil.isNotNull(this.envMapIntensity) && this.material['envMapIntensity'] !== undefined) {
+              if (this.material['envMapIntensity'] instanceof Nodes.FloatNode) {
+                this.material['envMapIntensity'].value = ThreeUtil.getTypeSafe(this.envMapIntensity, 1);
+              } else {
+                this.material['envMapIntensity'] = ThreeUtil.getTypeSafe(this.envMapIntensity, 1);
+              }
+            }
+
+            break;
+          case 'vertextangents':
+            if (ThreeUtil.isNotNull(this.vertexTangents) && this.material['vertexTangents'] !== undefined) {
+              if (this.material['vertexTangents'] instanceof Nodes.BoolNode) {
+                this.material['vertexTangents'].value = ThreeUtil.getTypeSafe(this.vertexTangents);
+              } else {
+                this.material['vertexTangents'] = ThreeUtil.getTypeSafe(this.vertexTangents);
+              }
+            }
+            break;
+          case 'rotation':
+            if (ThreeUtil.isNotNull(this.rotation) && this.material['rotation'] !== undefined) {
+              if (this.material['rotation'] instanceof Nodes.FloatNode) {
+                this.material['rotation'].value = ThreeUtil.getAngleSafe(this.rotation);
+              } else {
+                this.material['rotation'] = ThreeUtil.getAngleSafe(this.rotation);
+              }
+            }
+            break;
+          case 'size':
+            if (ThreeUtil.isNotNull(this.size) && this.material['size'] !== undefined) {
+              if (this.material['size'] instanceof Nodes.FloatNode) {
+                this.material['size'].value = ThreeUtil.getTypeSafe(this.size, 1);
+              } else {
+                this.material['size'] = ThreeUtil.getTypeSafe(this.size, 1);
+              }
+            }
+            break;
+          case 'sizeattenuation':
+            if (ThreeUtil.isNotNull(this.sizeAttenuation) && this.material['sizeAttenuation'] !== undefined) {
+              if (this.material['sizeAttenuation'] instanceof Nodes.BoolNode) {
+                this.material['sizeAttenuation'].value = ThreeUtil.getTypeSafe(this.sizeAttenuation);
+              } else {
+                this.material['sizeAttenuation'] = ThreeUtil.getTypeSafe(this.sizeAttenuation);
+              }
+            }
+
+            break;
+          case 'dashed':
+            if (ThreeUtil.isNotNull(this.dashed) && this.material['dashed'] !== undefined) {
+              if (this.material['dashed'] instanceof Nodes.BoolNode) {
+                this.material['dashed'].value = ThreeUtil.getTypeSafe(this.dashed);
+              } else {
+                this.material['dashed'] = ThreeUtil.getTypeSafe(this.dashed);
+              }
+            }
+            break;
+          case 'dashscale':
+            if (ThreeUtil.isNotNull(this.dashScale) && this.material['dashScale'] !== undefined) {
+              if (this.material['dashScale'] instanceof Nodes.FloatNode) {
+                this.material['dashScale'].value = ThreeUtil.getTypeSafe(this.dashScale, 1);
+              } else {
+                this.material['dashScale'] = ThreeUtil.getTypeSafe(this.dashScale, 1);
+              }
+            }
+            break;
+          case 'dashoffset':
+            if (ThreeUtil.isNotNull(this.dashOffset) && this.material['dashOffset'] !== undefined) {
+              if (this.material['dashOffset'] instanceof Nodes.FloatNode) {
+                this.material['dashOffset'].value = ThreeUtil.getTypeSafe(this.dashOffset, 1);
+              } else {
+                this.material['dashOffset'] = ThreeUtil.getTypeSafe(this.dashOffset, 1);
+              }
+            }
+            break;
+          case 'resolution':
+            if (ThreeUtil.isNotNull(this.resolutionX) && ThreeUtil.isNotNull(this.resolutionY) && this.material['resolutionX'] !== undefined) {
+              if (this.material['resolutionX'] instanceof Nodes.Vector2Node) {
+                this.material['resolutionX'].value = this.getResolution();
+              } else {
+                this.material['resolutionX'] = this.getResolution();
+              }
+            }
+            break;
+          case 'extensions':
+            if (ThreeUtil.isNotNull(this.extensions) && this.material['extensions'] !== undefined) {
+              this.material['extensions'] = this.getExtensions(this.material['extensions']);
+            }
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    super.applyChanges(changes);
   }
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   public getMaterial<T extends THREE.Material>(): T {
     if (this.material === null || this._needUpdate) {
@@ -1166,7 +2238,8 @@ this.extensions = {
               morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
               morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
             };
-            material = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
+            const meshStandardMaterial = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
+            material = meshStandardMaterial;
             break;
           case 'meshtoonmaterial':
           case 'meshtoon':
@@ -1303,40 +2376,62 @@ this.extensions = {
               standardNodeMaterial.side = this.getSide();
             }
             if (ThreeUtil.isNotNull(this.metalness)) {
-              standardNodeMaterial.metalness = new Nodes.FloatNode(ThreeUtil.getTypeSafe(this.metalness));
+              standardNodeMaterial.metalness = this.getFloatNode(ThreeUtil.getTypeSafe(this.metalness));
             }
             if (ThreeUtil.isNotNull(this.reflectivity)) {
-              standardNodeMaterial.reflectivity = new Nodes.FloatNode(ThreeUtil.getTypeSafe(this.reflectivity));
+              standardNodeMaterial.reflectivity = this.getFloatNode(ThreeUtil.getTypeSafe(this.reflectivity));
             }
             if (ThreeUtil.isNotNull(this.clearcoat)) {
-              standardNodeMaterial.clearcoat = new Nodes.FloatNode(ThreeUtil.getTypeSafe(this.clearcoat));
+              standardNodeMaterial.clearcoat = this.getFloatNode(ThreeUtil.getTypeSafe(this.clearcoat));
             }
             if (ThreeUtil.isNotNull(this.clearcoatRoughness)) {
-              standardNodeMaterial.clearcoatRoughness = new Nodes.FloatNode(ThreeUtil.getTypeSafe(this.clearcoatRoughness));
+              standardNodeMaterial.clearcoatRoughness = this.getFloatNode(ThreeUtil.getTypeSafe(this.clearcoatRoughness));
             }
             if (ThreeUtil.isNotNull(this.emissive)) {
-              standardNodeMaterial.emissive = new Nodes.ColorNode(this.getEmissive());
+              standardNodeMaterial.emissive = this.getColorNode(this.getEmissive());
             }
             if (ThreeUtil.isNotNull(this.sheen)) {
-              standardNodeMaterial.sheen = new Nodes.ColorNode(this.getSheen());
+              standardNodeMaterial.sheen = this.getColorNode(this.getSheen());
             }
             if (ThreeUtil.isNotNull(this.roughness)) {
-              standardNodeMaterial.roughness = new Nodes.FloatNode(ThreeUtil.getTypeSafe(this.roughness));
+              standardNodeMaterial.roughness = this.getFloatNode(ThreeUtil.getTypeSafe(this.roughness));
             }
             if (ThreeUtil.isNotNull(this.color)) {
-              standardNodeMaterial.color = new Nodes.ColorNode(this.getColor());
+              standardNodeMaterial.color = this.getColorNode(this.getColor());
             }
-
             material = standardNodeMaterial;
+            console.log(material);
             break;
-          case 'basicnodematerial':
           case 'basicnode':
+          case 'basicnodematerial':
             const basicNodeMaterial = new Nodes.BasicNodeMaterial();
             material = basicNodeMaterial;
             break;
-          case 'meshstandardnodematerial':
           case 'meshstandardnode':
+          case 'meshstandardnodematerial':
             const meshStandardNodeMaterial = new Nodes.MeshStandardNodeMaterial();
+            const diffuseMap = this.getTexture('diffuseMap');
+            if (ThreeUtil.isNotNull(diffuseMap)) {
+              meshStandardNodeMaterial.color = this.getOperatorNode( 
+                this.getTextureNode( diffuseMap ), this.getVector3Node( this.getDiffuseColor(0xffffff)), '*')
+            } else {
+              if (ThreeUtil.isNotNull(this.color)) {
+                standardNodeMaterial.color = this.getColorNode(this.getColor());
+              }
+            }
+            if (ThreeUtil.isNotNull(this.roughness)) {
+              meshStandardNodeMaterial.roughness = this.getFloatNode(ThreeUtil.getTypeSafe(this.roughness));
+            }
+            if (ThreeUtil.isNotNull(this.metalness)) {
+              meshStandardNodeMaterial.metalness = this.getFloatNode(ThreeUtil.getTypeSafe(this.metalness));
+            }
+            if (ThreeUtil.isNotNull(this.metalness)) {
+              meshStandardNodeMaterial.metalness = this.getFloatNode(ThreeUtil.getTypeSafe(this.metalness));
+            }
+
+            if (ThreeUtil.isNotNull(this.normalScale) || ThreeUtil.isNotNull(this.normalScaleX) || ThreeUtil.isNotNull(this.normalScaleY)) {
+              meshStandardNodeMaterial.normalScale = this.getVector2Node(this.getNormalScale());
+            }
             material = meshStandardNodeMaterial;
             break;
           case 'phongnodematerial':
@@ -1390,17 +2485,17 @@ this.extensions = {
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   private _nodeFrame: any = null;
 
   /**
    * todo
-   * 
-   * @param def 
-   * @returns 
+   *
+   * @param def
+   * @returns
    */
   updateNode(delta) {
     if (this.material instanceof Nodes.NodeMaterial) {

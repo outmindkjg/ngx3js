@@ -393,7 +393,7 @@ import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster
 import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
-
+import { WebglMaterialsStandardNodesComponent } from './examples/webgl-materials-standard-nodes/webgl-materials-standard-nodes.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'examples' },
@@ -996,6 +996,7 @@ const routes: Routes = [
         path: 'webgl_materials_nodes',
         component: WebglMaterialsNodesComponent,
       },
+      { path: 'webgl_materials_standard_nodes', component: WebglMaterialsStandardNodesComponent },
       {
         path: 'webgl_mirror_nodes',
         component: WebglMirrorNodesComponent,
