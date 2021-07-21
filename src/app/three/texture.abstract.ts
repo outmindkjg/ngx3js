@@ -4,7 +4,7 @@ import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
-import { TextureNode, NodeMaterial } from 'three/examples/jsm/nodes/Nodes';
+import { TextureNode, NodeMaterial, OperatorNode, NormalMapNode } from 'three/examples/jsm/nodes/Nodes';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { CanvasFunctionType, TextureUtils } from './texture/textureUtils';
@@ -1003,12 +1003,34 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 
   protected applyTexture2Material(material : THREE.Material, key : string, texture : THREE.Texture) : void {
     if (material instanceof NodeMaterial) {
-      if (key !== 'diffuseMap') {
-        if (material[key] instanceof TextureNode) {
-          material[key].value = texture;
-        } else {
-          material[key] = new TextureNode(texture);
-        }
+      switch(key) {
+        case 'diffuseMap' :
+          if (material['color'] instanceof OperatorNode) {
+            const color : OperatorNode =  material['color'];
+            if (color.a instanceof TextureNode) {
+              color.a.value = texture; 
+            }
+          }
+          break;
+        case 'normalMap' :
+          if (material['normal'] instanceof NormalMapNode) {
+            const normal : NormalMapNode = material['normal'];
+            if (normal.value instanceof TextureNode) {
+              normal.value.value = texture;
+            } else {
+              normal.value = new TextureNode(texture);
+            }
+          } else {
+            material['normal'] = new NormalMapNode(new TextureNode(texture))
+          }
+          break;
+        default :
+          if (material[key] instanceof TextureNode) {
+            material[key].value = texture;
+          } else {
+            material[key] = new TextureNode(texture);
+          }
+          break;
       }
     } else if (material[key] !== undefined){
       material[key] = texture;

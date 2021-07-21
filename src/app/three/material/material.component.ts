@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
 import * as Nodes from 'three/examples/jsm/nodes/Nodes';
+import { ReflectorOptions } from 'three/examples/jsm/objects/Reflector';
 import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
 import { ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
@@ -53,7 +54,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Color of the material multiply (1)
    */
   @Input() protected diffuseColorMultiply: number = null;
-  
+
   /**
    * The shader type
    */
@@ -444,22 +445,22 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   /**
    * The environment map. Default is null.
    */
-  @Input() protected envMap: ThreeTexture = null;
+  @Input() private envMap: ThreeTexture = null;
 
   /**
    * The color map. Default is  null.
    */
-  @Input() protected map: ThreeTexture = null;
+  @Input() private map: ThreeTexture = null;
 
   /**
    * The matcap map. Default is null.
    */
-  @Input() protected matcap: ThreeTexture = null;
+  @Input() private matcap: ThreeTexture = null;
 
   /**
    * Specular map used by the material. Default is null.
    */
-  @Input() protected specularMap: ThreeTexture = null;
+  @Input() private specularMap: ThreeTexture = null;
 
   /**
    * The alpha map is a grayscale texture that controls the opacity across the surface
@@ -470,14 +471,14 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and
    * luminance/alpha textures will also still work as expected.
    */
-  @Input() protected alphaMap: ThreeTexture = null;
+  @Input() private alphaMap: ThreeTexture = null;
 
   /**
    * The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.
    * Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will
    * be ignored.
    */
-  @Input() protected bumpMap: ThreeTexture = null;
+  @Input() private bumpMap: ThreeTexture = null;
 
   /**
    * The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change
@@ -485,7 +486,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * In case the material has a normal map authored using the left handed convention, the y component of normalScale
    * should be negated to compensate for the different handedness.
    */
-  @Input() protected normalMap: ThreeTexture = null;
+  @Input() private normalMap: ThreeTexture = null;
 
   /**
    * The displacement map affects the position of the mesh's vertices. Unlike other maps
@@ -494,28 +495,52 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * an image where the value of each pixel (white being the highest) is mapped against,
    * and repositions, the vertices of the mesh.
    */
-  @Input() protected displacementMap: ThreeTexture = null;
+  @Input() private displacementMap: ThreeTexture = null;
 
   /**
    * Can be used to enable independent normals for the clear coat layer. Default is *null*.
    */
-  @Input() protected clearcoatNormalMap: ThreeTexture = null;
+  @Input() private clearcoatNormalMap: ThreeTexture = null;
 
   /**
    * The green channel of this texture is used to alter the roughness of the material.
    */
-  @Input() protected roughnessMap: ThreeTexture = null;
+  @Input() private roughnessMap: ThreeTexture = null;
 
   /**
    * The light map. Default is null. The lightMap requires a second set of UVs.
    */
-  @Input() protected lightMap: ThreeTexture = null;
+  @Input() private lightMap: ThreeTexture = null;
 
   /**
    * The red channel of this texture is used as the ambient occlusion map. Default is null.
    * The aoMap requires a second set of UVs.
    */
-  @Input() protected aoMap: ThreeTexture = null;
+  @Input() private aoMap: ThreeTexture = null;
+
+  /**
+   * The red channel of this texture is used as the ambient occlusion map. Default is null.
+   * The aoMap requires a second set of UVs.
+   */
+  @Input() private diffuseMap: ThreeTexture = null;
+
+  /**
+   *
+   *
+   */
+  @Input() private environmentType: string = 'mirror';
+
+  /**
+   *
+   *
+   */
+  @Input() private geometry: any = null;
+
+  /**
+   *
+   *
+   */
+  @Input() private clipBias: number = null;
 
   /**
    *
@@ -864,6 +889,28 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
+   * The getter Switch Node
+   *
+   * @param node
+   * @param components
+   * @returns
+   */
+  private getSwitchNode(node: Nodes.Node, components?: string): Nodes.SwitchNode {
+    return new Nodes.SwitchNode(node, components);
+  }
+
+  /**
+   * The getter ReflectorRTT
+   *
+   * @param geometry
+   * @param options
+   * @returns
+   */
+  private getReflectorRTT(geometry: THREE.BufferGeometry, options?: ReflectorOptions): ReflectorRTT {
+    return new ReflectorRTT(geometry, options);
+  }
+
+  /**
    * The getter NodeFrame
    *
    * @param time
@@ -999,7 +1046,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * @param z
    * @returns
    */
-  private getVector3Node(x: number | THREE.Vector3 | THREE.Color , y?: number, z?: number): Nodes.Vector3Node {
+  private getVector3Node(x: number | THREE.Vector3 | THREE.Color, y?: number, z?: number): Nodes.Vector3Node {
     if (x instanceof THREE.Color) {
       return new Nodes.Vector3Node(x.r, x.g, x.b);
     } else {
@@ -1016,6 +1063,46 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    */
   private getVector4Node(x: number, y: number, z: number, w: number): Nodes.Vector4Node {
     return new Nodes.Vector4Node(x, y, z, w);
+  }
+
+  private _blurMirror: Nodes.BlurNode = null;
+
+  private getEnvironment(): Nodes.Node {
+    this._blurMirror = null;
+    switch (this.environmentType.toLowerCase()) {
+      case 'mirror':
+        const size = ThreeUtil.getRendererSize().clone().multiplyScalar(window.devicePixelRatio);
+        const groundMirror: ReflectorRTT = this.getReflectorRTT(ThreeUtil.getGeometry(this.geometry), {
+          clipBias: ThreeUtil.getTypeSafe(this.clipBias, 0.003),
+          textureWidth: size.x,
+          textureHeight: size.y,
+        });
+        const mirror: any = this.getReflectorNode(groundMirror);
+        const normalXYFlip = this.getMathNode(this.getSwitchNode(this.getTextureNode(this.getTexture('normalMap')), 'xy'), Nodes.MathNode.INVERT);
+        const offsetNormal = this.getOperatorNode(normalXYFlip, this.getFloatNode(0.5), Nodes.OperatorNode.SUB);
+        mirror.offset = this.getOperatorNode(
+          offsetNormal, // normal
+          this.getFloatNode(6), // scale
+          Nodes.OperatorNode.MUL
+        );
+        const blurMirror = new Nodes.BlurNode(mirror);
+        blurMirror.size = size;
+        const blurMirrorUv: any = new Nodes.ExpressionNode('projCoord.xyz / projCoord.q', 'vec3');
+        blurMirrorUv.keywords['projCoord'] = this.getOperatorNode(mirror.offset, mirror.uv, Nodes.OperatorNode.ADD);
+        blurMirror.uv = blurMirrorUv;
+        blurMirror.radius = this.getVector2Node(0, 0); // .x = blurMirror.radius.y = 0;
+        this._blurMirror = blurMirror;
+        // return this._blurMirror;
+    }
+    return undefined;
+  }
+
+  private getEnvironmentAlpha(): Nodes.Node {
+    switch (this.environmentType.toLowerCase()) {
+      case 'mirror':
+        return this.getSwitchNode(this.getTextureNode(this.getTexture('diffuseMap')), 'w');
+    }
+    return undefined;
   }
 
   /**
@@ -1269,6 +1356,11 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
           return this.getTextureOption(this.envMap, 'envMap');
         }
         break;
+      case 'diffusemap':
+        if (ThreeUtil.isNotNull(this.diffuseMap)) {
+          return this.getTextureOption(this.diffuseMap, 'diffuseMap');
+        }
+        break;
       case 'map':
         if (ThreeUtil.isNotNull(this.map)) {
           return this.getTextureOption(this.map, 'map');
@@ -1347,7 +1439,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
           } else {
             this.material[textureType] = this.getTextureNode(foundTexture);
           }
-        } else if (this.material[textureType] !== undefined){
+        } else if (this.material[textureType] !== undefined) {
           this.material[textureType] = foundTexture;
         }
       }
@@ -2412,8 +2504,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
             const meshStandardNodeMaterial = new Nodes.MeshStandardNodeMaterial();
             const diffuseMap = this.getTexture('diffuseMap');
             if (ThreeUtil.isNotNull(diffuseMap)) {
-              meshStandardNodeMaterial.color = this.getOperatorNode( 
-                this.getTextureNode( diffuseMap ), this.getVector3Node( this.getDiffuseColor(0xffffff)), '*')
+              meshStandardNodeMaterial.color = this.getOperatorNode(this.getTextureNode(diffuseMap), this.getVector3Node(this.getDiffuseColor(0xffffff)), '*');
             } else {
               if (ThreeUtil.isNotNull(this.color)) {
                 standardNodeMaterial.color = this.getColorNode(this.getColor());
@@ -2425,10 +2516,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
             if (ThreeUtil.isNotNull(this.metalness)) {
               meshStandardNodeMaterial.metalness = this.getFloatNode(ThreeUtil.getTypeSafe(this.metalness));
             }
-            if (ThreeUtil.isNotNull(this.metalness)) {
-              meshStandardNodeMaterial.metalness = this.getFloatNode(ThreeUtil.getTypeSafe(this.metalness));
-            }
-
             if (ThreeUtil.isNotNull(this.normalScale) || ThreeUtil.isNotNull(this.normalScaleX) || ThreeUtil.isNotNull(this.normalScaleY)) {
               meshStandardNodeMaterial.normalScale = this.getVector2Node(this.getNormalScale());
             }
@@ -2437,6 +2524,26 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
           case 'phongnodematerial':
           case 'phongnode':
             const phongNodeMaterial = new Nodes.PhongNodeMaterial();
+            if (ThreeUtil.isNotNull(this.color)) {
+              phongNodeMaterial.color = this.getColorNode(this.getColor());
+            }
+            // phongNodeMaterial.alpha: Node;
+            // phongNodeMaterial.specular: Node;
+            // phongNodeMaterial.shininess: Node;
+            const normalMapPhongNodeMaterial = this.getTexture('normalMap');
+            if (ThreeUtil.isNotNull(normalMapPhongNodeMaterial)) {
+              phongNodeMaterial.normal = new Nodes.NormalMapNode(this.getTextureNode(normalMapPhongNodeMaterial));
+            }
+            // phongNodeMaterial.emissive: Node;
+            // phongNodeMaterial.ambient: Node;
+            // phongNodeMaterial.light: Node;
+            // phongNodeMaterial.shadow: Node;
+            // phongNodeMaterial.ao: Node;
+            phongNodeMaterial.environment = this.getEnvironment();
+            phongNodeMaterial.environmentAlpha = this.getEnvironmentAlpha();
+            // phongNodeMaterial.mask: Node;
+            // phongNodeMaterial.position: Node;
+            console.log(phongNodeMaterial);
             material = phongNodeMaterial;
             break;
           case 'spritenodematerial':

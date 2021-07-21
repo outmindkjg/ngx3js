@@ -7,10 +7,14 @@ import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
   templateUrl: './webgl-mirror-nodes.component.html',
   styleUrls: ['./webgl-mirror-nodes.component.scss']
 })
-export class WebglMirrorNodesComponent extends BaseComponent<{}> {
+export class WebglMirrorNodesComponent extends BaseComponent<{ blur : number}> {
 
   constructor() {
-    super({},[]);
+    super({
+      blur : 0
+    },[
+      { name : 'blur', type : 'number', min : 0, max : 25 }
+    ]);
   }
 
   setSphereGroup(mesh : MeshComponent) {

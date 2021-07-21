@@ -58,23 +58,6 @@
       ></ngx3js-geometry>
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [type]="'Reflector'" [color]="'0x889999'" [clipBias]="0.003" [textureWidth]="1024" [textureWidth]="1024" #verticalMirror >
-        <ngx3js-position [x]="0" [y]="50" [z]="-50"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="100"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'Reflector'" [color]="'0x777777'" [clipBias]="0.003" [textureWidth]="1024" [textureWidth]="1024" #groundMirror >
-        <ngx3js-position [x]="0" [y]="0.5" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'Circle'"
-          [radius]="40"
-          [segments]="64"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
       <ngx3js-mesh #sphereGroup (onLoad)="setSphereGroup($event)">
         <ngx3js-position [x]="0" [y]="15" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="-135" [y]="0" [z]="-20"></ngx3js-rotation>
@@ -122,6 +105,11 @@
       <ngx3js-mesh [geometry]="planeGeo" #planeBottom>
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+        <ngx3js-material [type]="'PhongNodeMaterial'" [color]="'0xffffff'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [geometry]="planeGeo" #planeBack>
+        <ngx3js-position [x]="0" [y]="50" [z]="-50"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
         <ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'"></ngx3js-material>
       </ngx3js-mesh>
       <ngx3js-mesh [geometry]="planeGeo" #planeFront>

@@ -791,6 +791,14 @@ export class ThreeUtil {
     }
   }
 
+  static getRendererSize(): THREE.Vector2 {
+    if (this.lastRenderer !== null) {
+      return this.lastRenderer.getSize();
+    } else {
+      return new THREE.Vector2(1024, 1024);
+    }
+  }
+
   private static renderTimer: RendererTimer;
 
   static render(renderTimer: RendererTimer) {
