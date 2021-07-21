@@ -5,9 +5,12 @@ npm install -g @angular/cli
 npm update ammojs-typed
 npm update three
 npm i @types/three
+npm install typedoc --save-dev
+
 npx typedoc --out docs
 npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
-npx typedoc --json 
+npx typedoc --json docs/test.json
+
 
 
 ng new my-app
