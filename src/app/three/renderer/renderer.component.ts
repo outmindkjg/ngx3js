@@ -1215,9 +1215,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         control.render(renderTimer);
       });
     }
-    this._updateSubject.next(renderTimer);
     if (ThreeUtil.isNull(this.beforeRender) || !this.beforeRender(this.getRenderInfo(renderTimer))) {
       // if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer && this.panSpeed ) {
+      this._updateSubject.next(renderTimer);
       if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
         this.composerList.forEach((composer) => {
           composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);

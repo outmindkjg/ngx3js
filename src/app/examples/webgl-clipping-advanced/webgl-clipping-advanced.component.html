@@ -85,7 +85,7 @@
     </ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [visible]="controls.localClipping.visualize" [castShadow]="false" [receiveShadow]="false">
+      <ngx3js-mesh [visible]="controls.localClipping.visualize" [castShadow]="true">
         <ngx3js-helper [visible]="controls.localClipping.visualize" [type]="'plane'" [size]="1" [color]="'0xffffff'">
         </ngx3js-helper>
         <ngx3js-geometry [type]="'box'" [width]="1" [height]="1" [depth]="1"></ngx3js-geometry>
@@ -104,6 +104,7 @@
         *ngFor="let box of boxes"
         [geometry]="boxgeometry"
         [material]="boxmaterial"
+        [castShadow]="true"
       >
         <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
       </ngx3js-mesh>
