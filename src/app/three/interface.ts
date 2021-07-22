@@ -799,6 +799,22 @@ export class ThreeUtil {
     }
   }
 
+  static getSizeSubscribe(): Observable<THREE.Vector2> {
+    if (this.lastRenderer !== null) {
+      return this.lastRenderer.sizeSubscribe();
+    } else {
+      return undefined
+    }
+  }
+  
+  static getUpdateSubscribe(): Observable<RendererTimer> {
+    if (this.lastRenderer !== null) {
+      return this.lastRenderer.updateSubscribe();
+    } else {
+      return undefined
+    }
+  }
+
   private static renderTimer: RendererTimer;
 
   static render(renderTimer: RendererTimer) {

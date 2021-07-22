@@ -5,7 +5,7 @@ import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoade
 import * as Nodes from 'three/examples/jsm/nodes/Nodes';
 import { ReflectorOptions } from 'three/examples/jsm/objects/Reflector';
 import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
-import { ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil } from '../interface';
+import { ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil, RendererTimer } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractMaterialComponent } from '../material.abstract';
 import { ShaderComponent } from '../shader/shader.component';
@@ -534,7 +534,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    *
    *
    */
-  @Input() private geometry: any = null;
+  @Input() private reflector: any = null;
 
   /**
    *
@@ -916,7 +916,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * @param time
    * @returns
    */
-  private getNodeFrame(time: number): Nodes.NodeFrame {
+  private getNodeFrame(time: number = 0): Nodes.NodeFrame {
     return new Nodes.NodeFrame(time);
   }
 
@@ -1069,14 +1069,11 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 
   private getEnvironment(): Nodes.Node {
     this._blurMirror = null;
+    this.unSubscribeRefer('mirrorSize');
     switch (this.environmentType.toLowerCase()) {
       case 'mirror':
         const size = ThreeUtil.getRendererSize().clone().multiplyScalar(window.devicePixelRatio);
-        const groundMirror: ReflectorRTT = this.getReflectorRTT(ThreeUtil.getGeometry(this.geometry), {
-          clipBias: ThreeUtil.getTypeSafe(this.clipBias, 0.003),
-          textureWidth: size.x,
-          textureHeight: size.y,
-        });
+        const groundMirror: ReflectorRTT = ThreeUtil.getMesh(this.reflector) as ReflectorRTT;
         const mirror: any = this.getReflectorNode(groundMirror);
         const normalXYFlip = this.getMathNode(this.getSwitchNode(this.getTextureNode(this.getTexture('normalMap')), 'xy'), Nodes.MathNode.INVERT);
         const offsetNormal = this.getOperatorNode(normalXYFlip, this.getFloatNode(0.5), Nodes.OperatorNode.SUB);
@@ -1091,8 +1088,15 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
         blurMirrorUv.keywords['projCoord'] = this.getOperatorNode(mirror.offset, mirror.uv, Nodes.OperatorNode.ADD);
         blurMirror.uv = blurMirrorUv;
         blurMirror.radius = this.getVector2Node(0, 0); // .x = blurMirror.radius.y = 0;
+        this.subscribeRefer('mirrorSize', ThreeUtil.getSizeSubscribe().subscribe(v2 => {
+          if (this._blurMirror !== null) {
+            const size = v2.clone().multiplyScalar(window.devicePixelRatio);
+            this._blurMirror.size.set(size.x, size.y);
+            this._blurMirror.updateFrame(undefined);
+          }
+        }))
         this._blurMirror = blurMirror;
-        // return this._blurMirror;
+        return this._blurMirror;
     }
     return undefined;
   }
@@ -2543,8 +2547,13 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
             phongNodeMaterial.environmentAlpha = this.getEnvironmentAlpha();
             // phongNodeMaterial.mask: Node;
             // phongNodeMaterial.position: Node;
+            const nodeFrame = this.getNodeFrame(0);
+            this.subscribeRefer('phongnodeUpdate', ThreeUtil.getUpdateSubscribe().subscribe((timer : RendererTimer) => {
+              nodeFrame.update(timer.delta).updateNode(phongNodeMaterial as any);
+            }));
             console.log(phongNodeMaterial);
             material = phongNodeMaterial;
+
             break;
           case 'spritenodematerial':
           case 'spritenode':

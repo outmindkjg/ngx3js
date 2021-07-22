@@ -102,10 +102,21 @@
         <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
         <ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'"></ngx3js-material>
       </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="planeGeo" #planeBottom>
+      <ngx3js-mesh [geometry]="planeGeo" #groundMirror [type]="'ref1lectorrtt'">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-material [type]="'PhongNodeMaterial'" [color]="'0xffffff'"></ngx3js-material>
+        <!--
+        <ngx3js-mesh [geometry]="planeGeo" #mirrorMesh>
+          <ngx3js-material 
+            [type]="'PhongNodeMaterial'"
+            [reflector]="groundMirror"
+            [environmentType]="'mirror'"
+          >
+            <ngx3js-texture [type]="'normalMap'" [image]="'textures/decal/decal-normal.jpg'"></ngx3js-texture>
+            <ngx3js-texture [type]="'diffuseMap'" [image]="'textures/decal/decal-diffuse.png'" [wrap]="'RepeatWrapping'"></ngx3js-texture>
+          </ngx3js-material>
+        </ngx3js-mesh>
+        -->
       </ngx3js-mesh>
       <ngx3js-mesh [geometry]="planeGeo" #planeBack>
         <ngx3js-position [x]="0" [y]="50" [z]="-50"></ngx3js-position>

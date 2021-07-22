@@ -640,9 +640,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   }
 
   protected _sizeSubject: Subject<THREE.Vector2> = new Subject<THREE.Vector2>();
+  protected _updateSubject: Subject<RendererTimer> = new Subject<RendererTimer>();
 
   sizeSubscribe(): Observable<THREE.Vector2> {
     return this._sizeSubject.asObservable();
+  }
+
+  updateSubscribe(): Observable<RendererTimer> {
+    return this._updateSubject.asObservable();
   }
 
   protected _userGestureSubject: Subject<boolean> = new Subject<boolean>();
@@ -1210,6 +1215,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         control.render(renderTimer);
       });
     }
+    this._updateSubject.next(renderTimer);
     if (ThreeUtil.isNull(this.beforeRender) || !this.beforeRender(this.getRenderInfo(renderTimer))) {
       // if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer && this.panSpeed ) {
       if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {

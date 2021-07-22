@@ -13,6 +13,7 @@ import { Flow, InstancedFlow } from 'three/examples/jsm/modifiers/CurveModifier'
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare';
 import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
+import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
 import { Refractor } from 'three/examples/jsm/objects/Refractor';
 import { Sky } from 'three/examples/jsm/objects/Sky';
 import { Water } from 'three/examples/jsm/objects/Water';
@@ -1083,7 +1084,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
       this.setUserData('refTarget', null);
       this.setUserData('storageSource', null);
       this.setUserData('clips', null);
-
       this.clips = null;
       if (this.clipMesh !== null) {
         this.removeObject3d(this.clipMesh);
@@ -1184,6 +1184,24 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             shader: this.getShader(),
             encoding: this.getEncoding(),
           });
+          break;
+        case 'reflectorrtt' :
+          const reflectorSize = ThreeUtil.getRendererSize().clone().multiplyScalar(window.devicePixelRatio);
+          const reflectorRTT = new ReflectorRTT(geometry, {
+            color: this.getColor(),
+            textureWidth: reflectorSize.x,
+            textureHeight: reflectorSize.y,
+            clipBias: this.getClipBias(0.003),
+            shader: this.getShader(),
+            encoding:this.getEncoding()
+          });
+          this.subscribeRefer('renderSize', ThreeUtil.getSizeSubscribe().subscribe( size => {
+            reflectorRTT.getRenderTarget().setSize(
+              size.x * window.devicePixelRatio,
+              size.y * window.devicePixelRatio
+            )
+          }));
+          basemesh = reflectorRTT;
           break;
         case 'refractor':
           const refractor = new Refractor(geometry, {
