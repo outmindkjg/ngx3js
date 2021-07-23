@@ -215,11 +215,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
         case 'css3d':
         case 'svg':
         case 'tests':
-          image = '/assets/examples/screenshots/' + id + '.jpg';
+          image = 'assets/examples/screenshots/' + id + '.jpg';
           url = '/examples/' + id;
           break;
         default:
-          image = '/assets/examples/screenshots/css2d_label.jpg';
+          image = 'assets/examples/screenshots/css2d_label.jpg';
           url = '/' + parentId + '/' + id;
           break;
       }

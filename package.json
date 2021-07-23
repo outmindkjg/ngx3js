@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "maxmem": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng serve"
+    "maxmem": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng serve",
+    "maxbuild": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
+    "maxbuildprod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --configuration production"
   },
   "browser": {
     "fs": false,

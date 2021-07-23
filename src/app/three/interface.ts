@@ -894,7 +894,7 @@ export class ThreeUtil {
     if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     } else {
-      return '/assets/examples/' + url;
+      return 'assets/examples/' + url;
     }
   }
 
