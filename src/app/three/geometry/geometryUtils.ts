@@ -79,8 +79,17 @@ export const GeometryConf: {
   rainbow3: 'rainbowcolor3',
 };
 
+/**
+ * Geometry utils
+ */
 export class GeometryUtils {
-  static getGeometryRadius(geometry: THREE.BufferGeometry, options: any): number {
+  /**
+   * Gets geometry radius
+   * @param geometry
+   * @param options
+   * @returns geometry radius
+   */
+  public static getGeometryRadius(geometry: THREE.BufferGeometry, options: any): number {
     let radius = options.radius || 0;
     if (radius <= 0) {
       geometry.computeBoundingSphere();
@@ -89,7 +98,13 @@ export class GeometryUtils {
     return radius;
   }
 
-  static addGeometry(key: string, func: GeometryFunctionType, alias?: string[]) {
+  /**
+   * Adds geometry
+   * @param key
+   * @param func
+   * @param [alias]
+   */
+  public static addGeometry(key: string, func: GeometryFunctionType, alias?: string[]) {
     key = key.toLowerCase();
     if (ThreeUtil.isNotNull(alias)) {
       alias.forEach((aliasKey) => {
@@ -101,7 +116,12 @@ export class GeometryUtils {
     GeometryConf[key] = func;
   }
 
-  static getGeometryFunction(key: string): GeometryFunctionType {
+  /**
+   * Gets geometry function
+   * @param key
+   * @returns geometry function
+   */
+  public static getGeometryFunction(key: string): GeometryFunctionType {
     key = key.toLowerCase();
     if (ThreeUtil.isNotNull(GeometryConf[key])) {
       const func = GeometryConf[key.toLowerCase()];
@@ -118,7 +138,14 @@ export class GeometryUtils {
     }
   }
 
-  static getGeometry(key: string, geometry: THREE.BufferGeometry, options?: any): THREE.BufferGeometry {
+  /**
+   * Gets geometry
+   * @param key
+   * @param geometry
+   * @param [options]
+   * @returns geometry
+   */
+  public static getGeometry(key: string, geometry: THREE.BufferGeometry, options?: any): THREE.BufferGeometry {
     const keyList = key.split(',');
     keyList.forEach((funcName) => {
       const func = this.getGeometryFunction(funcName);
@@ -133,7 +160,7 @@ export class GeometryUtils {
    * @param {number} tolerance
    * @return {BufferGeometry>}
    */
-   static mergeVertices(geometry: THREE.BufferGeometry, tolerance: number = 1e-4) {
+  static mergeVertices(geometry: THREE.BufferGeometry, tolerance: number = 1e-4) {
     switch (geometry.type.toLowerCase()) {
       case 'planegeometry':
         return geometry;

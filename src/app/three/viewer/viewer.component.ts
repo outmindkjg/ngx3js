@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ProgressiveLightMap } from 'three/examples/jsm/misc/ProgressiveLightMap';
 import { ShadowMesh } from 'three/examples/jsm/objects/ShadowMesh';
 import { ShadowMapViewer } from 'three/examples/jsm/utils/ShadowMapViewer';
-import { ProgressiveLightMap } from 'three/examples/jsm/misc/ProgressiveLightMap';
-
 import { HelperComponent } from '../helper/helper.component';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LightComponent } from '../light/light.component';
@@ -11,78 +10,87 @@ import { MeshComponent } from '../mesh/mesh.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ViewerCanvas } from './viewer-canvas';
 
+/**
+ * ViewerComponent
+ */
 @Component({
   selector: 'ngx3js-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss'],
 })
 export class ViewerComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
+   * Input  of viewer component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private type: string = 'shadowmap';
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private light: LightComponent | MeshComponent | THREE.Light = null;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private mesh: MeshComponent | HelperComponent | THREE.Mesh = null;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private plane: MeshComponent | HelperComponent | THREE.Object3D | THREE.Plane = null;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private x: number | string = 0;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private y: number | string = 0;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private width: number | string = '100%';
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private height: number | string = '100%';
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private lightMapRes: number = 1024;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private blendWindow: number = 200;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private blurEdges: boolean = true;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private debugLightmap: boolean = false;
 
   /**
-   * 
+   * Input  of viewer component
    */
   @Input() private canvasOptions: any = null;
 
+  /**
+   * Gets light
+   * @returns light
+   */
   private getLight(): THREE.Light {
     this.unSubscribeRefer('light');
     if (ThreeUtil.isNotNull(this.light)) {
@@ -102,6 +110,10 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return new THREE.PointLight();
   }
 
+  /**
+   * Gets mesh
+   * @returns mesh
+   */
   private getMesh(): THREE.Mesh {
     this.unSubscribeRefer('mesh');
     if (ThreeUtil.isNotNull(this.mesh)) {
@@ -121,6 +133,10 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return new THREE.Mesh();
   }
 
+  /**
+   * Gets plane
+   * @returns plane
+   */
   private getPlane(): THREE.Plane {
     const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0.01);
     if (ThreeUtil.isNotNull(this.plane)) {
@@ -157,6 +173,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return plane;
   }
 
+  /**
+   * Gets x
+   * @param [def]
+   * @returns x
+   */
   private getX(def?: number | string): number {
     const x = this.getViewPortSize(this.x, this.rendererWidth, def);
     if (x < 0) {
@@ -166,6 +187,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  /**
+   * Gets y
+   * @param [def]
+   * @returns y
+   */
   private getY(def?: number | string): number {
     const y = this.getViewPortSize(this.y, this.rendererHeight, def);
     if (y < 0) {
@@ -175,14 +201,31 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  /**
+   * Gets width
+   * @param [def]
+   * @returns width
+   */
   private getWidth(def?: number | string): number {
     return this.getViewPortSize(this.width, this.rendererWidth, def);
   }
 
+  /**
+   * Gets height
+   * @param [def]
+   * @returns height
+   */
   private getHeight(def?: number | string): number {
     return this.getViewPortSize(this.height, this.rendererHeight, def);
   }
 
+  /**
+   * Gets view port size
+   * @param size
+   * @param cameraSize
+   * @param [def]
+   * @returns view port size
+   */
   private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
@@ -217,6 +260,9 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return 0;
   }
 
+  /**
+   * Creates an instance of viewer component.
+   */
   constructor() {
     super();
   }
@@ -249,7 +295,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -269,26 +315,57 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     super.ngAfterContentInit();
   }
 
+  /**
+   * Renderer  of viewer component
+   */
   private renderer: THREE.Renderer = null;
-  setRenderer(renderer: THREE.Renderer) {
+
+  /**
+   * Sets renderer
+   * @param renderer
+   */
+  public setRenderer(renderer: THREE.Renderer) {
     this.renderer = renderer;
     this.getViewer();
   }
 
-  getRenderer(): THREE.Renderer {
+  /**
+   * Gets renderer
+   * @returns renderer
+   */
+  public getRenderer(): THREE.Renderer {
     return this.renderer;
   }
 
+  /**
+   * Viewer  of viewer component
+   */
   private viewer: any = null;
+
+  /**
+   * Renderer width of viewer component
+   */
   private rendererWidth: number = 0;
+
+  /**
+   * Renderer height of viewer component
+   */
   private rendererHeight: number = 0;
 
-  setViewerSize(width: number, height: number) {
+  /**
+   * Sets viewer size
+   * @param width
+   * @param height
+   */
+  public setViewerSize(width: number, height: number) {
     this.rendererWidth = width;
     this.rendererHeight = height;
   }
 
-  resizeViewer() {
+  /**
+   * Resizes viewer
+   */
+  public resizeViewer() {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'canvas':
@@ -307,6 +384,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.viewer !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -336,7 +418,10 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  resetViewer() {
+  /**
+   * Resets viewer
+   */
+  public resetViewer() {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmesh':
@@ -349,7 +434,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           break;
       }
       this.viewer = null;
-      setTimeout(() => {
+      window.setTimeout(() => {
         if (this.viewer === null) {
           this.getViewer();
         }
@@ -357,7 +442,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getViewer() {
+  /**
+   * Gets viewer
+   * @returns
+   */
+  public getViewer() {
     if (this.viewer === null || this._needUpdate) {
       this.needUpdate = false;
       this.unSubscribeRefer('referTarget');
@@ -399,11 +488,27 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
     return this.viewer;
   }
+
+  /**
+   * Ref light of viewer component
+   */
   private _refLight: THREE.Light = null;
+
+  /**
+   * Ref plane of viewer component
+   */
   private _refPlane: THREE.Plane = null;
+
+  /**
+   * Ref light position of viewer component
+   */
   private _refLightPosition: THREE.Vector4 = null;
 
-  update(_: RendererTimer) {
+  /**
+   * Updates viewer component
+   * @param _
+   */
+  public update(_: RendererTimer) {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmesh':
@@ -419,7 +524,12 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getScene(scenes?: QueryList<any> | any): THREE.Scene {
+  /**
+   * Gets scene
+   * @param [scenes]
+   * @returns scene
+   */
+  public getScene(scenes?: QueryList<any> | any): THREE.Scene {
     if (ThreeUtil.isNotNull(scenes)) {
       if (scenes instanceof QueryList && scenes.length > 0) {
         return scenes.first.getScene();
@@ -432,7 +542,12 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return new THREE.Scene();
   }
 
-  getCamera(cameras?: QueryList<any> | any): THREE.Camera {
+  /**
+   * Gets camera
+   * @param [cameras]
+   * @returns camera
+   */
+  public getCamera(cameras?: QueryList<any> | any): THREE.Camera {
     if (ThreeUtil.isNotNull(cameras)) {
       if (cameras instanceof QueryList && cameras.length > 0) {
         return cameras.first.getCamera();
@@ -445,7 +560,14 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     return new THREE.Camera();
   }
 
-  render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras: QueryList<any> | any, renderTimer?: RendererTimer) {
+  /**
+   * Renders viewer component
+   * @param renderer
+   * @param scenes
+   * @param cameras
+   * @param [renderTimer]
+   */
+  public render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras: QueryList<any> | any, renderTimer?: RendererTimer) {
     if (this.viewer !== null) {
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':

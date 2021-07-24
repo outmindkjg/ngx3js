@@ -67,7 +67,7 @@ export class RigidbodyNodeComponent extends AbstractSubscribeComponent implement
   private physics: Ammo.btSoftRigidDynamicsWorld = null;
   private ammo: typeof Ammo = null;
   private rigidBody : Ammo.btSoftBody = null;
-  setRigidbody(rigidBody : Ammo.btSoftBody, physics: Ammo.btSoftRigidDynamicsWorld, ammo) {
+  public setRigidbody(rigidBody : Ammo.btSoftBody, physics: Ammo.btSoftRigidDynamicsWorld, ammo) {
     this.rigidBody = rigidBody;
     this.physics = physics;
     this.ammo = ammo;
@@ -92,7 +92,7 @@ export class RigidbodyNodeComponent extends AbstractSubscribeComponent implement
 
   private rigidbodyNode = null;
 
-  getRigidbodyNode() : Ammo.btTypedConstraint {
+  public getRigidbodyNode() : Ammo.btTypedConstraint {
     if (ThreeUtil.isNotNull(this.ammo) && ThreeUtil.isNotNull(this.rigidBody) && ThreeUtil.isNotNull(this.physics) && (this.rigidbodyNode === null || this._needUpdate)) {
       this.needUpdate = false;
       switch(this.type.toLowerCase()) {

@@ -1,11 +1,14 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
-import { ThreeColor, ThreeTexture, ThreeUtil } from './interface';
+import { ThreeTexture, ThreeUtil } from './interface';
 import { PlaneComponent } from './plane/plane.component';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { AbstractTextureComponent } from './texture.abstract';
 
+/**
+ * Mesh material raw
+ */
 export interface MeshMaterialRaw {
   geometry?: THREE.BufferGeometry;
   userData?: any;
@@ -14,14 +17,20 @@ export interface MeshMaterialRaw {
   customDistanceMaterial?: THREE.Material;
 }
 
+/**
+ * Mesh Material
+ */
 export type MeshMaterial = MeshMaterialRaw | THREE.Scene;
 
+/**
+ * AbstractMaterialComponent
+ */
 @Component({
   template: '',
 })
 export abstract class AbstractMaterialComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   /**
-   * Optional name of the object (doesn't need to be unique). Default is an empty string.
+   * The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = null;
 
@@ -31,7 +40,7 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   @Input() public visible: boolean = null;
 
   /**
-   * Optional name of the object to apply loaded mesh when restore from assets.
+   * The name of the object to apply loaded mesh when restore from assets.
    */
   @Input() public nameList: string[] = null;
 
@@ -70,6 +79,20 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Which blending to use when displaying objects with this material. <br />
    * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
    * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.BlendingDstFactor
+   * @see THREE.ZeroFactor - ZeroFactor , Zero
+   * @see THREE.OneFactor - OneFactor , One
+   * @see THREE.SrcColorFactor - SrcColorFactor , SrcColor
+   * @see THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor
+   * @see THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha
+   * @see THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha
+   * @see THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha
+   * @see THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha
+   * @see THREE.DstColorFactor - DstColorFactor , DstColor
+   * @see THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
    */
   @Input() protected blendDst: string = null;
 
@@ -82,6 +105,16 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Blending equation to use when applying blending. Default is [page:CustomBlendingEquation AddEquation].
    * See the blending equation [page:CustomBlendingEquation constants] for all possible values.<br />
    * The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.BlendingEquation
+   * @see THREE.AddEquation - AddEquation , Add
+   * @see THREE.SubtractEquation - SubtractEquation , Subtract
+   * @see THREE.ReverseSubtractEquation - ReverseSubtractEquation , ReverseSubtract
+   * @see THREE.MinEquation - MinEquation , Min
+   * @see THREE.MaxEquation - MaxEquation , Max
+   * 
    */
   @Input() protected blendEquation: string = null;
 
@@ -94,6 +127,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Which blending to use when displaying objects with this material. <br />
    * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
    * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
+   * 
+   * Notice - case insensitive.
+   * 
    */
   @Input() protected blending: string = null;
 
@@ -101,6 +137,16 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Blending source. Default is [page:CustomBlendingEquation SrcAlphaFactor].
    * See the source factors [page:CustomBlendingEquation constants] for all possible values.<br />
    * The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Blending
+   * @see THREE.NoBlending - NoBlending , No
+   * @see THREE.NormalBlending - NormalBlending , Normal
+   * @see THREE.AdditiveBlending - AdditiveBlending , Additive
+   * @see THREE.SubtractiveBlending - SubtractiveBlending , Subtractive
+   * @see THREE.MultiplyBlending - MultiplyBlending , Multiply
+   * @see THREE.CustomBlending - CustomBlending , Custom
    */
   @Input() protected blendSrc: string = null;
 
@@ -143,6 +189,19 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.DepthModes
+   * @see THREE.NeverDepth - NeverDepth , Never
+   * @see THREE.AlwaysDepth - AlwaysDepth , Always
+   * @see THREE.LessDepth - LessDepth , Less
+   * @see THREE.LessEqualDepth - LessEqualDepth , LessEqual
+   * @see THREE.EqualDepth - EqualDepth , Equal
+   * @see THREE.GreaterEqualDepth - GreaterEqualDepth , GreaterEqual
+   * @see THREE.GreaterDepth - GreaterDepth , Greater
+   * @see THREE.NotEqualDepth - NotEqualDepth , NotEqual
+   * 
    */
   @Input() protected depthFunc: string = null;
 
@@ -180,6 +239,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   /**
    * Override the renderer's default precision for this material. Can be "*highp*", "*mediump*" or "*lowp*".
    * Default is *null*.
+   * 
+   * Notice - case insensitive.
+   * 
    */
   @Input() protected precision: string = null;
 
@@ -187,6 +249,10 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Whether to premultiply the alpha (transparency) value.
    * See [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission] for an example of the difference.
    * Default is *false*.
+   * 
+   * highp
+   * mediump
+   * lowp
    */
   @Input() protected premultipliedAlpha: boolean = null;
 
@@ -205,6 +271,13 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Defines which side of faces will be rendered - front, back or both.
    * Default is [page:Materials THREE.FrontSide].
    * Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.DoubleSide].
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Side
+   * @see THREE.FrontSide - FrontSide , Front
+   * @see THREE.BackSide - BackSide , Back
+   * @see THREE.DoubleSide - DoubleSide , Double
    */
   @Input() protected side: string = null;
 
@@ -212,7 +285,13 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * Defines which side of faces cast shadows.
    * When set, can be [page:Materials THREE.FrontSide], [page:Materials THREE.BackSide], or [page:Materials THREE.DoubleSide]. Default is *null*. <br />
    * If *null*, the side casting shadows is determined as follows: <br />
-
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Side
+   * @see THREE.FrontSide - FrontSide , Front
+   * @see THREE.BackSide - BackSide , Back
+   * @see THREE.DoubleSide - DoubleSide , Double
    */
   @Input() protected shadowSide: string = null;
 
@@ -233,12 +312,25 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * The stencil comparison function to use. Default is [page:Materials AlwaysStencilFunc]. See stencil function [page:Materials constants] for all possible values.
+   * 
+   * Notice - case insensitive.
+   * 
    */
   @Input() protected stencilFunc: string = null;
 
   /**
    * The value to use when performing stencil comparisons or stencil operations. Default is *0*.
-   */
+   * 
+   * @see THREE.StencilFunc
+   * @see THREE.NeverStencilFunc - NeverStencilFunc , NeverStencil
+   * @see THREE.LessStencilFunc - LessStencilFunc , LessStencil
+   * @see THREE.EqualStencilFunc - EqualStencilFunc , EqualStencil
+   * @see THREE.LessEqualStencilFunc - LessEqualStencilFunc , LessEqualStencil
+   * @see THREE.GreaterStencilFunc - GreaterStencilFunc , GreaterStencil
+   * @see THREE.NotEqualStencilFunc - NotEqualStencilFunc , NotEqualStencil
+   * @see THREE.GreaterEqualStencilFunc - GreaterEqualStencilFunc , GreaterEqualStencil
+   * @see THREE.AlwaysStencilFunc - AlwaysStencilFunc , AlwaysStencil
+  */
   @Input() protected stencilRef: number = null;
 
   /**
@@ -253,16 +345,52 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * Which stencil operation to perform when the comparison function returns false. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.StencilOp
+   * @see THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil
+   * @see THREE.KeepStencilOp - KeepStencilOp , KeepStencil
+   * @see THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil
+   * @see THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil
+   * @see THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil
+   * @see THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil
+   * @see THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil
+   * @see THREE.InvertStencilOp - InvertStencilOp , InvertStencil
    */
   @Input() protected stencilFail: string = null;
 
   /**
    * Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.StencilOp
+   * @see THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil
+   * @see THREE.KeepStencilOp - KeepStencilOp , KeepStencil
+   * @see THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil
+   * @see THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil
+   * @see THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil
+   * @see THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil
+   * @see THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil
+   * @see THREE.InvertStencilOp - InvertStencilOp , InvertStencil
    */
   @Input() protected stencilZFail: string = null;
 
   /**
    * Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.StencilOp
+   * @see THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil
+   * @see THREE.KeepStencilOp - KeepStencilOp , KeepStencil
+   * @see THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil
+   * @see THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil
+   * @see THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil
+   * @see THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil
+   * @see THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil
+   * @see THREE.InvertStencilOp - InvertStencilOp , InvertStencil
    */
   @Input() protected stencilZPass: string = null;
 
@@ -277,36 +405,51 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   @Input() protected transparent: boolean = null;
 
   /**
-   *
+   * Input  of abstract material component
    */
   @Input() protected control: any = null;
 
   /**
-   * An optional callback that is executed immediately before the shader program is compiled.
+   * An callback that is executed immediately before the shader program is compiled.
    * This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.
    */
   @Input() protected onBeforeCompile: (shader: THREE.Shader, renderer?: THREE.WebGLRenderer) => void = null;
 
   /**
-   *
+   * Content children of abstract material component
    */
   @ContentChildren(PlaneComponent) protected clippingPlanesList: QueryList<PlaneComponent>;
 
   /**
-   * todo
-   *
+   * Determines whether material type is
    * @param materialType
-   * @returns
+   * @returns true if material type
    */
   public isMaterialType(materialType: string): boolean {
     return this.materialType.toLowerCase() === materialType.toLowerCase() && (this.visible === null || this.visible);
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Which blending to use when displaying objects with this material. <br />
+   * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
+   * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.BlendingDstFactor
+   * @see THREE.ZeroFactor - ZeroFactor , Zero
+   * @see THREE.OneFactor - OneFactor , One
+   * @see THREE.SrcColorFactor - SrcColorFactor , SrcColor
+   * @see THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor
+   * @see THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha
+   * @see THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha
+   * @see THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha
+   * @see THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha
+   * @see THREE.DstColorFactor - DstColorFactor , DstColor
+   * @see THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
+   * 
+   * @param [def]
+   * @returns blend dst
    */
   protected getBlendDst(def?: string): THREE.BlendingDstFactor {
     const blendDst = ThreeUtil.getTypeSafe(this.blendDst, def, '');
@@ -336,10 +479,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets blend equation
+   * @param [def]
+   * @returns blend equation
    */
   protected getBlendEquation(def?: string): THREE.BlendingEquation {
     const blendEquation = ThreeUtil.getTypeSafe(this.blendEquation, def, '');
@@ -359,10 +501,26 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Which blending to use when displaying objects with this material. <br />
+   * This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
+   * See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.BlendingDstFactor
+   * @see THREE.ZeroFactor - ZeroFactor , Zero
+   * @see THREE.OneFactor - OneFactor , One
+   * @see THREE.SrcColorFactor - SrcColorFactor , SrcColor
+   * @see THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor
+   * @see THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha
+   * @see THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha
+   * @see THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha
+   * @see THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha
+   * @see THREE.DstColorFactor - DstColorFactor , DstColor
+   * @see THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
+   * 
+   * @param [def]
+   * @returns blend src
    */
   protected getBlendSrc(def?: string): THREE.BlendingSrcFactor | THREE.BlendingDstFactor {
     const blendSrc = ThreeUtil.getTypeSafe(this.blendSrc, def, '');
@@ -405,10 +563,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets depth func
+   * @param [def]
+   * @returns depth func
    */
   protected getDepthFunc(def?: string): THREE.DepthModes {
     const depthFunc = ThreeUtil.getTypeSafe(this.depthFunc, def, '');
@@ -434,10 +591,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets precision
+   * @param [def]
+   * @returns precision
    */
   protected getPrecision(def?: string): 'highp' | 'mediump' | 'lowp' | null {
     const precision = ThreeUtil.getTypeSafe(this.precision, def, '');
@@ -453,10 +609,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets side
+   * @param [def]
+   * @returns side
    */
   protected getSide(def?: string): THREE.Side {
     const side = ThreeUtil.getTypeSafe(this.side, def, '');
@@ -475,10 +630,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets shadow side
+   * @param [def]
+   * @returns shadow side
    */
   protected getShadowSide(def?: string): THREE.Side {
     const shadowSide = ThreeUtil.getTypeSafe(this.shadowSide, def, '');
@@ -497,20 +651,18 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets vertex colors
+   * @param [def]
+   * @returns true if vertex colors
    */
   protected getVertexColors(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.vertexColors, def);
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets stencil func
+   * @param [def]
+   * @returns stencil func
    */
   protected getStencilFunc(def?: string): THREE.StencilFunc {
     const stencilFunc = ThreeUtil.getTypeSafe(this.stencilFunc, def, '');
@@ -536,10 +688,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets stencil fail
+   * @param [def]
+   * @returns stencil fail
    */
   protected getStencilFail(def?: string): THREE.StencilOp {
     const stencilFail = ThreeUtil.getTypeSafe(this.stencilFail, def, '');
@@ -565,10 +716,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets stencil zfail
+   * @param [def]
+   * @returns stencil zfail
    */
   protected getStencilZFail(def?: string): THREE.StencilOp {
     const stencilZFail = ThreeUtil.getTypeSafe(this.stencilZFail, def, '');
@@ -594,10 +744,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets stencil zpass
+   * @param [def]
+   * @returns stencil zpass
    */
   protected getStencilZPass(def?: string): THREE.StencilOp {
     const stencilZPass = ThreeUtil.getTypeSafe(this.stencilZPass, def, '');
@@ -623,10 +772,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets clipping planes
+   * @param [def]
+   * @returns clipping planes
    */
   protected getClippingPlanes(def?: THREE.Plane[]): THREE.Plane[] {
     if (this.clippingPlanes !== null && this.clippingPlanes !== undefined) {
@@ -654,10 +802,10 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets texture option
+   * @param map
+   * @param name
+   * @returns texture option
    */
   protected getTextureOption(map: ThreeTexture, name: string): THREE.Texture {
     if (ThreeUtil.isNotNull(map)) {
@@ -741,7 +889,7 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   ];
 
   /**
-   * todo
+   * Creates an instance of abstract material component.
    */
   constructor() {
     super();
@@ -766,7 +914,7 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
-    if (this.material != null) {
+    if (this.material !== null) {
       this.material.dispose();
     }
     super.ngOnDestroy();
@@ -797,17 +945,15 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
+   * Mesh material of abstract material component
    */
   private _meshMaterial: MeshMaterial = null;
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Sets mesh
+   * @param meshMaterial
    */
-  setMesh(meshMaterial: MeshMaterial) {
+  public setMesh(meshMaterial: MeshMaterial) {
     if (this.material === null) {
       this.getMaterial();
     }
@@ -818,10 +964,8 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Synks mesh
+   * @param [material]
    */
   protected synkMesh(material: THREE.Material = null) {
     if (ThreeUtil.isNotNull(material) && this.enabled) {
@@ -938,12 +1082,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Determines whether mesh material is
+   * @param mesh
+   * @returns true if mesh material
    */
-  static isMeshMaterial(mesh: any): boolean {
+  public static isMeshMaterial(mesh: any): boolean {
     if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite || mesh instanceof THREE.Scene) {
       return true;
     } else {
@@ -952,12 +1095,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets mesh material
+   * @param mesh
+   * @returns mesh material
    */
-  static getMeshMaterial(mesh: any): MeshMaterial {
+  public static getMeshMaterial(mesh: any): MeshMaterial {
     if (this.isMeshMaterial(mesh)) {
       return mesh;
     }
@@ -982,10 +1124,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets material parameters
+   * @param extendObj
+   * @returns material parameters
    */
   protected getMaterialParameters(extendObj: any): THREE.MaterialParameters {
     const materialParameters: THREE.MaterialParameters = Object.assign(
@@ -1045,25 +1186,22 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
+   * Material  of abstract material component
    */
   protected material: THREE.Material = null;
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets material
+   * @template T 
+   * @returns material 
    */
   public getMaterial<T extends THREE.Material>(): T {
     return this.material as T;
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Sets material
+   * @param material
    */
   protected setMaterial(material: THREE.Material) {
     if (this.material !== material && ThreeUtil.isNotNull(material)) {
@@ -1092,9 +1230,8 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
   }
 
   /**
-   * todo
-   *
-   * @param def
+   * Applys changes
+   * @param changes
    * @returns
    */
   protected applyChanges(changes: string[]) {

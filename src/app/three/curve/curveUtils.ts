@@ -1,8 +1,11 @@
+import * as GSAP from 'gsap';
 import * as THREE from 'three';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras';
 import { RendererTimer, ThreeUtil } from '../interface';
-import * as GSAP from 'gsap';
 
+/**
+ * Curves parameters
+ */
 export interface CurvesParameters {
   radiusInner?: number;
   waveH?: number;
@@ -12,17 +15,56 @@ export interface CurvesParameters {
   rateZ?: number;
 }
 
+/**
+ * Curves polygon
+ */
 export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
+  /**
+   * Radius  of curves polygon
+   */
   private radius: number = 1;
+
+  /**
+   * Radius inner of curves polygon
+   */
   private radiusInner: number = 0;
+
+  /**
+   * Wave h of curves polygon
+   */
   private waveH: number = 0;
+
+  /**
+   * Wave r of curves polygon
+   */
   private waveR: number = 0;
+
+  /**
+   * Rate x of curves polygon
+   */
   private rateX: number = 1;
+
+  /**
+   * Rate y of curves polygon
+   */
   private rateY: number = 0.2;
+
+  /**
+   * Rate z of curves polygon
+   */
   private rateZ: number = 1;
 
-  points: THREE.Vector3[] = [];
+  /**
+   * Points  of curves polygon
+   */
+  public points: THREE.Vector3[] = [];
 
+  /**
+   * Creates an instance of curves polygon.
+   * @param [points]
+   * @param [radius]
+   * @param [options]
+   */
   constructor(points: THREE.Vector3[] = [], radius: number = 1, options?: CurvesParameters) {
     super();
     this.points = points;
@@ -36,16 +78,33 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
     this._rateV = new THREE.Vector3(this.rateX, this.rateY, this.rateZ);
   }
 
-  _rateV: THREE.Vector3 = null;
-  clearPoints() {
+  /**
+   * Rate v of curves polygon
+   */
+  private _rateV: THREE.Vector3 = null;
+
+  /**
+   * Clears points
+   */
+  public clearPoints() {
     this.points = [];
   }
 
-  addPoint(p: THREE.Vector3) {
+  /**
+   * Adds point
+   * @param p
+   */
+  public addPoint(p: THREE.Vector3) {
     this.points.push(p);
   }
 
-  getPoint(t: number, optionalTarget: THREE.Vector3) {
+  /**
+   * Gets point
+   * @param t
+   * @param optionalTarget
+   * @returns
+   */
+  public getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     const len = this.points.length;
     if (len >= 2) {
@@ -74,13 +133,26 @@ export class CurvesPolygon extends THREE.Curve<THREE.Vector3> {
   }
 }
 
+/**
+ * Curves regular polygon
+ */
 export class CurvesRegularPolygon extends CurvesPolygon {
+  /**
+   * Creates an instance of curves regular polygon.
+   * @param [vertex]
+   * @param [radius]
+   * @param [options]
+   */
   constructor(vertex: number = 3, radius: number = 1, options: CurvesParameters = {}) {
     super([], radius, options);
     this.setVertex(vertex);
   }
 
-  setVertex(vertex: number) {
+  /**
+   * Sets vertex
+   * @param vertex
+   */
+  public setVertex(vertex: number) {
     this.clearPoints();
     for (let i = 0; i < vertex; i++) {
       const t = (2 * Math.PI * i) / vertex;
@@ -89,65 +161,140 @@ export class CurvesRegularPolygon extends CurvesPolygon {
   }
 }
 
+/**
+ * Curves regular polygon triangle
+ */
 export class CurvesRegularPolygonTriangle extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(3, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon square
+ */
 export class CurvesRegularPolygonSquare extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(4, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon pentagon
+ */
 export class CurvesRegularPolygonPentagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(5, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon hexagon
+ */
 export class CurvesRegularPolygonHexagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(6, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon heptagon
+ */
 export class CurvesRegularPolygonHeptagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(7, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon octagon
+ */
 export class CurvesRegularPolygonOctagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(8, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon nonagon
+ */
 export class CurvesRegularPolygonNonagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(9, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon decagon
+ */
 export class CurvesRegularPolygonDecagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(10, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon undecagon
+ */
 export class CurvesRegularPolygonUndecagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(11, radius, options || {});
   }
 }
+
+/**
+ * Curves regular polygon dodecagon
+ */
 export class CurvesRegularPolygonDodecagon extends CurvesRegularPolygon {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(12, radius, options || {});
   }
 }
 
+/**
+ * Curves circle
+ */
 export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
+  /**
+   * Radius  of curves circle
+   */
   private radius: number = 1;
+
+  /**
+   * Radius inner of curves circle
+   */
   private radiusInner: number = 0;
+
+  /**
+   * Wave h of curves circle
+   */
   private waveH: number = 0;
+
+  /**
+   * Wave r of curves circle
+   */
   private waveR: number = 0;
+
+  /**
+   * Rate x of curves circle
+   */
   private rateX: number = 1;
+
+  /**
+   * Rate y of curves circle
+   */
   private rateY: number = 0.2;
+
+  /**
+   * Rate z of curves circle
+   */
   private rateZ: number = 1;
+
+  /**
+   * Creates an instance of curves circle.
+   * @param [radius]
+   * @param [options]
+   */
   constructor(radius: number = 1, options?: CurvesParameters) {
     super();
     options = options || {};
@@ -160,7 +307,13 @@ export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
     this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
   }
 
-  getPoint(t: number, optionalTarget: THREE.Vector3) {
+  /**
+   * Gets point
+   * @param t
+   * @param optionalTarget
+   * @returns
+   */
+  public getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     t = 2 * Math.PI * t;
     const radius = this.waveR != 0 && this.radiusInner != 0 ? (Math.sin(t * this.waveR) * this.radiusInner + 1) * this.radius : this.radius;
@@ -169,14 +322,50 @@ export class CurvesCircle extends THREE.Curve<THREE.Vector3> {
   }
 }
 
+/**
+ * Curves line
+ */
 export class CurvesLine extends THREE.Curve<THREE.Vector3> {
+  /**
+   * Radius  of curves line
+   */
   private radius: number = 1;
+
+  /**
+   * Radius inner of curves line
+   */
   private radiusInner: number = 0;
+
+  /**
+   * Wave h of curves line
+   */
   private waveH: number = 0;
+
+  /**
+   * Wave r of curves line
+   */
   private waveR: number = 0;
+
+  /**
+   * Rate x of curves line
+   */
   private rateX: number = 1;
+
+  /**
+   * Rate y of curves line
+   */
   private rateY: number = 0.2;
+
+  /**
+   * Rate z of curves line
+   */
   private rateZ: number = 1;
+
+  /**
+   * Creates an instance of curves line.
+   * @param [radius]
+   * @param [options]
+   */
   constructor(radius: number = 1, options?: CurvesParameters) {
     super();
     options = options || {};
@@ -189,7 +378,13 @@ export class CurvesLine extends THREE.Curve<THREE.Vector3> {
     this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
   }
 
-  getPoint(t: number, optionalTarget: THREE.Vector3) {
+  /**
+   * Gets point
+   * @param t
+   * @param optionalTarget
+   * @returns
+   */
+  public getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     const v = Math.max(-1, Math.min(1, t * 2 - 1));
     const y = this.waveH != 0 ? Math.sin(2 * Math.PI * t * this.waveH) : v;
@@ -198,12 +393,41 @@ export class CurvesLine extends THREE.Curve<THREE.Vector3> {
   }
 }
 
+/**
+ * Curves gsap
+ */
 export class CurvesGsap extends THREE.Curve<THREE.Vector3> {
+  /**
+   * Ease function of curves gsap
+   */
   private easeFunction: (progress: number) => number;
+
+  /**
+   * Radius  of curves gsap
+   */
   private radius: number = 1;
+
+  /**
+   * Rate x of curves gsap
+   */
   private rateX: number = 1;
+
+  /**
+   * Rate y of curves gsap
+   */
   private rateY: number = 0.2;
+
+  /**
+   * Rate z of curves gsap
+   */
   private rateZ: number = 1;
+
+  /**
+   * Creates an instance of curves gsap.
+   * @param easeFunction
+   * @param [radius]
+   * @param [options]
+   */
   constructor(easeFunction: (progress: number) => number, radius: number = 1, options?: CurvesParameters) {
     super();
     this.easeFunction = easeFunction || GSAP.Power1.easeIn;
@@ -214,7 +438,13 @@ export class CurvesGsap extends THREE.Curve<THREE.Vector3> {
     this.rateZ = ThreeUtil.isNotNull(options.rateZ) ? options.rateZ : 1;
   }
 
-  getPoint(t: number, optionalTarget: THREE.Vector3) {
+  /**
+   * Gets point
+   * @param t
+   * @param optionalTarget
+   * @returns
+   */
+  public getPoint(t: number, optionalTarget: THREE.Vector3) {
     const point = optionalTarget || new THREE.Vector3();
     const v = Math.max(-1, Math.min(1, t * 2 - 1));
     let y = this.easeFunction(t) * 2 - 1;
@@ -222,279 +452,463 @@ export class CurvesGsap extends THREE.Curve<THREE.Vector3> {
   }
 }
 
+/**
+ * Curves gsap linear ease in
+ */
 export class CurvesGsapLinearEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Linear.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap linear ease in out
+ */
 export class CurvesGsapLinearEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Linear.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap linear ease out
+ */
 export class CurvesGsapLinearEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Linear.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap linear ease none
+ */
 export class CurvesGsapLinearEaseNone extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Linear.easeNone, radius, options);
   }
 }
 
+/**
+ * Curves gsap quad ease in
+ */
 export class CurvesGsapQuadEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quad.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap quad ease in out
+ */
 export class CurvesGsapQuadEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quad.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap quad ease out
+ */
 export class CurvesGsapQuadEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quad.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap cubic ease in
+ */
 export class CurvesGsapCubicEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Cubic.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap cubic ease in out
+ */
 export class CurvesGsapCubicEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Cubic.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap cubic ease out
+ */
 export class CurvesGsapCubicEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Cubic.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap quart ease in
+ */
 export class CurvesGsapQuartEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quart.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap quart ease in out
+ */
 export class CurvesGsapQuartEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quart.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap quart ease out
+ */
 export class CurvesGsapQuartEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quart.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap quint ease in
+ */
 export class CurvesGsapQuintEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quint.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap quint ease in out
+ */
 export class CurvesGsapQuintEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quint.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap quint ease out
+ */
 export class CurvesGsapQuintEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Quint.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap strong ease in
+ */
 export class CurvesGsapStrongEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Strong.easeIn, radius, options);
   }
 }
 
+/**
+ * Curves gsap strong ease in out
+ */
 export class CurvesGsapStrongEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Strong.easeInOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap strong ease out
+ */
 export class CurvesGsapStrongEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Strong.easeOut, radius, options);
   }
 }
 
+/**
+ * Curves gsap power1 ease in
+ */
 export class CurvesGsapPower1EaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power1.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap power1 ease in out
+ */
 export class CurvesGsapPower1EaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power1.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power1 ease out
+ */
 export class CurvesGsapPower1EaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power1.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power2 ease in
+ */
 export class CurvesGsapPower2EaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power2.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap power2 ease in out
+ */
 export class CurvesGsapPower2EaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power2.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power2 ease out
+ */
 export class CurvesGsapPower2EaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power2.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power3 ease in
+ */
 export class CurvesGsapPower3EaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power3.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap power3 ease in out
+ */
 export class CurvesGsapPower3EaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power3.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power3 ease out
+ */
 export class CurvesGsapPower3EaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power3.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power4 ease in
+ */
 export class CurvesGsapPower4EaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power4.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap power4 ease in out
+ */
 export class CurvesGsapPower4EaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power4.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power4 ease out
+ */
 export class CurvesGsapPower4EaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power4.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap back ease in
+ */
 export class CurvesGsapBackEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Back.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap back ease in out
+ */
 export class CurvesGsapBackEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Back.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap back ease out
+ */
 export class CurvesGsapBackEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Back.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap elastic ease in
+ */
 export class CurvesGsapElasticEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Elastic.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap elastic ease in out
+ */
 export class CurvesGsapElasticEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Elastic.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap elastic ease out
+ */
 export class CurvesGsapElasticEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Elastic.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap bounce ease in
+ */
 export class CurvesGsapBounceEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Bounce.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap bounce ease in out
+ */
 export class CurvesGsapBounceEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Bounce.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap bounce ease out
+ */
 export class CurvesGsapBounceEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Bounce.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap circ ease in
+ */
 export class CurvesGsapCircEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Circ.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap circ ease in out
+ */
 export class CurvesGsapCircEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Circ.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap circ ease out
+ */
 export class CurvesGsapCircEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Circ.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap expo ease in
+ */
 export class CurvesGsapExpoEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Expo.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap expo ease in out
+ */
 export class CurvesGsapExpoEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Expo.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap expo ease out
+ */
 export class CurvesGsapExpoEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Expo.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap sine ease in
+ */
 export class CurvesGsapSineEaseIn extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Sine.easeIn, radius, options);
   }
 }
+
+/**
+ * Curves gsap sine ease in out
+ */
 export class CurvesGsapSineEaseInOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Sine.easeInOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap sine ease out
+ */
 export class CurvesGsapSineEaseOut extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Sine.easeOut, radius, options);
   }
 }
+
+/**
+ * Curves gsap power0 ease none
+ */
 export class CurvesGsapPower0EaseNone extends CurvesGsap {
   constructor(radius: number = 1, options?: CurvesParameters) {
     super(GSAP.Power0.easeNone, radius, options);
   }
 }
 
+/**
+ * Curve class
+ */
 export interface CurveClass {
   new (scale?: number, options?: any): THREE.Curve<THREE.Vector3>;
 }
+
 export const CurveConf: {
   [key: string]: CurveClass | string;
 } = {
@@ -652,8 +1066,17 @@ export const CurveConf: {
   power0none: 'power0nonecurve',
 };
 
+/**
+ * Curve utils
+ */
 export class CurveUtils {
-  static addCurve(key: string, curve: CurveClass, alias?: string[]) {
+  /**
+   * Adds curve
+   * @param key
+   * @param curve
+   * @param [alias]
+   */
+  public static addCurve(key: string, curve: CurveClass, alias?: string[]) {
     key = key.toLowerCase();
     if (ThreeUtil.isNotNull(alias)) {
       alias.forEach((aliasKey) => {
@@ -665,7 +1088,12 @@ export class CurveUtils {
     CurveConf[key] = curve;
   }
 
-  static getCurveClass(key: string): CurveClass {
+  /**
+   * Gets curve class
+   * @param key
+   * @returns curve class
+   */
+  public static getCurveClass(key: string): CurveClass {
     key = key.toLowerCase();
     if (ThreeUtil.isNotNull(CurveConf[key])) {
       const curve = CurveConf[key.toLowerCase()];
@@ -680,11 +1108,25 @@ export class CurveUtils {
     }
   }
 
-  static getCurve(key: string, scale?: number, options?: any): THREE.Curve<THREE.Vector3> {
+  /**
+   * Gets curve
+   * @param key
+   * @param [scale]
+   * @param [options]
+   * @returns curve
+   */
+  public static getCurve(key: string, scale?: number, options?: any): THREE.Curve<THREE.Vector3> {
     return new (this.getCurveClass(key))(scale, options);
   }
 
-  static getCurveNormal(key: string | THREE.Curve<THREE.Vector3>, normalOption?: CurvesNormalParameters, option?: any): CurvesNormal {
+  /**
+   * Gets curve normal
+   * @param key
+   * @param [normalOption]
+   * @param [option]
+   * @returns curve normal
+   */
+  public static getCurveNormal(key: string | THREE.Curve<THREE.Vector3>, normalOption?: CurvesNormalParameters, option?: any): CurvesNormal {
     if (key instanceof THREE.Curve) {
       return new CurvesNormal(key, normalOption);
     } else {
@@ -693,6 +1135,9 @@ export class CurveUtils {
   }
 }
 
+/**
+ * Curves normal parameters
+ */
 export interface CurvesNormalParameters {
   scale?: THREE.Vector3;
   rotation?: THREE.Euler;
@@ -701,11 +1146,35 @@ export interface CurvesNormalParameters {
   options?: string;
 }
 
+/**
+ * Curves normal
+ */
 export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
+  /**
+   * Scale  of curves normal
+   */
   private scale: THREE.Vector3 = null;
+
+  /**
+   * Rotation  of curves normal
+   */
   private rotation: THREE.Euler = null;
+
+  /**
+   * Center  of curves normal
+   */
   private center: THREE.Vector3 = null;
+
+  /**
+   * Multiply  of curves normal
+   */
   private multiply: number = null;
+
+  /**
+   * Creates an instance of curves normal.
+   * @param curve
+   * @param parameters
+   */
   constructor(curve: THREE.Curve<THREE.Vector3>, parameters: CurvesNormalParameters) {
     super();
     parameters = parameters || {};
@@ -728,9 +1197,16 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     this.setCurve(curve);
   }
 
-  curve: THREE.Curve<THREE.Vector3> = null;
+  /**
+   * Curve  of curves normal
+   */
+  public curve: THREE.Curve<THREE.Vector3> = null;
 
-  setOptions(options: string) {
+  /**
+   * Sets options
+   * @param options
+   */
+  public setOptions(options: string) {
     if (ThreeUtil.isNotNull(options)) {
       options.split(',').forEach((option) => {
         switch (option.toLowerCase()) {
@@ -757,7 +1233,11 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     }
   }
 
-  setCurve(curve: THREE.Curve<THREE.Vector3>) {
+  /**
+   * Sets curve
+   * @param curve
+   */
+  public setCurve(curve: THREE.Curve<THREE.Vector3>) {
     let minX = +Infinity;
     let minY = +Infinity;
     let minZ = +Infinity;
@@ -781,14 +1261,44 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
       this._scale.multiplyScalar(2 / maxL);
     }
   }
+
+  /**
+   * Center  of curves normal
+   */
   private _center: THREE.Vector3 = null;
+
+  /**
+   * Scale  of curves normal
+   */
   private _scale: THREE.Vector3 = null;
+
+  /**
+   * Abs x of curves normal
+   */
   private _absX: boolean = false;
+
+  /**
+   * Abs y of curves normal
+   */
   private _absY: boolean = false;
+
+  /**
+   * Abs z of curves normal
+   */
   private _absZ: boolean = false;
+
+  /**
+   * Repeat type of curves normal
+   */
   private _repeatType: string = 'repeat';
 
-  getPoint(t: number, optionalTarget?: THREE.Vector3): THREE.Vector3 {
+  /**
+   * Gets point
+   * @param t
+   * @param [optionalTarget]
+   * @returns point
+   */
+  public getPoint(t: number, optionalTarget?: THREE.Vector3): THREE.Vector3 {
     optionalTarget = this.curve.getPoint(t, optionalTarget);
     optionalTarget.sub(this._center);
     if (this._scale !== null) {
@@ -800,7 +1310,7 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     if (this.scale !== null) {
       optionalTarget.multiply(this.scale);
     }
-    if (this.multiply != null) {
+    if (this.multiply !== null) {
       optionalTarget.multiplyScalar(this.multiply);
     }
     if (this._absX) {
@@ -818,6 +1328,11 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return optionalTarget;
   }
 
+  /**
+   * Gets elapsed time
+   * @param timer
+   * @returns elapsed time
+   */
   private getElapsedTime(timer: RendererTimer): number {
     let t: number = timer.elapsedTime;
     switch (this._repeatType.toLowerCase()) {
@@ -837,10 +1352,23 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return t;
   }
 
+  /**
+   * Last v3 of curves normal
+   */
   private _lastV3: THREE.Vector3 = null;
+
+  /**
+   * Refer center of curves normal
+   */
   public referCenter: THREE.Vector3 = null;
 
-  getPointV3(timer: RendererTimer, p: THREE.Vector3): THREE.Vector3 {
+  /**
+   * Gets point v3
+   * @param timer
+   * @param p
+   * @returns point v3
+   */
+  public getPointV3(timer: RendererTimer, p: THREE.Vector3): THREE.Vector3 {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastV3 === null) {
       this._lastV3 = new THREE.Vector3(cp.x, cp.y, cp.z);
@@ -854,8 +1382,18 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastV3;
   }
 
+  /**
+   * Last v2 of curves normal
+   */
   private _lastV2: THREE.Vector2 = null;
-  getPointV2(timer: RendererTimer, p: THREE.Vector2): THREE.Vector2 {
+
+  /**
+   * Gets point v2
+   * @param timer
+   * @param p
+   * @returns point v2
+   */
+  public getPointV2(timer: RendererTimer, p: THREE.Vector2): THREE.Vector2 {
     const cp = this.getPoint(this.getElapsedTime(timer));
     if (this._lastV2 === null) {
       this._lastV2 = new THREE.Vector2(cp.x, cp.y);
@@ -866,10 +1404,20 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastV2;
   }
 
+  /**
+   * Last euler of curves normal
+   */
   private _lastEuler: THREE.Euler = null;
-  getPointEuler(timer: RendererTimer, p: THREE.Euler): THREE.Euler {
+
+  /**
+   * Gets point euler
+   * @param timer
+   * @param p
+   * @returns point euler
+   */
+  public getPointEuler(timer: RendererTimer, p: THREE.Euler): THREE.Euler {
     const cp = this.getPoint(this.getElapsedTime(timer));
-    if (this._lastEuler == null) {
+    if (this._lastEuler === null) {
       this._lastEuler = new THREE.Euler(cp.x, cp.y, cp.z);
     } else {
       this._lastEuler.set(cp.x, cp.y, cp.z);
@@ -878,12 +1426,21 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastEuler;
   }
 
+  /**
+   * Last color of curves normal
+   */
   private _lastColor: THREE.Color = null;
 
-  getPointColor(timer: RendererTimer, p: THREE.Color): THREE.Color {
+  /**
+   * Gets point color
+   * @param timer
+   * @param p
+   * @returns point color
+   */
+  public getPointColor(timer: RendererTimer, p: THREE.Color): THREE.Color {
     const cp = this.getPoint(this.getElapsedTime(timer));
     cp.clampScalar(0, 1);
-    if (this._lastColor == null) {
+    if (this._lastColor === null) {
       this._lastColor = new THREE.Color(cp.x, cp.y, cp.z);
     } else {
       this._lastColor.setRGB(cp.x, cp.y, cp.z);
@@ -892,9 +1449,19 @@ export class CurvesNormal extends THREE.Curve<THREE.Vector3> {
     return this._lastColor;
   }
 
+  /**
+   * Last float of curves normal
+   */
   private _lastFloat: THREE.Vector3 = null;
 
-  getPointFloat(timer: RendererTimer, min: number = 0, max: number = 1): number {
+  /**
+   * Gets point float
+   * @param timer
+   * @param [min]
+   * @param [max]
+   * @returns point float
+   */
+  public getPointFloat(timer: RendererTimer, min: number = 0, max: number = 1): number {
     if (this._lastFloat === null) {
       this._lastFloat = new THREE.Vector3();
     }

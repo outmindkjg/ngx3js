@@ -1,16 +1,25 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
+import * as THREE from 'three';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TweenComponent } from './tween/tween.component';
-import * as THREE from 'three';
 
+/**
+ * AbstractTweenComponent
+ */
 @Component({
   template: '',
 })
 export abstract class AbstractTweenComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+  /**
+   * Input  of abstract tween component
+   */
   @Input() protected tweenStart: boolean = true;
 
+  /**
+   * Content children of abstract tween component
+   */
   @ContentChildren(TweenComponent, { descendants: false }) private tweenList: QueryList<TweenComponent>;
 
   /**
@@ -19,7 +28,7 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
    * data-bound properties for the first time,
    * and before any of the view or content children have been checked.
    * It is invoked only once when the directive is instantiated.
-   * 
+   *
    * @param subscribeType
    */
   ngOnInit(subscribeType?: string): void {
@@ -39,7 +48,7 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -60,21 +69,40 @@ export abstract class AbstractTweenComponent extends AbstractSubscribeComponent 
     super.ngAfterContentInit();
   }
 
+  /**
+   * Tween target of abstract tween component
+   */
   private tweenTarget: any = null;
+
+  /**
+   * Tween timer of abstract tween component
+   */
   private tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
 
-  setParent(parent: THREE.Object3D | any): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D | any): boolean {
     return super.setParent(parent);
   }
 
-  setTweenTarget(tweenTarget: any) {
+  /**
+   * Sets tween target
+   * @param tweenTarget
+   */
+  public setTweenTarget(tweenTarget: any) {
     if (this.tweenTarget !== tweenTarget) {
       this.tweenTarget = tweenTarget;
       this.resetTween();
     }
   }
 
-  resetTween() {
+  /**
+   * Resets tween
+   */
+  public resetTween() {
     if (ThreeUtil.isNotNull(this.tweenTarget) && ThreeUtil.isNotNull(this.tweenList) && this.tweenList.length > 0 && this.tweenStart) {
       this.tweenTimer = new GSAP.TimelineLite();
       this.tweenList.forEach((tween) => {

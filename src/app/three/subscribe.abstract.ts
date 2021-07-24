@@ -2,55 +2,66 @@ import { AfterContentInit, Component, EventEmitter, Input, OnChanges, OnDestroy,
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ThreeUtil } from './interface';
 
+/**
+ * AbstractSubscribeComponent
+ */
 @Component({
   template: '',
 })
 export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
-
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() protected debug: boolean = false;
 
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() protected windowExport: string = null;
 
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() public enabled: boolean = true;
 
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() private overrideParams: { [key: string]: any } = null;
 
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() private userData: any = null;
 
   /**
-   * 
+   * Input  of abstract subscribe component
    */
   @Input() private tween: { [key: string]: any } = null;
 
   /**
-   * 
+   * Output  of abstract subscribe component
    */
   @Output() private onLoad: EventEmitter<this> = new EventEmitter<this>();
 
   /**
-   * 
+   * Output  of abstract subscribe component
    */
   @Output() private onDestory: EventEmitter<this> = new EventEmitter<this>();
 
+  /**
+   * Object attr of abstract subscribe component
+   */
   protected OBJECT_ATTR: string[] = ['init', 'debug', 'enabled', 'userdata', 'overrideparams', 'windowexport', 'tween'];
 
+  /**
+   * Creates an instance of abstract subscribe component.
+   */
   constructor() {}
 
+  /**
+   * Id  of abstract subscribe component
+   */
   protected id: string = '';
 
   /**
@@ -59,7 +70,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * data-bound properties for the first time,
    * and before any of the view or content children have been checked.
    * It is invoked only once when the directive is instantiated.
-   * 
+   *
    * @param subscribeType
    */
   ngOnInit(subscribeType?: string): void {
@@ -98,7 +109,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -118,15 +129,17 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * content.
    * It is invoked only once when the directive is instantiated.
    */
-  ngAfterContentInit(): void {
+  ngAfterContentInit(): void {}
 
-  }
-
-  setTween(tweenData  : { [key : string ] : any}) {
+  /**
+   * Sets tween
+   * @param tweenData
+   */
+  public setTween(tweenData: { [key: string]: any }) {
     if (ThreeUtil.isNotNull(tweenData)) {
       const tween: { [key: string]: any } = {
         elapsedTime: 0,
-        elapsedAlpha : 0
+        elapsedAlpha: 0,
       };
       let tweenLength = 0;
       Object.entries(tweenData).forEach(([key, value]) => {
@@ -172,15 +185,27 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       console.log(this._userData);
     } else {
       this.setUserData('tween', null);
-    }    
+    }
   }
 
-  dispose() {}
+  /**
+   * Disposes abstract subscribe component
+   */
+  public dispose() {}
 
-  setSubscribeType(subscribeType: string) {
+  /**
+   * Sets subscribe type
+   * @param subscribeType
+   */
+  public setSubscribeType(subscribeType: string) {
     this.subscribeType = subscribeType || 'nonamed';
   }
 
+  /**
+   * Determines whether id euals is
+   * @param id
+   * @returns true if id euals
+   */
   protected isIdEuals(id: string): boolean {
     if (id === undefined || id === null || id === '' || id === this.id) {
       return true;
@@ -189,12 +214,21 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Calls on load
+   */
   protected callOnLoad() {
     this.onLoad.emit(this);
   }
 
+  /**
+   * Need update of abstract subscribe component
+   */
   protected _needUpdate: boolean = true;
 
+  /**
+   * Sets need update
+   */
   public set needUpdate(value: boolean) {
     if (value && !this._needUpdate) {
       this._needUpdate = true;
@@ -206,13 +240,31 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Change list of abstract subscribe component
+   */
   private _changeList: string[] = null;
 
+  /**
+   * Checks changes
+   * @param changes
+   * @returns changes
+   */
   protected checkChanges(changes: SimpleChanges): SimpleChanges {
     return changes;
   }
 
+  /**
+   * Log time seqn of abstract subscribe component
+   */
   private _logTimeSeqn: number = 0;
+
+  /**
+   * Consoles log time
+   * @param key
+   * @param object
+   * @param [repeat]
+   */
   protected consoleLogTime(key: string, object: any, repeat: number = 300): void {
     this._logTimeSeqn++;
     if (this._logTimeSeqn % repeat === 0) {
@@ -220,6 +272,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Consoles log
+   * @param key
+   * @param object
+   * @param [level]
+   */
   protected consoleLog(key: string, object: any, level: string = 'log'): void {
     switch (level) {
       case 'error':
@@ -237,8 +295,15 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Apply change bind of abstract subscribe component
+   */
   private _applyChangeBind: any = null;
 
+  /**
+   * Adds changes
+   * @param key
+   */
   public addChanges(key: string | string[] | SimpleChanges) {
     if (this._changeList === null) {
       this._changeList = [];
@@ -261,7 +326,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       });
     }
     if (this._applyChangeBind === null && this._changeList.length > 0) {
-      this._applyChangeBind = setTimeout(() => {
+      this._applyChangeBind = window.setTimeout(() => {
         this._applyChangeBind = null;
         if (this._changeList !== null && this._changeList.length > 0) {
           this.applyChanges(this.getChanges());
@@ -270,6 +335,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Gets changes
+   * @returns changes
+   */
   protected getChanges(): string[] {
     const changes: string[] = [];
     (this._changeList || []).forEach((change) => {
@@ -285,10 +354,18 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return changes;
   }
 
+  /**
+   * Clears changes
+   */
   protected clearChanges() {
     this._changeList = null;
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
       return;
@@ -327,19 +404,38 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     this.clearChanges();
   }
 
+  /**
+   * Cashed obj of abstract subscribe component
+   */
   private _cashedObj: any = null;
 
+  /**
+   * Gets object
+   * @returns object
+   */
   protected getObject(): any {
     return this._cashedObj;
   }
 
+  /**
+   * User data of abstract subscribe component
+   */
   private _userData: { [key: string]: any } = {};
 
-  getUserData() {
+  /**
+   * Gets user data
+   * @returns
+   */
+  public getUserData() {
     return this._userData;
   }
 
-  setUserData(key: string, value: any) {
+  /**
+   * Sets user data
+   * @param key
+   * @param value
+   */
+  public setUserData(key: string, value: any) {
     if (ThreeUtil.isNotNull(value)) {
       this._userData[key] = value;
     } else if (ThreeUtil.isNotNull(this._userData[key])) {
@@ -347,6 +443,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Sets object
+   * @param obj
+   */
   protected setObject(obj: any) {
     if (this._cashedObj !== obj) {
       this._cashedObj = obj;
@@ -385,16 +485,33 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subject  of abstract subscribe component
+   */
   private _subject: Subject<string[]> = new Subject<string[]>();
 
+  /**
+   * Gets subscribe
+   * @returns subscribe
+   */
   public getSubscribe(): Observable<string[]> {
     return this._subject.asObservable();
   }
 
+  /**
+   * Subscribe next of abstract subscribe component
+   */
   private _subscribeNext: string[] = [];
 
+  /**
+   * Subscribe timeout of abstract subscribe component
+   */
   private _subscribeTimeout: any = null;
 
+  /**
+   * Sets subscribe next
+   * @param key
+   */
   public setSubscribeNext(key: string | string[]) {
     if (key !== null && key !== '') {
       if (Array.isArray(key)) {
@@ -423,7 +540,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         }
       }
       if (this._subscribeTimeout === null && this._subscribeNext.length > 0) {
-        this._subscribeTimeout = setTimeout(() => {
+        this._subscribeTimeout = window.setTimeout(() => {
           this._subscribeTimeout = null;
           if (this._subscribeNext.length > 0) {
             const subscribeNext: string[] = [];
@@ -443,10 +560,19 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Runs subscribe next
+   * @param key
+   */
   public runSubscribeNext(key: string | string[]) {
-    this._subject.next(Array.isArray(key) ? key : [ key ] );
+    this._subject.next(Array.isArray(key) ? key : [key]);
   }
 
+  /**
+   * subscription
+   * @param subscriptions
+   * @returns subscription
+   */
   protected unSubscription(subscriptions: Subscription[]): Subscription[] {
     if (subscriptions !== null && subscriptions.length > 0) {
       subscriptions.forEach((subscription) => {
@@ -456,8 +582,15 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return [];
   }
 
+  /**
+   * Subscribe  of abstract subscribe component
+   */
   private _subscribe: { [key: string]: Subscription } = {};
 
+  /**
+   * subscribe refer
+   * @param key
+   */
   protected unSubscribeRefer(key: string) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this._subscribe[key].unsubscribe();
@@ -465,6 +598,11 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subscribes refer
+   * @param key
+   * @param subscription
+   */
   protected subscribeRefer(key: string, subscription: Subscription) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this.unSubscribeRefer(key);
@@ -474,12 +612,25 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subscribe type of abstract subscribe component
+   */
   protected subscribeType: string = null;
 
+  /**
+   * Local components of abstract subscribe component
+   */
   private _localComponents: { [key: string]: OnInit & OnDestroy } = {};
 
+  /**
+   * Subscribe list of abstract subscribe component
+   */
   private _subscribeList: { [key: string]: Subscription[] } = {};
 
+  /**
+   * Destroys local component
+   * @param key
+   */
   protected destroyLocalComponent(key: string) {
     if (ThreeUtil.isNotNull(this._localComponents[key])) {
       this._localComponents[key].ngOnDestroy();
@@ -487,6 +638,13 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Inits local component
+   * @template T
+   * @param key
+   * @param component
+   * @returns local component
+   */
   protected initLocalComponent<T extends OnInit & OnDestroy>(key: string, component: T): T {
     if (ThreeUtil.isNotNull(this._localComponents[key])) {
       this.destroyLocalComponent(key);
@@ -498,6 +656,13 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     return component;
   }
 
+  /**
+   * Updates input params
+   * @param params
+   * @param [firstChange]
+   * @param [changes]
+   * @param [type]
+   */
   public updateInputParams(params: { [key: string]: any }, firstChange: boolean = true, changes: SimpleChanges = {}, type: string = null) {
     if (ThreeUtil.isNotNull(params)) {
       Object.entries(params).forEach(([key, value]) => {
@@ -521,6 +686,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * subscribe refer list
+   * @param key
+   */
   protected unSubscribeReferList(key: string) {
     if (ThreeUtil.isNotNull(this._subscribeList[key])) {
       this._subscribeList[key].forEach((subscribe) => {
@@ -530,6 +699,11 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subscribes refer list
+   * @param key
+   * @param subscription
+   */
   protected subscribeReferList(key: string, subscription: Subscription) {
     if (ThreeUtil.isNull(this._subscribeList[key])) {
       this._subscribeList[key] = [];
@@ -539,6 +713,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subscribes list query change
+   * @param queryList
+   * @param subscribeKey
+   * @param changeKey
+   */
   protected subscribeListQueryChange(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
       this.unSubscribeRefer(subscribeKey + 'Changes');
@@ -551,6 +731,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Subscribes list query
+   * @param queryList
+   * @param subscribeKey
+   * @param changeKey
+   */
   protected subscribeListQuery(queryList: QueryList<any>, subscribeKey: string, changeKey: string) {
     if (ThreeUtil.isNotNull(queryList)) {
       this.unSubscribeReferList(subscribeKey);
@@ -569,9 +755,17 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
     }
   }
 
+  /**
+   * Parent  of abstract subscribe component
+   */
   protected parent: any = null;
 
-  setParent(parent: any): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: any): boolean {
     if (this.parent !== parent) {
       this.parent = parent;
       return true;

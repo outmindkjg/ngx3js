@@ -3,177 +3,233 @@ import * as THREE from 'three';
 import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * TransformComponent
+ */
 @Component({
   selector: 'ngx3js-transform',
   templateUrl: './transform.component.html',
-  styleUrls: ['./transform.component.scss']
+  styleUrls: ['./transform.component.scss'],
 })
 export class TransformComponent extends AbstractSubscribeComponent implements OnInit {
+  /**
+   * Input  of transform component
+   */
+  @Input() private visible: boolean = true;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private visible:boolean = true;
+  @Input() private anchorSeparat: boolean = false;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private anchorSeparat:boolean = false;
+  @Input() private x: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private x:number = null;
+  @Input() private y: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private y:number = null;
+  @Input() private z: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private z:number = null;
+  @Input() private width: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private width:number = null;
+  @Input() private height: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private height:number = null;
+  @Input() private left: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private left:number = null;
+  @Input() private top: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private top:number = null;
+  @Input() private right: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private right:number = null;
+  @Input() private bottom: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private bottom:number = null;
+  @Input() private anchorMinX: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private anchorMinX:number = null;
+  @Input() private anchorMinY: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private anchorMinY:number = null;
+  @Input() private anchorMaxX: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private anchorMaxX:number = null;
+  @Input() private anchorMaxY: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private anchorMaxY:number = null;
+  @Input() private pivotX: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private pivotX:number = null;
+  @Input() private pivotY: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private pivotY:number = null;
+  @Input() private rotationX: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private rotationX:number = null;
+  @Input() private rotationY: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private rotationY:number = null;
+  @Input() private rotationZ: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private rotationZ:number = null;
+  @Input() private scaleX: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private scaleX:number = null;
+  @Input() private scaleY: number = null;
 
   /**
-   * 
+   * Input  of transform component
    */
-  @Input() private scaleY:number = null;
+  @Input() private scaleZ: number = null;
 
   /**
-   * 
+   * Gets left
+   * @param [def]
+   * @returns left
    */
-  @Input() private scaleZ:number = null;
-
-  /**
-   * 
-   */
-  private getLeft(def? : number) : number {
+  private getLeft(def?: number): number {
     return ThreeUtil.getTypeSafe(this.left, def);
   }
 
-  private getTop(def? : number) : number {
+  /**
+   * Gets top
+   * @param [def]
+   * @returns top
+   */
+  private getTop(def?: number): number {
     return ThreeUtil.getTypeSafe(this.top, def);
   }
 
-  private getRight(def? : number) : number {
+  /**
+   * Gets right
+   * @param [def]
+   * @returns right
+   */
+  private getRight(def?: number): number {
     return ThreeUtil.getTypeSafe(this.right, def);
   }
 
-  private getBottom(def? : number) : number {
+  /**
+   * Gets bottom
+   * @param [def]
+   * @returns bottom
+   */
+  private getBottom(def?: number): number {
     return ThreeUtil.getTypeSafe(this.bottom, def);
   }
 
-
-  private getPosition(def? : THREE.Vector3) : THREE.Vector3 {
+  /**
+   * Gets position
+   * @param [def]
+   * @returns position
+   */
+  private getPosition(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.x, this.y, this.z, def);
   }
 
-  private getSize(def? : THREE.Vector2) : THREE.Vector2 {
+  /**
+   * Gets size
+   * @param [def]
+   * @returns size
+   */
+  private getSize(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.width, this.height, def);
   }
 
-  private getAnchorMin(def? : THREE.Vector2) : THREE.Vector2 {
+  /**
+   * Gets anchor min
+   * @param [def]
+   * @returns anchor min
+   */
+  private getAnchorMin(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.anchorMinX, this.anchorMinY, def);
   }
 
-  private getAnchorMax(def? : THREE.Vector2) : THREE.Vector2 {
+  /**
+   * Gets anchor max
+   * @param [def]
+   * @returns anchor max
+   */
+  private getAnchorMax(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.anchorMaxX, this.anchorMaxY, def);
   }
 
-  private getPivot(def? : THREE.Vector2) : THREE.Vector2 {
+  /**
+   * Gets pivot
+   * @param [def]
+   * @returns pivot
+   */
+  private getPivot(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.pivotX, this.pivotY, def);
   }
 
-  private getRotation(def? : THREE.Euler) : THREE.Euler {
+  /**
+   * Gets rotation
+   * @param [def]
+   * @returns rotation
+   */
+  private getRotation(def?: THREE.Euler): THREE.Euler {
     return ThreeUtil.getEulerSafe(this.rotationX, this.rotationY, this.rotationZ, def);
   }
 
-  private getScale(def? : THREE.Vector3) : THREE.Vector3 {
+  /**
+   * Gets scale
+   * @param [def]
+   * @returns scale
+   */
+  private getScale(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.scaleX, this.scaleY, this.scaleZ, def);
   }
 
-  constructor() { 
+  /**
+   * Creates an instance of transform component.
+   */
+  constructor() {
     super();
   }
 
@@ -208,7 +264,7 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -229,11 +285,28 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
     super.ngAfterContentInit();
   }
 
-  private parentNode : HTMLElement = null;
-  private parentSize : THREE.Vector2 = null;
+  /**
+   * Parent node of transform component
+   */
+  private parentNode: HTMLElement = null;
+
+  /**
+   * Parent size of transform component
+   */
+  private parentSize: THREE.Vector2 = null;
+
+  /**
+   * Ele size of transform component
+   */
   private eleSize: THREE.Vector2 = null;
 
-  setParentNode(parentNode : HTMLElement, parentSize : THREE.Vector2, eleSize : THREE.Vector2) {
+  /**
+   * Sets parent node
+   * @param parentNode
+   * @param parentSize
+   * @param eleSize
+   */
+  public setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, eleSize: THREE.Vector2) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
@@ -242,8 +315,12 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
     this.applyHtmlStyle();
   }
 
-  getStyle() : CssStyle {
-    let style : CssStyle = {}
+  /**
+   * Gets style
+   * @returns style
+   */
+  public getStyle(): CssStyle {
+    let style: CssStyle = {};
     if (this.parentSize !== null) {
       const anchorMin = this.getAnchorMin(new THREE.Vector2(0, 0)).multiply(this.parentSize);
       const anchorMax = this.getAnchorMax(new THREE.Vector2(1, 1)).multiply(this.parentSize);
@@ -253,13 +330,12 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
         const right = this.getRight(0);
         const bottom = this.getBottom(0);
         const size = anchorMax.clone().sub(anchorMin);
-        this.eleSize.x = (size.x + left - right);
-        this.eleSize.y = (size.y + top - bottom);
+        this.eleSize.x = size.x + left - right;
+        this.eleSize.y = size.y + top - bottom;
         style.width = this.eleSize.x;
         style.height = this.eleSize.y;
-        style.left = (anchorMin.x + left);
-        style.top = (this.parentSize.y - anchorMax.y + top);
-
+        style.left = anchorMin.x + left;
+        style.top = this.parentSize.y - anchorMax.y + top;
       } else {
         const size = this.getSize(this.parentSize);
         this.eleSize.x = size.x;
@@ -267,34 +343,37 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
         style.width = this.eleSize.x;
         style.height = this.eleSize.y;
         style.left = anchorMin.x;
-        style.top = (this.parentSize.y - anchorMax.y);
+        style.top = this.parentSize.y - anchorMax.y;
       }
-      const transform : string[] = [];
-      const scale = this.getScale(new THREE.Vector3(1,1,1));
+      const transform: string[] = [];
+      const scale = this.getScale(new THREE.Vector3(1, 1, 1));
       if (scale.x !== 1 || scale.y !== 1 || scale.z !== 1) {
-        transform.push('scale3d('+scale.x+','+scale.y+','+scale.z+')');
+        transform.push('scale3d(' + scale.x + ',' + scale.y + ',' + scale.z + ')');
       }
-      const rotation = this.getRotation(new THREE.Euler(0,0,0));
+      const rotation = this.getRotation(new THREE.Euler(0, 0, 0));
       if (rotation.x !== 0 || rotation.y !== 0 || rotation.z !== 0) {
-        const quaternion : THREE.Quaternion = new THREE.Quaternion();
+        const quaternion: THREE.Quaternion = new THREE.Quaternion();
         quaternion.setFromEuler(rotation);
-        transform.push('rotate3d('+quaternion.x+','+quaternion.y+','+quaternion.z+','+quaternion.w+'rad)');
+        transform.push('rotate3d(' + quaternion.x + ',' + quaternion.y + ',' + quaternion.z + ',' + quaternion.w + 'rad)');
       }
       if (transform.length > 0) {
         style.transform = transform;
       }
-      const pivot = this.getPivot(new THREE.Vector2(0.5,0.5));
+      const pivot = this.getPivot(new THREE.Vector2(0.5, 0.5));
       if (pivot.x !== 0.5 || pivot.y !== 0.5) {
-        style.transformOrigin = (pivot.x * 100) + '% '+(pivot.y * 100) + '%';
+        style.transformOrigin = pivot.x * 100 + '% ' + pivot.y * 100 + '%';
       }
     }
     return style;
   }
 
-  applyHtmlStyle() {
+  /**
+   * Applys html style
+   */
+  public applyHtmlStyle() {
     if (this.parentNode !== null && this.parentSize !== null) {
       if (this.visible) {
-        const style: CssStyle= this.getStyle();
+        const style: CssStyle = this.getStyle();
         this.cssClazzName = ThreeUtil.addCssStyle(this.parentNode, style, this.cssClazzName, 'transform', 'inline');
       } else {
         ThreeUtil.toggleCssStyle(this.parentNode, this.cssClazzName, false);
@@ -302,7 +381,8 @@ export class TransformComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  private cssClazzName : string = null;
-
-
+  /**
+   * Css clazz name of transform component
+   */
+  private cssClazzName: string = null;
 }

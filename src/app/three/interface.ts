@@ -13,10 +13,16 @@ import { SceneComponent } from './scene/scene.component';
 
 export { THREE };
 
+/**
+ * Apply matrix4
+ */
 export interface ApplyMatrix4 {
   applyMatrix4(matrix: THREE.Matrix4): any;
 }
 
+/**
+ * Texture option
+ */
 export interface TextureOption {
   type: string;
   value: string;
@@ -24,11 +30,19 @@ export interface TextureOption {
   cubeImage?: string[];
 }
 
+/**
+ * ThreeUniform
+ */
 export type ThreeUniform = { type: string; value: any; options?: any } | THREE.IUniform;
 
+/**
+ * ThreeUniforms
+ */
 export type ThreeUniforms = { [key: string]: ThreeUniform };
 
-
+/**
+ * ThreeTexture
+ */
 export type ThreeTexture = string | THREE.Texture | TextureOption | any;
 
 /**
@@ -54,7 +68,7 @@ export interface ThreeVector {
 }
 
 /**
- * Three Face 
+ * Three Face
  */
 export interface ThreeFace {
   a: number;
@@ -62,6 +76,9 @@ export interface ThreeFace {
   c: number;
 }
 
+/**
+ * Loaded object
+ */
 export interface LoadedObject {
   object?: THREE.Object3D;
   material?: THREE.Material | any;
@@ -72,6 +89,9 @@ export interface LoadedObject {
   source?: any;
 }
 
+/**
+ * Gui base control
+ */
 export interface GuiBaseControl {
   meshShape?: {
     visible: boolean;
@@ -119,6 +139,9 @@ export interface GuiBaseControl {
   };
 }
 
+/**
+ * Tag attributes
+ */
 export interface TagAttributes {
   tag: string;
   attributes: { name: string; value: any }[];
@@ -126,11 +149,14 @@ export interface TagAttributes {
   options?: any;
 }
 
+/**
+ * Css style
+ */
 export interface CssStyle {
-  src? : string;
-  draggable? : boolean;
+  src?: string;
+  draggable?: boolean;
   innerHTML?: string;
-  textContent? : string;
+  textContent?: string;
   content?: string;
   position?: string;
   pointerEvents?: string;
@@ -221,16 +247,37 @@ export interface CssStyle {
   transformOrigin?: string;
 }
 
+/**
+ * Injectable
+ * @template T
+ */
 @Injectable()
-export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
-  controls: T & GuiBaseControl;
-  controlsParams: GuiControlParam[];
+export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
+  /**
+   * Controls  of base component
+   */
+  public controls: T & GuiBaseControl;
+
+  /**
+   * Controls params of base component
+   */
+  public controlsParams: GuiControlParam[];
+
+  /**
+   * Creates an instance of base component.
+   * @param controls
+   * @param [controlsParams]
+   */
   constructor(controls: T, controlsParams: GuiControlParam[] = []) {
     this.controls = ThreeUtil.getControls(controls, this);
     this.setControlsParams(controlsParams);
   }
 
-  setControlsParams(controlsParams: GuiControlParam[] = []) {
+  /**
+   * Sets controls params
+   * @param [controlsParams]
+   */
+  public setControlsParams(controlsParams: GuiControlParam[] = []) {
     this.controlsParams = ThreeUtil.getControlsParams(controlsParams, this);
   }
 
@@ -243,6 +290,11 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
    */
   ngOnInit(): void {}
 
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of a component's view.
+   * It is invoked only once when the view is instantiated.
+   */
   ngAfterViewInit(): void {
     this.controls.meshRotate.applyAutoRotate();
   }
@@ -260,35 +312,57 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     }
   }
 
-  private _logTimeSeqn : number = 0;
+  /**
+   * Log time seqn of base component
+   */
+  private _logTimeSeqn: number = 0;
 
-  protected consoleLogTime(key: string, object: any, repeat : number = 300): void {
-    this._logTimeSeqn ++;
+  /**
+   * Consoles log time
+   * @param key
+   * @param object
+   * @param [repeat]
+   */
+  protected consoleLogTime(key: string, object: any, repeat: number = 300): void {
+    this._logTimeSeqn++;
     if (this._logTimeSeqn % repeat === 0) {
       this.consoleLog(key, object, 'info');
     }
   }
 
-  protected consoleLog(key: string, object: any, level : string = 'log'): void {
-    switch(level) {
-      case 'error' :
+  /**
+   * Consoles log
+   * @param key
+   * @param object
+   * @param [level]
+   */
+  protected consoleLog(key: string, object: any, level: string = 'log'): void {
+    switch (level) {
+      case 'error':
         console.error(key, object);
         break;
-      case 'info' :
+      case 'info':
         console.info(key, object);
         break;
-      case 'trace' :
+      case 'trace':
         console.trace(key, object);
         break;
-      case 'log' :
-      default :
+      case 'log':
+      default:
         // console.log(key, object);
         break;
     }
   }
 
+  /**
+   * Subscribe  of base component
+   */
   private _subscribe: { [key: string]: Subscription } = {};
 
+  /**
+   * subscribe refer
+   * @param key
+   */
   protected unSubscribeRefer(key: string) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this._subscribe[key].unsubscribe();
@@ -296,6 +370,11 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Subscribes refer
+   * @param key
+   * @param subscription
+   */
   protected subscribeRefer(key: string, subscription: Subscription) {
     if (ThreeUtil.isNotNull(this._subscribe[key])) {
       this.unSubscribeRefer(key);
@@ -305,28 +384,63 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Renderer  of base component
+   */
   public renderer: RendererComponent = null;
 
-  setRender(renderer: RendererComponent) {
+  /**
+   * Sets render
+   * @param renderer
+   */
+  public setRender(renderer: RendererComponent) {
     this.renderer = renderer;
   }
 
+  /**
+   * Scene  of base component
+   */
   public scene: SceneComponent = null;
 
-  setScene(scene: SceneComponent) {
+  /**
+   * Sets scene
+   * @param scene
+   */
+  public setScene(scene: SceneComponent) {
     this.scene = scene;
   }
 
+  /**
+   * Camera  of base component
+   */
   public camera: CameraComponent = null;
 
-  setCamera(camera: CameraComponent) {
+  /**
+   * Sets camera
+   * @param camera
+   */
+  public setCamera(camera: CameraComponent) {
     this.camera = camera;
   }
 
+  /**
+   * Mesh  of base component
+   */
   public mesh: MeshComponent = null;
-  public meshObject3d : THREE.Object3D = null;
+
+  /**
+   * Mesh object3d of base component
+   */
+  public meshObject3d: THREE.Object3D = null;
+
+  /**
+   * Mesh children of base component
+   */
   protected meshChildren: THREE.Object3D[] = null;
 
+  /**
+   * Updates gui controller
+   */
   protected updateGuiController() {
     if (this.mesh !== null) {
       const position = this.mesh.getPosition();
@@ -399,24 +513,43 @@ export abstract class BaseComponent<T>  implements OnInit, AfterViewInit {
     }
   }
 
-  setMesh(mesh: MeshComponent) {
+  /**
+   * Sets mesh
+   * @param mesh
+   */
+  public setMesh(mesh: MeshComponent) {
     this.mesh = mesh;
     if (this.mesh !== null) {
       this.meshObject3d = this.mesh.getObject3d();
       this.meshChildren = this.meshObject3d.children;
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.updateGuiController();
       }, 100);
     }
   }
 
-  onRender(timer: RendererTimer) {
+  /**
+   * Determines whether render on
+   * @param timer
+   */
+  public onRender(timer: RendererTimer) {
     ThreeUtil.getControlsOnRender(timer, this);
   }
 }
 
+/**
+ * Three util
+ */
 export class ThreeUtil {
-  static cssInject(cssContent: string, id?: string, indoc?: any): boolean {
+  /**
+   * Css inject
+   *
+   * @param cssContent
+   * @param [id]
+   * @param [indoc]
+   * @returns true if inject
+   */
+  public static cssInject(cssContent: string, id?: string, indoc?: any): boolean {
     const doc: Document = indoc || document;
     let cssParent: HTMLElement = doc.getElementsByTagName('head')[0];
     if (cssParent === null || cssParent == undefined) {
@@ -444,7 +577,14 @@ export class ThreeUtil {
     return false;
   }
 
-  static cssEject(id: string, indoc?: any): boolean {
+  /**
+   * Css eject
+   *
+   * @param id
+   * @param [indoc]
+   * @returns true if eject
+   */
+  public static cssEject(id: string, indoc?: any): boolean {
     const doc: Document = indoc || document;
     const oldcss = doc.getElementById(id);
     if (oldcss !== null && oldcss !== undefined) {
@@ -455,7 +595,14 @@ export class ThreeUtil {
     }
   }
 
-  static makeUUID(len: number, pre?: string) {
+  /**
+   * Makes uuid
+   *
+   * @param len
+   * @param [pre]
+   * @returns
+   */
+  public static makeUUID(len: number, pre?: string) {
     var result = '';
     var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
     var maxLen = characters.length;
@@ -465,11 +612,23 @@ export class ThreeUtil {
     return (pre ? pre : 'tmp') + '_' + result;
   }
 
-  static camelCaseToDash(myStr) {
+  /**
+   * Camels case to dash
+   *
+   * @param myStr
+   * @returns
+   */
+  public static camelCaseToDash(myStr) {
     return myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
   }
 
-  static removeCssStyle(ele: HTMLElement, clazzName?: string): boolean {
+  /**
+   * Removes css style
+   * @param ele
+   * @param [clazzName]
+   * @returns true if css style
+   */
+  public static removeCssStyle(ele: HTMLElement, clazzName?: string): boolean {
     if (this.isNotNull(clazzName)) {
       this.cssEject(clazzName);
       if (ele.classList.contains(clazzName)) {
@@ -485,7 +644,15 @@ export class ThreeUtil {
     }
     return true;
   }
-  static toggleCssStyle(ele: HTMLElement, clazzName?: string, isActive?: boolean): boolean {
+
+  /**
+   * Toggles css style
+   * @param ele
+   * @param [clazzName]
+   * @param [isActive]
+   * @returns true if css style
+   */
+  public static toggleCssStyle(ele: HTMLElement, clazzName?: string, isActive?: boolean): boolean {
     if (this.isNotNull(clazzName)) {
       if (!isActive) {
         if (ele.classList.contains(clazzName)) {
@@ -512,7 +679,12 @@ export class ThreeUtil {
     return true;
   }
 
-  static getChildElementSave(parentEle: HTMLElement): HTMLElement {
+  /**
+   * Gets child element save
+   * @param parentEle
+   * @returns child element save
+   */
+  public static getChildElementSave(parentEle: HTMLElement): HTMLElement {
     const ele: Node = parentEle.cloneNode(true);
     const childNodes: Node[] = [];
     ele.childNodes.forEach((child) => {
@@ -550,8 +722,17 @@ export class ThreeUtil {
     return ele as HTMLElement;
   }
 
-  static addCssStyle(ele: HTMLElement, styles: string | CssStyle, clazzName?: string, classPrefix?: string, vertualClass?: string): string {
-    if (clazzName == null || clazzName == undefined) {
+  /**
+   * Adds css style
+   * @param ele
+   * @param styles
+   * @param [clazzName]
+   * @param [classPrefix]
+   * @param [vertualClass]
+   * @returns css style
+   */
+  public static addCssStyle(ele: HTMLElement, styles: string | CssStyle, clazzName?: string, classPrefix?: string, vertualClass?: string): string {
+    if (clazzName === null || clazzName === undefined) {
       clazzName = this.makeUUID(15, classPrefix);
     }
     if (typeof styles == 'string') {
@@ -588,12 +769,12 @@ export class ThreeUtil {
               eventList[key] = null;
             }
             break;
-          case 'src' :
+          case 'src':
             if (ele instanceof HTMLImageElement || ele instanceof HTMLIFrameElement || ele instanceof HTMLVideoElement || ele instanceof HTMLAudioElement) {
               ele.src = ThreeUtil.getStoreUrl(value);
             }
             break;
-          case 'draggable' :
+          case 'draggable':
             ele.draggable = value;
             break;
           case 'innerHtml':
@@ -771,19 +952,38 @@ export class ThreeUtil {
     return clazzName;
   }
 
+  /**
+   * Element events of three util
+   */
   private static _elementEvents: { [key: string]: { [key: string]: any } } = {};
 
-  static getChromaScale(...scales): CHROMA.Scale {
+  /**
+   * Gets chroma scale
+   * @param scales
+   * @returns chroma scale
+   */
+  public static getChromaScale(...scales): CHROMA.Scale {
     return CHROMA.scale(scales);
   }
 
+  /**
+   * Last renderer of three util
+   */
   public static lastRenderer: any = null;
 
-  static setRenderer(lastRenderer: any) {
+  /**
+   * Sets renderer
+   * @param lastRenderer
+   */
+  public static setRenderer(lastRenderer: any) {
     this.lastRenderer = lastRenderer;
   }
 
-  static getRenderer(): THREE.Renderer {
+  /**
+   * Gets renderer
+   * @returns renderer
+   */
+  public static getRenderer(): THREE.Renderer {
     if (this.lastRenderer !== null) {
       return this.lastRenderer.getRenderer();
     } else {
@@ -791,7 +991,11 @@ export class ThreeUtil {
     }
   }
 
-  static getRendererSize(): THREE.Vector2 {
+  /**
+   * Gets renderer size
+   * @returns renderer size
+   */
+  public static getRendererSize(): THREE.Vector2 {
     if (this.lastRenderer !== null) {
       return this.lastRenderer.getSize();
     } else {
@@ -799,44 +1003,81 @@ export class ThreeUtil {
     }
   }
 
-  static getSizeSubscribe(): Observable<THREE.Vector2> {
+  /**
+   * Gets size subscribe
+   * @returns size subscribe
+   */
+  public static getSizeSubscribe(): Observable<THREE.Vector2> {
     if (this.lastRenderer !== null) {
       return this.lastRenderer.sizeSubscribe();
     } else {
-      return undefined
+      return undefined;
     }
   }
-  
-  static getUpdateSubscribe(): Observable<RendererTimer> {
+
+  /**
+   * Gets update subscribe
+   * @returns update subscribe
+   */
+  public static getUpdateSubscribe(): Observable<RendererTimer> {
     if (this.lastRenderer !== null) {
       return this.lastRenderer.updateSubscribe();
     } else {
-      return undefined
+      return undefined;
     }
   }
 
+  /**
+   * Render timer of three util
+   */
   private static renderTimer: RendererTimer;
 
-  static render(renderTimer: RendererTimer) {
+  /**
+   * Renders three util
+   * @param renderTimer
+   */
+  public static render(renderTimer: RendererTimer) {
     if (this.renderTimer !== renderTimer) {
       this.renderTimer = renderTimer;
       // GSAP.update(renderTimer.elapsedTime * 1000);
       // TWEEN.update();
     }
   }
-  static isNull(value: any): boolean {
+
+  /**
+   * Determines whether null is
+   * @param value
+   * @returns true if null
+   */
+  public static isNull(value: any): boolean {
     return value === null || value === undefined;
   }
 
-  static isNotNull(value: any): boolean {
+  /**
+   * Determines whether not null is
+   * @param value
+   * @returns true if not null
+   */
+  public static isNotNull(value: any): boolean {
     return !this.isNull(value);
   }
 
-  static isArray(value: any): boolean {
+  /**
+   * Determines whether array is
+   * @param value
+   * @returns true if array
+   */
+  public static isArray(value: any): boolean {
     return Array.isArray(value);
   }
 
-  static getFirst<T>(value: T | T[]): T {
+  /**
+   * Gets first
+   * @template T
+   * @param value
+   * @returns first
+   */
+  public static getFirst<T>(value: T | T[]): T {
     if (Array.isArray(value)) {
       return value[0] || null;
     } else {
@@ -844,10 +1085,17 @@ export class ThreeUtil {
     }
   }
 
-  static isIndexOf<T>(data: T[] , findMe : T[] | T): boolean {
+  /**
+   * Determines whether index of is
+   * @template T
+   * @param data
+   * @param findMe
+   * @returns true if index of
+   */
+  public static isIndexOf<T>(data: T[], findMe: T[] | T): boolean {
     if (Array.isArray(findMe)) {
-      let result:boolean = false;
-      findMe.forEach(txt => {
+      let result: boolean = false;
+      findMe.forEach((txt) => {
         if (data.indexOf(txt) > -1) {
           result = true;
         }
@@ -858,15 +1106,23 @@ export class ThreeUtil {
     }
   }
 
-  static isOnlyIndexOf<T>(data: T[] , findMe : T[], addedFindMe? : T[]): boolean {
+  /**
+   * Determines whether only index of is
+   * @template T
+   * @param data
+   * @param findMe
+   * @param [addedFindMe]
+   * @returns true if only index of
+   */
+  public static isOnlyIndexOf<T>(data: T[], findMe: T[], addedFindMe?: T[]): boolean {
     if (data.length === 0) {
       return true;
     } else {
       if (this.isNotNull(addedFindMe)) {
         findMe = this.pushUniq(findMe, addedFindMe);
       }
-      let result:boolean = true;
-      data.forEach(txt => {
+      let result: boolean = true;
+      data.forEach((txt) => {
         if (findMe.indexOf(txt) === -1) {
           result = false;
         }
@@ -875,14 +1131,21 @@ export class ThreeUtil {
     }
   }
 
-  static pushUniq<T>(data: T[] , addMe : T[] | T): T[] {
+  /**
+   * Pushs uniq
+   * @template T
+   * @param data
+   * @param addMe
+   * @returns uniq
+   */
+  public static pushUniq<T>(data: T[], addMe: T[] | T): T[] {
     if (Array.isArray(addMe)) {
-      addMe.forEach(obj => {
+      addMe.forEach((obj) => {
         if (data.indexOf(obj) === -1) {
           data.push(obj);
         }
       });
-    } else if (ThreeUtil.isNotNull(addMe)){
+    } else if (ThreeUtil.isNotNull(addMe)) {
       if (data.indexOf(addMe) === -1) {
         data.push(addMe);
       }
@@ -890,7 +1153,12 @@ export class ThreeUtil {
     return data;
   }
 
-  static getStoreUrl(url: string) {
+  /**
+   * Gets store url
+   * @param url
+   * @returns
+   */
+  public static getStoreUrl(url: string) {
     if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     } else {
@@ -898,9 +1166,16 @@ export class ThreeUtil {
     }
   }
 
+  /**
+   * Manager  of three util
+   */
   private static _manager: THREE.LoadingManager = null;
 
-  static getLoadingManager(): THREE.LoadingManager {
+  /**
+   * Gets loading manager
+   * @returns loading manager
+   */
+  public static getLoadingManager(): THREE.LoadingManager {
     if (this._manager === null) {
       this._manager = new THREE.LoadingManager(
         () => {
@@ -918,7 +1193,13 @@ export class ThreeUtil {
     return this._manager;
   }
 
-  static getHtmlCode(info: TagAttributes, preTab: string = ''): string {
+  /**
+   * Gets html code
+   * @param info
+   * @param [preTab]
+   * @returns html code
+   */
+  public static getHtmlCode(info: TagAttributes, preTab: string = ''): string {
     const tag = info.tag;
     const attributes = info.attributes;
     const tags: string[] = [];
@@ -950,7 +1231,12 @@ export class ThreeUtil {
     return tags.join('\n');
   }
 
-  static getColor(color: ThreeColor | { r : number , g : number , b : number } ): THREE.Color {
+  /**
+   * Gets color
+   * @param color
+   * @returns color
+   */
+  public static getColor(color: ThreeColor | { r: number; g: number; b: number }): THREE.Color {
     if (this.isNotNull(color)) {
       if (color instanceof THREE.Color) {
         return color;
@@ -967,7 +1253,15 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorRGB(r: number, g: number, b: number, color?: ThreeColor): THREE.Color {
+  /**
+   * Gets color rgb
+   * @param r
+   * @param g
+   * @param b
+   * @param [color]
+   * @returns color rgb
+   */
+  public static getColorRGB(r: number, g: number, b: number, color?: ThreeColor): THREE.Color {
     const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
       return colorObj.setRGB(this.isNotNull(r) ? r : colorObj.r, this.isNotNull(g) ? g : colorObj.g, this.isNotNull(b) ? b : colorObj.b);
@@ -975,7 +1269,15 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHSL(h?: number, s?: number, l?: number, color?: ThreeColor): THREE.Color {
+  /**
+   * Gets color hsl
+   * @param [h]
+   * @param [s]
+   * @param [l]
+   * @param [color]
+   * @returns color hsl
+   */
+  public static getColorHSL(h?: number, s?: number, l?: number, color?: ThreeColor): THREE.Color {
     const colorObj = this.isNotNull(color) ? this.getColor(color) : new THREE.Color(0x000000);
     if (this.isNotNull(colorObj)) {
       const hsl = colorObj.getHSL({ h: 0, s: 0, l: 0 });
@@ -984,7 +1286,12 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHex(color?: ThreeColor): number {
+  /**
+   * Gets color hex
+   * @param [color]
+   * @returns color hex
+   */
+  public static getColorHex(color?: ThreeColor): number {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getHex();
@@ -992,7 +1299,12 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorHexString(color?: ThreeColor): string {
+  /**
+   * Gets color hex string
+   * @param [color]
+   * @returns color hex string
+   */
+  public static getColorHexString(color?: ThreeColor): string {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getHexString();
@@ -1000,7 +1312,12 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorStyle(color?: ThreeColor): string {
+  /**
+   * Gets color style
+   * @param [color]
+   * @returns color style
+   */
+  public static getColorStyle(color?: ThreeColor): string {
     const colorObj = this.getColor(color);
     if (this.isNotNull(colorObj)) {
       return colorObj.getStyle();
@@ -1008,7 +1325,14 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorMultiplySafe(color: ThreeColor, altColor?: ThreeColor, multiply?: number): THREE.Color {
+  /**
+   * Gets color multiply safe
+   * @param color
+   * @param [altColor]
+   * @param [multiply]
+   * @returns color multiply safe
+   */
+  public static getColorMultiplySafe(color: ThreeColor, altColor?: ThreeColor, multiply?: number): THREE.Color {
     const safeColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(safeColor) && this.isNotNull(multiply)) {
       safeColor.multiplyScalar(multiply);
@@ -1025,19 +1349,32 @@ export class ThreeUtil {
     return safeColor;
   }
 
-  static getParseFloat(value : string, max : number = 1): number {
+  /**
+   * Gets parse float
+   * @param value
+   * @param [max]
+   * @returns parse float
+   */
+  public static getParseFloat(value: string, max: number = 1): number {
     if (/^(\+|\-|)[0-9]+(\.|)[0-9]*$/.test(value)) {
       return parseFloat(value);
     } else {
-      switch(value.toLowerCase()) {
-        case 'random' :
-        default :
+      switch (value.toLowerCase()) {
+        case 'random':
+        default:
           return Math.random() * max;
       }
     }
   }
 
-  static getColorSafe(color: ThreeColor, altColor?: ThreeColor, nullColor?: ThreeColor): THREE.Color {
+  /**
+   * Gets color safe
+   * @param color
+   * @param [altColor]
+   * @param [nullColor]
+   * @returns color safe
+   */
+  public static getColorSafe(color: ThreeColor, altColor?: ThreeColor, nullColor?: ThreeColor): THREE.Color {
     const defColor = this.isNotNull(color) ? color : this.isNotNull(altColor) ? altColor : nullColor;
     if (this.isNotNull(defColor)) {
       if (defColor instanceof THREE.Color) {
@@ -1047,7 +1384,7 @@ export class ThreeUtil {
         if (colorStr.startsWith('#')) {
           return new THREE.Color(colorStr);
         } else if (colorStr === 'random') {
-          return new THREE.Color( Math.random() * 0xffffff );
+          return new THREE.Color(Math.random() * 0xffffff);
         } else if (colorStr.startsWith('0x')) {
           return new THREE.Color(parseInt(colorStr, 16));
         } else if (colorStr.indexOf(':') > 0 || colorStr.indexOf('(') > 0) {
@@ -1059,20 +1396,20 @@ export class ThreeUtil {
             .split(',');
           switch (type.toLowerCase()) {
             case 'hsl':
-              const h = this.getParseFloat(val1,1);
-              const s = this.getParseFloat(val2,1);
-              const l = this.getParseFloat(val3,1);
+              const h = this.getParseFloat(val1, 1);
+              const s = this.getParseFloat(val2, 1);
+              const l = this.getParseFloat(val3, 1);
               const tmp = new THREE.Color().setHSL(h, s, l);
               console.log(colorStr, tmp.getHexString());
               return tmp;
             case 'rgb':
-              const r = this.getParseFloat(val1,255);
-              const g = this.getParseFloat(val2,255);
-              const b = this.getParseFloat(val3,255);
+              const r = this.getParseFloat(val1, 255);
+              const g = this.getParseFloat(val2, 255);
+              const b = this.getParseFloat(val3, 255);
               return new THREE.Color(r / 255, g / 255, b / 255);
             case 'color':
             case 'rgbf':
-              return new THREE.Color(this.getParseFloat(val1,1), this.getParseFloat(val2,1), this.getParseFloat(val3,1));
+              return new THREE.Color(this.getParseFloat(val1, 1), this.getParseFloat(val2, 1), this.getParseFloat(val3, 1));
           }
         }
       }
@@ -1081,7 +1418,14 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getColorAlphaSafe(color: ThreeColor, alpha: number, altColor?: ThreeColor): THREE.Color | THREE.Vector4 {
+  /**
+   * Gets color alpha safe
+   * @param color
+   * @param alpha
+   * @param [altColor]
+   * @returns color alpha safe
+   */
+  public static getColorAlphaSafe(color: ThreeColor, alpha: number, altColor?: ThreeColor): THREE.Color | THREE.Vector4 {
     const defColor = this.getColorSafe(color, altColor);
     if (this.isNotNull(defColor)) {
       if (this.isNotNull(alpha) && alpha >= 0 && alpha <= 1) {
@@ -1095,7 +1439,15 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getTypeSafe<T>(value: T, altValue?: T, nullValue?: T): T {
+  /**
+   * Gets type safe
+   * @template T
+   * @param value
+   * @param [altValue]
+   * @param [nullValue]
+   * @returns type safe
+   */
+  public static getTypeSafe<T>(value: T, altValue?: T, nullValue?: T): T {
     const defValue = this.isNotNull(value) ? value : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -1107,7 +1459,13 @@ export class ThreeUtil {
     }
   }
 
-  static getNumberSafe(num: number | string, altnum?: number): number {
+  /**
+   * Gets number safe
+   * @param num
+   * @param [altnum]
+   * @returns number safe
+   */
+  public static getNumberSafe(num: number | string, altnum?: number): number {
     const defValue = this.getTypeSafe(num, altnum);
     if (this.isNotNull(defValue)) {
       if (typeof defValue === 'string') {
@@ -1122,7 +1480,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getAngleSafe(angle: number | string, altangle?: number): number {
+  /**
+   * Gets angle safe
+   * @param angle
+   * @param [altangle]
+   * @returns angle safe
+   */
+  public static getAngleSafe(angle: number | string, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
       if (typeof angle === 'string') {
@@ -1133,7 +1497,14 @@ export class ThreeUtil {
     }
     return undefined;
   }
-  static getBooleanSafe(bl: string | number | boolean, altbl?: string | number | boolean): boolean {
+
+  /**
+   * Gets boolean safe
+   * @param bl
+   * @param [altbl]
+   * @returns true if boolean safe
+   */
+  public static getBooleanSafe(bl: string | number | boolean, altbl?: string | number | boolean): boolean {
     const defValue = this.getTypeSafe(bl, altbl);
     if (typeof defValue === 'boolean') {
       return defValue;
@@ -1165,7 +1536,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getAngle2RadianSafe(angle: number, altangle?: number): number {
+  /**
+   * Gets angle2 radian safe
+   * @param angle
+   * @param [altangle]
+   * @returns angle2 radian safe
+   */
+  public static getAngle2RadianSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
       return (defValue / 180) * Math.PI;
@@ -1173,7 +1550,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getRadian2AngleSafe(angle: number, altangle?: number): number {
+  /**
+   * Gets radian2 angle safe
+   * @param angle
+   * @param [altangle]
+   * @returns radian2 angle safe
+   */
+  public static getRadian2AngleSafe(angle: number, altangle?: number): number {
     const defValue = this.getTypeSafe(angle, altangle);
     if (this.isNotNull(defValue)) {
       return (defValue / Math.PI) * 180;
@@ -1181,7 +1564,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector2VSafe(v2: number[] | THREE.Vector2, altValue?: THREE.Vector2): THREE.Vector2 {
+  /**
+   * Gets vector2 vsafe
+   * @param v2
+   * @param [altValue]
+   * @returns vector2 vsafe
+   */
+  public static getVector2VSafe(v2: number[] | THREE.Vector2, altValue?: THREE.Vector2): THREE.Vector2 {
     if (v2 instanceof THREE.Vector2) {
       return v2;
     } else if (this.isNotNull(v2) && v2.length >= 2) {
@@ -1190,7 +1579,16 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector2Safe(x: number, y: number, altValue?: THREE.Vector2, v2?: number[] | THREE.Vector2, isRequired?: boolean): THREE.Vector2 {
+  /**
+   * Gets vector2 safe
+   * @param x
+   * @param y
+   * @param [altValue]
+   * @param [v2]
+   * @param [isRequired]
+   * @returns vector2 safe
+   */
+  public static getVector2Safe(x: number, y: number, altValue?: THREE.Vector2, v2?: number[] | THREE.Vector2, isRequired?: boolean): THREE.Vector2 {
     const defValue = this.isNotNull(x) || this.isNotNull(y) ? new THREE.Vector2(this.getTypeSafe(x, y), this.getTypeSafe(y, x)) : null;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -1207,7 +1605,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector3VSafe(v3: number[] | THREE.Vector3, altValue?: THREE.Vector3): THREE.Vector3 {
+  /**
+   * Gets vector3 vsafe
+   * @param v3
+   * @param [altValue]
+   * @returns vector3 vsafe
+   */
+  public static getVector3VSafe(v3: number[] | THREE.Vector3, altValue?: THREE.Vector3): THREE.Vector3 {
     if (v3 instanceof THREE.Vector3) {
       return v3;
     } else if (this.isNotNull(v3) && v3.length >= 3) {
@@ -1216,7 +1620,17 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getVector3Safe(x: number, y: number, z: number, altValue?: THREE.Vector3, v3?: number[] | THREE.Vector3, isRequired?: boolean): THREE.Vector3 {
+  /**
+   * Gets vector3 safe
+   * @param x
+   * @param y
+   * @param z
+   * @param [altValue]
+   * @param [v3]
+   * @param [isRequired]
+   * @returns vector3 safe
+   */
+  public static getVector3Safe(x: number, y: number, z: number, altValue?: THREE.Vector3, v3?: number[] | THREE.Vector3, isRequired?: boolean): THREE.Vector3 {
     const defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Vector3(this.getTypeSafe(x, y, z), this.getTypeSafe(y, z, x), this.getTypeSafe(z, x, y)) : null;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -1233,7 +1647,13 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getMatrix4Safe(obj: THREE.Object3D, matrixType: string = 'maxtix'): THREE.Matrix4 {
+  /**
+   * Gets matrix4 safe
+   * @param obj
+   * @param [matrixType]
+   * @returns matrix4 safe
+   */
+  public static getMatrix4Safe(obj: THREE.Object3D, matrixType: string = 'maxtix'): THREE.Matrix4 {
     if (this.isNotNull(obj)) {
       switch (matrixType.toLowerCase()) {
         case 'projectionmatrixinverse':
@@ -1261,7 +1681,16 @@ export class ThreeUtil {
     return new THREE.Matrix4();
   }
 
-  static getEulerSafe(x: number | string, y: number | string, z: number | string, altValue?: THREE.Euler, isRequired?: boolean): THREE.Euler {
+  /**
+   * Gets euler safe
+   * @param x
+   * @param y
+   * @param z
+   * @param [altValue]
+   * @param [isRequired]
+   * @returns euler safe
+   */
+  public static getEulerSafe(x: number | string, y: number | string, z: number | string, altValue?: THREE.Euler, isRequired?: boolean): THREE.Euler {
     const defValue = this.isNotNull(x) || this.isNotNull(y) || this.isNotNull(z) ? new THREE.Euler(this.getAngleSafe(this.getTypeSafe(x, y, z), 0), this.getAngleSafe(this.getTypeSafe(y, x, z), 0), this.getAngleSafe(this.getTypeSafe(z, x, y), 0)) : altValue;
     if (this.isNotNull(defValue)) {
       return defValue;
@@ -1272,7 +1701,14 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getWrappingSafe(baseWrap: string, altWrap?: string, def?: string): THREE.Wrapping {
+  /**
+   * Gets wrapping safe
+   * @param baseWrap
+   * @param [altWrap]
+   * @param [def]
+   * @returns wrapping safe
+   */
+  public static getWrappingSafe(baseWrap: string, altWrap?: string, def?: string): THREE.Wrapping {
     const wrap = this.getTypeSafe(baseWrap, altWrap, def || '');
     switch (wrap.toLowerCase()) {
       case 'wraprepeat':
@@ -1290,7 +1726,25 @@ export class ThreeUtil {
     }
   }
 
-  static getTextureFilterSafe(baseFilter: string, altFilter?: string, def?: string): THREE.TextureFilter {
+  /**
+   * Gets texture filter safe
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
+   * 
+   * @param baseFilter
+   * @param [altFilter]
+   * @param [def]
+   * @returns texture filter safe
+   */
+  public static getTextureFilterSafe(baseFilter: string, altFilter?: string, def?: string): THREE.TextureFilter {
     const filter = this.getTypeSafe(baseFilter, altFilter, def || '');
     switch (filter.toLowerCase()) {
       case 'nearestfilter':
@@ -1316,7 +1770,14 @@ export class ThreeUtil {
     }
   }
 
-  static getBlendingSafe(baseBlending: string, altBlending?: string, def?: string): THREE.Blending {
+  /**
+   * Gets blending safe
+   * @param baseBlending
+   * @param [altBlending]
+   * @param [def]
+   * @returns blending safe
+   */
+  public static getBlendingSafe(baseBlending: string, altBlending?: string, def?: string): THREE.Blending {
     const blending = this.getTypeSafe(baseBlending, altBlending, def || '');
     switch (blending.toLowerCase()) {
       case 'noblending':
@@ -1341,7 +1802,33 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getPixelFormatSafe(baseFormat: string, altFormat?: string, def?: string): THREE.PixelFormat {
+  /**
+   * Gets pixel format safe
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.PixelFormat
+   * @see THREE.AlphaFormat - AlphaFormat, Alpha
+   * @see THREE.RedFormat - RedFormat, Red
+   * @see THREE.RedIntegerFormat - RedIntegerFormat, RedInteger
+   * @see THREE.RGFormat - RGFormat, RG
+   * @see THREE.RGIntegerFormat - RGIntegerFormat, RGInteger
+   * @see THREE.RGBFormat - RGBFormat, RGB
+   * @see THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger
+   * @see THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger
+   * @see THREE.LuminanceFormat - LuminanceFormat, Luminance
+   * @see THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha
+   * @see THREE.RGBEFormat - RGBEFormat, RGBE
+   * @see THREE.DepthFormat - DepthFormat, Depth
+   * @see THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil
+   * @see THREE.RGBAFormat - RGBAFormat, RGBA 
+   * 
+   * @param baseFormat
+   * @param [altFormat]
+   * @param [def]
+   * @returns pixel format safe
+   */
+  public static getPixelFormatSafe(baseFormat: string, altFormat?: string, def?: string): THREE.PixelFormat {
     const format = this.getTypeSafe(baseFormat, altFormat, def || '');
     switch (format.toLowerCase()) {
       case 'alphaformat':
@@ -1392,7 +1879,14 @@ export class ThreeUtil {
     return undefined;
   }
 
-  static getTextureDataTypeSafe(baseFormat: string, altFormat?: string, def?: string): THREE.TextureDataType {
+  /**
+   * Gets texture data type safe
+   * @param baseFormat
+   * @param [altFormat]
+   * @param [def]
+   * @returns texture data type safe
+   */
+  public static getTextureDataTypeSafe(baseFormat: string, altFormat?: string, def?: string): THREE.TextureDataType {
     const type = this.getTypeSafe(baseFormat, altFormat, def || '');
     switch (type.toLowerCase()) {
       case 'bytetype':
@@ -1436,11 +1930,18 @@ export class ThreeUtil {
     }
   }
 
-  static getObject3d<T extends THREE.Object3D>(object3d: any, isRequired : boolean = true): T {
+  /**
+   * Gets object3d
+   * @template T
+   * @param object3d
+   * @param [isRequired]
+   * @returns object3d
+   */
+  public static getObject3d<T extends THREE.Object3D>(object3d: any, isRequired: boolean = true): T {
     if (object3d instanceof THREE.Object3D) {
       return object3d as T;
     } else if (this.isNotNull(object3d.getMesh)) {
-      const mesh : THREE.Object3D = object3d.getMesh();
+      const mesh: THREE.Object3D = object3d.getMesh();
       if (mesh !== null && this.isNotNull(mesh.userData.refTarget)) {
         return mesh.userData.refTarget as T;
       } else {
@@ -1464,7 +1965,13 @@ export class ThreeUtil {
     }
     return new THREE.Object3D() as T;
   }
-  static getMeshFind(mesh: any): THREE.Mesh {
+
+  /**
+   * Gets mesh find
+   * @param mesh
+   * @returns mesh find
+   */
+  public static getMeshFind(mesh: any): THREE.Mesh {
     if (mesh instanceof THREE.Mesh) {
       return mesh;
     } else if (this.isNotNull(mesh.getHelper)) {
@@ -1477,8 +1984,8 @@ export class ThreeUtil {
     if (mesh instanceof THREE.Mesh) {
       return mesh;
     } else if (mesh instanceof THREE.Group) {
-      let childMesh : THREE.Mesh = null;
-      mesh.children.forEach(child => {
+      let childMesh: THREE.Mesh = null;
+      mesh.children.forEach((child) => {
         if (childMesh === null && child instanceof THREE.Mesh) {
           childMesh = child;
         }
@@ -1490,7 +1997,12 @@ export class ThreeUtil {
     return null;
   }
 
-  static getMesh(mesh: any): THREE.Mesh {
+  /**
+   * Gets mesh
+   * @param mesh
+   * @returns mesh
+   */
+  public static getMesh(mesh: any): THREE.Mesh {
     const findedMesh = this.getMeshFind(mesh);
     if (findedMesh !== null) {
       return findedMesh;
@@ -1498,7 +2010,12 @@ export class ThreeUtil {
     return new THREE.Mesh();
   }
 
-  static getLight(light: any): THREE.Light {
+  /**
+   * Gets light
+   * @param light
+   * @returns light
+   */
+  public static getLight(light: any): THREE.Light {
     if (light instanceof THREE.Light) {
       return light;
     } else if (this.isNotNull(light)) {
@@ -1510,17 +2027,23 @@ export class ThreeUtil {
     return new THREE.Light();
   }
 
-  static getMaterialByType(material: any, materialType? : string): THREE.Material{
-    let matchedMat : THREE.Material = null;
+  /**
+   * Gets material by type
+   * @param material
+   * @param [materialType]
+   * @returns material by type
+   */
+  public static getMaterialByType(material: any, materialType?: string): THREE.Material {
+    let matchedMat: THREE.Material = null;
     if (this.isNotNull(materialType) && materialType != '') {
       const matList = this.getMaterial(material);
       if (Array.isArray(matList)) {
-        matList.forEach(mat => {
-          if(this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType){
+        matList.forEach((mat) => {
+          if (this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType) {
             matchedMat = mat;
           }
         });
-      } else if (this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType){
+      } else if (this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType) {
         matchedMat = matList;
       }
     } else {
@@ -1536,7 +2059,12 @@ export class ThreeUtil {
     return matchedMat;
   }
 
-  static getMaterial(material: any): THREE.Material | THREE.Material[]{
+  /**
+   * Gets material
+   * @param material
+   * @returns material
+   */
+  public static getMaterial(material: any): THREE.Material | THREE.Material[] {
     if (material instanceof THREE.Material) {
       return material;
     } else if (Array.isArray(material)) {
@@ -1554,7 +2082,12 @@ export class ThreeUtil {
     return new THREE.Material();
   }
 
-  static getMaterialOne(material: any): THREE.Material{
+  /**
+   * Gets material one
+   * @param material
+   * @returns material one
+   */
+  public static getMaterialOne(material: any): THREE.Material {
     const materialList = this.getMaterial(material);
     if (Array.isArray(materialList)) {
       if (materialList.length > 0) {
@@ -1566,7 +2099,13 @@ export class ThreeUtil {
     return new THREE.Material();
   }
 
-  static getGeometry(geometry: any): THREE.BufferGeometry {
+  /**
+   * Gets geometry
+   *
+   * @param geometry
+   * @returns geometry
+   */
+  public static getGeometry(geometry: any): THREE.BufferGeometry {
     if (this.isNotNull(geometry)) {
       if (geometry instanceof THREE.BufferGeometry) {
         return geometry;
@@ -1584,9 +2123,17 @@ export class ThreeUtil {
     return new THREE.BufferGeometry();
   }
 
-  static loadedComponent : { [key : string] : any } = {}
+  /**
+   * Loaded component of three util
+   */
+  private static loadedComponent: { [key: string]: any } = {};
 
-  static setThreeComponent(key : string, object?: any) {
+  /**
+   * Sets three component
+   * @param key
+   * @param [object]
+   */
+  public static setThreeComponent(key: string, object?: any) {
     if (this.isNotNull(object)) {
       this.loadedComponent[key] = object;
     } else {
@@ -1594,7 +2141,13 @@ export class ThreeUtil {
     }
   }
 
-  static isThreeComponent(object: any, key : string = 'component'):boolean {
+  /**
+   * Determines whether three component is
+   * @param object
+   * @param [key]
+   * @returns true if three component
+   */
+  public static isThreeComponent(object: any, key: string = 'component'): boolean {
     if (this.isNotNull(object.getObject3d)) {
       return true;
     } else if (this.isNotNull(object.userData) && this.isNotNull(object.userData[key])) {
@@ -1604,11 +2157,16 @@ export class ThreeUtil {
     }
   }
 
-  static getThreeComponent(object: any) : any {
+  /**
+   * Gets three component
+   * @param object
+   * @returns three component
+   */
+  public static getThreeComponent(object: any): any {
     if (this.isNotNull(object.getObject3d)) {
       return object;
     }
-    if (this.isThreeComponent(object,'component')) {
+    if (this.isThreeComponent(object, 'component')) {
       if (this.isNotNull(this.loadedComponent[object.userData.component])) {
         return this.loadedComponent[object.userData.component];
       } else {
@@ -1618,11 +2176,16 @@ export class ThreeUtil {
     return null;
   }
 
-  static getRigidbodyComponent(object: any) : any {
+  /**
+   * Gets rigidbody component
+   * @param object
+   * @returns rigidbody component
+   */
+  public static getRigidbodyComponent(object: any): any {
     if (this.isNotNull(object.getRigidBody)) {
       return object;
     }
-    if (this.isThreeComponent(object,'rigidBody')) {
+    if (this.isThreeComponent(object, 'rigidBody')) {
       if (this.isNotNull(object.getUserData)) {
         const userData = object.getUserData();
         if (this.isNotNull(userData.rigidBody)) {
@@ -1635,7 +2198,12 @@ export class ThreeUtil {
     return null;
   }
 
-  static getRigidbody(object: any) : Ammo.btRigidBody {
+  /**
+   * Gets rigidbody
+   * @param object
+   * @returns rigidbody
+   */
+  public static getRigidbody(object: any): Ammo.btRigidBody {
     const rigidbodyComponent = this.getRigidbodyComponent(object);
     if (rigidbodyComponent !== null && this.isNotNull(rigidbodyComponent.getRigidBody)) {
       const rigidBody = rigidbodyComponent.getRigidBody();
@@ -1645,8 +2213,13 @@ export class ThreeUtil {
     }
     return null;
   }
-  
-  static setSubscribeNext(object: any, key: string | string[]) {
+
+  /**
+   * Sets subscribe next
+   * @param object
+   * @param key
+   */
+  public static setSubscribeNext(object: any, key: string | string[]) {
     if (this.isNotNull(object.setSubscribeNext)) {
       object.setSubscribeNext(key);
     } else if (this.isThreeComponent(object)) {
@@ -1664,7 +2237,14 @@ export class ThreeUtil {
     }
   }
 
-  static getSubscribe(object: any, callBack: (key?: string) => void, nextKey : string): Subscription {
+  /**
+   * Gets subscribe
+   * @param object
+   * @param callBack
+   * @param nextKey
+   * @returns subscribe
+   */
+  public static getSubscribe(object: any, callBack: (key?: string) => void, nextKey: string): Subscription {
     if (this.isThreeComponent(object)) {
       const threeComponent = this.getThreeComponent(object);
       if (this.isNotNull(threeComponent.getSubscribe)) {
@@ -1672,59 +2252,66 @@ export class ThreeUtil {
       }
     }
     if (this.isNotNull(object.getSubscribe)) {
-      return (object.getSubscribe() as Observable<string[]>).subscribe((keyList : string[]) => {
+      return (object.getSubscribe() as Observable<string[]>).subscribe((keyList: string[]) => {
         if (this.isNull(nextKey)) {
           callBack('anyevent');
         } else {
-          switch(nextKey.toLowerCase()) {
-            case 'lookat' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','position','lookat'])) {
+          switch (nextKey.toLowerCase()) {
+            case 'lookat':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'position', 'lookat'])) {
                 callBack('lookat');
               }
               break;
-            case 'position' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','position'])) {
+            case 'position':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'position'])) {
                 callBack('position');
               }
               break;
-            case 'rotation' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','rotation'])) {
+            case 'rotation':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'rotation'])) {
                 callBack('rotation');
               }
               break;
-            case 'scale' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','scale'])) {
+            case 'scale':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'scale'])) {
                 callBack('scale');
               }
               break;
-            case 'geometry' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','geometry','loaded'])) {
+            case 'geometry':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'geometry', 'loaded'])) {
                 callBack('geometry');
               }
               break;
-            case 'material' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','material','loaded'])) {
+            case 'material':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'material', 'loaded'])) {
                 callBack('material');
               }
               break;
-            case 'texture' :
-              if (this.isIndexOf(keyList, ['object3d','mesh','material','texture','loaded'])) {
+            case 'texture':
+              if (this.isIndexOf(keyList, ['object3d', 'mesh', 'material', 'texture', 'loaded'])) {
                 callBack('texture');
               }
               break;
-            default :
+            default:
               if (keyList.indexOf(nextKey.toLowerCase()) > -1) {
                 callBack(nextKey);
               }
               break;
-            }
+          }
         }
       });
     }
     return null;
   }
 
-  static getTexture(texture: any, refType: string = 'map', isRequired : boolean = true): THREE.Texture {
+  /**
+   * Gets texture
+   * @param texture
+   * @param [refType]
+   * @param [isRequired]
+   * @returns texture
+   */
+  public static getTexture(texture: any, refType: string = 'map', isRequired: boolean = true): THREE.Texture {
     if (texture instanceof THREE.Texture) {
       return texture;
     } else if (this.isNotNull(texture.getTexture)) {
@@ -1748,7 +2335,12 @@ export class ThreeUtil {
     return new THREE.Texture();
   }
 
-  static getPosition(position: any): THREE.Vector3 {
+  /**
+   * Gets position
+   * @param position
+   * @returns position
+   */
+  public static getPosition(position: any): THREE.Vector3 {
     if (this.isNotNull(position)) {
       if (position instanceof THREE.Vector3) {
         return position;
@@ -1768,7 +2360,12 @@ export class ThreeUtil {
     return new THREE.Vector3();
   }
 
-  static getRotation(rotation: any): THREE.Euler {
+  /**
+   * Gets rotation
+   * @param rotation
+   * @returns rotation
+   */
+  public static getRotation(rotation: any): THREE.Euler {
     if (this.isNotNull(rotation)) {
       if (rotation instanceof THREE.Euler) {
         return rotation;
@@ -1790,7 +2387,12 @@ export class ThreeUtil {
     return new THREE.Euler();
   }
 
-  static getScale(scale: any): THREE.Vector3 {
+  /**
+   * Gets scale
+   * @param scale
+   * @returns scale
+   */
+  public static getScale(scale: any): THREE.Vector3 {
     if (this.isNotNull(scale)) {
       if (scale instanceof THREE.Vector3) {
         return scale;
@@ -1808,7 +2410,12 @@ export class ThreeUtil {
     return new THREE.Vector3();
   }
 
-  static getLookAt(lookat: any): THREE.Vector3 {
+  /**
+   * Gets look at
+   * @param lookat
+   * @returns look at
+   */
+  public static getLookAt(lookat: any): THREE.Vector3 {
     if (this.isNotNull(lookat)) {
       if (lookat instanceof THREE.Vector3) {
         return lookat;
@@ -1827,7 +2434,12 @@ export class ThreeUtil {
     return new THREE.Vector3();
   }
 
-  static isTextureLoaded(texture: THREE.Texture): boolean {
+  /**
+   * Determines whether texture loaded is
+   * @param texture
+   * @returns true if texture loaded
+   */
+  public static isTextureLoaded(texture: THREE.Texture): boolean {
     if (texture instanceof THREE.CubeTexture || texture['isCubeTexture']) {
       if (this.isNotNull(texture.image) && texture.image.length === 6) {
         return true;
@@ -1855,7 +2467,14 @@ export class ThreeUtil {
     return false;
   }
 
-  static getTextureEncodingSafe(baseEncoding: string, altEncoding?: string, def?: string): THREE.TextureEncoding {
+  /**
+   * Gets texture encoding safe
+   * @param baseEncoding
+   * @param [altEncoding]
+   * @param [def]
+   * @returns texture encoding safe
+   */
+  public static getTextureEncodingSafe(baseEncoding: string, altEncoding?: string, def?: string): THREE.TextureEncoding {
     const encoding = this.getTypeSafe(baseEncoding, altEncoding, def || '');
     switch (encoding.toLowerCase()) {
       case 'srgbencoding':
@@ -1887,7 +2506,14 @@ export class ThreeUtil {
     }
   }
 
-  static getMappingSafe(baseMapping: string, altMapping?: string, def?: string): THREE.Mapping {
+  /**
+   * Gets mapping safe
+   * @param baseMapping
+   * @param [altMapping]
+   * @param [def]
+   * @returns mapping safe
+   */
+  public static getMappingSafe(baseMapping: string, altMapping?: string, def?: string): THREE.Mapping {
     const mapping = this.getTypeSafe(baseMapping, altMapping, def || '');
     switch (mapping.toLowerCase()) {
       case 'uvmapping':
@@ -1916,7 +2542,12 @@ export class ThreeUtil {
     }
   }
 
-  static getCubeImage(cubeImage: string[]): string[] {
+  /**
+   * Gets cube image
+   * @param cubeImage
+   * @returns cube image
+   */
+  public static getCubeImage(cubeImage: string[]): string[] {
     if (ThreeUtil.isNotNull(cubeImage) && cubeImage.length !== 6 && cubeImage.length >= 1) {
       const prefix = cubeImage[0];
       const postfix = cubeImage[1] || 'png';
@@ -1928,17 +2559,37 @@ export class ThreeUtil {
     }
   }
 
-  static getClock(autoStart?: boolean): ThreeClock {
+  /**
+   * Gets clock
+   * @param [autoStart]
+   * @returns clock
+   */
+  public static getClock(autoStart?: boolean): ThreeClock {
     return new ThreeClock(autoStart);
   }
 
-  static stats: ThreeStats = null;
+  /**
+   * Stats  of three util
+   */
+  public static stats: ThreeStats = null;
 
-  static getStats(style?: object): ThreeStats {
+  /**
+   * Gets stats
+   * @param [style]
+   * @returns stats
+   */
+  public static getStats(style?: object): ThreeStats {
     return new ThreeStats(style);
   }
 
-  static getControls<T>(param: T, component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): T & GuiBaseControl {
+  /**
+   * Gets controls
+   * @template T
+   * @param param
+   * @param component
+   * @returns controls
+   */
+  public static getControls<T>(param: T, component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): T & GuiBaseControl {
     const baseControl: GuiBaseControl = {
       meshShape: {
         visible: true,
@@ -2027,7 +2678,13 @@ export class ThreeUtil {
     return Object.assign(param, baseControl);
   }
 
-  static getControlsParams(params: GuiControlParam[], component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): GuiControlParam[] {
+  /**
+   * Gets controls params
+   * @param params
+   * @param component
+   * @returns controls params
+   */
+  public static getControlsParams(params: GuiControlParam[], component: { mesh?: MeshComponent; controls?: any; controlsParams?: any }): GuiControlParam[] {
     params.push({
       name: 'Mesh Visible',
       type: 'folder',
@@ -2213,7 +2870,12 @@ export class ThreeUtil {
     return params;
   }
 
-  static getControlsOnRender(
+  /**
+   * Gets controls on render
+   * @param timer
+   * @param component
+   */
+  public static getControlsOnRender(
     timer: RendererTimer,
     component: {
       mesh?: MeshComponent;
@@ -2228,24 +2890,38 @@ export class ThreeUtil {
     }
   }
 
-  static setupGuiChange(control: ThreeGuiController, onFinishChange?: (value?: any) => void, onChange?: (value?: any) => void, listen?: boolean, title?: string): ThreeGuiController {
-    if (listen != null && listen !== undefined && listen) {
+  /**
+   * Setups gui change
+   * @param control
+   * @param [onFinishChange]
+   * @param [onChange]
+   * @param [listen]
+   * @param [title]
+   * @returns gui change
+   */
+  public static setupGuiChange(control: ThreeGuiController, onFinishChange?: (value?: any) => void, onChange?: (value?: any) => void, listen?: boolean, title?: string): ThreeGuiController {
+    if (listen !== null && listen !== undefined && listen) {
       control.listen();
     }
-    if (onFinishChange != null && onFinishChange !== undefined) {
+    if (onFinishChange !== null && onFinishChange !== undefined) {
       control.onFinishChange(onFinishChange);
     }
-    if (onChange != null && onChange !== undefined) {
+    if (onChange !== null && onChange !== undefined) {
       control.onChange(onChange);
     }
-    if (title != null && title !== undefined) {
+    if (title !== null && title !== undefined) {
       control.name(title);
     }
 
     return control;
   }
 
-  static setGuiEnabled(control: ThreeGuiController, isEnable: boolean = true) {
+  /**
+   * Sets gui enabled
+   * @param control
+   * @param [isEnable]
+   */
+  public static setGuiEnabled(control: ThreeGuiController, isEnable: boolean = true) {
     if (control !== null && control !== undefined && control.domElement) {
       const parentElement = control.domElement.parentElement.parentElement;
       const previousElementSibling = control.domElement.previousElementSibling;
@@ -2269,7 +2945,13 @@ export class ThreeUtil {
     }
   }
 
-  static getGuiControlParam(children: GuiControlParam[], name: string): GuiControlParam {
+  /**
+   * Gets gui control param
+   * @param children
+   * @param name
+   * @returns gui control param
+   */
+  public static getGuiControlParam(children: GuiControlParam[], name: string): GuiControlParam {
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
       if (child.name === name) {
@@ -2285,7 +2967,14 @@ export class ThreeUtil {
     return null;
   }
 
-  static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]): ThreeGuiController {
+  /**
+   * Setups gui
+   * @param control
+   * @param gui
+   * @param params
+   * @returns gui
+   */
+  public static setupGui(control, gui: ThreeGuiController, params: GuiControlParam[]): ThreeGuiController {
     params.forEach((param) => {
       const params = param.control ? control[param.control] : control;
       if (this.isNotNull(params)) {
@@ -2320,13 +3009,19 @@ export class ThreeUtil {
   }
 }
 
+/**
+ * Renderer timer
+ */
 export interface RendererTimer {
   delta: number;
   elapsedTime: number;
-  renderer? : THREE.Renderer;
-  event? : RendererEvent
+  renderer?: THREE.Renderer;
+  event?: RendererEvent;
 }
 
+/**
+ * Renderer info
+ */
 export interface RendererInfo {
   timer: RendererTimer;
   innerWidth: number;
@@ -2337,6 +3032,9 @@ export interface RendererInfo {
   scenes: THREE.Scene[];
 }
 
+/**
+ * Renderer event
+ */
 export interface RendererEvent {
   type: string;
   client?: THREE.Vector2;
@@ -2352,38 +3050,70 @@ export interface RendererEvent {
   height?: number;
   size?: THREE.Vector2;
   mouse?: THREE.Vector2;
-  direction? :THREE.Vector2;
-  keyInfo? : {
-    code : string;
-    ctrlKey : boolean;
-    altKey : boolean;
-    shiftKey : boolean;
-    key : string;
-    timeStamp : number;
-    timeRepeat : number;
-    xy : THREE.Vector2;
+  direction?: THREE.Vector2;
+  keyInfo?: {
+    code: string;
+    ctrlKey: boolean;
+    altKey: boolean;
+    shiftKey: boolean;
+    key: string;
+    timeStamp: number;
+    timeRepeat: number;
+    xy: THREE.Vector2;
   };
   event: any;
 }
 
+/**
+ * Three clock
+ */
 export class ThreeClock extends THREE.Clock {
-  getTimer(renderer : THREE.Renderer, event : RendererEvent): RendererTimer {
+  /**
+   * Gets timer
+   * @param renderer
+   * @param event
+   * @returns timer
+   */
+  public getTimer(renderer: THREE.Renderer, event: RendererEvent): RendererTimer {
     const delta = this.getDelta();
     const elapsedTime = this.getElapsedTime();
     return {
       delta: delta,
       elapsedTime: elapsedTime,
-      renderer : renderer,
-      event : event
+      renderer: renderer,
+      event: event,
     };
   }
 }
 
+/**
+ * Three stats
+ */
 export class ThreeStats implements Stats {
+  /**
+   * Revision  of three stats
+   */
   REVISION: number;
+
+  /**
+   * Stats  of three stats
+   */
   stats: Stats = null;
+
+  /**
+   * Dom  of three stats
+   */
   dom: HTMLDivElement;
+
+  /**
+   * Dom element of three stats
+   */
   domElement: HTMLDivElement;
+
+  /**
+   * Creates an instance of three stats.
+   * @param [style]
+   */
   constructor(style?: object) {
     this.stats = Stats();
     this.domElement = this.dom = this.stats.dom;
@@ -2391,7 +3121,11 @@ export class ThreeStats implements Stats {
     this.setStyle(style);
   }
 
-  setStyle(style: object) {
+  /**
+   * Sets style
+   * @param style
+   */
+  public setStyle(style: object) {
     if (style !== null && style !== undefined) {
       Object.entries(style).forEach(([key, value]) => {
         this.stats.dom.style[key] = value;
@@ -2399,32 +3133,60 @@ export class ThreeStats implements Stats {
     }
   }
 
-  addPanel(panel: Stats.Panel): Stats.Panel {
+  /**
+   * Adds panel
+   * @param panel
+   * @returns panel
+   */
+  public addPanel(panel: Stats.Panel): Stats.Panel {
     return this.stats.addPanel(panel);
   }
 
+  /**
+   * Shows panel
+   * @param id
+   */
   showPanel(id: number): void {
     this.stats.showPanel(id);
   }
 
+  /**
+   * Begins three stats
+   */
   begin(): void {
     this.stats.begin();
   }
 
+  /**
+   * Ends three stats
+   */
   end(): void {
     this.stats.end();
   }
 
+  /**
+   * Updates three stats
+   */
   update(): void {
     this.stats.update();
   }
 
-  setMode(id: number): void {
+  /**
+   * Sets mode
+   * @param id
+   */
+  public setMode(id: number): void {
     this.stats.setMode(id);
   }
 }
 
+/**
+ * Gui control param
+ */
 export interface GuiControlParam {
+  /**
+   * 
+   */
   name: string;
   type?: 'number' | 'folder' | 'select' | 'folder' | 'button' | 'color' | 'checkbox' | 'input' | 'listen' | 'auto';
   min?: number;
@@ -2441,19 +3203,36 @@ export interface GuiControlParam {
   controller?: ThreeGuiController;
 }
 
+/**
+ * ThreeGeometryCustom
+ */
 @Component({
   template: '',
 })
 export abstract class ThreeGeometryCustom {
+  /**
+   * Input  of three geometry custom
+   */
   @Input() scale: number = null;
 
+  /**
+   * Geometry  of three geometry custom
+   */
   protected geometry: THREE.BufferGeometry = null;
 
-  initGeometry(): THREE.BufferGeometry {
+  /**
+   * Inits geometry
+   * @returns geometry
+   */
+  public initGeometry(): THREE.BufferGeometry {
     return new THREE.BufferGeometry();
   }
 
-  setGeometry(geometry: THREE.BufferGeometry) {
+  /**
+   * Sets geometry
+   * @param geometry
+   */
+  public setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(this.scale)) {
       const scale = ThreeUtil.getTypeSafe(this.scale, 1);
       geometry.scale(scale, scale, scale);
@@ -2461,19 +3240,42 @@ export abstract class ThreeGeometryCustom {
     this.geometry = geometry;
   }
 
-  getGeometry(): THREE.BufferGeometry {
-    if (this.geometry == null) {
+  /**
+   * Gets geometry
+   * @returns geometry
+   */
+  public getGeometry(): THREE.BufferGeometry {
+    if (this.geometry === null) {
       this.setGeometry(this.initGeometry());
     }
     return this.geometry;
   }
 }
 
+/**
+ * Three gui
+ */
 export class ThreeGui implements ThreeGuiController {
-  gui: GUI = null;
-  domElement: HTMLElement;
-  static customCss: string = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
+  /**
+   * Gui  of three gui
+   */
+  public gui: GUI = null;
 
+  /**
+   * Dom element of three gui
+   */
+  public domElement: HTMLElement;
+
+  /**
+   * Custom css of three gui
+   */
+  public static customCss: string = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}';
+
+  /**
+   * Creates an instance of three gui.
+   * @param [style]
+   * @param [pars]
+   */
   constructor(
     style?: any,
     pars?: {
@@ -2492,7 +3294,12 @@ export class ThreeGui implements ThreeGuiController {
     }
   }
 
-  setStyle(style: object): this {
+  /**
+   * Sets style
+   * @param style
+   * @returns style
+   */
+  public setStyle(style: object): this {
     if (style !== null && style !== undefined) {
       const domElement = this.domElement;
       Object.entries(style).forEach(([key, value]) => {
@@ -2506,74 +3313,146 @@ export class ThreeGui implements ThreeGuiController {
     return this;
   }
 
-  addColor(object: any, property: string): ThreeGuiController {
+  /**
+   * Adds color
+   * @param object
+   * @param property
+   * @returns color
+   */
+  public addColor(object: any, property: string): ThreeGuiController {
     return this.gui.addColor(object, property);
   }
 
-  addFolder(name: string): ThreeGuiController {
+  /**
+   * Adds folder
+   * @param name
+   * @returns folder
+   */
+  public addFolder(name: string): ThreeGuiController {
     return this.gui.addFolder(name);
   }
 
-  add(object: any, property: string, option1?: any, options2?: any, options3?: any): ThreeGuiController {
+  /**
+   * Adds three gui
+   * @param object
+   * @param property
+   * @param [option1]
+   * @param [options2]
+   * @param [options3]
+   * @returns add
+   */
+  public add(object: any, property: string, option1?: any, options2?: any, options3?: any): ThreeGuiController {
     return this.gui.add(object, property, option1, options2, options3);
   }
 
+  /**
+   * Destroys three gui
+   * @returns
+   */
   destroy() {
     this.gui.destroy();
     return this;
   }
 
+  /**
+   * Removes folder
+   * @param folder
+   * @returns folder
+   */
   removeFolder(folder): this {
     this.gui.removeFolder(folder);
     return this;
   }
 
+  /**
+   * Listens three gui
+   * @returns listen
+   */
   listen(): this {
     this.gui.listen();
     return this;
   }
 
+  /**
+   * Names three gui
+   * @param name
+   * @returns name
+   */
   name(name: string): this {
     this.gui.name(name);
     return this;
   }
 
+  /**
+   * Determines whether finish change on
+   * @param callBack
+   * @returns finish change
+   */
   onFinishChange(callBack: (e: any) => void): this {
     this.gui.onFinishChange(callBack);
     return this;
   }
 
+  /**
+   * Determines whether change on
+   * @param callBack
+   * @returns change
+   */
   onChange(callBack: (e: any) => void): this {
     this.gui.onChange(callBack);
     return this;
   }
 
+  /**
+   * Opens three gui
+   * @returns open
+   */
   open(): this {
     this.gui.open();
     return this;
   }
 
+  /**
+   * Closes three gui
+   * @returns close
+   */
   close(): this {
     this.gui.close();
     return this;
   }
 
+  /**
+   * Hides three gui
+   * @returns hide
+   */
   hide(): this {
     this.gui.hide();
     return this;
   }
 
+  /**
+   * Shows three gui
+   * @returns show
+   */
   show(): this {
     this.gui.show();
     return this;
   }
 
+  /**
+   * Removes three gui
+   * @param controller
+   * @returns remove
+   */
   remove(controller): this {
     this.gui.remove(controller);
     return this;
   }
 }
 
+/**
+ * Three gui controller
+ */
 export interface ThreeGuiController {
   domElement?: HTMLElement;
   add(object, property: string, min?: any, max?, step?): ThreeGuiController;

@@ -4,26 +4,29 @@ import { ThreeUtil } from '../interface';
 import { MixerComponent } from '../mixer/mixer.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * AnimationGroupComponent
+ */
 @Component({
   selector: 'ngx3js-animation-group',
   templateUrl: './animation-group.component.html',
-  styleUrls: ['./animation-group.component.scss']
+  styleUrls: ['./animation-group.component.scss'],
 })
 export class AnimationGroupComponent extends AbstractSubscribeComponent implements OnInit {
-  
-
   /**
-   * The name of AnimationGroup
+    The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = '';
-  
 
   /**
-   * 
+   * Content children of animation group component
    */
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
-  constructor() { 
+  /**
+   * Creates an instance of animation group component.
+   */
+  constructor() {
     super();
   }
 
@@ -51,7 +54,7 @@ export class AnimationGroupComponent extends AbstractSubscribeComponent implemen
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -72,9 +75,17 @@ export class AnimationGroupComponent extends AbstractSubscribeComponent implemen
     super.ngAfterContentInit();
   }
 
-  private animationGroup : THREE.AnimationObjectGroup = null;
+  /**
+   * Animation group of animation group component
+   */
+  private animationGroup: THREE.AnimationObjectGroup = null;
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this.animationGroup !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getAnimationGroup();
@@ -104,7 +115,11 @@ export class AnimationGroupComponent extends AbstractSubscribeComponent implemen
     }
   }
 
-  getAnimationGroup():THREE.AnimationObjectGroup {
+  /**
+   * Gets animation group
+   * @returns animation group
+   */
+  public getAnimationGroup(): THREE.AnimationObjectGroup {
     if (this.animationGroup === null || this._needUpdate) {
       this.needUpdate = false;
       this.animationGroup = new THREE.AnimationObjectGroup();

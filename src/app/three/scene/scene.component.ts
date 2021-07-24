@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { ControllerComponent } from '../controller/controller.component';
 import { FogComponent } from '../fog/fog.component';
-import { TextureOption, ThreeTexture, ThreeUtil } from '../interface';
+import { ThreeTexture, ThreeUtil } from '../interface';
 import { AbstractMaterialComponent } from '../material.abstract';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { PhysicsComponent } from '../physics/physics.component';
@@ -16,25 +16,30 @@ import { MeshComponent } from './../mesh/mesh.component';
 import { MixerComponent } from './../mixer/mixer.component';
 import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 
+/**
+ * SceneComponent
+ */
 @Component({
   selector: 'ngx3js-scene',
   templateUrl: './scene.component.html',
   styleUrls: ['./scene.component.scss'],
 })
 export class SceneComponent extends AbstractObject3dComponent implements OnInit {
-
   /**
-   * 
+   * Input  of scene component
    */
   @Input() private storageName: string = null;
 
   /**
    * If not null, sets the background used when rendering the scene, and is always rendered first.
-	 * Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
+   * Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
    */
   @Input() private background: ThreeTexture = null;
 
   /**
+   * Input  of scene component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private backgroundType: string = 'background';
@@ -46,35 +51,39 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private environment: ThreeTexture = null;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(PhysicsComponent, { descendants: false }) private physicsList: QueryList<PhysicsComponent>;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(RigidbodyComponent, { descendants: true }) private sceneRigidbodyList: QueryList<RigidbodyComponent>;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(FogComponent, { descendants: false }) private fogList: QueryList<FogComponent>;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(MixerComponent, { descendants: true }) private sceneMixerList: QueryList<MixerComponent>;
 
   /**
-   * 
+   * Content children of scene component
    */
   @ContentChildren(ViewerComponent, { descendants: true }) private viewerList: QueryList<ViewerComponent>;
 
+  /**
+   * Creates an instance of scene component.
+   * @param localStorageService
+   */
   constructor(private localStorageService: LocalStorageService) {
     super();
   }
@@ -103,7 +112,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -129,18 +138,37 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
+  /**
+   * Scene  of scene component
+   */
   private scene: THREE.Scene = null;
 
+  /**
+   * Renderer  of scene component
+   */
   private renderer: RendererComponent = null;
-  setRenderer(renderer: RendererComponent) {
+
+  /**
+   * Sets renderer
+   * @param renderer
+   */
+  public setRenderer(renderer: RendererComponent) {
     this.renderer = renderer;
   }
 
-  getRenderer(): RendererComponent {
+  /**
+   * Gets renderer
+   * @returns renderer
+   */
+  public getRenderer(): RendererComponent {
     return this.renderer;
   }
 
-  getThreeRenderer(): THREE.Renderer {
+  /**
+   * Gets three renderer
+   * @returns three renderer
+   */
+  public getThreeRenderer(): THREE.Renderer {
     if (ThreeUtil.isNotNull(this.renderer)) {
       return this.renderer.getRenderer();
     } else {
@@ -148,15 +176,27 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  getObject3d<T extends THREE.Object3D>(): T {
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
     return this.getScene() as any;
   }
 
-  getJson(): any {
+  /**
+   * Gets json
+   * @returns json
+   */
+  public getJson(): any {
     return this.getScene().toJSON();
   }
 
-  setClear(): void {
+  /**
+   * Sets clear
+   */
+  public setClear(): void {
     const scene = this.getScene();
     if (scene['clear']) {
       scene['clear']();
@@ -165,11 +205,21 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  setSavelocalStorage(storageName: string) {
+  /**
+   * Sets savelocal storage
+   * @param storageName
+   * @returns
+   */
+  public setSavelocalStorage(storageName: string) {
     return this.localStorageService.setScene(storageName, this.getScene());
   }
 
-  setBackgroundTexture(background: THREE.Texture, backgroundType: string) {
+  /**
+   * Sets background texture
+   * @param background
+   * @param backgroundType
+   */
+  public setBackgroundTexture(background: THREE.Texture, backgroundType: string) {
     switch (backgroundType.toLowerCase()) {
       case 'background-angular':
       case 'backgroundangular':
@@ -272,7 +322,12 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  setMaterial(material: AbstractMaterialComponent | THREE.Material, materialTypeHint: string = null) {
+  /**
+   * Sets material
+   * @param material
+   * @param [materialTypeHint]
+   */
+  public setMaterial(material: AbstractMaterialComponent | THREE.Material, materialTypeHint: string = null) {
     if (this.scene !== null) {
       const materialClone = material instanceof AbstractMaterialComponent ? material.getMaterial() : material;
       const map: THREE.Texture = materialClone['map'] && materialClone['map'] instanceof THREE.Texture ? materialClone['map'] : null;
@@ -325,31 +380,61 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       }
     }
   }
-  _pmremGenerator: THREE.PMREMGenerator = null;
 
+  /**
+   * Pmrem generator of scene component
+   */
+  private _pmremGenerator: THREE.PMREMGenerator = null;
+
+  /**
+   * Gets pmrem generator
+   * @returns pmrem generator
+   */
   private getPmremGenerator(): THREE.PMREMGenerator {
-    if (this._pmremGenerator == null) {
+    if (this._pmremGenerator === null) {
       this._pmremGenerator = new THREE.PMREMGenerator(this.getThreeRenderer() as THREE.WebGLRenderer);
       this._pmremGenerator.compileEquirectangularShader();
     }
     return this._pmremGenerator;
   }
 
-  getTextureFromEquirectangular(texture: THREE.Texture): THREE.Texture {
+  /**
+   * Gets texture from equirectangular
+   * @param texture
+   * @returns texture from equirectangular
+   */
+  public getTextureFromEquirectangular(texture: THREE.Texture): THREE.Texture {
     return this.getPmremGenerator().fromEquirectangular(texture).texture;
   }
 
-  getTextureFromScene(scene: THREE.Scene): THREE.Texture {
+  /**
+   * Gets texture from scene
+   * @param scene
+   * @returns texture from scene
+   */
+  public getTextureFromScene(scene: THREE.Scene): THREE.Texture {
     return this.getPmremGenerator().fromScene(scene).texture;
   }
 
-  getTextureFromCubemap(texture: THREE.CubeTexture): THREE.Texture {
+  /**
+   * Gets texture from cubemap
+   * @param texture
+   * @returns texture from cubemap
+   */
+  public getTextureFromCubemap(texture: THREE.CubeTexture): THREE.Texture {
     return this.getPmremGenerator().fromCubemap(texture).texture;
   }
 
+  /**
+   * Physics  of scene component
+   */
   private _physics: PhysicsComponent = null;
 
-  applyChanges3d(changes: string[]) {
+  /**
+   * Applys changes3d
+   * @param changes
+   */
+  public applyChanges3d(changes: string[]) {
     if (this.scene !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['material', 'mesh', 'viewer', 'light', 'camera', 'physics', 'fog', 'scenecontroller']);
@@ -395,7 +480,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               this.subscribeListQuery(this.fogList, 'fogList', 'fog');
             }
             break;
-          case 'controller' :
+          case 'controller':
           case 'scenecontroller':
             this.unSubscribeReferList('sceneControllerList');
             if (ThreeUtil.isNotNull(this.sceneControllerList)) {
@@ -420,7 +505,11 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     super.applyChanges3d(changes);
   }
 
-  update(timer: RendererTimer) {
+  /**
+   * Updates scene component
+   * @param timer
+   */
+  public update(timer: RendererTimer) {
     this.viewerList.forEach((viewer) => {
       viewer.update(timer);
     });
@@ -434,9 +523,17 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
       rigidbody.update(timer);
     });
   }
+
+  /**
+   * Scene synked of scene component
+   */
   private _sceneSynked: boolean = false;
 
-  getScene(): THREE.Scene {
+  /**
+   * Gets scene
+   * @returns scene
+   */
+  public getScene(): THREE.Scene {
     if (this.scene === null || this._needUpdate) {
       this.getSceneDumpy();
     }
@@ -465,7 +562,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
               )
             );
           } else if (ThreeUtil.isNotNull(this.background['getTexture'])) {
-            const textureBackground:AbstractTextureComponent = this.background as any;
+            const textureBackground: AbstractTextureComponent = this.background as any;
             this.setBackgroundTexture(textureBackground.getTexture(), this.backgroundType);
             this.subscribeRefer(
               'background',
@@ -477,7 +574,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
                 'loaded'
               )
             );
-          } else if (typeof this.background === 'string' || typeof this.background === 'number' || this.background instanceof THREE.Color){
+          } else if (typeof this.background === 'string' || typeof this.background === 'number' || this.background instanceof THREE.Color) {
             this.scene.background = ThreeUtil.getColorSafe(this.background, 0xffffff);
           }
         }
@@ -513,7 +610,11 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
     return this.scene;
   }
 
-  getSceneDumpy(): THREE.Scene {
+  /**
+   * Gets scene dumpy
+   * @returns scene dumpy
+   */
+  public getSceneDumpy(): THREE.Scene {
     if (this.scene === null || this._needUpdate) {
       this.needUpdate = false;
       this.scene = new THREE.Scene();

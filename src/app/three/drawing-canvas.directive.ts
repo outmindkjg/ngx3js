@@ -36,9 +36,8 @@ export class DrawingCanvasDirective implements OnChanges {
   private drawingContext: CanvasRenderingContext2D = null;
 
   /**
-   * Make the canvas drawable.
-   *
-   * @constructor
+   * Creates an instance of drawing canvas directive.
+   * @param ele
    */
   constructor(ele: ElementRef) {
     this.drawingCanvas = ele.nativeElement;
@@ -58,7 +57,7 @@ export class DrawingCanvasDirective implements OnChanges {
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,7 +69,14 @@ export class DrawingCanvasDirective implements OnChanges {
     }
   }
 
+  /**
+   * Background color of drawing canvas directive
+   */
   private _backgroundColor: string = null;
+
+  /**
+   * Line color of drawing canvas directive
+   */
   private _lineColor: string = null;
 
   /**

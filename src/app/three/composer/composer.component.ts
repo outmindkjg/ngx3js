@@ -1,247 +1,379 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect';
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect';
 import { PeppersGhostEffect } from 'three/examples/jsm/effects/PeppersGhostEffect';
-import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect';
-
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { CameraComponent } from '../camera/camera.component';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
-import { AbstractTweenComponent } from '../tween.abstract';
-import { CameraComponent } from '../camera/camera.component';
 import { SceneComponent } from '../scene/scene.component';
+import { AbstractTweenComponent } from '../tween.abstract';
 
+/**
+ * ComposerComponent
+ */
 @Component({
   selector: 'ngx3js-composer',
   templateUrl: './composer.component.html',
   styleUrls: ['./composer.component.scss'],
 })
 export class ComposerComponent extends AbstractTweenComponent implements OnInit {
-
   /**
-   * 
+   * Input  of composer component
+   *
+   * Notice - case insensitive.
+   *
    */
   @Input() private type: string = 'composer';
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scene: THREE.Scene | SceneComponent = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private camera: THREE.Camera | CameraComponent = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private clear: boolean = false;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private viewport: boolean = false;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private viewportAspect: boolean = false;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private renderToScreen: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private x: number | string = 0;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private y: number | string = 0;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private width: number | string = '100%';
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private height: number | string = '100%';
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scissorTest: boolean = false;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scissorX: number | string = 0;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scissorY: number | string = 0;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scissorWidth: number | string = '100%';
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private scissorHeight: number | string = '100%';
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private reflectFromAbove: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private cameraDistance: number = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private charSet: string = null;
+  @Input() private charSet: string = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private resolution: number = null;
+  @Input() private resolution: number = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private scale: number = null;
+  @Input() private scale: number = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private color: boolean = null;
+  @Input() private color: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private alpha: boolean = null;
+  @Input() private alpha: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private block: boolean = null;
+  @Input() private block: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
-	@Input() private invert: boolean = null;
+  @Input() private invert: boolean = null;
 
   /**
-   * 
+   * Content children of composer component
    */
   @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
 
-
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private useRenderTarget: boolean = false;
 
   /**
-   * 
+   * Input  of composer component
+   *
+   * Notice - case insensitive.
+   *
    */
-  @Input() private renderTargetType: string = "WebGLRenderTarget";
+  @Input() private renderTargetType: string = 'WebGLRenderTarget';
 
   /**
-   * 
+   * This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+   * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
+   * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
+   * See the [page:Textures texture constants] page for details.
+   *
+   * The Default Value of wrapS, wrapT.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrap: string = null;
 
   /**
-   * 
+   * This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+   * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
+   * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
+   * See the [page:Textures texture constants] page for details.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrapS: string = null;
 
   /**
-   * 
+   * This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
+   * The same choices are available as for [property:number wrapS].<br /><br />
+   * NOTE: tiling of images in textures only functions if image dimensions are powers of two
+   * (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
+   * Individual dimensions need not be equal, but each must be a power of two.
+   * This is a limitation of WebGL, not three.js.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrapT: string = null;
 
   /**
-   * 
+   * The Default Value of magFilter, minFilter
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private filter: string = null;
 
   /**
-   * 
+   * How the texture is sampled when a texel covers more than one pixel. The default is
+   * [page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
+   * The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
+   * See the [page:Textures texture constants] page for details.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private magFilter: string = null;
 
   /**
-   * 
+   * How the texture is sampled when a texel covers less than one pixel. The default is
+   * [page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
+   * See the [page:Textures texture constants] page for all possible choices.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private minFilter: string = null;
 
   /**
-   * 
+   * The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
+   * set this to [page:Textures THREE.RGBFormat] for JPG images. <br /><br />
+   * See the [page:Textures texture constants] page for details of other formats.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.PixelFormat
+   * @see THREE.AlphaFormat - AlphaFormat, Alpha
+   * @see THREE.RedFormat - RedFormat, Red
+   * @see THREE.RedIntegerFormat - RedIntegerFormat, RedInteger
+   * @see THREE.RGFormat - RGFormat, RG
+   * @see THREE.RGIntegerFormat - RGIntegerFormat, RGInteger
+   * @see THREE.RGBFormat - RGBFormat, RGB
+   * @see THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger
+   * @see THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger
+   * @see THREE.LuminanceFormat - LuminanceFormat, Luminance
+   * @see THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha
+   * @see THREE.RGBEFormat - RGBEFormat, RGBE
+   * @see THREE.DepthFormat - DepthFormat, Depth
+   * @see THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil
+   * @see THREE.RGBAFormat - RGBAFormat, RGBA
    */
   @Input() private format: string = null;
 
   /**
-   * 
+   * This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType],
+   * which will be used for most texture formats.<br /><br />
+   * See the [page:Textures texture constants] page for details of other formats.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureDataType ,
+   * @see THREE.UnsignedByteType - UnsignedByteType , UnsignedByte,
+   * @see THREE.ByteType - ByteType , Byte
+   * @see THREE.ShortType - ShortType , Short
+   * @see THREE.UnsignedShortType - UnsignedShortType , UnsignedShort
+   * @see THREE.IntType - IntType , Int
+   * @see THREE.UnsignedIntType - UnsignedIntType , UnsignedInt
+   * @see THREE.FloatType - FloatType , Float
+   * @see THREE.HalfFloatType - HalfFloatType , HalfFloat
+   * @see THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444
+   * @see THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551
+   * @see THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565
+   * @see THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
    */
   @Input() private dataType: string = null;
 
   /**
-   * 
+   * The number of samples taken along the axis through the pixel that has the highest density of texels.
+   * By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
+   * at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
+   * find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
    */
   @Input() private anisotropy: number = null;
 
   /**
-   * 
+   * [page:Textures THREE.LinearEncoding] is the default.
+   * See the [page:Textures texture constants] page for details of other formats.<br /><br />
+   * Note that if this value is changed on a texture after the material has been used,
+   * it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureEncoding
+   *
+   * @see THREE.LinearEncoding - LinearEncoding ,
+   * @see THREE.sRGBEncoding - sRGBEncoding ,
+   * @see THREE.GammaEncoding - GammaEncoding ,
+   * @see THREE.RGBEEncoding - RGBEEncoding ,
+   * @see THREE.LogLuvEncoding - LogLuvEncoding ,
+   * @see THREE.RGBM7Encoding - RGBM7Encoding ,
+   * @see THREE.RGBM16Encoding - RGBM16Encoding ,
+   * @see THREE.RGBDEncoding - RGBDEncoding ,
    */
   @Input() private encoding: string = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private depthBuffer: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private stencilBuffer: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private generateMipmaps: boolean = null;
 
   /**
-   * 
+   * Input  of composer component
    */
   @Input() private depthTexture: any = null;
 
+  /**
+   * Gets render target
+   * @param renderer
+   * @returns render target
+   */
   private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {
     if (this.useRenderTarget) {
-      switch(this.renderTargetType.toLowerCase()) {
-        case 'webglmultisamplerendertarget' :
-        case 'webglmultisamplerender' :
-        case 'webglmultisample' :
-        case 'multisamplerendertarget' :
-        case 'multisamplerender' :
-        case 'multisample' :
-          return new THREE.WebGLMultisampleRenderTarget( 
-            this.getWidth() * renderer.getPixelRatio(), 
-            this.getHeight() * renderer.getPixelRatio(), {
+      switch (this.renderTargetType.toLowerCase()) {
+        case 'webglmultisamplerendertarget':
+        case 'webglmultisamplerender':
+        case 'webglmultisample':
+        case 'multisamplerendertarget':
+        case 'multisamplerender':
+        case 'multisample':
+          return new THREE.WebGLMultisampleRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
             wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
             wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
             magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
@@ -255,13 +387,13 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
             // depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
             encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
           });
-        case 'webglcuberendertarget' :
-        case 'webglcuberender' :
-        case 'webglcube' :
-        case 'cuberendertarget' :
-        case 'cuberender' :
-        case 'cube' :
-          return new THREE.WebGLCubeRenderTarget( this.getWidth() * renderer.getPixelRatio(), {
+        case 'webglcuberendertarget':
+        case 'webglcuberender':
+        case 'webglcube':
+        case 'cuberendertarget':
+        case 'cuberender':
+        case 'cube':
+          return new THREE.WebGLCubeRenderTarget(this.getWidth() * renderer.getPixelRatio(), {
             wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
             wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
             magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
@@ -275,7 +407,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
             depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
             encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
           });
-        default :
+        default:
           return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
             wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
             wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
@@ -291,23 +423,40 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
             encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
           });
       }
-      
     }
     return undefined;
   }
 
+  /**
+   * Gets reflect from above
+   * @param [def]
+   * @returns true if reflect from above
+   */
   private getReflectFromAbove(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.reflectFromAbove, def);
   }
 
+  /**
+   * Gets camera distance
+   * @param [def]
+   * @returns camera distance
+   */
   private getCameraDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.cameraDistance, def);
   }
 
+  /**
+   * Creates an instance of composer component.
+   */
   constructor() {
     super();
   }
 
+  /**
+   * Gets scene
+   * @param [def]
+   * @returns scene
+   */
   private getScene(def?: THREE.Scene): THREE.Scene {
     if (ThreeUtil.isNotNull(this.scene)) {
       if (this.scene instanceof SceneComponent) {
@@ -319,6 +468,11 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return def;
   }
 
+  /**
+   * Gets camera
+   * @param [def]
+   * @returns camera
+   */
   private getCamera(def?: THREE.Camera): THREE.Camera {
     if (ThreeUtil.isNotNull(this.camera)) {
       if (this.camera instanceof CameraComponent) {
@@ -330,6 +484,11 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return def;
   }
 
+  /**
+   * Gets x
+   * @param [def]
+   * @returns x
+   */
   private getX(def?: number | string): number {
     const x = this.getViewPortSize(this.x, this.composerWidth, def);
     if (x < 0) {
@@ -339,6 +498,11 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets y
+   * @param [def]
+   * @returns y
+   */
   private getY(def?: number | string): number {
     const y = this.getViewPortSize(this.y, this.composerHeight, def);
     if (y < 0) {
@@ -348,37 +512,74 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets width
+   * @param [def]
+   * @returns width
+   */
   private getWidth(def?: number | string): number {
     return this.getViewPortSize(this.width, this.composerWidth, def);
   }
 
+  /**
+   * Gets height
+   * @param [def]
+   * @returns height
+   */
   private getHeight(def?: number | string): number {
     return this.getViewPortSize(this.height, this.composerHeight, def);
   }
 
+  /**
+   * Gets scissor x
+   * @param [def]
+   * @returns scissor x
+   */
   private getScissorX(def?: number | string): number {
     return this.getViewPortSize(this.scissorX, this.composerWidth, def);
   }
 
+  /**
+   * Gets scissor y
+   * @param [def]
+   * @returns scissor y
+   */
   private getScissorY(def?: number | string): number {
     return this.getViewPortSize(this.scissorY, this.composerHeight, def);
   }
 
+  /**
+   * Gets scissor width
+   * @param [def]
+   * @returns scissor width
+   */
   private getScissorWidth(def?: number | string): number {
     return this.getViewPortSize(this.scissorWidth, this.composerWidth, def);
   }
 
+  /**
+   * Gets scissor height
+   * @param [def]
+   * @returns scissor height
+   */
   private getScissorHeight(def?: number | string): number {
     return this.getViewPortSize(this.scissorHeight, this.composerHeight, def);
   }
 
+  /**
+   * Gets view port size
+   * @param size
+   * @param cameraSize
+   * @param [def]
+   * @returns view port size
+   */
   private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
       if (typeof baseSize == 'string') {
         if (baseSize.indexOf('%') > 0) {
           const [percent, extra] = baseSize.split('%');
-          const viewSize = Math.ceil(cameraSize * parseFloat(percent) / 100);
+          const viewSize = Math.ceil((cameraSize * parseFloat(percent)) / 100);
           if (extra === '') {
             return viewSize;
           } else {
@@ -417,6 +618,10 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     return 0;
   }
 
+  /**
+   * Gets aspect
+   * @returns aspect
+   */
   private getAspect(): number {
     if (this.viewport) {
       const cWidth = this.getWidth();
@@ -454,7 +659,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -474,10 +679,22 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
+  /**
+   * Composer width of composer component
+   */
   private composerWidth: number = 0;
+
+  /**
+   * Composer height of composer component
+   */
   private composerHeight: number = 0;
 
-  setComposerSize(width: number, height: number) {
+  /**
+   * Sets composer size
+   * @param width
+   * @param height
+   */
+  public setComposerSize(width: number, height: number) {
     this.composerWidth = width;
     this.composerHeight = height;
     if (this.effectComposer !== null && (this.effectComposer instanceof AsciiEffect || this.effectComposer instanceof PeppersGhostEffect)) {
@@ -485,7 +702,12 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
-  render(renderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
+  /**
+   * Renders composer component
+   * @param renderer
+   * @param renderTimer
+   */
+  public render(renderer: THREE.WebGLRenderer, renderTimer: RendererTimer) {
     if (this.effectComposer !== null) {
       if (this.viewport) {
         renderer.setViewport(this.getX(), this.getY(), this.getWidth(), this.getHeight());
@@ -504,7 +726,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         renderer.autoClear = false;
         renderer.clear();
       }
-      
+
       if (this.effectComposer instanceof EffectComposer) {
         this.effectComposer.render(renderTimer.delta);
       } else {
@@ -516,38 +738,62 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
+  /**
+   * Effect composer of composer component
+   */
   private effectComposer: EffectComposer | any = null;
 
-  getWriteBuffer(): THREE.WebGLRenderTarget {
+  /**
+   * Gets write buffer
+   * @returns write buffer
+   */
+  public getWriteBuffer(): THREE.WebGLRenderTarget {
     return this.getComposer().writeBuffer;
   }
 
-  getReadBuffer(): THREE.WebGLRenderTarget {
+  /**
+   * Gets read buffer
+   * @returns read buffer
+   */
+  public getReadBuffer(): THREE.WebGLRenderTarget {
     return this.getComposer().readBuffer;
   }
 
-  getRenderTarget1(): THREE.WebGLRenderTarget {
+  /**
+   * Gets render target1
+   * @returns render target1
+   */
+  public getRenderTarget1(): THREE.WebGLRenderTarget {
     return this.getComposer().renderTarget1;
   }
 
-  getRenderTarget2(): THREE.WebGLRenderTarget {
+  /**
+   * Gets render target2
+   * @returns render target2
+   */
+  public getRenderTarget2(): THREE.WebGLRenderTarget {
     return this.getComposer().renderTarget2;
   }
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this.effectComposer !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getComposer();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','pass', 'clear', 'viewportaspect','viewport', 'scissortest', 'x','y','width','height','scissorx','scissory','scissorwidth','scissorheight'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init', 'pass', 'clear', 'viewportaspect', 'viewport', 'scissortest', 'x', 'y', 'width', 'height', 'scissorx', 'scissory', 'scissorwidth', 'scissorheight'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['pass']);
       }
-      
+
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'pass':
@@ -565,12 +811,29 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
+  /**
+   * Composer renderer of composer component
+   */
   private _composerRenderer: THREE.WebGLRenderer = null;
+
+  /**
+   * Composer camera of composer component
+   */
   private _composerCamera: THREE.Camera = null;
+
+  /**
+   * Composer scene of composer component
+   */
   private _composerScene: THREE.Scene = null;
 
-  setRenderer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene) {
-    if (this._composerRenderer !== webGLRenderer || this._composerCamera !== camera || this._composerScene !== scene){
+  /**
+   * Sets renderer
+   * @param webGLRenderer
+   * @param camera
+   * @param scene
+   */
+  public setRenderer(webGLRenderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene) {
+    if (this._composerRenderer !== webGLRenderer || this._composerCamera !== camera || this._composerScene !== scene) {
       this._composerRenderer = webGLRenderer;
       this._composerCamera = camera;
       this._composerScene = scene;
@@ -582,31 +845,35 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
     }
   }
 
-  getObject() : EffectComposer | any {
+  /**
+   * Gets object
+   * @returns object
+   */
+  public getObject(): EffectComposer | any {
     return this.getComposer();
   }
 
-  getComposer(): EffectComposer | any {
+  /**
+   * Gets composer
+   * @returns composer
+   */
+  public getComposer(): EffectComposer | any {
     if (this._composerRenderer !== null && this._composerCamera && this._composerScene && (this.effectComposer === null || this._needUpdate)) {
       this.needUpdate = false;
       if (this.effectComposer !== null && this.effectComposer instanceof AsciiEffect) {
         this.effectComposer.domElement.parentNode.removeChild(this.effectComposer.domElement);
       }
-        switch (this.type.toLowerCase()) {
-        case 'asciieffect' :
-        case 'ascii' :
-          const asciiEffect = new AsciiEffect( 
-            this._composerRenderer, 
-            ThreeUtil.getTypeSafe(this.charSet, ' .:-+*=%@#'), 
-            { 
-              resolution: ThreeUtil.getTypeSafe(this.resolution),
-              scale: ThreeUtil.getTypeSafe(this.scale),
-              color: ThreeUtil.getTypeSafe(this.color),
-              alpha: ThreeUtil.getTypeSafe(this.alpha),
-              block: ThreeUtil.getTypeSafe(this.block),
-              invert: ThreeUtil.getTypeSafe(this.invert),
-            } 
-          );
+      switch (this.type.toLowerCase()) {
+        case 'asciieffect':
+        case 'ascii':
+          const asciiEffect = new AsciiEffect(this._composerRenderer, ThreeUtil.getTypeSafe(this.charSet, ' .:-+*=%@#'), {
+            resolution: ThreeUtil.getTypeSafe(this.resolution),
+            scale: ThreeUtil.getTypeSafe(this.scale),
+            color: ThreeUtil.getTypeSafe(this.color),
+            alpha: ThreeUtil.getTypeSafe(this.alpha),
+            block: ThreeUtil.getTypeSafe(this.block),
+            invert: ThreeUtil.getTypeSafe(this.invert),
+          });
           asciiEffect.domElement.style.position = 'absolute';
           asciiEffect.domElement.style.left = '0px';
           asciiEffect.domElement.style.top = '0px';

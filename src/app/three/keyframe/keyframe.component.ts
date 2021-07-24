@@ -1,60 +1,65 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * KeyframeComponent
+ */
 @Component({
   selector: 'ngx3js-keyframe',
   templateUrl: './keyframe.component.html',
   styleUrls: ['./keyframe.component.scss'],
 })
 export class KeyframeComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   * The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = '';
 
   /**
-   * 
+   * Input  of keyframe component
    */
   @Input() public type: string = '';
 
   /**
-   * 
+   * Input  of keyframe component
    */
   @Input() public times: number[] = null;
 
   /**
-   * 
+   * Input  of keyframe component
    */
-  @Input() public vectors: number[] | { x : number, y : number, z : number}[] = [];
+  @Input() public vectors: number[] | { x: number; y: number; z: number }[] = [];
 
   /**
-   * 
+   * Input  of keyframe component
    */
-  @Input() public quaternions: number[] | { x : number, y : number, z : number, w? : number }[] = [];
+  @Input() public quaternions: number[] | { x: number; y: number; z: number; w?: number }[] = [];
 
   /**
-   * 
+   * Input  of keyframe component
    */
-  @Input() public colors: number[] | { r : number, g : number, b : number }[] | string[] = [];
+  @Input() public colors: number[] | { r: number; g: number; b: number }[] | string[] = [];
 
   /**
-   * 
+   * Input  of keyframe component
    */
   @Input() public values: number[] = [];
 
   /**
-   * 
+   * Input  of keyframe component
    */
   @Input() public booleans: boolean[] | number[] = [];
-  
+
   /**
-   * 
+   * Input  of keyframe component
    */
   @Input() public interpolation: string = '';
 
+  /**
+   * Creates an instance of keyframe component.
+   */
   constructor() {
     super();
   }
@@ -83,7 +88,7 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -93,9 +98,14 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  private getVectors(size : number): number[] {
-    const vectors : number[] = [];
-    this.vectors.forEach(v => {
+  /**
+   * Gets vectors
+   * @param size
+   * @returns vectors
+   */
+  private getVectors(size: number): number[] {
+    const vectors: number[] = [];
+    this.vectors.forEach((v) => {
       if (typeof v === 'number') {
         vectors.push(v);
       } else {
@@ -105,13 +115,18 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     return this.checkSize(vectors, size * 3, 0);
   }
 
-  private getQuaternions(size : number): number[] {
-    const quaternions : number[] = [];
+  /**
+   * Gets quaternions
+   * @param size
+   * @returns quaternions
+   */
+  private getQuaternions(size: number): number[] {
+    const quaternions: number[] = [];
     const tmpQuaternion = new THREE.Quaternion();
-    this.quaternions.forEach(v => {
+    this.quaternions.forEach((v) => {
       if (typeof v === 'number') {
         quaternions.push(v);
-      } else if (ThreeUtil.isNotNull(v.w)){
+      } else if (ThreeUtil.isNotNull(v.w)) {
         quaternions.push(v.x, v.y, v.z, v.w);
       } else {
         tmpQuaternion.setFromEuler(ThreeUtil.getEulerSafe(v.x, v.y, v.z));
@@ -121,9 +136,14 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     return this.checkSize(quaternions, size * 4, 0);
   }
 
-  private getColors(size : number): number[] {
-    const colors : number[] = [];
-    this.colors.forEach(v => {
+  /**
+   * Gets colors
+   * @param size
+   * @returns colors
+   */
+  private getColors(size: number): number[] {
+    const colors: number[] = [];
+    this.colors.forEach((v) => {
       if (typeof v === 'number' || typeof v === 'string') {
         const tmp = ThreeUtil.getColorSafe(v, 0x000000);
         colors.push(tmp.r, tmp.g, tmp.b);
@@ -134,17 +154,27 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     return this.checkSize(colors, size * 3, 0);
   }
 
-  private getValues(size : number): number[] {
-    const values : number[] = [];
-    this.values.forEach(v => {
+  /**
+   * Gets values
+   * @param size
+   * @returns values
+   */
+  private getValues(size: number): number[] {
+    const values: number[] = [];
+    this.values.forEach((v) => {
       values.push(v);
     });
     return this.checkSize(values, size, 0);
   }
 
-  private getBooleans(size : number): boolean[] {
-    const booleans : boolean[] = [];
-    this.booleans.forEach(v => {
+  /**
+   * Gets booleans
+   * @param size
+   * @returns booleans
+   */
+  private getBooleans(size: number): boolean[] {
+    const booleans: boolean[] = [];
+    this.booleans.forEach((v) => {
       if (typeof v === 'boolean') {
         booleans.push(v);
       } else {
@@ -153,24 +183,34 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     });
     return this.checkSize(booleans, size, true);
   }
-  
 
-
-  private checkSize<T>(values : T[], size : number, def : T): T[] {
+  /**
+   * Checks size
+   * @template T
+   * @param values
+   * @param size
+   * @param def
+   * @returns size
+   */
+  private checkSize<T>(values: T[], size: number, def: T): T[] {
     const remind = size - values.length;
     if (remind > 0) {
-      for(let i = 0; i < remind ; i++) {
+      for (let i = 0; i < remind; i++) {
         values.push(def);
       }
     } else if (remind < 0) {
-      for(let i = 0; i < remind * -1 ; i++) {
+      for (let i = 0; i < remind * -1; i++) {
         values.pop();
       }
     }
     return values;
   }
 
-
+  /**
+   * Gets interpolation
+   * @param [def]
+   * @returns interpolation
+   */
   private getInterpolation(def?: string): THREE.InterpolationModes {
     const interpolation = ThreeUtil.getTypeSafe(this.interpolation, def, '');
     switch (interpolation.toLowerCase()) {
@@ -188,15 +228,28 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
+  /**
+   * Clip  of keyframe component
+   */
   private clip: THREE.AnimationClip = null;
-  setClip(clip: THREE.AnimationClip) {
+
+  /**
+   * Sets clip
+   * @param clip
+   */
+  public setClip(clip: THREE.AnimationClip) {
     if (this.clip !== clip) {
       this.clip = clip;
       this.getKeyframe();
     }
   }
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this.keyframe !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getKeyframe();
@@ -217,10 +270,18 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
       });
       super.applyChanges(changes);
     }
-  }  
+  }
+
+  /**
+   * Keyframe  of keyframe component
+   */
   private keyframe: THREE.KeyframeTrack = null;
 
-  getKeyframe(): THREE.KeyframeTrack {
+  /**
+   * Gets keyframe
+   * @returns keyframe
+   */
+  public getKeyframe(): THREE.KeyframeTrack {
     if (this.clip !== null && (this.keyframe === null || this._needUpdate)) {
       this.needUpdate = false;
       if (this.keyframe !== null) {
@@ -229,7 +290,7 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
           this.clip.tracks.splice(idx, 1);
         }
       }
-      const times: number[] = ThreeUtil.getTypeSafe(this.times, [0,1,2]);
+      const times: number[] = ThreeUtil.getTypeSafe(this.times, [0, 1, 2]);
       const interpolation: THREE.InterpolationModes = this.getInterpolation();
       switch (this.type.toLowerCase()) {
         case 'position':
@@ -242,21 +303,21 @@ export class KeyframeComponent extends AbstractSubscribeComponent implements OnI
           this.keyframe = new THREE.QuaternionKeyframeTrack('.quaternion', times, this.getQuaternions(times.length), interpolation);
           break;
         case 'color':
-        case 'specular' :
-        case 'emissive' :
-        case 'sheen' :
-          this.keyframe = new THREE.ColorKeyframeTrack('.material.' + this.type.toLowerCase() , times, this.getColors(times.length), interpolation);
+        case 'specular':
+        case 'emissive':
+        case 'sheen':
+          this.keyframe = new THREE.ColorKeyframeTrack('.material.' + this.type.toLowerCase(), times, this.getColors(times.length), interpolation);
           break;
-        case 'shininess' :
+        case 'shininess':
         case 'opacity':
-        case 'reflectivity' :
-          this.keyframe = new THREE.NumberKeyframeTrack('.material.' + this.type.toLowerCase() , times, this.getValues(times.length), interpolation);
+        case 'reflectivity':
+          this.keyframe = new THREE.NumberKeyframeTrack('.material.' + this.type.toLowerCase(), times, this.getValues(times.length), interpolation);
           break;
-        case 'transparent' :
-        case 'wireframe' :
+        case 'transparent':
+        case 'wireframe':
           this.keyframe = new THREE.BooleanKeyframeTrack('.material.' + this.type.toLowerCase(), times, this.getBooleans(times.length));
           break;
-        case 'string' :
+        case 'string':
           // this.keyframe = new THREE.StringKeyframeTrack('.material.opacity', times, values, interpolation);
           break;
       }

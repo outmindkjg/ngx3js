@@ -4,33 +4,43 @@ import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
-import { TextureNode, NodeMaterial, OperatorNode, NormalMapNode } from 'three/examples/jsm/nodes/Nodes';
+import { NodeMaterial, NormalMapNode, OperatorNode, TextureNode } from 'three/examples/jsm/nodes/Nodes';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { CanvasFunctionType, TextureUtils } from './texture/textureUtils';
 
+/**
+ * AbstractTextureComponent
+ *
+ * @see THREE.Texture
+ */
 @Component({
   template: '',
 })
 export abstract class AbstractTextureComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-
   /**
-   * The Type of Texture of Matrial 
+   * The Type of Texture of Matrial
    */
   @Input() protected type: string = 'map';
 
   /**
    * The LoadType of Texture - video, image etc
+   *
+   * Notice - case insensitive.
+   *
    */
   @Input() private loaderType: string = null;
 
   /**
-   * The CubeType of Texture - 
+   * The CubeType of Texture -
+   *
+   * Notice - case insensitive.
+   *
    */
   @Input() private cubeType: string = null;
 
   /**
-   * Optional name of the object (doesn't need to be unique). Default is an empty string.
+   * The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = null;
 
@@ -38,6 +48,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br /><br />
    * Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].
    * You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
+   *
    */
   @Input() private premultiplyAlpha: boolean = null;
 
@@ -47,12 +58,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
   @Input() private data: BufferSource | number[] = null;
 
   /**
-   * 
+   * Input  of abstract texture component
    */
   @Input() private programParam: any = null;
 
   /**
-   * 
+   * Input  of abstract texture component
    */
   @Input() private programMipmaps: any[] = null;
 
@@ -65,11 +76,33 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * How the image is applied to the object. An object type of [page:Textures THREE.UVMapping] is the default,
    * where the U,V coordinates are used to apply the map.<br />
    * See the [page:Textures texture constants] page for other mapping types.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.UVMapping               - UVMapping, uv
+   * @see THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection
+   * @see THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction
+   * @see THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection
+   * @see THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction
+   * @see THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection
+   * @see THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction
+   * @see THREE.Texture.DEFAULT_MAPPING   - default
    */
   @Input() protected mapping: string = null;
 
   /**
-   * 
+   * This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+   * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
+   * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
+   * See the [page:Textures texture constants] page for details.
+   *
+   * The Default Value of wrapS, wrapT.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrap: string = null;
 
@@ -78,7 +111,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
    * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
    * See the [page:Textures texture constants] page for details.
-   * 
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrapS: string = null;
 
@@ -89,11 +127,27 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
    * Individual dimensions need not be equal, but each must be a power of two.
    * This is a limitation of WebGL, not three.js.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
+   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
+   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
    */
   @Input() private wrapT: string = null;
 
   /**
-   * 
+   * The Default Value of magFilter, minFilter
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private filter: string = null;
 
@@ -102,6 +156,16 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * [page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
    * The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
    * See the [page:Textures texture constants] page for details.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private magFilter: string = null;
 
@@ -109,6 +173,16 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * How the texture is sampled when a texel covers less than one pixel. The default is
    * [page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
    * See the [page:Textures texture constants] page for all possible choices.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureFilter
+   * @see THREE.NearestFilter               - NearestFilter, Nearest
+   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
+   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
+   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
+   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
+   * @see THREE.LinearFilter                - Linearfilter, linear
    */
   @Input() private minFilter: string = null;
 
@@ -116,6 +190,24 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
    * set this to [page:Textures THREE.RGBFormat] for JPG images. <br /><br />
    * See the [page:Textures texture constants] page for details of other formats.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.PixelFormat
+   * @see THREE.AlphaFormat - AlphaFormat, Alpha
+   * @see THREE.RedFormat - RedFormat, Red
+   * @see THREE.RedIntegerFormat - RedIntegerFormat, RedInteger
+   * @see THREE.RGFormat - RGFormat, RG
+   * @see THREE.RGIntegerFormat - RGIntegerFormat, RGInteger
+   * @see THREE.RGBFormat - RGBFormat, RGB
+   * @see THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger
+   * @see THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger
+   * @see THREE.LuminanceFormat - LuminanceFormat, Luminance
+   * @see THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha
+   * @see THREE.RGBEFormat - RGBEFormat, RGBE
+   * @see THREE.DepthFormat - DepthFormat, Depth
+   * @see THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil
+   * @see THREE.RGBAFormat - RGBAFormat, RGBA
    */
   @Input() private format: string = null;
 
@@ -123,6 +215,22 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType],
    * which will be used for most texture formats.<br /><br />
    * See the [page:Textures texture constants] page for details of other formats.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureDataType ,
+   * @see THREE.UnsignedByteType - UnsignedByteType , UnsignedByte,
+   * @see THREE.ByteType - ByteType , Byte
+   * @see THREE.ShortType - ShortType , Short
+   * @see THREE.UnsignedShortType - UnsignedShortType , UnsignedShort
+   * @see THREE.IntType - IntType , Int
+   * @see THREE.UnsignedIntType - UnsignedIntType , UnsignedInt
+   * @see THREE.FloatType - FloatType , Float
+   * @see THREE.HalfFloatType - HalfFloatType , HalfFloat
+   * @see THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444
+   * @see THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551
+   * @see THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565
+   * @see THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
    */
   @Input() private dataType: string = null;
 
@@ -131,7 +239,6 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
    * at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
    * find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
-   * 
    */
   @Input() private anisotropy: number = null;
 
@@ -149,6 +256,19 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * See the [page:Textures texture constants] page for details of other formats.<br /><br />
    * Note that if this value is changed on a texture after the material has been used,
    * it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.TextureEncoding
+   *
+   * @see THREE.LinearEncoding - LinearEncoding ,
+   * @see THREE.sRGBEncoding - sRGBEncoding ,
+   * @see THREE.GammaEncoding - GammaEncoding ,
+   * @see THREE.RGBEEncoding - RGBEEncoding ,
+   * @see THREE.LogLuvEncoding - LogLuvEncoding ,
+   * @see THREE.RGBM7Encoding - RGBM7Encoding ,
+   * @see THREE.RGBM16Encoding - RGBM16Encoding ,
+   * @see THREE.RGBDEncoding - RGBDEncoding ,
    */
   @Input() private encoding: string = null;
 
@@ -157,57 +277,83 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * greater than 1 in either direction, the corresponding Wrap parameter should also be set to
    * [page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired
    * tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].
+   *
+   * The default value of repeatX , repeatY
    */
   @Input() private repeat: number = null;
 
   /**
-   * 
+   * How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set
+   * greater than 1 in either direction, the corresponding Wrap parameter should also be set to
+   * [page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired
+   * tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].
+   *
+   * The value of repeat.x
    */
   @Input() private repeatX: number = null;
 
   /**
-   * 
+   * How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set
+   * greater than 1 in either direction, the corresponding Wrap parameter should also be set to
+   * [page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired
+   * tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].
+   *
+   * The value of repeat.y
    */
   @Input() private repeatY: number = null;
 
   /**
-   * 
+   * How much a single repetition of the texture is offset from the beginning, in each direction U and V.
+   * Typical range is *0.0* to *1.0*.
+   *
+   * The default value of offsetX, offsetY
    */
   @Input() private offset: number = null;
 
   /**
    * How much a single repetition of the texture is offset from the beginning, in each direction U and V.
    * Typical range is *0.0* to *1.0*.
+   *
+   * The value of offset.x
    */
   @Input() private offsetX: number = null;
 
   /**
-   * 
+   * How much a single repetition of the texture is offset from the beginning, in each direction U and V.
+   * Typical range is *0.0* to *1.0*.
+   *
+   * The value of offset.y
    */
   @Input() private offsetY: number = null;
 
   /**
    * The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.
+   *
+   * The default value of centerX, centerY
    */
   @Input() private center: number = null;
 
   /**
-   * 
+   * The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.
+   *
+   * The value of center.x
    */
   @Input() private centerX: number = null;
 
   /**
-   * 
+   * The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.
+   *
+   * The value of center.y
    */
   @Input() private centerY: number = null;
 
   /**
-   * 
+   * Input  of abstract texture component
    */
   @Input() private width: number = null;
 
   /**
-   * 
+   * Input  of abstract texture component
    */
   @Input() private height: number = null;
 
@@ -232,8 +378,11 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
   /**
    * The base attribute can be fine without re-make Texture
    */
-  protected TEXTURE_ATTR: string[] = []
+  protected TEXTURE_ATTR: string[] = [];
 
+  /**
+   * Creates an instance of abstract texture component.
+   */
   constructor() {
     super();
     this.TEXTURE_ATTR.push(...this.OBJECT_ATTR);
@@ -245,7 +394,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * data-bound properties for the first time,
    * and before any of the view or content children have been checked.
    * It is invoked only once when the directive is instantiated.
-   * 
+   *
    * @param subscribeType
    */
   ngOnInit(subscribeType?: string): void {
@@ -257,14 +406,14 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
-    if (this.texture != null) {
+    if (this.texture !== null) {
       if (this.texture.image instanceof HTMLMediaElement) {
         this.texture.image.pause();
       }
       this.texture.dispose();
       this.texture = null;
     }
-    if (this.refTexture != null) {
+    if (this.refTexture !== null) {
       this.refTexture.dispose();
     }
     super.ngOnDestroy();
@@ -275,7 +424,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -295,29 +444,90 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     super.ngAfterContentInit();
   }
 
+  /**
+   * Gets repeat
+   * @param defX
+   * @param defY
+   * @returns repeat
+   */
   protected getRepeat(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.repeatX, this.repeat), ThreeUtil.getTypeSafe(this.repeatY, this.repeat), new THREE.Vector2(defX, defY));
   }
 
+  /**
+   * Gets offset
+   * @param defX
+   * @param defY
+   * @returns offset
+   */
   protected getOffset(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.offsetX, this.offset), ThreeUtil.getTypeSafe(this.offsetY, this.offset), new THREE.Vector2(defX, defY));
   }
 
+  /**
+   * Gets center
+   * @param defX
+   * @param defY
+   * @returns center
+   */
   private getCenter(defX: number, defY: number): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.centerX, this.center), ThreeUtil.getTypeSafe(this.centerY, this.center), new THREE.Vector2(defX, defY));
   }
 
+  /**
+   * Ref texture of abstract texture component
+   */
   private refTexture: THREE.Texture = null;
-  protected texture: THREE.Texture = null;
-  static textureLoader: THREE.TextureLoader = null;
-  static nrrdLoader: NRRDLoader = null;
-  static fileLoader: THREE.FileLoader = null;
-  static cubeTextureLoader: THREE.CubeTextureLoader = null;
-  static imageBitmapLoader: THREE.ImageBitmapLoader = null;
-  static hdrCubeMapLoader: HDRCubeTextureLoader = null;
-  static rgbmLoader: RGBMLoader = null;
 
-  getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string, onLoad?: () => void): THREE.Texture {
+  /**
+   * Texture  of abstract texture component
+   */
+  protected texture: THREE.Texture = null;
+
+  /**
+   * Texture loader of abstract texture component
+   */
+  public static textureLoader: THREE.TextureLoader = null;
+
+  /**
+   * Nrrd loader of abstract texture component
+   */
+  public static nrrdLoader: NRRDLoader = null;
+
+  /**
+   * File loader of abstract texture component
+   */
+  public static fileLoader: THREE.FileLoader = null;
+
+  /**
+   * Cube texture loader of abstract texture component
+   */
+  public static cubeTextureLoader: THREE.CubeTextureLoader = null;
+
+  /**
+   * Image bitmap loader of abstract texture component
+   */
+  public static imageBitmapLoader: THREE.ImageBitmapLoader = null;
+
+  /**
+   * Hdr cube map loader of abstract texture component
+   */
+  public static hdrCubeMapLoader: HDRCubeTextureLoader = null;
+
+  /**
+   * Rgbm loader of abstract texture component
+   */
+  public static rgbmLoader: RGBMLoader = null;
+
+  /**
+   * Gets texture image
+   * @param image
+   * @param [cubeImage]
+   * @param [program]
+   * @param [onLoad]
+   * @returns texture image
+   */
+  public getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string, onLoad?: () => void): THREE.Texture {
     return AbstractTextureComponent.getTextureImage(
       image,
       cubeImage,
@@ -335,7 +545,16 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     );
   }
 
-  static getTextureImageOption(image: any, optionsTxt?: string, loaderType?: string, cubeImage?: string[], onLoad?: () => void): THREE.Texture {
+  /**
+   * Gets texture image option
+   * @param image
+   * @param [optionsTxt]
+   * @param [loaderType]
+   * @param [cubeImage]
+   * @param [onLoad]
+   * @returns texture image option
+   */
+  public static getTextureImageOption(image: any, optionsTxt?: string, loaderType?: string, cubeImage?: string[], onLoad?: () => void): THREE.Texture {
     const loadOption: { [key: string]: any } = {
       width: 10,
       height: 10,
@@ -603,7 +822,16 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     return texture;
   }
 
-  static getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string, options?: any, onLoad?: () => void): THREE.Texture {
+  /**
+   * Gets texture image
+   * @param image
+   * @param [cubeImage]
+   * @param [program]
+   * @param [options]
+   * @param [onLoad]
+   * @returns texture image
+   */
+  public static getTextureImage(image: string, cubeImage?: string[], program?: CanvasFunctionType | string, options?: any, onLoad?: () => void): THREE.Texture {
     options = options || {};
     onLoad = onLoad || (() => {});
     let loaderType = (options.type || 'auto').toLowerCase();
@@ -612,7 +840,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
       switch (loaderType || 'cubetexture') {
         case 'hdrcube':
         case 'hdrcubetexture':
-          if (this.hdrCubeMapLoader == null) {
+          if (this.hdrCubeMapLoader === null) {
             this.hdrCubeMapLoader = new HDRCubeTextureLoader(ThreeUtil.getLoadingManager());
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
@@ -628,7 +856,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
           return cubeTexture;
         case 'rgbm':
         case 'rgbmtexture':
-          if (this.rgbmLoader == null) {
+          if (this.rgbmLoader === null) {
             this.rgbmLoader = new RGBMLoader(ThreeUtil.getLoadingManager());
           }
           if (ThreeUtil.isNotNull(image) && image !== '') {
@@ -839,14 +1067,22 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
-  setTexture(refTexture: THREE.Texture) {
+  /**
+   * Sets texture
+   * @param refTexture
+   */
+  public setTexture(refTexture: THREE.Texture) {
     if (this.refTexture !== refTexture) {
       this.refTexture = refTexture;
       this.refTexture.copy(this.getTexture());
     }
   }
 
-  setReferTexture(texture: any) {
+  /**
+   * Sets refer texture
+   * @param texture
+   */
+  public setReferTexture(texture: any) {
     if (texture instanceof HTMLVideoElement) {
       this.texture = new THREE.VideoTexture(texture);
     } else if (texture instanceof THREE.Texture) {
@@ -857,7 +1093,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
-  getTextureOptions(options: { [key: string]: any } = {}): { [key: string]: any } {
+  /**
+   * Gets texture options
+   * @param [options]
+   * @returns texture options
+   */
+  public getTextureOptions(options: { [key: string]: any } = {}): { [key: string]: any } {
     if (ThreeUtil.isNotNull(this.mapping)) {
       options.mapping = this.mapping;
     }
@@ -909,14 +1150,19 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     if ((ThreeUtil.isNotNull(this.centerX) && ThreeUtil.isNotNull(this.centerY)) || ThreeUtil.isNotNull(this.center)) {
       options.center = this.getCenter(0, 0);
     }
-
     if (this.debug) {
       this.consoleLog('texture-option', options);
     }
     return options;
   }
 
-  static setTextureOptions(texture: THREE.Texture, options: { [key: string]: any } = {}): THREE.Texture {
+  /**
+   * Sets texture options
+   * @param texture
+   * @param [options]
+   * @returns texture options
+   */
+  public static setTextureOptions(texture: THREE.Texture, options: { [key: string]: any } = {}): THREE.Texture {
     if (options == {}) {
       return;
     }
@@ -983,13 +1229,25 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     return texture;
   }
 
-  public isTexture(type: String) : boolean {
+  /**
+   * Determines whether texture is
+   * @param type
+   * @returns true if texture
+   */
+  public isTexture(type: String): boolean {
     type = type.toLowerCase();
-    return (this.type.toLowerCase() === type || (this.type + 'map').toLowerCase() === type);
+    return this.type.toLowerCase() === type || (this.type + 'map').toLowerCase() === type;
   }
 
+  /**
+   * Material  of abstract texture component
+   */
   private material: THREE.Material = null;
 
+  /**
+   * Sets material
+   * @param material
+   */
   public setMaterial(material: THREE.Material) {
     if (ThreeUtil.isNotNull(material) && this.material !== material) {
       this.material = material;
@@ -1001,30 +1259,36 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
-  protected applyTexture2Material(material : THREE.Material, key : string, texture : THREE.Texture) : void {
+  /**
+   * Applys texture2 material
+   * @param material
+   * @param key
+   * @param texture
+   */
+  protected applyTexture2Material(material: THREE.Material, key: string, texture: THREE.Texture): void {
     if (material instanceof NodeMaterial) {
-      switch(key) {
-        case 'diffuseMap' :
+      switch (key) {
+        case 'diffuseMap':
           if (material['color'] instanceof OperatorNode) {
-            const color : OperatorNode =  material['color'];
+            const color: OperatorNode = material['color'];
             if (color.a instanceof TextureNode) {
-              color.a.value = texture; 
+              color.a.value = texture;
             }
           }
           break;
-        case 'normalMap' :
+        case 'normalMap':
           if (material['normal'] instanceof NormalMapNode) {
-            const normal : NormalMapNode = material['normal'];
+            const normal: NormalMapNode = material['normal'];
             if (normal.value instanceof TextureNode) {
               normal.value.value = texture;
             } else {
               normal.value = new TextureNode(texture);
             }
           } else {
-            material['normal'] = new NormalMapNode(new TextureNode(texture))
+            material['normal'] = new NormalMapNode(new TextureNode(texture));
           }
           break;
-        default :
+        default:
           if (material[key] instanceof TextureNode) {
             material[key].value = texture;
           } else {
@@ -1032,11 +1296,14 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
           }
           break;
       }
-    } else if (material[key] !== undefined){
+    } else if (material[key] !== undefined) {
       material[key] = texture;
     }
   }
 
+  /**
+   * Applys material
+   */
   protected applyMaterial() {
     if (this.material !== null && this.texture !== null) {
       switch (this.type.toLowerCase()) {
@@ -1107,6 +1374,11 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.texture !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -1125,10 +1397,18 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
+  /**
+   * Gets pmrem generator
+   * @returns pmrem generator
+   */
   protected getPmremGenerator(): THREE.PMREMGenerator {
     return new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
   }
 
+  /**
+   * Sets texture loaded
+   * @param texture
+   */
   protected setTextureLoaded(texture: THREE.Texture) {
     if (texture !== null) {
       if (ThreeUtil.isNotNull(this.cubeType)) {
@@ -1167,8 +1447,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
     }
   }
 
+  /**
+   * Gets texture
+   * @template T
+   * @returns texture
+   */
   public getTexture<T extends THREE.Texture>(): T {
     return this.texture as T;
   }
-  
 }

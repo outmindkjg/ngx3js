@@ -12,249 +12,259 @@ import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { PlaneControls } from './plane-controls';
 
+/**
+ * ControlComponent
+ */
 @Component({
   selector: 'ngx3js-control',
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.scss'],
 })
 export class ControlComponent extends AbstractSubscribeComponent implements OnInit, OnDestroy, OnChanges, AfterContentInit {
-
   /**
-   * 
+   * Input  of control component
    */
   @Input() type: string = 'orbit';
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private autoRotate: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private autoRotateSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private screenSpacePanning: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private minDistance: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private maxDistance: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private xDistance: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private yDistance: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private enableZoom: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private minZoom: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private maxZoom: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private staticMoving: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private rotateSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private zoomSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private panSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private minPolarAngle: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private maxPolarAngle: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private enableKeys: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private enablePan: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private enableDamping: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private movementSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private rollSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private dragToLook: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private autoForward: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private lookSpeed: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private lookVertical: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private activeLook: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private heightSpeed: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private heightCoef: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private heightMin: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private heightMax: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private constrainVertical: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private verticalMin: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private verticalMax: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private mouseDragOn: boolean = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private maxFar: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private cascades: number = null;
 
   /**
+   * Input  of control component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private mode: string = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private scene: any = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private shadowMapSize: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private lightDirectionX: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private lightDirectionY: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private lightDirectionZ: number = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private target: THREE.Vector3 | LookatComponent | any = null;
 
   /**
-   * 
+   * Input  of control component
    */
   @Input() private camera: any = null;
 
-
   /**
-   * 
+   * Output  of control component
    */
   @Output() private eventListener: EventEmitter<{ type: string; event: any }> = new EventEmitter<{ type: string; event: any }>();
 
   /**
-   * 
+   * Content children of control component
+   */
+  /**
+   * Content children of control component
    */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent> = null;
 
+  /**
+   * Creates an instance of control component.
+   */
   constructor() {
     super();
   }
@@ -286,7 +296,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -307,6 +317,11 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
     super.ngAfterContentInit();
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.control !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -356,11 +371,28 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
+  /**
+   * Camera  of control component
+   */
   private _camera: THREE.Camera = null;
+
+  /**
+   * Scene  of control component
+   */
   private _scene: QueryList<SceneComponent> = null;
+
+  /**
+   * Dom element of control component
+   */
   private _domElement: HTMLElement = null;
 
-  setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>) {
+  /**
+   * Sets camera dom element
+   * @param camera
+   * @param domElement
+   * @param scenes
+   */
+  public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>) {
     if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes) {
       if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
         this.control.dispose();
@@ -379,9 +411,16 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
+  /**
+   * Control  of control component
+   */
   private control: any = null;
 
-  getControl() {
+  /**
+   * Gets control
+   * @returns control
+   */
+  public getControl(): any {
     if (this.control === null || this._needUpdate) {
       this.needUpdate = false;
       const camera = this._camera;
@@ -463,7 +502,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
           });
           control = transformControls;
           if (this._scene !== null && this._scene.length > 0) {
-            setTimeout(() => {
+            window.setTimeout(() => {
               this._scene.first.getScene().add(control);
             }, 100);
           }
@@ -585,7 +624,11 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
     return this.control;
   }
 
-  render(renderTimer: RendererTimer) {
+  /**
+   * Renders control component
+   * @param renderTimer
+   */
+  public render(renderTimer: RendererTimer) {
     if (this.control !== null) {
       if (this.control instanceof OrbitControls) {
         this.control.update();

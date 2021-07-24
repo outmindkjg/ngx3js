@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>AbstractObject3dComponent</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -135,6 +142,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="AbstractObject3dComponent.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractObject3dComponent.html#object3d" class="tsd-kind-icon">object3d</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractObject3dComponent.html#object3dList" class="tsd-kind-icon">object3d<wbr>List</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractObject3dComponent.html#onBeforeRender" class="tsd-kind-icon">on<wbr>Before<wbr>Render</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractObject3dComponent.html#parent" class="tsd-kind-icon">parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractObject3dComponent.html#parentObject3d" class="tsd-kind-icon">parent<wbr>Object3d</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractObject3dComponent.html#position" class="tsd-kind-icon">position</a></li>
@@ -243,12 +251,12 @@
 							<aside class="tsd-sources">
 								<p>Overrides AbstractTweenComponent.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L208">src/app/three/object3d.abstract.ts:208</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L224">src/app/three/object3d.abstract.ts:224</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Creates an instance of abstract object3d component.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
@@ -264,9 +272,14 @@
 					<div class="tsd-signature tsd-kind-icon">OBJECT3<wbr>D_<wbr>ATTR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L170">src/app/three/object3d.abstract.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L192">src/app/three/object3d.abstract.ts:192</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object3 d attr of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="OBJECT_ATTR" class="tsd-anchor"></a>
@@ -275,9 +288,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.OBJECT_ATTR</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L50">src/app/three/subscribe.abstract.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L55">src/app/three/subscribe.abstract.ts:55</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object attr of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_addedReferChild" class="tsd-anchor"></a>
@@ -285,19 +303,13 @@
 					<div class="tsd-signature tsd-kind-icon">_added<wbr>Refer<wbr>Child<span class="tsd-signature-symbol">:</span> <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L693">src/app/three/object3d.abstract.ts:693</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L693">src/app/three/object3d.abstract.ts:693</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>todo</p>
+							<p>Added refer child of abstract object3d component</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd></dd>
-							<dt>returns</dt>
-							<dd></dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
@@ -307,9 +319,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent._needUpdate</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L167">src/app/three/subscribe.abstract.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L227">src/app/three/subscribe.abstract.ts:227</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Need update of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="animationGroup" class="tsd-anchor"></a>
@@ -317,9 +334,14 @@
 					<div class="tsd-signature tsd-kind-icon">animation<wbr>Group<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AnimationGroupComponent</span><span class="tsd-signature-symbol"> | </span><a href="THREE.AnimationObjectGroup.html" class="tsd-signature-type" data-tsd-kind="Class">AnimationObjectGroup</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L119">src/app/three/object3d.abstract.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L121">src/app/three/object3d.abstract.ts:121</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="castShadow" class="tsd-anchor"></a>
@@ -327,7 +349,7 @@
 					<div class="tsd-signature tsd-kind-icon">cast<wbr>Shadow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L48">src/app/three/object3d.abstract.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L50">src/app/three/object3d.abstract.ts:50</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -342,7 +364,7 @@
 					<div class="tsd-signature tsd-kind-icon">controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ControllerComponent</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L72">src/app/three/object3d.abstract.ts:72</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L74">src/app/three/object3d.abstract.ts:74</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -352,9 +374,14 @@
 					<div class="tsd-signature tsd-kind-icon">controller<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ControllerComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L124">src/app/three/object3d.abstract.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L147">src/app/three/object3d.abstract.ts:147</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="customDepth" class="tsd-anchor"></a>
@@ -362,7 +389,7 @@
 					<div class="tsd-signature tsd-kind-icon">custom<wbr>Depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L109">src/app/three/object3d.abstract.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L111">src/app/three/object3d.abstract.ts:111</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -380,7 +407,7 @@
 					<div class="tsd-signature tsd-kind-icon">custom<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L114">src/app/three/object3d.abstract.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L116">src/app/three/object3d.abstract.ts:116</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -396,9 +423,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.debug</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L13">src/app/three/subscribe.abstract.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L15">src/app/three/subscribe.abstract.ts:15</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="enabled" class="tsd-anchor"></a>
@@ -407,9 +439,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.enabled</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L23">src/app/three/subscribe.abstract.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L25">src/app/three/subscribe.abstract.ts:25</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="frustumCulled" class="tsd-anchor"></a>
@@ -417,7 +454,7 @@
 					<div class="tsd-signature tsd-kind-icon">frustum<wbr>Culled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L58">src/app/three/object3d.abstract.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L60">src/app/three/object3d.abstract.ts:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -433,9 +470,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L54">src/app/three/subscribe.abstract.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L65">src/app/three/subscribe.abstract.ts:65</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Id  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="layers" class="tsd-anchor"></a>
@@ -443,7 +485,7 @@
 					<div class="tsd-signature tsd-kind-icon">layers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L43">src/app/three/object3d.abstract.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L45">src/app/three/object3d.abstract.ts:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -460,9 +502,14 @@
 					<div class="tsd-signature tsd-kind-icon">lo<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L100">src/app/three/object3d.abstract.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L102">src/app/three/object3d.abstract.ts:102</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="lookat" class="tsd-anchor"></a>
@@ -470,7 +517,7 @@
 					<div class="tsd-signature tsd-kind-icon">lookat<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L95">src/app/three/object3d.abstract.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L97">src/app/three/object3d.abstract.ts:97</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -488,9 +535,14 @@
 					<div class="tsd-signature tsd-kind-icon">lookat<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">LookatComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L144">src/app/three/object3d.abstract.ts:144</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L167">src/app/three/object3d.abstract.ts:167</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="materialList" class="tsd-anchor"></a>
@@ -498,9 +550,14 @@
 					<div class="tsd-signature tsd-kind-icon">material<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><a href="AbstractMaterialComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractMaterialComponent</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L149">src/app/three/object3d.abstract.ts:149</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L172">src/app/three/object3d.abstract.ts:172</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="matrixAutoUpdate" class="tsd-anchor"></a>
@@ -508,7 +565,7 @@
 					<div class="tsd-signature tsd-kind-icon">matrix<wbr>Auto<wbr>Update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L36">src/app/three/object3d.abstract.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L38">src/app/three/object3d.abstract.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -524,9 +581,14 @@
 					<div class="tsd-signature tsd-kind-icon">mixer<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MixerComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L164">src/app/three/object3d.abstract.ts:164</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L187">src/app/three/object3d.abstract.ts:187</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="name" class="tsd-anchor"></a>
@@ -534,12 +596,12 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L30">src/app/three/object3d.abstract.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L32">src/app/three/object3d.abstract.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Optional name of the object (doesn&#39;t need to be unique). Default is an empty string.</p>
+							<p>The name of the object (doesn&#39;t need to be unique). Default is an empty string.</p>
 						</div>
 					</div>
 				</section>
@@ -549,19 +611,13 @@
 					<div class="tsd-signature tsd-kind-icon">object3d<span class="tsd-signature-symbol">:</span> <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L602">src/app/three/object3d.abstract.ts:602</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L614">src/app/three/object3d.abstract.ts:614</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>todo</p>
+							<p>Object3d  of abstract object3d component</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd></dd>
-							<dt>returns</dt>
-							<dd></dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -570,9 +626,88 @@
 					<div class="tsd-signature tsd-kind-icon">object3d<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L154">src/app/three/object3d.abstract.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L177">src/app/three/object3d.abstract.ts:177</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="onBeforeRender" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> on<wbr>Before<wbr>Render</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Render<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">?: </span><a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a>, scene<span class="tsd-signature-symbol">?: </span><a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a>, camera<span class="tsd-signature-symbol">?: </span><a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a>, geometry<span class="tsd-signature-symbol">?: </span><a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a>, material<span class="tsd-signature-symbol">?: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a>, group<span class="tsd-signature-symbol">?: </span><a href="THREE.Group.html" class="tsd-signature-type" data-tsd-kind="Class">Group</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L135">src/app/three/object3d.abstract.ts:135</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>
+								An optional callback that is executed immediately before a 3D object is rendered.
+								This function is called with the following parameters: renderer, scene, camera, geometry,
+								material, group.
+							</p>
+							<p>
+								Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual
+								appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite].
+								Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
+							</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">?: </span><a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a>, scene<span class="tsd-signature-symbol">?: </span><a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a>, camera<span class="tsd-signature-symbol">?: </span><a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a>, geometry<span class="tsd-signature-symbol">?: </span><a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a>, material<span class="tsd-signature-symbol">?: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a>, group<span class="tsd-signature-symbol">?: </span><a href="THREE.Group.html" class="tsd-signature-type" data-tsd-kind="Class">Group</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>
+													An optional callback that is executed immediately before a 3D object is rendered.
+													This function is called with the following parameters: renderer, scene, camera, geometry,
+													material, group.
+												</p>
+												<p>
+													Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual
+													appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite].
+													Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
+												</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> renderer: <a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> scene: <a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> camera: <a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> geometry: <a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> material: <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> group: <a href="THREE.Group.html" class="tsd-signature-type" data-tsd-kind="Class">Group</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="parent" class="tsd-anchor"></a>
@@ -581,9 +716,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.parent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L543">src/app/three/subscribe.abstract.ts:543</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L761">src/app/three/subscribe.abstract.ts:761</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Parent  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="parentObject3d" class="tsd-anchor"></a>
@@ -591,19 +731,13 @@
 					<div class="tsd-signature tsd-kind-icon">parent<wbr>Object3d<span class="tsd-signature-symbol">:</span> <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L637">src/app/three/object3d.abstract.ts:637</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L643">src/app/three/object3d.abstract.ts:643</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>todo</p>
+							<p>Parent object3d of abstract object3d component</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd></dd>
-							<dt>returns</dt>
-							<dd></dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -612,7 +746,7 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L77">src/app/three/object3d.abstract.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L79">src/app/three/object3d.abstract.ts:79</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -627,9 +761,14 @@
 					<div class="tsd-signature tsd-kind-icon">position<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PositionComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L129">src/app/three/object3d.abstract.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L152">src/app/three/object3d.abstract.ts:152</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="receiveShadow" class="tsd-anchor"></a>
@@ -637,7 +776,7 @@
 					<div class="tsd-signature tsd-kind-icon">receive<wbr>Shadow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L53">src/app/three/object3d.abstract.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L55">src/app/three/object3d.abstract.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -652,7 +791,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Order<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L67">src/app/three/object3d.abstract.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L69">src/app/three/object3d.abstract.ts:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -670,9 +809,14 @@
 					<div class="tsd-signature tsd-kind-icon">rigidbody<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RigidbodyComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L159">src/app/three/object3d.abstract.ts:159</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L182">src/app/three/object3d.abstract.ts:182</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="rotation" class="tsd-anchor"></a>
@@ -680,7 +824,7 @@
 					<div class="tsd-signature tsd-kind-icon">rotation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L82">src/app/three/object3d.abstract.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L84">src/app/three/object3d.abstract.ts:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -695,9 +839,14 @@
 					<div class="tsd-signature tsd-kind-icon">rotation<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RotationComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L134">src/app/three/object3d.abstract.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L157">src/app/three/object3d.abstract.ts:157</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="scale" class="tsd-anchor"></a>
@@ -705,7 +854,7 @@
 					<div class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L87">src/app/three/object3d.abstract.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L89">src/app/three/object3d.abstract.ts:89</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -720,9 +869,14 @@
 					<div class="tsd-signature tsd-kind-icon">scale<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ScaleComponent</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L139">src/app/three/object3d.abstract.ts:139</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L162">src/app/three/object3d.abstract.ts:162</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Content children of abstract object3d component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="subscribeType" class="tsd-anchor"></a>
@@ -731,9 +885,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.subscribeType</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L448">src/app/three/subscribe.abstract.ts:448</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L618">src/app/three/subscribe.abstract.ts:618</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Subscribe type of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="tweenStart" class="tsd-anchor"></a>
@@ -742,9 +901,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.tweenStart</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/tween.abstract.ts#L12">src/app/three/tween.abstract.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/tween.abstract.ts#L18">src/app/three/tween.abstract.ts:18</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract tween component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="visible" class="tsd-anchor"></a>
@@ -752,7 +916,7 @@
 					<div class="tsd-signature tsd-kind-icon">visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L25">src/app/three/object3d.abstract.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L27">src/app/three/object3d.abstract.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -768,9 +932,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from AbstractTweenComponent.windowExport</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L18">src/app/three/subscribe.abstract.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L20">src/app/three/subscribe.abstract.ts:20</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -785,9 +954,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L169">src/app/three/subscribe.abstract.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L232">src/app/three/subscribe.abstract.ts:232</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets need update</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -812,13 +986,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.addChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L213">src/app/three/subscribe.abstract.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L307">src/app/three/subscribe.abstract.ts:307</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">SimpleChanges</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -835,12 +1016,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L721">src/app/three/object3d.abstract.ts:721</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L719">src/app/three/object3d.abstract.ts:719</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Adds child object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -866,12 +1047,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L1129">src/app/three/object3d.abstract.ts:1129</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L1136">src/app/three/object3d.abstract.ts:1136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Adds debug line</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -887,6 +1068,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>debug line</p>
 						</li>
 					</ul>
 				</section>
@@ -900,12 +1082,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L701">src/app/three/object3d.abstract.ts:701</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L700">src/app/three/object3d.abstract.ts:700</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Adds parent object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -931,12 +1113,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L401">src/app/three/object3d.abstract.ts:401</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L420">src/app/three/object3d.abstract.ts:420</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Adds position</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -952,6 +1134,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>position</p>
 						</li>
 					</ul>
 				</section>
@@ -965,12 +1148,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L518">src/app/three/object3d.abstract.ts:518</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L535">src/app/three/object3d.abstract.ts:535</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Adds rotation</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -986,6 +1169,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>rotation</p>
 						</li>
 					</ul>
 				</section>
@@ -1000,18 +1184,20 @@
 							<aside class="tsd-sources">
 								<p>Overrides AbstractTweenComponent.applyChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L800">src/app/three/object3d.abstract.ts:800</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L790">src/app/three/object3d.abstract.ts:790</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Applys changes</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>changes: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1028,12 +1214,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L810">src/app/three/object3d.abstract.ts:810</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L799">src/app/three/object3d.abstract.ts:799</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Applys changes3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1057,9 +1243,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.callOnLoad</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L163">src/app/three/subscribe.abstract.ts:163</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L220">src/app/three/subscribe.abstract.ts:220</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calls on load</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1075,9 +1266,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.checkChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L182">src/app/three/subscribe.abstract.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L253">src/app/three/subscribe.abstract.ts:253</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1085,6 +1281,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SimpleChanges</span></h4>
+							<p>changes</p>
 						</li>
 					</ul>
 				</section>
@@ -1099,9 +1296,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.clearChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L259">src/app/three/subscribe.abstract.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L360">src/app/three/subscribe.abstract.ts:360</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clears changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1117,9 +1319,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.consoleLog</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L194">src/app/three/subscribe.abstract.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L281">src/app/three/subscribe.abstract.ts:281</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Consoles log</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1147,9 +1354,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.consoleLogTime</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L187">src/app/three/subscribe.abstract.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L268">src/app/three/subscribe.abstract.ts:268</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Consoles log time</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1177,13 +1389,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.destroyLocalComponent</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L454">src/app/three/subscribe.abstract.ts:454</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L634">src/app/three/subscribe.abstract.ts:634</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroys local component</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1201,9 +1420,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.dispose</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L149">src/app/three/subscribe.abstract.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L194">src/app/three/subscribe.abstract.ts:194</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Disposes abstract subscribe component</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1219,10 +1443,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.getChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L244">src/app/three/subscribe.abstract.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L342">src/app/three/subscribe.abstract.ts:342</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>changes</p>
 						</li>
 					</ul>
 				</section>
@@ -1236,12 +1466,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L178">src/app/three/object3d.abstract.ts:178</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L199">src/app/three/object3d.abstract.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets lo distance</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1251,6 +1481,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>lo distance</p>
 						</li>
 					</ul>
 				</section>
@@ -1264,12 +1495,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L198">src/app/three/object3d.abstract.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L217">src/app/three/object3d.abstract.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets name</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1279,6 +1510,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>name</p>
 						</li>
 					</ul>
 				</section>
@@ -1293,10 +1525,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.getObject</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L303">src/app/three/subscribe.abstract.ts:303</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L416">src/app/three/subscribe.abstract.ts:416</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets object</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>object</p>
 						</li>
 					</ul>
 				</section>
@@ -1310,12 +1548,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L610">src/app/three/object3d.abstract.ts:610</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L621">src/app/three/object3d.abstract.ts:621</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1325,6 +1563,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>object3d</p>
 						</li>
 					</ul>
 				</section>
@@ -1338,12 +1577,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L576">src/app/three/object3d.abstract.ts:576</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L591">src/app/three/object3d.abstract.ts:591</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets object by id</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1353,6 +1592,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h4>
+							<p>object by id</p>
 						</li>
 					</ul>
 				</section>
@@ -1366,12 +1606,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L563">src/app/three/object3d.abstract.ts:563</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L579">src/app/three/object3d.abstract.ts:579</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets object by name</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1381,6 +1621,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h4>
+							<p>object by name</p>
 						</li>
 					</ul>
 				</section>
@@ -1394,12 +1635,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L589">src/app/three/object3d.abstract.ts:589</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L604">src/app/three/object3d.abstract.ts:604</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets object by property</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1412,6 +1653,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h4>
+							<p>object by property</p>
 						</li>
 					</ul>
 				</section>
@@ -1425,15 +1667,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L786">src/app/three/object3d.abstract.ts:786</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L778">src/app/three/object3d.abstract.ts:778</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets object top</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h4>
+							<p>object top</p>
 						</li>
 					</ul>
 				</section>
@@ -1447,15 +1690,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L362">src/app/three/object3d.abstract.ts:362</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L379">src/app/three/object3d.abstract.ts:379</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets position</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>position</p>
 						</li>
 					</ul>
 				</section>
@@ -1469,15 +1713,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L479">src/app/three/object3d.abstract.ts:479</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L494">src/app/three/object3d.abstract.ts:494</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets rotation</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Euler.html" class="tsd-signature-type" data-tsd-kind="Class">Euler</a></h4>
+							<p>rotation</p>
 						</li>
 					</ul>
 				</section>
@@ -1491,15 +1736,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L427">src/app/three/object3d.abstract.ts:427</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L444">src/app/three/object3d.abstract.ts:444</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets scale</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>scale</p>
 						</li>
 					</ul>
 				</section>
@@ -1514,10 +1760,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.getSubscribe</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L361">src/app/three/subscribe.abstract.ts:361</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L497">src/app/three/subscribe.abstract.ts:497</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets subscribe</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>subscribe</p>
 						</li>
 					</ul>
 				</section>
@@ -1531,18 +1783,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L620">src/app/three/object3d.abstract.ts:620</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L629">src/app/three/object3d.abstract.ts:629</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets tag attribute object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>tagAttributes: <a href="../interfaces/TagAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">TagAttributes</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1560,9 +1814,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.getUserData</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L309">src/app/three/subscribe.abstract.ts:309</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L429">src/app/three/subscribe.abstract.ts:429</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets user data</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter-index-signature">
@@ -1582,12 +1841,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L188">src/app/three/object3d.abstract.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L208">src/app/three/object3d.abstract.ts:208</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Gets visible</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1597,6 +1856,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if visible</p>
 						</li>
 					</ul>
 				</section>
@@ -1611,9 +1871,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.initLocalComponent</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L461">src/app/three/subscribe.abstract.ts:461</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L648">src/app/three/subscribe.abstract.ts:648</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Inits local component</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1630,6 +1895,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>local component</p>
 						</li>
 					</ul>
 				</section>
@@ -1644,9 +1910,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.isIdEuals</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L155">src/app/three/subscribe.abstract.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L209">src/app/three/subscribe.abstract.ts:209</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether id euals is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1654,6 +1925,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if id euals</p>
 						</li>
 					</ul>
 				</section>
@@ -1669,12 +1941,15 @@
 								<p>Implementation of AfterContentInit.ngAfterContentInit</p>
 								<p>Overrides AbstractTweenComponent.ngAfterContentInit</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L343">src/app/three/object3d.abstract.ts:343</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L362">src/app/three/object3d.abstract.ts:362</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>A callback method that is invoked immediately after
+										Angular has completed initialization of all of the directive&#39;s
+										content.
+									It is invoked only once when the directive is instantiated.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1693,18 +1968,24 @@
 								<p>Implementation of OnChanges.ngOnChanges</p>
 								<p>Overrides AbstractTweenComponent.ngOnChanges</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L252">src/app/three/object3d.abstract.ts:252</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L271">src/app/three/object3d.abstract.ts:271</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>A callback method that is invoked immediately after the
+										default change detector has checked data-bound properties
+										if at least one has changed, and before the view and content
+									children are checked.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>changes: <span class="tsd-signature-type">SimpleChanges</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The changed properties.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1723,12 +2004,13 @@
 								<p>Implementation of OnDestroy.ngOnDestroy</p>
 								<p>Overrides AbstractTweenComponent.ngOnDestroy</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L229">src/app/three/object3d.abstract.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L246">src/app/three/object3d.abstract.ts:246</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>A callback method that performs custom clean-up, invoked immediately
+									before a directive, pipe, or service instance is destroyed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1747,18 +2029,24 @@
 								<p>Implementation of OnInit.ngOnInit</p>
 								<p>Overrides AbstractTweenComponent.ngOnInit</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L219">src/app/three/object3d.abstract.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L238">src/app/three/object3d.abstract.ts:238</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>A callback method that is invoked immediately after the
+										default change detector has checked the directive&#39;s
+										data-bound properties for the first time,
+										and before any of the view or content children have been checked.
+									It is invoked only once when the directive is instantiated.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> subscribeType: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1775,18 +2063,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L673">src/app/three/object3d.abstract.ts:673</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L676">src/app/three/object3d.abstract.ts:676</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Removes object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>object3d: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1804,9 +2094,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.resetTween</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/tween.abstract.ts#L50">src/app/three/tween.abstract.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/tween.abstract.ts#L105">src/app/three/tween.abstract.ts:105</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resets tween</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1822,13 +2117,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.runSubscribeNext</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L417">src/app/three/subscribe.abstract.ts:417</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L567">src/app/three/subscribe.abstract.ts:567</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs subscribe next</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1845,12 +2147,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L535">src/app/three/object3d.abstract.ts:535</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L553">src/app/three/object3d.abstract.ts:553</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets lookat</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1866,6 +2168,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>lookat</p>
 						</li>
 					</ul>
 				</section>
@@ -1880,13 +2183,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setObject</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L321">src/app/three/subscribe.abstract.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L450">src/app/three/subscribe.abstract.ts:450</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets object</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>obj: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1903,18 +2213,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L758">src/app/three/object3d.abstract.ts:758</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L752">src/app/three/object3d.abstract.ts:752</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>object3d: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1932,12 +2244,12 @@
 							<aside class="tsd-sources">
 								<p>Overrides AbstractTweenComponent.setParent</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L645">src/app/three/object3d.abstract.ts:645</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L650">src/app/three/object3d.abstract.ts:650</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets parent</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1947,6 +2259,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if parent</p>
 						</li>
 					</ul>
 				</section>
@@ -1960,18 +2273,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L743">src/app/three/object3d.abstract.ts:743</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L739">src/app/three/object3d.abstract.ts:739</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets parent object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>object3d: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1988,12 +2303,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L378">src/app/three/object3d.abstract.ts:378</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L396">src/app/three/object3d.abstract.ts:396</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets position</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2009,6 +2324,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>position</p>
 						</li>
 					</ul>
 				</section>
@@ -2022,12 +2338,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L495">src/app/three/object3d.abstract.ts:495</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L511">src/app/three/object3d.abstract.ts:511</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets rotation</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2043,6 +2359,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>rotation</p>
 						</li>
 					</ul>
 				</section>
@@ -2056,12 +2373,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L443">src/app/three/object3d.abstract.ts:443</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L461">src/app/three/object3d.abstract.ts:461</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets scale</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2077,6 +2394,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>scale</p>
 						</li>
 					</ul>
 				</section>
@@ -2090,12 +2408,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L466">src/app/three/object3d.abstract.ts:466</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L483">src/app/three/object3d.abstract.ts:483</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets scale scalar</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2105,6 +2423,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="AbstractObject3dComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractObject3dComponent</a></h4>
+							<p>scale scalar</p>
 						</li>
 					</ul>
 				</section>
@@ -2119,13 +2438,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setSubscribeNext</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L369">src/app/three/subscribe.abstract.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L515">src/app/three/subscribe.abstract.ts:515</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets subscribe next</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2143,13 +2469,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setSubscribeType</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L151">src/app/three/subscribe.abstract.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L200">src/app/three/subscribe.abstract.ts:200</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets subscribe type</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>subscribeType: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2167,13 +2500,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setTween</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L96">src/app/three/subscribe.abstract.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L138">src/app/three/subscribe.abstract.ts:138</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets tween</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>tweenData: <span class="tsd-signature-symbol">{}</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-index-signature">
 											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
@@ -2196,13 +2536,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setTweenTarget</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/tween.abstract.ts#L43">src/app/three/tween.abstract.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/tween.abstract.ts#L95">src/app/three/tween.abstract.ts:95</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets tween target</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>tweenTarget: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2220,9 +2567,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.setUserData</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L313">src/app/three/subscribe.abstract.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L438">src/app/three/subscribe.abstract.ts:438</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets user data</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2230,6 +2582,8 @@
 								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2246,12 +2600,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L550">src/app/three/object3d.abstract.ts:550</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L567">src/app/three/object3d.abstract.ts:567</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Sets visible</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2277,18 +2631,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/object3d.abstract.ts#L1116">src/app/three/object3d.abstract.ts:1116</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/object3d.abstract.ts#L1122">src/app/three/object3d.abstract.ts:1122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>todo</p>
+									<p>Shows debug</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>obj: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2306,9 +2662,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.subscribeListQuery</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L525">src/app/three/subscribe.abstract.ts:525</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L740">src/app/three/subscribe.abstract.ts:740</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes list query</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2319,6 +2680,8 @@
 								</li>
 								<li>
 									<h5>changeKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2336,9 +2699,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.subscribeListQueryChange</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L513">src/app/three/subscribe.abstract.ts:513</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L722">src/app/three/subscribe.abstract.ts:722</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes list query change</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2349,6 +2717,8 @@
 								</li>
 								<li>
 									<h5>changeKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2366,9 +2736,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.subscribeRefer</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L439">src/app/three/subscribe.abstract.ts:439</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L606">src/app/three/subscribe.abstract.ts:606</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes refer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2376,6 +2751,8 @@
 								</li>
 								<li>
 									<h5>subscription: <span class="tsd-signature-type">Subscription</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2393,9 +2770,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.subscribeReferList</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L504">src/app/three/subscribe.abstract.ts:504</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L707">src/app/three/subscribe.abstract.ts:707</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes refer list</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2403,6 +2785,8 @@
 								</li>
 								<li>
 									<h5>subscription: <span class="tsd-signature-type">Subscription</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2420,13 +2804,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.unSubscribeRefer</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L432">src/app/three/subscribe.abstract.ts:432</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L594">src/app/three/subscribe.abstract.ts:594</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscribe refer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2444,13 +2835,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.unSubscribeReferList</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L495">src/app/three/subscribe.abstract.ts:495</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L693">src/app/three/subscribe.abstract.ts:693</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscribe refer list</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2468,9 +2866,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.unSubscription</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L421">src/app/three/subscribe.abstract.ts:421</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L576">src/app/three/subscribe.abstract.ts:576</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscription</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2478,6 +2881,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Subscription</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>subscription</p>
 						</li>
 					</ul>
 				</section>
@@ -2492,9 +2896,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from AbstractTweenComponent.updateInputParams</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L472">src/app/three/subscribe.abstract.ts:472</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L666">src/app/three/subscribe.abstract.ts:666</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates input params</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2616,6 +3025,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractObject3dComponent.html#object3dList" class="tsd-kind-icon">object3d<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="AbstractObject3dComponent.html#onBeforeRender" class="tsd-kind-icon">on<wbr>Before<wbr>Render</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractObject3dComponent.html#parent" class="tsd-kind-icon">parent</a>

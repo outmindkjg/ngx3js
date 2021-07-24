@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
+/**
+ * AudioComponent
+ */
 @Component({
   selector: 'ngx3js-audio',
   templateUrl: './audio.component.html',
@@ -11,7 +14,10 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 })
 export class AudioComponent extends AbstractObject3dComponent implements OnInit {
   /**
+   * Input  of audio component
    *
+   * Notice - case insensitive.
+   * 
    */
   @Input() public type: string = 'position';
 
@@ -23,6 +29,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   /**
    * The Url Type
    *
+   * Notice - case insensitive.
+   *
+   * Notice - case insensitive.
+   * 
    * audio,
    * video,
    * auto,
@@ -64,6 +74,9 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   /**
    * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private distanceModel: string = null; // "exponential" | "inverse" | "linear"
 
@@ -88,7 +101,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private coneOuterGain: number = 1;
 
   /**
-   *
+   * Input  of audio component
    */
   @Input() private fftSize: number = 128;
 
@@ -124,7 +137,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -144,18 +157,46 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
+  /**
+   * Audio  of audio component
+   */
   private audio: THREE.Audio<any> = null;
+
+  /**
+   * Video  of audio component
+   */
   private video: HTMLVideoElement = null;
+
+  /**
+   * Listener  of audio component
+   */
   private listener: THREE.AudioListener = null;
+
+  /**
+   * Analyser  of audio component
+   */
   private analyser: THREE.AudioAnalyser = null;
 
+  /**
+   * Audio loader of audio component
+   */
   private static audioLoader: THREE.AudioLoader = null;
 
+  /**
+   * Loads audio
+   * @param url
+   * @param onLoad
+   */
   private loadAudio(url: string, onLoad: (audioBuffer: AudioBuffer) => void) {
     AudioComponent.loadAudio(url, onLoad);
   }
 
-  static loadAudio(url: string, onLoad: (audioBuffer: AudioBuffer) => void) {
+  /**
+   * Loads audio
+   * @param url
+   * @param onLoad
+   */
+  public static loadAudio(url: string, onLoad: (audioBuffer: AudioBuffer) => void) {
     if (this.audioLoader === null) {
       this.audioLoader = new THREE.AudioLoader(ThreeUtil.getLoadingManager());
     }
@@ -164,8 +205,17 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     });
   }
 
+  /**
+   * Renderer  of audio component
+   */
   private _renderer: any = null;
-  setListener(listener: THREE.AudioListener, renderer: any) {
+
+  /**
+   * Sets listener
+   * @param listener
+   * @param renderer
+   */
+  public setListener(listener: THREE.AudioListener, renderer: any) {
     if (this.listener !== listener) {
       this.listener = listener;
       this._renderer = renderer;
@@ -173,6 +223,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets listener
+   * @returns listener
+   */
   private getListener(): THREE.AudioListener {
     if (this.listener !== null) {
       return this.listener;
@@ -181,7 +235,12 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  setParent(parent: THREE.Object3D): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getAudio();
       return true;
@@ -189,10 +248,21 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return false;
   }
 
+  /**
+   * Loaded video texture of audio component
+   */
   private loadedVideoTexture: THREE.VideoTexture = null;
+
+  /**
+   * Loaded audio texture of audio component
+   */
   private loadedAudioTexture: THREE.DataTexture = null;
 
-  getTexture(): THREE.Texture {
+  /**
+   * Gets texture
+   * @returns texture
+   */
+  public getTexture(): THREE.Texture {
     this.getAudio();
     if (this.video !== null) {
       if (this.loadedVideoTexture === null) {
@@ -223,6 +293,9 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return new THREE.DataTexture(null, 1, 1);
   }
 
+  /**
+   * Updates audio component
+   */
   public update() {
     if (this.loadedAudioTexture !== null && this.analyser !== null) {
       this.analyser.getFrequencyData();
@@ -231,18 +304,33 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Loaded url of audio component
+   */
   private loadedUrl: string = null;
 
-  getAnalyser(fftSize?: number): THREE.AudioAnalyser {
-    if (this.analyser == null && this.audio !== null) {
+  /**
+   * Gets analyser
+   * @param [fftSize]
+   * @returns analyser
+   */
+  public getAnalyser(fftSize?: number): THREE.AudioAnalyser {
+    if (this.analyser === null && this.audio !== null) {
       this.analyser = new THREE.AudioAnalyser(this.audio, fftSize || this.fftSize);
     }
     return this.analyser;
   }
 
+  /**
+   * Number analyser of audio component
+   */
   private _numberAnalyser: () => number = null;
 
-  getNumber(): () => number {
+  /**
+   * Gets number
+   * @returns number
+   */
+  public getNumber(): () => number {
     this._numberAnalyser = () => {
       if (this.analyser !== null) {
         return this.analyser.getAverageFrequency() / 256;
@@ -252,7 +340,11 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     return this._numberAnalyser;
   }
 
-  applyChanges3d(changes: string[]) {
+  /**
+   * Applys changes3d
+   * @param changes
+   */
+  public applyChanges3d(changes: string[]) {
     if (this.audio !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['volume', 'loop', 'url', 'positionalaudio', 'play', 'autoplay']);
@@ -402,11 +494,21 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
-  getObject3d<T extends THREE.Object3D>(): T {
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
     return this.getAudio() as any;
   }
 
-  getAudio<T extends THREE.Audio>(): T {
+  /**
+   * Gets audio
+   * @template T
+   * @returns audio
+   */
+  public getAudio<T extends THREE.Audio>(): T {
     if (this.audio === null || this._needUpdate) {
       this.needUpdate = false;
       this.loadedVideoTexture = null;

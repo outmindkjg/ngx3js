@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * PlaneComponent
+ */
 @Component({
   selector: 'ngx3js-plane',
   templateUrl: './plane.component.html',
@@ -11,25 +14,28 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 export class PlaneComponent extends AbstractSubscribeComponent implements OnInit {
 
   /**
-   * 
+   * Input  of plane component
    */
   @Input() private x: number = null;
 
   /**
-   * 
+   * Input  of plane component
    */
   @Input() private y: number = null;
 
   /**
-   * 
+   * Input  of plane component
    */
   @Input() private z: number = null;
 
   /**
-   * 
+   * Input  of plane component
    */
   @Input() private w: number = null;
 
+  /**
+   * Creates an instance of plane component.
+   */
   constructor() {
     super();
   }
@@ -78,10 +84,24 @@ export class PlaneComponent extends AbstractSubscribeComponent implements OnInit
     super.ngAfterContentInit();
   }
 
+  /**
+   * Plane  of plane component
+   */
   private plane: THREE.Plane = null;
+
+  /**
+   * World plane of plane component
+   */
   private worldPlane: THREE.Plane = null;
   
-  setPlane(x: number, y: number, z: number, w: number) {
+  /**
+   * Sets plane
+   * @param x 
+   * @param y 
+   * @param z 
+   * @param w 
+   */
+  public setPlane(x: number, y: number, z: number, w: number) {
     if (ThreeUtil.isNotNull(x)) {
       this.x = x;
     }
@@ -101,7 +121,12 @@ export class PlaneComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
-  getWorldPlane(matrixWorld?: THREE.Matrix4): THREE.Plane {
+  /**
+   * Gets world plane
+   * @param [matrixWorld] 
+   * @returns world plane 
+   */
+  public getWorldPlane(matrixWorld?: THREE.Matrix4): THREE.Plane {
     if (this.worldPlane === null) {
       this.worldPlane = new THREE.Plane();
     }
@@ -112,7 +137,11 @@ export class PlaneComponent extends AbstractSubscribeComponent implements OnInit
     return this.worldPlane;
   }
 
-  getPlane(): THREE.Plane {
+  /**
+   * Gets plane
+   * @returns plane 
+   */
+  public getPlane(): THREE.Plane {
     if (this.plane === null || this._needUpdate) {
       this.needUpdate = false;
       this.plane = new THREE.Plane(ThreeUtil.getVector3Safe(this.x, this.y, this.z), ThreeUtil.getTypeSafe(this.w, 0));

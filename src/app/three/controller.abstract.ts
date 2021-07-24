@@ -1,16 +1,16 @@
 import { QueryList } from '@angular/core';
-import * as THREE from 'three';
 import * as GSAP from 'gsap';
+import * as THREE from 'three';
+import { IUniform } from 'three';
 import { CameraComponent } from './camera/camera.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RendererTimer, ThreeUtil } from './interface';
 import { AbstractMaterialComponent } from './material.abstract';
 import { SceneComponent } from './scene/scene.component';
 import { HtmlCollection, VisualComponent } from './visual/visual.component';
-import { IUniform } from 'three';
 
 /**
- * Abstract Three Controller
+ * Abstract three controller
  */
 export abstract class AbstractThreeController {
   /**
@@ -28,13 +28,10 @@ export abstract class AbstractThreeController {
    */
   protected easing: string = null;
 
-  /**
-   *
-   */
   protected template: string = null;
 
   /**
-   * 
+   * The Repeat Count
    */
   protected repeat: number = null;
 
@@ -44,57 +41,60 @@ export abstract class AbstractThreeController {
   protected yoyo: boolean = null;
 
   /**
-   *
+   * Overshoot  of abstract three controller
    */
   protected overshoot: number = null;
 
   /**
-   *
+   * Amplitude  of abstract three controller
    */
   protected amplitude: number = null;
 
   /**
-   *
+   * Period  of abstract three controller
    */
   protected period: number = null;
 
   /**
-   *
+   * Linear ratio of abstract three controller
    */
   protected linearRatio: number = null;
 
   /**
-   *
+   * Power  of abstract three controller
    */
   protected power: number = null;
 
   /**
-   *
+   * Yoyo mode of abstract three controller
    */
   protected yoyoMode: boolean = null;
 
   /**
-   *
+   * Steps  of abstract three controller
    */
   protected steps: number = null;
 
   /**
-   *
+   * Ref object of abstract three controller
    */
   protected refObject: THREE.Object3D = null;
 
   /**
-   *
+   * Ref object2d of abstract three controller
    */
   protected refObject2d: HtmlCollection = null;
 
   /**
-   *
+   * Tween timer of abstract three controller
    */
   protected _tweenTimer: GSAP.TimelineLite | GSAP.TimelineMax = null;
 
   /**
+   * Creates an instance of abstract three controller.
    *
+   * @param refObject3D
+   * @param refObject2D
    */
   constructor(refObject3D: THREE.Object3D, refObject2D: HtmlCollection) {
     this.setObject3d(refObject3D);
@@ -102,77 +102,111 @@ export abstract class AbstractThreeController {
   }
 
   /**
+   * Gets duration
    *
+   * @param [def]
+   * @returns duration
    */
   protected getDuration(def?: number): number {
     return ThreeUtil.getTypeSafe(this.duration, def, 3);
   }
 
   /**
+   * Gets repeat
    *
+   * @param [def]
+   * @returns repeat
    */
   protected getRepeat(def?: number): number {
     return ThreeUtil.getTypeSafe(this.repeat, def, 0);
   }
 
   /**
+   * Gets yoyo
    *
+   * @param [def]
+   * @returns true if yoyo
    */
   protected getYoyo(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.yoyo, def, false);
   }
 
   /**
+   * Gets overshoot
    *
+   * @param [def]
+   * @returns overshoot
    */
   private getOvershoot(def?: number): number {
     return ThreeUtil.getTypeSafe(this.overshoot, def, 1);
   }
 
   /**
+   * Gets amplitude
    *
+   * @param [def]
+   * @returns amplitude
    */
   protected getAmplitude(def?: number): number {
     return ThreeUtil.getTypeSafe(this.amplitude, def, 1);
   }
 
   /**
+   * Gets period
    *
+   * @param [def]
+   * @returns period
    */
   protected getPeriod(def?: number): number {
     return ThreeUtil.getTypeSafe(this.period, def, 1);
   }
 
   /**
+   * Gets linear ratio
    *
+   * @param [def]
+   * @returns linear ratio
    */
   protected getLinearRatio(def?: number): number {
     return ThreeUtil.getTypeSafe(this.linearRatio, def, 1);
   }
 
   /**
+   * Gets power
    *
+   * @param [def]
+   * @returns power
    */
   protected getPower(def?: number): number {
     return ThreeUtil.getTypeSafe(this.power, def, 1);
   }
 
   /**
+   * Gets yoyo mode
    *
+   * @param [def]
+   * @returns true if yoyo mode
    */
   protected getYoyoMode(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.yoyoMode, def, false);
   }
 
   /**
+   * Gets steps
    *
+   * @param [def]
+   * @returns steps
    */
   protected getSteps(def?: number): number {
     return ThreeUtil.getTypeSafe(this.steps, def, 12);
   }
 
   /**
+   * Gets easing
    *
+   * @param [def]
+   * @param [isTemplate]
+   * @returns easing
    */
   protected getEasing(def?: string, isTemplate?: boolean): any {
     const easing = isTemplate ? ThreeUtil.getTypeSafe(this.template, def, '') : ThreeUtil.getTypeSafe(this.easing, def, '');
@@ -295,27 +329,31 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Renderer  of abstract three controller
    */
   _renderer: THREE.Renderer = null;
 
   /**
-   *
+   * Scenes  of abstract three controller
    */
   _scenes: QueryList<SceneComponent> = null;
 
   /**
-   *
+   * Cameras  of abstract three controller
    */
   _cameras: QueryList<CameraComponent> = null;
 
   /**
-   *
+   * Canvases  of abstract three controller
    */
   _canvases: QueryList<CanvasComponent> = null;
 
   /**
-   *
+   * Sets renderer
+   * @param renderer
+   * @param scenes
+   * @param cameras
+   * @param canvases
    */
   public setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvases: QueryList<CanvasComponent>) {
     this._renderer = renderer;
@@ -334,71 +372,76 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Scene  of abstract three controller
    */
   private _scene: THREE.Scene = null;
 
   /**
-   *
+   * Camera  of abstract three controller
    */
   private _camera: THREE.Camera = null;
 
   /**
-   *
+   * Canvas  of abstract three controller
    */
   private _canvas: HtmlCollection = null;
 
   /**
+   * Sets scene
    *
+   * @param scene
    */
   public setScene(scene: THREE.Scene) {
     this._scene = scene;
   }
 
   /**
-   *
+   * Sets canvas
+   * @param canvas
    */
   public setCanvas(canvas: HtmlCollection) {
     this._canvas = canvas;
   }
 
   /**
-   *
+   * Sets object3d
+   * @param refObject
    */
   public setObject3d(refObject: THREE.Object3D) {
     this.refObject = refObject;
   }
 
   /**
-   *
+   * Sets object2d
+   * @param refObject
    */
   public setObject2d(refObject: HtmlCollection) {
     this.refObject2d = refObject;
   }
 
   /**
-   *
+   * Gets position
    */
   protected get position(): THREE.Vector3 {
     return this.refObject.position;
   }
 
   /**
-   *
+   * Gets scale
    */
   protected get scale(): THREE.Vector3 {
     return this.refObject.scale;
   }
 
   /**
-   *
+   * Gets rotation
    */
   protected get rotation(): THREE.Euler {
     return this.refObject.rotation;
   }
 
   /**
-   *
+   * Gets material
    */
   protected get material(): THREE.Material {
     if (this.refObject instanceof THREE.Mesh) {
@@ -412,7 +455,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets materials
    */
   protected get materials(): THREE.Material[] {
     if (this.refObject instanceof THREE.Mesh) {
@@ -426,7 +469,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets geometry
    */
   protected get geometry(): THREE.BufferGeometry {
     if (this.refObject instanceof THREE.Mesh) {
@@ -436,7 +479,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets scene
    */
   protected get scene(): THREE.Scene {
     if (this._scene === null && this.refObject !== null) {
@@ -456,7 +499,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets camera
    */
   protected get camera(): THREE.Camera {
     if (this._camera === null && this._cameras !== null && this._cameras.length > 0) {
@@ -466,7 +509,9 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets camera by name
+   * @param name  The name of the object (doesn't need to be unique). Default is an empty string.
+   * @returns camera by name
    */
   protected getCameraByName(name: string): THREE.Camera {
     if (this._cameras !== null) {
@@ -481,7 +526,10 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets object by name
+   * @param name The name of the object (doesn't need to be unique). Default is an empty string.
+   * @param [fromTop]
+   * @returns object by name
    */
   protected getObjectByName(name: string, fromTop: boolean = false): THREE.Object3D {
     if (fromTop) {
@@ -492,7 +540,11 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets object by property
+   * @param name The name of the object (doesn't need to be unique). Default is an empty string.
+   * @param value
+   * @param [fromTop]
+   * @returns object by property
    */
   protected getObjectByProperty(name: string, value: string, fromTop: boolean = false): THREE.Object3D {
     if (fromTop) {
@@ -503,7 +555,11 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets object by function
+   * @param fn
+   * @param [fromTop]
+   * @param [obj3d]
+   * @returns object by function
    */
   protected getObjectByFunction(fn: (arg: any) => boolean, fromTop: boolean = false, obj3d: THREE.Object3D = null): THREE.Object3D {
     if (obj3d === null) {
@@ -521,7 +577,12 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets objects by function
+   * @param fn
+   * @param [fromTop]
+   * @param [obj3d]
+   * @param [result]
+   * @returns objects by function
    */
   protected getObjectsByFunction(fn: (arg: any) => boolean, fromTop: boolean = false, obj3d: THREE.Object3D = null, result: THREE.Object3D[] = []): THREE.Object3D[] {
     if (obj3d === null) {
@@ -536,7 +597,9 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets component
+   * @param [refObject]
+   * @returns component
    */
   protected getComponent(refObject?: THREE.Object3D): any {
     const object3d = refObject || this.refObject;
@@ -547,7 +610,9 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets component2 d
+   * @param [refObject]
+   * @returns component2 d
    */
   protected getComponent2D(refObject?: HtmlCollection): VisualComponent {
     const object2d = refObject || this.refObject2d;
@@ -558,7 +623,9 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets html element
+   * @param [refObject]
+   * @returns html element
    */
   protected getHtmlElement(refObject?: HtmlCollection): HTMLElement {
     const object2d = refObject || this.refObject2d;
@@ -569,7 +636,9 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets abstract material component
+   * @param [refObject]
+   * @returns abstract material component
    */
   protected getAbstractMaterialComponent(refObject?: THREE.Object3D): AbstractMaterialComponent {
     const object3d = refObject || this.refObject;
@@ -588,7 +657,11 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets controller
+   * @template T
+   * @param type
+   * @param [refObject]
+   * @returns controller
    */
   protected getController<T extends AbstractThreeController>(type: { new (obj: any): T }, refObject?: THREE.Object3D): T {
     const component = this.getComponent(refObject);
@@ -604,14 +677,18 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets controllers
+   * @template T
+   * @param [type]
+   * @param [refObject]
+   * @returns controllers
    */
   protected getControllers<T extends AbstractThreeController>(type: { new (obj: any): T } = null, refObject?: THREE.Object3D): T[] {
     const controllers: T[] = [];
     const component = this.getComponent(refObject);
     if (ThreeUtil.isNotNull(component.controllerList)) {
       const controller = component.controllerList.filter((controller) => {
-        if (type == null) {
+        if (type === null) {
           return true;
         } else {
           return controller.getController() instanceof type;
@@ -628,7 +705,8 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     if (variables !== null && typeof variables === 'object') {
@@ -641,7 +719,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Awakes abstract three controller
    */
   public awake(): void {
     if (this.refObject !== null && this.refObject.visible) {
@@ -655,7 +733,7 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Gets tween timer
    */
   protected get tweenTimer(): GSAP.TimelineLite | GSAP.TimelineMax {
     if (this._tweenTimer === null) {
@@ -665,74 +743,76 @@ export abstract class AbstractThreeController {
   }
 
   /**
-   *
+   * Determines whether enable on
    */
   public onEnable(): void {}
 
   /**
-   *
+   * Resets abstract three controller
    */
   public reset(): void {}
 
   /**
-   *
+   * Starts abstract three controller
    */
   public start(): void {}
 
   /**
-   *
+   * Fixed update
    */
   public fixedUpdate(): void {}
 
   /**
-   *
+   * Updates abstract three controller
+   * @param rendererTimer
    */
   public update(rendererTimer: RendererTimer): void {}
 
   /**
-   *
+   * Lates update
    */
   public lateUpdate(): void {}
 
   /**
-   *
+   * Determines whether application quit on
    */
   public onApplicationQuit(): void {}
 
   /**
-   *
+   * Determines whether disable on
    */
   public onDisable(): void {
     this.refObject.onBeforeRender;
   }
 
   /**
-   *
+   * Determines whether destory on
    */
   public onDestory(): void {}
 }
 
 /**
- * 
+ * Auto rotation controller
  */
 export class AutoRotationController extends AbstractThreeController {
   /**
-   *
+   * X  of auto rotation controller
    */
   protected x: number = 0;
 
   /**
-   *
+   * Y  of auto rotation controller
    */
   protected y: number = 0;
 
   /**
-   *
+   * Z  of auto rotation controller
    */
   protected z: number = 0;
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     super.setVariables(variables);
@@ -776,26 +856,27 @@ export class AutoRotationController extends AbstractThreeController {
 }
 
 /**
- * 
+ * Auto scale controller
  */
 export class AutoScaleController extends AbstractThreeController {
   /**
-   *
+   * X  of auto scale controller
    */
   protected x: number = null;
 
   /**
-   *
+   * Y  of auto scale controller
    */
   protected y: number = null;
 
   /**
-   *
+   * Z  of auto scale controller
    */
   protected z: number = null;
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     super.setVariables(variables);
@@ -839,26 +920,27 @@ export class AutoScaleController extends AbstractThreeController {
 }
 
 /**
- * 
+ * Auto position controller
  */
 export class AutoPositionController extends AbstractThreeController {
   /**
-   *
+   * X  of auto position controller
    */
   protected x: number = null;
 
   /**
-   *
+   * Y  of auto position controller
    */
   protected y: number = null;
 
   /**
-   *
+   * Z  of auto position controller
    */
   protected z: number = null;
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     super.setVariables(variables);
@@ -898,21 +980,22 @@ export class AutoPositionController extends AbstractThreeController {
 }
 
 /**
- * 
+ * Auto material controller
  */
 export class AutoMaterialController extends AbstractThreeController {
   /**
-   *
+   * Color  of auto material controller
    */
   protected color: number | string | THREE.Color = null;
 
   /**
-   *
+   * Opacity  of auto material controller
    */
   protected opacity: number = null;
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     super.setVariables(variables);
@@ -960,33 +1043,35 @@ export class AutoMaterialController extends AbstractThreeController {
 }
 
 /**
- * 
+ * Auto uniforms controller
  */
 export class AutoUniformsController extends AbstractThreeController {
   /**
-   *
+   * Key  of auto uniforms controller
    */
   protected key: string = null;
 
   /**
-   *
+   * Value type of auto uniforms controller
    */
   protected valueType: string = 'elapsedTime';
 
   /**
-   *
+   * Speed  of auto uniforms controller
    */
   protected speed: number = 1;
 
   /**
-   *
+   * Sets object3d
+   * @param refObject
    */
   public setObject3d(refObject: THREE.Object3D) {
     super.setObject3d(refObject);
   }
 
   /**
-   *
+   * Sets variables
+   * @param variables
    */
   public setVariables(variables: { [key: string]: any }) {
     super.setVariables(variables);
@@ -1000,12 +1085,13 @@ export class AutoUniformsController extends AbstractThreeController {
   }
 
   /**
-   *
+   * Uniform  of auto uniforms controller
    */
   private uniform: IUniform = null;
 
   /**
-   *
+   * Updates auto uniforms controller
+   * @param rendererTimer
    */
   public update(rendererTimer: RendererTimer): void {
     if (this.uniform !== null) {

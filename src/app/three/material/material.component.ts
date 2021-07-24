@@ -5,13 +5,16 @@ import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoade
 import * as Nodes from 'three/examples/jsm/nodes/Nodes';
 import { ReflectorOptions } from 'three/examples/jsm/objects/Reflector';
 import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
-import { ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil, RendererTimer } from '../interface';
+import { RendererTimer, ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { AbstractMaterialComponent } from '../material.abstract';
 import { ShaderComponent } from '../shader/shader.component';
 import { ShaderType, ShaderUtils } from '../shader/shaders/shaderUtils';
 import { AbstractTextureComponent } from '../texture.abstract';
 
+/**
+ * MaterialComponent
+ */
 @Component({
   selector: 'ngx3js-material',
   templateUrl: './material.component.html',
@@ -57,6 +60,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 
   /**
    * The shader type
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private shader: string | ShaderType = null;
 
@@ -111,7 +117,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private specular: ThreeColor = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private specularMultiply: number = null;
 
@@ -138,7 +144,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private emissive: ThreeColor = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private emissiveMultiply: number = null;
 
@@ -155,6 +161,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   /**
    * The type of normal map.<br /><br />
    * Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private normalMapType: string = null;
 
@@ -194,6 +203,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation],
    * [page:Materials THREE.AddOperation]. If mix is chosen, the [page:.reflectivity] is used to
    * blend between the two colors.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private combine: string = null;
 
@@ -222,6 +234,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br /><br />
    * This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
    * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private wireframeLinecap: string = null;
 
@@ -229,6 +244,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br /><br />
    * This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
    * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private wireframeLinejoin: string = null;
 
@@ -256,6 +274,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Default is 'round'.<br /><br />
    * This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
    * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private linecap: string = null;
 
@@ -263,6 +284,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Define appearance of line joints. Possible values are 'round', 'bevel' and 'miter'. Default is 'round'. <br /><br />
    * This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
    * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private linejoin: string = null;
 
@@ -344,7 +368,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private sheen: ThreeColor = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private sheenMultiply: number = null;
 
@@ -399,33 +423,36 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private sizeAttenuation: boolean = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private dashed: boolean = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private dashScale: number = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private dashOffset: number = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private resolutionX: number = null;
 
   /**
-   *
+   * Input  of material component
    */
   @Input() private resolutionY: number = null;
 
   /**
    * Defines the GLSL version of custom shader code. Only relevant for WebGL 2 in order to define whether to specify
    * GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *null*.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private glslVersion: string = null;
 
@@ -439,6 +466,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * 	shaderTextureLOD: false // set to use shader texture LOD
    * };
    * </code>
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private extensions: string = null;
 
@@ -525,63 +555,53 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   @Input() private diffuseMap: ThreeTexture = null;
 
   /**
-   *
-   *
+   * Input  of material component
    */
   @Input() private environmentType: string = 'mirror';
 
   /**
-   *
-   *
+   * Input  of material component
    */
   @Input() private reflector: any = null;
 
   /**
-   *
-   *
-   */
-  @Input() private clipBias: number = null;
-
-  /**
-   *
+   * Content children of material component
    */
   @ContentChildren(AbstractTextureComponent) protected textureList: QueryList<AbstractTextureComponent>;
 
   /**
-   *
+   * Content children of material component
    */
   @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
 
   /**
-   *
+   * Mesh positions of material component
    */
-  meshPositions: THREE.Vector3[] = [];
+  private meshPositions: THREE.Vector3[] = [];
 
   /**
-   *
+   * Mesh rotations of material component
    */
-  meshRotations: THREE.Euler[] = [];
+  private meshRotations: THREE.Euler[] = [];
 
   /**
-   *
+   * Mesh scales of material component
    */
-  meshScales: THREE.Vector3[] = [];
+  private meshScales: THREE.Vector3[] = [];
 
   /**
-   *
+   * Mesh translations of material component
    */
-  meshTranslations: THREE.BufferGeometry[] = [];
+  private meshTranslations: THREE.BufferGeometry[] = [];
 
   /**
-   *
+   * Mesh materials of material component
    */
-  meshMaterials: (THREE.Material | THREE.Material[])[] = [];
+  private meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Creates an instance of material component.
+   * @param localStorageService
    */
   constructor(private localStorageService: LocalStorageService) {
     super();
@@ -634,20 +654,18 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets emissive
+   * @param [def]
+   * @returns emissive
    */
   private getEmissive(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.emissive, def, this.emissiveMultiply);
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets normal map type
+   * @param [def]
+   * @returns normal map type
    */
   private getNormalMapType(def?: string): THREE.NormalMapTypes {
     const normalMapType = ThreeUtil.getTypeSafe(this.normalMapType, def, '');
@@ -671,10 +689,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets combine
+   * @param [def]
+   * @returns combine
    */
   private getCombine(def?: string): THREE.Combine {
     const combine = ThreeUtil.getTypeSafe(this.combine, def, '');
@@ -693,10 +710,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets depth packing
+   * @param [def]
+   * @returns depth packing
    */
   private getDepthPacking(def?: string): THREE.DepthPackingStrategies {
     const depthPacking = ThreeUtil.getTypeSafe(this.depthPacking, def, '');
@@ -712,20 +728,18 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets reference position
+   * @param [def]
+   * @returns reference position
    */
   private getReferencePosition(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.referencePositionX, this.referencePositionY, this.referencePositionZ, def);
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets clearcoat normal scale
+   * @param [def]
+   * @returns clearcoat normal scale
    */
   private getClearcoatNormalScale(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(ThreeUtil.getTypeSafe(this.clearcoatNormalScaleX, this.clearcoatNormalScale), ThreeUtil.getTypeSafe(this.clearcoatNormalScaleY, this.clearcoatNormalScale), def);
@@ -752,20 +766,18 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets sheen
+   * @param [def]
+   * @returns sheen
    */
   private getSheen(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.sheen, def, this.sheenMultiply);
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets specular
+   * @param [def]
+   * @returns specular
    */
   private getSpecular(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorMultiplySafe(this.specular, def, this.specularMultiply);
@@ -1065,8 +1077,15 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
     return new Nodes.Vector4Node(x, y, z, w);
   }
 
+  /**
+   * Blur mirror of material component
+   */
   private _blurMirror: Nodes.BlurNode = null;
 
+  /**
+   * Gets environment
+   * @returns environment
+   */
   private getEnvironment(): Nodes.Node {
     this._blurMirror = null;
     this.unSubscribeRefer('mirrorSize');
@@ -1088,19 +1107,26 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
         blurMirrorUv.keywords['projCoord'] = this.getOperatorNode(mirror.offset, mirror.uv, Nodes.OperatorNode.ADD);
         blurMirror.uv = blurMirrorUv;
         blurMirror.radius = this.getVector2Node(0, 0); // .x = blurMirror.radius.y = 0;
-        this.subscribeRefer('mirrorSize', ThreeUtil.getSizeSubscribe().subscribe(v2 => {
-          if (this._blurMirror !== null) {
-            const size = v2.clone().multiplyScalar(window.devicePixelRatio);
-            this._blurMirror.size.set(size.x, size.y);
-            this._blurMirror.updateFrame(undefined);
-          }
-        }))
+        this.subscribeRefer(
+          'mirrorSize',
+          ThreeUtil.getSizeSubscribe().subscribe((v2) => {
+            if (this._blurMirror !== null) {
+              const size = v2.clone().multiplyScalar(window.devicePixelRatio);
+              this._blurMirror.size.set(size.x, size.y);
+              this._blurMirror.updateFrame(undefined);
+            }
+          })
+        );
         this._blurMirror = blurMirror;
         return this._blurMirror;
     }
     return undefined;
   }
 
+  /**
+   * Gets environment alpha
+   * @returns environment alpha
+   */
   private getEnvironmentAlpha(): Nodes.Node {
     switch (this.environmentType.toLowerCase()) {
       case 'mirror':
@@ -1110,10 +1136,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets glsl version
+   * @param [def]
+   * @returns glsl version
    */
   private getGlslVersion(def?: string): THREE.GLSLVersion {
     const glslVersion = ThreeUtil.getTypeSafe(this.glslVersion, def, '');
@@ -1131,10 +1156,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets extensions
+   * @param extensions
+   * @returns extensions
    */
   private getExtensions(extensions: { derivatives?: boolean; fragDepth?: boolean; drawBuffers?: boolean; shaderTextureLOD?: boolean }): any {
     const extensionsList = ThreeUtil.getTypeSafe(this.extensions, '').split(',');
@@ -1165,10 +1189,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets uniforms
+   * @param [def]
+   * @returns uniforms
    */
   private getUniforms(def?: { [uniform: string]: THREE.IUniform }): { [uniform: string]: THREE.IUniform } {
     const uniforms: {
@@ -1311,19 +1334,17 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets resolution
+   * @param [def]
+   * @returns resolution
    */
   private getResolution(def?: THREE.Vector2): THREE.Vector2 {
     return ThreeUtil.getVector2Safe(this.resolutionX, this.resolutionY, def);
   }
 
   /**
-   * todo
-   *
-   * @param def
+   * Gets shader
+   * @param type
    * @returns
    */
   private getShader(type: string) {
@@ -1336,7 +1357,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
         return ShaderUtils.getFragmentShader(ThreeUtil.getTypeSafe(this.fragmentShader, this.shader));
       }
     }
-    if (this.shaderList != null && this.shaderList.length > 0) {
+    if (this.shaderList !== null && this.shaderList.length > 0) {
       const foundShader = this.shaderList.find((shader) => {
         return shader.type.toLowerCase() === type;
       });
@@ -1348,10 +1369,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets texture
+   * @param type
+   * @returns texture
    */
   protected getTexture(type: string): THREE.Texture {
     switch (type.toLowerCase()) {
@@ -1428,10 +1448,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Synks texture
+   * @param texture
+   * @param textureType
    */
   private synkTexture(texture: any, textureType: string) {
     if (ThreeUtil.isNotNull(texture) && this.material !== null) {
@@ -2029,10 +2048,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Gets material
+   * @template T
+   * @returns material
    */
   public getMaterial<T extends THREE.Material>(): T {
     if (this.material === null || this._needUpdate) {
@@ -2548,9 +2566,12 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
             // phongNodeMaterial.mask: Node;
             // phongNodeMaterial.position: Node;
             const nodeFrame = this.getNodeFrame(0);
-            this.subscribeRefer('phongnodeUpdate', ThreeUtil.getUpdateSubscribe().subscribe((timer : RendererTimer) => {
-              nodeFrame.update(timer.delta).updateNode(phongNodeMaterial as any);
-            }));
+            this.subscribeRefer(
+              'phongnodeUpdate',
+              ThreeUtil.getUpdateSubscribe().subscribe((timer: RendererTimer) => {
+                nodeFrame.update(timer.delta).updateNode(phongNodeMaterial as any);
+              })
+            );
             console.log(phongNodeMaterial);
             material = phongNodeMaterial;
 
@@ -2600,22 +2621,17 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
   }
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Node frame of material component
    */
   private _nodeFrame: any = null;
 
   /**
-   * todo
-   *
-   * @param def
-   * @returns
+   * Updates node
+   * @param delta
    */
-  updateNode(delta) {
+  public updateNode(delta) {
     if (this.material instanceof Nodes.NodeMaterial) {
-      if (this._nodeFrame == null) {
+      if (this._nodeFrame === null) {
         this._nodeFrame = new Nodes.NodeFrame(0);
       }
       this._nodeFrame.update(delta).updateNode(this.material);

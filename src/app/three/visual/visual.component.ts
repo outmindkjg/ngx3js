@@ -7,6 +7,9 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TransformComponent } from '../transform/transform.component';
 // import { ControllerComponent } from '../controller/controller.component';
 
+/**
+ * Html collection
+ */
 export interface HtmlCollection {
   html: HTMLElement;
   name: string;
@@ -14,6 +17,9 @@ export interface HtmlCollection {
   children: HtmlCollection[];
 }
 
+/**
+ * VisualComponent
+ */
 @Component({
   selector: 'ngx3js-visual',
   templateUrl: './visual.component.html',
@@ -21,42 +27,48 @@ export interface HtmlCollection {
 })
 export class VisualComponent extends AbstractSubscribeComponent implements OnInit {
   /**
+   * Input  of visual component
    *
+   * Notice - case insensitive.
+   * 
    */
   @Input() public type: string = 'div';
 
   /**
-   *
+   * The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = null;
 
   /**
+   * Input  of visual component
    *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private childType: string = 'innerHTML';
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private src: string = null;
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private value: string | number = '';
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private inputType: string | number = 'text';
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private checked: string | number = 'false';
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private radioValues: {
     value?: string;
@@ -64,7 +76,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   }[] = null;
 
   /**
-   *
+   * Input  of visual component
    */
   @Input() private selectOptions: {
     value?: string;
@@ -72,91 +84,98 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   }[] = null;
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private change: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private click: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private dblclick: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private focus: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private keyup: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private keydown: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private load: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private select: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private mousedown: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private mouseout: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private mouseover: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private mousemove: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Output  of visual component
    */
   @Output() private mouseup: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   *
+   * Content children of visual component
    */
   @ContentChildren(VisualComponent) private childrenList: QueryList<VisualComponent>;
 
   /**
-   *
+   * Content children of visual component
    */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
 
   /**
-   *
+   * Content children of visual component
    */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
 
   /**
-   *
+   * Content children of visual component
    */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
+
+  /**
+   * Content children of visual component
+   */
   // @ContentChildren(ControllerComponent, { descendants: false }) private controllerList: QueryList<ControllerComponent>;
 
+  /**
+   * Collection  of visual component
+   */
   private collection: HtmlCollection = {
     html: null,
     name: null,
@@ -164,6 +183,10 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     children: [],
   };
 
+  /**
+   * Creates an instance of visual component.
+   * @param ele
+   */
   constructor(private ele: ElementRef) {
     super();
   }
@@ -226,12 +249,33 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     super.ngAfterContentInit();
   }
 
+  /**
+   * Parent node of visual component
+   */
   private parentNode: HTMLElement = null;
+
+  /**
+   * Parent size of visual component
+   */
   private parentSize: THREE.Vector2 = null;
+
+  /**
+   * Ele size of visual component
+   */
   private eleSize: THREE.Vector2 = null;
+
+  /**
+   * Parent collection of visual component
+   */
   private parentCollection: HtmlCollection = null;
 
-  setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, parentCollection: HtmlCollection) {
+  /**
+   * Sets parent node
+   * @param parentNode
+   * @param parentSize
+   * @param parentCollection
+   */
+  public setParentNode(parentNode: HTMLElement, parentSize: THREE.Vector2, parentCollection: HtmlCollection) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
@@ -250,7 +294,11 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     this.getVisual();
   }
 
-  applyChanges2d(changes: string[]) {
+  /**
+   * Applys changes2d
+   * @param changes
+   */
+  public applyChanges2d(changes: string[]) {
     if (this.visual !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['html', 'transform', 'background', 'children', 'controller']);
@@ -289,11 +337,19 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getCollection(): HtmlCollection {
+  /**
+   * Gets collection
+   * @returns collection
+   */
+  public getCollection(): HtmlCollection {
     return this.collection;
   }
 
-  getStyle(): CssStyle {
+  /**
+   * Gets style
+   * @returns style
+   */
+  public getStyle(): CssStyle {
     const style: CssStyle = {
       width: '100%',
       height: '100%',
@@ -305,7 +361,10 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     return style;
   }
 
-  applyHtmlStyle() {
+  /**
+   * Applys html style
+   */
+  public applyHtmlStyle() {
     if (this.visual !== null) {
       const style: CssStyle = this.getStyle();
       if (this.click.observers.length > 0) {
@@ -406,11 +465,21 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  /**
+   * Css clazz name of visual component
+   */
   private cssClazzName: string = null;
 
+  /**
+   * Visual  of visual component
+   */
   private visual: HTMLElement = null;
 
-  getVisual(): HTMLElement {
+  /**
+   * Gets visual
+   * @returns visual
+   */
+  public getVisual(): HTMLElement {
     if (this.visual === null || this._needUpdate) {
       this.needUpdate = false;
       let visual: HTMLElement = null;

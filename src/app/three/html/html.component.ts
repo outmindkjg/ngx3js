@@ -5,13 +5,15 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractTweenComponent } from '../tween.abstract';
 
+/**
+ * HtmlComponent
+ */
 @Component({
   selector: 'ngx3js-html',
   templateUrl: './html.component.html',
   styleUrls: ['./html.component.scss'],
 })
 export class HtmlComponent extends AbstractTweenComponent implements OnInit {
-
   /**
    * The html tag.
    */
@@ -19,6 +21,9 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
 
   /**
    * The child append method.
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() private childType: string = 'innerHTML';
 
@@ -28,44 +33,47 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
   @Input() private src: string = null;
 
   /**
-   * The Style 
+   * The Style
    */
   @Input() private style: string | CssStyle = null;
 
   /**
-   * 
+   * Input  of html component
    */
   @Input() private list: (string | CssStyle)[] = null;
 
   /**
-   * 
+   * Input  of html component
    */
   @Input() private table: (string | CssStyle)[][] = null;
 
   /**
-   * 
+   * Input  of html component
    */
   @Input() private tableHead: (string | CssStyle)[] = null;
 
   /**
-   * 
+   * Input  of html component
    */
   @Input() private tableFoot: (string | CssStyle)[] = null;
 
   /**
-   * 
+   * Input  of html component
    */
   @Input() private dlList: {
     dt?: string | CssStyle;
     dd?: string | CssStyle;
   }[] = null;
 
-
   /**
-   * 
+   * Content children of html component
    */
   @ContentChildren(HtmlComponent, { descendants: false }) private childrenList: QueryList<HtmlComponent>;
 
+  /**
+   * Creates an instance of html component.
+   * @param ele
+   */
   constructor(private ele: ElementRef) {
     super();
   }
@@ -94,7 +102,7 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -115,7 +123,11 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
     super.ngAfterContentInit();
   }
 
-  applyChanges2d(changes: string[]) {
+  /**
+   * Applys changes2d
+   * @param changes
+   */
+  public applyChanges2d(changes: string[]) {
     if (this.html !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['html', 'tween']);
@@ -140,9 +152,17 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
     }
   }
 
+  /**
+   * Parent element of html component
+   */
   private parentElement: HTMLElement = null;
 
-  setParent(refObject3d: THREE.Object3D | HTMLElement): boolean {
+  /**
+   * Sets parent
+   * @param refObject3d
+   * @returns true if parent
+   */
+  public setParent(refObject3d: THREE.Object3D | HTMLElement): boolean {
     if (super.setParent(refObject3d)) {
       let parentElement: HTMLElement = null;
       if (refObject3d instanceof CSS3DObject || refObject3d instanceof CSS2DObject) {
@@ -170,15 +190,30 @@ export class HtmlComponent extends AbstractTweenComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Applys html style
+   * @param ele
+   * @param style
+   */
   private applyHtmlStyle(ele: HTMLElement, style: string | CssStyle): void {
     this.cssClazzName = ThreeUtil.addCssStyle(ele, style, this.cssClazzName, 'html', 'inline');
   }
 
+  /**
+   * Css clazz name of html component
+   */
   private cssClazzName: string = null;
 
+  /**
+   * Html  of html component
+   */
   private html: HTMLElement = null;
 
-  getHtml(): HTMLElement {
+  /**
+   * Gets html
+   * @returns html
+   */
+  public getHtml(): HTMLElement {
     if (this.html === null || this._needUpdate) {
       this.needUpdate = false;
       let html: HTMLElement = null;

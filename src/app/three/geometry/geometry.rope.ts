@@ -1,8 +1,15 @@
 import * as THREE from 'three';
 
+/**
+ * Rope geometry
+ */
 export class RopeGeometry extends THREE.BufferGeometry {
 
-  parameters : { width : number, widthSegments : number}
+  /**
+   * Parameters  of rope geometry
+   */
+  public parameters : { width : number, widthSegments : number}
+
   /**
    * @param [width=1]
    * @param [widthSegments=1]

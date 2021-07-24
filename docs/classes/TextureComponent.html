@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>TextureComponent</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -99,6 +106,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#OBJECT_ATTR" class="tsd-kind-icon">OBJECT_<wbr>ATTR</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#TEXTURE_ATTR" class="tsd-kind-icon">TEXTURE_<wbr>ATTR</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="TextureComponent.html#_dragEnterHandler" class="tsd-kind-icon">_drag<wbr>Enter<wbr>Handler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="TextureComponent.html#_dragLeaveHandler" class="tsd-kind-icon">_drag<wbr>Leave<wbr>Handler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="TextureComponent.html#_dragOverHandler" class="tsd-kind-icon">_drag<wbr>Over<wbr>Handler</a></li>
@@ -149,6 +157,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="TextureComponent.html#addChanges" class="tsd-kind-icon">add<wbr>Changes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="TextureComponent.html#applyChanges" class="tsd-kind-icon">apply<wbr>Changes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#applyMaterial" class="tsd-kind-icon">apply<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#applyTexture2Material" class="tsd-kind-icon">apply<wbr>Texture2<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#callOnLoad" class="tsd-kind-icon">call<wbr>OnLoad</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#checkChanges" class="tsd-kind-icon">check<wbr>Changes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="TextureComponent.html#clearChanges" class="tsd-kind-icon">clear<wbr>Changes</a></li>
@@ -218,13 +227,22 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L121">src/app/three/texture/texture.component.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L150">src/app/three/texture/texture.component.ts:150</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an instance of texture component.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>localStorageService: <span class="tsd-signature-type">LocalStorageService</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="TextureComponent.html" class="tsd-signature-type" data-tsd-kind="Class">TextureComponent</a></h4>
@@ -241,9 +259,30 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#OBJECT_ATTR">OBJECT_ATTR</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L50">src/app/three/subscribe.abstract.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L55">src/app/three/subscribe.abstract.ts:55</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object attr of abstract subscribe component</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="TEXTURE_ATTR" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> TEXTURE_<wbr>ATTR</h3>
+					<div class="tsd-signature tsd-kind-icon">TEXTURE_<wbr>ATTR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#TEXTURE_ATTR">TEXTURE_ATTR</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L381">src/app/three/texture.abstract.ts:381</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The base attribute can be fine without re-make Texture</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_dragEnterHandler" class="tsd-anchor"></a>
@@ -251,9 +290,14 @@
 					<div class="tsd-signature tsd-kind-icon">_drag<wbr>Enter<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L207">src/app/three/texture/texture.component.ts:207</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L272">src/app/three/texture/texture.component.ts:272</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Drag enter handler of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_dragLeaveHandler" class="tsd-anchor"></a>
@@ -261,9 +305,14 @@
 					<div class="tsd-signature tsd-kind-icon">_drag<wbr>Leave<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L208">src/app/three/texture/texture.component.ts:208</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L277">src/app/three/texture/texture.component.ts:277</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Drag leave handler of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_dragOverHandler" class="tsd-anchor"></a>
@@ -271,9 +320,14 @@
 					<div class="tsd-signature tsd-kind-icon">_drag<wbr>Over<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L206">src/app/three/texture/texture.component.ts:206</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L267">src/app/three/texture/texture.component.ts:267</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Drag over handler of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_dropHandler" class="tsd-anchor"></a>
@@ -281,9 +335,14 @@
 					<div class="tsd-signature tsd-kind-icon">_drop<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L209">src/app/three/texture/texture.component.ts:209</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L282">src/app/three/texture/texture.component.ts:282</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Drop handler of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="_needUpdate" class="tsd-anchor"></a>
@@ -292,9 +351,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#_needUpdate">_needUpdate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L167">src/app/three/subscribe.abstract.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L227">src/app/three/subscribe.abstract.ts:227</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Need update of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="add" class="tsd-anchor"></a>
@@ -302,9 +366,14 @@
 					<div class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L86">src/app/three/texture/texture.component.ts:86</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L91">src/app/three/texture/texture.component.ts:91</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="canvas" class="tsd-anchor"></a>
@@ -312,9 +381,14 @@
 					<div class="tsd-signature tsd-kind-icon">canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ImageBitmap</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L51">src/app/three/texture/texture.component.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L53">src/app/three/texture/texture.component.ts:53</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="color" class="tsd-anchor"></a>
@@ -322,9 +396,14 @@
 					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L81">src/app/three/texture/texture.component.ts:81</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L86">src/app/three/texture/texture.component.ts:86</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="cubeImage" class="tsd-anchor"></a>
@@ -332,9 +411,14 @@
 					<div class="tsd-signature tsd-kind-icon">cube<wbr>Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L31">src/app/three/texture/texture.component.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L33">src/app/three/texture/texture.component.ts:33</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="debug" class="tsd-anchor"></a>
@@ -343,9 +427,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#debug">debug</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L13">src/app/three/subscribe.abstract.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L15">src/app/three/subscribe.abstract.ts:15</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="enabled" class="tsd-anchor"></a>
@@ -354,9 +443,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#enabled">enabled</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L23">src/app/three/subscribe.abstract.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L25">src/app/three/subscribe.abstract.ts:25</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="id" class="tsd-anchor"></a>
@@ -365,9 +459,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L54">src/app/three/subscribe.abstract.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L65">src/app/three/subscribe.abstract.ts:65</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Id  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="image" class="tsd-anchor"></a>
@@ -375,9 +474,14 @@
 					<div class="tsd-signature tsd-kind-icon">image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L26">src/app/three/texture/texture.component.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L28">src/app/three/texture/texture.component.ts:28</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="mapping" class="tsd-anchor"></a>
@@ -386,7 +490,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#mapping">mapping</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L68">src/app/three/texture.abstract.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L91">src/app/three/texture.abstract.ts:91</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -395,6 +499,33 @@
 								where the U,V coordinates are used to apply the map.<br />
 							See the [page:Textures texture constants] page for other mapping types.</p>
 						</div>
+						<p>Notice - case insensitive.</p>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p>THREE.UVMapping               - UVMapping, uv</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.Texture.DEFAULT_MAPPING   - default</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
@@ -404,12 +535,12 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L34">src/app/three/texture.abstract.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L45">src/app/three/texture.abstract.ts:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Optional name of the object (doesn&#39;t need to be unique). Default is an empty string.</p>
+							<p>The name of the object (doesn&#39;t need to be unique). Default is an empty string.</p>
 						</div>
 					</div>
 				</section>
@@ -420,9 +551,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L543">src/app/three/subscribe.abstract.ts:543</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L761">src/app/three/subscribe.abstract.ts:761</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Parent  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="perlin" class="tsd-anchor"></a>
@@ -430,9 +566,14 @@
 					<div class="tsd-signature tsd-kind-icon">perlin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L56">src/app/three/texture/texture.component.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L61">src/app/three/texture/texture.component.ts:61</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="program" class="tsd-anchor"></a>
@@ -440,9 +581,14 @@
 					<div class="tsd-signature tsd-kind-icon">program<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">CanvasFunctionType</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L46">src/app/three/texture/texture.component.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L48">src/app/three/texture/texture.component.ts:48</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="refer" class="tsd-anchor"></a>
@@ -450,9 +596,14 @@
 					<div class="tsd-signature tsd-kind-icon">refer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L21">src/app/three/texture/texture.component.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L23">src/app/three/texture/texture.component.ts:23</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="storageName" class="tsd-anchor"></a>
@@ -460,9 +611,14 @@
 					<div class="tsd-signature tsd-kind-icon">storage<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L36">src/app/three/texture/texture.component.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L38">src/app/three/texture/texture.component.ts:38</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="storageOption" class="tsd-anchor"></a>
@@ -470,9 +626,14 @@
 					<div class="tsd-signature tsd-kind-icon">storage<wbr>Option<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L41">src/app/three/texture/texture.component.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L43">src/app/three/texture/texture.component.ts:43</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="subscribeType" class="tsd-anchor"></a>
@@ -481,9 +642,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#subscribeType">subscribeType</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L448">src/app/three/subscribe.abstract.ts:448</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L618">src/app/three/subscribe.abstract.ts:618</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Subscribe type of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="sunX" class="tsd-anchor"></a>
@@ -491,9 +657,14 @@
 					<div class="tsd-signature tsd-kind-icon">sunX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L61">src/app/three/texture/texture.component.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L66">src/app/three/texture/texture.component.ts:66</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="sunY" class="tsd-anchor"></a>
@@ -501,9 +672,14 @@
 					<div class="tsd-signature tsd-kind-icon">sunY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L66">src/app/three/texture/texture.component.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L71">src/app/three/texture/texture.component.ts:71</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="sunZ" class="tsd-anchor"></a>
@@ -511,9 +687,14 @@
 					<div class="tsd-signature tsd-kind-icon">sunZ<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L71">src/app/three/texture/texture.component.ts:71</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L76">src/app/three/texture/texture.component.ts:76</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="texture" class="tsd-anchor"></a>
@@ -522,9 +703,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#texture">texture</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L277">src/app/three/texture.abstract.ts:277</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L485">src/app/three/texture.abstract.ts:485</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Texture  of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="type" class="tsd-anchor"></a>
@@ -533,7 +719,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L19">src/app/three/texture.abstract.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L24">src/app/three/texture.abstract.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -548,9 +734,14 @@
 					<div class="tsd-signature tsd-kind-icon">use<wbr>Drop<wbr>Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L76">src/app/three/texture/texture.component.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L81">src/app/three/texture/texture.component.ts:81</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="windowExport" class="tsd-anchor"></a>
@@ -559,9 +750,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#windowExport">windowExport</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L18">src/app/three/subscribe.abstract.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L20">src/app/three/subscribe.abstract.ts:20</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input  of abstract subscribe component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="cubeTextureLoader" class="tsd-anchor"></a>
@@ -570,9 +766,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#cubeTextureLoader">cubeTextureLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L281">src/app/three/texture.abstract.ts:281</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L505">src/app/three/texture.abstract.ts:505</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Cube texture loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="fileLoader" class="tsd-anchor"></a>
@@ -581,9 +782,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#fileLoader">fileLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L280">src/app/three/texture.abstract.ts:280</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L500">src/app/three/texture.abstract.ts:500</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>File loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="hdrCubeMapLoader" class="tsd-anchor"></a>
@@ -592,9 +798,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#hdrCubeMapLoader">hdrCubeMapLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L283">src/app/three/texture.abstract.ts:283</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L515">src/app/three/texture.abstract.ts:515</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Hdr cube map loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="imageBitmapLoader" class="tsd-anchor"></a>
@@ -603,9 +814,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#imageBitmapLoader">imageBitmapLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L282">src/app/three/texture.abstract.ts:282</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L510">src/app/three/texture.abstract.ts:510</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Image bitmap loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="nrrdLoader" class="tsd-anchor"></a>
@@ -614,9 +830,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#nrrdLoader">nrrdLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L279">src/app/three/texture.abstract.ts:279</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L495">src/app/three/texture.abstract.ts:495</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Nrrd loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="rgbmLoader" class="tsd-anchor"></a>
@@ -625,9 +846,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#rgbmLoader">rgbmLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L284">src/app/three/texture.abstract.ts:284</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L520">src/app/three/texture.abstract.ts:520</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Rgbm loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="textureLoader" class="tsd-anchor"></a>
@@ -636,9 +862,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#textureLoader">textureLoader</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L278">src/app/three/texture.abstract.ts:278</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L490">src/app/three/texture.abstract.ts:490</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Texture loader of abstract texture component</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -653,9 +884,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L169">src/app/three/subscribe.abstract.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L232">src/app/three/subscribe.abstract.ts:232</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets need update</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -680,13 +916,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#addChanges">addChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L213">src/app/three/subscribe.abstract.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L307">src/app/three/subscribe.abstract.ts:307</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">SimpleChanges</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -704,9 +947,14 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#applyChanges">applyChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L211">src/app/three/texture/texture.component.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L289">src/app/three/texture/texture.component.ts:289</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Applys changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -728,9 +976,51 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#applyMaterial">applyMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L970">src/app/three/texture.abstract.ts:970</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1307">src/app/three/texture.abstract.ts:1307</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Applys material</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="applyTexture2Material" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> apply<wbr>Texture2<wbr>Material</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Texture2<wbr>Material<span class="tsd-signature-symbol">(</span>material<span class="tsd-signature-symbol">: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, texture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#applyTexture2Material">applyTexture2Material</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1268">src/app/three/texture.abstract.ts:1268</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Applys texture2 material</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>material: <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h5>
+								</li>
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>texture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -746,9 +1036,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#callOnLoad">callOnLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L163">src/app/three/subscribe.abstract.ts:163</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L220">src/app/three/subscribe.abstract.ts:220</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calls on load</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -764,9 +1059,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#checkChanges">checkChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L182">src/app/three/subscribe.abstract.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L253">src/app/three/subscribe.abstract.ts:253</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -774,6 +1074,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SimpleChanges</span></h4>
+							<p>changes</p>
 						</li>
 					</ul>
 				</section>
@@ -788,9 +1089,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#clearChanges">clearChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L259">src/app/three/subscribe.abstract.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L360">src/app/three/subscribe.abstract.ts:360</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clears changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -806,9 +1112,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#consoleLog">consoleLog</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L194">src/app/three/subscribe.abstract.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L281">src/app/three/subscribe.abstract.ts:281</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Consoles log</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -836,9 +1147,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#consoleLogTime">consoleLogTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L187">src/app/three/subscribe.abstract.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L268">src/app/three/subscribe.abstract.ts:268</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Consoles log time</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -866,13 +1182,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#destroyLocalComponent">destroyLocalComponent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L454">src/app/three/subscribe.abstract.ts:454</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L634">src/app/three/subscribe.abstract.ts:634</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroys local component</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -890,9 +1213,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L149">src/app/three/subscribe.abstract.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L194">src/app/three/subscribe.abstract.ts:194</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Disposes abstract subscribe component</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -907,9 +1235,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L100">src/app/three/texture/texture.component.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L125">src/app/three/texture/texture.component.ts:125</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets canvas</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -917,6 +1250,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ImageBitmap</span></h4>
+							<p>canvas</p>
 						</li>
 					</ul>
 				</section>
@@ -931,10 +1265,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getChanges">getChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L244">src/app/three/subscribe.abstract.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L342">src/app/three/subscribe.abstract.ts:342</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets changes</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>changes</p>
 						</li>
 					</ul>
 				</section>
@@ -948,9 +1288,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L92">src/app/three/texture/texture.component.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L107">src/app/three/texture/texture.component.ts:107</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets cube image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -958,6 +1303,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>cube image</p>
 						</li>
 					</ul>
 				</section>
@@ -971,9 +1317,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L88">src/app/three/texture/texture.component.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L98">src/app/three/texture/texture.component.ts:98</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -981,6 +1332,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>image</p>
 						</li>
 					</ul>
 				</section>
@@ -995,10 +1347,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getObject">getObject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L303">src/app/three/subscribe.abstract.ts:303</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L416">src/app/three/subscribe.abstract.ts:416</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets object</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>object</p>
 						</li>
 					</ul>
 				</section>
@@ -1013,9 +1371,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getOffset">getOffset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L235">src/app/three/texture.abstract.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L463">src/app/three/texture.abstract.ts:463</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets offset</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1026,6 +1389,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+							<p>offset</p>
 						</li>
 					</ul>
 				</section>
@@ -1040,10 +1404,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getPmremGenerator">getPmremGenerator</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L1058">src/app/three/texture.abstract.ts:1058</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1404">src/app/three/texture.abstract.ts:1404</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets pmrem generator</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.PMREMGenerator.html" class="tsd-signature-type" data-tsd-kind="Class">PMREMGenerator</a></h4>
+							<p>pmrem generator</p>
 						</li>
 					</ul>
 				</section>
@@ -1057,9 +1427,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L96">src/app/three/texture/texture.component.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L116">src/app/three/texture/texture.component.ts:116</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1067,6 +1442,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">CanvasFunctionType</span></h4>
+							<p>program</p>
 						</li>
 					</ul>
 				</section>
@@ -1081,9 +1457,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getRepeat">getRepeat</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L231">src/app/three/texture.abstract.ts:231</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L453">src/app/three/texture.abstract.ts:453</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets repeat</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1094,6 +1475,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+							<p>repeat</p>
 						</li>
 					</ul>
 				</section>
@@ -1108,10 +1490,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getSubscribe">getSubscribe</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L361">src/app/three/subscribe.abstract.ts:361</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L497">src/app/three/subscribe.abstract.ts:497</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets subscribe</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>subscribe</p>
 						</li>
 					</ul>
 				</section>
@@ -1126,9 +1514,14 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getTexture">getTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L229">src/app/three/texture/texture.component.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L312">src/app/three/texture/texture.component.ts:312</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1136,6 +1529,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>texture</p>
 						</li>
 					</ul>
 				</section>
@@ -1150,9 +1544,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getTextureImage">getTextureImage</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L286">src/app/three/texture.abstract.ts:286</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L530">src/app/three/texture.abstract.ts:530</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1181,6 +1580,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h4>
+							<p>texture image</p>
 						</li>
 					</ul>
 				</section>
@@ -1195,9 +1595,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getTextureOptions">getTextureOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L826">src/app/three/texture.abstract.ts:826</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1101">src/app/three/texture.abstract.ts:1101</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture options</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1210,6 +1615,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
+							<p>texture options</p>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter-index-signature">
 									<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
@@ -1229,9 +1635,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getUserData">getUserData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L309">src/app/three/subscribe.abstract.ts:309</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L429">src/app/three/subscribe.abstract.ts:429</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets user data</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter-index-signature">
@@ -1252,9 +1663,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#initLocalComponent">initLocalComponent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L461">src/app/three/subscribe.abstract.ts:461</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L648">src/app/three/subscribe.abstract.ts:648</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Inits local component</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1271,6 +1687,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>local component</p>
 						</li>
 					</ul>
 				</section>
@@ -1285,9 +1702,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#isIdEuals">isIdEuals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L155">src/app/three/subscribe.abstract.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L209">src/app/three/subscribe.abstract.ts:209</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether id euals is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1295,6 +1717,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if id euals</p>
 						</li>
 					</ul>
 				</section>
@@ -1309,9 +1732,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#isTexture">isTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L952">src/app/three/texture.abstract.ts:952</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1237">src/app/three/texture.abstract.ts:1237</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether texture is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1319,6 +1747,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if texture</p>
 						</li>
 					</ul>
 				</section>
@@ -1333,9 +1762,17 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#ngAfterContentInit">ngAfterContentInit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L144">src/app/three/texture/texture.component.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L198">src/app/three/texture/texture.component.ts:198</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A callback method that is invoked immediately after
+										Angular has completed initialization of all of the directive&#39;s
+										content.
+									It is invoked only once when the directive is instantiated.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1351,13 +1788,24 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#ngOnChanges">ngOnChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L133">src/app/three/texture/texture.component.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L181">src/app/three/texture/texture.component.ts:181</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A callback method that is invoked immediately after the
+										default change detector has checked data-bound properties
+										if at least one has changed, and before the view and content
+									children are checked.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>changes: <span class="tsd-signature-type">SimpleChanges</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The changed properties.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1376,9 +1824,15 @@
 								<p>Implementation of OnDestroy.ngOnDestroy</p>
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#ngOnDestroy">ngOnDestroy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L129">src/app/three/texture/texture.component.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L169">src/app/three/texture/texture.component.ts:169</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A callback method that performs custom clean-up, invoked immediately
+									before a directive, pipe, or service instance is destroyed.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1395,9 +1849,18 @@
 								<p>Implementation of OnInit.ngOnInit</p>
 								<p>Overrides <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#ngOnInit">ngOnInit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L125">src/app/three/texture/texture.component.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L161">src/app/three/texture/texture.component.ts:161</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A callback method that is invoked immediately after the
+										default change detector has checked the directive&#39;s
+										data-bound properties for the first time,
+										and before any of the view or content children have been checked.
+									It is invoked only once when the directive is instantiated.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1413,13 +1876,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#runSubscribeNext">runSubscribeNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L417">src/app/three/subscribe.abstract.ts:417</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L567">src/app/three/subscribe.abstract.ts:567</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs subscribe next</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1437,13 +1907,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setMaterial">setMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L959">src/app/three/texture.abstract.ts:959</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1251">src/app/three/texture.abstract.ts:1251</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets material</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>material: <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1461,13 +1938,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setObject">setObject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L321">src/app/three/subscribe.abstract.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L450">src/app/three/subscribe.abstract.ts:450</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets object</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>obj: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1485,9 +1969,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setParent">setParent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L545">src/app/three/subscribe.abstract.ts:545</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L768">src/app/three/subscribe.abstract.ts:768</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets parent</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1495,6 +1984,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if parent</p>
 						</li>
 					</ul>
 				</section>
@@ -1509,13 +1999,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setReferTexture">setReferTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L815">src/app/three/texture.abstract.ts:815</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1085">src/app/three/texture.abstract.ts:1085</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets refer texture</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>texture: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1533,13 +2030,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setSubscribeNext">setSubscribeNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L369">src/app/three/subscribe.abstract.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L515">src/app/three/subscribe.abstract.ts:515</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets subscribe next</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1557,13 +2061,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setSubscribeType">setSubscribeType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L151">src/app/three/subscribe.abstract.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L200">src/app/three/subscribe.abstract.ts:200</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets subscribe type</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>subscribeType: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1581,13 +2092,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setTexture">setTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L808">src/app/three/texture.abstract.ts:808</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1074">src/app/three/texture.abstract.ts:1074</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets texture</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>refTexture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1605,13 +2123,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setTextureLoaded">setTextureLoaded</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L1062">src/app/three/texture.abstract.ts:1062</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1412">src/app/three/texture.abstract.ts:1412</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets texture loaded</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>texture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1629,13 +2154,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setTween">setTween</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L96">src/app/three/subscribe.abstract.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L138">src/app/three/subscribe.abstract.ts:138</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets tween</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>tweenData: <span class="tsd-signature-symbol">{}</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-index-signature">
 											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
@@ -1657,13 +2189,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture/texture.component.ts#L148">src/app/three/texture/texture.component.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture/texture.component.ts#L206">src/app/three/texture/texture.component.ts:206</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets use drop image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>useDropImage: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1681,9 +2220,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setUserData">setUserData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L313">src/app/three/subscribe.abstract.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L438">src/app/three/subscribe.abstract.ts:438</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets user data</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1691,6 +2235,8 @@
 								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1708,9 +2254,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#subscribeListQuery">subscribeListQuery</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L525">src/app/three/subscribe.abstract.ts:525</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L740">src/app/three/subscribe.abstract.ts:740</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes list query</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1721,6 +2272,8 @@
 								</li>
 								<li>
 									<h5>changeKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1738,9 +2291,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#subscribeListQueryChange">subscribeListQueryChange</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L513">src/app/three/subscribe.abstract.ts:513</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L722">src/app/three/subscribe.abstract.ts:722</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes list query change</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1751,6 +2309,8 @@
 								</li>
 								<li>
 									<h5>changeKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1768,9 +2328,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#subscribeRefer">subscribeRefer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L439">src/app/three/subscribe.abstract.ts:439</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L606">src/app/three/subscribe.abstract.ts:606</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes refer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1778,6 +2343,8 @@
 								</li>
 								<li>
 									<h5>subscription: <span class="tsd-signature-type">Subscription</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1795,9 +2362,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#subscribeReferList">subscribeReferList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L504">src/app/three/subscribe.abstract.ts:504</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L707">src/app/three/subscribe.abstract.ts:707</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribes refer list</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1805,6 +2377,8 @@
 								</li>
 								<li>
 									<h5>subscription: <span class="tsd-signature-type">Subscription</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1822,13 +2396,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#unSubscribeRefer">unSubscribeRefer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L432">src/app/three/subscribe.abstract.ts:432</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L594">src/app/three/subscribe.abstract.ts:594</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscribe refer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1846,13 +2427,20 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#unSubscribeReferList">unSubscribeReferList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L495">src/app/three/subscribe.abstract.ts:495</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L693">src/app/three/subscribe.abstract.ts:693</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscribe refer list</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1870,9 +2458,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#unSubscription">unSubscription</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L421">src/app/three/subscribe.abstract.ts:421</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L576">src/app/three/subscribe.abstract.ts:576</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>subscription</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1880,6 +2473,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Subscription</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>subscription</p>
 						</li>
 					</ul>
 				</section>
@@ -1894,9 +2488,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#updateInputParams">updateInputParams</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/subscribe.abstract.ts#L472">src/app/three/subscribe.abstract.ts:472</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/subscribe.abstract.ts#L666">src/app/three/subscribe.abstract.ts:666</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates input params</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1932,9 +2531,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getTextureImage-1">getTextureImage</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L572">src/app/three/texture.abstract.ts:572</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L834">src/app/three/texture.abstract.ts:834</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1966,6 +2570,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h4>
+							<p>texture image</p>
 						</li>
 					</ul>
 				</section>
@@ -1980,9 +2585,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#getTextureImageOption">getTextureImageOption</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L304">src/app/three/texture.abstract.ts:304</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L557">src/app/three/texture.abstract.ts:557</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture image option</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2014,6 +2624,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h4>
+							<p>texture image option</p>
 						</li>
 					</ul>
 				</section>
@@ -2028,9 +2639,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractTextureComponent.html">AbstractTextureComponent</a>.<a href="AbstractTextureComponent.html#setTextureOptions">setTextureOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/texture.abstract.ts#L885">src/app/three/texture.abstract.ts:885</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/texture.abstract.ts#L1165">src/app/three/texture.abstract.ts:1165</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets texture options</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2046,6 +2662,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h4>
+							<p>texture options</p>
 						</li>
 					</ul>
 				</section>
@@ -2104,6 +2721,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="TextureComponent.html#OBJECT_ATTR" class="tsd-kind-icon">OBJECT_<wbr>ATTR</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="TextureComponent.html#TEXTURE_ATTR" class="tsd-kind-icon">TEXTURE_<wbr>ATTR</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="TextureComponent.html#_dragEnterHandler" class="tsd-kind-icon">_drag<wbr>Enter<wbr>Handler</a>
@@ -2224,6 +2844,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="TextureComponent.html#applyMaterial" class="tsd-kind-icon">apply<wbr>Material</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="TextureComponent.html#applyTexture2Material" class="tsd-kind-icon">apply<wbr>Texture2<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="TextureComponent.html#callOnLoad" class="tsd-kind-icon">call<wbr>OnLoad</a>

@@ -1,122 +1,188 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as GSAP from 'gsap';
-import * as THREE from 'three';
-import { ThreeColor, ThreeUtil } from '../interface';
+import { ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * TweenComponent
+ */
 @Component({
   selector: 'ngx3js-tween',
   templateUrl: './tween.component.html',
   styleUrls: ['./tween.component.scss'],
 })
 export class TweenComponent extends AbstractSubscribeComponent implements OnInit {
+  /**
+   * Input  of tween component
+   */
+  @Input() public targets: string = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() public targets:string = null;
+  @Input() private to: any = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private to:any = null;
+  @Input() private duration: number = null;
 
   /**
+   * Input  of tween component
+   *
+   * Notice - case insensitive.
    * 
    */
-  @Input() private duration:number = null;
+  @Input() private easing: string = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private easing:string = null;
+  @Input() private template: string = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private template:string = null;
+  @Input() private repeat: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private repeat:number = null;
+  @Input() private yoyo: boolean = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private yoyo:boolean = null;
+  @Input() private overshoot: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private overshoot:number = null;
+  @Input() private amplitude: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private amplitude:number = null;
+  @Input() private period: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private period:number = null;
+  @Input() private linearRatio: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private linearRatio:number = null;
+  @Input() private power: number = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private power:number = null;
+  @Input() private yoyoMode: boolean = null;
 
   /**
-   * 
+   * Input  of tween component
    */
-  @Input() private yoyoMode:boolean = null;
+  @Input() private steps: number = null;
 
   /**
-   * 
+   * Gets duration
+   * @param [def]
+   * @returns duration
    */
-  @Input() private steps:number = null;
-
   private getDuration(def?: number): number {
     return ThreeUtil.getTypeSafe(this.duration, def, 3);
   }
+
+  /**
+   * Gets repeat
+   * @param [def]
+   * @returns repeat
+   */
   private getRepeat(def?: number): number {
     return ThreeUtil.getTypeSafe(this.repeat, def, 1);
   }
+
+  /**
+   * Gets yoyo
+   * @param [def]
+   * @returns true if yoyo
+   */
   private getYoyo(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.yoyo, def, false);
   }
+
+  /**
+   * Gets overshoot
+   * @param [def]
+   * @returns overshoot
+   */
   private getOvershoot(def?: number): number {
     return ThreeUtil.getTypeSafe(this.overshoot, def, 1);
   }
+
+  /**
+   * Gets amplitude
+   * @param [def]
+   * @returns amplitude
+   */
   private getAmplitude(def?: number): number {
     return ThreeUtil.getTypeSafe(this.amplitude, def, 1);
   }
+
+  /**
+   * Gets period
+   * @param [def]
+   * @returns period
+   */
   private getPeriod(def?: number): number {
     return ThreeUtil.getTypeSafe(this.period, def, 1);
   }
+
+  /**
+   * Gets linear ratio
+   * @param [def]
+   * @returns linear ratio
+   */
   private getLinearRatio(def?: number): number {
     return ThreeUtil.getTypeSafe(this.linearRatio, def, 1);
   }
+
+  /**
+   * Gets power
+   * @param [def]
+   * @returns power
+   */
   private getPower(def?: number): number {
     return ThreeUtil.getTypeSafe(this.power, def, 1);
   }
+
+  /**
+   * Gets yoyo mode
+   * @param [def]
+   * @returns true if yoyo mode
+   */
   private getYoyoMode(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.yoyoMode, def, false);
   }
 
+  /**
+   * Gets steps
+   * @param [def]
+   * @returns steps
+   */
   private getSteps(def?: number): number {
     return ThreeUtil.getTypeSafe(this.steps, def, 12);
   }
 
+  /**
+   * Gets easing
+   * @param [def]
+   * @param [isTemplate]
+   * @returns easing
+   */
   private getEasing(def?: string, isTemplate?: boolean): any {
-    const easing = isTemplate
-      ? ThreeUtil.getTypeSafe(this.template, def, '')
-      : ThreeUtil.getTypeSafe(this.easing, def, '');
+    const easing = isTemplate ? ThreeUtil.getTypeSafe(this.template, def, '') : ThreeUtil.getTypeSafe(this.easing, def, '');
     switch (easing.toLowerCase()) {
       case 'power1':
       case 'power1.easein':
@@ -155,20 +221,11 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
         return GSAP.Back.easeOut.config(this.getOvershoot(1.7));
       case 'elastic':
       case 'elastic.easein':
-        return GSAP.Elastic.easeIn.config(
-          this.getAmplitude(1),
-          this.getPeriod(0.3)
-        );
+        return GSAP.Elastic.easeIn.config(this.getAmplitude(1), this.getPeriod(0.3));
       case 'elastic.easeinout':
-        return GSAP.Elastic.easeInOut.config(
-          this.getAmplitude(1),
-          this.getPeriod(0.3)
-        );
+        return GSAP.Elastic.easeInOut.config(this.getAmplitude(1), this.getPeriod(0.3));
       case 'elastic.easeout':
-        return GSAP.Elastic.easeOut.config(
-          this.getAmplitude(1),
-          this.getPeriod(0.3)
-        );
+        return GSAP.Elastic.easeOut.config(this.getAmplitude(1), this.getPeriod(0.3));
       case 'bounce':
       case 'bounce.easein':
         return GSAP.Bounce.easeIn;
@@ -181,7 +238,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
       case 'rough.easeinout':
       case 'rough.easeout':
 
-        /*
+      /*
         return GSAP.RoughEase.config({
           template: this.getEasing(null, true),
           strength: 1,
@@ -195,7 +252,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
       case 'slowmo.easein':
       case 'slowmo.easeinout':
       case 'slowmo.easeout':
-        /*
+      /*
         return GSAP.SlowMo.ease.config(
           this.getLinearRatio(0.7),
           this.getPower(0.7),
@@ -206,8 +263,8 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
       case 'stepped.easein':
       case 'stepped.easeinout':
       case 'stepped.easeout':
-      //  return GSAP.SteppedEase;
-       return GSAP.SteppedEase.config(this.getSteps(12));
+        //  return GSAP.SteppedEase;
+        return GSAP.SteppedEase.config(this.getSteps(12));
       case 'circ':
       case 'circ.easein':
         return GSAP.Circ.easeIn;
@@ -244,15 +301,25 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
-  private getTargets(target : any, def?: string): any {
+  /**
+   * Gets targets
+   * @param target
+   * @param [def]
+   * @returns targets
+   */
+  private getTargets(target: any, def?: string): any {
     const key = ThreeUtil.getTypeSafe(this.targets, def, null);
     if (ThreeUtil.isNotNull(key) && ThreeUtil.isNotNull(target[key])) {
       return target[key];
     }
     return target;
-
   }
 
+  /**
+   * Gets to
+   * @param [def]
+   * @returns to
+   */
   private getTo(def?: any): any {
     const to = ThreeUtil.getTypeSafe(this.to, def, {});
     const result: { [key: string]: any } = {};
@@ -266,6 +333,9 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
     return result;
   }
 
+  /**
+   * Creates an instance of tween component.
+   */
   constructor() {
     super();
   }
@@ -278,7 +348,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
    * It is invoked only once when the directive is instantiated.
    */
   ngOnInit(): void {
-    super.ngOnInit('tween');;
+    super.ngOnInit('tween');
   }
 
   /**
@@ -294,7 +364,7 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -314,33 +384,62 @@ export class TweenComponent extends AbstractSubscribeComponent implements OnInit
     super.ngAfterContentInit();
   }
 
+  /**
+   * Parent ele of tween component
+   */
   private parentEle: any = null;
+
+  /**
+   * Tween target of tween component
+   */
   private _tweenTarget: any = null;
-  private _tween : GSAP.TimelineLite = null;
-  setTween(to : any, duration? : number): any {
+
+  /**
+   * Tween  of tween component
+   */
+  private _tween: GSAP.TimelineLite = null;
+
+  /**
+   * Sets tween
+   * @param to
+   * @param [duration]
+   * @returns tween
+   */
+  public setTween(to: any, duration?: number): any {
     if (ThreeUtil.isNotNull(to)) {
       if (this._tween !== null) {
         this._tween.kill();
       }
-      const fromVar = {}
+      const fromVar = {};
       const targets = this.getTargets(this._tweenTarget, null);
       Object.entries(to).forEach(([key, value]) => {
         fromVar[key] = targets[key];
       });
-      this._tween = new GSAP.TimelineLite().fromTo(
-        targets,
-        fromVar,
-        {
-          ...to,
-          duration : ThreeUtil.isNotNull(duration) ? duration : this.getDuration(),
-          ease: this.getEasing(),
-          repeat: this.getRepeat(),
-          yoyo: this.getYoyo(),
-        }, 1).play();
+      this._tween = new GSAP.TimelineLite()
+        .fromTo(
+          targets,
+          fromVar,
+          {
+            ...to,
+            duration: ThreeUtil.isNotNull(duration) ? duration : this.getDuration(),
+            ease: this.getEasing(),
+            repeat: this.getRepeat(),
+            yoyo: this.getYoyo(),
+          },
+          1
+        )
+        .play();
     }
   }
 
-  getTween(tween: GSAP.TimelineLite | GSAP.TimelineMax, tweenTarget : any,  parentEle: any): any {
+  /**
+   * Gets tween
+   * @param tween
+   * @param tweenTarget
+   * @param parentEle
+   * @returns tween
+   */
+  public getTween(tween: GSAP.TimelineLite | GSAP.TimelineMax, tweenTarget: any, parentEle: any): any {
     this.parentEle = parentEle;
     this._tweenTarget = tweenTarget;
     if (ThreeUtil.isNotNull(this.to)) {

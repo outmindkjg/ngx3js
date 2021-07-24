@@ -9,9 +9,8 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
   styleUrls: ['./lookat.component.scss'],
 })
 export class LookatComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   * Input  of lookat component
    */
   @Input() private refer: any = null;
 
@@ -30,6 +29,9 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
    */
   @Input() private z: number = 0;
 
+  /**
+   * Creates an instance of lookat component.
+   */
   constructor() {
     super();
   }
@@ -58,7 +60,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -78,11 +80,21 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     super.ngAfterContentInit();
   }
 
+  /**
+   * Lookat  of lookat component
+   */
   private lookat: THREE.Vector3 = null;
 
+  /**
+   * Object3d  of lookat component
+   */
   private _object3d: THREE.Object3D = null;
 
-  setObject3d(object3d: THREE.Object3D) {
+  /**
+   * Sets object3d
+   * @param object3d
+   */
+  public setObject3d(object3d: THREE.Object3D) {
     if (this.lookat === null) {
       this.getLookAt();
     }
@@ -92,7 +104,11 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  synkObject3d(lookat: THREE.Vector3 = null) {
+  /**
+   * Synks object3d
+   * @param [lookat]
+   */
+  public synkObject3d(lookat: THREE.Vector3 = null) {
     if (ThreeUtil.isNotNull(lookat) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
         if (this.isIdEuals(this._object3d.userData.lookat)) {
@@ -106,7 +122,13 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  setScale(x?: number, y? : number, z? : number) {
+  /**
+   * Sets scale
+   * @param [x]
+   * @param [y]
+   * @param [z]
+   */
+  public setScale(x?: number, y?: number, z?: number) {
     if (this.lookat !== null) {
       this.x = ThreeUtil.getTypeSafe(x, this.lookat.x);
       this.y = ThreeUtil.getTypeSafe(y, this.lookat.y);
@@ -119,7 +141,12 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     this.needUpdate = true;
   }
 
-  getTagAttribute(options?: any): TagAttributes {
+  /**
+   * Gets tag attribute
+   * @param [options]
+   * @returns tag attribute
+   */
+  public getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
       tag: 'ngx3js-lookat',
       attributes: [],
@@ -136,20 +163,29 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     return tagAttributes;
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.lookat !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getLookAt();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','type','enabled'])) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init', 'type', 'enabled'])) {
         this.needUpdate = true;
-        return ;
+        return;
       }
       super.applyChanges(changes);
     }
   }
 
+  /**
+   * Gets look at
+   * @returns look at
+   */
   private _getLookAt(): THREE.Vector3 {
     let lookat: THREE.Vector3 = null;
     if (this.refer !== null) {
@@ -172,7 +208,11 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
     return lookat;
   }
 
-  getLookAt(): THREE.Vector3 {
+  /**
+   * Gets look at
+   * @returns look at
+   */
+  public getLookAt(): THREE.Vector3 {
     if (this._needUpdate) {
       this.needUpdate = false;
       this.lookat = this._getLookAt();

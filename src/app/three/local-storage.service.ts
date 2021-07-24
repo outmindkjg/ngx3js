@@ -66,77 +66,304 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { LoadedObject, ThreeUtil } from './interface';
 
+/**
+ * LocalStorageService
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
+  /**
+   * Creates an instance of local storage service.
+   */
   constructor() {}
 
+  /**
+   * Sets item
+   * @param key
+   * @param value
+   */
   public setItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
 
+  /**
+   * Gets item
+   * @param key
+   * @returns
+   */
   public getItem(key: string) {
     return localStorage.getItem(key);
   }
 
+  /**
+   * Sets object
+   * @param key
+   * @param mesh
+   */
   public setObject(key: string, mesh: THREE.Object3D) {
     this.setItem(key, JSON.stringify(mesh.toJSON()));
   }
 
+  /**
+   * Object loader of local storage service
+   */
   private objectLoader: THREE.ObjectLoader = null;
+
+  /**
+   * Geometry loader of local storage service
+   */
   private geometryLoader: THREE.BufferGeometryLoader = null;
+
+  /**
+   * Obj loader of local storage service
+   */
   private objLoader: OBJLoader = null;
+
+  /**
+   * Collada loader of local storage service
+   */
   private colladaLoader: ColladaLoader = null;
+
+  /**
+   * Stl loader of local storage service
+   */
   private stlLoader: STLLoader = null;
+
+  /**
+   * Vtk loader of local storage service
+   */
   private vtkLoader: VTKLoader = null;
+
+  /**
+   * Pdb loader of local storage service
+   */
   private pdbLoader: PDBLoader = null;
+
+  /**
+   * Ply loader of local storage service
+   */
   private plyLoader: PLYLoader = null;
+
+  /**
+   * Rhino3dm loader of local storage service
+   */
   private rhino3dmLoader: Rhino3dmLoader = null;
+
+  /**
+   * Basis texture loader of local storage service
+   */
   private basisTextureLoader: BasisTextureLoader = null;
+
+  /**
+   * Draco loader of local storage service
+   */
   private dracoLoader: DRACOLoader = null;
+
+  /**
+   * Gltf loader of local storage service
+   */
   private gltfLoader: GLTFLoader = null;
+
+  /**
+   * Mmd loader of local storage service
+   */
   private mmdLoader: MMDLoader = null;
+
+  /**
+   * Mtl loader of local storage service
+   */
   private mtlLoader: MTLLoader = null;
+
+  /**
+   * Pcd loader of local storage service
+   */
   private pcdLoader: PCDLoader = null;
+
+  /**
+   * Prwm loader of local storage service
+   */
   private prwmLoader: PRWMLoader = null;
+
+  /**
+   * Svg loader of local storage service
+   */
   private svgLoader: SVGLoader = null;
+
+  /**
+   * Tga loader of local storage service
+   */
   private tgaLoader: TGALoader = null;
+
+  /**
+   * Md2 loader of local storage service
+   */
   private md2Loader: MD2Loader = null;
+
+  /**
+   * Amf loader of local storage service
+   */
   private amfLoader: AMFLoader = null;
+
   // private assimpLoader: AssimpLoader = null;
+
+  /**
+   * Bvh loader of local storage service
+   */
   private bvhLoader: BVHLoader = null;
+
+  /**
+   * Dds loader of local storage service
+   */
   private ddsLoader: DDSLoader = null;
+
+  /**
+   * Exr loader of local storage service
+   */
   private exrLoader: EXRLoader = null;
+
+  /**
+   * Fbx loader of local storage service
+   */
   private fbxLoader: FBXLoader = null;
+
+  /**
+   * G code loader of local storage service
+   */
   private gCodeLoader: GCodeLoader = null;
+
+  /**
+   * Hdr cube texture loader of local storage service
+   */
   private hdrCubeTextureLoader: HDRCubeTextureLoader = null;
+
+  /**
+   * Kmz loader of local storage service
+   */
   private kmzLoader: KMZLoader = null;
+
+  /**
+   * Ktx2 loader of local storage service
+   */
   private ktx2Loader: KTX2Loader = null;
+
+  /**
+   * Ktx loader of local storage service
+   */
   private ktxLoader: KTXLoader = null;
+
+  /**
+   * Determines whether draw loader l
+   */
   private lDrawLoader: LDrawLoader = null;
+
+  /**
+   * Lottie loader of local storage service
+   */
   private lottieLoader: LottieLoader = null;
+
+  /**
+   * Lut3dl loader of local storage service
+   */
   private lut3dlLoader: LUT3dlLoader = null;
+
+  /**
+   * Lut cube loader of local storage service
+   */
   private lutCubeLoader: LUTCubeLoader = null;
+
+  /**
+   * Ifc loader of local storage service
+   */
   private ifcLoader: IFCLoader = null;
-  private _ifc : IFC = null;
+
+  /**
+   * Ifc  of local storage service
+   */
+  private _ifc: IFC = null;
+
+  /**
+   * Vox loader of local storage service
+   */
   private voxLoader: VOXLoader = null;
-  private _chunk : Chunk = null;
+
+  /**
+   * Chunk  of local storage service
+   */
+  private _chunk: Chunk = null;
+
+  /**
+   * Lwo loader of local storage service
+   */
   private lwoLoader: LWOLoader = null;
+
+  /**
+   * Mdd loader of local storage service
+   */
   private mddLoader: MDDLoader = null;
+
+  /**
+   * Nrrd loader of local storage service
+   */
   private nrrdLoader: NRRDLoader = null;
+
+  /**
+   * Pvr loader of local storage service
+   */
   private pvrLoader: PVRLoader = null;
+
+  /**
+   * Rgbe loader of local storage service
+   */
   private rgbeLoader: RGBELoader = null;
+
+  /**
+   * Tds loader of local storage service
+   */
   private tdsLoader: TDSLoader = null;
+
+  /**
+   * Tilt loader of local storage service
+   */
   private tiltLoader: TiltLoader = null;
+
+  /**
+   * Rgbm loader of local storage service
+   */
   private rgbmLoader: RGBMLoader = null;
+
+  /**
+   * Ttf loader of local storage service
+   */
   private ttfLoader: TTFLoader = null;
+
+  /**
+   * Vrml loader of local storage service
+   */
   private vrmlLoader: VRMLLoader = null;
+
+  /**
+   * Vrm loader of local storage service
+   */
   private vrmLoader: VRMLoader = null;
+
   // private xLoader: XLoader = null;
+
+  /**
+   * Xyz loader of local storage service
+   */
   private xyzLoader: XYZLoader = null;
+
+  /**
+   * Three mfloader of local storage service
+   */
   private threeMFLoader: ThreeMFLoader = null;
 
+  /**
+   * Gets store url list
+   * @param url
+   * @returns
+   */
   private getStoreUrlList(url: string | string[]) {
     if (typeof url === 'string') {
       return ThreeUtil.getStoreUrl(url);
@@ -149,27 +376,33 @@ export class LocalStorageService {
     }
   }
 
-  onProgress(xhr) {
+  /**
+   * Determines whether progress on
+   * @param xhr
+   */
+  public onProgress(xhr) {
     if (xhr.lengthComputable) {
       const percentComplete = (xhr.loaded / xhr.total) * 100;
       console.log(Math.round(percentComplete * 100) / 100 + '% downloaded');
     }
   }
 
-  onError(event: ErrorEvent) {
+  /**
+   * Determines whether error on
+   * @param event
+   */
+  public onError(event: ErrorEvent) {
     console.log(event);
   }
 
-  private getStoreObject(
-    object: THREE.Object3D,
-    options: any = null
-  ): THREE.Object3D {
-    if (
-      object !== null &&
-      options !== null &&
-      options.onLoad !== null &&
-      typeof options.onLoad === 'function'
-    ) {
+  /**
+   * Gets store object
+   * @param object
+   * @param [options]
+   * @returns store object
+   */
+  private getStoreObject(object: THREE.Object3D, options: any = null): THREE.Object3D {
+    if (object !== null && options !== null && options.onLoad !== null && typeof options.onLoad === 'function') {
       const result = options.onLoad(object);
       if (result !== null && result instanceof THREE.Object3D) {
         return result;
@@ -178,27 +411,68 @@ export class LocalStorageService {
     return object;
   }
 
-  private colladaExporter : ColladaExporter = null;
-  private objExporter : OBJExporter = null;
-  private dracoExporter : DRACOExporter = null;
-  private gltfExporter : GLTFExporter = null;
-  private mmdExporter : MMDExporter = null;
-  private plyExporter : PLYExporter = null;
-  private usdzExporter : USDZExporter = null;
-  private stlExporter : STLExporter = null;
-  
-  public getExportObject(fileName : string, object : THREE.Object3D | THREE.Object3D[], options? : any ) {
+  /**
+   * Collada exporter of local storage service
+   */
+  private colladaExporter: ColladaExporter = null;
+
+  /**
+   * Obj exporter of local storage service
+   */
+  private objExporter: OBJExporter = null;
+
+  /**
+   * Draco exporter of local storage service
+   */
+  private dracoExporter: DRACOExporter = null;
+
+  /**
+   * Gltf exporter of local storage service
+   */
+  private gltfExporter: GLTFExporter = null;
+
+  /**
+   * Mmd exporter of local storage service
+   */
+  private mmdExporter: MMDExporter = null;
+
+  /**
+   * Ply exporter of local storage service
+   */
+  private plyExporter: PLYExporter = null;
+
+  /**
+   * Usdz exporter of local storage service
+   */
+  private usdzExporter: USDZExporter = null;
+
+  /**
+   * Stl exporter of local storage service
+   */
+  private stlExporter: STLExporter = null;
+
+  /**
+   * Gets export object
+   * @param fileName
+   * @param object
+   * @param [options]
+   */
+  public getExportObject(fileName: string, object: THREE.Object3D | THREE.Object3D[], options?: any) {
     if (fileName.endsWith('.dae')) {
       if (this.colladaExporter === null) {
         this.colladaExporter = new ColladaExporter();
       }
       if (object instanceof THREE.Object3D) {
-        this.colladaExporter.parse( object , (res) => {
-          this.saveString(res.data, fileName);
-          res.textures.forEach((tex : any) => {
-            this.saveArrayBuffer( tex.data, `${ tex.name }.${ tex.ext }` );
-          });
-        }, {});
+        this.colladaExporter.parse(
+          object,
+          (res) => {
+            this.saveString(res.data, fileName);
+            res.textures.forEach((tex: any) => {
+              this.saveArrayBuffer(tex.data, `${tex.name}.${tex.ext}`);
+            });
+          },
+          {}
+        );
       }
     } else if (fileName.endsWith('.drc')) {
       if (this.dracoExporter === null) {
@@ -207,102 +481,125 @@ export class LocalStorageService {
       }
       if (object instanceof THREE.Mesh || object instanceof THREE.Points) {
         const result = this.dracoExporter.parse(object, {});
-				this.saveArrayBuffer( result, fileName );
+        this.saveArrayBuffer(result, fileName);
       }
     } else if (fileName.endsWith('.gltf') || fileName.endsWith('.glb')) {
       if (this.gltfExporter === null) {
         this.gltfExporter = new GLTFExporter();
       }
       const fileNameOnly = fileName.substr(0, fileName.lastIndexOf('.'));
-      this.gltfExporter.parse(object as any, (result) => {
-        if ( result instanceof ArrayBuffer ) {
-          this.saveArrayBuffer( result, fileNameOnly + '.glb');
-        } else {
-          const output = JSON.stringify( result, null, 2 );
-          console.log( output );
-          this.saveString( output, fileNameOnly + '.gltf' );
-        }
-      }, options);
+      this.gltfExporter.parse(
+        object as any,
+        (result) => {
+          if (result instanceof ArrayBuffer) {
+            this.saveArrayBuffer(result, fileNameOnly + '.glb');
+          } else {
+            const output = JSON.stringify(result, null, 2);
+            console.log(output);
+            this.saveString(output, fileNameOnly + '.gltf');
+          }
+        },
+        options
+      );
     } else if (fileName.endsWith('.obj')) {
       if (this.objExporter === null) {
         this.objExporter = new OBJExporter();
       }
       const result = this.objExporter.parse(object as any);
-      this.saveString( result, fileName );
+      this.saveString(result, fileName);
     } else if (fileName.endsWith('.ply')) {
       if (this.plyExporter === null) {
         this.plyExporter = new PLYExporter();
       }
-      this.plyExporter.parse(object as any, (result : any) => {
-        if ( result instanceof ArrayBuffer ) {
-          this.saveArrayBuffer( result, fileName );
-        } else {
-          this.saveString( result, fileName );
-        }
-      }, options);
+      this.plyExporter.parse(
+        object as any,
+        (result: any) => {
+          if (result instanceof ArrayBuffer) {
+            this.saveArrayBuffer(result, fileName);
+          } else {
+            this.saveString(result, fileName);
+          }
+        },
+        options
+      );
     } else if (fileName.endsWith('.stl')) {
       if (this.stlExporter === null) {
         this.stlExporter = new STLExporter();
       }
-      const result : any = this.stlExporter.parse(object as any, options);
-      if ( result instanceof ArrayBuffer ) {
-        this.saveArrayBuffer( result, fileName );
+      const result: any = this.stlExporter.parse(object as any, options);
+      if (result instanceof ArrayBuffer) {
+        this.saveArrayBuffer(result, fileName);
       } else {
-        this.saveString( result, fileName );
+        this.saveString(result, fileName);
       }
-    } else if (
-      fileName.endsWith('.pmd') ||
-      fileName.endsWith('.pmx') ||
-      fileName.endsWith('.vmd') ||
-      fileName.endsWith('.vpd')
-    ) {
+    } else if (fileName.endsWith('.pmd') || fileName.endsWith('.pmx') || fileName.endsWith('.vmd') || fileName.endsWith('.vpd')) {
       if (this.mmdExporter === null) {
         this.mmdExporter = new MMDExporter();
       }
-      const result : any = this.mmdExporter.parseVpd(object as any, false, false);
-      if ( result instanceof ArrayBuffer ) {
-        this.saveArrayBuffer( result, fileName );
+      const result: any = this.mmdExporter.parseVpd(object as any, false, false);
+      if (result instanceof ArrayBuffer) {
+        this.saveArrayBuffer(result, fileName);
       } else {
-        this.saveString( result, fileName );
+        this.saveString(result, fileName);
       }
     } else if (fileName.endsWith('.usdz')) {
       if (this.usdzExporter === null) {
         this.usdzExporter = new USDZExporter();
       }
-      const result : any = this.usdzExporter.parse(object as any);
-      if ( result instanceof ArrayBuffer ) {
-        this.saveArrayBuffer( result, fileName );
+      const result: any = this.usdzExporter.parse(object as any);
+      if (result instanceof ArrayBuffer) {
+        this.saveArrayBuffer(result, fileName);
       } else {
-        this.saveString( result, fileName );
+        this.saveString(result, fileName);
       }
     }
-    
   }
-  private save( blob, filename ) {
-    const link = document.createElement( 'a' );
+
+  /**
+   * Saves local storage service
+   * @param blob
+   * @param filename
+   */
+  private save(blob, filename) {
+    const link = document.createElement('a');
     link.style.display = 'none';
-    document.body.appendChild( link );
-    link.href = URL.createObjectURL( blob );
+    document.body.appendChild(link);
+    link.href = URL.createObjectURL(blob);
     link.download = filename;
     link.click();
     link.parentNode.removeChild(link);
   }
 
-  private saveArrayBuffer( buffer, filename ) {
-    this.save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
+  /**
+   * Saves array buffer
+   * @param buffer
+   * @param filename
+   */
+  private saveArrayBuffer(buffer, filename) {
+    this.save(new Blob([buffer], { type: 'application/octet-stream' }), filename);
   }
 
-  private saveString( text , filename ) {
-    this.save( new Blob( [ text ], { type: 'text/plain' } ), filename );
+  /**
+   * Saves string
+   * @param text
+   * @param filename
+   */
+  private saveString(text, filename) {
+    this.save(new Blob([text], { type: 'text/plain' }), filename);
   }
 
-  _loadedObject : { [key : string] : LoadedObject} = {}
+  /**
+   * Loaded object of local storage service
+   */
+  private _loadedObject: { [key: string]: LoadedObject } = {};
 
-  public getObjectFromKey(
-    key: string,
-    callBack: (mesh: LoadedObject) => void,
-    options: any
-  ): void {
+  /**
+   * Gets object from key
+   * @param key
+   * @param callBack
+   * @param options
+   */
+  public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
     options = options || {};
     let safeKey = '';
     if (ThreeUtil.isNotNull(options.path)) {
@@ -319,7 +616,7 @@ export class LocalStorageService {
         texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
         clips: result.clips,
         morphTargets: result.morphTargets,
-        source: result.source
+        source: result.source,
       });
     } else {
       this._getObjectFromKey(
@@ -345,6 +642,12 @@ export class LocalStorageService {
     }
   }
 
+  /**
+   * Sets loader with option
+   * @param loader
+   * @param options
+   * @returns
+   */
   public setLoaderWithOption(loader: THREE.Loader, options: any) {
     if (ThreeUtil.isNotNull(options)) {
       if (ThreeUtil.isNotNull(loader.setResourcePath)) {
@@ -363,11 +666,13 @@ export class LocalStorageService {
     return loader;
   }
 
-  public _getObjectFromKey(
-    key: string,
-    callBack: (mesh: LoadedObject) => void,
-    options: any
-  ): void {
+  /**
+   * Gets object from key
+   * @param key
+   * @param callBack
+   * @param options
+   */
+  public _getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
         this.colladaLoader = new ColladaLoader(ThreeUtil.getLoadingManager());
@@ -495,8 +800,8 @@ export class LocalStorageService {
         key,
         (chunks: Chunk[]) => {
           const object3d = new THREE.Group();
-          chunks.forEach(chunk => {
-            object3d.add(new VOXMesh( chunk ));
+          chunks.forEach((chunk) => {
+            object3d.add(new VOXMesh(chunk));
           });
           callBack({
             object: object3d,
@@ -528,15 +833,15 @@ export class LocalStorageService {
     } else if (key.endsWith('.exr')) {
       if (this.exrLoader === null) {
         this.exrLoader = new EXRLoader(ThreeUtil.getLoadingManager());
-        this.exrLoader.setDataType( THREE.UnsignedByteType )
+        this.exrLoader.setDataType(THREE.UnsignedByteType);
       }
       this.setLoaderWithOption(this.exrLoader, options);
       this.exrLoader.load(
         key,
         (dataTexture: THREE.DataTexture) => {
           callBack({
-            texture : dataTexture,
-            source: dataTexture
+            texture: dataTexture,
+            source: dataTexture,
           });
         },
         this.onProgress,
@@ -545,15 +850,15 @@ export class LocalStorageService {
     } else if (key.endsWith('.hdr')) {
       if (this.rgbeLoader === null) {
         this.rgbeLoader = new RGBELoader(ThreeUtil.getLoadingManager());
-        this.rgbeLoader.setDataType( THREE.UnsignedByteType )
+        this.rgbeLoader.setDataType(THREE.UnsignedByteType);
       }
       this.setLoaderWithOption(this.rgbeLoader, options);
       this.rgbeLoader.load(
         key,
         (dataTexture: THREE.DataTexture) => {
           callBack({
-            texture : dataTexture,
-            source: dataTexture
+            texture: dataTexture,
+            source: dataTexture,
           });
         },
         this.onProgress,
@@ -568,8 +873,8 @@ export class LocalStorageService {
         key,
         (texture: THREE.CompressedTexture) => {
           callBack({
-            texture : texture,
-            source: texture
+            texture: texture,
+            source: texture,
           });
         },
         this.onProgress,
@@ -578,18 +883,18 @@ export class LocalStorageService {
     } else if (key.endsWith('.ktx2')) {
       if (this.ktx2Loader === null) {
         this.ktx2Loader = new KTX2Loader(ThreeUtil.getLoadingManager());
-				this.ktx2Loader.detectSupport( new THREE.WebGLRenderer() );
+        this.ktx2Loader.detectSupport(new THREE.WebGLRenderer());
       }
       if (options.transcoderPath) {
-        this.ktx2Loader.setTranscoderPath( ThreeUtil.getStoreUrl(options.transcoderPath) );
+        this.ktx2Loader.setTranscoderPath(ThreeUtil.getStoreUrl(options.transcoderPath));
       }
       this.setLoaderWithOption(this.ktx2Loader, options);
       this.ktx2Loader.load(
         key,
         (texture: THREE.CompressedTexture) => {
           callBack({
-            texture : texture,
-            source: texture
+            texture: texture,
+            source: texture,
           });
         },
         this.onProgress,
@@ -604,8 +909,8 @@ export class LocalStorageService {
         key,
         (texture: THREE.CompressedTexture) => {
           callBack({
-            texture : texture,
-            source: texture
+            texture: texture,
+            source: texture,
           });
         },
         this.onProgress,
@@ -619,11 +924,7 @@ export class LocalStorageService {
       this.bvhLoader.load(
         key,
         (object: BVH) => {
-          if (
-            object.skeleton &&
-            object.skeleton.bones &&
-            object.skeleton.bones.length > 0
-          ) {
+          if (object.skeleton && object.skeleton.bones && object.skeleton.bones.length > 0) {
             /*
             const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
             mesh.skeleton = object.skeleton;
@@ -699,9 +1000,7 @@ export class LocalStorageService {
         this.lDrawLoader = new LDrawLoader(ThreeUtil.getLoadingManager());
       }
       if (options.resourcePath) {
-        this.lDrawLoader.setResourcePath(
-          ThreeUtil.getStoreUrl(options.resourcePath)
-        );
+        this.lDrawLoader.setResourcePath(ThreeUtil.getStoreUrl(options.resourcePath));
       }
       this.lDrawLoader.load(
         key,
@@ -762,20 +1061,18 @@ export class LocalStorageService {
       });
     } else if (key.endsWith('.basis')) {
       if (this.basisTextureLoader === null) {
-        this.basisTextureLoader = new BasisTextureLoader(
-          ThreeUtil.getLoadingManager()
-        );
-				this.basisTextureLoader.detectSupport( new THREE.WebGLRenderer() );
+        this.basisTextureLoader = new BasisTextureLoader(ThreeUtil.getLoadingManager());
+        this.basisTextureLoader.detectSupport(new THREE.WebGLRenderer());
       }
       if (options.transcoderPath) {
-        this.basisTextureLoader.setTranscoderPath( ThreeUtil.getStoreUrl(options.transcoderPath) );
+        this.basisTextureLoader.setTranscoderPath(ThreeUtil.getStoreUrl(options.transcoderPath));
       }
       this.setLoaderWithOption(this.basisTextureLoader, options);
       this.basisTextureLoader.load(
         key,
         (texture: THREE.CompressedTexture) => {
           callBack({
-            texture : texture,
+            texture: texture,
             source: texture,
           });
         },
@@ -809,21 +1106,15 @@ export class LocalStorageService {
             this.dracoLoader = new DRACOLoader(ThreeUtil.getLoadingManager());
           }
           if (options.decoderPath) {
-            this.dracoLoader.setDecoderPath(
-              ThreeUtil.getStoreUrl(options.decoderPath)
-            );
+            this.dracoLoader.setDecoderPath(ThreeUtil.getStoreUrl(options.decoderPath));
           }
           this.gltfLoader.setDRACOLoader(this.dracoLoader);
         }
         if (options.useKtx2) {
           if (this.ktx2Loader === null) {
             this.ktx2Loader = new KTX2Loader(ThreeUtil.getLoadingManager());
-            this.ktx2Loader.setTranscoderPath(
-              ThreeUtil.getStoreUrl('js/libs/basis/')
-            );
-            this.ktx2Loader.detectSupport(
-              ThreeUtil.getRenderer() as THREE.WebGLRenderer
-            );
+            this.ktx2Loader.setTranscoderPath(ThreeUtil.getStoreUrl('js/libs/basis/'));
+            this.ktx2Loader.detectSupport(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
           }
           this.gltfLoader.setKTX2Loader(this.ktx2Loader);
         }
@@ -843,12 +1134,7 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-    } else if (
-      key.endsWith('.pmd') ||
-      key.endsWith('.pmx') ||
-      key.endsWith('.vmd') ||
-      key.endsWith('.vpd')
-    ) {
+    } else if (key.endsWith('.pmd') || key.endsWith('.pmx') || key.endsWith('.vmd') || key.endsWith('.vpd')) {
       if (this.mmdLoader === null) {
         this.mmdLoader = new MMDLoader(ThreeUtil.getLoadingManager());
       }
@@ -909,7 +1195,7 @@ export class LocalStorageService {
         key,
         (points: THREE.Points) => {
           callBack({
-            object : points,
+            object: points,
             source: points,
           });
         },
@@ -939,7 +1225,7 @@ export class LocalStorageService {
       this.setLoaderWithOption(this.tgaLoader, options);
       this.tgaLoader.load(key, (texture: THREE.Texture) => {
         callBack({
-          texture : texture,
+          texture: texture,
           source: texture,
         });
       });
@@ -951,51 +1237,51 @@ export class LocalStorageService {
       this.svgLoader.load(
         key,
         (data: SVGResult) => {
-					const paths = data.paths;
-					const group = new THREE.Group();
+          const paths = data.paths;
+          const group = new THREE.Group();
           const drawFillShapes = options.drawFillShapes || false;
           const drawStrokes = options.drawStrokes || false;
           const fillShapesWireframe = options.fillShapesWireframe || false;
           const strokesWireframe = options.strokesWireframe || false;
-          paths.forEach(path => {
-						const fillColor = path.userData.style.fill;
-						if ( drawFillShapes && fillColor !== undefined && fillColor !== 'none' ) {
-							const material = new THREE.MeshBasicMaterial( {
-								color: new THREE.Color().setStyle( fillColor ),
-								opacity: path.userData.style.fillOpacity,
-								transparent: path.userData.style.fillOpacity < 1,
-								side: THREE.DoubleSide,
-								depthWrite: false,
-								wireframe: fillShapesWireframe
-							} );
-							const shapes = path.toShapes( true );
-              shapes.forEach(shape => {
-								const geometry = new THREE.ShapeGeometry( shape );
-								const mesh = new THREE.Mesh( geometry, material );
-								group.add( mesh );
-							});
-						}
-						const strokeColor = path.userData.style.stroke;
-						if ( drawStrokes && strokeColor !== undefined && strokeColor !== 'none' ) {
-							const material = new THREE.MeshBasicMaterial( {
-								color: new THREE.Color().setStyle( strokeColor ),
-								opacity: path.userData.style.strokeOpacity,
-								transparent: path.userData.style.strokeOpacity < 1,
-								side: THREE.DoubleSide,
-								depthWrite: false,
-								wireframe: strokesWireframe
-							} );
-              path.subPaths.forEach(subPath => {
-								const geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
-								if ( geometry ) {
-									const mesh = new THREE.Mesh( geometry, material );
-									group.add( mesh );
-								}
-							});
-						}
-					});
+          paths.forEach((path) => {
+            const fillColor = path.userData.style.fill;
+            if (drawFillShapes && fillColor !== undefined && fillColor !== 'none') {
+              const material = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setStyle(fillColor),
+                opacity: path.userData.style.fillOpacity,
+                transparent: path.userData.style.fillOpacity < 1,
+                side: THREE.DoubleSide,
+                depthWrite: false,
+                wireframe: fillShapesWireframe,
+              });
+              const shapes = path.toShapes(true);
+              shapes.forEach((shape) => {
+                const geometry = new THREE.ShapeGeometry(shape);
+                const mesh = new THREE.Mesh(geometry, material);
+                group.add(mesh);
+              });
+            }
+            const strokeColor = path.userData.style.stroke;
+            if (drawStrokes && strokeColor !== undefined && strokeColor !== 'none') {
+              const material = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setStyle(strokeColor),
+                opacity: path.userData.style.strokeOpacity,
+                transparent: path.userData.style.strokeOpacity < 1,
+                side: THREE.DoubleSide,
+                depthWrite: false,
+                wireframe: strokesWireframe,
+              });
+              path.subPaths.forEach((subPath) => {
+                const geometry = SVGLoader.pointsToStroke(subPath.getPoints(), path.userData.style);
+                if (geometry) {
+                  const mesh = new THREE.Mesh(geometry, material);
+                  group.add(mesh);
+                }
+              });
+            }
+          });
           callBack({
-            object : group,
+            object: group,
             source: data,
           });
         },
@@ -1134,82 +1420,81 @@ export class LocalStorageService {
         this.pdbLoader = new PDBLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.pdbLoader, options);
-      this.pdbLoader.load(key, (pdb: PDB) => {
-        const geometryAtoms = pdb.geometryAtoms;
-        const geometryBonds = pdb.geometryBonds;
-        const json = pdb.json;
-        const cssType: string = options.cssType || 'css2d';
-        const group = new THREE.Mesh();
-        const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
-        const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
-        let positions = geometryAtoms.getAttribute('position');
-        const colors = geometryAtoms.getAttribute('color');
-        const position = new THREE.Vector3();
-        const color = new THREE.Color();
-        const tmpVec = new THREE.Vector3();
-        for (let i = 0; i < positions.count; i++) {
-          position.x = positions.getX(i);
-          position.y = positions.getY(i);
-          position.z = positions.getZ(i);
-          color.r = colors.getX(i);
-          color.g = colors.getY(i);
-          color.b = colors.getZ(i);
-          const material = new THREE.MeshPhongMaterial({ color: color.clone() });
-          const object = new THREE.Mesh(sphereGeometry, material);
-          object.name = 'atom';
-          object.position.copy(position);
-          object.position.multiplyScalar(75);
-          object.scale.multiplyScalar(25);
-          group.add(object);
-          const atom = json.atoms[i];
-          const text = document.createElement('div');
-          text.className = 'label';
-          text.style.color = 'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
-          text.style.marginTop = '1.5em';
-          text.textContent = atom[4];
-          let label : THREE.Object3D = null;
-          switch(cssType.toLowerCase()) {
-            case '3d' :
-            case 'css3d' :
-              label = new CSS3DObject(text);
-              break;
-            default :
-              label = new CSS2DObject(text);
-              break;
+      this.pdbLoader.load(
+        key,
+        (pdb: PDB) => {
+          const geometryAtoms = pdb.geometryAtoms;
+          const geometryBonds = pdb.geometryBonds;
+          const json = pdb.json;
+          const cssType: string = options.cssType || 'css2d';
+          const group = new THREE.Mesh();
+          const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
+          const sphereGeometry = new THREE.IcosahedronBufferGeometry(1, 3);
+          let positions = geometryAtoms.getAttribute('position');
+          const colors = geometryAtoms.getAttribute('color');
+          const position = new THREE.Vector3();
+          const color = new THREE.Color();
+          const tmpVec = new THREE.Vector3();
+          for (let i = 0; i < positions.count; i++) {
+            position.x = positions.getX(i);
+            position.y = positions.getY(i);
+            position.z = positions.getZ(i);
+            color.r = colors.getX(i);
+            color.g = colors.getY(i);
+            color.b = colors.getZ(i);
+            const material = new THREE.MeshPhongMaterial({ color: color.clone() });
+            const object = new THREE.Mesh(sphereGeometry, material);
+            object.name = 'atom';
+            object.position.copy(position);
+            object.position.multiplyScalar(75);
+            object.scale.multiplyScalar(25);
+            group.add(object);
+            const atom = json.atoms[i];
+            const text = document.createElement('div');
+            text.className = 'label';
+            text.style.color = 'rgb(' + atom[3][0] + ',' + atom[3][1] + ',' + atom[3][2] + ')';
+            text.style.marginTop = '1.5em';
+            text.textContent = atom[4];
+            let label: THREE.Object3D = null;
+            switch (cssType.toLowerCase()) {
+              case '3d':
+              case 'css3d':
+                label = new CSS3DObject(text);
+                break;
+              default:
+                label = new CSS2DObject(text);
+                break;
+            }
+            label.name = 'label';
+            const labelPostion = object.position.clone();
+            labelPostion.y += 13;
+            label.position.copy(labelPostion);
+            group.add(label);
           }
-          label.name = 'label';
-          const labelPostion = object.position.clone();
-          labelPostion.y += 13;
-          label.position.copy(labelPostion);
-          group.add(label);
-        }
-        positions = geometryBonds.getAttribute('position');
-        const start = new THREE.Vector3();
-        const end = new THREE.Vector3();
-        for (let i = 0; i < positions.count; i += 2) {
-          start.x = positions.getX(i);
-          start.y = positions.getY(i);
-          start.z = positions.getZ(i);
-          end.x = positions.getX(i + 1);
-          end.y = positions.getY(i + 1);
-          end.z = positions.getZ(i + 1);
-          start.multiplyScalar(75);
-          end.multiplyScalar(75);
-          const bond = new THREE.Mesh(
-            boxGeometry,
-            new THREE.MeshPhongMaterial({ color: 0xffffff })
-          );
-          bond.name = 'bone';
-          bond.position.copy(start);
-          bond.position.lerp(end, 0.5);
-          bond.scale.set(5, 5, start.distanceTo(end));
-          bond.lookAt(end);
-          group.add(bond);
-        }
-        callBack({ object : group, geometry: null, source: pdb });
-      },
-      this.onProgress,
-      this.onError
+          positions = geometryBonds.getAttribute('position');
+          const start = new THREE.Vector3();
+          const end = new THREE.Vector3();
+          for (let i = 0; i < positions.count; i += 2) {
+            start.x = positions.getX(i);
+            start.y = positions.getY(i);
+            start.z = positions.getZ(i);
+            end.x = positions.getX(i + 1);
+            end.y = positions.getY(i + 1);
+            end.z = positions.getZ(i + 1);
+            start.multiplyScalar(75);
+            end.multiplyScalar(75);
+            const bond = new THREE.Mesh(boxGeometry, new THREE.MeshPhongMaterial({ color: 0xffffff }));
+            bond.name = 'bone';
+            bond.position.copy(start);
+            bond.position.lerp(end, 0.5);
+            bond.scale.set(5, 5, start.distanceTo(end));
+            bond.lookAt(end);
+            group.add(bond);
+          }
+          callBack({ object: group, geometry: null, source: pdb });
+        },
+        this.onProgress,
+        this.onError
       );
     } else if (key.endsWith('.stl')) {
       if (this.stlLoader === null) {
@@ -1270,33 +1555,33 @@ export class LocalStorageService {
       this.vrmLoader.load(
         key,
         (vrm: GLTF) => {
-					vrm.scene.traverse( object => {
-						if ( object instanceof THREE.Mesh && object.material ) {
-							if ( Array.isArray( object.material ) ) {
-								for ( let i = 0, il = object.material.length; i < il; i ++ ) {
+          vrm.scene.traverse((object) => {
+            if (object instanceof THREE.Mesh && object.material) {
+              if (Array.isArray(object.material)) {
+                for (let i = 0, il = object.material.length; i < il; i++) {
                   const objectMaterial = object.material[i];
-									const material = new THREE.MeshPhongMaterial();
-									THREE.Material.prototype.copy.call( material, object.material[ i ] );
-									material.color.copy( objectMaterial['color']);
-									material.map = objectMaterial['map'];
-									// material.skinning = objectMaterial['skinning'];
-									material.morphTargets = objectMaterial['morphTargets'];
-									material.morphNormals = objectMaterial['morphNormals'];
-									object.material[ i ] = material;
-								}
-							} else {
+                  const material = new THREE.MeshPhongMaterial();
+                  THREE.Material.prototype.copy.call(material, object.material[i]);
+                  material.color.copy(objectMaterial['color']);
+                  material.map = objectMaterial['map'];
+                  // material.skinning = objectMaterial['skinning'];
+                  material.morphTargets = objectMaterial['morphTargets'];
+                  material.morphNormals = objectMaterial['morphNormals'];
+                  object.material[i] = material;
+                }
+              } else {
                 const objectMaterial = object.material;
-								const material = new THREE.MeshPhongMaterial();
-								THREE.Material.prototype.copy.call( material, object.material );
-								material.color.copy( objectMaterial['color'] );
-								material.map = objectMaterial['map'];
-								// material.skinning = objectMaterial['skinning'];
-								material.morphTargets = objectMaterial['morphTargets'];
-								material.morphNormals = objectMaterial['morphNormals'];
-								object.material = material;
-							}
-						}
-					});          
+                const material = new THREE.MeshPhongMaterial();
+                THREE.Material.prototype.copy.call(material, object.material);
+                material.color.copy(objectMaterial['color']);
+                material.map = objectMaterial['map'];
+                // material.skinning = objectMaterial['skinning'];
+                material.morphTargets = objectMaterial['morphTargets'];
+                material.morphNormals = objectMaterial['morphNormals'];
+                object.material = material;
+              }
+            }
+          });
           callBack({
             object: vrm.scene,
             source: vrm,
@@ -1305,7 +1590,6 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-      
     } else if (key.endsWith('.png') || key.endsWith('.jpg') || key.endsWith('.jpeg')) {
       if (this.rgbmLoader === null) {
         this.rgbmLoader = new RGBMLoader(ThreeUtil.getLoadingManager());
@@ -1322,18 +1606,15 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-      
     } else {
       if (key.endsWith('.js') || key.endsWith('.json')) {
         const isGeometryLoader = options.geometry ? true : false;
         if (!isGeometryLoader) {
           const loaderType = options.loaderType || '';
-          switch(loaderType.toLowerCase()) {
-            case 'lottie' :
+          switch (loaderType.toLowerCase()) {
+            case 'lottie':
               if (this.lottieLoader === null) {
-                this.lottieLoader = new LottieLoader(
-                  ThreeUtil.getLoadingManager()
-                );
+                this.lottieLoader = new LottieLoader(ThreeUtil.getLoadingManager());
                 window['bodymovin'] = LOTTE_CANVAS;
               }
               if (ThreeUtil.isNull(options.quality)) {
@@ -1344,10 +1625,10 @@ export class LocalStorageService {
                 key,
                 (texture: THREE.CanvasTexture) => {
                   callBack({
-                    texture : texture,
+                    texture: texture,
                     source: texture,
                   });
-                  setTimeout(() => {
+                  window.setTimeout(() => {
                     texture['animation'].play();
                   }, 1000);
                 },
@@ -1355,18 +1636,16 @@ export class LocalStorageService {
                 this.onError
               );
               break;
-            default :
+            default:
               if (this.objectLoader === null) {
-                this.objectLoader = new THREE.ObjectLoader(
-                  ThreeUtil.getLoadingManager()
-                );
+                this.objectLoader = new THREE.ObjectLoader(ThreeUtil.getLoadingManager());
               }
               this.setLoaderWithOption(this.objectLoader, options);
               this.objectLoader.load(
                 key,
                 (result) => {
                   callBack({
-                    object : result,
+                    object: result,
                     source: result,
                   });
                 },
@@ -1377,9 +1656,7 @@ export class LocalStorageService {
           }
         } else {
           if (this.geometryLoader === null) {
-            this.geometryLoader = new THREE.BufferGeometryLoader(
-              ThreeUtil.getLoadingManager()
-            );
+            this.geometryLoader = new THREE.BufferGeometryLoader(ThreeUtil.getLoadingManager());
           }
           this.setLoaderWithOption(this.geometryLoader, options);
           this.geometryLoader.load(
@@ -1403,17 +1680,13 @@ export class LocalStorageService {
     }
   }
 
-  public getObject(
-    key: string,
-    callBack: (
-      mesh: THREE.Object3D,
-      clips?: THREE.AnimationClip[],
-      geometry?: THREE.BufferGeometry,
-      morphTargets?: any,
-      source?: any
-    ) => void,
-    options?: any
-  ): void {
+  /**
+   * Gets object
+   * @param key
+   * @param callBack
+   * @param [options]
+   */
+  public getObject(key: string, callBack: (mesh: THREE.Object3D, clips?: THREE.AnimationClip[], geometry?: THREE.BufferGeometry, morphTargets?: any, source?: any) => void, options?: any): void {
     this.getObjectFromKey(
       key,
       (result) => {
@@ -1423,11 +1696,13 @@ export class LocalStorageService {
     );
   }
 
-  public getGeometry(
-    key: string,
-    callBack: (mesh: THREE.BufferGeometry, source?: any) => void,
-    options?: any
-  ): void {
+  /**
+   * Gets geometry
+   * @param key
+   * @param callBack
+   * @param [options]
+   */
+  public getGeometry(key: string, callBack: (mesh: THREE.BufferGeometry, source?: any) => void, options?: any): void {
     this.getObjectFromKey(
       key,
       (result) => {
@@ -1445,11 +1720,13 @@ export class LocalStorageService {
     );
   }
 
-  public getTexture(
-    key: string,
-    callBack: (texture: THREE.Texture, source?: any) => void,
-    options?: any
-  ): void {
+  /**
+   * Gets texture
+   * @param key
+   * @param callBack
+   * @param [options]
+   */
+  public getTexture(key: string, callBack: (texture: THREE.Texture, source?: any) => void, options?: any): void {
     this.getObjectFromKey(
       key,
       (result) => {
@@ -1464,12 +1741,14 @@ export class LocalStorageService {
       Object.assign(options || {}, { texture: true })
     );
   }
-  
-  public getMaterial(
-    key: string,
-    callBack: (material: THREE.Material, source?: any) => void,
-    options?: any
-  ): void {
+
+  /**
+   * Gets material
+   * @param key
+   * @param callBack
+   * @param [options]
+   */
+  public getMaterial(key: string, callBack: (material: THREE.Material, source?: any) => void, options?: any): void {
     this.getObjectFromKey(
       key,
       (result) => {
@@ -1485,15 +1764,22 @@ export class LocalStorageService {
     );
   }
 
+  /**
+   * Sets scene
+   * @param key
+   * @param scene
+   */
   public setScene(key: string, scene: THREE.Scene) {
     this.setItem(key, JSON.stringify(scene.toJSON()));
   }
 
-  public getScene(
-    key: string,
-    callBack: (mesh: THREE.Scene, source?: any) => void,
-    options?: any
-  ): void {
+  /**
+   * Gets scene
+   * @param key
+   * @param callBack
+   * @param [options]
+   */
+  public getScene(key: string, callBack: (mesh: THREE.Scene, source?: any) => void, options?: any): void {
     this.getObjectFromKey(
       key,
       (result) => {
@@ -1509,16 +1795,18 @@ export class LocalStorageService {
     );
   }
 
-  public getFont(
-    callBack: (font: THREE.Font) => void,
-    fontName: string = 'helvetiker',
-    fontWeight: string = ''
-  ) {
+  /**
+   * Gets font
+   * @param callBack
+   * @param [fontName]
+   * @param [fontWeight]
+   */
+  public getFont(callBack: (font: THREE.Font) => void, fontName: string = 'helvetiker', fontWeight: string = '') {
     let fontPath: string = '';
     if (ThreeUtil.isNull(fontWeight) || fontWeight === '') {
-       if (fontName.indexOf('_') > 0) {
-         [fontName, fontWeight] = fontName.split('_');
-       }
+      if (fontName.indexOf('_') > 0) {
+        [fontName, fontWeight] = fontName.split('_');
+      }
     }
     switch (fontName.toLowerCase()) {
       case 'helvetiker':
@@ -1590,13 +1878,7 @@ export class LocalStorageService {
         fontPath = '/assets/fonts/nanum/do_hyeon_regular.typeface.json';
         break;
       default:
-        if (
-          fontName.startsWith('/') ||
-          fontName.startsWith('http://') ||
-          fontName.startsWith('https://') ||
-          fontName.endsWith('.json') ||
-          fontName.endsWith('.ttf') 
-        ) {
+        if (fontName.startsWith('/') || fontName.startsWith('http://') || fontName.startsWith('https://') || fontName.endsWith('.json') || fontName.endsWith('.ttf')) {
           if (fontName.endsWith('.json')) {
             fontPath = fontName;
           } else if (fontName.endsWith('.ttf')) {
@@ -1610,7 +1892,7 @@ export class LocalStorageService {
         break;
     }
     if (ThreeUtil.isNotNull(this._loadedFonts[fontPath])) {
-      setTimeout(() => {
+      window.setTimeout(() => {
         callBack(this._loadedFonts[fontPath]);
       }, 1);
     } else {
@@ -1619,7 +1901,7 @@ export class LocalStorageService {
           this.ttfLoader = new TTFLoader(ThreeUtil.getLoadingManager());
         }
         this.ttfLoader.load(ThreeUtil.getStoreUrl(fontPath), (json: any) => {
-          this._loadedFonts[fontPath] = new THREE.Font( json );
+          this._loadedFonts[fontPath] = new THREE.Font(json);
           callBack(this._loadedFonts[fontPath]);
         });
       } else {
@@ -1633,16 +1915,30 @@ export class LocalStorageService {
       }
     }
   }
-  _loadedFonts : {
-    [key : string] : THREE.Font
-  } = {}
 
-  fontLoader: THREE.FontLoader = null;
+  /**
+   * Loaded fonts of local storage service
+   */
+  private _loadedFonts: {
+    [key: string]: THREE.Font;
+  } = {};
 
+  /**
+   * Font loader of local storage service
+   */
+  private fontLoader: THREE.FontLoader = null;
+
+  /**
+   * Removes item
+   * @param key
+   */
   public removeItem(key: string) {
     localStorage.removeItem(key);
   }
 
+  /**
+   * Clears local storage service
+   */
   public clear() {
     localStorage.clear();
   }

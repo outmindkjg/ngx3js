@@ -3,15 +3,17 @@ import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * RotationComponent
+ */
 @Component({
   selector: 'ngx3js-rotation',
   templateUrl: './rotation.component.html',
   styleUrls: ['./rotation.component.scss'],
 })
 export class RotationComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   * Input  of rotation component
    */
   @Input() private refer: any = null;
 
@@ -35,6 +37,9 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
    */
   @Input() private isRadian: boolean = false;
 
+  /**
+   * Creates an instance of rotation component.
+   */
   constructor() {
     super();
   }
@@ -63,7 +68,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -83,11 +88,21 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     super.ngAfterContentInit();
   }
 
+  /**
+   * Rotation  of rotation component
+   */
   private rotation: THREE.Euler = null;
 
+  /**
+   * Object3d  of rotation component
+   */
   private _object3d: THREE.Object3D = null;
 
-  setObject3d(object3d: THREE.Object3D) {
+  /**
+   * Sets object3d
+   * @param object3d
+   */
+  public setObject3d(object3d: THREE.Object3D) {
     if (this.rotation === null) {
       this.getRotation();
     }
@@ -97,7 +112,11 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  synkObject3d(rotation: THREE.Euler = null) {
+  /**
+   * Synks object3d
+   * @param [rotation]
+   */
+  public synkObject3d(rotation: THREE.Euler = null) {
     if (ThreeUtil.isNotNull(rotation) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
         if (this.isIdEuals(this._object3d.userData.rotation)) {
@@ -110,7 +129,13 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
-  setRotation(x? : number, y? : number, z? : number) {
+  /**
+   * Sets rotation
+   * @param [x]
+   * @param [y]
+   * @param [z]
+   */
+  public setRotation(x?: number, y?: number, z?: number) {
     if (this.rotation !== null) {
       this.x = ThreeUtil.getTypeSafe(x, this.rotation.x);
       this.y = ThreeUtil.getTypeSafe(y, this.rotation.y);
@@ -124,7 +149,12 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     this.needUpdate = true;
   }
 
-  getTagAttribute(options?: any): TagAttributes {
+  /**
+   * Gets tag attribute
+   * @param [options]
+   * @returns tag attribute
+   */
+  public getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
       tag: 'ngx3js-rotation',
       attributes: [],
@@ -141,13 +171,18 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     return tagAttributes;
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.rotation !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getRotation();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init','type','enabled'])) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['init', 'type', 'enabled'])) {
         this.needUpdate = true;
         return;
       }
@@ -155,8 +190,12 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     }
   }
 
+  /**
+   * Gets rotation
+   * @returns rotation
+   */
   private _getRotation(): THREE.Euler {
-    let rotation : THREE.Euler = null;
+    let rotation: THREE.Euler = null;
     if (ThreeUtil.isNotNull(this.refer)) {
       rotation = ThreeUtil.getRotation(this.refer);
     }
@@ -170,7 +209,11 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
     return rotation;
   }
 
-  getRotation(): THREE.Euler {
+  /**
+   * Gets rotation
+   * @returns rotation
+   */
+  public getRotation(): THREE.Euler {
     if (this.rotation === null || this._needUpdate) {
       this.needUpdate = false;
       this.rotation = this._getRotation();

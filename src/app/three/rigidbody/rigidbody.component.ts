@@ -7,197 +7,213 @@ import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
 import { RigidbodyNodeComponent } from './rigidbody-node/rigidbody-node.component';
 
+/**
+ * Rigidbody type
+ */
 export interface RigidbodyType {
   type: 'instanced' | 'rigidbody' | 'softbody' | 'debris';
   rigidBodies: Ammo.btRigidBody[];
   softBody: Ammo.btSoftBody;
   debris: RigidbodyComponent[];
-  ammoIndexAssociation? : number[][]
+  ammoIndexAssociation?: number[][];
 }
 
+/**
+ * RigidbodyComponent
+ */
 @Component({
   selector: 'ngx3js-rigidbody',
   templateUrl: './rigidbody.component.html',
   styleUrls: ['./rigidbody.component.scss'],
 })
 export class RigidbodyComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
+   * Input  of rigidbody component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() public type: string = 'auto';
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private isSoftBody: boolean = false;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private width: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private height: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private depth: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private radius: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private mass: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private margin: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private friction: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private rollingFriction: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private restitution: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private inertia: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private inertiaX: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private inertiaY: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private inertiaZ: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private velocityX: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private velocityY: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private velocityZ: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private angularVelocityX: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private angularVelocityY: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private angularVelocityZ: number = null;
 
   /**
+   * Input  of rigidbody component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private velocityType: string = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private damping: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private linDamping: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private angDamping: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private breakable: boolean = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private collisions: number | string = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private pressure: number = null;  
+  @Input() private pressure: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private stiffness: number = null;  
+  @Input() private stiffness: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private linStiffness: number = null;  
+  @Input() private linStiffness: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private angStiffness: number = null;  
+  @Input() private angStiffness: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private viterations: number = null;  
+  @Input() private viterations: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
-  @Input() private piterations: number = null;  
+  @Input() private piterations: number = null;
 
   /**
-   * 
+   * Input  of rigidbody component
    */
   @Input() private randomizeConstraints: boolean = true;
 
-
   /**
-   * 
+   * Content children of rigidbody component
    */
   @ContentChildren(RigidbodyNodeComponent, { descendants: false }) private rigidbodyNodeList: QueryList<RigidbodyNodeComponent>;
 
+  /**
+   * Gets box half extents
+   * @param geometry
+   * @param [def]
+   * @returns box half extents
+   */
   private getBoxHalfExtents(geometry: THREE.BufferGeometry, def?: THREE.Vector3): Ammo.btVector3 {
     let boxHalfExtents = ThreeUtil.getVector3Safe(this.width, this.height, this.depth);
     if (ThreeUtil.isNull(boxHalfExtents)) {
@@ -206,6 +222,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return new this._ammo.btVector3(boxHalfExtents.x / 2, boxHalfExtents.y / 2, boxHalfExtents.z / 2);
   }
 
+  /**
+   * Gets radius
+   * @param geometry
+   * @param [def]
+   * @returns radius
+   */
   private getRadius(geometry: THREE.BufferGeometry, def?: number): number {
     let radius = this.radius;
     if (ThreeUtil.isNull(radius)) {
@@ -215,6 +237,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return radius;
   }
 
+  /**
+   * Gets height
+   * @param geometry
+   * @param [def]
+   * @returns height
+   */
   private getHeight(geometry: THREE.BufferGeometry, def?: number): number {
     let height = this.height;
     if (ThreeUtil.isNull(height)) {
@@ -223,26 +251,56 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return height;
   }
 
+  /**
+   * Gets mass
+   * @param [def]
+   * @returns mass
+   */
   private getMass(def?: number): number {
     return ThreeUtil.getTypeSafe(this.mass, def);
   }
 
+  /**
+   * Gets margin
+   * @param [def]
+   * @returns margin
+   */
   private getMargin(def?: number): number {
     return ThreeUtil.getTypeSafe(this.margin, def);
   }
 
+  /**
+   * Gets friction
+   * @param [def]
+   * @returns friction
+   */
   private getFriction(def?: number): number {
     return ThreeUtil.getTypeSafe(this.friction, def);
   }
 
+  /**
+   * Gets rolling friction
+   * @param [def]
+   * @returns rolling friction
+   */
   private getRollingFriction(def?: number): number {
     return ThreeUtil.getTypeSafe(this.rollingFriction, def);
   }
 
+  /**
+   * Gets restitution
+   * @param [def]
+   * @returns restitution
+   */
   private getRestitution(def?: number): number {
     return ThreeUtil.getTypeSafe(this.restitution, def);
   }
 
+  /**
+   * Gets inertia
+   * @param [def]
+   * @returns inertia
+   */
   private getInertia(def?: number): Ammo.btVector3 {
     const inertia = ThreeUtil.getTypeSafe(this.inertia, def);
     const inertiaX = ThreeUtil.getTypeSafe(this.inertiaX, 0);
@@ -251,14 +309,30 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return new this._ammo.btVector3(inertiaX, inertiaY, inertiaZ);
   }
 
+  /**
+   * Gets lin damping
+   * @param [def]
+   * @returns lin damping
+   */
   private getLinDamping(def?: number): number {
     return ThreeUtil.getTypeSafe(this.linDamping, this.damping, def);
   }
 
+  /**
+   * Gets ang damping
+   * @param [def]
+   * @returns ang damping
+   */
   private getAngDamping(def?: number): number {
     return ThreeUtil.getTypeSafe(this.angDamping, this.damping, def);
   }
 
+  /**
+   * Gets geometry size
+   * @param geometry
+   * @param [def]
+   * @returns geometry size
+   */
   private getGeometrySize(geometry: THREE.BufferGeometry, def?: THREE.Vector3 | number): THREE.Vector3 {
     if (ThreeUtil.isNotNull(geometry)) {
       const parameters = geometry['parameters'];
@@ -273,7 +347,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           return new THREE.Vector3(Math.max(parameters.radiusTop, parameters.radiusBottom) * 2, parameters.height, Math.max(parameters.radiusTop, parameters.radiusBottom) * 2);
         case 'conegeometry':
           return new THREE.Vector3(parameters.radius * 2, parameters.height, parameters.radius * 2);
-        }
+      }
     }
     if (ThreeUtil.isNotNull(def)) {
       if (def instanceof THREE.Vector3) {
@@ -286,6 +360,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  /**
+   * Gets geometry segments
+   * @param geometry
+   * @param [def]
+   * @returns geometry segments
+   */
   private getGeometrySegments(geometry: THREE.BufferGeometry, def?: THREE.Vector3 | number): THREE.Vector3 {
     if (ThreeUtil.isNotNull(geometry)) {
       if (geometry instanceof THREE.BoxGeometry) {
@@ -307,6 +387,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  /**
+   * Creates an instance of rigidbody component.
+   */
   constructor() {
     super();
   }
@@ -347,7 +430,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -368,6 +451,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     super.ngAfterContentInit();
   }
 
+  /**
+   * Gets absolute geometry
+   * @param bufGeometry
+   * @param object3d
+   * @returns absolute geometry
+   */
   private getAbsoluteGeometry(bufGeometry: THREE.BufferGeometry, object3d: THREE.Object3D): THREE.BufferGeometry {
     const absBufGeometry = bufGeometry.clone();
     const positions = absBufGeometry.getAttribute('position');
@@ -381,8 +470,17 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return absBufGeometry;
   }
 
+  /**
+   * Object3d  of rigidbody component
+   */
   private object3d: THREE.Object3D = null;
-  setParent(parent: THREE.Object3D): boolean {
+
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.object3d = parent;
       this.getRigidBody();
@@ -392,11 +490,26 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  /**
+   * Physics  of rigidbody component
+   */
   private physics: PhysicsComponent = null;
+
+  /**
+   * Ammo  of rigidbody component
+   */
   private _ammo: typeof Ammo = null;
+
+  /**
+   * Physics  of rigidbody component
+   */
   private _physics: Ammo.btSoftRigidDynamicsWorld = null;
 
-  setPhysics(physics: PhysicsComponent) {
+  /**
+   * Sets physics
+   * @param physics
+   */
+  public setPhysics(physics: PhysicsComponent) {
     this.physics = physics;
     this._physics = this.physics.getPhysics();
     if (this._physics !== null) {
@@ -419,8 +532,16 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  /**
+   * Rigid body of rigidbody component
+   */
   private rigidBody: RigidbodyType = null;
 
+  /**
+   * Gets rigid bodies
+   * @param [index]
+   * @returns rigid bodies
+   */
   private _getRigidBodies(index: number = null): Ammo.btRigidBody[] {
     const rigidBodies: Ammo.btRigidBody[] = [];
     if (this.rigidBody !== null) {
@@ -445,7 +566,15 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return rigidBodies;
   }
 
-  setVelocity(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
+  /**
+   * Sets velocity
+   * @param x
+   * @param y
+   * @param z
+   * @param [type]
+   * @param [index]
+   */
+  public setVelocity(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
     if (this.rigidBody !== null) {
       const velocity: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -462,7 +591,13 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getVelocity(type: string = 'linear', index: number = null): THREE.Vector3 {
+  /**
+   * Gets velocity
+   * @param [type]
+   * @param [index]
+   * @returns velocity
+   */
+  public getVelocity(type: string = 'linear', index: number = null): THREE.Vector3 {
     if (this.rigidBody !== null) {
       let velocity: Ammo.btVector3 = null;
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -483,7 +618,15 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return null;
   }
 
-  setFactor(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
+  /**
+   * Sets factor
+   * @param x
+   * @param y
+   * @param z
+   * @param [type]
+   * @param [index]
+   */
+  public setFactor(x: number, y: number, z: number, type: string = 'linear', index: number = null) {
     if (this.rigidBody !== null) {
       const factor: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -500,7 +643,13 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getFactor(type: string = 'linear', index: number = null): THREE.Vector3 {
+  /**
+   * Gets factor
+   * @param [type]
+   * @param [index]
+   * @returns factor
+   */
+  public getFactor(type: string = 'linear', index: number = null): THREE.Vector3 {
     if (this.rigidBody !== null) {
       let factor: Ammo.btVector3 = null;
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -521,7 +670,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return null;
   }
 
-  clearForces(index: number = null) {
+  /**
+   * Clears forces
+   * @param [index]
+   */
+  public clearForces(index: number = null) {
     if (this.rigidBody !== null) {
       this._getRigidBodies(index).forEach((rigidBody) => {
         rigidBody.clearForces();
@@ -529,7 +682,15 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  applyTorque(x: number, y: number, z: number, type: string = 'torque', index: number = null) {
+  /**
+   * Applys torque
+   * @param x
+   * @param y
+   * @param z
+   * @param [type]
+   * @param [index]
+   */
+  public applyTorque(x: number, y: number, z: number, type: string = 'torque', index: number = null) {
     if (this.rigidBody !== null) {
       const torque: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -549,7 +710,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  getMotionState(index: number = null): Ammo.btMotionState {
+  /**
+   * Gets motion state
+   * @param [index]
+   * @returns motion state
+   */
+  public getMotionState(index: number = null): Ammo.btMotionState {
     let motionState = null;
     if (this.rigidBody !== null) {
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -559,7 +725,12 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return motionState;
   }
 
-  setMotionState(motionState: Ammo.btMotionState, index: number = null) {
+  /**
+   * Sets motion state
+   * @param motionState
+   * @param [index]
+   */
+  public setMotionState(motionState: Ammo.btMotionState, index: number = null) {
     if (this.rigidBody !== null) {
       this._getRigidBodies(index).forEach((rigidBody) => {
         rigidBody.setMotionState(motionState);
@@ -567,7 +738,17 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  setMotionStatePosition(x: number = null, y: number = null, z: number = null, rx: number = null, ry: number = null, rz: number = null, index: number = null) {
+  /**
+   * Sets motion state position
+   * @param [x]
+   * @param [y]
+   * @param [z]
+   * @param [rx]
+   * @param [ry]
+   * @param [rz]
+   * @param [index]
+   */
+  public setMotionStatePosition(x: number = null, y: number = null, z: number = null, rx: number = null, ry: number = null, rz: number = null, index: number = null) {
     if (this.rigidBody !== null) {
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
@@ -588,7 +769,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  setMotionStateRotation(x: number, y: number, z: number, index: number = null) {
+  /**
+   * Sets motion state rotation
+   * @param x
+   * @param y
+   * @param z
+   * @param [index]
+   */
+  public setMotionStateRotation(x: number, y: number, z: number, index: number = null) {
     if (this.rigidBody !== null) {
       const transform = new this._ammo.btTransform();
       transform.setIdentity();
@@ -602,7 +790,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  setPosition(x: number, y: number, z: number, index: number = null) {
+  /**
+   * Sets position
+   * @param x
+   * @param y
+   * @param z
+   * @param [index]
+   */
+  public setPosition(x: number, y: number, z: number, index: number = null) {
     if (this.rigidBody !== null) {
       let rigidBody: Ammo.btRigidBody | Ammo.btSoftBody = null;
       switch (this.rigidBody.type) {
@@ -635,7 +830,18 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  applyForce(x: number, y: number, z: number, type: string = 'force', relX: number = 0, relY: number = 0, relZ: number = 0, index: number = null) {
+  /**
+   * Applys force
+   * @param x
+   * @param y
+   * @param z
+   * @param [type]
+   * @param [relX]
+   * @param [relY]
+   * @param [relZ]
+   * @param [index]
+   */
+  public applyForce(x: number, y: number, z: number, type: string = 'force', relX: number = 0, relY: number = 0, relZ: number = 0, index: number = null) {
     if (this.rigidBody !== null) {
       const force: Ammo.btVector3 = new this._ammo.btVector3(x, y, z);
       this._getRigidBodies(index).forEach((rigidBody) => {
@@ -656,6 +862,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.rigidBody !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -721,7 +932,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     }
   }
 
-  private _createDebrisFromBreakableObject( objects : THREE.Object3D[] ) {
+  /**
+   * Creates debris from breakable object
+   * @param objects
+   */
+  private _createDebrisFromBreakableObject(objects: THREE.Object3D[]) {
     this.rigidBody.debris = [];
     const castShadow = this.object3d.castShadow;
     const receiveShadow = this.object3d.receiveShadow;
@@ -730,22 +945,27 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       object.receiveShadow = receiveShadow;
       this.object3d.parent.add(object);
       const rigidBody = new RigidbodyComponent();
-      this.initLocalComponent('debris_' + idx,rigidBody);
+      this.initLocalComponent('debris_' + idx, rigidBody);
       const velocity = object.userData.velocity;
       const angularVelocity = object.userData.angularVelocity;
-      
-      rigidBody.updateInputParams({
-        mass : object.userData.mass,
-        margin : this.margin,
-        velocityX : velocity ? velocity.x : null,
-        velocityY : velocity ? velocity.y : null,
-        velocityZ : velocity ? velocity.z : null,
-        angularVelocityX : angularVelocity ? angularVelocity.x : null,
-        angularVelocityY : angularVelocity ? angularVelocity.y : null,
-        angularVelocityZ : angularVelocity ? angularVelocity.z : null,
-        friction : this.friction,
-        breakable : this.breakable
-      }, true, {}, 'convexhull');
+
+      rigidBody.updateInputParams(
+        {
+          mass: object.userData.mass,
+          margin: this.margin,
+          velocityX: velocity ? velocity.x : null,
+          velocityY: velocity ? velocity.y : null,
+          velocityZ: velocity ? velocity.z : null,
+          angularVelocityX: angularVelocity ? angularVelocity.x : null,
+          angularVelocityY: angularVelocity ? angularVelocity.y : null,
+          angularVelocityZ: angularVelocity ? angularVelocity.z : null,
+          friction: this.friction,
+          breakable: this.breakable,
+        },
+        true,
+        {},
+        'convexhull'
+      );
       rigidBody.setPhysics(this.physics);
       rigidBody.setParent(object);
       this.rigidBody.debris.push(rigidBody);
@@ -760,69 +980,100 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     this.object3d.parent.remove(this.object3d);
   }
 
-  private _processGeometry( bufGeometry: THREE.BufferGeometry ): {
-    ammoVertices : number[],
-    ammoIndices : number[],
-    ammoIndexAssociation : number[][]
-  }{
+  /**
+   * Process geometry
+   * @param bufGeometry
+   * @returns geometry
+   */
+  private _processGeometry(bufGeometry: THREE.BufferGeometry): {
+    ammoVertices: number[];
+    ammoIndices: number[];
+    ammoIndexAssociation: number[][];
+  } {
     // Ony consider the position values when merging the vertices
     const posOnlyBufGeometry = new THREE.BufferGeometry();
-    posOnlyBufGeometry.setAttribute( 'position', bufGeometry.getAttribute( 'position' ) );
-    posOnlyBufGeometry.setIndex( bufGeometry.getIndex() );
+    posOnlyBufGeometry.setAttribute('position', bufGeometry.getAttribute('position'));
+    posOnlyBufGeometry.setIndex(bufGeometry.getIndex());
     // Merge the vertices so the triangle soup is converted to indexed triangles
-    const indexedBufferGeom = GeometryUtils.mergeVertices( posOnlyBufGeometry );
+    const indexedBufferGeom = GeometryUtils.mergeVertices(posOnlyBufGeometry);
     // Create index arrays mapping the indexed vertices to bufGeometry vertices
-    return this._mapIndices( bufGeometry, indexedBufferGeom );
+    return this._mapIndices(bufGeometry, indexedBufferGeom);
   }
 
-  private _isEqual( x1 : number, y1 : number, z1 : number, x2 : number, y2 : number, z2 : number ) :boolean {
+  /**
+   * Determines whether equal is
+   * @param x1
+   * @param y1
+   * @param z1
+   * @param x2
+   * @param y2
+   * @param z2
+   * @returns true if equal
+   */
+  private _isEqual(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): boolean {
     const delta = 0.000001;
-    return Math.abs( x2 - x1 ) < delta &&
-        Math.abs( y2 - y1 ) < delta &&
-        Math.abs( z2 - z1 ) < delta;
-  }  
-
-  private _mapIndices( bufGeometry : THREE.BufferGeometry, indexedBufferGeom : THREE.BufferGeometry ): {
-    ammoVertices : number[],
-    ammoIndices : number[],
-    ammoIndexAssociation : number[][]
+    return Math.abs(x2 - x1) < delta && Math.abs(y2 - y1) < delta && Math.abs(z2 - z1) < delta;
   }
-   {
+
+  /**
+   * Maps indices
+   * @param bufGeometry
+   * @param indexedBufferGeom
+   * @returns indices
+   */
+  private _mapIndices(
+    bufGeometry: THREE.BufferGeometry,
+    indexedBufferGeom: THREE.BufferGeometry
+  ): {
+    ammoVertices: number[];
+    ammoIndices: number[];
+    ammoIndexAssociation: number[][];
+  } {
     const vertices = bufGeometry.attributes.position.array as number[];
     const idxVertices = indexedBufferGeom.attributes.position.array as number[];
     const indices = indexedBufferGeom.index.array as number[];
     const numIdxVertices = idxVertices.length / 3;
     const numVertices = vertices.length / 3;
     const ammoIndexAssociation = [];
-    for ( let i = 0; i < numIdxVertices; i ++ ) {
+    for (let i = 0; i < numIdxVertices; i++) {
       const association = [];
-      ammoIndexAssociation.push( association );
+      ammoIndexAssociation.push(association);
       const i3 = i * 3;
-      for ( let j = 0; j < numVertices; j ++ ) {
+      for (let j = 0; j < numVertices; j++) {
         const j3 = j * 3;
-        if ( this._isEqual( idxVertices[ i3 ], idxVertices[ i3 + 1 ], idxVertices[ i3 + 2 ],
-          vertices[ j3 ], vertices[ j3 + 1 ], vertices[ j3 + 2 ] ) ) {
-          association.push( j );
+        if (this._isEqual(idxVertices[i3], idxVertices[i3 + 1], idxVertices[i3 + 2], vertices[j3], vertices[j3 + 1], vertices[j3 + 2])) {
+          association.push(j);
         }
       }
     }
     return {
-      ammoVertices : idxVertices,
-      ammoIndices : indices,
-      ammoIndexAssociation : ammoIndexAssociation
+      ammoVertices: idxVertices,
+      ammoIndices: indices,
+      ammoIndexAssociation: ammoIndexAssociation,
     };
   }
 
-  private worldInfo : Ammo.btSoftBodyWorldInfo = null;
+  /**
+   * World info of rigidbody component
+   */
+  private worldInfo: Ammo.btSoftBodyWorldInfo = null;
 
-  getWorldInfo() : Ammo.btSoftBodyWorldInfo {
+  /**
+   * Gets world info
+   * @returns world info
+   */
+  public getWorldInfo(): Ammo.btSoftBodyWorldInfo {
     if (this.worldInfo === null) {
       this.worldInfo = this._physics.getWorldInfo();
     }
     return this.worldInfo;
   }
 
-  getRigidBody(): RigidbodyType {
+  /**
+   * Gets rigid body
+   * @returns rigid body
+   */
+  public getRigidBody(): RigidbodyType {
     if (this.object3d !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
       if (this.rigidBody !== null) {
@@ -842,7 +1093,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       let softBody: Ammo.btSoftBody = null;
       let type: string = this.type;
       let geometry: THREE.BufferGeometry = null;
-      let ammoIndexAssociation : number[][] = null;
+      let ammoIndexAssociation: number[][] = null;
       const localScaling = new THREE.Vector3(1, 1, 1);
       if (ThreeUtil.isNotNull(this.object3d['geometry'])) {
         geometry = this.object3d['geometry'];
@@ -1030,14 +1281,9 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         case 'softtrimesh':
           {
             const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
-            const processGeometryInfo = this._processGeometry( absGeometry );
+            const processGeometryInfo = this._processGeometry(absGeometry);
             ammoIndexAssociation = processGeometryInfo.ammoIndexAssociation;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(
-              this.getWorldInfo(), 
-              processGeometryInfo.ammoVertices, 
-              processGeometryInfo.ammoIndices, 
-              processGeometryInfo.ammoIndices.length / 3 , 
-              ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this.getWorldInfo(), processGeometryInfo.ammoVertices, processGeometryInfo.ammoIndices, processGeometryInfo.ammoIndices.length / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
             (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
           }
           break;
@@ -1093,14 +1339,14 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       if (softBody !== null) {
         const sbConfig = softBody.get_m_cfg();
         if (ThreeUtil.isNotNull(this.viterations)) {
-          sbConfig.set_viterations(ThreeUtil.getNumberSafe(this.viterations , 10));
+          sbConfig.set_viterations(ThreeUtil.getNumberSafe(this.viterations, 10));
         }
         if (ThreeUtil.isNotNull(this.piterations)) {
-          sbConfig.set_piterations(ThreeUtil.getNumberSafe(this.piterations , 10));
+          sbConfig.set_piterations(ThreeUtil.getNumberSafe(this.piterations, 10));
         }
         if (ThreeUtil.isNotNull(this.collisions)) {
           // Soft-soft and soft-rigid collisions
-          sbConfig.set_collisions(ThreeUtil.getNumberSafe(this.collisions ,0));
+          sbConfig.set_collisions(ThreeUtil.getNumberSafe(this.collisions, 0));
         }
         if (ThreeUtil.isNotNull(this.friction)) {
           // Friction
@@ -1129,7 +1375,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
           rigidBodies: [],
           softBody: softBody,
           debris: [],
-          ammoIndexAssociation : ammoIndexAssociation
+          ammoIndexAssociation: ammoIndexAssociation,
         };
       } else if (shape !== null) {
         localScaling.multiply(this.object3d.getWorldScale(new THREE.Vector3(1, 1, 1)));
@@ -1222,8 +1468,23 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     return this.rigidBody;
   }
 
+  /**
+   * Transform aux of rigidbody component
+   */
   private transformAux: Ammo.btTransform = null;
+
+  /**
+   * Position aux of rigidbody component
+   */
   private positionAux: THREE.Vector3 = null;
+
+  /**
+   * Instanced mesh compose
+   * @param position
+   * @param quaternion
+   * @param array
+   * @param index
+   */
   private _instancedMeshCompose(position: Ammo.btVector3, quaternion: Ammo.btQuaternion, array: number[], index: number) {
     const x = quaternion.x(),
       y = quaternion.y(),
@@ -1259,7 +1520,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
     array[index + 15] = 1;
   }
 
-  update(timer: RendererTimer) {
+  /**
+   * Updates rigidbody component
+   * @param timer
+   */
+  public update(timer: RendererTimer) {
     if (this.rigidBody !== null) {
       this.object3d.updateMatrixWorld(true);
       switch (this.rigidBody.type) {
@@ -1273,15 +1538,15 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             if (ThreeUtil.isNotNull(this.rigidBody.ammoIndexAssociation)) {
               const association = this.rigidBody.ammoIndexAssociation;
               const numVerts = association.length;
-              for ( let j = 0; j < numVerts; j ++ ) {
-                const node = nodes.at( j );
+              for (let j = 0; j < numVerts; j++) {
+                const node = nodes.at(j);
                 const nodePos = node.get_m_x();
                 position.set(nodePos.x(), nodePos.y(), nodePos.z());
                 const lPos = this.object3d.worldToLocal(position);
-                const assocVertex = association[ j ];
-                for ( let k = 0, kl = assocVertex.length; k < kl; k ++ ) {
-                  let indexVertex = assocVertex[ k ];
-                  meshPositions.setXYZ(indexVertex, lPos.x,lPos.y, lPos.z);
+                const assocVertex = association[j];
+                for (let k = 0, kl = assocVertex.length; k < kl; k++) {
+                  let indexVertex = assocVertex[k];
+                  meshPositions.setXYZ(indexVertex, lPos.x, lPos.y, lPos.z);
                 }
               }
             } else {
@@ -1296,7 +1561,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             }
             meshPositions.needsUpdate = true;
             geometry.computeVertexNormals();
-        }
+          }
           break;
         case 'rigidbody':
           if (this.rigidBody.rigidBodies.length > 0) {

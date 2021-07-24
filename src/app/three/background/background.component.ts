@@ -3,315 +3,320 @@ import * as THREE from 'three';
 import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * BackgroundComponent
+ */
 @Component({
   selector: 'ngx3js-background',
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.scss'],
 })
 export class BackgroundComponent extends AbstractSubscribeComponent implements OnInit {
+
   /**
-   *
+   * Input  of background component
    */
   @Input() private visible: boolean = true;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private pseudo: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private transition: string[] = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private content: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundColor: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundAlpha: number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundImage: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundRepeat: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundRepeatX: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundRepeatY: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundPosition: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundPositionX: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundPositionY: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundSize: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundSizeX: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundSizeY: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private backgroundClip: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private padding: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private paddingLeft: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private paddingTop: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private paddingRight: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private paddingBottom: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private margin: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private marginLeft: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private marginTop: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private marginRight: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private marginBottom: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private border: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderColor: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderStyle: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderWidth: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderRadius: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderLeft: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderTop: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderRight: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderBottom: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImage: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImageSource: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImageSlice: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImageOutset: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImageRepeat: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private borderImageWidth: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private opacity: number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private color: string | number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private fontFamily: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private fontSize: number = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private fontStyle: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private fontWeight: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textAlign: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textTransform: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textDecoration: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private letterSpacing: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textIndent: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textJustify: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private textSizeAdjust: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private whiteSpace: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private wordBreak: string = null;
 
   /**
-   *
+   * Input  of background component
    */
   @Input() private wordSpacing: string = null;
 
-  private getTransition(def?: string[]): string[] {
-    return ThreeUtil.getTypeSafe(this.transition, def);
-  }
-  private getContent(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.content, def);
-  }
+  /**
+   * Gets background color
+   * @param [def] 
+   * @returns background color 
+   */
   private getBackgroundColor(def?: string | number): THREE.Color | THREE.Vector4 {
     return ThreeUtil.getColorAlphaSafe(this.backgroundColor, this.backgroundAlpha, def);
   }
-  private getBackgroundImage(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.backgroundImage, def);
-  }
 
+  /**
+   * Gets background repeat
+   * @param [def] 
+   * @returns background repeat 
+   */
   private getBackgroundRepeat(def?: string): string {
     if (ThreeUtil.isNotNull(this.backgroundRepeatX) && ThreeUtil.isNotNull(this.backgroundRepeatX)) {
       return this.backgroundRepeatX + ' ' + this.backgroundRepeatY;
@@ -319,6 +324,11 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
     return ThreeUtil.getTypeSafe(this.backgroundRepeat, def);
   }
 
+  /**
+   * Gets background position
+   * @param [def] 
+   * @returns background position 
+   */
   private getBackgroundPosition(def?: string): string {
     if (ThreeUtil.isNotNull(this.backgroundPositionX) && ThreeUtil.isNotNull(this.backgroundPositionY)) {
       return this.backgroundPositionX + ' ' + this.backgroundPositionY;
@@ -326,6 +336,11 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
     return ThreeUtil.getTypeSafe(this.backgroundPosition, def);
   }
 
+  /**
+   * Gets background size
+   * @param [def] 
+   * @returns background size 
+   */
   private getBackgroundSize(def?: string): string {
     if (ThreeUtil.isNotNull(this.backgroundSizeX) && ThreeUtil.isNotNull(this.backgroundSizeY)) {
       return this.backgroundSizeX + ' ' + this.backgroundSizeY;
@@ -333,174 +348,9 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
     return ThreeUtil.getTypeSafe(this.backgroundSize, def);
   }
 
-  private getBackgroundClip(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.backgroundClip, def);
-  }
-
-  private getPadding(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.padding, def);
-  }
-
-  private getPaddingLeft(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.paddingLeft, def);
-  }
-
-  private getPaddingTop(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.paddingTop, def);
-  }
-
-  private getPaddingRight(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.paddingRight, def);
-  }
-
-  private getPaddingBottom(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.paddingBottom, def);
-  }
-
-  private getMargin(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.margin, def);
-  }
-
-  private getMarginLeft(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.marginLeft, def);
-  }
-
-  private getMarginTop(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.marginTop, def);
-  }
-
-  private getMarginRight(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.marginRight, def);
-  }
-
-  private getMarginBottom(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.marginBottom, def);
-  }
-
-  private getBorder(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.border, def);
-  }
-
-  private getBorderColor(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderColor, def);
-  }
-
-  private getBorderStyle(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.borderStyle, def);
-  }
-
-  private getBorderWidth(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderWidth, def);
-  }
-
-  private getBorderRadius(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderRadius, def);
-  }
-
-  private getBorderLeft(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderLeft, def);
-  }
-
-  private getBorderTop(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderTop, def);
-  }
-
-  private getBorderRight(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderRight, def);
-  }
-
-  private getBorderBottom(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderBottom, def);
-  }
-
-  private getBorderImage(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.borderImage, def);
-  }
-
-  private getBorderImageSource(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.borderImageSource, def);
-  }
-
-  private getBorderImageSlice(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderImageSlice, def);
-  }
-
-  private getBorderImageOutset(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderImageOutset, def);
-  }
-
-  private getBorderImageRepeat(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.borderImageRepeat, def);
-  }
-
-  private getBorderImageWidth(def?: string | number): string | number {
-    return ThreeUtil.getTypeSafe(this.borderImageWidth, def);
-  }
-
-  private getOpacity(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.opacity, def);
-  }
-
-  private getColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color, def);
-  }
-
-  private getFontFamily(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.fontFamily, def);
-  }
-
-  private getFontSize(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.fontSize, def);
-  }
-
-  private getFontStyle(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.fontStyle, def);
-  }
-
-  private getFontWeight(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.fontWeight, def);
-  }
-
-  private getTextAlign(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textAlign, def);
-  }
-
-  private getTextTransform(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textTransform, def);
-  }
-
-  private getTextDecoration(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textDecoration, def);
-  }
-
-  private getLetterSpacing(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.letterSpacing, def);
-  }
-
-  private getTextIndent(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textIndent, def);
-  }
-
-  private getTextJustify(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textJustify, def);
-  }
-
-  private getTextSizeAdjust(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.textSizeAdjust, def);
-  }
-
-  private getWhiteSpace(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.whiteSpace, def);
-  }
-
-  private getWordBreak(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.wordBreak, def);
-  }
-
-  private getWordSpacing(def?: string): string {
-    return ThreeUtil.getTypeSafe(this.wordSpacing, def);
-  }
-
+  /**
+   * Creates an instance of background component.
+   */
   constructor() {
     super();
   }
@@ -556,70 +406,84 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
     super.ngAfterContentInit();
   }
 
+  /**
+   * Parent node of background component
+   */
   private parentNode: HTMLElement = null;
 
-  setParentNode(parentNode: HTMLElement) {
+  /**
+   * Sets parent node
+   * @param parentNode 
+   */
+  public setParentNode(parentNode: HTMLElement) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
     }
     this.applyHtmlStyle();
   }
 
-  getStyle(): CssStyle {
+  /**
+   * Gets style
+   * @returns style 
+   */
+  public getStyle(): CssStyle {
     return {
-      content: this.getContent(),
-      transition: this.getTransition(),
+      content: ThreeUtil.getTypeSafe(this.content,),
+      transition: ThreeUtil.getTypeSafe(this.transition,),
       backgroundColor: this.getBackgroundColor(),
-      backgroundImage: this.getBackgroundImage(),
+      backgroundImage: ThreeUtil.getTypeSafe(this.backgroundImage,),
       backgroundRepeat: this.getBackgroundRepeat(),
       backgroundPosition: this.getBackgroundPosition(),
       backgroundSize: this.getBackgroundSize(),
-      backgroundClip: this.getBackgroundClip(),
-      padding: this.getPadding(),
-      paddingLeft: this.getPaddingLeft(),
-      paddingTop: this.getPaddingTop(),
-      paddingRight: this.getPaddingRight(),
-      paddingBottom: this.getPaddingBottom(),
-      margin: this.getMargin(),
-      marginLeft: this.getMarginLeft(),
-      marginTop: this.getMarginTop(),
-      marginRight: this.getMarginRight(),
-      marginBottom: this.getMarginBottom(),
-      border: this.getBorder(),
-      borderColor: this.getBorderColor(),
-      borderStyle: this.getBorderStyle(),
-      borderWidth: this.getBorderWidth(),
-      borderRadius: this.getBorderRadius(),
-      borderLeft: this.getBorderLeft(),
-      borderTop: this.getBorderTop(),
-      borderRight: this.getBorderRight(),
-      borderBottom: this.getBorderBottom(),
-      borderImage: this.getBorderImage(),
-      borderImageSource: this.getBorderImageSource(),
-      borderImageSlice: this.getBorderImageSlice(),
-      borderImageOutset: this.getBorderImageOutset(),
-      borderImageRepeat: this.getBorderImageRepeat(),
-      borderImageWidth: this.getBorderImageWidth(),
-      opacity: this.getOpacity(),
-      color: this.getColor(),
-      fontFamily: this.getFontFamily(),
-      fontSize: this.getFontSize(),
-      fontStyle: this.getFontStyle(),
-      fontWeight: this.getFontWeight(),
-      textAlign: this.getTextAlign(),
-      textTransform: this.getTextTransform(),
-      textDecoration: this.getTextDecoration(),
-      letterSpacing: this.getLetterSpacing(),
-      textIndent: this.getTextIndent(),
-      textJustify: this.getTextJustify(),
-      textSizeAdjust: this.getTextSizeAdjust(),
-      whiteSpace: this.getWhiteSpace(),
-      wordBreak: this.getWordBreak(),
-      wordSpacing: this.getWordSpacing(),
+      backgroundClip: ThreeUtil.getTypeSafe(this.backgroundClip,),
+      padding: ThreeUtil.getTypeSafe(this.padding,),
+      paddingLeft: ThreeUtil.getTypeSafe(this.paddingLeft,),
+      paddingTop: ThreeUtil.getTypeSafe(this.paddingTop,),
+      paddingRight: ThreeUtil.getTypeSafe(this.paddingRight,),
+      paddingBottom: ThreeUtil.getTypeSafe(this.paddingBottom,),
+      margin: ThreeUtil.getTypeSafe(this.margin,),
+      marginLeft: ThreeUtil.getTypeSafe(this.marginLeft,),
+      marginTop: ThreeUtil.getTypeSafe(this.marginTop,),
+      marginRight: ThreeUtil.getTypeSafe(this.marginRight,),
+      marginBottom: ThreeUtil.getTypeSafe(this.marginBottom,),
+      border : ThreeUtil.getTypeSafe(this.border),
+      borderColor : ThreeUtil.getTypeSafe(this.borderColor),
+      borderStyle : ThreeUtil.getTypeSafe(this.borderStyle),
+      borderWidth : ThreeUtil.getTypeSafe(this.borderWidth),
+      borderRadius : ThreeUtil.getTypeSafe(this.borderRadius),
+      borderLeft : ThreeUtil.getTypeSafe(this.borderLeft),
+      borderTop : ThreeUtil.getTypeSafe(this.borderTop),
+      borderRight : ThreeUtil.getTypeSafe(this.borderRight),
+      borderBottom : ThreeUtil.getTypeSafe(this.borderBottom),
+      borderImage : ThreeUtil.getTypeSafe(this.borderImage),
+      borderImageSource : ThreeUtil.getTypeSafe(this.borderImageSource),
+      borderImageSlice : ThreeUtil.getTypeSafe(this.borderImageSlice),
+      borderImageOutset : ThreeUtil.getTypeSafe(this.borderImageOutset),
+      borderImageRepeat : ThreeUtil.getTypeSafe(this.borderImageRepeat),
+      borderImageWidth : ThreeUtil.getTypeSafe(this.borderImageWidth),
+      opacity : ThreeUtil.getTypeSafe(this.opacity),
+      color : ThreeUtil.getTypeSafe(this.color),
+      fontFamily : ThreeUtil.getTypeSafe(this.fontFamily),
+      fontSize : ThreeUtil.getTypeSafe(this.fontSize),
+      fontStyle : ThreeUtil.getTypeSafe(this.fontStyle),
+      fontWeight : ThreeUtil.getTypeSafe(this.fontWeight),
+      textAlign : ThreeUtil.getTypeSafe(this.textAlign),
+      textTransform : ThreeUtil.getTypeSafe(this.textTransform),
+      textDecoration : ThreeUtil.getTypeSafe(this.textDecoration),
+      letterSpacing : ThreeUtil.getTypeSafe(this.letterSpacing),
+      textIndent : ThreeUtil.getTypeSafe(this.textIndent),
+      textJustify : ThreeUtil.getTypeSafe(this.textJustify),
+      textSizeAdjust : ThreeUtil.getTypeSafe(this.textSizeAdjust),
+      whiteSpace : ThreeUtil.getTypeSafe(this.whiteSpace),
+      wordBreak : ThreeUtil.getTypeSafe(this.wordBreak),
+      wordSpacing : ThreeUtil.getTypeSafe(this.wordSpacing),
     };
   }
 
-  applyHtmlStyle() {
+  /**
+   * Applys html style
+   */
+  public applyHtmlStyle() {
     if (this.parentNode !== null) {
       if (this.visible && this._needUpdate) {
         this.needUpdate = false;
@@ -632,5 +496,8 @@ export class BackgroundComponent extends AbstractSubscribeComponent implements O
     }
   }
 
+  /**
+   * Css clazz name of background component
+   */
   private cssClazzName: string = null;
 }

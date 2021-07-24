@@ -1,8 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
-import { ThreeUtil } from './../interface';
+import { ThreeColor, ThreeUtil } from './../interface';
 
+/**
+ * FogComponent
+ */
 @Component({
   selector: 'ngx3js-fog',
   templateUrl: './fog.component.html',
@@ -20,7 +23,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
   /**
    * Fog color.  Example: If set to black, far away objects will be rendered black.
    */
-  @Input() private color: string | number = null;
+  @Input() private color: ThreeColor = null;
 
   /**
    * Defines how fast the fog will grow dense.
@@ -40,6 +43,9 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
    */
   @Input() private far: number = 1000;
 
+  /**
+   * Creates an instance of fog component.
+   */
   constructor() {
     super();
   }
@@ -68,7 +74,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,14 +94,29 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     super.ngAfterContentInit();
   }
 
+  /**
+   * Gets color
+   * @param [def] 
+   * @returns color 
+   */
   private getColor(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
+  /**
+   * Gets density
+   * @param [def] 
+   * @returns density 
+   */
   private getDensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.density, def);
   }
 
+  /**
+   * Gets near
+   * @param [def] 
+   * @returns near 
+   */
   private getNear(def?: number): number {
     return ThreeUtil.getTypeSafe(this.near, def);
   }
@@ -104,18 +125,32 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
     return ThreeUtil.getTypeSafe(this.far, def);
   }
 
+  /**
+   * Fog  of fog component
+   */
   private fog: THREE.FogBase = null;
 
+  /**
+   * Ref scene of fog component
+   */
   private refScene: THREE.Scene = null;
 
-  setScene(refScene: THREE.Scene) {
+  /**
+   * Sets scene
+   * @param refScene 
+   */
+  public setScene(refScene: THREE.Scene) {
     if (this.refScene !== refScene) {
       this.refScene = refScene;
       this.refScene.fog = this.getFog();
     }
   }
 
-  getFog(): THREE.FogBase {
+  /**
+   * Gets fog
+   * @returns fog 
+   */
+  public getFog(): THREE.FogBase {
     if (this.fog === null || this._needUpdate) {
       this.needUpdate = false;
       switch (this.type.toLowerCase()) {

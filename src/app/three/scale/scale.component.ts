@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * ScaleComponent
+ */
 @Component({
   selector: 'ngx3js-scale',
   templateUrl: './scale.component.html',
@@ -11,7 +14,7 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 export class ScaleComponent extends AbstractSubscribeComponent implements OnInit {
 
   /**
-   * 
+   * Input  of scale component
    */
   @Input() private refer: any = null;
 
@@ -36,10 +39,16 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private multiply: number = null;
 
   /**
+   * Input  of scale component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private scaleMode: string = 'max';
 
+  /**
+   * Creates an instance of scale component.
+   */
   constructor() {
     super();
   }
@@ -88,11 +97,21 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     super.ngAfterContentInit();
   }
 
+  /**
+   * Scale  of scale component
+   */
   private scale: THREE.Vector3 = null;
 
+  /**
+   * Object3d  of scale component
+   */
   private _object3d: THREE.Object3D = null;
 
-  setObject3d(object3d: THREE.Object3D) {
+  /**
+   * Sets object3d
+   * @param object3d 
+   */
+  public setObject3d(object3d: THREE.Object3D) {
     if (this.scale === null) {
       this.getScale();
     }
@@ -102,7 +121,11 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
-  synkObject3d(rotation: THREE.Vector3 = null) {
+  /**
+   * Synks object3d
+   * @param [rotation] 
+   */
+  public synkObject3d(rotation: THREE.Vector3 = null) {
     if (ThreeUtil.isNotNull(rotation) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
         if (this.isIdEuals(this._object3d.userData.scale)) {
@@ -115,7 +138,13 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
-  setScale(x?: number, y? : number, z? : number) {
+  /**
+   * Sets scale
+   * @param [x] 
+   * @param [y] 
+   * @param [z] 
+   */
+  public setScale(x?: number, y? : number, z? : number) {
     if (this.scale !== null) {
       this.x = ThreeUtil.getTypeSafe(x, this.scale.x);
       this.y = ThreeUtil.getTypeSafe(y, this.scale.y);
@@ -128,7 +157,12 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     this.needUpdate = true;
   }
 
-  getTagAttribute(options?: any): TagAttributes {
+  /**
+   * Gets tag attribute
+   * @param [options] 
+   * @returns tag attribute 
+   */
+  public getTagAttribute(options?: any): TagAttributes {
     const tagAttributes: TagAttributes = {
       tag: 'ngx3js-scale',
       attributes: [],
@@ -145,6 +179,11 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     return tagAttributes;
   }
 
+  /**
+   * Gets scale from size
+   * @param size 
+   * @returns scale from size 
+   */
   private getScaleFromSize(size: THREE.Vector2): THREE.Vector3 {
     switch (this.scaleMode) {
       case 'max':
@@ -158,6 +197,11 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
+  /**
+   * Applys changes
+   * @param changes 
+   * @returns  
+   */
   protected applyChanges(changes: string[]) {
     if (this.scale !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
@@ -172,6 +216,10 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     }
   }
 
+  /**
+   * Gets scale
+   * @returns scale 
+   */
   private _getScale(): THREE.Vector3 {
     let scale : THREE.Vector3 = null;
     if (this.refer !== null && this.refer !== undefined) {
@@ -190,7 +238,11 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     return scale;
   }
 
-  getScale(): THREE.Vector3 {
+  /**
+   * Gets scale
+   * @returns scale 
+   */
+  public getScale(): THREE.Vector3 {
     if (this.scale === null || this._needUpdate) {
       this.needUpdate = false;
       this.scale = this._getScale();

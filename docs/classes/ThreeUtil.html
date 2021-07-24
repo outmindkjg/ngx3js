@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Three util</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -89,7 +96,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="ThreeUtil.html#_elementEvents" class="tsd-kind-icon">_element<wbr>Events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="ThreeUtil.html#_manager" class="tsd-kind-icon">_manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#lastRenderer" class="tsd-kind-icon">last<wbr>Renderer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#loadedComponent" class="tsd-kind-icon">loaded<wbr>Component</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="ThreeUtil.html#loadedComponent" class="tsd-kind-icon">loaded<wbr>Component</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="ThreeUtil.html#renderTimer" class="tsd-kind-icon">render<wbr>Timer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#stats" class="tsd-kind-icon">stats</a></li>
 							</ul>
@@ -143,10 +150,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getPosition" class="tsd-kind-icon">get<wbr>Position</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRadian2AngleSafe" class="tsd-kind-icon">get<wbr>Radian2<wbr>Angle<wbr>Safe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRenderer" class="tsd-kind-icon">get<wbr>Renderer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRendererSize" class="tsd-kind-icon">get<wbr>Renderer<wbr>Size</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRigidbody" class="tsd-kind-icon">get<wbr>Rigidbody</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRigidbodyComponent" class="tsd-kind-icon">get<wbr>Rigidbody<wbr>Component</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getRotation" class="tsd-kind-icon">get<wbr>Rotation</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getScale" class="tsd-kind-icon">get<wbr>Scale</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getSizeSubscribe" class="tsd-kind-icon">get<wbr>Size<wbr>Subscribe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getStats" class="tsd-kind-icon">get<wbr>Stats</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getStoreUrl" class="tsd-kind-icon">get<wbr>Store<wbr>Url</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getSubscribe" class="tsd-kind-icon">get<wbr>Subscribe</a></li>
@@ -156,6 +165,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getTextureFilterSafe" class="tsd-kind-icon">get<wbr>Texture<wbr>Filter<wbr>Safe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getThreeComponent" class="tsd-kind-icon">get<wbr>Three<wbr>Component</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="ThreeUtil.html#getTypeSafe" class="tsd-kind-icon">get<wbr>Type<wbr>Safe</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getUpdateSubscribe" class="tsd-kind-icon">get<wbr>Update<wbr>Subscribe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getVector2Safe" class="tsd-kind-icon">get<wbr>Vector2<wbr>Safe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getVector2VSafe" class="tsd-kind-icon">get<wbr>Vector2VSafe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ThreeUtil.html#getVector3Safe" class="tsd-kind-icon">get<wbr>Vector3<wbr>Safe</a></li>
@@ -209,9 +219,14 @@
 					<div class="tsd-signature tsd-kind-icon">_element<wbr>Events<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L763">src/app/three/interface.ts:763</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L958">src/app/three/interface.ts:958</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Element events of three util</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -232,9 +247,14 @@
 					<div class="tsd-signature tsd-kind-icon">_manager<span class="tsd-signature-symbol">:</span> <a href="THREE.LoadingManager.html" class="tsd-signature-type" data-tsd-kind="Class">LoadingManager</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L866">src/app/three/interface.ts:866</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1172">src/app/three/interface.ts:1172</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Manager  of three util</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="lastRenderer" class="tsd-anchor"></a>
@@ -242,19 +262,29 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L769">src/app/three/interface.ts:769</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L972">src/app/three/interface.ts:972</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Last renderer of three util</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 					<a name="loadedComponent" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> loaded<wbr>Component</h3>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> loaded<wbr>Component</h3>
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1552">src/app/three/interface.ts:1552</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2129">src/app/three/interface.ts:2129</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Loaded component of three util</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -270,9 +300,14 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Timer<span class="tsd-signature-symbol">:</span> <a href="../interfaces/RendererTimer.html" class="tsd-signature-type" data-tsd-kind="Interface">RendererTimer</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L783">src/app/three/interface.ts:783</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1033">src/app/three/interface.ts:1033</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Render timer of three util</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="stats" class="tsd-anchor"></a>
@@ -280,9 +315,14 @@
 					<div class="tsd-signature tsd-kind-icon">stats<span class="tsd-signature-symbol">:</span> <a href="ThreeStats.html" class="tsd-signature-type" data-tsd-kind="Class">ThreeStats</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1900">src/app/three/interface.ts:1900</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2574">src/app/three/interface.ts:2574</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Stats  of three util</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -297,9 +337,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L542">src/app/three/interface.ts:542</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L734">src/app/three/interface.ts:734</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds css style</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -319,6 +364,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>css style</p>
 						</li>
 					</ul>
 				</section>
@@ -332,9 +378,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L457">src/app/three/interface.ts:457</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L621">src/app/three/interface.ts:621</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Camels case to dash</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -355,9 +406,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L436">src/app/three/interface.ts:436</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L587">src/app/three/interface.ts:587</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Css eject</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -368,6 +424,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if eject</p>
 						</li>
 					</ul>
 				</section>
@@ -381,9 +438,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L408">src/app/three/interface.ts:408</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L552">src/app/three/interface.ts:552</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Css inject</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -397,6 +459,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if inject</p>
 						</li>
 					</ul>
 				</section>
@@ -410,9 +473,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1133">src/app/three/interface.ts:1133</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1545">src/app/three/interface.ts:1545</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets angle2 radian safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -423,6 +491,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>angle2 radian safe</p>
 						</li>
 					</ul>
 				</section>
@@ -436,9 +505,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1090">src/app/three/interface.ts:1090</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1489">src/app/three/interface.ts:1489</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets angle safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -449,6 +523,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>angle safe</p>
 						</li>
 					</ul>
 				</section>
@@ -462,9 +537,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1284">src/app/three/interface.ts:1284</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1780">src/app/three/interface.ts:1780</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets blending safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -478,6 +558,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.Blending.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Blending</a></h4>
+							<p>blending safe</p>
 						</li>
 					</ul>
 				</section>
@@ -491,9 +572,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1101">src/app/three/interface.ts:1101</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1507">src/app/three/interface.ts:1507</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets boolean safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -504,6 +590,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if boolean safe</p>
 						</li>
 					</ul>
 				</section>
@@ -517,9 +604,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L504">src/app/three/interface.ts:504</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L687">src/app/three/interface.ts:687</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets child element save</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -527,6 +619,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLElement</span></h4>
+							<p>child element save</p>
 						</li>
 					</ul>
 				</section>
@@ -540,9 +633,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L765">src/app/three/interface.ts:765</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L965">src/app/three/interface.ts:965</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets chroma scale</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -550,6 +648,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Scale</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Color</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>chroma scale</p>
 						</li>
 					</ul>
 				</section>
@@ -563,9 +662,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1896">src/app/three/interface.ts:1896</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2567">src/app/three/interface.ts:2567</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets clock</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -573,6 +677,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ThreeClock.html" class="tsd-signature-type" data-tsd-kind="Class">ThreeClock</a></h4>
+							<p>clock</p>
 						</li>
 					</ul>
 				</section>
@@ -586,9 +691,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L918">src/app/three/interface.ts:918</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1239">src/app/three/interface.ts:1239</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -596,6 +706,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+							<p>color</p>
 						</li>
 					</ul>
 				</section>
@@ -609,9 +720,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1049">src/app/three/interface.ts:1049</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1428">src/app/three/interface.ts:1428</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color alpha safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -625,6 +741,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h4>
+							<p>color alpha safe</p>
 						</li>
 					</ul>
 				</section>
@@ -638,9 +755,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L943">src/app/three/interface.ts:943</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1280">src/app/three/interface.ts:1280</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color hsl</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -657,6 +779,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+							<p>color hsl</p>
 						</li>
 					</ul>
 				</section>
@@ -670,9 +793,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L952">src/app/three/interface.ts:952</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1294">src/app/three/interface.ts:1294</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color hex</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -680,6 +808,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>color hex</p>
 						</li>
 					</ul>
 				</section>
@@ -693,9 +822,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L960">src/app/three/interface.ts:960</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1307">src/app/three/interface.ts:1307</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color hex string</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -703,6 +837,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>color hex string</p>
 						</li>
 					</ul>
 				</section>
@@ -716,9 +851,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L976">src/app/three/interface.ts:976</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1335">src/app/three/interface.ts:1335</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color multiply safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -732,6 +872,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+							<p>color multiply safe</p>
 						</li>
 					</ul>
 				</section>
@@ -745,9 +886,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L935">src/app/three/interface.ts:935</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1264">src/app/three/interface.ts:1264</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color rgb</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -764,6 +910,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+							<p>color rgb</p>
 						</li>
 					</ul>
 				</section>
@@ -777,9 +924,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1005">src/app/three/interface.ts:1005</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1377">src/app/three/interface.ts:1377</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -793,6 +945,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+							<p>color safe</p>
 						</li>
 					</ul>
 				</section>
@@ -806,9 +959,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L968">src/app/three/interface.ts:968</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1320">src/app/three/interface.ts:1320</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets color style</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -816,6 +974,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>color style</p>
 						</li>
 					</ul>
 				</section>
@@ -829,9 +988,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1906">src/app/three/interface.ts:1906</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2592">src/app/three/interface.ts:2592</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets controls</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -859,6 +1023,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/GuiBaseControl.html" class="tsd-signature-type" data-tsd-kind="Interface">GuiBaseControl</a></h4>
+							<p>controls</p>
 						</li>
 					</ul>
 				</section>
@@ -872,9 +1037,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L2181">src/app/three/interface.ts:2181</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2878">src/app/three/interface.ts:2878</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets controls on render</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -882,6 +1052,8 @@
 								</li>
 								<li>
 									<h5>component: <span class="tsd-signature-symbol">{ </span>controls<span class="tsd-signature-symbol">?: </span><a href="../interfaces/GuiBaseControl.html" class="tsd-signature-type" data-tsd-kind="Interface">GuiBaseControl</a><span class="tsd-signature-symbol">; </span>controlsParams<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>mesh<span class="tsd-signature-symbol">?: </span><a href="MeshComponent.html" class="tsd-signature-type" data-tsd-kind="Class">MeshComponent</a><span class="tsd-signature-symbol"> }</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> controls<span class="tsd-signature-symbol">?: </span><a href="../interfaces/GuiBaseControl.html" class="tsd-signature-type" data-tsd-kind="Interface">GuiBaseControl</a></h5>
@@ -909,9 +1081,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1995">src/app/three/interface.ts:1995</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2687">src/app/three/interface.ts:2687</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets controls params</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -933,6 +1110,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/GuiControlParam.html" class="tsd-signature-type" data-tsd-kind="Interface">GuiControlParam</a><span class="tsd-signature-symbol">[]</span></h4>
+							<p>controls params</p>
 						</li>
 					</ul>
 				</section>
@@ -946,9 +1124,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1884">src/app/three/interface.ts:1884</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2550">src/app/three/interface.ts:2550</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets cube image</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -956,6 +1139,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>cube image</p>
 						</li>
 					</ul>
 				</section>
@@ -969,9 +1153,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1229">src/app/three/interface.ts:1229</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1693">src/app/three/interface.ts:1693</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets euler safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -991,6 +1180,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Euler.html" class="tsd-signature-type" data-tsd-kind="Class">Euler</a></h4>
+							<p>euler safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1004,9 +1194,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L804">src/app/three/interface.ts:804</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1080">src/app/three/interface.ts:1080</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets first</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1020,6 +1215,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>first</p>
 						</li>
 					</ul>
 				</section>
@@ -1033,9 +1229,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1534">src/app/three/interface.ts:1534</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2108">src/app/three/interface.ts:2108</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets geometry</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1043,6 +1244,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a></h4>
+							<p>geometry</p>
 						</li>
 					</ul>
 				</section>
@@ -1056,9 +1258,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L2237">src/app/three/interface.ts:2237</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2954">src/app/three/interface.ts:2954</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets gui control param</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1069,6 +1276,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/GuiControlParam.html" class="tsd-signature-type" data-tsd-kind="Interface">GuiControlParam</a></h4>
+							<p>gui control param</p>
 						</li>
 					</ul>
 				</section>
@@ -1082,9 +1290,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L886">src/app/three/interface.ts:886</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1202">src/app/three/interface.ts:1202</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets html code</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1095,6 +1308,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>html code</p>
 						</li>
 					</ul>
 				</section>
@@ -1108,9 +1322,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1466">src/app/three/interface.ts:1466</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2018">src/app/three/interface.ts:2018</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets light</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1118,6 +1337,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Light.html" class="tsd-signature-type" data-tsd-kind="Class">Light</a></h4>
+							<p>light</p>
 						</li>
 					</ul>
 				</section>
@@ -1131,10 +1351,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L868">src/app/three/interface.ts:868</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1178">src/app/three/interface.ts:1178</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets loading manager</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.LoadingManager.html" class="tsd-signature-type" data-tsd-kind="Class">LoadingManager</a></h4>
+							<p>loading manager</p>
 						</li>
 					</ul>
 				</section>
@@ -1148,9 +1374,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1776">src/app/three/interface.ts:1776</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2418">src/app/three/interface.ts:2418</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets look at</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1158,6 +1389,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>look at</p>
 						</li>
 					</ul>
 				</section>
@@ -1171,9 +1403,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1855">src/app/three/interface.ts:1855</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2516">src/app/three/interface.ts:2516</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets mapping safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1187,6 +1424,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.Mapping.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Mapping</a></h4>
+							<p>mapping safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1200,9 +1438,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1504">src/app/three/interface.ts:1504</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2067">src/app/three/interface.ts:2067</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets material</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1210,6 +1453,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol">[]</span></h4>
+							<p>material</p>
 						</li>
 					</ul>
 				</section>
@@ -1223,9 +1467,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1478">src/app/three/interface.ts:1478</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2036">src/app/three/interface.ts:2036</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets material by type</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1236,6 +1485,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h4>
+							<p>material by type</p>
 						</li>
 					</ul>
 				</section>
@@ -1249,9 +1499,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1522">src/app/three/interface.ts:1522</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2090">src/app/three/interface.ts:2090</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets material one</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1259,6 +1514,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h4>
+							<p>material one</p>
 						</li>
 					</ul>
 				</section>
@@ -1272,9 +1528,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1201">src/app/three/interface.ts:1201</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1656">src/app/three/interface.ts:1656</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets matrix4 safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1285,6 +1546,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Matrix4.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix4</a></h4>
+							<p>matrix4 safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1298,9 +1560,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1458">src/app/three/interface.ts:1458</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2005">src/app/three/interface.ts:2005</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets mesh</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1308,6 +1575,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Mesh.html" class="tsd-signature-type" data-tsd-kind="Class">Mesh</a><span class="tsd-signature-symbol">&lt;</span><a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a><span class="tsd-signature-symbol">, </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>mesh</p>
 						</li>
 					</ul>
 				</section>
@@ -1321,9 +1589,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1432">src/app/three/interface.ts:1432</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1974">src/app/three/interface.ts:1974</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets mesh find</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1331,6 +1604,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Mesh.html" class="tsd-signature-type" data-tsd-kind="Class">Mesh</a><span class="tsd-signature-symbol">&lt;</span><a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a><span class="tsd-signature-symbol">, </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>mesh find</p>
 						</li>
 					</ul>
 				</section>
@@ -1344,9 +1618,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1075">src/app/three/interface.ts:1075</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1468">src/app/three/interface.ts:1468</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets number safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1357,6 +1636,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>number safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1370,9 +1650,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1404">src/app/three/interface.ts:1404</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1940">src/app/three/interface.ts:1940</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets object3d</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1389,6 +1674,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>object3d</p>
 						</li>
 					</ul>
 				</section>
@@ -1402,9 +1688,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L993">src/app/three/interface.ts:993</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1358">src/app/three/interface.ts:1358</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets parse float</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1415,6 +1706,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>parse float</p>
 						</li>
 					</ul>
 				</section>
@@ -1428,9 +1720,62 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1309">src/app/three/interface.ts:1309</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1831">src/app/three/interface.ts:1831</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets pixel format safe</p>
+								</div>
+								<p>Notice - case insensitive.</p>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>THREE.PixelFormat</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.AlphaFormat - AlphaFormat, Alpha</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RedFormat - RedFormat, Red</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RedIntegerFormat - RedIntegerFormat, RedInteger</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGFormat - RGFormat, RG</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGIntegerFormat - RGIntegerFormat, RGInteger</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGBFormat - RGBFormat, RGB</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.LuminanceFormat - LuminanceFormat, Luminance</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGBEFormat - RGBEFormat, RGBE</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.DepthFormat - DepthFormat, Depth</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.RGBAFormat - RGBAFormat, RGBA</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1444,6 +1789,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.PixelFormat.html" class="tsd-signature-type" data-tsd-kind="Enumeration">PixelFormat</a></h4>
+							<p>pixel format safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1457,9 +1803,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1716">src/app/three/interface.ts:1716</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2343">src/app/three/interface.ts:2343</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets position</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1467,6 +1818,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>position</p>
 						</li>
 					</ul>
 				</section>
@@ -1480,9 +1832,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1141">src/app/three/interface.ts:1141</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1559">src/app/three/interface.ts:1559</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets radian2 angle safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1493,6 +1850,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>radian2 angle safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1506,10 +1864,39 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L775">src/app/three/interface.ts:775</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L986">src/app/three/interface.ts:986</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets renderer</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/THREE.Renderer.html" class="tsd-signature-type" data-tsd-kind="Interface">Renderer</a></h4>
+							<p>renderer</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getRendererSize" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Renderer<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Renderer<wbr>Size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L998">src/app/three/interface.ts:998</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets renderer size</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+							<p>renderer size</p>
 						</li>
 					</ul>
 				</section>
@@ -1523,9 +1910,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1603">src/app/three/interface.ts:1603</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2206">src/app/three/interface.ts:2206</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets rigidbody</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1533,6 +1925,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">btRigidBody</span></h4>
+							<p>rigidbody</p>
 						</li>
 					</ul>
 				</section>
@@ -1546,9 +1939,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1586">src/app/three/interface.ts:1586</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2184">src/app/three/interface.ts:2184</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets rigidbody component</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1556,6 +1954,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>rigidbody component</p>
 						</li>
 					</ul>
 				</section>
@@ -1569,9 +1968,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1736">src/app/three/interface.ts:1736</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2368">src/app/three/interface.ts:2368</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets rotation</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1579,6 +1983,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Euler.html" class="tsd-signature-type" data-tsd-kind="Class">Euler</a></h4>
+							<p>rotation</p>
 						</li>
 					</ul>
 				</section>
@@ -1592,9 +1997,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1758">src/app/three/interface.ts:1758</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2395">src/app/three/interface.ts:2395</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets scale</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1602,6 +2012,30 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>scale</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getSizeSubscribe" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Size<wbr>Subscribe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Size<wbr>Subscribe<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1010">src/app/three/interface.ts:1010</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets size subscribe</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>size subscribe</p>
 						</li>
 					</ul>
 				</section>
@@ -1615,9 +2049,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1902">src/app/three/interface.ts:1902</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2581">src/app/three/interface.ts:2581</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets stats</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1625,6 +2064,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ThreeStats.html" class="tsd-signature-type" data-tsd-kind="Class">ThreeStats</a></h4>
+							<p>stats</p>
 						</li>
 					</ul>
 				</section>
@@ -1638,9 +2078,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L858">src/app/three/interface.ts:858</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1161">src/app/three/interface.ts:1161</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets store url</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1661,9 +2106,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1632">src/app/three/interface.ts:1632</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2247">src/app/three/interface.ts:2247</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets subscribe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1695,6 +2145,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Subscription</span></h4>
+							<p>subscribe</p>
 						</li>
 					</ul>
 				</section>
@@ -1708,9 +2159,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1692">src/app/three/interface.ts:1692</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2314">src/app/three/interface.ts:2314</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1724,6 +2180,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h4>
+							<p>texture</p>
 						</li>
 					</ul>
 				</section>
@@ -1737,9 +2194,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1360">src/app/three/interface.ts:1360</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1889">src/app/three/interface.ts:1889</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture data type safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1753,6 +2215,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.TextureDataType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TextureDataType</a></h4>
+							<p>texture data type safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1766,9 +2229,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1823">src/app/three/interface.ts:1823</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2477">src/app/three/interface.ts:2477</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture encoding safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1782,6 +2250,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.TextureEncoding.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TextureEncoding</a></h4>
+							<p>texture encoding safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1795,9 +2264,38 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1258">src/app/three/interface.ts:1258</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1747">src/app/three/interface.ts:1747</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets texture filter safe</p>
+								</div>
+								<p>Notice - case insensitive.</p>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>THREE.TextureFilter</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.NearestFilter               - NearestFilter, Nearest</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>THREE.LinearFilter                - Linearfilter, linear</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1811,6 +2309,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.TextureFilter.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TextureFilter</a></h4>
+							<p>texture filter safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1824,9 +2323,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1572">src/app/three/interface.ts:1572</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2165">src/app/three/interface.ts:2165</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets three component</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1834,6 +2338,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>three component</p>
 						</li>
 					</ul>
 				</section>
@@ -1847,9 +2352,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1063">src/app/three/interface.ts:1063</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1450">src/app/three/interface.ts:1450</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets type safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1869,6 +2379,30 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+							<p>type safe</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getUpdateSubscribe" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Update<wbr>Subscribe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Update<wbr>Subscribe<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RendererTimer.html" class="tsd-signature-type" data-tsd-kind="Interface">RendererTimer</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1022">src/app/three/interface.ts:1022</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets update subscribe</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RendererTimer.html" class="tsd-signature-type" data-tsd-kind="Interface">RendererTimer</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>update subscribe</p>
 						</li>
 					</ul>
 				</section>
@@ -1882,9 +2416,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1158">src/app/three/interface.ts:1158</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1591">src/app/three/interface.ts:1591</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets vector2 safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1904,6 +2443,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+							<p>vector2 safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1917,9 +2457,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1149">src/app/three/interface.ts:1149</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1573">src/app/three/interface.ts:1573</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets vector2 vsafe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1930,6 +2475,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+							<p>vector2 vsafe</p>
 						</li>
 					</ul>
 				</section>
@@ -1943,9 +2489,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1184">src/app/three/interface.ts:1184</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1633">src/app/three/interface.ts:1633</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets vector3 safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1968,6 +2519,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>vector3 safe</p>
 						</li>
 					</ul>
 				</section>
@@ -1981,9 +2533,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1175">src/app/three/interface.ts:1175</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1614">src/app/three/interface.ts:1614</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets vector3 vsafe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1994,6 +2551,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+							<p>vector3 vsafe</p>
 						</li>
 					</ul>
 				</section>
@@ -2007,9 +2565,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1240">src/app/three/interface.ts:1240</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1711">src/app/three/interface.ts:1711</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets wrapping safe</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2023,6 +2586,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/THREE.Wrapping.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Wrapping</a></h4>
+							<p>wrapping safe</p>
 						</li>
 					</ul>
 				</section>
@@ -2036,9 +2600,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L800">src/app/three/interface.ts:800</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1070">src/app/three/interface.ts:1070</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether array is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2046,6 +2615,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if array</p>
 						</li>
 					</ul>
 				</section>
@@ -2059,9 +2629,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L812">src/app/three/interface.ts:812</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1095">src/app/three/interface.ts:1095</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether index of is</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -2078,6 +2653,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if index of</p>
 						</li>
 					</ul>
 				</section>
@@ -2091,9 +2667,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L796">src/app/three/interface.ts:796</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1061">src/app/three/interface.ts:1061</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether not null is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2101,6 +2682,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if not null</p>
 						</li>
 					</ul>
 				</section>
@@ -2114,9 +2696,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L792">src/app/three/interface.ts:792</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1052">src/app/three/interface.ts:1052</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether null is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2124,6 +2711,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if null</p>
 						</li>
 					</ul>
 				</section>
@@ -2137,9 +2725,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L826">src/app/three/interface.ts:826</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1117">src/app/three/interface.ts:1117</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether only index of is</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -2159,6 +2752,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if only index of</p>
 						</li>
 					</ul>
 				</section>
@@ -2172,9 +2766,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1795">src/app/three/interface.ts:1795</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2442">src/app/three/interface.ts:2442</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether texture loaded is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2182,6 +2781,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if texture loaded</p>
 						</li>
 					</ul>
 				</section>
@@ -2195,9 +2795,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1562">src/app/three/interface.ts:1562</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2150">src/app/three/interface.ts:2150</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether three component is</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2208,6 +2813,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if three component</p>
 						</li>
 					</ul>
 				</section>
@@ -2221,9 +2827,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L447">src/app/three/interface.ts:447</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L605">src/app/three/interface.ts:605</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Makes uuid</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2247,9 +2858,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L843">src/app/three/interface.ts:843</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1141">src/app/three/interface.ts:1141</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pushs uniq</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -2266,6 +2882,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>uniq</p>
 						</li>
 					</ul>
 				</section>
@@ -2279,9 +2896,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L461">src/app/three/interface.ts:461</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L631">src/app/three/interface.ts:631</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Removes css style</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2292,6 +2914,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if css style</p>
 						</li>
 					</ul>
 				</section>
@@ -2305,13 +2928,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L785">src/app/three/interface.ts:785</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L1039">src/app/three/interface.ts:1039</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Renders three util</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>renderTimer: <a href="../interfaces/RendererTimer.html" class="tsd-signature-type" data-tsd-kind="Interface">RendererTimer</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2328,9 +2958,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L2213">src/app/three/interface.ts:2213</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2924">src/app/three/interface.ts:2924</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets gui enabled</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2354,13 +2989,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L771">src/app/three/interface.ts:771</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L978">src/app/three/interface.ts:978</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets renderer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>lastRenderer: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2377,9 +3019,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1614">src/app/three/interface.ts:1614</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2222">src/app/three/interface.ts:2222</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets subscribe next</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2387,6 +3034,8 @@
 								</li>
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2403,9 +3052,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L1554">src/app/three/interface.ts:1554</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2136">src/app/three/interface.ts:2136</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets three component</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2429,9 +3083,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L2253">src/app/three/interface.ts:2253</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2977">src/app/three/interface.ts:2977</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Setups gui</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2445,6 +3104,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ThreeGuiController.html" class="tsd-signature-type" data-tsd-kind="Interface">ThreeGuiController</a></h4>
+							<p>gui</p>
 						</li>
 					</ul>
 				</section>
@@ -2458,9 +3118,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L2196">src/app/three/interface.ts:2196</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L2902">src/app/three/interface.ts:2902</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Setups gui change</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2516,6 +3181,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ThreeGuiController.html" class="tsd-signature-type" data-tsd-kind="Interface">ThreeGuiController</a></h4>
+							<p>gui change</p>
 						</li>
 					</ul>
 				</section>
@@ -2529,9 +3195,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/444cfd45/src/app/three/interface.ts#L477">src/app/three/interface.ts:477</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/three-sample/blob/d5bc59e6/src/app/three/interface.ts#L655">src/app/three/interface.ts:655</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Toggles css style</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -2545,6 +3216,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if css style</p>
 						</li>
 					</ul>
 				</section>
@@ -2625,7 +3297,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="ThreeUtil.html#lastRenderer" class="tsd-kind-icon">last<wbr>Renderer</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 								<a href="ThreeUtil.html#loadedComponent" class="tsd-kind-icon">loaded<wbr>Component</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
@@ -2773,6 +3445,9 @@
 								<a href="ThreeUtil.html#getRenderer" class="tsd-kind-icon">get<wbr>Renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ThreeUtil.html#getRendererSize" class="tsd-kind-icon">get<wbr>Renderer<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ThreeUtil.html#getRigidbody" class="tsd-kind-icon">get<wbr>Rigidbody</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -2783,6 +3458,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ThreeUtil.html#getScale" class="tsd-kind-icon">get<wbr>Scale</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ThreeUtil.html#getSizeSubscribe" class="tsd-kind-icon">get<wbr>Size<wbr>Subscribe</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ThreeUtil.html#getStats" class="tsd-kind-icon">get<wbr>Stats</a>
@@ -2810,6 +3488,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="ThreeUtil.html#getTypeSafe" class="tsd-kind-icon">get<wbr>Type<wbr>Safe</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ThreeUtil.html#getUpdateSubscribe" class="tsd-kind-icon">get<wbr>Update<wbr>Subscribe</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ThreeUtil.html#getVector2Safe" class="tsd-kind-icon">get<wbr>Vector2<wbr>Safe</a>

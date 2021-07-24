@@ -3,8 +3,11 @@ import * as THREE from 'three';
 import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerator';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { AbstractTextureComponent } from '../texture.abstract';
-import { TagAttributes, ThreeUtil } from './../interface';
+import { TagAttributes, ThreeColor, ThreeUtil } from './../interface';
 
+/**
+ * LightComponent
+ */
 @Component({
   selector: 'ngx3js-light',
   templateUrl: './light.component.html',
@@ -12,10 +15,9 @@ import { TagAttributes, ThreeUtil } from './../interface';
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => LightComponent) }],
 })
 export class LightComponent extends AbstractObject3dComponent implements OnInit {
-
   /**
    * The type of light
-   * 
+   *
    * PointLight - point, pointlight
    * RectAreaLight - arealight,area, rectarealight, rectarea
    * SpotLight - spot, spotlight
@@ -27,22 +29,22 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() public type: string = 'spot';
 
   /**
-   * (optional) Numeric value of the RGB component of the color. Default is 0xffffff.
+   * Numeric value of the RGB component of the color. Default is 0xffffff.
    */
-  @Input() private color: string | number = null;
+  @Input() private color: ThreeColor = null;
 
   /**
-   * (optional) hexadecimal color of the sky. Default is 0xffffff.
+   * hexadecimal color of the sky. Default is 0xffffff.
    */
-  @Input() private skyColor: string | number = null;
+  @Input() private skyColor: ThreeColor = null;
 
   /**
-   * (optional) hexadecimal color of the ground. Default is 0xffffff.
+   * hexadecimal color of the ground. Default is 0xffffff.
    */
-  @Input() private groundColor: string | number = null;
+  @Input() private groundColor: ThreeColor = null;
 
   /**
-   * (optional) Numeric value of the light's strength/intensity. Default is 1.
+   * Numeric value of the light's strength/intensity. Default is 1.
    */
   @Input() private intensity: number = null;
 
@@ -67,12 +69,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private decay: number = null;
 
   /**
-   * (optional) width of the light. Default is 10.
+   * width of the light. Default is 10.
    */
   @Input() private width: number = null;
 
   /**
-   * (optional) height of the light. Default is 10.
+   * height of the light. Default is 10.
    */
   @Input() private height: number = null;
 
@@ -98,22 +100,22 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private shadowFocus: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private shadowCameraNear: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private shadowMapSize: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private shadowMapSizeWidth: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private shadowMapSizeHeight: number = null;
 
@@ -154,105 +156,185 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private shadowCameraZoom: number = null;
 
   /**
-   * (optional) An instance of [page:SphericalHarmonics3].
+   * An instance of [page:SphericalHarmonics3].
    */
   @Input() private sh: string = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private texture: AbstractTextureComponent = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private target: any = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private targetX: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private targetY: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private targetZ: number = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private renderer: any = null;
 
   /**
-   * 
+   * Input  of light component
    */
   @Input() private renderTarget: any = null;
 
+  /**
+   * Gets intensity
+   * @param [def]
+   * @returns intensity
+   */
   private getIntensity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.intensity, def);
   }
 
+  /**
+   * Gets distance
+   * @param [def]
+   * @returns distance
+   */
   private getDistance(def?: number): number {
     return ThreeUtil.getTypeSafe(this.distance, def);
   }
 
+  /**
+   * Gets angle
+   * @param [def]
+   * @returns angle
+   */
   private getAngle(def?: number): number {
     return ThreeUtil.getAngleSafe(this.angle, def);
   }
 
+  /**
+   * Gets penumbra
+   * @param [def]
+   * @returns penumbra
+   */
   private getPenumbra(def?: number): number {
     return ThreeUtil.getTypeSafe(this.penumbra, def);
   }
 
+  /**
+   * Gets decay
+   * @param [def]
+   * @returns decay
+   */
   private getDecay(def?: number): number {
     return ThreeUtil.getTypeSafe(this.decay, def);
   }
 
+  /**
+   * Gets width
+   * @param [def]
+   * @returns width
+   */
   private getWidth(def?: number): number {
     return ThreeUtil.getTypeSafe(this.width, def);
   }
 
+  /**
+   * Gets height
+   * @param [def]
+   * @returns height
+   */
   private getHeight(def?: number): number {
     return ThreeUtil.getTypeSafe(this.height, def);
   }
 
+  /**
+   * Gets color
+   * @param [def]
+   * @returns color
+   */
   private getColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
+  /**
+   * Gets sky color
+   * @param [def]
+   * @returns sky color
+   */
   private getSkyColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.skyColor, this.color, def);
   }
 
+  /**
+   * Gets ground color
+   * @param [def]
+   * @returns ground color
+   */
   private getGroundColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.groundColor, this.color, def);
   }
 
+  /**
+   * Gets shadow map size width
+   * @param [def]
+   * @returns shadow map size width
+   */
   private getShadowMapSizeWidth(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowMapSizeWidth, this.shadowMapSize, def);
   }
 
+  /**
+   * Gets shadow map size height
+   * @param [def]
+   * @returns shadow map size height
+   */
   private getShadowMapSizeHeight(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, this.shadowMapSize, def);
   }
 
+  /**
+   * Gets shadow camera near
+   * @param [def]
+   * @returns shadow camera near
+   */
   private getShadowCameraNear(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowCameraNear, def);
   }
 
+  /**
+   * Gets shadow camera far
+   * @param [def]
+   * @returns shadow camera far
+   */
   private getShadowCameraFar(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowCameraFar, def);
   }
 
+  /**
+   * Gets shadow camera fov
+   * @param [def]
+   * @returns shadow camera fov
+   */
   private getShadowCameraFov(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowCameraFov, def);
   }
 
+  /**
+   * Gets shadow camera left
+   * @param [def]
+   * @returns shadow camera left
+   */
   private getShadowCameraLeft(def?: number): number {
     if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
       return ThreeUtil.getTypeSafe(this.shadowCameraLeft, def);
@@ -263,6 +345,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets shadow camera right
+   * @param [def]
+   * @returns shadow camera right
+   */
   private getShadowCameraRight(def?: number): number {
     if (ThreeUtil.isNotNull(this.shadowCameraRight)) {
       return ThreeUtil.getTypeSafe(this.shadowCameraRight, def);
@@ -273,6 +360,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets shadow camera top
+   * @param [def]
+   * @returns shadow camera top
+   */
   private getShadowCameraTop(def?: number): number {
     if (ThreeUtil.isNotNull(this.shadowCameraTop)) {
       return ThreeUtil.getTypeSafe(this.shadowCameraTop, def);
@@ -283,6 +375,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets shadow camera bottom
+   * @param [def]
+   * @returns shadow camera bottom
+   */
   private getShadowCameraBottom(def?: number): number {
     if (ThreeUtil.isNotNull(this.shadowCameraBottom)) {
       return ThreeUtil.getTypeSafe(this.shadowCameraBottom, def);
@@ -293,22 +390,47 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Gets shadow camera zoom
+   * @param [def]
+   * @returns shadow camera zoom
+   */
   private getShadowCameraZoom(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowCameraZoom, def);
   }
 
+  /**
+   * Gets shadow bias
+   * @param [def]
+   * @returns shadow bias
+   */
   private getShadowBias(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowBias, def);
   }
 
+  /**
+   * Gets shadow radius
+   * @param [def]
+   * @returns shadow radius
+   */
   private getShadowRadius(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowRadius, def);
   }
 
+  /**
+   * Gets shadow focus
+   * @param [def]
+   * @returns shadow focus
+   */
   private getShadowFocus(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowFocus, def);
   }
 
+  /**
+   * Gets sh
+   * @param [def]
+   * @returns sh
+   */
   private getSh(def?: string): THREE.SphericalHarmonics3 {
     const sh = ThreeUtil.getTypeSafe(this.sh, def, '');
     if (ThreeUtil.isNotNull(sh) && sh != '') {
@@ -320,6 +442,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return undefined;
   }
 
+  /**
+   * Gets target
+   * @returns target
+   */
   private getTarget(): THREE.Object3D {
     if (ThreeUtil.isNotNull(this.target)) {
       return ThreeUtil.getObject3d(this.target);
@@ -327,7 +453,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return undefined;
   }
 
-  getThreeRenderer(): THREE.Renderer {
+  /**
+   * Gets three renderer
+   * @returns three renderer
+   */
+  public getThreeRenderer(): THREE.Renderer {
     if (ThreeUtil.isNotNull(this.renderer) && ThreeUtil.isNotNull(this.renderer.getRenderer)) {
       return this.renderer.getRenderer();
     } else {
@@ -335,6 +465,9 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Creates an instance of light component.
+   */
   constructor() {
     super();
   }
@@ -363,7 +496,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -383,7 +516,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     super.ngAfterContentInit();
   }
 
-  getTagAttribute(options: any = {}) {
+  /**
+   * Gets tag attribute
+   * @param [options]
+   * @returns
+   */
+  public getTagAttribute(options: any = {}) {
     const tagAttributes: TagAttributes = {
       tag: 'ngx3js-light',
       attributes: [],
@@ -543,7 +681,12 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return tagAttributes;
   }
 
-  setParent(parent: THREE.Object3D): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getLight();
       return true;
@@ -551,7 +694,11 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     return false;
   }
 
-  applyChanges3d(changes: string[]) {
+  /**
+   * Applys changes3d
+   * @param changes
+   */
+  public applyChanges3d(changes: string[]) {
     if (this.light !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['helper']);
@@ -566,13 +713,26 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     }
   }
 
+  /**
+   * Light  of light component
+   */
   private light: THREE.Light = null;
-  
-  getObject3d<T extends THREE.Object3D>(): T {
+
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
     return this.getLight() as any;
   }
-  
-  getLight<T extends THREE.Light>(): T {
+
+  /**
+   * Gets light
+   * @template T
+   * @returns light
+   */
+  public getLight<T extends THREE.Light>(): T {
     if (this.light === null || this._needUpdate) {
       this.needUpdate = false;
       this.light = null;
@@ -627,7 +787,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         case 'pointlight':
         case 'point':
           const pointLight = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
-          basemesh = pointLight; 
+          basemesh = pointLight;
           break;
         case 'arealight':
         case 'area':
@@ -653,7 +813,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         if (ThreeUtil.isNotNull(this.target)) {
           basemesh['target'] = this.getTarget();
         } else if (ThreeUtil.isNotNull(this.targetX) && ThreeUtil.isNotNull(this.targetY) && ThreeUtil.isNotNull(this.targetZ)) {
-          basemesh['target'].position.copy(ThreeUtil.getVector3Safe(this.targetX,this.targetY,this.targetZ));
+          basemesh['target'].position.copy(ThreeUtil.getVector3Safe(this.targetX, this.targetY, this.targetZ));
         }
       }
       this.light = basemesh;
@@ -663,7 +823,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           this.light.target = target;
         }
         if (ThreeUtil.isNotNull(this.light.target)) {
-          if (this.parent !== null && this.light.target.parent == null && this.parent !== this.light.target) {
+          if (this.parent !== null && this.light.target.parent === null && this.parent !== this.light.target) {
             this.parent.add(this.light.target);
           }
         }

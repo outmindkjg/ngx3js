@@ -2,19 +2,24 @@ import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/co
 import * as THREE from 'three';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
+/**
+ * ListenerComponent
+ */
 @Component({
   selector: 'ngx3js-listener',
   templateUrl: './listener.component.html',
   styleUrls: ['./listener.component.scss'],
-  providers: [{provide: AbstractObject3dComponent, useExisting: forwardRef(() => ListenerComponent) }]
+  providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => ListenerComponent) }],
 })
 export class ListenerComponent extends AbstractObject3dComponent implements OnInit {
-
   /**
    * Set the volume.
    */
   @Input() private volume: number = 1;
 
+  /**
+   * Creates an instance of listener component.
+   */
   constructor() {
     super();
   }
@@ -46,7 +51,7 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -67,9 +72,17 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
     super.ngAfterContentInit();
   }
 
+  /**
+   * Listener  of listener component
+   */
   private listener: THREE.AudioListener = null;
 
-  setParent(parent: THREE.Object3D): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.resetListener();
       return true;
@@ -78,7 +91,10 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
     }
   }
 
-  resetListener() {
+  /**
+   * Resets listener
+   */
+  public resetListener() {
     if (this.listener === null || this._needUpdate) {
       this.listener = this.getListener();
     }
@@ -100,7 +116,11 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
     }
   }
 
-  getListener(): THREE.AudioListener {
+  /**
+   * Gets listener
+   * @returns listener
+   */
+  public getListener(): THREE.AudioListener {
     if (this.listener === null || this._needUpdate) {
       this.needUpdate = false;
       this.listener = new THREE.AudioListener();

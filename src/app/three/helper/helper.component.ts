@@ -3,14 +3,17 @@ import * as THREE from 'three';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper';
 import { LightProbeHelper } from 'three/examples/jsm/helpers/LightProbeHelper';
+import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
 import { VertexTangentsHelper } from 'three/examples/jsm/helpers/VertexTangentsHelper';
 import { Gyroscope } from 'three/examples/jsm/misc/Gyroscope';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { ThreeColor, ThreeUtil } from './../interface';
-import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudioHelper';
 
+/**
+ * HelperComponent
+ */
 @Component({
   selector: 'ngx3js-helper',
   templateUrl: './helper.component.html',
@@ -18,9 +21,8 @@ import { PositionalAudioHelper } from 'three/examples/jsm/helpers/PositionalAudi
   providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => HelperComponent) }],
 })
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
-
   /**
-   * 
+   * Input  of helper component
    */
   @Input() public type: string = 'spot';
 
@@ -30,12 +32,12 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private color: string | number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private target: any = null;
 
   /**
-   * (optional) size of the lines representing the axes. Default is *1*.
+   * size of the lines representing the axes. Default is *1*.
    */
   @Input() private size: number = null;
 
@@ -70,67 +72,70 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private color2: ThreeColor = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private opacity: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private depthWrite: boolean = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private materialColor: ThreeColor = null;
 
   /**
+   * Input  of helper component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private materialBlending: string = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private materialTransparent: boolean = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private dirX: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private dirY: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private dirZ: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private originX: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private originY: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private originZ: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private arrowFrom: any = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private arrowTo: any = null;
 
@@ -150,46 +155,55 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
   @Input() private headWidth: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private matrix: THREE.Matrix4 = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private children: any[] = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private control: any = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private range: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private divisionsInnerAngle: number = null;
 
   /**
-   * 
+   * Input  of helper component
    */
   @Input() private divisionsOuterAngle: number = null;
 
   /**
-   * 
+   * Gets target
+   * @param [target]
+   * @returns target
    */
   private getTarget(target?: THREE.Object3D): THREE.Object3D {
     this.unSubscribeRefer('target');
     let targetMesh: THREE.Object3D = null;
     if (ThreeUtil.isNotNull(this.target)) {
       targetMesh = ThreeUtil.getObject3d(this.target, false);
-      this.subscribeRefer('target', ThreeUtil.getSubscribe(this.target, () => {
-        this.needUpdate = true;
-      },'loaded'));
+      this.subscribeRefer(
+        'target',
+        ThreeUtil.getSubscribe(
+          this.target,
+          () => {
+            this.needUpdate = true;
+          },
+          'loaded'
+        )
+      );
     }
     if (targetMesh === null && ThreeUtil.isNotNull(target)) {
       targetMesh = ThreeUtil.getObject3d(target, false);
@@ -200,14 +214,29 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return targetMesh;
   }
 
+  /**
+   * Gets size
+   * @param [def]
+   * @returns size
+   */
   private getSize(def?: number): number {
     return ThreeUtil.getTypeSafe(this.size, def);
   }
 
+  /**
+   * Gets color
+   * @param [def]
+   * @returns color
+   */
   private getColor(def?: number | string): THREE.Color {
     return ThreeUtil.getColorSafe(this.color, def);
   }
 
+  /**
+   * Gets color hex
+   * @param [def]
+   * @returns color hex
+   */
   private getColorHex(def?: number | string): number {
     const color = this.getColor(def);
     if (ThreeUtil.isNotNull(color)) {
@@ -217,38 +246,83 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Gets radius
+   * @param [def]
+   * @returns radius
+   */
   private getRadius(def?: number): number {
     return ThreeUtil.getTypeSafe(this.radius, def);
   }
 
+  /**
+   * Gets radials
+   * @param [def]
+   * @returns radials
+   */
   private getRadials(def?: number): number {
     return ThreeUtil.getTypeSafe(this.radials, def);
   }
 
+  /**
+   * Gets circles
+   * @param [def]
+   * @returns circles
+   */
   private getCircles(def?: number): number {
     return ThreeUtil.getTypeSafe(this.circles, def);
   }
 
+  /**
+   * Gets divisions
+   * @param [def]
+   * @returns divisions
+   */
   private getDivisions(def?: number): number {
     return ThreeUtil.getTypeSafe(this.divisions, def);
   }
 
+  /**
+   * Gets color1
+   * @param [def]
+   * @returns color1
+   */
   private getColor1(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorSafe(this.color1, this.color, def);
   }
 
+  /**
+   * Gets color2
+   * @param [def]
+   * @returns color2
+   */
   private getColor2(def?: ThreeColor): THREE.Color {
     return ThreeUtil.getColorSafe(this.color2, this.color1 || this.color, def);
   }
 
+  /**
+   * Gets opacity
+   * @param [def]
+   * @returns opacity
+   */
   private getOpacity(def?: number): number {
     return ThreeUtil.getTypeSafe(this.opacity, def);
   }
 
+  /**
+   * Gets depth write
+   * @param [def]
+   * @returns true if depth write
+   */
   private getDepthWrite(def?: boolean): boolean {
     return ThreeUtil.getTypeSafe(this.depthWrite, def);
   }
 
+  /**
+   * Gets dir
+   * @param [def]
+   * @returns dir
+   */
   private getDir(def?: THREE.Vector3): THREE.Vector3 {
     if (ThreeUtil.isNotNull(this.arrowFrom) && ThreeUtil.isNotNull(this.arrowTo)) {
       const arrowFrom: THREE.Vector3 = this.getObjectPosition(this.arrowFrom);
@@ -261,6 +335,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Gets origin
+   * @param [def]
+   * @returns origin
+   */
   private getOrigin(def?: THREE.Vector3): THREE.Vector3 {
     let origin: THREE.Vector3 = def;
     if (ThreeUtil.isNotNull(this.arrowFrom)) {
@@ -273,6 +352,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return origin;
   }
 
+  /**
+   * Gets object position
+   * @param obj
+   * @returns object position
+   */
   private getObjectPosition(obj: any): THREE.Vector3 {
     if (ThreeUtil.isNotNull(obj)) {
       if (obj instanceof THREE.Vector3) {
@@ -284,18 +368,36 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return new THREE.Vector3(0, 0, 0);
   }
 
+  /**
+   * Gets length
+   * @param [def]
+   * @returns length
+   */
   private getLength(def?: number): number {
     return ThreeUtil.getTypeSafe(this.length, def);
   }
 
+  /**
+   * Gets head length
+   * @param [def]
+   * @returns head length
+   */
   private getHeadLength(def?: number): number {
     return ThreeUtil.getTypeSafe(this.headLength, def);
   }
 
+  /**
+   * Gets head width
+   * @param [def]
+   * @returns head width
+   */
   private getHeadWidth(def?: number): number {
     return ThreeUtil.getTypeSafe(this.headWidth, def);
   }
 
+  /**
+   * Creates an instance of helper component.
+   */
   constructor() {
     super();
   }
@@ -324,7 +426,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -344,18 +446,29 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     super.ngAfterContentInit();
   }
 
-  setUpdate() {
+  /**
+   * Sets update
+   */
+  public setUpdate() {
     const helper: any = this.helper;
     if (ThreeUtil.isNotNull(helper.update)) {
-      setTimeout(() => {
+      window.setTimeout(() => {
         helper.update();
       }, 100);
     }
   }
 
+  /**
+   * Helper  of helper component
+   */
   private helper: THREE.Object3D = null;
 
-  setParent(parent: THREE.Object3D): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getHelper();
       this.unSubscribeRefer('helperReset');
@@ -374,7 +487,12 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     return false;
   }
 
-  applyChanges3d(changes: string[]) {
+  /**
+   * Applys changes3d
+   * @param changes
+   * @returns
+   */
+  public applyChanges3d(changes: string[]) {
     if (this.helper !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getObject3d();
@@ -397,10 +515,20 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  getObject3d<T extends THREE.Object3D>(): T {
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
     return this.getHelper();
   }
 
+  /**
+   * Gets helper
+   * @template T
+   * @returns helper
+   */
   public getHelper<T extends THREE.Object3D>(): T {
     if (this.helper === null || this._needUpdate) {
       this.needUpdate = false;
@@ -551,7 +679,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
             vertexMesh.geometry.computeTangents();
             // this.parent.updateMatrixWorld( true );
             if (ThreeUtil.isNotNull(vertexMesh.parent)) {
-              vertexMesh.parent.updateMatrixWorld( true );
+              vertexMesh.parent.updateMatrixWorld(true);
             }
             switch (this.type.toLowerCase()) {
               case 'vertextangentshelper':

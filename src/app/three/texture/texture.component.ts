@@ -7,107 +7,132 @@ import { LocalStorageService } from '../local-storage.service';
 import { AbstractTextureComponent } from '../texture.abstract';
 import { CanvasFunctionType } from './textureUtils';
 
+/**
+ * TextureComponent
+ */
 @Component({
   selector: 'ngx3js-texture',
   templateUrl: './texture.component.html',
   styleUrls: ['./texture.component.scss'],
-  providers: [{provide: AbstractTextureComponent, useExisting: forwardRef(() => TextureComponent) }]
+  providers: [{ provide: AbstractTextureComponent, useExisting: forwardRef(() => TextureComponent) }],
 })
 export class TextureComponent extends AbstractTextureComponent implements OnInit, OnDestroy {
-
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private refer: any = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private image: string = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private cubeImage: string[] = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private storageName: string = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private storageOption: any = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private program: CanvasFunctionType | string = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private canvas: HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap | string = null;
 
   /**
-   * 
+   * Input  of texture component
+   */
+  /**
+   * Input  of texture component
    */
   @Input() private perlin: any = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private sunX: number = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private sunY: number = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private sunZ: number = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private useDropImage: boolean = false;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private color: number | string = null;
 
   /**
-   * 
+   * Input  of texture component
    */
   @Input() private add: number | string = null;
 
+  /**
+   * Gets image
+   * @param [def]
+   * @returns image
+   */
   private getImage(def?: string): string {
     return ThreeUtil.getTypeSafe(this.image, def);
   }
 
+  /**
+   * Gets cube image
+   * @param [def]
+   * @returns cube image
+   */
   private getCubeImage(def?: string[]): string[] {
     return ThreeUtil.getTypeSafe(this.cubeImage, def);
   }
 
+  /**
+   * Gets program
+   * @param [def]
+   * @returns program
+   */
   private getProgram(def?: CanvasFunctionType | string): CanvasFunctionType | string {
     return ThreeUtil.getTypeSafe(this.program, def);
   }
 
+  /**
+   * Gets canvas
+   * @param [def]
+   * @returns canvas
+   */
   private getCanvas(def?: string): HTMLVideoElement | HTMLImageElement | HTMLCanvasElement | ImageBitmap {
     if (ThreeUtil.isNull(this.canvas) || typeof this.canvas === 'string') {
-      const canvas = (ThreeUtil.getTypeSafe(this.canvas, def, '') as string).toLowerCase().replace(/[^a-z0-9]/gi,'');
+      const canvas = (ThreeUtil.getTypeSafe(this.canvas, def, '') as string).toLowerCase().replace(/[^a-z0-9]/gi, '');
       switch (canvas) {
-        case 'flakes' :
-        case 'flakestexture' :
+        case 'flakes':
+        case 'flakestexture':
           return new FlakesTexture();
-        case 'lutrainbow' :
-        case 'lutcooltowarm' :
-        case 'lutblackbody' :
-        case 'lutgrayscale' :
+        case 'lutrainbow':
+        case 'lutcooltowarm':
+        case 'lutblackbody':
+        case 'lutgrayscale':
           return new Lut(canvas.toLowerCase().substr(3)).createCanvas();
         case 'lut':
         default:
@@ -118,6 +143,10 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
     }
   }
 
+  /**
+   * Creates an instance of texture component.
+   * @param localStorageService
+   */
   constructor(private localStorageService: LocalStorageService) {
     super();
   }
@@ -146,14 +175,14 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes) {
       if (changes.useDropImage) {
-        this.setUseDropImage(this.useDropImage);   
+        this.setUseDropImage(this.useDropImage);
         delete changes.useDropImage;
       }
       this.addChanges(changes);
@@ -170,6 +199,10 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
     super.ngAfterContentInit();
   }
 
+  /**
+   * Sets use drop image
+   * @param useDropImage
+   */
   private setUseDropImage(useDropImage: boolean) {
     if (useDropImage) {
       if (this._dragOverHandler === null) {
@@ -228,18 +261,38 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
     }
   }
 
+  /**
+   * Drag over handler of texture component
+   */
   private _dragOverHandler = null;
+
+  /**
+   * Drag enter handler of texture component
+   */
   private _dragEnterHandler = null;
+
+  /**
+   * Drag leave handler of texture component
+   */
   private _dragLeaveHandler = null;
+
+  /**
+   * Drop handler of texture component
+   */
   private _dropHandler = null;
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.texture !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getTexture();
         return;
       }
-      if (ThreeUtil.isIndexOf(changes, ['image','storagename','storageoption','cubeimage','loadertype', 'canvas'])) {
+      if (ThreeUtil.isIndexOf(changes, ['image', 'storagename', 'storageoption', 'cubeimage', 'loadertype', 'canvas'])) {
         this.needUpdate = true;
         return;
       }
@@ -251,6 +304,11 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
     }
   }
 
+  /**
+   * Gets texture
+   * @template T
+   * @returns texture
+   */
   public getTexture<T extends THREE.Texture>(): T {
     if (this.texture === null || this._needUpdate) {
       this.needUpdate = false;
@@ -277,7 +335,7 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
-          this.texture = new THREE.DataTexture(new Uint8Array( 6 ), 1, 1);
+          this.texture = new THREE.DataTexture(new Uint8Array(6), 1, 1);
         } else if (this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
           this.texture = new THREE.CompressedTexture(null, 1, 1);
         } else {
@@ -297,7 +355,7 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
           if (canvas instanceof HTMLCanvasElement) {
             canvas.addEventListener('needupdate', () => {
               this.texture.needsUpdate = true;
-            })
+            });
           }
         } else if (ThreeUtil.isNotNull(this.perlin) && this.perlin.getPerlinGeometry) {
           this.texture = new THREE.CanvasTexture(this.perlin.getPerlinGeometry().getTexture(ThreeUtil.getVector3Safe(this.sunX, this.sunY, this.sunZ, new THREE.Vector3(1, 1, 1)), ThreeUtil.getColorSafe(this.color, 0x602000), ThreeUtil.getColorSafe(this.add, 0xe08060)));

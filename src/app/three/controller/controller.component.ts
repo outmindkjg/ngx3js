@@ -9,168 +9,185 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { HtmlCollection } from '../visual/visual.component';
 import { ControllerItemComponent, ControlObjectItem } from './controller-item/controller-item.component';
 
+/**
+ * ControllerComponent
+ */
 @Component({
   selector: 'ngx3js-controller',
   templateUrl: './controller.component.html',
   styleUrls: ['./controller.component.scss'],
 })
 export class ControllerComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
+   * Input  of controller component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private type: string = 'auto';
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private controlComponent: { new (ref3d: THREE.Object3D, ref2d: HtmlCollection): AbstractThreeController } = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private controlParams: { [key: string]: any } = null;
 
   /**
+   * Input  of controller component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private curve: string = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private scale: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private radius: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private radiusX: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private radiusY: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private radiusZ: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private rotationX: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private rotationY: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private rotationZ: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private centerX: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private centerY: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private centerZ: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private duration: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private delta: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private multiply: number = null;
 
   /**
+   * Input  of controller component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private options: string = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private visible: boolean = false;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private color: ThreeColor = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private opacity: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private tubularSegments: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private tubeRadius: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private tubeRadiusSegments: number = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private closed: boolean = null;
 
   /**
+   * Input  of controller component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private material: string = null;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private useEvent: boolean = false;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private eventSeqn: number = 1000;
 
   /**
-   * 
+   * Input  of controller component
    */
   @Input() private mstDuration: number = null;
 
   /**
-   * 
+   * Content children of controller component
    */
   @ContentChildren(ControllerItemComponent, { descendants: false }) controllerItemList: QueryList<ControllerItemComponent>;
 
+  /**
+   * Creates an instance of controller component.
+   */
   constructor() {
     super();
   }
@@ -199,7 +216,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -220,7 +237,12 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     this.subscribeListQueryChange(this.controllerItemList, 'controllerItemList', 'controllerItem');
   }
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this._controller !== null || this._controllerItems !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getController();
@@ -296,7 +318,7 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
                 this.pathGuide.visible = ThreeUtil.getTypeSafe(this.visible, false);
               }
               break;
-            case 'position' :
+            case 'position':
               this.refreshRefObject3dPosition();
               break;
           }
@@ -306,13 +328,40 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
+  /**
+   * Controller  of controller component
+   */
   private _controller: AbstractThreeController = null;
+
+  /**
+   * Ref object3d of controller component
+   */
   private refObject3d: THREE.Object3D = null;
+
+  /**
+   * Ref object2d of controller component
+   */
   private refObject2d: HtmlCollection = null;
+
+  /**
+   * Path guide of controller component
+   */
   private pathGuide: THREE.Object3D = null;
-  private refObject3dposition : THREE.Vector3 = new THREE.Vector3();
-  private _duration : number = 1;
-  refreshRefObject3dPosition() {
+
+  /**
+   * Ref object3dposition of controller component
+   */
+  private refObject3dposition: THREE.Vector3 = new THREE.Vector3();
+
+  /**
+   * Duration  of controller component
+   */
+  private _duration: number = 1;
+
+  /**
+   * Refreshs ref object3d position
+   */
+  public refreshRefObject3dPosition() {
     if (ThreeUtil.isNotNull(this.refObject3d)) {
       if (ThreeUtil.isNotNull(this.refObject3d.userData.initPosition)) {
         this.refObject3dposition.copy(this.refObject3d.userData.initPosition);
@@ -355,9 +404,12 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-  private _controlItem : ControlObjectItem = {
+  /**
+   * Control item of controller component
+   */
+  private _controlItem: ControlObjectItem = {
     object3d: null,
-    component : null,
+    component: null,
     position: null,
     rotation: null,
     scale: null,
@@ -365,19 +417,30 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     uniforms: null,
     geometry: null,
     attributes: null,
-    morphAttributes: null
+    morphAttributes: null,
   };
 
-  setObject3d(refObject3d: THREE.Object3D) {
+  /**
+   * Sets object3d
+   * @param refObject3d
+   */
+  public setObject3d(refObject3d: THREE.Object3D) {
     if (this.refObject3d !== refObject3d) {
       this.refObject3d = refObject3d;
       if (this.refObject3d !== null) {
         this.unSubscribeRefer('position');
         this.addChanges('position');
-        this.subscribeRefer('position', ThreeUtil.getSubscribe(this.refObject3d,() => {
-          this.unSubscribeRefer('position');
-          this.addChanges('position');
-        }, 'position'));
+        this.subscribeRefer(
+          'position',
+          ThreeUtil.getSubscribe(
+            this.refObject3d,
+            () => {
+              this.unSubscribeRefer('position');
+              this.addChanges('position');
+            },
+            'position'
+          )
+        );
       }
       if (this.checkController()) {
         this.addChanges('object3d');
@@ -385,7 +448,11 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-  setObject2d(refObject2d: HtmlCollection) {
+  /**
+   * Sets object2d
+   * @param refObject2d
+   */
+  public setObject2d(refObject2d: HtmlCollection) {
     if (this.refObject2d !== refObject2d) {
       this.refObject2d = refObject2d;
       if (this.checkController()) {
@@ -394,14 +461,49 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
+  /**
+   * Renderer  of controller component
+   */
   private _renderer: THREE.Renderer = null;
+
+  /**
+   * Scenes  of controller component
+   */
   private _scenes: QueryList<SceneComponent> = null;
+
+  /**
+   * Cameras  of controller component
+   */
   private _cameras: QueryList<CameraComponent> = null;
+
+  /**
+   * Canvas2ds  of controller component
+   */
   private _canvas2ds: QueryList<CanvasComponent> = null;
+
+  /**
+   * Scene  of controller component
+   */
   private _scene: THREE.Scene = null;
+
+  /**
+   * Canvas  of controller component
+   */
   private _canvas: HtmlCollection = null;
-  private _event : RendererEvent = null;
-  setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
+
+  /**
+   * Event  of controller component
+   */
+  private _event: RendererEvent = null;
+
+  /**
+   * Sets renderer
+   * @param renderer
+   * @param scenes
+   * @param cameras
+   * @param canvas2ds
+   */
+  public setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
     this._renderer = renderer;
     this._event = ThreeUtil.getThreeComponent(renderer)?.events;
     this._scenes = scenes;
@@ -412,20 +514,32 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
-  setScene(scene: THREE.Scene) {
+  /**
+   * Sets scene
+   * @param scene
+   */
+  public setScene(scene: THREE.Scene) {
     this._scene = scene;
     if (this.checkController()) {
       this.addChanges('scene');
     }
   }
 
-  setCanvas(canvas: HtmlCollection) {
+  /**
+   * Sets canvas
+   * @param canvas
+   */
+  public setCanvas(canvas: HtmlCollection) {
     this._canvas = canvas;
     if (this.checkController()) {
       this.addChanges('canvas');
     }
   }
 
+  /**
+   * Checks controller
+   * @returns true if controller
+   */
   private checkController(): boolean {
     if (this.refObject3d !== null || this.refObject2d !== null) {
       if (this._needUpdate) {
@@ -438,9 +552,15 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     return false;
   }
 
+  /**
+   * Controller items of controller component
+   */
   private _controllerItems: ControllerItemComponent[] = null;
 
-  getController(): void {
+  /**
+   * Gets controller
+   */
+  public getController(): void {
     if ((this.refObject3d !== null || this.refObject2d !== null) && this._needUpdate && ThreeUtil.isNotNull(this.controllerItemList)) {
       this.needUpdate = false;
       this._controllerItems = null;
@@ -540,23 +660,34 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     }
   }
 
+  /**
+   * Log seqn of controller component
+   */
   private _logSeqn: number = 0;
 
-  private renderTime : number = 0;
-  update(rendererTimer: RendererTimer) {
+  /**
+   * Render time of controller component
+   */
+  private renderTime: number = 0;
+
+  /**
+   * Updates controller component
+   * @param rendererTimer
+   */
+  public update(rendererTimer: RendererTimer) {
     if (this._controller !== null) {
       this._controller.update(rendererTimer);
     } else if (this.refObject3d !== null && this._controllerItems !== null) {
       const events: string[] = [];
       if (this._event !== null && false) {
-         this.renderTime += this._event.direction.y / 1000 * rendererTimer.delta;
+        this.renderTime += (this._event.direction.y / 1000) * rendererTimer.delta;
       } else {
         this.renderTime += rendererTimer.delta / this._duration;
       }
-      const dirRendererTimer : RendererTimer = {
-        elapsedTime : this.renderTime,
-        delta : rendererTimer.delta / this._duration
-      }
+      const dirRendererTimer: RendererTimer = {
+        elapsedTime: this.renderTime,
+        delta: rendererTimer.delta / this._duration,
+      };
       this._controllerItems.forEach((item) => {
         item.update(dirRendererTimer, events);
       });

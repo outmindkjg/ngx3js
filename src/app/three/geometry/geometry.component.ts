@@ -19,46 +19,51 @@ import { CapsuleGeometry } from './geometry.capsule';
 import { PlanePerlinGeometry } from './geometry.plane_perlin';
 import { RopeGeometry } from './geometry.rope';
 
+/**
+ * GeometryComponent
+ */
 @Component({
   selector: 'ngx3js-geometry',
   templateUrl: './geometry.component.html',
   styleUrls: ['./geometry.component.scss'],
-  providers: [{provide: AbstractGeometryComponent, useExisting: forwardRef(() => GeometryComponent) }]
+  providers: [{ provide: AbstractGeometryComponent, useExisting: forwardRef(() => GeometryComponent) }],
 })
 export class GeometryComponent extends AbstractGeometryComponent implements OnInit, OnDestroy {
-
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() public type: string = 'sphere';
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private refer: any = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private storageName: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private storage2Buffer: boolean = false;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private perlinType: string = 'minecraft';
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private light: string | number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private shadow: string | number = null;
 
@@ -108,7 +113,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private depthSegments: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private quality: number = null;
 
@@ -123,7 +128,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private thetaLength: number = null;
 
   /**
-   * Number of segments.  A higher number means the ring will be more round.  Minimum is 3.  Default is 8. 
+   * Number of segments.  A higher number means the ring will be more round.  Minimum is 3.  Default is 8.
    */
   @Input() private thetaSegments: number = null;
 
@@ -148,7 +153,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private innerRadius: number = null;
 
   /**
-   * Default is 1. 
+   * Default is 1.
    */
   @Input() private outerRadius: number = null;
 
@@ -178,12 +183,12 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private phiSegments: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private tube: number = null;
 
   /**
-   * Radius of the tube.  Default is 0.4. 
+   * Radius of the tube.  Default is 0.4.
    */
   @Input() private tubularSegments: number = null;
 
@@ -203,292 +208,322 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private q: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private points: ThreeVector[] = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private shapes: ThreeVector[] | THREE.Shape = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private extrudePath: ThreeVector[] = null;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private extrudePathType: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curvePath: ThreeVector[] = null;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private curvePathType: string = null;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private curveType: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private addGroup: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bottom: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private lid: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private body: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private fitLid: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private blinn: boolean = null;
 
-
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private uVGenerator: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private pointsGeometry: GeometryComponent = null;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private parametric: string | GeometriesParametric | any = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private slices: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private stacks: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private text: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private font: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private size: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private weight: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private polyVertices: number[] = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private polyIndices: number[] = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private thresholdAngle: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curveSegments: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private tension: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private steps: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bevelEnabled: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bevelThickness: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bevelSize: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bevelOffset: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private bevelSegments: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private closed: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private instanceCount: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private mesh: THREE.Mesh | any = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private positionX: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private positionY: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private positionZ: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private orientationX: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private orientationY: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private orientationZ: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private sizeX: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private sizeY: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private sizeZ: number = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curve: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curveOption: any = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curveNormal: boolean = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private curveNormalOption: string = null;
 
   /**
-   * 
+   * Input  of geometry component
    */
   @Input() private refGeometry: any = null;
 
   /**
+   * Input  of geometry component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private refType: string = 'targetMesh';
 
-
   /**
-   * 
+   * Content children of geometry component
    */
   @ContentChildren(GeometryComponent, { descendants: false }) private geometryList: QueryList<GeometryComponent>;
 
   /**
-   * 
+   * Content children of geometry component
    */
   @ContentChildren(ShapeComponent, { descendants: false }) private shapeList: QueryList<ShapeComponent>;
 
   /**
-   * 
+   * Content children of geometry component
    */
   @ContentChildren(CurveComponent, { descendants: false }) private curveList: QueryList<CurveComponent>;
 
   /**
-   * 
+   * Content children of geometry component
    */
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
 
+  /**
+   * Creates an instance of geometry component.
+   * @param localStorageService
+   */
   constructor(private localStorageService: LocalStorageService) {
     super();
   }
 
+  /**
+   * Gets font
+   * @param [def]
+   * @param [callBack]
+   */
   private getFont(def?: string, callBack?: (font: THREE.Font) => void) {
     const font = ThreeUtil.getTypeSafe(this.font, def, 'helvetiker');
     const weight = ThreeUtil.getTypeSafe(this.weight, '');
     this.localStorageService.getFont(callBack, font, weight);
   }
 
+  /**
+   * Gets points v3
+   * @param def
+   * @returns points v3
+   */
   private getPointsV3(def: { x: number; y: number; z: number }[]): THREE.Vector3[] {
     const points: THREE.Vector3[] = [];
     if (this.pointsGeometry !== null) {
@@ -533,6 +568,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return points;
   }
 
+  /**
+   * Gets points v2
+   * @param [def]
+   * @returns points v2
+   */
   private getPointsV2(def?: ThreeVector[]): THREE.Vector2[] {
     const points: THREE.Vector2[] = [];
     (this.points === null ? def : this.points).forEach((p) => {
@@ -541,6 +581,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return points;
   }
 
+  /**
+   * Gets parametric
+   * @param def
+   * @returns parametric
+   */
   private getParametric(def: string | GeometriesParametric): (u: number, v: number, dest: THREE.Vector3) => void {
     const parametric = this.parametric === null ? def : this.parametric;
     switch (parametric) {
@@ -574,6 +619,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return ParametricGeometries.klein;
   }
 
+  /**
+   * Gets poly vertices
+   * @param [def]
+   * @returns poly vertices
+   */
   private getPolyVertices(def?: number[]): number[] {
     const vertices: number[] = [];
     (this.polyVertices === null ? def : this.polyVertices).forEach((p) => {
@@ -582,6 +632,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return vertices;
   }
 
+  /**
+   * Gets poly indices
+   * @param [def]
+   * @returns poly indices
+   */
   private getPolyIndices(def?: number[]): number[] {
     const indices: number[] = [];
     (this.polyIndices === null ? def : this.polyIndices).forEach((p) => {
@@ -590,14 +645,25 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return indices;
   }
 
+  /**
+   * Gets sub geometry
+   * @returns sub geometry
+   */
   private getSubGeometry(): THREE.BufferGeometry {
-    let geometry : THREE.BufferGeometry = null;
+    let geometry: THREE.BufferGeometry = null;
     this.unSubscribeRefer('subGeometry');
     if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
       geometry = ThreeUtil.getGeometry(this.refGeometry);
-      this.subscribeRefer('subGeometry', ThreeUtil.getSubscribe(this.refGeometry, () => {
-        this.needUpdate = true;
-      },'loaded'));
+      this.subscribeRefer(
+        'subGeometry',
+        ThreeUtil.getSubscribe(
+          this.refGeometry,
+          () => {
+            this.needUpdate = true;
+          },
+          'loaded'
+        )
+      );
     } else if (this.geometryList !== null && this.geometryList.length > 0) {
       geometry = this.geometryList.first.getGeometry();
     }
@@ -607,9 +673,13 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return new THREE.PlaneGeometry(0.01, 0.01, 1, 1);
   }
 
+  /**
+   * Gets shapes
+   * @param onload
+   */
   private getShapes(onload: (data: THREE.Shape[] | THREE.Shape) => void): void {
     if (ThreeUtil.isNotNull(this.svgList) && this.svgList.length > 0) {
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.svgList.forEach((svg) => {
           svg.getShapes((shapes) => {
             onload(shapes);
@@ -618,7 +688,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
       }, 1);
     } else if (ThreeUtil.isNotNull(this.shapes)) {
       if (this.shapes instanceof THREE.Shape) {
-        setTimeout(() => {
+        window.setTimeout(() => {
           onload(this.shapes as THREE.Shape);
         }, 1);
       } else {
@@ -630,7 +700,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
         });
         shape.setFromPoints(vectors);
         shapes.push(shape);
-        setTimeout(() => {
+        window.setTimeout(() => {
           onload(shapes);
         }, 1);
       }
@@ -641,19 +711,23 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
       });
     } else {
       const shapes: THREE.Shape[] = [];
-      if (this.shapeList != null && this.shapeList.length > 0) {
+      if (this.shapeList !== null && this.shapeList.length > 0) {
         const shape = new THREE.Shape();
         this.shapeList.forEach((path) => {
           path.getShape(shape);
         });
         shapes.push(shape);
       }
-      setTimeout(() => {
+      window.setTimeout(() => {
         onload(shapes);
       }, 1);
     }
   }
 
+  /**
+   * Gets extrude path
+   * @returns extrude path
+   */
   private getExtrudePath(): THREE.Curve<THREE.Vector3> {
     if (ThreeUtil.isNotNull(this.extrudePath) || ThreeUtil.isNotNull(this.curvePath)) {
       const vectors: THREE.Vector3[] = [];
@@ -676,6 +750,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return undefined;
   }
 
+  /**
+   * Gets uvgenerator
+   * @param [def]
+   * @returns uvgenerator
+   */
   private getUVGenerator(def?: string): THREE.UVGenerator {
     const uVGenerator = ThreeUtil.getTypeSafe(this.uVGenerator, def, '');
     switch (uVGenerator.toLowerCase()) {
@@ -686,11 +765,16 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return undefined;
   }
 
+  /**
+   * Gets curve
+   * @param [def]
+   * @returns curve
+   */
   private getCurve(def?: string): THREE.Curve<THREE.Vector3> {
     const curve = ThreeUtil.getTypeSafe(this.curve, def, '');
-    let curveLine : THREE.Curve<THREE.Vector3> = null;
+    let curveLine: THREE.Curve<THREE.Vector3> = null;
     if (ThreeUtil.isNotNull(curve) && curve !== '') {
-      curveLine = CurveUtils.getCurve(curve, ThreeUtil.getTypeSafe(this.scale, 1), this.curveOption );
+      curveLine = CurveUtils.getCurve(curve, ThreeUtil.getTypeSafe(this.scale, 1), this.curveOption);
     }
     if (curveLine === null) {
       if (this.curveList !== null && this.curveList.length > 0) {
@@ -704,7 +788,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     }
     if (curveLine !== null) {
       if (ThreeUtil.isNotNull(this.curveNormal) && this.curveNormal) {
-        return CurveUtils.getCurveNormal(curveLine, { options : this.curveNormalOption }); 
+        return CurveUtils.getCurveNormal(curveLine, { options: this.curveNormalOption });
       } else {
         return curveLine;
       }
@@ -713,6 +797,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     }
   }
 
+  /**
+   * Gets mesh
+   * @param [def]
+   * @returns mesh
+   */
   private getMesh(def?: THREE.Mesh | any): THREE.Mesh {
     let value = ThreeUtil.getTypeSafe(this.mesh, def);
     let mesh: THREE.Object3D = null;
@@ -734,14 +823,29 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return null;
   }
 
+  /**
+   * Gets position v3
+   * @param [def]
+   * @returns position v3
+   */
   private getPositionV3(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.positionX, this.positionY, this.positionZ, def);
   }
 
+  /**
+   * Gets orientation
+   * @param [def]
+   * @returns orientation
+   */
   private getOrientation(def?: THREE.Euler): THREE.Euler {
     return ThreeUtil.getEulerSafe(this.orientationX, this.orientationY, this.orientationZ, def);
   }
 
+  /**
+   * Gets size v3
+   * @param [def]
+   * @returns size v3
+   */
   private getSizeV3(def?: THREE.Vector3): THREE.Vector3 {
     return ThreeUtil.getVector3Safe(this.sizeX, this.sizeY, this.sizeZ, def);
   }
@@ -770,7 +874,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -794,8 +898,15 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     super.ngAfterContentInit();
   }
 
+  /**
+   * Perlin geometry of geometry component
+   */
   private perlinGeometry: PlanePerlinGeometry = null;
 
+  /**
+   * Gets perlin geometry
+   * @returns perlin geometry
+   */
   private getPerlinGeometry(): PlanePerlinGeometry {
     if (this.perlinGeometry === null) {
       this.perlinGeometry = new PlanePerlinGeometry(ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 128), ThreeUtil.getTypeSafe(this.depthSegments, this.segments, 128), ThreeUtil.getTypeSafe(this.quality, 2));
@@ -803,6 +914,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     return this.perlinGeometry;
   }
 
+  /**
+   * Gets geometry
+   * @template T
+   * @returns geometry
+   */
   public getGeometry<T extends THREE.BufferGeometry>(): T {
     if (this.geometry === null || this._needUpdate) {
       this.needUpdate = false;
@@ -915,7 +1031,15 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'teapotgeometry':
           case 'teapotbuffer':
           case 'teapot':
-            const teapot = new TeapotGeometry(ThreeUtil.getTypeSafe(this.size), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments), ThreeUtil.getTypeSafe(this.bottom), ThreeUtil.getTypeSafe(this.lid), ThreeUtil.getTypeSafe(this.body), ThreeUtil.getTypeSafe(this.fitLid), ThreeUtil.getTypeSafe(this.blinn));
+            const teapot = new TeapotGeometry(
+              ThreeUtil.getTypeSafe(this.size),
+              ThreeUtil.getTypeSafe(this.segments, this.radiusSegments),
+              ThreeUtil.getTypeSafe(this.bottom),
+              ThreeUtil.getTypeSafe(this.lid),
+              ThreeUtil.getTypeSafe(this.body),
+              ThreeUtil.getTypeSafe(this.fitLid),
+              ThreeUtil.getTypeSafe(this.blinn)
+            );
             geometry = teapot;
             break;
           case 'perlinbuffergeometry':
@@ -949,12 +1073,12 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'capsulebuffer':
           case 'capsule':
             const capsuleGeometry = new CapsuleGeometry(
-              ThreeUtil.getTypeSafe(this.radius, 1), 
-              ThreeUtil.getTypeSafe(this.radiusSegments, this.radialSegments, 8), 
-              ThreeUtil.getTypeSafe(this.height, this.width, 10), 
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getTypeSafe(this.radiusSegments, this.radialSegments, 8),
+              ThreeUtil.getTypeSafe(this.height, this.width, 10),
               ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 3),
-              ThreeUtil.getAngleSafe(this.phiStart, 0), 
-              ThreeUtil.getAngleSafe(this.phiLength, 360), 
+              ThreeUtil.getAngleSafe(this.phiStart, 0),
+              ThreeUtil.getAngleSafe(this.phiLength, 360)
             );
             geometry = capsuleGeometry;
             break;
@@ -975,13 +1099,26 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'roundedboxgeometry':
           case 'roundedboxbuffer':
           case 'roundedbox':
-            geometry = new RoundedBoxGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.depth, this.width, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 2), ThreeUtil.getTypeSafe(this.radius, 0.1));
+            geometry = new RoundedBoxGeometry(
+              ThreeUtil.getTypeSafe(this.width, this.height, 1),
+              ThreeUtil.getTypeSafe(this.height, this.width, 1),
+              ThreeUtil.getTypeSafe(this.depth, this.width, 1),
+              ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 2),
+              ThreeUtil.getTypeSafe(this.radius, 0.1)
+            );
             break;
           case 'boxbuffergeometry':
           case 'boxgeometry':
           case 'boxbuffer':
           case 'box':
-            geometry = new THREE.BoxGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.depth, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.depthSegments, this.segments, 1));
+            geometry = new THREE.BoxGeometry(
+              ThreeUtil.getTypeSafe(this.width, this.height, 1),
+              ThreeUtil.getTypeSafe(this.height, this.width, 1),
+              ThreeUtil.getTypeSafe(this.depth, this.width, 1),
+              ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1),
+              ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+              ThreeUtil.getTypeSafe(this.depthSegments, this.segments, 1)
+            );
             break;
           case 'circlebuffergeometry':
           case 'circlegeometry':
@@ -993,13 +1130,30 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'conegeometry':
           case 'conebuffer':
           case 'cone':
-            geometry = new THREE.ConeGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.openEnded, false), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            geometry = new THREE.ConeGeometry(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getTypeSafe(this.height, this.width, 1),
+              ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8),
+              ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+              ThreeUtil.getTypeSafe(this.openEnded, false),
+              ThreeUtil.getAngleSafe(this.thetaStart, 0),
+              ThreeUtil.getAngleSafe(this.thetaLength, 360)
+            );
             break;
           case 'cylinderbuffergeometry':
           case 'cylindergeometry':
           case 'cylinderbuffer':
           case 'cylinder':
-            geometry = new THREE.CylinderGeometry(ThreeUtil.getTypeSafe(this.radiusTop, this.radiusBottom, 1), ThreeUtil.getTypeSafe(this.radiusBottom, this.radiusTop, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.openEnded, false), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            geometry = new THREE.CylinderGeometry(
+              ThreeUtil.getTypeSafe(this.radiusTop, this.radiusBottom, 1),
+              ThreeUtil.getTypeSafe(this.radiusBottom, this.radiusTop, 1),
+              ThreeUtil.getTypeSafe(this.height, this.width, 1),
+              ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8),
+              ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+              ThreeUtil.getTypeSafe(this.openEnded, false),
+              ThreeUtil.getAngleSafe(this.thetaStart, 0),
+              ThreeUtil.getAngleSafe(this.thetaLength, 360)
+            );
             break;
           case 'dodecahedronbuffergeometry':
           case 'dodecahedrongeometry':
@@ -1095,7 +1249,14 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
             break;
           case 'parametrictorusknotgeometry':
           case 'parametrictorusknot':
-            geometry = new ParametricGeometries.TorusKnotGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.tube, 0.4), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 64), ThreeUtil.getTypeSafe(this.tubularSegments, 8), ThreeUtil.getTypeSafe(this.p, 2), ThreeUtil.getTypeSafe(this.q, 3)) as any;
+            geometry = new ParametricGeometries.TorusKnotGeometry(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getTypeSafe(this.tube, 0.4),
+              ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 64),
+              ThreeUtil.getTypeSafe(this.tubularSegments, 8),
+              ThreeUtil.getTypeSafe(this.p, 2),
+              ThreeUtil.getTypeSafe(this.q, 3)
+            ) as any;
             break;
           case 'parametricspheregeometry':
           case 'parametricsphere':
@@ -1127,13 +1288,28 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'ringgeometry':
           case 'ringbuffer':
           case 'ring':
-            geometry = new THREE.RingGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.thetaSegments, 8), ThreeUtil.getTypeSafe(this.phiSegments, 1), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            geometry = new THREE.RingGeometry(
+              ThreeUtil.getTypeSafe(this.innerRadius, 0.5),
+              ThreeUtil.getTypeSafe(this.outerRadius, 1),
+              ThreeUtil.getTypeSafe(this.thetaSegments, 8),
+              ThreeUtil.getTypeSafe(this.phiSegments, 1),
+              ThreeUtil.getAngleSafe(this.thetaStart, 0),
+              ThreeUtil.getAngleSafe(this.thetaLength, 360)
+            );
             break;
           case 'spherebuffergeometry':
           case 'spheregeometry':
           case 'spherebuffer':
           case 'sphere':
-            geometry = new THREE.SphereGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 8), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 6), ThreeUtil.getAngleSafe(this.phiStart, 0), ThreeUtil.getAngleSafe(this.phiLength, 360), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 180));
+            geometry = new THREE.SphereGeometry(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 8),
+              ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 6),
+              ThreeUtil.getAngleSafe(this.phiStart, 0),
+              ThreeUtil.getAngleSafe(this.phiLength, 360),
+              ThreeUtil.getAngleSafe(this.thetaStart, 0),
+              ThreeUtil.getAngleSafe(this.thetaLength, 180)
+            );
             break;
           case 'tetrahedronbuffergeometry':
           case 'tetrahedrongeometry':
@@ -1180,7 +1356,14 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'torusknotgeometry':
           case 'torusknotbuffer':
           case 'torusknot':
-            geometry = new THREE.TorusKnotGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.tube, 0.4), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 64), ThreeUtil.getTypeSafe(this.tubularSegments, 8), ThreeUtil.getTypeSafe(this.p, 2), ThreeUtil.getTypeSafe(this.q, 3));
+            geometry = new THREE.TorusKnotGeometry(
+              ThreeUtil.getTypeSafe(this.radius, 1),
+              ThreeUtil.getTypeSafe(this.tube, 0.4),
+              ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 64),
+              ThreeUtil.getTypeSafe(this.tubularSegments, 8),
+              ThreeUtil.getTypeSafe(this.p, 2),
+              ThreeUtil.getTypeSafe(this.q, 3)
+            );
             break;
           case 'tubebuffergeometry':
           case 'tubegeometry':

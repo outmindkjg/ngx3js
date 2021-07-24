@@ -12,12 +12,21 @@ import { ScaleComponent } from './scale/scale.component';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TranslationComponent } from './translation/translation.component';
 
-export type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
+/**
+ * Attr Buffer Attribute
+ */
+ export type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
 
+/**
+ * Geometries parametric
+ */
 export interface GeometriesParametric {
   (u: number, v: number, target?: any): ThreeVector;
 }
 
+/**
+ * Mesh geometry
+ */
 export interface MeshGeometry {
   geometry: THREE.BufferGeometry;
   userData?: any;
@@ -26,365 +35,382 @@ export interface MeshGeometry {
   computeLineDistances?: () => void;
 }
 
+/**
+ * AbstractGeometry Component 
+ */
 @Component({
   template: '',
 })
 export abstract class AbstractGeometryComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+
   /**
-   *
+   * The name of the object (doesn't need to be unique). Default is an empty string.
+   * 
+   * Notice - case insensitive.
+   * 
    */
   @Input() private name: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
+   * 
+   * Notice - case insensitive.
+   * 
    */
   @Input() private align: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private center: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private computeVertexNormals: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private computeBoundingBox: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private computeBoundingSphere: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private computeTangents: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() protected scale: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private sphereScale: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attributes: { [key: string]: AttrBufferAttribute } = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private morphAttributes: { [key: string]: AttrBufferAttribute[] } = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoDisplacement: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoDisplacementSize: number = 3;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoCustomColor: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoCustomColorSize: number = 3;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoCustomColorKey: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoSize: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private autoSizeSize: number = 1;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() protected attrPosition: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrPositionUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrUv: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrUvUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrTextureIndex: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrTextureIndexUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrVertColor: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrVisible: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private vertexBuffer: Float32Array | THREE.InterleavedBuffer | number[] = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private vertexBufferStride: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOffset: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOffsetUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrTranslate: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrTranslateUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOrientationStart: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOrientationStartUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOrientationEnd: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrOrientationEndUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrNormal: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrNormalUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrNormalNormalized: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() protected attrColor: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrColorUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrColorSize: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrColorKey: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrColorNormalized: boolean = false;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrCustomColor: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrCustomColorUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrSize: AttrBufferAttribute = null;
 
   /**
-   *
+   * Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of 
+   * [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
    */
   @Input() private attrSizeUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrScale: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrScaleUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrIndex: AttrBufferAttribute = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private attrIndexUsage: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private toNonIndexed: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private flipY: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private mergeVertices: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
+   */
+  /**
+   * Input  of abstract geometry component
    */
   @Input() private edgeSplit: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private cutOffAngle: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private tryKeepNormals: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private simplify: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private count: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private tessellate: boolean = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private maxEdgeLength: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private maxIterations: number = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private program: string = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private programParam: any = null;
 
   /**
-   *
+   * Input  of abstract geometry component
    */
   @Input() private onInit: (geometry: THREE.BufferGeometry) => void = null;
 
   /**
-   *
+   * Content children of abstract geometry component
    */
   @ContentChildren(TranslationComponent, { descendants: false }) private translationList: QueryList<TranslationComponent>;
 
   /**
-   *
+   * Content children of abstract geometry component
    */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
 
   /**
-   *
+   * Content children of abstract geometry component
    */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
 
   /**
-   *
+   * Content children of abstract geometry component
    */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 
   /**
-   *
+   * Geometry attr of abstract geometry component
    */
   protected GEOMETRY_ATTR: string[] = ['name', 'align'];
 
+  /**
+   * Creates an instance of abstract geometry component.
+   */
   constructor() {
     super();
     this.GEOMETRY_ATTR.push(...this.OBJECT_ATTR);
@@ -408,7 +434,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
    * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
-    if (this.geometry != null) {
+    if (this.geometry !== null) {
       this.geometry.dispose();
     }
     super.ngOnDestroy();
@@ -442,6 +468,10 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     super.ngAfterContentInit();
   }
 
+  /**
+   * Gets morph attributes
+   * @returns morph attributes 
+   */
   protected getMorphAttributes(): { key: string; value: THREE.BufferAttribute[] }[] {
     const attributes: { key: string; value: THREE.BufferAttribute[] }[] = [];
     if (ThreeUtil.isNotNull(this.morphAttributes)) {
@@ -464,6 +494,11 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     return attributes;
   }
 
+  /**
+   * Gets attributes
+   * @param [colorType] 
+   * @returns attributes 
+   */
   protected getAttributes(colorType: string = ''): { key: string; value: THREE.BufferAttribute }[] {
     const attributes = [];
     if (ThreeUtil.isNotNull(this.attrPosition)) {
@@ -620,6 +655,15 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     return attributes;
   }
 
+  /**
+   * Gets attribute
+   * @param value 
+   * @param itemSize 
+   * @param [usage] 
+   * @param [bufferType] 
+   * @param [normalized] 
+   * @returns attribute 
+   */
   protected getAttribute(value: AttrBufferAttribute, itemSize: number, usage?: string, bufferType?: string, normalized?: boolean): THREE.BufferAttribute {
     if (value instanceof THREE.BufferAttribute) {
       return value;
@@ -722,9 +766,17 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     return bufferAttribute;
   }
   
+  /**
+   * Mesh geometry of abstract geometry component
+   */
   private _meshGeometry: MeshGeometry = null;
 
-  static isMeshGeometry(mesh: any): boolean {
+  /**
+   * Determines whether mesh geometry is
+   * @param mesh 
+   * @returns true if mesh geometry 
+   */
+  public static isMeshGeometry(mesh: any): boolean {
     if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite) {
       return true;
     } else {
@@ -732,7 +784,12 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     }
   }
 
-  static getMeshGeometry(mesh: any): MeshGeometry {
+  /**
+   * Gets mesh geometry
+   * @param mesh 
+   * @returns mesh geometry 
+   */
+  public static getMeshGeometry(mesh: any): MeshGeometry {
     if (this.isMeshGeometry(mesh)) {
       return mesh;
     }
@@ -756,7 +813,11 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     return null;
   }
 
-  setMesh(meshGeometry: MeshGeometry) {
+  /**
+   * Sets mesh
+   * @param meshGeometry 
+   */
+  public setMesh(meshGeometry: MeshGeometry) {
     if (this.geometry === null) {
       this.getGeometry();
     }
@@ -766,6 +827,11 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     }
   }
 
+  /**
+   * Synks mesh
+   * 
+   * @param [geometry] 
+   */
   protected synkMesh(geometry: THREE.BufferGeometry = null) {
     if (ThreeUtil.isNotNull(geometry) && this.enabled) {
       if (ThreeUtil.isNotNull(this._meshGeometry)) {
@@ -797,8 +863,15 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     }
   }
 
+  /**
+   * Geometry  of abstract geometry component
+   */
   protected geometry: THREE.BufferGeometry = null;
 
+  /**
+   * Sets geometry
+   * @param geometry 
+   */
   protected setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
       if (this.geometry !== null) {
@@ -952,10 +1025,20 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     }
   }
 
-  getGeometry<T extends THREE.BufferGeometry>(): T {
+  /**
+   * Gets geometry
+   * @template T 
+   * @returns geometry 
+   */
+  public getGeometry<T extends THREE.BufferGeometry>(): T {
     return this.geometry as T;
   }
 
+  /**
+   * Applys changes
+   * @param changes 
+   * @returns  
+   */
   protected applyChanges(changes: string[]) {
     if (this.geometry !== null) {
       if (!ThreeUtil.isOnlyIndexOf(changes, ['name', 'refgeometry', 'align'], this.OBJECT_ATTR)) {

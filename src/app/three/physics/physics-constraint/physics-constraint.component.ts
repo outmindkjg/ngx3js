@@ -81,7 +81,7 @@ export class PhysicsConstraintComponent extends AbstractSubscribeComponent imple
   private physics: Ammo.btSoftRigidDynamicsWorld = null;
   private ammo: typeof Ammo = null;
 
-  setPhysics(physics: Ammo.btSoftRigidDynamicsWorld, ammo) {
+  public setPhysics(physics: Ammo.btSoftRigidDynamicsWorld, ammo) {
     this.physics = physics;
     this.ammo = ammo;
     this.getConstraint();
@@ -141,8 +141,7 @@ export class PhysicsConstraintComponent extends AbstractSubscribeComponent imple
     }
   }
 
-
-  getConstraint() : Ammo.btTypedConstraint {
+  public getConstraint() : Ammo.btTypedConstraint {
     if (ThreeUtil.isNotNull(this.ammo) && ThreeUtil.isNotNull(this.physics) && (this.constraint === null || this._needUpdate)) {
       this.needUpdate = false;
       if (this.constraint !== null) {

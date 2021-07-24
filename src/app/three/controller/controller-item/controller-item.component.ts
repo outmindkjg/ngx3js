@@ -1,9 +1,12 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { CurveUtils, CurvesNormal } from '../../curve/curveUtils';
+import { CurvesNormal, CurveUtils } from '../../curve/curveUtils';
 import { RendererTimer, ThreeColor, ThreeUtil } from '../../interface';
 import { AbstractSubscribeComponent } from '../../subscribe.abstract';
 
+/**
+ * Control object item
+ */
 export interface ControlObjectItem {
   object3d?: THREE.Object3D;
   component?: any;
@@ -13,242 +16,260 @@ export interface ControlObjectItem {
   material?: THREE.Material;
   uniforms?: { [uniform: string]: THREE.IUniform };
   geometry?: THREE.BufferGeometry;
-  attributes?: {[name: string]: THREE.BufferAttribute | THREE.InterleavedBufferAttribute};
+  attributes?: { [name: string]: THREE.BufferAttribute | THREE.InterleavedBufferAttribute };
   morphAttributes?: {
-		[name: string]: ( THREE.BufferAttribute | THREE.InterleavedBufferAttribute )[];
-	};
+    [name: string]: (THREE.BufferAttribute | THREE.InterleavedBufferAttribute)[];
+  };
 }
 
+/**
+ * ControllerItemComponent
+ */
 @Component({
   selector: 'ngx3js-controller-item',
   templateUrl: './controller-item.component.html',
   styleUrls: ['./controller-item.component.scss'],
 })
 export class ControllerItemComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() public type: string = 'position';
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private lookathead: number = null;
 
   /**
+   * Input  of controller item component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private curve: string = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private scale: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private radius: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private radiusInner: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private radiusX: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private radiusY: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private radiusZ: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rotation: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rotationX: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rotationY: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rotationZ: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private center: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private centerX: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private centerY: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private centerZ: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private duration: number = 1;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private delta: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private multiply: number = null;
 
   /**
+   * Input  of controller item component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private options: string = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private visible: boolean = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private color: ThreeColor = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private opacity: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private tubularSegments: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private tubeRadius: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private tubeRadiusSegments: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private closed: boolean = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private material: string = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private uniform: string = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private wave: number = 0;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private waveR: number = 0;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private waveH: number = 0;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rate: number = 1;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rateX: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rateY: number = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private rateZ: number = null;
 
   /**
+   * Input  of controller item component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private valueType: string = 'auto';
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private refValue: any = null;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private minValue: number = 0;
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private maxValue: number = 1;
 
   /**
+   * Input  of controller item component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() private colorType: string = 'rgb';
 
   /**
-   * 
+   * Input  of controller item component
    */
   @Input() private refRate: any = null;
 
+  /**
+   * Gets curve
+   * @returns curve
+   */
   private getCurve(): THREE.Curve<THREE.Vector3> {
     let curve: string = 'line';
-    switch(this.type.toLowerCase()) {
-      case 'tween' :
+    switch (this.type.toLowerCase()) {
+      case 'tween':
         curve = ThreeUtil.getTypeSafe(this.curve, 'linearinout');
         break;
-      case 'position' :
-      default :
+      case 'position':
+      default:
         curve = ThreeUtil.getTypeSafe(this.curve, 'line');
         break;
     }
@@ -262,6 +283,9 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     });
   }
 
+  /**
+   * Creates an instance of controller item component.
+   */
   constructor() {
     super();
   }
@@ -290,7 +314,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -310,25 +334,65 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     super.ngAfterContentInit();
   }
 
+  /**
+   * Helper  of controller item component
+   */
   private _helper: THREE.Object3D = null;
+
+  /**
+   * Helper point of controller item component
+   */
   private _helperPoint: THREE.Object3D = null;
+
+  /**
+   * Curve  of controller item component
+   */
   private _curve: CurvesNormal = null;
+
+  /**
+   * Lookat  of controller item component
+   */
   private _lookat: boolean = false;
+
+  /**
+   * Duration  of controller item component
+   */
   private _duration: number = 60;
+
+  /**
+   * Delta  of controller item component
+   */
   private _delta: number = 60;
+
+  /**
+   * Parent  of controller item component
+   */
   private _parent: THREE.Object3D;
+
+  /**
+   * Lookathead  of controller item component
+   */
   private _lookathead: number = 0.05;
 
-  private getOptions() : string {
-    switch(this.type.toLowerCase()) {
-      case 'tween' :
-        return ThreeUtil.getTypeSafe(this.options,'') + ',once';
-      default :
-        return ThreeUtil.getTypeSafe(this.options,'yoyo');
+  /**
+   * Gets options
+   * @returns options
+   */
+  private getOptions(): string {
+    switch (this.type.toLowerCase()) {
+      case 'tween':
+        return ThreeUtil.getTypeSafe(this.options, '') + ',once';
+      default:
+        return ThreeUtil.getTypeSafe(this.options, 'yoyo');
     }
   }
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this._curve !== null && this._parent !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getController(this._controlItem, this._parent);
@@ -342,14 +406,31 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     }
   }
 
-  getObject() {
+  /**
+   * Gets object
+   * @returns
+   */
+  public getObject() {
     return this.getController(this._controlItem, this._parent);
   }
 
-  private _controlItem : ControlObjectItem = {};
-  private _rateCallBack : (timer? : RendererTimer) => number = null;
+  /**
+   * Control item of controller item component
+   */
+  private _controlItem: ControlObjectItem = {};
 
-  getController(controlItem : ControlObjectItem, parent: THREE.Object3D): this {
+  /**
+   * Rate call back of controller item component
+   */
+  private _rateCallBack: (timer?: RendererTimer) => number = null;
+
+  /**
+   * Gets controller
+   * @param controlItem
+   * @param parent
+   * @returns controller
+   */
+  public getController(controlItem: ControlObjectItem, parent: THREE.Object3D): this {
     if (this._curve === null || this._needUpdate) {
       this._needUpdate = false;
       this._lookat = false;
@@ -368,7 +449,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
         } else if (ThreeUtil.isNotNull(this.refRate.getNumber)) {
           this._rateCallBack = this.refRate.getNumber();
         }
-      } 
+      }
       const curve = this.getCurve();
       let scale: THREE.Vector3 = ThreeUtil.getVector3Safe(ThreeUtil.getTypeSafe(this.radiusX, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusY, this.radius, 1), ThreeUtil.getTypeSafe(this.radiusZ, this.radius, 1));
       let rotation: THREE.Euler = ThreeUtil.getEulerSafe(ThreeUtil.getTypeSafe(this.rotationX, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationY, this.rotation, 0), ThreeUtil.getTypeSafe(this.rotationZ, this.rotation, 0));
@@ -448,13 +529,20 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
         }
       }
     }
-
     return this;
   }
 
+  /**
+   * Last look at of controller item component
+   */
   private _lastLookAt: THREE.Vector3 = null;
 
-  updateHelperPoint(itemTimer: RendererTimer, scale: number = null) {
+  /**
+   * Updates helper point
+   * @param itemTimer
+   * @param [scale]
+   */
+  public updateHelperPoint(itemTimer: RendererTimer, scale: number = null) {
     if (this._helperPoint !== null) {
       this._curve.getPointV3(itemTimer, this._helperPoint.position);
       switch (this.type.toLowerCase()) {
@@ -471,21 +559,26 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     }
   }
 
-  private updateColor(targetColor : THREE.Color, srcColor : THREE.Color) {
-    switch(this.colorType) {
-      case 'rate' :
+  /**
+   * Updates color
+   * @param targetColor
+   * @param srcColor
+   */
+  private updateColor(targetColor: THREE.Color, srcColor: THREE.Color) {
+    switch (this.colorType) {
+      case 'rate':
         if (this._rateCallBack !== null) {
           targetColor.b = this._rateCallBack();
         }
         break;
-      case 'rgb' :
-        targetColor.setRGB(srcColor.r,srcColor.g,srcColor.b);
+      case 'rgb':
+        targetColor.setRGB(srcColor.r, srcColor.g, srcColor.b);
         break;
-      case 'gray' :
+      case 'gray':
         const avgColor = (srcColor.r + srcColor.g + srcColor.b) / 3;
-        targetColor.setRGB(avgColor,avgColor,avgColor);
+        targetColor.setRGB(avgColor, avgColor, avgColor);
         break;
-        default :
+      default:
         if (this.colorType.indexOf('r') > -1) {
           targetColor.r = srcColor.r;
         }
@@ -499,13 +592,29 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
     }
   }
 
-  private _tmpColor : THREE.Color = new THREE.Color();
+  /**
+   * Tmp color of controller item component
+   */
+  private _tmpColor: THREE.Color = new THREE.Color();
 
-  private getLerpFloat(s : number, e : number, alpha : number): number  {
+  /**
+   * Gets lerp float
+   * @param s
+   * @param e
+   * @param alpha
+   * @returns lerp float
+   */
+  private getLerpFloat(s: number, e: number, alpha: number): number {
     return s + (e - s) * alpha;
   }
 
-  update(timer: RendererTimer, events: string[]): boolean {
+  /**
+   * Updates controller item component
+   * @param timer
+   * @param events
+   * @returns true if update
+   */
+  public update(timer: RendererTimer, events: string[]): boolean {
     if (this._curve !== null && this._controlItem.object3d !== null && this._controlItem.object3d.userData.initPosition) {
       const itemTimer: RendererTimer = {
         elapsedTime: timer.elapsedTime / this._duration + this._delta,
@@ -634,40 +743,40 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
             }
           }
           break;
-        case 'update' :
-        case 'autoupdate' :
+        case 'update':
+        case 'autoupdate':
           if (this._controlItem.component !== null) {
-           if (ThreeUtil.isNotNull(this._controlItem.component.update)) {
-            this._controlItem.component.update();
-           }
+            if (ThreeUtil.isNotNull(this._controlItem.component.update)) {
+              this._controlItem.component.update();
+            }
           }
           break;
-        case 'tween' :
+        case 'tween':
           const tween = this._controlItem.object3d.userData.tween;
           if (ThreeUtil.isNotNull(tween) && tween.elapsedTime < 1) {
             tween.elapsedTime = Math.min(1, tween.elapsedTime + timer.delta / this._duration);
             const lastElapsedAlpha = Math.min(0.99999, tween.elapsedAlpha || 0);
-            const tweenTimer = { elapsedTime : tween.elapsedTime, delta : timer.delta / this._duration };
+            const tweenTimer = { elapsedTime: tween.elapsedTime, delta: timer.delta / this._duration };
             tween.elapsedAlpha = this._curve.getPointFloat(tweenTimer, 0, 1);
-            const elapsedAlpha =  Math.max(0, Math.min(1, (tween.elapsedAlpha - lastElapsedAlpha) / (1 - lastElapsedAlpha)));
+            const elapsedAlpha = Math.max(0, Math.min(1, (tween.elapsedAlpha - lastElapsedAlpha) / (1 - lastElapsedAlpha)));
             this.updateHelperPoint(tweenTimer);
             Object.entries(tween).forEach(([key, value]) => {
               if (ThreeUtil.isNotNull(value)) {
-                switch(key) {
-                  case 'position' :
-                    this._controlItem.position.lerp(value as THREE.Vector3 , elapsedAlpha);
+                switch (key) {
+                  case 'position':
+                    this._controlItem.position.lerp(value as THREE.Vector3, elapsedAlpha);
                     break;
-                  case 'scale' :
-                    this._controlItem.scale.lerp(value as THREE.Vector3 , elapsedAlpha);
+                  case 'scale':
+                    this._controlItem.scale.lerp(value as THREE.Vector3, elapsedAlpha);
                     break;
-                  case 'rotation' :
+                  case 'rotation':
                     const rotationX = this.getLerpFloat(this._controlItem.rotation.x, value['x'], elapsedAlpha);
                     const rotationY = this.getLerpFloat(this._controlItem.rotation.y, value['y'], elapsedAlpha);
                     const rotationZ = this.getLerpFloat(this._controlItem.rotation.z, value['z'], elapsedAlpha);
                     this._controlItem.rotation.set(rotationX, rotationY, rotationZ);
                     break;
-                  }
                 }
+              }
             });
           }
           break;

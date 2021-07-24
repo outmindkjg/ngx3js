@@ -35,8 +35,7 @@ export class ViewerCanvas {
     });
   }
 
-
-  setOptions(options : any) {
+  public setOptions(options : any) {
     this.options = options || { type : null};
     this.scene.clear();
     this.virtualCamera.clear();
@@ -109,7 +108,7 @@ export class ViewerCanvas {
   viewList : any[] = [];
   canvasList : any[] = [];
 
-  setRenderer(renderer : THREE.Renderer) {
+  public setRenderer(renderer : THREE.Renderer) {
     if (this.renderer !== renderer) {
       this.renderer = renderer;
       this.updateForWindowResize();

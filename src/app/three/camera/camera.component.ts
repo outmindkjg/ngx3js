@@ -4,9 +4,12 @@ import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AbstractObject3dComponent } from '../object3d.abstract';
-import { RendererTimer, ThreeUtil } from './../interface';
+import { RendererTimer, ThreeColor, ThreeUtil } from './../interface';
 import { LocalStorageService } from './../local-storage.service';
 
+/**
+ * CameraComponent
+ */
 @Component({
   selector: 'ngx3js-camera',
   templateUrl: './camera.component.html',
@@ -15,12 +18,15 @@ import { LocalStorageService } from './../local-storage.service';
 })
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
   /**
+   * Input  of camera component
+   *
+   * Notice - case insensitive.
    *
    */
   @Input() public type: string = 'perspective';
 
   /**
-   *
+   * The camera is active.
    */
   @Input() private active: boolean = true;
 
@@ -55,7 +61,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private far: number | string = null;
 
   /**
-   *
+   * orthoSize  of camera component
    */
   @Input() private orthoSize: number = 0.5;
 
@@ -85,125 +91,194 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   @Input() private zoom: number | string = null;
 
   /**
-   *
+   * Defines whether the renderer should automatically clear its output before rendering a frame.
    */
   @Input() private autoClear: boolean = null;
 
   /**
-   *
+   * Input  of camera component
    */
   @Input() private material: any = null;
 
   /**
+   * Input  of camera component
+   *
+   * Notice - case insensitive.
    *
    */
   @Input() public controlType: string = 'none';
 
   /**
-   *
+   * Input  of camera component
    */
   @Input() public autoRotate: boolean = null;
 
   /**
-   *
+   * The given scene
    */
   @Input() private scene: any = null;
 
   /**
-   *
+   * The given scene
    */
   @Input() private scenes: any[] = null;
 
   /**
-   *
+   * Input  of camera component
    */
   @Input() private storageName: string = null;
 
   /**
-   *
+   * The viewport of this render target.
    */
   @Input() private viewport: boolean = false;
 
   /**
+   * The viewport of this render target.
+   *
+   * Notice - case insensitive.
    *
    */
   @Input() private viewportType: string = 'renderer';
 
   /**
-   *
+   * The viewport of this render target.
+   * Vector4.x
    */
   @Input() private x: number | string = 0;
 
   /**
-   *
+   * The viewport of this render target.
+   * Vector4.y
    */
   @Input() private y: number | string = 0;
 
   /**
-   *
+   * The viewport of this render target.
+   * Vector4.width
    */
   @Input() private width: number | string = '100%';
 
   /**
-   *
+   * The viewport of this render target.
+   * Vector4.height
    */
   @Input() private height: number | string = '100%';
 
   /**
-   *
+   * Clear the color buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( true, false, false ).
    */
-  @Input() private clearColor: string | number = null;
+  @Input() private clearColor: ThreeColor = null;
 
   /**
-   *
+   * Input  of camera component
    */
   @Input() private clearAlpha: number = null;
 
   /**
-   *
+   * Clear the depth buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( false, true, false ).
    */
   @Input() private clearDepth: boolean = null;
 
   /**
-   *
+   * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
+   * This method initializes the color buffer to the current clear color value.<br />
+   * Arguments default to *true*.
    */
   @Input() private clear: boolean = null;
 
   /**
-   *
+   * Indicates whether the scissor test is active or not.
    */
   @Input() private scissorTest: boolean = false;
 
   /**
-   *
+   * A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
+   * Vector4.x
    */
   @Input() private scissorX: number | string = 0;
 
   /**
-   *
+   * A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
+   * Vector4.y
    */
   @Input() private scissorY: number | string = 0;
 
   /**
-   *
+   * A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
+   * Vector4.width
    */
   @Input() private scissorWidth: number | string = '100%';
 
   /**
-   *
+   * A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
+   * Vector4.height
    */
   @Input() private scissorHeight: number | string = '100%';
 
   /**
-   *
+   * Input  of camera component
    */
   @Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
 
   /**
-   *
+   * Creates an instance of camera component.
+   * @param localStorageService
    */
-  @Input() private onBeforeRender: (timer: RendererTimer) => void = null;
+  constructor(private localStorageService: LocalStorageService) {
+    super();
+  }
 
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked the directive's
+   * data-bound properties for the first time,
+   * and before any of the view or content children have been checked.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngOnInit(): void {
+    super.ngOnInit('camera');
+  }
+
+  /**
+   * A callback method that performs custom clean-up, invoked immediately
+   * before a directive, pipe, or service instance is destroyed.
+   */
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  /**
+   * A callback method that is invoked immediately after the
+   * default change detector has checked data-bound properties
+   * if at least one has changed, and before the view and content
+   * children are checked.
+   *
+   * @param changes The changed properties.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes && this.camera) {
+      this.addChanges(changes);
+    }
+  }
+
+  /**
+   * A callback method that is invoked immediately after
+   * Angular has completed initialization of all of the directive's
+   * content.
+   * It is invoked only once when the directive is instantiated.
+   */
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
+  }
+
+  /**
+   * Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+   * 
+   * @param [def]
+   * @returns fov
+   */
   private getFov(def?: number | string): number {
     const fov = ThreeUtil.getTypeSafe(this.fov, def);
     if (typeof fov === 'string') {
@@ -213,6 +288,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Camera frustum near plane. Default is *0.1*.<br /><br />
+   * The valid range is between 0 and the current value of the [page:.far far] plane.
+   * Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an
+   * OrthographicCamera's near plane.
+   * 
+   * @param [def]
+   * @returns near
+   */
   private getNear(def?: number | string): number {
     const near = ThreeUtil.getTypeSafe(this.near, def);
     if (typeof near === 'string') {
@@ -222,6 +306,13 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Camera frustum far plane. Default is *2000*.<br /><br />
+   * Must be greater than the current value of [page:.near near] plane.
+   * 
+   * @param [def]
+   * @returns far
+   */
   private getFar(def?: number | string): number {
     const far = ThreeUtil.getTypeSafe(this.far, def);
     if (typeof far === 'string') {
@@ -231,22 +322,47 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Camera frustum left plane.
+   * @param [width]
+   * @returns left
+   */
   private getLeft(width?: number): number {
     return width * ThreeUtil.getTypeSafe(this.left, this.orthoSize * -1);
   }
 
+  /**
+   * Camera frustum right plane.
+   * @param [width]
+   * @returns right
+   */
   private getRight(width?: number): number {
     return width * ThreeUtil.getTypeSafe(this.right, this.orthoSize);
   }
 
-  private getTop(height?: number): number {
-    return height * ThreeUtil.getTypeSafe(this.top, this.orthoSize);
+  /**
+   * Camera frustum top plane.
+   * @param [top]
+   * @returns top
+   */
+  private getTop(top?: number): number {
+    return top * ThreeUtil.getTypeSafe(this.top, this.orthoSize);
   }
 
-  private getBottom(height?: number): number {
-    return height * ThreeUtil.getTypeSafe(this.bottom, this.orthoSize * -1);
+  /**
+   * Camera frustum bottom plane.
+   * @param [bottom]
+   * @returns bottom
+   */
+  private getBottom(bottom?: number): number {
+    return bottom * ThreeUtil.getTypeSafe(this.bottom, this.orthoSize * -1);
   }
 
+  /**
+   * Gets zoom
+   * @param [def]
+   * @returns zoom
+   */
   private getZoom(def?: number | string): number {
     const zoom = ThreeUtil.getTypeSafe(this.zoom, def, 1);
     if (typeof zoom === 'number') {
@@ -269,6 +385,13 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return 1;
   }
 
+  /**
+   * Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).
+   * 
+   * @param [width]
+   * @param [height]
+   * @returns aspect
+   */
   private getAspect(width?: number, height?: number): number {
     if (this.viewport) {
       const cWidth = this.getWidth();
@@ -279,6 +402,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Gets x
+   * @param [def]
+   * @returns x
+   */
   private getX(def?: number | string): number {
     const x = this.getViewPortSize(this.x, this.cameraWidth, def);
     if (x < 0) {
@@ -288,6 +416,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Gets y
+   * @param [def]
+   * @returns y
+   */
   private getY(def?: number | string): number {
     const y = this.getViewPortSize(this.y, this.cameraHeight, def);
     if (y < 0) {
@@ -297,30 +430,67 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Gets width
+   * @param [def]
+   * @returns width
+   */
   private getWidth(def?: number | string): number {
     return this.getViewPortSize(this.width, this.cameraWidth, def);
   }
 
+  /**
+   * Gets height
+   * @param [def]
+   * @returns height
+   */
   private getHeight(def?: number | string): number {
     return this.getViewPortSize(this.height, this.cameraHeight, def);
   }
 
+  /**
+   * Gets scissor x
+   * @param [def]
+   * @returns scissor x
+   */
   private getScissorX(def?: number | string): number {
     return this.getViewPortSize(this.scissorX, this.cameraWidth, def);
   }
 
+  /**
+   * Gets scissor y
+   * @param [def]
+   * @returns scissor y
+   */
   private getScissorY(def?: number | string): number {
     return this.getViewPortSize(this.scissorY, this.cameraHeight, def);
   }
 
+  /**
+   * Gets scissor width
+   * @param [def]
+   * @returns scissor width
+   */
   private getScissorWidth(def?: number | string): number {
     return this.getViewPortSize(this.scissorWidth, this.cameraWidth, def);
   }
 
+  /**
+   * Gets scissor height
+   * @param [def]
+   * @returns scissor height
+   */
   private getScissorHeight(def?: number | string): number {
     return this.getViewPortSize(this.scissorHeight, this.cameraHeight, def);
   }
 
+  /**
+   * Gets view port size
+   * @param size
+   * @param cameraSize
+   * @param [def]
+   * @returns view port size
+   */
   private getViewPortSize(size: number | string, cameraSize: number, def?: number | string): number {
     const baseSize = ThreeUtil.getTypeSafe(size, def);
     if (ThreeUtil.isNotNull(baseSize)) {
@@ -366,76 +536,74 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return 0;
   }
 
+  /**
+   * Gets clear color
+   * @param [def]
+   * @returns clear color
+   */
   private getClearColor(def?: string | number): THREE.Color {
     return ThreeUtil.getColorSafe(this.clearColor, def);
   }
 
+  /**
+   * Gets clear alpha
+   * @param [def]
+   * @returns clear alpha
+   */
   private getClearAlpha(def?: number): number {
     return ThreeUtil.getTypeSafe(this.clearAlpha, def);
   }
 
-  constructor(private localStorageService: LocalStorageService) {
-    super();
-  }
-
   /**
-   * A callback method that is invoked immediately after the
-   * default change detector has checked the directive's
-   * data-bound properties for the first time,
-   * and before any of the view or content children have been checked.
-   * It is invoked only once when the directive is instantiated.
+   * Camera  of camera component
    */
-  ngOnInit(): void {
-    super.ngOnInit('camera');
-  }
-
-  /**
-   * A callback method that performs custom clean-up, invoked immediately
-   * before a directive, pipe, or service instance is destroyed.
-   */
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
-
-  /**
-   * A callback method that is invoked immediately after the
-   * default change detector has checked data-bound properties
-   * if at least one has changed, and before the view and content
-   * children are checked.
-   * 
-   * @param changes The changed properties.
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    if (changes && this.camera) {
-      this.addChanges(changes);
-    }
-  }
-
-  /**
-   * A callback method that is invoked immediately after
-   * Angular has completed initialization of all of the directive's
-   * content.
-   * It is invoked only once when the directive is instantiated.
-   */
-  ngAfterContentInit(): void {
-    super.ngAfterContentInit();
-  }
-
   private camera: THREE.Camera = null;
+
+  /**
+   * Cube camera1 of camera component
+   */
   public cubeCamera1: THREE.CubeCamera = null;
+
+  /**
+   * Cube camera2 of camera component
+   */
   public cubeCamera2: THREE.CubeCamera = null;
+
+  /**
+   * Clips  of camera component
+   */
   private clips: THREE.AnimationClip[] = null;
 
+  /**
+   * Renderer  of camera component
+   */
   private renderer: THREE.Renderer = null;
-  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
-  private rendererScenes: QueryList<any>;
 
-  getRenderer(): THREE.Renderer {
+  /**
+   * Css renderer of camera component
+   */
+  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
+
+  /**
+   * Renderer scenes of camera component
+   */
+  private rendererScenes: QueryList<any> = null;
+
+  /**
+   * Gets renderer
+   * @returns renderer
+   */
+  public getRenderer(): THREE.Renderer {
     return this.renderer;
   }
 
-  setRenderer(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, rendererScenes: QueryList<any>) {
+  /**
+   * Sets renderer
+   * @param renderer
+   * @param cssRenderer
+   * @param rendererScenes
+   */
+  public setRenderer(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, rendererScenes: QueryList<any>) {
     if (this.cssRenderer !== cssRenderer) {
       this.cssRenderer = cssRenderer;
     }
@@ -446,7 +614,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     this.getObject3d();
   }
 
-  setParent(parent: THREE.Object3D): boolean {
+  /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
       this.getCamera();
       return true;
@@ -454,7 +627,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return false;
   }
 
-  applyChanges3d(changes: string[]) {
+  /**
+   * Applys changes3d
+   * @param changes
+   * @returns
+   */
+  public applyChanges3d(changes: string[]) {
     if (this.camera !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getObject3d();
@@ -475,16 +653,35 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Camera width of camera component
+   */
   private cameraWidth: number = 0;
+
+  /**
+   * Camera height of camera component
+   */
   private cameraHeight: number = 0;
 
-  getSize(): THREE.Vector2 {
+  /**
+   * Gets size
+   * @returns size
+   */
+  public getSize(): THREE.Vector2 {
     return new THREE.Vector2(this.cameraWidth, this.cameraHeight);
   }
 
+  /**
+   * Raycaster  of camera component
+   */
   private raycaster: THREE.Raycaster = null;
 
-  getRaycaster(mouse: THREE.Vector2 = null): THREE.Raycaster {
+  /**
+   * Gets raycaster
+   * @param [mouse]
+   * @returns raycaster
+   */
+  public getRaycaster(mouse: THREE.Vector2 = null): THREE.Raycaster {
     if (this.raycaster === null) {
       this.raycaster = new THREE.Raycaster();
     }
@@ -494,7 +691,14 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return this.raycaster;
   }
 
-  getIntersections(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection[] {
+  /**
+   * Gets intersections
+   * @param mouse
+   * @param mesh
+   * @param [recursive]
+   * @returns intersections
+   */
+  public getIntersections(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection[] {
     const raycaster = this.getRaycaster(mouse);
     if (mesh instanceof THREE.Object3D) {
       return raycaster.intersectObject(mesh, recursive);
@@ -503,7 +707,14 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  getIntersection(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection {
+  /**
+   * Gets intersection
+   * @param mouse
+   * @param mesh
+   * @param [recursive]
+   * @returns intersection
+   */
+  public getIntersection(mouse: THREE.Vector2, mesh: THREE.Object3D | THREE.Object3D[], recursive: boolean = false): THREE.Intersection {
     const intersects = this.getIntersections(mouse, mesh, recursive);
     if (intersects !== null && intersects.length > 0) {
       return intersects[0];
@@ -512,7 +723,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
-  setCameraSize(width: number, height: number) {
+  /**
+   * Sets camera size
+   * @param width
+   * @param height
+   */
+  public setCameraSize(width: number, height: number) {
     if (this.isCameraChild) {
       this.cameraWidth = width;
       this.cameraHeight = height;
@@ -543,9 +759,16 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     this.setSubscribeNext('size');
   }
 
-  isCameraChild: boolean = false;
+  /**
+   * Determines whether camera child is
+   */
+  private isCameraChild: boolean = false;
 
-  getCubeRenderTarget(): THREE.WebGLCubeRenderTarget {
+  /**
+   * Gets cube render target
+   * @returns cube render target
+   */
+  public getCubeRenderTarget(): THREE.WebGLCubeRenderTarget {
     if (this.camera === null) {
       this.getObject3d();
     }
@@ -557,15 +780,29 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return undefined;
   }
 
-  getTexture(): THREE.WebGLCubeRenderTarget {
+  /**
+   * Gets texture
+   * @returns texture
+   */
+  public getTexture(): THREE.WebGLCubeRenderTarget {
     return this.getCubeRenderTarget();
   }
 
-  getObject3d<T extends THREE.Object3D>(): T {
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
     return this.getCamera() as any;
   }
 
-  getCamera<T extends THREE.Camera>(): T {
+  /**
+   * Gets camera
+   * @template T
+   * @returns camera
+   */
+  public getCamera<T extends THREE.Camera>(): T {
     if (this.camera === null || this._needUpdate) {
       this.needUpdate = false;
       const width = this.cameraWidth;
@@ -653,7 +890,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return this.camera as T;
   }
 
-  getScene(scenes?: QueryList<any> | any): THREE.Scene {
+  /**
+   * Gets scene
+   * @param [scenes]
+   * @returns scene
+   */
+  public getScene(scenes?: QueryList<any> | any): THREE.Scene {
     if (ThreeUtil.isNotNull(this.scene) && ThreeUtil.isNotNull(this.scene.getScene)) {
       return this.scene.getScene();
     }
@@ -672,9 +914,20 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     return new THREE.Scene();
   }
 
+  /**
+   * Cube render count of camera component
+   */
   private _cubeRenderCount = 0;
 
-  render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any> | any, renderTimer: RendererTimer) {
+  /**
+   * Renders camera component
+   * @param renderer
+   * @param cssRenderer
+   * @param scenes
+   * @param renderTimer
+   * @returns
+   */
+  public render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any> | any, renderTimer: RendererTimer) {
     if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }
@@ -706,9 +959,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         renderer.setClearColor(this.getClearColor(), this.getClearAlpha(1));
       }
     }
-    if (ThreeUtil.isNotNull(this.onBeforeRender)) {
-      this.onBeforeRender(renderTimer);
-    }
     if (this.scenes !== null && this.scenes.length > 0) {
       this.scenes.forEach((sceneCom) => {
         this.renderWithScene(renderer, camera, sceneCom.getScene());
@@ -733,6 +983,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
   }
 
+  /**
+   * Renders with scene
+   * @param renderer
+   * @param camera
+   * @param scene
+   */
   private renderWithScene(renderer: THREE.Renderer, camera: THREE.Camera, scene: THREE.Scene) {
     if (scene !== null) {
       try {

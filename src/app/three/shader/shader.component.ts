@@ -1,6 +1,9 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * ShaderComponent
+ */
 @Component({
   selector: 'ngx3js-shader',
   templateUrl: './shader.component.html',
@@ -9,15 +12,22 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 export class ShaderComponent extends AbstractSubscribeComponent implements OnInit {
 
   /**
+   * Input  of shader component
+   *
+   * Notice - case insensitive.
    * 
    */
   @Input() public type: string = 'x-shader/x-fragment';
 
   /**
-   * 
+   * Input  of shader component
    */
   @Input() private refShader: ShaderComponent = null;
 
+  /**
+   * Creates an instance of shader component.
+   * @param ele 
+   */
   constructor(private ele: ElementRef) {
     super();
   }
@@ -51,9 +61,16 @@ export class ShaderComponent extends AbstractSubscribeComponent implements OnIni
     super.ngAfterContentInit();
   }
 
+  /**
+   * Shader  of shader component
+   */
   private shader: string = null;
 
-  getShader(): string {
+  /**
+   * Gets shader
+   * @returns shader 
+   */
+  public getShader(): string {
     if (this.shader === null || this._needUpdate) {
       this.needUpdate = false;
       if (this.refShader !== null) {

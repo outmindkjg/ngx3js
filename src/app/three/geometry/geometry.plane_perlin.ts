@@ -2,17 +2,43 @@ import * as THREE from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 
+/**
+ * Plane perlin geometry
+ */
 export class PlanePerlinGeometry {
-  data : number[] = [];
+  
+  /**
+   * Data  of plane perlin geometry
+   */
+  public data : number[] = [];
+  /**
+   * Creates an instance of plane perlin geometry.
+   * @param worldWidth 
+   * @param worldDepth 
+   * @param [quality] 
+   */
   constructor(private worldWidth : number, private worldDepth : number, private quality = 2) {
     this.data = this.generateHeight(this.worldWidth, this.worldDepth, this.quality);
   }
 
-  getY( x, z ) { 
+  /**
+   * Gets y
+   * @param x 
+   * @param z 
+   * @returns  
+   */
+  public getY( x, z ) { 
     return ( this.data[ x + z * this.worldWidth ] * 0.2 ) | 0;
   }
 
-  generateHeight( width : number, height : number, quality : number = 2 ):number[] {
+  /**
+   * Generates height
+   * @param width 
+   * @param height 
+   * @param [quality] 
+   * @returns height 
+   */
+  public generateHeight( width : number, height : number, quality : number = 2 ):number[] {
     const data : number[] = [], perlin = new ImprovedNoise(),
       size = width * height, z = Math.random() * 100;
     for ( let j = 0; j < 4; j ++ ) {
@@ -26,7 +52,14 @@ export class PlanePerlinGeometry {
     return data;
   } 
 
-  getTerrain(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
+  /**
+   * Gets terrain
+   * @param planeWidth 
+   * @param planeHeight 
+   * @param planeDepth 
+   * @returns terrain 
+   */
+  public getTerrain(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
     const geometry = new THREE.PlaneGeometry( planeWidth, planeDepth, this.worldWidth - 1, this.worldDepth - 1 );
     geometry.rotateX( - Math.PI / 2 );
     const vertices = geometry.attributes.position.array as any[];
@@ -41,7 +74,14 @@ export class PlanePerlinGeometry {
     return geometry;
   }
 
-  getMinecraft(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
+  /**
+   * Gets minecraft
+   * @param planeWidth 
+   * @param planeHeight 
+   * @param planeDepth 
+   * @returns minecraft 
+   */
+  public getMinecraft(planeWidth : number, planeHeight : number, planeDepth : number ) : THREE.BufferGeometry {
     const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth);
     const geometry : {
       px : THREE.BufferGeometry,
@@ -117,7 +157,16 @@ export class PlanePerlinGeometry {
     return BufferGeometryUtils.mergeBufferGeometries( geometries );
   }
 
-  getMinecraftAo(planeWidth : number, planeHeight : number, planeDepth : number, light : THREE.Color, shadow : THREE.Color ) : THREE.BufferGeometry {
+  /**
+   * Gets minecraft ao
+   * @param planeWidth 
+   * @param planeHeight 
+   * @param planeDepth 
+   * @param light 
+   * @param shadow 
+   * @returns minecraft ao 
+   */
+  public getMinecraftAo(planeWidth : number, planeHeight : number, planeDepth : number, light : THREE.Color, shadow : THREE.Color ) : THREE.BufferGeometry {
     const planeGeometry = new THREE.PlaneGeometry(planeWidth, planeDepth).toNonIndexed();
     planeGeometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
     const geometry : {
@@ -273,7 +322,16 @@ export class PlanePerlinGeometry {
     return BufferGeometryUtils.mergeBufferGeometries( geometries );
   }
 
-  getGeometry(planeGeometry : THREE.BufferGeometry, uv : number[], rotate : { x : number, y : number, z : number}, translate : { x : number, y : number, z : number}, colors ? : THREE.Color[]): THREE.PlaneGeometry {
+  /**
+   * Gets geometry
+   * @param planeGeometry 
+   * @param uv 
+   * @param rotate 
+   * @param translate 
+   * @param [colors] 
+   * @returns geometry 
+   */
+  public getGeometry(planeGeometry : THREE.BufferGeometry, uv : number[], rotate : { x : number, y : number, z : number}, translate : { x : number, y : number, z : number}, colors ? : THREE.Color[]): THREE.PlaneGeometry {
     const geometry = planeGeometry.clone() as THREE.PlaneGeometry;
     if (colors !== null && colors !== undefined && colors.length > 0) {
       geometry.setAttribute( 'color', planeGeometry.attributes.position.clone() );
@@ -297,7 +355,14 @@ export class PlanePerlinGeometry {
     return geometry;
   }
 
-  getTexture(sun : THREE.Vector3, color : THREE.Color , add : THREE.Color): HTMLCanvasElement {
+  /**
+   * Gets texture
+   * @param sun 
+   * @param color 
+   * @param add 
+   * @returns texture 
+   */
+  public getTexture(sun : THREE.Vector3, color : THREE.Color , add : THREE.Color): HTMLCanvasElement {
     let context, image, imageData, shade;
     const vector3 = new THREE.Vector3( 0, 0, 0 );
     sun.normalize();

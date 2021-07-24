@@ -1,54 +1,54 @@
-import { CssStyle, ThreeUtil } from './../interface';
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { HtmlComponent } from '../html/html.component';
-import { HtmlCollection, VisualComponent } from '../visual/visual.component';
 import * as THREE from 'three';
-import { TransformComponent } from '../transform/transform.component';
 import { BackgroundComponent } from '../background/background.component';
 import { ControllerComponent } from '../controller/controller.component';
+import { HtmlComponent } from '../html/html.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { TransformComponent } from '../transform/transform.component';
+import { HtmlCollection, VisualComponent } from '../visual/visual.component';
+import { CssStyle, ThreeUtil } from './../interface';
 
+/**
+ * CanvasComponent
+ */
 @Component({
   selector: 'ngx3js-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
-   * 
+   * The name of the object (doesn't need to be unique). Default is an empty string.
    */
-  @Input() public name: string = null;
-
+  @Input() public name: string = "";
 
   /**
-   * 
+   * Content children of canvas component
    */
   @ContentChildren(VisualComponent) private visualList: QueryList<VisualComponent>;
 
   /**
-   * 
+   * Content children of canvas component
    */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
 
   /**
-   * 
+   * Content children of canvas component
    */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
 
   /**
-   * 
+   * Content children of canvas component
    */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
 
   /**
-   * 
+   * Content children of canvas component
    */
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
 
-
   /**
-   * 
+   * Collection  of canvas component
    */
   private collection: HtmlCollection = {
     html: null,
@@ -57,6 +57,9 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     children: [],
   };
 
+  /**
+   * Creates an instance of canvas component.
+   */
   constructor() {
     super();
   }
@@ -95,7 +98,7 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -120,25 +123,52 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     super.ngAfterContentInit();
   }
 
+  /**
+   * Canvas  of canvas component
+   */
   private canvas: HTMLElement = null;
+
+  /**
+   * Parent node of canvas component
+   */
   private parentNode: HTMLElement = null;
+
+  /**
+   * Canvas size of canvas component
+   */
   private canvasSize: THREE.Vector2 = null;
+
+  /**
+   * Ele size of canvas component
+   */
   private eleSize: THREE.Vector2 = null;
 
-  setSize(size: THREE.Vector2) {
+  /**
+   * Sets size
+   * @param size
+   */
+  public setSize(size: THREE.Vector2) {
     this.canvasSize = size;
     this.eleSize = new THREE.Vector2(this.canvasSize.x, this.canvasSize.y);
     this.applyHtmlStyle();
   }
 
-  setParentNode(parentNode: HTMLElement) {
+  /**
+   * Sets parent node
+   * @param parentNode
+   */
+  public setParentNode(parentNode: HTMLElement) {
     if (this.parentNode !== parentNode) {
       this.parentNode = parentNode;
       this.getCanvas();
     }
   }
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   */
+  public applyChanges(changes: string[]) {
     if (this.canvas !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['visual', 'html', 'transform', 'background', 'controller']);
@@ -200,11 +230,19 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  getCollection(): HtmlCollection {
+  /**
+   * Gets collection
+   * @returns collection
+   */
+  public getCollection(): HtmlCollection {
     return this.collection;
   }
 
-  getStyle(): CssStyle {
+  /**
+   * Gets style
+   * @returns style
+   */
+  public getStyle(): CssStyle {
     const style: CssStyle = {
       width: '100%',
       height: '100%',
@@ -216,7 +254,10 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     return style;
   }
 
-  applyHtmlStyle() {
+  /**
+   * Applys html style
+   */
+  public applyHtmlStyle() {
     if (this.canvas !== null) {
       const style: CssStyle = this.getStyle();
       this.cssClazzName = ThreeUtil.addCssStyle(this.canvas, style, this.cssClazzName, 'canvas');
@@ -224,9 +265,16 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
+  /**
+   * Css clazz name of canvas component
+   */
   private cssClazzName: string = null;
 
-  getCanvas(): HTMLElement {
+  /**
+   * Gets canvas
+   * @returns canvas
+   */
+  public getCanvas(): HTMLElement {
     if (this.canvas === null || this._needUpdate) {
       this.needUpdate = false;
       const canvas = document.createElement('div');

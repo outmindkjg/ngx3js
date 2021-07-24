@@ -21,6 +21,9 @@ import { RigidbodyComponent } from './../rigidbody/rigidbody.component';
 import { RotationComponent } from './../rotation/rotation.component';
 import { ScaleComponent } from './../scale/scale.component';
 
+/**
+ * SharedComponent
+ */
 @Component({
   selector: 'ngx3js-shared',
   templateUrl: './shared.component.html',
@@ -28,100 +31,103 @@ import { ScaleComponent } from './../scale/scale.component';
 })
 export class SharedComponent extends AbstractSubscribeComponent implements OnInit, AfterContentInit {
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(AbstractGeometryComponent, { descendants: false }) private geometryList: QueryList<AbstractGeometryComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(AbstractMaterialComponent, { descendants: false }) private materialList: QueryList<AbstractMaterialComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(AbstractTextureComponent, { descendants: false }) private textureList: QueryList<AbstractTextureComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(LensflareelementComponent, { descendants: false }) private lensflareElementList: QueryList<LensflareelementComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(SvgComponent, { descendants: false }) private svgList: QueryList<SvgComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(ListenerComponent, { descendants: false }) private listnerList: QueryList<ListenerComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(AudioComponent, { descendants: false }) private audioList: QueryList<AudioComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(HtmlComponent, { descendants: false }) private cssChildrenList: QueryList<HtmlComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(RigidbodyComponent, { descendants: false }) private rigidbodyList: QueryList<RigidbodyComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(MeshComponent, { descendants: false }) private meshList: QueryList<MeshComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(CameraComponent, { descendants: false }) private cameraList: QueryList<CameraComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(HelperComponent, { descendants: false }) private helperList: QueryList<HelperComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(LightComponent, { descendants: false }) private lightList: QueryList<LightComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(PositionComponent, { descendants: false }) private positionList: QueryList<PositionComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(RotationComponent, { descendants: false }) private rotationList: QueryList<RotationComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(ScaleComponent, { descendants: false }) private scaleList: QueryList<ScaleComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(LookatComponent, { descendants: false }) private lookatList: QueryList<LookatComponent>;
 
   /**
-   *
+   * Content children of shared component
    */
   @ContentChildren(AnimationGroupComponent, { descendants: false }) private animationGroupList: QueryList<AnimationGroupComponent>;
 
+  /**
+   * Creates an instance of shared component.
+   */
   constructor() {
     super();
   }
@@ -186,13 +192,20 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     this.subscribeListQueryChange(this.scaleList, 'scaleList', 'scale');
     this.subscribeListQueryChange(this.lookatList, 'lookatList', 'lookat');
     this.subscribeListQueryChange(this.animationGroupList, 'animationGroupList', 'animation-group');
-
     super.ngAfterContentInit();
   }
 
+  /**
+   * Shared obj of shared component
+   */
   private sharedObj: any = null;
 
-  applyChanges(changes: string[]) {
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
+  public applyChanges(changes: string[]) {
     if (this.sharedObj !== null) {
       if (ThreeUtil.isIndexOf(changes, 'init')) {
         changes = ThreeUtil.pushUniq(changes, ['geometry', 'material', 'texture', 'lensflareelement', 'svg', 'listner', 'audio', 'csschildren', 'rigidbody', 'mesh', 'camera', 'helper', 'light', 'controller', 'position', 'rotation', 'scale', 'animation-group', 'lookat']);
@@ -298,7 +311,11 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     super.applyChanges(changes);
   }
 
-  getShared(): any {
+  /**
+   * Gets shared
+   * @returns shared
+   */
+  public getShared(): any {
     if (this.sharedObj === null || this._needUpdate) {
       this.needUpdate = false;
       this.sharedObj = { shared: Math.random() };
@@ -307,23 +324,44 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
     return this.sharedObj;
   }
 
-  getGeometryComponents(): AbstractGeometryComponent[] {
+  /**
+   * Gets geometry components
+   * @returns geometry components
+   */
+  public getGeometryComponents(): AbstractGeometryComponent[] {
     return this.getComponents(this.geometryList);
   }
 
-  getMaterialComponents(): AbstractMaterialComponent[] {
+  /**
+   * Gets material components
+   * @returns material components
+   */
+  public getMaterialComponents(): AbstractMaterialComponent[] {
     return this.getComponents(this.materialList);
   }
 
-  getTextureComponents(): AbstractTextureComponent[] {
+  /**
+   * Gets texture components
+   * @returns texture components
+   */
+  public getTextureComponents(): AbstractTextureComponent[] {
     return this.getComponents(this.textureList);
   }
 
-  getAnimationGroupComponents(): AnimationGroupComponent[] {
+  /**
+   * Gets animation group components
+   * @returns animation group components
+   */
+  public getAnimationGroupComponents(): AnimationGroupComponent[] {
     return this.getComponents(this.animationGroupList);
   }
 
-  getComponents(list: QueryList<any>): any[] {
+  /**
+   * Gets components
+   * @param list
+   * @returns components
+   */
+  public getComponents(list: QueryList<any>): any[] {
     const result: any[] = [];
     list.forEach((ele) => {
       result.push(ele);

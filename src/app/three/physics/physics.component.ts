@@ -1,53 +1,63 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import Ammo from 'ammojs-typed';
+import * as THREE from 'three';
+import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { RendererTimer, ThreeUtil } from './../interface';
-import { ConvexObjectBreaker } from 'three/examples/jsm/misc/ConvexObjectBreaker';
 import { PhysicsConstraintComponent } from './physics-constraint/physics-constraint.component';
-import * as THREE from 'three';
 
+/**
+ * PhysicsComponent
+ */
 @Component({
   selector: 'ngx3js-physics',
   templateUrl: './physics.component.html',
   styleUrls: ['./physics.component.scss'],
 })
 export class PhysicsComponent extends AbstractSubscribeComponent implements OnInit {
-
   /**
+   * Input  of physics component
+   *
+   * Notice - case insensitive.
    * 
    */
-  @Input() private type:string = "";
+  @Input() private type: string = '';
 
   /**
-   * 
+   * Input  of physics component
    */
-  @Input() private useCollision :boolean = false;
+  @Input() private useCollision: boolean = false;
 
   /**
-   * 
+   * Input  of physics component
    */
-  @Input() private gravity:number = null;
+  @Input() private gravity: number = null;
 
   /**
-   * 
+   * Input  of physics component
    */
-  @Input() private gravityX:number = null;
+  @Input() private gravityX: number = null;
 
   /**
-   * 
+   * Input  of physics component
    */
-  @Input() private gravityY:number = null;
+  @Input() private gravityY: number = null;
 
   /**
-   * 
+   * Input  of physics component
    */
-  @Input() private gravityZ:number = null;
+  @Input() private gravityZ: number = null;
 
   /**
-   * 
+   * Content children of physics component
    */
   @ContentChildren(PhysicsConstraintComponent, { descendants: false }) private constraintList: QueryList<PhysicsConstraintComponent>;
 
+  /**
+   * Gets gravity
+   * @param [def]
+   * @returns gravity
+   */
   private getGravity(def?: number): Ammo.btVector3 {
     const gravity = ThreeUtil.getTypeSafe(this.gravity, def);
     const gravityX = ThreeUtil.getTypeSafe(this.gravityX, 0);
@@ -56,6 +66,9 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     return new this.ammo.btVector3(gravityX, gravityY, gravityZ);
   }
 
+  /**
+   * Creates an instance of physics component.
+   */
   constructor() {
     super();
   }
@@ -88,7 +101,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
    * default change detector has checked data-bound properties
    * if at least one has changed, and before the view and content
    * children are checked.
-   * 
+   *
    * @param changes The changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -109,38 +122,68 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     super.ngAfterContentInit();
   }
 
+  /**
+   * Ammo  of physics component
+   */
   private ammo: typeof Ammo = null;
+
+  /**
+   * Physics  of physics component
+   */
   private physics: Ammo.btSoftRigidDynamicsWorld = null;
 
-  getAmmo(){
+  /**
+   * Gets ammo
+   * @returns
+   */
+  public getAmmo() {
     return this.ammo;
   }
 
-  private convexBreaker : ConvexObjectBreaker = null;
-  
-  getConvexObjectBreaker() :ConvexObjectBreaker {
-    if (this.convexBreaker == null) {
+  /**
+   * Convex breaker of physics component
+   */
+  private convexBreaker: ConvexObjectBreaker = null;
+
+  /**
+   * Gets convex object breaker
+   * @returns convex object breaker
+   */
+  public getConvexObjectBreaker(): ConvexObjectBreaker {
+    if (this.convexBreaker === null) {
       this.convexBreaker = new ConvexObjectBreaker();
     }
     return this.convexBreaker;
   }
 
-  private softBodyHelpers : Ammo.btSoftBodyHelpers = null;
+  /**
+   * Soft body helpers of physics component
+   */
+  private softBodyHelpers: Ammo.btSoftBodyHelpers = null;
 
-  getSoftBodyHelpers () :Ammo.btSoftBodyHelpers {
-    if (this.softBodyHelpers == null) {
+  /**
+   * Gets soft body helpers
+   * @returns soft body helpers
+   */
+  public getSoftBodyHelpers(): Ammo.btSoftBodyHelpers {
+    if (this.softBodyHelpers === null) {
       this.softBodyHelpers = new this.ammo.btSoftBodyHelpers();
     }
     return this.softBodyHelpers;
   }
 
+  /**
+   * Applys changes
+   * @param changes
+   * @returns
+   */
   protected applyChanges(changes: string[]) {
     if (this.physics !== null) {
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         this.getPhysics();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['constraint','usecollision','gravity', 'gravityx', 'gravityy', 'gravityz'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['constraint', 'usecollision', 'gravity', 'gravityx', 'gravityy', 'gravityz'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
@@ -158,7 +201,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
               this.subscribeListQuery(this.constraintList, 'constraintList', 'constraint');
             }
             break;
-          case 'gravity' :
+          case 'gravity':
             const gravity = this.getGravity(-9.8);
             // this.physics.setGravity(gravity);
             this.physics.getWorldInfo().set_m_gravity(gravity);
@@ -169,44 +212,56 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     }
   }
 
-  dispatcher : Ammo.btCollisionDispatcher = null;
+  /**
+   * Dispatcher  of physics component
+   */
+  private dispatcher: Ammo.btCollisionDispatcher = null;
 
-  getPhysics(): Ammo.btSoftRigidDynamicsWorld {
+  /**
+   * Gets physics
+   * @returns physics
+   */
+  public getPhysics(): Ammo.btSoftRigidDynamicsWorld {
     if (this.ammo !== null && (this.physics === null || this._needUpdate)) {
       this.needUpdate = false;
-      switch(this.type.toLowerCase()) {
-        default :
+      switch (this.type.toLowerCase()) {
+        default:
           const collisionConfiguration = new this.ammo.btSoftBodyRigidBodyCollisionConfiguration();
-          this.dispatcher = new this.ammo.btCollisionDispatcher(
-            collisionConfiguration
-          );
+          this.dispatcher = new this.ammo.btCollisionDispatcher(collisionConfiguration);
           const broadphase = new this.ammo.btDbvtBroadphase();
           const solver = new this.ammo.btSequentialImpulseConstraintSolver();
           const softBodySolver = new this.ammo.btDefaultSoftBodySolver();
-          const physics = new this.ammo.btSoftRigidDynamicsWorld(
-            this.dispatcher,
-            broadphase,
-            solver,
-            collisionConfiguration,
-            softBodySolver
-          );
+          const physics = new this.ammo.btSoftRigidDynamicsWorld(this.dispatcher, broadphase, solver, collisionConfiguration, softBodySolver);
           this.physics = physics;
           super.setObject(this.physics);
           this.runSubscribeNext(this.subscribeType);
-          this.applyChanges(['constraint','gravity']);
+          this.applyChanges(['constraint', 'gravity']);
           break;
       }
     }
     return this.physics;
   }
 
-  logSeq : number = 0;
+  /**
+   * Log seq of physics component
+   */
+  private logSeq: number = 0;
 
-  getRigidBody(body : Ammo.btCollisionObject) : Ammo.btRigidBody {
-    return this.ammo['castObject']( body, this.ammo.btRigidBody );
+  /**
+   * Gets rigid body
+   * @param body
+   * @returns rigid body
+   */
+  public getRigidBody(body: Ammo.btCollisionObject): Ammo.btRigidBody {
+    return this.ammo['castObject'](body, this.ammo.btRigidBody);
   }
 
-  getCollisionObject(body : Ammo.btCollisionObject) : THREE.Object3D {
+  /**
+   * Gets collision object
+   * @param body
+   * @returns collision object
+   */
+  public getCollisionObject(body: Ammo.btCollisionObject): THREE.Object3D {
     const rigidBody = this.getRigidBody(body);
     if (rigidBody instanceof this.ammo.btRigidBody && ThreeUtil.isNotNull(rigidBody['object3d'])) {
       return rigidBody['object3d'];
@@ -214,22 +269,35 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
     return null;
   }
 
-  getBtVector3(pointer : any) : Ammo.btVector3 {
-    return this.ammo['castObject']( pointer, this.ammo.btVector3 );
+  /**
+   * Gets bt vector3
+   * @param pointer
+   * @returns bt vector3
+   */
+  public getBtVector3(pointer: any): Ammo.btVector3 {
+    return this.ammo['castObject'](pointer, this.ammo.btVector3);
   }
 
-  impactPoint = new THREE.Vector3();
-  impactNormal = new THREE.Vector3();
+  /**
+   * Impact point of physics component
+   */
+  private impactPoint = new THREE.Vector3();
 
-  update(timer: RendererTimer) {
-    if (
-      this.ammo !== null &&
-      this.physics instanceof this.ammo.btSoftRigidDynamicsWorld
-    ) {
+  /**
+   * Impact normal of physics component
+   */
+  private impactNormal = new THREE.Vector3();
+
+  /**
+   * Updates physics component
+   * @param timer
+   */
+  public update(timer: RendererTimer) {
+    if (this.ammo !== null && this.physics instanceof this.ammo.btSoftRigidDynamicsWorld) {
       this.constraintList.forEach((constraint) => {
         constraint.update(timer);
       });
-      this.physics.stepSimulation(timer.delta , 10);
+      this.physics.stepSimulation(timer.delta, 10);
       let numManifolds = this.dispatcher.getNumManifolds();
       if (this.useCollision) {
         for (let i = 0; i < numManifolds; i++) {
@@ -238,14 +306,14 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
           const body1 = this.getCollisionObject(contactManifold.getBody1());
           if (body0 !== null && body1 !== null) {
             let numContacts = contactManifold.getNumContacts();
-            const contactPoints : Ammo.btManifoldPoint[] = [];
+            const contactPoints: Ammo.btManifoldPoint[] = [];
             for (let j = 0; j < numContacts; j++) {
               contactPoints.push(contactManifold.getContactPoint(j));
             }
             body0.dispatchEvent({
-              type : 'collision',
-              points : contactPoints,
-              collision : body1
+              type: 'collision',
+              points: contactPoints,
+              collision: body1,
             });
           }
         }
@@ -256,12 +324,12 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
           let contactManifold = this.dispatcher.getManifoldByIndexInternal(i);
           const rb0 = this.getRigidBody(contactManifold.getBody0());
           const rb1 = this.getRigidBody(contactManifold.getBody1());
-          if ( ! rb0 || ! rb1 ) {
+          if (!rb0 || !rb1) {
             continue;
           }
           const threeObject0 = this.getBtVector3(rb0.getUserPointer())['threeObject'];
           const threeObject1 = this.getBtVector3(rb1.getUserPointer())['threeObject'];
-          if ( ! threeObject0 && ! threeObject1 ) {
+          if (!threeObject0 && !threeObject1) {
             continue;
           }
           const userData0 = threeObject0 ? threeObject0.userData : null;
@@ -270,68 +338,68 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
           const breakable1 = userData1 ? userData1.breakable : false;
           const collided0 = userData0 ? userData0.collided : false;
           const collided1 = userData1 ? userData1.collided : false;
-          if ( ( ! breakable0 && ! breakable1 ) || ( collided0 && collided1 ) ) {
+          if ((!breakable0 && !breakable1) || (collided0 && collided1)) {
             continue;
           }
           let contact = false;
           let maxImpulse = 0;
-          for ( let j = 0, jl = contactManifold.getNumContacts(); j < jl; j ++ ) {
-            const contactPoint = contactManifold.getContactPoint( j );
-            if ( contactPoint.getDistance() < 0 ) {
+          for (let j = 0, jl = contactManifold.getNumContacts(); j < jl; j++) {
+            const contactPoint = contactManifold.getContactPoint(j);
+            if (contactPoint.getDistance() < 0) {
               contact = true;
               const impulse = contactPoint.getAppliedImpulse();
-              if ( impulse > maxImpulse ) {
+              if (impulse > maxImpulse) {
                 maxImpulse = impulse;
                 const pos = contactPoint.get_m_positionWorldOnB();
                 const normal = contactPoint.get_m_normalWorldOnB();
-                this.impactPoint.set( pos.x(), pos.y(), pos.z() );
-                this.impactNormal.set( normal.x(), normal.y(), normal.z() );
+                this.impactPoint.set(pos.x(), pos.y(), pos.z());
+                this.impactNormal.set(normal.x(), normal.y(), normal.z());
               }
               break;
             }
           }
-          if ( ! contact ) continue;
+          if (!contact) continue;
 
           // Subdivision
 
           const fractureImpulse = 250;
-          if ( breakable0 && ! collided0 && maxImpulse > fractureImpulse ) {
-            const fragments : THREE.Object3D[] = []; 
-            const debris = convexBreaker.subdivideByImpact( threeObject0, this.impactPoint, this.impactNormal, 1, 2 );
+          if (breakable0 && !collided0 && maxImpulse > fractureImpulse) {
+            const fragments: THREE.Object3D[] = [];
+            const debris = convexBreaker.subdivideByImpact(threeObject0, this.impactPoint, this.impactNormal, 1, 2);
             const numObjects = debris.length;
-            for ( let j = 0; j < numObjects; j ++ ) {
+            for (let j = 0; j < numObjects; j++) {
               const vel = rb0.getLinearVelocity();
               const angVel = rb0.getAngularVelocity();
-              const fragment = debris[ j ];
-              fragment.userData.velocity.set( vel.x(), vel.y(), vel.z() );
-              fragment.userData.angularVelocity.set( angVel.x(), angVel.y(), angVel.z() );
+              const fragment = debris[j];
+              fragment.userData.velocity.set(vel.x(), vel.y(), vel.z());
+              fragment.userData.angularVelocity.set(angVel.x(), angVel.y(), angVel.z());
               fragments.push(fragment);
             }
             userData0.collided = true;
             threeObject0.dispatchEvent({
-              type : 'debris',
-              fragments : fragments,
-              collided : true,
-              debris : debris
+              type: 'debris',
+              fragments: fragments,
+              collided: true,
+              debris: debris,
             });
           }
-          if ( breakable1 && ! collided1 && maxImpulse > fractureImpulse ) {
-            const fragments : THREE.Object3D[] = []; 
-            const debris = convexBreaker.subdivideByImpact( threeObject1, this.impactPoint, this.impactNormal, 1, 2);
+          if (breakable1 && !collided1 && maxImpulse > fractureImpulse) {
+            const fragments: THREE.Object3D[] = [];
+            const debris = convexBreaker.subdivideByImpact(threeObject1, this.impactPoint, this.impactNormal, 1, 2);
             const numObjects = debris.length;
-            for ( let j = 0; j < numObjects; j ++ ) {
+            for (let j = 0; j < numObjects; j++) {
               const vel = rb1.getLinearVelocity();
               const angVel = rb1.getAngularVelocity();
-              const fragment = debris[ j ];
-              fragment.userData.velocity.set( vel.x(), vel.y(), vel.z() );
-              fragment.userData.angularVelocity.set( angVel.x(), angVel.y(), angVel.z() );
+              const fragment = debris[j];
+              fragment.userData.velocity.set(vel.x(), vel.y(), vel.z());
+              fragment.userData.angularVelocity.set(angVel.x(), angVel.y(), angVel.z());
               fragments.push(fragment);
             }
             threeObject1.dispatchEvent({
-              type : 'debris',
-              fragments : fragments,
-              collided : true,
-              debris : debris
+              type: 'debris',
+              fragments: fragments,
+              collided: true,
+              debris: debris,
             });
           }
         }

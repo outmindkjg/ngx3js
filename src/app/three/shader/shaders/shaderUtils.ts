@@ -96,7 +96,6 @@ import { UnrealBloomSelective } from './shader.unreal_bloom_selective';
 import { VideoKinect } from './shader.video_kinect';
 import { WireFrame } from './shader.wireframe';
 
-
 export interface ShaderType {
   defines?: {
     [key: string]: any;
@@ -374,7 +373,7 @@ export const ShaderConf: {
 };
 
 export class ShaderUtils {
-  static addShader(key: string, shader: ShaderType, alias?: string[]) {
+  public static addShader(key: string, shader: ShaderType, alias?: string[]) {
     key = key.toLowerCase();
     if (ThreeUtil.isNotNull(alias)) {
       alias.forEach((aliasKey) => {
@@ -386,7 +385,7 @@ export class ShaderUtils {
     ShaderConf[key] = shader;
   }
 
-  static getShader(key: string | ShaderType): ShaderType {
+  public static getShader(key: string | ShaderType): ShaderType {
     if (typeof key === 'string') {
       if (ThreeUtil.isNotNull(ShaderConf[key.toLowerCase()])) {
         const shader = ShaderConf[key.toLowerCase()];
@@ -411,7 +410,7 @@ export class ShaderUtils {
       };
     }
   }
-  static getShaderClone(key: string): ShaderType {
+  public static getShaderClone(key: string): ShaderType {
     const shader = this.getShader(key);
     return {
       vertexShader: shader.vertexShader,
@@ -421,7 +420,7 @@ export class ShaderUtils {
     };
   }
 
-  static getFragmentShader(key: string | ShaderType): string {
+  public static getFragmentShader(key: string | ShaderType): string {
     if (typeof key === 'string' && !/^[a-zA-Z0-9]+$/.test(key)) {
       return key;
     } else {
@@ -429,7 +428,7 @@ export class ShaderUtils {
     }
   }
 
-  static getVertexShader(key: string | ShaderType): string {
+  public static getVertexShader(key: string | ShaderType): string {
     if (typeof key === 'string' && !/^[a-zA-Z0-9]+$/.test(key)) {
       return key;
     } else {
@@ -437,7 +436,7 @@ export class ShaderUtils {
     }
   }
 
-  static getUniforms(key: string | ShaderType): { [key: string]: THREE.IUniform } {
+  public static getUniforms(key: string | ShaderType): { [key: string]: THREE.IUniform } {
     if (ThreeUtil.isNotNull(key)) {
       if (typeof key === 'string') {
         if (ThreeUtil.isNotNull(key) && key !== '') {
@@ -450,7 +449,7 @@ export class ShaderUtils {
     return {};
   }
 
-  static checkShader() {
+  public static checkShader() {
     const shaderList: string[] = [];
     Object.entries(ShaderConf).forEach(([key, value]) => {
       shaderList.push(key.toLowerCase() + ' : ' + key);
