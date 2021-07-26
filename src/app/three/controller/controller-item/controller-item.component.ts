@@ -45,7 +45,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * Input  of controller item component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private curve: string = null;
 
@@ -138,7 +138,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * Input  of controller item component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private options: string = null;
 
@@ -226,7 +226,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * Input  of controller item component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private valueType: string = 'auto';
 
@@ -249,7 +249,7 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * Input  of controller item component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private colorType: string = 'rgb';
 
@@ -410,8 +410,8 @@ export class ControllerItemComponent extends AbstractSubscribeComponent implemen
    * Gets object
    * @returns
    */
-  public getObject() {
-    return this.getController(this._controlItem, this._parent);
+  public getObject<T>(): T {
+    return this.getController(this._controlItem, this._parent) as any;
   }
 
   /**

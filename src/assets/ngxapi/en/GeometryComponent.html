@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractGeometryComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			GeometryComponent<br/><br/>
+			A representation of mesh, line, or point geometry. Includes vertex positions, face<br/>
+			indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of<br/>
+			passing all this data to the GPU.<br/>
+			<br/>
+			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.
+
+			<br/><br/>
+			[page:BufferGeometry THREE.BufferGeometry]
+		</p>
+
+		<h2>Component</h2>
+		<p>
+			&lt;ngx3js-geometry&gt;&lt;/ngx3js-geometry&gt;
+		</p>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractGeometryComponent AbstractGeometryComponent] class for common input properties.
+		</p>
+
+		<h3>[property:boolean addGroup]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number arc]</h3>
+		<p>
+			Central angle.  Default is Math.PI * 2.
+		</p>
+
+		<h3>[property:boolean bevelEnabled]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number bevelOffset]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number bevelSegments]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number bevelSize]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number bevelThickness]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean blinn]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean body]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean bottom]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean closed]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string curve]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean curveNormal]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string curveNormalOption]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:any curveOption]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:ThreeVector[] curvePath]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string curvePathType]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number curveSegments]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string curveType]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number depth]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthSegments]</h3>
+		<p>
+			Number of segmented rectangular faces along the depth of the sides. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number detail]</h3>
+		<p>
+			Default is 0.  Setting this to a value greater than 0 adds more vertices making it no longer an icosahedron.  When detail is greater than 1, it's effectively a sphere
+		</p>
+
+		<h3>[property:ThreeVector[] extrudePath]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string extrudePathType]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean fitLid]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string font]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number heightSegments]</h3>
+		<p>
+			Number of segmented rectangular faces along the height of the sides. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number innerRadius]</h3>
+		<p>
+			Default is 0.5.
+		</p>
+
+		<h3>[property:number instanceCount]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean lid]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string|number light]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:any mesh]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean openEnded]</h3>
+		<p>
+			A Boolean indicating whether the base of the cone is open or capped. Default is false, meaning capped.
+		</p>
+
+		<h3>[property:number orientationX]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number orientationY]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number orientationZ]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number outerRadius]</h3>
+		<p>
+			Default is 1.
+		</p>
+
+		<h3>[property:number p]</h3>
+		<p>
+			This value determines, how many times the geometry winds around its axis of rotational symmetry. Default is 2.
+		</p>
+
+		<h3>[property:any parametric]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string perlinType]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number phiLength]</h3>
+		<p>
+			the radian (0 to 2PI : 0 to 360) range of the lathed section 2PI(360) is a closed lathe, less than 2PI is a portion. Default is 2PI.
+		</p>
+
+		<h3>[property:number phiSegments]</h3>
+		<p>
+			Minimum is 1.  Default is 1.
+		</p>
+
+		<h3>[property:number phiStart]</h3>
+		<p>
+			the starting angle in radians. Default is 0.
+		</p>
+
+		<h3>[property:ThreeVector[] points]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:GeometryComponent pointsGeometry]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number[] polyIndices]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number[] polyVertices]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number positionX]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number positionY]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number positionZ]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number q]</h3>
+		<p>
+			This value determines, how many times the geometry winds around a circle in the interior of the torus. Default is 3.
+		</p>
+
+		<h3>[property:number quality]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number radialSegments]</h3>
+		<p>
+			Number of segmented faces around the circumference of the cone/cylinder/torus/tube. Default is 8
+		</p>
+
+		<h3>[property:number radius]</h3>
+		<p>
+			Radius of the circle/cone/dodecahedron/sphere..., default = 1.
+		</p>
+
+		<h3>[property:number radiusBottom]</h3>
+		<p>
+			Radius of the cylinder at the bottom. Default is 1.
+		</p>
+
+		<h3>[property:number radiusSegments]</h3>
+		<p>
+			Number of segmented faces around the circumference of the cone/cylinder/torus/tube. Default is 8
+		</p>
+
+		<h3>[property:number radiusTop]</h3>
+		<p>
+			Radius of the cylinder at the top. Default is 1.
+		</p>
+
+		<h3>[property:any refGeometry]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string refType]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:any refer]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number segments]</h3>
+		<p>
+			the number of circumference segments to generate. Default is 12.
+		</p>
+
+		<h3>[property:string|number shadow]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:ThreeVector|Shape shapes]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number size]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number sizeX]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number sizeY]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number sizeZ]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number slices]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number stacks]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number steps]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean storage2Buffer]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string storageName]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number tension]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:string text]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number thetaLength]</h3>
+		<p>
+			The central angle, often called theta, of the circular sector. The default is 360, which makes for a complete circle.
+		</p>
+
+		<h3>[property:number thetaSegments]</h3>
+		<p>
+			Number of segments.  A higher number means the ring will be more round.  Minimum is 3.  Default is 8.
+		</p>
+
+		<h3>[property:number thetaStart]</h3>
+		<p>
+			Start angle for first segment, default = 0 (three o'clock position).
+		</p>
+
+		<h3>[property:number thresholdAngle]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number tube]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number tubularSegments]</h3>
+		<p>
+			Radius of the tube.  Default is 0.4.
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			The type  of geometry<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:BufferGeometry THREE.BufferGeometry]<br/>
+			[page:BufferGeometry THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer]<br/>
+			[page:InstancedBufferGeometry THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced]<br/>
+			TeapotGeometry - TeapotGeometry, Teapot<br/>
+			PerlinGeometry - PerlinBufferGeometry, PerlinGeometry, Perlin, PerlinBuffer<br/>
+			RopeGeometry - RopeBufferGeometry, RopeGeometry, Rope, RopeBuffer<br/>
+			CapsuleGeometry - CapsuleGeometry, Capsule<br/>
+			LineGeometry - LineGeometry, Line<br/>
+			[page:BoxGeometry THREE.BoxGeometry - BoxGeometry, Box]<br/>
+			[page:CircleGeometry THREE.CircleGeometry - CircleGeometry, Circle]<br/>
+			[page:ConeGeometry THREE.ConeGeometry - ConeGeometry, Cone]<br/>
+			[page:CylinderGeometry THREE.CylinderGeometry - CylinderGeometry, Cylinder]<br/>
+			[page:DodecahedronGeometry THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron]<br/>
+			[page:EdgesGeometry THREE.EdgesGeometry - EdgesGeometry, Edges]<br/>
+			MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge<br/>
+			[page:ShapeGeometry THREE.ShapeGeometry - ShapeGeometry, Shape]<br/>
+			[page:IcosahedronGeometry THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron]<br/>
+			[page:LatheGeometry THREE.LatheGeometry - LatheGeometry, Lathe]<br/>
+			[page:OctahedronGeometry THREE.OctahedronGeometry - OctahedronGeometry, Octahedron]<br/>
+			[page:ParametricBufferGeometry THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer]<br/>
+			ParametricGeometries.TorusKnotGeometry - <br/>
+			ParametricGeometries.SphereGeometry - <br/>
+			ParametricGeometries.TubeGeometry - <br/>
+			[page:ParametricGeometry THREE.ParametricGeometry - ParametricGeometry , Parametric]<br/>
+			[page:PlaneGeometry THREE.PlaneGeometry - PlaneGeometry, Plane]<br/>
+			[page:RingGeometry THREE.RingGeometry - RingGeometry, Ring]<br/>
+			[page:SphereGeometry THREE.SphereGeometry - SphereGeometry, Sphere]<br/>
+			[page:TetrahedronGeometry THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron]<br/>
+			[page:TextBufferGeometry THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text]<br/>
+			[page:TorusGeometry THREE.TorusGeometry - TorusGeometry, Torus]<br/>
+			[page:TorusKnotGeometry THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot]<br/>
+			[page:TubeGeometry THREE.TubeGeometry - TubeGeometry, Tube]<br/>
+			[page:WireframeGeometry THREE.WireframeGeometry - WireframeGeometry, Wireframe]<br/>
+			WireframeGeometry2 - WireframeGeometry2, Wireframe2<br/>
+			ConvexGeometry - ConvexGeometry, Convex<br/>
+			DecalGeometry - DecalGeometry, Decal
+		</p>
+
+		<h3>[property:string uVGenerator]</h3>
+		<p>
+			Input  of geometry component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string weight]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number widthSegments]</h3>
+		<p>
+			Number of segmented rectangular faces along the width of the sides. Optional; defaults to 1.
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractGeometryComponent AbstractGeometryComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractGeometryComponent AbstractGeometryComponent] class for common methods.
+		</p>
+
+		<h3>[method:T getGeometry](  )</h3>
+		<p>
+			Gets geometry
+
+			<br/><br/>
+			Returns : geometry
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/geometry/geometry.component.ts geometry/geometry.component.ts]</p>
+	</body>
+</html>

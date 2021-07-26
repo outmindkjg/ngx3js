@@ -4,7 +4,7 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AnimationGroupComponent } from './animation-group/animation-group.component';
 import { ControllerComponent } from './controller/controller.component';
-import { RendererTimer, TagAttributes, ThreeUtil } from './interface';
+import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
 import { AbstractMaterialComponent, MeshMaterialRaw } from './material.abstract';
 import { MixerComponent } from './mixer/mixer.component';

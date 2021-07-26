@@ -14,6 +14,15 @@ import { AbstractTextureComponent } from '../texture.abstract';
 
 /**
  * MaterialComponent
+ * 
+ * Abstract base class for materials.<br /><br />
+ * 
+ * Materials describe the appearance of [page:Object objects].
+ * They are defined in a (mostly) renderer-independent way, so you don't have to
+ * rewrite materials if you decide to use a different renderer.<br /><br />
+ * 
+ * The following properties and methods are inherited by all other material types
+ * (although they may have different defaults).
  */
 @Component({
   selector: 'ngx3js-material',
@@ -23,8 +32,33 @@ import { AbstractTextureComponent } from '../texture.abstract';
 })
 export class MaterialComponent extends AbstractMaterialComponent implements OnInit, OnDestroy, OnChanges {
   /**
-   * The matrial type. can be ,
-   * lambert -
+   * The type if matrial.
+   *
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Material 
+   * @see THREE.LineBasicMaterial - LineBasicMaterial, LineBasic
+   * @see THREE.LineDashedMaterial - LineDashedMaterial, LineDashed
+   * @see THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic
+   * @see THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth,
+   * @see THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance,
+   * @see THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap,
+   * @see THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal,
+   * @see THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong,
+   * @see THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical,
+   * @see THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard,
+   * @see THREE.MeshToonMaterial - MeshToonMaterial, MeshToon,
+   * @see THREE.PointsMaterial - PointsMaterial, Points,
+   * @see THREE.RawShaderMaterial - RawShaderMaterial, RawShader,
+   * @see THREE.ShaderMaterial - ShaderMaterial, Shader,
+   * @see THREE.ShadowMaterial - ShadowMaterial, Shadow,
+   * @see THREE.SpriteMaterial - SpriteMaterial, Sprite,
+   * @see NODES.StandardNodeMaterial - StandardNodeMaterial, StandardNode,
+   * @see NODES.BasicNodeMaterial - BasicNodeMaterial, BasicNode,
+   * @see NODES.MeshStandardNodeMaterial - MeshStandardNodeMaterial, MeshStandardNode,
+   * @see NODES.PhongNodeMaterial - PhongNodeMaterial, PhongNode,
+   * @see NODES.SpriteNodeMaterial - SpriteNodeMaterial, SpriteNode,
+   * @see THREE.MeshLambertMaterial - MeshLambertMaterial, MeshLambert
    */
   @Input() public type: string = 'lambert';
 
@@ -573,31 +607,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
    * Content children of material component
    */
   @ContentChildren(ShaderComponent) private shaderList: QueryList<ShaderComponent>;
-
-  /**
-   * Mesh positions of material component
-   */
-  private meshPositions: THREE.Vector3[] = [];
-
-  /**
-   * Mesh rotations of material component
-   */
-  private meshRotations: THREE.Euler[] = [];
-
-  /**
-   * Mesh scales of material component
-   */
-  private meshScales: THREE.Vector3[] = [];
-
-  /**
-   * Mesh translations of material component
-   */
-  private meshTranslations: THREE.BufferGeometry[] = [];
-
-  /**
-   * Mesh materials of material component
-   */
-  private meshMaterials: (THREE.Material | THREE.Material[])[] = [];
 
   /**
    * Creates an instance of material component.

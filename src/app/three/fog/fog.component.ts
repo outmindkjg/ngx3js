@@ -15,8 +15,8 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
   /**
    * The Fog type.
    *
-   * Fog - fog (default),
-   * FogExp2 - exp, exp2, fogexp2
+   * @see THREE.Fog - fog (default),
+   * @see THREE.FogExp2 - fogexp2, exp, exp2
    */
   @Input() public type: string = 'fog';
 
@@ -104,28 +104,6 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
   }
 
   /**
-   * Gets density
-   * @param [def] 
-   * @returns density 
-   */
-  private getDensity(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.density, def);
-  }
-
-  /**
-   * Gets near
-   * @param [def] 
-   * @returns near 
-   */
-  private getNear(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.near, def);
-  }
-
-  private getFar(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.far, def);
-  }
-
-  /**
    * Fog  of fog component
    */
   private fog: THREE.FogBase = null;
@@ -157,11 +135,11 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
         case 'exp':
         case 'exp2':
         case 'fogexp2':
-          this.fog = new THREE.FogExp2(this.getColor(0xffffff).getHex(), this.getDensity());
+          this.fog = new THREE.FogExp2(ThreeUtil.getColorSafe(this.color,0xffffff).getHex(), ThreeUtil.getTypeSafe(this.density, ));
           break;
         case 'fog':
         default:
-          this.fog = new THREE.Fog(this.getColor(0xffffff), this.getNear(), this.getFar());
+          this.fog = new THREE.Fog(ThreeUtil.getColorSafe(this.color,0xffffff), ThreeUtil.getTypeSafe(this.near, ), ThreeUtil.getTypeSafe(this.far, ));
           break;
       }
       super.setObject(this.fog);

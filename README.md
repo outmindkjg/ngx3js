@@ -1,4 +1,4 @@
-# Install 
+# Install
 ```bash
 git clone it@github.com:josdirksen/learning-threejs.git
 npm install -g @angular/cli
@@ -9,7 +9,7 @@ npm install typedoc --save-dev
 
 npx typedoc --out docs
 npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
-npx typedoc --json docs/test.json
+npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
 
 
 
@@ -469,8 +469,8 @@ ng g c examples/webgl2_rendertarget_texture2darray
 ng g c examples/webgl2_volume_cloud
 ng g c examples/webgl2_volume_instancing
 ng g c examples/webgl2_volume_perlin
-ng g c examples/webgpu_sandbox 
-ng g c examples/webgpu_rtt 
+ng g c examples/webgpu_sandbox
+ng g c examples/webgpu_rtt
 ng g c examples/webgpu_compute
 ng g c examples/webaudio_orientation
 ng g c examples/webaudio_sandbox
@@ -529,10 +529,10 @@ ng g c examples/css3d_periodictable
 ng g c examples/css3d_sandbox
 ng g c examples/css3d_sprites
 ng g c examples/css3d_youtube
-ng g c examples/svg_lines 
+ng g c examples/svg_lines
 ng g c examples/svg_sandbox
-ng g c examples/webgl_furnace_test 
-ng g c examples/webgl_pmrem_test 
+ng g c examples/webgl_furnace_test
+ng g c examples/webgl_pmrem_test
 ng g c examples/misc_uv_tests
 ng g c docs/api-read
 

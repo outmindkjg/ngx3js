@@ -5,6 +5,10 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
 
 /**
  * AudioComponent
+ *
+ * Create a ( global ) audio object.<br /><br />
+ *
+ * This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].
  */
 @Component({
   selector: 'ngx3js-audio',
@@ -17,7 +21,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
    * Input  of audio component
    *
    * Notice - case insensitive.
-   * 
+   *
+   * @see THREE.PositionalAudio - PositionalAudio, Positional, Position
+   * @see THREE.Audio - Audio
+   *
    */
   @Input() public type: string = 'position';
 
@@ -31,12 +38,10 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
    *
    * Notice - case insensitive.
    *
-   * Notice - case insensitive.
-   * 
    * audio,
    * video,
+   * listener,
    * auto,
-   * listener
    */
   @Input() private urlType: string = 'auto';
 
@@ -76,7 +81,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
    * Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private distanceModel: string = null; // "exponential" | "inverse" | "linear"
 
@@ -101,7 +106,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private coneOuterGain: number = 1;
 
   /**
-   * Input  of audio component
+   * A non-zero power of two up to 2048, representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.
+   * See [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize this page] for details.
    */
   @Input() private fftSize: number = 128;
 
@@ -311,7 +317,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 
   /**
    * Gets analyser
-   * @param [fftSize]
+   * @param [fftSize] A non-zero power of two up to 2048, representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.
+   *                  See [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize this page] for details.
    * @returns analyser
    */
   public getAnalyser(fftSize?: number): THREE.AudioAnalyser {
@@ -499,7 +506,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
    * @template T
    * @returns object3d
    */
-  public getObject3d<T extends THREE.Object3D>(): T {
+  public getObject3d<T>(): T {
     return this.getAudio() as any;
   }
 
@@ -517,6 +524,8 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
         case 'audio':
           this.audio = new THREE.Audio(this.getListener());
           break;
+        case 'positionalaudio':
+        case 'positional':
         case 'position':
         default:
           this.audio = new THREE.PositionalAudio(this.getListener());

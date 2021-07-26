@@ -3,6 +3,16 @@ import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
+/**
+ * LookatComponent
+ * 
+ * vector - A vector representing a position in world space.<br /><br />
+ * Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br /><br />
+ * 
+ * Rotates the object to face a point in world space.<br /><br />
+ * 
+ * This method does not support objects having non-uniformly-scaled parent(s).
+ */
 @Component({
   selector: 'ngx3js-lookat',
   templateUrl: './lookat.component.html',

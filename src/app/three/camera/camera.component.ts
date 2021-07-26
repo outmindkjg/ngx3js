@@ -9,6 +9,9 @@ import { LocalStorageService } from './../local-storage.service';
 
 /**
  * CameraComponent
+ *
+ * Abstract base class for cameras. This class should always be inherited when you build a new camera.
+ *
  */
 @Component({
   selector: 'ngx3js-camera',
@@ -18,10 +21,15 @@ import { LocalStorageService } from './../local-storage.service';
 })
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
   /**
-   * Input  of camera component
+   * The type of camera
    *
    * Notice - case insensitive.
    *
+   * @see THREE.PerspectiveCamera - PerspectiveCamera, Perspective
+   * @see THREE.ArrayCamera       - ArrayCamera, Array
+   * @see THREE.CubeCamera        - CubeCamera, Cube
+   * @see THREE.OrthographicCamera - OrthographicCamera, Orthographic
+   * @see THREE.StereoCamera      - StereoCamera, Stereo
    */
   @Input() public type: string = 'perspective';
 
@@ -275,7 +283,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   /**
    * Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
-   * 
+   *
    * @param [def]
    * @returns fov
    */
@@ -293,7 +301,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * The valid range is between 0 and the current value of the [page:.far far] plane.
    * Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an
    * OrthographicCamera's near plane.
-   * 
+   *
    * @param [def]
    * @returns near
    */
@@ -309,7 +317,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   /**
    * Camera frustum far plane. Default is *2000*.<br /><br />
    * Must be greater than the current value of [page:.near near] plane.
-   * 
+   *
    * @param [def]
    * @returns far
    */
@@ -387,7 +395,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
   /**
    * Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).
-   * 
+   *
    * @param [width]
    * @param [height]
    * @returns aspect
@@ -811,6 +819,10 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         case 'arraycamera':
         case 'array':
           this.camera = new THREE.ArrayCamera();
+          break;
+        case 'stereocamera':
+        case 'stereo':
+          this.camera = new THREE.StereoCamera();
           break;
         case 'cubecamera':
         case 'cube':

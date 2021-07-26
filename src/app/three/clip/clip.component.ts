@@ -6,6 +6,11 @@ import { ThreeUtil } from './../interface';
 
 /**
  * ClipComponent
+ *
+ * An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br /><br />
+ *
+ * For an overview of the different elements of the three.js animation system see the
+ * "Animation System" article in the "Next Steps" section of the manual.
  */
 @Component({
   selector: 'ngx3js-clip',
@@ -14,7 +19,7 @@ import { ThreeUtil } from './../interface';
 })
 export class ClipComponent extends AbstractSubscribeComponent implements OnInit {
   /**
-   * The name of the object (doesn't need to be unique). Default is an empty string.
+   * A name for this clip. A certain clip can be searched via [page:.findByName findByName].
    */
   @Input() public name: string = '';
 
@@ -27,7 +32,7 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
    * Input  of clip component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private blendMode: string = '';
 
@@ -57,35 +62,54 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private fps: number = null;
 
   /**
-   * Input  of clip component
+   * The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact) 
+   * and 1 (full impact) can be used to blend between several actions. Default is 1. <br /><br />
+   * Properties/methods concerning  *weight* are:
    */
   @Input() private weight: number = 1;
 
   /**
-   * Input  of clip component
+   * Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative
+   * values cause the animation to play backwards. Default is 1.
    */
   @Input() private timeScale: number = 1;
 
   /**
-   * Input  of clip component
+   * The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks]
+   * array via [page:.resetDuration resetDuration].
    */
   @Input() private duration: number = 3;
 
   /**
-   * Input  of clip component
+   * If *clampWhenFinished* is set to true the animation will automatically be [page:.paused paused] 
+   * on its last frame.<br /><br />
+   * 
+   * If *clampWhenFinished* is set to false, [page:.enabled enabled] will automatically be switched
+   * to false when the last loop of the action has finished, so that this action has no further
+   * impact.<br /><br />
+   * 
+   * Default is false.<br /><br />
+   * 
+   * Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if
+   * its last loop has really finished).
    */
   @Input() private clampWhenFinished: boolean = false;
 
   /**
-   * Input  of clip component
+   * The looping mode (can be changed with [page:.setLoop setLoop]). Default is
+   * [page:Animation THREE.LoopRepeat] (with an infinite number of [page:.repetitions repetitions])<br /><br />
    *
    * Notice - case insensitive.
-   * 
+   *
+   * @see THREE.AnimationActionLoopStyles
+   * @see THREE.LoopOnce - LoopOnce, Once
+   * @see THREE.LoopRepeat - LoopRepeat, Repeat
+   * @see THREE.LoopPingPong - LoopPingPong, PingPong
    */
   @Input() private loop: string = null;
 
   /**
-   * Content children of clip component
+   * The keyframe list of KeyframeComponent
    */
   @ContentChildren(KeyframeComponent, { descendants: false }) private keyframeList: QueryList<KeyframeComponent>;
 
@@ -125,16 +149,20 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 
   /**
    * Gets loop
+   * 
    * @param [def]
    * @returns loop
    */
   private getLoop(def?: string): THREE.AnimationActionLoopStyles {
     const loop = ThreeUtil.getTypeSafe(this.loop, def, '');
     switch (loop.toLowerCase()) {
+      case 'looponce':
       case 'once':
         return THREE.LoopOnce;
+      case 'looppingpong':
       case 'pingpong':
         return THREE.LoopPingPong;
+      case 'looprepeat':
       case 'repeat':
       default:
         return THREE.LoopRepeat;
@@ -347,10 +375,18 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   /**
+   * Gets object
+   * @returns object
+   */
+  public getObject<T>(): T {
+    return this.getClip() as any;
+  }
+
+  /**
    * Gets clip
    * @returns
    */
-  public getClip() {
+  public getClip(): THREE.AnimationClip {
     if (this.clip === null || this._needUpdate) {
       this.needUpdate = false;
       let clip: THREE.AnimationClip = null;

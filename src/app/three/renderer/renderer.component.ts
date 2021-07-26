@@ -34,7 +34,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() public type: string = 'webgl';
 
@@ -42,7 +42,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private cssType: string = 'none';
 
@@ -50,7 +50,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private controlType: string = 'none';
 
@@ -75,7 +75,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private shadowMapType: string = null;
 
@@ -93,7 +93,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private toneMapping: string = null;
 
@@ -121,7 +121,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private quality: string = null;
 
@@ -129,7 +129,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() public sizeType: string = 'auto';
 
@@ -175,7 +175,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * See the [page:Textures texture constants] page for details of other formats.
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private outputEncoding: string = null;
 
@@ -208,7 +208,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
    * Input  of renderer component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private useEvent: string = null;
 
@@ -1299,11 +1299,19 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
     return this.gui;
   }
 
-  public getObject(): THREE.Renderer {
-    return this.getRenderer();
+  /**
+   * Gets Object
+   * @returns Object
+   */
+   public getObject<T>(): T {
+    return this.getRenderer() as any;
   }
 
-  public getRenderer(): THREE.Renderer {
+  /**
+   * Gets Renderer
+   * @returns Renderer
+   */
+   public getRenderer(): THREE.Renderer {
     if (this.renderer === null || this._needUpdate) {
       console.clear();
       this.needUpdate = false;

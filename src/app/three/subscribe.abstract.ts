@@ -413,8 +413,8 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * Gets object
    * @returns object
    */
-  protected getObject(): any {
-    return this._cashedObj;
+  protected getObject<T>(): T {
+    return this._cashedObj as T;
   }
 
   /**

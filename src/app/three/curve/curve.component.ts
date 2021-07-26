@@ -5,6 +5,9 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 /**
  * CurveComponent
+ *
+ * An abstract base class for creating a [name] object that contains methods for interpolation.
+ * For an array of [name]s see [page:CurvePath].
  */
 @Component({
   selector: 'ngx3js-curve',
@@ -13,17 +16,31 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 })
 export class CurveComponent extends AbstractSubscribeComponent implements OnInit {
   /**
-   * Input  of curve component
+   * The curve type
+   *
+   * Notice - case insensitive.
+   *
+   * @see THREE.Curve<THREE.Vector>
+   * @see THREE.ArcCurve - ArcCurve, Arc
+   * @see THREE.CatmullRomCurve3 - CatmullRomCurve3, Spline3, Catmullrom
+   * @see THREE.CubicBezierCurve - CubicBezierCurve, CubicBezier
+   * @see THREE.CubicBezierCurve3 - CubicBezierCurve3, CubicBezier3
+   * @see THREE.EllipseCurve - EllipseCurve, Ellipse
+   * @see THREE.LineCurve - LineCurve, Line
+   * @see THREE.LineCurve3 - LineCurve3, Line3
+   * @see THREE.QuadraticBezierCurve - QuadraticBezierCurve, QuadraticBezier
+   * @see THREE.QuadraticBezierCurve3 - QuadraticBezierCurve3, QuadraticBezier3
+   * @see THREE.SplineCurve - SplineCurve, Spline
    */
   @Input() public type: string = 'spline';
 
   /**
-   * Input  of curve component
+   * The X center of the ellipse. Default is *0*.
    */
   @Input() private aX: number = null;
 
   /**
-   * Input  of curve component
+   * The Y center of the ellipse. Default is *0*.
    */
   @Input() private aY: number = null;
 
@@ -33,117 +50,62 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
   @Input() private aRadius: number = null;
 
   /**
-   * Input  of curve component
+   * The start angle of the curve in radians starting from the positive X axis.  Default is *0*.
    */
   @Input() private aStartAngle: number = null;
 
   /**
-   * Input  of curve component
+   * The end angle of the curve in radians starting from the positive X axis. Default is *2 x Math.PI*.
    */
   @Input() private aEndAngle: number = null;
 
   /**
-   * Input  of curve component
+   * Whether the ellipse is drawn clockwise. Default is *false*.
    */
   @Input() private aClockwise: boolean = null;
 
   /**
-   * Input  of curve component
+   * array of [page:Vector2 Vector2s].
+   * Creates a Path from the points. The first point defines the offset, then successive points
+   * are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br /><br />
+   *
+   * If no points are specified, an empty path is created and the [page:.currentPoint] is set to
+   * the origin.
    */
   @Input() private points: ThreeVector[] = null;
 
   /**
-   * Input  of curve component
+   * Whether the curve is closed. Default is *false*.
    */
   @Input() private closed: boolean = null;
 
   /**
-   * Input  of curve component
+   * Possible values are *centripetal*, *chordal* and *catmullrom*.
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private curveType: string = null;
 
   /**
-   * Input  of curve component
+   * When [page:.curveType] is *catmullrom*, defines catmullrom's tension.
    */
   @Input() private tension: number = null;
 
   /**
-   * Input  of curve component
+   * The radius of the ellipse in the x direction. Default is *1*.
    */
   @Input() private xRadius: number = null;
 
   /**
-   * Input  of curve component
+   * The radius of the ellipse in the y direction. Default is *1*.
    */
   @Input() private yRadius: number = null;
 
   /**
-   * Input  of curve component
+   * The rotation angle of the ellipse in radians, counterclockwise from the positive X axis (optional). Default is *0*.
    */
   @Input() private aRotation: number = null;
-
-  /**
-   * Gets ax
-   * @param def
-   * @returns ax
-   */
-  private getAX(def: number): number {
-    const aX = this.aX === null ? def : this.aX;
-    return aX;
-  }
-
-  /**
-   * Gets ay
-   * @param def
-   * @returns ay
-   */
-  private getAY(def: number): number {
-    const aY = this.aY === null ? def : this.aY;
-    return aY;
-  }
-
-  /**
-   * Gets aradius
-   * @param def
-   * @returns aradius
-   */
-  private getARadius(def: number): number {
-    const aRadius = this.aRadius === null ? def : this.aRadius;
-    return aRadius;
-  }
-
-  /**
-   * Gets astart angle
-   * @param def
-   * @returns astart angle
-   */
-  private getAStartAngle(def: number): number {
-    const aStartAngle = this.aStartAngle === null ? def : this.aStartAngle;
-    return aStartAngle;
-  }
-
-  /**
-   * Gets aend angle
-   * @param def
-   * @returns aend angle
-   */
-  private getAEndAngle(def: number): number {
-    const aEndAngle = this.aEndAngle === null ? def : this.aEndAngle;
-    return aEndAngle;
-  }
-
-  /**
-   * Gets aclockwise
-   * @param def
-   * @returns true if aclockwise
-   */
-  private getAClockwise(def: boolean): boolean {
-    const aClockwise = this.aClockwise === null ? def : this.aClockwise;
-    return aClockwise;
-  }
 
   /**
    * Gets points v3
@@ -181,66 +143,6 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
       }
     }
     return points;
-  }
-
-  /**
-   * Gets closed
-   * @param def
-   * @returns true if closed
-   */
-  private getClosed(def: boolean): boolean {
-    const closed = this.closed === null ? def : this.closed;
-    return closed;
-  }
-
-  /**
-   * Gets curve type
-   * @param def
-   * @returns curve type
-   */
-  private getCurveType(def: string): string {
-    const curveType = this.curveType === null ? def : this.curveType;
-    return curveType;
-  }
-
-  /**
-   * Gets tension
-   * @param def
-   * @returns tension
-   */
-  private getTension(def: number): number {
-    const tension = this.tension === null ? def : this.tension;
-    return tension;
-  }
-
-  /**
-   * Gets xradius
-   * @param def
-   * @returns xradius
-   */
-  private getXRadius(def: number): number {
-    const xRadius = this.xRadius === null ? def : this.xRadius;
-    return xRadius;
-  }
-
-  /**
-   * Gets yradius
-   * @param def
-   * @returns yradius
-   */
-  private getYRadius(def: number): number {
-    const yRadius = this.yRadius === null ? def : this.yRadius;
-    return yRadius;
-  }
-
-  /**
-   * Gets arotation
-   * @param def
-   * @returns arotation
-   */
-  private getARotation(def: number): number {
-    const aRotation = this.aRotation === null ? def : this.aRotation;
-    return aRotation;
   }
 
   /**
@@ -335,40 +237,59 @@ export class CurveComponent extends AbstractSubscribeComponent implements OnInit
     if (this.curve === null || this._needUpdate) {
       this.needUpdate = false;
       switch (this.type.toLowerCase()) {
+        case 'arccurve':
         case 'arc':
-          this.curve = new THREE.ArcCurve(this.getAX(1), this.getAY(1), this.getARadius(1), this.getAStartAngle(1), this.getAEndAngle(1), this.getAClockwise(false));
+          this.curve = new THREE.ArcCurve(ThreeUtil.getTypeSafe(this.aX, 1), ThreeUtil.getTypeSafe(this.aY, 1), ThreeUtil.getTypeSafe(this.aRadius, 1), ThreeUtil.getTypeSafe(this.aStartAngle, 1), ThreeUtil.getTypeSafe(this.aEndAngle, 1), ThreeUtil.getTypeSafe(this.aClockwise, false));
           break;
+        case 'catmullromcurve3':
         case 'spline3':
         case 'catmullrom':
-          this.curve = new THREE.CatmullRomCurve3(this.getPointsV3([], 3), this.getClosed(false), this.getCurveType('centripetal'), this.getTension(0.5));
+          this.curve = new THREE.CatmullRomCurve3(this.getPointsV3([], 3), ThreeUtil.getTypeSafe(this.closed, false), ThreeUtil.getTypeSafe(this.curveType, 'centripetal'), ThreeUtil.getTypeSafe(this.tension, 0.5));
           break;
+        case 'cubicbeziercurve':
         case 'cubicbezier':
           const cubicbezierV2 = this.getPointsV2([], 4);
           this.curve = new THREE.CubicBezierCurve(cubicbezierV2[0], cubicbezierV2[1], cubicbezierV2[2], cubicbezierV2[3]);
           break;
+        case 'cubicbeziercurve3':
         case 'cubicbezier3':
           const cubicbezierV3 = this.getPointsV3([], 4);
           this.curve = new THREE.CubicBezierCurve3(cubicbezierV3[0], cubicbezierV3[1], cubicbezierV3[2], cubicbezierV3[3]);
           break;
+        case 'ellipsecurve':
         case 'ellipse':
-          this.curve = new THREE.EllipseCurve(this.getAX(0), this.getAY(0), this.getXRadius(1), this.getYRadius(1), this.getAStartAngle(0), this.getAEndAngle(360), this.getAClockwise(false), this.getARotation(0));
+          this.curve = new THREE.EllipseCurve(
+            ThreeUtil.getTypeSafe(this.aX, 0),
+            ThreeUtil.getTypeSafe(this.aY, 0),
+            ThreeUtil.getTypeSafe(this.xRadius, 1),
+            ThreeUtil.getTypeSafe(this.yRadius, 1),
+            ThreeUtil.getTypeSafe(this.aStartAngle, 0),
+            ThreeUtil.getTypeSafe(this.aEndAngle, 360),
+            ThreeUtil.getTypeSafe(this.aClockwise, false),
+            ThreeUtil.getTypeSafe(this.aRotation, 0)
+          );
           break;
+        case 'linecurve':
         case 'line':
           const lineV2 = this.getPointsV2([], 2);
           this.curve = new THREE.LineCurve(lineV2[0], lineV2[1]);
           break;
+        case 'linecurve3':
         case 'line3':
           const lineV3 = this.getPointsV3([], 2);
           this.curve = new THREE.LineCurve3(lineV3[0], lineV3[1]);
           break;
+        case 'quadraticbeziercurve':
         case 'quadraticbezier':
           const quadraticbezierV2 = this.getPointsV2([], 3);
           this.curve = new THREE.QuadraticBezierCurve(quadraticbezierV2[0], quadraticbezierV2[1], quadraticbezierV2[2]);
           break;
-        case 'quadraticbezier':
+        case 'quadraticbeziercurve3':
+        case 'quadraticbezier3':
           const quadraticbezierV3 = this.getPointsV3([], 3);
           this.curve = new THREE.QuadraticBezierCurve3(quadraticbezierV3[0], quadraticbezierV3[1], quadraticbezierV3[2]);
           break;
+        case 'splinecurve':
         case 'spline':
           this.curve = new THREE.SplineCurve(this.getPointsV2([], 1));
           break;

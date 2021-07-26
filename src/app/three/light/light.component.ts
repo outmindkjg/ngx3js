@@ -18,13 +18,15 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   /**
    * The type of light
    *
-   * PointLight - point, pointlight
-   * RectAreaLight - arealight,area, rectarealight, rectarea
-   * SpotLight - spot, spotlight
-   * DirectionalLight - directional, directionallight
-   * HemisphereLight - hemispherelight, hemisphere
-   * LightProbe - lightprobe, probe
-   * AmbientLight - ambientlight, ambient
+   * Notice - case insensitive.
+   * 
+   * @see THREE.PointLight - point, pointlight
+   * @see THREE.RectAreaLight - arealight,area, rectarealight, rectarea
+   * @see THREE.SpotLight - spot, spotlight
+   * @see THREE.DirectionalLight - directional, directionallight
+   * @see THREE.HemisphereLight - hemispherelight, hemisphere
+   * @see THREE.LightProbe - lightprobe, probe
+   * @see THREE.AmbientLight - ambientlight, ambient
    */
   @Input() public type: string = 'spot';
 
@@ -105,17 +107,19 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private shadowCameraNear: number = null;
 
   /**
-   * Input  of light component
+   * A [Page:Vector2] defining the width and height of the shadow map.
    */
   @Input() private shadowMapSize: number = null;
 
   /**
-   * Input  of light component
+   * A [Page:Vector2] defining the width and height of the shadow map.
+   * vector2.width
    */
   @Input() private shadowMapSizeWidth: number = null;
 
   /**
-   * Input  of light component
+   * A [Page:Vector2] defining the width and height of the shadow map.
+   * vector2.height
    */
   @Input() private shadowMapSizeHeight: number = null;
 
@@ -196,96 +200,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
   @Input() private renderTarget: any = null;
 
   /**
-   * Gets intensity
-   * @param [def]
-   * @returns intensity
-   */
-  private getIntensity(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.intensity, def);
-  }
-
-  /**
-   * Gets distance
-   * @param [def]
-   * @returns distance
-   */
-  private getDistance(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.distance, def);
-  }
-
-  /**
-   * Gets angle
-   * @param [def]
-   * @returns angle
-   */
-  private getAngle(def?: number): number {
-    return ThreeUtil.getAngleSafe(this.angle, def);
-  }
-
-  /**
-   * Gets penumbra
-   * @param [def]
-   * @returns penumbra
-   */
-  private getPenumbra(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.penumbra, def);
-  }
-
-  /**
-   * Gets decay
-   * @param [def]
-   * @returns decay
-   */
-  private getDecay(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.decay, def);
-  }
-
-  /**
-   * Gets width
-   * @param [def]
-   * @returns width
-   */
-  private getWidth(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.width, def);
-  }
-
-  /**
-   * Gets height
-   * @param [def]
-   * @returns height
-   */
-  private getHeight(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.height, def);
-  }
-
-  /**
-   * Gets color
-   * @param [def]
-   * @returns color
-   */
-  private getColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.color, def);
-  }
-
-  /**
-   * Gets sky color
-   * @param [def]
-   * @returns sky color
-   */
-  private getSkyColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.skyColor, this.color, def);
-  }
-
-  /**
-   * Gets ground color
-   * @param [def]
-   * @returns ground color
-   */
-  private getGroundColor(def?: string | number): THREE.Color {
-    return ThreeUtil.getColorSafe(this.groundColor, this.color, def);
-  }
-
-  /**
    * Gets shadow map size width
    * @param [def]
    * @returns shadow map size width
@@ -301,33 +215,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
    */
   private getShadowMapSizeHeight(def?: number): number {
     return ThreeUtil.getTypeSafe(this.shadowMapSizeHeight, this.shadowMapSize, def);
-  }
-
-  /**
-   * Gets shadow camera near
-   * @param [def]
-   * @returns shadow camera near
-   */
-  private getShadowCameraNear(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraNear, def);
-  }
-
-  /**
-   * Gets shadow camera far
-   * @param [def]
-   * @returns shadow camera far
-   */
-  private getShadowCameraFar(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraFar, def);
-  }
-
-  /**
-   * Gets shadow camera fov
-   * @param [def]
-   * @returns shadow camera fov
-   */
-  private getShadowCameraFov(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraFov, def);
   }
 
   /**
@@ -388,42 +275,6 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
     } else {
       return def;
     }
-  }
-
-  /**
-   * Gets shadow camera zoom
-   * @param [def]
-   * @returns shadow camera zoom
-   */
-  private getShadowCameraZoom(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowCameraZoom, def);
-  }
-
-  /**
-   * Gets shadow bias
-   * @param [def]
-   * @returns shadow bias
-   */
-  private getShadowBias(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowBias, def);
-  }
-
-  /**
-   * Gets shadow radius
-   * @param [def]
-   * @returns shadow radius
-   */
-  private getShadowRadius(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowRadius, def);
-  }
-
-  /**
-   * Gets shadow focus
-   * @param [def]
-   * @returns shadow focus
-   */
-  private getShadowFocus(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.shadowFocus, def);
   }
 
   /**
@@ -740,17 +591,17 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       switch (this.type.toLowerCase()) {
         case 'directionallight':
         case 'directional':
-          const directionalLight = new THREE.DirectionalLight(this.getColor(0xffffff), this.getIntensity(1));
+          const directionalLight = new THREE.DirectionalLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1));
           basemesh = directionalLight;
           break;
         case 'hemispherelight':
         case 'hemisphere':
-          const hemisphereLight = new THREE.HemisphereLight(this.getSkyColor(0xffffff), this.getGroundColor(0xffffff), this.getIntensity(1));
+          const hemisphereLight = new THREE.HemisphereLight(ThreeUtil.getColorSafe(this.skyColor, this.color, 0xffffff), ThreeUtil.getColorSafe(this.groundColor, this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1));
           basemesh = hemisphereLight;
           break;
         case 'lightprobe':
         case 'probe':
-          basemesh = new THREE.LightProbe(this.getSh(), this.getIntensity(1));
+          basemesh = new THREE.LightProbe(this.getSh(), ThreeUtil.getTypeSafe(this.intensity, 1));
           if (ThreeUtil.isNotNull(this.texture)) {
             this.unSubscribeRefer('texture');
             const texture = this.texture.getTexture();
@@ -786,27 +637,27 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
         case 'pointlight':
         case 'point':
-          const pointLight = new THREE.PointLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getDecay());
+          const pointLight = new THREE.PointLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getTypeSafe(this.decay, ));
           basemesh = pointLight;
           break;
         case 'arealight':
         case 'area':
         case 'rectarealight':
         case 'rectarea':
-          basemesh = new THREE.RectAreaLight(this.getColor(0xffffff), this.getIntensity(1), this.getWidth(10), this.getHeight(10));
+          basemesh = new THREE.RectAreaLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.width, 10), ThreeUtil.getTypeSafe(this.height, 10));
           break;
         case 'spotlight':
         case 'spot':
-          const spotLight = new THREE.SpotLight(this.getColor(0xffffff), this.getIntensity(1), this.getDistance(), this.getAngle(), this.getPenumbra(), this.getDecay());
+          const spotLight = new THREE.SpotLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getAngleSafe(this.angle,), ThreeUtil.getTypeSafe(this.penumbra, ), ThreeUtil.getTypeSafe(this.decay, ));
           if (ThreeUtil.isNotNull(this.shadowFocus)) {
-            spotLight.shadow.focus = this.getShadowFocus(1);
+            spotLight.shadow.focus = ThreeUtil.getTypeSafe(this.shadowFocus, 1);
           }
           basemesh = spotLight;
           break;
         case 'ambientlight':
         case 'ambient':
         default:
-          basemesh = new THREE.AmbientLight(this.getColor(0x0c0c0c), this.getIntensity(1));
+          basemesh = new THREE.AmbientLight(ThreeUtil.getTypeSafe(this.color, 0x0c0c0c), ThreeUtil.getTypeSafe(this.intensity, 1));
           break;
       }
       if (ThreeUtil.isNotNull(basemesh['target'])) {
@@ -830,10 +681,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       }
       if (this.light.shadow) {
         if (ThreeUtil.isNotNull(this.shadowBias)) {
-          this.light.shadow.bias = this.getShadowBias(0);
+          this.light.shadow.bias = ThreeUtil.getTypeSafe(this.shadowBias, 0);
         }
         if (ThreeUtil.isNotNull(this.shadowRadius)) {
-          this.light.shadow.radius = this.getShadowRadius(1);
+          this.light.shadow.radius = ThreeUtil.getTypeSafe(this.shadowRadius, 1);
         }
         if (ThreeUtil.isNotNull(this.shadowMapSizeWidth) || ThreeUtil.isNotNull(this.shadowMapSize)) {
           this.light.shadow.mapSize.width = this.getShadowMapSizeWidth(1024);
@@ -844,16 +695,16 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         if (this.light.shadow.camera) {
           if (this.light.shadow.camera instanceof THREE.PerspectiveCamera) {
             if (ThreeUtil.isNotNull(this.shadowCameraFov)) {
-              this.light.shadow.camera.fov = this.getShadowCameraFov(50);
+              this.light.shadow.camera.fov = ThreeUtil.getTypeSafe(this.shadowCameraFov, 50);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraNear)) {
-              this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+              this.light.shadow.camera.near = ThreeUtil.getTypeSafe(this.shadowCameraNear, 0.5);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraFar)) {
-              this.light.shadow.camera.far = this.getShadowCameraFar(500);
+              this.light.shadow.camera.far = ThreeUtil.getTypeSafe(this.shadowCameraFar, 500);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraZoom)) {
-              this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+              this.light.shadow.camera.zoom = ThreeUtil.getTypeSafe(this.shadowCameraZoom, 1);
             }
           } else if (this.light.shadow.camera instanceof THREE.OrthographicCamera) {
             if (ThreeUtil.isNotNull(this.shadowCameraLeft)) {
@@ -869,13 +720,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
               this.light.shadow.camera.bottom = this.getShadowCameraBottom(-5);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraNear)) {
-              this.light.shadow.camera.near = this.getShadowCameraNear(0.5);
+              this.light.shadow.camera.near = ThreeUtil.getTypeSafe(this.shadowCameraNear, 0.5);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraFar)) {
-              this.light.shadow.camera.far = this.getShadowCameraFar(500);
+              this.light.shadow.camera.far = ThreeUtil.getTypeSafe(this.shadowCameraFar, 500);
             }
             if (ThreeUtil.isNotNull(this.shadowCameraZoom)) {
-              this.light.shadow.camera.zoom = this.getShadowCameraZoom(1);
+              this.light.shadow.camera.zoom = ThreeUtil.getTypeSafe(this.shadowCameraZoom, 1);
             }
           }
         }

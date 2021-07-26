@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
 import { MixerComponent } from '../mixer/mixer.component';
@@ -6,20 +6,39 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
 
 /**
  * AnimationGroupComponent
+ * 
+ * A group of objects that receives a shared animation state.<br /><br />
+ * 
+ * For an overview of the different elements of the three.js animation system see the
+ * "Animation System" article in the "Next Steps" section of the manual.
+ * 
+ * Usage
+ * 
+ * Add objects you would otherwise pass as 'root' to the constructor or the [page:AnimationMixer.clipAction clipAction]
+ * method of [page:AnimationMixer AnimationMixer] and instead pass this object as 'root'.<br /><br />
+ * 
+ * Note that objects of this class appear as one object to the mixer,
+ * so cache control of the individual objects must be done	on the group.
+ * 
+ * Limitations
+ * 
+ * The animated properties must be compatible among all objects in the group.<br /><br />
+ * 
+ * A single property can either be controlled through a target group or directly, but not both.
  */
 @Component({
   selector: 'ngx3js-animation-group',
   templateUrl: './animation-group.component.html',
   styleUrls: ['./animation-group.component.scss'],
 })
-export class AnimationGroupComponent extends AbstractSubscribeComponent implements OnInit {
+export class AnimationGroupComponent extends AbstractSubscribeComponent implements OnInit,OnChanges, OnDestroy, AfterContentInit {
   /**
     The name of the object (doesn't need to be unique). Default is an empty string.
    */
   @Input() public name: string = '';
 
   /**
-   * Content children of animation group component
+   * The mixer List of MixerComponent
    */
   @ContentChildren(MixerComponent, { descendants: false }) private mixerList: QueryList<MixerComponent>;
 
@@ -116,15 +135,23 @@ export class AnimationGroupComponent extends AbstractSubscribeComponent implemen
   }
 
   /**
+   * Gets object3d
+   * @returns object3d
+   */
+  public getObject<T>(): T {
+    return this.getAnimationGroup() as any;
+  }
+
+  /**
    * Gets animation group
    * @returns animation group
    */
-  public getAnimationGroup(): THREE.AnimationObjectGroup {
+  public getAnimationGroup<T extends THREE.AnimationObjectGroup>(): T {
     if (this.animationGroup === null || this._needUpdate) {
       this.needUpdate = false;
       this.animationGroup = new THREE.AnimationObjectGroup();
       this.setObject(this.animationGroup);
     }
-    return this.animationGroup;
+    return this.animationGroup as T;
   }
 }

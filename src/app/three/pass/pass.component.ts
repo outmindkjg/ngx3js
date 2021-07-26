@@ -1349,8 +1349,8 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
    * Gets object
    * @returns object
    */
-  public getObject(): Pass {
-    return this.getPass();
+  public getObject<T>(): T {
+    return this.getPass() as any;
   }
 
   /**

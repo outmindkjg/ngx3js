@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>[name]</h1>
+
+		<p class="desc">
+			Three util
+		</p>
+
+		<h2>Properties - Input</h2>
+		<h2>Properties - Output</h2>
+		<h2>Methods</h2>
+		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:string|CssStyle styles],  [param:string clazzName],  [param:string classPrefix],  [param:string vertualClass] )</h3>
+		<p>
+			Adds css style
+
+			<br/><br/>
+			Returns : css style
+		</p>
+
+		<h3>[method:any camelCaseToDash](  [param:any myStr] )</h3>
+		<p>
+			Camels case to dash
+
+			<br/><br/>
+			Returns : 
+		</p>
+
+		<h3>[method:boolean cssEject](  [param:string id],  [param:any indoc] )</h3>
+		<p>
+			Css eject
+
+			<br/><br/>
+			Returns : true if eject
+		</p>
+
+		<h3>[method:boolean cssInject](  [param:string cssContent],  [param:string id],  [param:any indoc] )</h3>
+		<p>
+			Css inject
+
+			<br/><br/>
+			Returns : true if inject
+		</p>
+
+		<h3>[method:number getAngle2RadianSafe](  [param:number angle],  [param:number altangle] )</h3>
+		<p>
+			Gets angle2 radian safe
+
+			<br/><br/>
+			Returns : angle2 radian safe
+		</p>
+
+		<h3>[method:number getAngleSafe](  [param:string|number angle],  [param:number altangle] )</h3>
+		<p>
+			Gets angle safe
+
+			<br/><br/>
+			Returns : angle safe
+		</p>
+
+		<h3>[method:Blending getBlendingSafe](  [param:string baseBlending],  [param:string altBlending],  [param:string def] )</h3>
+		<p>
+			Gets blending safe
+
+			<br/><br/>
+			Returns : blending safe
+		</p>
+
+		<h3>[method:boolean getBooleanSafe](  [param:string|number|boolean bl],  [param:string|number|boolean altbl] )</h3>
+		<p>
+			Gets boolean safe
+
+			<br/><br/>
+			Returns : true if boolean safe
+		</p>
+
+		<h3>[method:HTMLElement getChildElementSave](  [param:HTMLElement parentEle] )</h3>
+		<p>
+			Gets child element save
+
+			<br/><br/>
+			Returns : child element save
+		</p>
+
+		<h3>[method:Scale getChromaScale](  [param:any[] scales] )</h3>
+		<p>
+			Gets chroma scale
+
+			<br/><br/>
+			Returns : chroma scale
+		</p>
+
+		<h3>[method:ThreeClock getClock](  [param:boolean autoStart] )</h3>
+		<p>
+			Gets clock
+
+			<br/><br/>
+			Returns : clock
+		</p>
+
+		<h3>[method:Color getColor](  [param:string|number|Color color] )</h3>
+		<p>
+			Gets color
+
+			<br/><br/>
+			Returns : color
+		</p>
+
+		<h3>[method:void getColorAlphaSafe](  [param:ThreeColor color],  [param:number alpha],  [param:ThreeColor altColor] )</h3>
+		<p>
+			Gets color alpha safe
+
+			<br/><br/>
+			Returns : color alpha safe
+		</p>
+
+		<h3>[method:Color getColorHSL](  [param:number h],  [param:number s],  [param:number l],  [param:ThreeColor color] )</h3>
+		<p>
+			Gets color hsl
+
+			<br/><br/>
+			Returns : color hsl
+		</p>
+
+		<h3>[method:number getColorHex](  [param:ThreeColor color] )</h3>
+		<p>
+			Gets color hex
+
+			<br/><br/>
+			Returns : color hex
+		</p>
+
+		<h3>[method:string getColorHexString](  [param:ThreeColor color] )</h3>
+		<p>
+			Gets color hex string
+
+			<br/><br/>
+			Returns : color hex string
+		</p>
+
+		<h3>[method:Color getColorMultiplySafe](  [param:ThreeColor color],  [param:ThreeColor altColor],  [param:number multiply] )</h3>
+		<p>
+			Gets color multiply safe
+
+			<br/><br/>
+			Returns : color multiply safe
+		</p>
+
+		<h3>[method:Color getColorRGB](  [param:number r],  [param:number g],  [param:number b],  [param:ThreeColor color] )</h3>
+		<p>
+			Gets color rgb
+
+			<br/><br/>
+			Returns : color rgb
+		</p>
+
+		<h3>[method:Color getColorSafe](  [param:ThreeColor color],  [param:ThreeColor altColor],  [param:ThreeColor nullColor] )</h3>
+		<p>
+			Gets color safe
+
+			<br/><br/>
+			Returns : color safe
+		</p>
+
+		<h3>[method:string getColorStyle](  [param:ThreeColor color] )</h3>
+		<p>
+			Gets color style
+
+			<br/><br/>
+			Returns : color style
+		</p>
+
+		<h3>[method:void getControls](  [param:T param],  [param: component] )</h3>
+		<p>
+			Gets controls
+
+			<br/><br/>
+			Returns : controls
+		</p>
+
+		<h3>[method:void getControlsOnRender](  [param:RendererTimer timer],  [param: component] )</h3>
+		<p>
+			Gets controls on render
+		</p>
+
+		<h3>[method:void getControlsParams](  [param:GuiControlParam[] params],  [param: component] )</h3>
+		<p>
+			Gets controls params
+
+			<br/><br/>
+			Returns : controls params
+		</p>
+
+		<h3>[method:void getCubeImage](  [param:string[] cubeImage] )</h3>
+		<p>
+			Gets cube image
+
+			<br/><br/>
+			Returns : cube image
+		</p>
+
+		<h3>[method:Euler getEulerSafe](  [param:string|number x],  [param:string|number y],  [param:string|number z],  [param:Euler altValue],  [param:boolean isRequired] )</h3>
+		<p>
+			Gets euler safe
+
+			<br/><br/>
+			Returns : euler safe
+		</p>
+
+		<h3>[method:T getFirst](  [param:T|T value] )</h3>
+		<p>
+			Gets first
+
+			<br/><br/>
+			Returns : first
+		</p>
+
+		<h3>[method:BufferGeometry getGeometry](  [param:any geometry] )</h3>
+		<p>
+			Gets geometry
+
+			<br/><br/>
+			Returns : geometry
+		</p>
+
+		<h3>[method:GuiControlParam getGuiControlParam](  [param:GuiControlParam[] children],  [param:string name] )</h3>
+		<p>
+			Gets gui control param
+
+			<br/><br/>
+			Returns : gui control param
+		</p>
+
+		<h3>[method:string getHtmlCode](  [param:TagAttributes info],  [param:string preTab] )</h3>
+		<p>
+			Gets html code
+
+			<br/><br/>
+			Returns : html code
+		</p>
+
+		<h3>[method:Light getLight](  [param:any light] )</h3>
+		<p>
+			Gets light
+
+			<br/><br/>
+			Returns : light
+		</p>
+
+		<h3>[method:LoadingManager getLoadingManager](  )</h3>
+		<p>
+			Gets loading manager
+
+			<br/><br/>
+			Returns : loading manager
+		</p>
+
+		<h3>[method:Vector3 getLookAt](  [param:any lookat] )</h3>
+		<p>
+			Gets look at
+
+			<br/><br/>
+			Returns : look at
+		</p>
+
+		<h3>[method:Mapping getMappingSafe](  [param:string baseMapping],  [param:string altMapping],  [param:string def] )</h3>
+		<p>
+			Gets mapping safe
+
+			<br/><br/>
+			Returns : mapping safe
+		</p>
+
+		<h3>[method:void getMaterial](  [param:any material] )</h3>
+		<p>
+			Gets material
+
+			<br/><br/>
+			Returns : material
+		</p>
+
+		<h3>[method:Material getMaterialByType](  [param:any material],  [param:string materialType] )</h3>
+		<p>
+			Gets material by type
+
+			<br/><br/>
+			Returns : material by type
+		</p>
+
+		<h3>[method:Material getMaterialOne](  [param:any material] )</h3>
+		<p>
+			Gets material one
+
+			<br/><br/>
+			Returns : material one
+		</p>
+
+		<h3>[method:Matrix4 getMatrix4Safe](  [param:Object3D obj],  [param:string matrixType] )</h3>
+		<p>
+			Gets matrix4 safe
+
+			<br/><br/>
+			Returns : matrix4 safe
+		</p>
+
+		<h3>[method:Mesh getMesh](  [param:any mesh] )</h3>
+		<p>
+			Gets mesh
+
+			<br/><br/>
+			Returns : mesh
+		</p>
+
+		<h3>[method:Mesh getMeshFind](  [param:any mesh] )</h3>
+		<p>
+			Gets mesh find
+
+			<br/><br/>
+			Returns : mesh find
+		</p>
+
+		<h3>[method:number getNumberSafe](  [param:string|number num],  [param:number altnum] )</h3>
+		<p>
+			Gets number safe
+
+			<br/><br/>
+			Returns : number safe
+		</p>
+
+		<h3>[method:T getObject3d](  [param:any object3d],  [param:boolean isRequired] )</h3>
+		<p>
+			Gets object3d
+
+			<br/><br/>
+			Returns : object3d
+		</p>
+
+		<h3>[method:number getParseFloat](  [param:string value],  [param:number max] )</h3>
+		<p>
+			Gets parse float
+
+			<br/><br/>
+			Returns : parse float
+		</p>
+
+		<h3>[method:PixelFormat getPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat],  [param:string def] )</h3>
+		<p>
+			Gets pixel format safe<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:PixelFormat THREE.PixelFormat]<br/>
+			[page:AlphaFormat THREE.AlphaFormat - AlphaFormat, Alpha]<br/>
+			[page:RedFormat THREE.RedFormat - RedFormat, Red]<br/>
+			[page:RedIntegerFormat THREE.RedIntegerFormat - RedIntegerFormat, RedInteger]<br/>
+			[page:RGFormat THREE.RGFormat - RGFormat, RG]<br/>
+			[page:RGIntegerFormat THREE.RGIntegerFormat - RGIntegerFormat, RGInteger]<br/>
+			[page:RGBFormat THREE.RGBFormat - RGBFormat, RGB]<br/>
+			[page:RGBIntegerFormat THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger]<br/>
+			[page:RGBAIntegerFormat THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger]<br/>
+			[page:LuminanceFormat THREE.LuminanceFormat - LuminanceFormat, Luminance]<br/>
+			[page:LuminanceAlphaFormat THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha]<br/>
+			[page:RGBEFormat THREE.RGBEFormat - RGBEFormat, RGBE]<br/>
+			[page:DepthFormat THREE.DepthFormat - DepthFormat, Depth]<br/>
+			[page:DepthStencilFormat THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil]<br/>
+			[page:RGBAFormat THREE.RGBAFormat - RGBAFormat, RGBA]
+
+			<br/><br/>
+			Returns : pixel format safe
+		</p>
+
+		<h3>[method:Vector3 getPosition](  [param:any position] )</h3>
+		<p>
+			Gets position
+
+			<br/><br/>
+			Returns : position
+		</p>
+
+		<h3>[method:number getRadian2AngleSafe](  [param:number angle],  [param:number altangle] )</h3>
+		<p>
+			Gets radian2 angle safe
+
+			<br/><br/>
+			Returns : radian2 angle safe
+		</p>
+
+		<h3>[method:Renderer getRenderer](  )</h3>
+		<p>
+			Gets renderer
+
+			<br/><br/>
+			Returns : renderer
+		</p>
+
+		<h3>[method:Vector2 getRendererSize](  )</h3>
+		<p>
+			Gets renderer size
+
+			<br/><br/>
+			Returns : renderer size
+		</p>
+
+		<h3>[method:btRigidBody getRigidbody](  [param:any object] )</h3>
+		<p>
+			Gets rigidbody
+
+			<br/><br/>
+			Returns : rigidbody
+		</p>
+
+		<h3>[method:any getRigidbodyComponent](  [param:any object] )</h3>
+		<p>
+			Gets rigidbody component
+
+			<br/><br/>
+			Returns : rigidbody component
+		</p>
+
+		<h3>[method:Euler getRotation](  [param:any rotation] )</h3>
+		<p>
+			Gets rotation
+
+			<br/><br/>
+			Returns : rotation
+		</p>
+
+		<h3>[method:Vector3 getScale](  [param:any scale] )</h3>
+		<p>
+			Gets scale
+
+			<br/><br/>
+			Returns : scale
+		</p>
+
+		<h3>[method:Observable getSizeSubscribe](  )</h3>
+		<p>
+			Gets size subscribe
+
+			<br/><br/>
+			Returns : size subscribe
+		</p>
+
+		<h3>[method:ThreeStats getStats](  [param:object style] )</h3>
+		<p>
+			Gets stats
+
+			<br/><br/>
+			Returns : stats
+		</p>
+
+		<h3>[method:string getStoreUrl](  [param:string url] )</h3>
+		<p>
+			Gets store url
+
+			<br/><br/>
+			Returns : 
+		</p>
+
+		<h3>[method:Subscription getSubscribe](  [param:any object],  [param: callBack],  [param:string nextKey] )</h3>
+		<p>
+			Gets subscribe
+
+			<br/><br/>
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Texture getTexture](  [param:any texture],  [param:string refType],  [param:boolean isRequired] )</h3>
+		<p>
+			Gets texture
+
+			<br/><br/>
+			Returns : texture
+		</p>
+
+		<h3>[method:TextureDataType getTextureDataTypeSafe](  [param:string baseFormat],  [param:string altFormat],  [param:string def] )</h3>
+		<p>
+			Gets texture data type safe
+
+			<br/><br/>
+			Returns : texture data type safe
+		</p>
+
+		<h3>[method:TextureEncoding getTextureEncodingSafe](  [param:string baseEncoding],  [param:string altEncoding],  [param:string def] )</h3>
+		<p>
+			Gets texture encoding safe
+
+			<br/><br/>
+			Returns : texture encoding safe
+		</p>
+
+		<h3>[method:TextureFilter getTextureFilterSafe](  [param:string baseFilter],  [param:string altFilter],  [param:string def] )</h3>
+		<p>
+			Gets texture filter safe<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureFilter THREE.TextureFilter]<br/>
+			[page:NearestFilter THREE.NearestFilter               - NearestFilter, Nearest]<br/>
+			[page:NearestMipmapNearestFilter THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest]<br/>
+			[page:NearestMipmapLinearFilter THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear]<br/>
+			[page:LinearMipmapNearestFilter THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest]<br/>
+			[page:LinearMipmapLinearFilter THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear]<br/>
+			[page:LinearFilter THREE.LinearFilter                - Linearfilter, linear]
+
+			<br/><br/>
+			Returns : texture filter safe
+		</p>
+
+		<h3>[method:any getThreeComponent](  [param:any object] )</h3>
+		<p>
+			Gets three component
+
+			<br/><br/>
+			Returns : three component
+		</p>
+
+		<h3>[method:T getTypeSafe](  [param:T value],  [param:T altValue],  [param:T nullValue] )</h3>
+		<p>
+			Gets type safe
+
+			<br/><br/>
+			Returns : type safe
+		</p>
+
+		<h3>[method:Observable getUpdateSubscribe](  )</h3>
+		<p>
+			Gets update subscribe
+
+			<br/><br/>
+			Returns : update subscribe
+		</p>
+
+		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue],  [param:Vector2|number v2],  [param:boolean isRequired] )</h3>
+		<p>
+			Gets vector2 safe
+
+			<br/><br/>
+			Returns : vector2 safe
+		</p>
+
+		<h3>[method:Vector2 getVector2VSafe](  [param:Vector2|number v2],  [param:Vector2 altValue] )</h3>
+		<p>
+			Gets vector2 vsafe
+
+			<br/><br/>
+			Returns : vector2 vsafe
+		</p>
+
+		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue],  [param:Vector3|number v3],  [param:boolean isRequired] )</h3>
+		<p>
+			Gets vector3 safe
+
+			<br/><br/>
+			Returns : vector3 safe
+		</p>
+
+		<h3>[method:Vector3 getVector3VSafe](  [param:Vector3|number v3],  [param:Vector3 altValue] )</h3>
+		<p>
+			Gets vector3 vsafe
+
+			<br/><br/>
+			Returns : vector3 vsafe
+		</p>
+
+		<h3>[method:Wrapping getWrappingSafe](  [param:string baseWrap],  [param:string altWrap],  [param:string def] )</h3>
+		<p>
+			Gets wrapping safe
+
+			<br/><br/>
+			Returns : wrapping safe
+		</p>
+
+		<h3>[method:boolean isArray](  [param:any value] )</h3>
+		<p>
+			Determines whether array is
+
+			<br/><br/>
+			Returns : true if array
+		</p>
+
+		<h3>[method:boolean isIndexOf](  [param:T[] data],  [param:T|T findMe] )</h3>
+		<p>
+			Determines whether index of is
+
+			<br/><br/>
+			Returns : true if index of
+		</p>
+
+		<h3>[method:boolean isNotNull](  [param:any value] )</h3>
+		<p>
+			Determines whether not null is
+
+			<br/><br/>
+			Returns : true if not null
+		</p>
+
+		<h3>[method:boolean isNull](  [param:any value] )</h3>
+		<p>
+			Determines whether null is
+
+			<br/><br/>
+			Returns : true if null
+		</p>
+
+		<h3>[method:boolean isOnlyIndexOf](  [param:T[] data],  [param:T[] findMe],  [param:T[] addedFindMe] )</h3>
+		<p>
+			Determines whether only index of is
+
+			<br/><br/>
+			Returns : true if only index of
+		</p>
+
+		<h3>[method:boolean isTextureLoaded](  [param:Texture texture] )</h3>
+		<p>
+			Determines whether texture loaded is
+
+			<br/><br/>
+			Returns : true if texture loaded
+		</p>
+
+		<h3>[method:boolean isThreeComponent](  [param:any object],  [param:string key] )</h3>
+		<p>
+			Determines whether three component is
+
+			<br/><br/>
+			Returns : true if three component
+		</p>
+
+		<h3>[method:string makeUUID](  [param:number len],  [param:string pre] )</h3>
+		<p>
+			Makes uuid
+
+			<br/><br/>
+			Returns : 
+		</p>
+
+		<h3>[method:void pushUniq](  [param:T[] data],  [param:T|T addMe] )</h3>
+		<p>
+			Pushs uniq
+
+			<br/><br/>
+			Returns : uniq
+		</p>
+
+		<h3>[method:boolean removeCssStyle](  [param:HTMLElement ele],  [param:string clazzName] )</h3>
+		<p>
+			Removes css style
+
+			<br/><br/>
+			Returns : true if css style
+		</p>
+
+		<h3>[method:void render](  [param:RendererTimer renderTimer] )</h3>
+		<p>
+			Renders three util
+		</p>
+
+		<h3>[method:void setGuiEnabled](  [param:ThreeGuiController control],  [param:boolean isEnable] )</h3>
+		<p>
+			Sets gui enabled
+		</p>
+
+		<h3>[method:void setRenderer](  [param:any lastRenderer] )</h3>
+		<p>
+			Sets renderer
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:any object],  [param:string|string key] )</h3>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setThreeComponent](  [param:string key],  [param:any object] )</h3>
+		<p>
+			Sets three component
+		</p>
+
+		<h3>[method:ThreeGuiController setupGui](  [param:any control],  [param:ThreeGuiController gui],  [param:GuiControlParam[] params] )</h3>
+		<p>
+			Setups gui
+
+			<br/><br/>
+			Returns : gui
+		</p>
+
+		<h3>[method:ThreeGuiController setupGuiChange](  [param:ThreeGuiController control],  [param: onFinishChange],  [param: onChange],  [param:boolean listen],  [param:string title] )</h3>
+		<p>
+			Setups gui change
+
+			<br/><br/>
+			Returns : gui change
+		</p>
+
+		<h3>[method:boolean toggleCssStyle](  [param:HTMLElement ele],  [param:string clazzName],  [param:boolean isActive] )</h3>
+		<p>
+			Toggles css style
+
+			<br/><br/>
+			Returns : true if css style
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/interface.ts interface.ts]</p>
+	</body>
+</html>

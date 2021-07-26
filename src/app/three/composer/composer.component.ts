@@ -13,6 +13,7 @@ import { AbstractTweenComponent } from '../tween.abstract';
 
 /**
  * ComposerComponent
+ * 
  */
 @Component({
   selector: 'ngx3js-composer',
@@ -726,7 +727,6 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         renderer.autoClear = false;
         renderer.clear();
       }
-
       if (this.effectComposer instanceof EffectComposer) {
         this.effectComposer.render(renderTimer.delta);
       } else {
@@ -849,8 +849,8 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * Gets object
    * @returns object
    */
-  public getObject(): EffectComposer | any {
-    return this.getComposer();
+  public getObject<T>(): T {
+    return this.getComposer() as T;
   }
 
   /**

@@ -21,6 +21,14 @@ import { RopeGeometry } from './geometry.rope';
 
 /**
  * GeometryComponent
+ * 
+ * A representation of mesh, line, or point geometry. Includes vertex positions, face
+ * indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * 
+ * To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.
+ * 
+ * @see THREE.BufferGeometry
  */
 @Component({
   selector: 'ngx3js-geometry',
@@ -30,7 +38,46 @@ import { RopeGeometry } from './geometry.rope';
 })
 export class GeometryComponent extends AbstractGeometryComponent implements OnInit, OnDestroy {
   /**
-   * Input  of geometry component
+   * The type  of geometry
+   *
+   * Notice - case insensitive.
+   * 
+   * @see THREE.BufferGeometry
+   * @see THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer
+   * @see THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced, 
+   * @see TeapotGeometry - TeapotGeometry, Teapot, 
+   * @see PerlinGeometry - PerlinBufferGeometry, PerlinGeometry, Perlin, PerlinBuffer
+   * @see RopeGeometry - RopeBufferGeometry, RopeGeometry, Rope, RopeBuffer
+   * @see CapsuleGeometry - CapsuleGeometry, Capsule,  
+   * @see LineGeometry - LineGeometry, Line, 
+   * @see THREE.BoxGeometry - BoxGeometry, Box, 
+   * @see THREE.CircleGeometry - CircleGeometry, Circle, 
+   * @see THREE.ConeGeometry - ConeGeometry, Cone, 
+   * @see THREE.CylinderGeometry - CylinderGeometry, Cylinder, 
+   * @see THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron, 
+   * @see THREE.EdgesGeometry - EdgesGeometry, Edges, 
+   * @see MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge
+   * @see THREE.ShapeGeometry - ShapeGeometry, Shape, 
+   * @see THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron, 
+   * @see THREE.LatheGeometry - LatheGeometry, Lathe, 
+   * @see THREE.OctahedronGeometry - OctahedronGeometry, Octahedron, 
+   * @see THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer
+   * @see ParametricGeometries.TorusKnotGeometry - , 
+   * @see ParametricGeometries.SphereGeometry - , 
+   * @see ParametricGeometries.TubeGeometry - , 
+   * @see THREE.ParametricGeometry - ParametricGeometry , Parametric, 
+   * @see THREE.PlaneGeometry - PlaneGeometry, Plane, 
+   * @see THREE.RingGeometry - RingGeometry, Ring, 
+   * @see THREE.SphereGeometry - SphereGeometry, Sphere, 
+   * @see THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron, 
+   * @see THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text 
+   * @see THREE.TorusGeometry - TorusGeometry, Torus, 
+   * @see THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot 
+   * @see THREE.TubeGeometry - TubeGeometry, Tube, 
+   * @see THREE.WireframeGeometry - WireframeGeometry, Wireframe, 
+   * @see WireframeGeometry2 - WireframeGeometry2, Wireframe2, 
+   * @see ConvexGeometry - ConvexGeometry, Convex, 
+   * @see DecalGeometry - DecalGeometry, Decal, 
    */
   @Input() public type: string = 'sphere';
 

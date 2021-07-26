@@ -23,6 +23,9 @@ import { ThreeColor, ThreeUtil } from './../interface';
 export class HelperComponent extends AbstractObject3dComponent implements OnInit {
   /**
    * Input  of helper component
+   *
+   * Notice - case insensitive.
+   * 
    */
   @Input() public type: string = 'spot';
 

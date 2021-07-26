@@ -23,27 +23,27 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
   @Input() public name: string = "";
 
   /**
-   * Content children of canvas component
+   * The visual list of VisualComponent
    */
   @ContentChildren(VisualComponent) private visualList: QueryList<VisualComponent>;
 
   /**
-   * Content children of canvas component
+   * The html list of HtmlComponent
    */
   @ContentChildren(HtmlComponent) private htmlList: QueryList<HtmlComponent>;
 
   /**
-   * Content children of canvas component
+   * The transform list of TransformComponent
    */
   @ContentChildren(TransformComponent) private transformList: QueryList<TransformComponent>;
 
   /**
-   * Content children of canvas component
+   * The transform list of BackgroundComponent
    */
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
 
   /**
-   * Content children of canvas component
+   * The controller list of ControllerComponent
    */
   @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
 
@@ -269,6 +269,14 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
    * Css clazz name of canvas component
    */
   private cssClazzName: string = null;
+
+  /**
+   * Gets object
+   * @returns object
+   */
+  public getObject<T>(): T {
+    return this.getCanvas() as any;
+  }
 
   /**
    * Gets canvas
