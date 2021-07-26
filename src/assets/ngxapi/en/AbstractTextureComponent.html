@@ -15,7 +15,7 @@
 			AbstractTextureComponent
 
 			<br/><br/>
-			[page:Texture THREE.Texture]
+			[page:Texture Texture] - THREE.Texture
 		</p>
 
 		<h2>Properties - Input</h2>
@@ -55,9 +55,10 @@ find the maximum valid anisotropy value for the GPU; this value is usually a pow
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number|ArrayBufferView|ArrayBuffer data]</h3>
+		<h3>[property:mixed data]</h3>
 		<p>
 			The data of DataTexture
+			 - [page:number number] | [page:ArrayBufferView ArrayBufferView] | [page:ArrayBuffer ArrayBuffer]
 		</p>
 
 		<h3>[property:string dataType]</h3>
@@ -68,19 +69,19 @@ See the [page:Textures texture constants] page for details of other formats.<br/
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureDataType THREE.TextureDataType ]<br/>
-			[page:UnsignedByteType THREE.UnsignedByteType - UnsignedByteType , UnsignedByte]<br/>
-			[page:ByteType THREE.ByteType - ByteType , Byte]<br/>
-			[page:ShortType THREE.ShortType - ShortType , Short]<br/>
-			[page:UnsignedShortType THREE.UnsignedShortType - UnsignedShortType , UnsignedShort]<br/>
-			[page:IntType THREE.IntType - IntType , Int]<br/>
-			[page:UnsignedIntType THREE.UnsignedIntType - UnsignedIntType , UnsignedInt]<br/>
-			[page:FloatType THREE.FloatType - FloatType , Float]<br/>
-			[page:HalfFloatType THREE.HalfFloatType - HalfFloatType , HalfFloat]<br/>
-			[page:UnsignedShort4444Type THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444]<br/>
-			[page:UnsignedShort5551Type THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551]<br/>
-			[page:UnsignedShort565Type THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565]<br/>
-			[page:UnsignedInt248Type THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248]
+			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br/>
+			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType , UnsignedByte<br/>
+			[page:ByteType ByteType] - THREE.ByteType - ByteType , Byte<br/>
+			[page:ShortType ShortType] - THREE.ShortType - ShortType , Short<br/>
+			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType , UnsignedShort<br/>
+			[page:IntType IntType] - THREE.IntType - IntType , Int<br/>
+			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType , UnsignedInt<br/>
+			[page:FloatType FloatType] - THREE.FloatType - FloatType , Float<br/>
+			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType , HalfFloat<br/>
+			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444<br/>
+			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551<br/>
+			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565<br/>
+			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
 		</p>
 
 		<h3>[property:string encoding]</h3>
@@ -92,15 +93,15 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureEncoding THREE.TextureEncoding]<br/>
-			[page:LinearEncoding THREE.LinearEncoding - LinearEncoding ]<br/>
-			[page:sRGBEncoding THREE.sRGBEncoding - sRGBEncoding ]<br/>
-			[page:GammaEncoding THREE.GammaEncoding - GammaEncoding ]<br/>
-			[page:RGBEEncoding THREE.RGBEEncoding - RGBEEncoding ]<br/>
-			[page:LogLuvEncoding THREE.LogLuvEncoding - LogLuvEncoding ]<br/>
-			[page:RGBM7Encoding THREE.RGBM7Encoding - RGBM7Encoding ]<br/>
-			[page:RGBM16Encoding THREE.RGBM16Encoding - RGBM16Encoding ]<br/>
-			[page:RGBDEncoding THREE.RGBDEncoding - RGBDEncoding ]
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br/>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br/>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br/>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br/>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br/>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br/>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br/>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br/>
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:string filter]</h3>
@@ -109,13 +110,13 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureFilter THREE.TextureFilter]<br/>
-			[page:NearestFilter THREE.NearestFilter               - NearestFilter, Nearest]<br/>
-			[page:NearestMipmapNearestFilter THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest]<br/>
-			[page:NearestMipmapLinearFilter THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear]<br/>
-			[page:LinearMipmapNearestFilter THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest]<br/>
-			[page:LinearMipmapLinearFilter THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear]<br/>
-			[page:LinearFilter THREE.LinearFilter                - Linearfilter, linear]
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
 		<h3>[property:boolean flipY]</h3>
@@ -133,21 +134,21 @@ See the [page:Textures texture constants] page for details of other formats.<br/
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:PixelFormat THREE.PixelFormat]<br/>
-			[page:AlphaFormat THREE.AlphaFormat - AlphaFormat, Alpha]<br/>
-			[page:RedFormat THREE.RedFormat - RedFormat, Red]<br/>
-			[page:RedIntegerFormat THREE.RedIntegerFormat - RedIntegerFormat, RedInteger]<br/>
-			[page:RGFormat THREE.RGFormat - RGFormat, RG]<br/>
-			[page:RGIntegerFormat THREE.RGIntegerFormat - RGIntegerFormat, RGInteger]<br/>
-			[page:RGBFormat THREE.RGBFormat - RGBFormat, RGB]<br/>
-			[page:RGBIntegerFormat THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger]<br/>
-			[page:RGBAIntegerFormat THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger]<br/>
-			[page:LuminanceFormat THREE.LuminanceFormat - LuminanceFormat, Luminance]<br/>
-			[page:LuminanceAlphaFormat THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha]<br/>
-			[page:RGBEFormat THREE.RGBEFormat - RGBEFormat, RGBE]<br/>
-			[page:DepthFormat THREE.DepthFormat - DepthFormat, Depth]<br/>
-			[page:DepthStencilFormat THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil]<br/>
-			[page:RGBAFormat THREE.RGBAFormat - RGBAFormat, RGBA]
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br/>
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br/>
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br/>
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br/>
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br/>
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br/>
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br/>
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br/>
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br/>
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br/>
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br/>
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br/>
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br/>
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br/>
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
 		<h3>[property:boolean generateMipmaps]</h3>
@@ -176,13 +177,13 @@ See the [page:Textures texture constants] page for details.<br/><br/>
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureFilter THREE.TextureFilter]<br/>
-			[page:NearestFilter THREE.NearestFilter               - NearestFilter, Nearest]<br/>
-			[page:NearestMipmapNearestFilter THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest]<br/>
-			[page:NearestMipmapLinearFilter THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear]<br/>
-			[page:LinearMipmapNearestFilter THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest]<br/>
-			[page:LinearMipmapLinearFilter THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear]<br/>
-			[page:LinearFilter THREE.LinearFilter                - Linearfilter, linear]
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
 		<h3>[property:string mapping]</h3>
@@ -193,14 +194,14 @@ See the [page:Textures texture constants] page for other mapping types.<br/><br/
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:UVMapping THREE.UVMapping               - UVMapping, uv]<br/>
-			[page:CubeReflectionMapping THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection]<br/>
-			[page:CubeRefractionMapping THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction]<br/>
-			[page:EquirectangularReflectionMapping THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection]<br/>
-			[page:EquirectangularRefractionMapping THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction]<br/>
-			[page:CubeUVReflectionMapping THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection]<br/>
-			[page:CubeUVRefractionMapping THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction]<br/>
-			[page:Texture THREE.Texture.DEFAULT_MAPPING   - default]
+			[page:UVMapping UVMapping] - THREE.UVMapping               - UVMapping, uv<br/>
+			[page:CubeReflectionMapping CubeReflectionMapping] - THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection<br/>
+			[page:CubeRefractionMapping CubeRefractionMapping] - THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction<br/>
+			[page:EquirectangularReflectionMapping EquirectangularReflectionMapping] - THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection<br/>
+			[page:EquirectangularRefractionMapping EquirectangularRefractionMapping] - THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction<br/>
+			[page:CubeUVReflectionMapping CubeUVReflectionMapping] - THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection<br/>
+			[page:CubeUVRefractionMapping CubeUVRefractionMapping] - THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction<br/>
+			[page:Texture Texture] - THREE.Texture.DEFAULT_MAPPING   - default
 		</p>
 
 		<h3>[property:string minFilter]</h3>
@@ -211,13 +212,13 @@ See the [page:Textures texture constants] page for all possible choices.<br/><br
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureFilter THREE.TextureFilter]<br/>
-			[page:NearestFilter THREE.NearestFilter               - NearestFilter, Nearest]<br/>
-			[page:NearestMipmapNearestFilter THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest]<br/>
-			[page:NearestMipmapLinearFilter THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear]<br/>
-			[page:LinearMipmapNearestFilter THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest]<br/>
-			[page:LinearMipmapLinearFilter THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear]<br/>
-			[page:LinearFilter THREE.LinearFilter                - Linearfilter, linear]
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
 		<h3>[property:string name]</h3>
@@ -330,9 +331,9 @@ See the [page:Textures texture constants] page for details.<br/><br/>
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:RepeatWrapping THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat]<br/>
-			[page:MirroredRepeatWrapping THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat]<br/>
-			[page:ClampToEdgeWrapping THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge]
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
 		<h3>[property:string wrapS]</h3>
@@ -344,9 +345,9 @@ See the [page:Textures texture constants] page for details.<br/><br/>
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:RepeatWrapping THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat]<br/>
-			[page:MirroredRepeatWrapping THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat]<br/>
-			[page:ClampToEdgeWrapping THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge]
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
 		<h3>[property:string wrapT]</h3>
@@ -360,9 +361,9 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:RepeatWrapping THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat]<br/>
-			[page:MirroredRepeatWrapping THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat]<br/>
-			[page:ClampToEdgeWrapping THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge]
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -375,7 +376,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
 			Applys changes
 
@@ -425,7 +426,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Returns : texture
 		</p>
 
-		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage],  [param:string|CanvasFunctionType program],  [param: onLoad] )</h3>
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string cubeImage][],  [param:mixed program],  [param:any onLoad] )</h3>
 		<p>
 			Gets texture image
 
@@ -433,7 +434,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Returns : texture image
 		</p>
 
-		<h3>[method:void getTextureOptions](  [param: options] )</h3>
+		<h3>[method:void getTextureOptions](  [param:any options] )</h3>
 		<p>
 			Gets texture options
 
@@ -469,7 +470,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Sets texture loaded
 		</p>
 
-		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage],  [param:string|CanvasFunctionType program],  [param:any options],  [param: onLoad] )</h3>
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string cubeImage][],  [param:mixed program],  [param:any options],  [param:any onLoad] )</h3>
 		<p>
 			Gets texture image
 
@@ -477,7 +478,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Returns : texture image
 		</p>
 
-		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt],  [param:string loaderType],  [param:string[] cubeImage],  [param: onLoad] )</h3>
+		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt],  [param:string loaderType],  [param:string cubeImage][],  [param:any onLoad] )</h3>
 		<p>
 			Gets texture image option
 
@@ -485,7 +486,7 @@ This is a limitation of WebGL, not three.js.<br/><br/>
 			Returns : texture image option
 		</p>
 
-		<h3>[method:Texture setTextureOptions](  [param:Texture texture],  [param: options] )</h3>
+		<h3>[method:Texture setTextureOptions](  [param:Texture texture],  [param:any options] )</h3>
 		<p>
 			Sets texture options
 

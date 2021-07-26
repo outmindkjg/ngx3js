@@ -16,7 +16,7 @@
 		<h2>Properties - Input</h2>
 		<h2>Properties - Output</h2>
 		<h2>Methods</h2>
-		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:string|CssStyle styles],  [param:string clazzName],  [param:string classPrefix],  [param:string vertualClass] )</h3>
+		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:mixed styles],  [param:string clazzName],  [param:string classPrefix],  [param:string vertualClass] )</h3>
 		<p>
 			Adds css style
 
@@ -56,7 +56,7 @@
 			Returns : angle2 radian safe
 		</p>
 
-		<h3>[method:number getAngleSafe](  [param:string|number angle],  [param:number altangle] )</h3>
+		<h3>[method:number getAngleSafe](  [param:mixed angle],  [param:number altangle] )</h3>
 		<p>
 			Gets angle safe
 
@@ -72,7 +72,7 @@
 			Returns : blending safe
 		</p>
 
-		<h3>[method:boolean getBooleanSafe](  [param:string|number|boolean bl],  [param:string|number|boolean altbl] )</h3>
+		<h3>[method:boolean getBooleanSafe](  [param:mixed bl],  [param:mixed altbl] )</h3>
 		<p>
 			Gets boolean safe
 
@@ -88,7 +88,7 @@
 			Returns : child element save
 		</p>
 
-		<h3>[method:Scale getChromaScale](  [param:any[] scales] )</h3>
+		<h3>[method:Scale getChromaScale](  [param:any scales][] )</h3>
 		<p>
 			Gets chroma scale
 
@@ -104,7 +104,7 @@
 			Returns : clock
 		</p>
 
-		<h3>[method:Color getColor](  [param:string|number|Color color] )</h3>
+		<h3>[method:Color getColor](  [param:mixed color] )</h3>
 		<p>
 			Gets color
 
@@ -115,6 +115,7 @@
 		<h3>[method:void getColorAlphaSafe](  [param:ThreeColor color],  [param:number alpha],  [param:ThreeColor altColor] )</h3>
 		<p>
 			Gets color alpha safe
+			 - [page:Color Color] | [page:Vector4 Vector4]
 
 			<br/><br/>
 			Returns : color alpha safe
@@ -176,7 +177,7 @@
 			Returns : color style
 		</p>
 
-		<h3>[method:void getControls](  [param:T param],  [param: component] )</h3>
+		<h3>[method:void getControls](  [param:T param],  [param:any component] )</h3>
 		<p>
 			Gets controls
 
@@ -184,12 +185,12 @@
 			Returns : controls
 		</p>
 
-		<h3>[method:void getControlsOnRender](  [param:RendererTimer timer],  [param: component] )</h3>
+		<h3>[method:void getControlsOnRender](  [param:RendererTimer timer],  [param:any component] )</h3>
 		<p>
 			Gets controls on render
 		</p>
 
-		<h3>[method:void getControlsParams](  [param:GuiControlParam[] params],  [param: component] )</h3>
+		<h3>[method:void getControlsParams](  [param:GuiControlParam params][],  [param:any component] )</h3>
 		<p>
 			Gets controls params
 
@@ -197,7 +198,7 @@
 			Returns : controls params
 		</p>
 
-		<h3>[method:void getCubeImage](  [param:string[] cubeImage] )</h3>
+		<h3>[method:void getCubeImage](  [param:string cubeImage][] )</h3>
 		<p>
 			Gets cube image
 
@@ -205,7 +206,7 @@
 			Returns : cube image
 		</p>
 
-		<h3>[method:Euler getEulerSafe](  [param:string|number x],  [param:string|number y],  [param:string|number z],  [param:Euler altValue],  [param:boolean isRequired] )</h3>
+		<h3>[method:Euler getEulerSafe](  [param:mixed x],  [param:mixed y],  [param:mixed z],  [param:Euler altValue],  [param:boolean isRequired] )</h3>
 		<p>
 			Gets euler safe
 
@@ -213,7 +214,7 @@
 			Returns : euler safe
 		</p>
 
-		<h3>[method:T getFirst](  [param:T|T value] )</h3>
+		<h3>[method:T getFirst](  [param:mixed value] )</h3>
 		<p>
 			Gets first
 
@@ -229,7 +230,7 @@
 			Returns : geometry
 		</p>
 
-		<h3>[method:GuiControlParam getGuiControlParam](  [param:GuiControlParam[] children],  [param:string name] )</h3>
+		<h3>[method:GuiControlParam getGuiControlParam](  [param:GuiControlParam children][],  [param:string name] )</h3>
 		<p>
 			Gets gui control param
 
@@ -280,6 +281,7 @@
 		<h3>[method:void getMaterial](  [param:any material] )</h3>
 		<p>
 			Gets material
+			 - [page:Material Material] | [page:Material Material]
 
 			<br/><br/>
 			Returns : material
@@ -325,7 +327,7 @@
 			Returns : mesh find
 		</p>
 
-		<h3>[method:number getNumberSafe](  [param:string|number num],  [param:number altnum] )</h3>
+		<h3>[method:number getNumberSafe](  [param:mixed num],  [param:number altnum] )</h3>
 		<p>
 			Gets number safe
 
@@ -355,21 +357,21 @@
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:PixelFormat THREE.PixelFormat]<br/>
-			[page:AlphaFormat THREE.AlphaFormat - AlphaFormat, Alpha]<br/>
-			[page:RedFormat THREE.RedFormat - RedFormat, Red]<br/>
-			[page:RedIntegerFormat THREE.RedIntegerFormat - RedIntegerFormat, RedInteger]<br/>
-			[page:RGFormat THREE.RGFormat - RGFormat, RG]<br/>
-			[page:RGIntegerFormat THREE.RGIntegerFormat - RGIntegerFormat, RGInteger]<br/>
-			[page:RGBFormat THREE.RGBFormat - RGBFormat, RGB]<br/>
-			[page:RGBIntegerFormat THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger]<br/>
-			[page:RGBAIntegerFormat THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger]<br/>
-			[page:LuminanceFormat THREE.LuminanceFormat - LuminanceFormat, Luminance]<br/>
-			[page:LuminanceAlphaFormat THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha]<br/>
-			[page:RGBEFormat THREE.RGBEFormat - RGBEFormat, RGBE]<br/>
-			[page:DepthFormat THREE.DepthFormat - DepthFormat, Depth]<br/>
-			[page:DepthStencilFormat THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil]<br/>
-			[page:RGBAFormat THREE.RGBAFormat - RGBAFormat, RGBA]
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br/>
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br/>
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br/>
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br/>
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br/>
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br/>
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br/>
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br/>
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br/>
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br/>
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br/>
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br/>
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br/>
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br/>
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 
 			<br/><br/>
 			Returns : pixel format safe
@@ -463,7 +465,7 @@
 			Returns : 
 		</p>
 
-		<h3>[method:Subscription getSubscribe](  [param:any object],  [param: callBack],  [param:string nextKey] )</h3>
+		<h3>[method:Subscription getSubscribe](  [param:any object],  [param:any callBack],  [param:string nextKey] )</h3>
 		<p>
 			Gets subscribe
 
@@ -501,13 +503,13 @@
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureFilter THREE.TextureFilter]<br/>
-			[page:NearestFilter THREE.NearestFilter               - NearestFilter, Nearest]<br/>
-			[page:NearestMipmapNearestFilter THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest]<br/>
-			[page:NearestMipmapLinearFilter THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear]<br/>
-			[page:LinearMipmapNearestFilter THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest]<br/>
-			[page:LinearMipmapLinearFilter THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear]<br/>
-			[page:LinearFilter THREE.LinearFilter                - Linearfilter, linear]
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 
 			<br/><br/>
 			Returns : texture filter safe
@@ -537,7 +539,7 @@
 			Returns : update subscribe
 		</p>
 
-		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue],  [param:Vector2|number v2],  [param:boolean isRequired] )</h3>
+		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue],  [param:mixed v2],  [param:boolean isRequired] )</h3>
 		<p>
 			Gets vector2 safe
 
@@ -545,7 +547,7 @@
 			Returns : vector2 safe
 		</p>
 
-		<h3>[method:Vector2 getVector2VSafe](  [param:Vector2|number v2],  [param:Vector2 altValue] )</h3>
+		<h3>[method:Vector2 getVector2VSafe](  [param:mixed v2],  [param:Vector2 altValue] )</h3>
 		<p>
 			Gets vector2 vsafe
 
@@ -553,7 +555,7 @@
 			Returns : vector2 vsafe
 		</p>
 
-		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue],  [param:Vector3|number v3],  [param:boolean isRequired] )</h3>
+		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue],  [param:mixed v3],  [param:boolean isRequired] )</h3>
 		<p>
 			Gets vector3 safe
 
@@ -561,7 +563,7 @@
 			Returns : vector3 safe
 		</p>
 
-		<h3>[method:Vector3 getVector3VSafe](  [param:Vector3|number v3],  [param:Vector3 altValue] )</h3>
+		<h3>[method:Vector3 getVector3VSafe](  [param:mixed v3],  [param:Vector3 altValue] )</h3>
 		<p>
 			Gets vector3 vsafe
 
@@ -585,7 +587,7 @@
 			Returns : true if array
 		</p>
 
-		<h3>[method:boolean isIndexOf](  [param:T[] data],  [param:T|T findMe] )</h3>
+		<h3>[method:boolean isIndexOf](  [param:T data][],  [param:mixed findMe] )</h3>
 		<p>
 			Determines whether index of is
 
@@ -609,7 +611,7 @@
 			Returns : true if null
 		</p>
 
-		<h3>[method:boolean isOnlyIndexOf](  [param:T[] data],  [param:T[] findMe],  [param:T[] addedFindMe] )</h3>
+		<h3>[method:boolean isOnlyIndexOf](  [param:T data][],  [param:T findMe][],  [param:T addedFindMe][] )</h3>
 		<p>
 			Determines whether only index of is
 
@@ -641,7 +643,7 @@
 			Returns : 
 		</p>
 
-		<h3>[method:void pushUniq](  [param:T[] data],  [param:T|T addMe] )</h3>
+		<h3>[method:void pushUniq](  [param:T data][],  [param:mixed addMe] )</h3>
 		<p>
 			Pushs uniq
 
@@ -672,7 +674,7 @@
 			Sets renderer
 		</p>
 
-		<h3>[method:void setSubscribeNext](  [param:any object],  [param:string|string key] )</h3>
+		<h3>[method:void setSubscribeNext](  [param:any object],  [param:mixed key] )</h3>
 		<p>
 			Sets subscribe next
 		</p>
@@ -682,7 +684,7 @@
 			Sets three component
 		</p>
 
-		<h3>[method:ThreeGuiController setupGui](  [param:any control],  [param:ThreeGuiController gui],  [param:GuiControlParam[] params] )</h3>
+		<h3>[method:ThreeGuiController setupGui](  [param:any control],  [param:ThreeGuiController gui],  [param:GuiControlParam params][] )</h3>
 		<p>
 			Setups gui
 
@@ -690,7 +692,7 @@
 			Returns : gui
 		</p>
 
-		<h3>[method:ThreeGuiController setupGuiChange](  [param:ThreeGuiController control],  [param: onFinishChange],  [param: onChange],  [param:boolean listen],  [param:string title] )</h3>
+		<h3>[method:ThreeGuiController setupGuiChange](  [param:ThreeGuiController control],  [param:any onFinishChange],  [param:any onChange],  [param:boolean listen],  [param:string title] )</h3>
 		<p>
 			Setups gui change
 

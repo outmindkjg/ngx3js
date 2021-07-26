@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>[name]</h1>
 
@@ -21,6 +21,9 @@
 		</p>
 
 		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
 		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
 		</p>
@@ -38,7 +41,7 @@
 			Input  of mesh component
 		</p>
 
-		<h3>[property: blobInfos]</h3>
+		<h3>[property:any blobInfos]</h3>
 		<p>
 			Input  of mesh component
 		</p>
@@ -63,9 +66,10 @@
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|number colors]</h3>
+		<h3>[property:mixed colors]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string compressNormals]</h3>
@@ -88,9 +92,10 @@
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|CssStyle cssStyle]</h3>
+		<h3>[property:mixed cssStyle]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:CssStyle CssStyle]
 		</p>
 
 		<h3>[property:any cssTag]</h3>
@@ -99,9 +104,10 @@
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:CurveComponent|Curve curve]</h3>
+		<h3>[property:mixed curve]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:Curve Curve] | [page:CurveComponent CurveComponent]
 		</p>
 
 		<h3>[property:number distance]</h3>
@@ -138,15 +144,15 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:TextureEncoding THREE.TextureEncoding]<br/>
-			[page:LinearEncoding THREE.LinearEncoding - LinearEncoding ]<br/>
-			[page:sRGBEncoding THREE.sRGBEncoding - sRGBEncoding ]<br/>
-			[page:GammaEncoding THREE.GammaEncoding - GammaEncoding ]<br/>
-			[page:RGBEEncoding THREE.RGBEEncoding - RGBEEncoding ]<br/>
-			[page:LogLuvEncoding THREE.LogLuvEncoding - LogLuvEncoding ]<br/>
-			[page:RGBM7Encoding THREE.RGBM7Encoding - RGBM7Encoding ]<br/>
-			[page:RGBM16Encoding THREE.RGBM16Encoding - RGBM16Encoding ]<br/>
-			[page:RGBDEncoding THREE.RGBDEncoding - RGBDEncoding ]
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br/>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br/>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br/>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br/>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br/>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br/>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br/>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br/>
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:number flowDirectionX]</h3>
@@ -159,9 +165,10 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|Texture|AbstractTextureComponent flowMap]</h3>
+		<h3>[property:mixed flowMap]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number flowSpeed]</h3>
@@ -199,19 +206,20 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property: makeColor]</h3>
+		<h3>[property:any makeColor]</h3>
 		<p>
 			Input  of mesh component
 		</p>
 
-		<h3>[property: makeMatrix]</h3>
+		<h3>[property:any makeMatrix]</h3>
 		<p>
 			Input  of mesh component
 		</p>
 
-		<h3>[property:AbstractMaterialComponent|Material material]</h3>
+		<h3>[property:mixed material]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:AbstractMaterialComponent AbstractMaterialComponent] | [page:Material Material]
 		</p>
 
 		<h3>[property:boolean materialIsArray]</h3>
@@ -234,22 +242,25 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|number moveIndividualAlongCurve]</h3>
+		<h3>[property:mixed moveIndividualAlongCurve]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|Texture|AbstractTextureComponent normalMap0]</h3>
+		<h3>[property:mixed normalMap0]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
-		<h3>[property:string|Texture|AbstractTextureComponent normalMap1]</h3>
+		<h3>[property:mixed normalMap1]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
-		<h3>[property: planeInfos]</h3>
+		<h3>[property:any planeInfos]</h3>
 		<p>
 			Input  of mesh component
 		</p>
@@ -294,9 +305,10 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|number skyColor]</h3>
+		<h3>[property:mixed skyColor]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string[] skyboxCubeImage]</h3>
@@ -354,19 +366,22 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property:Vector3|number sunDirection]</h3>
+		<h3>[property:mixed sunDirection]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:Vector3 Vector3] | [page:number number]
 		</p>
 
-		<h3>[property:Vector3|number sunPosition]</h3>
+		<h3>[property:mixed sunPosition]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:Vector3 Vector3] | [page:number number]
 		</p>
 
-		<h3>[property:Texture|AbstractTextureComponent texture]</h3>
+		<h3>[property:mixed texture]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number textureHeight]</h3>
@@ -384,7 +399,7 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property: uniforms]</h3>
+		<h3>[property:any uniforms]</h3>
 		<p>
 			Input  of mesh component
 		</p>
@@ -404,9 +419,10 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 			Input  of mesh component
 		</p>
 
-		<h3>[property:string|number waterColor]</h3>
+		<h3>[property:mixed waterColor]</h3>
 		<p>
 			Input  of mesh component
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number waterScale]</h3>
@@ -416,6 +432,9 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h2>Properties - Output</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
 		</p>
 		<p>
@@ -424,13 +443,16 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h2>Methods</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
 		<p>
 			Applys changes3d
 
@@ -497,6 +519,7 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 		<h3>[method:void getRealMesh](  )</h3>
 		<p>
 			Gets real mesh
+			 - [page:Mesh Mesh] | [page:LineSegments LineSegments] | [page:Line Line] | [page:Points Points]
 
 			<br/><br/>
 			Returns : real mesh

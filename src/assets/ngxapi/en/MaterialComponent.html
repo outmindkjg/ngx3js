@@ -429,10 +429,11 @@ If roughnessMap is also provided, both values are multiplied.
 			The scale of the dashed part of a line. Default is *1*.
 		</p>
 
-		<h3>[property:string|ShaderType shader]</h3>
+		<h3>[property:mixed shader]</h3>
 		<p>
 			The shader type<br/><br/>
 			Notice - case insensitive.
+			 - [page:string string] | [page:ShaderType ShaderType]
 		</p>
 
 		<h3>[property:ThreeColor sheen]</h3>
@@ -502,29 +503,29 @@ When transmission is non-zero, [page:Material.opacity opacity] should be set to 
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:Material THREE.Material]<br/>
-			[page:LineBasicMaterial THREE.LineBasicMaterial - LineBasicMaterial, LineBasic]<br/>
-			[page:LineDashedMaterial THREE.LineDashedMaterial - LineDashedMaterial, LineDashed]<br/>
-			[page:MeshBasicMaterial THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic]<br/>
-			[page:MeshDepthMaterial THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth]<br/>
-			[page:MeshDistanceMaterial THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance]<br/>
-			[page:MeshMatcapMaterial THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap]<br/>
-			[page:MeshNormalMaterial THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal]<br/>
-			[page:MeshPhongMaterial THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong]<br/>
-			[page:MeshPhysicalMaterial THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical]<br/>
-			[page:MeshStandardMaterial THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard]<br/>
-			[page:MeshToonMaterial THREE.MeshToonMaterial - MeshToonMaterial, MeshToon]<br/>
-			[page:PointsMaterial THREE.PointsMaterial - PointsMaterial, Points]<br/>
-			[page:RawShaderMaterial THREE.RawShaderMaterial - RawShaderMaterial, RawShader]<br/>
-			[page:ShaderMaterial THREE.ShaderMaterial - ShaderMaterial, Shader]<br/>
-			[page:ShadowMaterial THREE.ShadowMaterial - ShadowMaterial, Shadow]<br/>
-			[page:SpriteMaterial THREE.SpriteMaterial - SpriteMaterial, Sprite]<br/>
+			[page:Material Material] - THREE.Material<br/>
+			[page:LineBasicMaterial LineBasicMaterial] - THREE.LineBasicMaterial - LineBasicMaterial, LineBasic<br/>
+			[page:LineDashedMaterial LineDashedMaterial] - THREE.LineDashedMaterial - LineDashedMaterial, LineDashed<br/>
+			[page:MeshBasicMaterial MeshBasicMaterial] - THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic<br/>
+			[page:MeshDepthMaterial MeshDepthMaterial] - THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth<br/>
+			[page:MeshDistanceMaterial MeshDistanceMaterial] - THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance<br/>
+			[page:MeshMatcapMaterial MeshMatcapMaterial] - THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap<br/>
+			[page:MeshNormalMaterial MeshNormalMaterial] - THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal<br/>
+			[page:MeshPhongMaterial MeshPhongMaterial] - THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong<br/>
+			[page:MeshPhysicalMaterial MeshPhysicalMaterial] - THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical<br/>
+			[page:MeshStandardMaterial MeshStandardMaterial] - THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard<br/>
+			[page:MeshToonMaterial MeshToonMaterial] - THREE.MeshToonMaterial - MeshToonMaterial, MeshToon<br/>
+			[page:PointsMaterial PointsMaterial] - THREE.PointsMaterial - PointsMaterial, Points<br/>
+			[page:RawShaderMaterial RawShaderMaterial] - THREE.RawShaderMaterial - RawShaderMaterial, RawShader<br/>
+			[page:ShaderMaterial ShaderMaterial] - THREE.ShaderMaterial - ShaderMaterial, Shader<br/>
+			[page:ShadowMaterial ShadowMaterial] - THREE.ShadowMaterial - ShadowMaterial, Shadow<br/>
+			[page:SpriteMaterial SpriteMaterial] - THREE.SpriteMaterial - SpriteMaterial, Sprite<br/>
 			NODES.StandardNodeMaterial - StandardNodeMaterial, StandardNode<br/>
 			NODES.BasicNodeMaterial - BasicNodeMaterial, BasicNode<br/>
 			NODES.MeshStandardNodeMaterial - MeshStandardNodeMaterial, MeshStandardNode<br/>
 			NODES.PhongNodeMaterial - PhongNodeMaterial, PhongNode<br/>
 			NODES.SpriteNodeMaterial - SpriteNodeMaterial, SpriteNode<br/>
-			[page:MeshLambertMaterial THREE.MeshLambertMaterial - MeshLambertMaterial, MeshLambert]
+			[page:MeshLambertMaterial MeshLambertMaterial] - THREE.MeshLambertMaterial - MeshLambertMaterial, MeshLambert
 		</p>
 
 		<h3>[property:ThreeUniforms uniforms]</h3>
@@ -601,7 +602,7 @@ always be 1 regardless of the set value.
 			See the base [page:AbstractMaterialComponent AbstractMaterialComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
 			Apply changes to material
 

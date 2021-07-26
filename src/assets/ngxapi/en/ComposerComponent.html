@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			ComposerComponent
+		</p>
+
+		<h2>Component</h2>
+		<p>
+			&lt;ngx3js-composer&gt;&lt;/ngx3js-composer&gt;
+		</p>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+		</p>
+
+		<h3>[property:boolean alpha]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:number anisotropy]</h3>
+		<p>
+			The number of samples taken along the axis through the pixel that has the highest density of texels.
+By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
+at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
+find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
+		</p>
+
+		<h3>[property:boolean block]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:mixed camera]</h3>
+		<p>
+			Input  of composer component
+			 - [page:CameraComponent CameraComponent] | [page:Camera Camera]
+		</p>
+
+		<h3>[property:number cameraDistance]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string charSet]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:boolean clear]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:boolean color]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string dataType]</h3>
+		<p>
+			This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType],
+which will be used for most texture formats.<br /><br />
+See the [page:Textures texture constants] page for details of other formats.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br/>
+			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType , UnsignedByte<br/>
+			[page:ByteType ByteType] - THREE.ByteType - ByteType , Byte<br/>
+			[page:ShortType ShortType] - THREE.ShortType - ShortType , Short<br/>
+			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType , UnsignedShort<br/>
+			[page:IntType IntType] - THREE.IntType - IntType , Int<br/>
+			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType , UnsignedInt<br/>
+			[page:FloatType FloatType] - THREE.FloatType - FloatType , Float<br/>
+			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType , HalfFloat<br/>
+			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444<br/>
+			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551<br/>
+			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565<br/>
+			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
+		</p>
+
+		<h3>[property:boolean depthBuffer]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:any depthTexture]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string encoding]</h3>
+		<p>
+			[page:Textures THREE.LinearEncoding] is the default.
+See the [page:Textures texture constants] page for details of other formats.<br /><br />
+Note that if this value is changed on a texture after the material has been used,
+it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br/>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br/>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br/>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br/>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br/>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br/>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br/>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br/>
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
+		</p>
+
+		<h3>[property:string filter]</h3>
+		<p>
+			The Default Value of magFilter, minFilter<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:string format]</h3>
+		<p>
+			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
+set this to [page:Textures THREE.RGBFormat] for JPG images. <br /><br />
+See the [page:Textures texture constants] page for details of other formats.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br/>
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br/>
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br/>
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br/>
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br/>
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br/>
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br/>
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br/>
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br/>
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br/>
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br/>
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br/>
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br/>
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br/>
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
+		</p>
+
+		<h3>[property:boolean generateMipmaps]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:mixed height]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean invert]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string magFilter]</h3>
+		<p>
+			How the texture is sampled when a texel covers more than one pixel. The default is
+[page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
+The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
+See the [page:Textures texture constants] page for details.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:string minFilter]</h3>
+		<p>
+			How the texture is sampled when a texel covers less than one pixel. The default is
+[page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
+See the [page:Textures texture constants] page for all possible choices.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br/>
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br/>
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br/>
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br/>
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br/>
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br/>
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:boolean reflectFromAbove]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string renderTargetType]</h3>
+		<p>
+			Input  of composer component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean renderToScreen]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:number resolution]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:number scale]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:mixed scene]</h3>
+		<p>
+			Input  of composer component
+			 - [page:Scene Scene] | [page:SceneComponent SceneComponent]
+		</p>
+
+		<h3>[property:mixed scissorHeight]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean scissorTest]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:mixed scissorWidth]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed scissorX]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed scissorY]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean stencilBuffer]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			Input  of composer component<br/><br/>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean useRenderTarget]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:boolean viewport]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:boolean viewportAspect]</h3>
+		<p>
+			Input  of composer component
+		</p>
+
+		<h3>[property:mixed width]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:string wrap]</h3>
+		<p>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
+The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
+See the [page:Textures texture constants] page for details.<br/><br/>
+			The Default Value of wrapS, wrapT.<br/>
+			<br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:string wrapS]</h3>
+		<p>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
+The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
+See the [page:Textures texture constants] page for details.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:string wrapT]</h3>
+		<p>
+			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
+The same choices are available as for [property:number wrapS].<br /><br />
+NOTE: tiling of images in textures only functions if image dimensions are powers of two
+(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
+Individual dimensions need not be equal, but each must be a power of two.
+This is a limitation of WebGL, not three.js.<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br/>
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br/>
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:mixed x]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed y]</h3>
+		<p>
+			Input  of composer component
+			 - [page:string string] | [page:number number]
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<p>
+			Applys changes
+
+			<br/><br/>
+			Returns : 
+		</p>
+
+		<h3>[method:any getComposer](  )</h3>
+		<p>
+			Gets composer
+
+			<br/><br/>
+			Returns : composer
+		</p>
+
+		<h3>[method:T getObject](  )</h3>
+		<p>
+			Gets object
+
+			<br/><br/>
+			Returns : object
+		</p>
+
+		<h3>[method:WebGLRenderTarget getReadBuffer](  )</h3>
+		<p>
+			Gets read buffer
+
+			<br/><br/>
+			Returns : read buffer
+		</p>
+
+		<h3>[method:WebGLRenderTarget getRenderTarget1](  )</h3>
+		<p>
+			Gets render target1
+
+			<br/><br/>
+			Returns : render target1
+		</p>
+
+		<h3>[method:WebGLRenderTarget getRenderTarget2](  )</h3>
+		<p>
+			Gets render target2
+
+			<br/><br/>
+			Returns : render target2
+		</p>
+
+		<h3>[method:WebGLRenderTarget getWriteBuffer](  )</h3>
+		<p>
+			Gets write buffer
+
+			<br/><br/>
+			Returns : write buffer
+		</p>
+
+		<h3>[method:void render](  [param:WebGLRenderer renderer],  [param:RendererTimer renderTimer] )</h3>
+		<p>
+			Renders composer component
+		</p>
+
+		<h3>[method:void setComposerSize](  [param:number width],  [param:number height] )</h3>
+		<p>
+			Sets composer size
+		</p>
+
+		<h3>[method:void setRenderer](  [param:WebGLRenderer webGLRenderer],  [param:Camera camera],  [param:Scene scene] )</h3>
+		<p>
+			Sets renderer
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/composer/composer.component.ts composer/composer.component.ts]</p>
+	</body>
+</html>

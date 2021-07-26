@@ -41,7 +41,7 @@
 	Default is *true*.
 		</p>
 
-		<h3>[property: beforeRender]</h3>
+		<h3>[property:any beforeRender]</h3>
 		<p>
 			Input  of renderer component
 		</p>
@@ -56,9 +56,10 @@
 			Sets the alpha of the clear color
 		</p>
 
-		<h3>[property:string|number clearColor]</h3>
+		<h3>[property:mixed clearColor]</h3>
 		<p>
 			Sets the clear color
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:any controlOptions]</h3>
@@ -93,9 +94,10 @@
 			Input  of renderer component
 		</p>
 
-		<h3>[property:string|number height]</h3>
+		<h3>[property:mixed height]</h3>
 		<p>
 			Input  of renderer component
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:boolean localClippingEnabled]</h3>
@@ -189,19 +191,22 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number width]</h3>
+		<h3>[property:mixed width]</h3>
 		<p>
 			Input  of renderer component
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number x]</h3>
+		<h3>[property:mixed x]</h3>
 		<p>
 			Input  of renderer component
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number y]</h3>
+		<h3>[property:mixed y]</h3>
 		<p>
 			Input  of renderer component
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -232,7 +237,7 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 			Returns : 
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
 			Applys changes
 
@@ -245,7 +250,7 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 			Changes auto size
 		</p>
 
-		<h3>[method:void getCanvasJson](  [param: callback],  [param: options] )</h3>
+		<h3>[method:void getCanvasJson](  [param:any callback],  [param:any options] )</h3>
 		<p>
 			Gets canvas json
 		</p>

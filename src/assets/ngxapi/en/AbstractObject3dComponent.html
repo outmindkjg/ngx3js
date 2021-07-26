@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractTweenComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr;
 
 		<h1>[name]</h1>
 
@@ -17,12 +17,16 @@
 
 		<h2>Properties - Input</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
 		</p>
 
-		<h3>[property:AnimationGroupComponent|AnimationObjectGroup animationGroup]</h3>
+		<h3>[property:mixed animationGroup]</h3>
 		<p>
 			Input  of abstract object3d component
+			 - [page:AnimationGroupComponent AnimationGroupComponent] | [page:AnimationObjectGroup AnimationObjectGroup]
 		</p>
 
 		<h3>[property:boolean castShadow]</h3>
@@ -84,7 +88,7 @@ scale every frame and also recalculates the matrixWorld property. Default is [pa
 			The name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
-		<h3>[property: onBeforeRender]</h3>
+		<h3>[property:any onBeforeRender]</h3>
 		<p>
 			<p>
 An optional callback that is executed immediately before a 3D object is rendered.
@@ -133,20 +137,26 @@ Sorting is from lowest to highest renderOrder. Default value is *0*.
 
 		<h2>Properties - Output</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 
-		<h3>[method:void addChildObject3d](  [param:Object3D object3d],  [param:string|string changes] )</h3>
+		<h3>[method:void addChildObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
 		<p>
 			Adds child object3d
 		</p>
 
-		<h3>[method:void addDebugLine](  [param:Object3D[] objs],  [param:string[] lines],  [param:string prefix] )</h3>
+		<h3>[method:void addDebugLine](  [param:Object3D objs][],  [param:string lines][],  [param:string prefix] )</h3>
 		<p>
 			Adds debug line
 
@@ -154,7 +164,7 @@ Sorting is from lowest to highest renderOrder. Default value is *0*.
 			Returns : debug line
 		</p>
 
-		<h3>[method:void addParentObject3d](  [param:Object3D object3d],  [param:string|string changes] )</h3>
+		<h3>[method:void addParentObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
 		<p>
 			Adds parent object3d
 		</p>
@@ -175,12 +185,12 @@ Sorting is from lowest to highest renderOrder. Default value is *0*.
 			Returns : rotation
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
 			Applys changes
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
 		<p>
 			Applys changes3d
 

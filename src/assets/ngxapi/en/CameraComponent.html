@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>[name]</h1>
 
@@ -22,6 +22,9 @@
 		</p>
 
 		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
 		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
 		</p>
@@ -82,10 +85,11 @@ Arguments default to *true*.
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number far]</h3>
+		<h3>[property:mixed far]</h3>
 		<p>
 			Camera frustum far plane. Default is *2000*.<br /><br />
 Must be greater than the current value of [page:.near near] plane.
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number focalLength]</h3>
@@ -94,15 +98,17 @@ Must be greater than the current value of [page:.near near] plane.
 By default, the focal length is specified for a 35mm (full frame) camera.
 		</p>
 
-		<h3>[property:string|number fov]</h3>
+		<h3>[property:mixed fov]</h3>
 		<p>
 			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number height]</h3>
+		<h3>[property:mixed height]</h3>
 		<p>
 			The viewport of this render target.
 Vector4.height
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number left]</h3>
@@ -115,12 +121,13 @@ Vector4.height
 			Input  of camera component
 		</p>
 
-		<h3>[property:string|number near]</h3>
+		<h3>[property:mixed near]</h3>
 		<p>
 			Camera frustum near plane. Default is *0.1*.<br /><br />
 The valid range is between 0 and the current value of the [page:.far far] plane.
 Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an
 OrthographicCamera's near plane.
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number orthoSize]</h3>
@@ -128,9 +135,10 @@ OrthographicCamera's near plane.
 			orthoSize  of camera component
 		</p>
 
-		<h3>[property:AbstractObject3dComponent|Object3D referObject3d]</h3>
+		<h3>[property:mixed referObject3d]</h3>
 		<p>
 			Input  of camera component
+			 - [page:AbstractObject3dComponent AbstractObject3dComponent] | [page:Object3D Object3D]
 		</p>
 
 		<h3>[property:number right]</h3>
@@ -148,10 +156,11 @@ OrthographicCamera's near plane.
 			The given scene
 		</p>
 
-		<h3>[property:string|number scissorHeight]</h3>
+		<h3>[property:mixed scissorHeight]</h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
 Vector4.height
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:boolean scissorTest]</h3>
@@ -159,22 +168,25 @@ Vector4.height
 			Indicates whether the scissor test is active or not.
 		</p>
 
-		<h3>[property:string|number scissorWidth]</h3>
+		<h3>[property:mixed scissorWidth]</h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
 Vector4.width
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number scissorX]</h3>
+		<h3>[property:mixed scissorX]</h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
 Vector4.x
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number scissorY]</h3>
+		<h3>[property:mixed scissorY]</h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
 Vector4.y
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string storageName]</h3>
@@ -193,11 +205,11 @@ Vector4.y
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:PerspectiveCamera THREE.PerspectiveCamera - PerspectiveCamera, Perspective]<br/>
-			[page:ArrayCamera THREE.ArrayCamera       - ArrayCamera, Array]<br/>
-			[page:CubeCamera THREE.CubeCamera        - CubeCamera, Cube]<br/>
-			[page:OrthographicCamera THREE.OrthographicCamera - OrthographicCamera, Orthographic]<br/>
-			[page:StereoCamera THREE.StereoCamera      - StereoCamera, Stereo]
+			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - PerspectiveCamera, Perspective<br/>
+			[page:ArrayCamera ArrayCamera] - THREE.ArrayCamera       - ArrayCamera, Array<br/>
+			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - CubeCamera, Cube<br/>
+			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera - OrthographicCamera, Orthographic<br/>
+			[page:StereoCamera StereoCamera] - THREE.StereoCamera      - StereoCamera, Stereo
 		</p>
 
 		<h3>[property:boolean viewport]</h3>
@@ -211,30 +223,37 @@ Vector4.y
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number width]</h3>
+		<h3>[property:mixed width]</h3>
 		<p>
 			The viewport of this render target.
 Vector4.width
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number x]</h3>
+		<h3>[property:mixed x]</h3>
 		<p>
 			The viewport of this render target.
 Vector4.x
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number y]</h3>
+		<h3>[property:mixed y]</h3>
 		<p>
 			The viewport of this render target.
 Vector4.y
+			 - [page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string|number zoom]</h3>
+		<h3>[property:mixed zoom]</h3>
 		<p>
 			Gets or sets the zoom factor of the camera. Default is *1*.
+			 - [page:string string] | [page:number number]
 		</p>
 
 		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
 		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
 		</p>
@@ -244,13 +263,16 @@ Vector4.y
 
 		<h2>Methods</h2>
 		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
 		<p>
 			Applys changes3d
 
@@ -274,7 +296,7 @@ Vector4.y
 			Returns : cube render target
 		</p>
 
-		<h3>[method:Intersection getIntersection](  [param:Vector2 mouse],  [param:Object3D|Object3D mesh],  [param:boolean recursive] )</h3>
+		<h3>[method:Intersection getIntersection](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
 		<p>
 			Gets intersection
 
@@ -282,7 +304,7 @@ Vector4.y
 			Returns : intersection
 		</p>
 
-		<h3>[method:void getIntersections](  [param:Vector2 mouse],  [param:Object3D|Object3D mesh],  [param:boolean recursive] )</h3>
+		<h3>[method:void getIntersections](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
 		<p>
 			Gets intersections
 
@@ -338,7 +360,7 @@ Vector4.y
 			Returns : texture
 		</p>
 
-		<h3>[method:void render](  [param:Renderer renderer],  [param:CSS3DRenderer|CSS2DRenderer cssRenderer],  [param:any scenes],  [param:RendererTimer renderTimer] )</h3>
+		<h3>[method:void render](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:any scenes],  [param:RendererTimer renderTimer] )</h3>
 		<p>
 			Renders camera component
 
@@ -359,7 +381,7 @@ Vector4.y
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:CSS3DRenderer|CSS2DRenderer cssRenderer],  [param:QueryList rendererScenes] )</h3>
+		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:QueryList rendererScenes] )</h3>
 		<p>
 			Sets renderer
 		</p>

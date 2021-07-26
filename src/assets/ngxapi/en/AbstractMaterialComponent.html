@@ -40,17 +40,17 @@ See the blending mode [page:Materials constants] for all possible values. Defaul
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:BlendingDstFactor THREE.BlendingDstFactor]<br/>
-			[page:ZeroFactor THREE.ZeroFactor - ZeroFactor , Zero]<br/>
-			[page:OneFactor THREE.OneFactor - OneFactor , One]<br/>
-			[page:SrcColorFactor THREE.SrcColorFactor - SrcColorFactor , SrcColor]<br/>
-			[page:OneMinusSrcColorFactor THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor]<br/>
-			[page:SrcAlphaFactor THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha]<br/>
-			[page:OneMinusSrcAlphaFactor THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha]<br/>
-			[page:DstAlphaFactor THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha]<br/>
-			[page:OneMinusDstAlphaFactor THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha]<br/>
-			[page:DstColorFactor THREE.DstColorFactor - DstColorFactor , DstColor]<br/>
-			[page:OneMinusDstColorFactor THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor]
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br/>
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br/>
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br/>
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br/>
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br/>
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br/>
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br/>
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br/>
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br/>
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br/>
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
 		</p>
 
 		<h3>[property:number blendDstAlpha]</h3>
@@ -66,12 +66,12 @@ The material's [page:Constant blending] must be set to [page:Materials CustomBle
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:BlendingEquation THREE.BlendingEquation]<br/>
-			[page:AddEquation THREE.AddEquation - AddEquation , Add]<br/>
-			[page:SubtractEquation THREE.SubtractEquation - SubtractEquation , Subtract]<br/>
-			[page:ReverseSubtractEquation THREE.ReverseSubtractEquation - ReverseSubtractEquation , ReverseSubtract]<br/>
-			[page:MinEquation THREE.MinEquation - MinEquation , Min]<br/>
-			[page:MaxEquation THREE.MaxEquation - MaxEquation , Max]
+			[page:BlendingEquation BlendingEquation] - THREE.BlendingEquation<br/>
+			[page:AddEquation AddEquation] - THREE.AddEquation - AddEquation , Add<br/>
+			[page:SubtractEquation SubtractEquation] - THREE.SubtractEquation - SubtractEquation , Subtract<br/>
+			[page:ReverseSubtractEquation ReverseSubtractEquation] - THREE.ReverseSubtractEquation - ReverseSubtractEquation , ReverseSubtract<br/>
+			[page:MinEquation MinEquation] - THREE.MinEquation - MinEquation , Min<br/>
+			[page:MaxEquation MaxEquation] - THREE.MaxEquation - MaxEquation , Max
 		</p>
 
 		<h3>[property:number blendEquationAlpha]</h3>
@@ -87,13 +87,13 @@ The material's [page:Constant blending] must be set to [page:Materials CustomBle
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:Blending THREE.Blending]<br/>
-			[page:NoBlending THREE.NoBlending - NoBlending , No]<br/>
-			[page:NormalBlending THREE.NormalBlending - NormalBlending , Normal]<br/>
-			[page:AdditiveBlending THREE.AdditiveBlending - AdditiveBlending , Additive]<br/>
-			[page:SubtractiveBlending THREE.SubtractiveBlending - SubtractiveBlending , Subtractive]<br/>
-			[page:MultiplyBlending THREE.MultiplyBlending - MultiplyBlending , Multiply]<br/>
-			[page:CustomBlending THREE.CustomBlending - CustomBlending , Custom]
+			[page:Blending Blending] - THREE.Blending<br/>
+			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending , No<br/>
+			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending , Normal<br/>
+			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending , Additive<br/>
+			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending , Subtractive<br/>
+			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending , Multiply<br/>
+			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending , Custom
 		</p>
 
 		<h3>[property:number blendSrcAlpha]</h3>
@@ -120,7 +120,7 @@ Default is *false*.
 			Defines whether to clip shadows according to the clipping planes specified on this material. Default is *false*.
 		</p>
 
-		<h3>[property:Plane|PlaneComponent clippingPlanes]</h3>
+		<h3>[property:mixed clippingPlanes]</h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.
 These planes apply to the objects this material is attached to.
@@ -128,6 +128,7 @@ Points in space whose signed distance to the plane is negative are clipped (not 
 This requires [page:WebGLRenderer.localClippingEnabled] to be *true*.
 See the [example:webgl_clipping_intersection WebGL / clipping /intersection] example.
 Default is *null*.
+			 - [page:Plane Plane] | [page:PlaneComponent PlaneComponent]
 		</p>
 
 		<h3>[property:boolean colorWrite]</h3>
@@ -152,15 +153,15 @@ This can be used in conjunction with a mesh's [page:Integer renderOrder] propert
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:DepthModes THREE.DepthModes]<br/>
-			[page:NeverDepth THREE.NeverDepth - NeverDepth , Never]<br/>
-			[page:AlwaysDepth THREE.AlwaysDepth - AlwaysDepth , Always]<br/>
-			[page:LessDepth THREE.LessDepth - LessDepth , Less]<br/>
-			[page:LessEqualDepth THREE.LessEqualDepth - LessEqualDepth , LessEqual]<br/>
-			[page:EqualDepth THREE.EqualDepth - EqualDepth , Equal]<br/>
-			[page:GreaterEqualDepth THREE.GreaterEqualDepth - GreaterEqualDepth , GreaterEqual]<br/>
-			[page:GreaterDepth THREE.GreaterDepth - GreaterDepth , Greater]<br/>
-			[page:NotEqualDepth THREE.NotEqualDepth - NotEqualDepth , NotEqual]
+			[page:DepthModes DepthModes] - THREE.DepthModes<br/>
+			[page:NeverDepth NeverDepth] - THREE.NeverDepth - NeverDepth , Never<br/>
+			[page:AlwaysDepth AlwaysDepth] - THREE.AlwaysDepth - AlwaysDepth , Always<br/>
+			[page:LessDepth LessDepth] - THREE.LessDepth - LessDepth , Less<br/>
+			[page:LessEqualDepth LessEqualDepth] - THREE.LessEqualDepth - LessEqualDepth , LessEqual<br/>
+			[page:EqualDepth EqualDepth] - THREE.EqualDepth - EqualDepth , Equal<br/>
+			[page:GreaterEqualDepth GreaterEqualDepth] - THREE.GreaterEqualDepth - GreaterEqualDepth , GreaterEqual<br/>
+			[page:GreaterDepth GreaterDepth] - THREE.GreaterDepth - GreaterDepth , Greater<br/>
+			[page:NotEqualDepth NotEqualDepth] - THREE.NotEqualDepth - NotEqualDepth , NotEqual
 		</p>
 
 		<h3>[property:boolean depthTest]</h3>
@@ -205,7 +206,7 @@ Default is *false*.
 			The name of the object to apply loaded mesh when restore from assets.
 		</p>
 
-		<h3>[property: onBeforeCompile]</h3>
+		<h3>[property:any onBeforeCompile]</h3>
 		<p>
 			An callback that is executed immediately before the shader program is compiled.
 This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.
@@ -265,10 +266,10 @@ If *null*, the side casting shadows is determined as follows: <br /><br/><br/>
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:Side THREE.Side]<br/>
-			[page:FrontSide THREE.FrontSide - FrontSide , Front]<br/>
-			[page:BackSide THREE.BackSide - BackSide , Back]<br/>
-			[page:DoubleSide THREE.DoubleSide - DoubleSide , Double]
+			[page:Side Side] - THREE.Side<br/>
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br/>
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br/>
+			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double
 		</p>
 
 		<h3>[property:string side]</h3>
@@ -279,10 +280,10 @@ Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.Doub
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:Side THREE.Side]<br/>
-			[page:FrontSide THREE.FrontSide - FrontSide , Front]<br/>
-			[page:BackSide THREE.BackSide - BackSide , Back]<br/>
-			[page:DoubleSide THREE.DoubleSide - DoubleSide , Double]
+			[page:Side Side] - THREE.Side<br/>
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br/>
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br/>
+			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double
 		</p>
 
 		<h3>[property:string stencilFail]</h3>
@@ -291,15 +292,15 @@ Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.Doub
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:StencilOp THREE.StencilOp]<br/>
-			[page:ZeroStencilOp THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil]<br/>
-			[page:KeepStencilOp THREE.KeepStencilOp - KeepStencilOp , KeepStencil]<br/>
-			[page:ReplaceStencilOp THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil]<br/>
-			[page:IncrementStencilOp THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil]<br/>
-			[page:DecrementStencilOp THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil]<br/>
-			[page:IncrementWrapStencilOp THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil]<br/>
-			[page:DecrementWrapStencilOp THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil]<br/>
-			[page:InvertStencilOp THREE.InvertStencilOp - InvertStencilOp , InvertStencil]
+			[page:StencilOp StencilOp] - THREE.StencilOp<br/>
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br/>
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br/>
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br/>
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br/>
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br/>
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br/>
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br/>
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:string stencilFunc]</h3>
@@ -318,15 +319,15 @@ Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.Doub
 			The value to use when performing stencil comparisons or stencil operations. Default is *0*.
 
 			<br/><br/>
-			[page:StencilFunc THREE.StencilFunc]<br/>
-			[page:NeverStencilFunc THREE.NeverStencilFunc - NeverStencilFunc , NeverStencil]<br/>
-			[page:LessStencilFunc THREE.LessStencilFunc - LessStencilFunc , LessStencil]<br/>
-			[page:EqualStencilFunc THREE.EqualStencilFunc - EqualStencilFunc , EqualStencil]<br/>
-			[page:LessEqualStencilFunc THREE.LessEqualStencilFunc - LessEqualStencilFunc , LessEqualStencil]<br/>
-			[page:GreaterStencilFunc THREE.GreaterStencilFunc - GreaterStencilFunc , GreaterStencil]<br/>
-			[page:NotEqualStencilFunc THREE.NotEqualStencilFunc - NotEqualStencilFunc , NotEqualStencil]<br/>
-			[page:GreaterEqualStencilFunc THREE.GreaterEqualStencilFunc - GreaterEqualStencilFunc , GreaterEqualStencil]<br/>
-			[page:AlwaysStencilFunc THREE.AlwaysStencilFunc - AlwaysStencilFunc , AlwaysStencil]
+			[page:StencilFunc StencilFunc] - THREE.StencilFunc<br/>
+			[page:NeverStencilFunc NeverStencilFunc] - THREE.NeverStencilFunc - NeverStencilFunc , NeverStencil<br/>
+			[page:LessStencilFunc LessStencilFunc] - THREE.LessStencilFunc - LessStencilFunc , LessStencil<br/>
+			[page:EqualStencilFunc EqualStencilFunc] - THREE.EqualStencilFunc - EqualStencilFunc , EqualStencil<br/>
+			[page:LessEqualStencilFunc LessEqualStencilFunc] - THREE.LessEqualStencilFunc - LessEqualStencilFunc , LessEqualStencil<br/>
+			[page:GreaterStencilFunc GreaterStencilFunc] - THREE.GreaterStencilFunc - GreaterStencilFunc , GreaterStencil<br/>
+			[page:NotEqualStencilFunc NotEqualStencilFunc] - THREE.NotEqualStencilFunc - NotEqualStencilFunc , NotEqualStencil<br/>
+			[page:GreaterEqualStencilFunc GreaterEqualStencilFunc] - THREE.GreaterEqualStencilFunc - GreaterEqualStencilFunc , GreaterEqualStencil<br/>
+			[page:AlwaysStencilFunc AlwaysStencilFunc] - THREE.AlwaysStencilFunc - AlwaysStencilFunc , AlwaysStencil
 		</p>
 
 		<h3>[property:boolean stencilWrite]</h3>
@@ -345,15 +346,15 @@ Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.Doub
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:StencilOp THREE.StencilOp]<br/>
-			[page:ZeroStencilOp THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil]<br/>
-			[page:KeepStencilOp THREE.KeepStencilOp - KeepStencilOp , KeepStencil]<br/>
-			[page:ReplaceStencilOp THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil]<br/>
-			[page:IncrementStencilOp THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil]<br/>
-			[page:DecrementStencilOp THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil]<br/>
-			[page:IncrementWrapStencilOp THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil]<br/>
-			[page:DecrementWrapStencilOp THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil]<br/>
-			[page:InvertStencilOp THREE.InvertStencilOp - InvertStencilOp , InvertStencil]
+			[page:StencilOp StencilOp] - THREE.StencilOp<br/>
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br/>
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br/>
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br/>
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br/>
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br/>
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br/>
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br/>
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:string stencilZPass]</h3>
@@ -362,15 +363,15 @@ Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.Doub
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:StencilOp THREE.StencilOp]<br/>
-			[page:ZeroStencilOp THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil]<br/>
-			[page:KeepStencilOp THREE.KeepStencilOp - KeepStencilOp , KeepStencil]<br/>
-			[page:ReplaceStencilOp THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil]<br/>
-			[page:IncrementStencilOp THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil]<br/>
-			[page:DecrementStencilOp THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil]<br/>
-			[page:IncrementWrapStencilOp THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil]<br/>
-			[page:DecrementWrapStencilOp THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil]<br/>
-			[page:InvertStencilOp THREE.InvertStencilOp - InvertStencilOp , InvertStencil]
+			[page:StencilOp StencilOp] - THREE.StencilOp<br/>
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br/>
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br/>
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br/>
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br/>
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br/>
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br/>
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br/>
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:boolean toneMapped]</h3>
@@ -408,7 +409,7 @@ Default is *false*.
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )</h3>
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
 			Applys changes
 
@@ -424,17 +425,17 @@ See the blending mode [page:Materials constants] for all possible values. Defaul
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:BlendingDstFactor THREE.BlendingDstFactor]<br/>
-			[page:ZeroFactor THREE.ZeroFactor - ZeroFactor , Zero]<br/>
-			[page:OneFactor THREE.OneFactor - OneFactor , One]<br/>
-			[page:SrcColorFactor THREE.SrcColorFactor - SrcColorFactor , SrcColor]<br/>
-			[page:OneMinusSrcColorFactor THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor]<br/>
-			[page:SrcAlphaFactor THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha]<br/>
-			[page:OneMinusSrcAlphaFactor THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha]<br/>
-			[page:DstAlphaFactor THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha]<br/>
-			[page:OneMinusDstAlphaFactor THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha]<br/>
-			[page:DstColorFactor THREE.DstColorFactor - DstColorFactor , DstColor]<br/>
-			[page:OneMinusDstColorFactor THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor]
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br/>
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br/>
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br/>
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br/>
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br/>
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br/>
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br/>
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br/>
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br/>
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br/>
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
 
 			<br/><br/>
 			Returns : blend dst
@@ -456,23 +457,24 @@ See the blending mode [page:Materials constants] for all possible values. Defaul
 			Notice - case insensitive.
 
 			<br/><br/>
-			[page:BlendingDstFactor THREE.BlendingDstFactor]<br/>
-			[page:ZeroFactor THREE.ZeroFactor - ZeroFactor , Zero]<br/>
-			[page:OneFactor THREE.OneFactor - OneFactor , One]<br/>
-			[page:SrcColorFactor THREE.SrcColorFactor - SrcColorFactor , SrcColor]<br/>
-			[page:OneMinusSrcColorFactor THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor]<br/>
-			[page:SrcAlphaFactor THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha]<br/>
-			[page:OneMinusSrcAlphaFactor THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha]<br/>
-			[page:DstAlphaFactor THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha]<br/>
-			[page:OneMinusDstAlphaFactor THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha]<br/>
-			[page:DstColorFactor THREE.DstColorFactor - DstColorFactor , DstColor]<br/>
-			[page:OneMinusDstColorFactor THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor]
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br/>
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br/>
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br/>
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br/>
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br/>
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br/>
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br/>
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br/>
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br/>
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br/>
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
+			 - [page:BlendingDstFactor BlendingDstFactor] | [page:BlendingSrcFactor BlendingSrcFactor]
 
 			<br/><br/>
 			Returns : blend src
 		</p>
 
-		<h3>[method:void getClippingPlanes](  [param:Plane[] def] )</h3>
+		<h3>[method:void getClippingPlanes](  [param:Plane def][] )</h3>
 		<p>
 			Gets clipping planes
 

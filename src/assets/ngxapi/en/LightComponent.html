@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			LightComponent
+		</p>
+
+		<h2>Component</h2>
+		<p>
+			&lt;ngx3js-light&gt;&lt;/ngx3js-light&gt;
+		</p>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+		</p>
+
+		<h3>[property:number angle]</h3>
+		<p>
+			Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).
+		</p>
+
+		<h3>[property:ThreeColor color]</h3>
+		<p>
+			Numeric value of the RGB component of the color. Default is 0xffffff.
+		</p>
+
+		<h3>[property:number decay]</h3>
+		<p>
+			The amount the light dims along the distance of the light. Default is 1.
+		</p>
+
+		<h3>[property:number distance]</h3>
+		<p>
+			Maximum range of the light. Default is 0 (no limit).
+		</p>
+
+		<h3>[property:ThreeColor groundColor]</h3>
+		<p>
+			hexadecimal color of the ground. Default is 0xffffff.
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			height of the light. Default is 10.
+		</p>
+
+		<h3>[property:number intensity]</h3>
+		<p>
+			Numeric value of the light's strength/intensity. Default is 1.
+		</p>
+
+		<h3>[property:number penumbra]</h3>
+		<p>
+			Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.
+		</p>
+
+		<h3>[property:any renderTarget]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:any renderer]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:string sh]</h3>
+		<p>
+			An instance of [page:SphericalHarmonics3].
+		</p>
+
+		<h3>[property:number shadowBias]</h3>
+		<p>
+			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
+The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
+		</p>
+
+		<h3>[property:number shadowCameraBottom]</h3>
+		<p>
+			Camera frustum bottom plane.
+		</p>
+
+		<h3>[property:number shadowCameraFar]</h3>
+		<p>
+			Camera frustum far plane. Default is *2000*.<br /><br />
+Must be greater than the current value of [page:.near near] plane.
+		</p>
+
+		<h3>[property:number shadowCameraFov]</h3>
+		<p>
+			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+		</p>
+
+		<h3>[property:number shadowCameraLeft]</h3>
+		<p>
+			Camera frustum left plane.
+		</p>
+
+		<h3>[property:number shadowCameraNear]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number shadowCameraRight]</h3>
+		<p>
+			Camera frustum right plane.
+		</p>
+
+		<h3>[property:number shadowCameraTop]</h3>
+		<p>
+			Camera frustum top plane.
+		</p>
+
+		<h3>[property:number shadowCameraZoom]</h3>
+		<p>
+			Gets or sets the zoom factor of the camera. Default is *1*.
+		</p>
+
+		<h3>[property:number shadowFocus]</h3>
+		<p>
+			Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.
+		</p>
+
+		<h3>[property:number shadowMapSize]</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.
+		</p>
+
+		<h3>[property:number shadowMapSizeHeight]</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.
+vector2.height
+		</p>
+
+		<h3>[property:number shadowMapSizeWidth]</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.
+vector2.width
+		</p>
+
+		<h3>[property:number shadowRadius]</h3>
+		<p>
+			Setting this to values greater than 1 will blur the edges of the shadow.<br />
+High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]
+will allow for a higher value to be used here before these effects become visible.<br />
+If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has
+no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br /><br />
+Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+		</p>
+
+		<h3>[property:ThreeColor skyColor]</h3>
+		<p>
+			hexadecimal color of the sky. Default is 0xffffff.
+		</p>
+
+		<h3>[property:any target]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetX]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetY]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetZ]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:AbstractTextureComponent texture]</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			The type of light<br/><br/>
+			Notice - case insensitive.
+
+			<br/><br/>
+			[page:PointLight PointLight] - THREE.PointLight - point, pointlight<br/>
+			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - arealight,area, rectarealight, rectarea<br/>
+			[page:SpotLight SpotLight] - THREE.SpotLight - spot, spotlight<br/>
+			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - directional, directionallight<br/>
+			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - hemispherelight, hemisphere<br/>
+			[page:LightProbe LightProbe] - THREE.LightProbe - lightprobe, probe<br/>
+			[page:AmbientLight AmbientLight] - THREE.AmbientLight - ambientlight, ambient
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			width of the light. Default is 10.
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<p>
+			Applys changes3d
+		</p>
+
+		<h3>[method:T getLight](  )</h3>
+		<p>
+			Gets light
+
+			<br/><br/>
+			Returns : light
+		</p>
+
+		<h3>[method:T getObject3d](  )</h3>
+		<p>
+			Gets object3d
+
+			<br/><br/>
+			Returns : object3d
+		</p>
+
+		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
+		<p>
+			Gets tag attribute
+
+			<br/><br/>
+			Returns : 
+		</p>
+
+		<h3>[method:Renderer getThreeRenderer](  )</h3>
+		<p>
+			Gets three renderer
+
+			<br/><br/>
+			Returns : three renderer
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<p>
+			Sets parent
+
+			<br/><br/>
+			Returns : true if parent
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/light/light.component.ts light/light.component.ts]</p>
+	</body>
+</html>
