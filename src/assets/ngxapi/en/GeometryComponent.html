@@ -12,21 +12,114 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			GeometryComponent<br/><br/>
-			A representation of mesh, line, or point geometry. Includes vertex positions, face<br/>
-			indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of<br/>
-			passing all this data to the GPU.<br/>
-			<br/>
-			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.
-
-			<br/><br/>
+			GeometryComponent<br>
+			<br>
+			A representation of mesh, line, or point geometry. Includes vertex positions, face<br>
+			indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of<br>
+			passing all this data to the GPU.<br>
+			<br>
+			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.<br>
+			<br>
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-geometry&gt;&lt;/ngx3js-geometry&gt;
-		</p>
+		<code>
+			&lt;ngx3js-geometry
+			[ addGroup ]="..."
+			[ arc ]="..."
+			[ attrColor ]="..."
+			[ attrPosition ]="..."
+			[ bevelEnabled ]="..."
+			[ bevelOffset ]="..."
+			[ bevelSegments ]="..."
+			[ bevelSize ]="..."
+			[ bevelThickness ]="..."
+			[ blinn ]="..."
+			[ body ]="..."
+			[ bottom ]="..."
+			[ closed ]="..."
+			[ curve ]="..."
+			[ curveNormal ]="..."
+			[ curveNormalOption ]="..."
+			[ curveOption ]="..."
+			[ curvePath ]="..."
+			[ curvePathType ]="..."
+			[ curveSegments ]="..."
+			[ curveType ]="..."
+			[ debug ]="..."
+			[ depth ]="..."
+			[ depthSegments ]="..."
+			[ detail ]="..."
+			[ enabled ]="..."
+			[ extrudePath ]="..."
+			[ extrudePathType ]="..."
+			[ fitLid ]="..."
+			[ font ]="..."
+			[ height ]="..."
+			[ heightSegments ]="..."
+			[ innerRadius ]="..."
+			[ instanceCount ]="..."
+			[ lid ]="..."
+			[ light ]="..."
+			[ mesh ]="..."
+			[ openEnded ]="..."
+			[ orientationX ]="..."
+			[ orientationY ]="..."
+			[ orientationZ ]="..."
+			[ outerRadius ]="..."
+			[ p ]="..."
+			[ parametric ]="..."
+			[ perlinType ]="..."
+			[ phiLength ]="..."
+			[ phiSegments ]="..."
+			[ phiStart ]="..."
+			[ points ]="..."
+			[ pointsGeometry ]="..."
+			[ polyIndices ]="..."
+			[ polyVertices ]="..."
+			[ positionX ]="..."
+			[ positionY ]="..."
+			[ positionZ ]="..."
+			[ q ]="..."
+			[ quality ]="..."
+			[ radialSegments ]="..."
+			[ radius ]="..."
+			[ radiusBottom ]="..."
+			[ radiusSegments ]="..."
+			[ radiusTop ]="..."
+			[ refGeometry ]="..."
+			[ refType ]="..."
+			[ refer ]="..."
+			[ scale ]="..."
+			[ segments ]="..."
+			[ shadow ]="..."
+			[ shapes ]="..."
+			[ size ]="..."
+			[ sizeX ]="..."
+			[ sizeY ]="..."
+			[ sizeZ ]="..."
+			[ slices ]="..."
+			[ stacks ]="..."
+			[ steps ]="..."
+			[ storage2Buffer ]="..."
+			[ storageName ]="..."
+			[ tension ]="..."
+			[ text ]="..."
+			[ thetaLength ]="..."
+			[ thetaSegments ]="..."
+			[ thetaStart ]="..."
+			[ thresholdAngle ]="..."
+			[ tube ]="..."
+			[ tubularSegments ]="..."
+			[ type ]="..."
+			[ uVGenerator ]="..."
+			[ weight ]="..."
+			[ width ]="..."
+			[ widthSegments ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-geometry&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -111,14 +204,15 @@
 			Input  of geometry component
 		</p>
 
-		<h3>[property:ThreeVector[] curvePath]</h3>
+		<h3>[property:ThreeVector curvePath][]</h3>
 		<p>
 			Input  of geometry component
 		</p>
 
 		<h3>[property:string curvePathType]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -129,7 +223,8 @@
 
 		<h3>[property:string curveType]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -148,14 +243,15 @@
 			Default is 0.  Setting this to a value greater than 0 adds more vertices making it no longer an icosahedron.  When detail is greater than 1, it's effectively a sphere
 		</p>
 
-		<h3>[property:ThreeVector[] extrudePath]</h3>
+		<h3>[property:ThreeVector extrudePath][]</h3>
 		<p>
 			Input  of geometry component
 		</p>
 
 		<h3>[property:string extrudePathType]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -196,8 +292,9 @@
 
 		<h3>[property:mixed light]</h3>
 		<p>
-			Input  of geometry component
-			 - [page:string string] | [page:number number]
+			Input  of geometry component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:any mesh]</h3>
@@ -237,13 +334,15 @@
 
 		<h3>[property:any parametric]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string perlinType]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -262,7 +361,7 @@
 			the starting angle in radians. Default is 0.
 		</p>
 
-		<h3>[property:ThreeVector[] points]</h3>
+		<h3>[property:ThreeVector points][]</h3>
 		<p>
 			Input  of geometry component
 		</p>
@@ -272,12 +371,12 @@
 			Input  of geometry component
 		</p>
 
-		<h3>[property:number[] polyIndices]</h3>
+		<h3>[property:number polyIndices][]</h3>
 		<p>
 			Input  of geometry component
 		</p>
 
-		<h3>[property:number[] polyVertices]</h3>
+		<h3>[property:number polyVertices][]</h3>
 		<p>
 			Input  of geometry component
 		</p>
@@ -339,7 +438,8 @@
 
 		<h3>[property:string refType]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -355,14 +455,16 @@
 
 		<h3>[property:mixed shadow]</h3>
 		<p>
-			Input  of geometry component
-			 - [page:string string] | [page:number number]
+			Input  of geometry component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed shapes]</h3>
 		<p>
-			Input  of geometry component
-			 - [page:ThreeVector ThreeVector] | [page:Shape Shape]
+			Input  of geometry component<br>
+			<br>
+			[page:ThreeVector ThreeVector] | [page:Shape Shape]
 		</p>
 
 		<h3>[property:number size]</h3>
@@ -452,51 +554,52 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			The type  of geometry<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry<br/>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer<br/>
-			[page:InstancedBufferGeometry InstancedBufferGeometry] - THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced<br/>
-			TeapotGeometry - TeapotGeometry, Teapot<br/>
-			PerlinGeometry - PerlinBufferGeometry, PerlinGeometry, Perlin, PerlinBuffer<br/>
-			RopeGeometry - RopeBufferGeometry, RopeGeometry, Rope, RopeBuffer<br/>
-			CapsuleGeometry - CapsuleGeometry, Capsule<br/>
-			LineGeometry - LineGeometry, Line<br/>
-			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - BoxGeometry, Box<br/>
-			[page:CircleGeometry CircleGeometry] - THREE.CircleGeometry - CircleGeometry, Circle<br/>
-			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br/>
-			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br/>
-			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br/>
-			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br/>
-			MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge<br/>
-			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br/>
-			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br/>
-			[page:LatheGeometry LatheGeometry] - THREE.LatheGeometry - LatheGeometry, Lathe<br/>
-			[page:OctahedronGeometry OctahedronGeometry] - THREE.OctahedronGeometry - OctahedronGeometry, Octahedron<br/>
-			[page:ParametricBufferGeometry ParametricBufferGeometry] - THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer<br/>
-			ParametricGeometries.TorusKnotGeometry - <br/>
-			ParametricGeometries.SphereGeometry - <br/>
-			ParametricGeometries.TubeGeometry - <br/>
-			[page:ParametricGeometry ParametricGeometry] - THREE.ParametricGeometry - ParametricGeometry , Parametric<br/>
-			[page:PlaneGeometry PlaneGeometry] - THREE.PlaneGeometry - PlaneGeometry, Plane<br/>
-			[page:RingGeometry RingGeometry] - THREE.RingGeometry - RingGeometry, Ring<br/>
-			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - SphereGeometry, Sphere<br/>
-			[page:TetrahedronGeometry TetrahedronGeometry] - THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron<br/>
-			[page:TextBufferGeometry TextBufferGeometry] - THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text<br/>
-			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br/>
-			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br/>
-			[page:TubeGeometry TubeGeometry] - THREE.TubeGeometry - TubeGeometry, Tube<br/>
-			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe<br/>
-			WireframeGeometry2 - WireframeGeometry2, Wireframe2<br/>
-			ConvexGeometry - ConvexGeometry, Convex<br/>
+			The type  of geometry<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry<br>
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer<br>
+			[page:InstancedBufferGeometry InstancedBufferGeometry] - THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced<br>
+			TeapotGeometry - TeapotGeometry, Teapot<br>
+			PerlinGeometry - PerlinBufferGeometry, PerlinGeometry, Perlin, PerlinBuffer<br>
+			RopeGeometry - RopeBufferGeometry, RopeGeometry, Rope, RopeBuffer<br>
+			CapsuleGeometry - CapsuleGeometry, Capsule<br>
+			LineGeometry - LineGeometry, Line<br>
+			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - BoxGeometry, Box<br>
+			[page:CircleGeometry CircleGeometry] - THREE.CircleGeometry - CircleGeometry, Circle<br>
+			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br>
+			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br>
+			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br>
+			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br>
+			MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge<br>
+			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br>
+			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br>
+			[page:LatheGeometry LatheGeometry] - THREE.LatheGeometry - LatheGeometry, Lathe<br>
+			[page:OctahedronGeometry OctahedronGeometry] - THREE.OctahedronGeometry - OctahedronGeometry, Octahedron<br>
+			[page:ParametricBufferGeometry ParametricBufferGeometry] - THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer<br>
+			ParametricGeometries.TorusKnotGeometry - <br>
+			ParametricGeometries.SphereGeometry - <br>
+			ParametricGeometries.TubeGeometry - <br>
+			[page:ParametricGeometry ParametricGeometry] - THREE.ParametricGeometry - ParametricGeometry , Parametric<br>
+			[page:PlaneGeometry PlaneGeometry] - THREE.PlaneGeometry - PlaneGeometry, Plane<br>
+			[page:RingGeometry RingGeometry] - THREE.RingGeometry - RingGeometry, Ring<br>
+			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - SphereGeometry, Sphere<br>
+			[page:TetrahedronGeometry TetrahedronGeometry] - THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron<br>
+			[page:TextBufferGeometry TextBufferGeometry] - THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text<br>
+			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br>
+			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br>
+			[page:TubeGeometry TubeGeometry] - THREE.TubeGeometry - TubeGeometry, Tube<br>
+			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe<br>
+			WireframeGeometry2 - WireframeGeometry2, Wireframe2<br>
+			ConvexGeometry - ConvexGeometry, Convex<br>
 			DecalGeometry - DecalGeometry, Decal
 		</p>
 
 		<h3>[property:string uVGenerator]</h3>
 		<p>
-			Input  of geometry component<br/><br/>
+			Input  of geometry component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -533,9 +636,8 @@
 
 		<h3>[method:T getGeometry](  )</h3>
 		<p>
-			Gets geometry
-
-			<br/><br/>
+			Gets geometry<br>
+			<br>
 			Returns : geometry
 		</p>
 

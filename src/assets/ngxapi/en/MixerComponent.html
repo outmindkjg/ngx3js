@@ -16,9 +16,32 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-mixer&gt;&lt;/ngx3js-mixer&gt;
-		</p>
+		<code>
+			&lt;ngx3js-mixer
+			[ action ]="..."
+			[ afterglow ]="..."
+			[ animationHelper ]="..."
+			[ controls ]="..."
+			[ debug ]="..."
+			[ delayTime ]="..."
+			[ duration ]="..."
+			[ enabled ]="..."
+			[ fps ]="..."
+			[ gravity ]="..."
+			[ maxStepNum ]="..."
+			[ mmdHelpers ]="..."
+			[ physics ]="..."
+			[ resetPhysicsOnLoop ]="..."
+			[ skin ]="..."
+			[ sync ]="..."
+			[ timeScale ]="..."
+			[ type ]="..."
+			[ unitStep ]="..."
+			[ warmup ]="..."
+			[ weapon ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-mixer&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -27,7 +50,8 @@
 
 		<h3>[property:string action]</h3>
 		<p>
-			Input  of mixer component<br/><br/>
+			Input  of mixer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -71,7 +95,7 @@
 			Input  of mixer component
 		</p>
 
-		<h3>[property:string[] mmdHelpers]</h3>
+		<h3>[property:string mmdHelpers][]</h3>
 		<p>
 			Input  of mixer component
 		</p>
@@ -103,7 +127,8 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of mixer component<br/><br/>
+			Input  of mixer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -149,25 +174,22 @@
 
 		<h3>[method:MMDAnimationHelper getMmdAnimationHelper](  )</h3>
 		<p>
-			Gets mmd animation helper
-
-			<br/><br/>
+			Gets mmd animation helper<br>
+			<br>
 			Returns : mmd animation helper
 		</p>
 
 		<h3>[method:void getMmdAnimationHelperObject3D](  )</h3>
 		<p>
-			Gets mmd animation helper object3 d
-
-			<br/><br/>
+			Gets mmd animation helper object3 d<br>
+			<br>
 			Returns : mmd animation helper object3 d
 		</p>
 
 		<h3>[method:boolean play](  [param:string name],  [param:number duration] )</h3>
 		<p>
-			Plays mixer component
-
-			<br/><br/>
+			Plays mixer component<br>
+			<br>
 			Returns : true if play
 		</p>
 
@@ -178,9 +200,8 @@
 
 		<h3>[method:boolean setParent](  [param:mixed parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 

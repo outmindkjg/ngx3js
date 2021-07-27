@@ -16,9 +16,32 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-shape&gt;&lt;/ngx3js-shape&gt;
-		</p>
+		<code>
+			&lt;ngx3js-shape
+			[ aCP1x ]="..."
+			[ aCP1y ]="..."
+			[ aCP2x ]="..."
+			[ aCP2y ]="..."
+			[ aCPx ]="..."
+			[ aCPy ]="..."
+			[ aClockwise ]="..."
+			[ aEndAngle ]="..."
+			[ aRadius ]="..."
+			[ aRotation ]="..."
+			[ aStartAngle ]="..."
+			[ aX ]="..."
+			[ aY ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ points ]="..."
+			[ type ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ xRadius ]="..."
+			[ y ]="..."
+			[ yRadius ]="..."
+		&gt;&lt;/ngx3js-shape&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -90,14 +113,15 @@
 			Input  of shape component
 		</p>
 
-		<h3>[property:ThreeVector[] points]</h3>
+		<h3>[property:ThreeVector points][]</h3>
 		<p>
 			Input  of shape component
 		</p>
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of shape component<br/><br/>
+			Input  of shape component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -133,18 +157,17 @@
 
 		<h3>[method:void getShape](  [param:mixed shape] )</h3>
 		<p>
-			Gets shape
-			 - [page:Shape Shape] | [page:Path Path]
-
-			<br/><br/>
+			Gets shape<br>
+			<br>
+			[page:Shape Shape] | [page:Path Path]<br>
+			<br>
 			Returns : shape
 		</p>
 
 		<h3>[method:boolean setParent](  [param:AbstractGeometryComponent parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 

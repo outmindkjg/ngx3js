@@ -587,6 +587,7 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
         case 'gridhelper':
         case 'grid':
           basemesh = new THREE.GridHelper(this.getSize(10), this.getDivisions(10), this.getColor1(0x444444), this.getColor2(0x888888));
+          parentAdd = false;
           break;
         case 'polargridhelper':
         case 'polargrid':

@@ -16,9 +16,47 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-rigidbody&gt;&lt;/ngx3js-rigidbody&gt;
-		</p>
+		<code>
+			&lt;ngx3js-rigidbody
+			[ angDamping ]="..."
+			[ angStiffness ]="..."
+			[ angularVelocityX ]="..."
+			[ angularVelocityY ]="..."
+			[ angularVelocityZ ]="..."
+			[ breakable ]="..."
+			[ collisions ]="..."
+			[ damping ]="..."
+			[ debug ]="..."
+			[ depth ]="..."
+			[ enabled ]="..."
+			[ friction ]="..."
+			[ height ]="..."
+			[ inertia ]="..."
+			[ inertiaX ]="..."
+			[ inertiaY ]="..."
+			[ inertiaZ ]="..."
+			[ isSoftBody ]="..."
+			[ linDamping ]="..."
+			[ linStiffness ]="..."
+			[ margin ]="..."
+			[ mass ]="..."
+			[ piterations ]="..."
+			[ pressure ]="..."
+			[ radius ]="..."
+			[ randomizeConstraints ]="..."
+			[ restitution ]="..."
+			[ rollingFriction ]="..."
+			[ stiffness ]="..."
+			[ type ]="..."
+			[ velocityType ]="..."
+			[ velocityX ]="..."
+			[ velocityY ]="..."
+			[ velocityZ ]="..."
+			[ viterations ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-rigidbody&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -57,8 +95,9 @@
 
 		<h3>[property:mixed collisions]</h3>
 		<p>
-			Input  of rigidbody component
-			 - [page:string string] | [page:number number]
+			Input  of rigidbody component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number damping]</h3>
@@ -163,13 +202,15 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of rigidbody component<br/><br/>
+			Input  of rigidbody component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string velocityType]</h3>
 		<p>
-			Input  of rigidbody component<br/><br/>
+			Input  of rigidbody component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -210,10 +251,9 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void applyForce](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number relX],  [param:number relY],  [param:number relZ],  [param:number index] )</h3>
@@ -233,41 +273,36 @@
 
 		<h3>[method:Vector3 getFactor](  [param:string type],  [param:number index] )</h3>
 		<p>
-			Gets factor
-
-			<br/><br/>
+			Gets factor<br>
+			<br>
 			Returns : factor
 		</p>
 
 		<h3>[method:btMotionState getMotionState](  [param:number index] )</h3>
 		<p>
-			Gets motion state
-
-			<br/><br/>
+			Gets motion state<br>
+			<br>
 			Returns : motion state
 		</p>
 
 		<h3>[method:RigidbodyType getRigidBody](  )</h3>
 		<p>
-			Gets rigid body
-
-			<br/><br/>
+			Gets rigid body<br>
+			<br>
 			Returns : rigid body
 		</p>
 
 		<h3>[method:Vector3 getVelocity](  [param:string type],  [param:number index] )</h3>
 		<p>
-			Gets velocity
-
-			<br/><br/>
+			Gets velocity<br>
+			<br>
 			Returns : velocity
 		</p>
 
 		<h3>[method:btSoftBodyWorldInfo getWorldInfo](  )</h3>
 		<p>
-			Gets world info
-
-			<br/><br/>
+			Gets world info<br>
+			<br>
 			Returns : world info
 		</p>
 
@@ -293,9 +328,8 @@
 
 		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 

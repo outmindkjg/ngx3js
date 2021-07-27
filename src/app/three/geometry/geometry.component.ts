@@ -11,11 +11,12 @@ import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtil
 import { CurveComponent } from '../curve/curve.component';
 import { CurveUtils } from '../curve/curveUtils';
 import { AbstractGeometryComponent, GeometriesParametric } from '../geometry.abstract';
-import { ThreeUtil, ThreeVector } from '../interface';
+import { ThreeColor, ThreeUtil, ThreeVector } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { SvgComponent } from '../svg/svg.component';
 import { CapsuleGeometry } from './geometry.capsule';
+import { GridGeometry } from './geometry.grid';
 import { PlanePerlinGeometry } from './geometry.plane_perlin';
 import { RopeGeometry } from './geometry.rope';
 
@@ -253,6 +254,16 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * This value determines, how many times the geometry winds around a circle in the interior of the torus. Default is 3.
    */
   @Input() private q: number = null;
+
+  /**
+   * Grid Color axis X
+   */
+  @Input() private color1: ThreeColor = null;
+
+  /**
+   * Grid Color axis Y
+   */
+  @Input() private color2: ThreeColor = null;
 
   /**
    * Input  of geometry component
@@ -1115,6 +1126,21 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
             const ropeGeometry = new RopeGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1));
             geometry = ropeGeometry;
             break;
+          case 'gridbuffergeometry':
+          case 'gridgeometry':
+          case 'gridbuffer':
+          case 'grid':
+              const gridGeometry = new GridGeometry(
+                ThreeUtil.getTypeSafe(this.width, this.height, 1), 
+                ThreeUtil.getTypeSafe(this.height, this.width, 1), 
+                ThreeUtil.getTypeSafe(this.depth, 0), 
+                ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1),
+                ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+                ThreeUtil.getColorSafe(this.color1, 0x444444),
+                ThreeUtil.getColorSafe(this.color2, 0x888888),
+              );
+              geometry = gridGeometry;
+              break;
           case 'capsulebuffergeometry':
           case 'capsulegeometry':
           case 'capsulebuffer':

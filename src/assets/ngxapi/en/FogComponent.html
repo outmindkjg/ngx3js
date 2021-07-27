@@ -16,9 +16,18 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-fog&gt;&lt;/ngx3js-fog&gt;
-		</p>
+		<code>
+			&lt;ngx3js-fog
+			[ color ]="..."
+			[ debug ]="..."
+			[ density ]="..."
+			[ enabled ]="..."
+			[ far ]="..."
+			[ near ]="..."
+			[ type ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-fog&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -32,28 +41,27 @@
 
 		<h3>[property:number density]</h3>
 		<p>
-			Defines how fast the fog will grow dense.
-Default is 0.00025.
+			Defines how fast the fog will grow dense.<br>
+			Default is 0.00025.
 		</p>
 
 		<h3>[property:number far]</h3>
 		<p>
-			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.
-Default is 1000.
+			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br>
+			Default is 1000.
 		</p>
 
 		<h3>[property:number near]</h3>
 		<p>
-			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.
-Default is 1.
+			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br>
+			Default is 1.
 		</p>
 
 		<h3>[property:string type]</h3>
 		<p>
-			The Fog type.
-
-			<br/><br/>
-			[page:Fog Fog] - THREE.Fog - fog (default)<br/>
+			The Fog type.<br>
+			<br>
+			[page:Fog Fog] - THREE.Fog - fog (default)<br>
 			[page:FogExp2 FogExp2] - THREE.FogExp2 - fogexp2, exp, exp2
 		</p>
 
@@ -69,9 +77,8 @@ Default is 1.
 
 		<h3>[method:FogBase getFog](  )</h3>
 		<p>
-			Gets fog
-
-			<br/><br/>
+			Gets fog<br>
+			<br>
 			Returns : fog
 		</p>
 

@@ -1,0 +1,116 @@
+<ngx3js-renderer
+  [cssType]="'css3d'"
+  [controlType]="'orbit'"
+  [controlOptions]="{ enablePan : false , enableDamping : true }"
+  [statsMode]="0"
+  [antialias]="true"
+  [clearColor]="'0xffffff'"
+  [shadowMapEnabled]="true"
+  [guiControl]="guiControl"
+  [guiParams]="guiParams"
+  (onRender)="onRender($event)"
+>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
+    <ngx3js-position [x]="0" [y]="0" [z]="-2000"></ngx3js-position>
+  </ngx3js-camera>
+  <ngx3js-scene #scene [background]="'0x000000'">
+    <ngx3js-light
+      [type]="'AmbientLight'"
+      [color]="'0xffffff'"
+      [intensity]="0.1"
+    ></ngx3js-light>
+    <ngx3js-light
+      [type]="'directional'"
+      [color]="'0xffffff'"
+      [intensity]="1"
+      [shadowCameraTop]="1000"
+      [shadowCameraBottom]="-1000"
+      [shadowCameraLeft]="-1000"
+      [shadowCameraRight]="1000"
+      [shadowCameraNear]="0.1"
+      [shadowCameraFar]="20000"
+    >
+      <ngx3js-position [x]="1" [y]="0.5" [z]="-1" [normalize]="true"></ngx3js-position>
+    </ngx3js-light>
+    <ngx3js-shared>
+      <ngx3js-geometry
+        #barGeometry
+        [type]="'box'"
+        [width]="barGeometryInfo.width"
+        [height]="barGeometryInfo.height"
+        [depth]="barGeometryInfo.depth"
+        [align]="'bottom'"
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngIf="barChart && barChart.length > 0">
+        <ngx3js-mesh *ngFor="let info of barChart" [geometry]="barGeometry" [userData]="info.userData">
+          <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+          <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
+          <ngx3js-material [type]="'meshlambert'" [color]="info.color" [opacity]="info.opacity" [transparent]="true"></ngx3js-material>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh>
+      <ngx3js-mesh *ngIf="axisX">
+        <ngx3js-position [x]="axisX.x" [y]="axisX.y" [z]="axisX.z"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
+          [type]="'Box'"
+          [width]="width"
+          [height]="height / 30"
+          [depth]="depth"
+        ></ngx3js-geometry>
+        <ngx3js-material
+          [type]="'MeshPhong'"
+          [color]="'0x999999'"
+        ></ngx3js-material>
+        <ngx3js-mesh *ngFor="let info of xLabel" [type]="'css3dobject'" [cssTag]="'div'" [cssStyle]="{ innerText : info.text, className : 'xLabel'}">
+          <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="axisY">
+        <ngx3js-position [x]="axisY.x" [y]="axisY.y" [z]="axisY.z"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="270" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
+          [type]="'Plane'"
+          [width]="depth"
+          [height]="height"
+        ></ngx3js-geometry>
+        <ngx3js-material
+          [type]="'MeshPhong'"
+          [color]="'0x999999'"
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="axisZ">
+        <ngx3js-position [x]="axisZ.x" [y]="axisZ.y" [z]="axisZ.z"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+        <ngx3js-geometry
+          [type]="'Plane'"
+          [width]="width"
+          [height]="height"
+        ></ngx3js-geometry>
+        <ngx3js-material
+          [type]="'MeshPhong'"
+          [color]="'0x999999'"
+        ></ngx3js-material>
+        <ngx3js-mesh [type]="'LineSegments'">
+          <ngx3js-position [x]="grideInfo.offset" [y]="grideInfo.offset" [z]="grideInfo.offset"></ngx3js-position>
+          <ngx3js-geometry
+            [type]="'GridGeometry'"
+            [width]="width"
+            [height]="height"
+            [depth]="depth"
+            [widthSegments]="grideInfo.widthSegments"
+            [heightSegments]="grideInfo.heightSegments"
+          ></ngx3js-geometry>
+          <ngx3js-material [type]="'LineBasicMaterial'" [vertexColors]="true" [toneMapped]="false"></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh *ngFor="let info of yLabel" [type]="'css3dobject'" [cssTag]="'div'" [cssStyle]="{ innerText : info.text, className : 'yLabel'}">
+          <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+  </ngx3js-scene>
+</ngx3js-renderer>

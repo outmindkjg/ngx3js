@@ -53,6 +53,7 @@ ng g c three/audio
 ng g c three/plane
 ng g c three/html
 ng g c three/canvas
+ng g c three/chart
 ng g c three/visual
 ng g c three/transform
 ng g c three/controller
@@ -534,6 +535,19 @@ ng g c examples/svg_sandbox
 ng g c examples/webgl_furnace_test
 ng g c examples/webgl_pmrem_test
 ng g c examples/misc_uv_tests
+
+ng g c examples/ngx_material
+ng g c examples/ngx_geometry
+ng g c examples/ngx_chart_bar
+ng g c examples/ngx_chart_line
+ng g c examples/ngx_chart_radar
+ng g c examples/ngx_chart_scatter
+ng g c examples/ngx_chart_area
+ng g c examples/ngx_chart_bubble
+ng g c examples/ngx_chart_polar
+ng g c examples/ngx_chart_mixed
+
+
 ng g c docs/api-read
 
 

@@ -16,9 +16,22 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-keyframe&gt;&lt;/ngx3js-keyframe&gt;
-		</p>
+		<code>
+			&lt;ngx3js-keyframe
+			[ booleans ]="..."
+			[ colors ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ interpolation ]="..."
+			[ name ]="..."
+			[ quaternions ]="..."
+			[ times ]="..."
+			[ type ]="..."
+			[ values ]="..."
+			[ vectors ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-keyframe&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -27,14 +40,16 @@
 
 		<h3>[property:mixed booleans]</h3>
 		<p>
-			Input  of keyframe component
-			 - [page:number number] | [page:boolean boolean]
+			Input  of keyframe component<br>
+			<br>
+			[page:number number] | [page:boolean boolean]
 		</p>
 
 		<h3>[property:mixed colors]</h3>
 		<p>
-			Input  of keyframe component
-			 - [page:string string] | [page:number number]
+			Input  of keyframe component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string interpolation]</h3>
@@ -49,11 +64,12 @@
 
 		<h3>[property:mixed quaternions]</h3>
 		<p>
-			Input  of keyframe component
-			 - [page:number number]
+			Input  of keyframe component<br>
+			<br>
+			[page:number number]
 		</p>
 
-		<h3>[property:number[] times]</h3>
+		<h3>[property:number times][]</h3>
 		<p>
 			Input  of keyframe component
 		</p>
@@ -63,15 +79,16 @@
 			Input  of keyframe component
 		</p>
 
-		<h3>[property:number[] values]</h3>
+		<h3>[property:number values][]</h3>
 		<p>
 			Input  of keyframe component
 		</p>
 
 		<h3>[property:mixed vectors]</h3>
 		<p>
-			Input  of keyframe component
-			 - [page:number number]
+			Input  of keyframe component<br>
+			<br>
+			[page:number number]
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -86,17 +103,15 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:KeyframeTrack getKeyframe](  )</h3>
 		<p>
-			Gets keyframe
-
-			<br/><br/>
+			Gets keyframe<br>
+			<br>
 			Returns : keyframe
 		</p>
 

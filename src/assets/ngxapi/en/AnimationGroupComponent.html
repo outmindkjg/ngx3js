@@ -12,34 +12,37 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			AnimationGroupComponent<br/><br/>
-			A group of objects that receives a shared animation state.<br/>
-			<br/>
-			<br/>
-			For an overview of the different elements of the three.js animation system see the<br/>
-			"Animation System" article in the "Next Steps" section of the manual.<br/>
-			<br/>
-			Usage<br/>
-			<br/>
-			Add objects you would otherwise pass as 'root' to the constructor or the [page:AnimationMixer.clipAction clipAction]<br/>
-			method of [page:AnimationMixer AnimationMixer] and instead pass this object as 'root'.<br/>
-			<br/>
-			<br/>
-			Note that objects of this class appear as one object to the mixer,<br/>
-			so cache control of the individual objects must be done	on the group.<br/>
-			<br/>
-			Limitations<br/>
-			<br/>
-			The animated properties must be compatible among all objects in the group.<br/>
-			<br/>
-			<br/>
+			AnimationGroupComponent<br>
+			<br>
+			A group of objects that receives a shared animation state.<br>
+			<br>
+			For an overview of the different elements of the three.js animation system see the<br>
+			"Animation System" article in the "Next Steps" section of the manual.<br>
+			<br>
+			Usage<br>
+			<br>
+			Add objects you would otherwise pass as 'root' to the constructor or the [page:AnimationMixer.clipAction clipAction]<br>
+			method of [page:AnimationMixer AnimationMixer] and instead pass this object as 'root'.<br>
+			<br>
+			Note that objects of this class appear as one object to the mixer,<br>
+			so cache control of the individual objects must be done	on the group.<br>
+			<br>
+			Limitations<br>
+			<br>
+			The animated properties must be compatible among all objects in the group.<br>
+			<br>
 			A single property can either be controlled through a target group or directly, but not both.
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-animation-group&gt;&lt;/ngx3js-animation-group&gt;
-		</p>
+		<code>
+			&lt;ngx3js-animation-group
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ name ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-animation-group&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -63,25 +66,22 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getAnimationGroup](  )</h3>
 		<p>
-			Gets animation group
-
-			<br/><br/>
+			Gets animation group<br>
+			<br>
 			Returns : animation group
 		</p>
 
 		<h3>[method:T getObject](  )</h3>
 		<p>
-			Gets object3d
-
-			<br/><br/>
+			Gets object3d<br>
+			<br>
 			Returns : object3d
 		</p>
 

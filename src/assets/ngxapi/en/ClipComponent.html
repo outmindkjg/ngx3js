@@ -12,18 +12,35 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			ClipComponent<br/><br/>
-			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br/>
-			<br/>
-			<br/>
-			For an overview of the different elements of the three.js animation system see the<br/>
+			ClipComponent<br>
+			<br>
+			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br>
+			<br>
+			For an overview of the different elements of the three.js animation system see the<br>
 			"Animation System" article in the "Next Steps" section of the manual.
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-clip&gt;&lt;/ngx3js-clip&gt;
-		</p>
+		<code>
+			&lt;ngx3js-clip
+			[ additive ]="..."
+			[ blendMode ]="..."
+			[ clampWhenFinished ]="..."
+			[ debug ]="..."
+			[ duration ]="..."
+			[ enabled ]="..."
+			[ endFrame ]="..."
+			[ fps ]="..."
+			[ index ]="..."
+			[ loop ]="..."
+			[ name ]="..."
+			[ startFrame ]="..."
+			[ subclip ]="..."
+			[ timeScale ]="..."
+			[ weight ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-clip&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -37,30 +54,30 @@
 
 		<h3>[property:string blendMode]</h3>
 		<p>
-			Input  of clip component<br/><br/>
+			Input  of clip component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:boolean clampWhenFinished]</h3>
 		<p>
-			If *clampWhenFinished* is set to true the animation will automatically be [page:.paused paused]
-on its last frame.<br /><br /><br/><br/>
-			If *clampWhenFinished* is set to false, [page:.enabled enabled] will automatically be switched<br/>
-			to false when the last loop of the action has finished, so that this action has no further<br/>
-			impact.<br/>
-			<br/>
-			<br/>
-			Default is false.<br/>
-			<br/>
-			<br/>
-			Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if<br/>
+			If *clampWhenFinished* is set to true the animation will automatically be [page:.paused paused]<br>
+			on its last frame.<br>
+			<br>
+			If *clampWhenFinished* is set to false, [page:.enabled enabled] will automatically be switched<br>
+			to false when the last loop of the action has finished, so that this action has no further<br>
+			impact.<br>
+			<br>
+			Default is false.<br>
+			<br>
+			Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if<br>
 			its last loop has really finished).
 		</p>
 
 		<h3>[property:number duration]</h3>
 		<p>
-			The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks]
-array via [page:.resetDuration resetDuration].
+			The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks]<br>
+			array via [page:.resetDuration resetDuration].
 		</p>
 
 		<h3>[property:number endFrame]</h3>
@@ -80,14 +97,14 @@ array via [page:.resetDuration resetDuration].
 
 		<h3>[property:string loop]</h3>
 		<p>
-			The looping mode (can be changed with [page:.setLoop setLoop]). Default is
-[page:Animation THREE.LoopRepeat] (with an infinite number of [page:.repetitions repetitions])<br /><br /><br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br/>
-			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br/>
-			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br/>
+			The looping mode (can be changed with [page:.setLoop setLoop]). Default is<br>
+			[page:Animation THREE.LoopRepeat] (with an infinite number of [page:.repetitions repetitions])<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br>
+			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br>
+			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br>
 			[page:LoopPingPong LoopPingPong] - THREE.LoopPingPong - LoopPingPong, PingPong
 		</p>
 
@@ -108,15 +125,15 @@ array via [page:.resetDuration resetDuration].
 
 		<h3>[property:number timeScale]</h3>
 		<p>
-			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative
-values cause the animation to play backwards. Default is 1.
+			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative<br>
+			values cause the animation to play backwards. Default is 1.
 		</p>
 
 		<h3>[property:number weight]</h3>
 		<p>
-			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)
-and 1 (full impact) can be used to blend between several actions. Default is 1. <br /><br />
-Properties/methods concerning  *weight* are:
+			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)<br>
+			and 1 (full impact) can be used to blend between several actions. Default is 1. <br>
+			Properties/methods concerning  *weight* are:
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -131,10 +148,9 @@ Properties/methods concerning  *weight* are:
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void crossFadeTo](  [param:ClipComponent endAction],  [param:number duration] )</h3>
@@ -154,26 +170,23 @@ Properties/methods concerning  *weight* are:
 
 		<h3>[method:AnimationClip getClip](  )</h3>
 		<p>
-			Gets clip
-
-			<br/><br/>
-			Returns : 
+			Gets clip<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getObject](  )</h3>
 		<p>
-			Gets object
-
-			<br/><br/>
+			Gets object<br>
+			<br>
 			Returns : object
 		</p>
 
 		<h3>[method:boolean isPlayable](  )</h3>
 		<p>
-			Determines whether playable is
-
-			<br/><br/>
-			Returns : 
+			Determines whether playable is<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void play](  )</h3>

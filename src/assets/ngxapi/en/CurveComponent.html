@@ -12,15 +12,34 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			CurveComponent<br/><br/>
-			An abstract base class for creating a [name] object that contains methods for interpolation.<br/>
+			CurveComponent<br>
+			<br>
+			An abstract base class for creating a [name] object that contains methods for interpolation.<br>
 			For an array of [name]s see [page:CurvePath].
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-curve&gt;&lt;/ngx3js-curve&gt;
-		</p>
+		<code>
+			&lt;ngx3js-curve
+			[ aClockwise ]="..."
+			[ aEndAngle ]="..."
+			[ aRadius ]="..."
+			[ aRotation ]="..."
+			[ aStartAngle ]="..."
+			[ aX ]="..."
+			[ aY ]="..."
+			[ closed ]="..."
+			[ curveType ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ points ]="..."
+			[ tension ]="..."
+			[ type ]="..."
+			[ windowExport ]="..."
+			[ xRadius ]="..."
+			[ yRadius ]="..."
+		&gt;&lt;/ngx3js-curve&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -69,16 +88,18 @@
 
 		<h3>[property:string curveType]</h3>
 		<p>
-			Possible values are *centripetal*, *chordal* and *catmullrom*.<br/><br/>
+			Possible values are *centripetal*, *chordal* and *catmullrom*.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:ThreeVector[] points]</h3>
+		<h3>[property:ThreeVector points][]</h3>
 		<p>
-			array of [page:Vector2 Vector2s].
-Creates a Path from the points. The first point defines the offset, then successive points
-are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br /><br /><br/><br/>
-			If no points are specified, an empty path is created and the [page:.currentPoint] is set to<br/>
+			array of [page:Vector2 Vector2s].<br>
+			Creates a Path from the points. The first point defines the offset, then successive points<br>
+			are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br>
+			<br>
+			If no points are specified, an empty path is created and the [page:.currentPoint] is set to<br>
 			the origin.
 		</p>
 
@@ -89,20 +110,20 @@ are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCur
 
 		<h3>[property:string type]</h3>
 		<p>
-			The curve type<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:Curve Curve] - THREE.Curve<THREE.Vector><br/>
-			[page:ArcCurve ArcCurve] - THREE.ArcCurve - ArcCurve, Arc<br/>
-			[page:CatmullRomCurve3 CatmullRomCurve3] - THREE.CatmullRomCurve3 - CatmullRomCurve3, Spline3, Catmullrom<br/>
-			[page:CubicBezierCurve CubicBezierCurve] - THREE.CubicBezierCurve - CubicBezierCurve, CubicBezier<br/>
-			[page:CubicBezierCurve3 CubicBezierCurve3] - THREE.CubicBezierCurve3 - CubicBezierCurve3, CubicBezier3<br/>
-			[page:EllipseCurve EllipseCurve] - THREE.EllipseCurve - EllipseCurve, Ellipse<br/>
-			[page:LineCurve LineCurve] - THREE.LineCurve - LineCurve, Line<br/>
-			[page:LineCurve3 LineCurve3] - THREE.LineCurve3 - LineCurve3, Line3<br/>
-			[page:QuadraticBezierCurve QuadraticBezierCurve] - THREE.QuadraticBezierCurve - QuadraticBezierCurve, QuadraticBezier<br/>
-			[page:QuadraticBezierCurve3 QuadraticBezierCurve3] - THREE.QuadraticBezierCurve3 - QuadraticBezierCurve3, QuadraticBezier3<br/>
+			The curve type<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:Curve Curve] - THREE.Curve<THREE.Vector><br>
+			[page:ArcCurve ArcCurve] - THREE.ArcCurve - ArcCurve, Arc<br>
+			[page:CatmullRomCurve3 CatmullRomCurve3] - THREE.CatmullRomCurve3 - CatmullRomCurve3, Spline3, Catmullrom<br>
+			[page:CubicBezierCurve CubicBezierCurve] - THREE.CubicBezierCurve - CubicBezierCurve, CubicBezier<br>
+			[page:CubicBezierCurve3 CubicBezierCurve3] - THREE.CubicBezierCurve3 - CubicBezierCurve3, CubicBezier3<br>
+			[page:EllipseCurve EllipseCurve] - THREE.EllipseCurve - EllipseCurve, Ellipse<br>
+			[page:LineCurve LineCurve] - THREE.LineCurve - LineCurve, Line<br>
+			[page:LineCurve3 LineCurve3] - THREE.LineCurve3 - LineCurve3, Line3<br>
+			[page:QuadraticBezierCurve QuadraticBezierCurve] - THREE.QuadraticBezierCurve - QuadraticBezierCurve, QuadraticBezier<br>
+			[page:QuadraticBezierCurve3 QuadraticBezierCurve3] - THREE.QuadraticBezierCurve3 - QuadraticBezierCurve3, QuadraticBezier3<br>
 			[page:SplineCurve SplineCurve] - THREE.SplineCurve - SplineCurve, Spline
 		</p>
 
@@ -128,17 +149,15 @@ are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCur
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:Curve getCurve](  )</h3>
 		<p>
-			Gets curve
-
-			<br/><br/>
+			Gets curve<br>
+			<br>
 			Returns : curve
 		</p>
 

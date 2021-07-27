@@ -16,9 +16,19 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-physics&gt;&lt;/ngx3js-physics&gt;
-		</p>
+		<code>
+			&lt;ngx3js-physics
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ gravity ]="..."
+			[ gravityX ]="..."
+			[ gravityY ]="..."
+			[ gravityZ ]="..."
+			[ type ]="..."
+			[ useCollision ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-physics&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -47,7 +57,8 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of physics component<br/><br/>
+			Input  of physics component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -68,65 +79,57 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void getAmmo](  )</h3>
 		<p>
-			Gets ammo
-
-			<br/><br/>
-			Returns : 
+			Gets ammo<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:btVector3 getBtVector3](  [param:any pointer] )</h3>
 		<p>
-			Gets bt vector3
-
-			<br/><br/>
+			Gets bt vector3<br>
+			<br>
 			Returns : bt vector3
 		</p>
 
 		<h3>[method:Object3D getCollisionObject](  [param:btCollisionObject body] )</h3>
 		<p>
-			Gets collision object
-
-			<br/><br/>
+			Gets collision object<br>
+			<br>
 			Returns : collision object
 		</p>
 
 		<h3>[method:ConvexObjectBreaker getConvexObjectBreaker](  )</h3>
 		<p>
-			Gets convex object breaker
-
-			<br/><br/>
+			Gets convex object breaker<br>
+			<br>
 			Returns : convex object breaker
 		</p>
 
 		<h3>[method:btSoftRigidDynamicsWorld getPhysics](  )</h3>
 		<p>
-			Gets physics
-
-			<br/><br/>
+			Gets physics<br>
+			<br>
 			Returns : physics
 		</p>
 
 		<h3>[method:btRigidBody getRigidBody](  [param:btCollisionObject body] )</h3>
 		<p>
-			Gets rigid body
-
-			<br/><br/>
+			Gets rigid body<br>
+			<br>
 			Returns : rigid body
 		</p>
 
 		<h3>[method:btSoftBodyHelpers getSoftBodyHelpers](  )</h3>
 		<p>
-			Gets soft body helpers
-
-			<br/><br/>
+			Gets soft body helpers<br>
+			<br>
 			Returns : soft body helpers
 		</p>
 

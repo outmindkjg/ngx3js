@@ -12,22 +12,28 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			LookatComponent<br/><br/>
-			vector - A vector representing a position in world space.<br/>
-			<br/>
-			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br/>
-			<br/>
-			<br/>
-			Rotates the object to face a point in world space.<br/>
-			<br/>
-			<br/>
+			LookatComponent<br>
+			<br>
+			vector - A vector representing a position in world space.<br>
+			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br>
+			<br>
+			Rotates the object to face a point in world space.<br>
+			<br>
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-lookat&gt;&lt;/ngx3js-lookat&gt;
-		</p>
+		<code>
+			&lt;ngx3js-lookat
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ refer ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+			[ z ]="..."
+		&gt;&lt;/ngx3js-lookat&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -66,25 +72,22 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:Vector3 getLookAt](  )</h3>
 		<p>
-			Gets look at
-
-			<br/><br/>
+			Gets look at<br>
+			<br>
 			Returns : look at
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
 		<p>
-			Gets tag attribute
-
-			<br/><br/>
+			Gets tag attribute<br>
+			<br>
 			Returns : tag attribute
 		</p>
 

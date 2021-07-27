@@ -16,9 +16,92 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-pass&gt;&lt;/ngx3js-pass&gt;
-		</p>
+		<code>
+			&lt;ngx3js-pass
+			[ accumulate ]="..."
+			[ adaptive ]="..."
+			[ angle ]="..."
+			[ aperture ]="..."
+			[ aspect ]="..."
+			[ bloomTexture ]="..."
+			[ camera ]="..."
+			[ centerX ]="..."
+			[ centerY ]="..."
+			[ clear ]="..."
+			[ clearAlpha ]="..."
+			[ clearColor ]="..."
+			[ damp ]="..."
+			[ debug ]="..."
+			[ depthTexture ]="..."
+			[ downSampleRatio ]="..."
+			[ dtSize ]="..."
+			[ edgeGlow ]="..."
+			[ edgeStrength ]="..."
+			[ edgeThickness ]="..."
+			[ enabled ]="..."
+			[ envMap ]="..."
+			[ focus ]="..."
+			[ fragmentShader ]="..."
+			[ goWild ]="..."
+			[ grayscale ]="..."
+			[ height ]="..."
+			[ hiddenEdgeColor ]="..."
+			[ intensity ]="..."
+			[ inverse ]="..."
+			[ kernelRadius ]="..."
+			[ kernelSize ]="..."
+			[ lut ]="..."
+			[ map ]="..."
+			[ materialShader ]="..."
+			[ maxDistance ]="..."
+			[ maxblur ]="..."
+			[ minDistance ]="..."
+			[ needsSwap ]="..."
+			[ noiseIntensity ]="..."
+			[ opacity ]="..."
+			[ output ]="..."
+			[ overrideMaterial ]="..."
+			[ params ]="..."
+			[ patternTexture ]="..."
+			[ pulsePeriod ]="..."
+			[ radius ]="..."
+			[ refer ]="..."
+			[ renderTarget ]="..."
+			[ renderToScreen ]="..."
+			[ resolution ]="..."
+			[ sampleLevel ]="..."
+			[ saoBias ]="..."
+			[ saoBlur ]="..."
+			[ saoBlurDepthCutoff ]="..."
+			[ saoBlurRadius ]="..."
+			[ saoBlurStdDev ]="..."
+			[ saoIntensity ]="..."
+			[ saoKernelRadius ]="..."
+			[ saoMinResolution ]="..."
+			[ saoScale ]="..."
+			[ scale ]="..."
+			[ scanlinesCount ]="..."
+			[ scanlinesIntensity ]="..."
+			[ scene ]="..."
+			[ selectedObjects ]="..."
+			[ shader ]="..."
+			[ sigma ]="..."
+			[ strength ]="..."
+			[ texture ]="..."
+			[ textureId ]="..."
+			[ threshold ]="..."
+			[ type ]="..."
+			[ unbiased ]="..."
+			[ uniforms ]="..."
+			[ use2DLut ]="..."
+			[ useNormals ]="..."
+			[ usePatternTexture ]="..."
+			[ vertexShader ]="..."
+			[ visibleEdgeColor ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-pass&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -122,8 +205,9 @@
 
 		<h3>[property:mixed envMap]</h3>
 		<p>
-			Input  of pass component
-			 - [page:CubeTexture CubeTexture] | [page:TextureComponent TextureComponent]
+			Input  of pass component<br>
+			<br>
+			[page:CubeTexture CubeTexture] | [page:TextureComponent TextureComponent]
 		</p>
 
 		<h3>[property:number focus]</h3>
@@ -178,7 +262,8 @@
 
 		<h3>[property:string lut]</h3>
 		<p>
-			Input  of pass component<br/><br/>
+			Input  of pass component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -189,7 +274,8 @@
 
 		<h3>[property:string materialShader]</h3>
 		<p>
-			Input  of pass component<br/><br/>
+			Input  of pass component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -225,7 +311,8 @@
 
 		<h3>[property:string output]</h3>
 		<p>
-			Input  of pass component<br/><br/>
+			Input  of pass component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -241,8 +328,9 @@
 
 		<h3>[property:mixed patternTexture]</h3>
 		<p>
-			Input  of pass component
-			 - [page:Texture Texture] | [page:TextureComponent TextureComponent]
+			Input  of pass component<br>
+			<br>
+			[page:Texture Texture] | [page:TextureComponent TextureComponent]
 		</p>
 
 		<h3>[property:number pulsePeriod]</h3>
@@ -345,14 +433,15 @@
 			Input  of pass component
 		</p>
 
-		<h3>[property:any[] selectedObjects]</h3>
+		<h3>[property:any selectedObjects][]</h3>
 		<p>
 			Input  of pass component
 		</p>
 
 		<h3>[property:string shader]</h3>
 		<p>
-			Input  of pass component<br/><br/>
+			Input  of pass component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -368,8 +457,9 @@
 
 		<h3>[property:mixed texture]</h3>
 		<p>
-			Input  of pass component
-			 - [page:Texture Texture] | [page:TextureComponent TextureComponent]
+			Input  of pass component<br>
+			<br>
+			[page:Texture Texture] | [page:TextureComponent TextureComponent]
 		</p>
 
 		<h3>[property:string textureId]</h3>
@@ -439,25 +529,22 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getObject](  )</h3>
 		<p>
-			Gets object
-
-			<br/><br/>
+			Gets object<br>
+			<br>
 			Returns : object
 		</p>
 
 		<h3>[method:Pass getPass](  )</h3>
 		<p>
-			Gets pass
-
-			<br/><br/>
+			Gets pass<br>
+			<br>
 			Returns : pass
 		</p>
 

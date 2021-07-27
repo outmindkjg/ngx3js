@@ -399,6 +399,18 @@ import { WebxrVrRollercoasterComponent } from './examples/webxr-vr-rollercoaster
 import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
+
+import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
+import { NgxChartBarComponent } from './examples/ngx-chart-bar/ngx-chart-bar.component';
+import { NgxChartLineComponent } from './examples/ngx-chart-line/ngx-chart-line.component';
+import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
+import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxChartAreaComponent } from './examples/ngx-chart-area/ngx-chart-area.component';
+import { NgxChartBubbleComponent } from './examples/ngx-chart-bubble/ngx-chart-bubble.component';
+import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-polar.component';
+import { NgxChartMixedComponent } from './examples/ngx-chart-mixed/ngx-chart-mixed.component';
+
 import { MenuComponent } from './menu/menu.component';
 import { Ngx3JsModule } from './three/ngx3js.module';
 
@@ -800,6 +812,16 @@ import { Ngx3JsModule } from './three/ngx3js.module';
     WebglPortalComponent,
     MiscExporterUsdzComponent,
     WebglMaterialsStandardNodesComponent,
+    NgxMaterialComponent,
+    NgxGeometryComponent,
+    NgxChartBarComponent,
+    NgxChartLineComponent,
+    NgxChartRadarComponent,
+    NgxChartScatterComponent,
+    NgxChartAreaComponent,
+    NgxChartBubbleComponent,
+    NgxChartPolarComponent,
+    NgxChartMixedComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
   providers: [

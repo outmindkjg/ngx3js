@@ -5,6 +5,7 @@ import { AudioComponent } from './audio/audio.component';
 import { BackgroundComponent } from './background/background.component';
 import { CameraComponent } from './camera/camera.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { ChartComponent } from './chart/chart.component';
 import { ClipComponent } from './clip/clip.component';
 import { ComposerComponent } from './composer/composer.component';
 import { ControlComponent } from './control/control.component';
@@ -100,6 +101,7 @@ const MODULE_COMPONENTS = [
   PhysicsConstraintComponent,
   RigidbodyNodeComponent,
   RenderTargetComponent,
+  ChartComponent
 ];
 
 /**

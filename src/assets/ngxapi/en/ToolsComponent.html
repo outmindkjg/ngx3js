@@ -16,9 +16,21 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-tools&gt;&lt;/ngx3js-tools&gt;
-		</p>
+		<code>
+			&lt;ngx3js-tools
+			[ background ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ encoding ]="..."
+			[ format ]="..."
+			[ size ]="..."
+			[ storageName ]="..."
+			[ storageOption ]="..."
+			[ type ]="..."
+			[ url ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-tools&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -27,52 +39,53 @@
 
 		<h3>[property:mixed background]</h3>
 		<p>
-			Input  of tools component
-			 - [page:string string] | [page:number number] | [page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of tools component<br>
+			<br>
+			[page:string string] | [page:number number] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:string encoding]</h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.
-See the [page:Textures texture constants] page for details of other formats.<br /><br />
-Note that if this value is changed on a texture after the material has been used,
-it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br/>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br/>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br/>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br/>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br/>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br/>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br/>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br/>
+			[page:Textures THREE.LinearEncoding] is the default.<br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			Note that if this value is changed on a texture after the material has been used,<br>
+			it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:string format]</h3>
 		<p>
-			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
-set this to [page:Textures THREE.RGBFormat] for JPG images. <br /><br />
-See the [page:Textures texture constants] page for details of other formats.<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br/>
-			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br/>
-			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br/>
-			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br/>
-			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br/>
-			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br/>
-			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br/>
-			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br/>
-			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br/>
-			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br/>
-			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br/>
-			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br/>
-			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br/>
-			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br/>
+			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically<br>
+			set this to [page:Textures THREE.RGBFormat] for JPG images. <br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br>
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br>
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br>
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br>
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br>
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br>
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br>
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br>
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br>
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br>
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br>
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br>
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br>
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br>
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
@@ -93,7 +106,8 @@ See the [page:Textures texture constants] page for details of other formats.<br/
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of tools component<br/><br/>
+			Input  of tools component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -114,25 +128,22 @@ See the [page:Textures texture constants] page for details of other formats.<br/
 
 		<h3>[method:AudioBuffer getAudio](  )</h3>
 		<p>
-			Gets audio
-
-			<br/><br/>
+			Gets audio<br>
+			<br>
 			Returns : audio
 		</p>
 
 		<h3>[method:Texture getTexture](  )</h3>
 		<p>
-			Gets texture
-
-			<br/><br/>
+			Gets texture<br>
+			<br>
 			Returns : texture
 		</p>
 
 		<h3>[method:any getTool](  )</h3>
 		<p>
-			Gets tool
-
-			<br/><br/>
+			Gets tool<br>
+			<br>
 			Returns : tool
 		</p>
 

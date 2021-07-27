@@ -116,12 +116,23 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     this.minimal = !this.minimal;
   }
 
+  setList(response: any, ngxResponse : any) {
+    this.files = response;
+    Object.entries(ngxResponse).forEach(([key, value]) => {
+      this.files[key] = value as any;
+    });
+  }
+
   checkSearch(filter: string) {
     if (this.files === null ) {
       this.http.get('assets/files.json').subscribe ( 
         response => { 
-          this.files = response as any;
-          this.checkSearch(filter);
+          this.http.get('assets/ngx-files.json').subscribe ( 
+            ngxResponse => { 
+              this.setList(response, ngxResponse);
+              this.checkSearch(filter);
+            }
+          )
         }
       )
       return ;
@@ -220,7 +231,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
           break;
         default:
           image = 'assets/examples/screenshots/css2d_label.jpg';
-          url = '/' + parentId + '/' + id;
+          url = '/examples/' + id;
           break;
       }
       return {

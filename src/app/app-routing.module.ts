@@ -395,6 +395,17 @@ import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-scul
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { WebglMaterialsStandardNodesComponent } from './examples/webgl-materials-standard-nodes/webgl-materials-standard-nodes.component';
 
+import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
+import { NgxChartBarComponent } from './examples/ngx-chart-bar/ngx-chart-bar.component';
+import { NgxChartLineComponent } from './examples/ngx-chart-line/ngx-chart-line.component';
+import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
+import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxChartAreaComponent } from './examples/ngx-chart-area/ngx-chart-area.component';
+import { NgxChartBubbleComponent } from './examples/ngx-chart-bubble/ngx-chart-bubble.component';
+import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-polar.component';
+import { NgxChartMixedComponent } from './examples/ngx-chart-mixed/ngx-chart-mixed.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'examples' },
   {
@@ -1466,7 +1477,16 @@ const routes: Routes = [
       { path: 'webgl_postprocessing_ssrr', component: WebglPostprocessingSsrrComponent },
       { path: 'physics_oimo_instancing', component: PhysicsOimoInstancingComponent },
       { path: 'webgl_loader_ifc', component: WebglLoaderIfcComponent },
-      { path: 'webgl_loader_gltf_transmission', component: WebglLoaderGltfTransmissionComponent },
+      { path: 'ngx_material', component: NgxMaterialComponent },
+      { path: 'ngx_geometry', component: NgxGeometryComponent },
+      { path: 'ngx_chart_bar', component: NgxChartBarComponent },
+      { path: 'ngx_chart_line', component: NgxChartLineComponent },
+      { path: 'ngx_chart_radar', component: NgxChartRadarComponent },
+      { path: 'ngx_chart_scatter', component: NgxChartScatterComponent },
+      { path: 'ngx_chart_area', component: NgxChartAreaComponent },
+      { path: 'ngx_chart_bubble', component: NgxChartBubbleComponent },
+      { path: 'ngx_chart_polar', component: NgxChartPolarComponent },
+      { path: 'ngx_chart_mixed', component: NgxChartMixedComponent },
       { path: '**', component: UnderConstructionComponent },
     ],
   },

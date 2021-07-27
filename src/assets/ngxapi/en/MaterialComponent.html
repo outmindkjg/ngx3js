@@ -12,23 +12,158 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			MaterialComponent<br/><br/>
-			Abstract base class for materials.<br/>
-			<br/>
-			<br/>
-			Materials describe the appearance of [page:Object objects].<br/>
-			They are defined in a (mostly) renderer-independent way, so you don't have to<br/>
-			rewrite materials if you decide to use a different renderer.<br/>
-			<br/>
-			<br/>
-			The following properties and methods are inherited by all other material types<br/>
+			MaterialComponent<br>
+			<br>
+			Abstract base class for materials.<br>
+			<br>
+			Materials describe the appearance of [page:Object objects].<br>
+			They are defined in a (mostly) renderer-independent way, so you don't have to<br>
+			rewrite materials if you decide to use a different renderer.<br>
+			<br>
+			The following properties and methods are inherited by all other material types<br>
 			(although they may have different defaults).
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-material&gt;&lt;/ngx3js-material&gt;
-		</p>
+		<code>
+			&lt;ngx3js-material
+			[ alphaMap ]="..."
+			[ alphaTest ]="..."
+			[ alphaToCoverage ]="..."
+			[ aoMap ]="..."
+			[ aoMapIntensity ]="..."
+			[ blendDst ]="..."
+			[ blendDstAlpha ]="..."
+			[ blendEquation ]="..."
+			[ blendEquationAlpha ]="..."
+			[ blendSrc ]="..."
+			[ blendSrcAlpha ]="..."
+			[ blending ]="..."
+			[ bumpMap ]="..."
+			[ bumpScale ]="..."
+			[ clearcoat ]="..."
+			[ clearcoatNormalMap ]="..."
+			[ clearcoatNormalScale ]="..."
+			[ clearcoatNormalScaleX ]="..."
+			[ clearcoatNormalScaleY ]="..."
+			[ clearcoatRoughness ]="..."
+			[ clipIntersection ]="..."
+			[ clipShadows ]="..."
+			[ clipping ]="..."
+			[ clippingPlanes ]="..."
+			[ color ]="..."
+			[ colorMultiply ]="..."
+			[ colorWrite ]="..."
+			[ combine ]="..."
+			[ control ]="..."
+			[ dashOffset ]="..."
+			[ dashScale ]="..."
+			[ dashSize ]="..."
+			[ dashed ]="..."
+			[ debug ]="..."
+			[ defines ]="..."
+			[ depthFunc ]="..."
+			[ depthPacking ]="..."
+			[ depthTest ]="..."
+			[ depthWrite ]="..."
+			[ diffuseColor ]="..."
+			[ diffuseColorMultiply ]="..."
+			[ diffuseMap ]="..."
+			[ displacementBias ]="..."
+			[ displacementMap ]="..."
+			[ displacementScale ]="..."
+			[ dithering ]="..."
+			[ emissive ]="..."
+			[ emissiveIntensity ]="..."
+			[ emissiveMultiply ]="..."
+			[ enabled ]="..."
+			[ envMap ]="..."
+			[ envMapIntensity ]="..."
+			[ environmentType ]="..."
+			[ extensions ]="..."
+			[ farDistance ]="..."
+			[ flatShading ]="..."
+			[ fog ]="..."
+			[ fragmentShader ]="..."
+			[ gapSize ]="..."
+			[ glslVersion ]="..."
+			[ lightMap ]="..."
+			[ lightMapIntensity ]="..."
+			[ lights ]="..."
+			[ linecap ]="..."
+			[ linejoin ]="..."
+			[ linewidth ]="..."
+			[ map ]="..."
+			[ matcap ]="..."
+			[ materialType ]="..."
+			[ metalness ]="..."
+			[ morphNormals ]="..."
+			[ morphTargets ]="..."
+			[ name ]="..."
+			[ nameList ]="..."
+			[ nearDistance ]="..."
+			[ normalMap ]="..."
+			[ normalMapType ]="..."
+			[ normalScale ]="..."
+			[ normalScaleX ]="..."
+			[ normalScaleY ]="..."
+			[ onBeforeCompile ]="..."
+			[ opacity ]="..."
+			[ polygonOffset ]="..."
+			[ polygonOffsetFactor ]="..."
+			[ polygonOffsetUnits ]="..."
+			[ precision ]="..."
+			[ premultipliedAlpha ]="..."
+			[ refer ]="..."
+			[ referencePositionX ]="..."
+			[ referencePositionY ]="..."
+			[ referencePositionZ ]="..."
+			[ reflectivity ]="..."
+			[ reflector ]="..."
+			[ refractionRatio ]="..."
+			[ resolutionX ]="..."
+			[ resolutionY ]="..."
+			[ rotation ]="..."
+			[ roughness ]="..."
+			[ roughnessMap ]="..."
+			[ scale ]="..."
+			[ shader ]="..."
+			[ shadowSide ]="..."
+			[ sheen ]="..."
+			[ sheenMultiply ]="..."
+			[ shininess ]="..."
+			[ side ]="..."
+			[ size ]="..."
+			[ sizeAttenuation ]="..."
+			[ specular ]="..."
+			[ specularMap ]="..."
+			[ specularMultiply ]="..."
+			[ stencilFail ]="..."
+			[ stencilFunc ]="..."
+			[ stencilFuncMask ]="..."
+			[ stencilRef ]="..."
+			[ stencilWrite ]="..."
+			[ stencilWriteMask ]="..."
+			[ stencilZFail ]="..."
+			[ stencilZPass ]="..."
+			[ storageName ]="..."
+			[ storageOption ]="..."
+			[ toneMapped ]="..."
+			[ transmission ]="..."
+			[ transparent ]="..."
+			[ type ]="..."
+			[ uniforms ]="..."
+			[ vertexColors ]="..."
+			[ vertexShader ]="..."
+			[ vertexTangents ]="..."
+			[ visible ]="..."
+			[ windowExport ]="..."
+			[ wireframe ]="..."
+			[ wireframeLinecap ]="..."
+			[ wireframeLinejoin ]="..."
+			[ wireframeLinewidth ]="..."
+		&gt;&lt;/ngx3js-material&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -40,19 +175,19 @@
 
 		<h3>[property:any alphaMap]</h3>
 		<p>
-			The alpha map is a grayscale texture that controls the opacity across the surface
-(black: fully transparent; white: fully opaque). Default is null.<br /><br />
-Only the color of the texture is used, ignoring the alpha channel if one exists.
-For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the
-green channel when sampling this texture due to the extra bit of precision provided
-for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and
-luminance/alpha textures will also still work as expected.
+			The alpha map is a grayscale texture that controls the opacity across the surface<br>
+			(black: fully transparent; white: fully opaque). Default is null.<br>
+			Only the color of the texture is used, ignoring the alpha channel if one exists.<br>
+			For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the<br>
+			green channel when sampling this texture due to the extra bit of precision provided<br>
+			for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and<br>
+			luminance/alpha textures will also still work as expected.
 		</p>
 
 		<h3>[property:any aoMap]</h3>
 		<p>
-			The red channel of this texture is used as the ambient occlusion map. Default is null.
-The aoMap requires a second set of UVs.
+			The red channel of this texture is used as the ambient occlusion map. Default is null.<br>
+			The aoMap requires a second set of UVs.
 		</p>
 
 		<h3>[property:number aoMapIntensity]</h3>
@@ -62,9 +197,9 @@ The aoMap requires a second set of UVs.
 
 		<h3>[property:any bumpMap]</h3>
 		<p>
-			The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.
-Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will
-be ignored.
+			The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.<br>
+			Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will<br>
+			be ignored.
 		</p>
 
 		<h3>[property:number bumpScale]</h3>
@@ -74,8 +209,8 @@ be ignored.
 
 		<h3>[property:number clearcoat]</h3>
 		<p>
-			Represents the intensity of the clear coat layer, from *0.0* to *1.0*. Use clear coat related properties to enable multilayer
-materials that have a thin translucent layer over the base layer. Default is *0.0*.
+			Represents the intensity of the clear coat layer, from *0.0* to *1.0*. Use clear coat related properties to enable multilayer<br>
+			materials that have a thin translucent layer over the base layer. Default is *0.0*.
 		</p>
 
 		<h3>[property:any clearcoatNormalMap]</h3>
@@ -120,10 +255,11 @@ materials that have a thin translucent layer over the base layer. Default is *0.
 
 		<h3>[property:string combine]</h3>
 		<p>
-			How to combine the result of the surface's color with the environment map, if any.<br /><br />
-Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation],
-[page:Materials THREE.AddOperation]. If mix is chosen, the [page:.reflectivity] is used to
-blend between the two colors.<br/><br/>
+			How to combine the result of the surface's color with the environment map, if any.<br>
+			Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation],<br>
+			[page:Materials THREE.AddOperation]. If mix is chosen, the [page:.reflectivity] is used to<br>
+			blend between the two colors.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -164,36 +300,36 @@ blend between the two colors.<br/><br/>
 
 		<h3>[property:any diffuseMap]</h3>
 		<p>
-			The red channel of this texture is used as the ambient occlusion map. Default is null.
-The aoMap requires a second set of UVs.
+			The red channel of this texture is used as the ambient occlusion map. Default is null.<br>
+			The aoMap requires a second set of UVs.
 		</p>
 
 		<h3>[property:number displacementBias]</h3>
 		<p>
-			The offset of the displacement map's values on the mesh's vertices.
-Without a displacement map set, this value is not applied. Default is 0.
+			The offset of the displacement map's values on the mesh's vertices.<br>
+			Without a displacement map set, this value is not applied. Default is 0.
 		</p>
 
 		<h3>[property:any displacementMap]</h3>
 		<p>
-			The displacement map affects the position of the mesh's vertices. Unlike other maps
-which only affect the light and shade of the material the displaced vertices can cast shadows,
-block other objects, and otherwise act as real geometry. The displacement texture is
-an image where the value of each pixel (white being the highest) is mapped against,
-and repositions, the vertices of the mesh.
+			The displacement map affects the position of the mesh's vertices. Unlike other maps<br>
+			which only affect the light and shade of the material the displaced vertices can cast shadows,<br>
+			block other objects, and otherwise act as real geometry. The displacement texture is<br>
+			an image where the value of each pixel (white being the highest) is mapped against,<br>
+			and repositions, the vertices of the mesh.
 		</p>
 
 		<h3>[property:number displacementScale]</h3>
 		<p>
-			How much the displacement map affects the mesh (where black is no displacement,
-and white is maximum displacement). Without a displacement map set, this value is not applied.
-Default is 1.
+			How much the displacement map affects the mesh (where black is no displacement,<br>
+			and white is maximum displacement). Without a displacement map set, this value is not applied.<br>
+			Default is 1.
 		</p>
 
 		<h3>[property:ThreeColor emissive]</h3>
 		<p>
-			Emissive (light) color of the material, essentially a solid color unaffected by other lighting.
-Default is black.
+			Emissive (light) color of the material, essentially a solid color unaffected by other lighting.<br>
+			Default is black.
 		</p>
 
 		<h3>[property:number emissiveIntensity]</h3>
@@ -223,15 +359,16 @@ Default is black.
 
 		<h3>[property:string extensions]</h3>
 		<p>
-				An object with the following properties:
-<code>
-this.extensions = {
-	derivatives: false, // set to use derivatives
-	fragDepth: false, // set to use fragment depth values
-	drawBuffers: false, // set to use draw buffers
-	shaderTextureLOD: false // set to use shader texture LOD
-};
-</code><br/><br/>
+			An object with the following properties:<br>
+			<code><br>
+			this.extensions = {<br>
+				derivatives: false, // set to use derivatives<br>
+				fragDepth: false, // set to use fragment depth values<br>
+				drawBuffers: false, // set to use draw buffers<br>
+				shaderTextureLOD: false // set to use shader texture LOD<br>
+			};<br>
+			</code><br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -242,9 +379,9 @@ this.extensions = {
 
 		<h3>[property:string fragmentShader]</h3>
 		<p>
-			Fragment shader GLSL code.  This is the actual code for the shader. In the example above,
-the *vertexShader* and *fragmentShader* code is extracted from the DOM; it could be passed
-as a string directly or loaded via AJAX instead.
+			Fragment shader GLSL code.  This is the actual code for the shader. In the example above,<br>
+			the *vertexShader* and *fragmentShader* code is extracted from the DOM; it could be passed<br>
+			as a string directly or loaded via AJAX instead.
 		</p>
 
 		<h3>[property:number gapSize]</h3>
@@ -254,8 +391,9 @@ as a string directly or loaded via AJAX instead.
 
 		<h3>[property:string glslVersion]</h3>
 		<p>
-			Defines the GLSL version of custom shader code. Only relevant for WebGL 2 in order to define whether to specify
-GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *null*.<br/><br/>
+			Defines the GLSL version of custom shader code. Only relevant for WebGL 2 in order to define whether to specify<br>
+			GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *null*.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -276,27 +414,29 @@ GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *nu
 
 		<h3>[property:string linecap]</h3>
 		<p>
-			Define appearance of line ends. Possible values are 'butt', 'round' and 'square'.
-Default is 'round'.<br /><br />
-This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
-property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br/><br/>
+			Define appearance of line ends. Possible values are 'butt', 'round' and 'square'.<br>
+			Default is 'round'.<br>
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]<br>
+			property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string linejoin]</h3>
 		<p>
-			Define appearance of line joints. Possible values are 'round', 'bevel' and 'miter'. Default is 'round'. <br /><br />
-This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
-property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br/><br/>
+			Define appearance of line joints. Possible values are 'round', 'bevel' and 'miter'. Default is 'round'. <br>
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]<br>
+			property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number linewidth]</h3>
 		<p>
-			Controls line thickness. Default is *1*.<br /><br />
-Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
-with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will
-always be 1 regardless of the set value.
+			Controls line thickness. Default is *1*.<br>
+			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]<br>
+			with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will<br>
+			always be 1 regardless of the set value.
 		</p>
 
 		<h3>[property:any map]</h3>
@@ -311,15 +451,15 @@ always be 1 regardless of the set value.
 
 		<h3>[property:number metalness]</h3>
 		<p>
-			How much the material is like a metal. Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing
-(usually) in between. Default is 0.0. A value between 0.0 and 1.0 could be used for a rusty metal look. If metalnessMap is
-also provided, both values are multiplied.
+			How much the material is like a metal. Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing<br>
+			(usually) in between. Default is 0.0. A value between 0.0 and 1.0 could be used for a rusty metal look. If metalnessMap is<br>
+			also provided, both values are multiplied.
 		</p>
 
 		<h3>[property:boolean morphNormals]</h3>
 		<p>
-			Defines whether the material uses morphNormals. Set as true to pass morphNormal
-attributes from the geometry to the shader. Default is *false*.
+			Defines whether the material uses morphNormals. Set as true to pass morphNormal<br>
+			attributes from the geometry to the shader. Default is *false*.
 		</p>
 
 		<h3>[property:boolean morphTargets]</h3>
@@ -334,35 +474,36 @@ attributes from the geometry to the shader. Default is *false*.
 
 		<h3>[property:any normalMap]</h3>
 		<p>
-			The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change
-the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.
-In case the material has a normal map authored using the left handed convention, the y component of normalScale
-should be negated to compensate for the different handedness.
+			The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change<br>
+			the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.<br>
+			In case the material has a normal map authored using the left handed convention, the y component of normalScale<br>
+			should be negated to compensate for the different handedness.
 		</p>
 
 		<h3>[property:string normalMapType]</h3>
 		<p>
-			The type of normal map.<br /><br />
-Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].<br/><br/>
+			The type of normal map.<br>
+			Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number normalScale]</h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.
-Default is a [page:Vector2] set to (1,1) *1*.
+			How much the normal map affects the material. Typical ranges are 0-1.<br>
+			Default is a [page:Vector2] set to (1,1) *1*.
 		</p>
 
 		<h3>[property:number normalScaleX]</h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.
-Default is a [page:Vector2] set to (1,1).
+			How much the normal map affects the material. Typical ranges are 0-1.<br>
+			Default is a [page:Vector2] set to (1,1).
 		</p>
 
 		<h3>[property:number normalScaleY]</h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.
-Default is a [page:Vector2] set to (1,1).
+			How much the normal map affects the material. Typical ranges are 0-1.<br>
+			Default is a [page:Vector2] set to (1,1).
 		</p>
 
 		<h3>[property:number referencePositionX]</h3>
@@ -382,8 +523,8 @@ Default is a [page:Vector2] set to (1,1).
 
 		<h3>[property:number reflectivity]</h3>
 		<p>
-			How much the environment map affects the surface; also see [page:.combine].
-The default value is 1 and the valid range is between 0 (no reflections) and 1 (full reflections).
+			How much the environment map affects the surface; also see [page:.combine].<br>
+			The default value is 1 and the valid range is between 0 (no reflections) and 1 (full reflections).
 		</p>
 
 		<h3>[property:any reflector]</h3>
@@ -393,9 +534,9 @@ The default value is 1 and the valid range is between 0 (no reflections) and 1 (
 
 		<h3>[property:number refractionRatio]</h3>
 		<p>
-			The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.
-It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].
-The refraction ratio should not exceed 1. Default is *0.98*.
+			The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.<br>
+			It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].<br>
+			The refraction ratio should not exceed 1. Default is *0.98*.
 		</p>
 
 		<h3>[property:number resolutionX]</h3>
@@ -415,8 +556,8 @@ The refraction ratio should not exceed 1. Default is *0.98*.
 
 		<h3>[property:number roughness]</h3>
 		<p>
-			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.
-If roughnessMap is also provided, both values are multiplied.
+			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br>
+			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
 		<h3>[property:any roughnessMap]</h3>
@@ -431,15 +572,17 @@ If roughnessMap is also provided, both values are multiplied.
 
 		<h3>[property:mixed shader]</h3>
 		<p>
-			The shader type<br/><br/>
-			Notice - case insensitive.
-			 - [page:string string] | [page:ShaderType ShaderType]
+			The shader type<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:string string] | [page:ShaderType ShaderType]
 		</p>
 
 		<h3>[property:ThreeColor sheen]</h3>
 		<p>
-			If a color is assigned to this property, the material will use a special sheen BRDF intended for rendering cloth materials such as velvet.
-The sheen color provides the ability to create two-tone specular materials. *null* by default.
+			If a color is assigned to this property, the material will use a special sheen BRDF intended for rendering cloth materials such as velvet.<br>
+			The sheen color provides the ability to create two-tone specular materials. *null* by default.
 		</p>
 
 		<h3>[property:number sheenMultiply]</h3>
@@ -454,8 +597,8 @@ The sheen color provides the ability to create two-tone specular materials. *nul
 
 		<h3>[property:number size]</h3>
 		<p>
-			Sets the size of the points. Default is 1.0.<br/>
-Will be capped if it exceeds the hardware dependent parameter [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getParameter gl.ALIASED_POINT_SIZE_RANGE].
+			Sets the size of the points. Default is 1.0.<br>
+			Will be capped if it exceeds the hardware dependent parameter [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getParameter gl.ALIASED_POINT_SIZE_RANGE].
 		</p>
 
 		<h3>[property:boolean sizeAttenuation]</h3>
@@ -465,8 +608,8 @@ Will be capped if it exceeds the hardware dependent parameter [link:https://deve
 
 		<h3>[property:ThreeColor specular]</h3>
 		<p>
-			Specular color of the material. Default is a [page:Color] set to *0x111111* (very dark grey).
-This defines how shiny the material is and the color of its shine.
+			Specular color of the material. Default is a [page:Color] set to *0x111111* (very dark grey).<br>
+			This defines how shiny the material is and the color of its shine.
 		</p>
 
 		<h3>[property:any specularMap]</h3>
@@ -491,70 +634,70 @@ This defines how shiny the material is and the color of its shine.
 
 		<h3>[property:number transmission]</h3>
 		<p>
-			Degree of transmission (or optical transparency), from *0.0* to *1.0*. Default is *0.0*.<br />
-Thin, transparent or semitransparent, plastic or glass materials remain largely reflective even if they are fully transmissive.
-The transmission property can be used to model these materials.<br />
-When transmission is non-zero, [page:Material.opacity opacity] should be set to *1*.
+			Degree of transmission (or optical transparency), from *0.0* to *1.0*. Default is *0.0*.<br>
+			Thin, transparent or semitransparent, plastic or glass materials remain largely reflective even if they are fully transmissive.<br>
+			The transmission property can be used to model these materials.<br>
+			When transmission is non-zero, [page:Material.opacity opacity] should be set to *1*.
 		</p>
 
 		<h3>[property:string type]</h3>
 		<p>
-			The type if matrial.<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:Material Material] - THREE.Material<br/>
-			[page:LineBasicMaterial LineBasicMaterial] - THREE.LineBasicMaterial - LineBasicMaterial, LineBasic<br/>
-			[page:LineDashedMaterial LineDashedMaterial] - THREE.LineDashedMaterial - LineDashedMaterial, LineDashed<br/>
-			[page:MeshBasicMaterial MeshBasicMaterial] - THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic<br/>
-			[page:MeshDepthMaterial MeshDepthMaterial] - THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth<br/>
-			[page:MeshDistanceMaterial MeshDistanceMaterial] - THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance<br/>
-			[page:MeshMatcapMaterial MeshMatcapMaterial] - THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap<br/>
-			[page:MeshNormalMaterial MeshNormalMaterial] - THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal<br/>
-			[page:MeshPhongMaterial MeshPhongMaterial] - THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong<br/>
-			[page:MeshPhysicalMaterial MeshPhysicalMaterial] - THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical<br/>
-			[page:MeshStandardMaterial MeshStandardMaterial] - THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard<br/>
-			[page:MeshToonMaterial MeshToonMaterial] - THREE.MeshToonMaterial - MeshToonMaterial, MeshToon<br/>
-			[page:PointsMaterial PointsMaterial] - THREE.PointsMaterial - PointsMaterial, Points<br/>
-			[page:RawShaderMaterial RawShaderMaterial] - THREE.RawShaderMaterial - RawShaderMaterial, RawShader<br/>
-			[page:ShaderMaterial ShaderMaterial] - THREE.ShaderMaterial - ShaderMaterial, Shader<br/>
-			[page:ShadowMaterial ShadowMaterial] - THREE.ShadowMaterial - ShadowMaterial, Shadow<br/>
-			[page:SpriteMaterial SpriteMaterial] - THREE.SpriteMaterial - SpriteMaterial, Sprite<br/>
-			NODES.StandardNodeMaterial - StandardNodeMaterial, StandardNode<br/>
-			NODES.BasicNodeMaterial - BasicNodeMaterial, BasicNode<br/>
-			NODES.MeshStandardNodeMaterial - MeshStandardNodeMaterial, MeshStandardNode<br/>
-			NODES.PhongNodeMaterial - PhongNodeMaterial, PhongNode<br/>
-			NODES.SpriteNodeMaterial - SpriteNodeMaterial, SpriteNode<br/>
+			The type if matrial.<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:Material Material] - THREE.Material<br>
+			[page:LineBasicMaterial LineBasicMaterial] - THREE.LineBasicMaterial - LineBasicMaterial, LineBasic<br>
+			[page:LineDashedMaterial LineDashedMaterial] - THREE.LineDashedMaterial - LineDashedMaterial, LineDashed<br>
+			[page:MeshBasicMaterial MeshBasicMaterial] - THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic<br>
+			[page:MeshDepthMaterial MeshDepthMaterial] - THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth<br>
+			[page:MeshDistanceMaterial MeshDistanceMaterial] - THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance<br>
+			[page:MeshMatcapMaterial MeshMatcapMaterial] - THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap<br>
+			[page:MeshNormalMaterial MeshNormalMaterial] - THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal<br>
+			[page:MeshPhongMaterial MeshPhongMaterial] - THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong<br>
+			[page:MeshPhysicalMaterial MeshPhysicalMaterial] - THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical<br>
+			[page:MeshStandardMaterial MeshStandardMaterial] - THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard<br>
+			[page:MeshToonMaterial MeshToonMaterial] - THREE.MeshToonMaterial - MeshToonMaterial, MeshToon<br>
+			[page:PointsMaterial PointsMaterial] - THREE.PointsMaterial - PointsMaterial, Points<br>
+			[page:RawShaderMaterial RawShaderMaterial] - THREE.RawShaderMaterial - RawShaderMaterial, RawShader<br>
+			[page:ShaderMaterial ShaderMaterial] - THREE.ShaderMaterial - ShaderMaterial, Shader<br>
+			[page:ShadowMaterial ShadowMaterial] - THREE.ShadowMaterial - ShadowMaterial, Shadow<br>
+			[page:SpriteMaterial SpriteMaterial] - THREE.SpriteMaterial - SpriteMaterial, Sprite<br>
+			NODES.StandardNodeMaterial - StandardNodeMaterial, StandardNode<br>
+			NODES.BasicNodeMaterial - BasicNodeMaterial, BasicNode<br>
+			NODES.MeshStandardNodeMaterial - MeshStandardNodeMaterial, MeshStandardNode<br>
+			NODES.PhongNodeMaterial - PhongNodeMaterial, PhongNode<br>
+			NODES.SpriteNodeMaterial - SpriteNodeMaterial, SpriteNode<br>
 			[page:MeshLambertMaterial MeshLambertMaterial] - THREE.MeshLambertMaterial - MeshLambertMaterial, MeshLambert
 		</p>
 
 		<h3>[property:ThreeUniforms uniforms]</h3>
 		<p>
-			An object of the form:
-<code>
-{ "uniform1": { value: 1.0 }, "uniform2": { value: 2 } }
-</code>
-specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form
-<code>
-{ value: 1.0 }
-</code>
-where *value* is the value of the uniform. Names must match the name of the uniform,
-as defined in the GLSL code. Note that uniforms are refreshed on every frame,
-so updating the value of the uniform will immediately update the value available to the GLSL code.
+			An object of the form:<br>
+			<code><br>
+			{ "uniform1": { value: 1.0 }, "uniform2": { value: 2 } }<br>
+			</code><br>
+			specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form<br>
+			<code><br>
+			{ value: 1.0 }<br>
+			</code><br>
+			where *value* is the value of the uniform. Names must match the name of the uniform,<br>
+			as defined in the GLSL code. Note that uniforms are refreshed on every frame,<br>
+			so updating the value of the uniform will immediately update the value available to the GLSL code.
 		</p>
 
 		<h3>[property:string vertexShader]</h3>
 		<p>
-			Vertex shader GLSL code.  This is the actual code for the shader. In the example above,
-the *vertexShader* and *fragmentShader* code is extracted from the DOM; it could be passed
-as a string directly or loaded via AJAX instead.
+			Vertex shader GLSL code.  This is the actual code for the shader. In the example above,<br>
+			the *vertexShader* and *fragmentShader* code is extracted from the DOM; it could be passed<br>
+			as a string directly or loaded via AJAX instead.
 		</p>
 
 		<h3>[property:boolean vertexTangents]</h3>
 		<p>
-			Defines whether precomputed vertex tangents, which must be provided in a vec4 "tangent" attribute,
-are used. When disabled, tangents are derived automatically. Using precomputed tangents will give
-more accurate normal map details in some cases, such as with mirrored UVs. Default is false.
+			Defines whether precomputed vertex tangents, which must be provided in a vec4 "tangent" attribute,<br>
+			are used. When disabled, tangents are derived automatically. Using precomputed tangents will give<br>
+			more accurate normal map details in some cases, such as with mirrored UVs. Default is false.
 		</p>
 
 		<h3>[property:boolean wireframe]</h3>
@@ -564,26 +707,28 @@ more accurate normal map details in some cases, such as with mirrored UVs. Defau
 
 		<h3>[property:string wireframeLinecap]</h3>
 		<p>
-			Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br /><br />
-This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
-property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br/><br/>
+			Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br>
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]<br>
+			property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string wireframeLinejoin]</h3>
 		<p>
-			Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br /><br />
-This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
-property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br/><br/>
+			Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br>
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]<br>
+			property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number wireframeLinewidth]</h3>
 		<p>
-			Controls wireframe thickness. Default is 1.<br /><br />
-Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
-with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will
-always be 1 regardless of the set value.
+			Controls wireframe thickness. Default is 1.<br>
+			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]<br>
+			with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will<br>
+			always be 1 regardless of the set value.
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -604,25 +749,22 @@ always be 1 regardless of the set value.
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Apply changes to material
-
-			<br/><br/>
-			Returns : 
+			Apply changes to material<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getMaterial](  )</h3>
 		<p>
-			Gets material
-
-			<br/><br/>
+			Gets material<br>
+			<br>
 			Returns : material
 		</p>
 
 		<h3>[method:Texture getTexture](  [param:string type] )</h3>
 		<p>
-			Gets texture
-
-			<br/><br/>
+			Gets texture<br>
+			<br>
 			Returns : texture
 		</p>
 

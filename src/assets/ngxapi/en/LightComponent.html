@@ -16,9 +16,53 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-light&gt;&lt;/ngx3js-light&gt;
-		</p>
+		<code>
+			&lt;ngx3js-light
+			[ angle ]="..."
+			[ castShadow ]="..."
+			[ color ]="..."
+			[ debug ]="..."
+			[ decay ]="..."
+			[ distance ]="..."
+			[ enabled ]="..."
+			[ frustumCulled ]="..."
+			[ groundColor ]="..."
+			[ height ]="..."
+			[ intensity ]="..."
+			[ matrixAutoUpdate ]="..."
+			[ name ]="..."
+			[ penumbra ]="..."
+			[ receiveShadow ]="..."
+			[ renderTarget ]="..."
+			[ renderer ]="..."
+			[ sh ]="..."
+			[ shadowBias ]="..."
+			[ shadowCameraBottom ]="..."
+			[ shadowCameraFar ]="..."
+			[ shadowCameraFov ]="..."
+			[ shadowCameraLeft ]="..."
+			[ shadowCameraNear ]="..."
+			[ shadowCameraRight ]="..."
+			[ shadowCameraTop ]="..."
+			[ shadowCameraZoom ]="..."
+			[ shadowFocus ]="..."
+			[ shadowMapSize ]="..."
+			[ shadowMapSizeHeight ]="..."
+			[ shadowMapSizeWidth ]="..."
+			[ shadowRadius ]="..."
+			[ skyColor ]="..."
+			[ target ]="..."
+			[ targetX ]="..."
+			[ targetY ]="..."
+			[ targetZ ]="..."
+			[ texture ]="..."
+			[ tweenStart ]="..."
+			[ type ]="..."
+			[ visible ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-light&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -88,8 +132,8 @@
 
 		<h3>[property:number shadowBias]</h3>
 		<p>
-			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
-The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
+			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
+			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
 		</p>
 
 		<h3>[property:number shadowCameraBottom]</h3>
@@ -99,8 +143,8 @@ The default is 0. Very tiny adjustments here (in the order of 0.0001) may help r
 
 		<h3>[property:number shadowCameraFar]</h3>
 		<p>
-			Camera frustum far plane. Default is *2000*.<br /><br />
-Must be greater than the current value of [page:.near near] plane.
+			Camera frustum far plane. Default is *2000*.<br>
+			Must be greater than the current value of [page:.near near] plane.
 		</p>
 
 		<h3>[property:number shadowCameraFov]</h3>
@@ -145,24 +189,24 @@ Must be greater than the current value of [page:.near near] plane.
 
 		<h3>[property:number shadowMapSizeHeight]</h3>
 		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.
-vector2.height
+			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.height
 		</p>
 
 		<h3>[property:number shadowMapSizeWidth]</h3>
 		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.
-vector2.width
+			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.width
 		</p>
 
 		<h3>[property:number shadowRadius]</h3>
 		<p>
-			Setting this to values greater than 1 will blur the edges of the shadow.<br />
-High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]
-will allow for a higher value to be used here before these effects become visible.<br />
-If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has
-no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br /><br />
-Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+			Setting this to values greater than 1 will blur the edges of the shadow.<br>
+			High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]<br>
+			will allow for a higher value to be used here before these effects become visible.<br>
+			If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has<br>
+			no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br>
+			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
 		</p>
 
 		<h3>[property:ThreeColor skyColor]</h3>
@@ -197,16 +241,16 @@ Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set t
 
 		<h3>[property:string type]</h3>
 		<p>
-			The type of light<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:PointLight PointLight] - THREE.PointLight - point, pointlight<br/>
-			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - arealight,area, rectarealight, rectarea<br/>
-			[page:SpotLight SpotLight] - THREE.SpotLight - spot, spotlight<br/>
-			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - directional, directionallight<br/>
-			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - hemispherelight, hemisphere<br/>
-			[page:LightProbe LightProbe] - THREE.LightProbe - lightprobe, probe<br/>
+			The type of light<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:PointLight PointLight] - THREE.PointLight - point, pointlight<br>
+			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - arealight,area, rectarealight, rectarea<br>
+			[page:SpotLight SpotLight] - THREE.SpotLight - spot, spotlight<br>
+			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - directional, directionallight<br>
+			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - hemispherelight, hemisphere<br>
+			[page:LightProbe LightProbe] - THREE.LightProbe - lightprobe, probe<br>
 			[page:AmbientLight AmbientLight] - THREE.AmbientLight - ambientlight, ambient
 		</p>
 
@@ -244,41 +288,36 @@ Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set t
 
 		<h3>[method:T getLight](  )</h3>
 		<p>
-			Gets light
-
-			<br/><br/>
+			Gets light<br>
+			<br>
 			Returns : light
 		</p>
 
 		<h3>[method:T getObject3d](  )</h3>
 		<p>
-			Gets object3d
-
-			<br/><br/>
+			Gets object3d<br>
+			<br>
 			Returns : object3d
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
 		<p>
-			Gets tag attribute
-
-			<br/><br/>
-			Returns : 
+			Gets tag attribute<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:Renderer getThreeRenderer](  )</h3>
 		<p>
-			Gets three renderer
-
-			<br/><br/>
+			Gets three renderer<br>
+			<br>
 			Returns : three renderer
 		</p>
 
 		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 

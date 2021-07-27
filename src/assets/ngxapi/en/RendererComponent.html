@@ -16,9 +16,47 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-renderer&gt;&lt;/ngx3js-renderer&gt;
-		</p>
+		<code>
+			&lt;ngx3js-renderer
+			[ antialias ]="..."
+			[ autoClear ]="..."
+			[ autoClearColor ]="..."
+			[ beforeRender ]="..."
+			[ camera ]="..."
+			[ clearAlpha ]="..."
+			[ clearColor ]="..."
+			[ controlOptions ]="..."
+			[ controlType ]="..."
+			[ cssType ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			( eventListener )="...($event)"
+			[ globalClippingEnabled ]="..."
+			[ guiControl ]="..."
+			[ guiParams ]="..."
+			[ height ]="..."
+			[ localClippingEnabled ]="..."
+			[ logarithmicDepthBuffer ]="..."
+			( onRender )="...($event)"
+			[ outputEncoding ]="..."
+			[ physicallyCorrectLights ]="..."
+			[ preserveDrawingBuffer ]="..."
+			[ quality ]="..."
+			[ scene ]="..."
+			[ shadowMapEnabled ]="..."
+			[ shadowMapType ]="..."
+			[ sizeType ]="..."
+			[ statsMode ]="..."
+			[ toneMapping ]="..."
+			[ toneMappingExposure ]="..."
+			[ type ]="..."
+			[ useEvent ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+		&gt;&lt;/ngx3js-renderer&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -37,8 +75,8 @@
 
 		<h3>[property:boolean autoClearColor]</h3>
 		<p>
-			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.
-	Default is *true*.
+			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.<br>
+				Default is *true*.
 		</p>
 
 		<h3>[property:any beforeRender]</h3>
@@ -58,8 +96,9 @@
 
 		<h3>[property:mixed clearColor]</h3>
 		<p>
-			Sets the clear color
-			 - [page:string string] | [page:number number]
+			Sets the clear color<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:any controlOptions]</h3>
@@ -69,13 +108,15 @@
 
 		<h3>[property:string controlType]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string cssType]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -89,15 +130,16 @@
 			Input  of renderer component
 		</p>
 
-		<h3>[property:GuiControlParam[] guiParams]</h3>
+		<h3>[property:GuiControlParam guiParams][]</h3>
 		<p>
 			Input  of renderer component
 		</p>
 
 		<h3>[property:mixed height]</h3>
 		<p>
-			Input  of renderer component
-			 - [page:string string] | [page:number number]
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:boolean localClippingEnabled]</h3>
@@ -107,36 +149,38 @@
 
 		<h3>[property:boolean logarithmicDepthBuffer]</h3>
 		<p>
-			whether to use a logarithmic depth buffer. It may
-be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting
-uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test]
-optimization and can cause a decrease in performance.
-Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
+			whether to use a logarithmic depth buffer. It may<br>
+			be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting<br>
+			uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test]<br>
+			optimization and can cause a decrease in performance.<br>
+			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
 		</p>
 
 		<h3>[property:string outputEncoding]</h3>
 		<p>
-			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].
-If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.
-See the [page:Textures texture constants] page for details of other formats.<br/><br/>
+			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].<br>
+			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:boolean physicallyCorrectLights]</h3>
 		<p>
-			Whether to use physically correct lighting mode. Default is *false*.
-See the [example:webgl_lights_physical lights / physical] example.
+			Whether to use physically correct lighting mode. Default is *false*.<br>
+			See the [example:webgl_lights_physical lights / physical] example.
 		</p>
 
 		<h3>[property:boolean preserveDrawingBuffer]</h3>
 		<p>
-			whether to preserve the buffers until manually cleared
-or overwritten. Default is *false*.
+			whether to preserve the buffers until manually cleared<br>
+			or overwritten. Default is *false*.
 		</p>
 
 		<h3>[property:string quality]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -152,14 +196,16 @@ or overwritten. Default is *false*.
 
 		<h3>[property:string shadowMapType]</h3>
 		<p>
-			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)
-Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.<br/><br/>
+			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)<br>
+			Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string sizeType]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -170,7 +216,8 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 
 		<h3>[property:string toneMapping]</h3>
 		<p>
-			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br/><br/>
+			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -181,32 +228,37 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string useEvent]</h3>
 		<p>
-			Input  of renderer component<br/><br/>
+			Input  of renderer component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:mixed width]</h3>
 		<p>
-			Input  of renderer component
-			 - [page:string string] | [page:number number]
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed x]</h3>
 		<p>
-			Input  of renderer component
-			 - [page:string string] | [page:number number]
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed y]</h3>
 		<p>
-			Input  of renderer component
-			 - [page:string string] | [page:number number]
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h2>Properties - Output</h2>
@@ -231,18 +283,16 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 
 		<h3>[method:any addEvent](  [param:string type],  [param:any listener] )</h3>
 		<p>
-			Adds event
-
-			<br/><br/>
-			Returns : 
+			Adds event<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void changeAutoSize](  )</h3>
@@ -257,34 +307,30 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 
 		<h3>[method:T getObject](  )</h3>
 		<p>
-			Gets Object
-
-			<br/><br/>
+			Gets Object<br>
+			<br>
 			Returns : Object
 		</p>
 
 		<h3>[method:Renderer getRenderer](  )</h3>
 		<p>
-			Gets Renderer
-
-			<br/><br/>
+			Gets Renderer<br>
+			<br>
 			Returns : Renderer
 		</p>
 
 		<h3>[method:Vector2 getSize](  )</h3>
 		<p>
-			Gets size
-
-			<br/><br/>
+			Gets size<br>
+			<br>
 			Returns : size
 		</p>
 
 		<h3>[method:void render](  )</h3>
 		<p>
-			Renders renderer component
-
-			<br/><br/>
-			Returns : 
+			Renders renderer component<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )</h3>
@@ -304,25 +350,22 @@ Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftSha
 
 		<h3>[method:Observable sizeSubscribe](  )</h3>
 		<p>
-			Sizes subscribe
-
-			<br/><br/>
+			Sizes subscribe<br>
+			<br>
 			Returns : subscribe
 		</p>
 
 		<h3>[method:Observable updateSubscribe](  )</h3>
 		<p>
-			Updates subscribe
-
-			<br/><br/>
+			Updates subscribe<br>
+			<br>
 			Returns : subscribe
 		</p>
 
 		<h3>[method:Observable userGestureSubscribe](  [param:HTMLElement ele] )</h3>
 		<p>
-			Users gesture subscribe
-
-			<br/><br/>
+			Users gesture subscribe<br>
+			<br>
 			Returns : gesture subscribe
 		</p>
 

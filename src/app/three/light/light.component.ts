@@ -20,13 +20,13 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
    *
    * Notice - case insensitive.
    * 
-   * @see THREE.PointLight - point, pointlight
-   * @see THREE.RectAreaLight - arealight,area, rectarealight, rectarea
-   * @see THREE.SpotLight - spot, spotlight
-   * @see THREE.DirectionalLight - directional, directionallight
-   * @see THREE.HemisphereLight - hemispherelight, hemisphere
-   * @see THREE.LightProbe - lightprobe, probe
-   * @see THREE.AmbientLight - ambientlight, ambient
+   * @see THREE.PointLight - PointLight, pointlight
+   * @see THREE.RectAreaLight - RectAreaLight,area, rectarealight, rectarea
+   * @see THREE.SpotLight - SpotLight, spotlight
+   * @see THREE.DirectionalLight - DirectionalLight, directionallight
+   * @see THREE.HemisphereLight - HemisphereLight, hemisphere
+   * @see THREE.LightProbe - LightProbe, probe
+   * @see THREE.AmbientLight - AmbientLight, ambient
    */
   @Input() public type: string = 'spot';
 

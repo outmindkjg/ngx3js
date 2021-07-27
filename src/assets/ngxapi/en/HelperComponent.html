@@ -16,9 +16,52 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-helper&gt;&lt;/ngx3js-helper&gt;
-		</p>
+		<code>
+			&lt;ngx3js-helper
+			[ arrowFrom ]="..."
+			[ arrowTo ]="..."
+			[ castShadow ]="..."
+			[ children ]="..."
+			[ circles ]="..."
+			[ color ]="..."
+			[ color1 ]="..."
+			[ color2 ]="..."
+			[ control ]="..."
+			[ debug ]="..."
+			[ depthWrite ]="..."
+			[ dirX ]="..."
+			[ dirY ]="..."
+			[ dirZ ]="..."
+			[ divisions ]="..."
+			[ divisionsInnerAngle ]="..."
+			[ divisionsOuterAngle ]="..."
+			[ enabled ]="..."
+			[ frustumCulled ]="..."
+			[ headLength ]="..."
+			[ headWidth ]="..."
+			[ length ]="..."
+			[ materialBlending ]="..."
+			[ materialColor ]="..."
+			[ materialTransparent ]="..."
+			[ matrix ]="..."
+			[ matrixAutoUpdate ]="..."
+			[ name ]="..."
+			[ opacity ]="..."
+			[ originX ]="..."
+			[ originY ]="..."
+			[ originZ ]="..."
+			[ radials ]="..."
+			[ radius ]="..."
+			[ range ]="..."
+			[ receiveShadow ]="..."
+			[ size ]="..."
+			[ target ]="..."
+			[ tweenStart ]="..."
+			[ type ]="..."
+			[ visible ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-helper&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -41,7 +84,7 @@
 			Input  of helper component
 		</p>
 
-		<h3>[property:any[] children]</h3>
+		<h3>[property:any children][]</h3>
 		<p>
 			Input  of helper component
 		</p>
@@ -53,8 +96,9 @@
 
 		<h3>[property:mixed color]</h3>
 		<p>
-			color -- The desired color.
-			 - [page:string string] | [page:number number]
+			color -- The desired color.<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:ThreeColor color1]</h3>
@@ -124,7 +168,8 @@
 
 		<h3>[property:string materialBlending]</h3>
 		<p>
-			Input  of helper component<br/><br/>
+			Input  of helper component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -190,7 +235,8 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of helper component<br/><br/>
+			Input  of helper component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -218,33 +264,29 @@
 
 		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
 		<p>
-			Applys changes3d
-
-			<br/><br/>
-			Returns : 
+			Applys changes3d<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getHelper](  )</h3>
 		<p>
-			Gets helper
-
-			<br/><br/>
+			Gets helper<br>
+			<br>
 			Returns : helper
 		</p>
 
 		<h3>[method:T getObject3d](  )</h3>
 		<p>
-			Gets object3d
-
-			<br/><br/>
+			Gets object3d<br>
+			<br>
 			Returns : object3d
 		</p>
 
 		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 

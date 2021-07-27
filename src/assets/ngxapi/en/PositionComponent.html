@@ -16,9 +16,26 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-position&gt;&lt;/ngx3js-position&gt;
-		</p>
+		<code>
+			&lt;ngx3js-position
+			[ camera ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ multiply ]="..."
+			[ normalize ]="..."
+			[ phi ]="..."
+			[ radius ]="..."
+			[ refer ]="..."
+			[ setfrom ]="..."
+			[ theta ]="..."
+			[ tweenStart ]="..."
+			[ type ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+			[ z ]="..."
+		&gt;&lt;/ngx3js-position&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -40,8 +57,8 @@
 
 		<h3>[property:boolean normalize]</h3>
 		<p>
-			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction
-as this one, but [page:.length length] 1.
+			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction<br>
+			as this one, but [page:.length length] 1.
 		</p>
 
 		<h3>[property:number phi]</h3>
@@ -61,7 +78,8 @@ as this one, but [page:.length length] 1.
 
 		<h3>[property:string setfrom]</h3>
 		<p>
-			Input  of position component<br/><br/>
+			Input  of position component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
@@ -108,25 +126,22 @@ as this one, but [page:.length length] 1.
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:Vector3 getPosition](  )</h3>
 		<p>
-			Gets position
-
-			<br/><br/>
+			Gets position<br>
+			<br>
 			Returns : position
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
 		<p>
-			Gets tag attribute
-
-			<br/><br/>
+			Gets tag attribute<br>
+			<br>
 			Returns : tag attribute
 		</p>
 

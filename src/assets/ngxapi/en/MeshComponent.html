@@ -16,9 +16,94 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-mesh&gt;&lt;/ngx3js-mesh&gt;
-		</p>
+		<code>
+			&lt;ngx3js-mesh
+			[ alpha ]="..."
+			[ axis ]="..."
+			[ blobInfos ]="..."
+			[ castShadow ]="..."
+			[ centerX ]="..."
+			[ centerY ]="..."
+			[ clipBias ]="..."
+			[ color ]="..."
+			[ colors ]="..."
+			[ compressNormals ]="..."
+			[ compressPositions ]="..."
+			[ compressUvs ]="..."
+			[ count ]="..."
+			[ cssStyle ]="..."
+			[ cssTag ]="..."
+			[ curve ]="..."
+			[ debug ]="..."
+			[ distance ]="..."
+			[ distortionScale ]="..."
+			[ divisions ]="..."
+			[ enableColors ]="..."
+			[ enableUvs ]="..."
+			[ enabled ]="..."
+			[ encoding ]="..."
+			[ flowDirectionX ]="..."
+			[ flowDirectionY ]="..."
+			[ flowMap ]="..."
+			[ flowSpeed ]="..."
+			[ frustumCulled ]="..."
+			[ geometry ]="..."
+			[ helperOptions ]="..."
+			[ helperType ]="..."
+			[ index ]="..."
+			[ isolation ]="..."
+			[ lightOptions ]="..."
+			[ makeColor ]="..."
+			[ makeMatrix ]="..."
+			[ material ]="..."
+			[ materialIsArray ]="..."
+			[ matrixAutoUpdate ]="..."
+			[ metalness ]="..."
+			[ morphTargets ]="..."
+			[ moveAlongCurve ]="..."
+			[ moveIndividualAlongCurve ]="..."
+			[ name ]="..."
+			[ normalMap0 ]="..."
+			[ normalMap1 ]="..."
+			[ planeInfos ]="..."
+			[ receiveShadow ]="..."
+			[ reflectivity ]="..."
+			[ resolution ]="..."
+			[ roughness ]="..."
+			[ scaleStep ]="..."
+			[ shader ]="..."
+			[ shareParts ]="..."
+			[ sharedMesh ]="..."
+			[ size ]="..."
+			[ skyColor ]="..."
+			[ skyboxCubeImage ]="..."
+			[ skyboxImage ]="..."
+			[ skyboxRate ]="..."
+			[ skyboxSunImage ]="..."
+			[ skyboxSunX ]="..."
+			[ skyboxSunY ]="..."
+			[ skyboxSunZ ]="..."
+			[ skyboxType ]="..."
+			[ storageName ]="..."
+			[ storageOption ]="..."
+			[ sunColor ]="..."
+			[ sunDirection ]="..."
+			[ sunPosition ]="..."
+			[ texture ]="..."
+			[ textureHeight ]="..."
+			[ textureWidth ]="..."
+			[ tweenStart ]="..."
+			[ type ]="..."
+			[ uniforms ]="..."
+			[ usage ]="..."
+			[ usePlaneStencil ]="..."
+			[ visible ]="..."
+			[ volume ]="..."
+			[ waterColor ]="..."
+			[ waterScale ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-mesh&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -68,8 +153,9 @@
 
 		<h3>[property:mixed colors]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string compressNormals]</h3>
@@ -94,20 +180,23 @@
 
 		<h3>[property:mixed cssStyle]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:CssStyle CssStyle]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:CssStyle CssStyle]
 		</p>
 
 		<h3>[property:any cssTag]</h3>
 		<p>
-			Input  of mesh component<br/><br/>
+			Input  of mesh component<br>
+			<br>
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:mixed curve]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:Curve Curve] | [page:CurveComponent CurveComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:Curve Curve] | [page:CurveComponent CurveComponent]
 		</p>
 
 		<h3>[property:number distance]</h3>
@@ -137,21 +226,21 @@
 
 		<h3>[property:string encoding]</h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.
-See the [page:Textures texture constants] page for details of other formats.<br /><br />
-Note that if this value is changed on a texture after the material has been used,
-it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br/><br/>
-			Notice - case insensitive.
-
-			<br/><br/>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br/>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br/>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br/>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br/>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br/>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br/>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br/>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br/>
+			[page:Textures THREE.LinearEncoding] is the default.<br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			Note that if this value is changed on a texture after the material has been used,<br>
+			it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
@@ -167,8 +256,9 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed flowMap]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number flowSpeed]</h3>
@@ -218,8 +308,9 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed material]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:AbstractMaterialComponent AbstractMaterialComponent] | [page:Material Material]
+			Input  of mesh component<br>
+			<br>
+			[page:AbstractMaterialComponent AbstractMaterialComponent] | [page:Material Material]
 		</p>
 
 		<h3>[property:boolean materialIsArray]</h3>
@@ -244,20 +335,23 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed moveIndividualAlongCurve]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed normalMap0]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:mixed normalMap1]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:any planeInfos]</h3>
@@ -307,11 +401,12 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed skyColor]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string[] skyboxCubeImage]</h3>
+		<h3>[property:string skyboxCubeImage][]</h3>
 		<p>
 			Input  of mesh component
 		</p>
@@ -368,20 +463,23 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed sunDirection]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:Vector3 Vector3] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:Vector3 Vector3] | [page:number number]
 		</p>
 
 		<h3>[property:mixed sunPosition]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:Vector3 Vector3] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:Vector3 Vector3] | [page:number number]
 		</p>
 
 		<h3>[property:mixed texture]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number textureHeight]</h3>
@@ -421,8 +519,9 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[property:mixed waterColor]</h3>
 		<p>
-			Input  of mesh component
-			 - [page:string string] | [page:number number]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number waterScale]</h3>
@@ -454,90 +553,80 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
 		<p>
-			Applys changes3d
-
-			<br/><br/>
-			Returns : 
+			Applys changes3d<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:any getClips](  )</h3>
 		<p>
-			Gets clips
-
-			<br/><br/>
+			Gets clips<br>
+			<br>
 			Returns : clips
 		</p>
 
 		<h3>[method:Curve getCurve](  )</h3>
 		<p>
-			Gets curve
-
-			<br/><br/>
+			Gets curve<br>
+			<br>
 			Returns : curve
 		</p>
 
 		<h3>[method:BufferGeometry getGeometry](  )</h3>
 		<p>
-			Gets geometry
-
-			<br/><br/>
+			Gets geometry<br>
+			<br>
 			Returns : geometry
 		</p>
 
 		<h3>[method:any getJson](  )</h3>
 		<p>
-			Gets json
-
-			<br/><br/>
+			Gets json<br>
+			<br>
 			Returns : json
 		</p>
 
 		<h3>[method:Material getMaterial](  )</h3>
 		<p>
-			Gets material
-
-			<br/><br/>
+			Gets material<br>
+			<br>
 			Returns : material
 		</p>
 
 		<h3>[method:T getMesh](  )</h3>
 		<p>
-			Gets mesh
-
-			<br/><br/>
+			Gets mesh<br>
+			<br>
 			Returns : mesh
 		</p>
 
 		<h3>[method:T getObject3d](  )</h3>
 		<p>
-			Gets object3d
-
-			<br/><br/>
+			Gets object3d<br>
+			<br>
 			Returns : object3d
 		</p>
 
 		<h3>[method:void getRealMesh](  )</h3>
 		<p>
-			Gets real mesh
-			 - [page:Mesh Mesh] | [page:LineSegments LineSegments] | [page:Line Line] | [page:Points Points]
-
-			<br/><br/>
+			Gets real mesh<br>
+			<br>
+			[page:Mesh Mesh] | [page:LineSegments LineSegments] | [page:Line Line] | [page:Points Points]<br>
+			<br>
 			Returns : real mesh
 		</p>
 
 		<h3>[method:any getStorageSource](  )</h3>
 		<p>
-			Gets storage source
-
-			<br/><br/>
+			Gets storage source<br>
+			<br>
 			Returns : storage source
 		</p>
 
 		<h3>[method:void getUniforms](  )</h3>
 		<p>
-			Gets uniforms
-
-			<br/><br/>
+			Gets uniforms<br>
+			<br>
 			Returns : uniforms
 		</p>
 
@@ -548,18 +637,16 @@ it is necessary to trigger a Material.needsUpdate for this value to be realized 
 
 		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
 		<p>
-			Sets parent
-
-			<br/><br/>
+			Sets parent<br>
+			<br>
 			Returns : true if parent
 		</p>
 
 		<h3>[method:void setSavelocalStorage](  [param:string storageName] )</h3>
 		<p>
-			Sets savelocal storage
-
-			<br/><br/>
-			Returns : 
+			Sets savelocal storage<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean helperVisible] )</h3>

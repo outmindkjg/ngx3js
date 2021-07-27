@@ -16,9 +16,30 @@
 		</p>
 
 		<h2>Component</h2>
-		<p>
-			&lt;ngx3js-texture&gt;&lt;/ngx3js-texture&gt;
-		</p>
+		<code>
+			&lt;ngx3js-texture
+			[ add ]="..."
+			[ canvas ]="..."
+			[ color ]="..."
+			[ cubeImage ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ image ]="..."
+			[ mapping ]="..."
+			[ name ]="..."
+			[ perlin ]="..."
+			[ program ]="..."
+			[ refer ]="..."
+			[ storageName ]="..."
+			[ storageOption ]="..."
+			[ sunX ]="..."
+			[ sunY ]="..."
+			[ sunZ ]="..."
+			[ type ]="..."
+			[ useDropImage ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-texture&gt;
+		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
@@ -30,23 +51,26 @@
 
 		<h3>[property:mixed add]</h3>
 		<p>
-			Input  of texture component
-			 - [page:string string] | [page:number number]
+			Input  of texture component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed canvas]</h3>
 		<p>
-			Input  of texture component
-			 - [page:string string] | [page:HTMLVideoElement HTMLVideoElement] | [page:HTMLCanvasElement HTMLCanvasElement] | [page:HTMLImageElement HTMLImageElement] | [page:ImageBitmap ImageBitmap]
+			Input  of texture component<br>
+			<br>
+			[page:string string] | [page:HTMLVideoElement HTMLVideoElement] | [page:HTMLCanvasElement HTMLCanvasElement] | [page:HTMLImageElement HTMLImageElement] | [page:ImageBitmap ImageBitmap]
 		</p>
 
 		<h3>[property:mixed color]</h3>
 		<p>
-			Input  of texture component
-			 - [page:string string] | [page:number number]
+			Input  of texture component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string[] cubeImage]</h3>
+		<h3>[property:string cubeImage][]</h3>
 		<p>
 			Input  of texture component
 		</p>
@@ -63,8 +87,9 @@
 
 		<h3>[property:mixed program]</h3>
 		<p>
-			Input  of texture component
-			 - [page:string string] | [page:CanvasFunctionType CanvasFunctionType]
+			Input  of texture component<br>
+			<br>
+			[page:string string] | [page:CanvasFunctionType CanvasFunctionType]
 		</p>
 
 		<h3>[property:any refer]</h3>
@@ -120,17 +145,15 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-
-			<br/><br/>
-			Returns : 
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:T getTexture](  )</h3>
 		<p>
-			Gets texture
-
-			<br/><br/>
+			Gets texture<br>
+			<br>
 			Returns : texture
 		</p>
 
