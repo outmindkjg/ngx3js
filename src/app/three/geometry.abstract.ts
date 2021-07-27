@@ -893,28 +893,53 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
       }
       if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
         if (ThreeUtil.isNotNull(this.lineType)) {
-          switch (this.lineType.toLowerCase()) {
-            case 'wireframebuffergeometry':
-            case 'wireframegeometry':
-            case 'wireframebuffer':
-            case 'wireframe':
-              geometry = new THREE.WireframeGeometry(geometry);
-              break;
-            case 'wireframe2buffergeometry':
-            case 'wireframe2geometry':
-            case 'wireframe2buffer':
-            case 'wireframe2':
-            case 'wireframebuffergeometry2':
-            case 'wireframegeometry2':
-            case 'wireframebuffer2':
-              geometry = new WireframeGeometry2(geometry);
-              break;
-            case 'edgesbuffergeometry':
-            case 'edgesbuffer':
-            case 'edgesgeometry':
-            case 'edges':
-              geometry = new THREE.EdgesGeometry(geometry, ThreeUtil.getTypeSafe(this.thresholdAngle, 0));
-              break;
+          if (geometry instanceof THREE.BoxGeometry && this.lineType == '') {
+            const width = geometry.parameters.width / 2;
+            const height = geometry.parameters.height / 2;
+            const depth = geometry.parameters.depth / 2;
+            const t1 = new THREE.Vector3(-width,height,-depth);
+            const t2 = new THREE.Vector3(-width,height,depth);
+            const t3 = new THREE.Vector3(width,height,depth);
+            const t4 = new THREE.Vector3(width,height,-depth);
+            const b1 = new THREE.Vector3(-width,-height,-depth);
+            const b2 = new THREE.Vector3(-width,-height,depth);
+            const b3 = new THREE.Vector3(width,-height,depth);
+            const b4 = new THREE.Vector3(width,-height,-depth);
+            const vertices = [];
+            vertices.push(t1.x,t1.y,t1.z);
+            vertices.push(t2.x,t2.y,t2.z);
+            vertices.push(t2.x,t2.y,t2.z);
+            vertices.push(t3.x,t3.y,t3.z);
+            vertices.push(t3.x,t3.y,t3.z);
+            vertices.push(t4.x,t4.y,t4.z);
+            vertices.push(t4.x,t4.y,t4.z);
+            vertices.push(t1.x,t1.y,t1.z);
+            geometry = new THREE.BufferGeometry();
+            geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) )
+          } else {
+            switch (this.lineType.toLowerCase()) {
+              case 'wireframebuffergeometry':
+              case 'wireframegeometry':
+              case 'wireframebuffer':
+              case 'wireframe':
+                geometry = new THREE.WireframeGeometry(geometry);
+                break;
+              case 'wireframe2buffergeometry':
+              case 'wireframe2geometry':
+              case 'wireframe2buffer':
+              case 'wireframe2':
+              case 'wireframebuffergeometry2':
+              case 'wireframegeometry2':
+              case 'wireframebuffer2':
+                geometry = new WireframeGeometry2(geometry);
+                break;
+              case 'edgesbuffergeometry':
+              case 'edgesbuffer':
+              case 'edgesgeometry':
+              case 'edges':
+                geometry = new THREE.EdgesGeometry(geometry, ThreeUtil.getTypeSafe(this.thresholdAngle, 0));
+                break;
+            }
           }
         }
         if (ThreeUtil.isNotNull(this.program)) {
