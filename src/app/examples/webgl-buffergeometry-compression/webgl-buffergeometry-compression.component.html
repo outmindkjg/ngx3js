@@ -83,7 +83,7 @@
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'LineSegments'" [visible]="controls.wireframe">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'WireframeGeometry'" [refGeometry]="geometry" [refType]="'geometry'"></ngx3js-geometry>
+        <ngx3js-geometry [refer]="geometry" [lineType]="'WireframeGeometry'"></ngx3js-geometry>
         <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xaaaaaa'" [transparent]="true" [opacity]="0.8"></ngx3js-material>
       </ngx3js-mesh>
     </ngx3js-mesh>

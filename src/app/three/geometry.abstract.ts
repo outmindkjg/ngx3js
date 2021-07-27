@@ -11,11 +11,12 @@ import { RotationComponent } from './rotation/rotation.component';
 import { ScaleComponent } from './scale/scale.component';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TranslationComponent } from './translation/translation.component';
+import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
 
 /**
  * Attr Buffer Attribute
  */
- export type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
+export type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array | THREE.BufferAttribute;
 
 /**
  * Geometries parametric
@@ -36,26 +37,25 @@ export interface MeshGeometry {
 }
 
 /**
- * AbstractGeometry Component 
+ * AbstractGeometry Component
  */
 @Component({
   template: '',
 })
 export abstract class AbstractGeometryComponent extends AbstractSubscribeComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-
   /**
    * The name of the object (doesn't need to be unique). Default is an empty string.
-   * 
+   *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private name: string = null;
 
   /**
    * Input  of abstract geometry component
-   * 
+   *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private align: string = null;
 
@@ -285,7 +285,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
   @Input() private attrSize: AttrBufferAttribute = null;
 
   /**
-   * Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of 
+   * Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of
    * [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
    */
   @Input() private attrSizeUsage: string = null;
@@ -367,6 +367,20 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
    * Input  of abstract geometry component
    */
   @Input() private maxIterations: number = null;
+
+  /**
+   * Input  of abstract geometry component
+   *
+   * @see THREE.EdgesGeometry - EdgesGeometry, Edges,
+   * @see THREE.WireframeGeometry - WireframeGeometry, Wireframe,
+   * @see WireframeGeometry2 - WireframeGeometry2, Wireframe2,
+   */
+  @Input() private lineType: string = null;
+
+  /**
+   * Input  of geometry component
+   */
+  @Input() private thresholdAngle: number = null;
 
   /**
    * Input  of abstract geometry component
@@ -470,7 +484,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Gets morph attributes
-   * @returns morph attributes 
+   * @returns morph attributes
    */
   protected getMorphAttributes(): { key: string; value: THREE.BufferAttribute[] }[] {
     const attributes: { key: string; value: THREE.BufferAttribute[] }[] = [];
@@ -496,8 +510,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Gets attributes
-   * @param [colorType] 
-   * @returns attributes 
+   * @param [colorType]
+   * @returns attributes
    */
   protected getAttributes(colorType: string = ''): { key: string; value: THREE.BufferAttribute }[] {
     const attributes = [];
@@ -657,12 +671,12 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Gets attribute
-   * @param value 
-   * @param itemSize 
-   * @param [usage] 
-   * @param [bufferType] 
-   * @param [normalized] 
-   * @returns attribute 
+   * @param value
+   * @param itemSize
+   * @param [usage]
+   * @param [bufferType]
+   * @param [normalized]
+   * @returns attribute
    */
   protected getAttribute(value: AttrBufferAttribute, itemSize: number, usage?: string, bufferType?: string, normalized?: boolean): THREE.BufferAttribute {
     if (value instanceof THREE.BufferAttribute) {
@@ -765,7 +779,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
     bufferAttribute.needsUpdate = true;
     return bufferAttribute;
   }
-  
+
   /**
    * Mesh geometry of abstract geometry component
    */
@@ -773,8 +787,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Determines whether mesh geometry is
-   * @param mesh 
-   * @returns true if mesh geometry 
+   * @param mesh
+   * @returns true if mesh geometry
    */
   public static isMeshGeometry(mesh: any): boolean {
     if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite) {
@@ -786,8 +800,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Gets mesh geometry
-   * @param mesh 
-   * @returns mesh geometry 
+   * @param mesh
+   * @returns mesh geometry
    */
   public static getMeshGeometry(mesh: any): MeshGeometry {
     if (this.isMeshGeometry(mesh)) {
@@ -815,7 +829,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Sets mesh
-   * @param meshGeometry 
+   * @param meshGeometry
    */
   public setMesh(meshGeometry: MeshGeometry) {
     if (this.geometry === null) {
@@ -829,19 +843,19 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Synks mesh
-   * 
-   * @param [geometry] 
+   *
+   * @param [geometry]
    */
   protected synkMesh(geometry: THREE.BufferGeometry = null) {
     if (ThreeUtil.isNotNull(geometry) && this.enabled) {
       if (ThreeUtil.isNotNull(this._meshGeometry)) {
         if (this.isIdEuals(this._meshGeometry.userData.geometry)) {
           this._meshGeometry.userData.geometry = this.id;
-          if (this._meshGeometry instanceof THREE.Line) {
-            if (this.geometry.getIndex() === null) {
-              this._meshGeometry.computeLineDistances();
-            }
-          }
+          // if (this._meshGeometry instanceof THREE.Line) {
+          //  if (this.geometry.getIndex() === null) {
+          //    this._meshGeometry.computeLineDistances();
+          //  }
+          // }
           if (this._meshGeometry instanceof THREE.LineSegments) {
             if (this._meshGeometry.geometry !== this.geometry) {
               const threeComponent = ThreeUtil.getThreeComponent(this._meshGeometry);
@@ -870,7 +884,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Sets geometry
-   * @param geometry 
+   * @param geometry
    */
   protected setGeometry(geometry: THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
@@ -878,6 +892,31 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
         this.geometry.dispose();
       }
       if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
+        if (ThreeUtil.isNotNull(this.lineType)) {
+          switch (this.lineType.toLowerCase()) {
+            case 'wireframebuffergeometry':
+            case 'wireframegeometry':
+            case 'wireframebuffer':
+            case 'wireframe':
+              geometry = new THREE.WireframeGeometry(geometry);
+              break;
+            case 'wireframe2buffergeometry':
+            case 'wireframe2geometry':
+            case 'wireframe2buffer':
+            case 'wireframe2':
+            case 'wireframebuffergeometry2':
+            case 'wireframegeometry2':
+            case 'wireframebuffer2':
+              geometry = new WireframeGeometry2(geometry);
+              break;
+            case 'edgesbuffergeometry':
+            case 'edgesbuffer':
+            case 'edgesgeometry':
+            case 'edges':
+              geometry = new THREE.EdgesGeometry(geometry, ThreeUtil.getTypeSafe(this.thresholdAngle, 0));
+              break;
+          }
+        }
         if (ThreeUtil.isNotNull(this.program)) {
           GeometryUtils.getGeometry(this.program, geometry, this.programParam);
         }
@@ -1027,8 +1066,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Gets geometry
-   * @template T 
-   * @returns geometry 
+   * @template T
+   * @returns geometry
    */
   public getGeometry<T extends THREE.BufferGeometry>(): T {
     return this.geometry as T;
@@ -1036,8 +1075,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
   /**
    * Applys changes
-   * @param changes 
-   * @returns  
+   * @param changes
+   * @returns
    */
   protected applyChanges(changes: string[]) {
     if (this.geometry !== null) {

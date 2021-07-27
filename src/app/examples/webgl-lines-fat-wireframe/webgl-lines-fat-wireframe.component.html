@@ -35,13 +35,12 @@
     <ngx3js-mesh (onLoad)="setMesh($event)" >
       <ngx3js-mesh [type]="'Wireframe'" [visible]="controls.lineType == 'LineGeometry'">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'WireframeGeometry2'" >
-          <ngx3js-geometry
-            [type]="'Icosahedron'"
-            [radius]="20"
-            [detail]="1"
-          ></ngx3js-geometry>
-        </ngx3js-geometry>
+        <ngx3js-geometry
+          [type]="'Icosahedron'"
+          [radius]="20"
+          [detail]="1"
+          [lineType]="'WireframeGeometry2'"
+        ></ngx3js-geometry>
         <ngx3js-material
           #matLine 
           [type]="'Line'" 

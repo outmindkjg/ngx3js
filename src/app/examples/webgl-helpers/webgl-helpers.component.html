@@ -40,13 +40,13 @@
       <ngx3js-helper [type]="'box'" [target]="baseMesh"></ngx3js-helper>
       <ngx3js-mesh [type]="'linesegments'">
         <ngx3js-position [x]="4" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'Wireframe'" [refGeometry]="baseMesh" [refType]="'geometry'"></ngx3js-geometry>
+        <ngx3js-geometry [refer]="baseMesh" [lineType]="'Wireframe'" ></ngx3js-geometry>
         <ngx3js-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></ngx3js-material>
         <ngx3js-helper [type]="'box'"></ngx3js-helper>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'linesegments'">
         <ngx3js-position [x]="-4" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'Edges'" [refGeometry]="baseMesh" [refType]="'geometry'"></ngx3js-geometry>
+        <ngx3js-geometry [refer]="baseMesh" [lineType]="'Edges'"></ngx3js-geometry>
         <ngx3js-material [type]="'line'" [depthTest]="false" [opacity]="0.25" [transparent]="true"></ngx3js-material>
         <ngx3js-helper [type]="'box'"></ngx3js-helper>
       </ngx3js-mesh>

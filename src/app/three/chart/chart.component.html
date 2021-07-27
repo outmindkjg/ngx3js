@@ -42,6 +42,15 @@
         [depth]="barGeometryInfo.depth"
         [align]="'bottom'"
       ></ngx3js-geometry>
+      <ngx3js-geometry 
+        #barWireframeGeometry 
+        [type]="'box'"
+        [width]="barGeometryInfo.width"
+        [height]="barGeometryInfo.height"
+        [depth]="barGeometryInfo.depth"
+        [align]="'bottom'"
+        [lineType]="'WireframeGeometry2'"
+      ></ngx3js-geometry>
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh *ngIf="barChart && barChart.length > 0">
@@ -49,6 +58,16 @@
           <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
           <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
           <ngx3js-material [type]="'meshlambert'" [color]="info.color" [opacity]="info.opacity" [transparent]="true"></ngx3js-material>
+          <ngx3js-mesh [type]="'Wireframe'" [geometry]="barWireframeGeometry">
+            <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+            <ngx3js-material 
+              [type]="'Line'" 
+              [color]="'0xff0000'" 
+              [linewidth]="5" 
+              [resolutionX]="1024" 
+              [resolutionY]="1024"
+            ></ngx3js-material>
+          </ngx3js-mesh>
         </ngx3js-mesh>
       </ngx3js-mesh>
     </ngx3js-mesh>

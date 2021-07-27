@@ -6,7 +6,6 @@ import { ParametricGeometries } from 'three/examples/jsm/geometries/ParametricGe
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { CurveComponent } from '../curve/curve.component';
 import { CurveUtils } from '../curve/curveUtils';
@@ -22,13 +21,13 @@ import { RopeGeometry } from './geometry.rope';
 
 /**
  * GeometryComponent
- * 
+ *
  * A representation of mesh, line, or point geometry. Includes vertex positions, face
  * indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
- * 
+ *
  * To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.
- * 
+ *
  * @see THREE.BufferGeometry
  */
 @Component({
@@ -42,43 +41,40 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * The type  of geometry
    *
    * Notice - case insensitive.
-   * 
+   *
    * @see THREE.BufferGeometry
    * @see THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer
-   * @see THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced, 
-   * @see TeapotGeometry - TeapotGeometry, Teapot, 
+   * @see THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced,
+   * @see TeapotGeometry - TeapotGeometry, Teapot,
    * @see PerlinGeometry - PerlinBufferGeometry, PerlinGeometry, Perlin, PerlinBuffer
    * @see RopeGeometry - RopeBufferGeometry, RopeGeometry, Rope, RopeBuffer
-   * @see CapsuleGeometry - CapsuleGeometry, Capsule,  
-   * @see LineGeometry - LineGeometry, Line, 
-   * @see THREE.BoxGeometry - BoxGeometry, Box, 
-   * @see THREE.CircleGeometry - CircleGeometry, Circle, 
-   * @see THREE.ConeGeometry - ConeGeometry, Cone, 
-   * @see THREE.CylinderGeometry - CylinderGeometry, Cylinder, 
-   * @see THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron, 
-   * @see THREE.EdgesGeometry - EdgesGeometry, Edges, 
+   * @see CapsuleGeometry - CapsuleGeometry, Capsule,
+   * @see LineGeometry - LineGeometry, Line,
+   * @see THREE.BoxGeometry - BoxGeometry, Box,
+   * @see THREE.CircleGeometry - CircleGeometry, Circle,
+   * @see THREE.ConeGeometry - ConeGeometry, Cone,
+   * @see THREE.CylinderGeometry - CylinderGeometry, Cylinder,
+   * @see THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron,
    * @see MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge
-   * @see THREE.ShapeGeometry - ShapeGeometry, Shape, 
-   * @see THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron, 
-   * @see THREE.LatheGeometry - LatheGeometry, Lathe, 
-   * @see THREE.OctahedronGeometry - OctahedronGeometry, Octahedron, 
+   * @see THREE.ShapeGeometry - ShapeGeometry, Shape,
+   * @see THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron,
+   * @see THREE.LatheGeometry - LatheGeometry, Lathe,
+   * @see THREE.OctahedronGeometry - OctahedronGeometry, Octahedron,
    * @see THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer
-   * @see ParametricGeometries.TorusKnotGeometry - , 
-   * @see ParametricGeometries.SphereGeometry - , 
-   * @see ParametricGeometries.TubeGeometry - , 
-   * @see THREE.ParametricGeometry - ParametricGeometry , Parametric, 
-   * @see THREE.PlaneGeometry - PlaneGeometry, Plane, 
-   * @see THREE.RingGeometry - RingGeometry, Ring, 
-   * @see THREE.SphereGeometry - SphereGeometry, Sphere, 
-   * @see THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron, 
-   * @see THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text 
-   * @see THREE.TorusGeometry - TorusGeometry, Torus, 
-   * @see THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot 
-   * @see THREE.TubeGeometry - TubeGeometry, Tube, 
-   * @see THREE.WireframeGeometry - WireframeGeometry, Wireframe, 
-   * @see WireframeGeometry2 - WireframeGeometry2, Wireframe2, 
-   * @see ConvexGeometry - ConvexGeometry, Convex, 
-   * @see DecalGeometry - DecalGeometry, Decal, 
+   * @see ParametricGeometries.TorusKnotGeometry - ,
+   * @see ParametricGeometries.SphereGeometry - ,
+   * @see ParametricGeometries.TubeGeometry - ,
+   * @see THREE.ParametricGeometry - ParametricGeometry , Parametric,
+   * @see THREE.PlaneGeometry - PlaneGeometry, Plane,
+   * @see THREE.RingGeometry - RingGeometry, Ring,
+   * @see THREE.SphereGeometry - SphereGeometry, Sphere,
+   * @see THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron,
+   * @see THREE.TextBufferGeometry - TextBufferGeometry, TextBuffer, Text
+   * @see THREE.TorusGeometry - TorusGeometry, Torus,
+   * @see THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot
+   * @see THREE.TubeGeometry - TubeGeometry, Tube,
+   * @see ConvexGeometry - ConvexGeometry, Convex,
+   * @see DecalGeometry - DecalGeometry, Decal,
    */
   @Input() public type: string = 'sphere';
 
@@ -101,7 +97,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private perlinType: string = 'minecraft';
 
@@ -284,7 +280,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private extrudePathType: string = null;
 
@@ -297,7 +293,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private curvePathType: string = null;
 
@@ -305,7 +301,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private curveType: string = null;
 
@@ -343,7 +339,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private uVGenerator: string = null;
 
@@ -356,7 +352,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private parametric: string | GeometriesParametric | any = null;
 
@@ -399,11 +395,6 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    */
   @Input() private polyIndices: number[] = null;
-
-  /**
-   * Input  of geometry component
-   */
-  @Input() private thresholdAngle: number = null;
 
   /**
    * Input  of geometry component
@@ -534,7 +525,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
    * Input  of geometry component
    *
    * Notice - case insensitive.
-   * 
+   *
    */
   @Input() private refType: string = 'targetMesh';
 
@@ -981,12 +972,12 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
     if (this.geometry === null || this._needUpdate) {
       this.needUpdate = false;
       let geometry: THREE.BufferGeometry = null;
+      this.unSubscribeRefer('refGeometry')
       if (this.refer !== null && this.refer !== undefined) {
-        if (this.refer.getGeometry) {
-          geometry = this.refer.getGeometry();
-        } else if (this.refer instanceof THREE.BufferGeometry) {
-          geometry = this.refer;
-        }
+        geometry = ThreeUtil.getGeometry(this.refer);
+        this.subscribeRefer('refGeometry', ThreeUtil.getSubscribe(this.refer, () => {
+          this.needUpdate = true; 
+        }, 'geometry'))
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         geometry = new THREE.BufferGeometry();
         this.localStorageService.getGeometry(this.storageName, (loadGeometry, model: THREE.Object3D) => {
@@ -1130,17 +1121,17 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'gridgeometry':
           case 'gridbuffer':
           case 'grid':
-              const gridGeometry = new GridGeometry(
-                ThreeUtil.getTypeSafe(this.width, this.height, 1), 
-                ThreeUtil.getTypeSafe(this.height, this.width, 1), 
-                ThreeUtil.getTypeSafe(this.depth, 0), 
-                ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1),
-                ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
-                ThreeUtil.getColorSafe(this.color1, 0x444444),
-                ThreeUtil.getColorSafe(this.color2, 0x888888),
-              );
-              geometry = gridGeometry;
-              break;
+            const gridGeometry = new GridGeometry(
+              ThreeUtil.getTypeSafe(this.width, this.height, 1),
+              ThreeUtil.getTypeSafe(this.height, this.width, 1),
+              ThreeUtil.getTypeSafe(this.depth, 0),
+              ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1),
+              ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+              ThreeUtil.getColorSafe(this.color1, 0x444444),
+              ThreeUtil.getColorSafe(this.color2, 0x888888)
+            );
+            geometry = gridGeometry;
+            break;
           case 'capsulebuffergeometry':
           case 'capsulegeometry':
           case 'capsulebuffer':
@@ -1233,12 +1224,6 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'dodecahedronbuffer':
           case 'dodecahedron':
             geometry = new THREE.DodecahedronGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
-            break;
-          case 'edgesbuffergeometry':
-          case 'edgesbuffer':
-          case 'edgesgeometry':
-          case 'edges':
-            geometry = new THREE.EdgesGeometry(this.getSubGeometry(), ThreeUtil.getTypeSafe(this.thresholdAngle, 0));
             break;
           case 'mergebuffergeometries':
           case 'mergebuffergeometry':
@@ -1443,21 +1428,6 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'tubebuffer':
           case 'tube':
             geometry = new THREE.TubeGeometry(this.getCurve(), ThreeUtil.getTypeSafe(this.tubularSegments, 64), ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.radiusSegments, this.radialSegments, 8), ThreeUtil.getTypeSafe(this.closed, false));
-            break;
-          case 'wireframebuffergeometry':
-          case 'wireframegeometry':
-          case 'wireframebuffer':
-          case 'wireframe':
-            geometry = new THREE.WireframeGeometry(this.getSubGeometry());
-            break;
-          case 'wireframe2buffergeometry':
-          case 'wireframe2geometry':
-          case 'wireframe2buffer':
-          case 'wireframe2':
-          case 'wireframebuffergeometry2':
-          case 'wireframegeometry2':
-          case 'wireframebuffer2':
-            geometry = new WireframeGeometry2(this.getSubGeometry());
             break;
           case 'convexbuffergeometry':
           case 'convexgeometry':

@@ -923,24 +923,28 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
    * @returns geometry
    */
   public getGeometry(): THREE.BufferGeometry {
+    let geometry :  THREE.BufferGeometry = null;
     if (this.geometry !== null) {
       return ThreeUtil.getGeometry(this.geometry);
     }
     if (this.geometryList !== null && this.geometryList.length > 0) {
-      let geometry: THREE.BufferGeometry = null;
       this.geometryList.forEach((geometryCom) => {
         if (geometry === null && geometryCom.enabled) {
           geometry = geometryCom.getGeometry();
         }
       });
-      if (geometry !== null) {
+      if (ThreeUtil.isNotNull(geometry)) {
         return geometry;
       }
-    } else if (this.mesh !== null) {
+    } 
+    if (this.mesh !== null) {
       if (ThreeUtil.isNotNull(this.mesh.userData.refTarget) && ThreeUtil.isNotNull(this.mesh.userData.refTarget.geometry)) {
-        return this.mesh.userData.refTarget.geometry;
+        geometry = this.mesh.userData.refTarget.geometry;
       } else if (ThreeUtil.isNotNull(this.mesh['geometry'])) {
-        return this.mesh['geometry'];
+        geometry = this.mesh['geometry'];
+      }
+      if (ThreeUtil.isNotNull(geometry)) {
+        return geometry;
       }
     }
     return new THREE.BufferGeometry();
