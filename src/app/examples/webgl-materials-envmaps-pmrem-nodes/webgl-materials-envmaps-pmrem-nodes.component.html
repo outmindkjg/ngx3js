@@ -21,7 +21,17 @@
   <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
     <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="background" [backgroundType]="'background-cubemap'">
+  <ngx3js-shared>
+    <ngx3js-texture 
+      #background 
+      [image]="'textures/cube/pisaHDR/'" 
+      [cubeImage]="['','hdr']" 
+      [loaderType]="'HDRCubeTexture'"
+      [magFilter]="'LinearFilter'"
+      [cubeType]="'cubemap'"
+    ></ngx3js-texture>
+  </ngx3js-shared>
+  <ngx3js-scene #scene [background]="background">
     <ngx3js-light
       [type]="'ambientlight'"
       [color]="'0xffffff'"
@@ -35,15 +45,6 @@
     >
       <ngx3js-position [x]="3" [y]="10" [z]="10"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture 
-        #background 
-        [image]="'textures/cube/pisaHDR/'" 
-        [cubeImage]="['','hdr']" 
-        [loaderType]="'HDRCubeTexture'"
-        [magFilter]="'LinearFilter'"
-      ></ngx3js-texture>
-    </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry

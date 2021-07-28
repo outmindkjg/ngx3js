@@ -591,7 +591,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
       switch (this.type.toLowerCase()) {
         case 'directionallight':
         case 'directional':
-          const directionalLight = new THREE.DirectionalLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1));
+          const directionalLight = new THREE.DirectionalLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1));
           basemesh = directionalLight;
           break;
         case 'hemispherelight':
@@ -637,18 +637,18 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
         case 'pointlight':
         case 'point':
-          const pointLight = new THREE.PointLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getTypeSafe(this.decay, ));
+          const pointLight = new THREE.PointLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getTypeSafe(this.decay, ));
           basemesh = pointLight;
           break;
         case 'arealight':
         case 'area':
         case 'rectarealight':
         case 'rectarea':
-          basemesh = new THREE.RectAreaLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.width, 10), ThreeUtil.getTypeSafe(this.height, 10));
+          basemesh = new THREE.RectAreaLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.width, 10), ThreeUtil.getTypeSafe(this.height, 10));
           break;
         case 'spotlight':
         case 'spot':
-          const spotLight = new THREE.SpotLight(ThreeUtil.getTypeSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getAngleSafe(this.angle,), ThreeUtil.getTypeSafe(this.penumbra, ), ThreeUtil.getTypeSafe(this.decay, ));
+          const spotLight = new THREE.SpotLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getAngleSafe(this.angle,), ThreeUtil.getTypeSafe(this.penumbra, ), ThreeUtil.getTypeSafe(this.decay, ));
           if (ThreeUtil.isNotNull(this.shadowFocus)) {
             spotLight.shadow.focus = ThreeUtil.getTypeSafe(this.shadowFocus, 1);
           }
@@ -657,7 +657,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
         case 'ambientlight':
         case 'ambient':
         default:
-          basemesh = new THREE.AmbientLight(ThreeUtil.getTypeSafe(this.color, 0x0c0c0c), ThreeUtil.getTypeSafe(this.intensity, 1));
+          basemesh = new THREE.AmbientLight(ThreeUtil.getColorSafe(this.color, 0x0c0c0c), ThreeUtil.getTypeSafe(this.intensity, 1));
           break;
       }
       if (ThreeUtil.isNotNull(basemesh['target'])) {

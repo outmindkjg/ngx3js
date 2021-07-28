@@ -19,8 +19,10 @@
     <ngx3js-position [x]="-1.8" [y]="0.6" [z]="2.7"></ngx3js-position>
     <ngx3js-lookat [x]="0" [y]="0" [z]="-0.2"></ngx3js-lookat>
   </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-material [materialType]="'background-environment-angular'" [storageName]="'textures/equirectangular/royal_esplanade_1k.hdr'"></ngx3js-material>
+  <ngx3js-shared>
+    <ngx3js-texture #background [storageName]="'textures/equirectangular/royal_esplanade_1k.hdr'" [cubeType]="'fromequirectangular'"></ngx3js-texture>
+  </ngx3js-shared>
+  <ngx3js-scene #scene [background]="background" [environment]="background">
     <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
     </ngx3js-mesh>

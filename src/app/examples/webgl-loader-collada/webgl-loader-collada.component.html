@@ -1,39 +1,20 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader<br/>
-  Elf Girl by <a href="https://sketchfab.com/yellow09" target="_blank" rel="noopener">halloween</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC Attribution</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader<br />
+	Elf Girl by <a href="https://sketchfab.com/yellow09" target="_blank" rel="noopener">halloween</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC Attribution</a>
 </div>
-<ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
->
-  <ngx3js-lookat [x]="0" [y]="3" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-    <ngx3js-position [x]="8" [y]="10" [z]="8"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="3" [z]="0"></ngx3js-lookat>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xcccccc'"
-      [intensity]="0.4"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.8"
-      [castShadow]="true"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="0" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/elf/elf.dae'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+	<ngx3js-lookat [x]="0" [y]="3" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+		<ngx3js-position [x]="8" [y]="10" [z]="8"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xcccccc'" [intensity]="0.4"> </ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.8" [castShadow]="true">
+			<ngx3js-position [x]="1" [y]="1" [z]="0" [normalize]="true"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/elf/elf.dae'">
+			<ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="270" [y]="0" [z]="0"></ngx3js-rotation>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

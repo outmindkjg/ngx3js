@@ -13,12 +13,11 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="200" [z]="300"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+  <ngx3js-scene #scene [background]="'0xeeeeee'">
     <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
     <ngx3js-light
       [type]="'Hemisphere'"
@@ -41,23 +40,11 @@
     >
       <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
     </ngx3js-light>
+    <ngx3js-helper [type]="'GridHelper'" [size]="400" [divisions]="10"></ngx3js-helper>
     <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/bvh/pirouette.bvh'">
-      <!-- ngx3js-mixer [debug]="true" [timeScale]="1"></!-->
-      <!-- ngx3js-helper [type]="'skeleton'"></!-->
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></ngx3js-material>
+      <ngx3js-mixer [debug]="true" [timeScale]="1" [action]="'default'">
+        <ngx3js-clip [index]="0" [name]="'default'" [weight]="1.0"></ngx3js-clip>
+      </ngx3js-mixer>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

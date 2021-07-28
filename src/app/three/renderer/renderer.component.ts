@@ -461,8 +461,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       this.renderer = null;
     }
     if (this.cssRenderer !== null) {
-      if (this.cssRenderer.domElement && this.cssRenderer.domElement.parentNode) {
-        this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
+      if (Array.isArray(this.cssRenderer)) {
+        this.cssRenderer.forEach(cssRenderer => {
+          if (cssRenderer.domElement && cssRenderer.domElement.parentNode) {
+            cssRenderer.domElement.parentNode.removeChild(cssRenderer.domElement);
+          }
+        })
+      } else {
+        if (this.cssRenderer.domElement && this.cssRenderer.domElement.parentNode) {
+          this.cssRenderer.domElement.parentNode.removeChild(this.cssRenderer.domElement);
+        }
       }
       this.cssRenderer = null;
     }
@@ -765,7 +773,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
       });
       if (this.cssRenderer !== null) {
-        this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
+        if (Array.isArray(this.cssRenderer)) {
+          this.cssRenderer.forEach(cssRenderer => {
+            cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
+          })
+        } else {
+          this.cssRenderer.setSize(this.rendererWidth, this.rendererHeight);
+        }
+  
       }
       const rendererSize = this.getSize();
       this.canvas2dList.forEach((canvas2d) => {
@@ -941,7 +956,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
       if (ThreeUtil.isIndexOf(changes, ['width', 'height', 'x', 'y'])) {
         changes = ThreeUtil.pushUniq(changes, ['resize']);
       }
-      this.consoleLog('render', changes, 'error');
       if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
         changes = ThreeUtil.pushUniq(changes, ['guicontrol']);
       }
@@ -1173,7 +1187,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   /**
    * Css renderer of renderer component
    */
-  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
+  private cssRenderer: CSS3DRenderer | CSS2DRenderer | (CSS3DRenderer | CSS2DRenderer)[] = null;
 
   /**
    * Renderer width of renderer component
@@ -1330,6 +1344,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
         this.render();
       };
       switch (this.cssType.toLowerCase()) {
+        case '3d,2d' :
+        case '2d,3d' :
+        case 'css3d,css2d':
+        case 'css2d,css3d':
+          this.cssRenderer = [];
+          this.cssRenderer.push(new CSS2DRenderer());
+          this.cssRenderer.push(new CSS3DRenderer());
+          break;
         case '3d':
         case 'css3d':
           this.cssRenderer = new CSS3DRenderer();
@@ -1369,11 +1391,21 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
           break;
       }
       if (this.cssRenderer !== null) {
-        this.cssRenderer.domElement.style.position = 'absolute';
-        this.cssRenderer.domElement.style.top = '0px';
-        this.cssRenderer.domElement.style.left = '0px';
-        this.cssRenderer.domElement.style.pointerEvents = 'none';
-        this.canvasEle.nativeElement.appendChild(this.cssRenderer.domElement);
+        if (Array.isArray(this.cssRenderer)) {
+          this.cssRenderer.forEach(cssRenderer => {
+            cssRenderer.domElement.style.position = 'absolute';
+            cssRenderer.domElement.style.top = '0px';
+            cssRenderer.domElement.style.left = '0px';
+            cssRenderer.domElement.style.pointerEvents = 'none';
+            this.canvasEle.nativeElement.appendChild(cssRenderer.domElement);
+          })
+        } else {
+          this.cssRenderer.domElement.style.position = 'absolute';
+          this.cssRenderer.domElement.style.top = '0px';
+          this.cssRenderer.domElement.style.left = '0px';
+          this.cssRenderer.domElement.style.pointerEvents = 'none';
+          this.canvasEle.nativeElement.appendChild(this.cssRenderer.domElement);
+        }
       }
       this.renderer.domElement.style.position = 'relative';
       this.canvasEle.nativeElement.appendChild(this.renderer.domElement);

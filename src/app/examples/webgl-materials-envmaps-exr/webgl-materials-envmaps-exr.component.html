@@ -19,11 +19,11 @@
   <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
     <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground" [backgroundType]="'background'">
-    <ngx3js-shared>
-      <ngx3js-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></ngx3js-texture>
-      <ngx3js-texture #exrBackground [storageName]="'textures/piz_compressed.exr'"  [cubeType]="'equirectangular'"></ngx3js-texture>
-    </ngx3js-shared>
+  <ngx3js-shared>
+    <ngx3js-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></ngx3js-texture>
+    <ngx3js-texture #exrBackground [storageName]="'textures/piz_compressed.exr'"  [cubeType]="'equirectangular'"></ngx3js-texture>
+  </ngx3js-shared>
+<ngx3js-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground">
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry

@@ -35,7 +35,7 @@
     >
       <ngx3js-position [x]="-1" [y]="1" [z]="1"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/draco/bunny.drc'" [receiveShadow]="true">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/draco/bunny.drc'" [castShadow]="true" [receiveShadow]="true">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-material [type]="'MeshStandard'" [color]="'0x606060'"></ngx3js-material>
     </ngx3js-mesh>

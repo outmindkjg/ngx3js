@@ -1368,6 +1368,30 @@ export class ThreeUtil {
   }
 
   /**
+   * Determines whether not null is color
+   * @param color
+   * @returns true if not null
+   */
+  public static isColor(color: any): boolean {
+    if (color instanceof THREE.Color || typeof color === 'number') {
+      return true;
+    } else if (typeof color === 'string' && (
+      color.startsWith('rgb(') ||
+      color.startsWith('rgb(') ||
+      color.startsWith('color(')||
+      color.startsWith('0x') ||
+      color.startsWith('hsl(') ||
+      color.startsWith('#') ||
+      /^[a-z]{3,10}$/.test(color) ||
+      color.indexOf('random') >= 0
+    )){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Gets color safe
    * @param color
    * @param [altColor]

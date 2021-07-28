@@ -590,7 +590,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
   /**
    * Css renderer of camera component
    */
-  private cssRenderer: CSS3DRenderer | CSS2DRenderer = null;
+  private cssRenderer: CSS3DRenderer | CSS2DRenderer | (CSS3DRenderer | CSS2DRenderer)[] = null;
 
   /**
    * Renderer scenes of camera component
@@ -611,7 +611,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param cssRenderer
    * @param rendererScenes
    */
-  public setRenderer(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, rendererScenes: QueryList<any>) {
+  public setRenderer(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer | (CSS3DRenderer | CSS2DRenderer) [], rendererScenes: QueryList<any>) {
     if (this.cssRenderer !== cssRenderer) {
       this.cssRenderer = cssRenderer;
     }
@@ -939,7 +939,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param renderTimer
    * @returns
    */
-  public render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer, scenes: QueryList<any> | any, renderTimer: RendererTimer) {
+  public render(renderer: THREE.Renderer, cssRenderer: CSS3DRenderer | CSS2DRenderer | (CSS3DRenderer | CSS2DRenderer)[], scenes: QueryList<any> | any, renderTimer: RendererTimer) {
     if (!this.active || this.isCameraChild || this.camera === null || !this.camera.visible) {
       return;
     }
@@ -979,17 +979,37 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
       this.renderWithScene(renderer, camera, this.getScene(scenes));
     }
     if (cssRenderer !== null) {
-      if (this.scenes !== null && this.scenes.length > 0) {
-        this.scenes.forEach((sceneCom) => {
-          const scene = sceneCom.getScene();
+      if (Array.isArray(cssRenderer)) {
+        if (this.scenes !== null && this.scenes.length > 0) {
+          this.scenes.forEach((sceneCom) => {
+            const scene = sceneCom.getScene();
+            if (scene !== null) {
+              cssRenderer.forEach(child => {              
+                child.render(scene, this.getObject3d());
+              });
+            }
+          });
+        } else {
+          const scene = this.getScene(scenes);
+          if (scene !== null) {
+            cssRenderer.forEach(child => {              
+              child.render(scene, this.getObject3d());
+            });
+          }
+        }
+      } else {
+        if (this.scenes !== null && this.scenes.length > 0) {
+          this.scenes.forEach((sceneCom) => {
+            const scene = sceneCom.getScene();
+            if (scene !== null) {
+              cssRenderer.render(scene, this.getObject3d());
+            }
+          });
+        } else {
+          const scene = this.getScene(scenes);
           if (scene !== null) {
             cssRenderer.render(scene, this.getObject3d());
           }
-        });
-      } else {
-        const scene = this.getScene(scenes);
-        if (scene !== null) {
-          cssRenderer.render(scene, this.getObject3d());
         }
       }
     }

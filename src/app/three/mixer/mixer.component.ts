@@ -372,6 +372,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
       this.clips = clips;
       this.helper = null;
       this.mixer = null;
+
       if (this.debug && this.clips) {
         const clipsNames = [];
         if (this.clips.forEach) {
@@ -383,6 +384,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
             clipsNames.push(clip.name);
           });
         }
+        this.consoleLog('clips', clipsNames, 'info');
       }
       this.resetMixer();
       this.lastAction = null;

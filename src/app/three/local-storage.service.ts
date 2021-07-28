@@ -57,8 +57,6 @@ import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
 import { VRMLoader } from 'three/examples/jsm/loaders/VRMLoader';
 import { VTKLoader } from 'three/examples/jsm/loaders/VTKLoader';
 import { XYZLoader } from 'three/examples/jsm/loaders/XYZLoader';
-// import { Assimp, AssimpLoader } from 'three/examples/jsm/loaders/AssimpLoader';
-// import { XLoader, XResult } from 'three/examples/jsm/loaders/XLoader';
 import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
 import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 import { Volume } from 'three/examples/jsm/misc/Volume';
@@ -204,8 +202,6 @@ export class LocalStorageService {
    * Amf loader of local storage service
    */
   private amfLoader: AMFLoader = null;
-
-  // private assimpLoader: AssimpLoader = null;
 
   /**
    * Bvh loader of local storage service
@@ -811,25 +807,6 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
-    } else if (key.endsWith('.assimp')) {
-      /*
-      if (this.assimpLoader === null) {
-        this.assimpLoader = new AssimpLoader(ThreeUtil.getLoadingManager());
-      }
-      this.setLoaderWithOption(this.assimpLoader, options);
-      this.assimpLoader.load(
-        key,
-        (object: Assimp) => {
-          callBack({
-            object: object.object,
-            clips: object.animation,
-            source: object,
-          });
-        },
-        this.onProgress,
-        this.onError
-      );
-      */
     } else if (key.endsWith('.exr')) {
       if (this.exrLoader === null) {
         this.exrLoader = new EXRLoader(ThreeUtil.getLoadingManager());
@@ -925,14 +902,13 @@ export class LocalStorageService {
         key,
         (object: BVH) => {
           if (object.skeleton && object.skeleton.bones && object.skeleton.bones.length > 0) {
-            /*
-            const mesh = object.skeleton.bones[0].clone() as THREE.SkinnedMesh;
-            mesh.skeleton = object.skeleton;
+            const skeletonHelper = new THREE.SkeletonHelper( object.skeleton.bones[ 0 ] );
+            skeletonHelper['skeleton'] = object.skeleton; // allow animation mixer to bind to THREE.SkeletonHelper directly
             callBack({
-              object: mesh,
+              object: skeletonHelper,
+              clips : [object.clip],
               source: object,
             });
-            */
           }
         },
         this.onProgress,
@@ -1091,6 +1067,7 @@ export class LocalStorageService {
         (geometry: THREE.BufferGeometry) => {
           callBack({
             geometry: geometry,
+            source : geometry
           });
         },
         this.onProgress,

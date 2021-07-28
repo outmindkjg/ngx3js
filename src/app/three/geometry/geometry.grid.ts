@@ -43,7 +43,6 @@ export class GridGeometry extends THREE.BufferGeometry {
 		const halfSizeY = height / 2;
 		const vertices = [], colors = [];
     let j = 0;
-    console.log(widthSegments, heightSegments);
 		for ( let i = 0, k = - halfSizeY; i <= heightSegments; i ++, k += stepY ) {
 			vertices.push( 
         - halfSizeX, k, depth,
