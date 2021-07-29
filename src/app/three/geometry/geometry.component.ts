@@ -15,8 +15,10 @@ import { LocalStorageService } from '../local-storage.service';
 import { ShapeComponent } from '../shape/shape.component';
 import { SvgComponent } from '../svg/svg.component';
 import { CapsuleGeometry } from './geometry.capsule';
+import { CircleDepthGeometry } from './geometry.circle-depth';
 import { GridGeometry } from './geometry.grid';
 import { PlanePerlinGeometry } from './geometry.plane_perlin';
+import { RingDepthGeometry } from './geometry.ring-depth';
 import { RopeGeometry } from './geometry.rope';
 
 /**
@@ -1175,7 +1177,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'boxgeometry':
           case 'boxbuffer':
           case 'box':
-            geometry = new THREE.BoxGeometry(
+            geometry = new THREE.BoxBufferGeometry(
               ThreeUtil.getTypeSafe(this.width, this.height, 1),
               ThreeUtil.getTypeSafe(this.height, this.width, 1),
               ThreeUtil.getTypeSafe(this.depth, this.width, 1),
@@ -1188,13 +1190,17 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'circlegeometry':
           case 'circlebuffer':
           case 'circle':
-            geometry = new THREE.CircleGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
+              geometry = new CircleDepthGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            } else {
+              geometry = new THREE.CircleBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            }
             break;
           case 'conebuffergeometry':
           case 'conegeometry':
           case 'conebuffer':
           case 'cone':
-            geometry = new THREE.ConeGeometry(
+            geometry = new THREE.ConeBufferGeometry(
               ThreeUtil.getTypeSafe(this.radius, 1),
               ThreeUtil.getTypeSafe(this.height, this.width, 1),
               ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8),
@@ -1208,7 +1214,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'cylindergeometry':
           case 'cylinderbuffer':
           case 'cylinder':
-            geometry = new THREE.CylinderGeometry(
+            geometry = new THREE.CylinderBufferGeometry(
               ThreeUtil.getTypeSafe(this.radiusTop, this.radiusBottom, 1),
               ThreeUtil.getTypeSafe(this.radiusBottom, this.radiusTop, 1),
               ThreeUtil.getTypeSafe(this.height, this.width, 1),
@@ -1223,7 +1229,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'dodecahedrongeometry':
           case 'dodecahedronbuffer':
           case 'dodecahedron':
-            geometry = new THREE.DodecahedronGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
+            geometry = new THREE.DodecahedronBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
             break;
           case 'mergebuffergeometries':
           case 'mergebuffergeometry':
@@ -1248,7 +1254,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'shape':
           case 'extrudebuffer':
           case 'extrude':
-            geometry = new THREE.ShapeGeometry([], ThreeUtil.getTypeSafe(this.curveSegments, this.segments));
+            geometry = new THREE.ShapeBufferGeometry([], ThreeUtil.getTypeSafe(this.curveSegments, this.segments));
             this.getShapes((shapes) => {
               let shapeGeometry: THREE.BufferGeometry = null;
               switch (this.type.toLowerCase()) {
@@ -1256,14 +1262,14 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
                 case 'shapegeometry':
                 case 'shapebuffer':
                 case 'shape':
-                  shapeGeometry = new THREE.ShapeGeometry(shapes, ThreeUtil.getTypeSafe(this.curveSegments, this.segments));
+                  shapeGeometry = new THREE.ShapeBufferGeometry(shapes, ThreeUtil.getTypeSafe(this.curveSegments, this.segments));
                   break;
                 case 'extrudebuffergeometry':
                 case 'extrudegeometry':
                 case 'extrudebuffer':
                 case 'extrude':
                 default:
-                  shapeGeometry = new THREE.ExtrudeGeometry(shapes, {
+                  shapeGeometry = new THREE.ExtrudeBufferGeometry(shapes, {
                     curveSegments: ThreeUtil.getTypeSafe(this.curveSegments, this.segments),
                     steps: ThreeUtil.getTypeSafe(this.steps),
                     depth: ThreeUtil.getTypeSafe(this.depth, this.width),
@@ -1285,19 +1291,19 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'icosahedrongeometry':
           case 'icosahedronbuffer':
           case 'icosahedron':
-            geometry = new THREE.IcosahedronGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
+            geometry = new THREE.IcosahedronBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
             break;
           case 'lathebuffergeometry':
           case 'lathegeometry':
           case 'lathebuffer':
           case 'lathe':
-            geometry = new THREE.LatheGeometry(this.getPointsV2([]), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 12), ThreeUtil.getAngleSafe(this.phiStart, 0), ThreeUtil.getAngleSafe(this.phiLength, 360));
+            geometry = new THREE.LatheBufferGeometry(this.getPointsV2([]), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 12), ThreeUtil.getAngleSafe(this.phiStart, 0), ThreeUtil.getAngleSafe(this.phiLength, 360));
             break;
           case 'octahedronbuffergeometry':
           case 'octahedrongeometry':
           case 'octahedronbuffer':
           case 'octahedron':
-            geometry = new THREE.OctahedronGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
+            geometry = new THREE.OctahedronBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
             break;
           case 'parametricgeometry':
           case 'parametric':
@@ -1328,38 +1334,50 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'parametricbuffer':
           case 'parametricgeometry':
           case 'parametric':
-            geometry = new THREE.ParametricGeometry(this.getParametric('mobius3d'), ThreeUtil.getTypeSafe(this.slices, 20), ThreeUtil.getTypeSafe(this.stacks, 10));
+            geometry = new THREE.ParametricBufferGeometry(this.getParametric('mobius3d'), ThreeUtil.getTypeSafe(this.slices, 20), ThreeUtil.getTypeSafe(this.stacks, 10));
             break;
           case 'planebuffergeometry':
           case 'planebuffer':
           case 'planegeometry':
           case 'plane':
-            geometry = new THREE.PlaneGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
+            geometry = new THREE.PlaneBufferGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
             break;
           case 'polyhedronbuffergeometry':
           case 'polyhedrongeometry':
           case 'polyhedronbuffer':
           case 'polyhedron':
-            geometry = new THREE.PolyhedronGeometry(this.getPolyVertices([]), this.getPolyIndices([]), ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
+            geometry = new THREE.PolyhedronBufferGeometry(this.getPolyVertices([]), this.getPolyIndices([]), ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
             break;
           case 'ringbuffergeometry':
           case 'ringgeometry':
           case 'ringbuffer':
           case 'ring':
-            geometry = new THREE.RingGeometry(
-              ThreeUtil.getTypeSafe(this.innerRadius, 0.5),
-              ThreeUtil.getTypeSafe(this.outerRadius, 1),
-              ThreeUtil.getTypeSafe(this.thetaSegments, 8),
-              ThreeUtil.getTypeSafe(this.phiSegments, 1),
-              ThreeUtil.getAngleSafe(this.thetaStart, 0),
-              ThreeUtil.getAngleSafe(this.thetaLength, 360)
-            );
+            if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
+              geometry = new RingDepthGeometry(
+                ThreeUtil.getTypeSafe(this.innerRadius, 0.5),
+                ThreeUtil.getTypeSafe(this.outerRadius, 1),
+                ThreeUtil.getTypeSafe(this.depth, 1),
+                ThreeUtil.getTypeSafe(this.thetaSegments, 8),
+                ThreeUtil.getTypeSafe(this.phiSegments, 1),
+                ThreeUtil.getAngleSafe(this.thetaStart, 0),
+                ThreeUtil.getAngleSafe(this.thetaLength, 360)
+              );
+            } else {
+              geometry = new THREE.RingBufferGeometry(
+                ThreeUtil.getTypeSafe(this.innerRadius, 0.5),
+                ThreeUtil.getTypeSafe(this.outerRadius, 1),
+                ThreeUtil.getTypeSafe(this.thetaSegments, 8),
+                ThreeUtil.getTypeSafe(this.phiSegments, 1),
+                ThreeUtil.getAngleSafe(this.thetaStart, 0),
+                ThreeUtil.getAngleSafe(this.thetaLength, 360)
+              );
+            }
             break;
           case 'spherebuffergeometry':
           case 'spheregeometry':
           case 'spherebuffer':
           case 'sphere':
-            geometry = new THREE.SphereGeometry(
+            geometry = new THREE.SphereBufferGeometry(
               ThreeUtil.getTypeSafe(this.radius, 1),
               ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 8),
               ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 6),
@@ -1373,7 +1391,10 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'tetrahedrongeometry':
           case 'tetrahedronbuffer':
           case 'tetrahedron':
-            geometry = new THREE.TetrahedronGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.detail, 0));
+            geometry = new THREE.TetrahedronBufferGeometry(
+              ThreeUtil.getTypeSafe(this.radius, 1), 
+              ThreeUtil.getTypeSafe(this.detail, 0)
+            );
             break;
           case 'textbuffergeometry':
           case 'textgeometry':
@@ -1408,13 +1429,13 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'torusgeometry':
           case 'torusbuffer':
           case 'torus':
-            geometry = new THREE.TorusGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.tube, 0.4), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.tubularSegments, 6), ThreeUtil.getAngleSafe(this.arc, 360));
+            geometry = new THREE.TorusBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.tube, 0.4), ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 8), ThreeUtil.getTypeSafe(this.tubularSegments, 6), ThreeUtil.getAngleSafe(this.arc, 360));
             break;
           case 'torusknotbuffergeometry':
           case 'torusknotgeometry':
           case 'torusknotbuffer':
           case 'torusknot':
-            geometry = new THREE.TorusKnotGeometry(
+            geometry = new THREE.TorusKnotBufferGeometry(
               ThreeUtil.getTypeSafe(this.radius, 1),
               ThreeUtil.getTypeSafe(this.tube, 0.4),
               ThreeUtil.getTypeSafe(this.radialSegments, this.radiusSegments, 64),
@@ -1427,7 +1448,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'tubegeometry':
           case 'tubebuffer':
           case 'tube':
-            geometry = new THREE.TubeGeometry(this.getCurve(), ThreeUtil.getTypeSafe(this.tubularSegments, 64), ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.radiusSegments, this.radialSegments, 8), ThreeUtil.getTypeSafe(this.closed, false));
+            geometry = new THREE.TubeBufferGeometry(this.getCurve(), ThreeUtil.getTypeSafe(this.tubularSegments, 64), ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.radiusSegments, this.radialSegments, 8), ThreeUtil.getTypeSafe(this.closed, false));
             break;
           case 'convexbuffergeometry':
           case 'convexgeometry':
@@ -1442,7 +1463,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
             geometry = new DecalGeometry(this.getMesh(), this.getPositionV3(), this.getOrientation(), this.getSizeV3());
             break;
           default:
-            geometry = new THREE.PlaneGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
+            geometry = new THREE.PlaneBufferGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
             break;
         }
       }
