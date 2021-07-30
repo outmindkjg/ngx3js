@@ -12,6 +12,7 @@ import { ScaleComponent } from './scale/scale.component';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TranslationComponent } from './translation/translation.component';
 import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
+import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
 
 /**
  * Attr Buffer Attribute
@@ -908,190 +909,108 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 						case 'wireframebuffergeometry2':
 						case 'wireframegeometry2':
 						case 'wireframebuffer2':
-							lineGeometry = new WireframeGeometry2(geometry);
-							const instanceStart: THREE.InterleavedBufferAttribute = lineGeometry.getAttribute('instanceStart') as THREE.InterleavedBufferAttribute;
-							const instanceEnd: THREE.InterleavedBufferAttribute = lineGeometry.getAttribute('instanceEnd') as THREE.InterleavedBufferAttribute;
 							const vertices: number[] = [];
 							const parameters: any = geometry['parameters'] || {};
+							const attrPosition = geometry.getAttribute('position');
 							switch (geometry.type) {
 								case 'CircleGeometry':
-									for (let i = 0; i < instanceStart.count; i++) {
-										const x1 = instanceStart.getX(i);
-										const y1 = instanceStart.getY(i);
-										const z1 = instanceStart.getZ(i);
-										const x2 = instanceEnd.getX(i);
-										const y2 = instanceEnd.getY(i);
-										const z2 = instanceEnd.getZ(i);
-										let checkedCnt = 0;
-										if (x1 === 0 && y1 === 0) checkedCnt++;
-										if (x2 === 0 && y2 === 0) checkedCnt++;
-										if (checkedCnt >= 1) continue;
-										vertices.push(x1, y1, z1, x2, y2, z2);
-									}
-									if (parameters.thetaLength < Math.PI * 2) {
-										const x1 = vertices[0];
-										const y1 = vertices[1];
-										const z1 = vertices[2];
-										const x2 = vertices[vertices.length - 3];
-										const y2 = vertices[vertices.length - 2];
-										const z2 = vertices[vertices.length - 1];
-										vertices.push(x2, y2, z2, 0, 0, 0);
-										vertices.push(0, 0, 0, x1, y1, z1);
+									{
+										lineGeometry = new LineSegmentsGeometry();
+										const segments = (parameters.segments || 1) + 2;
+										const isClosed = parameters.thetaLength < Math.PI * 2 ? false : true;
+										let px1 = 0;
+										let py1 = 0;
+										let pz1 = 0;
+										let px2 = 0;
+										let py2 = 0;
+										let pz2 = 0;
+										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments - 1); i++) {
+											const idx = (i + 1) % segments;
+											px1 = attrPosition.getX(i);
+											py1 = attrPosition.getY(i);
+											pz1 = attrPosition.getZ(i);
+											px2 = attrPosition.getX(idx);
+											py2 = attrPosition.getY(idx);
+											pz2 = attrPosition.getZ(idx);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										}
 									}
 									break;
 								case 'CircleDepthGeometry':
-									for (let i = 0; i < instanceStart.count; i++) {
-										const x1 = instanceStart.getX(i);
-										const y1 = instanceStart.getY(i);
-										const z1 = instanceStart.getZ(i);
-										const x2 = instanceEnd.getX(i);
-										const y2 = instanceEnd.getY(i);
-										const z2 = instanceEnd.getZ(i);
-										if (z1 !== z2) continue;
-										if (x2 === 0 && y2 === 0) continue;
-										if (x1 === 0 && y1 === 0) continue;
-										vertices.push(x1, y1, z1, x2, y2, z2);
-									}
-									if (parameters.thetaLength < Math.PI * 2) {
-										const len = vertices.length;
-										const end = len - 4;
-										const middle = len / 2 - 3;
-										const x1 = vertices[0];
-										const y1 = vertices[1];
-										const z1 = vertices[2];
-										const x2 = vertices[middle + 6];
-										const y2 = vertices[middle + 7];
-										const z2 = vertices[middle + 8];
-										const x3 = vertices[middle];
-										const y3 = vertices[middle + 1];
-										const z3 = vertices[middle + 2];
-										const x4 = vertices[end - 2];
-										const y4 = vertices[end - 1];
-										const z4 = vertices[end];
-										vertices.push(x1, y1, z1, 0, 0, z1);
-										vertices.push(x2, y2, z2, 0, 0, z2);
-										vertices.push(x3, y3, z3, 0, 0, z3);
-										vertices.push(x4, y4, z4, 0, 0, z4);
-										vertices.push(x1, y1, z1, x4, y4, z4);
-										vertices.push(x2, y2, z2, x3, y3, z3);
-										vertices.push(0, 0, z1, 0, 0, z4);
+									{
+										lineGeometry = new LineSegmentsGeometry();
+										const segments = (parameters.segments || 1) + 2;
+										const isClosed = parameters.thetaLength < Math.PI * 2 ? false : true;
+										let px1 = 0;
+										let py1 = 0;
+										let pz1 = 0;
+										let px2 = 0;
+										let py2 = 0;
+										let pz2 = 0;
+										const skipSegments = segments;
+										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments - 1); i++) {
+											const idx = (i + 1) % segments;
+											px1 = attrPosition.getX(i);
+											py1 = attrPosition.getY(i);
+											pz1 = attrPosition.getZ(i);
+											px2 = attrPosition.getX(idx);
+											py2 = attrPosition.getY(idx);
+											pz2 = attrPosition.getZ(idx);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+											px1 = attrPosition.getX(skipSegments + i);
+											py1 = attrPosition.getY(skipSegments + i);
+											pz1 = attrPosition.getZ(skipSegments + i);
+											px2 = attrPosition.getX(skipSegments + idx);
+											py2 = attrPosition.getY(skipSegments + idx);
+											pz2 = attrPosition.getZ(skipSegments + idx);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										}
+										if (!isClosed) {
+											px1 = attrPosition.getX(0);
+											py1 = attrPosition.getY(0);
+											pz1 = attrPosition.getZ(0);
+											px2 = attrPosition.getX(skipSegments);
+											py2 = attrPosition.getY(skipSegments);
+											pz2 = attrPosition.getZ(skipSegments);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+
+											px1 = attrPosition.getX(1);
+											py1 = attrPosition.getY(1);
+											pz1 = attrPosition.getZ(1);
+											px2 = attrPosition.getX(skipSegments + 1);
+											py2 = attrPosition.getY(skipSegments + 1);
+											pz2 = attrPosition.getZ(skipSegments + 1);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+											const endIdx = skipSegments - 1;
+											px1 = attrPosition.getX(endIdx);
+											py1 = attrPosition.getY(endIdx);
+											pz1 = attrPosition.getZ(endIdx);
+											px2 = attrPosition.getX(skipSegments + endIdx);
+											py2 = attrPosition.getY(skipSegments + endIdx);
+											pz2 = attrPosition.getZ(skipSegments + endIdx);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										}
 									}
 									break;
 								case 'BoxGeometry':
-								case 'PlaneGeometry':
-									for (let i = 0; i < instanceStart.count; i++) {
-										const x1 = instanceStart.getX(i);
-										const y1 = instanceStart.getY(i);
-										const z1 = instanceStart.getZ(i);
-										const x2 = instanceEnd.getX(i);
-										const y2 = instanceEnd.getY(i);
-										const z2 = instanceEnd.getZ(i);
-										let checkedCnt = 0;
-										if (x1 === x2) checkedCnt++;
-										if (y1 === y2) checkedCnt++;
-										if (z1 === z2) checkedCnt++;
-										if (checkedCnt < 2) continue;
-										vertices.push(x1, y1, z1, x2, y2, z2);
-									}
 									break;
-								case 'RingDepthGeometry':
-									{
-										const outerRadius = parameters.outerRadius;
-										const innerRadius = parameters.innerRadius;
-										const dist = (outerRadius - innerRadius) * 0.1;
-										for (let i = 0; i < instanceStart.count; i++) {
-											const x1 = instanceStart.getX(i);
-											const y1 = instanceStart.getY(i);
-											const z1 = instanceStart.getZ(i);
-											const x2 = instanceEnd.getX(i);
-											const y2 = instanceEnd.getY(i);
-											const z2 = instanceEnd.getZ(i);
-											const p1 = new THREE.Vector2(x1, y1);
-											const p2 = new THREE.Vector2(x2, y2);
-											if (z1 !== z2) continue;
-											if (Math.abs(p1.length() - p2.length()) > dist) continue;
-											if (Math.abs(p1.length() - outerRadius) < dist || Math.abs(p1.length() - innerRadius) < dist) {
-												vertices.push(x1, y1, z1, x2, y2, z2);
-											}
-										}
-										if (parameters.thetaLength < Math.PI * 2) {
-											const len = vertices.length;
-											const end = len - 4;
-											const middle = len / 2 - 3;
-											const x1 = vertices[0];
-											const y1 = vertices[1];
-											const z1 = vertices[2];
-											const x2 = vertices[middle + 6];
-											const y2 = vertices[middle + 7];
-											const z2 = vertices[middle + 8];
-											const x3 = vertices[middle];
-											const y3 = vertices[middle + 1];
-											const z3 = vertices[middle + 2];
-											const x4 = vertices[end - 2];
-											const y4 = vertices[end - 1];
-											const z4 = vertices[end];
-											const x5 = vertices[middle + 12];
-											const y5 = vertices[middle + 13];
-											const z5 = vertices[middle + 14];
-											const x6 = vertices[middle - 6];
-											const y6 = vertices[middle - 5];
-											const z6 = vertices[middle - 4];
-											const x7 = vertices[end - 8];
-											const y7 = vertices[end - 7];
-											const z7 = vertices[end - 6];
-											const x8 = vertices[3];
-											const y8 = vertices[4];
-											const z8 = vertices[5];
-
-											vertices.push(x1, y1, z1, x8, y8, z8);
-											vertices.push(x2, y2, z2, x5, y5, z5);
-											vertices.push(x3, y3, z3, x6, y6, z6);
-											vertices.push(x4, y4, z4, x7, y7, z7);
-											vertices.push(x1, y1, z1, x4, y4, z4);
-											vertices.push(x2, y2, z2, x3, y3, z3);
-											vertices.push(x5, y5, z5, x6, y6, z6);
-											vertices.push(x7, y7, z7, x8, y8, z8);
-										}
-									}
+								case 'PlaneGeometry':
+									break;
+								case 'PlaneDepthGeometry':
 									break;
 								case 'RingGeometry':
-									{
-										const outerRadius = parameters.outerRadius;
-										const innerRadius = parameters.innerRadius;
-										const dist = (outerRadius - innerRadius) * 0.1;
-										for (let i = 0; i < instanceStart.count; i++) {
-											const x1 = instanceStart.getX(i);
-											const y1 = instanceStart.getY(i);
-											const z1 = instanceStart.getZ(i);
-											const x2 = instanceEnd.getX(i);
-											const y2 = instanceEnd.getY(i);
-											const z2 = instanceEnd.getZ(i);
-											const p1 = new THREE.Vector2(x1, y1);
-											const p2 = new THREE.Vector2(x2, y2);
-											if (Math.abs(p1.length() - p2.length()) > dist) continue;
-											if (z1 !== z2) continue;
-											vertices.push(x1, y1, z1, x2, y2, z2);
-										}
-										if (parameters.thetaLength < Math.PI * 2) {
-											const middle = 3 * 2;
-											const end = vertices.length - 1;
-											const x1 = vertices[0];
-											const y1 = vertices[1];
-											const z1 = vertices[2];
-											const x2 = vertices[middle];
-											const y2 = vertices[middle + 1];
-											const z2 = vertices[middle + 2];
-											vertices.push(x1, y1, z1, x2, y2, z2);
-											const x3 = vertices[end - 2];
-											const y3 = vertices[end - 1];
-											const z3 = vertices[end];
-											const x4 = vertices[end - 8];
-											const y4 = vertices[end - 7];
-											const z4 = vertices[end - 6];
-											vertices.push(x3, y3, z3, x4, y4, z4);
-										}
-									}
 									break;
+								case 'RingDepthGeometry':
+									break;
+								case 'StarGeometry':
+									break;
+								case 'StarDepthGeometry':
+									break;
+								default:
+									break;
+							}
+							if (lineGeometry === null) {
+								lineGeometry = new WireframeGeometry2(geometry);
 							}
 							if (vertices.length > 0) {
 								const lineSegments = new Float32Array(vertices);

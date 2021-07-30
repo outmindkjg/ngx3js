@@ -1,19 +1,21 @@
 import * as THREE from 'three';
+import { StarGeometry } from './geometry.star';
 
 /**
- * CircleDepth geometry
+ * StarDepth geometry
  */
-export class CircleDepthGeometry extends THREE.CircleGeometry {
+export class StarDepthGeometry extends StarGeometry {
 	/**
-	 * @param [radius=1]
+	 * @param [innerRadius=0.5]
+	 * @param [outerRadius=1]
 	 * @param [depth=1]
-	 * @param [segments=8]
+	 * @param [segments=5]
 	 * @param [thetaStart=0]
 	 * @param [thetaLength=Math.PI * 2]
 	 */
-	constructor(radius: number = 1, depth: number = 1, segments: number = 8, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
-		super(radius, segments, thetaStart, thetaLength);
-		this.type = 'CircleDepthGeometry';
+	constructor(innerRadius: number = 0.5, outerRadius: number = 1, depth : number = 1, segments: number = 5, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
+		super(innerRadius, outerRadius, segments, thetaStart, thetaLength);
+		this.type = 'StarDepthGeometry';
 		depth = Math.max(0.001, depth);
 		const halfDepth = depth / 2;
 		const attrPosition = this.getAttribute('position');

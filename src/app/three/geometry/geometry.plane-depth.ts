@@ -3,17 +3,17 @@ import * as THREE from 'three';
 /**
  * CircleDepth geometry
  */
-export class CircleDepthGeometry extends THREE.CircleGeometry {
+export class PlaneDepthGeometry extends THREE.PlaneGeometry {
 	/**
-	 * @param [radius=1]
-	 * @param [depth=1]
-	 * @param [segments=8]
-	 * @param [thetaStart=0]
-	 * @param [thetaLength=Math.PI * 2]
+	 * @param [width=1] — Width of the sides on the X axis.
+	 * @param [height=1] — Height of the sides on the Y axis.
+	 * @param [depth=1] — Depth of the sides on the Z axis.
+	 * @param [widthSegments=1] — Number of segmented faces along the width of the sides.
+	 * @param [heightSegments=1] — Number of segmented faces along the height of the sides.
 	 */
-	constructor(radius: number = 1, depth: number = 1, segments: number = 8, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
-		super(radius, segments, thetaStart, thetaLength);
-		this.type = 'CircleDepthGeometry';
+	constructor(width: number = 1, height: number = 1, depth: number = 1, widthSegments: number = 1, heightSegments: number = 1) {
+		super(width, height, widthSegments, heightSegments);
+		this.type = 'PlaneDepthGeometry';
 		depth = Math.max(0.001, depth);
 		const halfDepth = depth / 2;
 		const attrPosition = this.getAttribute('position');
@@ -52,17 +52,31 @@ export class CircleDepthGeometry extends THREE.CircleGeometry {
 			frontIndices.push(attrIndex.getX(i) + posLen);
 			backIndices.push(attrIndex.getX(idxLen - i - 1));
 		}
-		const isClosed = (thetaLength < Math.PI * 2) ? false : true; 
-		for (let i = 1; i < (isClosed ? posLen : posLen - 1); i++) {
-			const topEnd = i + 1 >= posLen ? (i + 2) % posLen : i + 1;
-			sideIndices.push(i + posLen, i, topEnd);
-			sideIndices.push(topEnd, topEnd + posLen, posLen + i);
+		const gridX = Math.floor(widthSegments) + 1;
+		const gridY = Math.floor(heightSegments) + 1;
+		const frontSides = [];
+		const backSides = [];
+		for (let i = 0; i < gridX - 1; i++) {
+			frontSides.push(i);
+			backSides.push(posLen + i);
 		}
-		if (!isClosed) {
-			sideIndices.push(1, posLen + 1, 0);
-			sideIndices.push(0, posLen + 1, posLen);
-			sideIndices.push(0, posLen, posLen - 1);
-			sideIndices.push(posLen - 1, posLen, posLen * 2 - 1);
+		for (let i = 0; i < gridY - 1; i++) {
+			frontSides.push((i + 1) * gridX - 1);
+			backSides.push(posLen + (i + 1) * gridX - 1);
+		}
+		for (let i = 0; i < gridX - 1; i++) {
+			frontSides.push(posLen - i - 1);
+			backSides.push(posLen * 2 - i - 1);
+		}
+		for (let i = 0; i < gridY - 1; i++) {
+			frontSides.push((gridY - i - 1) * gridX);
+			backSides.push(posLen + (gridY - i - 1) * gridX);
+		}
+		const sideLen = frontSides.length;
+		for (let i = 0; i < sideLen; i++) {
+			const endIdx = (i + 1) % sideLen;
+			sideIndices.push(frontSides[endIdx], frontSides[i], backSides[i]);
+			sideIndices.push(backSides[i], backSides[endIdx], frontSides[endIdx]);
 		}
 		indices.push(...frontIndices);
 		indices.push(...backIndices);

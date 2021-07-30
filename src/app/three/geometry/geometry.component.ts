@@ -17,9 +17,12 @@ import { SvgComponent } from '../svg/svg.component';
 import { CapsuleGeometry } from './geometry.capsule';
 import { CircleDepthGeometry } from './geometry.circle-depth';
 import { GridGeometry } from './geometry.grid';
+import { PlaneDepthGeometry } from './geometry.plane-depth';
 import { PlanePerlinGeometry } from './geometry.plane_perlin';
 import { RingDepthGeometry } from './geometry.ring-depth';
 import { RopeGeometry } from './geometry.rope';
+import { StarGeometry } from './geometry.star';
+import { StarDepthGeometry } from './geometry.star-depth';
 
 /**
  * GeometryComponent
@@ -1196,6 +1199,16 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
               geometry = new THREE.CircleBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
             }
             break;
+          case 'starbuffergeometry':
+          case 'stargeometry':
+          case 'starbuffer':
+          case 'star':
+            if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
+              geometry = new StarDepthGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 5), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            } else {
+              geometry = new StarGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 5), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+            }
+            break;
           case 'conebuffergeometry':
           case 'conegeometry':
           case 'conebuffer':
@@ -1340,7 +1353,17 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'planebuffer':
           case 'planegeometry':
           case 'plane':
-            geometry = new THREE.PlaneBufferGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
+            if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
+              geometry = new PlaneDepthGeometry(
+                ThreeUtil.getTypeSafe(this.width, this.height, 1), 
+                ThreeUtil.getTypeSafe(this.height, this.width, 1), 
+                ThreeUtil.getTypeSafe(this.depth, this.width, 1), 
+                ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), 
+                ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1)
+              );
+            } else {
+              geometry = new THREE.PlaneBufferGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
+            }
             break;
           case 'polyhedronbuffergeometry':
           case 'polyhedrongeometry':
