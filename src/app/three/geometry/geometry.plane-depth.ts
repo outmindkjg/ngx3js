@@ -1,9 +1,24 @@
 import * as THREE from 'three';
+import { GeometryUtils } from './geometryUtils';
 
 /**
  * CircleDepth geometry
  */
-export class PlaneDepthGeometry extends THREE.PlaneGeometry {
+export class PlaneDepthGeometry extends THREE.BufferGeometry {
+
+    /**
+     * @default 'PlaneDepthGeometry'
+     */
+	 type: string = 'PlaneDepthGeometry';
+
+	 parameters: {
+		 width: number;
+		 height: number;
+		 depth: number;
+		 widthSegments: number;
+		 heightSegments: number;
+	 };
+	 
 	/**
 	 * @param [width=1] — Width of the sides on the X axis.
 	 * @param [height=1] — Height of the sides on the Y axis.
@@ -12,75 +27,133 @@ export class PlaneDepthGeometry extends THREE.PlaneGeometry {
 	 * @param [heightSegments=1] — Number of segmented faces along the height of the sides.
 	 */
 	constructor(width: number = 1, height: number = 1, depth: number = 1, widthSegments: number = 1, heightSegments: number = 1) {
-		super(width, height, widthSegments, heightSegments);
-		this.type = 'PlaneDepthGeometry';
+		super();
 		depth = Math.max(0.001, depth);
+		this.parameters = {
+			width: width,
+			height: height,
+			depth: depth,
+			widthSegments: widthSegments,
+			heightSegments: heightSegments,
+		};
 		const halfDepth = depth / 2;
-		const attrPosition = this.getAttribute('position');
-		const attrUvs = this.getAttribute('uv');
+		const frontGeometry = new THREE.PlaneBufferGeometry(width, height, widthSegments, heightSegments);
+		frontGeometry.translate(0, 0, halfDepth);
+		const backGeometry = GeometryUtils.getFlipGeometry(frontGeometry);
+		const vertices = [];
+		const normals = [];
+		const uvs = [];
+		const indices = [];
+		let groupStart = 0;
+		let groupEnd = 0;
+
+		let attribute: ArrayLike<number> = null;
+		const positionSize = frontGeometry.getAttribute('position').count;
+		attribute = frontGeometry.getAttribute('position').array;
+		const gridX = Math.floor( widthSegments ) + 1;
+		const gridY = Math.floor( heightSegments ) + 1;
 		const frontVertices = [];
 		const backVertices = [];
-		const posLen = attrPosition.count;
-		const normals = [];
-		const frontUvs = [];
-		const backUvs = [];
-		for (let i = 0; i < posLen; i++) {
-			const x = attrPosition.getX(i);
-			const y = attrPosition.getY(i);
-			const z = attrPosition.getZ(i);
-			frontVertices.push(x, y, z - halfDepth);
-			backVertices.push(x, y, z + halfDepth);
-			normals.push(0, 0, 0, 0, 0, 0);
-			const ux = attrUvs.getX(i);
-			const uy = attrUvs.getY(i);
-			frontUvs.push(ux, uy);
-			backUvs.push(ux, uy);
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
 		}
-		const uvs = [];
-		uvs.push(...frontUvs);
-		uvs.push(...backUvs);
-		const vertices = [];
+		attribute = backGeometry.getAttribute('position').array;
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
+		}
+		const frontAttribute = frontGeometry.getAttribute('position');
+		const backAttribute = backGeometry.getAttribute('position');
+		const sideNormals = [];
+		const sideUvsFront = [];
+		const sideUvsBack = [];
+		const sideLen = width + height;
+		const uvDepth = depth / sideLen / 2;
+		const uvStepX = width / (gridX -1);
+		const uvStepY = height / (gridY -1);
+		for(let i = 0 ; i < gridX -1 ; i++) {
+			const idx = i;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = (i * uvStepX / sideLen);
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+		}
+		for(let i = 0 ; i < gridY -1; i++) {
+			const idx = i * gridX + gridY - 2;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = (width + i * uvStepY ) / sideLen;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+		}
+		for(let i = 0 ; i < gridX -1 ; i++) {
+			const idx = gridX * gridY - i -1;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = 2 - (width + height + i * uvStepX ) / sideLen;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+		}
+		for(let i = 0 ; i < gridY -1; i++) {
+			const idx = (gridY - i -1) * gridX;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = 2 - (width * 2 + height + i * uvStepY ) / sideLen;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+		}
 		vertices.push(...frontVertices);
 		vertices.push(...backVertices);
-		const attrIndex = this.getIndex();
-		const indices = [];
-		const frontIndices = [];
-		const backIndices = [];
-		const sideIndices = [];
-		const idxLen = attrIndex.count;
-		for (let i = 0; i < idxLen; i++) {
-			frontIndices.push(attrIndex.getX(i) + posLen);
-			backIndices.push(attrIndex.getX(idxLen - i - 1));
+		attribute = frontGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-		const gridX = Math.floor(widthSegments) + 1;
-		const gridY = Math.floor(heightSegments) + 1;
-		const frontSides = [];
-		const backSides = [];
-		for (let i = 0; i < gridX - 1; i++) {
-			frontSides.push(i);
-			backSides.push(posLen + i);
+		attribute = backGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-		for (let i = 0; i < gridY - 1; i++) {
-			frontSides.push((i + 1) * gridX - 1);
-			backSides.push(posLen + (i + 1) * gridX - 1);
+		attribute = frontGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
 		}
-		for (let i = 0; i < gridX - 1; i++) {
-			frontSides.push(posLen - i - 1);
-			backSides.push(posLen * 2 - i - 1);
+		attribute = backGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
 		}
-		for (let i = 0; i < gridY - 1; i++) {
-			frontSides.push((gridY - i - 1) * gridX);
-			backSides.push(posLen + (gridY - i - 1) * gridX);
+		normals.push(...sideNormals);
+		normals.push(...sideNormals);
+		uvs.push(...sideUvsFront);
+		uvs.push(...sideUvsBack);
+		this.clearGroups();
+		attribute = frontGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i]);
+			groupEnd++;
 		}
-		const sideLen = frontSides.length;
-		for (let i = 0; i < sideLen; i++) {
-			const endIdx = (i + 1) % sideLen;
-			sideIndices.push(frontSides[endIdx], frontSides[i], backSides[i]);
-			sideIndices.push(backSides[i], backSides[endIdx], frontSides[endIdx]);
+		this.addGroup(groupStart, groupEnd - groupStart, 0);
+		groupStart = groupEnd;
+		attribute = backGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i] + positionSize);
+			groupEnd++;
 		}
-		indices.push(...frontIndices);
-		indices.push(...backIndices);
-		indices.push(...sideIndices);
+		this.addGroup(groupStart, groupEnd - groupStart, 1);
+		groupStart = groupEnd;
+		const sideIdxLen = frontVertices.length / 3;
+		const startSideSize = positionSize * 2;
+		for (let i = 0 ; i < sideIdxLen ; i++) {
+			const topIdx = (i + 1) % sideIdxLen;
+			indices.push(startSideSize + i, startSideSize + topIdx, startSideSize + sideIdxLen + i );
+			indices.push(startSideSize + sideIdxLen + topIdx, startSideSize + sideIdxLen + i, startSideSize + topIdx );
+			groupEnd += 6;
+		} 
+		this.addGroup(groupStart, groupEnd - groupStart, 2);
+		groupStart = groupEnd;
+
 		this.setIndex(indices);
 		this.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		this.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));

@@ -98,6 +98,33 @@ export class GeometryUtils {
     return radius;
   }
 
+  public static getFlipGeometry(geometry: THREE.BufferGeometry, plane: string = 'Z'): THREE.BufferGeometry {
+    geometry = geometry.clone();
+    const attrVertices = geometry.getAttribute('position');
+    const attrUvs = geometry.getAttribute('uv');
+    const attrNormals = geometry.getAttribute('normal');
+    const attrIndices = geometry.getIndex();
+    switch(plane.toUpperCase()) {
+      case 'Z' :
+        for(let i = 0 ; i < attrVertices.count ; i++) {
+          attrVertices.setZ(i, attrVertices.getZ(i) * -1);
+        }
+        for(let i = 0 ; i < attrUvs.count ; i++) {
+          attrUvs.setX(i, attrUvs.getX(i) * -1);
+        }
+        for(let i = 0 ; i < attrNormals.count ; i++) {
+          attrNormals.setZ(i, attrNormals.getZ(i) * -1);
+        }
+        for(let i = 0 ; i < attrIndices.count ; i +=3 ) {
+          let p1 = attrIndices.getX(i + 1);
+          let p2 = attrIndices.getX(i + 2);
+          attrIndices.setX(i + 1, p2);
+          attrIndices.setX(i + 2, p1);
+        }
+        break;
+    }
+    return geometry;
+  }
   /**
    * Adds geometry
    * @param key

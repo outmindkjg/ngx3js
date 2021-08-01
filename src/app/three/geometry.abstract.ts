@@ -912,18 +912,19 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 							const vertices: number[] = [];
 							const parameters: any = geometry['parameters'] || {};
 							const attrPosition = geometry.getAttribute('position');
+							const attrIndex = geometry.getIndex();
+							let px1 = 0;
+							let py1 = 0;
+							let pz1 = 0;
+							let px2 = 0;
+							let py2 = 0;
+							let pz2 = 0;
 							switch (geometry.type) {
 								case 'CircleGeometry':
 									{
 										lineGeometry = new LineSegmentsGeometry();
 										const segments = (parameters.segments || 1) + 2;
 										const isClosed = parameters.thetaLength < Math.PI * 2 ? false : true;
-										let px1 = 0;
-										let py1 = 0;
-										let pz1 = 0;
-										let px2 = 0;
-										let py2 = 0;
-										let pz2 = 0;
 										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments - 1); i++) {
 											const idx = (i + 1) % segments;
 											px1 = attrPosition.getX(i);
@@ -937,18 +938,129 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 									}
 									break;
 								case 'CircleDepthGeometry':
+								case 'PlaneDepthGeometry':
+								case 'RingDepthGeometry':
+								case 'StarDepthGeometry':
+									{
+										const sideGroup = geometry.groups[2];
+										if (ThreeUtil.isNotNull(sideGroup)) {
+											lineGeometry = new LineSegmentsGeometry();
+											for (let i = sideGroup.start; i < sideGroup.start + sideGroup.count; i += 3) {
+												const idxStart = attrIndex.getX(i);
+												const idxEnd = attrIndex.getX(i + 1);
+												px1 = attrPosition.getX(idxStart);
+												py1 = attrPosition.getY(idxStart);
+												pz1 = attrPosition.getZ(idxStart);
+												px2 = attrPosition.getX(idxEnd);
+												py2 = attrPosition.getY(idxEnd);
+												pz2 = attrPosition.getZ(idxEnd);
+												vertices.push(px1, py1, pz1, px2, py2, pz2);
+											}
+										}
+									}
+									break;
+								case 'BoxGeometry':
+									{
+										lineGeometry = new LineSegmentsGeometry();
+										const gridY = parameters.heightSegments + 1;
+										const gridZ = parameters.depthSegments + 1;
+										const p1 = 0;
+										const p2 = p1 + gridZ - 1;
+										const p3 = gridZ * gridY - 1;
+										const p4 = p3 - p2;
+										const skipDepth = gridZ * gridY;
+										const p5 = p1 + skipDepth;
+										const p6 = p2 + skipDepth;
+										const p7 = p3 + skipDepth;
+										const p8 = p4 + skipDepth;
+										const lineList :{ start : number, end : number}[] = [];
+										lineList.push({ start : p1, end : p2});
+										lineList.push({ start : p2, end : p3});
+										lineList.push({ start : p3, end : p4});
+										lineList.push({ start : p4, end : p1});
+										lineList.push({ start : p5, end : p6});
+										lineList.push({ start : p6, end : p7});
+										lineList.push({ start : p7, end : p8});
+										lineList.push({ start : p8, end : p5});
+										lineList.push({ start : p1, end : p6});
+										lineList.push({ start : p2, end : p5});
+										lineList.push({ start : p3, end : p8});
+										lineList.push({ start : p4, end : p7});
+										lineList.forEach(line => {
+											const idxStart = line.start;
+											const idxEnd = line.end;
+											px1 = attrPosition.getX(idxStart);
+											py1 = attrPosition.getY(idxStart);
+											pz1 = attrPosition.getZ(idxStart);
+											px2 = attrPosition.getX(idxEnd);
+											py2 = attrPosition.getY(idxEnd);
+											pz2 = attrPosition.getZ(idxEnd);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										});
+									}
+									break;
+								case 'PlaneGeometry':
+									{
+										lineGeometry = new LineSegmentsGeometry();
+										const gridX = parameters.widthSegments + 1;
+										const gridY = parameters.heightSegments + 1;
+										const p1 = 0;
+										const p2 = p1 + gridX -1;
+										const p3 = gridX * gridY -1;
+										const p4 = p3 - p2;
+										const lineList :{ start : number, end : number}[] = [];
+										lineList.push({ start : p1, end : p2});
+										lineList.push({ start : p2, end : p3});
+										lineList.push({ start : p3, end : p4});
+										lineList.push({ start : p4, end : p1});
+										lineList.forEach(line => {
+											const idxStart = line.start;
+											const idxEnd = line.end;
+											px1 = attrPosition.getX(idxStart);
+											py1 = attrPosition.getY(idxStart);
+											pz1 = attrPosition.getZ(idxStart);
+											px2 = attrPosition.getX(idxEnd);
+											py2 = attrPosition.getY(idxEnd);
+											pz2 = attrPosition.getZ(idxEnd);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										});
+									}
+									break;
+								case 'RingGeometry':
+									{
+										lineGeometry = new LineSegmentsGeometry();
+										const gridX = parameters.thetaSegments + 1;
+										const gridY = parameters.phiSegments + 1;
+										const lineList :{ start : number, end : number}[] = [];
+										for(let i = 0 ; i < gridX - 1; i++) {
+											lineList.push({ start : i, end : i+1});
+										}
+										const topStart = gridX * (gridY - 1 );
+										for(let i = 0 ; i < gridX - 1; i++) {
+											lineList.push({ start : topStart + i, end : topStart + i+1});
+										}
+
+										lineList.push({ start : 0, end : topStart });
+										lineList.push({ start : 0 + gridX -1 , end : topStart + gridX -1 });
+										lineList.forEach(line => {
+											const idxStart = line.start;
+											const idxEnd = line.end;
+											px1 = attrPosition.getX(idxStart);
+											py1 = attrPosition.getY(idxStart);
+											pz1 = attrPosition.getZ(idxStart);
+											px2 = attrPosition.getX(idxEnd);
+											py2 = attrPosition.getY(idxEnd);
+											pz2 = attrPosition.getZ(idxEnd);
+											vertices.push(px1, py1, pz1, px2, py2, pz2);
+										});
+									}
+									break;
+								case 'StarGeometry':
 									{
 										lineGeometry = new LineSegmentsGeometry();
 										const segments = (parameters.segments || 1) + 2;
 										const isClosed = parameters.thetaLength < Math.PI * 2 ? false : true;
-										let px1 = 0;
-										let py1 = 0;
-										let pz1 = 0;
-										let px2 = 0;
-										let py2 = 0;
-										let pz2 = 0;
-										const skipSegments = segments;
-										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments - 1); i++) {
+										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments -1); i++) {
 											const idx = (i + 1) % segments;
 											px1 = attrPosition.getX(i);
 											py1 = attrPosition.getY(i);
@@ -957,54 +1069,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 											py2 = attrPosition.getY(idx);
 											pz2 = attrPosition.getZ(idx);
 											vertices.push(px1, py1, pz1, px2, py2, pz2);
-											px1 = attrPosition.getX(skipSegments + i);
-											py1 = attrPosition.getY(skipSegments + i);
-											pz1 = attrPosition.getZ(skipSegments + i);
-											px2 = attrPosition.getX(skipSegments + idx);
-											py2 = attrPosition.getY(skipSegments + idx);
-											pz2 = attrPosition.getZ(skipSegments + idx);
-											vertices.push(px1, py1, pz1, px2, py2, pz2);
 										}
-										if (!isClosed) {
-											px1 = attrPosition.getX(0);
-											py1 = attrPosition.getY(0);
-											pz1 = attrPosition.getZ(0);
-											px2 = attrPosition.getX(skipSegments);
-											py2 = attrPosition.getY(skipSegments);
-											pz2 = attrPosition.getZ(skipSegments);
-											vertices.push(px1, py1, pz1, px2, py2, pz2);
-
-											px1 = attrPosition.getX(1);
-											py1 = attrPosition.getY(1);
-											pz1 = attrPosition.getZ(1);
-											px2 = attrPosition.getX(skipSegments + 1);
-											py2 = attrPosition.getY(skipSegments + 1);
-											pz2 = attrPosition.getZ(skipSegments + 1);
-											vertices.push(px1, py1, pz1, px2, py2, pz2);
-											const endIdx = skipSegments - 1;
-											px1 = attrPosition.getX(endIdx);
-											py1 = attrPosition.getY(endIdx);
-											pz1 = attrPosition.getZ(endIdx);
-											px2 = attrPosition.getX(skipSegments + endIdx);
-											py2 = attrPosition.getY(skipSegments + endIdx);
-											pz2 = attrPosition.getZ(skipSegments + endIdx);
-											vertices.push(px1, py1, pz1, px2, py2, pz2);
-										}
-									}
-									break;
-								case 'BoxGeometry':
-									break;
-								case 'PlaneGeometry':
-									break;
-								case 'PlaneDepthGeometry':
-									break;
-								case 'RingGeometry':
-									break;
-								case 'RingDepthGeometry':
-									break;
-								case 'StarGeometry':
-									break;
-								case 'StarDepthGeometry':
+									}									
 									break;
 								default:
 									break;

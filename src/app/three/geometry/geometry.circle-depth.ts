@@ -1,9 +1,23 @@
 import * as THREE from 'three';
+import { GeometryUtils } from './geometryUtils';
 
 /**
  * CircleDepth geometry
  */
-export class CircleDepthGeometry extends THREE.CircleGeometry {
+export class CircleDepthGeometry extends THREE.BufferGeometry {
+	/**
+	 * @default 'CircleDepthGeometry'
+	 */
+	type: string = 'CircleDepthGeometry';
+
+	parameters: {
+		radius: number;
+		depth: number;
+		segments: number;
+		thetaStart: number;
+		thetaLength: number;
+	};
+
 	/**
 	 * @param [radius=1]
 	 * @param [depth=1]
@@ -12,61 +26,104 @@ export class CircleDepthGeometry extends THREE.CircleGeometry {
 	 * @param [thetaLength=Math.PI * 2]
 	 */
 	constructor(radius: number = 1, depth: number = 1, segments: number = 8, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
-		super(radius, segments, thetaStart, thetaLength);
-		this.type = 'CircleDepthGeometry';
+		super();
 		depth = Math.max(0.001, depth);
+		this.parameters = {
+			radius: radius,
+			depth: depth,
+			segments: segments,
+			thetaStart: thetaStart,
+			thetaLength: thetaLength,
+		};
 		const halfDepth = depth / 2;
-		const attrPosition = this.getAttribute('position');
-		const attrUvs = this.getAttribute('uv');
+		const frontGeometry = new THREE.CircleBufferGeometry(radius, segments, thetaStart, thetaLength);
+		frontGeometry.translate(0, 0, halfDepth);
+		const backGeometry = GeometryUtils.getFlipGeometry(frontGeometry);
+		const vertices = [];
+		const normals = [];
+		const uvs = [];
+		const indices = [];
+		let groupStart = 0;
+		let groupEnd = 0;
+
+		let attribute: ArrayLike<number> = null;
+		const positionSize = frontGeometry.getAttribute('position').count;
+		attribute = frontGeometry.getAttribute('position').array;
 		const frontVertices = [];
 		const backVertices = [];
-		const posLen = attrPosition.count;
-		const normals = [];
-		const frontUvs = [];
-		const backUvs = [];
-		for (let i = 0; i < posLen; i++) {
-			const x = attrPosition.getX(i);
-			const y = attrPosition.getY(i);
-			const z = attrPosition.getZ(i);
-			frontVertices.push(x, y, z - halfDepth);
-			backVertices.push(x, y, z + halfDepth);
-			normals.push(0, 0, 0, 0, 0, 0);
-			const ux = attrUvs.getX(i);
-			const uy = attrUvs.getY(i);
-			frontUvs.push(ux, uy);
-			backUvs.push(ux, uy);
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
+			frontVertices.push(attribute[i]);
 		}
-		const uvs = [];
-		uvs.push(...frontUvs);
-		uvs.push(...backUvs);
-		const vertices = [];
+		attribute = backGeometry.getAttribute('position').array;
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
+			backVertices.push(attribute[i]);
+		}
 		vertices.push(...frontVertices);
 		vertices.push(...backVertices);
-		const attrIndex = this.getIndex();
-		const indices = [];
-		const frontIndices = [];
-		const backIndices = [];
-		const sideIndices = [];
-		const idxLen = attrIndex.count;
-		for (let i = 0; i < idxLen; i++) {
-			frontIndices.push(attrIndex.getX(i) + posLen);
-			backIndices.push(attrIndex.getX(idxLen - i - 1));
+		attribute = frontGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-		const isClosed = (thetaLength < Math.PI * 2) ? false : true; 
-		for (let i = 1; i < (isClosed ? posLen : posLen - 1); i++) {
-			const topEnd = i + 1 >= posLen ? (i + 2) % posLen : i + 1;
-			sideIndices.push(i + posLen, i, topEnd);
-			sideIndices.push(topEnd, topEnd + posLen, posLen + i);
+		attribute = backGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-		if (!isClosed) {
-			sideIndices.push(1, posLen + 1, 0);
-			sideIndices.push(0, posLen + 1, posLen);
-			sideIndices.push(0, posLen, posLen - 1);
-			sideIndices.push(posLen - 1, posLen, posLen * 2 - 1);
+		attribute = frontGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
 		}
-		indices.push(...frontIndices);
-		indices.push(...backIndices);
-		indices.push(...sideIndices);
+		attribute = backGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
+		}
+		const attrPosition = frontGeometry.getAttribute('position');
+		const vertex = new THREE.Vector3(0, 0, 0);
+		const sideNormals = [];
+		const sideUvsFront = [];
+		const sideUvsBack = [];
+		const uvDepth = depth / (Math.PI * 2 * radius);
+		for (let i = 0; i < attrPosition.count; i++) {
+			vertex.x = attrPosition.getX(i);
+			vertex.y = attrPosition.getY(i);
+			vertex.z = 0;
+			const angle = Math.atan2(vertex.x, vertex.y) / Math.PI;
+			sideUvsFront.push(angle, 0.5 - uvDepth);
+			sideUvsBack.push(angle, 0.5 + uvDepth);
+			vertex.normalize();
+			sideNormals.push(vertex.x, vertex.y, 0);
+		}
+		normals.push(...sideNormals);
+		normals.push(...sideNormals);
+		uvs.push(...sideUvsFront);
+		uvs.push(...sideUvsBack);
+		this.clearGroups();
+		attribute = frontGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i]);
+			groupEnd++;
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 0);
+		groupStart = groupEnd;
+		attribute = backGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i] + positionSize);
+			groupEnd++;
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 1);
+		groupStart = groupEnd;
+		const frontIdx = positionSize * 2;
+		const backIdx = positionSize * 3;
+		const isClosed = thetaLength >= Math.PI * 2 ? true : false;
+		for (let i = (isClosed ? 1 : 0); i < (isClosed ? positionSize - 1 : positionSize); i++) {
+			const topIdx = (i + 1) % positionSize;
+			indices.push(frontIdx + topIdx, frontIdx + i, backIdx + i);
+			indices.push(backIdx + i, backIdx + topIdx, frontIdx + topIdx);
+			groupEnd += 6;
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 2);
+		groupStart = groupEnd;
 		this.setIndex(indices);
 		this.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		this.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));

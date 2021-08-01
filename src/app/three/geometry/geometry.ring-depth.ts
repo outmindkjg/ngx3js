@@ -1,9 +1,25 @@
 import * as THREE from 'three';
+import { GeometryUtils } from './geometryUtils';
 
 /**
  * RingDepth geometry
  */
-export class RingDepthGeometry extends THREE.RingGeometry {
+export class RingDepthGeometry extends THREE.BufferGeometry {
+    /**
+     * @default 'RingDepthGeometry'
+     */
+	 type: string = 'RingDepthGeometry';
+
+	 parameters: {
+		innerRadius: number,
+		outerRadius: number,
+		depth: number,
+		thetaSegments: number,
+		phiSegments: number,
+		thetaStart: number,
+		thetaLength: number
+	 };
+
 	/**
 	 * @param [innerRadius=0.5]
 	 * @param [outerRadius=1]
@@ -14,92 +30,164 @@ export class RingDepthGeometry extends THREE.RingGeometry {
 	 * @param [thetaLength=Math.PI * 2]
 	 */
 	constructor(innerRadius: number = 0.5, outerRadius: number = 1, depth: number = 1, thetaSegments: number = 8, phiSegments: number = 1, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
-		super(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
-		this.type = 'RingDepthGeometry';
+		super();
 		depth = Math.max(0.001, depth);
+		this.parameters = {
+			innerRadius: innerRadius,
+			outerRadius: outerRadius,
+			depth : depth,
+			thetaSegments: thetaSegments,
+			phiSegments: phiSegments,
+			thetaStart: thetaStart,
+			thetaLength: thetaLength
+		};
 		const halfDepth = depth / 2;
-		const attrPosition = this.getAttribute('position');
-		const attrUvs = this.getAttribute('uv');
+		const frontGeometry = new THREE.RingBufferGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
+		frontGeometry.translate(0, 0, halfDepth);
+		const backGeometry = GeometryUtils.getFlipGeometry(frontGeometry);
+		const vertices = [];
+		const normals = [];
+		const uvs = [];
+		const indices = [];
+		let groupStart = 0;
+		let groupEnd = 0;
+		let attribute: ArrayLike<number> = null;
+		const positionSize = frontGeometry.getAttribute('position').count;
+		attribute = frontGeometry.getAttribute('position').array;
+		const gridX = Math.floor( thetaSegments ) + 1;
+		const gridY = Math.floor( phiSegments ) + 1;
 		const frontVertices = [];
 		const backVertices = [];
-		const posLen = attrPosition.count;
-		const normals = [];
-		const frontUvs = [];
-		const backUvs = [];
-		for (let i = 0; i < posLen; i++) {
-			const x = attrPosition.getX(i);
-			const y = attrPosition.getY(i);
-			const z = attrPosition.getZ(i);
-			frontVertices.push(x, y, z - halfDepth);
-			backVertices.push(x, y, z + halfDepth);
-			normals.push(0, 0, 0, 0, 0, 0);
-			const ux = attrUvs.getX(i);
-			const uy = attrUvs.getY(i);
-			frontUvs.push(ux, uy);
-			backUvs.push(ux, uy);
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
 		}
-		const uvs = [];
-		uvs.push(...frontUvs);
-		uvs.push(...backUvs);
-		const vertices = [];
+		attribute = backGeometry.getAttribute('position').array;
+		for (let i = 0; i < attribute.length; i++) {
+			vertices.push(attribute[i]);
+		}
+		const frontAttribute = frontGeometry.getAttribute('position');
+		const backAttribute = backGeometry.getAttribute('position');
+		const sideNormals = [];
+		const sideUvsFront = [];
+		const sideUvsBack = [];
+		const isClosed = thetaLength >= Math.PI * 2 ? true : false;
+		const outerWidth =  outerRadius * thetaLength / Math.PI;
+		const height = outerRadius - innerRadius ;
+		const innerWidth =  innerRadius * thetaLength / Math.PI;
+		const sideLen = (outerWidth + height * 2 + innerWidth) / 2;
+		const uvDepth = depth / sideLen / 4;
+		const uvStepOuter = outerWidth / (gridX -1);
+		const uvStepInner = innerWidth / (gridX -1);
+		const uvStepY = height / (gridY -1);
+		let workLen = 0;
+		for(let i = 0 ; i < gridX -1 ; i++) {
+			const idx = i;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = workLen / sideLen;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+			workLen += uvStepInner;
+		}
+		for(let i = 0 ; i < gridY -1; i++) {
+			const idx = (i + 1) * gridX -1;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = ( workLen / sideLen ) % 1;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+			workLen += uvStepY;
+		}
+		for(let i = 0 ; i < gridX -1 ; i++) {
+			const idx = gridX * gridY - i -1;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = ( workLen / sideLen ) % 1;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+			workLen += uvStepOuter;
+		}
+		for(let i = 0 ; i < gridY -1; i++) {
+			const idx = (gridY - i -1) * gridX ;
+			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
+			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
+			sideNormals.push(0,0,0);
+			const uvX = ( workLen / sideLen ) % 1;
+			sideUvsFront.push(uvX,0.5 + uvDepth);
+			sideUvsBack.push(uvX,0.5 - uvDepth);
+			workLen += uvStepY;
+		}
 		vertices.push(...frontVertices);
 		vertices.push(...backVertices);
-		const attrIndex = this.getIndex();
-		const indices = [];
-		const frontIndices = [];
-		const backIndices = [];
-		const sideIndices = [];
-		const idxLen = attrIndex.count;
-		for (let i = 0; i < idxLen; i++) {
-			frontIndices.push(attrIndex.getX(i) + posLen);
-			backIndices.push(attrIndex.getX(idxLen - i - 1));
+		attribute = frontGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-		const isClosed = thetaLength < Math.PI * 2 ? false : true;
-		const gridX = Math.floor(thetaSegments) + 1;
-		const gridY = Math.floor(phiSegments) + 1;
-		const frontSides = [];
-		const backSides = [];
-		for (let i = 0; i < gridX - 1; i++) {
-			frontSides.push(i);
-			backSides.push(posLen + i);
+		attribute = backGeometry.getAttribute('normal').array;
+		for (let i = 0; i < attribute.length; i++) {
+			normals.push(attribute[i]);
 		}
-    for (let i = 0; i < gridY - 1; i++) {
-      frontSides.push((i + 1) * gridX - 1);
-      backSides.push(posLen + (i + 1) * gridX - 1);
-    }
-		for (let i = 0; i < gridX - 1; i++) {
-			frontSides.push(posLen - i - 1);
-			backSides.push(posLen * 2 - i - 1);
+		attribute = frontGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
 		}
-    for (let i = 0; i < gridY - 1; i++) {
-      frontSides.push((gridY - i - 1) * gridX);
-      backSides.push(posLen + (gridY - i - 1) * gridX);
-    }
-		const sideLen = frontSides.length;
-    if (!isClosed) {
-      for (let i = 0; i < sideLen; i++) {
-        const endIdx = (i + 1) % sideLen;
-        sideIndices.push(frontSides[endIdx], frontSides[i], backSides[i]);
-        sideIndices.push(backSides[i], backSides[endIdx], frontSides[endIdx]);
-      }
-    } else {
-      const skipSide = gridX + gridY - 2;
-      for (let i = 0; i < gridX; i++) {
-        const endIdx = (i + 1) % sideLen;
-        sideIndices.push(frontSides[endIdx], frontSides[i], backSides[i]);
-        sideIndices.push(backSides[i], backSides[endIdx], frontSides[endIdx]);
+		attribute = backGeometry.getAttribute('uv').array;
+		for (let i = 0; i < attribute.length; i++) {
+			uvs.push(attribute[i]);
+		}
+		normals.push(...sideNormals);
+		normals.push(...sideNormals);
+		uvs.push(...sideUvsFront);
+		uvs.push(...sideUvsBack);
+		this.clearGroups();
+		attribute = frontGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i]);
+			groupEnd++;
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 0);
+		groupStart = groupEnd;
+		attribute = backGeometry.getIndex().array;
+		for (let i = 0; i < attribute.length; i++) {
+			indices.push(attribute[i] + positionSize);
+			groupEnd++;
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 1);
+		groupStart = groupEnd;
+		const sideIdxLen = frontVertices.length / 3;
+		const startSideSize = positionSize * 2;
+		if (!isClosed) {
+			for (let i = 0 ; i < sideIdxLen ; i++) {
+				const topIdx = (i + 1) % sideIdxLen;
+				indices.push(startSideSize + i, startSideSize + topIdx, startSideSize + sideIdxLen + i );
+				indices.push(startSideSize + sideIdxLen + topIdx, startSideSize + sideIdxLen + i, startSideSize + topIdx );
+				groupEnd += 6;
+			} 
+		} else {
+			for (let i = 0 ; i < gridX -1 ; i++) {
+				const topIdx = (i + 1) % sideIdxLen;
+				indices.push(startSideSize + i, startSideSize + topIdx, startSideSize + sideIdxLen + i );
+				indices.push(startSideSize + sideIdxLen + topIdx, startSideSize + sideIdxLen + i, startSideSize + topIdx );
+				groupEnd += 6;
+			} 
+			const outerStart = gridX + gridY -2;
+			for (let i = outerStart ; i < outerStart + gridX -1 ; i++) {
+				const topIdx = (i + 1) % sideIdxLen;
+				indices.push(startSideSize + i, startSideSize + topIdx, startSideSize + sideIdxLen + i );
+				indices.push(startSideSize + sideIdxLen + topIdx, startSideSize + sideIdxLen + i, startSideSize + topIdx );
+				groupEnd += 6;
+			} 
+		}
+		this.addGroup(groupStart, groupEnd - groupStart, 2);
+		groupStart = groupEnd;
 
-        sideIndices.push(frontSides[endIdx + skipSide], frontSides[i + skipSide], backSides[i + skipSide]);
-        sideIndices.push(backSides[i + skipSide], backSides[endIdx + skipSide], frontSides[endIdx + skipSide]);
-      }
-    }
-		indices.push(...frontIndices);
-		indices.push(...backIndices);
-		indices.push(...sideIndices);
 		this.setIndex(indices);
 		this.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		this.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
 		this.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-		this.computeVertexNormals();
+		this.computeVertexNormals();		
 	}
 }

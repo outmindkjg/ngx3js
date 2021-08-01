@@ -18,7 +18,6 @@ export class StarGeometry extends THREE.CircleGeometry {
 		const vertices = this.getAttribute('position');
 		const uvs = this.getAttribute('uv');
 		const rate = innerRadius / outerRadius ;
-		const uv = new THREE.Vector2();
 		for ( let i = 0; i <= segments; i++ ) {
 			const idx = i * 2 + 1;
 			const vx = vertices.getX(idx) * rate;
