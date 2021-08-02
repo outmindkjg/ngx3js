@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<base href="../../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>[name]</h1>
+
+		<p>
+			You can install three.js with [link:https://www.npmjs.com/ npm] and modern build tools, or get started quickly with just static hosting or a CDN. For most users, installing from npm is the best choice.
+		</p>
+
+		<p>
+			Whichever you choose, be consistent and import all files from the same version of the library. Mixing files from different sources may cause duplicate code to be included, or even break the application in unexpected ways.
+		</p>
+
+		<p>
+			All methods of installing three.js depend on ES modules (see [link:https://eloquentjavascript.net/10_modules.html#h_hF2FmOVxw7 Eloquent JavaScript: ECMAScript Modules]), which allow you to include only the parts of the library needed in the final project.
+		</p>
+
+		<h2>Install from npm</h2>
+
+		<p>
+			To install the [link:https://www.npmjs.com/package/three three] npm module, open a terminal window in your project folder and run:
+		</p>
+
+		<code>
+		npm install --save three
+		npm install --save ngx3js
+		</code>
+
+		<code>
+		/* app.modules.ts */
+		
+		import { NgModule } from '@angular/core';
+		import { Ngx3JsModule } from './three/ngx3js.module';
+
+		@NgModule({
+			~~~~~
+			imports: [Ngx3JsModule],
+			~~~~~
+		})
+		export class AppModule {}
+		</code>
+	
+		<p>
+			The package will be downloaded and installed. Then you're ready to import it in your code:<br>
+			Fix Some bug in ThreeJS (current Version 0.130.0)
+		</p>
+
+		<code>
+		node_modules/three/examples/jsm/misc/MorphAnimMesh.d.ts
+		node_modules/three/examples/jsm/utils/SceneUtils.d.ts
+		----------------------
+		node_modules/ammojs-typed/ammo/ammo.d.ts
+		7 + function castObject(obj1 : any, obj2 : any) : any;
+		----------------------
+		node_modules\three\examples\jsm\loaders\SVGLoader.d.ts
+		Line 6 :
+			Vector2
+		Line 40
+			static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
+			static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
+		----------------------
+		node_modules/three/examples/jsm/lines/WireframeGeometry2.d.ts
+		import {
+			BufferGeometry
+		} from '../../../src/Three';
+		import { LineSegmentsGeometry } from './LineSegmentsGeometry';
+		export class WireframeGeometry2 extends LineSegmentsGeometry {
+			constructor( geometry: BufferGeometry );
+			readonly sWireframeGeometry2: boolean;
+		}
+		----------------------
+		node_modules/three/examples/jsm/loaders/TiltLoader.js
+		const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
+		----------------------
+		node_modules\three\examples\jsm\loaders\VOXLoader.d.ts
+		export class VOXMesh extends Mesh {
+			constructor( chunk );
+		}
+		----------------------
+		node_modules\three\examples\jsm\math\OBB.d.ts
+		constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
+		intersectsOBB( obb: OBB, epsilon?: number ): boolean;
+		----------------------
+		node_modules\three\examples\jsm\modifiers\CurveModifier.d.ts
+		7		BufferGeometry,
+		43	constructor( count: Number, curveCount: Number, geometry: BufferGeometry, material: Material );
+		----------------------
+		node_modules/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts
+		modify( geometry: BufferGeometry, cutOffPoint: number, tryKeepNormals: boolean ): BufferGeometry;
+		----------------------
+		node_modules\three\examples\jsm\modifiers\SimplifyModifier.d.ts
+		modify( geometry: BufferGeometry , count: number ): BufferGeometry;
+		----------------------
+		node_modules\three\examples\jsm\objects\Water.d.ts
+		----------------------
+		node_modules\three\examples\jsm\objects\ShadowMesh.d.ts
+		constructor(mesh : Mesh);
+		----------------------
+		node_modules\three\examples\jsm\objects\Water2.d.ts
+		constructor( geometry: BufferGeometry, options: WaterOptions );
+		----------------------
+		node_modules/three/examples/jsm/postprocessing/SAOPass.d.ts
+			saoBlur: boolean;
+		----------------------
+		node_modules\three\examples\jsm\geometries\TeapotGeometry.d.ts
+		constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, body?: boolean, fitLid?: boolean, blinn?: boolean );
+		----------------------
+		node_modules\three\examples\jsm\utils\UVsDebug.d.ts
+		import { BufferGeometry } from '../../../src/Three';
+		export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasElement;
+		----------------------
+		node_modules\three\examples\jsm\exporters\OBJExporter.js
+		138 : } else if (vertices !== undefined){
+		----------------------
+		</code>
+
+		<p>
+			When installing from npm, you'll almost always use some sort of [link:https://eloquentjavascript.net/10_modules.html#h_zWTXAU93DC bundling tool] to combine all of the packages your project requires into a single JavaScript file. While any modern JavaScript bundler can be used with three.js, the most popular choice is [link:https://webpack.js.org/ webpack].
+		</p>
+
+		<p>
+			Not all features are accessed directly through the <em>three</em> module (also called a "bare import"). Other popular parts of the library — such as controls, loaders, and post-processing effects — must be imported from the [link:https://github.com/mrdoob/three.js/tree/dev/examples/jsm examples/jsm] subfolder. To learn more, see <em>Examples</em> below.
+		</p>
+
+		<p>
+			Learn more about npm modules from [link:https://eloquentjavascript.net/20_node.html#h_J6hW/SmL/a Eloquent JavaScript: Installing with npm].
+		</p>
+
+		<p>
+			It's important that all files use the same version. Do not import different examples from different versions, or use examples from a different version than the three.js library itself.
+		</p>
+
+		<h2>Compatibility</h2>
+
+		<h3>CommonJS imports</h3>
+
+		<p>
+			While most modern JavaScript bundlers now support ES modules by default, some older build tools might not. In those cases you can likely configure the bundler to understand ES modules: [link:http://browserify.org/ Browserify] just needs the [link:https://github.com/babel/babelify babelify] plugin, for example.
+		</p>
+
+		<h3>Import maps</h3>
+
+		<p>
+			Imported paths differ when installing from npm, as compared to installing from static hosting or a CDN. We're aware that this is an ergonomic issue for both groups of users. Developers with build tools and bundlers prefer bare package specifiers (e.g. 'three') rather than relative paths, and files in the <em>examples/</em> folder use relative references to <em>three.module.js</em> that don't follow this expectation. Those who do not use build tools — for fast prototyping, learning, or personal preference — may similarly dislike those relative imports, which require certain folder structures and are less forgiving than a global <em>THREE.*</em> namespace.
+		</p>
+
+		<p>
+			We hope to remove these relative paths when [link:https://github.com/WICG/import-maps import maps] become broadly available, replacing them with bare package specifiers to the npm package name, 'three'. This matches build tool expectations for npm packages more closely, and allows both groups of users to write exactly the same code when importing a file. For users who prefer to avoid build tools, a simple JSON mapping can direct all imports to a CDN or static file folder. Experimentally, you can try using simpler imports today with an import map polyfill, as shown in our [link:https://glitch.com/edit/#!/three-import-map?path=index.html import map example].
+		</p>
+
+		<h3>Node.js</h3>
+
+		<p>
+			Using three.js in [link:https://eloquentjavascript.net/20_node.html Node.js] can be difficult, for two reasons:
+		</p>
+
+		<p>
+			First, because three.js is built for the web, it depends on browser and DOM APIs that don't always exist in Node.js. Some of these issues can be resolved by using shims like [link:https://github.com/stackgl/headless-gl headless-gl], or by replacing components like [page:TextureLoader] with custom alternatives. Other DOM APIs may be deeply intertwined with the code that uses them, and will be harder to work around. We welcome simple and maintainable pull requests to improve Node.js support, but recommend opening an issue to discuss your improvements first.
+		</p>
+
+		<p>
+			Second, Node.js support for ES modules is ... complicated. As of Node.js v12, the core library can be imported as a CommonJS module, with <em>require('three')</em>. However, most example components in <em>examples/jsm</em> cannot. Future versions of Node.js may resolve this, but in the meantime you may need to use workarounds like [link:https://github.com/standard-things/esm esm] to enable your Node.js application to recognize ES modules.
+		</p>
+
+	</body>
+</html>
