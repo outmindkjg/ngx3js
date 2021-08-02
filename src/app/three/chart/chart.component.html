@@ -51,22 +51,61 @@
         [height]="barGeometryInfo.height"
         [depth]="barGeometryInfo.depth"
         [align]="'bottom'"
-        [lineType]="'wireframe2'"
+        [lineType]="'WireframeGeometry2'"
+      ></ngx3js-geometry>
+      <ngx3js-geometry
+        #lineGeometry
+        [type]="'SphereGeometry'"
+        [radius]="lineGeometryInfo.radius"
+        [align]="'center'"
+      ></ngx3js-geometry>
+      <ngx3js-geometry 
+        #lineWireframeGeometry 
+        [type]="'SphereGeometry'"
+        [radius]="lineGeometryInfo.radius"
+        [align]="'center'"
+        [lineType]="'WireframeGeometry2'"
       ></ngx3js-geometry>
     </ngx3js-shared>
     <ngx3js-mesh [visible]="false" [type]="'css2dObject'" [cssTag]="'div'" [cssStyle]="{ innerText : '', className : 'tooltip'}" (onLoad)="setToolTip($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
     </ngx3js-mesh>
     <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-position [x]="chartPosition.x" [y]="chartPosition.y" [z]="chartPosition.z"></ngx3js-position>
       <ngx3js-mesh *ngIf="barChart && barChart.length > 0">
         <ngx3js-mesh *ngFor="let info of barChart" [geometry]="barGeometry" [userData]="info.userData">
           <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
           <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
           <ngx3js-material [type]="'meshlambert'" [color]="info.color.color" [opacity]="info.color.opacity" [transparent]="true"></ngx3js-material>
-          <ngx3js-mesh *ngIf="info.borderWidth > 0" [type]="'LineSegments'" [geometry]="barWireframeGeometry">
+          <ngx3js-mesh *ngIf="info.borderWidth > 0" [type]="'Wireframe'" [geometry]="barWireframeGeometry">
             <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
             <ngx3js-material 
-              [type]="'LineBasicMaterial'" 
+              [type]="'Line'"
+              [color]="info.borderColor.color" 
+              [opacity]="info.borderColor.opacity"
+              [transparent]="true"
+              [linewidth]="info.borderWidth" 
+            ></ngx3js-material>
+          </ngx3js-mesh>
+        </ngx3js-mesh>
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="lineChart && lineChart.length > 0">
+        <ngx3js-mesh *ngFor="let info of lineCurvePath">
+          <ngx3js-geometry 
+            [type]="'TubeGeometry'"
+            [curvePath]="info"
+            [radius]="lineGeometryInfo.radius/2"
+          ></ngx3js-geometry>
+            <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'" [opacity]="0.7" [transparent]="true"></ngx3js-material>
+        </ngx3js-mesh>
+        <ngx3js-mesh *ngFor="let info of lineChart" [geometry]="lineGeometry" [userData]="info.userData">
+          <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+          <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
+          <ngx3js-material [type]="'meshlambert'" [color]="info.color.color" [opacity]="info.color.opacity" [transparent]="true"></ngx3js-material>
+          <ngx3js-mesh *ngIf="info.borderWidth > 0" [type]="'Wireframe'" [geometry]="lineWireframeGeometry">
+            <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+            <ngx3js-material 
+              [type]="'Line'"
               [color]="info.borderColor.color" 
               [opacity]="info.borderColor.opacity"
               [transparent]="true"
@@ -85,6 +124,7 @@
           [width]="width"
           [height]="height / 30"
           [depth]="depth"
+          [align]="'top'"
         ></ngx3js-geometry>
         <ngx3js-material
           [type]="'MeshPhong'"
@@ -133,8 +173,10 @@
           ></ngx3js-geometry>
           <ngx3js-material [type]="'LineBasicMaterial'" [vertexColors]="true" [toneMapped]="false"></ngx3js-material>
         </ngx3js-mesh>
-        <ngx3js-mesh *ngFor="let info of yLabel" [type]="'css3dobject'" [cssTag]="'div'" [cssStyle]="{ innerText : info.text, className : 'yLabel'}">
-          <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+        <ngx3js-mesh *ngIf="yLabel && yLabel.length > 0">
+          <ngx3js-mesh *ngFor="let info of yLabel" [type]="'css3dobject'" [cssTag]="'div'" [cssStyle]="{ innerText : info.text, className : 'yLabel'}">
+            <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
+          </ngx3js-mesh>
         </ngx3js-mesh>
       </ngx3js-mesh>
     </ngx3js-mesh>

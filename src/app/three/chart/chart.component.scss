@@ -3,13 +3,15 @@
   div.xLabel,
   div.yLabel {
     pointer-events: none !important;
-    background-color: rgb(255,255,255,0.7);
+    background-color: var(--background-color);
+    border: var(--border-style);
     display: inline-block;
     padding: 7px;
     border-radius: 3px;
     font-size: 20px;
     line-height: 100%;
     margin: 0;
+    color : var(--text-color);
   }
   div.tooltip {
     font-size: 12px;

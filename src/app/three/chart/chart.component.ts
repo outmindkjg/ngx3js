@@ -65,22 +65,21 @@ export interface ChartData {
 	styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent extends BaseComponent<any> implements OnChanges {
-	
 	/**
 	 * Input  of chart component
 	 */
 	@Input() guiControl: any = null;
-	
+
 	/**
 	 * Input  of chart component
 	 */
 	@Input() guiParams: GuiControlParam[] = null;
-	
+
 	/**
 	 * Input  of chart component
 	 */
 	@Input() type: string = 'bar';
-	
+
 	/**
 	 * Input  of chart component
 	 */
@@ -88,8 +87,29 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		labels: ['Data1', 'Data2', 'Data3', 'Data4', 'Data5', 'Data6', 'Data7'],
 		datasets: [
 			{
+				type: 'bar',
 				label: 'My First Dataset',
 				data: [65, 59, 80, 81, 56, 55, 40],
+				backgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.9)', 'rgba(255, 205, 86, 0.9)', 'rgba(75, 192, 192, 0.9)', 'rgba(54, 162, 235, 0.9)', 'rgba(153, 102, 255, 0.9)', 'rgba(201, 203, 207, 0.9)'],
+				borderColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)'],
+				hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 205, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)', 'rgba(201, 203, 207, 1)'],
+				hoverBorderColor: ['rgb(255, 0, 0)', 'rgb(255, 255, 64)', 'rgb(255, 255, 86)', 'rgb(75, 192, 192)', 'rgb(54, 255, 235)', 'rgb(153, 102, 255)', 'rgb(201, 255, 207)'],
+				borderWidth: 1,
+			},
+			{
+				type: 'line',
+				label: 'My First Dataset',
+				data: [65, 59, 80, 81, 56, 55, 40],
+				backgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.9)', 'rgba(255, 205, 86, 0.9)', 'rgba(75, 192, 192, 0.9)', 'rgba(54, 162, 235, 0.9)', 'rgba(153, 102, 255, 0.9)', 'rgba(201, 203, 207, 0.9)'],
+				borderColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)'],
+				hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 205, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)', 'rgba(201, 203, 207, 1)'],
+				hoverBorderColor: ['rgb(255, 0, 0)', 'rgb(255, 255, 64)', 'rgb(255, 255, 86)', 'rgb(75, 192, 192)', 'rgb(54, 255, 235)', 'rgb(153, 102, 255)', 'rgb(201, 255, 207)'],
+				borderWidth: 1,
+			},
+			{
+				type: 'line',
+				label: 'My First Dataset',
+				data: [65, 59, 80, 81, 56, 55, 40, 56, 55, 40],
 				backgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.9)', 'rgba(255, 205, 86, 0.9)', 'rgba(75, 192, 192, 0.9)', 'rgba(54, 162, 235, 0.9)', 'rgba(153, 102, 255, 0.9)', 'rgba(201, 203, 207, 0.9)'],
 				borderColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)'],
 				hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 205, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)', 'rgba(201, 203, 207, 1)'],
@@ -159,9 +179,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Gets color opacity
-	 * @param color 
-	 * @param [def] 
-	 * @returns color opacity 
+	 * @param color
+	 * @param [def]
+	 * @returns color opacity
 	 */
 	private getColorOpacity(color: ThreeColor, def?: ThreeColor): ColorOpacity {
 		color = ThreeUtil.getTypeSafe(color, def);
@@ -188,9 +208,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Gets color opacity list
-	 * @param colors 
-	 * @param idxLen 
-	 * @returns color opacity list 
+	 * @param colors
+	 * @param idxLen
+	 * @returns color opacity list
 	 */
 	private getColorOpacityList(colors: ThreeColor | ThreeColor[], idxLen: number): ColorOpacity[] {
 		const colorList: ColorOpacity[] = [];
@@ -226,32 +246,35 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		let maxValue = -Infinity;
 		let barChartZIdx = 0;
 		let barChartXMax = 0;
+		let lineChartZIdx = 0;
+		let lineChartXMax = 0;
 		this.barChart = null;
+		this.lineChart = null;
 		this.data.datasets.forEach((data) => {
-			// const tmpValue : number[] = [];
+			const tmpValue : number[] = [];
 			data.data.forEach((value) => {
-				//value = Math.random() * 50 - 20;
-				// tmpValue.push(value);
 				if (typeof value === 'number') {
+					value = Math.min(100, Math.max(30, Math.random() * 100));
+					tmpValue.push(value);
 					minValue = Math.min(minValue, value);
 					maxValue = Math.max(maxValue, value);
 				}
 			});
-			// data.data = tmpValue;
+			data.data = tmpValue;
 			const type = ThreeUtil.getTypeSafe(data.type, this.type, 'bar');
 			switch (type.toLowerCase()) {
 				case 'bar':
 					barChartXMax = Math.max(barChartXMax, data.data.length);
 					barChartZIdx++;
 					break;
+				case 'line':
+					lineChartXMax = Math.max(lineChartXMax, data.data.length);
+					lineChartZIdx++;
+					break;
 			}
 		});
-		let xStep = 0;
-		let xZero = 0;
-		let yStep = 0;
-		let yZero = 0;
-		let zStep = 0;
-		let zZero = 0;
+		const chartXMax = Math.max(barChartXMax, lineChartXMax);
+		const chartZMax = Math.max(barChartZIdx, lineChartZIdx);
 		if (maxValue <= 10) {
 			maxValue = 10;
 		} else if (maxValue <= 50) {
@@ -265,75 +288,123 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		} else if (maxValue <= 1000) {
 			maxValue = 1000;
 		}
+		if (minValue <= 10) {
+			minValue = 0;
+		} else if (minValue <= 50) {
+			minValue = 10;
+		} else if (minValue <= 100) {
+			minValue = 50;
+		} else if (minValue <= 200) {
+			minValue = 100;
+		} else if (minValue <= 500) {
+			minValue = 200;
+		} else if (minValue <= 1000) {
+			minValue = 500;
+		}
+		this.chartZero = new THREE.Vector3(0, minValue, 0);
+		this.chartScale = new THREE.Vector3(this.width / chartXMax, this.height / Math.max(1,(maxValue - minValue)) , this.depth / chartZMax );
+		const chartPadding = this.getLocalPosition(1,0,1);
+		this.chartPosition = new THREE.Vector3( - this.width / 2 - chartPadding.x /2 , - this.height / 2, - this.depth / 2 + chartPadding.z /2);
 		const xLabelList: string[] = [];
 		this.data.labels.forEach((label) => {
 			xLabelList.push(label);
 		});
 		if (barChartZIdx > 0) {
 			this.barChart = [];
+			const position = this.getLocalPosition(1, maxValue, 1);
 			this.barGeometryInfo = {
-				width: (this.width / barChartXMax) * this.padding,
-				height: this.height,
-				depth: (this.depth / barChartZIdx) * this.padding,
+				width: position.x * this.padding,
+				height: position.y,
+				depth: position.z * this.padding,
 			};
-			xStep = -(this.width / barChartXMax);
-			xZero = xStep * (barChartXMax / 2 - 0.5);
-			yStep = 1 / maxValue;
-			yZero = this.height / 2;
-			zStep = this.depth / barChartZIdx;
-			zZero = zStep * (barChartZIdx / 2 - 0.5);
+		}
+		if (lineChartZIdx > 0) {
+			this.lineChart = [];
+			this.lineCurvePath = [];
+			const position = this.getLocalPosition(1, maxValue, 1);
+			const radius = Math.min(position.x, position.y, position.z);
+			this.lineGeometryInfo = {
+				radius: radius / 5 * this.padding
+			};
 		}
 		let barChartCurrIdx = 0;
+		let lineChartCurrIdx = 0;
 		this.data.datasets.forEach((data, idx) => {
 			const type = ThreeUtil.getTypeSafe(data.type, this.type, 'bar');
 			switch (type.toLowerCase()) {
 				case 'bar':
-					const backgroundColor: ColorOpacity[] = this.getColorOpacityList(data.backgroundColor, barChartXMax);
-					const borderColor: ColorOpacity[] = this.getColorOpacityList(data.borderColor || data.backgroundColor, barChartXMax);
-					const hoverBackgroundColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBackgroundColor || data.backgroundColor, barChartXMax);
-					const hoverBorderColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBorderColor || data.borderColor || data.backgroundColor, barChartXMax);
-					const barColorInfo: BackgroundBorder[] = [];
-					const borderWidth = ThreeUtil.getTypeSafe(data.borderWidth, 1);
-					const fill = ThreeUtil.getTypeSafe(data.fill, true);
-					const hoverBorderDash = ThreeUtil.getTypeSafe(data.hoverBorderDash, '');
-					const hoverBorderCapStyle = ThreeUtil.getTypeSafe(data.hoverBorderCapStyle, '');
-					const hoverBorderDashOffset = ThreeUtil.getTypeSafe(data.hoverBorderDashOffset, 1);
-					const hoverBorderJoinStyle = ThreeUtil.getTypeSafe(data.hoverBorderJoinStyle, '');
-					const hoverBorderWidth = ThreeUtil.getTypeSafe(data.hoverBorderWidth, 1);
-					const pointBackgroundColor = this.getColorOpacity(data.pointBackgroundColor, '#ff0000');
-					const pointBorderColor = this.getColorOpacity(data.pointBackgroundColor, '#ff0000');
-					const pointBorderWidth = ThreeUtil.getTypeSafe(data.pointBorderWidth, 1);
-					const pointHoverBackgroundColor = this.getColorOpacity(data.pointBackgroundColor, '#ff0000');
-					const pointHoverBorderColor = this.getColorOpacity(data.pointBackgroundColor, '#ff0000');
-					const pointHoverRadius = ThreeUtil.getTypeSafe(data.pointHoverRadius, 1);
-					const pointRadius = ThreeUtil.getTypeSafe(data.pointRadius, 1);
-					const pointStyle = ThreeUtil.getTypeSafe(data.pointStyle, '');
-					const hoverOffset = ThreeUtil.getTypeSafe(data.hoverOffset, 1);
-					backgroundColor.forEach((colorInfo, idx) => {
-						barColorInfo.push({
-							backgroundColor: colorInfo,
-							borderColor: borderColor[idx],
-							hoverBackgroundColor: hoverBackgroundColor[idx],
-							hoverBorderColor: hoverBorderColor[idx],
+					{
+						const backgroundColor: ColorOpacity[] = this.getColorOpacityList(data.backgroundColor, barChartXMax);
+						const borderColor: ColorOpacity[] = this.getColorOpacityList(data.borderColor || data.backgroundColor, barChartXMax);
+						const hoverBackgroundColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBackgroundColor || data.backgroundColor, barChartXMax);
+						const hoverBorderColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBorderColor || data.borderColor || data.backgroundColor, barChartXMax);
+						const barColorInfo: BackgroundBorder[] = [];
+						const borderWidth = ThreeUtil.getTypeSafe(data.borderWidth, 1);
+						backgroundColor.forEach((colorInfo, idx) => {
+							barColorInfo.push({
+								backgroundColor: colorInfo,
+								borderColor: borderColor[idx],
+								hoverBackgroundColor: hoverBackgroundColor[idx],
+								hoverBorderColor: hoverBorderColor[idx],
+							});
 						});
-					});
-					const z = zStep * barChartCurrIdx - zZero;
-					data.data.forEach((value, idx) => {
-						const scaleY = typeof value === 'number' ? yStep * value : 0;
-						const x = xStep * idx - xZero;
-						const y = -this.height / 2;
-						const colorInfo = barColorInfo[idx % barColorInfo.length];
-						const tooltipPosition: THREE.Vector3 = new THREE.Vector3(x, y + scaleY * this.height, z);
-						this.barChart.push({
-							position: { x: x, y: y, z: z },
-							scale: { x: 1, y: 0, z: 1 },
-							userData: { type: 'bar', scaleY: scaleY, colorInfo: colorInfo, toolTipText: this.getTooltipText(xLabelList[idx], value), tooltipPosition: tooltipPosition },
-							color: colorInfo.backgroundColor,
-							borderWidth: borderWidth,
-							borderColor: colorInfo.borderColor,
+						data.data.forEach((value, idx) => {
+							const x = barChartXMax - idx;
+							const y = typeof value === 'number' ? value : 0;
+							const z = barChartCurrIdx;
+							const position = this.getLocalPosition(x, y, z);
+							const colorInfo = barColorInfo[idx % barColorInfo.length];
+							const tooltipPosition: THREE.Vector3 = this.getGlobalPosition(position);
+							this.barChart.push({
+								position: { x: position.x, y: 0, z: position.z },
+								scale: { x: 1, y: 0, z: 1 },
+								userData: { type: 'bar', scaleY: position.y / this.height, colorInfo: colorInfo, toolTipText: this.getTooltipText(xLabelList[idx], value), tooltipPosition: tooltipPosition },
+								color: colorInfo.backgroundColor,
+								borderWidth: borderWidth / 300,
+								borderColor: colorInfo.borderColor,
+							});
 						});
-					});
-					barChartCurrIdx++;
+						barChartCurrIdx++;
+					}
+					break;
+				case 'line':
+					{
+						const backgroundColor: ColorOpacity[] = this.getColorOpacityList(data.backgroundColor, barChartXMax);
+						const borderColor: ColorOpacity[] = this.getColorOpacityList(data.borderColor || data.backgroundColor, barChartXMax);
+						const hoverBackgroundColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBackgroundColor || data.backgroundColor, barChartXMax);
+						const hoverBorderColor: ColorOpacity[] = this.getColorOpacityList(data.hoverBorderColor || data.borderColor || data.backgroundColor, barChartXMax);
+						const lineColorInfo: BackgroundBorder[] = [];
+						const borderWidth = ThreeUtil.getTypeSafe(data.borderWidth, 1);
+						backgroundColor.forEach((colorInfo, idx) => {
+							lineColorInfo.push({
+								backgroundColor: colorInfo,
+								borderColor: borderColor[idx],
+								hoverBackgroundColor: hoverBackgroundColor[idx],
+								hoverBorderColor: hoverBorderColor[idx],
+							});
+						});
+						const lineCurvePath = [];
+
+						data.data.forEach((value, idx) => {
+							const x = lineChartXMax - idx;
+							const y = typeof value === 'number' ? value : 0;
+							const z = lineChartCurrIdx;
+							const position = this.getLocalPosition(x, y, z);
+							const colorInfo = lineColorInfo[idx % lineColorInfo.length];
+							const tooltipPosition: THREE.Vector3 = this.getGlobalPosition(position);
+							lineCurvePath.push(position);
+							this.lineChart.push({
+								position: { x: position.x, y: 0, z: position.z },
+								scale: { x: 1, y: 1, z: 1 },
+								userData: { type: 'line', posY: position.y , colorInfo: colorInfo, toolTipText: this.getTooltipText(xLabelList[idx], value), tooltipPosition: tooltipPosition },
+								color: colorInfo.backgroundColor,
+								borderWidth: borderWidth / 300,
+								borderColor: colorInfo.borderColor,
+							});
+						});
+						this.lineCurvePath.push(lineCurvePath);
+						lineChartCurrIdx++;
+					}
 					break;
 			}
 		});
@@ -350,17 +421,17 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		this.yLabel = [];
 		const labelStep = (maxValue - minValue) / 10;
 		for (let i = minValue; i < maxValue; i += labelStep) {
-			const y = yStep * i * this.height - this.height / 2;
+			const position = this.getGlobalPosition(this.getLocalPosition(0, i, 0));
 			this.yLabel.push({
-				position: { x: this.width / 2, y: y, z: 0 },
+				position: { x: this.width / 2, y: position.y, z: 0 },
 				text: i.toFixed(2),
 			});
 		}
 		this.xLabel = [];
 		this.data.labels.forEach((label, idx) => {
-			const x = xStep * idx - xZero;
+			const position = this.getGlobalPosition(this.getLocalPosition(idx + 1, minValue ,  chartZMax - 0.5 ));
 			this.xLabel.push({
-				position: { x: -x, y: 0, z: this.depth / 2 },
+				position: { x: position.x - this.axisX.x, y: position.y - this.axisX.y, z: position.z  - this.axisX.z},
 				text: label,
 			});
 		});
@@ -369,9 +440,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Gets tooltip text
-	 * @param label 
-	 * @param value 
-	 * @returns tooltip text 
+	 * @param label
+	 * @param value
+	 * @returns tooltip text
 	 */
 	private getTooltipText(label: string, value: any): string {
 		if (typeof value === 'number') {
@@ -380,6 +451,41 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 			return '<span>' + label + '</span> : ' + value;
 		}
 	}
+
+	/**
+	 * Gets tooltip text
+	 * @param label
+	 * @param value
+	 * @returns tooltip text
+	 */
+	private getGlobalPosition(p: THREE.Vector3): THREE.Vector3 {
+		return p.clone().add(this.chartPosition);
+	}
+
+	/**
+	 * Gets tooltip text
+	 * @param label
+	 * @param value
+	 * @returns tooltip text
+	 */
+	private getLocalPosition(x: number, y: number, z: number): THREE.Vector3 {
+		return new THREE.Vector3(x, y, z).sub(this.chartZero).multiply(this.chartScale);
+	}
+
+	/**
+	 * Axis x of chart component
+	 */
+	public chartScale: THREE.Vector3 = new THREE.Vector3(1,1,1);
+
+	/**
+	 * Axis x of chart component
+	 */
+	public chartZero: THREE.Vector3 = new THREE.Vector3(0,0,0);
+
+	/**
+	 * Axis x of chart component
+	 */
+	 public chartPosition: THREE.Vector3 = new THREE.Vector3(0,0,0);
 
 	/**
 	 * Axis x of chart component
@@ -419,25 +525,46 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		borderColor: ColorOpacity;
 	}[] = null;
 
+	public lineChart: {
+		position: ThreeVector;
+		scale: ThreeVector;
+		userData: any;
+		color: ColorOpacity;
+		borderWidth: number;
+		borderColor: ColorOpacity;
+	}[] = null;
+
 	/**
 	 * Bar geometry info of chart component
 	 */
-	public barGeometryInfo: { width: number; height: number; depth: number } = {
+	public barGeometryInfo: { width: number; height: number; depth: number; } = {
 		width: 100,
 		height: 100,
 		depth: 100,
 	};
 
 	/**
+	 * Bar geometry info of chart component
+	 */
+	public lineGeometryInfo: { radius: number;} = {
+		radius: 100,
+	};
+
+	/**
+	 * Line curve path of chart component
+	 */
+	public lineCurvePath : ThreeVector[][] = [];
+
+	/**
 	 * Y label of chart component
 	 */
 	public yLabel: { position: ThreeVector; text: string }[] = null;
-	
+
 	/**
 	 * X label of chart component
 	 */
 	public xLabel: { position: ThreeVector; text: string }[] = null;
-	
+
 	/**
 	 * Elapsed time of chart component
 	 */
@@ -455,7 +582,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Sets tool tip
-	 * @param mesh 
+	 * @param mesh
 	 */
 	public setToolTip(mesh: MeshComponent) {
 		this.tooltip = mesh.getMesh();
@@ -468,7 +595,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Determines whether mouse move on
-	 * @param event 
+	 * @param event
 	 */
 	public onMouseMove(event: RendererEvent) {
 		if (this.camera !== null && this.mesh !== null && this.meshObject3d !== null) {
@@ -491,9 +618,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Sets material color
-	 * @param mesh 
-	 * @param isHover 
-	 * @returns material color 
+	 * @param mesh
+	 * @param isHover
+	 * @returns material color
 	 */
 	private setMaterialColor(mesh: THREE.Mesh, isHover: boolean): void {
 		const material: THREE.MeshLambertMaterial = mesh.material as THREE.MeshLambertMaterial;
@@ -529,7 +656,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 
 	/**
 	 * Determines whether render on
-	 * @param timer 
+	 * @param timer
 	 */
 	public onRender(timer: RendererTimer) {
 		super.onRender(timer);
@@ -539,9 +666,18 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 				if (child.userData.type !== undefined) {
 					switch (child.userData.type) {
 						case 'bar':
-							const childScaleY = child.scale.y;
-							const targetScaleY = child.userData.scaleY;
-							child.scale.y = (targetScaleY - childScaleY) * this.elapsedTime + childScaleY;
+							{
+								const childScaleY = child.scale.y;
+								const targetScaleY = child.userData.scaleY;
+								child.scale.y = (targetScaleY - childScaleY) * this.elapsedTime + childScaleY;
+							}
+							break;
+						case 'line':
+							{
+								const childPositionY = child.position.y;
+								const targetPositionY = child.userData.posY;
+								child.position.y = (targetPositionY - childPositionY) * this.elapsedTime + childPositionY;
+							}
 							break;
 					}
 				}
