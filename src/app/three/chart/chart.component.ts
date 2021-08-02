@@ -4,11 +4,17 @@ import * as THREE from 'three';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { MeshComponent } from '../mesh/mesh.component';
 
+/**
+ * Color opacity
+ */
 export interface ColorOpacity {
 	color: ThreeColor;
 	opacity: number;
 }
 
+/**
+ * Background border
+ */
 export interface BackgroundBorder {
 	backgroundColor: ColorOpacity;
 	borderColor?: ColorOpacity;
@@ -16,6 +22,9 @@ export interface BackgroundBorder {
 	hoverBorderColor?: ColorOpacity;
 }
 
+/**
+ * Chart data
+ */
 export interface ChartData {
 	datasets: {
 		data: (number | { x: number; y: number; r?: number })[];
@@ -47,15 +56,34 @@ export interface ChartData {
 	options?: any;
 }
 
+/**
+ * ChartComponent
+ */
 @Component({
 	selector: 'ngx3js-chart',
 	templateUrl: './chart.component.html',
 	styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent extends BaseComponent<any> implements OnChanges {
+	
+	/**
+	 * Input  of chart component
+	 */
 	@Input() guiControl: any = null;
+	
+	/**
+	 * Input  of chart component
+	 */
 	@Input() guiParams: GuiControlParam[] = null;
+	
+	/**
+	 * Input  of chart component
+	 */
 	@Input() type: string = 'bar';
+	
+	/**
+	 * Input  of chart component
+	 */
 	@Input() data: ChartData = {
 		labels: ['Data1', 'Data2', 'Data3', 'Data4', 'Data5', 'Data6', 'Data7'],
 		datasets: [
@@ -71,17 +99,41 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		],
 	};
 
+	/**
+	 * Input  of chart component
+	 */
 	@Input() options: any = null;
 
+	/**
+	 * Input  of chart component
+	 */
 	@Input() width: number = 1000;
+
+	/**
+	 * Input  of chart component
+	 */
 	@Input() height: number = 700;
+
+	/**
+	 * Input  of chart component
+	 */
 	@Input() depth: number = 200;
+
+	/**
+	 * Input  of chart component
+	 */
 	@Input() padding: number = 0.5;
 
+	/**
+	 * Creates an instance of chart component.
+	 */
 	constructor() {
 		super({}, []);
 	}
 
+	/**
+	 * on init
+	 */
 	ngOnInit() {}
 
 	/**
@@ -105,6 +157,12 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		}, 100);
 	}
 
+	/**
+	 * Gets color opacity
+	 * @param color 
+	 * @param [def] 
+	 * @returns color opacity 
+	 */
 	private getColorOpacity(color: ThreeColor, def?: ThreeColor): ColorOpacity {
 		color = ThreeUtil.getTypeSafe(color, def);
 		if (typeof color === 'string' && color.indexOf('rgba') === 0) {
@@ -123,8 +181,17 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		}
 	}
 
+	/**
+	 * Colors  of chart component
+	 */
 	private COLORS: string[] = ['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba'];
 
+	/**
+	 * Gets color opacity list
+	 * @param colors 
+	 * @param idxLen 
+	 * @returns color opacity list 
+	 */
 	private getColorOpacityList(colors: ThreeColor | ThreeColor[], idxLen: number): ColorOpacity[] {
 		const colorList: ColorOpacity[] = [];
 		if (ThreeUtil.isNotNull(colors)) {
@@ -151,6 +218,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		return colorList;
 	}
 
+	/**
+	 * Draws chart
+	 */
 	private drawChart() {
 		let minValue = Infinity;
 		let maxValue = -Infinity;
@@ -297,6 +367,12 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		this.elapsedTime = 0;
 	}
 
+	/**
+	 * Gets tooltip text
+	 * @param label 
+	 * @param value 
+	 * @returns tooltip text 
+	 */
 	private getTooltipText(label: string, value: any): string {
 		if (typeof value === 'number') {
 			return '<span>' + label + '</span> : ' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -305,9 +381,24 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		}
 	}
 
+	/**
+	 * Axis x of chart component
+	 */
 	public axisX: ThreeVector = null;
+
+	/**
+	 * Axis y of chart component
+	 */
 	public axisY: ThreeVector = null;
+
+	/**
+	 * Axis z of chart component
+	 */
 	public axisZ: ThreeVector = null;
+
+	/**
+	 * Gride info of chart component
+	 */
 	public grideInfo: {
 		color1: ThreeColor;
 		color2: ThreeColor;
@@ -316,6 +407,9 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		heightSegments: number;
 	} = null;
 
+	/**
+	 * Bar chart of chart component
+	 */
 	public barChart: {
 		position: ThreeVector;
 		scale: ThreeVector;
@@ -324,24 +418,58 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		borderWidth: number;
 		borderColor: ColorOpacity;
 	}[] = null;
+
+	/**
+	 * Bar geometry info of chart component
+	 */
 	public barGeometryInfo: { width: number; height: number; depth: number } = {
 		width: 100,
 		height: 100,
 		depth: 100,
 	};
+
+	/**
+	 * Y label of chart component
+	 */
 	public yLabel: { position: ThreeVector; text: string }[] = null;
+	
+	/**
+	 * X label of chart component
+	 */
 	public xLabel: { position: ThreeVector; text: string }[] = null;
+	
+	/**
+	 * Elapsed time of chart component
+	 */
 	private elapsedTime: number = null;
 
+	/**
+	 * Tooltip  of chart component
+	 */
 	tooltip: CSS2DObject = null;
+
+	/**
+	 * Tooltip position of chart component
+	 */
 	tooltipPosition: THREE.Vector3 = null;
 
+	/**
+	 * Sets tool tip
+	 * @param mesh 
+	 */
 	public setToolTip(mesh: MeshComponent) {
 		this.tooltip = mesh.getMesh();
 	}
 
+	/**
+	 * Last intersect of chart component
+	 */
 	lastIntersect: THREE.Mesh = null;
 
+	/**
+	 * Determines whether mouse move on
+	 * @param event 
+	 */
 	public onMouseMove(event: RendererEvent) {
 		if (this.camera !== null && this.mesh !== null && this.meshObject3d !== null) {
 			const intersect = this.camera.getIntersection(event.mouse, this.meshObject3d, true);
@@ -361,6 +489,12 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		}
 	}
 
+	/**
+	 * Sets material color
+	 * @param mesh 
+	 * @param isHover 
+	 * @returns material color 
+	 */
 	private setMaterialColor(mesh: THREE.Mesh, isHover: boolean): void {
 		const material: THREE.MeshLambertMaterial = mesh.material as THREE.MeshLambertMaterial;
 		const colorInfo: BackgroundBorder = mesh.userData.colorInfo;
@@ -393,6 +527,10 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		}
 	}
 
+	/**
+	 * Determines whether render on
+	 * @param timer 
+	 */
 	public onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.elapsedTime !== null && this.elapsedTime < 1) {

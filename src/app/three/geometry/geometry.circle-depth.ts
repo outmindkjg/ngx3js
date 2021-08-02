@@ -16,6 +16,7 @@ export class CircleDepthGeometry extends THREE.BufferGeometry {
 		segments: number;
 		thetaStart: number;
 		thetaLength: number;
+		depthRate : number;
 	};
 
 	/**
@@ -24,8 +25,9 @@ export class CircleDepthGeometry extends THREE.BufferGeometry {
 	 * @param [segments=8]
 	 * @param [thetaStart=0]
 	 * @param [thetaLength=Math.PI * 2]
+	 * @param [depthRate=1]
 	 */
-	constructor(radius: number = 1, depth: number = 1, segments: number = 8, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
+	constructor(radius: number = 1, depth: number = 1, segments: number = 8, thetaStart: number = 0, thetaLength: number = Math.PI * 2, depthRate : number = 1) {
 		super();
 		depth = Math.max(0.001, depth);
 		this.parameters = {
@@ -34,6 +36,7 @@ export class CircleDepthGeometry extends THREE.BufferGeometry {
 			segments: segments,
 			thetaStart: thetaStart,
 			thetaLength: thetaLength,
+			depthRate : depthRate
 		};
 		const halfDepth = depth / 2;
 		const frontGeometry = new THREE.CircleBufferGeometry(radius, segments, thetaStart, thetaLength);
@@ -93,6 +96,21 @@ export class CircleDepthGeometry extends THREE.BufferGeometry {
 			sideUvsBack.push(angle, 0.5 + uvDepth);
 			vertex.normalize();
 			sideNormals.push(vertex.x, vertex.y, 0);
+		}
+		if (depthRate !== 1) {
+			let x = 0;
+			let y = 0;
+			let z = 0;
+			let vector2 = new THREE.Vector2();
+			for (let i = 0 ; i < vertices.length ; i += 3) {
+				x = vertices[i];
+				y = vertices[i + 1];
+				z = vertices[i + 2];
+				vector2.x = x;
+				vector2.y = y;
+				const rate = vector2.length() / radius * ( 1 - depthRate);
+				vertices[i + 2] +=   - z * rate;
+			}
 		}
 		normals.push(...sideNormals);
 		normals.push(...sideNormals);

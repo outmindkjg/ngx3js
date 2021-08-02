@@ -17,7 +17,8 @@ export class RingDepthGeometry extends THREE.BufferGeometry {
 		thetaSegments: number,
 		phiSegments: number,
 		thetaStart: number,
-		thetaLength: number
+		thetaLength: number;
+		depthRate : number;
 	 };
 
 	/**
@@ -28,8 +29,9 @@ export class RingDepthGeometry extends THREE.BufferGeometry {
 	 * @param [phiSegments=1]
 	 * @param [thetaStart=0]
 	 * @param [thetaLength=Math.PI * 2]
+	 * @param [depthRate=1]
 	 */
-	constructor(innerRadius: number = 0.5, outerRadius: number = 1, depth: number = 1, thetaSegments: number = 8, phiSegments: number = 1, thetaStart: number = 0, thetaLength: number = Math.PI * 2) {
+	constructor(innerRadius: number = 0.5, outerRadius: number = 1, depth: number = 1, thetaSegments: number = 8, phiSegments: number = 1, thetaStart: number = 0, thetaLength: number = Math.PI * 2, depthRate : number = 1) {
 		super();
 		depth = Math.max(0.001, depth);
 		this.parameters = {
@@ -39,7 +41,8 @@ export class RingDepthGeometry extends THREE.BufferGeometry {
 			thetaSegments: thetaSegments,
 			phiSegments: phiSegments,
 			thetaStart: thetaStart,
-			thetaLength: thetaLength
+			thetaLength: thetaLength,
+			depthRate : depthRate
 		};
 		const halfDepth = depth / 2;
 		const frontGeometry = new THREE.RingBufferGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
@@ -122,6 +125,21 @@ export class RingDepthGeometry extends THREE.BufferGeometry {
 		}
 		vertices.push(...frontVertices);
 		vertices.push(...backVertices);
+		if (depthRate !== 1) {
+			let x = 0;
+			let y = 0;
+			let z = 0;
+			let vector2 = new THREE.Vector2();
+			for (let i = 0 ; i < vertices.length ; i += 3) {
+				x = vertices[i];
+				y = vertices[i + 1];
+				z = vertices[i + 2];
+				vector2.x = x;
+				vector2.y = y;
+				const rate = (vector2.length() - innerRadius) / (outerRadius - innerRadius) * ( 1 - depthRate);
+				vertices[i + 2] +=   - z * rate;
+			}
+		}
 		attribute = frontGeometry.getAttribute('normal').array;
 		for (let i = 0; i < attribute.length; i++) {
 			normals.push(attribute[i]);

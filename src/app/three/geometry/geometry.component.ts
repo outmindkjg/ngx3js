@@ -162,6 +162,11 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   @Input() private depthSegments: number = null;
 
   /**
+   * The Sharpen Rate of Depth
+   */
+  @Input() private depthRate: number = null;
+
+  /**
    * Input  of geometry component
    */
   @Input() private quality: number = null;
@@ -1194,7 +1199,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'circlebuffer':
           case 'circle':
             if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
-              geometry = new CircleDepthGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+              geometry = new CircleDepthGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360), ThreeUtil.getTypeSafe(this.depthRate, 1));
             } else {
               geometry = new THREE.CircleBufferGeometry(ThreeUtil.getTypeSafe(this.radius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 8), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
             }
@@ -1204,7 +1209,7 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
           case 'starbuffer':
           case 'star':
             if (ThreeUtil.isNotNull(this.depth) && this.depth > 0) {
-              geometry = new StarDepthGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 5), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
+              geometry = new StarDepthGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.depth, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 5), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360), ThreeUtil.getTypeSafe(this.depthRate, 1));
             } else {
               geometry = new StarGeometry(ThreeUtil.getTypeSafe(this.innerRadius, 0.5), ThreeUtil.getTypeSafe(this.outerRadius, 1), ThreeUtil.getTypeSafe(this.segments, this.radiusSegments, 5), ThreeUtil.getAngleSafe(this.thetaStart, 0), ThreeUtil.getAngleSafe(this.thetaLength, 360));
             }
@@ -1359,7 +1364,8 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
                 ThreeUtil.getTypeSafe(this.height, this.width, 1), 
                 ThreeUtil.getTypeSafe(this.depth, this.width, 1), 
                 ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), 
-                ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1)
+                ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+                ThreeUtil.getTypeSafe(this.depthRate, 1)
               );
             } else {
               geometry = new THREE.PlaneBufferGeometry(ThreeUtil.getTypeSafe(this.width, this.height, 1), ThreeUtil.getTypeSafe(this.height, this.width, 1), ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1), ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1));
@@ -1383,7 +1389,8 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
                 ThreeUtil.getTypeSafe(this.thetaSegments, 8),
                 ThreeUtil.getTypeSafe(this.phiSegments, 1),
                 ThreeUtil.getAngleSafe(this.thetaStart, 0),
-                ThreeUtil.getAngleSafe(this.thetaLength, 360)
+                ThreeUtil.getAngleSafe(this.thetaLength, 360),
+                ThreeUtil.getTypeSafe(this.depthRate, 1)
               );
             } else {
               geometry = new THREE.RingBufferGeometry(

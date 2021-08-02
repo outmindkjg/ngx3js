@@ -19,7 +19,6 @@
 		<code>
 			&lt;ngx3js-scene
 			[ background ]="..."
-			[ backgroundType ]="..."
 			[ castShadow ]="..."
 			[ debug ]="..."
 			[ enabled ]="..."
@@ -50,13 +49,6 @@
 		<p>
 			If not null, sets the background used when rendering the scene, and is always rendered first.<br>
 			Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
-		</p>
-
-		<h3>[property:string backgroundType]</h3>
-		<p>
-			Input  of scene component<br>
-			<br>
-			Notice - case insensitive.
 		</p>
 
 		<h3>[property:any environment]</h3>
@@ -132,27 +124,6 @@
 			Returns : scene dumpy
 		</p>
 
-		<h3>[method:Texture getTextureFromCubemap](  [param:CubeTexture texture] )</h3>
-		<p>
-			Gets texture from cubemap<br>
-			<br>
-			Returns : texture from cubemap
-		</p>
-
-		<h3>[method:Texture getTextureFromEquirectangular](  [param:Texture texture] )</h3>
-		<p>
-			Gets texture from equirectangular<br>
-			<br>
-			Returns : texture from equirectangular
-		</p>
-
-		<h3>[method:Texture getTextureFromScene](  [param:Scene scene] )</h3>
-		<p>
-			Gets texture from scene<br>
-			<br>
-			Returns : texture from scene
-		</p>
-
 		<h3>[method:Renderer getThreeRenderer](  )</h3>
 		<p>
 			Gets three renderer<br>
@@ -160,19 +131,9 @@
 			Returns : three renderer
 		</p>
 
-		<h3>[method:void setBackgroundTexture](  [param:Texture background],  [param:string backgroundType] )</h3>
-		<p>
-			Sets background texture
-		</p>
-
 		<h3>[method:void setClear](  )</h3>
 		<p>
 			Sets clear
-		</p>
-
-		<h3>[method:void setMaterial](  [param:mixed material],  [param:string materialTypeHint] )</h3>
-		<p>
-			Sets material
 		</p>
 
 		<h3>[method:void setRenderer](  [param:RendererComponent renderer] )</h3>

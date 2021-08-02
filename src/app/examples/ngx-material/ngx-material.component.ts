@@ -6,10 +6,16 @@ import { BaseComponent } from '../../three';
   templateUrl: './ngx-material.component.html',
   styleUrls: ['./ngx-material.component.scss']
 })
-export class NgxMaterialComponent extends BaseComponent<{}> {
+export class NgxMaterialComponent extends BaseComponent<{
+  depthRate : number
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      depthRate : 0.5
+    },[
+      { name : 'depthRate', type : 'number', min : 0, max : 1.5 }
+    ]);
   }
 
 }

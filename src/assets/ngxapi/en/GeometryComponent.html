@@ -39,6 +39,8 @@
 			[ body ]="..."
 			[ bottom ]="..."
 			[ closed ]="..."
+			[ color1 ]="..."
+			[ color2 ]="..."
 			[ curve ]="..."
 			[ curveNormal ]="..."
 			[ curveNormalOption ]="..."
@@ -49,6 +51,7 @@
 			[ curveType ]="..."
 			[ debug ]="..."
 			[ depth ]="..."
+			[ depthRate ]="..."
 			[ depthSegments ]="..."
 			[ detail ]="..."
 			[ enabled ]="..."
@@ -109,7 +112,6 @@
 			[ thetaLength ]="..."
 			[ thetaSegments ]="..."
 			[ thetaStart ]="..."
-			[ thresholdAngle ]="..."
 			[ tube ]="..."
 			[ tubularSegments ]="..."
 			[ type ]="..."
@@ -184,6 +186,16 @@
 			Input  of geometry component
 		</p>
 
+		<h3>[property:ThreeColor color1]</h3>
+		<p>
+			Grid Color axis X
+		</p>
+
+		<h3>[property:ThreeColor color2]</h3>
+		<p>
+			Grid Color axis Y
+		</p>
+
 		<h3>[property:string curve]</h3>
 		<p>
 			Input  of geometry component
@@ -231,6 +243,11 @@
 		<h3>[property:number depth]</h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthRate]</h3>
+		<p>
+			The Sharpen Rate of Depth
 		</p>
 
 		<h3>[property:number depthSegments]</h3>
@@ -537,11 +554,6 @@
 			Start angle for first segment, default = 0 (three o'clock position).
 		</p>
 
-		<h3>[property:number thresholdAngle]</h3>
-		<p>
-			Input  of geometry component
-		</p>
-
 		<h3>[property:number tube]</h3>
 		<p>
 			Input  of geometry component
@@ -571,7 +583,6 @@
 			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br>
 			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br>
 			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br>
-			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br>
 			MergeGeometry - mergebuffergeometries,  mergebuffergeometry, mergebuffer, merge<br>
 			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br>
 			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br>
@@ -590,8 +601,6 @@
 			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br>
 			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br>
 			[page:TubeGeometry TubeGeometry] - THREE.TubeGeometry - TubeGeometry, Tube<br>
-			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe<br>
-			WireframeGeometry2 - WireframeGeometry2, Wireframe2<br>
 			ConvexGeometry - ConvexGeometry, Convex<br>
 			DecalGeometry - DecalGeometry, Decal
 		</p>

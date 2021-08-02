@@ -29,15 +29,15 @@
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh [material]="material" [castShadow]="true">
         <ngx3js-position [x]="-3" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [material]="wireframe" [castShadow]="true">
         <ngx3js-position [x]="-3" [y]="0" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine">
         <ngx3js-position [x]="-3" [y]="0" [z]="1"></ngx3js-position>
-        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [thetaStart]="50" [thetaLength]="260" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'circle'" [radius]="1" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine">
         <ngx3js-position [x]="-3" [y]="0" [z]="2"></ngx3js-position>
@@ -46,32 +46,32 @@
 
       <ngx3js-mesh [material]="material" [castShadow]="true">
         <ngx3js-position [x]="-1" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [material]="wireframe" [castShadow]="true">
         <ngx3js-position [x]="-1" [y]="0" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="2" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine">
         <ngx3js-position [x]="-1" [y]="0" [z]="1"></ngx3js-position>
-        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="2" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine">
         <ngx3js-position [x]="-1" [y]="0" [z]="2"></ngx3js-position>
-        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'plane'" [width]="2" [height]="2" [widthSegments]="2" [heightSegments]="4" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
 
       <ngx3js-mesh [material]="material" [castShadow]="true">
         <ngx3js-position [x]="1" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [material]="wireframe" [castShadow]="true">
         <ngx3js-position [x]="1" [y]="0" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine" [castShadow]="true">
         <ngx3js-position [x]="1" [y]="0" [z]="1"></ngx3js-position>
-        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [thetaStart]="50" [thetaLength]="260" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'ring'" [outerRadius]="1" [innerRadius]="0.5" [phiSegments]="3" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="50" [thetaLength]="260" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine" [castShadow]="true">
         <ngx3js-position [x]="1" [y]="0" [z]="2"></ngx3js-position>
@@ -80,15 +80,15 @@
       
       <ngx3js-mesh [material]="material" [castShadow]="true">
         <ngx3js-position [x]="3" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [thetaStart]="0" [thetaLength]="220"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="0" [thetaLength]="220"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [material]="wireframe" [castShadow]="true">
         <ngx3js-position [x]="3" [y]="0" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [thetaStart]="0" [thetaLength]="220"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="0" [thetaLength]="220"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine" [castShadow]="true">
         <ngx3js-position [x]="3" [y]="0" [z]="1"></ngx3js-position>
-        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [thetaStart]="0" [thetaLength]="220" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'star'" [outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [depthRate]="controls.depthRate" [thetaStart]="0" [thetaLength]="220" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine" [castShadow]="true">
         <ngx3js-position [x]="3" [y]="0" [z]="2"></ngx3js-position>
@@ -96,15 +96,15 @@
       </ngx3js-mesh>
       <ngx3js-mesh [material]="material" [castShadow]="true">
         <ngx3js-position [x]="-1" [y]="2" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'box'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'box'" [width]="1.5" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [material]="wireframe" [castShadow]="true" >
         <ngx3js-position [x]="-1" [y]="2" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry [type]="'box'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'box'" [width]="1.5" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate"></ngx3js-geometry>
       </ngx3js-mesh>
       <ngx3js-mesh [type]="'Wireframe'" [material]="matLine">
         <ngx3js-position [x]="-1" [y]="2" [z]="2"></ngx3js-position>
-        <ngx3js-geometry [type]="'box'" [width]="2" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
+        <ngx3js-geometry [type]="'box'" [width]="1.5" [height]="2" [widthSegments]="3" [heightSegments]="4" [depth]="0.5" [depthRate]="controls.depthRate" [lineType]="'WireframeGeometry2'"></ngx3js-geometry>
       </ngx3js-mesh>
 
     </ngx3js-mesh>

@@ -1261,7 +1261,11 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	 */
 	protected applyChanges(changes: string[]) {
 		if (this.geometry !== null) {
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['name', 'refgeometry', 'align'], this.OBJECT_ATTR)) {
+			if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+				this.getGeometry();
+				return;
+			}
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['name', 'refgeometry', 'align'], this.GEOMETRY_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}

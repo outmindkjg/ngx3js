@@ -17,7 +17,8 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 		 depth: number;
 		 widthSegments: number;
 		 heightSegments: number;
-	 };
+		 depthRate : number;
+	};
 	 
 	/**
 	 * @param [width=1] — Width of the sides on the X axis.
@@ -25,8 +26,9 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 	 * @param [depth=1] — Depth of the sides on the Z axis.
 	 * @param [widthSegments=1] — Number of segmented faces along the width of the sides.
 	 * @param [heightSegments=1] — Number of segmented faces along the height of the sides.
+	 * @param [depthRate=1]
 	 */
-	constructor(width: number = 1, height: number = 1, depth: number = 1, widthSegments: number = 1, heightSegments: number = 1) {
+	constructor(width: number = 1, height: number = 1, depth: number = 1, widthSegments: number = 1, heightSegments: number = 1, depthRate : number = 1) {
 		super();
 		depth = Math.max(0.001, depth);
 		this.parameters = {
@@ -35,6 +37,7 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 			depth: depth,
 			widthSegments: widthSegments,
 			heightSegments: heightSegments,
+			depthRate : depthRate
 		};
 		const halfDepth = depth / 2;
 		const frontGeometry = new THREE.PlaneBufferGeometry(width, height, widthSegments, heightSegments);
@@ -80,7 +83,7 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 			sideUvsBack.push(uvX,0.5 - uvDepth);
 		}
 		for(let i = 0 ; i < gridY -1; i++) {
-			const idx = i * gridX + gridY - 2;
+			const idx = (i + 1) * gridX - 1;
 			frontVertices.push(frontAttribute.getX(idx), frontAttribute.getY(idx), frontAttribute.getZ(idx));
 			backVertices.push(backAttribute.getX(idx), backAttribute.getY(idx), backAttribute.getZ(idx));
 			sideNormals.push(0,0,0);
@@ -108,6 +111,21 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 		}
 		vertices.push(...frontVertices);
 		vertices.push(...backVertices);
+		if (depthRate !== 1) {
+			let x = 0;
+			let y = 0;
+			let z = 0;
+			for (let i = 0 ; i < vertices.length ; i += 3) {
+				x = vertices[i];
+				y = vertices[i + 1];
+				z = vertices[i + 2];
+				if (Math.abs( x * height ) > Math.abs( y * width )) {
+					vertices[i + 2] +=  -z * (1 - depthRate) * Math.abs(x / (width / 2 ));
+				} else {
+					vertices[i + 2] +=  -z * (1 - depthRate) * Math.abs(y / (height / 2 ));
+				}
+			}
+		}
 		attribute = frontGeometry.getAttribute('normal').array;
 		for (let i = 0; i < attribute.length; i++) {
 			normals.push(attribute[i]);
@@ -153,7 +171,6 @@ export class PlaneDepthGeometry extends THREE.BufferGeometry {
 		} 
 		this.addGroup(groupStart, groupEnd - groupStart, 2);
 		groupStart = groupEnd;
-
 		this.setIndex(indices);
 		this.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		this.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
