@@ -11,7 +11,7 @@ npx typedoc --out docs
 npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
 npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
 
-
+npm run maxbuildprod
 
 ng new my-app
 cd my-app
