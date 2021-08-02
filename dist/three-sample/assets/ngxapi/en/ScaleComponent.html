@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			ScaleComponent
+		</p>
+
+		<h2>Component</h2>
+		<code>
+			&lt;ngx3js-scale
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ multiply ]="..."
+			[ refer ]="..."
+			[ scaleMode ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+			[ z ]="..."
+		&gt;&lt;/ngx3js-scale&gt;
+		</code>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+
+		<h3>[property:number multiply]</h3>
+		<p>
+			Multiplies this vector by scalar [page:Float s].
+		</p>
+
+		<h3>[property:any refer]</h3>
+		<p>
+			Input  of scale component
+		</p>
+
+		<h3>[property:string scaleMode]</h3>
+		<p>
+			Input  of scale component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number x]</h3>
+		<p>
+			The current value of the x component. Default value is *1*.
+		</p>
+
+		<h3>[property:number y]</h3>
+		<p>
+			The current value of the y component. Default value is *1*.
+		</p>
+
+		<h3>[property:number z]</h3>
+		<p>
+			The current value of the z component. Default value is *1*.
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<p>
+			Applys changes<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:Vector3 getScale](  )</h3>
+		<p>
+			Gets scale<br>
+			<br>
+			Returns : scale
+		</p>
+
+		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
+		<p>
+			Gets tag attribute<br>
+			<br>
+			Returns : tag attribute
+		</p>
+
+		<h3>[method:void setObject3d](  [param:Object3D object3d] )</h3>
+		<p>
+			Sets object3d
+		</p>
+
+		<h3>[method:void setScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets scale
+		</p>
+
+		<h3>[method:void synkObject3d](  [param:Vector3 rotation] )</h3>
+		<p>
+			Synks object3d
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/scale/scale.component.ts scale/scale.component.ts]</p>
+	</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			RendererComponent
+		</p>
+
+		<h2>Component</h2>
+		<code>
+			&lt;ngx3js-renderer
+			[ antialias ]="..."
+			[ autoClear ]="..."
+			[ autoClearColor ]="..."
+			[ beforeRender ]="..."
+			[ camera ]="..."
+			[ clearAlpha ]="..."
+			[ clearColor ]="..."
+			[ controlOptions ]="..."
+			[ controlType ]="..."
+			[ cssType ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			( eventListener )="...($event)"
+			[ globalClippingEnabled ]="..."
+			[ guiControl ]="..."
+			[ guiParams ]="..."
+			[ height ]="..."
+			[ localClippingEnabled ]="..."
+			[ logarithmicDepthBuffer ]="..."
+			( onRender )="...($event)"
+			[ outputEncoding ]="..."
+			[ physicallyCorrectLights ]="..."
+			[ preserveDrawingBuffer ]="..."
+			[ quality ]="..."
+			[ scene ]="..."
+			[ shadowMapEnabled ]="..."
+			[ shadowMapType ]="..."
+			[ sizeType ]="..."
+			[ statsMode ]="..."
+			[ toneMapping ]="..."
+			[ toneMappingExposure ]="..."
+			[ type ]="..."
+			[ useEvent ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+		&gt;&lt;/ngx3js-renderer&gt;
+		</code>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+
+		<h3>[property:boolean antialias]</h3>
+		<p>
+			whether to perform antialiasing. Default is *false*.
+		</p>
+
+		<h3>[property:boolean autoClear]</h3>
+		<p>
+			Defines whether the renderer should automatically clear its output before rendering a frame.
+		</p>
+
+		<h3>[property:boolean autoClearColor]</h3>
+		<p>
+			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.<br>
+				Default is *true*.
+		</p>
+
+		<h3>[property:any beforeRender]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:CameraComponent camera]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:number clearAlpha]</h3>
+		<p>
+			Sets the alpha of the clear color
+		</p>
+
+		<h3>[property:mixed clearColor]</h3>
+		<p>
+			Sets the clear color<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:any controlOptions]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:string controlType]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string cssType]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean globalClippingEnabled]</h3>
+		<p>
+			User-defined clipping planes specified as THREE.Plane objects in world space.
+		</p>
+
+		<h3>[property:any guiControl]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:GuiControlParam guiParams][]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:mixed height]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean localClippingEnabled]</h3>
+		<p>
+			Defines whether the renderer respects object-level clipping planes. Default is *false*.
+		</p>
+
+		<h3>[property:boolean logarithmicDepthBuffer]</h3>
+		<p>
+			whether to use a logarithmic depth buffer. It may<br>
+			be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting<br>
+			uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test]<br>
+			optimization and can cause a decrease in performance.<br>
+			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
+		</p>
+
+		<h3>[property:string outputEncoding]</h3>
+		<p>
+			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].<br>
+			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean physicallyCorrectLights]</h3>
+		<p>
+			Whether to use physically correct lighting mode. Default is *false*.<br>
+			See the [example:webgl_lights_physical lights / physical] example.
+		</p>
+
+		<h3>[property:boolean preserveDrawingBuffer]</h3>
+		<p>
+			whether to preserve the buffers until manually cleared<br>
+			or overwritten. Default is *false*.
+		</p>
+
+		<h3>[property:string quality]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:SceneComponent scene]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:boolean shadowMapEnabled]</h3>
+		<p>
+			If set, use shadow maps in the scene. Default is *true*.
+		</p>
+
+		<h3>[property:string shadowMapType]</h3>
+		<p>
+			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)<br>
+			Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string sizeType]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number statsMode]</h3>
+		<p>
+			Input  of renderer component
+		</p>
+
+		<h3>[property:string toneMapping]</h3>
+		<p>
+			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number toneMappingExposure]</h3>
+		<p>
+			Exposure level of tone mapping. Default is *1*.
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string useEvent]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:mixed width]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed x]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed y]</h3>
+		<p>
+			Input  of renderer component<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+
+		<h3>[property:EventEmitter eventListener]</h3>
+		<p>
+			Output  of renderer component
+		</p>
+
+		<h3>[property:EventEmitter onRender]</h3>
+		<p>
+			Output  of renderer component
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:any addEvent](  [param:string type],  [param:any listener] )</h3>
+		<p>
+			Adds event<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<p>
+			Applys changes<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void changeAutoSize](  )</h3>
+		<p>
+			Changes auto size
+		</p>
+
+		<h3>[method:void getCanvasJson](  [param:any callback],  [param:any options] )</h3>
+		<p>
+			Gets canvas json
+		</p>
+
+		<h3>[method:T getObject](  )</h3>
+		<p>
+			Gets Object<br>
+			<br>
+			Returns : Object
+		</p>
+
+		<h3>[method:Renderer getRenderer](  )</h3>
+		<p>
+			Gets Renderer<br>
+			<br>
+			Returns : Renderer
+		</p>
+
+		<h3>[method:Vector2 getSize](  )</h3>
+		<p>
+			Gets size<br>
+			<br>
+			Returns : size
+		</p>
+
+		<h3>[method:void render](  )</h3>
+		<p>
+			Renders renderer component<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )</h3>
+		<p>
+			Resizes canvas
+		</p>
+
+		<h3>[method:void resizeRender](  )</h3>
+		<p>
+			Hosts listener
+		</p>
+
+		<h3>[method:void setSize](  [param:number width],  [param:number height] )</h3>
+		<p>
+			Sets size
+		</p>
+
+		<h3>[method:Observable sizeSubscribe](  )</h3>
+		<p>
+			Sizes subscribe<br>
+			<br>
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Observable updateSubscribe](  )</h3>
+		<p>
+			Updates subscribe<br>
+			<br>
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Observable userGestureSubscribe](  [param:HTMLElement ele] )</h3>
+		<p>
+			Users gesture subscribe<br>
+			<br>
+			Returns : gesture subscribe
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/renderer/renderer.component.ts renderer/renderer.component.ts]</p>
+	</body>
+</html>

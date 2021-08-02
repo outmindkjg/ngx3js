@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			PhysicsComponent
+		</p>
+
+		<h2>Component</h2>
+		<code>
+			&lt;ngx3js-physics
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ gravity ]="..."
+			[ gravityX ]="..."
+			[ gravityY ]="..."
+			[ gravityZ ]="..."
+			[ type ]="..."
+			[ useCollision ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-physics&gt;
+		</code>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+
+		<h3>[property:number gravity]</h3>
+		<p>
+			Input  of physics component
+		</p>
+
+		<h3>[property:number gravityX]</h3>
+		<p>
+			Input  of physics component
+		</p>
+
+		<h3>[property:number gravityY]</h3>
+		<p>
+			Input  of physics component
+		</p>
+
+		<h3>[property:number gravityZ]</h3>
+		<p>
+			Input  of physics component
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			Input  of physics component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean useCollision]</h3>
+		<p>
+			Input  of physics component
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<p>
+			Applys changes<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void getAmmo](  )</h3>
+		<p>
+			Gets ammo<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:btVector3 getBtVector3](  [param:any pointer] )</h3>
+		<p>
+			Gets bt vector3<br>
+			<br>
+			Returns : bt vector3
+		</p>
+
+		<h3>[method:Object3D getCollisionObject](  [param:btCollisionObject body] )</h3>
+		<p>
+			Gets collision object<br>
+			<br>
+			Returns : collision object
+		</p>
+
+		<h3>[method:ConvexObjectBreaker getConvexObjectBreaker](  )</h3>
+		<p>
+			Gets convex object breaker<br>
+			<br>
+			Returns : convex object breaker
+		</p>
+
+		<h3>[method:btSoftRigidDynamicsWorld getPhysics](  )</h3>
+		<p>
+			Gets physics<br>
+			<br>
+			Returns : physics
+		</p>
+
+		<h3>[method:btRigidBody getRigidBody](  [param:btCollisionObject body] )</h3>
+		<p>
+			Gets rigid body<br>
+			<br>
+			Returns : rigid body
+		</p>
+
+		<h3>[method:btSoftBodyHelpers getSoftBodyHelpers](  )</h3>
+		<p>
+			Gets soft body helpers<br>
+			<br>
+			Returns : soft body helpers
+		</p>
+
+		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
+		<p>
+			Updates physics component
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/physics/physics.component.ts physics/physics.component.ts]</p>
+	</body>
+</html>

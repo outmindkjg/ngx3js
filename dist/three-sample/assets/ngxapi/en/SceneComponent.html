@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			SceneComponent
+		</p>
+
+		<h2>Component</h2>
+		<code>
+			&lt;ngx3js-scene
+			[ background ]="..."
+			[ castShadow ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ environment ]="..."
+			[ frustumCulled ]="..."
+			[ matrixAutoUpdate ]="..."
+			[ name ]="..."
+			[ receiveShadow ]="..."
+			[ storageName ]="..."
+			[ tweenStart ]="..."
+			[ visible ]="..."
+			[ windowExport ]="..."
+		&gt;&lt;/ngx3js-scene&gt;
+		</code>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+		</p>
+
+		<h3>[property:any background]</h3>
+		<p>
+			If not null, sets the background used when rendering the scene, and is always rendered first.<br>
+			Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
+		</p>
+
+		<h3>[property:any environment]</h3>
+		<p>
+			If not null, this texture is set as the environment map for all physical materials in the scene.<br>
+			However, it's not possible to overwrite an existing texture assigned to [page:MeshStandardMaterial.envMap]. Default is null.
+		</p>
+
+		<h3>[property:string storageName]</h3>
+		<p>
+			Input  of scene component
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<p>
+			Applys changes3d
+		</p>
+
+		<h3>[method:any getJson](  )</h3>
+		<p>
+			Gets json<br>
+			<br>
+			Returns : json
+		</p>
+
+		<h3>[method:T getObject3d](  )</h3>
+		<p>
+			Gets object3d<br>
+			<br>
+			Returns : object3d
+		</p>
+
+		<h3>[method:RendererComponent getRenderer](  )</h3>
+		<p>
+			Gets renderer<br>
+			<br>
+			Returns : renderer
+		</p>
+
+		<h3>[method:Scene getScene](  )</h3>
+		<p>
+			Gets scene<br>
+			<br>
+			Returns : scene
+		</p>
+
+		<h3>[method:Scene getSceneDumpy](  )</h3>
+		<p>
+			Gets scene dumpy<br>
+			<br>
+			Returns : scene dumpy
+		</p>
+
+		<h3>[method:Renderer getThreeRenderer](  )</h3>
+		<p>
+			Gets three renderer<br>
+			<br>
+			Returns : three renderer
+		</p>
+
+		<h3>[method:void setClear](  )</h3>
+		<p>
+			Sets clear
+		</p>
+
+		<h3>[method:void setRenderer](  [param:RendererComponent renderer] )</h3>
+		<p>
+			Sets renderer
+		</p>
+
+		<h3>[method:void setSavelocalStorage](  [param:string storageName] )</h3>
+		<p>
+			Sets savelocal storage<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
+		<p>
+			Updates scene component
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/scene/scene.component.ts scene/scene.component.ts]</p>
+	</body>
+</html>

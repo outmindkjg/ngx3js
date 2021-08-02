@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+
+		<h1>[name]</h1>
+
+		<p class="desc">
+			CameraComponent<br>
+			<br>
+			Abstract base class for cameras. This class should always be inherited when you build a new camera.
+		</p>
+
+		<h2>Component</h2>
+		<code>
+			&lt;ngx3js-camera
+			[ active ]="..."
+			[ aspect ]="..."
+			[ autoClear ]="..."
+			[ autoRotate ]="..."
+			[ bottom ]="..."
+			[ castShadow ]="..."
+			[ clear ]="..."
+			[ clearAlpha ]="..."
+			[ clearColor ]="..."
+			[ clearDepth ]="..."
+			[ controlType ]="..."
+			[ debug ]="..."
+			[ enabled ]="..."
+			[ far ]="..."
+			[ focalLength ]="..."
+			[ fov ]="..."
+			[ frustumCulled ]="..."
+			[ height ]="..."
+			[ left ]="..."
+			[ material ]="..."
+			[ matrixAutoUpdate ]="..."
+			[ name ]="..."
+			[ near ]="..."
+			[ orthoSize ]="..."
+			[ receiveShadow ]="..."
+			[ referObject3d ]="..."
+			[ right ]="..."
+			[ scene ]="..."
+			[ scenes ]="..."
+			[ scissorHeight ]="..."
+			[ scissorTest ]="..."
+			[ scissorWidth ]="..."
+			[ scissorX ]="..."
+			[ scissorY ]="..."
+			[ storageName ]="..."
+			[ top ]="..."
+			[ tweenStart ]="..."
+			[ type ]="..."
+			[ viewport ]="..."
+			[ viewportType ]="..."
+			[ visible ]="..."
+			[ width ]="..."
+			[ windowExport ]="..."
+			[ x ]="..."
+			[ y ]="..."
+			[ zoom ]="..."
+		&gt;&lt;/ngx3js-camera&gt;
+		</code>
+
+		<h2>Properties - Input</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+		</p>
+
+		<h3>[property:boolean active]</h3>
+		<p>
+			The camera is active.
+		</p>
+
+		<h3>[property:number aspect]</h3>
+		<p>
+			Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).
+		</p>
+
+		<h3>[property:boolean autoClear]</h3>
+		<p>
+			Defines whether the renderer should automatically clear its output before rendering a frame.
+		</p>
+
+		<h3>[property:boolean autoRotate]</h3>
+		<p>
+			Input  of camera component
+		</p>
+
+		<h3>[property:number bottom]</h3>
+		<p>
+			Camera frustum bottom plane.
+		</p>
+
+		<h3>[property:boolean clear]</h3>
+		<p>
+			Tells the renderer to clear its color, depth or stencil drawing buffer(s).<br>
+			This method initializes the color buffer to the current clear color value.<br>
+			Arguments default to *true*.
+		</p>
+
+		<h3>[property:number clearAlpha]</h3>
+		<p>
+			Input  of camera component
+		</p>
+
+		<h3>[property:ThreeColor clearColor]</h3>
+		<p>
+			Clear the color buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( true, false, false ).
+		</p>
+
+		<h3>[property:boolean clearDepth]</h3>
+		<p>
+			Clear the depth buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( false, true, false ).
+		</p>
+
+		<h3>[property:string controlType]</h3>
+		<p>
+			Input  of camera component<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:mixed far]</h3>
+		<p>
+			Camera frustum far plane. Default is *2000*.<br>
+			Must be greater than the current value of [page:.near near] plane.<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:number focalLength]</h3>
+		<p>
+			Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br>
+			By default, the focal length is specified for a 35mm (full frame) camera.
+		</p>
+
+		<h3>[property:mixed fov]</h3>
+		<p>
+			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed height]</h3>
+		<p>
+			The viewport of this render target.<br>
+			Vector4.height<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:number left]</h3>
+		<p>
+			Camera frustum left plane.
+		</p>
+
+		<h3>[property:any material]</h3>
+		<p>
+			Input  of camera component
+		</p>
+
+		<h3>[property:mixed near]</h3>
+		<p>
+			Camera frustum near plane. Default is *0.1*.<br>
+			The valid range is between 0 and the current value of the [page:.far far] plane.<br>
+			Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an<br>
+			OrthographicCamera's near plane.<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:number orthoSize]</h3>
+		<p>
+			orthoSize  of camera component
+		</p>
+
+		<h3>[property:mixed referObject3d]</h3>
+		<p>
+			Input  of camera component<br>
+			<br>
+			[page:AbstractObject3dComponent AbstractObject3dComponent] | [page:Object3D Object3D]
+		</p>
+
+		<h3>[property:number right]</h3>
+		<p>
+			Camera frustum right plane.
+		</p>
+
+		<h3>[property:any scene]</h3>
+		<p>
+			The given scene
+		</p>
+
+		<h3>[property:any scenes][]</h3>
+		<p>
+			The given scene
+		</p>
+
+		<h3>[property:mixed scissorHeight]</h3>
+		<p>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			Vector4.height<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean scissorTest]</h3>
+		<p>
+			Indicates whether the scissor test is active or not.
+		</p>
+
+		<h3>[property:mixed scissorWidth]</h3>
+		<p>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			Vector4.width<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed scissorX]</h3>
+		<p>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			Vector4.x<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed scissorY]</h3>
+		<p>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			Vector4.y<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:string storageName]</h3>
+		<p>
+			Input  of camera component
+		</p>
+
+		<h3>[property:number top]</h3>
+		<p>
+			Camera frustum top plane.
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			The type of camera<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - PerspectiveCamera, Perspective<br>
+			[page:ArrayCamera ArrayCamera] - THREE.ArrayCamera       - ArrayCamera, Array<br>
+			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - CubeCamera, Cube<br>
+			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera - OrthographicCamera, Orthographic<br>
+			[page:StereoCamera StereoCamera] - THREE.StereoCamera      - StereoCamera, Stereo
+		</p>
+
+		<h3>[property:boolean viewport]</h3>
+		<p>
+			The viewport of this render target.
+		</p>
+
+		<h3>[property:string viewportType]</h3>
+		<p>
+			The viewport of this render target.<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:mixed width]</h3>
+		<p>
+			The viewport of this render target.<br>
+			Vector4.width<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed x]</h3>
+		<p>
+			The viewport of this render target.<br>
+			Vector4.x<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed y]</h3>
+		<p>
+			The viewport of this render target.<br>
+			Vector4.y<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:mixed zoom]</h3>
+		<p>
+			Gets or sets the zoom factor of the camera. Default is *1*.<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h2>Properties - Output</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<p>
+			Applys changes3d<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:T getCamera](  )</h3>
+		<p>
+			Gets camera<br>
+			<br>
+			Returns : camera
+		</p>
+
+		<h3>[method:WebGLCubeRenderTarget getCubeRenderTarget](  )</h3>
+		<p>
+			Gets cube render target<br>
+			<br>
+			Returns : cube render target
+		</p>
+
+		<h3>[method:Intersection getIntersection](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
+		<p>
+			Gets intersection<br>
+			<br>
+			Returns : intersection
+		</p>
+
+		<h3>[method:void getIntersections](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
+		<p>
+			Gets intersections<br>
+			<br>
+			Returns : intersections
+		</p>
+
+		<h3>[method:T getObject3d](  )</h3>
+		<p>
+			Gets object3d<br>
+			<br>
+			Returns : object3d
+		</p>
+
+		<h3>[method:Raycaster getRaycaster](  [param:Vector2 mouse] )</h3>
+		<p>
+			Gets raycaster<br>
+			<br>
+			Returns : raycaster
+		</p>
+
+		<h3>[method:Renderer getRenderer](  )</h3>
+		<p>
+			Gets renderer<br>
+			<br>
+			Returns : renderer
+		</p>
+
+		<h3>[method:Scene getScene](  [param:any scenes] )</h3>
+		<p>
+			Gets scene<br>
+			<br>
+			Returns : scene
+		</p>
+
+		<h3>[method:Vector2 getSize](  )</h3>
+		<p>
+			Gets size<br>
+			<br>
+			Returns : size
+		</p>
+
+		<h3>[method:WebGLCubeRenderTarget getTexture](  )</h3>
+		<p>
+			Gets texture<br>
+			<br>
+			Returns : texture
+		</p>
+
+		<h3>[method:void render](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:any scenes],  [param:RendererTimer renderTimer] )</h3>
+		<p>
+			Renders camera component<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:void setCameraSize](  [param:number width],  [param:number height] )</h3>
+		<p>
+			Sets camera size
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<p>
+			Sets parent<br>
+			<br>
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:QueryList rendererScenes] )</h3>
+		<p>
+			Sets renderer
+		</p>
+
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/camera/camera.component.ts camera/camera.component.ts]</p>
+	</body>
+</html>
