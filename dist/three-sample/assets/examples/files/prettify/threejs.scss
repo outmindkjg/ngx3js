@@ -1,0 +1,24 @@
+pre.prettyprint,
+code.prettyprint {
+  background-color: #f5f5f5;
+  font-family: 'Roboto Mono', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  pre.prettyprint,
+  code.prettyprint {
+    background-color: #363636;
+    color: #a0a0a0;
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-subst {
+      color: #a0a0a0;
+    }
+    .hljs-tag,
+    .hljs-name,
+    .hljs-attribute {
+      color: #aaaacc;
+      font-weight: normal;
+    }
+  }
+}
