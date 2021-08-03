@@ -1,7 +1,6 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl video demo<br/>
   playing <a href="http://durian.blender.org/" target="_blank" rel="noopener">sintel</a> trailer
-  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -24,7 +23,9 @@
     >
       <ngx3js-position [x]="0.5" [y]="1" [z]="1" [normalize]="true"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-texture #texture [image]="'textures/sintel.mp4'" [loaderType]="'video'"></ngx3js-texture>
+    <ngx3js-shared>
+      <ngx3js-texture #texture [image]="'textures/sintel.mp4'" [loaderType]="'video'"></ngx3js-texture>
+    </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh *ngFor="let info of boxInfos" [userData]="{ dx : info.dx, dy : info.dy }">
         <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>

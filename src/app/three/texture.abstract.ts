@@ -408,12 +408,14 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 */
 	ngOnDestroy(): void {
 		if (this.texture !== null) {
-			if (this.texture instanceof THREE.VideoTexture && ThreeUtil.isNotNull(this.texture.image.srcObject.getTracks)) {
-				this.texture.image.srcObject.getTracks().forEach( track => {
-					track.stop();
-				});
-			} else if (this.texture.image instanceof HTMLMediaElement) {
-				this.texture.image.pause();
+			if (ThreeUtil.isNotNull(this.texture.image)) {
+				if (this.texture instanceof THREE.VideoTexture && ThreeUtil.isNotNull(this.texture.image.srcObject) && ThreeUtil.isNotNull(this.texture.image.srcObject.getTracks)) {
+					this.texture.image.srcObject.getTracks().forEach((track) => {
+						track.stop();
+					});
+				} else if (this.texture.image instanceof HTMLMediaElement) {
+					this.texture.image.pause();
+				}
 			}
 			this.texture.dispose();
 			this.texture = null;
@@ -913,7 +915,6 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 			switch ((loaderType || 'texture').toLowerCase()) {
 				case 'video':
 					const video = document.createElement('video');
-					const videoTexture = new THREE.VideoTexture(video);
 					video.loop = true;
 					video.crossOrigin = 'anonymous';
 					if (fileName.endsWith('.webcam')) {
@@ -923,6 +924,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 								.then((stream) => {
 									video.srcObject = stream;
 									video.play();
+									window.setTimeout(() => {
+										onLoad();
+									}, 500);
 								})
 								.catch((error) => {
 									console.error('Unable to access the camera/webcam.', error);
@@ -932,11 +936,14 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 						}
 					} else {
 						video.addEventListener('play', () => {
-							onLoad();
+							window.setTimeout(() => {
+								onLoad();
+							}, 500);
 						});
 						video.src = ThreeUtil.getStoreUrl(image);
 						video.play();
 					}
+					const videoTexture = new THREE.VideoTexture(video);
 					return videoTexture;
 				case 'imagebitmap':
 				case 'image':
@@ -1316,6 +1323,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 */
 	protected applyMaterial() {
 		if (this.material !== null && this.texture !== null) {
+			if (this.texture instanceof THREE.VideoTexture && this.texture.image.readyState === 0) {
+				return ;
+			}
 			if (this.material instanceof THREE.Material) {
 				switch (this.type.toLowerCase()) {
 					case 'matcap':

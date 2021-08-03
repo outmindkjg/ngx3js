@@ -1239,10 +1239,6 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
       if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
         return;
       }
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['name', 'refgeometry', 'align'], this.OBJECT_ATTR)) {
-				// this.needUpdate = true;
-				return;
-			}
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'blending':

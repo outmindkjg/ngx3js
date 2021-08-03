@@ -2341,7 +2341,10 @@ export class ThreeUtil {
     if (texture instanceof THREE.Texture) {
       return texture;
     } else if (this.isNotNull(texture.getTexture)) {
-      return texture.getTexture();
+      const foundTexture = texture.getTexture();
+      if (!(foundTexture instanceof THREE.VideoTexture) || foundTexture.image.readyState > 0) {
+        return foundTexture;
+      }
     } else if (this.isNotNull(texture)) {
       const material = this.getMaterial(texture);
       if (Array.isArray(material) && material.length > 0) {
