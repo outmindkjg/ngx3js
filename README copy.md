@@ -11,6 +11,8 @@ npx typedoc --out docs
 npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
 npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
 
+git remote set-url origin https://github.com/outmindkjg/ngx3js.git
+git remote -v
 npm run maxbuildprod
 
 ng new my-app
