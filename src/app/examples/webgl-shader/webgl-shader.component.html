@@ -27,15 +27,5 @@
       <ngx3js-material [type]="'Shader'" [shader]="'ShaderDemo7'" [uniforms]="{ time : { type : 'number', value : 1.0 }}"></ngx3js-material>
       <ngx3js-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : controls.speed }"></ngx3js-controller>
     </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="2"
-        [height]="2"
-        [depth]="2"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0x550000'" [specular]="'0xff2200'" [shininess]="5" [depthTest]="false"></ngx3js-material>
-    </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

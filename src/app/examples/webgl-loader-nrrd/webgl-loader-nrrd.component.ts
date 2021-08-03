@@ -48,11 +48,13 @@ export class WebglLoaderNrrdComponent extends BaseComponent<{
   }
 
   volume : any = null;
+  volumeMesh : any = null;
   setVolume(mesh : MeshComponent) {
-    this.volume = mesh.storageSource;
+    this.volumeMesh = mesh.getMesh();
   }
 
   setVolumeAttribute(type : string, value : number) {
+    this.volume = this.volumeMesh.userData.storageSource;
     if (this.volume !== null) {
       const volumeValue = this.volume.min + Math.floor((this.volume.max - this.volume.min) * value);
       switch(type) {

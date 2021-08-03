@@ -107,16 +107,16 @@ export class WebglCameraComponent extends BaseComponent<{
       const sphere1Position = this.mesh.getPosition();
       this.cameraRig.setLookat(sphere1Position.x, sphere1Position.y, sphere1Position.z);
     }
-    if (this.cameraPerspective !== null && this.cameraOrthographic !== null) {
+    if (this.cameraPerspective !== null && this.cameraOrthographic !== null && this.mesh !== null) {
       if (this.cameraPerspective === this.cameraControl) {
-        this.cameraPerspective.updateInputParams({
-            fov : 35 + 30 * Math.sin( 0.5 * r ),
-            far : this.mesh.getPosition().length()
-        })
+        const cameraPerspective:THREE.PerspectiveCamera = this.cameraPerspective.getCamera();
+        cameraPerspective.fov =35 + 30 * Math.sin( 0.5 * r );
+        cameraPerspective.far = this.mesh.getPosition().length();
+        cameraPerspective.updateProjectionMatrix();
       } else if (this.cameraOrthographic === this.cameraControl) {
-        this.cameraOrthographic.updateInputParams({
-          far : this.mesh.getPosition().length()
-        })
+        const cameraOrthographic:THREE.OrthographicCamera = this.cameraOrthographic.getCamera();
+        cameraOrthographic.far = this.mesh.getPosition().length();
+        cameraOrthographic.updateProjectionMatrix();
       }
     }
   }

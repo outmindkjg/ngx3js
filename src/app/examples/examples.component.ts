@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RendererComponent, ThreeUtil } from './../three';
 import { HttpClient } from "@angular/common/http";
+import { MenuComponent } from '../menu/menu.component';
 
 export interface SearchMenu {
   id: string;
@@ -27,6 +28,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
   @ViewChild('search') search: ElementRef;
   @ViewChild('github') gitHub: ElementRef;
   @ViewChild('ngxGithub') ngxGithub: ElementRef;
+  @ViewChild('menu') menu: MenuComponent;
   
   private subscription: Subscription;
 
@@ -70,9 +72,10 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
         }
       }
       if (selected !== null) {
+        this.menu.toggleMenu();
         selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-    }, 2000);
+    }, 1000);
   }
 
   ngAfterViewInit() {}

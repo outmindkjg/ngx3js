@@ -637,7 +637,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
         case 'pointlight':
         case 'point':
-          const pointLight = new THREE.PointLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getTypeSafe(this.decay, ));
+          const pointLight = new THREE.PointLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance), ThreeUtil.getTypeSafe(this.decay));
           basemesh = pointLight;
           break;
         case 'arealight':
@@ -648,7 +648,7 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
           break;
         case 'spotlight':
         case 'spot':
-          const spotLight = new THREE.SpotLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance, ), ThreeUtil.getAngleSafe(this.angle,), ThreeUtil.getTypeSafe(this.penumbra, ), ThreeUtil.getTypeSafe(this.decay, ));
+          const spotLight = new THREE.SpotLight(ThreeUtil.getColorSafe(this.color, 0xffffff), ThreeUtil.getTypeSafe(this.intensity, 1), ThreeUtil.getTypeSafe(this.distance), ThreeUtil.getAngleSafe(this.angle), ThreeUtil.getTypeSafe(this.penumbra), ThreeUtil.getTypeSafe(this.decay));
           if (ThreeUtil.isNotNull(this.shadowFocus)) {
             spotLight.shadow.focus = ThreeUtil.getTypeSafe(this.shadowFocus, 1);
           }

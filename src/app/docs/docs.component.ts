@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MenuComponent } from "../menu/menu.component";
 
 export interface SearchMenu {
   id: string;
@@ -28,6 +29,7 @@ export class DocsComponent implements OnInit {
   @ViewChild('search') search: ElementRef;
   @ViewChild('panel') panel: ElementRef;
   @ViewChild('gitHub') gitHub: ElementRef;
+  @ViewChild('menu') menu: MenuComponent;
     
 
   private subscription: Subscription;
@@ -94,9 +96,9 @@ export class DocsComponent implements OnInit {
         }
       }
       if (selected !== null) {
+        this.menu.toggleMenu();
         selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
-      this.panel.nativeElement.classList.remove('open');
     }, 1000);
   }
 

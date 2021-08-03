@@ -405,7 +405,7 @@ function getShaders() {
 
 	if ( shaders === null ) {
 
-		const loader = new TextureLoader().setPath( './textures/tiltbrush/' );
+		const loader = new TextureLoader().setPath( './assets/examples/textures/tiltbrush/' );
 
 		shaders = {
 			'Light': {

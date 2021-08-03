@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
+import { Object3D } from 'three';
+import { BaseComponent, LightComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-materials',
@@ -42,8 +43,6 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
     context.putImageData( image, 0, 0 );
   }
 
-  pointLightPosition : { x : number, y : number, z : number} = { x : 0, y : 0, z : 0}
-
   addMeshInfo(idx, materialType : string, materialInfo : any) {
     this.meshInfos.push({
       position : {
@@ -63,6 +62,11 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
     })
   }
 
+  pointLight : Object3D = null;
+  setPointLight(light : LightComponent) {
+    this.pointLight = light.getLight();
+  }
+  
   meshInfos : { 
     position : {x : number, y : number, z : number},
     rotation : {x : number, y : number, z : number},
@@ -84,10 +88,12 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     const elapsedTime = timer.elapsedTime * 0.1;
-    this.pointLightPosition = {
-      x : Math.sin( elapsedTime * 7 ) * 300,
-      y : Math.cos( elapsedTime * 5 ) * 400,
-      z : Math.cos( elapsedTime * 3 ) * 300
+    if (this.pointLight !== null) {
+      this.pointLight.position.set(
+        Math.sin( elapsedTime * 7 ) * 300,
+        Math.cos( elapsedTime * 5 ) * 400,
+        Math.cos( elapsedTime * 3 ) * 300
+      );
     }
     if (this.mesh !== null) {
       const children = this.mesh.getObject3d().children;

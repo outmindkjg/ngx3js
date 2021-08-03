@@ -190,6 +190,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
   @Input() private guiParams: GuiControlParam[] = [];
 
   /**
+   * Input  of renderer component
+   */
+   @Input() private guiOpen: boolean = false;
+
+  /**
    * whether to use a logarithmic depth buffer. It may
    * be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting
    * uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test]
@@ -973,7 +978,12 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
               this.gui = null;
             }
             if (ThreeUtil.isNotNull(this.guiControl) && ThreeUtil.isNotNull(this.guiParams) && this.guiParams.length > 0) {
-              ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
+              const gui = ThreeUtil.setupGui(this.guiControl, this.getGui(), this.guiParams);
+              if (this.guiOpen) {
+                gui.open();
+              } else {
+                gui.close();
+              }
             }
             break;
           case 'useevent':

@@ -7,14 +7,13 @@
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="40" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
+  <ngx3js-scene #scene>
     <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
       <ngx3js-position [x]="0" [y]="73" [z]="100"></ngx3js-position>
     </ngx3js-camera>

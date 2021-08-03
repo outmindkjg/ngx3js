@@ -32,7 +32,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 	 * If not null, sets the background used when rendering the scene, and is always rendered first.
 	 * Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
 	 */
-	@Input() private background: ThreeTexture | ThreeColor  = null;
+	@Input() private background: ThreeTexture | ThreeColor = null;
 
 	/**
 	 * If not null, this texture is set as the environment map for all physical materials in the scene.
@@ -215,42 +215,42 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 	 */
 	private _physics: PhysicsComponent = null;
 
-  /**
-   * Gets texture option
-   * @param map
-   * @param name
-   * @returns texture option
-   */
-  private getTextureOption(map: ThreeTexture, name: string): THREE.Texture {
-    if (ThreeUtil.isNotNull(map)) {
-      if (typeof map === 'string') {
-        const texture = AbstractTextureComponent.getTextureImageOption(map, null, 'texture', null, () => {
-          this.addChanges(name);
-        });
-        return texture;
-      } else if (ThreeUtil.isNotNull(map['value'])) {
-        const texture = AbstractTextureComponent.getTextureImageOption(map['value'], map['options'], map['type'] as string, map['cubeImage'], () => {
-          this.addChanges(name);
-        });
-        return texture;
-      } else {
-        this.unSubscribeRefer(name);
-        const texture = ThreeUtil.getTexture(map, name);
-        this.subscribeRefer(
-          name,
-          ThreeUtil.getSubscribe(
-            map,
-            () => {
-              this.addChanges(name);
-            },
-            'texture'
-          )
-        );
-        return texture;
-      }
-    }
-    return null;
-  }
+	/**
+	 * Gets texture option
+	 * @param map
+	 * @param name
+	 * @returns texture option
+	 */
+	private getTextureOption(map: ThreeTexture, name: string): THREE.Texture {
+		if (ThreeUtil.isNotNull(map)) {
+			if (typeof map === 'string') {
+				const texture = AbstractTextureComponent.getTextureImageOption(map, null, 'texture', null, () => {
+					this.addChanges(name);
+				});
+				return texture;
+			} else if (ThreeUtil.isNotNull(map['value'])) {
+				const texture = AbstractTextureComponent.getTextureImageOption(map['value'], map['options'], map['type'] as string, map['cubeImage'], () => {
+					this.addChanges(name);
+				});
+				return texture;
+			} else {
+				this.unSubscribeRefer(name);
+				const texture = ThreeUtil.getTexture(map, name);
+				this.subscribeRefer(
+					name,
+					ThreeUtil.getSubscribe(
+						map,
+						() => {
+							this.addChanges(name);
+						},
+						'texture'
+					)
+				);
+				return texture;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Applys changes3d
@@ -313,22 +313,22 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 						}
 						break;
 					case 'background':
-            if (ThreeUtil.isNotNull(this.background)) {
-              if (ThreeUtil.isColor(this.background)) {
-                this.scene.background = ThreeUtil.getColorSafe(this.background, 0x000000);
-              } else {
-                this.scene.background = this.getTextureOption(this.background,'background');
-              }
-            } else {
-              this.scene.background = null;
-            }
+						if (ThreeUtil.isNotNull(this.background)) {
+							if (ThreeUtil.isColor(this.background)) {
+								this.scene.background = ThreeUtil.getColorSafe(this.background, 0x000000);
+							} else {
+								this.scene.background = this.getTextureOption(this.background, 'background');
+							}
+						} else {
+							this.scene.background = null;
+						}
 						break;
 					case 'environment':
-            if (ThreeUtil.isNotNull(this.environment)) {
-              this.scene.environment = this.getTextureOption(this.environment,'environment');
-            } else {
-              this.scene.environment = null;
-            }
+						if (ThreeUtil.isNotNull(this.environment)) {
+							this.scene.environment = this.getTextureOption(this.environment, 'environment');
+						} else {
+							this.scene.environment = null;
+						}
 						break;
 					case 'texture':
 						this.unSubscribeReferList('textureList');

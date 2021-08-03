@@ -668,7 +668,7 @@ export class LocalStorageService {
    * @param callBack
    * @param options
    */
-  public _getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
+  private _getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
     if (key.endsWith('.dae')) {
       if (this.colladaLoader === null) {
         this.colladaLoader = new ColladaLoader(ThreeUtil.getLoadingManager());
@@ -1025,7 +1025,7 @@ export class LocalStorageService {
     } else if (key.endsWith('.3dm')) {
       if (this.rhino3dmLoader === null) {
         this.rhino3dmLoader = new Rhino3dmLoader(ThreeUtil.getLoadingManager());
-        this.rhino3dmLoader.setLibraryPath('/assets/libs/rhino3dm/');
+        this.rhino3dmLoader.setLibraryPath(ThreeUtil.getStoreUrl('jsm/libs/rhino3dm/'));
       }
       this.setLoaderWithOption(this.rhino3dmLoader, options);
       this.rhino3dmLoader.load(key, (result: THREE.Group) => {
@@ -1789,33 +1789,33 @@ export class LocalStorageService {
       case 'helvetiker':
         switch (fontWeight.toLowerCase()) {
           case 'bold':
-            fontPath = 'assets/fonts/helvetiker_bold.typeface.json';
+            fontPath = 'fonts/helvetiker_bold.typeface.json';
             break;
           case 'regular':
           default:
-            fontPath = 'assets/fonts/helvetiker_regular.typeface.json';
+            fontPath = 'fonts/helvetiker_regular.typeface.json';
             break;
         }
         break;
       case 'gentilis':
         switch (fontWeight.toLowerCase()) {
           case 'bold':
-            fontPath = 'assets/fonts/gentilis_bold.typeface.json';
+            fontPath = 'fonts/gentilis_bold.typeface.json';
             break;
           case 'regular':
           default:
-            fontPath = 'assets/fonts/gentilis_regular.typeface.json';
+            fontPath = 'fonts/gentilis_regular.typeface.json';
             break;
         }
         break;
       case 'optimer':
         switch (fontWeight.toLowerCase()) {
           case 'bold':
-            fontPath = 'assets/fonts/optimer_bold.typeface.json';
+            fontPath = 'fonts/optimer_bold.typeface.json';
             break;
           case 'regular':
           default:
-            fontPath = 'assets/fonts/optimer_regular.typeface.json';
+            fontPath = 'fonts/optimer_regular.typeface.json';
             break;
         }
         break;
@@ -1823,36 +1823,36 @@ export class LocalStorageService {
       case 'droid_sans':
         switch (fontWeight.toLowerCase()) {
           case 'bold':
-            fontPath = 'assets/fonts/droid/droid_sans_bold.typeface.json';
+            fontPath = 'fonts/droid/droid_sans_bold.typeface.json';
             break;
           case 'regular':
           default:
-            fontPath = 'assets/fonts/droid/droid_sans_regular.typeface.json';
+            fontPath = 'fonts/droid/droid_sans_regular.typeface.json';
             break;
         }
         break;
       case 'sans_mono':
       case 'droid_sans_mono':
-        fontPath = 'assets/fonts/droid/droid_sans_mono_regular.typeface.json';
+        fontPath = 'fonts/droid/droid_sans_mono_regular.typeface.json';
         break;
       case 'serif':
       case 'droid_serif':
         switch (fontWeight.toLowerCase()) {
           case 'bold':
-            fontPath = 'assets/fonts/droid/droid_serif_bold.typeface.json';
+            fontPath = 'fonts/droid/droid_serif_bold.typeface.json';
             break;
           case 'regular':
           default:
-            fontPath = 'assets/fonts/droid/droid_serif_regular.typeface.json';
+            fontPath = 'fonts/droid/droid_serif_regular.typeface.json';
             break;
         }
         break;
       case 'nanumgothic':
-        fontPath = 'assets/fonts/nanum/nanumgothic_regular.typeface.json';
+        fontPath = 'fonts/nanum/nanumgothic_regular.typeface.json';
         break;
       case 'dohyeon':
       case 'do_hyeon':
-        fontPath = 'assets/fonts/nanum/do_hyeon_regular.typeface.json';
+        fontPath = 'fonts/nanum/do_hyeon_regular.typeface.json';
         break;
       default:
         if (fontName.startsWith('/') || fontName.startsWith('http://') || fontName.startsWith('https://') || fontName.endsWith('.json') || fontName.endsWith('.ttf')) {
@@ -1864,7 +1864,7 @@ export class LocalStorageService {
             fontPath = fontName + '_' + fontWeight + '.typeface.json';
           }
         } else {
-          fontPath = 'assets/fonts/helvetiker_regular.typeface.json';
+          fontPath = 'fonts/helvetiker_regular.typeface.json';
         }
         break;
     }

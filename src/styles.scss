@@ -15,6 +15,11 @@
     top: 0;
     height: 0;
     z-index: 10;
+    opacity: 0.1;
+    transition: opacity 1s;
+  }
+  .debug:hover {
+    opacity: 1;
   }
   .canvas {
     display: inline-block;

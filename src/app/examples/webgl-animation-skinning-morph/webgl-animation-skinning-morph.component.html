@@ -13,7 +13,6 @@
   <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="100">
       <ngx3js-position [x]="-5" [y]="3" [z]="10"></ngx3js-position>
-      <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0xe0e0e0'">
       <ngx3js-fog [color]="'0xe0e0e0'" [near]="20" [far]="100"></ngx3js-fog>
@@ -61,15 +60,15 @@
             <ngx3js-clip [name]="'ThumbsUp'" [clampWhenFinished]="true" [loop]="'once'"></ngx3js-clip>
           </ngx3js-mixer>
       </ngx3js-mesh>
+      <ngx3js-helper 
+        [type]="'grid'"
+        [size]="200"
+        [divisions]="40"
+        [color1]="'0x000000'"
+        [color2]="'0x000000'"
+        [opacity]="0.2"
+      ></ngx3js-helper>
       <ngx3js-mesh [receiveShadow]="true">
-        <ngx3js-helper 
-          [type]="'grid'"
-          [size]="200"
-          [divisions]="40"
-          [color1]="'0x000000'"
-          [color2]="'0x000000'"
-          [opacity]="0.2"
-        ></ngx3js-helper>
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
         <ngx3js-geometry [type]="'Plane'" [width]="2000" [height]="2000"></ngx3js-geometry>

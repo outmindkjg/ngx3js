@@ -18,7 +18,6 @@
   <ngx3js-lookat [x]="sceneInfo.centerX" [y]="sceneInfo.centerY" [z]="sceneInfo.centerZ"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
     <ngx3js-position [x]="sceneInfo.cameraPosX" [y]="sceneInfo.cameraPosY" [z]="sceneInfo.cameraPosZ"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0x222222'">
     <ngx3js-material [materialType]="'background-environment-angular'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'">

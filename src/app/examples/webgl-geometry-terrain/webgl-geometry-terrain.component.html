@@ -1,23 +1,24 @@
 <div class="info dark">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl terrain demo<br />(left click: forward, right click: backward)
+  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="500" [z]="100"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="20000">
-    <ngx3js-position [x]="0" [y]="500" [z]="0"></ngx3js-position>
+  <ngx3js-lookat [x]="-100" [y]="810" [z]="-800"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="10000">
+    <ngx3js-position [x]="100" [y]="800" [z]="-800"></ngx3js-position>
   </ngx3js-camera>
 
   <ngx3js-scene #scene [background]="'0xbfd1e5'">
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0xefd1b5'" [density]="0.00025"></ngx3js-fog>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry

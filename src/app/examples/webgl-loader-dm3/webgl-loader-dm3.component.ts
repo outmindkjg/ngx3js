@@ -47,6 +47,7 @@ export class WebglLoaderDm3Component extends BaseComponent<{
   }
 
   setMeshVisible(name : string , visible : boolean) {
+    this.loadedMesh = this.meshObject3d.children[0] as THREE.Mesh;
     if (this.loadedMesh !== null && this.loadedMesh !== undefined) {
       const layers = this.loadedMesh.userData.layers;
       this.loadedMesh.traverse( function ( child ) {
@@ -66,6 +67,5 @@ export class WebglLoaderDm3Component extends BaseComponent<{
   
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.loadedMesh = mesh.getObject3d().children[0] as THREE.Mesh;
   }
 }

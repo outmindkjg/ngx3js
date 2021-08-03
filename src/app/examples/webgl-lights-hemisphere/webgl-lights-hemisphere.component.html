@@ -16,9 +16,8 @@
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="5000">
     <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'HSL( 0.6, 0, 1 )'">
+  <ngx3js-scene #scene [background]="'hsl( 0.6, 0, 1 )'">
     <ngx3js-fog [color]="'0xffffff'" [near]="1"  [far]="5000"></ngx3js-fog>
     <ngx3js-light
       [type]="'Hemisphere'"
@@ -47,6 +46,7 @@
       (onLoad)="setDirLight($event)"
     >
       <ngx3js-position [x]="-1" [y]="1.75" [z]="1" [multiply]="30"></ngx3js-position>
+      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
       <ngx3js-helper [type]="'light'" [size]="10" (onLoad)="setDirLightHelper($event)"></ngx3js-helper>
     </ngx3js-light>
     <ngx3js-mesh>

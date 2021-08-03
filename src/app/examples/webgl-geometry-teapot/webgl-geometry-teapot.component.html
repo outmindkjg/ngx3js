@@ -1,13 +1,13 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - the Utah Teapot<br />
   from <a href="https://www.udacity.com/course/interactive-3d-graphics--cs291" target="_blank" rel="noopener">Udacity Interactive 3D Graphics</a>
+  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
@@ -16,7 +16,6 @@
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
     <ngx3js-position [x]="-600" [y]="500" [z]="1300"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-shared >
     <ngx3js-texture #map [type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></ngx3js-texture>

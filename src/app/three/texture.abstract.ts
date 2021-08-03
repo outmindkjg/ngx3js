@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
@@ -407,7 +408,11 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 */
 	ngOnDestroy(): void {
 		if (this.texture !== null) {
-			if (this.texture.image instanceof HTMLMediaElement) {
+			if (this.texture instanceof THREE.VideoTexture && ThreeUtil.isNotNull(this.texture.image.srcObject.getTracks)) {
+				this.texture.image.srcObject.getTracks().forEach( track => {
+					track.stop();
+				});
+			} else if (this.texture.image instanceof HTMLMediaElement) {
 				this.texture.image.pause();
 			}
 			this.texture.dispose();
@@ -811,12 +816,17 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 		} else if (image instanceof THREE.Texture) {
 			texture = image;
 		} else {
-			texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
-				this.setTextureOptions(texture, textureOption);
-				if (ThreeUtil.isNotNull(onLoad)) {
-					onLoad();
-				}
-			});
+			if (image === 'room') {
+				const pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
+				texture = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+			} else {
+				texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
+					this.setTextureOptions(texture, textureOption);
+					if (ThreeUtil.isNotNull(onLoad)) {
+						onLoad();
+					}
+				});
+			}
 		}
 		this.setTextureOptions(texture, textureOption);
 		return texture;
@@ -1432,8 +1442,8 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 			if (ThreeUtil.isNotNull(this.cubeType)) {
 				switch (this.cubeType.toLowerCase()) {
 					case 'angular':
-          case 'equirect':
-          case 'equirectangular':
+					case 'equirect':
+					case 'equirectangular':
 					case 'fromequirectangular':
 						{
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
@@ -1444,10 +1454,10 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 							pmremGenerator.dispose();
 						}
 						break;
-          case 'cube':
-          case 'cubemap':
-          case 'fromcubemap':
-              if (texture instanceof THREE.CubeTexture) {
+					case 'cube':
+					case 'cubemap':
+					case 'fromcubemap':
+						if (texture instanceof THREE.CubeTexture) {
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
 							const pmremGenerator = this.getPmremGenerator();
 							const cubemap = pmremGenerator.fromCubemap(texture).texture;

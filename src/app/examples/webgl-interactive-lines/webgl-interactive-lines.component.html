@@ -17,7 +17,6 @@
   <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
     <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
-    <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0xf0f0f0'">
     <ngx3js-mesh (onLoad)="setSphere($event)" [visible]="false">

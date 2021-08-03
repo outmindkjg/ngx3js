@@ -36,7 +36,7 @@
         <ngx3js-mesh>
           <ngx3js-position [x]="0" [y]="label.size / 4 * label.scale" [z]=" - label.size * label.scale"></ngx3js-position>
           <ngx3js-scale [x]="label.scale" [y]="label.scale" [z]="label.scale"></ngx3js-scale>
-          <ngx3js-geometry [type]="'text'" [font]="'helvetiker'" [align]="'center'" [text]="label.label" [size]="label.size" [height]="label.size/2"></ngx3js-geometry>
+          <ngx3js-geometry [type]="'text'" [font]="'helvetiker'" [align]="'center bottom'" [text]="label.label" [size]="label.size" [height]="label.size/2"></ngx3js-geometry>
           <ngx3js-material [type]="'MeshPhong'" 
             [color]="label.color"
             [specular]="'0x050505'"

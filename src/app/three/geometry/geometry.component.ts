@@ -705,34 +705,6 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
   }
 
   /**
-   * Gets sub geometry
-   * @returns sub geometry
-   */
-  private getSubGeometry(): THREE.BufferGeometry {
-    let geometry: THREE.BufferGeometry = null;
-    this.unSubscribeRefer('subGeometry');
-    if (this.refGeometry !== null && this.refType.toLowerCase() === 'geometry') {
-      geometry = ThreeUtil.getGeometry(this.refGeometry);
-      this.subscribeRefer(
-        'subGeometry',
-        ThreeUtil.getSubscribe(
-          this.refGeometry,
-          () => {
-            this.needUpdate = true;
-          },
-          'loaded'
-        )
-      );
-    } else if (this.geometryList !== null && this.geometryList.length > 0) {
-      geometry = this.geometryList.first.getGeometry();
-    }
-    if (geometry !== null && ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
-      return geometry;
-    }
-    return new THREE.PlaneGeometry(0.01, 0.01, 1, 1);
-  }
-
-  /**
    * Gets shapes
    * @param onload
    */

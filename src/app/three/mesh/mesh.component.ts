@@ -1923,7 +1923,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
             this.localStorageService.getObject(
               this.storageName,
               (loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[] | any, geometry?: THREE.BufferGeometry, morphTargets?: THREE.BufferAttribute[], source?: any) => {
-                console.log(clips);
                 let assignMaterial = true;
                 if (ThreeUtil.isNull(loadedMesh)) {
                   if (ThreeUtil.isNotNull(geometry)) {
@@ -2004,9 +2003,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
                 if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
                   this.mesh.add(source.skeleton.bones[0]);
                 }
-                loadedMesh.userData = this.getUserData();
-                this.addChildObject3d(loadedMesh);
-                this.setSubscribeNext(['loaded']);
+                if (ThreeUtil.isNotNull(loadedMesh)) {
+                  Object.assign(loadedMesh.userData, this.getUserData());
+                  this.addChildObject3d(loadedMesh);
+                  this.setSubscribeNext(['loaded']);
+                }
               },
               this.storageOption
             );

@@ -3,11 +3,9 @@
     <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
     <ngx3js-camera [type]="'perspective'" #mainCamera [clearColor]="'0x000000'" [clearAlpha]="0" [fov]="40" [near]="1" [far]="1000" [viewport]="true" [x]="0" [y]="0" [width]="'100%'" [height]="'100%'">
         <ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
-        <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
     </ngx3js-camera>
     <ngx3js-camera [type]="'perspective'" [clearColor]="'0x222222'" [clearAlpha]="1" [clearDepth]="true" [fov]="40" [near]="1" [far]="1000" [viewport]="true" [x]="20" [y]="20" [width]="'25%'" [height]="'width'" [scissorTest]="true" [scissorX]="'x'" [scissorY]="'y'" [scissorWidth]="'width'" [scissorHeight]="'height'" [referObject3d]="mainCamera">
         <ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
-        <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
     </ngx3js-camera>
     <ngx3js-shared>
         <ngx3js-material #matLine1 [type]="'Line'" [color]="'0x4080ff'" [linewidth]="5" [dashed]="true" [dashScale]="5" [dashSize]="2" [gapSize]="3" [resolutionX]="1024" [resolutionY]="1024"></ngx3js-material>

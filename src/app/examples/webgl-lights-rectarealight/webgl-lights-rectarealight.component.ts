@@ -14,7 +14,7 @@ export class WebglLightsRectarealightComponent extends BaseComponent<{}> {
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (!this.controls.meshRotate.autoRotate) {
+    if (this.mesh !== null && !this.controls.meshRotate.autoRotate) {
       this.mesh.setRotation(null, timer.elapsedTime * 60, null);
     }
   }

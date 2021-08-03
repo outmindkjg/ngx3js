@@ -2129,7 +2129,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
               linejoin: ThreeUtil.getTypeSafe(this.linejoin),
               morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
             };
-            console.log(this.getMaterialParameters(parametersLineBasicMaterial));
             material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
             break;
           case 'linedashedmaterial':
