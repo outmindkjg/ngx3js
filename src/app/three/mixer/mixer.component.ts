@@ -262,7 +262,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 */
 	ngOnChanges(changes: SimpleChanges): void {
 		super.ngOnChanges(changes);
-		if (changes && this.clips !== null) {
+		if (changes && this.mixer) {
 			this.addChanges(changes);
 		}
 	}
@@ -372,6 +372,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 			this.clips = clips;
 			this.helper = null;
 			this.mixer = null;
+
 			if (this.debug && this.clips) {
 				const clipsNames = [];
 				if (this.clips.forEach) {
@@ -385,7 +386,17 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 				}
 				this.consoleLog('clips', clipsNames, 'info');
 			}
-      this.needUpdate = true;
+			this.resetMixer();
+			this.lastAction = null;
+			if (this.lastAction !== this.action) {
+				if (this.delayTime > 0) {
+					window.setTimeout(() => {
+						this.play(this.action);
+					}, this.delayTime);
+				} else {
+					this.play(this.action);
+				}
+			}
 		}
 	}
 
@@ -571,38 +582,26 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @param changes
 	 */
 	public applyChanges(changes: string[]) {
-		if (this.clips !== null) {
+		if (this.mixer !== null) {
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
-				changes = ThreeUtil.pushUniq(changes, ['action', 'timescale', 'fps', 'controls', 'weapon', 'skin', 'pos']);
+				changes = ThreeUtil.pushUniq(changes, ['action', 'timescale', 'fps', 'weapon', 'skin', 'pos']);
 			}
-      changes.forEach((change) => {
+			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 					case 'action':
-            if (this.lastAction !== this.action) {
-              if (this.delayTime > 0) {
-                window.setTimeout(() => {
-                  this.play(this.action);
-                }, this.delayTime);
-              } else {
-                this.play(this.action);
-              }
-            }
+						this.play(this.action.toLowerCase());
 						break;
 					case 'timescale':
-						if (this.mixer !== null) {
-							this.mixer.timeScale = this.getTimeScale(1);
-						}
+						this.mixer.timeScale = this.getTimeScale(1);
 						break;
 					case 'fps':
-						if (this.mixer !== null) {
-							const fps = this.getFps(20);
-							this.clipList.forEach((clip) => {
-								clip.setMixer(this.mixer, this.clips, fps);
-							});
-						}
+						const fps = this.getFps(20);
+						this.clipList.forEach((clip) => {
+							clip.setMixer(this.mixer, this.clips, fps);
+						});
 						break;
 					case 'weapon':
-						if (this.clips !== null && this.clips.setWeapon) {
+						if (this.clips.setWeapon) {
 							this.clips.setWeapon(this.weapon);
 						}
 						break;
@@ -611,14 +610,9 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 							this.clips.setSkin(this.skin);
 						}
 						break;
-					case 'controls':
-						if (ThreeUtil.isNotNull(this.controls) && this.clips.controls !== undefined) {
-							this.clips.controls = this.controls;
-						}
-						break;
 					case 'pose':
-						if (this.helper !== null && this.model instanceof THREE.SkinnedMesh) {
-							this.helper.pose(this.model, null);
+						if (this.model instanceof THREE.SkinnedMesh) {
+							// this.helper.pose(this.model, null);
 						}
 						break;
 				}
@@ -628,87 +622,82 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	}
 
 	/**
-	 * Gets object3d
-	 * @template T
-	 * @returns object3d
-	 */
-  public getObject<T>(): T {
-		return this.getMixer() as any;
-	}
-
-	/**
 	 * Resets mixer
 	 */
-	public getMixer() : any {
-		if (this._needUpdate) {
-			this.needUpdate = false;
-			this.lastAction = null;
-			this.lastPlayedClip = null;
-			switch (this.type.toLowerCase()) {
-				case 'mmd':
-				case 'mmdanimation':
-				case 'mmdanimationhelper':
-					if (this.helper === null) {
-						if (this.animationHelper === null) {
-							this.helper = new MMDAnimationHelper({
-								sync: this.getSync(),
-								afterglow: this.getAfterglow(),
-								resetPhysicsOnLoop: this.getResetPhysicsOnLoop(),
-							});
-							if (ThreeUtil.isNotNull(this.clips)) {
-								this.synkAnimationHelper(this.helper);
-								this.setSubscribeNext('animation');
-							} else {
-								this.subscribeRefer(
-									'mmdLoad',
-									ThreeUtil.getSubscribe(
-										this.model,
-										() => {
-											this.synkAnimationHelper(this.helper);
-											this.setSubscribeNext('animation');
-										},
-										'loaded'
-									)
-								);
-							}
+	public resetMixer() {
+		this.lastPlayedClip = null;
+		switch (this.type.toLowerCase()) {
+			case 'mmd':
+			case 'mmdanimation':
+			case 'mmdanimationhelper':
+				if (this.helper === null) {
+					if (this.animationHelper === null) {
+						this.helper = new MMDAnimationHelper({
+							sync: this.getSync(),
+							afterglow: this.getAfterglow(),
+							resetPhysicsOnLoop: this.getResetPhysicsOnLoop(),
+						});
+						if (ThreeUtil.isNotNull(this.clips)) {
+							this.synkAnimationHelper(this.helper);
+							this.setSubscribeNext('animation');
 						} else {
-							this.unSubscribeRefer('animation');
 							this.subscribeRefer(
-								'animation',
+								'mmdLoad',
 								ThreeUtil.getSubscribe(
-									this.animationHelper,
+									this.model,
 									() => {
-										this.synkAnimationHelper(this.animationHelper.helper);
+										this.synkAnimationHelper(this.helper);
+										this.setSubscribeNext('animation');
 									},
-									'animation'
+									'loaded'
 								)
 							);
-							if (this.animationHelper.helper !== null) {
-								this.synkAnimationHelper(this.animationHelper.helper);
-							}
 						}
-            this.setObject(this.helper);
+					} else {
+						this.unSubscribeRefer('animation');
+						this.subscribeRefer(
+							'animation',
+							ThreeUtil.getSubscribe(
+								this.animationHelper,
+								() => {
+									this.synkAnimationHelper(this.animationHelper.helper);
+								},
+								'animation'
+							)
+						);
+						if (this.animationHelper.helper !== null) {
+							this.synkAnimationHelper(this.animationHelper.helper);
+						}
 					}
-					break;
-				case 'mixer':
-					if (this.mixer === null) {
-						this.mixer = new THREE.AnimationMixer(this.model);
-						this.mixer.timeScale = this.getTimeScale(1);
-						const fps = this.getFps();
-						this.clipList.forEach((clip) => {
-							clip.setMixer(this.mixer, this.clips, fps);
-						});
-            this.setObject(this.mixer);
+					super.callOnLoad();
+				}
+				break;
+			case 'mixer':
+				if (this.mixer === null) {
+					this.mixer = new THREE.AnimationMixer(this.model);
+					this.mixer.timeScale = this.getTimeScale(1);
+					const fps = this.getFps();
+					this.clipList.forEach((clip) => {
+						clip.setMixer(this.mixer, this.clips, fps);
+					});
+					super.callOnLoad();
+				}
+				break;
+			case 'virtulous':
+			default:
+				if (this.clips !== null) {
+					if (ThreeUtil.isNotNull(this.weapon) && this.clips.setWeapon) {
+						this.clips.setWeapon(this.weapon);
 					}
-					break;
-				case 'virtulous':
-				default:
-          this.setObject({ clips : this.clips });
-          this.applyChanges(['init']);
-					break;
-			}
+					if (ThreeUtil.isNotNull(this.skin) && this.clips.setSkin) {
+						this.clips.setSkin(this.skin);
+					}
+					if (ThreeUtil.isNotNull(this.controls) && this.clips.controls !== undefined) {
+						this.clips.controls = this.controls;
+					}
+				}
+				break;
 		}
-    return this.clips;
 	}
 
 	/**
