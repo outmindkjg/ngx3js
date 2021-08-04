@@ -7,6 +7,8 @@ import { AbstractTextureComponent } from '../texture.abstract';
 
 /**
  * LensflareelementComponent
+ * 
+ * @see LensflareElement
  */
 @Component({
   selector: 'ngx3js-lensflareelement',
@@ -15,27 +17,27 @@ import { AbstractTextureComponent } from '../texture.abstract';
 })
 export class LensflareelementComponent extends AbstractSubscribeComponent implements OnInit {
   /**
-   * Input  of lensflareelement component
+   * image of LensflareElement
    */
   @Input() private image: string = null;
 
   /**
-   * Input  of lensflareelement component
+   * size of LensflareElement
    */
   @Input() private size: number = null;
 
   /**
-   * Input  of lensflareelement component
+   * distance of LensflareElement
    */
   @Input() private distance: number = null;
 
   /**
-   * Input  of lensflareelement component
+   * color of LensflareElement
    */
   @Input() private color: ThreeColor = null;
 
   /**
-   * Creates an instance of lensflareelement component.
+   * Creates an instance of LensflareElement.
    */
   constructor() {
     super();
@@ -94,12 +96,12 @@ export class LensflareelementComponent extends AbstractSubscribeComponent implem
   }
 
   /**
-   * Lensflare element of lensflareelement component
+   * Lensflare element of LensflareElement
    */
   private lensflareElement: LensflareElement = null;
 
   /**
-   * Lensflare  of lensflareelement component
+   * Lensflare  of LensflareElement
    */
   private lensflare: Lensflare = null;
 

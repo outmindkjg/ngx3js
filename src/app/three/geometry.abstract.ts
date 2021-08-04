@@ -1306,7 +1306,6 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 											break;
 										case 'bottom':
 											this.geometry.translate(0, -boundingBox.min.y, 0);
-											console.log(this.geometry.attributes);
 											break;
 										case 'front':
 											this.geometry.translate(0, 0, -boundingBox.max.z);

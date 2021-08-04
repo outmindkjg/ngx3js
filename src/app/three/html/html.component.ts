@@ -16,6 +16,11 @@ import { AbstractTweenComponent } from '../tween.abstract';
 export class HtmlComponent extends AbstractTweenComponent implements OnInit {
   /**
    * The html tag.
+   *
+   * Notice - case insensitive.
+   * 
+   * @see HTMLDivElement - div
+   * @see HTMLSpanElement - span
    */
   @Input() public type: string = 'div';
 

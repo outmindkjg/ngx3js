@@ -11,15 +11,23 @@ import { RigidbodyNodeComponent } from './rigidbody-node/rigidbody-node.componen
  * Rigidbody type
  */
 export interface RigidbodyType {
-  type: 'instanced' | 'rigidbody' | 'softbody' | 'debris';
+
+  type: 'instanced' | 'rigidbody' | 'softbody' | 'debris' | 'mesh';
+  
   rigidBodies: Ammo.btRigidBody[];
+  
   softBody: Ammo.btSoftBody;
+
   debris: RigidbodyComponent[];
+  
   ammoIndexAssociation?: number[][];
+
+  mesh? : THREE.Object3D ;
 }
 
 /**
  * RigidbodyComponent
+ * @see 
  */
 @Component({
   selector: 'ngx3js-rigidbody',
@@ -798,7 +806,7 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
    * @param [index]
    */
   public setPosition(x: number, y: number, z: number, index: number = null) {
-    if (this.rigidBody !== null) {
+    if (this.rigidBody !== null ) {
       let rigidBody: Ammo.btRigidBody | Ammo.btSoftBody = null;
       switch (this.rigidBody.type) {
         case 'rigidbody':
@@ -816,6 +824,8 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
             rigidBody = this.rigidBody.rigidBodies[index];
           }
           break;
+        case 'mesh' :
+          break;
       }
       if (rigidBody !== null) {
         if (rigidBody instanceof this._ammo.btRigidBody) {
@@ -826,6 +836,11 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
         transform.setIdentity();
         transform.setOrigin(new this._ammo.btVector3(x, y, z));
         rigidBody.setWorldTransform(transform);
+      } else if (ThreeUtil.isNotNull(this.rigidBody.mesh)) {
+        const physics = this._physics as any;
+        if (ThreeUtil.isNotNull(physics.setMeshPosition)) {
+          physics.setMeshPosition(this.rigidBody.mesh, new THREE.Vector3(x, y, z), index);
+        }
       }
     }
   }
@@ -883,51 +898,75 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
       if (ThreeUtil.isIndexOf(changes, ['velocityx', 'velocityy', 'velocityz', 'velocitytype'])) {
         changes = ThreeUtil.pushUniq(changes, ['velocity']);
       }
-      changes.forEach((change) => {
-        switch (change.toLowerCase()) {
-          case 'velocity':
-            if (ThreeUtil.isNotNull(this.velocityX) || ThreeUtil.isNotNull(this.velocityY) || ThreeUtil.isNotNull(this.velocityZ)) {
-              this.setVelocity(ThreeUtil.getTypeSafe(this.velocityX, 0), ThreeUtil.getTypeSafe(this.velocityY, 0), ThreeUtil.getTypeSafe(this.velocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'linear'));
-            }
-            if (ThreeUtil.isNotNull(this.angularVelocityX) || ThreeUtil.isNotNull(this.angularVelocityY) || ThreeUtil.isNotNull(this.angularVelocityZ)) {
-              this.setVelocity(ThreeUtil.getTypeSafe(this.angularVelocityX, 0), ThreeUtil.getTypeSafe(this.angularVelocityY, 0), ThreeUtil.getTypeSafe(this.angularVelocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'angular'));
-            }
-            break;
-          case 'rigidbodynode':
-            this.unSubscribeReferList('rigidbodyNodeList');
-            if (ThreeUtil.isNotNull(this.rigidbodyNodeList) && ThreeUtil.isNotNull(this.rigidBody.softBody)) {
-              const softBody = this.rigidBody.softBody;
-              this.rigidbodyNodeList.forEach((rigidbodyNode) => {
-                rigidbodyNode.setRigidbody(softBody, this._physics, this._ammo);
-              });
-              this.subscribeListQuery(this.rigidbodyNodeList, 'rigidbodyNodeList', 'rigidbodynode');
-            }
-            break;
-          case 'physics':
-            const mass = this.getMass();
-            switch (this.rigidBody.type) {
-              case 'instanced':
-              case 'rigidbody':
-                this.rigidBody.rigidBodies.forEach((rigidBody) => {
-                  if (mass > 0) {
-                    rigidBody.setActivationState(4);
-                  }
-                  this._physics.addRigidBody(rigidBody);
+      if (this._physics instanceof this._ammo.btSoftRigidDynamicsWorld) {
+        changes.forEach((change) => {
+          switch (change.toLowerCase()) {
+            case 'velocity':
+              if (ThreeUtil.isNotNull(this.velocityX) || ThreeUtil.isNotNull(this.velocityY) || ThreeUtil.isNotNull(this.velocityZ)) {
+                this.setVelocity(ThreeUtil.getTypeSafe(this.velocityX, 0), ThreeUtil.getTypeSafe(this.velocityY, 0), ThreeUtil.getTypeSafe(this.velocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'linear'));
+              }
+              if (ThreeUtil.isNotNull(this.angularVelocityX) || ThreeUtil.isNotNull(this.angularVelocityY) || ThreeUtil.isNotNull(this.angularVelocityZ)) {
+                this.setVelocity(ThreeUtil.getTypeSafe(this.angularVelocityX, 0), ThreeUtil.getTypeSafe(this.angularVelocityY, 0), ThreeUtil.getTypeSafe(this.angularVelocityZ, 0), ThreeUtil.getTypeSafe(this.velocityType, 'angular'));
+              }
+              break;
+            case 'rigidbodynode':
+              this.unSubscribeReferList('rigidbodyNodeList');
+              if (ThreeUtil.isNotNull(this.rigidbodyNodeList) && ThreeUtil.isNotNull(this.rigidBody.softBody)) {
+                const softBody = this.rigidBody.softBody;
+                this.rigidbodyNodeList.forEach((rigidbodyNode) => {
+                  rigidbodyNode.setRigidbody(softBody, this._physics, this._ammo);
                 });
-                break;
-              case 'softbody':
-                if (ThreeUtil.isNotNull(this.rigidBody.softBody)) {
-                  this.rigidBody.softBody.setTotalMass(mass, false);
-                  if (mass > 0) {
-                    this.rigidBody.softBody.setActivationState(4);
+                this.subscribeListQuery(this.rigidbodyNodeList, 'rigidbodyNodeList', 'rigidbodynode');
+              }
+              break;
+            case 'physics':
+              const mass = this.getMass();
+              switch (this.rigidBody.type) {
+                case 'instanced':
+                case 'rigidbody':
+                  this.rigidBody.rigidBodies.forEach((rigidBody) => {
+                    if (mass > 0) {
+                      rigidBody.setActivationState(4);
+                    }
+                    this._physics.addRigidBody(rigidBody);
+                  });
+                  break;
+                case 'softbody':
+                  if (ThreeUtil.isNotNull(this.rigidBody.softBody)) {
+                    this.rigidBody.softBody.setTotalMass(mass, false);
+                    if (mass > 0) {
+                      this.rigidBody.softBody.setActivationState(4);
+                    }
+                    this._physics.addSoftBody(this.rigidBody.softBody, 1, -1);
                   }
-                  this._physics.addSoftBody(this.rigidBody.softBody, 1, -1);
-                }
-                break;
-            }
-            break;
-        }
-      });
+                  break;
+              }
+              break;
+          }
+        });
+      } else {
+        changes.forEach((change) => {
+          switch (change.toLowerCase()) {
+            case 'velocity':
+              break;
+            case 'rigidbodynode':
+              break;
+            case 'physics':
+              const mass = this.getMass();
+              switch (this.rigidBody.type) {
+                case 'mesh':
+                  const physics : any = this._physics;
+                  if (mass > 0) {
+                    physics.addMesh(this.rigidBody.mesh, this.mass );
+                  } else {
+                    physics.addMesh(this.rigidBody.mesh);
+                  }
+                  break;
+              }
+              break;
+          }
+        });
+      }
       super.applyChanges(changes);
     }
   }
@@ -1076,320 +1115,355 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
   public getRigidBody(): RigidbodyType {
     if (this.object3d !== null && ThreeUtil.isNotNull(this._ammo) && ThreeUtil.isNotNull(this._physics) && (this.rigidBody === null || this._needUpdate)) {
       this.needUpdate = false;
-      if (this.rigidBody !== null) {
-        this.rigidBody.rigidBodies.forEach((rigidBody) => {
-          this._physics.removeRigidBody(rigidBody);
-        });
-        if (ThreeUtil.isNotNull(this.rigidBody.softBody)) {
-          this._physics.removeSoftBody(this.rigidBody.softBody);
+      if (this._physics instanceof this._ammo.btSoftRigidDynamicsWorld) {
+        if (this.rigidBody !== null) {
+          this.rigidBody.rigidBodies.forEach((rigidBody) => {
+            this._physics.removeRigidBody(rigidBody);
+          });
+          if (ThreeUtil.isNotNull(this.rigidBody.softBody)) {
+            this._physics.removeSoftBody(this.rigidBody.softBody);
+          }
+          this.rigidBody.debris.forEach((debris) => {
+            debris.ngOnDestroy();
+          });
         }
-        this.rigidBody.debris.forEach((debris) => {
-          debris.ngOnDestroy();
-        });
-      }
-      this.transformAux = new this._ammo.btTransform();
-      this.positionAux = new THREE.Vector3();
-      let shape: Ammo.btCollisionShape = null;
-      let softBody: Ammo.btSoftBody = null;
-      let type: string = this.type;
-      let geometry: THREE.BufferGeometry = null;
-      let ammoIndexAssociation: number[][] = null;
-      const localScaling = new THREE.Vector3(1, 1, 1);
-      if (ThreeUtil.isNotNull(this.object3d['geometry'])) {
-        geometry = this.object3d['geometry'];
-      } else {
-        type = 'empty';
-      }
-      if (type.toLowerCase() === 'auto') {
-        if (ThreeUtil.isNotNull(geometry)) {
-          switch (geometry.type.toLowerCase()) {
-            case 'boxgeometry':
-              type = 'box';
-              break;
-            case 'spheregeometry':
-              type = 'sphere';
-              break;
-            case 'conegeometry':
-              type = 'cone';
-              break;
-            case 'cylindergeometry':
-              type = 'cylinder';
-              break;
-            case 'planegeometry':
-              type = 'plane';
-              break;
-            case 'capsulegeometry':
-              type = 'capsule';
-              break;
-            case 'ropegeometry':
-              type = 'rope';
-              break;
-            default:
-              type = 'convexhull';
-              break;
-          }
-          if (this.isSoftBody) {
-            switch (type) {
-              case 'rope':
-                type = 'rope';
-                break;
-              case 'plane':
-                type = 'softpatch';
-                break;
-              default:
-                type = 'softtrimesh';
-                break;
-            }
-          }
+        this.transformAux = new this._ammo.btTransform();
+        this.positionAux = new THREE.Vector3();
+        let shape: Ammo.btCollisionShape = null;
+        let softBody: Ammo.btSoftBody = null;
+        let type: string = this.type;
+        let geometry: THREE.BufferGeometry = null;
+        let ammoIndexAssociation: number[][] = null;
+        const localScaling = new THREE.Vector3(1, 1, 1);
+        if (ThreeUtil.isNotNull(this.object3d['geometry'])) {
+          geometry = this.object3d['geometry'];
         } else {
           type = 'empty';
         }
-      }
-      switch (type.toLowerCase()) {
-        case 'convextriangle':
-          {
-            const meshInterface: Ammo.btStridingMeshInterface = null;
-            const calcAabb: boolean = false;
-            shape = new this._ammo.btConvexTriangleMeshShape(meshInterface, calcAabb);
-          }
-          break;
-        case 'box':
-          shape = new this._ammo.btBoxShape(this.getBoxHalfExtents(geometry));
-          break;
-        case 'capsule':
-          shape = new this._ammo.btCapsuleShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'capsulex':
-          shape = new this._ammo.btCapsuleShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'capsulez':
-          shape = new this._ammo.btCapsuleShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'cylinder':
-          shape = new this._ammo.btCylinderShape(this.getBoxHalfExtents(geometry));
-          break;
-        case 'cylinderx':
-          shape = new this._ammo.btCylinderShapeX(this.getBoxHalfExtents(geometry));
-          break;
-        case 'cylinderz':
-          shape = new this._ammo.btCylinderShapeZ(this.getBoxHalfExtents(geometry));
-          break;
-        case 'sphere':
-          shape = new this._ammo.btSphereShape(this.getRadius(geometry, 0));
-          break;
-        case 'multisphere':
-          {
-            const positions: Ammo.btVector3 = null;
-            const radii: ReadonlyArray<number> = null;
-            const numPoints: number = null;
-            shape = new this._ammo.btMultiSphereShape(positions, radii, numPoints);
-          }
-          break;
-        case 'cone':
-          shape = new this._ammo.btConeShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'conex':
-          shape = new this._ammo.btConeShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'conez':
-          shape = new this._ammo.btConeShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
-          break;
-        case 'convexhull':
-          {
-            const btConvexHullShape = new this._ammo.btConvexHullShape();
-            const coords = geometry.attributes.position.array;
-            const tempBtVec3 = new this._ammo.btVector3(0, 0, 0);
-            for (let i = 0, il = coords.length; i < il; i += 3) {
-              tempBtVec3.setValue(coords[i], coords[i + 1], coords[i + 2]);
-              const lastOne = i >= il - 3;
-              btConvexHullShape.addPoint(tempBtVec3, lastOne);
+        if (type.toLowerCase() === 'auto') {
+          if (ThreeUtil.isNotNull(geometry)) {
+            switch (geometry.type.toLowerCase()) {
+              case 'boxgeometry':
+                type = 'box';
+                break;
+              case 'spheregeometry':
+                type = 'sphere';
+                break;
+              case 'conegeometry':
+                type = 'cone';
+                break;
+              case 'cylindergeometry':
+                type = 'cylinder';
+                break;
+              case 'planegeometry':
+                type = 'plane';
+                break;
+              case 'capsulegeometry':
+                type = 'capsule';
+                break;
+              case 'ropegeometry':
+                type = 'rope';
+                break;
+              default:
+                type = 'convexhull';
+                break;
             }
-            shape = btConvexHullShape;
-          }
-          break;
-        case 'compound':
-          {
-            const enableDynamicAabbTree: boolean = false;
-            shape = new this._ammo.btCompoundShape(enableDynamicAabbTree);
-          }
-          break;
-        case 'plane':
-        case 'staticplane':
-          {
-            const planeNormal: Ammo.btVector3 = null;
-            const planeConstant: number = null;
-            shape = new this._ammo.btStaticPlaneShape(planeNormal, planeConstant);
-          }
-          break;
-        case 'bvhtriangle':
-          {
-            const meshInterface: Ammo.btStridingMeshInterface = null;
-            const useQuantizedAabbCompression: boolean = null;
-            const buildBvh: boolean = null;
-            shape = new this._ammo.btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, buildBvh);
-          }
-          break;
-        case 'terrain':
-        case 'heightfieldterrain':
-          {
-            const size = this.getGeometrySize(geometry);
-            const segments = this.getGeometrySegments(geometry);
-            const meshPositions = geometry.getAttribute('position') as THREE.BufferAttribute;
-            const heightStickWidth: number = segments.x + 1;
-            const heightStickLength: number = segments.y + 1;
-            const heightfieldData = this._ammo._malloc(4 * heightStickWidth * heightStickLength);
-            let p = 0;
-            let p2 = 0;
-            let minHeight: number = Infinity;
-            let maxHeight: number = -Infinity;
-            for (let j = 0; j < heightStickLength; j++) {
-              for (let i = 0; i < heightStickWidth; i++) {
-                const height = meshPositions.getY(p);
-                this._ammo.HEAPF32[(heightfieldData + p2) >> 2] = height;
-                minHeight = Math.min(minHeight, height);
-                maxHeight = Math.max(maxHeight, height);
-                p++;
-                p2 += 4;
+            if (this.isSoftBody) {
+              switch (type) {
+                case 'rope':
+                  type = 'rope';
+                  break;
+                case 'plane':
+                  type = 'softpatch';
+                  break;
+                default:
+                  type = 'softtrimesh';
+                  break;
               }
             }
-            const heightScale: number = 1;
-            const upAxis: number = 1;
-            const hdt: Ammo.PHY_ScalarType = 'PHY_FLOAT';
-            const flipQuadEdges: boolean = false;
-            shape = new this._ammo.btHeightfieldTerrainShape(heightStickWidth, heightStickLength, heightfieldData, heightScale, minHeight, maxHeight, upAxis, hdt, flipQuadEdges);
-            localScaling.set(size.x / heightStickWidth, 1, size.y / heightStickLength);
+          } else {
+            type = 'empty';
           }
-          break;
-        case 'rope':
-          switch (geometry.type.toLowerCase()) {
-            case 'ropegeometry':
-              const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
-              const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
-              let index = 0;
-              const ropeStart = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-              index = attrPos.count - 1;
-              const ropeEnd = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-              softBody = this.physics.getSoftBodyHelpers().CreateRope(this.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
-              (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
-              break;
-            default:
-              console.log(geometry.type);
-              break;
-          }
-          break;
-        case 'trimesh':
-        case 'softtrimesh':
-          {
-            const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
-            const processGeometryInfo = this._processGeometry(absGeometry);
-            ammoIndexAssociation = processGeometryInfo.ammoIndexAssociation;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this.getWorldInfo(), processGeometryInfo.ammoVertices, processGeometryInfo.ammoIndices, processGeometryInfo.ammoIndices.length / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
-            (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
-          }
-          break;
-        case 'ellipsoid':
-        case 'softellipsoid':
-          {
-            const center: Ammo.btVector3 = null;
-            const radius: Ammo.btVector3 = null;
-            const res: number = null;
-            softBody = this.physics.getSoftBodyHelpers().CreateEllipsoid(this.getWorldInfo(), center, radius, res);
-          }
-          break;
-        case 'softconvex':
-        case 'softconvexhull':
-          {
-            const vertices: Ammo.btVector3 = null;
-            const nvertices: number = null;
-            const randomizeConstraints: boolean = null;
-            softBody = this.physics.getSoftBodyHelpers().CreateFromConvexHull(this.getWorldInfo(), vertices, nvertices, randomizeConstraints);
-          }
-          break;
-        case 'softpatch':
-          switch (geometry.type.toLowerCase()) {
-            case 'planegeometry':
-              {
-                const segments = this.getGeometrySegments(geometry, 1);
+        }
+        switch (type.toLowerCase()) {
+          case 'convextriangle':
+            {
+              const meshInterface: Ammo.btStridingMeshInterface = null;
+              const calcAabb: boolean = false;
+              shape = new this._ammo.btConvexTriangleMeshShape(meshInterface, calcAabb);
+            }
+            break;
+          case 'box':
+            shape = new this._ammo.btBoxShape(this.getBoxHalfExtents(geometry));
+            break;
+          case 'capsule':
+            shape = new this._ammo.btCapsuleShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'capsulex':
+            shape = new this._ammo.btCapsuleShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'capsulez':
+            shape = new this._ammo.btCapsuleShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'cylinder':
+            shape = new this._ammo.btCylinderShape(this.getBoxHalfExtents(geometry));
+            break;
+          case 'cylinderx':
+            shape = new this._ammo.btCylinderShapeX(this.getBoxHalfExtents(geometry));
+            break;
+          case 'cylinderz':
+            shape = new this._ammo.btCylinderShapeZ(this.getBoxHalfExtents(geometry));
+            break;
+          case 'sphere':
+            shape = new this._ammo.btSphereShape(this.getRadius(geometry, 0));
+            break;
+          case 'multisphere':
+            {
+              const positions: Ammo.btVector3 = null;
+              const radii: ReadonlyArray<number> = null;
+              const numPoints: number = null;
+              shape = new this._ammo.btMultiSphereShape(positions, radii, numPoints);
+            }
+            break;
+          case 'cone':
+            shape = new this._ammo.btConeShape(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'conex':
+            shape = new this._ammo.btConeShapeX(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'conez':
+            shape = new this._ammo.btConeShapeZ(this.getRadius(geometry, 0), this.getHeight(geometry, 0));
+            break;
+          case 'convexhull':
+            {
+              const btConvexHullShape = new this._ammo.btConvexHullShape();
+              const coords = geometry.attributes.position.array;
+              const tempBtVec3 = new this._ammo.btVector3(0, 0, 0);
+              for (let i = 0, il = coords.length; i < il; i += 3) {
+                tempBtVec3.setValue(coords[i], coords[i + 1], coords[i + 2]);
+                const lastOne = i >= il - 3;
+                btConvexHullShape.addPoint(tempBtVec3, lastOne);
+              }
+              shape = btConvexHullShape;
+            }
+            break;
+          case 'compound':
+            {
+              const enableDynamicAabbTree: boolean = false;
+              shape = new this._ammo.btCompoundShape(enableDynamicAabbTree);
+            }
+            break;
+          case 'plane':
+          case 'staticplane':
+            {
+              const planeNormal: Ammo.btVector3 = null;
+              const planeConstant: number = null;
+              shape = new this._ammo.btStaticPlaneShape(planeNormal, planeConstant);
+            }
+            break;
+          case 'bvhtriangle':
+            {
+              const meshInterface: Ammo.btStridingMeshInterface = null;
+              const useQuantizedAabbCompression: boolean = null;
+              const buildBvh: boolean = null;
+              shape = new this._ammo.btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, buildBvh);
+            }
+            break;
+          case 'terrain':
+          case 'heightfieldterrain':
+            {
+              const size = this.getGeometrySize(geometry);
+              const segments = this.getGeometrySegments(geometry);
+              const meshPositions = geometry.getAttribute('position') as THREE.BufferAttribute;
+              const heightStickWidth: number = segments.x + 1;
+              const heightStickLength: number = segments.y + 1;
+              const heightfieldData = this._ammo._malloc(4 * heightStickWidth * heightStickLength);
+              let p = 0;
+              let p2 = 0;
+              let minHeight: number = Infinity;
+              let maxHeight: number = -Infinity;
+              for (let j = 0; j < heightStickLength; j++) {
+                for (let i = 0; i < heightStickWidth; i++) {
+                  const height = meshPositions.getY(p);
+                  this._ammo.HEAPF32[(heightfieldData + p2) >> 2] = height;
+                  minHeight = Math.min(minHeight, height);
+                  maxHeight = Math.max(maxHeight, height);
+                  p++;
+                  p2 += 4;
+                }
+              }
+              const heightScale: number = 1;
+              const upAxis: number = 1;
+              const hdt: Ammo.PHY_ScalarType = 'PHY_FLOAT';
+              const flipQuadEdges: boolean = false;
+              shape = new this._ammo.btHeightfieldTerrainShape(heightStickWidth, heightStickLength, heightfieldData, heightScale, minHeight, maxHeight, upAxis, hdt, flipQuadEdges);
+              localScaling.set(size.x / heightStickWidth, 1, size.y / heightStickLength);
+            }
+            break;
+          case 'rope':
+            switch (geometry.type.toLowerCase()) {
+              case 'ropegeometry':
                 const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
                 const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
-                const attrCount = attrPos.count;
                 let index = 0;
-                const clothCorner00 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-                index = segments.x;
-                const clothCorner01 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-                index = attrCount - segments.x - 1;
-                const clothCorner10 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-                index = attrCount - 1;
-                const clothCorner11 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
-                softBody = this.physics.getSoftBodyHelpers().CreatePatch(this.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, segments.x + 1, segments.y + 1, 0, true);
-                attrPos.setUsage(THREE.DynamicDrawUsage);
-              }
-              break;
+                const ropeStart = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                index = attrPos.count - 1;
+                const ropeEnd = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                softBody = this.physics.getSoftBodyHelpers().CreateRope(this.getWorldInfo(), ropeStart, ropeEnd, attrPos.count - 1, 0);
+                (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
+                break;
+              default:
+                console.log(geometry.type);
+                break;
+            }
+            break;
+          case 'trimesh':
+          case 'softtrimesh':
+            {
+              const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
+              const processGeometryInfo = this._processGeometry(absGeometry);
+              ammoIndexAssociation = processGeometryInfo.ammoIndexAssociation;
+              softBody = this.physics.getSoftBodyHelpers().CreateFromTriMesh(this.getWorldInfo(), processGeometryInfo.ammoVertices, processGeometryInfo.ammoIndices, processGeometryInfo.ammoIndices.length / 3, ThreeUtil.getTypeSafe(this.randomizeConstraints, true));
+              (geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
+            }
+            break;
+          case 'ellipsoid':
+          case 'softellipsoid':
+            {
+              const center: Ammo.btVector3 = null;
+              const radius: Ammo.btVector3 = null;
+              const res: number = null;
+              softBody = this.physics.getSoftBodyHelpers().CreateEllipsoid(this.getWorldInfo(), center, radius, res);
+            }
+            break;
+          case 'softconvex':
+          case 'softconvexhull':
+            {
+              const vertices: Ammo.btVector3 = null;
+              const nvertices: number = null;
+              const randomizeConstraints: boolean = null;
+              softBody = this.physics.getSoftBodyHelpers().CreateFromConvexHull(this.getWorldInfo(), vertices, nvertices, randomizeConstraints);
+            }
+            break;
+          case 'softpatch':
+            switch (geometry.type.toLowerCase()) {
+              case 'planegeometry':
+                {
+                  const segments = this.getGeometrySegments(geometry, 1);
+                  const absGeometry = this.getAbsoluteGeometry(geometry, this.object3d);
+                  const attrPos = absGeometry.getAttribute('position') as THREE.BufferAttribute;
+                  const attrCount = attrPos.count;
+                  let index = 0;
+                  const clothCorner00 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                  index = segments.x;
+                  const clothCorner01 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                  index = attrCount - segments.x - 1;
+                  const clothCorner10 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                  index = attrCount - 1;
+                  const clothCorner11 = new this._ammo.btVector3(attrPos.getX(index), attrPos.getY(index), attrPos.getZ(index));
+                  softBody = this.physics.getSoftBodyHelpers().CreatePatch(this.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, segments.x + 1, segments.y + 1, 0, true);
+                  attrPos.setUsage(THREE.DynamicDrawUsage);
+                }
+                break;
+            }
+            break;
+          case 'empty':
+          default:
+            break;
+        }
+        const mass = this.getMass();
+        const margin = this.getMargin(0.05);
+        if (softBody === null && shape === null) {
+          shape = new this._ammo.btEmptyShape();
+        }
+        if (softBody !== null) {
+          const sbConfig = softBody.get_m_cfg();
+          if (ThreeUtil.isNotNull(this.viterations)) {
+            sbConfig.set_viterations(ThreeUtil.getNumberSafe(this.viterations, 10));
           }
-          break;
-        case 'empty':
-        default:
-          break;
-      }
-      const mass = this.getMass();
-      const margin = this.getMargin(0.05);
-      if (softBody === null && shape === null) {
-        shape = new this._ammo.btEmptyShape();
-      }
-      if (softBody !== null) {
-        const sbConfig = softBody.get_m_cfg();
-        if (ThreeUtil.isNotNull(this.viterations)) {
-          sbConfig.set_viterations(ThreeUtil.getNumberSafe(this.viterations, 10));
-        }
-        if (ThreeUtil.isNotNull(this.piterations)) {
-          sbConfig.set_piterations(ThreeUtil.getNumberSafe(this.piterations, 10));
-        }
-        if (ThreeUtil.isNotNull(this.collisions)) {
-          // Soft-soft and soft-rigid collisions
-          sbConfig.set_collisions(ThreeUtil.getNumberSafe(this.collisions, 0));
-        }
-        if (ThreeUtil.isNotNull(this.friction)) {
-          // Friction
-          sbConfig.set_kDF(this.getFriction(0));
-        }
-        if (ThreeUtil.isNotNull(this.damping) || ThreeUtil.isNotNull(this.linDamping)) {
-          // Damping
-          sbConfig.set_kDP(this.getLinDamping(0));
-        }
-        if (ThreeUtil.isNotNull(this.pressure)) {
-          sbConfig.set_kPR(this.pressure);
-        }
-        if (ThreeUtil.isNotNull(this.stiffness) || ThreeUtil.isNotNull(this.linStiffness)) {
-          // Line Stiffness
-          softBody.get_m_materials().at(0).set_m_kLST(ThreeUtil.getTypeSafe(this.linStiffness, this.stiffness));
-        }
-        if (ThreeUtil.isNotNull(this.stiffness) || ThreeUtil.isNotNull(this.angStiffness)) {
-          // Angular Stiffness
-          softBody.get_m_materials().at(0).set_m_kAST(ThreeUtil.getTypeSafe(this.angStiffness, this.stiffness));
-        }
-        softBody.setActivationState(0);
-        const softShape = softBody.getCollisionShape();
-        softShape.setMargin(margin);
-        this.rigidBody = {
-          type: 'softbody',
-          rigidBodies: [],
-          softBody: softBody,
-          debris: [],
-          ammoIndexAssociation: ammoIndexAssociation,
-        };
-      } else if (shape !== null) {
-        localScaling.multiply(this.object3d.getWorldScale(new THREE.Vector3(1, 1, 1)));
-        shape.setLocalScaling(new this._ammo.btVector3(localScaling.x, localScaling.y, localScaling.z));
-        shape.setMargin(margin);
-        const localInertia = this.getInertia(0);
-        shape.calculateLocalInertia(mass, localInertia);
-        if (this.object3d instanceof THREE.InstancedMesh) {
-          const array = this.object3d.instanceMatrix.array as [];
-          const bodies: Ammo.btRigidBody[] = [];
-          for (let i = 0; i < this.object3d.count; i++) {
-            const index = i * 16;
+          if (ThreeUtil.isNotNull(this.piterations)) {
+            sbConfig.set_piterations(ThreeUtil.getNumberSafe(this.piterations, 10));
+          }
+          if (ThreeUtil.isNotNull(this.collisions)) {
+            // Soft-soft and soft-rigid collisions
+            sbConfig.set_collisions(ThreeUtil.getNumberSafe(this.collisions, 0));
+          }
+          if (ThreeUtil.isNotNull(this.friction)) {
+            // Friction
+            sbConfig.set_kDF(this.getFriction(0));
+          }
+          if (ThreeUtil.isNotNull(this.damping) || ThreeUtil.isNotNull(this.linDamping)) {
+            // Damping
+            sbConfig.set_kDP(this.getLinDamping(0));
+          }
+          if (ThreeUtil.isNotNull(this.pressure)) {
+            sbConfig.set_kPR(this.pressure);
+          }
+          if (ThreeUtil.isNotNull(this.stiffness) || ThreeUtil.isNotNull(this.linStiffness)) {
+            // Line Stiffness
+            softBody.get_m_materials().at(0).set_m_kLST(ThreeUtil.getTypeSafe(this.linStiffness, this.stiffness));
+          }
+          if (ThreeUtil.isNotNull(this.stiffness) || ThreeUtil.isNotNull(this.angStiffness)) {
+            // Angular Stiffness
+            softBody.get_m_materials().at(0).set_m_kAST(ThreeUtil.getTypeSafe(this.angStiffness, this.stiffness));
+          }
+          softBody.setActivationState(0);
+          const softShape = softBody.getCollisionShape();
+          softShape.setMargin(margin);
+          this.rigidBody = {
+            type: 'softbody',
+            rigidBodies: [],
+            softBody: softBody,
+            debris: [],
+            ammoIndexAssociation: ammoIndexAssociation,
+          };
+        } else if (shape !== null) {
+          localScaling.multiply(this.object3d.getWorldScale(new THREE.Vector3(1, 1, 1)));
+          shape.setLocalScaling(new this._ammo.btVector3(localScaling.x, localScaling.y, localScaling.z));
+          shape.setMargin(margin);
+          const localInertia = this.getInertia(0);
+          shape.calculateLocalInertia(mass, localInertia);
+          if (this.object3d instanceof THREE.InstancedMesh) {
+            const array = this.object3d.instanceMatrix.array as [];
+            const bodies: Ammo.btRigidBody[] = [];
+            for (let i = 0; i < this.object3d.count; i++) {
+              const index = i * 16;
+              const transform = new this._ammo.btTransform();
+              transform.setFromOpenGLMatrix(array.slice(index, index + 16));
+              const motionState = new this._ammo.btDefaultMotionState(transform);
+              const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
+              const body = new this._ammo.btRigidBody(rbInfo);
+              if (ThreeUtil.isNotNull(this.friction)) {
+                body.setFriction(this.getFriction(0));
+              }
+              if (ThreeUtil.isNotNull(this.rollingFriction)) {
+                body.setRollingFriction(this.getRollingFriction(0));
+              }
+              if (ThreeUtil.isNotNull(this.restitution)) {
+                body.setRestitution(this.getRestitution(0));
+              }
+              if (ThreeUtil.isNotNull(this.linDamping)) {
+                body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
+              }
+              body.setActivationState(0);
+              bodies.push(body);
+            }
+            if (mass > 0) {
+              this.object3d.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+            }
+            this.rigidBody = {
+              type: 'instanced',
+              rigidBodies: bodies,
+              softBody: null,
+              debris: [],
+            };
+          } else {
             const transform = new this._ammo.btTransform();
-            transform.setFromOpenGLMatrix(array.slice(index, index + 16));
+            transform.setIdentity();
+            const quaternion = this.object3d.getWorldQuaternion(new THREE.Quaternion());
+            transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+            const position = this.object3d.getWorldPosition(new THREE.Vector3());
+            transform.setOrigin(new this._ammo.btVector3(position.x, position.y, position.z));
             const motionState = new this._ammo.btDefaultMotionState(transform);
             const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
             const body = new this._ammo.btRigidBody(rbInfo);
@@ -1406,65 +1480,41 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
               body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
             }
             body.setActivationState(0);
-            bodies.push(body);
-          }
-          if (mass > 0) {
-            this.object3d.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-          }
-          this.rigidBody = {
-            type: 'instanced',
-            rigidBodies: bodies,
-            softBody: null,
-            debris: [],
-          };
-        } else {
-          const transform = new this._ammo.btTransform();
-          transform.setIdentity();
-          const quaternion = this.object3d.getWorldQuaternion(new THREE.Quaternion());
-          transform.setRotation(new this._ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
-          const position = this.object3d.getWorldPosition(new THREE.Vector3());
-          transform.setOrigin(new this._ammo.btVector3(position.x, position.y, position.z));
-          const motionState = new this._ammo.btDefaultMotionState(transform);
-          const rbInfo = new this._ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
-          const body = new this._ammo.btRigidBody(rbInfo);
-          if (ThreeUtil.isNotNull(this.friction)) {
-            body.setFriction(this.getFriction(0));
-          }
-          if (ThreeUtil.isNotNull(this.rollingFriction)) {
-            body.setRollingFriction(this.getRollingFriction(0));
-          }
-          if (ThreeUtil.isNotNull(this.restitution)) {
-            body.setRestitution(this.getRestitution(0));
-          }
-          if (ThreeUtil.isNotNull(this.linDamping)) {
-            body.setDamping(this.getLinDamping(0), this.getAngDamping(0));
-          }
-          body.setActivationState(0);
-          body['object3d'] = this.object3d;
-          this.rigidBody = {
-            type: 'rigidbody',
-            rigidBodies: [body],
-            softBody: null,
-            debris: [],
-          };
-          this.object3d.addEventListener('collision', (e) => {
-            // this.consoleLog('collision', e, 'info');
-          });
-          if (this.breakable) {
-            this.physics.getConvexObjectBreaker().prepareBreakableObject(this.object3d, mass, new THREE.Vector3(), new THREE.Vector3(), true);
-            const btVecUserData = new this._ammo.btVector3(0, 0, 0);
-            btVecUserData['threeObject'] = this.object3d;
-            body.setUserPointer(btVecUserData);
-            this.object3d.addEventListener('debris', (e) => {
-              this._createDebrisFromBreakableObject(e.fragments);
+            body['object3d'] = this.object3d;
+            this.rigidBody = {
+              type: 'rigidbody',
+              rigidBodies: [body],
+              softBody: null,
+              debris: [],
+            };
+            this.object3d.addEventListener('collision', (e) => {
+              // this.consoleLog('collision', e, 'info');
             });
+            if (this.breakable) {
+              this.physics.getConvexObjectBreaker().prepareBreakableObject(this.object3d, mass, new THREE.Vector3(), new THREE.Vector3(), true);
+              const btVecUserData = new this._ammo.btVector3(0, 0, 0);
+              btVecUserData['threeObject'] = this.object3d;
+              body.setUserPointer(btVecUserData);
+              this.object3d.addEventListener('debris', (e) => {
+                this._createDebrisFromBreakableObject(e.fragments);
+              });
+            }
           }
+        }
+      } else {
+        this.rigidBody = {
+          type : 'mesh',
+          rigidBodies: null,
+          softBody: null,
+          debris: null,
+          ammoIndexAssociation: null,
+          mesh : this.object3d
         }
       }
       this.object3d.userData.rigidBody = this.id;
       super.setObject(this.rigidBody);
       ThreeUtil.setSubscribeNext(this.object3d, this.subscribeType);
-    }
+  }
     return this.rigidBody;
   }
 

@@ -12,6 +12,8 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
  * Rotates the object to face a point in world space.<br /><br />
  * 
  * This method does not support objects having non-uniformly-scaled parent(s).
+ * 
+ * @see THREE.Object3D.lookAt
  */
 @Component({
   selector: 'ngx3js-lookat',

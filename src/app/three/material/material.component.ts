@@ -2,7 +2,7 @@ import { Component, ContentChildren, forwardRef, Input, OnChanges, OnDestroy, On
 import * as THREE from 'three';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { NodeMaterialLoader } from 'three/examples/jsm/loaders/NodeMaterialLoader';
-import * as Nodes from 'three/examples/jsm/nodes/Nodes';
+import * as NODES from 'three/examples/jsm/nodes/Nodes';
 import { ReflectorOptions } from 'three/examples/jsm/objects/Reflector';
 import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
 import { RendererTimer, ThreeColor, ThreeTexture, ThreeUniforms, ThreeUtil } from '../interface';
@@ -23,6 +23,8 @@ import { AbstractTextureComponent } from '../texture.abstract';
  *
  * The following properties and methods are inherited by all other material types
  * (although they may have different defaults).
+ * 
+ * @see THREE.Material
  */
 @Component({
 	selector: 'ngx3js-material',
@@ -178,7 +180,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	@Input() private emissive: ThreeColor = null;
 
 	/**
-	 * Input  of material component
+	 * Emissive (light) color multiply of the material, essentially a solid color unaffected by other lighting.
 	 */
 	@Input() private emissiveMultiply: number = null;
 
@@ -239,7 +241,10 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * blend between the two colors.
 	 *
 	 * Notice - case insensitive.
-	 *
+	 * 
+	 * @see THREE.MultiplyOperation - MultiplyOperation, Multiply
+	 * @see THREE.MixOperation - MixOperation, Mix
+	 * @see THREE.AddOperation - AddOperation, Add
 	 */
 	@Input() private combine: string = null;
 
@@ -280,7 +285,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
 	 *
 	 * Notice - case insensitive.
-	 *
+	 * 
 	 */
 	@Input() private wireframeLinejoin: string = null;
 
@@ -798,8 +803,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param color
 	 * @returns
 	 */
-	private getColorNode(color?: THREE.Color): Nodes.ColorNode {
-		return new Nodes.ColorNode(color);
+	private getColorNode(color?: THREE.Color): NODES.ColorNode {
+		return new NODES.ColorNode(color);
 	}
 
 	/**
@@ -808,8 +813,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param value
 	 * @returns
 	 */
-	private getFloatNode(value?: number): Nodes.FloatNode {
-		return new Nodes.FloatNode(value);
+	private getFloatNode(value?: number): NODES.FloatNode {
+		return new NODES.FloatNode(value);
 	}
 
 	/**
@@ -818,8 +823,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param value
 	 * @returns
 	 */
-	private getIntNode(value?: number): Nodes.IntNode {
-		return new Nodes.IntNode(value);
+	private getIntNode(value?: number): NODES.IntNode {
+		return new NODES.IntNode(value);
 	}
 
 	/**
@@ -828,8 +833,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param value
 	 * @returns
 	 */
-	private getBoolNode(value?: boolean): Nodes.BoolNode {
-		return new Nodes.BoolNode(value);
+	private getBoolNode(value?: boolean): NODES.BoolNode {
+		return new NODES.BoolNode(value);
 	}
 
 	/**
@@ -838,8 +843,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param matrix
 	 * @returns
 	 */
-	private getMatrix3Node(matrix?: THREE.Matrix3): Nodes.Matrix3Node {
-		return new Nodes.Matrix3Node(matrix);
+	private getMatrix3Node(matrix?: THREE.Matrix3): NODES.Matrix3Node {
+		return new NODES.Matrix3Node(matrix);
 	}
 
 	/**
@@ -848,8 +853,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param matrix
 	 * @returns
 	 */
-	private getMatrix4Node(matrix?: THREE.Matrix4): Nodes.Matrix4Node {
-		return new Nodes.Matrix4Node(matrix);
+	private getMatrix4Node(matrix?: THREE.Matrix4): NODES.Matrix4Node {
+		return new NODES.Matrix4Node(matrix);
 	}
 
 	/**
@@ -860,8 +865,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param type
 	 * @returns
 	 */
-	private getPropertyNode(object: object, property: string, type: string): Nodes.PropertyNode {
-		return new Nodes.PropertyNode(object, property, type);
+	private getPropertyNode(object: object, property: string, type: string): NODES.PropertyNode {
+		return new NODES.PropertyNode(object, property, type);
 	}
 
 	/**
@@ -870,8 +875,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param uv
 	 * @returns
 	 */
-	private getScreenNode(uv?: Nodes.UVNode): Nodes.ScreenNode {
-		return new Nodes.ScreenNode(uv);
+	private getScreenNode(uv?: NODES.UVNode): NODES.ScreenNode {
+		return new NODES.ScreenNode(uv);
 	}
 
 	/**
@@ -883,8 +888,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param project
 	 * @returns
 	 */
-	private getTextureNode(value: THREE.Texture, uv?: Nodes.UVNode, bias?: Nodes.Node, project?: boolean): Nodes.TextureNode {
-		return new Nodes.TextureNode(value, uv, bias, project);
+	private getTextureNode(value: THREE.Texture, uv?: NODES.UVNode, bias?: NODES.Node, project?: boolean): NODES.TextureNode {
+		return new NODES.TextureNode(value, uv, bias, project);
 	}
 
 	/**
@@ -895,8 +900,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param bias
 	 * @returns
 	 */
-	private getCubeTextureNode(value: THREE.CubeTexture, uv?: Nodes.UVNode, bias?: Nodes.Node): Nodes.CubeTextureNode {
-		return new Nodes.CubeTextureNode(value, uv, bias);
+	private getCubeTextureNode(value: THREE.CubeTexture, uv?: NODES.UVNode, bias?: NODES.Node): NODES.CubeTextureNode {
+		return new NODES.CubeTextureNode(value, uv, bias);
 	}
 
 	/**
@@ -905,8 +910,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param mirror
 	 * @returns
 	 */
-	private getReflectorNode(mirror: ReflectorRTT): Nodes.ReflectorNode {
-		return new Nodes.ReflectorNode(mirror);
+	private getReflectorNode(mirror: ReflectorRTT): NODES.ReflectorNode {
+		return new NODES.ReflectorNode(mirror);
 	}
 
 	/**
@@ -916,8 +921,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param components
 	 * @returns
 	 */
-	private getSwitchNode(node: Nodes.Node, components?: string): Nodes.SwitchNode {
-		return new Nodes.SwitchNode(node, components);
+	private getSwitchNode(node: NODES.Node, components?: string): NODES.SwitchNode {
+		return new NODES.SwitchNode(node, components);
 	}
 
 	/**
@@ -937,8 +942,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param time
 	 * @returns
 	 */
-	private getNodeFrame(time: number = 0): Nodes.NodeFrame {
-		return new Nodes.NodeFrame(time);
+	private getNodeFrame(time: number = 0): NODES.NodeFrame {
+		return new NODES.NodeFrame(time);
 	}
 
 	/**
@@ -951,8 +956,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param elseNode
 	 * @returns
 	 */
-	private getCondNode(a: Nodes.Node, b: Nodes.Node, op: string, ifNode?: Nodes.Node, elseNode?: Nodes.Node): Nodes.CondNode {
-		return new Nodes.CondNode(a, b, op, ifNode, elseNode);
+	private getCondNode(a: NODES.Node, b: NODES.Node, op: string, ifNode?: NODES.Node, elseNode?: NODES.Node): NODES.CondNode {
+		return new NODES.CondNode(a, b, op, ifNode, elseNode);
 	}
 
 	/**
@@ -964,8 +969,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param method
 	 * @returns
 	 */
-	private getMathNode(a: Nodes.Node, bOrMethod: Nodes.Node | string, cOrMethod?: Nodes.Node | string, method?: string): Nodes.MathNode {
-		return new Nodes.MathNode(a, bOrMethod, cOrMethod, method);
+	private getMathNode(a: NODES.Node, bOrMethod: NODES.Node | string, cOrMethod?: NODES.Node | string, method?: string): NODES.MathNode {
+		return new NODES.MathNode(a, bOrMethod, cOrMethod, method);
 	}
 
 	/**
@@ -976,8 +981,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param op
 	 * @returns
 	 */
-	private getOperatorNode(a: Nodes.Node, b: Nodes.Node, op: string): Nodes.OperatorNode {
-		return new Nodes.OperatorNode(a, b, op);
+	private getOperatorNode(a: NODES.Node, b: NODES.Node, op: string): NODES.OperatorNode {
+		return new NODES.OperatorNode(a, b, op);
 	}
 
 	/**
@@ -988,8 +993,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param timeScale
 	 * @returns
 	 */
-	private getTimerNode(scale?: number, scope?: string, timeScale?: boolean): Nodes.TimerNode {
-		return new Nodes.TimerNode(scale, scope, timeScale);
+	private getTimerNode(scale?: number, scope?: string, timeScale?: boolean): NODES.TimerNode {
+		return new NODES.TimerNode(scale, scope, timeScale);
 	}
 
 	/**
@@ -1000,8 +1005,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param timeScale
 	 * @returns
 	 */
-	private getFunctionNode(src: string, includes?: object[], extensions?: object, keywords?: object, type?: string): Nodes.FunctionNode {
-		return new Nodes.FunctionNode(src, includes, extensions, keywords, type);
+	private getFunctionNode(src: string, includes?: object[], extensions?: object, keywords?: object, type?: string): NODES.FunctionNode {
+		return new NODES.FunctionNode(src, includes, extensions, keywords, type);
 	}
 
 	/**
@@ -1011,8 +1016,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param inputs
 	 * @returns
 	 */
-	private getFunctionCallNode(func: Nodes.FunctionNode, inputs?: Nodes.Node[]): Nodes.FunctionCallNode {
-		return new Nodes.FunctionCallNode(func, inputs);
+	private getFunctionCallNode(func: NODES.FunctionNode, inputs?: NODES.Node[]): NODES.FunctionCallNode {
+		return new NODES.FunctionCallNode(func, inputs);
 	}
 
 	/**
@@ -1021,8 +1026,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param scope
 	 * @returns
 	 */
-	private getPositionNode(scope?: string): Nodes.PositionNode {
-		return new Nodes.PositionNode(scope);
+	private getPositionNode(scope?: string): NODES.PositionNode {
+		return new NODES.PositionNode(scope);
 	}
 
 	/**
@@ -1031,8 +1036,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param index
 	 * @returns
 	 */
-	private getUVNode(index?: number): Nodes.UVNode {
-		return new Nodes.UVNode(index);
+	private getUVNode(index?: number): NODES.UVNode {
+		return new NODES.UVNode(index);
 	}
 
 	/**
@@ -1044,8 +1049,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param options
 	 * @returns
 	 */
-	private getRTTNode(width: number, height: number, input: Nodes.TextureNode, options?: Nodes.RTTNodeOptions): Nodes.RTTNode {
-		return new Nodes.RTTNode(width, height, input, options);
+	private getRTTNode(width: number, height: number, input: NODES.TextureNode, options?: NODES.RTTNodeOptions): NODES.RTTNode {
+		return new NODES.RTTNode(width, height, input, options);
 	}
 
 	/**
@@ -1055,8 +1060,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param y
 	 * @returns
 	 */
-	private getVector2Node(x: number | THREE.Vector2, y?: number): Nodes.Vector2Node {
-		return new Nodes.Vector2Node(x, y);
+	private getVector2Node(x: number | THREE.Vector2, y?: number): NODES.Vector2Node {
+		return new NODES.Vector2Node(x, y);
 	}
 
 	/**
@@ -1067,11 +1072,11 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param z
 	 * @returns
 	 */
-	private getVector3Node(x: number | THREE.Vector3 | THREE.Color, y?: number, z?: number): Nodes.Vector3Node {
+	private getVector3Node(x: number | THREE.Vector3 | THREE.Color, y?: number, z?: number): NODES.Vector3Node {
 		if (x instanceof THREE.Color) {
-			return new Nodes.Vector3Node(x.r, x.g, x.b);
+			return new NODES.Vector3Node(x.r, x.g, x.b);
 		} else {
-			return new Nodes.Vector3Node(x, y, z);
+			return new NODES.Vector3Node(x, y, z);
 		}
 	}
 
@@ -1082,20 +1087,20 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param y
 	 * @returns
 	 */
-	private getVector4Node(x: number, y: number, z: number, w: number): Nodes.Vector4Node {
-		return new Nodes.Vector4Node(x, y, z, w);
+	private getVector4Node(x: number, y: number, z: number, w: number): NODES.Vector4Node {
+		return new NODES.Vector4Node(x, y, z, w);
 	}
 
 	/**
 	 * Blur mirror of material component
 	 */
-	private _blurMirror: Nodes.BlurNode = null;
+	private _blurMirror: NODES.BlurNode = null;
 
 	/**
 	 * Gets environment
 	 * @returns environment
 	 */
-	private getEnvironment(): Nodes.Node {
+	private getEnvironment(): NODES.Node {
 		this._blurMirror = null;
 		this.unSubscribeRefer('mirrorSize');
 		switch (this.environmentType.toLowerCase()) {
@@ -1103,17 +1108,17 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 				const size = ThreeUtil.getRendererSize().clone().multiplyScalar(window.devicePixelRatio);
 				const groundMirror: ReflectorRTT = ThreeUtil.getMesh(this.reflector) as ReflectorRTT;
 				const mirror: any = this.getReflectorNode(groundMirror);
-				const normalXYFlip = this.getMathNode(this.getSwitchNode(this.getTextureNode(this.getTexture('normalMap')), 'xy'), Nodes.MathNode.INVERT);
-				const offsetNormal = this.getOperatorNode(normalXYFlip, this.getFloatNode(0.5), Nodes.OperatorNode.SUB);
+				const normalXYFlip = this.getMathNode(this.getSwitchNode(this.getTextureNode(this.getTexture('normalMap')), 'xy'), NODES.MathNode.INVERT);
+				const offsetNormal = this.getOperatorNode(normalXYFlip, this.getFloatNode(0.5), NODES.OperatorNode.SUB);
 				mirror.offset = this.getOperatorNode(
 					offsetNormal, // normal
 					this.getFloatNode(6), // scale
-					Nodes.OperatorNode.MUL
+					NODES.OperatorNode.MUL
 				);
-				const blurMirror = new Nodes.BlurNode(mirror);
+				const blurMirror = new NODES.BlurNode(mirror);
 				blurMirror.size = size;
-				const blurMirrorUv: any = new Nodes.ExpressionNode('projCoord.xyz / projCoord.q', 'vec3');
-				blurMirrorUv.keywords['projCoord'] = this.getOperatorNode(mirror.offset, mirror.uv, Nodes.OperatorNode.ADD);
+				const blurMirrorUv: any = new NODES.ExpressionNode('projCoord.xyz / projCoord.q', 'vec3');
+				blurMirrorUv.keywords['projCoord'] = this.getOperatorNode(mirror.offset, mirror.uv, NODES.OperatorNode.ADD);
 				blurMirror.uv = blurMirrorUv;
 				blurMirror.radius = this.getVector2Node(0, 0); // .x = blurMirror.radius.y = 0;
 				this.subscribeRefer(
@@ -1136,7 +1141,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * Gets environment alpha
 	 * @returns environment alpha
 	 */
-	private getEnvironmentAlpha(): Nodes.Node {
+	private getEnvironmentAlpha(): NODES.Node {
 		switch (this.environmentType.toLowerCase()) {
 			case 'mirror':
 				return this.getSwitchNode(this.getTextureNode(this.getTexture('diffuseMap')), 'w');
@@ -1474,8 +1479,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 		if (ThreeUtil.isNotNull(texture) && this.material !== null) {
 			const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
 			if (foundTexture !== null) {
-				if (this.material instanceof Nodes.NodeMaterial) {
-					if (this.material[textureType] instanceof Nodes.TextureNode) {
+				if (this.material instanceof NODES.NodeMaterial) {
+					if (this.material[textureType] instanceof NODES.TextureNode) {
 						this.material[textureType].value = foundTexture;
 					} else {
 						this.material[textureType] = this.getTextureNode(foundTexture);
@@ -1640,7 +1645,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'color':
 						if (ThreeUtil.isNotNull(this.color) && this.material['color'] !== undefined) {
-							if (this.material['color'] instanceof Nodes.ColorNode) {
+							if (this.material['color'] instanceof NODES.ColorNode) {
 								this.material['color'].value = this.getColor();
 							} else {
 								this.material['color'] = this.getColor();
@@ -1649,7 +1654,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'lights':
 						if (ThreeUtil.isNotNull(this.lights) && this.material['lights'] !== undefined) {
-							if (this.material['lights'] instanceof Nodes.BoolNode) {
+							if (this.material['lights'] instanceof NODES.BoolNode) {
 								this.material['lights'].value = ThreeUtil.getTypeSafe(this.lights, true);
 							} else {
 								this.material['lights'] = ThreeUtil.getTypeSafe(this.lights, true);
@@ -1658,7 +1663,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'clipping':
 						if (ThreeUtil.isNotNull(this.clipping) && this.material['clipping'] !== undefined) {
-							if (this.material['clipping'] instanceof Nodes.BoolNode) {
+							if (this.material['clipping'] instanceof NODES.BoolNode) {
 								this.material['clipping'].value = ThreeUtil.getTypeSafe(this.clipping, true);
 							} else {
 								this.material['clipping'] = ThreeUtil.getTypeSafe(this.clipping, true);
@@ -1667,7 +1672,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'wireframe':
 						if (ThreeUtil.isNotNull(this.wireframe) && this.material['wireframe'] !== undefined) {
-							if (this.material['wireframe'] instanceof Nodes.BoolNode) {
+							if (this.material['wireframe'] instanceof NODES.BoolNode) {
 								this.material['wireframe'].value = ThreeUtil.getTypeSafe(this.wireframe, false);
 							} else {
 								this.material['wireframe'] = ThreeUtil.getTypeSafe(this.wireframe, false);
@@ -1676,7 +1681,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'specular':
 						if (ThreeUtil.isNotNull(this.specular) && this.material['specular'] !== undefined) {
-							if (this.material['specular'] instanceof Nodes.ColorNode) {
+							if (this.material['specular'] instanceof NODES.ColorNode) {
 								this.material['specular'].value = this.getSpecular();
 							} else {
 								this.material['specular'] = this.getSpecular();
@@ -1685,7 +1690,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'shininess':
 						if (ThreeUtil.isNotNull(this.shininess) && this.material['shininess'] !== undefined) {
-							if (this.material['shininess'] instanceof Nodes.FloatNode) {
+							if (this.material['shininess'] instanceof NODES.FloatNode) {
 								this.material['shininess'].value = ThreeUtil.getTypeSafe(this.shininess, 1);
 							} else {
 								this.material['shininess'] = ThreeUtil.getTypeSafe(this.shininess, 1);
@@ -1694,7 +1699,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'lightmapintensity':
 						if (ThreeUtil.isNotNull(this.lightMapIntensity) && this.material['lightMapIntensity'] !== undefined) {
-							if (this.material['lightMapIntensity'] instanceof Nodes.FloatNode) {
+							if (this.material['lightMapIntensity'] instanceof NODES.FloatNode) {
 								this.material['lightMapIntensity'].value = ThreeUtil.getTypeSafe(this.lightMapIntensity, 1);
 							} else {
 								this.material['lightMapIntensity'] = ThreeUtil.getTypeSafe(this.lightMapIntensity, 1);
@@ -1703,7 +1708,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'aomapintensity':
 						if (ThreeUtil.isNotNull(this.aoMapIntensity) && this.material['aoMapIntensity'] !== undefined) {
-							if (this.material['aoMapIntensity'] instanceof Nodes.FloatNode) {
+							if (this.material['aoMapIntensity'] instanceof NODES.FloatNode) {
 								this.material['aoMapIntensity'].value = ThreeUtil.getTypeSafe(this.aoMapIntensity, 1);
 							} else {
 								this.material['aoMapIntensity'] = ThreeUtil.getTypeSafe(this.aoMapIntensity, 1);
@@ -1713,7 +1718,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'emissive':
 						if (ThreeUtil.isNotNull(this.emissive) && this.material['emissive'] !== undefined) {
-							if (this.material['emissive'] instanceof Nodes.ColorNode) {
+							if (this.material['emissive'] instanceof NODES.ColorNode) {
 								this.material['emissive'].value = this.getEmissive();
 							} else {
 								this.material['emissive'] = this.getEmissive();
@@ -1722,7 +1727,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'emissiveintensity':
 						if (ThreeUtil.isNotNull(this.emissiveIntensity) && this.material['emissiveIntensity'] !== undefined) {
-							if (this.material['emissiveIntensity'] instanceof Nodes.FloatNode) {
+							if (this.material['emissiveIntensity'] instanceof NODES.FloatNode) {
 								this.material['emissiveIntensity'].value = ThreeUtil.getTypeSafe(this.emissiveIntensity, 1);
 							} else {
 								this.material['emissiveIntensity'] = ThreeUtil.getTypeSafe(this.emissiveIntensity, 1);
@@ -1731,7 +1736,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'bumpscale':
 						if (ThreeUtil.isNotNull(this.bumpScale) && this.material['bumpScale'] !== undefined) {
-							if (this.material['bumpScale'] instanceof Nodes.FloatNode) {
+							if (this.material['bumpScale'] instanceof NODES.FloatNode) {
 								this.material['bumpScale'].value = ThreeUtil.getTypeSafe(this.bumpScale, 1);
 							} else {
 								this.material['bumpScale'] = ThreeUtil.getTypeSafe(this.bumpScale, 1);
@@ -1745,7 +1750,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'normalscale':
 						if (ThreeUtil.isNotNull(this.roughness) && this.material['normalScale'] !== undefined) {
-							if (this.material['normalScale'] instanceof Nodes.Vector2Node) {
+							if (this.material['normalScale'] instanceof NODES.Vector2Node) {
 								this.material['normalScale'].value = this.getNormalScale();
 							} else {
 								this.material['normalScale'] = this.getNormalScale();
@@ -1754,7 +1759,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'displacementscale':
 						if (ThreeUtil.isNotNull(this.displacementScale) && this.material['displacementScale'] !== undefined) {
-							if (this.material['displacementScale'] instanceof Nodes.FloatNode) {
+							if (this.material['displacementScale'] instanceof NODES.FloatNode) {
 								this.material['displacementScale'].value = ThreeUtil.getTypeSafe(this.displacementScale, 1);
 							} else {
 								this.material['displacementScale'] = ThreeUtil.getTypeSafe(this.displacementScale, 1);
@@ -1763,7 +1768,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'displacementbias':
 						if (ThreeUtil.isNotNull(this.displacementBias) && this.material['displacementBias'] !== undefined) {
-							if (this.material['displacementBias'] instanceof Nodes.FloatNode) {
+							if (this.material['displacementBias'] instanceof NODES.FloatNode) {
 								this.material['displacementBias'].value = ThreeUtil.getTypeSafe(this.displacementBias, 1);
 							} else {
 								this.material['displacementBias'] = ThreeUtil.getTypeSafe(this.displacementBias, 1);
@@ -1777,7 +1782,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'reflectivity':
 						if (ThreeUtil.isNotNull(this.reflectivity) && this.material['reflectivity'] !== undefined) {
-							if (this.material['reflectivity'] instanceof Nodes.FloatNode) {
+							if (this.material['reflectivity'] instanceof NODES.FloatNode) {
 								this.material['reflectivity'].value = ThreeUtil.getTypeSafe(this.reflectivity, 1);
 							} else {
 								this.material['reflectivity'] = ThreeUtil.getTypeSafe(this.reflectivity, 1);
@@ -1786,7 +1791,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'refractionratio':
 						if (ThreeUtil.isNotNull(this.refractionRatio) && this.material['refractionRatio'] !== undefined) {
-							if (this.material['refractionRatio'] instanceof Nodes.FloatNode) {
+							if (this.material['refractionRatio'] instanceof NODES.FloatNode) {
 								this.material['refractionRatio'].value = ThreeUtil.getTypeSafe(this.refractionRatio, 1);
 							} else {
 								this.material['refractionRatio'] = ThreeUtil.getTypeSafe(this.refractionRatio, 1);
@@ -1795,7 +1800,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'wireframelinewidth':
 						if (ThreeUtil.isNotNull(this.wireframeLinewidth) && this.material['wireframeLinewidth'] !== undefined) {
-							if (this.material['wireframeLinewidth'] instanceof Nodes.FloatNode) {
+							if (this.material['wireframeLinewidth'] instanceof NODES.FloatNode) {
 								this.material['wireframeLinewidth'].value = ThreeUtil.getTypeSafe(this.wireframeLinewidth, 1);
 							} else {
 								this.material['wireframeLinewidth'] = ThreeUtil.getTypeSafe(this.wireframeLinewidth, 1);
@@ -1814,7 +1819,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'morphtargets':
 						if (ThreeUtil.isNotNull(this.morphTargets) && this.material['morphTargets'] !== undefined) {
-							if (this.material['morphTargets'] instanceof Nodes.BoolNode) {
+							if (this.material['morphTargets'] instanceof NODES.BoolNode) {
 								this.material['morphTargets'].value = ThreeUtil.getTypeSafe(this.morphTargets, false);
 							} else {
 								this.material['morphTargets'] = ThreeUtil.getTypeSafe(this.morphTargets, false);
@@ -1823,7 +1828,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'morphNormals':
 						if (ThreeUtil.isNotNull(this.morphNormals) && this.material['morphNormals'] !== undefined) {
-							if (this.material['morphNormals'] instanceof Nodes.BoolNode) {
+							if (this.material['morphNormals'] instanceof NODES.BoolNode) {
 								this.material['morphNormals'].value = ThreeUtil.getTypeSafe(this.morphNormals, false);
 							} else {
 								this.material['morphNormals'] = ThreeUtil.getTypeSafe(this.morphNormals, false);
@@ -1832,7 +1837,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'linewidth':
 						if (ThreeUtil.isNotNull(this.linewidth) && this.material['linewidth'] !== undefined) {
-							if (this.material['linewidth'] instanceof Nodes.FloatNode) {
+							if (this.material['linewidth'] instanceof NODES.FloatNode) {
 								this.material['linewidth'].value = ThreeUtil.getTypeSafe(this.linewidth, 1);
 							} else {
 								this.material['linewidth'] = ThreeUtil.getTypeSafe(this.linewidth, 1);
@@ -1852,7 +1857,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'scale':
 						if (ThreeUtil.isNotNull(this.scale) && this.material['scale'] !== undefined) {
-							if (this.material['scale'] instanceof Nodes.FloatNode) {
+							if (this.material['scale'] instanceof NODES.FloatNode) {
 								this.material['scale'].value = ThreeUtil.getTypeSafe(this.scale, 1);
 							} else {
 								this.material['scale'] = ThreeUtil.getTypeSafe(this.scale, 1);
@@ -1861,7 +1866,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'dashsize':
 						if (ThreeUtil.isNotNull(this.dashSize) && this.material['dashSize'] !== undefined) {
-							if (this.material['dashSize'] instanceof Nodes.FloatNode) {
+							if (this.material['dashSize'] instanceof NODES.FloatNode) {
 								this.material['dashSize'].value = ThreeUtil.getTypeSafe(this.dashSize, 1);
 							} else {
 								this.material['dashSize'] = ThreeUtil.getTypeSafe(this.dashSize, 1);
@@ -1870,7 +1875,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'gapsize':
 						if (ThreeUtil.isNotNull(this.gapSize) && this.material['gapSize'] !== undefined) {
-							if (this.material['gapSize'] instanceof Nodes.FloatNode) {
+							if (this.material['gapSize'] instanceof NODES.FloatNode) {
 								this.material['gapSize'].value = ThreeUtil.getTypeSafe(this.gapSize, 1);
 							} else {
 								this.material['gapSize'] = ThreeUtil.getTypeSafe(this.gapSize, 1);
@@ -1884,7 +1889,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'fardistance':
 						if (ThreeUtil.isNotNull(this.farDistance) && this.material['farDistance'] !== undefined) {
-							if (this.material['farDistance'] instanceof Nodes.FloatNode) {
+							if (this.material['farDistance'] instanceof NODES.FloatNode) {
 								this.material['farDistance'].value = ThreeUtil.getTypeSafe(this.farDistance, 1);
 							} else {
 								this.material['farDistance'] = ThreeUtil.getTypeSafe(this.farDistance, 1);
@@ -1893,7 +1898,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'neardistance':
 						if (ThreeUtil.isNotNull(this.nearDistance) && this.material['nearDistance'] !== undefined) {
-							if (this.material['nearDistance'] instanceof Nodes.FloatNode) {
+							if (this.material['nearDistance'] instanceof NODES.FloatNode) {
 								this.material['nearDistance'].value = ThreeUtil.getTypeSafe(this.nearDistance, 1);
 							} else {
 								this.material['nearDistance'] = ThreeUtil.getTypeSafe(this.nearDistance, 1);
@@ -1902,7 +1907,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'referenceposition':
 						if (ThreeUtil.isNotNull(this.referencePositionX) && ThreeUtil.isNotNull(this.referencePositionY) && ThreeUtil.isNotNull(this.referencePositionZ) && this.material['referencePosition'] !== undefined) {
-							if (this.material['referencePosition'] instanceof Nodes.Vector3Node) {
+							if (this.material['referencePosition'] instanceof NODES.Vector3Node) {
 								this.material['referencePosition'].value = this.getReferencePosition();
 							} else {
 								this.material['referencePosition'] = this.getReferencePosition();
@@ -1911,7 +1916,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'clearcoat':
 						if (ThreeUtil.isNotNull(this.clearcoat) && this.material['clearcoat'] !== undefined) {
-							if (this.material['clearcoat'] instanceof Nodes.FloatNode) {
+							if (this.material['clearcoat'] instanceof NODES.FloatNode) {
 								this.material['clearcoat'].value = ThreeUtil.getTypeSafe(this.clearcoat, 1);
 							} else {
 								this.material['clearcoat'] = ThreeUtil.getTypeSafe(this.clearcoat, 1);
@@ -1920,7 +1925,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'clearcoatroughness':
 						if (ThreeUtil.isNotNull(this.clearcoatRoughness) && this.material['clearcoatRoughness'] !== undefined) {
-							if (this.material['clearcoatRoughness'] instanceof Nodes.FloatNode) {
+							if (this.material['clearcoatRoughness'] instanceof NODES.FloatNode) {
 								this.material['clearcoatRoughness'].value = ThreeUtil.getTypeSafe(this.clearcoatRoughness, 1);
 							} else {
 								this.material['clearcoatRoughness'] = ThreeUtil.getTypeSafe(this.clearcoatRoughness, 1);
@@ -1929,7 +1934,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'clearcoatNormalScale':
 						if (ThreeUtil.isNotNull(this.clearcoatNormalScale) && ThreeUtil.isNotNull(this.clearcoatNormalScaleX) && ThreeUtil.isNotNull(this.clearcoatNormalScaleY) && this.material['clearcoatNormalScale'] !== undefined) {
-							if (this.material['clearcoatNormalScale'] instanceof Nodes.Vector2Node) {
+							if (this.material['clearcoatNormalScale'] instanceof NODES.Vector2Node) {
 								this.material['clearcoatNormalScale'].value = this.getClearcoatNormalScale();
 							} else {
 								this.material['clearcoatNormalScale'] = this.getClearcoatNormalScale();
@@ -1938,7 +1943,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'sheen':
 						if (ThreeUtil.isNotNull(this.sheen) && this.material['sheen'] !== undefined) {
-							if (this.material['sheen'] instanceof Nodes.ColorNode) {
+							if (this.material['sheen'] instanceof NODES.ColorNode) {
 								this.material['sheen'].value = this.getSheen();
 							} else {
 								this.material['sheen'] = this.getSheen();
@@ -1947,7 +1952,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'transmission':
 						if (ThreeUtil.isNotNull(this.roughness) && this.material['transmission'] !== undefined) {
-							if (this.material['transmission'] instanceof Nodes.FloatNode) {
+							if (this.material['transmission'] instanceof NODES.FloatNode) {
 								this.material['transmission'].value = ThreeUtil.getTypeSafe(this.transmission, 1);
 							} else {
 								this.material['transmission'] = ThreeUtil.getTypeSafe(this.transmission, 1);
@@ -1956,7 +1961,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'roughness':
 						if (ThreeUtil.isNotNull(this.roughness) && this.material['roughness'] !== undefined) {
-							if (this.material['roughness'] instanceof Nodes.FloatNode) {
+							if (this.material['roughness'] instanceof NODES.FloatNode) {
 								this.material['roughness'].value = ThreeUtil.getTypeSafe(this.roughness, 1);
 							} else {
 								this.material['roughness'] = ThreeUtil.getTypeSafe(this.roughness, 1);
@@ -1965,7 +1970,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'metalness':
 						if (ThreeUtil.isNotNull(this.metalness) && this.material['metalness'] !== undefined) {
-							if (this.material['metalness'] instanceof Nodes.FloatNode) {
+							if (this.material['metalness'] instanceof NODES.FloatNode) {
 								this.material['metalness'].value = ThreeUtil.getTypeSafe(this.metalness, 1);
 							} else {
 								this.material['metalness'] = ThreeUtil.getTypeSafe(this.metalness, 1);
@@ -1975,7 +1980,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'envmapintensity':
 						if (ThreeUtil.isNotNull(this.envMapIntensity) && this.material['envMapIntensity'] !== undefined) {
-							if (this.material['envMapIntensity'] instanceof Nodes.FloatNode) {
+							if (this.material['envMapIntensity'] instanceof NODES.FloatNode) {
 								this.material['envMapIntensity'].value = ThreeUtil.getTypeSafe(this.envMapIntensity, 1);
 							} else {
 								this.material['envMapIntensity'] = ThreeUtil.getTypeSafe(this.envMapIntensity, 1);
@@ -1985,7 +1990,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'vertextangents':
 						if (ThreeUtil.isNotNull(this.vertexTangents) && this.material['vertexTangents'] !== undefined) {
-							if (this.material['vertexTangents'] instanceof Nodes.BoolNode) {
+							if (this.material['vertexTangents'] instanceof NODES.BoolNode) {
 								this.material['vertexTangents'].value = ThreeUtil.getTypeSafe(this.vertexTangents);
 							} else {
 								this.material['vertexTangents'] = ThreeUtil.getTypeSafe(this.vertexTangents);
@@ -1994,7 +1999,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'rotation':
 						if (ThreeUtil.isNotNull(this.rotation) && this.material['rotation'] !== undefined) {
-							if (this.material['rotation'] instanceof Nodes.FloatNode) {
+							if (this.material['rotation'] instanceof NODES.FloatNode) {
 								this.material['rotation'].value = ThreeUtil.getAngleSafe(this.rotation);
 							} else {
 								this.material['rotation'] = ThreeUtil.getAngleSafe(this.rotation);
@@ -2003,7 +2008,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'size':
 						if (ThreeUtil.isNotNull(this.size) && this.material['size'] !== undefined) {
-							if (this.material['size'] instanceof Nodes.FloatNode) {
+							if (this.material['size'] instanceof NODES.FloatNode) {
 								this.material['size'].value = ThreeUtil.getTypeSafe(this.size, 1);
 							} else {
 								this.material['size'] = ThreeUtil.getTypeSafe(this.size, 1);
@@ -2012,7 +2017,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'sizeattenuation':
 						if (ThreeUtil.isNotNull(this.sizeAttenuation) && this.material['sizeAttenuation'] !== undefined) {
-							if (this.material['sizeAttenuation'] instanceof Nodes.BoolNode) {
+							if (this.material['sizeAttenuation'] instanceof NODES.BoolNode) {
 								this.material['sizeAttenuation'].value = ThreeUtil.getTypeSafe(this.sizeAttenuation);
 							} else {
 								this.material['sizeAttenuation'] = ThreeUtil.getTypeSafe(this.sizeAttenuation);
@@ -2022,7 +2027,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'dashed':
 						if (ThreeUtil.isNotNull(this.dashed) && this.material['dashed'] !== undefined) {
-							if (this.material['dashed'] instanceof Nodes.BoolNode) {
+							if (this.material['dashed'] instanceof NODES.BoolNode) {
 								this.material['dashed'].value = ThreeUtil.getTypeSafe(this.dashed);
 							} else {
 								this.material['dashed'] = ThreeUtil.getTypeSafe(this.dashed);
@@ -2031,7 +2036,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'dashscale':
 						if (ThreeUtil.isNotNull(this.dashScale) && this.material['dashScale'] !== undefined) {
-							if (this.material['dashScale'] instanceof Nodes.FloatNode) {
+							if (this.material['dashScale'] instanceof NODES.FloatNode) {
 								this.material['dashScale'].value = ThreeUtil.getTypeSafe(this.dashScale, 1);
 							} else {
 								this.material['dashScale'] = ThreeUtil.getTypeSafe(this.dashScale, 1);
@@ -2040,7 +2045,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'dashoffset':
 						if (ThreeUtil.isNotNull(this.dashOffset) && this.material['dashOffset'] !== undefined) {
-							if (this.material['dashOffset'] instanceof Nodes.FloatNode) {
+							if (this.material['dashOffset'] instanceof NODES.FloatNode) {
 								this.material['dashOffset'].value = ThreeUtil.getTypeSafe(this.dashOffset, 1);
 							} else {
 								this.material['dashOffset'] = ThreeUtil.getTypeSafe(this.dashOffset, 1);
@@ -2049,7 +2054,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'resolution':
 						if (ThreeUtil.isNotNull(this.resolutionX) && ThreeUtil.isNotNull(this.resolutionY) && this.material['resolutionX'] !== undefined) {
-							if (this.material['resolutionX'] instanceof Nodes.Vector2Node) {
+							if (this.material['resolutionX'] instanceof NODES.Vector2Node) {
 								this.material['resolutionX'].value = this.getResolution();
 							} else {
 								this.material['resolutionX'] = this.getResolution();
@@ -2507,7 +2512,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'standardnodematerial':
 					case 'standardnode':
-						const standardNodeMaterial = new Nodes.StandardNodeMaterial();
+						const standardNodeMaterial = new NODES.StandardNodeMaterial();
 						if (ThreeUtil.isNotNull(this.side)) {
 							standardNodeMaterial.side = this.getSide();
 						}
@@ -2540,12 +2545,12 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'basicnode':
 					case 'basicnodematerial':
-						const basicNodeMaterial = new Nodes.BasicNodeMaterial();
+						const basicNodeMaterial = new NODES.BasicNodeMaterial();
 						material = basicNodeMaterial;
 						break;
 					case 'meshstandardnode':
 					case 'meshstandardnodematerial':
-						const meshStandardNodeMaterial = new Nodes.MeshStandardNodeMaterial();
+						const meshStandardNodeMaterial = new NODES.MeshStandardNodeMaterial();
 						const diffuseMap = this.getTexture('diffuseMap');
 						if (ThreeUtil.isNotNull(diffuseMap)) {
 							meshStandardNodeMaterial.color = this.getOperatorNode(this.getTextureNode(diffuseMap), this.getVector3Node(this.getDiffuseColor(0xffffff)), '*');
@@ -2567,7 +2572,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'phongnodematerial':
 					case 'phongnode':
-						const phongNodeMaterial = new Nodes.PhongNodeMaterial();
+						const phongNodeMaterial = new NODES.PhongNodeMaterial();
 						if (ThreeUtil.isNotNull(this.color)) {
 							phongNodeMaterial.color = this.getColorNode(this.getColor());
 						}
@@ -2576,7 +2581,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						// phongNodeMaterial.shininess: Node;
 						const normalMapPhongNodeMaterial = this.getTexture('normalMap');
 						if (ThreeUtil.isNotNull(normalMapPhongNodeMaterial)) {
-							phongNodeMaterial.normal = new Nodes.NormalMapNode(this.getTextureNode(normalMapPhongNodeMaterial));
+							phongNodeMaterial.normal = new NODES.NormalMapNode(this.getTextureNode(normalMapPhongNodeMaterial));
 						}
 						// phongNodeMaterial.emissive: Node;
 						// phongNodeMaterial.ambient: Node;
@@ -2598,7 +2603,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 					case 'spritenodematerial':
 					case 'spritenode':
-						const spriteNodeMaterial = new Nodes.SpriteNodeMaterial();
+						const spriteNodeMaterial = new NODES.SpriteNodeMaterial();
 						material = spriteNodeMaterial;
 						break;
 					case 'meshlambertmaterial':
@@ -2650,9 +2655,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param delta
 	 */
 	public updateNode(delta) {
-		if (this.material instanceof Nodes.NodeMaterial) {
+		if (this.material instanceof NODES.NodeMaterial) {
 			if (this._nodeFrame === null) {
-				this._nodeFrame = new Nodes.NodeFrame(0);
+				this._nodeFrame = new NODES.NodeFrame(0);
 			}
 			this._nodeFrame.update(delta).updateNode(this.material);
 		}

@@ -25,6 +25,8 @@ import { AbstractSubscribeComponent } from '../subscribe.abstract';
  * The animated properties must be compatible among all objects in the group.<br /><br />
  * 
  * A single property can either be controlled through a target group or directly, but not both.
+ * 
+ * @see THREE.AnimationObjectGroup
  */
 @Component({
   selector: 'ngx3js-animation-group',
@@ -57,7 +59,7 @@ export class AnimationGroupComponent extends AbstractSubscribeComponent implemen
    * It is invoked only once when the directive is instantiated.
    */
   ngOnInit(): void {
-    super.ngOnInit('keyframe');
+    super.ngOnInit('animation-group');
   }
 
   /**

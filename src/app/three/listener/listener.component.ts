@@ -1,5 +1,6 @@
 import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 
 /**
@@ -8,6 +9,8 @@ import { AbstractObject3dComponent } from '../object3d.abstract';
  * The [name] represents a virtual [link:https://developer.mozilla.org/de/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.<br />
  * A three.js application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].<br />
  * In most cases, the listener object is a child of the camera. So the 3D transformation of the camera represents the 3D transformation of the listener.
+ * 
+ * @see THREE.AudioListener
  */
 @Component({
   selector: 'ngx3js-listener',
@@ -62,7 +65,6 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
     super.ngOnChanges(changes);
     if (changes && this.listener) {
       this.addChanges(changes);
-      // this.resetListener(); todo
     }
   }
 
@@ -88,7 +90,7 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
    */
   public setParent(parent: THREE.Object3D): boolean {
     if (super.setParent(parent)) {
-      this.resetListener();
+      this.getListener();
       return true;
     } else {
       return false;
@@ -96,28 +98,43 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
   }
 
   /**
-   * Resets listener
+   * Applys changes3d
+   * @param changes
    */
-  public resetListener() {
-    if (this.listener === null || this._needUpdate) {
-      this.listener = this.getListener();
-    }
-    if (this.listener !== null && this.parent !== null) {
-      this.listener.setMasterVolume(this.volume);
-      if (!this.visible && this.listener.parent !== null) {
-        this.listener.parent.remove(this.listener);
-        this.listener.setMasterVolume(0);
-      } else if (this.visible && this.listener.parent === null) {
-        if (this.listener.parent !== this.parent) {
-          if (this.listener.parent !== null && this.listener.parent !== undefined) {
-            this.listener.parent.remove(this.listener);
-          }
-          this.parent.add(this.listener);
-        }
-        this.listener.setMasterVolume(this.volume);
+  public applyChanges3d(changes: string[]) {
+    if (this.listener !== null) {
+      if (ThreeUtil.isIndexOf(changes, 'init')) {
+        changes = ThreeUtil.pushUniq(changes, ['volume','visible']);
       }
-      this.listener.visible = this.visible;
+      changes.forEach((change) => {
+        switch (change.toLowerCase()) {
+          case 'visible' :
+            if (this.listener.parent !== null) {
+              if (!this.visible) {
+                this.listener.parent.remove(this.listener);
+              } else if (this.object3d !== this.listener.parent){
+                this.object3d.add(this.listener);
+              }
+            }
+            break;
+          case 'volume' :
+            this.listener.setMasterVolume(this.volume);
+            break;
+          default:
+            break;
+        }
+      });
+      super.applyChanges3d(changes);
     }
+  }
+
+  /**
+   * Gets object3d
+   * @template T
+   * @returns object3d
+   */
+  public getObject3d<T extends THREE.Object3D>(): T {
+    return this.getListener() as any;
   }
 
   /**

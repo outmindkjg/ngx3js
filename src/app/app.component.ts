@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ThreeUtil } from './three';
 
 export interface SearchMenu {
   id: string;
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    ThreeUtil.setAssetUrl('assets/examples/');
   }
 
   ngAfterViewInit() {}

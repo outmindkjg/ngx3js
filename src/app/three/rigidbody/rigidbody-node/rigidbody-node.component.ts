@@ -11,9 +11,13 @@ import { ThreeUtil } from '../../interface';
 export class RigidbodyNodeComponent extends AbstractSubscribeComponent implements OnInit {
 
   @Input() private type:string = "";
+
   @Input() private node: number = 0;
+  
   @Input() private body: any = null;
+  
   @Input() private disableCollisionBetweenLinkedBodies: boolean = false;
+  
   @Input() private influence: number = 0.5;
 
   constructor() { 
@@ -67,6 +71,7 @@ export class RigidbodyNodeComponent extends AbstractSubscribeComponent implement
   private physics: Ammo.btSoftRigidDynamicsWorld = null;
   private ammo: typeof Ammo = null;
   private rigidBody : Ammo.btSoftBody = null;
+  
   public setRigidbody(rigidBody : Ammo.btSoftBody, physics: Ammo.btSoftRigidDynamicsWorld, ammo) {
     this.rigidBody = rigidBody;
     this.physics = physics;

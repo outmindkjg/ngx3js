@@ -15,6 +15,111 @@ import { ScaleComponent } from './scale/scale.component';
 import { AbstractTweenComponent } from './tween.abstract';
 
 /**
+ * Object3d options
+ */
+export interface Object3dOptions {
+  /**
+   * Object gets rendered if *true*. Default is *true*.
+   */
+  visible?: boolean;
+
+  /**
+   * The name of the object (doesn't need to be unique). Default is an empty string.
+   */
+  name?: string ;
+
+  /**
+   * When this is set, it calculates the matrix of position, (rotation or quaternion) and
+   * scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+   */
+  matrixAutoUpdate?: boolean;
+
+  /**
+   * The layer membership of the object. The object is only visible if it has at least one
+   * layer in common with the [page:Camera] in use. This property can also be used to filter out
+   * unwanted objects in ray-intersection tests when using [page:Raycaster].
+   */
+  layers?: number[];
+
+  /**
+   * Whether the object gets rendered into shadow map. Default is *false*.
+   */
+  castShadow?: boolean;
+
+  /**
+   * Whether the material receives shadows. Default is *false*.
+   */
+  receiveShadow?: boolean;
+
+  /**
+   * When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+   */
+  frustumCulled?: boolean;
+
+  /**
+   * This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]
+   * objects to be overridden although opaque and transparent objects remain sorted independently. When this property
+   * is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.
+   * Sorting is from lowest to highest renderOrder. Default value is *0*.
+   *
+   */
+  renderOrder?: number;
+
+  /**
+   *
+   */
+  controller?: ControllerComponent;
+
+  /**
+   * A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
+   */
+  position?: THREE.Vector3 | number[] | PositionComponent | any;
+
+  /**
+   * Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
+   */
+  rotation?: THREE.Vector3 | number[] | RotationComponent | any;
+
+  /**
+   * The object's local scale. Default is [page:Vector3]( 1, 1, 1 ).
+   */
+  scale?: THREE.Vector3 | number[] | ScaleComponent | any;
+
+  /**
+   * vector - A vector representing a position in world space.<br /><br />
+   * Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br /><br />
+   * Rotates the object to face a point in world space.<br /><br />
+   * This method does not support objects having non-uniformly-scaled parent(s).
+   */
+  lookat?: THREE.Vector3 | number[] | LookatComponent | any;
+
+  /**
+   * Input  of abstract object3d component
+   */
+  loDistance?: number;
+
+  /**
+   * Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.
+   * When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader,
+   * (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest,
+   * you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+   *
+   */
+  customDepth?: AbstractMaterialComponent | THREE.Material | any;
+
+  /**
+   * Same as [page:.customDepthMaterial customDepthMaterial], but used with [page:PointLight]. Default is *undefined*.
+   */
+  customDistance?: AbstractMaterialComponent | THREE.Material | any;
+
+  /**
+   * Input  of abstract object3d component
+   */
+  animationGroup?: AnimationGroupComponent | THREE.AnimationObjectGroup;
+
+}
+
+/**
  * AbstractObject3dComponent
  */
 @Component({

@@ -178,7 +178,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
           document.title = child.name + ' :: Three.js examples';
           this.gitHub.nativeElement.href = 'https://github.com/mrdoob/three.js/blob/master'+child.id+'.html';
           this.gitHub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub';
-          this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/three-sample/tree/master/src/app'+child.safeId+ '';
+          this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/ngx3js/tree/master/src/app'+child.safeId+ '';
           this.ngxGithub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub ngx';
         }
       });
@@ -229,11 +229,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
         case 'css3d':
         case 'svg':
         case 'tests':
-          image = 'assets/examples/screenshots/' + id + '.jpg';
+          image = ThreeUtil.getStoreUrl('screenshots/' + id + '.jpg');
           url = '/examples/' + id;
           break;
         default:
-          image = 'assets/examples/screenshots/css2d_label.jpg';
+          image = ThreeUtil.getStoreUrl('screenshots/css2d_label.jpg');
           url = '/examples/' + id;
           break;
       }

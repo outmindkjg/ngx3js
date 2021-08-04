@@ -6,22 +6,31 @@
 			font-size: 0.6em;
 			display: inline-block;
 			position: absolute;
-			left:3.3em;
+			left: 1.5em;
 			top: -0.6em;
 			line-height: 100%;
-			padding:2px 4px;
+			padding: 2px 4px;
 			border-radius: 3px;
 			color: white;
 			font-weight: bold;
 			font-style: italic;
-			background-color: var(--color-red);
+			background-color: rgba(255,0,0,0.7);
+		}
+		&:hover span{
 			animation: ngx3js 1s;
 		}
-	}	
-
+	}
 }
 
 @keyframes ngx3js {
-	0% { top: 0.6em;opacity: 0; }
-	100% { top: -0.6em;opacity: 1;}
-  }
+	0% {
+		top: 0.6em;
+		opacity: 0;
+		transform: rotate(180deg);
+	}
+	100% {
+		top: -0.6em;
+		opacity: 1;
+		transform: rotate(0deg);
+	}
+}
