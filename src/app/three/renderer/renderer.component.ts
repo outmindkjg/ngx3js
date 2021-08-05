@@ -104,6 +104,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 *
 	 * Notice - case insensitive.
 	 *
+   * @see THREE.ToneMapping
    * @see THREE.LinearToneMapping - LinearToneMapping, Linear
    * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
    * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
@@ -200,9 +201,18 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].
 	 * If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.
 	 * See the [page:Textures texture constants] page for details of other formats.
-	 *
-	 * Notice - case insensitive.
-	 *
+   *
+   * Notice - case insensitive.
+   * 
+	 * @see THREE.TextureEncoding
+	 * @see THREE.sRGBEncoding - sRGBEncoding, sRGB
+	 * @see THREE.GammaEncoding - GammaEncoding, Gamma
+	 * @see THREE.RGBEEncoding - RGBEEncoding, RGBE
+	 * @see THREE.LogLuvEncoding - LogLuvEncoding, LogLuv
+	 * @see THREE.RGBM7Encoding - RGBM7Encoding, RGBM7
+	 * @see THREE.RGBM16Encoding - RGBM16Encoding, RGBM16
+	 * @see THREE.RGBDEncoding - RGBDEncoding, RGBD
+	 * @see THREE.LinearEncoding - LinearEncoding, Linear
 	 */
 	@Input() private outputEncoding: string = null;
 
@@ -716,6 +726,16 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
 	/**
 	 * Gets tone mapping
+	 *
+	 * Notice - case insensitive.
+	 *
+   * @see THREE.ToneMapping
+   * @see THREE.LinearToneMapping - LinearToneMapping, Linear
+   * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
+   * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
+   * @see THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic
+   * @see THREE.NoToneMapping - NoToneMapping, No
+	 * 
 	 * @param [def]
 	 * @returns tone mapping
 	 */

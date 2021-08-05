@@ -610,6 +610,14 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * Gets side
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Side
+   * @see THREE.FrontSide - FrontSide , Front
+   * @see THREE.BackSide - BackSide , Back
+   * @see THREE.DoubleSide - DoubleSide , Double
+   * 
    * @param [def]
    * @returns side
    */
@@ -631,6 +639,14 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 
   /**
    * Gets shadow side
+   * 
+   * Notice - case insensitive.
+   * 
+   * @see THREE.Side
+   * @see THREE.FrontSide - FrontSide , Front
+   * @see THREE.BackSide - BackSide , Back
+   * @see THREE.DoubleSide - DoubleSide , Double
+   * 
    * @param [def]
    * @returns shadow side
    */

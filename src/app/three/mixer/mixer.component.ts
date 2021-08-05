@@ -1,10 +1,25 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper';
+import { MD2Character } from 'three/examples/jsm/misc/MD2Character';
+import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ClipComponent } from './../clip/clip.component';
 import { RendererTimer, ThreeUtil } from './../interface';
 import { PhysicsComponent } from './../physics/physics.component';
+
+/**
+ * Character Control
+ */
+export interface CharacterControl {
+	crouch?: boolean;
+	jump?: boolean;
+	attack?: boolean;
+	moveForward?: boolean;
+	moveBackward?: boolean;
+	moveLeft?: boolean;
+	moveRight?: boolean;
+}
 
 /**
  * MixerComponent
@@ -102,17 +117,92 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	/**
 	 * Input  of mixer component
 	 */
-	@Input() private skin: number = null;
+	@Input() private skin: number | string = null;
 
 	/**
 	 * Input  of mixer component
 	 */
-	@Input() private weapon: number = null;
+	@Input() private weapon: number | string = null;
 
 	/**
 	 * Input  of mixer component
 	 */
-	@Input() private controls: any = null;
+	@Input() private controls: CharacterControl = null;
+
+	/**
+	 * Input  of mixer component
+	 */
+	@Input() private wireframe: boolean = null;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see {MD2Character#setPlaybackRate}
+	 */
+	@Input() private rate: number = null;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private scale: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private animationFPS: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private transitionFrames: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private maxSpeed: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private maxReverseSpeed: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private frontAcceleration: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private backAcceleration: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private frontDecceleration: number;
+
+	/**
+	 * The rate of MD2Character
+	 *
+	 * @see MD2Character
+	 */
+	@Input() private angularSpeed: number;
 
 	/**
 	 * Input  of mixer component
@@ -179,42 +269,6 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	}
 
 	/**
-	 * Gets warmup
-	 * @param [def]
-	 * @returns warmup
-	 */
-	private getWarmup(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.warmup, def);
-	}
-
-	/**
-	 * Gets unit step
-	 * @param [def]
-	 * @returns unit step
-	 */
-	private getUnitStep(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.unitStep, def);
-	}
-
-	/**
-	 * Gets max step num
-	 * @param [def]
-	 * @returns max step num
-	 */
-	private getMaxStepNum(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.maxStepNum, def);
-	}
-
-	/**
-	 * Gets gravity
-	 * @param [def]
-	 * @returns gravity
-	 */
-	private getGravity(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.gravity, def);
-	}
-
-	/**
 	 * Gets delay time
 	 * @param [def]
 	 * @returns delay time
@@ -247,7 +301,11 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 */
 	ngOnDestroy(): void {
 		if (this.mixer !== null) {
-			this.mixer.stopAllAction();
+			if (this.mixer instanceof THREE.AnimationMixer) {
+				this.mixer.stopAllAction();
+			} else if (this.mixer instanceof MD2Character) {
+				this.mixer.mixer.stopAllAction();
+			}
 		}
 		super.ngOnDestroy();
 	}
@@ -280,12 +338,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	/**
 	 * Mixer  of mixer component
 	 */
-	private mixer: THREE.AnimationMixer = null;
-
-	/**
-	 * Helper  of mixer component
-	 */
-	private helper: MMDAnimationHelper = null;
+	private mixer: THREE.AnimationMixer | MD2Character | MD2CharacterComplex | MMDAnimationHelper = null;
 
 	/**
 	 * Model  of mixer component
@@ -350,11 +403,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 		if (ThreeUtil.isNotNull(model)) {
 			if (model instanceof THREE.Object3D) {
 				const clips = parent instanceof THREE.Object3D ? parent.userData.clips : null;
-				if (ThreeUtil.isNotNull(clips)) {
-					this.setModel(model, clips);
-				} else {
-					this.setModel(model, null);
-				}
+				this.setModel(model, clips);
 			} else {
 				this.setModel(model, null);
 			}
@@ -367,12 +416,10 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @param clips
 	 */
 	private setModel(model: THREE.Object3D | THREE.AnimationObjectGroup, clips: THREE.AnimationClip[] | any) {
-		if (this.model !== model) {
+		if (this.model !== model || this.clips !== clips) {
 			this.model = model;
 			this.clips = clips;
-			this.helper = null;
 			this.mixer = null;
-
 			if (this.debug && this.clips) {
 				const clipsNames = [];
 				if (this.clips.forEach) {
@@ -386,17 +433,8 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 				}
 				this.consoleLog('clips', clipsNames, 'info');
 			}
-			this.resetMixer();
 			this.lastAction = null;
-			if (this.lastAction !== this.action) {
-				if (this.delayTime > 0) {
-					window.setTimeout(() => {
-						this.play(this.action);
-					}, this.delayTime);
-				} else {
-					this.play(this.action);
-				}
-			}
+			this.getMixer();
 		}
 	}
 
@@ -421,11 +459,12 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 */
 	public setPhysics(physics: PhysicsComponent) {
 		this._physics = physics;
-		if (this._physics !== null && this._physics !== undefined) {
+		if (this._physics !== null && this._physics !== undefined && this.mixer instanceof MMDAnimationHelper) {
 			const _physics = this._physics.getPhysics();
+			const helper = this.mixer;
 			if (_physics !== null) {
 				this._ammo = this._physics.getAmmo();
-				this.synkAnimationHelper(this.helper);
+				this.synkAnimationHelper(helper);
 			} else {
 				this.unSubscribeRefer('physics');
 				this.subscribeRefer(
@@ -434,7 +473,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 						this._physics,
 						() => {
 							this._ammo = this._physics.getAmmo();
-							this.synkAnimationHelper(this.helper);
+							this.synkAnimationHelper(helper);
 						},
 						'physics'
 					)
@@ -451,14 +490,15 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @param [restoreDuration]
 	 */
 	public fadeToAction(endAction: string, duration?: number, restoreAction?: string, restoreDuration?: number) {
-		if (this.mixer !== null) {
+		if (this.mixer !== null && this.mixer instanceof THREE.AnimationMixer) {
 			if (this.play(endAction, duration)) {
+				const mixer = this.mixer;
 				if (ThreeUtil.isNotNull(restoreAction)) {
 					const listener = () => {
-						this.mixer.removeEventListener('finished', listener);
+						mixer.removeEventListener('finished', listener);
 						this.play(restoreAction, restoreDuration);
 					};
-					this.mixer.addEventListener('finished', listener);
+					mixer.addEventListener('finished', listener);
 				}
 			}
 		}
@@ -479,7 +519,11 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @returns mmd animation helper
 	 */
 	public getMmdAnimationHelper(): MMDAnimationHelper {
-		return this.helper;
+		if (this.mixer instanceof MMDAnimationHelper) {
+			return this.mixer;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -583,40 +627,168 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 */
 	public applyChanges(changes: string[]) {
 		if (this.mixer !== null) {
-			if (ThreeUtil.isIndexOf(changes, 'init')) {
-				changes = ThreeUtil.pushUniq(changes, ['action', 'timescale', 'fps', 'weapon', 'skin', 'pos']);
+			if (ThreeUtil.isIndexOf(changes, 'clearinit')) {
+				this.getMixer();
+				return;
 			}
-			changes.forEach((change) => {
-				switch (change.toLowerCase()) {
-					case 'action':
-						this.play(this.action.toLowerCase());
-						break;
-					case 'timescale':
-						this.mixer.timeScale = this.getTimeScale(1);
-						break;
-					case 'fps':
-						const fps = this.getFps(20);
-						this.clipList.forEach((clip) => {
-							clip.setMixer(this.mixer, this.clips, fps);
-						});
-						break;
-					case 'weapon':
-						if (this.clips.setWeapon) {
-							this.clips.setWeapon(this.weapon);
-						}
-						break;
-					case 'skin':
-						if (this.clips.setSkin) {
-							this.clips.setSkin(this.skin);
-						}
-						break;
-					case 'pose':
-						if (this.model instanceof THREE.SkinnedMesh) {
-							// this.helper.pose(this.model, null);
-						}
-						break;
-				}
-			});
+			if (ThreeUtil.isIndexOf(changes, 'init')) {
+				changes = ThreeUtil.pushUniq(changes, ['action', 'timescale', 'fps', 'clip', 'weapon', 'skin', 'pos', 'wireframe', 'rate', 'scale', 'animationfps', 'transitionframes', 'maxspeed', 'maxreversespeed', 'frontacceleration', 'backacceleration', 'frontdecceleration', 'angularspeed']);
+			}
+			if (ThreeUtil.isIndexOf(changes, 'clip')) {
+				changes = ThreeUtil.pushUniq(changes, ['fps']);
+			}
+			if (this.mixer instanceof THREE.AnimationMixer) {
+				const mixer = this.mixer;
+				changes.forEach((change) => {
+					switch (change.toLowerCase()) {
+						case 'action':
+							if (this.lastAction !== this.action) {
+								if (this.delayTime > 0) {
+									window.setTimeout(() => {
+										this.play(this.action);
+									}, this.delayTime);
+								} else {
+									this.play(this.action);
+								}
+							}
+							break;
+						case 'timescale':
+							mixer.timeScale = this.getTimeScale(1);
+							break;
+						case 'fps':
+							const fps = this.getFps(20);
+							this.clipList.forEach((clip) => {
+								clip.setMixer(mixer, this.clips, fps);
+							});
+							break;
+					}
+				});
+			} else if (this.mixer instanceof MD2Character || this.mixer instanceof MD2CharacterComplex) {
+				const character = this.mixer;
+				changes.forEach((change) => {
+					switch (change.toLowerCase()) {
+						case 'action':
+							if (this.lastAction !== this.action) {
+								if (this.delayTime > 0) {
+									window.setTimeout(() => {
+										this.play(this.action);
+									}, this.delayTime);
+								} else {
+									this.play(this.action);
+								}
+							}
+							break;
+						case 'fps':
+							break;
+						case 'weapon':
+							if (ThreeUtil.isNotNull(this.weapon) && ThreeUtil.isNotNull(character.weapons) && character.weapons.length > 0) {
+								let weapon: number = -1;
+								const weapons = character.weapons;
+								if (typeof this.weapon === 'string') {
+									const weaponName = this.weapon.toLowerCase();
+									character.weapons.forEach((mesh, idx) => {
+										if (mesh.name !== null && mesh.name.toLowerCase().startsWith(weaponName)) {
+											weapon = idx;
+										}
+									});
+								} else {
+									weapon = this.weapon;
+								}
+								if (weapon > -1 && weapon < weapons.length) {
+									character.setWeapon(weapon);
+								}
+							}
+							break;
+						case 'wireframe':
+							if (ThreeUtil.isNotNull(this.wireframe)) {
+								character.setWireframe(ThreeUtil.getTypeSafe(this.wireframe, false));
+							}
+							break;
+						case 'rate':
+							if (ThreeUtil.isNotNull(this.rate)) {
+								character.setPlaybackRate(ThreeUtil.getTypeSafe(this.rate, 1));
+							}
+							break;
+						case 'skin':
+							if (ThreeUtil.isNotNull(this.skin) && character.skinsBody.length > 0) {
+								let skin: number = -1;
+								const skinsBody = character.skinsBody;
+								if (typeof this.skin === 'string') {
+									const skinName = this.skin.toLowerCase();
+									skinsBody.forEach((texture, idx) => {
+										if (texture.name !== null && texture.name.toLowerCase().startsWith(skinName)) {
+											skin = idx;
+										}
+									});
+								} else {
+									skin = this.skin;
+								}
+								if (skin > -1 && skin < skinsBody.length) {
+									character.setSkin(skin);
+								}
+							}
+							break;
+						case 'controls':
+							if (character instanceof MD2CharacterComplex) {
+								if (ThreeUtil.isNotNull(this.controls)) {
+									(character as any).controls = this.controls;
+								}
+							}
+							break;
+						case 'scale':
+							if (ThreeUtil.isNotNull(this.scale)) {
+								character.scale = this.scale;
+							}
+							break;
+						case 'animationfps':
+							if (ThreeUtil.isNotNull(this.animationFPS)) {
+								character.animationFPS = this.animationFPS;
+							}
+							break;
+						case 'maxspeed':
+							if (ThreeUtil.isNotNull(this.maxSpeed) && ThreeUtil.isNotNull(character['maxSpeed'])) {
+								character['maxSpeed'] = this.maxSpeed;
+							}
+							break;
+						case 'maxreversespeed':
+							if (ThreeUtil.isNotNull(this.maxReverseSpeed) && ThreeUtil.isNotNull(character['maxReverseSpeed'])) {
+								character['maxReverseSpeed'] = this.maxReverseSpeed;
+							}
+							break;
+						case 'frontacceleration':
+							if (ThreeUtil.isNotNull(this.frontAcceleration) && ThreeUtil.isNotNull(character['frontAcceleration'])) {
+								character['frontAcceleration'] = this.frontAcceleration;
+							}
+							break;
+						case 'backacceleration':
+							if (ThreeUtil.isNotNull(this.backAcceleration) && ThreeUtil.isNotNull(character['backAcceleration'])) {
+								character['backAcceleration'] = this.backAcceleration;
+							}
+							break;
+						case 'frontdecceleration':
+							if (ThreeUtil.isNotNull(this.frontDecceleration) && ThreeUtil.isNotNull(character['frontDecceleration'])) {
+								character['frontDecceleration'] = this.frontDecceleration;
+							}
+							break;
+						case 'angularspeed':
+							if (ThreeUtil.isNotNull(this.angularSpeed) && ThreeUtil.isNotNull(character['angularSpeed'])) {
+								character['angularSpeed'] = this.angularSpeed;
+							}
+							break;
+					}
+				});
+			} else if (this.mixer instanceof MMDAnimationHelper) {
+				const helper = this.mixer;
+				changes.forEach((change) => {
+					switch (change.toLowerCase()) {
+						case 'pose':
+							if (this.model instanceof THREE.SkinnedMesh) {
+								helper.pose(this.model, null);
+							}
+							break;
+					}
+				});
+			}
 			super.applyChanges(changes);
 		}
 	}
@@ -624,21 +796,23 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	/**
 	 * Resets mixer
 	 */
-	public resetMixer() {
-		this.lastPlayedClip = null;
-		switch (this.type.toLowerCase()) {
-			case 'mmd':
-			case 'mmdanimation':
-			case 'mmdanimationhelper':
-				if (this.helper === null) {
+	public getMixer(): THREE.AnimationMixer | MD2Character | MD2CharacterComplex | MMDAnimationHelper {
+		if (this.mixer === null || this._needUpdate) {
+			this.needUpdate = false;
+			let mixer: THREE.AnimationMixer | MD2Character | MD2CharacterComplex | MMDAnimationHelper = null;
+			this.lastPlayedClip = null;
+			switch (this.type.toLowerCase()) {
+				case 'mmd':
+				case 'mmdanimation':
+				case 'mmdanimationhelper':
 					if (this.animationHelper === null) {
-						this.helper = new MMDAnimationHelper({
+						const helper = new MMDAnimationHelper({
 							sync: this.getSync(),
 							afterglow: this.getAfterglow(),
 							resetPhysicsOnLoop: this.getResetPhysicsOnLoop(),
 						});
 						if (ThreeUtil.isNotNull(this.clips)) {
-							this.synkAnimationHelper(this.helper);
+							this.synkAnimationHelper(helper);
 							this.setSubscribeNext('animation');
 						} else {
 							this.subscribeRefer(
@@ -646,13 +820,14 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 								ThreeUtil.getSubscribe(
 									this.model,
 									() => {
-										this.synkAnimationHelper(this.helper);
+										this.synkAnimationHelper(helper);
 										this.setSubscribeNext('animation');
 									},
 									'loaded'
 								)
 							);
 						}
+						mixer = helper;
 					} else {
 						this.unSubscribeRefer('animation');
 						this.subscribeRefer(
@@ -660,44 +835,37 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 							ThreeUtil.getSubscribe(
 								this.animationHelper,
 								() => {
-									this.synkAnimationHelper(this.animationHelper.helper);
+									this.synkAnimationHelper(this.animationHelper.getMmdAnimationHelper());
 								},
 								'animation'
 							)
 						);
-						if (this.animationHelper.helper !== null) {
-							this.synkAnimationHelper(this.animationHelper.helper);
+						const helper = this.animationHelper.getMmdAnimationHelper();
+						this.synkAnimationHelper(helper);
+						mixer = helper;
+					}
+					break;
+				case 'mixer':
+					const animationMixer = new THREE.AnimationMixer(this.model);
+					animationMixer.timeScale = this.getTimeScale(1);
+					mixer = animationMixer;
+					break;
+				case 'virtulous':
+				default:
+					if (this.clips !== null) {
+						if (this.clips instanceof MD2Character || this.clips instanceof MD2CharacterComplex) {
+							mixer = this.clips;
+							if (this.clips instanceof MD2CharacterComplex) {
+								(mixer as any).controls = this.controls || {};
+							}
 						}
 					}
-					super.callOnLoad();
-				}
-				break;
-			case 'mixer':
-				if (this.mixer === null) {
-					this.mixer = new THREE.AnimationMixer(this.model);
-					this.mixer.timeScale = this.getTimeScale(1);
-					const fps = this.getFps();
-					this.clipList.forEach((clip) => {
-						clip.setMixer(this.mixer, this.clips, fps);
-					});
-					super.callOnLoad();
-				}
-				break;
-			case 'virtulous':
-			default:
-				if (this.clips !== null) {
-					if (ThreeUtil.isNotNull(this.weapon) && this.clips.setWeapon) {
-						this.clips.setWeapon(this.weapon);
-					}
-					if (ThreeUtil.isNotNull(this.skin) && this.clips.setSkin) {
-						this.clips.setSkin(this.skin);
-					}
-					if (ThreeUtil.isNotNull(this.controls) && this.clips.controls !== undefined) {
-						this.clips.controls = this.controls;
-					}
-				}
-				break;
+					break;
+			}
+			this.mixer = mixer;
+			this.setObject(mixer);
 		}
+		return this.mixer;
 	}
 
 	/**
@@ -712,37 +880,40 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @returns true if play
 	 */
 	public play(name: string, duration: number = this.duration): boolean {
-		if (ThreeUtil.isNotNull(name) && name !== '' && this.mixer !== null && ThreeUtil.isNotNull(this.clipList) && this.clipList.length > 0) {
-			duration = ThreeUtil.getTypeSafe(duration, this.duration);
-			let foundAction: ClipComponent = null;
-			this.clipList.forEach((clip) => {
-				if (clip.isPlayable()) {
-					clip.action.paused = false;
-					if (clip.name.toLowerCase() === name.toLowerCase()) {
-						foundAction = clip;
+		if (this.mixer !== null && ThreeUtil.isNotNull(name) && name !== '' && this.mixer !== null) {
+			if (this.mixer instanceof THREE.AnimationMixer) {
+				if (ThreeUtil.isNotNull(this.clipList) && this.clipList.length > 0) {
+					duration = ThreeUtil.getTypeSafe(duration, this.duration);
+					let foundAction: ClipComponent = null;
+					this.clipList.forEach((clip) => {
+						if (clip.isPlayable()) {
+							clip.action.paused = false;
+							if (clip.name.toLowerCase() === name.toLowerCase()) {
+								foundAction = clip;
+							}
+						}
+					});
+					if (this.lastPlayedClip !== null) {
+						if (foundAction !== null) {
+							this.lastPlayedClip.crossFadeTo(foundAction, duration);
+						} else {
+							this.lastPlayedClip.fadeOut(duration);
+						}
+					} else if (foundAction !== null) {
+						foundAction.fadeIn(duration);
 					}
+					if (foundAction !== null) {
+						this.lastAction = name.toLowerCase();
+						this.lastPlayedClip = foundAction;
+					}
+					return true;
 				}
-			});
-			if (this.lastPlayedClip !== null) {
-				if (foundAction !== null) {
-					this.lastPlayedClip.crossFadeTo(foundAction, duration);
-				} else {
-					this.lastPlayedClip.fadeOut(duration);
-				}
-			} else if (foundAction !== null) {
-				foundAction.fadeIn(duration);
+			} else if (this.mixer instanceof MD2Character || this.mixer instanceof MD2CharacterComplex) {
+				this.mixer.setAnimation(name);
+				return true;
 			}
-			if (foundAction !== null) {
-				this.lastAction = name.toLowerCase();
-				this.lastPlayedClip = foundAction;
-			}
-			return true;
-		} else if (this.clips && this.clips.setAnimation) {
-			this.clips.setAnimation(name);
-			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -750,14 +921,18 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	 * @param timer
 	 */
 	public update(timer: RendererTimer) {
-		if (this.helper !== null) {
-			this.helper.update(timer.delta);
-		} else if (this.mixer !== null) {
-			this.mixer.update(timer.delta);
-		} else if (this.clips !== null) {
-			if (this.clips.setTime) {
+		if (ThreeUtil.isNotNull(this.mixer)) {
+			if (this.mixer instanceof MMDAnimationHelper) {
+				this.mixer.update(timer.delta);
+			} else if (this.mixer instanceof THREE.AnimationMixer) {
+				this.mixer.update(timer.delta);
+			} else if (this.mixer instanceof MD2Character || this.mixer instanceof MD2CharacterComplex) {
+				this.mixer.update(timer.delta);
+			}
+		} else if (ThreeUtil.isNotNull(this.clips)) {
+			if (ThreeUtil.isNotNull(this.clips.setTime)) {
 				this.clips.setTime(timer.elapsedTime * this.timeScale);
-			} else if (this.clips.update) {
+			} else if (ThreeUtil.isNotNull(this.clips.update)) {
 				try {
 					this.clips.update(timer.delta * this.timeScale);
 				} catch (ex) {}

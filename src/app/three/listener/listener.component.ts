@@ -112,8 +112,8 @@ export class ListenerComponent extends AbstractObject3dComponent implements OnIn
             if (this.listener.parent !== null) {
               if (!this.visible) {
                 this.listener.parent.remove(this.listener);
-              } else if (this.object3d !== this.listener.parent){
-                this.object3d.add(this.listener);
+              } else if (this.parent !== this.listener.parent){
+                this.parent.add(this.listener);
               }
             }
             break;

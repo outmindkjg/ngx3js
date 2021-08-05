@@ -8,9 +8,15 @@ import { BaseComponent, MeshComponent } from '../../three';
 })
 export class WebglLoaderNrrdComponent extends BaseComponent<{
   modelVisible : boolean;
+  xVisible : boolean;
   indexX : number;
+  yVisible : boolean;
   indexY : number;
+  zVisible : boolean;
   indexZ : number;
+  helperVisible : boolean;
+  helperColor : number;
+  boxVisible : boolean;
   lowerThreshold : number;
   upperThreshold : number;
   windowLow : number;
@@ -20,6 +26,12 @@ export class WebglLoaderNrrdComponent extends BaseComponent<{
   constructor() {
     super({
       modelVisible : true,
+      xVisible : true,
+      yVisible : true,
+      zVisible : true,
+      helperVisible : true,
+      helperColor : 0xffff00,
+      boxVisible : true,
       indexX : 0.5,
       indexY : 0.5,
       indexZ : 0.25,
@@ -29,50 +41,20 @@ export class WebglLoaderNrrdComponent extends BaseComponent<{
       windowHigh : 1
     },[
       { name : 'modelVisible', title : 'Model Visible', type : 'checkbox'},
+      { name : 'xVisible', title : 'X Visible', type : 'checkbox' },
       { name : 'indexX', title : 'Index X', type : 'number', min : 0, max : 1, step : 0.01 },
+      { name : 'yVisible', title : 'Y Visible', type : 'checkbox' },
       { name : 'indexY', title : 'Index Y', type : 'number', min : 0, max : 1, step : 0.01 },
+      { name : 'zVisible', title : 'Z Visible', type : 'checkbox' },
       { name : 'indexZ', title : 'Index Z', type : 'number', min : 0, max : 1, step : 0.01 },
-      { name : 'lowerThreshold', title : 'Lower Threshold', type : 'number', min : 0, max : 1, step : 0.01, finishChange : () => {
-        this.setVolumeAttribute('lowerThreshold', this.controls.lowerThreshold);
-      }},
-      { name : 'upperThreshold', title : 'High Threshold', type : 'number', min : 0, max : 1, step : 0.01 , finishChange : () => {
-        this.setVolumeAttribute('upperThreshold', this.controls.upperThreshold);
-      }},
-      { name : 'windowLow', title : 'Window Low', type : 'number', min : 0, max : 1, step : 0.01 , finishChange : () => {
-        this.setVolumeAttribute('windowLow', this.controls.windowLow);
-      }},
-      { name : 'windowHigh', title : 'Window High', type : 'number', min : 0, max : 1, step : 0.01 , finishChange : () => {
-        this.setVolumeAttribute('windowHigh', this.controls.windowHigh);
-      }}
+      { name : 'helperVisible', title : 'Helper Visible', type : 'checkbox' },
+      { name : 'helperColor', title : 'Helper Line Color', type : 'color' },
+      { name : 'boxVisible', title : 'Box Visible', type : 'checkbox' },
+      { name : 'lowerThreshold', title : 'Lower Threshold', type : 'number', min : 0, max : 1, step : 0.01},
+      { name : 'upperThreshold', title : 'High Threshold', type : 'number', min : 0, max : 1, step : 0.01},
+      { name : 'windowLow', title : 'Window Low', type : 'number', min : 0, max : 1, step : 0.01 },
+      { name : 'windowHigh', title : 'Window High', type : 'number', min : 0, max : 1, step : 0.01}
     ]);
-  }
-
-  volume : any = null;
-  volumeMesh : any = null;
-  setVolume(mesh : MeshComponent) {
-    this.volumeMesh = mesh.getMesh();
-  }
-
-  setVolumeAttribute(type : string, value : number) {
-    this.volume = this.volumeMesh.userData.storageSource;
-    if (this.volume !== null) {
-      const volumeValue = this.volume.min + Math.floor((this.volume.max - this.volume.min) * value);
-      switch(type) {
-        case 'lowerThreshold' :
-          this.volume.lowerThreshold = volumeValue;
-          break;
-        case 'upperThreshold' :
-          this.volume.upperThreshold = volumeValue;
-          break;
-        case 'windowLow' :
-          this.volume.windowLow = volumeValue;
-          break;
-        case 'windowHigh' :
-          this.volume.windowHigh = volumeValue;
-          break;
-      }
-      this.volume.repaintAllSlices();
-    }
   }
 
 }

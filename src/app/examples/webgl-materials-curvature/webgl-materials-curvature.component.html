@@ -11,6 +11,7 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [guiOpen]="true"
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
@@ -40,7 +41,9 @@
     >
       <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/obj/ninja/ninjaHead_Low.obj'" [storageOption]="{ autoCenter : true }">
+    <ngx3js-mesh (onLoad)="setMesh($event)" >
+      <ngx3js-geometry [storageName]="'models/obj/ninja/ninjaHead_Low.obj'" [align]="'center'" [onInit]="loadGeometry"></ngx3js-geometry>
+      <ngx3js-material [type]="'ShaderMaterial'" [vertexShader]="vertexShaderRaw" [fragmentShader]="fragmentShaderRaw"></ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

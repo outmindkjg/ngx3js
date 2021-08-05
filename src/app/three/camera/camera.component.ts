@@ -899,6 +899,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
           { object: this.camera }
         );
       }
+      this.setSubscribeNext('changecamera');
     }
     return this.camera as T;
   }

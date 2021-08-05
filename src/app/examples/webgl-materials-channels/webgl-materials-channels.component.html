@@ -48,16 +48,8 @@
       <ngx3js-texture #normalMap [image]="'models/obj/ninja/normal.png'"></ngx3js-texture>
       <ngx3js-texture #aoMap [image]="'models/obj/ninja/ao.jpg'"></ngx3js-texture>
       <ngx3js-texture #displacementMap [image]="'models/obj/ninja/displacement.jpg'"></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="25"></ngx3js-scale>
-      <ngx3js-geometry
-        [storageName]="'models/obj/ninja/ninjaHead_Low.obj'"
-        [center]="true"
-      ></ngx3js-geometry>
       <ngx3js-material 
-        [visible]="controls.material == 'standard'"
+        #standard
         [type]="'MeshStandard'"
         [color]="'0xffffff'"
         [metalness]="0.5"
@@ -72,7 +64,7 @@
         [side]="controls.side"
       ></ngx3js-material>
       <ngx3js-material 
-        [visible]="controls.material == 'depthBasic'"
+        #depthBasic
         [type]="'MeshDepth'"
         [depthPacking]="'Basic'"
         [displacementMap]="displacementMap"
@@ -81,7 +73,7 @@
         [side]="controls.side"
       ></ngx3js-material>
       <ngx3js-material 
-        [visible]="controls.material == 'depthRGBA'"
+        #depthRGBA
         [type]="'MeshDepth'"
         [depthPacking]="'RGBA'"
         [displacementMap]="displacementMap"
@@ -90,7 +82,7 @@
         [side]="controls.side"
       ></ngx3js-material>
       <ngx3js-material 
-        [visible]="controls.material == 'normal'"
+        #normal
         [type]="'MeshNormal'"
         [displacementMap]="displacementMap"
         [displacementScale]="2.436143"
@@ -100,6 +92,22 @@
         [normalScaleY]="-1"
         [side]="controls.side"
       ></ngx3js-material>
+      <ngx3js-geometry
+        #ninjaHead
+        [storageName]="'models/obj/ninja/ninjaHead_Low.obj'"
+        [center]="true"
+        [scale]="25"
+      ></ngx3js-geometry>
+    </ngx3js-shared>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh *ngIf="controls.material == 'standard'" [material]="standard" [geometry]="ninjaHead">
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.material == 'normal'" [material]="normal" [geometry]="ninjaHead">
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.material == 'depthBasic'" [material]="depthBasic" [geometry]="ninjaHead">
+      </ngx3js-mesh>
+      <ngx3js-mesh *ngIf="controls.material == 'depthRGBA'" [material]="depthRGBA" [geometry]="ninjaHead">
+      </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

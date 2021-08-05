@@ -124,8 +124,7 @@ node_modules\three\examples\jsm\exporters\OBJExporter.js
 
 ----------------------
 
-/Volumes/WORK/VsCode/three-sample/src/assets/examples/jsm/loaders/TiltLoader.js
-/Volumes/WORK/VsCode/three-sample/node_modules/three/examples/jsm/loaders/TiltLoader.js
+node_modules/three/examples/jsm/loaders/TiltLoader.js
 
-const loader = new TextureLoader().setPath( './assets/examples/textures/tiltbrush/' );
+408 : const loader = new TextureLoader().setPath( './assets/examples/textures/tiltbrush/' );
 

@@ -1,6 +1,6 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  NRRD format loader test todo
+  NRRD format loader test
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -10,6 +10,7 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [guiOpen]="true"
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
@@ -30,26 +31,24 @@
     >
       <ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-mesh #nrrd [storageName]="'models/nrrd/I.nrrd'" (onLoad)="setVolume($event)"></ngx3js-mesh>
-    </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [visible]="false" #hiddenBox>
+      <ngx3js-mesh [storageName]="'models/nrrd/I.nrrd'" [volumeOption]="{
+        xVisible : controls.xVisible,
+        x : controls.indexX,
+        yVisible : controls.yVisible,
+        y : controls.indexY,
+        zVisible : controls.zVisible,
+        z : controls.indexZ,
+        boxVisible : controls.boxVisible,
+        helperVisible : controls.helperVisible,
+        helperColor : controls.helperColor,
+        lowerThreshold : controls.lowerThreshold,
+        upperThreshold : controls.upperThreshold,
+        windowLow : controls.windowLow,
+        windowHigh : controls.windowHigh
+      }">
         <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'box'"
-          [refer]="nrrd"
-          [refType]="'size'"
-          [width]="1"
-          [height]="1"
-          [depth]="1"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0x00ff00'"></ngx3js-material>
-        <ngx3js-helper [type]="'box'" [target]="hiddenBox" [matrix]="nrrd.storageSource?.matrix"></ngx3js-helper>
       </ngx3js-mesh>
-      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'x'" [index]="controls.indexX"></ngx3js-mesh>
-      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'y'" [index]="controls.indexY"></ngx3js-mesh>
-      <ngx3js-mesh [type]="'volume'" [volume]="nrrd.storageSource" [axis]="'z'" [index]="controls.indexZ"></ngx3js-mesh>
       <ngx3js-mesh [storageName]="'models/vtk/liver.vtk'" [visible]="controls.modelVisible">
         <ngx3js-material [type]="'MeshLambert'" [color]="'0xff0000'" [wireframe]="false" [morphTargets]="false" [side]="'double'"></ngx3js-material>
       </ngx3js-mesh>

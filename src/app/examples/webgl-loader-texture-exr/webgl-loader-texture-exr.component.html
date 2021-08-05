@@ -1,15 +1,15 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl EXR texture loader example<br/>
   Image courtesy of <a href="http://www.pauldebevec.com/Research/HDR/" target="_blank" rel="noopener">Paul Debevec</a>.
-  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
-  [toneMappingExposure]="2.0"
+  [toneMappingExposure]="controls.exposure"
+  [toneMapping]="'ReinhardToneMapping'"
+  [outputEncoding]="'sRGBEncoding'"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
@@ -17,19 +17,18 @@
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene >
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry
-        [type]="'Box'"
+        [type]="'PlaneGeometry'"
         [width]="1"
-        [height]="1"
-        [depth]="1"
+        [height]="1.5"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0xff0000'">
-        <ngx3js-texture [storageName]="'textures/memorial.exr'"></ngx3js-texture>
+      <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [side]="'double'">
+        <ngx3js-texture [storageName]="'textures/memorial.exr'" [storageOption]="{ dataType : 'FloatType' }"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>

@@ -50,7 +50,7 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { TDSLoader } from 'three/examples/jsm/loaders/TDSLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
-import { TiltLoader } from 'three/examples/jsm/loaders/TiltLoader';
+import * as TILT from 'three/examples/jsm/loaders/TiltLoader';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { Chunk, VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader';
 import { VRMLLoader } from 'three/examples/jsm/loaders/VRMLLoader';
@@ -321,7 +321,7 @@ export class LocalStorageService {
   /**
    * Tilt loader of local storage service
    */
-  private tiltLoader: TiltLoader = null;
+  private tiltLoader: TILT.TiltLoader = null;
 
   /**
    * Rgbm loader of local storage service
@@ -658,6 +658,12 @@ export class LocalStorageService {
           loader.setPath('');
         }
       }
+      if (ThreeUtil.isNotNull(loader['setDataType'])) {
+        if (ThreeUtil.isNotNull(options.dataType)) {
+          loader['setDataType'](ThreeUtil.getTextureDataTypeSafe(options.dataType));
+          console.log(ThreeUtil.getTextureDataTypeSafe(options.dataType));
+        }
+      }
     }
     return loader;
   }
@@ -757,7 +763,8 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.tilt')) {
       if (this.tiltLoader === null) {
-        this.tiltLoader = new TiltLoader(ThreeUtil.getLoadingManager());
+        console.log(TILT);
+        this.tiltLoader = new TILT.TiltLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.tiltLoader, options);
       this.tiltLoader.load(
@@ -819,6 +826,23 @@ export class LocalStorageService {
           callBack({
             texture: dataTexture,
             source: dataTexture,
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+    } else if (key.endsWith('.pvr')) {
+      if (this.pvrLoader === null) {
+        this.pvrLoader = new PVRLoader(ThreeUtil.getLoadingManager());
+      }
+      this.setLoaderWithOption(this.pvrLoader, options);
+      this.pvrLoader.load(
+        key,
+        (texture: THREE.CompressedTexture) => {
+          console.log(texture);
+          callBack({
+            texture: texture,
+            source: texture
           });
         },
         this.onProgress,
@@ -1338,9 +1362,37 @@ export class LocalStorageService {
       }
       this.nrrdLoader.load(
         key,
-        (group: Volume) => {
+        (volume: Volume) => {
+          const group = new THREE.Group();
+					const geometry = new THREE.BoxGeometry( volume.xLength, volume.yLength, volume.zLength );
+					const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+					const cube = new THREE.Mesh( geometry, material );
+					cube.visible = false;
+          cube.name = 'box';
+          cube.userData.volume = volume;
+					const box = new THREE.BoxHelper( cube );
+          box.name = 'helper';
+					box.applyMatrix4( volume.matrix as any );
+					group.add( box );
+					//z plane
+          const rasDimensions = (volume as any).RASDimensions;
+					const sliceZ = volume.extractSlice( 'z', Math.floor( rasDimensions[ 2 ] / 4 ) );
+          sliceZ.mesh.name = 'z';
+          sliceZ.mesh.userData.volumeSlice = sliceZ;
+					group.add( sliceZ.mesh );
+					//y plane
+					const sliceY = volume.extractSlice( 'y', Math.floor( rasDimensions[ 1 ] / 2 ) );
+          sliceY.mesh.name = 'y';
+          sliceY.mesh.userData.volumeSlice = sliceY;
+					group.add( sliceY.mesh );
+					//x plane
+					const sliceX = volume.extractSlice( 'x', Math.floor( rasDimensions[ 0 ] / 2 ) );
+          sliceX.mesh.name = 'x';
+          sliceX.mesh.userData.volumeSlice = sliceX;
+					group.add( sliceX.mesh );
           callBack({
-            source: group,
+            object : group,
+            source: volume,
           });
         },
         this.onProgress,

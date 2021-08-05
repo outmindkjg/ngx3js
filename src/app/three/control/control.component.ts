@@ -388,7 +388,6 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * The dampingFactor of control
 	 */
 	@Input() private dampingFactor: number = null;
-	
 
 	/**
 	 * The movementSpeed of control
@@ -666,6 +665,21 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 			this._camera = camera;
 			this._domElement = domElement;
 			this._scene = scenes;
+			this.unSubscribeRefer('cameraload');
+			const cameraCom = ThreeUtil.getThreeComponent(camera);
+			if (ThreeUtil.isNotNull(cameraCom)) {
+				this.subscribeRefer(
+					'cameraload',
+					ThreeUtil.getSubscribe(
+						cameraCom,
+						() => {
+							this._camera = cameraCom.getCamera();
+							this.needUpdate = true;
+						},
+						'changecamera'
+					)
+				);
+			}
 			switch (this.type.toLowerCase()) {
 				case 'csm':
 					break;
@@ -694,6 +708,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 			if (this.control !== null) {
 				if (this.control instanceof TransformControls && this.control.parent) {
 					this.control.parent.remove(this.control);
+				}
+				if (ThreeUtil.isNotNull(this.control.dispose)) {
+					this.control.dispose();
 				}
 			}
 			this.control = null;

@@ -6,10 +6,16 @@ import { BaseComponent } from '../../three';
   templateUrl: './webgl-loader-texture-hdr.component.html',
   styleUrls: ['./webgl-loader-texture-hdr.component.scss']
 })
-export class WebglLoaderTextureHdrComponent extends BaseComponent<{}> {
+export class WebglLoaderTextureHdrComponent extends BaseComponent<{
+  exposure : number
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      exposure : 2.0
+    },[
+      { name : 'exposure', type :'number', min : 0, max : 4 , step : 0.01 }
+    ]);
   }
-
+  
 }

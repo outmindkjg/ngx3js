@@ -2,12 +2,15 @@
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - KTX2 texture loader<br />
   <a href="http://github.khronos.org/KTX-Specification/" target="_blank" rel="noopener">KTX2</a> with
   <a href="https://github.com/binomialLLC/basis_universal" target="_blank">Basis Universal GPU Texture Codec</a>
-  todo
 </div>
+
 <ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
+  [toneMappingExposure]="controls.exposure"
+  [toneMapping]="'ReinhardToneMapping'"
+  [outputEncoding]="'sRGBEncoding'"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
@@ -15,20 +18,19 @@
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100">
-    <ngx3js-position [x]="2" [y]="1.5" [z]="1"></ngx3js-position>
+  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x202020'">
+  <ngx3js-scene #scene >
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry
-        [type]="'Plane'"
+        [type]="'PlaneGeometry'"
         [width]="1"
-        [height]="1"
-        [depth]="1"
+        [height]="1.5"
         [flipY]="true"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0xFFFFFF'" [side]="'double'" [transparent]="true">
+      <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [side]="'double'">
         <ngx3js-texture [storageName]="'textures/compressed/sample_uastc.ktx2'" [storageOption]="{ transcoderPath : 'js/libs/basis/'}"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>

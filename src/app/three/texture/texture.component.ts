@@ -336,7 +336,7 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
       } else if (ThreeUtil.isNotNull(this.storageName)) {
         if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
           this.texture = new THREE.DataTexture(new Uint8Array(6), 1, 1);
-        } else if (this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
+        } else if (this.storageName.endsWith('.pvr') || this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
           this.texture = new THREE.CompressedTexture(null, 1, 1);
         } else {
           this.texture = new THREE.Texture();

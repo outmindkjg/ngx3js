@@ -39,6 +39,25 @@ import { LightComponent, LightOptions } from './../light/light.component';
 import { LocalStorageService } from './../local-storage.service';
 
 /**
+ * Volume Options
+ */
+export interface VolumeOptions {
+	x?: number;
+	y?: number;
+	z?: number;
+	helperVisible?: boolean;
+	helperColor?: ThreeColor;
+	boxVisible?: boolean;
+	xVisible?: boolean;
+	yVisible?: boolean;
+	zVisible?: boolean;
+	lowerThreshold?: number;
+	upperThreshold?: number;
+	windowLow?: number;
+	windowHigh?: number;
+}
+
+/**
  * MeshComponent
  *
  * @see THREE.Mesh
@@ -73,7 +92,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * @see THREE.Light - light
 	 * @see LineLoop - LineLoop
 	 * @see Lensflare - Lensflare, lensflareelement
-	 * @see VolumeSlice - VolumeSlice, Volume
 	 * @see THREE.InstancedMesh - InstancedMesh, Instanced
 	 * @see BufferGeometryUtils.mergeBufferGeometries - merged
 	 * @see SceneUtils.createMultiMaterialObject - multimaterial, multi
@@ -190,6 +208,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	@Input() private storageOption: any = null;
 
 	/**
+	 * The volume Option
+	 */
+	@Input() private volumeOption: VolumeOptions = null;
+
+	/**
 	 * The color of sun etc
 	 */
 	@Input() private color: ThreeColor = null;
@@ -301,11 +324,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * Input  of mesh component
 	 */
 	@Input() private count: number = null;
-
-	/**
-	 * Input  of mesh component
-	 */
-	@Input() private volume: Volume = null;
 
 	/**
 	 * Input  of mesh component
@@ -1250,7 +1268,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 				this.getObject3d();
 				return;
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material', 'mixer'], this.OBJECT3D_ATTR)) {
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['geometry', 'svg', 'listener', 'audio', 'csschildren', 'controller', 'material', 'mixer', 'volumeoption'], this.OBJECT3D_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}
@@ -1267,6 +1285,97 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 				switch (change.toLowerCase()) {
 					case 'helper':
 						this.resetHelper();
+						break;
+					case 'volumeoption':
+						if (ThreeUtil.isNotNull(this.volumeOption)) {
+							const volume: Volume = this.getUserData()['storageSource'];
+							if (ThreeUtil.isNotNull(volume) && volume instanceof Volume) {
+								const mesh = this.mesh;
+								const rasDimensions = (volume as any).RASDimensions;
+								const volumeMax: number = (volume as any).max;
+								const volumeMin: number = (volume as any).min;
+								Object.entries(this.volumeOption).forEach(([key, value]) => {
+									let sliceMesh: THREE.Object3D = null;
+									let rasDimensionsSize: number = 0;
+									switch (key.toLowerCase()) {
+										case 'helpervisible':
+											const helper = mesh.getObjectByName('helper');
+											if (ThreeUtil.isNotNull(helper)) {
+												helper.visible = value as boolean;
+											}
+											break;
+										case 'helpercolor':
+											const helperMat = mesh.getObjectByName('helper');
+											if (ThreeUtil.isNotNull(helperMat) && ThreeUtil.isNotNull(helperMat['material'])) {
+												helperMat['material'].color = ThreeUtil.getColorSafe(value as any, 0xffff00);
+											}
+											break;
+										case 'boxvisible':
+											const box = mesh.getObjectByName('box');
+											if (ThreeUtil.isNotNull(box)) {
+												box.visible = value as boolean;
+											}
+											break;
+										case 'xvisible':
+											const sliceMeshx = mesh.getObjectByName('x');
+											if (ThreeUtil.isNotNull(sliceMeshx)) {
+												sliceMeshx.visible = value as boolean;
+											}
+											break;
+										case 'yvisible':
+											const sliceMeshy = mesh.getObjectByName('y');
+											if (ThreeUtil.isNotNull(sliceMeshy)) {
+												sliceMeshy.visible = value as boolean;
+											}
+											break;
+										case 'zvisible':
+											const sliceMeshz = mesh.getObjectByName('z');
+											if (ThreeUtil.isNotNull(sliceMeshz)) {
+												sliceMeshz.visible = value as boolean;
+											}
+											break;
+										case 'x':
+										case 'indexx':
+											sliceMesh = mesh.getObjectByName('x');
+											rasDimensionsSize = rasDimensions[0];
+											break;
+										case 'y':
+										case 'indexx':
+											sliceMesh = mesh.getObjectByName('y');
+											rasDimensionsSize = rasDimensions[1];
+											break;
+										case 'z':
+										case 'indexz':
+											sliceMesh = mesh.getObjectByName('z');
+											rasDimensionsSize = rasDimensions[2];
+											break;
+										case 'lowerthreshold':
+										case 'lower':
+											volume.lowerThreshold = Math.min(volumeMax, Math.max(volumeMin, (volumeMax - volumeMin) * (value as number) + volumeMin));
+											break;
+										case 'upperthreshold':
+										case 'upper':
+											volume.upperThreshold = Math.min(volumeMax, Math.max(volumeMin, (volumeMax - volumeMin) * (value as number) + volumeMin));
+											break;
+										case 'windowlow':
+										case 'low':
+											(volume as any).windowLow = Math.min(volumeMax, Math.max(volumeMin, (volumeMax - volumeMin) * (value as number) + volumeMin));
+											break;
+										case 'windowhigh':
+										case 'high':
+											(volume as any).windowHigh = Math.min(volumeMax, Math.max(volumeMin, (volumeMax - volumeMin) * (value as number) + volumeMin));
+											break;
+									}
+									if (ThreeUtil.isNotNull(sliceMesh) && ThreeUtil.isNotNull(sliceMesh.userData.volumeSlice)) {
+										const valueNum: number = value as number;
+										const volumeSlice: VolumeSlice = sliceMesh.userData.volumeSlice;
+										volumeSlice.index = Math.max(0, Math.min(rasDimensionsSize - 1, Math.round(rasDimensionsSize * valueNum)));
+										volumeSlice.repaint.call(volumeSlice);
+									}
+								});
+								volume.repaintAllSlices();
+							}
+						}
 						break;
 					case 'csschildren':
 						this.unSubscribeReferList('cssChildrenList');
@@ -1804,27 +1913,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 					});
 					basemesh = lensflare;
 					break;
-				case 'volume':
-					if (ThreeUtil.isNotNull(this.volume)) {
-						let volumeSlice: VolumeSlice = null;
-						switch (this.getAxis('z').toLowerCase()) {
-							case 'x':
-								volumeSlice = this.volume.extractSlice('x', this.getIndex(this.volume['RASDimensions'][0], 0.5));
-								break;
-							case 'y':
-								volumeSlice = this.volume.extractSlice('y', this.getIndex(this.volume['RASDimensions'][1], 0.5));
-								break;
-							case 'z':
-							default:
-								volumeSlice = this.volume.extractSlice('z', this.getIndex(this.volume['RASDimensions'][2], 0.5));
-								break;
-						}
-						this.setUserData('storageSource', volumeSlice);
-						basemesh = volumeSlice.mesh;
-					} else {
-						basemesh = new THREE.Group();
-					}
-					break;
 				case 'instancedmesh':
 				case 'instanced':
 					const instanced = new THREE.InstancedMesh(geometry, this.getMaterialOne(), this.getCount(1));
@@ -1984,16 +2072,23 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								basemesh.add(character.root);
 								this.clipMesh = character.root;
 								this.clips = character;
+								this.setUserData('refTarget', character);
+								this.setUserData('clips', this.clips);
 								this.applyChanges3d(['mixer', 'material']);
+								this.setSubscribeNext(['loaded']);
 								super.callOnLoad();
 							}
 						};
 						this.unSubscribeReferList('shareParts');
 						this.subscribeReferList(
 							'shareParts',
-							this.shareParts.getSubscribe().subscribe(() => {
-								loadShareParts();
-							})
+							ThreeUtil.getSubscribe(
+								this.shareParts,
+								() => {
+									loadShareParts();
+								},
+								'loaded'
+							)
 						);
 						this.shareParts.getObject3d();
 						loadShareParts();
@@ -2086,6 +2181,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								this.setUserData('refTarget', loadedMesh);
 								this.setUserData('clips', clips);
 								this.setUserData('storageSource', source);
+								this.clips = clips;
 								if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
 									this.mesh.add(source.skeleton.bones[0]);
 								}
@@ -2093,6 +2189,9 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 									Object.assign(loadedMesh.userData, this.getUserData());
 									this.addChildObject3d(loadedMesh);
 									this.setSubscribeNext(['loaded']);
+									if (source instanceof Volume) {
+										this.addChanges(['volumeoption']);
+									}
 								}
 							},
 							this.storageOption

@@ -1169,8 +1169,9 @@ export class ThreeUtil {
 
 	/**
 	 * Gets store url
+	 * 
 	 * @param url
-	 * @returns
+	 * @returns store url
 	 */
 	public static getStoreUrl(url: string) {
 		if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://') || url.startsWith(this.assetUrl)) {
@@ -1715,6 +1716,7 @@ export class ThreeUtil {
 
 	/**
 	 * Gets euler safe
+	 * 
 	 * @param x
 	 * @param y
 	 * @param z
@@ -1735,6 +1737,14 @@ export class ThreeUtil {
 
 	/**
 	 * Gets wrapping safe
+   *
+   * Notice - case insensitive.
+   * 
+	 * @see THREE.Wrapping
+	 * @see THREE.RepeatWrapping - RepeatWrapping, Repeat
+	 * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, MirroredRepeat
+	 * @see THREE.ClampToEdgeWrapping - ClampToEdgeWrapping, ClampToEdge
+	 * 
 	 * @param baseWrap
 	 * @param [altWrap]
 	 * @param [def]
@@ -1805,7 +1815,9 @@ export class ThreeUtil {
 	/**
 	 * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
 	 * @default THREE.NormalBlending
-	 *
+   *
+   * Notice - case insensitive.
+   * 
 	 * @param baseBlending
 	 * @param [altBlending]
 	 * @param [def]
@@ -1923,6 +1935,23 @@ export class ThreeUtil {
 
 	/**
 	 * Gets texture data type safe
+   *
+   * Notice - case insensitive.
+   * 
+	 * @see THREE.TextureDataType
+	 * @see THREE.ByteType - ByteType, Byte
+	 * @see THREE.ShortType - ShortType, Short
+	 * @see THREE.UnsignedShortType - UnsignedShortType, UnsignedShort
+	 * @see THREE.IntType - IntType, Int
+	 * @see THREE.UnsignedIntType - UnsignedIntType, UnsignedInt
+	 * @see THREE.FloatType - FloatType, Float
+	 * @see THREE.HalfFloatType - HalfFloatType, HalfFloat
+	 * @see THREE.UnsignedShort4444Type - UnsignedShort4444Type, UnsignedShort4444
+	 * @see THREE.UnsignedShort5551Type - UnsignedShort5551Type, UnsignedShort5551
+	 * @see THREE.UnsignedShort565Type - UnsignedShort565Type, UnsignedShort565
+	 * @see THREE.UnsignedInt248Type - UnsignedInt248Type, UnsignedInt248
+	 * @see THREE.UnsignedByteType - UnsignedByteType, UnsignedByte
+	 * 
 	 * @param baseFormat
 	 * @param [altFormat]
 	 * @param [def]
@@ -2514,6 +2543,19 @@ export class ThreeUtil {
 
 	/**
 	 * Gets texture encoding safe
+   *
+   * Notice - case insensitive.
+   * 
+	 * @see THREE.TextureEncoding
+	 * @see THREE.sRGBEncoding - sRGBEncoding, sRGB
+	 * @see THREE.GammaEncoding - GammaEncoding, Gamma
+	 * @see THREE.RGBEEncoding - RGBEEncoding, RGBE
+	 * @see THREE.LogLuvEncoding - LogLuvEncoding, LogLuv
+	 * @see THREE.RGBM7Encoding - RGBM7Encoding, RGBM7
+	 * @see THREE.RGBM16Encoding - RGBM16Encoding, RGBM16
+	 * @see THREE.RGBDEncoding - RGBDEncoding, RGBD
+	 * @see THREE.LinearEncoding - LinearEncoding, Linear
+	 * 
 	 * @param baseEncoding
 	 * @param [altEncoding]
 	 * @param [def]
@@ -2553,6 +2595,18 @@ export class ThreeUtil {
 
 	/**
 	 * Gets mapping safe
+   *
+   * Notice - case insensitive.
+   * 
+	 * @see THREE.Mapping
+	 * @see THREE.UVMapping - UVMapping, UV
+	 * @see THREE.CubeReflectionMapping - CubeReflectionMapping, CubeReflection
+	 * @see THREE.CubeRefractionMapping - CubeRefractionMapping, CubeRefraction
+	 * @see THREE.EquirectangularReflectionMapping - EquirectangularReflectionMapping, EquirectangularReflection
+	 * @see THREE.EquirectangularRefractionMapping - EquirectangularRefractionMapping, EquirectangularRefraction
+	 * @see THREE.CubeUVReflectionMapping - CubeUVReflectionMapping, CubeUVReflection
+	 * @see THREE.CubeUVRefractionMapping - CubeUVRefractionMapping, CubeUVRefraction
+	 * 
 	 * @param baseMapping
 	 * @param [altMapping]
 	 * @param [def]
@@ -3230,21 +3284,54 @@ export class ThreeStats implements Stats {
  */
 export interface GuiControlParam {
 	/**
-	 *
+	 * The name of gui control 
 	 */
 	name: string;
+	/**
+	 * The type of gui control 
+	 */
 	type?: 'number' | 'folder' | 'select' | 'folder' | 'button' | 'color' | 'checkbox' | 'input' | 'listen' | 'auto';
+	/**
+	 * The min value of number type
+	 */
 	min?: number;
+	/**
+	 * The max value of number type
+	 */
 	max?: number;
+	/**
+	 * The step value of number type
+	 */
 	step?: number;
+	/**
+	 * The select value of select type
+	 */
 	select?: string[] | { [key: string]: any };
 	control?: string;
 	listen?: boolean;
+	/**
+	 * is opened in case folder
+	 */
 	isOpen?: boolean;
+	/**
+	 * The title of gui name
+	 */
 	title?: string;
+	/**
+	 * on change value trigger
+	 */
 	change?: (value?: any) => void;
+	/**
+	 * on change finish value trigger
+	 */
 	finishChange?: (value?: any) => void;
+	/**
+	 * The children of folder type
+	 */
 	children?: GuiControlParam[];
+	/**
+	 * The controller of gui
+	 */
 	controller?: ThreeGuiController;
 }
 

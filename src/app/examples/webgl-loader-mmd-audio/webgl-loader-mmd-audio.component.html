@@ -34,13 +34,13 @@
       <ngx3js-position [x]="-40" [y]="60" [z]="-10"></ngx3js-position>
       <ngx3js-lookat [refer]="scene"></ngx3js-lookat>
     </ngx3js-mesh>
-    <ngx3js-mesh [helperType]="'polargrid'" [helperOptions]="{ radius : 30 , radials : 10 }">
+    <ngx3js-helper [type]="'polargrid'" [radius]="30" [radials]="10">
       <ngx3js-position [x]="0" [y]="-10" [z]="0"></ngx3js-position>
       <ngx3js-audio [type]="'audio'" [url]="'models/mmd/audios/wavefile_short.mp3'">
         <ngx3js-mixer [type]="'MMDAnimationHelper'" [animationHelper]="animationHelper" [delayTime]="160 * 1 / 30">
         </ngx3js-mixer>
       </ngx3js-audio>
-    </ngx3js-mesh>
+    </ngx3js-helper>
     <ngx3js-mesh [storageName]="'models/mmd/miku/miku_v2.pmd'" [storageOption]="{
           vmdUrl : ['models/mmd/vmds/wavefile_v2.vmd']
         }" [castShadow]="true">
