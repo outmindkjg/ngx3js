@@ -5,7 +5,6 @@ import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
-import { WEBGL } from 'three/examples/jsm/WebGL';
 
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
@@ -602,6 +601,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			if (this.renderer.domElement && this.renderer.domElement.parentNode) {
 				this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
 			}
+			this.renderer.forceContextLoss();
 			this.renderer.dispose();
 			this.renderer = null;
 		}
