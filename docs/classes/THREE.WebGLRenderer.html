@@ -1,0 +1,2672 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>WebGLRenderer | three-sample</title>
+	<meta name="description" content="Documentation for three-sample">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">three-sample</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">three-sample</a>
+				</li>
+				<li>
+					<a href="../modules/THREE.html">THREE</a>
+				</li>
+				<li>
+					<a href="THREE.WebGLRenderer.html">WebGLRenderer</a>
+				</li>
+			</ul>
+			<h1>Class WebGLRenderer</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The WebGL renderer displays your beautifully crafted scenes using WebGL, if your device supports it.
+						This renderer has way better performance than CanvasRenderer.</p>
+					</div>
+					<p>see <a href="https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js" class="external">src/renderers/WebGLRenderer.js</a></p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">WebGLRenderer</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="THREE.WebGL1Renderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGL1Renderer</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/THREE.Renderer.html" class="tsd-signature-type" data-tsd-kind="Interface">Renderer</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#autoClear" class="tsd-kind-icon">auto<wbr>Clear</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#autoClearColor" class="tsd-kind-icon">auto<wbr>Clear<wbr>Color</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#autoClearDepth" class="tsd-kind-icon">auto<wbr>Clear<wbr>Depth</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#autoClearStencil" class="tsd-kind-icon">auto<wbr>Clear<wbr>Stencil</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#capabilities" class="tsd-kind-icon">capabilities</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clippingPlanes" class="tsd-kind-icon">clipping<wbr>Planes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#context" class="tsd-kind-icon">context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#domElement" class="tsd-kind-icon">dom<wbr>Element</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#extensions" class="tsd-kind-icon">extensions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#gammaFactor" class="tsd-kind-icon">gamma<wbr>Factor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#info" class="tsd-kind-icon">info</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#localClippingEnabled" class="tsd-kind-icon">local<wbr>Clipping<wbr>Enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#outputEncoding" class="tsd-kind-icon">output<wbr>Encoding</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#physicallyCorrectLights" class="tsd-kind-icon">physically<wbr>Correct<wbr>Lights</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#pixelRatio" class="tsd-kind-icon">pixel<wbr>Ratio</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#properties" class="tsd-kind-icon">properties</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#renderLists" class="tsd-kind-icon">render<wbr>Lists</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#shadowMap" class="tsd-kind-icon">shadow<wbr>Map</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#shadowMapCullFace" class="tsd-kind-icon">shadow<wbr>Map<wbr>Cull<wbr>Face</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#shadowMapEnabled" class="tsd-kind-icon">shadow<wbr>Map<wbr>Enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#shadowMapType" class="tsd-kind-icon">shadow<wbr>Map<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#sortObjects" class="tsd-kind-icon">sort<wbr>Objects</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#toneMapping" class="tsd-kind-icon">tone<wbr>Mapping</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#toneMappingExposure" class="tsd-kind-icon">tone<wbr>Mapping<wbr>Exposure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#vr" class="tsd-kind-icon">vr</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#xr" class="tsd-kind-icon">xr</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#animate" class="tsd-kind-icon">animate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clearColor" class="tsd-kind-icon">clear<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clearDepth" class="tsd-kind-icon">clear<wbr>Depth</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clearStencil" class="tsd-kind-icon">clear<wbr>Stencil</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#clearTarget" class="tsd-kind-icon">clear<wbr>Target</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#compile" class="tsd-kind-icon">compile</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#copyFramebufferToTexture" class="tsd-kind-icon">copy<wbr>Framebuffer<wbr>ToTexture</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#copyTextureToTexture" class="tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#copyTextureToTexture3D" class="tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture3D</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#dispose" class="tsd-kind-icon">dispose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#enableScissorTest" class="tsd-kind-icon">enable<wbr>Scissor<wbr>Test</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#forceContextLoss" class="tsd-kind-icon">force<wbr>Context<wbr>Loss</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getActiveCubeFace" class="tsd-kind-icon">get<wbr>Active<wbr>Cube<wbr>Face</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getActiveMipmapLevel" class="tsd-kind-icon">get<wbr>Active<wbr>Mipmap<wbr>Level</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getClearAlpha" class="tsd-kind-icon">get<wbr>Clear<wbr>Alpha</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getClearColor" class="tsd-kind-icon">get<wbr>Clear<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getContext" class="tsd-kind-icon">get<wbr>Context</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getContextAttributes" class="tsd-kind-icon">get<wbr>Context<wbr>Attributes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getCurrentRenderTarget" class="tsd-kind-icon">get<wbr>Current<wbr>Render<wbr>Target</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getCurrentViewport" class="tsd-kind-icon">get<wbr>Current<wbr>Viewport</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getDrawingBufferSize" class="tsd-kind-icon">get<wbr>Drawing<wbr>Buffer<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getMaxAnisotropy" class="tsd-kind-icon">get<wbr>Max<wbr>Anisotropy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getPixelRatio" class="tsd-kind-icon">get<wbr>Pixel<wbr>Ratio</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getPrecision" class="tsd-kind-icon">get<wbr>Precision</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getRenderTarget" class="tsd-kind-icon">get<wbr>Render<wbr>Target</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getScissor" class="tsd-kind-icon">get<wbr>Scissor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getScissorTest" class="tsd-kind-icon">get<wbr>Scissor<wbr>Test</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getSize" class="tsd-kind-icon">get<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#getViewport" class="tsd-kind-icon">get<wbr>Viewport</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#initTexture" class="tsd-kind-icon">init<wbr>Texture</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#readRenderTargetPixels" class="tsd-kind-icon">read<wbr>Render<wbr>Target<wbr>Pixels</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#renderBufferDirect" class="tsd-kind-icon">render<wbr>Buffer<wbr>Direct</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#renderBufferImmediate" class="tsd-kind-icon">render<wbr>Buffer<wbr>Immediate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#resetGLState" class="tsd-kind-icon">resetGLState</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#resetState" class="tsd-kind-icon">reset<wbr>State</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setAnimationLoop" class="tsd-kind-icon">set<wbr>Animation<wbr>Loop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setClearAlpha" class="tsd-kind-icon">set<wbr>Clear<wbr>Alpha</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setClearColor" class="tsd-kind-icon">set<wbr>Clear<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setDrawingBufferSize" class="tsd-kind-icon">set<wbr>Drawing<wbr>Buffer<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setOpaqueSort" class="tsd-kind-icon">set<wbr>Opaque<wbr>Sort</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setPixelRatio" class="tsd-kind-icon">set<wbr>Pixel<wbr>Ratio</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setRenderTarget" class="tsd-kind-icon">set<wbr>Render<wbr>Target</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setScissor" class="tsd-kind-icon">set<wbr>Scissor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setScissorTest" class="tsd-kind-icon">set<wbr>Scissor<wbr>Test</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setSize" class="tsd-kind-icon">set<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setTransparentSort" class="tsd-kind-icon">set<wbr>Transparent<wbr>Sort</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#setViewport" class="tsd-kind-icon">set<wbr>Viewport</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsBlendMinMax" class="tsd-kind-icon">supports<wbr>Blend<wbr>Min<wbr>Max</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsCompressedTexturePVRTC" class="tsd-kind-icon">supports<wbr>Compressed<wbr>TexturePVRTC</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsCompressedTextureS3TC" class="tsd-kind-icon">supports<wbr>Compressed<wbr>Texture<wbr>S3TC</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsFloatTextures" class="tsd-kind-icon">supports<wbr>Float<wbr>Textures</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsHalfFloatTextures" class="tsd-kind-icon">supports<wbr>Half<wbr>Float<wbr>Textures</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsInstancedArrays" class="tsd-kind-icon">supports<wbr>Instanced<wbr>Arrays</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsStandardDerivatives" class="tsd-kind-icon">supports<wbr>Standard<wbr>Derivatives</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="THREE.WebGLRenderer.html#supportsVertexTextures" class="tsd-kind-icon">supports<wbr>Vertex<wbr>Textures</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>WebGLRenderer<span class="tsd-signature-symbol">(</span>parameters<span class="tsd-signature-symbol">?: </span><a href="../interfaces/THREE.WebGLRendererParameters.html" class="tsd-signature-type" data-tsd-kind="Interface">WebGLRendererParameters</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:117</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>parameters is an optional object with properties defining the renderer&#39;s behaviour.
+										The constructor also accepts no parameters at all.
+									In all cases, it will assume sane defaults when parameters are missing.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <a href="../interfaces/THREE.WebGLRendererParameters.html" class="tsd-signature-type" data-tsd-kind="Interface">WebGLRendererParameters</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="autoClear" class="tsd-anchor"></a>
+					<h3>auto<wbr>Clear</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Clear<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:135</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Defines whether the renderer should automatically clear its output before rendering.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="autoClearColor" class="tsd-anchor"></a>
+					<h3>auto<wbr>Clear<wbr>Color</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Clear<wbr>Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:141</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If autoClear is true, defines whether the renderer should clear the color buffer. Default is true.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="autoClearDepth" class="tsd-anchor"></a>
+					<h3>auto<wbr>Clear<wbr>Depth</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Clear<wbr>Depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:147</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If autoClear is true, defines whether the renderer should clear the depth buffer. Default is true.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="autoClearStencil" class="tsd-anchor"></a>
+					<h3>auto<wbr>Clear<wbr>Stencil</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Clear<wbr>Stencil<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:153</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If autoClear is true, defines whether the renderer should clear the stencil buffer. Default is true.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="capabilities" class="tsd-anchor"></a>
+					<h3>capabilities</h3>
+					<div class="tsd-signature tsd-kind-icon">capabilities<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLCapabilities.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLCapabilities</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:206</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="clippingPlanes" class="tsd-anchor"></a>
+					<h3>clipping<wbr>Planes</h3>
+					<div class="tsd-signature tsd-kind-icon">clipping<wbr>Planes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:170</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>[]</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="context" class="tsd-anchor"></a>
+					<h3>context</h3>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebGLRenderingContext</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:129</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The HTML5 Canvas&#39;s &#39;webgl&#39; context obtained from the canvas where the renderer will draw.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="debug" class="tsd-anchor"></a>
+					<h3>debug</h3>
+					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <a href="../interfaces/THREE.WebGLDebug.html" class="tsd-signature-type" data-tsd-kind="Interface">WebGLDebug</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:159</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Debug configurations.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>{ checkShaderErrors: true }</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="domElement" class="tsd-anchor"></a>
+					<h3>dom<wbr>Element</h3>
+					<div class="tsd-signature tsd-kind-icon">dom<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/THREE.Renderer.html">Renderer</a>.<a href="../interfaces/THREE.Renderer.html#domElement">domElement</a></p>
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:124</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A Canvas where the renderer draws its output.
+							This is automatically created by the renderer in the constructor (if not provided already); you just need to add it to your page.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>document.createElementNS( &#39;<a href="http://www.w3.org/1999/xhtml&#39;">http://www.w3.org/1999/xhtml&#39;</a>, &#39;canvas&#39; )</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="extensions" class="tsd-anchor"></a>
+					<h3>extensions</h3>
+					<div class="tsd-signature tsd-kind-icon">extensions<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLExtensions.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLExtensions</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:177</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="gammaFactor" class="tsd-anchor"></a>
+					<h3>gamma<wbr>Factor</h3>
+					<div class="tsd-signature tsd-kind-icon">gamma<wbr>Factor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:450</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="info" class="tsd-anchor"></a>
+					<h3>info</h3>
+					<div class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLInfo.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLInfo</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:200</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="localClippingEnabled" class="tsd-anchor"></a>
+					<h3>local<wbr>Clipping<wbr>Enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">local<wbr>Clipping<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:175</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>false</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="outputEncoding" class="tsd-anchor"></a>
+					<h3>output<wbr>Encoding</h3>
+					<div class="tsd-signature tsd-kind-icon">output<wbr>Encoding<span class="tsd-signature-symbol">:</span> <a href="../enums/THREE.TextureEncoding.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TextureEncoding</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:183</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Default is LinearEncoding.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>THREE.LinearEncoding</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="physicallyCorrectLights" class="tsd-anchor"></a>
+					<h3>physically<wbr>Correct<wbr>Lights</h3>
+					<div class="tsd-signature tsd-kind-icon">physically<wbr>Correct<wbr>Lights<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:188</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>false</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="pixelRatio" class="tsd-anchor"></a>
+					<h3>pixel<wbr>Ratio</h3>
+					<div class="tsd-signature tsd-kind-icon">pixel<wbr>Ratio<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:204</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="properties" class="tsd-anchor"></a>
+					<h3>properties</h3>
+					<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLProperties.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLProperties</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:207</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="renderLists" class="tsd-anchor"></a>
+					<h3>render<wbr>Lists</h3>
+					<div class="tsd-signature tsd-kind-icon">render<wbr>Lists<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLRenderLists.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderLists</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:208</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="shadowMap" class="tsd-anchor"></a>
+					<h3>shadow<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">shadow<wbr>Map<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLShadowMap.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLShadowMap</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:202</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="shadowMapCullFace" class="tsd-anchor"></a>
+					<h3>shadow<wbr>Map<wbr>Cull<wbr>Face</h3>
+					<div class="tsd-signature tsd-kind-icon">shadow<wbr>Map<wbr>Cull<wbr>Face<span class="tsd-signature-symbol">:</span> <a href="../enums/THREE.CullFace.html" class="tsd-signature-type" data-tsd-kind="Enumeration">CullFace</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:470</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="shadowMapEnabled" class="tsd-anchor"></a>
+					<h3>shadow<wbr>Map<wbr>Enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">shadow<wbr>Map<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:460</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="shadowMapType" class="tsd-anchor"></a>
+					<h3>shadow<wbr>Map<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">shadow<wbr>Map<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/THREE.ShadowMapType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ShadowMapType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:465</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Use {@link WebGLShadowMap#type .shadowMap.type} instead.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="sortObjects" class="tsd-anchor"></a>
+					<h3>sort<wbr>Objects</h3>
+					<div class="tsd-signature tsd-kind-icon">sort<wbr>Objects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:165</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Defines whether the renderer should sort objects. Default is true.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="state" class="tsd-anchor"></a>
+					<h3>state</h3>
+					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="THREE.WebGLState.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLState</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:209</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="toneMapping" class="tsd-anchor"></a>
+					<h3>tone<wbr>Mapping</h3>
+					<div class="tsd-signature tsd-kind-icon">tone<wbr>Mapping<span class="tsd-signature-symbol">:</span> <a href="../enums/THREE.ToneMapping.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ToneMapping</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:193</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>THREE.NoToneMapping</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="toneMappingExposure" class="tsd-anchor"></a>
+					<h3>tone<wbr>Mapping<wbr>Exposure</h3>
+					<div class="tsd-signature tsd-kind-icon">tone<wbr>Mapping<wbr>Exposure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:198</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>1</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="vr" class="tsd-anchor"></a>
+					<h3>vr</h3>
+					<div class="tsd-signature tsd-kind-icon">vr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:455</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Use {@link WebGLRenderer#xr .xr} instead.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="xr" class="tsd-anchor"></a>
+					<h3>xr</h3>
+					<div class="tsd-signature tsd-kind-icon">xr<span class="tsd-signature-symbol">:</span> <a href="THREE.WebXRManager.html" class="tsd-signature-type" data-tsd-kind="Class">WebXRManager</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:211</li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="animate" class="tsd-anchor"></a>
+					<h3>animate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">animate<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:340</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-external">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clear" class="tsd-anchor"></a>
+					<h3>clear</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, depth<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, stencil<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:307</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tells the renderer to clear its color, depth or stencil drawing buffer(s).
+									Arguments default to true</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> color: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> depth: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> stencil: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearColor" class="tsd-anchor"></a>
+					<h3>clear<wbr>Color</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Color<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:309</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearDepth" class="tsd-anchor"></a>
+					<h3>clear<wbr>Depth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Depth<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:310</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearStencil" class="tsd-anchor"></a>
+					<h3>clear<wbr>Stencil</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Stencil<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:311</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearTarget" class="tsd-anchor"></a>
+					<h3>clear<wbr>Target</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Target<span class="tsd-signature-symbol">(</span>renderTarget<span class="tsd-signature-symbol">: </span><a href="THREE.WebGLRenderTarget.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderTarget</a>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, stencil<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:312</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderTarget: <a href="THREE.WebGLRenderTarget.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderTarget</a></h5>
+								</li>
+								<li>
+									<h5>color: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>depth: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>stencil: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="compile" class="tsd-anchor"></a>
+					<h3>compile</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">compile<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a>, camera<span class="tsd-signature-symbol">: </span><a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:345</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>scene: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+								</li>
+								<li>
+									<h5>camera: <a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="copyFramebufferToTexture" class="tsd-anchor"></a>
+					<h3>copy<wbr>Framebuffer<wbr>ToTexture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>Framebuffer<wbr>ToTexture<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a>, texture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a>, level<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:407</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies a region of the currently bound framebuffer into the selected mipmap level of the selected texture.
+									This region is defined by the size of the destination texture&#39;s mip level, offset by the input position.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>position: <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the pixel offset from which to copy out of the framebuffer.</p>
+									</div>
+								</li>
+								<li>
+									<h5>texture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination texture.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> level: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination mipmap level of the texture.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="copyTextureToTexture" class="tsd-anchor"></a>
+					<h3>copy<wbr>Texture<wbr>ToTexture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a>, srcTexture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a>, dstTexture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a>, level<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:417</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies srcTexture to the specified level of dstTexture, offset by the input position.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>position: <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the pixel offset into the dstTexture where the copy will occur.</p>
+									</div>
+								</li>
+								<li>
+									<h5>srcTexture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the source texture.</p>
+									</div>
+								</li>
+								<li>
+									<h5>dstTexture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination texture.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> level: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination mipmap level of the texture.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="copyTextureToTexture3D" class="tsd-anchor"></a>
+					<h3>copy<wbr>Texture<wbr>ToTexture3D</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture3D<span class="tsd-signature-symbol">(</span>sourceBox<span class="tsd-signature-symbol">: </span><a href="THREE.Box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a>, position<span class="tsd-signature-symbol">: </span><a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a>, srcTexture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a>, dstTexture<span class="tsd-signature-symbol">: </span><a href="THREE.DataTexture3D.html" class="tsd-signature-type" data-tsd-kind="Class">DataTexture3D</a><span class="tsd-signature-symbol"> | </span><a href="THREE.DataTexture2DArray.html" class="tsd-signature-type" data-tsd-kind="Class">DataTexture2DArray</a>, level<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:427</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies the pixels of a texture in the bounds sourceBox in the desination texture starting from the given position.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sourceBox: <a href="THREE.Box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the bounds</p>
+									</div>
+								</li>
+								<li>
+									<h5>position: <a href="THREE.Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the pixel offset into the dstTexture where the copy will occur.</p>
+									</div>
+								</li>
+								<li>
+									<h5>srcTexture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the source texture.</p>
+									</div>
+								</li>
+								<li>
+									<h5>dstTexture: <a href="THREE.DataTexture3D.html" class="tsd-signature-type" data-tsd-kind="Class">DataTexture3D</a><span class="tsd-signature-symbol"> | </span><a href="THREE.DataTexture2DArray.html" class="tsd-signature-type" data-tsd-kind="Class">DataTexture2DArray</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination texture.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> level: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the destination mipmap level of the texture.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:318</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="enableScissorTest" class="tsd-anchor"></a>
+					<h3>enable<wbr>Scissor<wbr>Test</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">enable<wbr>Scissor<wbr>Test<span class="tsd-signature-symbol">(</span>boolean<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:515</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>boolean: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="forceContextLoss" class="tsd-anchor"></a>
+					<h3>force<wbr>Context<wbr>Loss</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Context<wbr>Loss<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:218</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getActiveCubeFace" class="tsd-anchor"></a>
+					<h3>get<wbr>Active<wbr>Cube<wbr>Face</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Active<wbr>Cube<wbr>Face<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:363</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the current active cube face.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getActiveMipmapLevel" class="tsd-anchor"></a>
+					<h3>get<wbr>Active<wbr>Mipmap<wbr>Level</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Active<wbr>Mipmap<wbr>Level<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:368</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the current active mipmap level.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getClearAlpha" class="tsd-anchor"></a>
+					<h3>get<wbr>Clear<wbr>Alpha</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Clear<wbr>Alpha<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:299</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a float with the current clear alpha. Ranges from 0 to 1.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getClearColor" class="tsd-anchor"></a>
+					<h3>get<wbr>Clear<wbr>Color</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Clear<wbr>Color<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:289</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a THREE.Color instance with the current clear color.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Color.html" class="tsd-signature-type" data-tsd-kind="Class">Color</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getContext" class="tsd-anchor"></a>
+					<h3>get<wbr>Context</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:216</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return the WebGL context.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLRenderingContext</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getContextAttributes" class="tsd-anchor"></a>
+					<h3>get<wbr>Context<wbr>Attributes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Context<wbr>Attributes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:217</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getCurrentRenderTarget" class="tsd-anchor"></a>
+					<h3>get<wbr>Current<wbr>Render<wbr>Target</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Render<wbr>Target<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:378</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getCurrentViewport" class="tsd-anchor"></a>
+					<h3>get<wbr>Current<wbr>Viewport</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Viewport<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:243</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getDrawingBufferSize" class="tsd-anchor"></a>
+					<h3>get<wbr>Drawing<wbr>Buffer<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Drawing<wbr>Buffer<wbr>Size<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:233</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getMaxAnisotropy" class="tsd-anchor"></a>
+					<h3>get<wbr>Max<wbr>Anisotropy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Max<wbr>Anisotropy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:223</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getPixelRatio" class="tsd-anchor"></a>
+					<h3>get<wbr>Pixel<wbr>Ratio</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Pixel<wbr>Ratio<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:230</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getPrecision" class="tsd-anchor"></a>
+					<h3>get<wbr>Precision</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Precision<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:228</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLCapabilities#precision .capabilities.precision} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getRenderTarget" class="tsd-anchor"></a>
+					<h3>get<wbr>Render<wbr>Target</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Render<wbr>Target<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:373</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the current render target. If no render target is set, null is returned.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getScissor" class="tsd-anchor"></a>
+					<h3>get<wbr>Scissor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Scissor<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:259</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies the scissor area into target.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getScissorTest" class="tsd-anchor"></a>
+					<h3>get<wbr>Scissor<wbr>Test</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Scissor<wbr>Test<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:269</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if scissor test is enabled; returns false otherwise.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getSize" class="tsd-anchor"></a>
+					<h3>get<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Size<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:236</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="getViewport" class="tsd-anchor"></a>
+					<h3>get<wbr>Viewport</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Viewport<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:248</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copies the viewport into target.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="initTexture" class="tsd-anchor"></a>
+					<h3>init<wbr>Texture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Texture<span class="tsd-signature-symbol">(</span>texture<span class="tsd-signature-symbol">: </span><a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:440</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initializes the given texture. Can be used to preload a texture rather than waiting until first render (which can cause noticeable lags due to decode and GPU upload overhead).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>texture: <a href="THREE.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The texture to Initialize.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="readRenderTargetPixels" class="tsd-anchor"></a>
+					<h3>read<wbr>Render<wbr>Target<wbr>Pixels</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">read<wbr>Render<wbr>Target<wbr>Pixels<span class="tsd-signature-symbol">(</span>renderTarget<span class="tsd-signature-symbol">: </span><a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, activeCubeFaceIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:389</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderTarget: <a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></h5>
+								</li>
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>buffer: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> activeCubeFaceIndex: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="render" class="tsd-anchor"></a>
+					<h3>render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a>, camera<span class="tsd-signature-symbol">: </span><a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/THREE.Renderer.html">Renderer</a>.<a href="../interfaces/THREE.Renderer.html#render">render</a></p>
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:358</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Render a scene or an object using a camera.
+										The render is done to a previously specified {@link WebGLRenderTarget#renderTarget .renderTarget} set by calling
+									{@link WebGLRenderer#setRenderTarget .setRenderTarget} or to the canvas as usual.</p>
+								</div>
+								<p>By default render buffers are cleared before rendering but you can prevent this by setting the property
+									{@link WebGLRenderer#autoClear autoClear} to false. If you want to prevent only certain buffers being cleared
+									you can set either the {@link WebGLRenderer#autoClearColor autoClearColor},
+									{@link WebGLRenderer#autoClearStencil autoClearStencil} or {@link WebGLRenderer#autoClearDepth autoClearDepth}
+								properties to false. To forcibly clear one ore more buffers call {@link WebGLRenderer#clear .clear}.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>scene: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+								</li>
+								<li>
+									<h5>camera: <a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="renderBufferDirect" class="tsd-anchor"></a>
+					<h3>render<wbr>Buffer<wbr>Direct</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Buffer<wbr>Direct<span class="tsd-signature-symbol">(</span>camera<span class="tsd-signature-symbol">: </span><a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a>, scene<span class="tsd-signature-symbol">: </span><a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a>, geometry<span class="tsd-signature-symbol">: </span><a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a>, material<span class="tsd-signature-symbol">: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a>, object<span class="tsd-signature-symbol">: </span><a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a>, geometryGroup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:322</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>camera: <a href="THREE.Camera.html" class="tsd-signature-type" data-tsd-kind="Class">Camera</a></h5>
+								</li>
+								<li>
+									<h5>scene: <a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a></h5>
+								</li>
+								<li>
+									<h5>geometry: <a href="THREE.BufferGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BufferGeometry</a></h5>
+								</li>
+								<li>
+									<h5>material: <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a></h5>
+								</li>
+								<li>
+									<h5>object: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+								</li>
+								<li>
+									<h5>geometryGroup: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="renderBufferImmediate" class="tsd-anchor"></a>
+					<h3>render<wbr>Buffer<wbr>Immediate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Buffer<wbr>Immediate<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a>, program<span class="tsd-signature-symbol">: </span><a href="THREE.WebGLProgram.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLProgram</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:320</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>object: <a href="THREE.Object3D.html" class="tsd-signature-type" data-tsd-kind="Class">Object3D</a></h5>
+								</li>
+								<li>
+									<h5>program: <a href="THREE.WebGLProgram.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLProgram</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="resetGLState" class="tsd-anchor"></a>
+					<h3>resetGLState</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">resetGLState<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:317</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLState#reset .state.reset()} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="resetState" class="tsd-anchor"></a>
+					<h3>reset<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">reset<wbr>State<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:445</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Can be used to reset the internal WebGL state.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setAnimationLoop" class="tsd-anchor"></a>
+					<h3>set<wbr>Animation<wbr>Loop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Animation<wbr>Loop<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../modules/THREE.html#XRAnimationLoopCallback" class="tsd-signature-type" data-tsd-kind="Type alias">XRAnimationLoopCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:335</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <a href="../modules/THREE.html#XRAnimationLoopCallback" class="tsd-signature-type" data-tsd-kind="Type alias">XRAnimationLoopCallback</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function will be called every available frame. If <code>null</code> is passed it will stop any already ongoing animation.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setClearAlpha" class="tsd-anchor"></a>
+					<h3>set<wbr>Clear<wbr>Alpha</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Clear<wbr>Alpha<span class="tsd-signature-symbol">(</span>alpha<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:301</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>alpha: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setClearColor" class="tsd-anchor"></a>
+					<h3>set<wbr>Clear<wbr>Color</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Clear<wbr>Color<span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><a href="../modules.html#ThreeColor" class="tsd-signature-type" data-tsd-kind="Type alias">ThreeColor</a>, alpha<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:294</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the clear color, using color for the color and alpha for the opacity.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>color: <a href="../modules.html#ThreeColor" class="tsd-signature-type" data-tsd-kind="Type alias">ThreeColor</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> alpha: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setDrawingBufferSize" class="tsd-anchor"></a>
+					<h3>set<wbr>Drawing<wbr>Buffer<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Drawing<wbr>Buffer<wbr>Size<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, pixelRatio<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:234</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>pixelRatio: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setOpaqueSort" class="tsd-anchor"></a>
+					<h3>set<wbr>Opaque<wbr>Sort</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Opaque<wbr>Sort<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:279</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>method: <span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-external">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>a: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5>b: <span class="tsd-signature-type">any</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setPixelRatio" class="tsd-anchor"></a>
+					<h3>set<wbr>Pixel<wbr>Ratio</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Pixel<wbr>Ratio<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:231</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setRenderTarget" class="tsd-anchor"></a>
+					<h3>set<wbr>Render<wbr>Target</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Render<wbr>Target<span class="tsd-signature-symbol">(</span>renderTarget<span class="tsd-signature-symbol">: </span><a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a>, activeCubeFace<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, activeMipmapLevel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:387</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the active render target.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderTarget: <a href="../interfaces/THREE.RenderTarget.html" class="tsd-signature-type" data-tsd-kind="Interface">RenderTarget</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="THREE.WebGLRenderTarget.html">renderTarget</a> that needs to be activated. When <code>null</code> is given, the canvas is set as the active render target instead.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> activeCubeFace: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of <a href="THREE.WebGLCubeRenderTarget.html">WebGLCubeRenderTarget</a>.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> activeMipmapLevel: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies the active mipmap level.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setScissor" class="tsd-anchor"></a>
+					<h3>set<wbr>Scissor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Scissor<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:264</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the scissor area from (x, y) to (x + width, y + height).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> y: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setScissorTest" class="tsd-anchor"></a>
+					<h3>set<wbr>Scissor<wbr>Test</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Scissor<wbr>Test<span class="tsd-signature-symbol">(</span>enable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:274</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>enable: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setSize" class="tsd-anchor"></a>
+					<h3>set<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Size<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, updateStyle<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/THREE.Renderer.html">Renderer</a>.<a href="../interfaces/THREE.Renderer.html#setSize">setSize</a></p>
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:241</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> updateStyle: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setTransparentSort" class="tsd-anchor"></a>
+					<h3>set<wbr>Transparent<wbr>Sort</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Transparent<wbr>Sort<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:284</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>method: <span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-external">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>a: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5>b: <span class="tsd-signature-type">any</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setViewport" class="tsd-anchor"></a>
+					<h3>set<wbr>Viewport</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Viewport<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:254</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the viewport to render from (x, y) to (x + width, y + height).
+									(x, y) is the lower-left corner of the region.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="THREE.Vector4.html" class="tsd-signature-type" data-tsd-kind="Class">Vector4</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> y: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsBlendMinMax" class="tsd-anchor"></a>
+					<h3>supports<wbr>Blend<wbr>Min<wbr>Max</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Blend<wbr>Min<wbr>Max<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:500</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;EXT_blend_minmax&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsCompressedTexturePVRTC" class="tsd-anchor"></a>
+					<h3>supports<wbr>Compressed<wbr>TexturePVRTC</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Compressed<wbr>TexturePVRTC<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:495</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;WEBGL_compressed_texture_pvrtc&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsCompressedTextureS3TC" class="tsd-anchor"></a>
+					<h3>supports<wbr>Compressed<wbr>Texture<wbr>S3TC</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Compressed<wbr>Texture<wbr>S3TC<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:490</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;WEBGL_compressed_texture_s3tc&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsFloatTextures" class="tsd-anchor"></a>
+					<h3>supports<wbr>Float<wbr>Textures</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Float<wbr>Textures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:475</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;OES_texture_float&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsHalfFloatTextures" class="tsd-anchor"></a>
+					<h3>supports<wbr>Half<wbr>Float<wbr>Textures</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Half<wbr>Float<wbr>Textures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:480</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;OES_texture_half_float&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsInstancedArrays" class="tsd-anchor"></a>
+					<h3>supports<wbr>Instanced<wbr>Arrays</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Instanced<wbr>Arrays<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:510</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;ANGLE_instanced_arrays&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsStandardDerivatives" class="tsd-anchor"></a>
+					<h3>supports<wbr>Standard<wbr>Derivatives</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Standard<wbr>Derivatives<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:485</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLExtensions#get .extensions.get( &#39;OES_standard_derivatives&#39; )} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="supportsVertexTextures" class="tsd-anchor"></a>
+					<h3>supports<wbr>Vertex<wbr>Textures</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Vertex<wbr>Textures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@types/three/src/renderers/WebGLRenderer.d.ts:505</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class="current tsd-kind-namespace tsd-is-external">
+						<a href="../modules/THREE.html">THREE</a>
+						<ul>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.AnimationUtils.html">Animation<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.AudioContext.html">Audio<wbr>Context</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.BufferGeometryUtils.html">Buffer<wbr>Geometry<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.Cache.html">Cache</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.CurveUtils.html">Curve<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.DataUtils.html">Data<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.GeometryUtils.html">Geometry<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.ImageUtils.html">Image<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.MathUtils.html">Math<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.PropertyBinding.html">Property<wbr>Binding</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.ShapeUtils.html">Shape<wbr>Utils</a>
+							</li>
+							<li class=" tsd-kind-namespace tsd-parent-kind-namespace tsd-is-external">
+								<a href="../modules/THREE.UniformsUtils.html">Uniforms<wbr>Utils</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-namespace tsd-is-external">
+						<a href="THREE.WebGLRenderer.html" class="tsd-kind-icon">WebGLRenderer</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#autoClear" class="tsd-kind-icon">auto<wbr>Clear</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#autoClearColor" class="tsd-kind-icon">auto<wbr>Clear<wbr>Color</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#autoClearDepth" class="tsd-kind-icon">auto<wbr>Clear<wbr>Depth</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#autoClearStencil" class="tsd-kind-icon">auto<wbr>Clear<wbr>Stencil</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#capabilities" class="tsd-kind-icon">capabilities</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clippingPlanes" class="tsd-kind-icon">clipping<wbr>Planes</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#context" class="tsd-kind-icon">context</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#debug" class="tsd-kind-icon">debug</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#domElement" class="tsd-kind-icon">dom<wbr>Element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#extensions" class="tsd-kind-icon">extensions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#gammaFactor" class="tsd-kind-icon">gamma<wbr>Factor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#info" class="tsd-kind-icon">info</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#localClippingEnabled" class="tsd-kind-icon">local<wbr>Clipping<wbr>Enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#outputEncoding" class="tsd-kind-icon">output<wbr>Encoding</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#physicallyCorrectLights" class="tsd-kind-icon">physically<wbr>Correct<wbr>Lights</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#pixelRatio" class="tsd-kind-icon">pixel<wbr>Ratio</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#properties" class="tsd-kind-icon">properties</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#renderLists" class="tsd-kind-icon">render<wbr>Lists</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#shadowMap" class="tsd-kind-icon">shadow<wbr>Map</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#shadowMapCullFace" class="tsd-kind-icon">shadow<wbr>Map<wbr>Cull<wbr>Face</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#shadowMapEnabled" class="tsd-kind-icon">shadow<wbr>Map<wbr>Enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#shadowMapType" class="tsd-kind-icon">shadow<wbr>Map<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#sortObjects" class="tsd-kind-icon">sort<wbr>Objects</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#state" class="tsd-kind-icon">state</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#toneMapping" class="tsd-kind-icon">tone<wbr>Mapping</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#toneMappingExposure" class="tsd-kind-icon">tone<wbr>Mapping<wbr>Exposure</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#vr" class="tsd-kind-icon">vr</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#xr" class="tsd-kind-icon">xr</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#animate" class="tsd-kind-icon">animate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clear" class="tsd-kind-icon">clear</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clearColor" class="tsd-kind-icon">clear<wbr>Color</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clearDepth" class="tsd-kind-icon">clear<wbr>Depth</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clearStencil" class="tsd-kind-icon">clear<wbr>Stencil</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#clearTarget" class="tsd-kind-icon">clear<wbr>Target</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#compile" class="tsd-kind-icon">compile</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#copyFramebufferToTexture" class="tsd-kind-icon">copy<wbr>Framebuffer<wbr>ToTexture</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#copyTextureToTexture" class="tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#copyTextureToTexture3D" class="tsd-kind-icon">copy<wbr>Texture<wbr>ToTexture3D</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#dispose" class="tsd-kind-icon">dispose</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#enableScissorTest" class="tsd-kind-icon">enable<wbr>Scissor<wbr>Test</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#forceContextLoss" class="tsd-kind-icon">force<wbr>Context<wbr>Loss</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getActiveCubeFace" class="tsd-kind-icon">get<wbr>Active<wbr>Cube<wbr>Face</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getActiveMipmapLevel" class="tsd-kind-icon">get<wbr>Active<wbr>Mipmap<wbr>Level</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getClearAlpha" class="tsd-kind-icon">get<wbr>Clear<wbr>Alpha</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getClearColor" class="tsd-kind-icon">get<wbr>Clear<wbr>Color</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getContext" class="tsd-kind-icon">get<wbr>Context</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getContextAttributes" class="tsd-kind-icon">get<wbr>Context<wbr>Attributes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getCurrentRenderTarget" class="tsd-kind-icon">get<wbr>Current<wbr>Render<wbr>Target</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getCurrentViewport" class="tsd-kind-icon">get<wbr>Current<wbr>Viewport</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getDrawingBufferSize" class="tsd-kind-icon">get<wbr>Drawing<wbr>Buffer<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getMaxAnisotropy" class="tsd-kind-icon">get<wbr>Max<wbr>Anisotropy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getPixelRatio" class="tsd-kind-icon">get<wbr>Pixel<wbr>Ratio</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getPrecision" class="tsd-kind-icon">get<wbr>Precision</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getRenderTarget" class="tsd-kind-icon">get<wbr>Render<wbr>Target</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getScissor" class="tsd-kind-icon">get<wbr>Scissor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getScissorTest" class="tsd-kind-icon">get<wbr>Scissor<wbr>Test</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getSize" class="tsd-kind-icon">get<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#getViewport" class="tsd-kind-icon">get<wbr>Viewport</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#initTexture" class="tsd-kind-icon">init<wbr>Texture</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#readRenderTargetPixels" class="tsd-kind-icon">read<wbr>Render<wbr>Target<wbr>Pixels</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#renderBufferDirect" class="tsd-kind-icon">render<wbr>Buffer<wbr>Direct</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#renderBufferImmediate" class="tsd-kind-icon">render<wbr>Buffer<wbr>Immediate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#resetGLState" class="tsd-kind-icon">resetGLState</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#resetState" class="tsd-kind-icon">reset<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setAnimationLoop" class="tsd-kind-icon">set<wbr>Animation<wbr>Loop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setClearAlpha" class="tsd-kind-icon">set<wbr>Clear<wbr>Alpha</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setClearColor" class="tsd-kind-icon">set<wbr>Clear<wbr>Color</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setDrawingBufferSize" class="tsd-kind-icon">set<wbr>Drawing<wbr>Buffer<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setOpaqueSort" class="tsd-kind-icon">set<wbr>Opaque<wbr>Sort</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setPixelRatio" class="tsd-kind-icon">set<wbr>Pixel<wbr>Ratio</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setRenderTarget" class="tsd-kind-icon">set<wbr>Render<wbr>Target</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setScissor" class="tsd-kind-icon">set<wbr>Scissor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setScissorTest" class="tsd-kind-icon">set<wbr>Scissor<wbr>Test</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setSize" class="tsd-kind-icon">set<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setTransparentSort" class="tsd-kind-icon">set<wbr>Transparent<wbr>Sort</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#setViewport" class="tsd-kind-icon">set<wbr>Viewport</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsBlendMinMax" class="tsd-kind-icon">supports<wbr>Blend<wbr>Min<wbr>Max</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsCompressedTexturePVRTC" class="tsd-kind-icon">supports<wbr>Compressed<wbr>TexturePVRTC</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsCompressedTextureS3TC" class="tsd-kind-icon">supports<wbr>Compressed<wbr>Texture<wbr>S3TC</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsFloatTextures" class="tsd-kind-icon">supports<wbr>Float<wbr>Textures</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsHalfFloatTextures" class="tsd-kind-icon">supports<wbr>Half<wbr>Float<wbr>Textures</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsInstancedArrays" class="tsd-kind-icon">supports<wbr>Instanced<wbr>Arrays</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsStandardDerivatives" class="tsd-kind-icon">supports<wbr>Standard<wbr>Derivatives</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="THREE.WebGLRenderer.html#supportsVertexTextures" class="tsd-kind-icon">supports<wbr>Vertex<wbr>Textures</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
