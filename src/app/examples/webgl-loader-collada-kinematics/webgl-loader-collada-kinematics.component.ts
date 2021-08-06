@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent } from '../../three';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-webgl-loader-collada-kinematics',
@@ -18,6 +19,8 @@ export class WebglLoaderColladaKinematicsComponent extends BaseComponent<{}> {
     dae.traverse( ( child:any  ) => {
       if ( child.isMesh ) {
         child.material.flatShading = true;
+        child.material.color = new THREE.Color(0xffffff);
+        console.log(child);
       }
     });
   }

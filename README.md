@@ -10,70 +10,94 @@ three.js
 
 The aim of the project is to create an easy to use, lightweight, cross-browser, general purpose 3D library. The current builds only include a WebGL renderer but WebGPU (experimental), SVG and CSS3D renderers are also available in the examples.
 
-[Examples](https://threejs.org/examples/) &mdash;
-[Documentation](https://threejs.org/docs/) &mdash;
-[Wiki](https://github.com/mrdoob/three.js/wiki) &mdash;
-[Migrating](https://github.com/mrdoob/three.js/wiki/Migration-Guide) &mdash;
-[Questions](http://stackoverflow.com/questions/tagged/three.js) &mdash;
-[Forum](https://discourse.threejs.org/) &mdash;
-[Slack](https://join.slack.com/t/threejs/shared_invite/zt-rnuegz5e-FQpc6YboDVW~5idlp7GfDw) &mdash;
-[Discord](https://discordapp.com/invite/HF4UdyF)
+[Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
+[Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs)
+
+### FIX dependencies ###
+I found some errors on three.js. Before use this source. You muse fix them by you self.
+current theejs verion "^0.130.0"
+```javascript
+# node_modules/ammojs-typed/ammo/ammo.d.ts
++ 7		function castObject(obj1 : any, obj2 : any) : btCollisionObject;
+
+# node_modules/three/examples/jsm/loaders/TiltLoader.js
+-+ 408	const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
+
+# node_modules/@types/three/examples/jsm/geometries/TeapotGeometry.d.ts
+-+ 408	const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
+-+ 4 	constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, body?: boolean, fitLid?: boolean, blinn?: boolean );
+
+# node_modules\three\examples\jsm\exporters\OBJExporter.js
+-+ 138 	} else if (vertices !== undefined){
+
+
+```
 
 ### Usage ###
 
 This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
 ```javascript
-import * as THREE from './js/three.module.js';
+# src/app/app.module.ts
 
-let camera, scene, renderer;
-let geometry, material, mesh;
+import { Ngx3JsModule } from './three/ngx3js.module';
 
-init();
+@NgModule({
+	....
+	imports: [..., Ngx3JsModule],
+	....
+})
 
-function init() {
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
-	camera.position.z = 1;
-
-	scene = new THREE.Scene();
-
-	geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-	material = new THREE.MeshNormalMaterial();
-
-	mesh = new THREE.Mesh( geometry, material );
-	scene.add( mesh );
-
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setAnimationLoop( animation );
-	document.body.appendChild( renderer.domElement );
-
+# angular.json
+{
+  .......
+  "projects": {
+    "your-project-name": {
+      ......
+      "architect": {
+        "build": {
+		  ......
+          "options": {
+            "allowedCommonJsDependencies" : [
+              "ammojs-typed",
+              "three/examples/js/libs/lottie_canvas",
+              "three/examples/js/libs/draco/draco_encoder",
+              "crypto",
+              "crypto-js",
+              "highlight.js"
+            ],
+		    ......
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+		    ......
+          },
+	      ......
+        },
+	    ......
+      }
+    }
+  },
+  ......
 }
 
-function animation( time ) {
 
-	mesh.rotation.x = time / 2000;
-	mesh.rotation.y = time / 1000;
 
-	renderer.render( scene, camera );
-
-}
 ```
-
-If everything went well, you should see [this](https://jsfiddle.net/vy29n6aj/).
 
 ### Cloning this repository ###
 
 Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
 
 ```sh
-git clone --depth=1 https://github.com/mrdoob/three.js.git
+git clone --depth=1 https://github.com/outmindkjg/ngx3js.git
 ```
 
 ### Change log ###
 
-[Releases](https://github.com/mrdoob/three.js/releases)
+[Releases](https://github.com/outmindkjg/ngx3js/releases)
 
 
 [npm]: https://img.shields.io/npm/v/three
@@ -82,5 +106,5 @@ git clone --depth=1 https://github.com/mrdoob/three.js.git
 [build-size-url]: https://bundlephobia.com/result?p=three
 [npm-downloads]: https://img.shields.io/npm/dw/three
 [npmtrends-url]: https://www.npmtrends.com/three
-[lgtm]: https://img.shields.io/lgtm/alerts/github/mrdoob/three.js
-[lgtm-url]: https://lgtm.com/projects/g/mrdoob/three.js/
+[lgtm]: https://img.shields.io/lgtm/alerts/github/outmindkjg/ngx3js
+[lgtm-url]: https://lgtm.com/projects/g/outmindkjg/ngx3js/

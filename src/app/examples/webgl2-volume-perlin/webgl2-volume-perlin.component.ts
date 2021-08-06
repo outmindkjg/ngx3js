@@ -39,13 +39,13 @@ export class Webgl2VolumePerlinComponent extends BaseComponent<{
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.camera !== null) {
+    if (this.camera !== null && this.meshObject3d !== null) {
       this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;
       this.mesh.getMesh()
-      // const uniforms = this.getUniforms();
-      // if (uniforms !== null ) {
-      //  uniforms.cameraPos.value.copy( this.camera.getCamera().position );
-      // }
+      const uniforms = this.getUniforms();
+      if (uniforms !== null ) {
+        uniforms.cameraPos.value.copy( this.camera.getCamera().position );
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, MeshComponent } from '../../three';
 
 @Component({
   selector: 'app-webgl-loader-ifc',
@@ -11,5 +11,12 @@ export class WebglLoaderIfcComponent extends BaseComponent<{}> {
   constructor() {
     super({},[]);
   }
+
+  setMesh(mesh : MeshComponent) {
+    super.setMesh(mesh);
+
+  }
+
+  
 
 }

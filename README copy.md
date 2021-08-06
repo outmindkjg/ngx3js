@@ -13,7 +13,8 @@ npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
 
 git remote set-url origin https://github.com/outmindkjg/ngx3js.git
 git remote -v
-npm run maxbuildprod
+
+
 
 ng new my-app
 cd my-app
@@ -236,9 +237,11 @@ ng g c examples/webgl_loader_fbx
 ng g c examples/webgl_loader_fbx_nurbs
 ng g c examples/webgl_loader_gcode
 ng g c examples/webgl_loader_gltf
+ng g c examples/webgpu_instance_uniform
 ng g c examples/webgl_loader_gltf_compressed
 ng g c examples/webgl_loader_gltf_extensions
 ng g c examples/webgl_loader_gltf_variants
+ng g c examples/webgpu_lights_custom
 ng g c examples/webgl_loader_imagebitmap
 ng g c examples/webgl_loader_kmz
 ng g c examples/webgl_loader_ldraw
@@ -251,6 +254,9 @@ ng g c examples/webgl_loader_mmd_pose
 ng g c examples/webgl_loader_mmd_audio
 ng g c examples/webgl_loader_nrrd
 ng g c examples/webgl_loader_obj
+ng g c examples/webgpu_lights_selective
+ng g c examples/webgpu_materials
+
 ng g c examples/webgl_loader_obj_mtl
 ng g c examples/webgl_loader_pcd
 ng g c examples/webgl_loader_pdb

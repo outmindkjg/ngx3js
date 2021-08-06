@@ -6,6 +6,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
 import { WEBGL } from 'three/examples/jsm/WebGL';
+
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent, ControlOptions } from '../control/control.component';
@@ -23,7 +24,7 @@ import { SceneComponent } from './../scene/scene.component';
 
 /**
  * RendererComponent
- * 
+ *
  * @see THREE.WebGLRenderer
  * @see SVGRenderer
  */
@@ -38,8 +39,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 *
 	 * Notice - case insensitive.
 	 *
-   * @see SVGRenderer - SVGRenderer, SVG
-   * @see THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
+	 * @see SVGRenderer - SVGRenderer, SVG
+	 * @see THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
 	 */
 	@Input() public type: string = 'webgl';
 
@@ -104,12 +105,12 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 *
 	 * Notice - case insensitive.
 	 *
-   * @see THREE.ToneMapping
-   * @see THREE.LinearToneMapping - LinearToneMapping, Linear
-   * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
-   * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
-   * @see THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic
-   * @see THREE.NoToneMapping - NoToneMapping, No
+	 * @see THREE.ToneMapping
+	 * @see THREE.LinearToneMapping - LinearToneMapping, Linear
+	 * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
+	 * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
+	 * @see THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic
+	 * @see THREE.NoToneMapping - NoToneMapping, No
 	 */
 	@Input() private toneMapping: string = null;
 
@@ -137,9 +138,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * The quality of SVGRenderer
 	 *
 	 * Notice - case insensitive.
-   * 
+	 *
 	 * high - quality
-   * low - 
+	 * low -
 	 */
 	@Input() private quality: string = null;
 
@@ -147,9 +148,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Input  of renderer component
 	 *
 	 * Notice - case insensitive.
-	 * 
-   * auto - auto fix the size of renderer
-   * fixed - use fixed size of renderer 
+	 *
+	 * auto - auto fix the size of renderer
+	 * fixed - use fixed size of renderer
 	 */
 	@Input() public sizeType: string = 'auto';
 
@@ -165,19 +166,19 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 
 	/**
 	 * The x position of renderer
-   * 
-   * number : fixed position
-   * string : % - the percent of renderer
-   * string : % -/+ number - the percent of renderer and add some value 
+	 *
+	 * number : fixed position
+	 * string : % - the percent of renderer
+	 * string : % -/+ number - the percent of renderer and add some value
 	 */
 	@Input() private x: number | string = 0;
 
 	/**
 	 * The y position of renderer
-   * 
-   * number : fixed position
-   * string : % - the percent of renderer
-   * string : % -/+ number - the percent of renderer and add some value 
+	 *
+	 * number : fixed position
+	 * string : % - the percent of renderer
+	 * string : % -/+ number - the percent of renderer and add some value
 	 */
 	@Input() private y: number | string = 0;
 
@@ -201,9 +202,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].
 	 * If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.
 	 * See the [page:Textures texture constants] page for details of other formats.
-   *
-   * Notice - case insensitive.
-   * 
+	 *
+	 * Notice - case insensitive.
+	 *
 	 * @see THREE.TextureEncoding
 	 * @see THREE.sRGBEncoding - sRGBEncoding, sRGB
 	 * @see THREE.GammaEncoding - GammaEncoding, Gamma
@@ -251,20 +252,20 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 *
 	 * Notice - case insensitive.
 	 *
-   * string join by ,
-   * 
-   * change - change
-   * pointerdown, mousedown, down - pointerdown
-   * pointerup, mouseup, up - pointerup
-   * pointermove, mousemove, move - pointermove
-   * keydown - keydown
-   * keyup - keyup,
-   * keypress - keypress
-   * click - click
-   * mouseover - mouseover, over
-   * mouseout - mouseout, out
-   * 
-   * @see HTMLElement.addEventListener
+	 * string join by ,
+	 *
+	 * change - change
+	 * pointerdown, mousedown, down - pointerdown
+	 * pointerup, mouseup, up - pointerup
+	 * pointermove, mousemove, move - pointermove
+	 * keydown - keydown
+	 * keyup - keyup,
+	 * keypress - keypress
+	 * click - click
+	 * mouseover - mouseover, over
+	 * mouseout - mouseout, out
+	 *
+	 * @see HTMLElement.addEventListener
 	 */
 	@Input() private useEvent: string = null;
 
@@ -277,6 +278,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Input  of renderer component
 	 */
 	@Input() private scene: SceneComponent = null;
+
+	/**
+	 * Input  of renderer component
+	 */
+	@Input() private requiredExtensions: string[] = null;
 
 	/**
 	 * Input  of renderer component
@@ -489,20 +495,103 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * It is invoked only once when the view is instantiated.
 	 */
 	ngAfterViewInit() {
+		let errorCode : string = null;
 		switch (this.type.toLowerCase()) {
 			case 'gl2':
 			case 'webgl2':
-				if (WEBGL.isWebGL2Available() === false) {
-					this.dispose();
-					this.renderer = null;
-					this.userGestureSubscribe(WEBGL.getWebGL2ErrorMessage()).subscribe(() => {
-						this.ngAfterViewInit();
-					});
-					return;
+				if (!this.isAvailable('gl2')) {
+					errorCode = 'gl2';
 				}
+		}
+		if (ThreeUtil.isNotNull(this.requiredExtensions)) {
+			this.requiredExtensions.forEach(extension => {
+				if (!this.isAvailable(extension)) {
+					switch(extension) {
+						case 'compressed' :
+							errorCode = 'WEBGL_compressed_texture_pvrtc';			
+							break;
+						default :
+							errorCode = extension;			
+							break;
+					}
+				}
+			});
+		}
+		if (errorCode !== null) {
+			const errorEle = document.createElement('DIV');
+			switch(errorCode) {
+				case 'gl2' :
+					errorEle.innerHTML = 'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" target="_blank">WebGL 2</a>';
+					break;
+				default :
+					errorEle.innerHTML = 'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" target="_blank">'+errorCode+'</a>';
+					break;
+			}
+			this.dispose();
+			this.renderer = null;
+			this.userGestureSubscribe(errorEle).subscribe(() => {
+				this.ngAfterViewInit();
+			});
+			return;
 		}
 		this.clock = ThreeUtil.getClock(true);
 		this.renderer = this.getRenderer();
+	}
+
+	/**
+	 * Determines whether available is
+	 * 
+	 * @param type 
+	 * @returns true if available 
+	 */
+	private isAvailable(type: string): boolean {
+		switch (type.toLowerCase()) {
+			case 'gpu':
+				return navigator['gpu'] !== undefined;
+			case 'gl': {
+				try {
+					const canvas = document.createElement('canvas');
+					return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+				} catch (e) {
+					return false;
+				}
+			}
+			case 'gl2': {
+				try {
+					const canvas = document.createElement('canvas');
+					return !!(window.WebGL2RenderingContext && canvas.getContext('webgl2'));
+				} catch (e) {
+					return false;
+				}
+			}
+			case 'compressed' : 
+				return this.isHasExtension('WEBGL_compressed_texture_pvrtc');
+		}
+		return true;
+	}
+
+	/**
+	 * Check gl of renderer component
+	 */
+	private _checkGl : any = null;
+
+	/**
+	 * Determines whether has extension is
+	 * 
+	 * @param name 
+	 * @returns true if has extension 
+	 */
+	private isHasExtension(name: string): boolean {
+		if (this._checkGl === null) {
+			let domElement = document.createElement( 'canvas' );
+			this._checkGl = domElement.getContext('webgl') || domElement.getContext('experimental-webgl');
+		}
+		if (ThreeUtil.isNotNull(this._checkGl.getExtension)) {
+			// console.log(this._checkGl.getSupportedExtensions());
+			return this._checkGl.getExtension(name) !== null;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -729,13 +818,13 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 *
 	 * Notice - case insensitive.
 	 *
-   * @see THREE.ToneMapping
-   * @see THREE.LinearToneMapping - LinearToneMapping, Linear
-   * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
-   * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
-   * @see THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic
-   * @see THREE.NoToneMapping - NoToneMapping, No
-	 * 
+	 * @see THREE.ToneMapping
+	 * @see THREE.LinearToneMapping - LinearToneMapping, Linear
+	 * @see THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard
+	 * @see THREE.CineonToneMapping - CineonToneMapping, CineonTone
+	 * @see THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic
+	 * @see THREE.NoToneMapping - NoToneMapping, No
+	 *
 	 * @param [def]
 	 * @returns tone mapping
 	 */

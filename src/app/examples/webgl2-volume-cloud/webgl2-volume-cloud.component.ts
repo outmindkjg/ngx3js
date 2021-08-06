@@ -48,7 +48,7 @@ export class Webgl2VolumeCloudComponent extends BaseComponent<{
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.camera !== null) {
+    if (this.camera !== null && this.meshObject3d !== null) {
       this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;
       const uniforms = this.getUniforms();
       if (uniforms !== null ) {

@@ -15,6 +15,7 @@
 			font-weight: bold;
 			font-style: italic;
 			background-color: rgba(255,0,0,0.7);
+			transform-origin: 50% 50%;
 		}
 		&:hover span{
 			animation: ngx3js 1s;

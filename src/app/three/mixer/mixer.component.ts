@@ -52,15 +52,15 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 	@Input() private fps: number = null;
 
 	/**
-	 * Input  of mixer component
+	 * Sets the duration for a single loop of this action (by adjusting [page:.timeScale timeScale] 
+	 * and stopping any scheduled warping). This method can be chained.
 	 */
 	@Input() private duration: number = 0.5;
 
 	/**
-	 * Input  of mixer component
-	 */
-	/**
-	 * Input  of mixer component
+	 * Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative 
+	 * values cause the animation to play backwards. Default is 1.<br /><br />
+	 * Properties/methods concerning *timeScale* (respectively *time*)
 	 */
 	@Input() private timeScale: number = 1;
 
@@ -632,33 +632,27 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
-				changes = ThreeUtil.pushUniq(changes, ['action', 'timescale', 'fps', 'clip', 'weapon', 'skin', 'pos', 'wireframe', 'rate', 'scale', 'animationfps', 'transitionframes', 'maxspeed', 'maxreversespeed', 'frontacceleration', 'backacceleration', 'frontdecceleration', 'angularspeed']);
-			}
-			if (ThreeUtil.isIndexOf(changes, 'clip')) {
-				changes = ThreeUtil.pushUniq(changes, ['fps']);
+				changes = ThreeUtil.pushUniq(changes, ['timescale', 'fps', 'clip','action', 'weapon', 'skin', 'pos', 'wireframe', 'rate', 'scale', 'animationfps', 'transitionframes', 'maxspeed', 'maxreversespeed', 'frontacceleration', 'backacceleration', 'frontdecceleration', 'angularspeed']);
 			}
 			if (this.mixer instanceof THREE.AnimationMixer) {
 				const mixer = this.mixer;
 				changes.forEach((change) => {
 					switch (change.toLowerCase()) {
 						case 'action':
-							if (this.lastAction !== this.action) {
-								if (this.delayTime > 0) {
-									window.setTimeout(() => {
-										this.play(this.action);
-									}, this.delayTime);
-								} else {
-									this.play(this.action);
-								}
+							if (this.delayTime > 0) {
+								window.setTimeout(() => {
+									this.play(this.action.toLowerCase());
+								}, this.delayTime);
+							} else {
+								this.play(this.action.toLowerCase());
 							}
 							break;
 						case 'timescale':
 							mixer.timeScale = this.getTimeScale(1);
 							break;
-						case 'fps':
-							const fps = this.getFps(20);
+						case 'clip':
 							this.clipList.forEach((clip) => {
-								clip.setMixer(mixer, this.clips, fps);
+								clip.setMixer(mixer, this.clips);
 							});
 							break;
 					}
@@ -677,8 +671,6 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 									this.play(this.action);
 								}
 							}
-							break;
-						case 'fps':
 							break;
 						case 'weapon':
 							if (ThreeUtil.isNotNull(this.weapon) && ThreeUtil.isNotNull(character.weapons) && character.weapons.length > 0) {
@@ -743,6 +735,11 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 						case 'animationfps':
 							if (ThreeUtil.isNotNull(this.animationFPS)) {
 								character.animationFPS = this.animationFPS;
+							}
+							break;
+						case 'transitionframes':
+							if (ThreeUtil.isNotNull(this.maxSpeed) && ThreeUtil.isNotNull(character['transitionFrames'])) {
+								character['transitionFrames'] = this.transitionFrames;
 							}
 							break;
 						case 'maxspeed':
@@ -846,9 +843,11 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 					}
 					break;
 				case 'mixer':
-					const animationMixer = new THREE.AnimationMixer(this.model);
-					animationMixer.timeScale = this.getTimeScale(1);
-					mixer = animationMixer;
+					if (ThreeUtil.isNotNull(this.clips)) {
+						const animationMixer = new THREE.AnimationMixer(this.model);
+						animationMixer.timeScale = this.getTimeScale(1);
+						mixer = animationMixer;
+					}
 					break;
 				case 'virtulous':
 				default:
@@ -900,7 +899,8 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 							this.lastPlayedClip.fadeOut(duration);
 						}
 					} else if (foundAction !== null) {
-						foundAction.fadeIn(duration);
+						foundAction.play();
+						// foundAction.fadeIn(duration);
 					}
 					if (foundAction !== null) {
 						this.lastAction = name.toLowerCase();
@@ -931,7 +931,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 			}
 		} else if (ThreeUtil.isNotNull(this.clips)) {
 			if (ThreeUtil.isNotNull(this.clips.setTime)) {
-				this.clips.setTime(timer.elapsedTime * this.timeScale);
+					this.clips.setTime(timer.elapsedTime * this.timeScale);
 			} else if (ThreeUtil.isNotNull(this.clips.update)) {
 				try {
 					this.clips.update(timer.delta * this.timeScale);

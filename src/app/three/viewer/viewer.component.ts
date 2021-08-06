@@ -100,7 +100,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
         ThreeUtil.getSubscribe(
           this.light,
           () => {
-            this.resetViewer();
+            this.needUpdate = true;
           },
           'light'
         )
@@ -123,7 +123,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
         ThreeUtil.getSubscribe(
           this.mesh,
           () => {
-            this.resetViewer();
+            this.needUpdate = true;
           },
           'mesh'
         )
@@ -152,7 +152,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           ThreeUtil.getSubscribe(
             this.plane,
             () => {
-              this.resetViewer();
+              this.needUpdate = true;
             },
             'mesh'
           )
@@ -326,6 +326,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
    */
   public setRenderer(renderer: THREE.Renderer) {
     this.renderer = renderer;
+    console.log(this.type);
     this.getViewer();
   }
 
@@ -418,29 +419,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
     }
   }
 
-  /**
-   * Resets viewer
-   */
-  public resetViewer() {
-    if (this.viewer !== null) {
-      switch (this.type.toLowerCase()) {
-        case 'shadowmesh':
-        case 'shadow':
-          if (ThreeUtil.isNotNull(this.viewer.parent)) {
-            this.viewer.parent.remove(this.viewer);
-          }
-          break;
-        default:
-          break;
-      }
-      this.viewer = null;
-      window.setTimeout(() => {
-        if (this.viewer === null) {
-          this.getViewer();
-        }
-      }, 30);
-    }
-  }
 
   /**
    * Gets viewer
@@ -448,19 +426,28 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
    */
   public getViewer() {
     if (this.viewer === null || this._needUpdate) {
+      if (this.viewer !== null) {
+        if (ThreeUtil.isNotNull(this.viewer.parent)) {
+          this.viewer.parent.remove(this.viewer);
+        }
+        if (ThreeUtil.isNotNull(this.viewer.dispose)) {
+          this.viewer.dispose();
+        }
+      }
       this.needUpdate = false;
       this.unSubscribeRefer('referTarget');
+      this.unSubscribeRefer('light');
+      this.unSubscribeRefer('mesh');
       switch (this.type.toLowerCase()) {
         case 'canvas':
           this.viewer = new ViewerCanvas(this.renderer, this.canvasOptions);
           this.resizeViewer();
-          super.setObject(this.viewer);
           break;
         case 'shadowmapviewer':
         case 'shadowmap':
+          console.log(this.getLight().position);
           this.viewer = new ShadowMapViewer(this.getLight());
           this.resizeViewer();
-          super.setObject(this.viewer);
           break;
         case 'shadowmesh':
         case 'shadow':
@@ -472,7 +459,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           if (this.parent !== null) {
             this.parent.add(this.viewer);
           }
-          super.setObject(this.viewer);
           break;
         case 'progressivelightmap':
         case 'progressivelight':
@@ -480,11 +466,11 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           const lightmapObjects = [];
           progressiveSurfacemap.addObjectsToLightMap(lightmapObjects);
           this.viewer = progressiveSurfacemap;
-          super.setObject(this.viewer);
           break;
         default:
           break;
       }
+      this.setObject(this.viewer);
     }
     return this.viewer;
   }
@@ -568,7 +554,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
    * @param [renderTimer]
    */
   public render(renderer: THREE.Renderer, scenes: QueryList<any> | any, cameras: QueryList<any> | any, renderTimer?: RendererTimer) {
-    if (this.viewer !== null) {
+    if (this.viewer !== null && this.enabled) {
       switch (this.type.toLowerCase()) {
         case 'shadowmapviewer':
         case 'shadowmap':

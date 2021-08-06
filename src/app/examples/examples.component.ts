@@ -124,6 +124,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     Object.entries(ngxResponse).forEach(([key, value]) => {
       this.files[key] = value as any;
     });
+    if (this.menuId !== null) {
+      this.setFocus(this.menuId);
+    }
   }
 
   checkSearch(filter: string) {

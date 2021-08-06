@@ -43,12 +43,18 @@
         z-index: 1000;
         background-color: rgba(0,0,0,0.7);
         >div.message {
+          background-color: rgba(255,255,255,0.1);
           position: absolute;
           top: 30%;
           left:50%;
           width:500px;
           margin-left:-250px;
           text-align: center;
+          color : #ffffff;
+          border-radius: 10px;
+          padding: 10px;
+          line-height: 200%;
+          border:1px solid #ffffff;
         }
         >button.message-button {
           font-size: 1.5rem;

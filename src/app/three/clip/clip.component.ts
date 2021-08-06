@@ -274,16 +274,13 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 	 * @param clips
 	 * @param [fps]
 	 */
-	public setMixer(mixer: THREE.AnimationMixer, clips: THREE.AnimationClip[], fps?: number) {
+	public setMixer(mixer: THREE.AnimationMixer, clips: THREE.AnimationClip[]) {
 		if (this.mixer !== mixer) {
 			this.mixer = mixer;
 			this.clips = clips || null;
 			this.clip = null;
 			this.action = null;
 			this.getClip();
-		}
-		if (fps !== null && fps !== undefined) {
-			this.setFps(fps);
 		}
 	}
 
@@ -293,7 +290,10 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 	 */
 	public setFps(fps: number) {
 		if (this.action !== null && this.clip !== null) {
-			this.action.timeScale = (this.clip.tracks.length * this.getFps(fps)) / this.clip.duration;
+			const clipFps = this.getFps(fps);
+			if (ThreeUtil.isNotNull(clipFps)) {
+				this.action.timeScale = (this.clip.tracks.length * clipFps ) / this.clip.duration;
+			}
 		}
 	}
 

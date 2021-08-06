@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererEvent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-shadowmap',
@@ -14,7 +14,7 @@ export class WebglShadowmapComponent extends BaseComponent<{
     super({
       hudEnable : true
     },[
-      { name : 'hudEnable', title : 'show HUD', type : 'checkbox'}
+      { name : 'hudEnable', title : 'show HUD', type : 'checkbox', listen : true }
     ]);
   }
 
@@ -37,6 +37,27 @@ export class WebglShadowmapComponent extends BaseComponent<{
 
   horsePositions : { x : number, y : number, z : number, delay : number }[] = [];
   flamingoPositions : { x : number, y : number, z : number, delay : number }[] = [];
+
+  private isKeyUp : boolean = false;
+  onKeyDown(event : RendererEvent) {
+      switch(event.type) {
+        case 'keydown' :
+          if (this.isKeyUp) {
+            this.isKeyUp = false;
+            switch(event.keyInfo.code) {
+              case "KeyT" : 
+              this.controls.hudEnable = !this.controls.hudEnable;
+              default :
+                break;
+            }
+          }
+          break;
+        case 'keyup' :
+          this.isKeyUp = true;
+          break;
+      }
+  }
+
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

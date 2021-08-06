@@ -1,6 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> collada loader - kinematics<br/>
   robot from <a href="https://github.com/rdiankov/collada_robots" target="_blank" rel="noopener">collada robots</a>
+  todo tween
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -14,7 +15,7 @@
 >
   <ngx3js-lookat [x]="0" [y]="5" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <ngx3js-position [x]="20" [y]="10" [z]="0"></ngx3js-position>
+    <ngx3js-position [x]="0" [y]="10" [z]="20"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene >
     <ngx3js-light
@@ -23,29 +24,22 @@
       [groundColor]="'0x111122'"
     >
     </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.8"
-      [castShadow]="true"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="0" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
     <ngx3js-helper [type]="'Grid'" [size]="20" [divisions]="20" [color1]="'0x888888'" [color2]="'0x444444'"></ngx3js-helper>
     <ngx3js-mesh>
-      <ngx3js-position [x]="300" [y]="400" [z]="0"></ngx3js-position>
+      <ngx3js-position [x]="30" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry [type]="'Sphere'" [radius]="4" [widthSegments]="8" [heightSegments]="8"></ngx3js-geometry>
       <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'"></ngx3js-material>
       <ngx3js-light
         [type]="'Point'"
         [color]="'0xffffff'"
-        [intensity]="1"
+        [intensity]="0.3"
       >
       </ngx3js-light>
     </ngx3js-mesh>
     <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/collada/abb_irb52_7_120.dae'">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-scale [multiply]="10"></ngx3js-scale>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

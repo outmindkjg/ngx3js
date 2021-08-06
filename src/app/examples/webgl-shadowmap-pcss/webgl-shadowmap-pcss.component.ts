@@ -150,7 +150,7 @@ export class WebglShadowmapPcssComponent extends BaseComponent<{}> implements On
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.meshChildren.length > 0) {
+    if (this.meshChildren !== null && this.meshChildren.length > 0) {
       const time = timer.elapsedTime;
       this.meshChildren.forEach(child => {
         if ( 'phase' in child.userData ) {

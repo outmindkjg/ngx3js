@@ -24,7 +24,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GCodeLoader } from 'three/examples/jsm/loaders/GCodeLoader';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
-import { IFC, IFCLoader } from 'three/examples/jsm/loaders/IFCLoader';
+// import { IFC, IFCLoader } from 'three/examples/jsm/loaders/IFCLoader';
 import { KMZLoader } from 'three/examples/jsm/loaders/KMZLoader';
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
 import { KTXLoader } from 'three/examples/jsm/loaders/KTXLoader';
@@ -271,12 +271,7 @@ export class LocalStorageService {
   /**
    * Ifc loader of local storage service
    */
-  private ifcLoader: IFCLoader = null;
-
-  /**
-   * Ifc  of local storage service
-   */
-  private _ifc: IFC = null;
+  // private ifcLoader: IFCLoader = null;
 
   /**
    * Vox loader of local storage service
@@ -881,6 +876,29 @@ export class LocalStorageService {
         this.onProgress,
         this.onError
       );
+      
+    } else if (key.endsWith('.ifc')) {
+      console.log('IFC Loader is not stable!!');
+      /*
+      if (this.ifcLoader === null) {
+        this.ifcLoader = new IFCLoader(ThreeUtil.getLoadingManager());
+      }
+      if (options.wasmPath) {
+        this.ifcLoader.setWasmPath(ThreeUtil.getStoreUrl(options.wasmPath));
+      }
+      this.setLoaderWithOption(this.ifcLoader, options);
+      this.ifcLoader.load(
+        key,
+        (ifc: IFC) => {
+          callBack({
+            object: ifc,
+            source: ifc
+          });
+        },
+        this.onProgress,
+        this.onError
+      );
+      */
     } else if (key.endsWith('.ktx2')) {
       if (this.ktx2Loader === null) {
         this.ktx2Loader = new KTX2Loader(ThreeUtil.getLoadingManager());

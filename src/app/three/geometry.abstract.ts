@@ -603,7 +603,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 		if (ThreeUtil.isNotNull(this.attrTextureIndex)) {
 			attributes.push({
 				key: 'textureIndex',
-				value: this.getAttribute(this.attrTextureIndex, 1, this.attrTextureIndexUsage, 'int'),
+				value: this.getAttribute(this.attrTextureIndex, 1, this.attrTextureIndexUsage, 'uint'),
 			});
 		}
 		if (ThreeUtil.isNotNull(this.attrUv)) {
@@ -635,7 +635,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 						attributes.push({ key: key, value: this.getAttribute(value, 1, this.attrIndexUsage, 'int') });
 						break;
 					case 'textureIndex':
-						attributes.push({ key: key, value: this.getAttribute(value, 1, this.attrTextureIndexUsage, 'int') });
+						attributes.push({ key: key, value: this.getAttribute(value, 1, this.attrTextureIndexUsage, 'uint') });
 						break;
 					case 'offset':
 						attributes.push({
@@ -711,6 +711,13 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 						intArray[i] = v;
 					});
 					bufferAttribute = new THREE.Uint32BufferAttribute(intArray, itemSize);
+					break;
+				case 'uint' :
+					const uintArray = new Uint32Array(attribute.length);
+					attribute.forEach((v, i) => {
+						uintArray[i] = v;
+					});
+					bufferAttribute = new THREE.Int32BufferAttribute(uintArray, itemSize);
 					break;
 				case 'instanced':
 					const instancedFloatArray = new Float32Array(attribute.length);

@@ -1,10 +1,9 @@
-
-
 export * from './animation-group/animation-group.component';
 export * from './audio/audio.component';
 export * from './background/background.component';
 export * from './camera/camera.component';
 export * from './canvas/canvas.component';
+export * from './chart/chart.component';
 export * from './clip/clip.component';
 export * from './composer/composer.component';
 export * from './control/control.component';
@@ -19,14 +18,14 @@ export * from './fog/fog.component';
 export * from './geometry.abstract';
 export * from './geometry/bird/bird.component';
 export * from './geometry/geometry.capsule';
-export * from './geometry/geometry.component';
-export * from './geometry/geometry.plane_perlin';
-export * from './geometry/geometry.rope';
-export * from './geometry/geometry.grid';
-export * from './geometry/geometry.star';
-export * from './geometry/geometry.plane-depth';
 export * from './geometry/geometry.circle-depth';
+export * from './geometry/geometry.component';
+export * from './geometry/geometry.grid';
+export * from './geometry/geometry.plane-depth';
+export * from './geometry/geometry.plane_perlin';
 export * from './geometry/geometry.ring-depth';
+export * from './geometry/geometry.rope';
+export * from './geometry/geometry.star';
 export * from './geometry/geometry.star-depth';
 export * from './geometry/geometryUtils';
 export * from './helper/helper.component';
@@ -103,11 +102,8 @@ export * from './texture/textureUtils';
 export * from './tools/tools.component';
 export * from './transform/transform.component';
 export * from './translation/translation.component';
-export * from './chart/chart.component';
 export * from './tween.abstract';
 export * from './tween/tween.component';
 export * from './viewer/viewer-canvas';
 export * from './viewer/viewer.component';
 export * from './visual/visual.component';
-
-

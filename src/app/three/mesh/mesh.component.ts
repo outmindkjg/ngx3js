@@ -2197,42 +2197,47 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 							this.storageOption
 						);
 					} else if (ThreeUtil.isNotNull(this.sharedMesh)) {
-						this.unSubscribeReferList('shareParts');
+						this.unSubscribeRefer('sharedMesh');
 						basemesh = new THREE.Group();
 						const mesh = this.sharedMesh.getObject3d();
-						const clips = this.sharedMesh.clips;
+						const clips = mesh.userData.clips;
+						let clipsClone = null;
 						if (ThreeUtil.isNotNull(clips)) {
 							if (Array.isArray(clips)) {
-								this.clips = [];
+								clipsClone = [];
 								clips.forEach((clip) => {
-									this.clips.push(clip.clone());
+									clipsClone.push(clip.clone());
 								});
 							} else {
-								this.clips = clips;
+								clipsClone = clips;
 							}
 						} else {
-							this.clips = null;
+							clipsClone = null;
 						}
-						const clipMesh = this.sharedMesh.clipMesh;
-						this.clipMesh = clipMesh !== null ? clipMesh.clone(true) : null;
-						if (this.clipMesh === null && !(mesh instanceof THREE.Group)) {
-							this.clipMesh = mesh.clone(true);
+						const clipMesh = mesh.userData.refTarget;
+						let clipMeshClone : THREE.Object3D = null;
+						if (ThreeUtil.isNotNull(clipMesh)) {
+							clipMesh.userData = {};
+							clipMeshClone = ThreeUtil.isNotNull(clipMesh) ? clipMesh.clone(true) : null;
+						} else if(!(mesh instanceof THREE.Group)) {
+							clipMeshClone = mesh.clone(true);
 						}
-						if (this.clipMesh !== null) {
-							this.storageSource = this.sharedMesh.storageSource;
-							basemesh.add(this.clipMesh);
-							if (ThreeUtil.isNotNull(this.clipMesh['material'])) {
-								this.clipMesh['material'] = this.clipMesh['material'].clone();
+						if (clipMeshClone !== null) {
+							this.setUserData('refTarget', clipMeshClone);
+							this.setUserData('clips', clipsClone);
+							Object.assign(clipMeshClone.userData, this.getUserData());
+							this.setUserData('storageSource', clipMeshClone.userData.storageSource);
+							basemesh.add(clipMeshClone);
+							if (ThreeUtil.isNotNull(clipMeshClone['material'])) {
+								clipMeshClone['material'] = clipMeshClone['material'].clone();
 							}
-						} else {
-							this.clipMesh = null;
-							this.storageSource = null;
 						}
-						this.subscribeReferList(
-							'shareParts',
-							this.sharedMesh.getSubscribe().subscribe(() => {
+						this.subscribeRefer(
+							'sharedMesh',
+							ThreeUtil.getSubscribe(this.sharedMesh, () => {
+								console.log('reloaded');
 								this.needUpdate = true;
-							})
+							}, 'loaded')
 						);
 					} else {
 						if (geometry !== null) {
