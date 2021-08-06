@@ -49,14 +49,20 @@
 
 		<h3>[property:boolean additive]</h3>
 		<p>
-			Input  of clip component
+			makeClipAdditive<br>
+			<br>
+			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.makeClipAdditive
 		</p>
 
 		<h3>[property:string blendMode]</h3>
 		<p>
 			Input  of clip component<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			[page:AnimationBlendMode AnimationBlendMode] - THREE.AnimationBlendMode<br>
+			[page:NormalAnimationBlendMode NormalAnimationBlendMode] - THREE.NormalAnimationBlendMode - NormalAnimationBlendMode, NormalAnimation, Normal<br>
+			[page:AdditiveAnimationBlendMode AdditiveAnimationBlendMode] - THREE.AdditiveAnimationBlendMode - AdditiveAnimationBlendMode, AdditiveAnimation, Additive
 		</p>
 
 		<h3>[property:boolean clampWhenFinished]</h3>
@@ -82,12 +88,12 @@
 
 		<h3>[property:number endFrame]</h3>
 		<p>
-			Input  of clip component
+			Creates a new clip, containing only the segment of the original clip between the given frames.
 		</p>
 
 		<h3>[property:number fps]</h3>
 		<p>
-			Input  of clip component
+			Creates a new clip, containing only the segment of the original clip between the given frames.
 		</p>
 
 		<h3>[property:number index]</h3>
@@ -115,12 +121,14 @@
 
 		<h3>[property:number startFrame]</h3>
 		<p>
-			Input  of clip component
+			Creates a new clip, containing only the segment of the original clip between the given frames.
 		</p>
 
 		<h3>[property:boolean subclip]</h3>
 		<p>
-			Input  of clip component
+			subclip<br>
+			<br>
+			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.subclip
 		</p>
 
 		<h3>[property:number timeScale]</h3>
@@ -199,17 +207,12 @@
 			Resets action
 		</p>
 
-		<h3>[method:void resetAnimation](  )</h3>
-		<p>
-			Resets animation
-		</p>
-
 		<h3>[method:void setFps](  [param:number fps] )</h3>
 		<p>
 			Sets fps
 		</p>
 
-		<h3>[method:void setMixer](  [param:AnimationMixer mixer],  [param:AnimationClip clips][],  [param:number fps] )</h3>
+		<h3>[method:void setMixer](  [param:AnimationMixer mixer],  [param:AnimationClip clips][] )</h3>
 		<p>
 			Sets mixer
 		</p>

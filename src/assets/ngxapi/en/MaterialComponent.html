@@ -21,7 +21,9 @@
 			rewrite materials if you decide to use a different renderer.<br>
 			<br>
 			The following properties and methods are inherited by all other material types<br>
-			(although they may have different defaults).
+			(although they may have different defaults).<br>
+			<br>
+			[page:Material Material] - THREE.Material
 		</p>
 
 		<h2>Component</h2>
@@ -260,7 +262,11 @@
 			[page:Materials THREE.AddOperation]. If mix is chosen, the [page:.reflectivity] is used to<br>
 			blend between the two colors.<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			[page:MultiplyOperation MultiplyOperation] - THREE.MultiplyOperation - MultiplyOperation, Multiply<br>
+			[page:MixOperation MixOperation] - THREE.MixOperation - MixOperation, Mix<br>
+			[page:AddOperation AddOperation] - THREE.AddOperation - AddOperation, Add
 		</p>
 
 		<h3>[property:number dashOffset]</h3>
@@ -339,7 +345,7 @@
 
 		<h3>[property:number emissiveMultiply]</h3>
 		<p>
-			Input  of material component
+			Emissive (light) color multiply of the material, essentially a solid color unaffected by other lighting.
 		</p>
 
 		<h3>[property:any envMap]</h3>

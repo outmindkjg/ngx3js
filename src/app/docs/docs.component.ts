@@ -152,12 +152,20 @@ export class DocsComponent implements OnInit {
     let hashTag = '';
     if (url.indexOf('.') > 0) {
       [pageName, hashTag] = url.split('.');
+      if (pageName === 'THREE') {
+        pageName = hashTag;
+      }
     } else {
       pageName = url;
     }
+    switch(pageName) {
+      case 'TODO' :
+        break;
+      default :
+        break;
+    }
     if (this.loadedPageInfo[pageName] !== undefined) {
       let viewUrl = this.loadedPageInfo[pageName];
-      // console.log(this.loadedPageInfo, pageName, viewUrl);
       this.router.navigateByUrl(viewUrl + ( hashTag != '' ? '.' + hashTag : ''));
       this.checkSearch('');
     } else {

@@ -20,26 +20,37 @@
 			&lt;ngx3js-mixer
 			[ action ]="..."
 			[ afterglow ]="..."
+			[ angularSpeed ]="..."
+			[ animationFPS ]="..."
 			[ animationHelper ]="..."
+			[ backAcceleration ]="..."
 			[ controls ]="..."
 			[ debug ]="..."
 			[ delayTime ]="..."
 			[ duration ]="..."
 			[ enabled ]="..."
 			[ fps ]="..."
+			[ frontAcceleration ]="..."
+			[ frontDecceleration ]="..."
 			[ gravity ]="..."
+			[ maxReverseSpeed ]="..."
+			[ maxSpeed ]="..."
 			[ maxStepNum ]="..."
 			[ mmdHelpers ]="..."
 			[ physics ]="..."
+			[ rate ]="..."
 			[ resetPhysicsOnLoop ]="..."
+			[ scale ]="..."
 			[ skin ]="..."
 			[ sync ]="..."
 			[ timeScale ]="..."
+			[ transitionFrames ]="..."
 			[ type ]="..."
 			[ unitStep ]="..."
 			[ warmup ]="..."
 			[ weapon ]="..."
 			[ windowExport ]="..."
+			[ wireframe ]="..."
 		&gt;&lt;/ngx3js-mixer&gt;
 		</code>
 
@@ -60,12 +71,33 @@
 			Input  of mixer component
 		</p>
 
+		<h3>[property:number angularSpeed]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
+		<h3>[property:number animationFPS]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
 		<h3>[property:MixerComponent animationHelper]</h3>
 		<p>
 			Input  of mixer component
 		</p>
 
-		<h3>[property:any controls]</h3>
+		<h3>[property:number backAcceleration]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
+		<h3>[property:CharacterControl controls]</h3>
 		<p>
 			Input  of mixer component
 		</p>
@@ -77,7 +109,8 @@
 
 		<h3>[property:number duration]</h3>
 		<p>
-			Input  of mixer component
+			Sets the duration for a single loop of this action (by adjusting [page:.timeScale timeScale]<br>
+			and stopping any scheduled warping). This method can be chained.
 		</p>
 
 		<h3>[property:number fps]</h3>
@@ -85,9 +118,37 @@
 			Input  of mixer component
 		</p>
 
+		<h3>[property:number frontAcceleration]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
+		<h3>[property:number frontDecceleration]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
 		<h3>[property:number gravity]</h3>
 		<p>
 			Input  of mixer component
+		</p>
+
+		<h3>[property:number maxReverseSpeed]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
+		<h3>[property:number maxSpeed]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
 		</p>
 
 		<h3>[property:number maxStepNum]</h3>
@@ -105,14 +166,30 @@
 			Input  of mixer component
 		</p>
 
+		<h3>[property:number rate]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			{MD2Character#setPlaybackRate}
+		</p>
+
 		<h3>[property:boolean resetPhysicsOnLoop]</h3>
 		<p>
 			Input  of mixer component
 		</p>
 
-		<h3>[property:number skin]</h3>
+		<h3>[property:number scale]</h3>
 		<p>
-			Input  of mixer component
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
+		</p>
+
+		<h3>[property:mixed skin]</h3>
+		<p>
+			Input  of mixer component<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:boolean sync]</h3>
@@ -122,7 +199,16 @@
 
 		<h3>[property:number timeScale]</h3>
 		<p>
-			Input  of mixer component
+			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative<br>
+			values cause the animation to play backwards. Default is 1.<br>
+			Properties/methods concerning *timeScale* (respectively *time*)
+		</p>
+
+		<h3>[property:number transitionFrames]</h3>
+		<p>
+			The rate of MD2Character<br>
+			<br>
+			MD2Character
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -142,7 +228,14 @@
 			Input  of mixer component
 		</p>
 
-		<h3>[property:number weapon]</h3>
+		<h3>[property:mixed weapon]</h3>
+		<p>
+			Input  of mixer component<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:boolean wireframe]</h3>
 		<p>
 			Input  of mixer component
 		</p>
@@ -172,6 +265,13 @@
 			Fades to action
 		</p>
 
+		<h3>[method:void getMixer](  )</h3>
+		<p>
+			Resets mixer<br>
+			<br>
+			[page:AnimationMixer AnimationMixer] | [page:MD2Character MD2Character] | [page:MD2CharacterComplex MD2CharacterComplex] | [page:MMDAnimationHelper MMDAnimationHelper]
+		</p>
+
 		<h3>[method:MMDAnimationHelper getMmdAnimationHelper](  )</h3>
 		<p>
 			Gets mmd animation helper<br>
@@ -191,11 +291,6 @@
 			Plays mixer component<br>
 			<br>
 			Returns : true if play
-		</p>
-
-		<h3>[method:void resetMixer](  )</h3>
-		<p>
-			Resets mixer
 		</p>
 
 		<h3>[method:boolean setParent](  [param:mixed parent] )</h3>
@@ -218,6 +313,49 @@
 		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
 		<p>
 			Updates mixer component
+		</p>
+
+		<hr>
+		<h1 id="CharacterControl">CharacterControl</h1>
+
+		<p class="desc">
+			Character Control
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:boolean attack]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean crouch]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean jump]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean moveBackward]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean moveForward]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean moveLeft]?</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean moveRight]?</h3>
+		<p>
+			
 		</p>
 
 		<h2>Source</h2>

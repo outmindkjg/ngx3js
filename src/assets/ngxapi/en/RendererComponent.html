@@ -12,7 +12,10 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			RendererComponent
+			RendererComponent<br>
+			<br>
+			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer<br>
+			SVGRenderer
 		</p>
 
 		<h2>Component</h2>
@@ -33,6 +36,7 @@
 			( eventListener )="...($event)"
 			[ globalClippingEnabled ]="..."
 			[ guiControl ]="..."
+			[ guiOpen ]="..."
 			[ guiParams ]="..."
 			[ height ]="..."
 			[ localClippingEnabled ]="..."
@@ -42,6 +46,7 @@
 			[ physicallyCorrectLights ]="..."
 			[ preserveDrawingBuffer ]="..."
 			[ quality ]="..."
+			[ requiredExtensions ]="..."
 			[ scene ]="..."
 			[ shadowMapEnabled ]="..."
 			[ shadowMapType ]="..."
@@ -101,23 +106,30 @@
 			[page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:any controlOptions]</h3>
+		<h3>[property:ControlOptions controlOptions]</h3>
 		<p>
-			Input  of renderer component
+			The options of control
 		</p>
 
 		<h3>[property:string controlType]</h3>
 		<p>
-			Input  of renderer component<br>
+			The type of control<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			ControlComponent
 		</p>
 
 		<h3>[property:string cssType]</h3>
 		<p>
-			Input  of renderer component<br>
+			The type of css renderer<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			CSS2DRenderer - CSS2DRenderer, CSS2D, 2D<br>
+			CSS3DRenderer - CSS3DRenderer, CSS3D, 3D<br>
+			<br>
+			mixed - "css3d,css2d", "css2d,css3d"
 		</p>
 
 		<h3>[property:boolean globalClippingEnabled]</h3>
@@ -127,17 +139,22 @@
 
 		<h3>[property:any guiControl]</h3>
 		<p>
-			Input  of renderer component
+			The guiControl of GUI
+		</p>
+
+		<h3>[property:boolean guiOpen]</h3>
+		<p>
+			The guiOpen of GUI
 		</p>
 
 		<h3>[property:GuiControlParam guiParams][]</h3>
 		<p>
-			Input  of renderer component
+			The guiParams of GUI
 		</p>
 
 		<h3>[property:mixed height]</h3>
 		<p>
-			Input  of renderer component<br>
+			The height of renderer<br>
 			<br>
 			[page:string string] | [page:number number]
 		</p>
@@ -162,7 +179,17 @@
 			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding, sRGB<br>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding, Gamma<br>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding, RGBE<br>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding, LogLuv<br>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding, RGBM7<br>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding, RGBM16<br>
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding, RGBD<br>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding, Linear
 		</p>
 
 		<h3>[property:boolean physicallyCorrectLights]</h3>
@@ -179,9 +206,17 @@
 
 		<h3>[property:string quality]</h3>
 		<p>
-			Input  of renderer component<br>
+			The quality of SVGRenderer<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			high - quality<br>
+			low -
+		</p>
+
+		<h3>[property:string requiredExtensions][]</h3>
+		<p>
+			Input  of renderer component
 		</p>
 
 		<h3>[property:SceneComponent scene]</h3>
@@ -206,19 +241,29 @@
 		<p>
 			Input  of renderer component<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			auto - auto fix the size of renderer<br>
+			fixed - use fixed size of renderer
 		</p>
 
 		<h3>[property:number statsMode]</h3>
 		<p>
-			Input  of renderer component
+			the stats mode  of stats module
 		</p>
 
 		<h3>[property:string toneMapping]</h3>
 		<p>
 			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			[page:ToneMapping ToneMapping] - THREE.ToneMapping<br>
+			[page:LinearToneMapping LinearToneMapping] - THREE.LinearToneMapping - LinearToneMapping, Linear<br>
+			[page:ReinhardToneMapping ReinhardToneMapping] - THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard<br>
+			[page:CineonToneMapping CineonToneMapping] - THREE.CineonToneMapping - CineonToneMapping, CineonTone<br>
+			[page:ACESFilmicToneMapping ACESFilmicToneMapping] - THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic<br>
+			[page:NoToneMapping NoToneMapping] - THREE.NoToneMapping - NoToneMapping, No
 		</p>
 
 		<h3>[property:number toneMappingExposure]</h3>
@@ -228,35 +273,61 @@
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of renderer component<br>
+			The type of renderer<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			SVGRenderer - SVGRenderer, SVG<br>
+			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
 		</p>
 
 		<h3>[property:string useEvent]</h3>
 		<p>
 			Input  of renderer component<br>
 			<br>
-			Notice - case insensitive.
+			Notice - case insensitive.<br>
+			<br>
+			string join by ,<br>
+			<br>
+			change - change<br>
+			pointerdown, mousedown, down - pointerdown<br>
+			pointerup, mouseup, up - pointerup<br>
+			pointermove, mousemove, move - pointermove<br>
+			keydown - keydown<br>
+			keyup - keyup,<br>
+			keypress - keypress<br>
+			click - click<br>
+			mouseover - mouseover, over<br>
+			mouseout - mouseout, out<br>
+			<br>
+			HTMLElement.addEventListener
 		</p>
 
 		<h3>[property:mixed width]</h3>
 		<p>
-			Input  of renderer component<br>
+			The width of renderer<br>
 			<br>
 			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed x]</h3>
 		<p>
-			Input  of renderer component<br>
+			The x position of renderer<br>
+			<br>
+			number : fixed position<br>
+			string : % - the percent of renderer<br>
+			string : % -/+ number - the percent of renderer and add some value<br>
 			<br>
 			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:mixed y]</h3>
 		<p>
-			Input  of renderer component<br>
+			The y position of renderer<br>
+			<br>
+			number : fixed position<br>
+			string : % - the percent of renderer<br>
+			string : % -/+ number - the percent of renderer and add some value<br>
 			<br>
 			[page:string string] | [page:number number]
 		</p>

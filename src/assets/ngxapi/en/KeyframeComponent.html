@@ -12,7 +12,9 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			KeyframeComponent
+			KeyframeComponent<br>
+			<br>
+			[page:KeyframeTrack KeyframeTrack] - THREE.KeyframeTrack
 		</p>
 
 		<h2>Component</h2>
@@ -40,53 +42,77 @@
 
 		<h3>[property:mixed booleans]</h3>
 		<p>
-			Input  of keyframe component<br>
+			values for the keyframes at the times specified.<br>
 			<br>
 			[page:number number] | [page:boolean boolean]
 		</p>
 
 		<h3>[property:mixed colors]</h3>
 		<p>
-			Input  of keyframe component<br>
+			values for the keyframes at the times specified.<br>
 			<br>
 			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string interpolation]</h3>
 		<p>
-			Input  of keyframe component
+			the type of interpolation to use. See<br>
+			<br>
+			[page:InterpolateDiscrete InterpolateDiscrete] - THREE.InterpolateDiscrete - InterpolateDiscrete, Discrete<br>
+			[page:InterpolateLinear InterpolateLinear] - THREE.InterpolateLinear - InterpolateLinear, Linear<br>
+			[page:InterpolateSmooth InterpolateSmooth] - THREE.InterpolateSmooth - InterpolateSmooth, Smooth
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
+			identifier for the KeyframeTrack
 		</p>
 
 		<h3>[property:mixed quaternions]</h3>
 		<p>
-			Input  of keyframe component<br>
+			values for the keyframes at the times specified.<br>
 			<br>
 			[page:number number]
 		</p>
 
 		<h3>[property:number times][]</h3>
 		<p>
-			Input  of keyframe component
+			(required) array of keyframe times.
 		</p>
 
 		<h3>[property:string type]</h3>
 		<p>
-			Input  of keyframe component
+			identifier for the KeyframeTrack<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:VectorKeyframeTrack VectorKeyframeTrack] - THREE.VectorKeyframeTrack  - position - The position of object3d<br>
+			[page:VectorKeyframeTrack VectorKeyframeTrack] - THREE.VectorKeyframeTrack  - scale - The scale of object3d<br>
+			[page:QuaternionKeyframeTrack QuaternionKeyframeTrack] - THREE.QuaternionKeyframeTrack  - quaternion - The quaternion of object3d<br>
+			[page:ColorKeyframeTrack ColorKeyframeTrack] - THREE.ColorKeyframeTrack  - color - The color of material<br>
+			[page:ColorKeyframeTrack ColorKeyframeTrack] - THREE.ColorKeyframeTrack  - specular - The specular of material<br>
+			[page:ColorKeyframeTrack ColorKeyframeTrack] - THREE.ColorKeyframeTrack  - emissive - The emissive of material<br>
+			[page:ColorKeyframeTrack ColorKeyframeTrack] - THREE.ColorKeyframeTrack  - sheen - The sheen of material<br>
+			[page:NumberKeyframeTrack NumberKeyframeTrack] - THREE.NumberKeyframeTrack  - shininess - The shininess of material<br>
+			[page:NumberKeyframeTrack NumberKeyframeTrack] - THREE.NumberKeyframeTrack  - opacity - The opacity of material<br>
+			[page:NumberKeyframeTrack NumberKeyframeTrack] - THREE.NumberKeyframeTrack  - reflectivity - The reflectivity of material<br>
+			[page:BooleanKeyframeTrack BooleanKeyframeTrack] - THREE.BooleanKeyframeTrack  - transparent - The transparent of material<br>
+			[page:BooleanKeyframeTrack BooleanKeyframeTrack] - THREE.BooleanKeyframeTrack  - wireframe - The wireframe of material<br>
+			[page:VectorKeyframeTrack VectorKeyframeTrack] - THREE.VectorKeyframeTrack  - Vector, VectorKeyframe, VectorKeyframeTrack - The Vector of object3d<br>
+			[page:QuaternionKeyframeTrack QuaternionKeyframeTrack] - THREE.QuaternionKeyframeTrack  - Quaternion, QuaternionKeyframe, QuaternionKeyframeTrack  - The quaternion of object3d<br>
+			[page:ColorKeyframeTrack ColorKeyframeTrack] - THREE.ColorKeyframeTrack  - Color, ColorKeyframe, ColorKeyframeTrack - The Color of object3d<br>
+			[page:NumberKeyframeTrack NumberKeyframeTrack] - THREE.NumberKeyframeTrack  - Number, NumberKeyframe, NumberKeyframeTrack - The Number of object3d<br>
+			[page:BooleanKeyframeTrack BooleanKeyframeTrack] - THREE.BooleanKeyframeTrack  - Boolean, BooleanKeyframe, BooleanKeyframeTrack - The Boolean of object3d
 		</p>
 
 		<h3>[property:number values][]</h3>
 		<p>
-			Input  of keyframe component
+			values for the keyframes at the times specified.
 		</p>
 
 		<h3>[property:mixed vectors]</h3>
 		<p>
-			Input  of keyframe component<br>
+			values for the keyframes at the times specified.<br>
 			<br>
 			[page:number number]
 		</p>

@@ -116,6 +116,8 @@ export class ApiReadComponent implements OnInit {
           return true;
         } else if (hrefId.startsWith(this.pageName)) {
           this.setFocus(hrefId.substr(this.pageName.length + 1));
+        } else if (this.setElementById(hrefId) !== null) {
+          this.setFocus(hrefId);
         } else {
           this.docsComponent.changePage(hrefId);
         }
@@ -147,17 +149,30 @@ export class ApiReadComponent implements OnInit {
     }
   }
 
+  private setElementById(menuId: string) {
+    const links = [];
+    const linksA: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('a');
+    const linksH1: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h1');
+    for (let i = 0; i < linksA.length; i++) {
+      links.push(linksA[i]);
+    }
+    for (let i = 0; i < linksH1.length; i++) {
+      links.push(linksH1[i]);
+    }
+    let selected: HTMLElement = null;
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].getAttribute('id') === menuId) {
+        selected = links[i];
+        break;
+      }
+    }
+    return selected;
+  }
+
   setFocus(menuId: string) {
     setTimeout(() => {
       if (menuId !== null) {
-        const links: HTMLAnchorElement[] = this.docEle.nativeElement.getElementsByTagName('a');
-        let selected: HTMLAnchorElement = null;
-        for (let i = 0; i < links.length; i++) {
-          if (links[i].getAttribute('id') === menuId) {
-            selected = links[i];
-            break;
-          }
-        }
+        let selected: HTMLElement = this.setElementById(menuId);
         if (selected !== null) {
           selected.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
