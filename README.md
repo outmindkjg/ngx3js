@@ -1,4 +1,4 @@
-three.js
+ngx3js
 ========
 
 [![NPM Package][npm]][npm-url]
