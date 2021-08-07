@@ -18,13 +18,6 @@
   <ngx3js-scene #scene [background]="'0xffffff'">
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="50"
-        [height]="50"
-        [depth]="50"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'" [wireframe]="true"></ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

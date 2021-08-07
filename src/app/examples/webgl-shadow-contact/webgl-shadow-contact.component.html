@@ -11,56 +11,59 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [guiOpen]="true"
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
+    <ngx3js-position [x]="0.5" [y]="1" [z]="2"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
+  <ngx3js-scene #scene [background]="'0xffffff'">
+    <ngx3js-shared>
+      <ngx3js-material #material [type]="'MeshNormalMaterial'"></ngx3js-material>
+    </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+      <ngx3js-mesh #box [material]="material">
+        <ngx3js-position [x]="1/2.0" [y]="0.1" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
+          [type]="'BoxGeometry'"
+          [width]="0.4"
+          [height]="0.4"
+          [depth]="0.4"
+        ></ngx3js-geometry>
+      </ngx3js-mesh>
+    </ngx3js-mesh>
+    <ngx3js-mesh #icosahedron [material]="material">
+      <ngx3js-position [x]="-1/4" [y]="0.1" [z]="0.433"></ngx3js-position>
       <ngx3js-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        [type]="'IcosahedronGeometry'"
+        [radius]="0.3"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
+    </ngx3js-mesh>
+    <ngx3js-mesh #TorusKnot [material]="material">
+      <ngx3js-position [x]="-1/4" [y]="0.1" [z]="-0.433"></ngx3js-position>
+      <ngx3js-geometry
+        [type]="'TorusKnotGeometry'"
+        [radius]="0.4"
+        [tube]="0.05"
+        [radialSegments]="256"
+        [tubularSegments]="24"
+        [p]="1"
+        [q]="3"
+      ></ngx3js-geometry>
     </ngx3js-mesh>
     <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+      <ngx3js-position [x]="0" [y]="-0.2" [z]="0"></ngx3js-position>
       <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
       <ngx3js-geometry
         [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></ngx3js-geometry>
+        [width]="2.5"
+        [height]="2.5"
+      >
+      </ngx3js-geometry>
       <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
+        [type]="'MeshBasic'"
+        [color]="'0xf0f0f0'"
         [depthWrite]="false"
       ></ngx3js-material>
     </ngx3js-mesh>
