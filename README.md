@@ -181,9 +181,9 @@ git clone --depth=1 https://github.com/outmindkjg/ngx3js.git
 [Releases](https://github.com/outmindkjg/ngx3js/releases)
 
 
-[npm]: https://img.shields.io/npm/v/three
-[npm-url]: https://www.npmjs.com/package/three
-[build-size]: https://badgen.net/bundlephobia/minzip/three
-[build-size-url]: https://bundlephobia.com/result?p=three
-[npm-downloads]: https://img.shields.io/npm/dw/three
-[npmtrends-url]: https://www.npmtrends.com/three
+[npm]: https://img.shields.io/npm/v/ngx3js
+[npm-url]: https://www.npmjs.com/package/ngx3js
+[build-size]: https://badgen.net/bundlephobia/minzip/ngx3js
+[build-size-url]: https://bundlephobia.com/result?p=ngx3js
+[npm-downloads]: https://img.shields.io/npm/dw/ngx3js
+[npmtrends-url]: https://www.npmtrends.com/ngx3js
