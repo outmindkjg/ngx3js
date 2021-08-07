@@ -24,7 +24,7 @@ export class WebglRefractionComponent extends BaseComponent<{}> {
     // this.refractorMaterial.side = DoubleSide;
   }
 
-  refractorMaterial : ShaderMaterial;
+  refractorMaterial : ShaderMaterial = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
