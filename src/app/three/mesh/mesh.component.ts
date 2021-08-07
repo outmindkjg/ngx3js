@@ -2235,7 +2235,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						this.subscribeRefer(
 							'sharedMesh',
 							ThreeUtil.getSubscribe(this.sharedMesh, () => {
-								console.log('reloaded');
 								this.needUpdate = true;
 							}, 'loaded')
 						);

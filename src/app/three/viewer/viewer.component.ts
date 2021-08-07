@@ -326,7 +326,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
    */
   public setRenderer(renderer: THREE.Renderer) {
     this.renderer = renderer;
-    console.log(this.type);
     this.getViewer();
   }
 
@@ -445,7 +444,6 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           break;
         case 'shadowmapviewer':
         case 'shadowmap':
-          console.log(this.getLight().position);
           this.viewer = new ShadowMapViewer(this.getLight());
           this.resizeViewer();
           break;

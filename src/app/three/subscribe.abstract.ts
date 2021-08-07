@@ -182,7 +182,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       } else {
         this.setUserData('tween', null);
       }
-      console.log(this._userData);
     } else {
       this.setUserData('tween', null);
     }

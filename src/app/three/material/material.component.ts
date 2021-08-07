@@ -2541,7 +2541,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							standardNodeMaterial.color = this.getColorNode(this.getColor());
 						}
 						material = standardNodeMaterial;
-						console.log(material);
 						break;
 					case 'basicnode':
 					case 'basicnodematerial':

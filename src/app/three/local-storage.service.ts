@@ -486,7 +486,6 @@ export class LocalStorageService {
             this.saveArrayBuffer(result, fileNameOnly + '.glb');
           } else {
             const output = JSON.stringify(result, null, 2);
-            console.log(output);
             this.saveString(output, fileNameOnly + '.gltf');
           }
         },
@@ -758,7 +757,6 @@ export class LocalStorageService {
       );
     } else if (key.endsWith('.tilt')) {
       if (this.tiltLoader === null) {
-        console.log(TILT);
         this.tiltLoader = new TILT.TiltLoader(ThreeUtil.getLoadingManager());
       }
       this.setLoaderWithOption(this.tiltLoader, options);
@@ -834,7 +832,6 @@ export class LocalStorageService {
       this.pvrLoader.load(
         key,
         (texture: THREE.CompressedTexture) => {
-          console.log(texture);
           callBack({
             texture: texture,
             source: texture

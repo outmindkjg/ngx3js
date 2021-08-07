@@ -1433,7 +1433,6 @@ export class ThreeUtil {
 							const s = this.getParseFloat(val2, 1);
 							const l = this.getParseFloat(val3, 1);
 							const tmp = new THREE.Color().setHSL(h, s, l);
-							console.log(colorStr, tmp.getHexString());
 							return tmp;
 						case 'rgb':
 							const r = this.getParseFloat(val1, 255);

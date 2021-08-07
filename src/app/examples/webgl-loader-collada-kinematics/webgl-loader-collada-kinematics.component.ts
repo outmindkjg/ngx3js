@@ -20,7 +20,6 @@ export class WebglLoaderColladaKinematicsComponent extends BaseComponent<{}> {
       if ( child.isMesh ) {
         child.material.flatShading = true;
         child.material.color = new THREE.Color(0xffffff);
-        console.log(child);
       }
     });
   }
