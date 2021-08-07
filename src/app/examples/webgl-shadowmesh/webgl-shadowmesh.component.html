@@ -1,5 +1,6 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shadow mesh
+  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -26,6 +27,7 @@
       [type]="controls.lightType"
       [color]="'rgb(255,255,255)'"
       [intensity]="1"
+      [castShadow]="true"
     >
       <ngx3js-position [x]="lightPosition.x" [y]="lightPosition.y" [z]="lightPosition.z"></ngx3js-position>
       <ngx3js-lookat [refer]="scene"></ngx3js-lookat>
@@ -75,7 +77,7 @@
       <ngx3js-material [type]="'MeshBasic'" [color]="'rgb(255,255,255)'"></ngx3js-material>
     </ngx3js-mesh>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh #cube (onLoad)="setCube($event)">
+      <ngx3js-mesh #cube (onLoad)="setCube($event)" [castShadow]="true" [receiveShadow]="true">
         <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
         <ngx3js-geometry
           [type]="'box'"
@@ -85,7 +87,7 @@
         ></ngx3js-geometry>
         <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,0,0)'" [emissive]="'0x200000'"></ngx3js-material>
       </ngx3js-mesh>
-      <ngx3js-mesh #cylinder (onLoad)="setCylinder($event)">
+      <ngx3js-mesh #cylinder (onLoad)="setCylinder($event)" [castShadow]="true" [receiveShadow]="true">
         <ngx3js-position [x]="0" [y]="0" [z]="-2.5"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Cylinder'"
@@ -95,7 +97,7 @@
         ></ngx3js-geometry>
         <ngx3js-material [type]="'meshlambert'" [color]="'rgb(0,0,255)'" [emissive]="'0x000020'"></ngx3js-material>
       </ngx3js-mesh>
-      <ngx3js-mesh #torus (onLoad)="setTorus($event)">
+      <ngx3js-mesh #torus (onLoad)="setTorus($event)" [castShadow]="true" [receiveShadow]="true">
         <ngx3js-position [x]="0" [y]="0" [z]="-6"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Torus'"
@@ -107,7 +109,7 @@
         ></ngx3js-geometry>
         <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,0,255)'" [emissive]="'0x200020'"></ngx3js-material>
       </ngx3js-mesh>
-      <ngx3js-mesh #sphere>
+      <ngx3js-mesh #sphere  [castShadow]="true" [receiveShadow]="true">
         <ngx3js-position [x]="4" [y]="0.5" [z]="2"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Sphere'"
@@ -117,7 +119,7 @@
         ></ngx3js-geometry>
         <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,255,255)'" [emissive]="'0x222222'"></ngx3js-material>
       </ngx3js-mesh>
-      <ngx3js-mesh #pyramid  (onLoad)="setPyramid($event)">
+      <ngx3js-mesh #pyramid  (onLoad)="setPyramid($event)" [castShadow]="true" [receiveShadow]="true">
         <ngx3js-position [x]="-4" [y]="1" [z]="2"></ngx3js-position>
         <ngx3js-geometry
           [type]="'Cylinder'"

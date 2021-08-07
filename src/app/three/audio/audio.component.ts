@@ -418,6 +418,7 @@ export class AudioComponent extends AbstractObject3dComponent implements OnInit 
 									case 'video':
 										if (this.video !== null) {
 											this.video = document.createElement('video');
+											(this.video as any).playsInline = true;
 										}
 										this.audio.setMediaElementSource(this.video);
 										break;

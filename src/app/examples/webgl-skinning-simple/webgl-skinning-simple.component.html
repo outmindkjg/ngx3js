@@ -37,7 +37,7 @@
     >
       <ngx3js-position [x]="0" [y]="20" [z]="10"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/SimpleSkinning.gltf'">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/SimpleSkinning.gltf'" [castShadow]="true">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-mixer [action]="'run'">
         <ngx3js-clip [name]="'run'" [index]="0"></ngx3js-clip>

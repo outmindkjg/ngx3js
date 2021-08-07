@@ -2385,6 +2385,9 @@ export class ThreeUtil {
 	public static getTexture(texture: any, refType: string = 'map', isRequired: boolean = true): THREE.Texture {
 		if (texture instanceof THREE.Texture) {
 			return texture;
+		} else if (texture instanceof THREE.Object3D || this.isNotNull(texture.getObject3d)) {
+			const pmremGenerator = new THREE.PMREMGenerator( this.getRenderer() as THREE.WebGLRenderer );
+			return pmremGenerator.fromScene( texture instanceof THREE.Object3D ? texture : texture.getObject3d() ).texture;
 		} else if (this.isNotNull(texture.getTexture)) {
 			const foundTexture = texture.getTexture();
 			if (!(foundTexture instanceof THREE.VideoTexture) || foundTexture.image.readyState > 0) {

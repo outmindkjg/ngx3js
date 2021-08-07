@@ -37,20 +37,18 @@
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh *ngFor="let color of pointLightColors;let idx = index;" 
-        [type]="'light'" 
-        [lightOptions]="{
-          type : 'PointLight',
-          color: color,
-          intensity : 1.5,
-          distance : 20,
-          shadowCameraNear : 1,
-          shadowCameraFar : 60,
-          shadowBias : -0.005
-        }"
+      <ngx3js-light *ngFor="let color of pointLightColors;let idx = index;" 
+          [type]="'PointLight'"
+          [color]="color"
+          [intensity]="1.5"
+          [distance]="20"
+          [shadowCameraNear]="1"
+          [shadowCameraFar]="60"
+          [shadowBias]="-0.005"
+          [castShadow]="true"
       >
         <ngx3js-position [x]="idx * 5" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-mesh>
+        <ngx3js-mesh [castShadow]="true" [receiveShadow]="true">
           <ngx3js-geometry
             [type]="'SphereGeometry'"
             [radius]="0.3"
@@ -75,7 +73,7 @@
             [alphaMap]="alphaMap"
           ></ngx3js-material>
         </ngx3js-mesh>
-      </ngx3js-mesh>
+      </ngx3js-light>
     </ngx3js-mesh>
     <ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
       <ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>

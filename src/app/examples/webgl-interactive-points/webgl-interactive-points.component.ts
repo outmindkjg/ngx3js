@@ -38,7 +38,7 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 
   uniforms = {
     color: { type : 'color', value: 0xffffff },
-    pointTexture: { type : 'Texture', value: '/assets/examples/textures/sprites/disc.png' }
+    pointTexture: { type : 'Texture', value: 'textures/sprites/disc.png' }
   }
 
   position : any ;

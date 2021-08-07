@@ -917,6 +917,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					const video = document.createElement('video');
 					video.loop = true;
 					video.crossOrigin = 'anonymous';
+					(video as any).playsInline = true;
 					if (fileName.endsWith('.webcam')) {
 						if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 							navigator.mediaDevices

@@ -27,7 +27,7 @@ export class WebglPanoramaCubeComponent extends BaseComponent<{}> {
         this.canvasList.push(canvas);
       }
     }
-    imageObj.src = '/assets/examples/textures/cube/sun_temple_stripe.jpg';
+    imageObj.src = 'textures/cube/sun_temple_stripe.jpg';
   }
   
   canvasList : any[] = [];
