@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { time } from 'console';
-import { ShaderMaterial, Mesh, DoubleSide } from 'three';
+import { Mesh, ShaderMaterial } from 'three';
 import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
 @Component({
