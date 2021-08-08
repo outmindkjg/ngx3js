@@ -2,9 +2,11 @@ import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnCh
 import * as THREE from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
+import { DeviceOrientationControls } from 'three/examples/jsm/controls/DeviceOrientationControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { DragControls } from 'three/examples/jsm/controls/DragControls';
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
@@ -23,6 +25,8 @@ export interface ControlOptions {
 	 *
 	 * @see FlyControls - FlyControls, Fly
 	 * @see FirstPersonControls - FirstPersonControls, FirstPerson
+	 * @see DeviceOrientationControls - DeviceOrientationControls, DeviceOrientation
+	 * @see DragControls - DragControls, Drag
 	 * @see TransformControls - TransformControls, Transform
 	 * @see TrackballControls - TrackballControls, Trackball
 	 * @see CSM - CSM
@@ -281,6 +285,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 *
 	 * @see FlyControls - FlyControls, Fly
 	 * @see FirstPersonControls - FirstPersonControls, FirstPerson
+	 * @see DeviceOrientationControls - DeviceOrientationControls, DeviceOrientation
+	 * @see DragControls - DragControls, Drag
 	 * @see TransformControls - TransformControls, Transform
 	 * @see TrackballControls - TrackballControls, Trackball
 	 * @see CSM - CSM
@@ -733,6 +739,16 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					}
 					control = flyControls;
 					break;
+				case 'deviceorientationcontrols':
+				case 'deviceorientation':
+					const deviceOrientationControls = new DeviceOrientationControls(camera);
+					control = deviceOrientationControls;
+					break;
+				case 'dragcontrols':
+				case 'drag':
+					const dragControls = new DragControls([], camera, domElement);
+					control = dragControls;
+					break;
 				case 'firstpersoncontrols':
 				case 'firstperson':
 					const firstPersonControls = new FirstPersonControls(camera, domElement);
@@ -923,6 +939,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	public render(renderTimer: RendererTimer) {
 		if (this.control !== null) {
 			if (this.control instanceof OrbitControls) {
+				this.control.update();
+			} else if (this.control instanceof DeviceOrientationControls) {
 				this.control.update();
 			} else if (this.control instanceof CSM) {
 				this.control.update();

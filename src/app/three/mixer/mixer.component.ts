@@ -843,11 +843,9 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 					}
 					break;
 				case 'mixer':
-					if (ThreeUtil.isNotNull(this.clips)) {
-						const animationMixer = new THREE.AnimationMixer(this.model);
-						animationMixer.timeScale = this.getTimeScale(1);
-						mixer = animationMixer;
-					}
+					const animationMixer = new THREE.AnimationMixer(this.model);
+					animationMixer.timeScale = this.getTimeScale(1);
+					mixer = animationMixer;
 					break;
 				case 'virtulous':
 				default:

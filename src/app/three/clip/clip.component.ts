@@ -411,7 +411,11 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 			this.needUpdate = false;
 			let clip: THREE.AnimationClip = null;
 			if (this.clips !== null) {
-				clip = this.index > -1 ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name);
+				if (this.index > -1 || ThreeUtil.isNotNull(this.name)) {
+					clip = this.index > -1 ? this.clips[this.index] : THREE.AnimationClip.findByName(this.clips, this.name);
+				} else {
+					clip = null;
+				}
 			} else {
 				clip = new THREE.AnimationClip(ThreeUtil.getTypeSafe(this.name, 'default'), this.duration, [], this.getBlendMode());
 			}

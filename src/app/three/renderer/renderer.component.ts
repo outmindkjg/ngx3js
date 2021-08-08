@@ -1421,6 +1421,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 				case 'transform':
 				case 'trackball':
 				case 'plane':
+				case 'deviceorientationcontrols' :
+				case 'deviceorientation' :
 				case 'orbitcontrols':
 				case 'flycontrols':
 				case 'firstpersoncontrols':
@@ -1434,6 +1436,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 					control.setCameraDomElement(camera, domElement, scenes);
 					controls.push(control);
 					this.renderControl = control;
+					break;
 			}
 			if (this.controlList !== null && this.controlList !== undefined) {
 				this.controlList.forEach((control) => {
