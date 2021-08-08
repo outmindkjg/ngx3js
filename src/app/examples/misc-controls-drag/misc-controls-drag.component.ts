@@ -58,7 +58,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
           if (this.enableSelection) {
             const draggableObjects = this.control.getObjects();
             draggableObjects.length = 0;
-            const intersection = this.camera.getIntersection(event.mouse, this.meshChildren);
+            const intersection = this.camera.getIntersection(event.mouse, [...this.meshChildren, ...this.group.children]);
             if (intersection !== null && intersection.object !== null) {
               const object = intersection.object;
               const group = this.group;
