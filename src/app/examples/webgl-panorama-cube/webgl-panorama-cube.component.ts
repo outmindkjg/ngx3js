@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent, ThreeUtil } from '../../three';
 
 @Component({
   selector: 'app-webgl-panorama-cube',
@@ -27,7 +27,7 @@ export class WebglPanoramaCubeComponent extends BaseComponent<{}> {
         this.canvasList.push(canvas);
       }
     }
-    imageObj.src = 'textures/cube/sun_temple_stripe.jpg';
+    imageObj.src = ThreeUtil.getStoreUrl('textures/cube/sun_temple_stripe.jpg');
   }
   
   canvasList : any[] = [];

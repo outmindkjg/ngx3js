@@ -14,7 +14,7 @@ export class WebglPerformanceStaticComponent extends BaseComponent<{}> {
 
   ngOnInit() {
     this.meshInfos = [];
-    for ( let i = 0; i < 5000; i ++ ) {
+    for ( let i = 0; i < 1000; i ++ ) {
       const scale = Math.random() * 50 + 100;
       this.meshInfos.push({
         position : {

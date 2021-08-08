@@ -30,6 +30,7 @@ import { MiscExporterGltfComponent } from './examples/misc-exporter-gltf/misc-ex
 import { MiscExporterObjComponent } from './examples/misc-exporter-obj/misc-exporter-obj.component';
 import { MiscExporterPlyComponent } from './examples/misc-exporter-ply/misc-exporter-ply.component';
 import { MiscExporterStlComponent } from './examples/misc-exporter-stl/misc-exporter-stl.component';
+import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-exporter-usdz.component';
 import { MiscLegacyComponent } from './examples/misc-legacy/misc-legacy.component';
 import { MiscLookatComponent } from './examples/misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './examples/misc-uv-tests/misc-uv-tests.component';
@@ -391,14 +392,19 @@ import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
 import { WebxrArConesComponent } from './examples/webxr-ar-cones/webxr-ar-cones.component';
 import { WebxrArHittestComponent } from './examples/webxr-ar-hittest/webxr-ar-hittest.component';
+import { WebxrArLightingComponent } from './examples/webxr-ar-lighting/webxr-ar-lighting.component';
 import { WebxrArPaintComponent } from './examples/webxr-ar-paint/webxr-ar-paint.component';
 import { WebxrVrBallshooterComponent } from './examples/webxr-vr-ballshooter/webxr-vr-ballshooter.component';
 import { WebxrVrCubesComponent } from './examples/webxr-vr-cubes/webxr-vr-cubes.component';
 import { WebxrVrDraggingComponent } from './examples/webxr-vr-dragging/webxr-vr-dragging.component';
 import { WebxrVrHandinputCubesComponent } from './examples/webxr-vr-handinput-cubes/webxr-vr-handinput-cubes.component';
+import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handinput-pointerclick/webxr-vr-handinput-pointerclick.component';
+import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
+import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
 import { WebxrVrHandinputProfilesComponent } from './examples/webxr-vr-handinput-profiles/webxr-vr-handinput-profiles.component';
 import { WebxrVrHandinputComponent } from './examples/webxr-vr-handinput/webxr-vr-handinput.component';
 import { WebxrVrHapticsComponent } from './examples/webxr-vr-haptics/webxr-vr-haptics.component';
+import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
 import { WebxrVrLorenzattractorComponent } from './examples/webxr-vr-lorenzattractor/webxr-vr-lorenzattractor.component';
 import { WebxrVrPaintComponent } from './examples/webxr-vr-paint/webxr-vr-paint.component';
 import { WebxrVrPanoramaDepthComponent } from './examples/webxr-vr-panorama-depth/webxr-vr-panorama-depth.component';
@@ -1272,6 +1278,7 @@ const routes: Routes = [
 			{ path: 'webaudio_visualizer', component: WebaudioVisualizerComponent },
 			{ path: 'webxr_ar_cones', component: WebxrArConesComponent },
 			{ path: 'webxr_ar_hittest', component: WebxrArHittestComponent },
+			{ path: 'webxr_ar_lighting', component: WebxrArLightingComponent },
 			{ path: 'webxr_ar_paint', component: WebxrArPaintComponent },
 			{ path: 'webxr_vr_ballshooter', component: WebxrVrBallshooterComponent },
 			{ path: 'webxr_vr_cubes', component: WebxrVrCubesComponent },
@@ -1285,6 +1292,10 @@ const routes: Routes = [
 				path: 'webxr_vr_handinput_profiles',
 				component: WebxrVrHandinputProfilesComponent,
 			},
+			{ path: 'webxr_vr_handinput_pointerclick', component: WebxrVrHandinputPointerclickComponent },
+			{ path: 'webxr_vr_handinput_pointerdrag', component: WebxrVrHandinputPointerdragComponent },
+			{ path: 'webxr_vr_handinput_pressbutton', component: WebxrVrHandinputPressbuttonComponent },
+			{ path: 'webxr_vr_layers', component: WebxrVrLayersComponent },
 			{ path: 'webxr_vr_haptics', component: WebxrVrHapticsComponent },
 			{
 				path: 'webxr_vr_lorenzattractor',
@@ -1348,6 +1359,7 @@ const routes: Routes = [
 			{ path: 'misc_exporter_obj', component: MiscExporterObjComponent },
 			{ path: 'misc_exporter_ply', component: MiscExporterPlyComponent },
 			{ path: 'misc_exporter_stl', component: MiscExporterStlComponent },
+			{ path: 'misc_exporter_usdz', component: MiscExporterUsdzComponent },
 			{ path: 'misc_legacy', component: MiscLegacyComponent },
 			{ path: 'misc_lookat', component: MiscLookatComponent },
 			{ path: 'css2d_label', component: Css2dLabelComponent },

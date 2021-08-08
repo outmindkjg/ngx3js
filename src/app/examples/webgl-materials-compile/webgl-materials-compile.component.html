@@ -47,7 +47,6 @@
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh *ngFor="let info of teapotInfos" [geometry]="teapot">
         <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-        <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
       </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>

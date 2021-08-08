@@ -415,6 +415,11 @@ import { Ngx3JsModule } from './three/ngx3js.module';
 import { WebgpuLightsCustomComponent } from './examples/webgpu-lights-custom/webgpu-lights-custom.component';
 import { WebgpuLightsSelectiveComponent } from './examples/webgpu-lights-selective/webgpu-lights-selective.component';
 import { WebgpuMaterialsComponent } from './examples/webgpu-materials/webgpu-materials.component';
+import { WebxrArLightingComponent } from './examples/webxr-ar-lighting/webxr-ar-lighting.component';
+import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handinput-pointerclick/webxr-vr-handinput-pointerclick.component';
+import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
+import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
+import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
 
 
 @NgModule({
@@ -829,6 +834,11 @@ import { WebgpuMaterialsComponent } from './examples/webgpu-materials/webgpu-mat
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,
 		WebgpuMaterialsComponent,
+		WebxrArLightingComponent,
+		WebxrVrHandinputPointerclickComponent,
+		WebxrVrHandinputPointerdragComponent,
+		WebxrVrHandinputPressbuttonComponent,
+		WebxrVrLayersComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
 	providers: [

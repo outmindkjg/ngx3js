@@ -698,11 +698,17 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 	 * Sets update
 	 */
 	public setUpdate() {
-		const helper: any = this.helper;
-		if (ThreeUtil.isNotNull(helper.update)) {
-			window.setTimeout(() => {
-				helper.update();
-			}, 100);
+		if (ThreeUtil.isNotNull(this.helper)) {
+			const helper: any = this.helper;
+			if (ThreeUtil.isNotNull(helper.update)) {
+				if (helper instanceof THREE.SkeletonHelper) {
+
+				} else {
+					window.setTimeout(() => {
+						helper.update();
+					}, 100);
+				}
+			}
 		}
 	}
 
@@ -751,10 +757,13 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
-				changes = ThreeUtil.pushUniq(changes, []);
+				changes = ThreeUtil.pushUniq(changes, ['update']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
+					case 'update' :
+						this.setUpdate();
+						break;
 					default:
 						break;
 				}
@@ -852,13 +861,11 @@ export class HelperComponent extends AbstractObject3dComponent implements OnInit
 									audioTarget,
 									() => {
 										positionalAudioHelper.material[0].visible = true;
-										this.setUpdate();
+										this.addChanges('update');
 									},
 									'loaded'
 								)
 							);
-						} else {
-							this.setUpdate();
 						}
 						basemesh = positionalAudioHelper;
 					} else {

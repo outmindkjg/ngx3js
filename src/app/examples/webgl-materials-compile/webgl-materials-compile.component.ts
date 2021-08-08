@@ -38,6 +38,12 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
+    setTimeout(() => {
+      this.setMeshChild();
+    }, 1000);
+  }
+
+  setMeshChild() {
     if (this.meshChildren !== null) {
       this.meshChildren.forEach((mesh : Mesh) => {
 				if ( mesh.material ) {
@@ -82,7 +88,9 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
     if (this.frame != null && this.meshChildren !== null) {
       this.frame.update(timer.delta);
       this.meshChildren.forEach((mesh : any) => {
-        this.frame.updateNode( mesh.material );
+        if (mesh.material) {
+          this.frame.updateNode( mesh.material );
+        }
       });
     }
   }

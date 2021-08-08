@@ -50,7 +50,9 @@ export class WebglLightprobeCubecameraComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.meshMaterial = this.mesh.getRealMesh().material;
+    if (this.meshObject3d !== null) {
+      this.meshMaterial = (this.meshObject3d as any).material;
+    }
   }
 
 }

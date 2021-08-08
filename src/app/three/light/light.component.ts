@@ -822,7 +822,10 @@ export class LightComponent extends AbstractObject3dComponent implements OnInit 
 							renderTarget = this.renderTarget;
 						}
 						if (renderer instanceof THREE.WebGLRenderer && renderTarget instanceof THREE.WebGLCubeRenderTarget) {
-							basemesh.copy(LightProbeGenerator.fromCubeRenderTarget(renderer, renderTarget));
+							try {
+								basemesh.copy(LightProbeGenerator.fromCubeRenderTarget(renderer, renderTarget));
+							} catch(ex) {}
+							// todo
 						}
 					}
 					break;
