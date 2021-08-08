@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
-import { BaseComponent, ControlComponent, RendererEvent } from '../../three';
+import { BaseComponent, ControlComponent, MeshComponent, RendererEvent } from '../../three';
 
 @Component({
   selector: 'app-misc-controls-drag',
@@ -61,10 +61,10 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
             const intersection = this.camera.getIntersection(event.mouse, this.meshChildren);
             if (intersection !== null && intersection.object !== null) {
               const object = intersection.object;
-              const group = this.meshObject3d;
+              const group = this.group;
               if ( group.children.includes( object ) === true ) {
                 object['material'].emissive.set( 0x000000 );
-                this.meshObject3d.parent.attach( object );
+                this.meshObject3d.attach( object );
               } else {
                 object['material'].emissive.set( 0xaaaaaa );
                 group.attach( object );
@@ -91,6 +91,12 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
       })
     }
   }
+
+  setGroup(mesh : MeshComponent) {
+    this.group = mesh.getObject3d();
+  }
+
+  group : THREE.Object3D = null;
 
   control : DragControls = null;
 

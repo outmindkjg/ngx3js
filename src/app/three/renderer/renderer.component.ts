@@ -1423,6 +1423,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 				case 'plane':
 				case 'deviceorientationcontrols' :
 				case 'deviceorientation' :
+				case 'dragcontrols' :
+				case 'drag' :
 				case 'orbitcontrols':
 				case 'flycontrols':
 				case 'firstpersoncontrols':
