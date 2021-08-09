@@ -1,67 +1,86 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - todo
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - earth [fly controls]<br/>
+  <b>WASD</b> move, <b>R|F</b> up | down, <b>Q|E</b> roll, <b>up|down</b> pitch, <b>left|right</b> yaw
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
+  <ngx3js-composer>
+    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+    <ngx3js-pass [type]="'FilmPass'" [noiseIntensity]="0.35" [scanlinesIntensity]="0.75" [scanlinesCount]="2048" [grayscale]="false"></ngx3js-pass>
+  </ngx3js-composer>
+  <ngx3js-control [type]="'FlyControls'" [movementSpeed]="1000" [rollSpeed]="7.5" [autoForward]="false" [dragToLook]="false" (onLoad)="setControl($event)"></ngx3js-control>
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+  <ngx3js-camera [type]="'perspective'" [fov]="25" [near]="50" [far]="1e7" (onLoad)="setCamera($event)">
+    <ngx3js-position [x]="0" [y]="0" [z]="6371*5"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+  <ngx3js-scene #scene>
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0x000000'" [density]="0.00000025"></ngx3js-fog>
     <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
+      [type]="'DirectionalLight'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
     >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+      <ngx3js-position [x]="-1" [y]="0" [z]="1" [normalize]="true"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+    <ngx3js-shared>
       <ngx3js-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
+        #geometry
+        [type]="'SphereGeometry'"
+        [radius]="6371"
+        [widthSegments]="100"
+        [heightSegments]="50"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
+    </ngx3js-shared>
+    <ngx3js-shared (onLoad)="setShared($event)">
+      <ngx3js-geometry 
+        [type]="'BufferGeometry'"
+        [attrPosition]="starVertices1"
       ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
+      <ngx3js-geometry 
+        [type]="'BufferGeometry'"
+        [attrPosition]="starVertices2"
+      ></ngx3js-geometry>
+      <ngx3js-material *ngFor="let info of starMaterial" 
+        [type]="'PointsMaterial'"
+        [color]="info.color"
+        [size]="info.size"
+        [sizeAttenuation]="false"
       ></ngx3js-material>
+    </ngx3js-shared>
+    <ngx3js-mesh *ngFor="let info of starInfos;let idx = index;" [geometry]="info.geometry" [material]="info.material" [type]="'Points'" [windowExport]="'star' + idx" [matrixAutoUpdate]="false">
+      <ngx3js-rotation [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-rotation>
+      <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+    </ngx3js-mesh>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh #meshPlanet [geometry]="geometry" [name]="'meshPlanet'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="0" [z]="23.49"></ngx3js-rotation>
+        <ngx3js-material [type]="'MeshPhongMaterial'" [specular]="'0x333333'" [shininess]="15" [normalScaleX]="0.85" [normalScaleY]="-0.85">
+          <ngx3js-texture [type]="'map'" [image]="'textures/planets/earth_atmos_2048.jpg'"></ngx3js-texture>
+          <ngx3js-texture [type]="'specularMap'" [image]="'textures/planets/earth_specular_2048.jpg'"></ngx3js-texture>
+          <ngx3js-texture [type]="'normalMap'" [image]="'textures/planets/earth_normal_2048.jpg'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh #meshClouds [geometry]="geometry" [name]="'meshClouds'">
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-rotation [x]="0" [y]="0" [z]="23.49"></ngx3js-rotation>
+        <ngx3js-scale [multiply]="1.005"></ngx3js-scale>
+        <ngx3js-material [type]="'MeshLambertMaterial'" [transparent]="true">
+          <ngx3js-texture [type]="'map'" [image]="'textures/planets/earth_clouds_1024.png'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh #meshMoon [geometry]="geometry" [name]="'meshMoon'">
+        <ngx3js-position [x]="6371*5" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-scale [multiply]="0.23"></ngx3js-scale>
+        <ngx3js-material [type]="'MeshLambertMaterial'" [transparent]="true">
+          <ngx3js-texture [type]="'map'" [image]="'textures/planets/moon_1024.jpg'"></ngx3js-texture>
+        </ngx3js-material>
+      </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

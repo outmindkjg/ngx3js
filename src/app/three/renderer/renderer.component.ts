@@ -586,7 +586,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			this._checkGl = domElement.getContext('webgl') || domElement.getContext('experimental-webgl');
 		}
 		if (ThreeUtil.isNotNull(this._checkGl.getExtension)) {
-			// console.log(this._checkGl.getSupportedExtensions());
 			return this._checkGl.getExtension(name) !== null;
 		} else {
 			return false;
@@ -1382,6 +1381,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Render control of renderer component
 	 */
 	private renderControl: ControlComponent = null;
+
+	/**
+	 * Gets Render controls
+	 * @returns controls
+	 */
+	public getRenderControl():ControlComponent  {
+		return this.renderControl;
+	}
 
 	/**
 	 * Gets controls

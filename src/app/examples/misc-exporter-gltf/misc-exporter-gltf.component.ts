@@ -25,22 +25,22 @@ export class MiscExporterGltfComponent extends BaseComponent<{
   constructor( private localStorageService : LocalStorageService ) {
     super({
       scene1 : () => {
-        this.exportGLTF('scene1')
+        this.exportGLTF('scene1', 'scene1')
       },
       scenes : () => {
-        this.exportGLTF(['scene1','scene2'])
+        this.exportGLTF(['scene1','scene2'], 'scene1_scene2')
       },
       object : () => {
-        this.exportGLTF(['sphere'])
+        this.exportGLTF(['sphere'], 'sphere')
       },
       waltHead : () => {
-        this.exportGLTF(['waltHead'])
+        this.exportGLTF(['waltHead'], 'waltHead')
       },
       objects : () => {
-        this.exportGLTF(['sphere','gridHelper'])
+        this.exportGLTF(['sphere','gridHelper'], 'objects')
       },
       scene_object : () => {
-        this.exportGLTF(['scene1','gridHelper'])
+        this.exportGLTF(['scene1','gridHelper'], 'scene_object')
       },
       trs : false,
       onlyVisible : true,
@@ -62,7 +62,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
     ]);
   }
 
-  exportGLTF( name : string | string[] ) {
+  exportGLTF( name : string | string[] , fileName : string ) {
     const objects : Object3D[] = [];
     const objNames : string[] = [];
     if (Array.isArray(name)) {
@@ -86,7 +86,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
       }
     })
 
-    this.localStorageService.getExportObject('scene.gltf', objects, {
+    this.localStorageService.getExportObject(fileName + '.gltf', objects, {
       trs: this.controls.trs,
       onlyVisible: this.controls.onlyVisible,
       truncateDrawRange: this.controls.truncateDrawRange,
@@ -95,5 +95,60 @@ export class MiscExporterGltfComponent extends BaseComponent<{
     });
 
   }
-  
+
+  ngOnInit() {
+    this.lineStripPosition = [];
+    for ( let i = 0; i < 100; i ++ ) {
+      this.lineStripPosition.push(i,Math.sin( i / 2 ) * 20, 0);
+    }
+    this.lineLoopPosition = [];
+    const radius = 70;
+    for ( let i = 0; i < 100; i ++ ) {
+      const s = i * Math.PI * 2 / 100;
+      this.lineLoopPosition.push(
+        radius * Math.sin( s ),
+        radius * Math.cos( s ),
+        0
+      );
+    }
+    const numElements = 6;
+    const outOfRange = 3;
+    this.truncatedPosition = [];
+    this.truncatedPosition.push(
+      0, 0, 0,
+      0, 80, 0,
+      80, 0, 0,
+      80, 0, 0,
+      0, 80, 0,
+      80, 80, 0
+    );
+    this.truncatedColors = [];
+    this.truncatedColors.push(
+      1, 0, 0,
+      1, 0, 0,
+      1, 1, 0,
+      1, 1, 0,
+      0, 0, 1,
+      0, 0, 1,
+    );
+    this.pointCloudPosition = [];
+    for ( let i = 0; i < 100; i ++ ) {
+      this.pointCloudPosition.push(
+        - 50 + Math.random() * 100,
+        Math.random() * 100,
+        - 50 + Math.random() * 100
+      )
+    }
+    this.lathePoints = [];
+    for ( let i = 0; i < 50; i ++ ) {
+      this.lathePoints.push( {x : Math.sin( i * 0.2 ) * Math.sin( i * 0.1 ) * 15 + 50, y : ( i - 5 ) * 2 });
+    }
+  }
+
+  lineStripPosition : number[] = [];
+  lineLoopPosition : number[] = [];
+  truncatedPosition : number[] = [];
+  truncatedColors : number[] = [];
+  pointCloudPosition : number[] = [];
+  lathePoints : {x : number, y : number}[] = [];
 }

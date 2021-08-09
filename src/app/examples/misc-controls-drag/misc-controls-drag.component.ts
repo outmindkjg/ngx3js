@@ -75,7 +75,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
           }
           break;
         default :
-          console.log(event.type);
+          // console.log(event.type);
           break;
       }
     }

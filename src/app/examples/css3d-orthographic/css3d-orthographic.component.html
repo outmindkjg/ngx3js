@@ -13,7 +13,7 @@
   (onRender)="onRender($event)"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'OrthographicCamera'" [orthoSize]="0.3" [fov]="45" [near]="1" [far]="1000">
+  <ngx3js-camera [type]="'OrthographicCamera'" [orthoSize]="500" [fov]="45" [near]="1" [far]="1000">
     <ngx3js-position [x]="-200" [y]="200" [z]="200"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0xf0f0f0'">

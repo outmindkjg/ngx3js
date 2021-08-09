@@ -8,21 +8,16 @@ import { LocalStorageService } from '../../three/local-storage.service';
   styleUrls: ['./misc-exporter-usdz.component.scss']
 })
 export class MiscExporterUsdzComponent extends BaseComponent<{
-  ascii : () => void,
-  binary : () => void
+  downloadUsdz : () => void
 }> {
 
   constructor(private localStorageService : LocalStorageService) {
     super({
-      ascii : () => {
-        this.localStorageService.getExportObject('box.stl', this.scene.getScene());
-      },
-      binary : () => {
-        this.localStorageService.getExportObject('box.stl', this.scene.getScene(), { binary : true });
+      downloadUsdz : () => {
+        this.localStorageService.getExportObject('asset.usdz', this.scene.getScene());
       }
     },[
-      { name : 'ascii', title : 'export ASCII' , type : 'button'},
-      { name : 'binary', title : 'export binary' , type : 'button'},
+      { name : 'downloadUsdz', title : 'export Usdz' , type : 'button'}
     ]);
   }
 

@@ -1,6 +1,5 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - exporter - gltf
-  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -199,9 +198,35 @@
           [heightSegments]="5"
         ></ngx3js-geometry>
       </ngx3js-mesh>
+
       <ngx3js-mesh [name]="'waltHead'" [storageName]="'models/obj/walt/WaltHead.obj'">
         <ngx3js-position [x]="400" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-scale [multiply]="1.5"></ngx3js-scale>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'line'">
+        <ngx3js-position [x]="-50" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="lineStripPosition"></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xffff00'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [type]="'LineLoop'">
+        <ngx3js-position [x]="0" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="lineLoopPosition"></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xffff00'"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh [name]="'Custom buffered truncated'">
+        <ngx3js-position [x]="140" [y]="-40" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="truncatedPosition" [attrColor]="truncatedColors"></ngx3js-geometry>
+        <ngx3js-material [type]="'LineBasicMaterial'" [side]="'double'" [vertexColors]="true"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh #pointCloud [name]="'Points'" [type]="'Points'">
+        <ngx3js-position [x]="-200" [y]="0" [z]="-200"></ngx3js-position>
+        <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="pointCloudPosition"></ngx3js-geometry>
+        <ngx3js-material [type]="'PointsMaterial'" [color]="'0xffff00'" [size]="5"></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="200" [y]="0" [z]="400"></ngx3js-position>
+        <ngx3js-geometry [type]="'LatheGeometry'" [points]="lathePoints" [segments]="20"></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0xffff00'" [side]="'double'"></ngx3js-material>
       </ngx3js-mesh>
     </ngx3js-mesh>
     <ngx3js-helper 

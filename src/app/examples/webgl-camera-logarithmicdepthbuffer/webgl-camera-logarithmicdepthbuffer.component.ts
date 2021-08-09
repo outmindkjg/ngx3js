@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent, GeometryComponent, RendererComponent, RendererTimer } from '../../three';
+import { Component } from '@angular/core';
 import * as THREE from 'three';
+import { BaseComponent, RendererComponent, RendererTimer } from '../../three';
 import { CameraComponent } from '../../three/camera/camera.component';
 
 @Component({
@@ -9,13 +9,13 @@ import { CameraComponent } from '../../three/camera/camera.component';
   styleUrls: ['./webgl-camera-logarithmicdepthbuffer.component.scss']
 })
 export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
-  logarithmicDepthBuffer : boolean,
+  screenRate : number,
   reset : () => void
  }> {
 
   constructor() {
     super({
-      logarithmicDepthBuffer : true,
+      screenRate : 30,
       reset : () => {
         this.mouse = [ .5, .5 ];
         this.zoompos = - 100;
@@ -23,7 +23,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
         this.zoomspeed = this.minzoomspeed;
       }
     },[
-      { name : "logarithmicDepthBuffer", type : "checkbox"},
+      { name : "screenRate", type : "number", min : 0, max : 100 },
       { name : "reset", type : "button"}
     ]);
   }
@@ -57,18 +57,24 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
     })
   }
 
-  camera : CameraComponent = null;
-
-  setCamera(camera : CameraComponent) {
-    this.camera = camera;
-  }
-
   renderer : RendererComponent = null;
 
   setRenderer(renderer : RendererComponent) {
     this.renderer = renderer;
   }
 
+  camera1 : THREE.Camera = null;
+
+  setCamera1(camera : CameraComponent) {
+    this.camera1 = camera.getCamera();
+  }
+
+  camera2 : THREE.Camera = null;
+
+  setCamera2(camera : CameraComponent) {
+    this.camera2 = camera.getCamera();
+  }
+  
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     const minzoom = this.labelData[ 0 ].size * this.labelData[ 0 ].scale * 1;
@@ -81,14 +87,20 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
     }
     this.zoompos += this.zoomspeed;
     this.zoomspeed *= damping;
-    if (this.camera !== null) {
-      this.camera.setPosition(
+    if (this.camera1 !== null) {
+      this.camera1.position.set(
         Math.sin( .5 * Math.PI * ( this.mouse[ 0 ] - .5 ) ) * zoom,
         Math.sin( .5 * Math.PI * ( this.mouse[ 1 ] - .5 ) ) * zoom,
         Math.cos( .5 * Math.PI * ( this.mouse[ 0 ] - .5 ) ) * zoom
       )
-      this.camera.setLookat(0,0,0);
+      this.camera1.lookAt(0,0,0);
+      if (this.camera2!== null) {
+        this.camera2.position.copy(this.camera1.position);
+        this.camera2.quaternion.copy(this.camera1.quaternion);
+      }
     }
+
+
   }
   
 }

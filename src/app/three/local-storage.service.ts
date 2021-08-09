@@ -449,6 +449,25 @@ export class LocalStorageService {
    * @param [options]
    */
   public getExportObject(fileName: string, object: THREE.Object3D | THREE.Object3D[], options?: any) {
+    if (object instanceof THREE.Object3D) {
+      object.traverse(child => {
+        Object.entries(child.userData).forEach(([key, value]) => {
+          if (typeof value === 'object') {
+            delete child.userData[key];
+          }
+        })
+      })
+    } else {
+      object.forEach(gchild => {
+        gchild.traverse(child => {
+          Object.entries(child.userData).forEach(([key, value]) => {
+            if (typeof value === 'object') {
+              delete child.userData[key];
+            }
+          })
+        })
+      });
+    }
     if (fileName.endsWith('.dae')) {
       if (this.colladaExporter === null) {
         this.colladaExporter = new ColladaExporter();
@@ -473,6 +492,15 @@ export class LocalStorageService {
       if (object instanceof THREE.Mesh || object instanceof THREE.Points) {
         const result = this.dracoExporter.parse(object, {});
         this.saveArrayBuffer(result, fileName);
+      }
+    } else if (fileName.endsWith('.usdz')) {
+      if (this.usdzExporter === null) {
+        this.usdzExporter = new USDZExporter();
+      }
+      if (object instanceof THREE.Object3D) {
+        this.usdzExporter.parse(object).then(result => {
+          this.saveArrayBuffer(result, fileName);
+        })
       }
     } else if (fileName.endsWith('.gltf') || fileName.endsWith('.glb')) {
       if (this.gltfExporter === null) {

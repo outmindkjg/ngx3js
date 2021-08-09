@@ -130,6 +130,12 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
    * 
    * Notice - case insensitive.
    * 
+	 * @see THREE.NoBlending - NoBlending, No
+	 * @see THREE.NormalBlending - NormalBlending, Normal
+	 * @see THREE.AdditiveBlending - AdditiveBlending, Additive
+	 * @see THREE.SubtractiveBlending - SubtractiveBlending, Subtractive
+	 * @see THREE.MultiplyBlending - MultiplyBlending, Multiply
+	 * @see THREE.CustomBlending - CustomBlending, Custom
    */
   @Input() protected blending: string = null;
 

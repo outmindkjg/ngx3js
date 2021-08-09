@@ -3,20 +3,34 @@
     mousewheel to dolly out todo
 </div>
 <ngx3js-renderer
-  [controlType]="'or1bit'"
+  [controlType]="'orbi1t'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0x000000'"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
-  [logarithmicDepthBuffer]="controls.logarithmicDepthBuffer"
+  [logarithmicDepthBuffer]="true"
   (onRender)="onRender($event)"
   (onLoad)="setRenderer($event)"
+  [x]="controls.screenRate + '%'"
+  [y]="0"
+  [width]="(100 - controls.screenRate) + '%'"
+  [height]="'100%'"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'">
+  <ngx3js-camera #camera (onLoad)="setCamera1($event)" 
+    [type]="'perspective'" 
+    [fov]="50" 
+    [near]="'1e-6'" 
+    [far]="'1e27'"
+    [viewport]="true"
+    [viewportType]="'offset'"
+    [x]="controls.screenRate + '%'"
+    [y]="0"
+    [width]="(100 - controls.screenRate) + '%'"
+    [height]="'100%'"
+  >
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
   <ngx3js-scene #scene>
     <ngx3js-light [type]="'Ambient'" [color]="'0x222222'"></ngx3js-light>
@@ -57,4 +71,29 @@
       </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>
+</ngx3js-renderer>
+<ngx3js-renderer
+  [antialias]="true"
+  [shadowMapEnabled]="true"
+  [logarithmicDepthBuffer]="false"
+  [x]="0"
+  [y]="0"
+  [width]="controls.screenRate + '%'"
+  [height]="'100%'"
+  [scene]="scene"
+  >
+  <ngx3js-camera 
+    [type]="'perspective'" 
+    [fov]="50" 
+    [near]="'1e-6'" 
+    [far]="'1e27'" 
+    [viewport]="true"
+    [viewportType]="'offset'"
+    [x]="0"
+    [y]="0"
+    [width]="controls.screenRate + '%'"
+    [height]="'100%'"
+    (onLoad)="setCamera2($event)">
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+  </ngx3js-camera>
 </ngx3js-renderer>

@@ -72,6 +72,14 @@ export const CanvasConf: {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, calc(128, s.x), calc(128, s.y));
   },
+  shadow2: (ctx: CanvasRenderingContext2D, _: string, width: number, height: number) => {
+    const s = TextureUtils.scale(width, height, 128, 128);
+    const gradient = ctx.createRadialGradient(calc(64, s.x), calc(64, s.y), 0, calc(64, s.x), calc(64, s.y), calc(64, s.x));
+    gradient.addColorStop(0.1, 'rgba(130,130,130,1)');
+    gradient.addColorStop(1, 'rgba(255,255,255,1)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, calc(128, s.x), calc(128, s.y));
+  },
   oblique: (ctx: CanvasRenderingContext2D, _: string, width: number, height: number) => {
     const s = TextureUtils.scale(width, height, 256, 256);
     const image = ctx.getImageData(0, 0, calc(256, s.x), calc(256, s.y));

@@ -7,6 +7,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { LookatComponent } from '../lookat/lookat.component';
@@ -141,7 +143,7 @@ export interface ControlOptions {
 	movementSpeed?: number;
 
 	/**
-	 * The rollSpeed of control
+	 * The rollSpeed of control in degree
 	 */
 	rollSpeed?: number;
 
@@ -349,6 +351,12 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * The staticMoving of control
 	 */
 	@Input() private staticMoving: boolean = null;
+
+	/**
+	 * The keys of control
+	 */
+	@Input() private keys: string[] = null;
+	
 
 	/**
 	 * The rotateSpeed of control
@@ -744,6 +752,12 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					const deviceOrientationControls = new DeviceOrientationControls(camera);
 					control = deviceOrientationControls;
 					break;
+				case 'pointerlockcontrols' :
+				case 'pointerlock' :
+					const pointerLockControls = new PointerLockControls(camera);
+					control = pointerLockControls;
+					this._scene.first.getScene().add(pointerLockControls.getObject());
+					break;
 				case 'dragcontrols':
 				case 'drag':
 					const dragControls = new DragControls([], camera, domElement);
@@ -814,6 +828,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					const trackballControls = new TrackballControls(camera, domElement);
 					if (ThreeUtil.isNotNull(this.staticMoving)) {
 						trackballControls.staticMoving = this.staticMoving;
+					}
+					if (ThreeUtil.isNotNull(this.keys)) {
+						trackballControls.keys = this.keys;
 					}
 					control = trackballControls;
 					break;
@@ -937,21 +954,19 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * @param renderTimer
 	 */
 	public render(renderTimer: RendererTimer) {
-		if (this.control !== null) {
-			if (this.control instanceof OrbitControls) {
-				this.control.update();
-			} else if (this.control instanceof DeviceOrientationControls) {
-				this.control.update();
-			} else if (this.control instanceof CSM) {
-				this.control.update();
-			} else if (this.control instanceof FlyControls) {
+		if (this.control !== null && ThreeUtil.isNotNull(this.control.update)) {
+			if (
+				this.control instanceof FlyControls || 
+				this.control instanceof FirstPersonControls ||
+				this.control instanceof PlaneControls
+			) {
 				this.control.update(renderTimer.delta);
-			} else if (this.control instanceof FirstPersonControls) {
-				this.control.update(renderTimer.delta);
-			} else if (this.control instanceof TrackballControls) {
+			} else if (
+					this.control instanceof TransformControls 
+			) {
+				// pass
+			} else {
 				this.control.update();
-			} else if (this.control instanceof PlaneControls) {
-				this.control.update(renderTimer.delta);
 			}
 		}
 	}

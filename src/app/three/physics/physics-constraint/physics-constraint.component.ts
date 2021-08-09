@@ -119,7 +119,6 @@ export class PhysicsConstraintComponent extends AbstractSubscribeComponent imple
       }
 
       if (!ThreeUtil.isOnlyIndexOf(changes, ['angularmotor', 'enablemotor','targetvelocity','maxMotorimpulse'], this.OBJECT_ATTR)) {
-        // console.log(changes);
         this.needUpdate = true;
         return;
       }

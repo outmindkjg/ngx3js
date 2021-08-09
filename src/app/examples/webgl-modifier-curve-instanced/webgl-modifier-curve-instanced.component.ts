@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Object3D, Vector2 } from 'three';
-import { Flow } from 'three/examples/jsm/modifiers/CurveModifier';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererEvent } from '../../three';
 import { ControlComponent } from '../../three/control/control.component';
 
 @Component({

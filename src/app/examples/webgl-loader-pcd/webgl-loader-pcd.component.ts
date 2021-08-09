@@ -15,7 +15,6 @@ export class WebglLoaderPcdComponent extends BaseComponent<{}> {
   setKeyPress(event : RendererEvent) {
     if (this.meshObject3d !== null && this.meshObject3d.userData.storageSource !== null && this.meshObject3d.userData.storageSource !== undefined) {
       const points = this.meshObject3d.userData.storageSource;
-      console.log(event.keyInfo.code);
       switch( event.keyInfo.code) {
         case 'Equal':
           points.material.size *= 1.2;

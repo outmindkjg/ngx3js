@@ -1318,7 +1318,6 @@ export class RigidbodyComponent extends AbstractSubscribeComponent implements On
 								(geometry.getAttribute('position') as THREE.BufferAttribute).setUsage(THREE.DynamicDrawUsage);
 								break;
 							default:
-								console.log(geometry.type);
 								break;
 						}
 						break;

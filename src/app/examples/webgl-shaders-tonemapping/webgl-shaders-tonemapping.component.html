@@ -3,7 +3,7 @@
   Earth diffuse and city lights by <a href="http://seanward.org" target="_blank" rel="noopener">Sean Ward</a>
   todo
 </div>
-<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true, autoRotateSpeed : 1 }" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true, autoRotateSpeed : 1 }" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.1" [far]="100000">
     <ngx3js-position [x]="700" [y]="400" [z]="800"></ngx3js-position>

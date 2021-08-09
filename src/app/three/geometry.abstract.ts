@@ -394,9 +394,23 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	@Input() private programParam: any = null;
 
 	/**
+	 * drawRangeStart of abstract geometry component
+	 * 
+	 * @see THREE.BufferGeometry setDrawRange
+	 */
+	@Input() private drawRangeStart: number = null;
+	
+	/**
+	 * drawRangeCount of abstract geometry component
+	 * 
+	 * @see THREE.BufferGeometry setDrawRange
+	 */
+	@Input() private drawRangeCount: number = null;
+
+	/**
 	 * Input  of abstract geometry component
 	 */
-	@Input() private onInit: (geometry: THREE.BufferGeometry) => void = null;
+	@Input() private onInit: (geometry: THREE.BufferGeometry) => void | THREE.BufferGeometry = null;
 
 	/**
 	 * Content children of abstract geometry component
@@ -421,7 +435,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	/**
 	 * Geometry attr of abstract geometry component
 	 */
-	protected GEOMETRY_ATTR: string[] = ['name', 'align'];
+	protected GEOMETRY_ATTR: string[] = ['name', 'align', 'drawrangestart', 'drawrangecount'];
 
 	/**
 	 * Creates an instance of abstract geometry component.
@@ -688,21 +702,21 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 		if (attribute instanceof THREE.BufferAttribute) {
 			return attribute;
 		} else if (attribute instanceof Int8Array) {
-			bufferAttribute = new THREE.Int8BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Int16Array) {
-			bufferAttribute = new THREE.Int16BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Int32Array) {
-			bufferAttribute = new THREE.Int32BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Uint8Array) {
-			bufferAttribute = new THREE.Uint8BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Uint16Array) {
-			bufferAttribute = new THREE.Uint16BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Uint32Array) {
-			bufferAttribute = new THREE.Uint32BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Float32Array) {
-			bufferAttribute = new THREE.Float32BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else if (attribute instanceof Float64Array) {
-			bufferAttribute = new THREE.Float64BufferAttribute(attribute, itemSize);
+			bufferAttribute = new THREE.BufferAttribute(attribute, itemSize);
 		} else {
 			switch ((bufferType || 'float').toLowerCase()) {
 				case 'int':
@@ -1108,6 +1122,9 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 				if (ThreeUtil.isNotNull(this.program)) {
 					GeometryUtils.getGeometry(this.program, geometry, this.programParam);
 				}
+				if (ThreeUtil.isNotNull(this.drawRangeStart) && ThreeUtil.isNotNull(this.drawRangeCount)) {
+					geometry.setDrawRange(this.drawRangeStart, this.drawRangeCount);
+				}
 				if (this.center) {
 					geometry.center();
 				}
@@ -1230,7 +1247,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					geometry.computeBoundingBox();
 				}
 				if (this.toNonIndexed) {
-					geometry.toNonIndexed();
+					geometry = geometry.toNonIndexed();
 				}
 				if (this.flipY && ThreeUtil.isNotNull(geometry.getAttribute('uv'))) {
 					const uv = geometry.attributes.uv;
@@ -1239,13 +1256,15 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					}
 				}
 			}
+			if (ThreeUtil.isNotNull(this.onInit)) {
+				const tmpGeometry = this.onInit(geometry);
+				if (ThreeUtil.isNotNull(tmpGeometry) && tmpGeometry instanceof THREE.BufferGeometry) {
+					geometry = tmpGeometry;
+				}
+			}
 			this.geometry = geometry;
-			// this.geometry = GeometryUtils.mergeVertices(geometry);
 			if (ThreeUtil.isNotNull(this.name)) {
 				this.geometry.name = this.name;
-			}
-			if (ThreeUtil.isNotNull(this.onInit)) {
-				this.onInit(this.geometry);
 			}
 			this.synkMesh(this.geometry);
 			super.setObject(this.geometry);
@@ -1277,10 +1296,18 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
-				changes = ThreeUtil.pushUniq(changes, ['name', 'refgeometry', 'align']);
+				changes = ThreeUtil.pushUniq(changes, ['name', 'refgeometry', 'align', 'drawrange']);
+			}
+			if (ThreeUtil.isIndexOf(changes, ['drawrangecount', 'drawrangestart'])) {
+				changes = ThreeUtil.pushUniq(changes, ['drawrange']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
+					case 'drawrange' :
+						if (ThreeUtil.isNotNull(this.drawRangeStart) && ThreeUtil.isNotNull(this.drawRangeCount)) {
+							this.geometry.setDrawRange(this.drawRangeStart, this.drawRangeCount);
+						}
+						break;
 					case 'name':
 						if (ThreeUtil.isNotNull(this.name)) {
 							this.geometry.name = ThreeUtil.getTypeSafe(this.name, 'No Name');

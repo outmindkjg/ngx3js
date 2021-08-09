@@ -336,8 +336,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param [width]
    * @returns left
    */
-  private getLeft(width?: number): number {
-    return width * ThreeUtil.getTypeSafe(this.left, this.orthoSize * -1);
+  private getLeft(aspect: number): number {
+    return this.orthoSize / 2 * aspect * ThreeUtil.getTypeSafe(this.left, -1);
   }
 
   /**
@@ -345,8 +345,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param [width]
    * @returns right
    */
-  private getRight(width?: number): number {
-    return width * ThreeUtil.getTypeSafe(this.right, this.orthoSize);
+  private getRight(aspect?: number): number {
+    return this.orthoSize / 2 * aspect * ThreeUtil.getTypeSafe(this.right, 1);
   }
 
   /**
@@ -354,8 +354,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param [top]
    * @returns top
    */
-  private getTop(top?: number): number {
-    return top * ThreeUtil.getTypeSafe(this.top, this.orthoSize);
+  private getTop(): number {
+    return this.orthoSize / 2 * ThreeUtil.getTypeSafe(this.top, 1);
   }
 
   /**
@@ -363,8 +363,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
    * @param [bottom]
    * @returns bottom
    */
-  private getBottom(bottom?: number): number {
-    return bottom * ThreeUtil.getTypeSafe(this.bottom, this.orthoSize * -1);
+  private getBottom(): number {
+    return this.orthoSize / 2 * ThreeUtil.getTypeSafe(this.bottom, -1);
   }
 
   /**
@@ -405,7 +405,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     if (this.viewport) {
       const cWidth = this.getWidth();
       const cHeight = this.getHeight();
-      return cWidth / cHeight;
+      switch(this.viewportType.toLowerCase()) {
+        case 'offset' :
+          return cWidth / cHeight;
+        default :
+          return cWidth / cHeight;
+      }
     } else {
       return width > 0 && height > 0 ? (width / height) * this.aspect : 0.5;
     }
@@ -652,10 +657,20 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, []);
+        changes = ThreeUtil.pushUniq(changes, ['viewoffset']);
+      }
+      if (ThreeUtil.isIndexOf(changes, ['x','y','width', 'height'])) {
+        changes = ThreeUtil.pushUniq(changes, ['viewoffset']);
       }
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
+          case 'viewoffset' :
+            if (this.viewport && this.viewportType === 'offset') {
+              if (this.camera instanceof THREE.PerspectiveCamera || this.camera instanceof THREE.OrthographicCamera) {
+                this.camera.setViewOffset(this.cameraWidth, this.cameraHeight, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+              }
+            }
+            break;
         }
       });
       super.applyChanges3d(changes);
@@ -747,10 +762,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
     }
     if (this.camera !== null) {
       if (this.camera instanceof THREE.OrthographicCamera) {
-        this.camera.left = this.getLeft(width);
-        this.camera.right = this.getRight(width);
-        this.camera.top = this.getTop(height);
-        this.camera.bottom = this.getBottom(height);
+        const aspect = width / height;
+        this.camera.left = this.getLeft(aspect);
+        this.camera.right = this.getRight(aspect);
+        this.camera.top = this.getTop();
+        this.camera.bottom = this.getBottom();
         this.camera.updateProjectionMatrix();
       } else if (this.camera instanceof THREE.PerspectiveCamera) {
         this.camera.aspect = this.getAspect(width, height);
@@ -759,6 +775,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         }
         this.camera.updateProjectionMatrix();
       }
+      this.applyChanges(['viewoffset']);
       this.camera.dispatchEvent({
         type: 'change',
         width: width,
@@ -860,7 +877,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
         case 'orthographiccamera':
         case 'orthographic':
         case 'ortho':
-          const orthographicCamera = new THREE.OrthographicCamera(this.getLeft(width), this.getRight(width), this.getTop(height), this.getBottom(height), this.getNear(-200), this.getFar(2000));
+          const aspect = width / height;
+          const orthographicCamera = new THREE.OrthographicCamera(this.getLeft(aspect), this.getRight(aspect), this.getTop(), this.getBottom(), this.getNear(-200), this.getFar(2000));
           if (ThreeUtil.isNotNull(this.zoom)) {
             orthographicCamera.zoom = this.getZoom(1);
           }

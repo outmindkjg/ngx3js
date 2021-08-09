@@ -789,6 +789,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 									}
 									textureOption[key.toLowerCase()] = ThreeUtil.getVector2Safe(parseFloat(x), parseFloat(y), null, null, true);
 									break;
+								default :
+									textureOption[key] = parseFloat(value);
+									break;
 							}
 						}
 				}
@@ -820,7 +823,8 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 		} else {
 			if (image === 'room') {
 				const pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
-				texture = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+				console.log(textureOption.sigma)
+				texture = pmremGenerator.fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(textureOption.sigma, 0)).texture;
 			} else {
 				texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
 					this.setTextureOptions(texture, textureOption);
