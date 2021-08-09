@@ -139,12 +139,13 @@
     }
   }
 
-  .bottom {
+  div.bottom {
     position: absolute;
     top: auto;
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 0;
   }
 }
 

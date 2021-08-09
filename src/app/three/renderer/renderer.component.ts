@@ -56,6 +56,12 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	@Input() private cssType: string = 'none';
 
 	/**
+	 * The type of css canvas class
+	 *
+	 */
+	 @Input() public cssClass: string = '';
+
+	/**
 	 * The type of control
 	 *
 	 * Notice - case insensitive.
@@ -921,7 +927,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 				composer.setComposerSize(this.rendererWidth, this.rendererHeight);
 			});
 			this.cameraList.forEach((camera) => {
-				camera.setCameraSize(this.rendererWidth, this.rendererHeight);
+				camera.setCameraSize(this.rendererWidth, this.rendererHeight, width, height);
 			});
 			this.viewerList.forEach((viewer) => {
 				viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
@@ -1092,6 +1098,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 						'outputencoding',
 						'clippingplanes',
 						'canvas2d',
+						'cssclass',
 						'controltype',
 						'controloptions',
 						'guiparams',
