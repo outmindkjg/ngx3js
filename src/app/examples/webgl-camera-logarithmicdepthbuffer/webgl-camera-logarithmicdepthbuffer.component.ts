@@ -99,8 +99,6 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
         this.camera2.quaternion.copy(this.camera1.quaternion);
       }
     }
-
-
   }
   
 }

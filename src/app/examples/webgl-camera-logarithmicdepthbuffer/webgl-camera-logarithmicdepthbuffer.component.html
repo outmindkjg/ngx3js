@@ -10,7 +10,7 @@
     logarithmic z-buffer
   </div>
 </div>
-<ngx3js-renderer [controlType]="'orbi1t'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [logarithmicDepthBuffer]="true" (onRender)="onRender($event)" (onLoad)="setRenderer($event)" [x]="controls.screenRate + '%'" [y]="0" [width]="(100 - controls.screenRate) + '%'" [height]="'100%'">
+<ngx3js-renderer [controlType]="'or1bit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [logarithmicDepthBuffer]="true" (onRender)="onRender($event)" (onLoad)="setRenderer($event)" [x]="controls.screenRate + '%'" [y]="0" [width]="(100 - controls.screenRate) + '%'" [height]="'100%'">
   <ngx3js-camera #camera (onLoad)="setCamera1($event)" [type]="'perspective'" [fov]="50" [near]="'1e-6'" [far]="'1e27'" [viewport]="true" [viewportType]="'offset'" [x]="controls.screenRate + '%'" [y]="0" [width]="'100%'" [height]="'100%'">
     <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   </ngx3js-camera>
