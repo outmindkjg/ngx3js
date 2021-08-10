@@ -2027,6 +2027,8 @@ export class ThreeUtil {
 			return object3d.getCamera() as T;
 		} else if (this.isNotNull(object3d.getScene)) {
 			return object3d.getScene() as T;
+		} else if (this.isNotNull(object3d.getMesh)) {
+			return object3d.getMesh() as T;
 		} else if (this.isNotNull(object3d.getObject3d)) {
 			return object3d.getObject3d() as T;
 		}
@@ -2483,7 +2485,7 @@ export class ThreeUtil {
 				return object3d.scale;
 			}
 		}
-		return new THREE.Vector3();
+		return new THREE.Vector3(1,1,1);
 	}
 
 	/**

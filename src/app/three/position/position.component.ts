@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { TagAttributes, ThreeUtil } from '../interface';
+import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { AbstractTweenComponent } from '../tween.abstract';
 
 /**
@@ -17,6 +18,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
    */
   @Input() public type: string = 'position';
 
+  /**
+   * refName  of position component
+   */
+   @Input() private refName: string = null;
+  
   /**
    * Input  of position component
    */
@@ -128,20 +134,36 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   /**
    * Object3d  of position component
    */
-  private _object3d: THREE.Object3D = null;
+  private _object3d: {
+    [key : string] : THREE.Object3D
+  } = {};
 
   /**
    * Sets object3d
    * @param object3d 
    */
-  public setObject3d(object3d: THREE.Object3D) {
+  public setObject3d(object3d: AbstractSubscribeComponent) {
     if (ThreeUtil.isNotNull(object3d)) {
-      this._object3d = object3d;
-      this.position = null;
+      const key : string = object3d.getId();
+      const object = ThreeUtil.getObject3d(object3d);
+      if (ThreeUtil.isNotNull(this.refName) && ThreeUtil.isNotNull(object) ) {
+        this._object3d[key] = object.getObjectByName(this.refName);
+      } else {
+        this._object3d[key] = object;
+      }
+      this.subscribeRefer('position_' + key, ThreeUtil.getSubscribe(object3d, () => {
+        this.setObject3d(object3d);
+      }, 'loaded'));
+      this.subscribeRefer('unposition_' + key, ThreeUtil.getSubscribe(object3d, () => {
+        this.unSubscribeRefer('position_' + key);
+        this.unSubscribeRefer('unposition_' + key);
+        delete this._object3d[key];
+      }, 'unloaded'));
       this.getPosition();
       this.synkObject3d(this.position);
     }
   }
+
 
   /**
    * Synks object3d
@@ -150,30 +172,44 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   synkObject3d(position: THREE.Vector3 = null) {
     if (ThreeUtil.isNotNull(position) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
-        let idKey = 'position';
-        let targetPosition: THREE.Vector3 = null;
-        switch (this.type.toLowerCase()) {
-          case 'up':
-            idKey = 'positionUp';
-            targetPosition = this._object3d.up;
-            break;
-          case 'lookat':
-            idKey = 'positionLookat';
-            targetPosition = this.position.clone();
-            break;
-          default:
-            idKey = 'position';
-            targetPosition = this._object3d.position;
-            break;
-        }
-        if (this.isIdEuals(this._object3d.userData[idKey])) {
-          this._object3d.userData[idKey] = this.id;
-          targetPosition.copy(position);
-          if (idKey === 'positionLookat') {
-            this._object3d.lookAt(position);
+        Object.entries(this._object3d).forEach(([_, object3d]) => {
+          if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
+            switch (this.type.toLowerCase()) {
+              case 'up':
+                if (ThreeUtil.isNull(object3d.up)) {
+                  object3d.up = THREE.Object3D.DefaultUp.clone();
+                }
+                object3d.up.copy(position);
+                break;
+              case 'lookat':
+                object3d.lookAt(position);
+                break;
+              default:
+                if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+                  object3d.position.copy(position);
+                } else if (ThreeUtil.isNotNull(this.x) || ThreeUtil.isNotNull(this.y) || ThreeUtil.isNotNull(this.z)) {
+                  if (ThreeUtil.isNotNull(this.x)) {
+                    object3d.position.x = position.x;
+                  }
+                  if (ThreeUtil.isNotNull(this.y)) {
+                    object3d.position.y = position.y;
+                    console.log(position);
+                  }
+                  if (ThreeUtil.isNotNull(this.z)) {
+                    object3d.position.z = position.z;
+                  }
+                } else {
+                  if (ThreeUtil.isNotNull(this.multiply)) {
+                    object3d.position.multiplyScalar(this.multiply);
+                  }
+                }
+                break;
+            }
+          } else {
+            console.log(object3d);
           }
-        }
-      } else {
+        });
+      } else if (this.position !== position){
         this.position.copy(position);
       }
     }
@@ -259,19 +295,7 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       position = ThreeUtil.getPosition(this.refer);
     }
     if (position === null) {
-      let x  = 0;
-      let y  = 0;
-      let z  = 0;
-      if (ThreeUtil.isNotNull(this._object3d)) {
-        x = ThreeUtil.getTypeSafe(this.x, this._object3d.position.x);
-        y = ThreeUtil.getTypeSafe(this.y, this._object3d.position.y);
-        z = ThreeUtil.getTypeSafe(this.z, this._object3d.position.z);
-      } else {
-        x = ThreeUtil.getTypeSafe(this.x, 0);
-        y = ThreeUtil.getTypeSafe(this.y, 0);
-        z = ThreeUtil.getTypeSafe(this.z, 0);
-      }
-      position = ThreeUtil.getVector3Safe(x, y, z, new THREE.Vector3(0, 0, 0));
+      position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
       if (ThreeUtil.isNotNull(this.setfrom)) {
         switch (this.setfrom.toLowerCase()) {
           case 'spherical':

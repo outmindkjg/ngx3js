@@ -65,6 +65,15 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   protected id: string = '';
 
   /**
+   * Gets id
+   * 
+   * @returns id 
+   */
+  public getId(): string {
+    return this.id;
+  }
+
+  /**
    * A callback method that is invoked immediately after the
    * default change detector has checked the directive's
    * data-bound properties for the first time,
@@ -85,6 +94,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
+    this.setSubscribeNext('unloaded');
     if (this._subscribe !== null) {
       for (let key in this._subscribe) {
         this._subscribe[key].unsubscribe();

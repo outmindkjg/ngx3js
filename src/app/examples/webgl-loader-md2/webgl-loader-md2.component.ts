@@ -56,6 +56,7 @@ export class WebglLoaderMd2Component extends BaseComponent<{
 
   config = {
     type : 'MD2Character',
+    scale : 3,
     baseUrl: "models/md2/ratamahatta/",
     body: "ratamahatta.md2",
     skins: [ "ratamahatta.png", "ctf_b.png", "ctf_r.png", "dead.png", "gearwhore.png" ],

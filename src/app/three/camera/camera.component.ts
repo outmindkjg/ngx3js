@@ -106,11 +106,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 
 	/**
 	 * Input  of camera component
-	 */
-	@Input() private material: any = null;
-
-	/**
-	 * Input  of camera component
 	 *
 	 * Notice - case insensitive.
 	 *
@@ -1027,9 +1022,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 				// const cubeCamera = this._cubeRenderCount % 2 === 0 ? this.cubeCamera1 : this.cubeCamera2;
 				const cubeCamera = this.cubeCamera1;
 				cubeCamera.update(renderer, this.getScene(scenes));
-				if (ThreeUtil.isNotNull(this.material) && this.material.getMaterial) {
-					const material = this.material.getMaterial();
-					material.envMap = cubeCamera.renderTarget.texture;
+				if (ThreeUtil.isNotNull(this.material)) {
+					const material = ThreeUtil.getMaterial(this.material['getMaterial']);
+					if (ThreeUtil.isNotNull(material) && ThreeUtil.isNotNull(material['envMap'])) {
+						material['envMap'] = cubeCamera.renderTarget.texture;
+					}
 				}
 				return;
 			}

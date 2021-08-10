@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader';
 import { ThreeUtil, ThreeVector } from '../interface';
 import { LocalStorageService } from '../local-storage.service';
-import { AbstractMaterialComponent } from '../material.abstract';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { TranslationComponent } from '../translation/translation.component';
 
@@ -124,11 +123,6 @@ export class SvgComponent extends AbstractObject3dComponent {
    * Input  of svg component
    */
   @Input() private noHoles: boolean = null;
-
-  /**
-   * Input  of svg component
-   */
-  @Input() private material: AbstractMaterialComponent = null;
 
   /**
    * Input  of svg component
@@ -582,7 +576,7 @@ export class SvgComponent extends AbstractObject3dComponent {
    * Gets materials
    * @returns materials
    */
-  private getMaterials(): THREE.Material[] {
+  private getSvgMaterials(): THREE.Material[] {
     const materials: THREE.Material[] = [];
     if (this.materialList !== null && this.materialList.length > 0) {
       this.materialList.forEach((material) => {
@@ -648,7 +642,7 @@ export class SvgComponent extends AbstractObject3dComponent {
           case 'material':
             const mainMaterials = this.meshMaterials;
             if (this.material !== null && this.material.visible) {
-              const materialClone = this.material.getMaterial();
+              const materialClone = ThreeUtil.getMaterialOne(this.material);
               mainMaterials.forEach((material) => {
                 if (material !== materialClone) {
                   material.copy(materialClone);
@@ -723,7 +717,7 @@ export class SvgComponent extends AbstractObject3dComponent {
         this.meshScales = [];
         this.meshTranslations = [];
         this.meshMaterials = [];
-        const materials = this.getMaterials();
+        const materials = this.getSvgMaterials();
         const materialList: THREE.Material[] = [];
         for (let i = 0; i < result.length; i++) {
           materialList.push(materials[i % materials.length]);

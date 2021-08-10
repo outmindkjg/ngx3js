@@ -18,6 +18,11 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
    */
   @Input() private refer: any = null;
 
+	/**
+	 * refName  of rotation component
+	 */
+   @Input() private refName: string = null;
+
   /**
    * The current value of the x component. Default value is *1*.
    */
@@ -105,36 +110,59 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
   /**
    * Object3d  of scale component
    */
-  private _object3d: THREE.Object3D = null;
+  private _object3d: {
+    [key : string] : THREE.Object3D
+  } = {}
 
   /**
    * Sets object3d
    * @param object3d 
    */
-  public setObject3d(object3d: THREE.Object3D) {
-    if (this.scale === null) {
-      this.getScale();
-    }
+  public setObject3d(object3d:  AbstractSubscribeComponent) {
     if (ThreeUtil.isNotNull(object3d)) {
-      this._object3d = object3d;
+      const key : string = object3d.getId();
+      const object = ThreeUtil.getObject3d(object3d);
+      if (ThreeUtil.isNotNull(this.refName) && ThreeUtil.isNotNull(object) ) {
+        this._object3d[key] = object.getObjectByName(this.refName);
+      } else {
+        this._object3d[key] = object;
+      }
+      this.subscribeRefer('scale_' + key, ThreeUtil.getSubscribe(object3d, () => {
+        this.setObject3d(object3d);
+      }, 'loaded'));
+      this.subscribeRefer('unscale_' + key, ThreeUtil.getSubscribe(object3d, () => {
+        this.unSubscribeRefer('scale_' + key);
+        this.unSubscribeRefer('unscale_' + key);
+        delete this._object3d[key];
+      }, 'unloaded'));
+      this.getScale();
       this.synkObject3d(this.scale);
     }
   }
 
   /**
    * Synks object3d
-   * @param [rotation] 
+   * @param [scale] 
    */
-  public synkObject3d(rotation: THREE.Vector3 = null) {
-    if (ThreeUtil.isNotNull(rotation) && this.enabled) {
-      if (ThreeUtil.isNotNull(this._object3d)) {
-        if (this.isIdEuals(this._object3d.userData.scale)) {
-          this._object3d.userData.scale = this.id;
-          this._object3d.scale.copy(this.scale);
+  public synkObject3d(scale: THREE.Vector3 = null) {
+    if (ThreeUtil.isNotNull(scale) && this.enabled) {
+      Object.entries(this._object3d).forEach(([_, object3d]) => {
+        if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
+          if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+            object3d.scale.copy(scale);
+          } else {
+            if (ThreeUtil.isNotNull(this.x)) {
+              object3d.scale.x = scale.x;
+            }
+            if (ThreeUtil.isNotNull(this.y)) {
+              object3d.scale.y = scale.y;
+            }
+            if (ThreeUtil.isNotNull(this.z)) {
+              object3d.scale.z = scale.z;
+            }
+          }
         }
-      } else {
-        this.scale.copy(rotation);
-      }
+      });
     }
   }
 

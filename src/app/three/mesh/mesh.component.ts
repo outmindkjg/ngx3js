@@ -443,21 +443,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	@Input() private makeColor: (color: THREE.Color, index?: number) => void = null;
 
 	/**
-	 * The geometry of mesh
-	 */
-	@Input() private geometry: AbstractGeometryComponent | MeshComponent | THREE.BufferGeometry | any = null;
-
-	/**
-	 * The material of mesh
-	 */
-	@Input() private material: AbstractMaterialComponent | THREE.Material = null;
-
-	/**
-	 * The material of mesh is array
-	 */
-	@Input() private materialIsArray: boolean = null;
-
-	/**
 	 * The refer texture
 	 */
 	@Input() private texture: AbstractTextureComponent | THREE.Texture = null;
@@ -536,11 +521,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	/**
 	 * Content children of mesh component
 	 */
-	@ContentChildren(AbstractGeometryComponent, { descendants: false }) private geometryList: QueryList<AbstractGeometryComponent>;
-
-	/**
-	 * Content children of mesh component
-	 */
 	@ContentChildren(AbstractTextureComponent, { descendants: false }) private textureList: QueryList<AbstractTextureComponent>;
 
 	/**
@@ -607,7 +587,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * It is invoked only once when the directive is instantiated.
 	 */
 	ngAfterContentInit(): void {
-		this.subscribeListQueryChange(this.geometryList, 'geometryList', 'geometry');
 		this.subscribeListQueryChange(this.textureList, 'textureList', 'texture');
 		this.subscribeListQueryChange(this.lensflareElementList, 'lensflareElementList', 'lensflareElement');
 		this.subscribeListQueryChange(this.cssChildrenList, 'cssChildrenList', 'cssChildren');
@@ -1022,38 +1001,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	}
 
 	/**
-	 * Gets geometry
-	 * @returns geometry
-	 */
-	public getGeometry(): THREE.BufferGeometry {
-		let geometry: THREE.BufferGeometry = null;
-		if (this.geometry !== null) {
-			return ThreeUtil.getGeometry(this.geometry);
-		}
-		if (this.geometryList !== null && this.geometryList.length > 0) {
-			this.geometryList.forEach((geometryCom) => {
-				if (geometry === null && geometryCom.enabled) {
-					geometry = geometryCom.getGeometry();
-				}
-			});
-			if (ThreeUtil.isNotNull(geometry)) {
-				return geometry;
-			}
-		}
-		if (this.mesh !== null) {
-			if (ThreeUtil.isNotNull(this.mesh.userData.refTarget) && ThreeUtil.isNotNull(this.mesh.userData.refTarget.geometry)) {
-				geometry = this.mesh.userData.refTarget.geometry;
-			} else if (ThreeUtil.isNotNull(this.mesh['geometry'])) {
-				geometry = this.mesh['geometry'];
-			}
-			if (ThreeUtil.isNotNull(geometry)) {
-				return geometry;
-			}
-		}
-		return new THREE.BufferGeometry();
-	}
-
-	/**
 	 * Gets material
 	 * @returns material
 	 */
@@ -1096,78 +1043,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 			return this.curveList.first.getCurve() as THREE.Curve<THREE.Vector3>;
 		}
 		return null;
-	}
-
-	/**
-	 * Gets materials
-	 * @param [parameters]
-	 * @param [required]
-	 * @returns materials
-	 */
-	private getMaterials(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material | THREE.Material[] {
-		const materials: THREE.Material[] = [];
-		if (this.material !== null && this.material !== undefined) {
-			const material = ThreeUtil.getMaterialByType(this.material, 'material');
-			if (ThreeUtil.isNotNull(material)) {
-				materials.push(material);
-			}
-		}
-		if (this.materialList !== null && this.materialList.length > 0) {
-			this.materialList.forEach((material) => {
-				if (material.enabled && material.isMaterialType('material')) {
-					materials.push(material.getMaterial());
-				}
-			});
-		}
-		if (materials.length == 0 && required) {
-			materials.push(new THREE.MeshBasicMaterial(parameters));
-		}
-		if (ThreeUtil.isNotNull(this.materialIsArray)) {
-			if (this.materialIsArray) {
-				return materials;
-			} else if (materials.length > 0) {
-				return materials[0];
-			}
-		} else {
-			if (materials.length == 1) {
-				return materials[0];
-			} else if (materials.length > 1) {
-				return materials;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Gets material one
-	 * @param [parameters]
-	 * @param [required]
-	 * @returns material one
-	 */
-	private getMaterialOne(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material {
-		const materials = this.getMaterials(parameters, required);
-		if (Array.isArray(materials)) {
-			return materials[0];
-		} else {
-			return materials;
-		}
-	}
-
-	/**
-	 * Gets materials multi
-	 * @param [parameters]
-	 * @param [required]
-	 * @returns materials multi
-	 */
-	private getMaterialsMulti(parameters?: THREE.MeshBasicMaterialParameters, required: boolean = true): THREE.Material[] {
-		const materials = this.getMaterials(parameters, required);
-		if (Array.isArray(materials)) {
-			return materials;
-		} else if (materials !== null) {
-			return [materials];
-		} else {
-			return [];
-		}
 	}
 
 	/**

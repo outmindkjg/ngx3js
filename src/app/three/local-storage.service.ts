@@ -1767,8 +1767,8 @@ export class LocalStorageService {
             result.object = result.object.getObjectByName(options.name);
           }
           if (ThreeUtil.isNotNull(options.scale)) {
-            console.log(key, result.object.scale, options.scale);
             result.object.scale.setScalar(options.scale);
+            result.object.position.multiplyScalar(options.scale);
           }
         }
         callBack(result.object, result.clips, result.geometry, result.morphTargets, result.source);
