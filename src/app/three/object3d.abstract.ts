@@ -179,6 +179,11 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   @Input() private controller: ControllerComponent = null;
 
   /**
+   *
+   */
+  @Input() private prefab: AbstractObject3dComponent = null;
+
+  /**
    * A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
    */
   @Input() private position: THREE.Vector3 | number[] | PositionComponent | any = null;
@@ -294,7 +299,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
   /**
    * Object3 d attr of abstract object3d component
    */
-  protected OBJECT3D_ATTR: string[] = ['name', 'position', 'onbeforerender','rotation', 'scale', 'layers', 'visible', 'castshadow', 'receiveshadow', 'frustumculled', 'renderorder', 'customdepthmaterial', 'customdistancematerial', 'material', 'helper', 'lodistance', 'helper', 'mixer', 'animationgroup'];
+  protected OBJECT3D_ATTR: string[] = ['name', 'position', 'onbeforerender','rotation', 'scale', 'layers', 'visible', 'castshadow', 'receiveshadow', 'frustumculled', 'renderorder', 'customdepthmaterial', 'customdistancematerial', 'material', 'helper', 'lodistance', 'helper', 'mixer', 'animationgroup', 'prefab'];
 
   /**
    * Gets lo distance
@@ -859,7 +864,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
       if (this.object3d !== null && this.object3d.parent !== null) {
         this.object3d.parent.remove(this.object3d);
       }
-      if (object3d !== null && object3d.parent === null && this.parentObject3d !== null) {
+      if (object3d !== null && this.parentObject3d !== null && object3d.parent !== this.parentObject3d) {
         this.parentObject3d.add(object3d);
       }
       if (this._addedReferChild !== null && this._addedReferChild.length > 0) {
@@ -896,6 +901,8 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
     this.applyChanges3d(changes);
   }
 
+  private _lastLoadedPrefab : THREE.Object3D = null;
+
   /**
    * Applys changes3d
    * @param changes
@@ -907,7 +914,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
         return;
       }
       if (ThreeUtil.isIndexOf(changes, ['init'])) {
-        changes = ThreeUtil.pushUniq(changes, ['object3d', 'onbeforerender','position', 'rotation', 'scale', 'lookat', 'visible', 'name', 'matrixautoupdate', 'layers', 'castshadow', 'receiveshadow', 'frustumculled', 'renderorder', 'lodistance', 'material', 'mixer', 'animationgroup', 'rigidbody', 'controller']);
+        changes = ThreeUtil.pushUniq(changes, ['object3d', 'onbeforerender','position', 'rotation', 'scale', 'lookat', 'visible', 'name', 'matrixautoupdate', 'layers', 'castshadow', 'receiveshadow', 'frustumculled', 'renderorder', 'lodistance', 'material', 'mixer', 'animationgroup', 'rigidbody', 'controller','prefab']);
       }
       if (ThreeUtil.isIndexOf(changes, ['customdepth', 'customdistance'])) {
         changes = ThreeUtil.pushUniq(changes, ['material']);
@@ -924,11 +931,28 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
               this.object3d.name = this.name;
             }
             break;
-          case 'onbeforerender' :
+          case 'prefab':
+            if (ThreeUtil.isNotNull(this.prefab)) {
+              this.unSubscribeRefer('prefab');
+              if (this._lastLoadedPrefab !== null && this._lastLoadedPrefab.parent !== null) {
+                this._lastLoadedPrefab.parent.remove(this._lastLoadedPrefab.parent);
+              }
+              const tmpPrefab : THREE.Object3D = ThreeUtil.getObject3d(this.prefab, false);
+              if (tmpPrefab !== null) {
+                this._lastLoadedPrefab = tmpPrefab.clone(true);
+                this.object3d.add(this._lastLoadedPrefab);
+              }
+              this.subscribeRefer('prefab', ThreeUtil.getSubscribe(this.prefab, () => {
+                this.addChanges('prefab');
+              }, 'loaded'));
+            }
+            break;
+            case 'onbeforerender' :
             if (ThreeUtil.isNotNull(this.onBeforeRender)) {
               this.object3d.onBeforeRender = this.onBeforeRender;
+              console.log(this.object3d);
             }
-        
+            break;
           case 'matrixautoupdate':
             if (ThreeUtil.isNotNull(this.matrixAutoUpdate)) {
               this.object3d.matrixAutoUpdate = this.matrixAutoUpdate;

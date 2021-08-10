@@ -1,6 +1,5 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> framebuffer to texture
-  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -17,7 +16,7 @@
   <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000" [scene]="scene">
     <ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-camera [type]="'OrthographicCamera'" [near]="0.001" [far]="1000" [scene]="sceneOrtho" [onBeforeRender]="onBeforeRenderOrthographicCamera">
+  <ngx3js-camera [type]="'OrthographicCamera'" [near]="1" [far]="10" [scene]="sceneOrtho" [orthoSize]="400"  (onRender)="onBeforeRenderOrthographicCamera($event)">
     <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene>
@@ -25,25 +24,25 @@
       <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
       <ngx3js-scale [x]="0.05" [y]="0.05" [z]="0.05"></ngx3js-scale>
       <ngx3js-geometry
+        [type]="'BufferGeometry'"
         [onInit]="loadGeometry"
-        [type]="'geometry'"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'LineBasic'" [vertexColors]="true"></ngx3js-material>
+      <ngx3js-material [type]="'LineBasicMaterial'" [vertexColors]="true"></ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>
   <ngx3js-scene #sceneOrtho>
     <ngx3js-mesh [type]="'Sprite'">
-      <ngx3js-position [x]="-300" [y]="300" [z]="1"></ngx3js-position>
-      <ngx3js-scale [x]="textureSize" [y]="textureSize" [z]="1"></ngx3js-scale>
-      <ngx3js-material [type]="'SpriteMaterial'">
+      <ngx3js-position [x]="-100" [y]="100" [z]="1"></ngx3js-position>
+      <ngx3js-scale [x]="textureSize/2" [y]="textureSize/2" [z]="1"></ngx3js-scale>
+      <ngx3js-material [type]="'SpriteMaterial'" [side]="'double'">
         <ngx3js-texture [type]="'map'" [data]="spriteData" [width]="textureSize" [height]="textureSize" [format]="'RGBFormat'" (onLoad)="setTexture($event)"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>
-    <ngx3js-mesh >
+    <ngx3js-mesh [type]="'line'">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [x]="textureSize" [y]="textureSize" [z]="1"></ngx3js-scale>
-      <ngx3js-geometry [type]="'PlaneGeometry'" [width]="1" [height]="1"></ngx3js-geometry>
-      <ngx3js-material [type]="'meshbasic'" [color]="'0xffffff'" [wireframe]="true"></ngx3js-material>
+      <ngx3js-scale [x]="textureSize/2" [y]="textureSize/2" [z]="1"></ngx3js-scale>
+      <ngx3js-geometry [type]="'PlaneGeometry'" [lineType]="'wireframesimple'" [width]="1" [height]="1"></ngx3js-geometry>
+      <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xffffff'" ></ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

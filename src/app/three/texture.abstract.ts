@@ -1035,7 +1035,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 			}
 		} else if (ThreeUtil.isNotNull(options.data)) {
 			const dataWidth: number = ThreeUtil.getTypeSafe(options.width, 32);
-			let dataHeight: number = ThreeUtil.getTypeSafe(options.height, 32);
+			const dataHeight: number = ThreeUtil.getTypeSafe(options.height, 32);
 			const data = options.data;
 			let textureData: BufferSource = null;
 			if (data instanceof Int8Array || data instanceof Uint8Array || data instanceof Uint8ClampedArray || data instanceof Int16Array || data instanceof Uint16Array || data instanceof Int32Array || data instanceof Uint32Array || data instanceof Float32Array || data instanceof Float64Array) {

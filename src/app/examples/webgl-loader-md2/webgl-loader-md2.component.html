@@ -48,9 +48,10 @@
     >
       <ngx3js-position [x]="-100" [y]="350" [z]="350"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/md2/ratamahatta/ratamahatta.md2'" [storageOption]="config">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/md2/ratamahatta/ratamahatta.md2'" [storageOption]="config" [windowExport]="'model'">
+      <ngx3js-position [multiply]="3"></ngx3js-position>
       <ngx3js-scale [x]="3" [y]="3" [z]="3"></ngx3js-scale>
-      <ngx3js-mixer [action]="controls.animation" [type]="'Character'" [skin]="controls.skinIdx" [weapon]="controls.weaponIdx" [debug]="true"></ngx3js-mixer>
+      <ngx3js-mixer [action]="controls.animation" [type]="'Character'" [skin]="controls.skinIdx" [weapon]="controls.weaponIdx"></ngx3js-mixer>
     </ngx3js-mesh>
     <ngx3js-mesh [receiveShadow]="true">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>

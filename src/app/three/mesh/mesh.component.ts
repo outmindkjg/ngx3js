@@ -1272,6 +1272,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 				this.needUpdate = true;
 				return;
 			}
+			if (!ThreeUtil.isIndexOf(changes, 'init') && ThreeUtil.isIndexOf(changes, ['geometry'])) {
+				switch(this.type.toLowerCase()) {
+					case 'points' :
+						// this.needUpdate = true;
+						// return;
+				}
+			}
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
 				changes = ThreeUtil.pushUniq(changes, ['geometry', 'svg', 'listener', 'audio', 'csschildren', 'material', 'helper', 'mixer']);
 			}
@@ -2182,15 +2189,17 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								this.setUserData('clips', clips);
 								this.setUserData('storageSource', source);
 								this.clips = clips;
-								if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
-									this.mesh.add(source.skeleton.bones[0]);
+								if (ThreeUtil.isNull(loadedMesh)) {
+									loadedMesh = new THREE.Group();
 								}
 								if (ThreeUtil.isNotNull(loadedMesh)) {
-									Object.assign(loadedMesh.userData, this.getUserData());
-									this.addChildObject3d(loadedMesh);
-									this.setSubscribeNext(['loaded']);
 									if (source instanceof Volume) {
 										this.addChanges(['volumeoption']);
+									}
+									loadedMesh.parent = null;
+									this.setObject3d(loadedMesh);
+									if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
+										this.addParentObject3d(source.skeleton.bones[0]);
 									}
 								}
 							},

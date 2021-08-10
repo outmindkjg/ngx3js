@@ -42,7 +42,7 @@
     </ngx3js-light>
     <ngx3js-helper [type]="'GridHelper'" [size]="400" [divisions]="10"></ngx3js-helper>
     <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/bvh/pirouette.bvh'">
-      <ngx3js-mixer [debug]="true" [timeScale]="1" [action]="'default'">
+      <ngx3js-mixer [timeScale]="1" [action]="'default'">
         <ngx3js-clip [index]="0" [name]="'default'" [weight]="1.0"></ngx3js-clip>
       </ngx3js-mixer>
     </ngx3js-mesh>

@@ -52,7 +52,7 @@
         [sizeAttenuation]="false"
       ></ngx3js-material>
     </ngx3js-shared>
-    <ngx3js-mesh *ngFor="let info of starInfos;let idx = index;" [geometry]="info.geometry" [material]="info.material" [type]="'Points'" [windowExport]="'star' + idx" [matrixAutoUpdate]="false">
+    <ngx3js-mesh *ngFor="let info of starInfos;let idx = index;" [geometry]="info.geometry" [material]="info.material" [type]="'Points'" [matrixAutoUpdate]="false">
       <ngx3js-rotation [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-rotation>
       <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
     </ngx3js-mesh>

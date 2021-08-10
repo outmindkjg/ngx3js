@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -72,7 +72,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	/**
 	 * orthoSize  of camera component
 	 */
-	@Input() private orthoSize: number = 0.5;
+	@Input() private orthoSize: number = 400;
 
 	/**
 	 * Camera frustum left plane.
@@ -229,6 +229,11 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * Input  of camera component
 	 */
 	@Input() private referObject3d: AbstractObject3dComponent | THREE.Object3D = null;
+
+	/**
+	 * Output  of renderer component
+	 */
+	@Output() private onRender: EventEmitter<RendererTimer> = new EventEmitter<RendererTimer>();
 
 	/**
 	 * Creates an instance of camera component.
@@ -1035,6 +1040,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 				renderer.setClearColor(this.getClearColor(), this.getClearAlpha(1));
 			}
 		}
+		this.onRender.emit(renderTimer);
 		if (this.scenes !== null && this.scenes.length > 0) {
 			this.scenes.forEach((sceneCom) => {
 				this.renderWithScene(renderer, camera, sceneCom.getScene());

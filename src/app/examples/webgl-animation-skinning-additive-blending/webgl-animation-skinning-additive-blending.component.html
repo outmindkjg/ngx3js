@@ -37,7 +37,6 @@
       <ngx3js-mesh [type]="'storage'" (onLoad)="setMesh($event)" [storageName]="'models/gltf/Xbot.glb'" [helperType]="'skeleton'" [castShadow]="true">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
-        <ngx3js-scale [x]="1" [y]="1" [z]="1"></ngx3js-scale>
         <ngx3js-mixer [action]="controls.action" [duration]="controls.duration">
           <ngx3js-clip [name]="'idle'"></ngx3js-clip>
           <ngx3js-clip [name]="'run'"></ngx3js-clip>

@@ -135,11 +135,10 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
    * @param object3d 
    */
   public setObject3d(object3d: THREE.Object3D) {
-    if (this.position === null) {
-      this.getPosition();
-    }
     if (ThreeUtil.isNotNull(object3d)) {
       this._object3d = object3d;
+      this.position = null;
+      this.getPosition();
       this.synkObject3d(this.position);
     }
   }
@@ -260,7 +259,19 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
       position = ThreeUtil.getPosition(this.refer);
     }
     if (position === null) {
-      position = ThreeUtil.getVector3Safe(this.x, this.y, this.z, new THREE.Vector3(0, 0, 0));
+      let x  = 0;
+      let y  = 0;
+      let z  = 0;
+      if (ThreeUtil.isNotNull(this._object3d)) {
+        x = ThreeUtil.getTypeSafe(this.x, this._object3d.position.x);
+        y = ThreeUtil.getTypeSafe(this.y, this._object3d.position.y);
+        z = ThreeUtil.getTypeSafe(this.z, this._object3d.position.z);
+      } else {
+        x = ThreeUtil.getTypeSafe(this.x, 0);
+        y = ThreeUtil.getTypeSafe(this.y, 0);
+        z = ThreeUtil.getTypeSafe(this.z, 0);
+      }
+      position = ThreeUtil.getVector3Safe(x, y, z, new THREE.Vector3(0, 0, 0));
       if (ThreeUtil.isNotNull(this.setfrom)) {
         switch (this.setfrom.toLowerCase()) {
           case 'spherical':

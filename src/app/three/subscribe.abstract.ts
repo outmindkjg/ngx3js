@@ -448,6 +448,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    */
   protected setObject(obj: any) {
     if (this._cashedObj !== obj) {
+      let isLoaded : boolean = this._cashedObj === null ? false : true;
       this._cashedObj = obj;
       this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
@@ -477,6 +478,10 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         }
         this.applyChanges(['init']);
         this.callOnLoad();
+        if (isLoaded) {
+          this.setSubscribeNext('loaded');
+          console.log('loaded');
+        }
         if (ThreeUtil.isNotNull(this.windowExport) && this.windowExport != '') {
           window[this.windowExport] = this._cashedObj;
         }

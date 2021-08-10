@@ -31,18 +31,16 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    this.subscribeRefer('loaded', ThreeUtil.getSubscribe(mesh, () => {
-      const carModel = mesh.getObject3d();
-      const body = carModel.getObjectByName( 'body' );
-      if (body !== null && body !== undefined) {
-        this.wheels = [
-          carModel.getObjectByName( 'wheel_fl' ),
-          carModel.getObjectByName( 'wheel_fr' ),
-          carModel.getObjectByName( 'wheel_rl' ),
-          carModel.getObjectByName( 'wheel_rr' )
-        ];
-      }
-    }, 'loaded'));
+    const carModel = mesh.getObject3d();
+    const body = carModel.getObjectByName( 'body' );
+    if (ThreeUtil.isNotNull(body)) {
+      this.wheels = [
+        carModel.getObjectByName( 'wheel_fl' ),
+        carModel.getObjectByName( 'wheel_fr' ),
+        carModel.getObjectByName( 'wheel_rl' ),
+        carModel.getObjectByName( 'wheel_rr' )
+      ];
+    }
   }
 
   grid : any = null;

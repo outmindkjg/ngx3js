@@ -891,7 +891,6 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
 						this._meshGeometry.updateMorphTargets();
 					}
-					ThreeUtil.setSubscribeNext(this._meshGeometry, this.subscribeType);
 				}
 			} else if (this.geometry !== geometry) {
 				this.geometry = geometry;
@@ -910,13 +909,41 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	 */
 	protected setGeometry(geometry: THREE.BufferGeometry) {
 		if (ThreeUtil.isNotNull(geometry) && this.geometry !== geometry) {
-			if (this.geometry !== null) {
-				this.geometry.dispose();
-			}
 			if (ThreeUtil.isNotNull(geometry.getAttribute('position'))) {
 				if (ThreeUtil.isNotNull(this.lineType)) {
 					let lineGeometry: THREE.BufferGeometry = null;
 					switch (this.lineType.toLowerCase()) {
+						case 'wireframesimple':
+							const simpleParameters: any = geometry['parameters'] || {};
+							lineGeometry = new THREE.WireframeGeometry(geometry);
+							let simplePositions : Float32Array = null;
+							switch (geometry.type) {
+								case 'PlaneGeometry':
+									simplePositions = new Float32Array(15);
+									const halfWidth = simpleParameters['width'] / 2;
+									const halfHeight = simpleParameters['height'] / 2;
+									simplePositions[0] = -halfWidth;
+									simplePositions[1] = halfHeight;
+									simplePositions[2] = 0;
+									simplePositions[3] = -halfWidth;
+									simplePositions[4] = -halfHeight;
+									simplePositions[5] = 0;
+									simplePositions[6] = halfWidth;
+									simplePositions[7] = -halfHeight;
+									simplePositions[8] = 0;
+									simplePositions[9] = halfWidth;
+									simplePositions[10] = halfHeight;
+									simplePositions[11] = 0;
+									simplePositions[12] = -halfWidth;
+									simplePositions[13] = halfHeight;
+									simplePositions[14] = 0;
+									break;
+							}
+							if (simplePositions !== null) {
+								const positionAttribe = new THREE.Float32BufferAttribute(simplePositions, 3);
+								lineGeometry.setAttribute('position', positionAttribe);
+							}
+							break;
 						case 'wireframebuffergeometry':
 						case 'wireframegeometry':
 						case 'wireframebuffer':
@@ -1262,7 +1289,16 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					geometry = tmpGeometry;
 				}
 			}
-			this.geometry = geometry;
+			if (this.geometry !== null) {
+				this.geometry.copy(geometry);
+				this.geometry.type = geometry.type;
+				if (ThreeUtil.isNotNull(geometry['parameters'])) {
+					this.geometry['parameters'] = geometry['parameters'];
+				}
+				this.setSubscribeNext(this.subscribeType);
+			} else {
+				this.geometry = geometry;
+			}
 			if (ThreeUtil.isNotNull(this.name)) {
 				this.geometry.name = this.name;
 			}

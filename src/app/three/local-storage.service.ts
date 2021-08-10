@@ -1762,6 +1762,15 @@ export class LocalStorageService {
     this.getObjectFromKey(
       key,
       (result) => {
+        if (ThreeUtil.isNotNull(result.object) && ThreeUtil.isNotNull(options)) {
+          if (ThreeUtil.isNotNull(options.name)) {
+            result.object = result.object.getObjectByName(options.name);
+          }
+          if (ThreeUtil.isNotNull(options.scale)) {
+            console.log(key, result.object.scale, options.scale);
+            result.object.scale.setScalar(options.scale);
+          }
+        }
         callBack(result.object, result.clips, result.geometry, result.morphTargets, result.source);
       },
       options

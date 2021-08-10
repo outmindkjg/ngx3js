@@ -39,11 +39,10 @@
       <ngx3js-rotation [x]="0" [y]="0" [z]="90"></ngx3js-rotation>
       <ngx3js-mesh [geometry]="baseMesh" [type]="'Points'" (onLoad)="setPoints($event)">
         <ngx3js-material 
-          [type]="'Points'"
+          [type]="'PointsMaterial'"
           [size]="10"
           [sizeAttenuation]="false"
           [alphaTest]="0.5"
-          [color]="'0xffffff'"
           [morphTargets]="true"
         >
           <ngx3js-texture [image]="'textures/sprites/disc.png'"></ngx3js-texture>

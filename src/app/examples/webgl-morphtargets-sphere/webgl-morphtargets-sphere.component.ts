@@ -22,9 +22,13 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
   }
 
   private synkMorphTarget() {
-    if (this.realMesh !== null && this.points !== null) {
-      this.points.morphTargetDictionary = this.realMesh.morphTargetDictionary;
-      this.points.morphTargetInfluences = this.realMesh.morphTargetInfluences;
+    if (this.realMesh !== null && this.points !== null && ThreeUtil.isNotNull(this.realMesh.morphTargetDictionary)) {
+      setTimeout(() => {
+        this.points.geometry = this.realMesh.geometry;
+        this.points.updateMorphTargets();
+        this.points.morphTargetDictionary = this.realMesh.morphTargetDictionary;
+        this.points.morphTargetInfluences = this.realMesh.morphTargetInfluences;
+      }, 100);
     }
   }
 
@@ -39,7 +43,7 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
   sign : number = 1;
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.realMesh !== null) {
+    if (this.realMesh !== null && ThreeUtil.isNotNull(this.realMesh.morphTargetInfluences)) {
       const delta = timer.delta;
       const step = delta * 0.5;
       this.realMesh.rotation.y += step;

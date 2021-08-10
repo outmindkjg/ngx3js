@@ -525,6 +525,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 		if (errorCode !== null) {
 			const errorEle = document.createElement('DIV');
 			switch(errorCode) {
+				case 'gpu' :
+					errorEle.innerHTML = 'Your browser does not support WebGPU.';
+					break;
 				case 'gl2' :
 					errorEle.innerHTML = 'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" target="_blank">WebGL 2</a>';
 					break;
@@ -1511,7 +1514,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 */
 	public getRenderer(): THREE.Renderer {
 		if (this.renderer === null || this._needUpdate) {
-			console.clear();
+			// console.clear();
 			this.needUpdate = false;
 			this.dispose();
 			if (this.renderer !== null) {

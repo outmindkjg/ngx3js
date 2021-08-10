@@ -31,14 +31,6 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
     this.textureSize = 128 * this.dpr;
     this.vector = new THREE.Vector2();
     this.color = new THREE.Color();
-    this.onBeforeRenderOrthographicCamera = (timer : RendererTimer) => {
-      if (this.texture !== null && timer.renderer instanceof WebGLRenderer) {
-        this.vector.x = ( timer.event.width * this.dpr / 2 ) - ( this.textureSize / 2 );
-        this.vector.y = ( timer.event.height * this.dpr / 2 ) - ( this.textureSize / 2 );
-        timer.renderer.copyFramebufferToTexture( this.vector, this.texture);
-				timer.renderer.clearDepth();
-      }
-    }
     this.spriteData = new Uint8Array(this.textureSize * this.textureSize * 3);
   }
 
@@ -70,7 +62,14 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
     this.offset -= 25;
   }
 
-  onBeforeRenderOrthographicCamera : any = null;
+  onBeforeRenderOrthographicCamera (timer : RendererTimer){
+    if (this.texture !== null && timer.renderer instanceof WebGLRenderer) {
+      this.vector.x = ( timer.event.width * this.dpr / 2 ) - ( this.textureSize / 2 );
+      this.vector.y = ( timer.event.height * this.dpr / 2 ) - ( this.textureSize / 2 );
+      timer.renderer.copyFramebufferToTexture( this.vector, this.texture);
+      timer.renderer.clearDepth();
+    }
+  }
 
   varctor : Vector2 = new Vector2();
   onRender(timer : RendererTimer) {
