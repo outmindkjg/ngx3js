@@ -105,6 +105,19 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 		[key: string]: THREE.Object3D;
 	} = {};
 
+  /**
+   * unSets object3d
+   * @param object3d 
+   */
+  public unsetObject3d(object3d: AbstractSubscribeComponent) {
+    const key : string = object3d.getId();
+    this.unSubscribeRefer('rotation_' + key);
+    this.unSubscribeRefer('unrotation_' + key);
+    if (ThreeUtil.isNotNull(this._object3d[key])) {
+      delete this._object3d[key];
+    }
+  }
+
 	/**
 	 * Sets object3d
 	 * @param object3d
@@ -133,15 +146,13 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 				ThreeUtil.getSubscribe(
 					object3d,
 					() => {
-						this.unSubscribeRefer('rotation_' + key);
-						this.unSubscribeRefer('unrotation_' + key);
-						delete this._object3d[key];
+						this.unsetObject3d(object3d);
 					},
-					'unloaded'
+					'destroy'
 				)
 			);
 			this.getRotation();
-			this.synkObject3d(this.rotation);
+			this.synkObject3d(this.rotation, key);
 		}
 	}
 
@@ -149,10 +160,22 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 	 * Synks object3d
 	 * @param [rotation]
 	 */
-	public synkObject3d(rotation: THREE.Euler = null) {
+	public synkObject3d(rotation: THREE.Euler = null, key : string = null) {
 		if (ThreeUtil.isNotNull(rotation) && this.enabled) {
 			if (ThreeUtil.isNotNull(this._object3d)) {
-				Object.entries(this._object3d).forEach(([_, object3d]) => {
+				const object3dList : THREE.Object3D[] = [];
+				if (ThreeUtil.isNotNull(key)) {
+					if (ThreeUtil.isNotNull(this._object3d[key])) {
+						object3dList.push(this._object3d[key]);
+					}
+				} else {
+					Object.entries(this._object3d).forEach(([_, object3d]) => {
+						if (ThreeUtil.isNotNull(object3d)) {
+							object3dList.push(object3d);
+						}
+					});
+				}
+				object3dList.forEach(object3d => {
 					if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
 						if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
 							object3d.rotation.copy(rotation);

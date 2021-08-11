@@ -1029,7 +1029,11 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		this.applyChanges3d(changes);
 	}
 
-	private _lastLoadedPrefab: THREE.Object3D = null;
+	private _cachedPrefab: THREE.Object3D = null;
+	private _cachedPositionList : PositionComponent[] = [];
+	private _cachedRotationList : RotationComponent[] = [];
+	private _cachedScaleList : ScaleComponent[] = [];
+	private _cachedLookatList : LookatComponent[] = [];
 
 	/**
 	 * Applys changes3d
@@ -1084,13 +1088,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 					case 'prefab':
 						if (ThreeUtil.isNotNull(this.prefab)) {
 							this.unSubscribeRefer('prefab');
-							if (this._lastLoadedPrefab !== null && this._lastLoadedPrefab.parent !== null) {
-								this._lastLoadedPrefab.parent.remove(this._lastLoadedPrefab.parent);
+							if (this._cachedPrefab !== null && this._cachedPrefab.parent !== null) {
+								this._cachedPrefab.parent.remove(this._cachedPrefab.parent);
 							}
 							const tmpPrefab: THREE.Object3D = ThreeUtil.getObject3d(this.prefab, false);
 							if (tmpPrefab !== null) {
-								this._lastLoadedPrefab = tmpPrefab.clone(true);
-								this.object3d.add(this._lastLoadedPrefab);
+								this._cachedPrefab = tmpPrefab.clone(true);
+								this.object3d.add(this._cachedPrefab);
 							}
 							this.subscribeRefer(
 								'prefab',
@@ -1167,110 +1171,114 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 						}
 						break;
 					case 'position':
-						this.unSubscribeRefer('position');
+						const newPositionList : PositionComponent[] = [];
 						if (ThreeUtil.isNotNull(this.position)) {
 							if (this.position instanceof PositionComponent) {
-								this.position.setObject3d(this);
+								newPositionList.push(this.position);
 							} else {
 								this.object3d.position.copy(ThreeUtil.getPosition(this.position));
 							}
-							this.subscribeRefer(
-								'position',
-								ThreeUtil.getSubscribe(
-									this.position,
-									(event) => {
-										this.addChanges(event);
-									},
-									'position'
-								)
-							);
 						}
 						if (ThreeUtil.isNotNull(this.positionList)) {
 							this.positionList.forEach((position) => {
-								position.setObject3d(this);
+								newPositionList.push(position);
 							});
 						}
+						this._cachedPositionList.forEach(position => {
+							if (newPositionList.indexOf(position) === -1) {
+								position.unsetObject3d(this);
+							}
+						});
+						newPositionList.forEach(position => {
+							if (this._cachedPositionList.indexOf(position) === -1) {
+								position.setObject3d(this);
+							}
+						});
+						this._cachedPositionList = newPositionList;
 						if (ThreeUtil.isNull(this.object3d.userData.initPosition)) {
 							this.setUserData('initPosition', this.object3d.position.clone());
 						}
 						this.setSubscribeNext('position');
 						break;
 					case 'rotation':
-						this.unSubscribeRefer('rotation');
+						const newRotationList : RotationComponent[] = [];
 						if (ThreeUtil.isNotNull(this.rotation)) {
 							if (this.rotation instanceof RotationComponent) {
-								this.rotation.setObject3d(this);
+								newRotationList.push(this.rotation);
 							} else {
 								this.object3d.rotation.copy(ThreeUtil.getRotation(this.position));
 							}
-							this.subscribeRefer(
-								'rotation',
-								ThreeUtil.getSubscribe(
-									this.rotation,
-									(event) => {
-										this.addChanges(event);
-									},
-									'rotation'
-								)
-							);
 						}
 						if (ThreeUtil.isNotNull(this.rotationList)) {
 							this.rotationList.forEach((rotation) => {
-								rotation.setObject3d(this);
+								newRotationList.push(rotation);
 							});
 						}
+						this._cachedRotationList.forEach(rotation => {
+							if (newRotationList.indexOf(rotation) === -1) {
+								rotation.unsetObject3d(this);
+							}
+						});
+						newRotationList.forEach(rotation => {
+							if (this._cachedRotationList.indexOf(rotation) === -1) {
+								rotation.setObject3d(this);
+							}
+						});
+						this._cachedRotationList = newRotationList;
 						this.setSubscribeNext('rotation');
 						break;
 					case 'scale':
-						this.unSubscribeRefer('scale');
+						const newScaleList : ScaleComponent[] = [];
 						if (ThreeUtil.isNotNull(this.scale)) {
 							if (this.scale instanceof ScaleComponent) {
-								this.scale.setObject3d(this);
+								newScaleList.push(this.scale);
 							} else {
 								this.object3d.scale.copy(ThreeUtil.getScale(this.scale));
 							}
-							this.subscribeRefer(
-								'scale',
-								ThreeUtil.getSubscribe(
-									this.scale,
-									(event) => {
-										this.addChanges(event);
-									},
-									'scale'
-								)
-							);
 						}
 						if (ThreeUtil.isNotNull(this.scaleList)) {
 							this.scaleList.forEach((scale) => {
-								scale.setObject3d(this);
+								newScaleList.push(scale);
 							});
 						}
+						this._cachedScaleList.forEach(scale => {
+							if (newScaleList.indexOf(scale) === -1) {
+								scale.unsetObject3d(this);
+							}
+						});
+						newScaleList.forEach(scale => {
+							if (this._cachedScaleList.indexOf(scale) === -1) {
+								scale.setObject3d(this);
+							}
+						});
+						this._cachedScaleList = newScaleList;
 						this.setSubscribeNext('scale');
 						break;
 					case 'lookat':
-						this.unSubscribeRefer('lookat');
+						const newLookatList : LookatComponent[] = [];
 						if (ThreeUtil.isNotNull(this.lookat)) {
 							if (this.lookat instanceof LookatComponent) {
-								this.lookat.setObject3d(this);
+								newLookatList.push(this.lookat);
 							} else {
 								this.object3d.lookAt(ThreeUtil.getLookAt(this.lookat));
 							}
-							this.subscribeRefer(
-								'lookat',
-								ThreeUtil.getSubscribe(
-									this.lookat,
-									(event) => {
-										this.addChanges(event);
-									},
-									'lookat'
-								)
-							);
 						}
 						if (ThreeUtil.isNotNull(this.lookatList)) {
 							this.lookatList.forEach((lookat) => {
-								lookat.setObject3d(this);
+								newLookatList.push(lookat);
 							});
 						}
+						this._cachedLookatList.forEach(lookat => {
+							if (newLookatList.indexOf(lookat) === -1) {
+								lookat.unsetObject3d(this);
+							}
+						});
+						newLookatList.forEach(lookat => {
+							if (this._cachedLookatList.indexOf(lookat) === -1) {
+								lookat.setObject3d(this);
+							}
+						});
+						this._cachedLookatList = newLookatList;
 						this.setSubscribeNext('lookat');
 						break;
 					case 'controller':

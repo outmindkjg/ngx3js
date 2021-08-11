@@ -94,7 +94,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
    * before a directive, pipe, or service instance is destroyed.
    */
   ngOnDestroy(): void {
-    this.setSubscribeNext('unloaded');
+    this.setSubscribeNext('destroy');
     if (this._subscribe !== null) {
       for (let key in this._subscribe) {
         this._subscribe[key].unsubscribe();

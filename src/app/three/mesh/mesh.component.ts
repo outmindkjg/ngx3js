@@ -88,9 +88,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * @see Sky - Sky
 	 * @see Flow - Flow
 	 * @see InstancedFlow - InstancedFlow
-	 * @see LineLoop - LineLoop
 	 * @see THREE.Light - light
-	 * @see LineLoop - LineLoop
+	 * @see THREE.LineLoop - LineLoop
 	 * @see Lensflare - Lensflare, lensflareelement
 	 * @see THREE.InstancedMesh - InstancedMesh, Instanced
 	 * @see BufferGeometryUtils.mergeBufferGeometries - merged

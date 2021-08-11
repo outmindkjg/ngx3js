@@ -139,6 +139,19 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
   } = {};
 
   /**
+   * unSets object3d
+   * @param object3d 
+   */
+  public unsetObject3d(object3d: AbstractSubscribeComponent) {
+    const key : string = object3d.getId();
+    this.unSubscribeRefer('position_' + key);
+    this.unSubscribeRefer('unposition_' + key);
+    if (ThreeUtil.isNotNull(this._object3d[key])) {
+      delete this._object3d[key];
+    }
+  }
+
+  /**
    * Sets object3d
    * @param object3d 
    */
@@ -155,12 +168,10 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
         this.setObject3d(object3d);
       }, 'loaded'));
       this.subscribeRefer('unposition_' + key, ThreeUtil.getSubscribe(object3d, () => {
-        this.unSubscribeRefer('position_' + key);
-        this.unSubscribeRefer('unposition_' + key);
-        delete this._object3d[key];
-      }, 'unloaded'));
+        this.unsetObject3d(object3d);
+      }, 'destroy'));
       this.getPosition();
-      this.synkObject3d(this.position);
+      this.synkObject3d(this.position, key);
     }
   }
 
@@ -169,44 +180,52 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
    * Synks object3d
    * @param [position] 
    */
-  synkObject3d(position: THREE.Vector3 = null) {
+  synkObject3d(position: THREE.Vector3 = null, key : string = null) {
     if (ThreeUtil.isNotNull(position) && this.enabled) {
       if (ThreeUtil.isNotNull(this._object3d)) {
-        Object.entries(this._object3d).forEach(([_, object3d]) => {
-          if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
-            switch (this.type.toLowerCase()) {
-              case 'up':
-                if (ThreeUtil.isNull(object3d.up)) {
-                  object3d.up = THREE.Object3D.DefaultUp.clone();
-                }
-                object3d.up.copy(position);
-                break;
-              case 'lookat':
-                object3d.lookAt(position);
-                break;
-              default:
-                if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
-                  object3d.position.copy(position);
-                } else if (ThreeUtil.isNotNull(this.x) || ThreeUtil.isNotNull(this.y) || ThreeUtil.isNotNull(this.z)) {
-                  if (ThreeUtil.isNotNull(this.x)) {
-                    object3d.position.x = position.x;
-                  }
-                  if (ThreeUtil.isNotNull(this.y)) {
-                    object3d.position.y = position.y;
-                    console.log(position);
-                  }
-                  if (ThreeUtil.isNotNull(this.z)) {
-                    object3d.position.z = position.z;
-                  }
-                } else {
-                  if (ThreeUtil.isNotNull(this.multiply)) {
-                    object3d.position.multiplyScalar(this.multiply);
-                  }
-                }
-                break;
+        const object3dList : THREE.Object3D[] = [];
+        if (ThreeUtil.isNotNull(key)) {
+          if (ThreeUtil.isNotNull(this._object3d[key])) {
+            object3dList.push(this._object3d[key]);
+          }
+        } else {
+          Object.entries(this._object3d).forEach(([_, object3d]) => {
+            if (ThreeUtil.isNotNull(object3d)) {
+              object3dList.push(object3d);
             }
-          } else {
-            console.log(object3d);
+          });
+        }
+        object3dList.forEach(object3d => {
+          switch (this.type.toLowerCase()) {
+            case 'up':
+              if (ThreeUtil.isNull(object3d.up)) {
+                object3d.up = THREE.Object3D.DefaultUp.clone();
+              }
+              object3d.up.copy(position);
+              break;
+            case 'lookat':
+              object3d.lookAt(position);
+              break;
+            default:
+              if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+                object3d.position.copy(position);
+              } else if (ThreeUtil.isNotNull(this.x) || ThreeUtil.isNotNull(this.y) || ThreeUtil.isNotNull(this.z)) {
+                if (ThreeUtil.isNotNull(this.x)) {
+                  object3d.position.x = position.x;
+                }
+                if (ThreeUtil.isNotNull(this.y)) {
+                  object3d.position.y = position.y;
+                  console.log(position);
+                }
+                if (ThreeUtil.isNotNull(this.z)) {
+                  object3d.position.z = position.z;
+                }
+              } else {
+                if (ThreeUtil.isNotNull(this.multiply)) {
+                  object3d.position.multiplyScalar(this.multiply);
+                }
+              }
+              break;
           }
         });
       } else if (this.position !== position){

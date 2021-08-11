@@ -115,6 +115,19 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
   } = {}
 
   /**
+   * unSets object3d
+   * @param object3d 
+   */
+  public unsetObject3d(object3d: AbstractSubscribeComponent) {
+    const key : string = object3d.getId();
+    this.unSubscribeRefer('scale_' + key);
+    this.unSubscribeRefer('unscale_' + key);
+    if (ThreeUtil.isNotNull(this._object3d[key])) {
+      delete this._object3d[key];
+    }
+  }
+
+  /**
    * Sets object3d
    * @param object3d 
    */
@@ -131,12 +144,10 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
         this.setObject3d(object3d);
       }, 'loaded'));
       this.subscribeRefer('unscale_' + key, ThreeUtil.getSubscribe(object3d, () => {
-        this.unSubscribeRefer('scale_' + key);
-        this.unSubscribeRefer('unscale_' + key);
-        delete this._object3d[key];
-      }, 'unloaded'));
+        this.unsetObject3d(object3d);
+      }, 'destroy'));
       this.getScale();
-      this.synkObject3d(this.scale);
+      this.synkObject3d(this.scale, key);
     }
   }
 
@@ -144,22 +155,32 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
    * Synks object3d
    * @param [scale] 
    */
-  public synkObject3d(scale: THREE.Vector3 = null) {
+  public synkObject3d(scale: THREE.Vector3 = null, key : string = null) {
     if (ThreeUtil.isNotNull(scale) && this.enabled) {
-      Object.entries(this._object3d).forEach(([_, object3d]) => {
-        if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
-          if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
-            object3d.scale.copy(scale);
-          } else {
-            if (ThreeUtil.isNotNull(this.x)) {
-              object3d.scale.x = scale.x;
-            }
-            if (ThreeUtil.isNotNull(this.y)) {
-              object3d.scale.y = scale.y;
-            }
-            if (ThreeUtil.isNotNull(this.z)) {
-              object3d.scale.z = scale.z;
-            }
+      const object3dList : THREE.Object3D[] = [];
+      if (ThreeUtil.isNotNull(key)) {
+        if (ThreeUtil.isNotNull(this._object3d[key])) {
+          object3dList.push(this._object3d[key]);
+        }
+      } else {
+        Object.entries(this._object3d).forEach(([_, object3d]) => {
+          if (ThreeUtil.isNotNull(object3d)) {
+            object3dList.push(object3d);
+          }
+        });
+      }
+      object3dList.forEach(object3d => {
+        if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+          object3d.scale.copy(scale);
+        } else {
+          if (ThreeUtil.isNotNull(this.x)) {
+            object3d.scale.x = scale.x;
+          }
+          if (ThreeUtil.isNotNull(this.y)) {
+            object3d.scale.y = scale.y;
+          }
+          if (ThreeUtil.isNotNull(this.z)) {
+            object3d.scale.z = scale.z;
           }
         }
       });

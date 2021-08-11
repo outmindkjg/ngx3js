@@ -109,6 +109,19 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 		[key: string]: THREE.Object3D;
 	} = {};
 
+  /**
+   * unSets object3d
+   * @param object3d 
+   */
+  public unsetObject3d(object3d: AbstractSubscribeComponent) {
+    const key : string = object3d.getId();
+    this.unSubscribeRefer('lookat_' + key);
+    this.unSubscribeRefer('unlookat_' + key);
+    if (ThreeUtil.isNotNull(this._object3d[key])) {
+      delete this._object3d[key];
+    }
+  }
+
 	/**
 	 * Sets object3d
 	 * @param object3d
@@ -137,15 +150,13 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 				ThreeUtil.getSubscribe(
 					object3d,
 					() => {
-						this.unSubscribeRefer('lookat_' + key);
-						this.unSubscribeRefer('unlookat_' + key);
-						delete this._object3d[key];
+						this.unsetObject3d(object3d)
 					},
-					'unloaded'
+					'destroy'
 				)
 			);
 			this.getLookAt();
-			this.synkObject3d(this.lookat);
+			this.synkObject3d(this.lookat, key);
 		}
 	}
 
@@ -153,14 +164,24 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 	 * Synks object3d
 	 * @param [lookat]
 	 */
-	public synkObject3d(lookat: THREE.Vector3 = null) {
+	public synkObject3d(lookat: THREE.Vector3 = null, key : string = null) {
 		if (ThreeUtil.isNotNull(lookat) && this.enabled) {
 			if (ThreeUtil.isNotNull(this._object3d)) {
-				Object.entries(this._object3d).forEach(([_, object3d]) => {
-					if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
-						if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
-							object3d.lookAt(lookat);
+				const object3dList : THREE.Object3D[] = [];
+				if (ThreeUtil.isNotNull(key)) {
+					if (ThreeUtil.isNotNull(this._object3d[key])) {
+						object3dList.push(this._object3d[key]);
+					}
+				} else {
+					Object.entries(this._object3d).forEach(([_, object3d]) => {
+						if (ThreeUtil.isNotNull(object3d)) {
+							object3dList.push(object3d);
 						}
+					});
+				}
+				object3dList.forEach(object3d => {
+					if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+						object3d.lookAt(lookat);
 					}
 				});
 			} else if (this.lookat !== lookat) {
