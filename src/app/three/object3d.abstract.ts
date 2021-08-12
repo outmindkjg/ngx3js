@@ -533,7 +533,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		}
 		if (this.materialList !== null && this.materialList.length > 0) {
 			this.materialList.forEach((material) => {
-				if (material.enabled && material.isMaterialType('material')) {
+				if (material.isMaterialType('material')) {
 					materials.push(material.getMaterial());
 				}
 			});
@@ -599,7 +599,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		}
 		if (this.geometryList !== null && this.geometryList.length > 0) {
 			this.geometryList.forEach((geometryCom) => {
-				if (geometry === null && geometryCom.enabled) {
+				if (geometryCom.isGeometryType()) {
 					geometry = geometryCom.getGeometry();
 				}
 			});
@@ -1034,6 +1034,8 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	private _cachedRotationList : RotationComponent[] = [];
 	private _cachedScaleList : ScaleComponent[] = [];
 	private _cachedLookatList : LookatComponent[] = [];
+	private _cachedMaterialList : AbstractMaterialComponent[] = [];
+	private _cachedGeomertyList : AbstractGeometryComponent[] = [];
 
 	/**
 	 * Applys changes3d
@@ -1305,59 +1307,88 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 						}
 						break;
 					case 'material':
-						this.unSubscribeRefer('customDepth');
-						this.unSubscribeRefer('customDistance');
-						this.setUserData('customDepthMaterial', null);
-						this.setUserData('customDistanceMaterial', null);
-
-						this.object3d.userData.customDepthMaterial = null;
-						this.object3d.userData.customDistanceMaterial = null;
+						const newMaterialList : {
+							type : string;
+							component : AbstractMaterialComponent
+						}[] = [];
 						if (ThreeUtil.isNotNull(this.customDepth)) {
-							this.setUserData('customDepthMaterial', 'customDepth');
-							this.object3d.customDepthMaterial = ThreeUtil.getMaterialOne(this.customDepth);
-							this.subscribeRefer(
-								'customDepth',
-								ThreeUtil.getSubscribe(
-									this.customDepth,
-									(event) => {
-										this.addChanges(event);
-									},
-									'material'
-								)
-							);
+							if (this.customDepth instanceof AbstractMaterialComponent) {
+								newMaterialList.push({
+									type : 'customDepth',
+									component : this.customDepth
+								});
+							} else {
+								this.object3d.customDepthMaterial = ThreeUtil.getMaterialOne(this.customDepth);
+							}
 						}
 						if (ThreeUtil.isNotNull(this.customDistance)) {
-							this.setUserData('customDistanceMaterial', 'customDistance');
-							this.object3d.customDistanceMaterial = ThreeUtil.getMaterialOne(this.customDistance);
-							this.subscribeRefer(
-								'customDistance',
-								ThreeUtil.getSubscribe(
-									this.customDistance,
-									(event) => {
-										this.addChanges(event);
-									},
-									'material'
-								)
-							);
+							if (this.customDistance instanceof AbstractMaterialComponent) {
+								newMaterialList.push({
+									type : 'customDepth',
+									component : this.customDistance
+								});
+							} else {
+								this.object3d.customDistanceMaterial = ThreeUtil.getMaterialOne(this.customDistance);
+							}
 						}
-						this.unSubscribeReferList('materialList');
-						if (ThreeUtil.isNotNull(this.materialList) && this.materialList.length > 0) {
-							const meshMaterial = AbstractMaterialComponent.getMeshMaterial(this.object3d) as MeshMaterialRaw;
-							if (meshMaterial !== null) {
-								this.materialList.forEach((material) => {
-									switch (material.materialType.toLowerCase()) {
-										case 'customdepthmaterial':
-										case 'customdepth':
-										case 'customdistancematerial':
-										case 'customdistance':
-											material.setMesh(meshMaterial);
-											break;
-									}
+						if (ThreeUtil.isNotNull(this.material)) {
+							if (this.material instanceof AbstractMaterialComponent) {
+								newMaterialList.push({
+									type : 'material',
+									component : this.material
+								});
+							} 
+						}
+						if (ThreeUtil.isNotNull(this.materialList)) {
+							this.materialList.forEach(material => {
+								newMaterialList.push({
+									type : 'material',
+									component : material
+								});
+							});
+						}
+						const cachedMaterialList : AbstractMaterialComponent[] = [];
+						newMaterialList.forEach(material => {
+							cachedMaterialList.push(material.component);
+						});
+						this._cachedMaterialList.forEach(material => {
+							if (cachedMaterialList.indexOf(material) === -1) {
+								material.unsetObject3d(this);
+							}
+						});
+						newMaterialList.forEach(material => {
+							if (this._cachedMaterialList.indexOf(material.component) === -1) {
+								material.component.setObject3d(this, material.type);
+							}
+						});
+						this._cachedMaterialList = cachedMaterialList;
+						break;
+					case 'geomerty':
+							const newGeomertyList : AbstractGeometryComponent[] = [];
+							if (ThreeUtil.isNotNull(this.geometry)) {
+								if (this.geometry instanceof AbstractGeometryComponent) {
+									newGeomertyList.push(this.geometry);
+								} else if (ThreeUtil.isNotNull(this.object3d['geometry'])){
+									this.object3d['geometry'] = ThreeUtil.getGeometry(this.geometry);
+								}
+							}
+							if (ThreeUtil.isNotNull(this.geometryList)) {
+								this.geometryList.forEach(geomerty => {
+									newGeomertyList.push(geomerty);
 								});
 							}
-							this.subscribeListQuery(this.materialList, 'materialList', 'material');
-						}
-						break;
+							this._cachedGeomertyList.forEach(geomerty => {
+								if (newGeomertyList.indexOf(geomerty) === -1) {
+									geomerty.unsetObject3d(this);
+								}
+							});
+							newGeomertyList.forEach(geomerty => {
+								if (this._cachedGeomertyList.indexOf(geomerty) === -1) {
+									geomerty.setObject3d(this);
+								}
+							});
+							this._cachedGeomertyList = newGeomertyList;
+							break;
 					case 'mixer':
 						this.unSubscribeReferList('mixerList');
 						if (ThreeUtil.isNotNull(this.mixerList)) {

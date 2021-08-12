@@ -66,16 +66,16 @@
         [tubularSegments]="modelInfo.tubularSegments"
         [p]="modelInfo.p"
         [q]="modelInfo.q"
-      ></ngx3js-geometry>
+        [compressPositions]="controls.QuantizePosEncoding"
+        [compressNormals]="controls.NormEncodingMethods"
+        [compressUvs]="controls.DefaultUVEncoding"
+        ></ngx3js-geometry>
       <ngx3js-texture #texture [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'"></ngx3js-texture>
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh 
         [geometry]="geometry" 
         (onLoad)="setGeometry($event)" 
-        [compressPositions]="controls.QuantizePosEncoding"
-        [compressNormals]="controls.NormEncodingMethods"
-        [compressUvs]="controls.DefaultUVEncoding"
       >
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [emissive]="'0x111111'" [map]="controls.texture? texture : null"></ngx3js-material>

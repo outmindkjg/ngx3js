@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Object3D, Vector3 } from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-			
-import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-buffergeometry-compression',

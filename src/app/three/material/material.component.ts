@@ -1475,22 +1475,34 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param texture
 	 * @param textureType
 	 */
-	private synkTexture(texture: any, textureType: string) {
+	private synkTexture(texture: any, textureType: string, textureList : {
+		type : string;
+		component : AbstractTextureComponent
+	}[]) {
 		if (ThreeUtil.isNotNull(texture) && this.material !== null) {
-			const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
-			if (foundTexture !== null) {
-				if (this.material instanceof NODES.NodeMaterial) {
-					if (this.material[textureType] instanceof NODES.TextureNode) {
-						this.material[textureType].value = foundTexture;
-					} else {
-						this.material[textureType] = this.getTextureNode(foundTexture);
+			if (texture instanceof AbstractTextureComponent) {
+				textureList.push({
+					type : textureType,
+					component : texture
+				})
+			} else {
+				const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
+				if (ThreeUtil.isNotNull(foundTexture)) {
+					if (this.material instanceof NODES.NodeMaterial) {
+						if (this.material[textureType] instanceof NODES.TextureNode) {
+							this.material[textureType].value = foundTexture;
+						} else {
+							this.material[textureType] = this.getTextureNode(foundTexture);
+						}
+					} else if (this.material[textureType] !== undefined) {
+						this.material[textureType] = foundTexture;
 					}
-				} else if (this.material[textureType] !== undefined) {
-					this.material[textureType] = foundTexture;
 				}
 			}
 		}
 	}
+
+	private _cachedTextureList : AbstractTextureComponent[] = [];
 
 	/**
 	 * Apply changes to material
@@ -1622,26 +1634,45 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 			if (ThreeUtil.isIndexOf(changes, ['resolutionx', 'resolutiony'])) {
 				changes = ThreeUtil.pushUniq(changes, ['resolution']);
 			}
-
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 					case 'texture':
-						this.synkTexture(this.envMap, 'envMap');
-						this.synkTexture(this.matcap, 'matcap');
-						this.synkTexture(this.map, 'map');
-						this.synkTexture(this.specularMap, 'specularMap');
-						this.synkTexture(this.alphaMap, 'alphaMap');
-						this.synkTexture(this.bumpMap, 'bumpMap');
-						this.synkTexture(this.normalMap, 'normalMap');
-						this.synkTexture(this.aoMap, 'aoMap');
-						this.synkTexture(this.displacementMap, 'displacementMap');
-						this.unSubscribeReferList('textureList');
+						const newTextureList : {
+							type : string;
+							component : AbstractTextureComponent
+						}[] = [];
+						this.synkTexture(this.envMap, 'envMap', newTextureList);
+						this.synkTexture(this.matcap, 'matcap', newTextureList);
+						this.synkTexture(this.map, 'map', newTextureList);
+						this.synkTexture(this.specularMap, 'specularMap', newTextureList);
+						this.synkTexture(this.alphaMap, 'alphaMap', newTextureList);
+						this.synkTexture(this.bumpMap, 'bumpMap', newTextureList);
+						this.synkTexture(this.normalMap, 'normalMap', newTextureList);
+						this.synkTexture(this.aoMap, 'aoMap', newTextureList);
+						this.synkTexture(this.displacementMap, 'displacementMap', newTextureList);
 						if (ThreeUtil.isNotNull(this.textureList)) {
 							this.textureList.forEach((texture) => {
-								texture.setMaterial(this.material);
+								newTextureList.push({
+									type : 'auto',
+									component : texture
+								})
 							});
-							this.subscribeListQuery(this.textureList, 'textureList', 'texture');
 						}
+						const cachedTextureList : AbstractTextureComponent[] = [];
+						newTextureList.forEach(texture => {
+							cachedTextureList.push(texture.component);
+						});
+						this._cachedTextureList.forEach(texture => {
+							if (cachedTextureList.indexOf(texture) === -1) {
+								texture.unsetMaterial(this);
+							}
+						});
+						newTextureList.forEach(material => {
+							if (this._cachedTextureList.indexOf(material.component) === -1) {
+								material.component.setMaterial(this, material.type);
+							}
+						});
+						this._cachedTextureList = cachedTextureList;
 						break;
 					case 'color':
 						if (ThreeUtil.isNotNull(this.color) && this.material['color'] !== undefined) {
@@ -1714,7 +1745,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 								this.material['aoMapIntensity'] = ThreeUtil.getTypeSafe(this.aoMapIntensity, 1);
 							}
 						}
-
 						break;
 					case 'emissive':
 						if (ThreeUtil.isNotNull(this.emissive) && this.material['emissive'] !== undefined) {

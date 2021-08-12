@@ -262,36 +262,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	@Input() private alpha: number = null;
 
 	/**
-	 * The compressPositions
-	 *
-	 * @see GeometryCompressionUtils.compressPositions
-	 */
-	@Input() private compressPositions: boolean = null;
-
-	/**
-	 * Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.
-	 * Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.
-	 *
-	 * "DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"
-	 *
-	 * "OCT1Byte"
-	 * It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage
-	 * As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible
-	 * Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208
-	 *
-	 * "OCT2Byte"
-	 * "ANGLES"
-	 */
-	@Input() private compressNormals: string = null;
-
-	/**
-	 * The compressUvs
-	 *
-	 * @see GeometryCompressionUtils.compressUvs
-	 */
-	@Input() private compressUvs: boolean = null;
-
-	/**
 	 * The color of sky
 	 */
 	@Input() private skyColor: string | number = null;
@@ -1267,103 +1237,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 							this.subscribeListQuery(this.cssChildrenList, 'cssChildrenList', 'html');
 						}
 						break;
-					case 'material':
-						this.unSubscribeRefer('material');
-						switch (this.type.toLowerCase()) {
-							case 'flow':
-							case 'instancedflow':
-								break;
-							default:
-								this.mesh.userData.material = null;
-								if (ThreeUtil.isNull(this.storageName)) {
-									const meshMaterial = AbstractMaterialComponent.getMeshMaterial(this.mesh) as MeshMaterialRaw;
-									if (meshMaterial !== null) {
-										if (Array.isArray(meshMaterial.material)) {
-											meshMaterial.material = [];
-										}
-										if (this.material !== null) {
-											const material = ThreeUtil.getMaterialOne(this.material);
-											if (Array.isArray(meshMaterial.material)) {
-												if (meshMaterial.material.indexOf(material) === -1) {
-													meshMaterial.material.push(material);
-												}
-											} else {
-												this.mesh.userData.material = 'material';
-												if (meshMaterial.material !== material) {
-													meshMaterial.material = material;
-												}
-											}
-											this.subscribeRefer(
-												'material',
-												ThreeUtil.getSubscribe(
-													this.material,
-													(event) => {
-														this.addChanges(event);
-													},
-													'material'
-												)
-											);
-										}
-										if (ThreeUtil.isNotNull(this.materialList)) {
-											if (this.materialList.length > 0) {
-												this.materialList.forEach((material) => {
-													switch (material.materialType.toLowerCase()) {
-														case 'material':
-															material.setMesh(meshMaterial);
-															break;
-													}
-												});
-											}
-										}
-									}
-								}
-								break;
-						}
-						break;
-					case 'geometry':
-						this.unSubscribeRefer('geometry');
-						this.unSubscribeReferList('materialList');
-						switch (this.type.toLowerCase()) {
-							case 'flow':
-							case 'instancedflow':
-								break;
-							default:
-								this.mesh.userData.geometry = null;
-								const meshGeometry = AbstractGeometryComponent.getMeshGeometry(this.mesh);
-								if (meshGeometry !== null) {
-									if (ThreeUtil.isNotNull(this.geometry)) {
-										this.mesh.userData.geometry = 'geometry';
-										const geometry = ThreeUtil.getGeometry(this.geometry);
-										if (meshGeometry.geometry !== geometry) {
-											meshGeometry.geometry = geometry;
-											if (ThreeUtil.isNotNull(meshGeometry.updateMorphTargets)) {
-												meshGeometry.updateMorphTargets();
-											}
-										}
-										this.subscribeRefer(
-											'geometry',
-											ThreeUtil.getSubscribe(
-												this.geometry,
-												(event) => {
-													this.addChanges(event);
-													this.setSubscribeNext('loaded');
-												},
-												'geometry'
-											)
-										);
-									}
-									if (ThreeUtil.isNotNull(this.geometryList)) {
-										if (this.geometryList.length > 0) {
-											this.geometryList.forEach((geometry) => {
-												geometry.setMesh(meshGeometry);
-											});
-										}
-										this.subscribeListQuery(this.geometryList, 'geometryList', 'geometry');
-									}
-								}
-								break;
-						}
-						break;
 				}
 			});
 			super.applyChanges3d(changes);
@@ -2018,47 +1891,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 										loadedMesh.material['morphTargets'] = this.morphTargets;
 									}
 								}
-								if (assignMaterial) {
-									const materials = this.getMaterialsMulti({}, false);
-									if (materials.length > 0) {
-										const materialType: string = this.storageOption?.materialType || 'seqn';
-										switch (materialType.toLowerCase()) {
-											case 'namelist':
-												this.materialList.forEach((material) => {
-													const nameList = material.nameList;
-													if (nameList !== null && nameList.length > 0) {
-														const matOfName = material.getMaterial();
-														nameList.forEach((name) => {
-															const object = loadedMesh.getObjectByName(name) as any;
-															if (object !== null && object !== undefined) {
-																object.material = matOfName;
-															}
-														});
-													}
-												});
-												break;
-											case 'map':
-												const texture = this.getMaterialOne()['map'];
-												loadedMesh.traverse((child) => {
-													if (child['isMesh']) child['material'].map = texture;
-												});
-												break;
-											default:
-												const loadedMeshes: THREE.Mesh[] = [];
-												loadedMesh.traverse((object3d) => {
-													if (object3d instanceof THREE.Mesh) {
-														loadedMeshes.push(object3d);
-													}
-												});
-												materials.forEach((material, idx) => {
-													if (loadedMeshes.length > idx) {
-														loadedMeshes[idx].material = material;
-													}
-												});
-												break;
-										}
-									}
-								}
 								this.setUserData('refTarget', loadedMesh);
 								this.setUserData('clips', clips);
 								this.setUserData('storageSource', source);
@@ -2071,10 +1903,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 										this.addChanges(['volumeoption']);
 									}
 									loadedMesh.parent = null;
-									this.setObject3d(loadedMesh);
 									if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
 										this.addParentObject3d(source.skeleton.bones[0]);
 									}
+									this.mesh = loadedMesh;
+									this.setObject3d(loadedMesh);
 								}
 							},
 							this.storageOption
@@ -2209,15 +2042,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								mesh.add(poGroup);
 								mesh.add(object);
 							}
-						}
-					}
-					if (ThreeUtil.isNotNull(this.compressPositions) && this.compressPositions) {
-						GeometryCompressionUtils.compressPositions(mesh);
-					}
-					if (ThreeUtil.isNotNull(this.compressNormals) && this.compressNormals !== 'None') {
-						GeometryCompressionUtils.compressNormals(mesh, this.compressNormals);
-						if (this.compressUvs) {
-							GeometryCompressionUtils.compressUvs(mesh);
 						}
 					}
 				}

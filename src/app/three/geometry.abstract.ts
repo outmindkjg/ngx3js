@@ -13,6 +13,7 @@ import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { TranslationComponent } from './translation/translation.component';
 import { WireframeGeometry2 } from 'three/examples/jsm/lines/WireframeGeometry2';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
+import { GeometryCompressionUtils } from 'three/examples/jsm/utils/GeometryCompressionUtils';
 
 /**
  * Attr Buffer Attribute
@@ -24,17 +25,6 @@ export type AttrBufferAttribute = number[] | Int8Array | Int16Array | Int32Array
  */
 export interface GeometriesParametric {
 	(u: number, v: number, target?: any): ThreeVector;
-}
-
-/**
- * Mesh geometry
- */
-export interface MeshGeometry {
-	geometry: THREE.BufferGeometry;
-	userData?: any;
-	material?: THREE.Material | THREE.Material[];
-	updateMorphTargets?: () => void;
-	computeLineDistances?: () => void;
 }
 
 /**
@@ -51,6 +41,11 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	 *
 	 */
 	@Input() private name: string = null;
+
+	/**
+	 * refName  of geometry component
+	 */
+	@Input() private refName: string | string[] = null;
 
 	/**
 	 * Input  of abstract geometry component
@@ -395,17 +390,47 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 
 	/**
 	 * drawRangeStart of abstract geometry component
-	 * 
+	 *
 	 * @see THREE.BufferGeometry setDrawRange
 	 */
 	@Input() private drawRangeStart: number = null;
-	
+
 	/**
 	 * drawRangeCount of abstract geometry component
-	 * 
+	 *
 	 * @see THREE.BufferGeometry setDrawRange
 	 */
 	@Input() private drawRangeCount: number = null;
+
+	/**
+	 * The compressPositions
+	 *
+	 * @see GeometryCompressionUtils.compressPositions
+	 */
+	@Input() private compressPositions: boolean = null;
+
+	/**
+	 * Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.
+	 * Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.
+	 *
+	 * "DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"
+	 *
+	 * "OCT1Byte"
+	 * It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage
+	 * As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible
+	 * Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208
+	 *
+	 * "OCT2Byte"
+	 * "ANGLES"
+	 */
+	@Input() private compressNormals: string = null;
+
+	/**
+	 * The compressUvs
+	 *
+	 * @see GeometryCompressionUtils.compressUvs
+	 */
+	@Input() private compressUvs: boolean = null;
 
 	/**
 	 * Input  of abstract geometry component
@@ -495,6 +520,14 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 		this.subscribeListQueryChange(this.rotationList, 'rotationList', 'rotation');
 		this.subscribeListQueryChange(this.positionList, 'positionList', 'position');
 		super.ngAfterContentInit();
+	}
+
+	/**
+	 * Determines whether Geometry type is
+	 * @returns true if Geometry type
+	 */
+	public isGeometryType(): boolean {
+		return this.enabled && (ThreeUtil.isNull(this.refName) || this.refName === '*');
 	}
 
 	/**
@@ -726,7 +759,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					});
 					bufferAttribute = new THREE.Uint32BufferAttribute(intArray, itemSize);
 					break;
-				case 'uint' :
+				case 'uint':
 					const uintArray = new Uint32Array(attribute.length);
 					attribute.forEach((v, i) => {
 						uintArray[i] = v;
@@ -803,95 +836,142 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	}
 
 	/**
-	 * Mesh geometry of abstract geometry component
+	 * Object3d of Geomerty component
 	 */
-	private _meshGeometry: MeshGeometry = null;
+	private _object3d: {
+		[key: string]: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[];
+	} = {};
 
 	/**
-	 * Determines whether mesh geometry is
-	 * @param mesh
-	 * @returns true if mesh geometry
+	 * unSets object3d
+	 * @param object3d
 	 */
-	public static isMeshGeometry(mesh: any): boolean {
-		if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite) {
-			return true;
-		} else {
-			return false;
+	public unsetObject3d(object3d: AbstractSubscribeComponent) {
+		const key: string = object3d.getId();
+		this.unSubscribeRefer('geometry_' + key);
+		this.unSubscribeRefer('ungeometry_' + key);
+		if (ThreeUtil.isNotNull(this._object3d[key])) {
+			delete this._object3d[key];
 		}
 	}
 
 	/**
-	 * Gets mesh geometry
-	 * @param mesh
-	 * @returns mesh geometry
+	 * Sets object3d
+	 * @param object3d
 	 */
-	public static getMeshGeometry(mesh: any): MeshGeometry {
-		if (this.isMeshGeometry(mesh)) {
-			return mesh;
-		}
-		const object3d = ThreeUtil.getObject3d(mesh, false) as any;
-		if (object3d !== null) {
-			if (this.isMeshGeometry(object3d)) {
-				return object3d;
+	public setObject3d(object3d: AbstractSubscribeComponent) {
+		if (ThreeUtil.isNotNull(object3d)) {
+			const key: string = object3d.getId();
+			let object = ThreeUtil.getObject3d(object3d);
+			const objectList: THREE.Object3D[] = [];
+			let meshes: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[];
+			if (ThreeUtil.isNotNull(object)) {
+				if (ThreeUtil.isNotNull(this.refName)) {
+					if (this.refName === '*') {
+						object.traverse((child) => {
+							if (ThreeUtil.isNotNull(child['geometry'])) {
+								objectList.push(child);
+							}
+						});
+					} else if (Array.isArray(this.refName)) {
+						this.refName.forEach((refName) => {
+							const foundObj = object.getObjectByName(refName);
+							if (ThreeUtil.isNotNull(foundObj)) {
+								objectList.push(foundObj);
+							}
+						});
+					} else {
+						const foundObj = object.getObjectByName(this.refName);
+						if (ThreeUtil.isNotNull(foundObj)) {
+							objectList.push(foundObj);
+						}
+					}
+				} else {
+					objectList.push(object);
+				}
 			}
-			if (object3d instanceof THREE.Group) {
-				let childMesh: MeshGeometry = null;
-				mesh.children.forEach((child) => {
-					if (childMesh === null && this.isMeshGeometry(child)) {
-						childMesh = child;
+			if (objectList.length > 0) {
+				objectList.forEach((object) => {
+					if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points || object instanceof THREE.Sprite) {
+						meshes.push(object);
 					}
 				});
-				if (childMesh !== null) {
-					return childMesh;
-				}
 			}
-		}
-		return null;
-	}
-
-	/**
-	 * Sets mesh
-	 * @param meshGeometry
-	 */
-	public setMesh(meshGeometry: MeshGeometry) {
-		if (this.geometry === null) {
+			this._object3d[key] = meshes;
+			this.subscribeRefer(
+				'geometry_' + key,
+				ThreeUtil.getSubscribe(
+					object3d,
+					() => {
+						this.setObject3d(object3d);
+					},
+					'loaded'
+				)
+			);
+			this.subscribeRefer(
+				'ungeometry_' + key,
+				ThreeUtil.getSubscribe(
+					object3d,
+					() => {
+						this.unsetObject3d(object3d);
+					},
+					'destroy'
+				)
+			);
 			this.getGeometry();
-		}
-		if (ThreeUtil.isNotNull(meshGeometry)) {
-			this._meshGeometry = meshGeometry;
-			this.synkMesh(this.geometry);
+			this.synkObject3d(this.geometry, key);
 		}
 	}
 
 	/**
-	 * Synks mesh
-	 *
+	 * Synks object3d
 	 * @param [geometry]
 	 */
-	protected synkMesh(geometry: THREE.BufferGeometry = null) {
+	synkObject3d(geometry: THREE.BufferGeometry = null, key: string = null) {
 		if (ThreeUtil.isNotNull(geometry) && this.enabled) {
-			if (ThreeUtil.isNotNull(this._meshGeometry)) {
-				if (this.isIdEuals(this._meshGeometry.userData.geometry)) {
-					this._meshGeometry.userData.geometry = this.id;
-					// if (this._meshGeometry instanceof THREE.Line) {
-					//  if (this.geometry.getIndex() === null) {
-					//    this._meshGeometry.computeLineDistances();
-					//  }
-					// }
-					if (this._meshGeometry instanceof THREE.LineSegments) {
-						if (this._meshGeometry.geometry !== this.geometry) {
-							const threeComponent = ThreeUtil.getThreeComponent(this._meshGeometry);
-							if (threeComponent !== null) {
-								threeComponent.needUpdate = true;
+			if (ThreeUtil.isNotNull(this._object3d)) {
+				const object3dList: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[] = [];
+				if (ThreeUtil.isNotNull(key)) {
+					if (ThreeUtil.isNotNull(this._object3d[key]) && ThreeUtil.isNotNull(this._object3d[key]) && this._object3d[key].length > 0) {
+						object3dList.push(...this._object3d[key]);
+					}
+				} else {
+					Object.entries(this._object3d).forEach(([_, object3d]) => {
+						if (ThreeUtil.isNotNull(object3d) && object3d.length > 0) {
+							object3dList.push(...object3d);
+						}
+					});
+				}
+				object3dList.forEach((info) => {
+					info.geometry = this.geometry;
+					if (info instanceof THREE.Mesh) {
+						if (ThreeUtil.isNotNull(this.compressPositions) && this.compressPositions) {
+							GeometryCompressionUtils.compressPositions(info);
+						}
+						if (ThreeUtil.isNotNull(this.compressNormals)) {
+							switch (this.compressNormals.toLowerCase()) {
+								case 'default':
+									GeometryCompressionUtils.compressNormals(info, 'DEFAULT');
+									break;
+								case 'oct1byte':
+									GeometryCompressionUtils.compressNormals(info, 'OCT1Byte');
+									break;
+								case 'oct2byte':
+									GeometryCompressionUtils.compressNormals(info, 'OCT2Byte');
+									break;
+								case 'angles':
+									GeometryCompressionUtils.compressNormals(info, 'ANGLES');
+									break;
 							}
 						}
-					} else {
-						this._meshGeometry.geometry = this.geometry;
+						if (this.compressUvs) {
+							GeometryCompressionUtils.compressUvs(info);
+						}
 					}
-					if (ThreeUtil.isNotNull(this._meshGeometry.updateMorphTargets)) {
-						this._meshGeometry.updateMorphTargets();
+					if (ThreeUtil.isNotNull(info['updateMorphTargets'])) {
+						info['updateMorphTargets']();
 					}
-				}
+				});
 			} else if (this.geometry !== geometry) {
 				this.geometry = geometry;
 			}
@@ -916,7 +996,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 						case 'wireframesimple':
 							const simpleParameters: any = geometry['parameters'] || {};
 							lineGeometry = new THREE.WireframeGeometry(geometry);
-							let simplePositions : Float32Array = null;
+							let simplePositions: Float32Array = null;
 							switch (geometry.type) {
 								case 'PlaneGeometry':
 									simplePositions = new Float32Array(15);
@@ -1021,20 +1101,20 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 										const p6 = p2 + skipDepth;
 										const p7 = p3 + skipDepth;
 										const p8 = p4 + skipDepth;
-										const lineList :{ start : number, end : number}[] = [];
-										lineList.push({ start : p1, end : p2});
-										lineList.push({ start : p2, end : p3});
-										lineList.push({ start : p3, end : p4});
-										lineList.push({ start : p4, end : p1});
-										lineList.push({ start : p5, end : p6});
-										lineList.push({ start : p6, end : p7});
-										lineList.push({ start : p7, end : p8});
-										lineList.push({ start : p8, end : p5});
-										lineList.push({ start : p1, end : p6});
-										lineList.push({ start : p2, end : p5});
-										lineList.push({ start : p3, end : p8});
-										lineList.push({ start : p4, end : p7});
-										lineList.forEach(line => {
+										const lineList: { start: number; end: number }[] = [];
+										lineList.push({ start: p1, end: p2 });
+										lineList.push({ start: p2, end: p3 });
+										lineList.push({ start: p3, end: p4 });
+										lineList.push({ start: p4, end: p1 });
+										lineList.push({ start: p5, end: p6 });
+										lineList.push({ start: p6, end: p7 });
+										lineList.push({ start: p7, end: p8 });
+										lineList.push({ start: p8, end: p5 });
+										lineList.push({ start: p1, end: p6 });
+										lineList.push({ start: p2, end: p5 });
+										lineList.push({ start: p3, end: p8 });
+										lineList.push({ start: p4, end: p7 });
+										lineList.forEach((line) => {
 											const idxStart = line.start;
 											const idxEnd = line.end;
 											px1 = attrPosition.getX(idxStart);
@@ -1053,15 +1133,15 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 										const gridX = parameters.widthSegments + 1;
 										const gridY = parameters.heightSegments + 1;
 										const p1 = 0;
-										const p2 = p1 + gridX -1;
-										const p3 = gridX * gridY -1;
+										const p2 = p1 + gridX - 1;
+										const p3 = gridX * gridY - 1;
 										const p4 = p3 - p2;
-										const lineList :{ start : number, end : number}[] = [];
-										lineList.push({ start : p1, end : p2});
-										lineList.push({ start : p2, end : p3});
-										lineList.push({ start : p3, end : p4});
-										lineList.push({ start : p4, end : p1});
-										lineList.forEach(line => {
+										const lineList: { start: number; end: number }[] = [];
+										lineList.push({ start: p1, end: p2 });
+										lineList.push({ start: p2, end: p3 });
+										lineList.push({ start: p3, end: p4 });
+										lineList.push({ start: p4, end: p1 });
+										lineList.forEach((line) => {
 											const idxStart = line.start;
 											const idxEnd = line.end;
 											px1 = attrPosition.getX(idxStart);
@@ -1079,18 +1159,18 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 										lineGeometry = new LineSegmentsGeometry();
 										const gridX = parameters.thetaSegments + 1;
 										const gridY = parameters.phiSegments + 1;
-										const lineList :{ start : number, end : number}[] = [];
-										for(let i = 0 ; i < gridX - 1; i++) {
-											lineList.push({ start : i, end : i+1});
+										const lineList: { start: number; end: number }[] = [];
+										for (let i = 0; i < gridX - 1; i++) {
+											lineList.push({ start: i, end: i + 1 });
 										}
-										const topStart = gridX * (gridY - 1 );
-										for(let i = 0 ; i < gridX - 1; i++) {
-											lineList.push({ start : topStart + i, end : topStart + i+1});
+										const topStart = gridX * (gridY - 1);
+										for (let i = 0; i < gridX - 1; i++) {
+											lineList.push({ start: topStart + i, end: topStart + i + 1 });
 										}
 
-										lineList.push({ start : 0, end : topStart });
-										lineList.push({ start : 0 + gridX -1 , end : topStart + gridX -1 });
-										lineList.forEach(line => {
+										lineList.push({ start: 0, end: topStart });
+										lineList.push({ start: 0 + gridX - 1, end: topStart + gridX - 1 });
+										lineList.forEach((line) => {
 											const idxStart = line.start;
 											const idxEnd = line.end;
 											px1 = attrPosition.getX(idxStart);
@@ -1108,7 +1188,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 										lineGeometry = new LineSegmentsGeometry();
 										const segments = (parameters.segments || 1) + 2;
 										const isClosed = parameters.thetaLength < Math.PI * 2 ? false : true;
-										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments -1); i++) {
+										for (let i = isClosed ? 1 : 0; i <= (isClosed ? segments - 2 : segments - 1); i++) {
 											const idx = (i + 1) % segments;
 											px1 = attrPosition.getX(i);
 											py1 = attrPosition.getY(i);
@@ -1118,7 +1198,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 											pz2 = attrPosition.getZ(idx);
 											vertices.push(px1, py1, pz1, px2, py2, pz2);
 										}
-									}									
+									}
 									break;
 								default:
 									break;
@@ -1302,7 +1382,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 			if (ThreeUtil.isNotNull(this.name)) {
 				this.geometry.name = this.name;
 			}
-			this.synkMesh(this.geometry);
+			this.synkObject3d(this.geometry);
 			super.setObject(this.geometry);
 		}
 	}
@@ -1339,7 +1419,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
-					case 'drawrange' :
+					case 'drawrange':
 						if (ThreeUtil.isNotNull(this.drawRangeStart) && ThreeUtil.isNotNull(this.drawRangeCount)) {
 							this.geometry.setDrawRange(this.drawRangeStart, this.drawRangeCount);
 						}

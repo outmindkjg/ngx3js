@@ -37,17 +37,12 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	/**
 	 * refName  of material component
 	 */
-	@Input() private refName: string = null;
+	@Input() private refName: string | string[] = null;
 
 	/**
 	 * Defines whether this material is visible. Default is *true*.
 	 */
 	@Input() public visible: boolean = null;
-
-	/**
-	 * The name of the object to apply loaded mesh when restore from assets.
-	 */
-	@Input() public nameList: string[] = null;
 
 	/**
 	 * The Material type. can be material, background etc.
@@ -437,7 +432,7 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	 * @returns true if material type
 	 */
 	public isMaterialType(materialType: string): boolean {
-		return this.materialType.toLowerCase() === materialType.toLowerCase() && (this.visible === null || this.visible);
+		return (ThreeUtil.isNull(this.materialType) || this.materialType.toLowerCase() === materialType.toLowerCase()) && this.enabled && (ThreeUtil.isNull(this.refName) || this.refName === '*') && (this.visible === null || this.visible);
 	}
 
 	/**
@@ -972,32 +967,15 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	}
 
 	/**
-	 * Mesh material of abstract material component
-	 */
-	private _meshMaterial: MeshMaterial = null;
-
-	/**
-	 * Sets mesh
-	 * @param meshMaterial
-	 */
-	public setMesh(meshMaterial: MeshMaterial) {
-		if (this.material === null) {
-			this.getMaterial();
-		}
-		if (ThreeUtil.isNotNull(meshMaterial)) {
-			this._meshMaterial = meshMaterial;
-			this.synkMesh(this.material);
-		}
-	}
-
-	/**
 	 * Object3d  of Material component
 	 */
 	private _object3d: {
 		[key: string]: {
 			refType: string;
-			refIndex: number;
-			mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite;
+			meshes: {
+				refIndex: number;
+				mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite;
+			}[];
 		};
 	} = {};
 
@@ -1022,31 +1000,63 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 		if (ThreeUtil.isNotNull(object3d)) {
 			const key: string = object3d.getId();
 			let object = ThreeUtil.getObject3d(object3d);
-			let mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite = null;
-			if (ThreeUtil.isNotNull(this.refName) && ThreeUtil.isNotNull(object)) {
-				object = object.getObjectByName(this.refName);
-			}
-			let refIndex: number = -1;
+			const objectList: THREE.Object3D[] = [];
+			let meshes: {
+				refIndex: number;
+				mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite;
+			}[] = [];
 			if (ThreeUtil.isNotNull(object)) {
-				if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points || object instanceof THREE.Sprite) {
-					mesh = object;
-					if (Array.isArray(object.material)) {
-						refIndex = object.material.indexOf(this.material);
+				if (ThreeUtil.isNotNull(this.refName)) {
+					if (this.refName === '*') {
+						object.traverse((child) => {
+							if (ThreeUtil.isNotNull(child['material'])) {
+								objectList.push(child);
+							}
+						});
+					} else if (Array.isArray(this.refName)){
+						this.refName.forEach(refName => {
+							const foundObj = object.getObjectByName(refName);
+							if (ThreeUtil.isNotNull(foundObj)) {
+								objectList.push(foundObj);
+							}
+						})
 					} else {
-						refIndex = -1;
+						const foundObj = object.getObjectByName(this.refName);
+						if (ThreeUtil.isNotNull(foundObj)) {
+							objectList.push(foundObj);
+						}
 					}
-				} else if (object instanceof THREE.Scene) {
-					mesh = object;
-					refIndex = -1;
+				} else {
+					objectList.push(object);
 				}
+			}
+			if (objectList.length > 0) {
+				objectList.forEach((object) => {
+					if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points || object instanceof THREE.Sprite) {
+						let refIndex: number = -1;
+						if (Array.isArray(object.material)) {
+							refIndex = object.material.indexOf(this.material);
+						} else {
+							refIndex = -1;
+						}
+						meshes.push({
+							refIndex: refIndex,
+							mesh: object,
+						});
+					} else if (object instanceof THREE.Scene) {
+						meshes.push({
+							refIndex: -1,
+							mesh: object,
+						});
+					}
+				});
 			}
 			this._object3d[key] = {
 				refType: refType,
-				refIndex: refIndex,
-				mesh: mesh,
+				meshes: meshes,
 			};
 			this.subscribeRefer(
-				'matrial_' + key,
+				'material_' + key,
 				ThreeUtil.getSubscribe(
 					object3d,
 					() => {
@@ -1056,7 +1066,7 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 				)
 			);
 			this.subscribeRefer(
-				'unmatrial_' + key,
+				'unmaterial_' + key,
 				ThreeUtil.getSubscribe(
 					object3d,
 					() => {
@@ -1079,25 +1089,29 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 			if (ThreeUtil.isNotNull(this._object3d)) {
 				const object3dList: {
 					refType: string;
-					refIndex: number;
-					mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite;
+					meshes: {
+						refIndex: number;
+						mesh: THREE.Scene | THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite;
+					}[];
 				}[] = [];
 				if (ThreeUtil.isNotNull(key)) {
-					if (ThreeUtil.isNotNull(this._object3d[key]) && ThreeUtil.isNotNull(this._object3d[key].mesh)) {
+					if (ThreeUtil.isNotNull(this._object3d[key]) && ThreeUtil.isNotNull(this._object3d[key].meshes) && this._object3d[key].meshes.length > 0) {
 						object3dList.push(this._object3d[key]);
 					}
 				} else {
 					Object.entries(this._object3d).forEach(([_, object3d]) => {
-						if (ThreeUtil.isNotNull(object3d) && ThreeUtil.isNotNull(object3d.mesh)) {
+						if (ThreeUtil.isNotNull(object3d) && ThreeUtil.isNotNull(object3d.meshes) && object3d.meshes.length > 0) {
 							object3dList.push(object3d);
 						}
 					});
 				}
 				object3dList.forEach((object3d) => {
 					let materialType: string = object3d.refType;
-					if (materialType === 'auto' || materialType === '') {
+					if (materialType === 'auto' || materialType === 'material' || materialType === '') {
 						materialType = ThreeUtil.getTypeSafe(this.materialType, 'material');
-						const mesh = object3d.mesh;
+					}
+					object3d.meshes.forEach((info) => {
+						const mesh = info.mesh;
 						switch (materialType.toLowerCase()) {
 							case 'customdepthmaterial':
 							case 'customdepth':
@@ -1158,184 +1172,25 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 											break;
 									}
 								} else {
-                  if (Array.isArray(mesh.material)) {
-                    if (object3d.refIndex > -1) {
-                      mesh.material[object3d.refIndex] = material;
-                    } else {
-                      mesh.material.push(material);
-                      object3d.refIndex = mesh.material.length -1;
-                    }
-                  } else {
-                    mesh.material = material;
-                  }   
+									if (Array.isArray(mesh.material)) {
+										const refIndex = info.refIndex;
+										if (refIndex > -1) {
+											mesh.material[refIndex] = material;
+										} else {
+											mesh.material.push(material);
+											info.refIndex = mesh.material.length - 1;
+										}
+									} else {
+										mesh.material = material;
+									}
 								}
 						}
-					}
+					});
 				});
 			} else if (this.material !== material) {
 				this.material = material;
 			}
 		}
-	}
-
-	/**
-	 * Synks mesh
-	 * @param [material]
-	 */
-	protected synkMesh(material: THREE.Material = null) {
-		if (ThreeUtil.isNotNull(material) && this.enabled) {
-			if (ThreeUtil.isNotNull(this._meshMaterial)) {
-				switch (this.materialType.toLowerCase()) {
-					case 'customdepthmaterial':
-					case 'customdepth':
-						if (this._meshMaterial instanceof THREE.Object3D) {
-							if (this.isIdEuals(this._meshMaterial.userData.customDepthMaterial)) {
-								this._meshMaterial.userData.customDepthMaterial = this.id;
-								this._meshMaterial.customDepthMaterial = this.material;
-								ThreeUtil.setSubscribeNext(this._meshMaterial, this.subscribeType);
-							}
-						}
-						break;
-					case 'customdistancematerial':
-					case 'customdistance':
-						if (this._meshMaterial instanceof THREE.Object3D) {
-							if (this.isIdEuals(this._meshMaterial.userData.customDistanceMaterial)) {
-								this._meshMaterial.userData.customDistanceMaterial = this.id;
-								this._meshMaterial.customDistanceMaterial = this.material;
-								ThreeUtil.setSubscribeNext(this._meshMaterial, this.subscribeType);
-							}
-						}
-						break;
-					case 'material':
-					default:
-						if (this._meshMaterial instanceof THREE.Scene) {
-							switch (this.materialType.toLowerCase()) {
-								case 'background':
-									if (this.isIdEuals(this._meshMaterial.userData.background)) {
-										this._meshMaterial.userData.background = this.id;
-										const backgroundTexture: THREE.Texture = this.material['map'];
-										if (ThreeUtil.isNotNull(backgroundTexture)) {
-											this._meshMaterial.background = backgroundTexture;
-										}
-										const backgroundEnvMap: THREE.Texture = this.material['envMap'];
-										if (ThreeUtil.isNotNull(backgroundEnvMap)) {
-											this._meshMaterial.environment = backgroundEnvMap;
-										}
-									}
-									break;
-								case 'environment':
-									if (this.isIdEuals(this._meshMaterial.userData.environment)) {
-										this._meshMaterial.userData.environment = this.id;
-										const environmentMap: THREE.Texture = this.material['map'];
-										if (ThreeUtil.isNotNull(environmentMap) && this._meshMaterial.background !== environmentMap) {
-											this._meshMaterial.environment = environmentMap;
-										} else {
-											const backgroundEnvMap: THREE.Texture = this.material['envMap'];
-											if (ThreeUtil.isNotNull(backgroundEnvMap) && this._meshMaterial.environment !== backgroundEnvMap) {
-												this._meshMaterial.environment = backgroundEnvMap;
-											}
-										}
-									}
-									break;
-								case 'background-angular':
-								case 'backgroundangular':
-								case 'environment-angular':
-								case 'environmentangular':
-								case 'background-environment-angular':
-								case 'environment-background-angular':
-								case 'backgroundenvironmentangular':
-								case 'environmentbackgroundangular':
-									if (this.isIdEuals(this._meshMaterial.userData.angular)) {
-										if (this._meshMaterial.userData.angular !== this.id) {
-											this._meshMaterial.userData.angular = this.id;
-											ThreeUtil.setSubscribeNext(this._meshMaterial, 'material');
-										}
-									}
-									break;
-								case 'overridematerial':
-								default:
-									if (this.isIdEuals(this._meshMaterial.userData.angular)) {
-										this._meshMaterial.userData.overrideMaterial = this.id;
-										if (this._meshMaterial.overrideMaterial !== this.material) {
-											this._meshMaterial.overrideMaterial = this.material;
-										}
-									}
-									break;
-							}
-						} else {
-							if (Array.isArray(this._meshMaterial.material)) {
-								let oldMatrial: THREE.Material = null;
-								this._meshMaterial.material.forEach((mat) => {
-									if (mat.userData.id === this.id) {
-										oldMatrial = mat;
-									}
-								});
-								if (oldMatrial !== null) {
-									const idx = this._meshMaterial.material.indexOf(oldMatrial);
-									if (idx > -1) {
-										this._meshMaterial.material.splice(idx, 1);
-									}
-								}
-								if (this._meshMaterial.material.indexOf(this.material) === -1) {
-									this._meshMaterial.material.push(this.material);
-									ThreeUtil.setSubscribeNext(this._meshMaterial, this.subscribeType);
-								}
-							} else if (this._meshMaterial.material !== this.material) {
-								if (this.isIdEuals(this._meshMaterial.userData.material)) {
-									this._meshMaterial.userData.material = this.id;
-									this._meshMaterial.material = this.material;
-									ThreeUtil.setSubscribeNext(this._meshMaterial, this.subscribeType);
-								}
-							}
-						}
-						break;
-				}
-			} else if (this.material !== material && material !== null) {
-				this.material = material;
-			}
-		}
-	}
-
-	/**
-	 * Determines whether mesh material is
-	 * @param mesh
-	 * @returns true if mesh material
-	 */
-	public static isMeshMaterial(mesh: any): boolean {
-		if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Points || mesh instanceof THREE.Line || mesh instanceof THREE.Sprite || mesh instanceof THREE.Scene) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Gets mesh material
-	 * @param mesh
-	 * @returns mesh material
-	 */
-	public static getMeshMaterial(mesh: any): MeshMaterial {
-		if (this.isMeshMaterial(mesh)) {
-			return mesh;
-		}
-		const object3d = ThreeUtil.getObject3d(mesh, false) as any;
-		if (object3d !== null) {
-			if (this.isMeshMaterial(object3d)) {
-				return object3d;
-			}
-			if (object3d instanceof THREE.Group) {
-				let childMesh: MeshMaterial = null;
-				mesh.children.forEach((child) => {
-					if (childMesh === null && this.isMeshMaterial(child)) {
-						childMesh = child;
-					}
-				});
-				if (childMesh !== null) {
-					return childMesh;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -1432,13 +1287,13 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 					control.setupMaterial(material);
 				}
 			}
-			material.userData.id = this.id;
-			material.userData.materialType = this.materialType.toLowerCase();
+			this.setUserData('materialType', this.materialType.toLowerCase());
+			this.setUserData('refName', ThreeUtil.getTypeSafe(this.refName, ''));
 			if (ThreeUtil.isNotNull(this.onBeforeCompile)) {
 				material.onBeforeCompile = this.onBeforeCompile;
 			}
 			this.material = material;
-			this.synkMesh(this.material);
+			this.synkObject3d(this.material);
 			super.setObject(this.material);
 			this.setSubscribeNext('material');
 		}
@@ -1456,6 +1311,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
+					case 'enabled' :
+						this.synkObject3d(this.material);
+						break;
 					case 'blending':
 						if (ThreeUtil.isNotNull(this.blending)) {
 							this.material.blending = ThreeUtil.getBlendingSafe(this.blending);

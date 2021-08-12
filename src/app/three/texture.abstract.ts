@@ -1,11 +1,13 @@
 import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { IUniform } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
 import { NodeMaterial, NormalMapNode, OperatorNode, TextureNode } from 'three/examples/jsm/nodes/Nodes';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
 import { CanvasFunctionType, TextureUtils } from './texture/textureUtils';
@@ -44,6 +46,11 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * The name of the object (doesn't need to be unique). Default is an empty string.
 	 */
 	@Input() public name: string = null;
+
+	/**
+	 * refName  of geometry component
+	 */
+	@Input() private refName: string | string[] = null;
 
 	/**
 	 * If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br /><br />
@@ -789,7 +796,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 									}
 									textureOption[key.toLowerCase()] = ThreeUtil.getVector2Safe(parseFloat(x), parseFloat(y), null, null, true);
 									break;
-								default :
+								default:
 									textureOption[key] = parseFloat(value);
 									break;
 							}
@@ -823,7 +830,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 		} else {
 			if (image === 'room') {
 				const pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
-				console.log(textureOption.sigma)
+				console.log(textureOption.sigma);
 				texture = pmremGenerator.fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(textureOption.sigma, 0)).texture;
 			} else {
 				texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
@@ -1264,19 +1271,222 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	/**
 	 * Material  of abstract texture component
 	 */
-	private material: THREE.Material | THREE.Scene = null;
+	private _material: {
+
+		[key: string]: {
+			refType: string;
+			materials : (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[];
+		}
+	} = {};
+
+	/**
+	 * unSets object3d
+	 * @param object3d
+	 */
+	public unsetMaterial(material: AbstractSubscribeComponent) {
+		const key: string = material.getId();
+		this.unSubscribeRefer('texture_' + key);
+		this.unSubscribeRefer('untexture_' + key);
+		if (ThreeUtil.isNotNull(this._material[key])) {
+			delete this._material[key];
+		}
+	}
 
 	/**
 	 * Sets material
 	 * @param material
 	 */
-	public setMaterial(material: THREE.Material | THREE.Scene) {
-		if (ThreeUtil.isNotNull(material) && this.material !== material) {
-			this.material = material;
-			if (this.texture !== null) {
-				this.applyMaterial();
-			} else {
-				this.getTexture();
+	public setMaterial(material: AbstractSubscribeComponent, refType: string = 'auto') {
+		if (ThreeUtil.isNotNull(material)) {
+			const key: string = material.getId();
+			let object = material.getObject();
+			let objectList: any[] = [];
+			if (ThreeUtil.isNotNull(object)) {
+				if (ThreeUtil.isNotNull(this.refName) && object instanceof THREE.Object3D) {
+					const object3d: THREE.Object3D = object;
+					if (this.refName === '*') {
+						object3d.traverse((child) => {
+							if (ThreeUtil.isNotNull(child['material'])) {
+								objectList.push(child);
+							}
+						});
+					} else if (Array.isArray(this.refName)) {
+						this.refName.forEach((refName) => {
+							const foundObj = object3d.getObjectByName(refName);
+							if (ThreeUtil.isNotNull(foundObj)) {
+								objectList.push(foundObj);
+							}
+						});
+					} else {
+						const foundObj = object3d.getObjectByName(this.refName);
+						if (ThreeUtil.isNotNull(foundObj)) {
+							objectList.push(foundObj);
+						}
+					}
+				} else {
+					objectList.push(object);
+				}
+			}
+			let materials: (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[] = [];
+			if (objectList.length > 0) {
+				objectList.forEach((object) => {
+					if (object instanceof THREE.Scene) {
+						materials.push(object);
+					} else if (object instanceof THREE.Material) {
+						if (object instanceof THREE.ShaderMaterial) {
+							materials.push(object.uniforms);
+						} else {
+							materials.push(object);
+						}
+					} else if (object instanceof ShaderPass) {
+						materials.push(object.material.uniforms);
+					}
+				});
+			}
+			this._material[key] = {
+				refType: refType,
+				materials : materials
+			}
+			this.subscribeRefer(
+				'texture_' + key,
+				ThreeUtil.getSubscribe(
+					material,
+					() => {
+						this.setMaterial(material);
+					},
+					'loaded'
+				)
+			);
+			this.subscribeRefer(
+				'untexture_' + key,
+				ThreeUtil.getSubscribe(
+					material,
+					() => {
+						this.unsetMaterial(material);
+					},
+					'destroy'
+				)
+			);
+			this.getTexture();
+			this.synkMaterial(this.texture, key);
+		}
+	}
+
+	/**
+	 * Synks object3d
+	 * @param [geometry]
+	 */
+	synkMaterial(texture: THREE.Texture = null, key: string = null) {
+		if (ThreeUtil.isNotNull(texture) && this.enabled) {
+			if (ThreeUtil.isNotNull(this._material)) {
+				const materialList: {
+					refType : string;
+					materials : (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[]
+				 }[] = [];
+				if (ThreeUtil.isNotNull(key)) {
+					if (ThreeUtil.isNotNull(this._material[key]) && ThreeUtil.isNotNull(this._material[key]) && this._material[key].materials.length > 0) {
+						materialList.push(this._material[key]);
+					}
+				} else {
+					Object.entries(this._material).forEach(([_, material]) => {
+						if (ThreeUtil.isNotNull(material) && material.materials.length > 0) {
+							materialList.push(material);
+						}
+					});
+				}
+				materialList.forEach((info) => {
+					let textureType = info.refType;
+					if (textureType === 'auto' || textureType === 'texture' || textureType === '') {
+						textureType = this.type.toLowerCase();
+					}
+					info.materials.forEach(material => {
+						if (material instanceof THREE.Material) {
+							switch (textureType.toLowerCase()) {
+								case 'matcap':
+									this.applyTexture2Material(material, 'matcap', texture);
+									break;
+								case 'env':
+								case 'envmap':
+									this.applyTexture2Material(material, 'envMap', texture);
+									break;
+								case 'specular':
+								case 'specularmap':
+									this.applyTexture2Material(material, 'specularMap', texture);
+									break;
+								case 'alpha':
+								case 'alphamap':
+									this.applyTexture2Material(material, 'alphaMap', texture);
+									break;
+								case 'emissive':
+								case 'emissivemap':
+									this.applyTexture2Material(material, 'emissiveMap', texture);
+									break;
+								case 'bump':
+								case 'bumpmap':
+									this.applyTexture2Material(material, 'bumpMap', texture);
+									break;
+								case 'normal':
+								case 'normalmap':
+									this.applyTexture2Material(material, 'normalMap', texture);
+									break;
+								case 'ao':
+								case 'aomap':
+									this.applyTexture2Material(material, 'aoMap', texture);
+									break;
+								case 'displace':
+								case 'displacement':
+								case 'displacementmap':
+									this.applyTexture2Material(material, 'displacementMap', texture);
+									break;
+								case 'clearcoatnormal':
+								case 'clearcoatnormalmap':
+									this.applyTexture2Material(material, 'clearcoatNormalMap', texture);
+									break;
+								case 'metalness':
+								case 'metalnessmap':
+									this.applyTexture2Material(material, 'metalnessMap', texture);
+									break;
+								case 'roughness':
+								case 'roughnessmap':
+									this.applyTexture2Material(material, 'roughnessMap', texture);
+									break;
+								case 'light':
+								case 'lightmap':
+									this.applyTexture2Material(material, 'lightMap', texture);
+									break;
+								case 'gradient':
+								case 'gradientmap':
+									this.applyTexture2Material(material, 'gradientMap', texture);
+									break;
+								case 'map':
+									this.applyTexture2Material(material, 'map', texture);
+									break;
+								default:
+									this.applyTexture2Material(material, this.type, texture);
+									break;
+							}
+							material.needsUpdate = true;
+						} else if (material instanceof THREE.Scene) {
+							switch (this.type.toLowerCase()) {
+								case 'environmentbackground':
+								case 'environment-background':
+								case 'background-environment':
+								case 'backgroundenvironment':
+									material.background = material.environment = texture;
+									break;
+								case 'environment':
+									material.environment = texture;
+									break;
+								case 'background':
+								default:
+									material.background = this.texture;
+									break;
+							}
+						}
+					});
+				});
+			} else if (this.texture !== texture) {
+				this.texture = texture;
 			}
 		}
 	}
@@ -1320,100 +1530,6 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 			}
 		} else if (material[key] !== undefined) {
 			material[key] = texture;
-		}
-	}
-
-	/**
-	 * Applys material
-	 */
-	protected applyMaterial() {
-		if (this.material !== null && this.texture !== null) {
-			if (this.texture instanceof THREE.VideoTexture && this.texture.image.readyState === 0) {
-				return ;
-			}
-			if (this.material instanceof THREE.Material) {
-				switch (this.type.toLowerCase()) {
-					case 'matcap':
-						this.applyTexture2Material(this.material, 'matcap', this.texture);
-						break;
-					case 'env':
-					case 'envmap':
-						this.applyTexture2Material(this.material, 'envMap', this.texture);
-						break;
-					case 'specular':
-					case 'specularmap':
-						this.applyTexture2Material(this.material, 'specularMap', this.texture);
-						break;
-					case 'alpha':
-					case 'alphamap':
-						this.applyTexture2Material(this.material, 'alphaMap', this.texture);
-						break;
-					case 'emissive':
-					case 'emissivemap':
-						this.applyTexture2Material(this.material, 'emissiveMap', this.texture);
-						break;
-					case 'bump':
-					case 'bumpmap':
-						this.applyTexture2Material(this.material, 'bumpMap', this.texture);
-						break;
-					case 'normal':
-					case 'normalmap':
-						this.applyTexture2Material(this.material, 'normalMap', this.texture);
-						break;
-					case 'ao':
-					case 'aomap':
-						this.applyTexture2Material(this.material, 'aoMap', this.texture);
-						break;
-					case 'displace':
-					case 'displacement':
-					case 'displacementmap':
-						this.applyTexture2Material(this.material, 'displacementMap', this.texture);
-						break;
-					case 'clearcoatnormal':
-					case 'clearcoatnormalmap':
-						this.applyTexture2Material(this.material, 'clearcoatNormalMap', this.texture);
-						break;
-					case 'metalness':
-					case 'metalnessmap':
-						this.applyTexture2Material(this.material, 'metalnessMap', this.texture);
-						break;
-					case 'roughness':
-					case 'roughnessmap':
-						this.applyTexture2Material(this.material, 'roughnessMap', this.texture);
-						break;
-					case 'light':
-					case 'lightmap':
-						this.applyTexture2Material(this.material, 'lightMap', this.texture);
-						break;
-					case 'gradient':
-					case 'gradientmap':
-						this.applyTexture2Material(this.material, 'gradientMap', this.texture);
-						break;
-					case 'map':
-						this.applyTexture2Material(this.material, 'map', this.texture);
-						break;
-					default:
-						this.applyTexture2Material(this.material, this.type, this.texture);
-						break;
-				}
-				this.material.needsUpdate = true;
-			} else {
-				switch (this.type.toLowerCase()) {
-					case 'environment':
-						this.material.environment = this.texture;
-						break;
-					case 'environmentbackground':
-					case 'environment-background':
-					case 'background-environment':
-					case 'backgroundenvironment':
-						this.material.background = this.material.environment = this.texture;
-						break;
-					case 'background':
-					default:
-						this.material.background = this.texture;
-						break;
-				}
-			}
 		}
 	}
 
@@ -1488,7 +1604,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 				super.setObject(this.texture);
 			}
 			AbstractTextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
-			this.applyMaterial();
+			this.synkMaterial(this.texture);
 			this.setSubscribeNext(['texture', 'loaded']);
 		}
 	}

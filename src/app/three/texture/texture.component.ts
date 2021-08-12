@@ -233,7 +233,7 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
             reader.addEventListener('load', (event) => {
               texture.image.src = event.target.result;
               texture.needsUpdate = true;
-              this.applyMaterial();
+              this.synkMaterial(texture);
             });
             reader.readAsDataURL(event.dataTransfer.files[0]);
           }
@@ -368,7 +368,7 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
           this.texture.mapping = ThreeUtil.getMappingSafe(this.mapping);
         }
       }
-      this.applyMaterial();
+      this.synkMaterial(this.texture);
       super.setObject(this.texture);
     }
     return this.texture as T;

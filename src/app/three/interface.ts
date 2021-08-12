@@ -2111,11 +2111,17 @@ export class ThreeUtil {
 			const matList = this.getMaterial(material);
 			if (Array.isArray(matList)) {
 				matList.forEach((mat) => {
-					if (this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType) {
+					if (
+						(this.isNull(mat.userData.materialType) || materialType.toLowerCase() === mat.userData.materialType) &&
+						(this.isNull(mat.userData.refName) || mat.userData.refName == '')
+					) {
 						matchedMat = mat;
 					}
 				});
-			} else if (this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType) {
+			} else if (
+					(this.isNull(matList.userData.materialType) || materialType.toLowerCase() === matList.userData.materialType) &&
+					(this.isNull(matList.userData.refName) || matList.userData.refName == '')
+				) {
 				matchedMat = matList;
 			}
 		} else {

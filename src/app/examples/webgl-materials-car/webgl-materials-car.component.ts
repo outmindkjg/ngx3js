@@ -53,9 +53,9 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
       this.wheels.forEach(wheel => {
         wheel.rotation.x = time * Math.PI;;  
       })      
-    }
-    if (this.grid !== null) {
-      this.grid.position.z = - ( time ) % 5;
+      if (this.grid !== null) {
+        this.grid.position.z = - ( time ) % 5;
+      }
     }
   }
 

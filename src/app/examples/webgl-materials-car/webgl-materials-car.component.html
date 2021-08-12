@@ -41,12 +41,12 @@
       >
       </ngx3js-material>
     </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ materialType : 'nameList', useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-material 
         [type]="'MeshPhysical'"
         [color]="controls.glass"
-        [nameList]="['glass']"
+        [refName]="['glass']"
         [metalness]="0"
         [roughness]="0.1"
         [transmission]="0.9"
@@ -57,7 +57,7 @@
       <ngx3js-material 
         [type]="'MeshPhysical'"
         [color]="controls.body"
-        [nameList]="['body']"
+        [refName]="['body']"
         [metalness]="0.6"
         [roughness]="0.4"
         [clearcoat]="0.05"
@@ -67,7 +67,7 @@
       <ngx3js-material 
         [type]="'MeshStandard'"
         [color]="controls.detail"
-        [nameList]="['rim_fl','rim_fr','rim_rr','rim_rl','trim']"
+        [refName]="['rim_fl','rim_fr','rim_rr','rim_rl','trim']"
         [metalness]="1.0"
         [roughness]="0.5"
       >
