@@ -17,7 +17,7 @@
     <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
       <ngx3js-position [x]="-2.5" [y]="0.6" [z]="3.0"></ngx3js-position>
     </ngx3js-camera>
-    <ngx3js-scene #scene [background]="'0xf0f0f0'" [environment]="{ value : 'room', options : 'sigma=0.04'}" (onLoad)="setScene($event)">
+    <ngx3js-scene #scene [background]="'0xf0f0f0'" [environment]="{ value : 'sceen.room', options : 'sigma=0.04'}" (onLoad)="setScene($event)">
       <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'">
       </ngx3js-mesh>
       <ngx3js-mesh>

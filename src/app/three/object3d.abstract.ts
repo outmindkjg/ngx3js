@@ -1035,7 +1035,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	private _cachedScaleList : ScaleComponent[] = [];
 	private _cachedLookatList : LookatComponent[] = [];
 	private _cachedMaterialList : AbstractMaterialComponent[] = [];
-	private _cachedGeomertyList : AbstractGeometryComponent[] = [];
+	private _cachedGeometryList : AbstractGeometryComponent[] = [];
 
 	/**
 	 * Applys changes3d
@@ -1068,6 +1068,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 					'rigidbody',
 					'controller',
 					'prefab',
+					'geometry',
 					'material',
 					'mixer',
 				]);
@@ -1363,31 +1364,31 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 						});
 						this._cachedMaterialList = cachedMaterialList;
 						break;
-					case 'geomerty':
-							const newGeomertyList : AbstractGeometryComponent[] = [];
+					case 'geometry':
+							const newGeometryList : AbstractGeometryComponent[] = [];
 							if (ThreeUtil.isNotNull(this.geometry)) {
 								if (this.geometry instanceof AbstractGeometryComponent) {
-									newGeomertyList.push(this.geometry);
+									newGeometryList.push(this.geometry);
 								} else if (ThreeUtil.isNotNull(this.object3d['geometry'])){
 									this.object3d['geometry'] = ThreeUtil.getGeometry(this.geometry);
 								}
 							}
 							if (ThreeUtil.isNotNull(this.geometryList)) {
-								this.geometryList.forEach(geomerty => {
-									newGeomertyList.push(geomerty);
+								this.geometryList.forEach(geometry => {
+									newGeometryList.push(geometry);
 								});
 							}
-							this._cachedGeomertyList.forEach(geomerty => {
-								if (newGeomertyList.indexOf(geomerty) === -1) {
-									geomerty.unsetObject3d(this);
+							this._cachedGeometryList.forEach(geometry => {
+								if (newGeometryList.indexOf(geometry) === -1) {
+									geometry.unsetObject3d(this);
 								}
 							});
-							newGeomertyList.forEach(geomerty => {
-								if (this._cachedGeomertyList.indexOf(geomerty) === -1) {
-									geomerty.setObject3d(this);
+							newGeometryList.forEach(geometry => {
+								if (this._cachedGeometryList.indexOf(geometry) === -1) {
+									geometry.setObject3d(this);
 								}
 							});
-							this._cachedGeomertyList = newGeomertyList;
+							this._cachedGeometryList = newGeometryList;
 							break;
 					case 'mixer':
 						this.unSubscribeReferList('mixerList');

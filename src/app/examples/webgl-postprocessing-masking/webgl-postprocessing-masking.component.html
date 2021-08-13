@@ -16,13 +16,15 @@
   <ngx3js-composer 
     [scene]="scene1"
     [camera]="camera"
-    [useRenderTarget]="true" 
-    [minFilter]="'LinearFilter'" 
-    [magFilter]="'LinearFilter'" 
-    [format]="'RGBFormat'"
-    [stencilBuffer]="true"
     [clear]="true"
   >
+    <ngx3js-render-target 
+      [type]="'WebGLRenderTarget'"
+      [minFilter]="'LinearFilter'" 
+      [magFilter]="'LinearFilter'" 
+      [format]="'RGBFormat'"
+      [stencilBuffer]="true"
+    ></ngx3js-render-target>
     <ngx3js-pass [type]="'ClearPass'"></ngx3js-pass>
     <ngx3js-pass [type]="'MaskPass'" [scene]="scene1" [camera]="camera"></ngx3js-pass>
     <ngx3js-pass [type]="'TexturePass'" [texture]="texture1"></ngx3js-pass>

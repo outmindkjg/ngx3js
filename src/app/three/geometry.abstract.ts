@@ -864,7 +864,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 			const key: string = object3d.getId();
 			let object = ThreeUtil.getObject3d(object3d);
 			const objectList: THREE.Object3D[] = [];
-			let meshes: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[];
+			let meshes: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[] = [];
 			if (ThreeUtil.isNotNull(object)) {
 				if (ThreeUtil.isNotNull(this.refName)) {
 					if (this.refName === '*') {

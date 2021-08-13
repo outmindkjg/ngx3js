@@ -1,12 +1,12 @@
 import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { IUniform } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 import { NRRDLoader } from 'three/examples/jsm/loaders/NRRDLoader';
 import { RGBMLoader } from 'three/examples/jsm/loaders/RGBMLoader';
 import { NodeMaterial, NormalMapNode, OperatorNode, TextureNode } from 'three/examples/jsm/nodes/Nodes';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { ThreeUtil } from './interface';
 import { AbstractSubscribeComponent } from './subscribe.abstract';
@@ -24,7 +24,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	/**
 	 * The Type of Texture of Matrial
 	 */
-	@Input() protected type: string = 'map';
+	@Input() public type: string = 'map';
 
 	/**
 	 * The LoadType of Texture - video, image etc
@@ -358,12 +358,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	/**
 	 * Input  of abstract texture component
 	 */
-	@Input() private width: number = null;
+	@Input() protected width: number = null;
 
 	/**
 	 * Input  of abstract texture component
 	 */
-	@Input() private height: number = null;
+	@Input() protected height: number = null;
 
 	/**
 	 * Whether to generate mipmaps (if possible) for a texture. True by default. Set this to false if you are
@@ -761,6 +761,11 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 								case 'depth':
 									loadOption[key.toLowerCase()] = parseInt(value);
 									break;
+								case 'sigma' :
+								case 'near' :
+								case 'far' :
+									loadOption[key.toLowerCase()] = parseFloat(value);
+									break;
 								case 'loaderType':
 									loadOption.type = value;
 									break;
@@ -828,18 +833,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 		} else if (image instanceof THREE.Texture) {
 			texture = image;
 		} else {
-			if (image === 'room') {
-				const pmremGenerator = new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
-				console.log(textureOption.sigma);
-				texture = pmremGenerator.fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(textureOption.sigma, 0)).texture;
-			} else {
-				texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
-					this.setTextureOptions(texture, textureOption);
-					if (ThreeUtil.isNotNull(onLoad)) {
-						onLoad();
-					}
-				});
-			}
+			texture = this.getTextureImage(image, cubeImage, null, loadOption, () => {
+				this.setTextureOptions(texture, textureOption);
+				if (ThreeUtil.isNotNull(onLoad)) {
+					onLoad();
+				}
+			});
 		}
 		this.setTextureOptions(texture, textureOption);
 		return texture;
@@ -1004,6 +1003,13 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 							onLoad();
 						});
 						return texture;
+					} else if (image.endsWith('.room')) {
+						const renderTarget = ThreeUtil.getPmremGenerator().fromScene(new RoomEnvironment(), 
+							ThreeUtil.getTypeSafe(options.sigma, 0),
+							ThreeUtil.getTypeSafe(options.near, 0.1),
+							ThreeUtil.getTypeSafe(options.far, 100),
+						);
+						return renderTarget.texture;
 					} else if (image.endsWith('.nrrd')) {
 						if (this.nrrdLoader === null) {
 							this.nrrdLoader = new NRRDLoader(ThreeUtil.getLoadingManager());
@@ -1191,7 +1197,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * @param [options]
 	 * @returns texture options
 	 */
-	public static setTextureOptions(texture: THREE.Texture, options: { [key: string]: any } = {}): THREE.Texture {
+	public static setTextureOptions(texture: { [key : string] : any } , options: { [key: string]: any } = {}): any {
 		if (options == {}) {
 			return;
 		}
@@ -1272,11 +1278,10 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * Material  of abstract texture component
 	 */
 	private _material: {
-
 		[key: string]: {
 			refType: string;
-			materials : (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[];
-		}
+			materials: (THREE.Material | THREE.WebGLRenderTarget | THREE.Scene | { [uniform: string]: THREE.IUniform })[];
+		};
 	} = {};
 
 	/**
@@ -1327,26 +1332,32 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					objectList.push(object);
 				}
 			}
-			let materials: (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[] = [];
+			let materials: (THREE.Material | THREE.Scene | THREE.WebGLRenderTarget | { [uniform: string]: THREE.IUniform })[] = [];
 			if (objectList.length > 0) {
 				objectList.forEach((object) => {
 					if (object instanceof THREE.Scene) {
 						materials.push(object);
 					} else if (object instanceof THREE.Material) {
 						if (object instanceof THREE.ShaderMaterial) {
-							materials.push(object.uniforms);
+							if (object instanceof NodeMaterial) {
+								materials.push(object);
+							} else {
+								materials.push(object.uniforms);
+							}
 						} else {
 							materials.push(object);
 						}
 					} else if (object instanceof ShaderPass) {
 						materials.push(object.material.uniforms);
+					} else if (object instanceof EffectComposer) {
+						materials.push(object.renderTarget1);
 					}
 				});
 			}
 			this._material[key] = {
 				refType: refType,
-				materials : materials
-			}
+				materials: materials,
+			};
 			this.subscribeRefer(
 				'texture_' + key,
 				ThreeUtil.getSubscribe(
@@ -1380,9 +1391,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 		if (ThreeUtil.isNotNull(texture) && this.enabled) {
 			if (ThreeUtil.isNotNull(this._material)) {
 				const materialList: {
-					refType : string;
-					materials : (THREE.Material | THREE.Scene | { [uniform: string]: THREE.IUniform })[]
-				 }[] = [];
+					refType: string;
+					materials: (THREE.Material | THREE.WebGLRenderTarget | THREE.Scene | { [uniform: string]: THREE.IUniform })[];
+				}[] = [];
 				if (ThreeUtil.isNotNull(key)) {
 					if (ThreeUtil.isNotNull(this._material[key]) && ThreeUtil.isNotNull(this._material[key]) && this._material[key].materials.length > 0) {
 						materialList.push(this._material[key]);
@@ -1397,9 +1408,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 				materialList.forEach((info) => {
 					let textureType = info.refType;
 					if (textureType === 'auto' || textureType === 'texture' || textureType === '') {
-						textureType = this.type.toLowerCase();
+						textureType = this.type;
 					}
-					info.materials.forEach(material => {
+					info.materials.forEach((material) => {
 						if (material instanceof THREE.Material) {
 							switch (textureType.toLowerCase()) {
 								case 'matcap':
@@ -1479,7 +1490,25 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 									break;
 								case 'background':
 								default:
-									material.background = this.texture;
+									material.background = texture;
+									break;
+							}
+						} else if (material instanceof THREE.WebGLRenderTarget) {
+							material.setTexture(texture);
+						} else {
+							const textureTypeInfo = (textureType + '..').split('.');
+							switch (textureTypeInfo[0].toLowerCase()) {
+								case 'uniforms':
+									const uniformKey = textureTypeInfo[1];
+									const uniformSeqn = parseInt(textureTypeInfo[2] || '-1');
+									if (uniformSeqn > -1) {
+										if (!Array.isArray(material[uniformKey].value)) {
+											material[uniformKey].value = [];
+										}
+										material[uniformKey].value[uniformSeqn] = texture;
+									} else {
+										material[uniformKey].value = texture;
+									}
 									break;
 							}
 						}
@@ -1544,24 +1573,12 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 				this.getTexture();
 				return;
 			}
-			if (ThreeUtil.isIndexOf(changes, ['image', 'storagename', 'storageoption', 'cubeimage', 'loadertype', 'canvas'])) {
-				this.needUpdate = true;
-				return;
-			}
 			AbstractTextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
 			if (ThreeUtil.isTextureLoaded(this.texture)) {
 				this.texture.needsUpdate = true;
 			}
 			super.applyChanges(changes);
 		}
-	}
-
-	/**
-	 * Gets pmrem generator
-	 * @returns pmrem generator
-	 */
-	protected getPmremGenerator(): THREE.PMREMGenerator {
-		return new THREE.PMREMGenerator(ThreeUtil.getRenderer() as THREE.WebGLRenderer);
 	}
 
 	/**
@@ -1578,11 +1595,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					case 'fromequirectangular':
 						{
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
-							const pmremGenerator = this.getPmremGenerator();
-							const equirectangular = pmremGenerator.fromEquirectangular(texture).texture;
+							const equirectangular = ThreeUtil.getPmremGenerator().fromEquirectangular(texture).texture;
 							texture.dispose();
 							texture = equirectangular;
-							pmremGenerator.dispose();
 						}
 						break;
 					case 'cube':
@@ -1590,11 +1605,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					case 'fromcubemap':
 						if (texture instanceof THREE.CubeTexture) {
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
-							const pmremGenerator = this.getPmremGenerator();
-							const cubemap = pmremGenerator.fromCubemap(texture).texture;
+							const cubemap = ThreeUtil.getPmremGenerator().fromCubemap(texture).texture;
 							texture.dispose();
 							texture = cubemap;
-							pmremGenerator.dispose();
 						}
 						break;
 				}

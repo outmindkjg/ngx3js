@@ -17,6 +17,9 @@
     <ngx3js-position [x]="0" [y]="0" [z]="1400"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene>
+    <ngx3js-shared>
+      <ngx3js-texture #circle [type]="'uniforms.map'" [image]="'textures/sprites/circle.png'"></ngx3js-texture>
+    </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-scale [multiply]="500"></ngx3js-scale>
@@ -29,7 +32,7 @@
       <ngx3js-material 
         [type]="'RawShaderMaterial'" 
         [uniforms]="{
-          map : { type : 'texture', value : 'textures/sprites/circle.png'},
+          map : { value : circle },
           time : { type : 'number', value : 0.0 }
         }"
         [shader]="'ScaleColor'"

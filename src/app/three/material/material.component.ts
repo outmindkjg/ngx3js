@@ -23,7 +23,7 @@ import { AbstractTextureComponent } from '../texture.abstract';
  *
  * The following properties and methods are inherited by all other material types
  * (although they may have different defaults).
- * 
+ *
  * @see THREE.Material
  */
 @Component({
@@ -241,7 +241,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * blend between the two colors.
 	 *
 	 * Notice - case insensitive.
-	 * 
+	 *
 	 * @see THREE.MultiplyOperation - MultiplyOperation, Multiply
 	 * @see THREE.MixOperation - MixOperation, Mix
 	 * @see THREE.AddOperation - AddOperation, Add
@@ -285,7 +285,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
 	 *
 	 * Notice - case insensitive.
-	 * 
+	 *
 	 */
 	@Input() private wireframeLinejoin: string = null;
 
@@ -1333,14 +1333,44 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						break;
 				}
 			} else if (ThreeUtil.isNotNull(value) && value['value'] !== undefined) {
-				resultUniforms[key] = value;
+				if (value['value'] instanceof AbstractTextureComponent) {
+					resultUniforms[key] = {
+						value: value['value'].getTexture(),
+					};
+				} else {
+					resultUniforms[key] = value;
+				}
 			} else {
-				resultUniforms[key] = { value: value };
+				if (value instanceof AbstractTextureComponent) {
+					resultUniforms[key] = { value: value.getTexture() };
+				} else {
+					resultUniforms[key] = { value: value };
+				}
 			}
 		});
+		if (ThreeUtil.isNotNull(this.textureList)) {
+			this.textureList.forEach((texture) => {
+				const textureType = (texture.type + '..').split('.');
+				switch (textureType[0].toLowerCase()) {
+					case 'uniforms':
+						const uniformKey = textureType[1];
+						const uniformSeqn = parseInt(textureType[2] || '-1');
+						if (uniformSeqn > -1) {
+							if (!Array.isArray(resultUniforms[uniformKey].value)) {
+								resultUniforms[uniformKey].value = [];
+							}
+							resultUniforms[uniformKey].value[uniformSeqn] = texture.getTexture();
+						} else {
+							resultUniforms[uniformKey].value = texture.getTexture();
+						}
+						break;
+				}
+			});
+		}
 		Object.entries(resultUniforms).forEach(([key, value]) => {
 			uniforms[key] = value;
 		});
+
 		if (this.debug) {
 			this.consoleLog('material-uniforms', resultUniforms);
 		}
@@ -1475,16 +1505,20 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 	 * @param texture
 	 * @param textureType
 	 */
-	private synkTexture(texture: any, textureType: string, textureList : {
-		type : string;
-		component : AbstractTextureComponent
-	}[]) {
+	private synkTexture(
+		texture: any,
+		textureType: string,
+		textureList: {
+			type: string;
+			component: AbstractTextureComponent;
+		}[]
+	) {
 		if (ThreeUtil.isNotNull(texture) && this.material !== null) {
 			if (texture instanceof AbstractTextureComponent) {
 				textureList.push({
-					type : textureType,
-					component : texture
-				})
+					type: textureType,
+					component: texture,
+				});
 			} else {
 				const foundTexture = ThreeUtil.getTexture(texture, textureType, false);
 				if (ThreeUtil.isNotNull(foundTexture)) {
@@ -1502,7 +1536,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 		}
 	}
 
-	private _cachedTextureList : AbstractTextureComponent[] = [];
+	private _cachedTextureList: AbstractTextureComponent[] = [];
+	private _cachedUniformTextureList: AbstractTextureComponent[] = [];
 
 	/**
 	 * Apply changes to material
@@ -1601,6 +1636,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 				this.needUpdate = true;
 				return;
 			}
+
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
 				changes = ThreeUtil.pushUniq(changes, ['texture']);
 			}
@@ -1636,10 +1672,80 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
+					case 'uniforms':
+						const newUniformTextureList: {
+							type: string;
+							component: AbstractTextureComponent;
+						}[] = [];
+						if (ThreeUtil.isNotNull(this.uniforms)) {
+							const uniforms = this.uniforms;
+							Object.entries(uniforms).forEach(([key, value]) => {
+								if (ThreeUtil.isNotNull(value) && ThreeUtil.isNotNull(value['type']) && ThreeUtil.isNotNull(value['value'])) {
+									const valueType: string = value['type'];
+									const valueValue: any = value['value'];
+									switch (valueType.toLowerCase()) {
+										case 'image':
+										case 'texture2d':
+										case 'texture3d':
+										case 'texture':
+										case 'datatexture2d':
+										case 'datatexture3d':
+										case 'datatexture':
+										case 'video':
+										case 'videotexture':
+											if (valueValue instanceof AbstractTextureComponent) {
+												newUniformTextureList.push({
+													type: 'uniforms.' + key,
+													component: valueValue,
+												});
+											}
+											break;
+										case 'imagelist':
+										case 'texturelist':
+										case 'imagearray':
+										case 'texturearray':
+											// todo
+											break;
+										default:
+											break;
+									}
+								} else if (ThreeUtil.isNotNull(value) && value['value'] !== undefined) {
+									if (value['value'] instanceof AbstractTextureComponent) {
+										newUniformTextureList.push({
+											type: 'uniforms.' + key,
+											component: value['value'],
+										});
+									}
+								} else {
+									if (value instanceof AbstractTextureComponent) {
+										newUniformTextureList.push({
+											type: 'uniforms.' + key,
+											component: value['value'],
+										});
+									}
+								}
+							});
+						}
+						const cachedUniformTextureList: AbstractTextureComponent[] = [];
+						newUniformTextureList.forEach((texture) => {
+							cachedUniformTextureList.push(texture.component);
+						});
+						this._cachedUniformTextureList.forEach((texture) => {
+							if (cachedUniformTextureList.indexOf(texture) === -1) {
+								texture.unsetMaterial(this);
+							}
+						});
+						newUniformTextureList.forEach((material) => {
+							if (this._cachedUniformTextureList.indexOf(material.component) === -1) {
+								material.component.setMaterial(this, material.type);
+							}
+						});
+						this._cachedUniformTextureList = cachedUniformTextureList;
+						break;
 					case 'texture':
-						const newTextureList : {
-							type : string;
-							component : AbstractTextureComponent
+						const newTextureList: {
+							type: string;
+							component: AbstractTextureComponent;
 						}[] = [];
 						this.synkTexture(this.envMap, 'envMap', newTextureList);
 						this.synkTexture(this.matcap, 'matcap', newTextureList);
@@ -1653,21 +1759,21 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						if (ThreeUtil.isNotNull(this.textureList)) {
 							this.textureList.forEach((texture) => {
 								newTextureList.push({
-									type : 'auto',
-									component : texture
-								})
+									type: 'auto',
+									component: texture,
+								});
 							});
 						}
-						const cachedTextureList : AbstractTextureComponent[] = [];
-						newTextureList.forEach(texture => {
+						const cachedTextureList: AbstractTextureComponent[] = [];
+						newTextureList.forEach((texture) => {
 							cachedTextureList.push(texture.component);
 						});
-						this._cachedTextureList.forEach(texture => {
+						this._cachedTextureList.forEach((texture) => {
 							if (cachedTextureList.indexOf(texture) === -1) {
 								texture.unsetMaterial(this);
 							}
 						});
-						newTextureList.forEach(material => {
+						newTextureList.forEach((material) => {
 							if (this._cachedTextureList.indexOf(material.component) === -1) {
 								material.component.setMaterial(this, material.type);
 							}

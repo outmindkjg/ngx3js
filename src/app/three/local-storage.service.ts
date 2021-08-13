@@ -62,7 +62,7 @@ import { MD2CharacterComplex } from 'three/examples/jsm/misc/MD2CharacterComplex
 import { Volume } from 'three/examples/jsm/misc/Volume';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
-import { LoadedObject, ThreeUtil } from './interface';
+import { LoadedNameMap, LoadedObject, ThreeUtil } from './interface';
 
 /**
  * LocalStorageService
@@ -612,12 +612,28 @@ export class LocalStorageService {
   private _loadedObject: { [key: string]: LoadedObject } = {};
 
   /**
+   * Gets object name map
+   * @param object
+   * @param nameMap
+   * @returns
+   */
+  private getNameMap(object : THREE.Object3D, nameMap : LoadedNameMap): LoadedNameMap {
+    const name = object.name || 'name';
+    const map : LoadedNameMap = {};
+    nameMap[name] = map;
+    object.children.forEach(child => {
+      this.getNameMap(child, map);
+    });
+    return nameMap;
+  }
+
+  /**
    * Gets object from key
    * @param key
    * @param callBack
    * @param options
    */
-  public getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
+  private getObjectFromKey(key: string, callBack: (mesh: LoadedObject) => void, options: any): void {
     options = options || {};
     let safeKey = '';
     if (ThreeUtil.isNotNull(options.path)) {
@@ -627,15 +643,32 @@ export class LocalStorageService {
     }
     if (this._loadedObject[safeKey] !== undefined) {
       const result = this._loadedObject[safeKey];
-      callBack({
-        object: ThreeUtil.isNotNull(result.object) ? result.object.clone(true) : null,
-        material: ThreeUtil.isNotNull(result.material) ? result.material : null,
-        geometry: ThreeUtil.isNotNull(result.geometry) ? result.geometry.clone() : null,
-        texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
-        clips: result.clips,
-        morphTargets: result.morphTargets,
-        source: result.source,
-      });
+      setTimeout(() => {
+        let cloneObject3d : THREE.Object3D = null;
+        if (ThreeUtil.isNotNull(result.object)) {
+          result.object.userData = {}
+          cloneObject3d = result.object.clone(true);
+          if (options.autoCenter) {
+            const object = cloneObject3d;
+            const objectBox = new THREE.Box3().setFromObject(object);
+            const center = objectBox.getCenter(new THREE.Vector3());
+            object.position.x += object.position.x - center.x;
+            object.position.y += object.position.y - center.y;
+            object.position.z += object.position.z - center.z;
+            cloneObject3d = new THREE.Group();
+            cloneObject3d.add(object);
+          }
+        }
+        callBack({
+          object: cloneObject3d,
+          material: ThreeUtil.isNotNull(result.material) ? result.material : null,
+          geometry: ThreeUtil.isNotNull(result.geometry) ? result.geometry.clone() : null,
+          texture: ThreeUtil.isNotNull(result.texture) ? result.texture.clone() : null,
+          clips: result.clips,
+          morphTargets: result.morphTargets,
+          source: result.source,
+        });
+      }, 10);
     } else {
       this._getObjectFromKey(
         safeKey,
@@ -643,17 +676,11 @@ export class LocalStorageService {
           if (result.object && result.object instanceof THREE.Group && result.object.children.length == 1) {
             result.object = result.object.children[0];
           }
-          if (options.autoCenter && result.object) {
-            const object = result.object;
-            const objectBox = new THREE.Box3().setFromObject(object);
-            const center = objectBox.getCenter(new THREE.Vector3());
-            object.position.x += object.position.x - center.x;
-            object.position.y += object.position.y - center.y;
-            object.position.z += object.position.z - center.z;
-            result.object = new THREE.Group();
-            result.object.add(object);
+          if (result.object && options.debugName) {
+            console.log(this.getNameMap(result.object, {}));
           }
-          callBack(result);
+          this._loadedObject[safeKey] = result;
+          this.getObjectFromKey(key, callBack, options);
         },
         options
       );

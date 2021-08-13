@@ -45,7 +45,11 @@
       <ngx3js-pass [refer]="renderPass"></ngx3js-pass>
       <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
     </ngx3js-composer>
-    <ngx3js-composer [scissorTest]="true" [scissorX]="'50%'" [scissorY]="0" [scissorWidth]="'50%'" [scissorHeight]="'100%'" [scene]="scene" [camera]="camera" [useRenderTarget]="true" [renderTargetType]="'WebGLMultisampleRenderTarget'" [format]="'RGBFormat'">
+    <ngx3js-composer [scissorTest]="true" [scissorX]="'50%'" [scissorY]="0" [scissorWidth]="'50%'" [scissorHeight]="'100%'" [scene]="scene" [camera]="camera">
+      <ngx3js-render-target 
+        [type]="'WebGLMultisampleRenderTarget'"
+        [format]="'RGBFormat'"
+      ></ngx3js-render-target>
       <ngx3js-pass [refer]="renderPass"></ngx3js-pass>
       <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
     </ngx3js-composer>

@@ -8,6 +8,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { CameraComponent } from '../camera/camera.component';
 import { RendererTimer, ThreeUtil } from '../interface';
 import { PassComponent } from '../pass/pass.component';
+import { RenderTargetComponent } from '../render-target/render-target.component';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractTweenComponent } from '../tween.abstract';
 
@@ -152,278 +153,21 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   /**
    * Content children of composer component
    */
-  @ContentChildren(PassComponent, { descendants: false }) private pass: QueryList<PassComponent>;
+  @ContentChildren(PassComponent, { descendants: false }) private passList: QueryList<PassComponent>;
 
   /**
-   * Input  of composer component
+   * Content children of composer component
    */
-  @Input() private useRenderTarget: boolean = false;
-
-  /**
-   * Input  of composer component
-   *
-   * Notice - case insensitive.
-   *
-   */
-  @Input() private renderTargetType: string = 'WebGLRenderTarget';
-
-  /**
-   * This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
-   * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
-   * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
-   * See the [page:Textures texture constants] page for details.
-   *
-   * The Default Value of wrapS, wrapT.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
-   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
-   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
-   */
-  @Input() private wrap: string = null;
-
-  /**
-   * This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
-   * The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
-   * The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].
-   * See the [page:Textures texture constants] page for details.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
-   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
-   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
-   */
-  @Input() private wrapS: string = null;
-
-  /**
-   * This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
-   * The same choices are available as for [property:number wrapS].<br /><br />
-   * NOTE: tiling of images in textures only functions if image dimensions are powers of two
-   * (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
-   * Individual dimensions need not be equal, but each must be a power of two.
-   * This is a limitation of WebGL, not three.js.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat
-   * @see THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat
-   * @see THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
-   */
-  @Input() private wrapT: string = null;
-
-  /**
-   * The Default Value of magFilter, minFilter
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.TextureFilter
-   * @see THREE.NearestFilter               - NearestFilter, Nearest
-   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
-   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
-   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
-   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
-   * @see THREE.LinearFilter                - Linearfilter, linear
-   */
-  @Input() private filter: string = null;
-
-  /**
-   * How the texture is sampled when a texel covers more than one pixel. The default is
-   * [page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
-   * The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
-   * See the [page:Textures texture constants] page for details.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.TextureFilter
-   * @see THREE.NearestFilter               - NearestFilter, Nearest
-   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
-   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
-   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
-   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
-   * @see THREE.LinearFilter                - Linearfilter, linear
-   */
-  @Input() private magFilter: string = null;
-
-  /**
-   * How the texture is sampled when a texel covers less than one pixel. The default is
-   * [page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
-   * See the [page:Textures texture constants] page for all possible choices.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.TextureFilter
-   * @see THREE.NearestFilter               - NearestFilter, Nearest
-   * @see THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest
-   * @see THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear
-   * @see THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest
-   * @see THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear
-   * @see THREE.LinearFilter                - Linearfilter, linear
-   */
-  @Input() private minFilter: string = null;
-
-  /**
-   * The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
-   * set this to [page:Textures THREE.RGBFormat] for JPG images. <br /><br />
-   * See the [page:Textures texture constants] page for details of other formats.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.PixelFormat
-   * @see THREE.AlphaFormat - AlphaFormat, Alpha
-   * @see THREE.RedFormat - RedFormat, Red
-   * @see THREE.RedIntegerFormat - RedIntegerFormat, RedInteger
-   * @see THREE.RGFormat - RGFormat, RG
-   * @see THREE.RGIntegerFormat - RGIntegerFormat, RGInteger
-   * @see THREE.RGBFormat - RGBFormat, RGB
-   * @see THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger
-   * @see THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger
-   * @see THREE.LuminanceFormat - LuminanceFormat, Luminance
-   * @see THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha
-   * @see THREE.RGBEFormat - RGBEFormat, RGBE
-   * @see THREE.DepthFormat - DepthFormat, Depth
-   * @see THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil
-   * @see THREE.RGBAFormat - RGBAFormat, RGBA
-   */
-  @Input() private format: string = null;
-
-  /**
-   * This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType],
-   * which will be used for most texture formats.<br /><br />
-   * See the [page:Textures texture constants] page for details of other formats.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.TextureDataType ,
-   * @see THREE.UnsignedByteType - UnsignedByteType , UnsignedByte,
-   * @see THREE.ByteType - ByteType , Byte
-   * @see THREE.ShortType - ShortType , Short
-   * @see THREE.UnsignedShortType - UnsignedShortType , UnsignedShort
-   * @see THREE.IntType - IntType , Int
-   * @see THREE.UnsignedIntType - UnsignedIntType , UnsignedInt
-   * @see THREE.FloatType - FloatType , Float
-   * @see THREE.HalfFloatType - HalfFloatType , HalfFloat
-   * @see THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444
-   * @see THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551
-   * @see THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565
-   * @see THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
-   */
-  @Input() private dataType: string = null;
-
-  /**
-   * The number of samples taken along the axis through the pixel that has the highest density of texels.
-   * By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
-   * at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
-   * find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
-   */
-  @Input() private anisotropy: number = null;
-
-  /**
-   * [page:Textures THREE.LinearEncoding] is the default.
-   * See the [page:Textures texture constants] page for details of other formats.<br /><br />
-   * Note that if this value is changed on a texture after the material has been used,
-   * it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
-   *
-   * Notice - case insensitive.
-   *
-   * @see THREE.TextureEncoding
-   *
-   * @see THREE.LinearEncoding - LinearEncoding ,
-   * @see THREE.sRGBEncoding - sRGBEncoding ,
-   * @see THREE.GammaEncoding - GammaEncoding ,
-   * @see THREE.RGBEEncoding - RGBEEncoding ,
-   * @see THREE.LogLuvEncoding - LogLuvEncoding ,
-   * @see THREE.RGBM7Encoding - RGBM7Encoding ,
-   * @see THREE.RGBM16Encoding - RGBM16Encoding ,
-   * @see THREE.RGBDEncoding - RGBDEncoding ,
-   */
-  @Input() private encoding: string = null;
-
-  /**
-   * Input  of composer component
-   */
-  @Input() private depthBuffer: boolean = null;
-
-  /**
-   * Input  of composer component
-   */
-  @Input() private stencilBuffer: boolean = null;
-
-  /**
-   * Input  of composer component
-   */
-  @Input() private generateMipmaps: boolean = null;
-
-  /**
-   * Input  of composer component
-   */
-  @Input() private depthTexture: any = null;
+  @ContentChildren(RenderTargetComponent, { descendants: false }) private renderTargetList: QueryList<RenderTargetComponent>;
 
   /**
    * Gets render target
    * @param renderer
    * @returns render target
    */
-  private getRenderTarget(renderer: THREE.WebGLRenderer): THREE.WebGLRenderTarget {
-    if (this.useRenderTarget) {
-      switch (this.renderTargetType.toLowerCase()) {
-        case 'webglmultisamplerendertarget':
-        case 'webglmultisamplerender':
-        case 'webglmultisample':
-        case 'multisamplerendertarget':
-        case 'multisamplerender':
-        case 'multisample':
-          return new THREE.WebGLMultisampleRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
-            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
-            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
-            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter),
-            format: ThreeUtil.getPixelFormatSafe(this.format),
-            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
-            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
-            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
-            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
-            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-            // depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
-            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
-          });
-        case 'webglcuberendertarget':
-        case 'webglcuberender':
-        case 'webglcube':
-        case 'cuberendertarget':
-        case 'cuberender':
-        case 'cube':
-          return new THREE.WebGLCubeRenderTarget(this.getWidth() * renderer.getPixelRatio(), {
-            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
-            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
-            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
-            format: ThreeUtil.getPixelFormatSafe(this.format),
-            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
-            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
-            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
-            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
-            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
-            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
-          });
-        default:
-          return new THREE.WebGLRenderTarget(this.getWidth() * renderer.getPixelRatio(), this.getHeight() * renderer.getPixelRatio(), {
-            wrapS: ThreeUtil.getWrappingSafe(this.wrapS, this.wrap),
-            wrapT: ThreeUtil.getWrappingSafe(this.wrapT, this.wrap),
-            magFilter: ThreeUtil.getTextureFilterSafe(this.magFilter, this.filter),
-            minFilter: ThreeUtil.getTextureFilterSafe(this.minFilter, this.filter, 'LinearMipmapLinear'),
-            format: ThreeUtil.getPixelFormatSafe(this.format),
-            type: ThreeUtil.getTextureDataTypeSafe(this.dataType),
-            anisotropy: ThreeUtil.getTypeSafe(this.anisotropy),
-            depthBuffer: ThreeUtil.getTypeSafe(this.depthBuffer),
-            stencilBuffer: ThreeUtil.getTypeSafe(this.stencilBuffer),
-            generateMipmaps: ThreeUtil.getTypeSafe(this.generateMipmaps),
-            depthTexture: ThreeUtil.getTypeSafe(this.depthTexture), // todo
-            encoding: ThreeUtil.getTextureEncodingSafe(this.encoding),
-          });
-      }
+  private getRenderTarget<T>(): T {
+    if (ThreeUtil.isNotNull(this.renderTargetList) && this.renderTargetList.length > 0) {
+      return this.renderTargetList.first.getRenderTarget();
     }
     return undefined;
   }
@@ -677,6 +421,8 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * It is invoked only once when the directive is instantiated.
    */
   ngAfterContentInit(): void {
+		this.subscribeListQueryChange(this.passList, 'passList', 'pass');
+		this.subscribeListQueryChange(this.renderTargetList, 'renderTargetList', 'rendertarget');
     super.ngAfterContentInit();
   }
 
@@ -786,22 +532,28 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
         this.getComposer();
         return;
       }
-      if (!ThreeUtil.isOnlyIndexOf(changes, ['init', 'pass', 'clear', 'viewportaspect', 'viewport', 'scissortest', 'x', 'y', 'width', 'height', 'scissorx', 'scissory', 'scissorwidth', 'scissorheight'], this.OBJECT_ATTR)) {
+      if (!ThreeUtil.isOnlyIndexOf(changes, ['pass', 'rendertarget', 'clear', 'viewportaspect', 'viewport', 'scissortest', 'x', 'y', 'width', 'height', 'scissorx', 'scissory', 'scissorwidth', 'scissorheight'], this.OBJECT_ATTR)) {
         this.needUpdate = true;
         return;
       }
       if (ThreeUtil.isIndexOf(changes, 'init')) {
-        changes = ThreeUtil.pushUniq(changes, ['pass']);
+        changes = ThreeUtil.pushUniq(changes, ['pass', 'rendertarget']);
       }
-
       changes.forEach((change) => {
         switch (change.toLowerCase()) {
           case 'pass':
             if (this.effectComposer instanceof EffectComposer) {
               const scene = this.getScene(this._composerScene);
               const camera = this.getCamera(this._composerCamera);
-              this.pass.forEach((pass) => {
+              this.passList.forEach((pass) => {
                 pass.setEffectComposer(scene, camera, this.effectComposer);
+              });
+            }
+            break;
+          case 'rendertarget' :
+            if (ThreeUtil.isNotNull(this.renderTargetList)) {
+              this.renderTargetList.forEach(renderTarget => {
+                renderTarget.setMaterial(this, 'effectcomposer');
               });
             }
             break;
@@ -900,7 +652,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
           this.effectComposer = new ParallaxBarrierEffect(this._composerRenderer);
           break;
         default:
-          const effectComposer = new EffectComposer(this._composerRenderer, this.getRenderTarget(this._composerRenderer));
+          const effectComposer = new EffectComposer(this._composerRenderer, this.getRenderTarget());
           effectComposer.setPixelRatio(window.devicePixelRatio);
           this.effectComposer = effectComposer;
           if (ThreeUtil.isNotNull(this.renderToScreen)) {

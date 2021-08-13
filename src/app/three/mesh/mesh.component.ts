@@ -1116,11 +1116,19 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 				this.needUpdate = true;
 				return;
 			}
-			if (!ThreeUtil.isIndexOf(changes, 'init') && ThreeUtil.isIndexOf(changes, ['geometry'])) {
-				switch(this.type.toLowerCase()) {
-					case 'points' :
-						// this.needUpdate = true;
-						// return;
+			if (!ThreeUtil.isIndexOf(changes, 'init') && ThreeUtil.isIndexOf(changes, ['geometry', 'material'])) {
+				switch (this.type.toLowerCase()) {
+					case 'merged':
+					case 'naive':
+					case 'multi':
+					case 'multimaterial':
+					case 'marchingcubes':
+					case 'md2charactercomplex':
+					case 'reflectorrtt':
+					case 'flow':
+					case 'instancedflow':
+						this.needUpdate = true;
+						return;
 				}
 			}
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
@@ -1519,16 +1527,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 							flow.moveAlongCurve(ThreeUtil.getTypeSafe(this.moveAlongCurve, 0.001));
 						};
 					}
-					this.subscribeRefer(
-						'customGeometry',
-						ThreeUtil.getSubscribe(
-							geometry,
-							() => {
-								this.needUpdate = true;
-							},
-							'loaded'
-						)
-					);
 					break;
 				case 'instancedflow':
 					const instancedFlowMaterial = this.getMaterialOne();
@@ -1858,7 +1856,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						this.localStorageService.getObject(
 							this.storageName,
 							(loadedMesh: THREE.Object3D, clips?: THREE.AnimationClip[] | any, geometry?: THREE.BufferGeometry, morphTargets?: THREE.BufferAttribute[], source?: any) => {
-								let assignMaterial = true;
 								if (ThreeUtil.isNull(loadedMesh)) {
 									if (ThreeUtil.isNotNull(geometry)) {
 										geometry.computeVertexNormals();
@@ -1875,7 +1872,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 										const baseGeometry = this.getGeometry();
 										baseGeometry.morphAttributes.position = morphTargets;
 										loadedMesh = new THREE.Mesh(baseGeometry, this.getMaterialOne());
-										assignMaterial = false;
 									}
 								}
 								if (this.castShadow && loadedMesh) {
@@ -1931,11 +1927,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 							clipsClone = null;
 						}
 						const clipMesh = mesh.userData.refTarget;
-						let clipMeshClone : THREE.Object3D = null;
+						let clipMeshClone: THREE.Object3D = null;
 						if (ThreeUtil.isNotNull(clipMesh)) {
 							clipMesh.userData = {};
 							clipMeshClone = ThreeUtil.isNotNull(clipMesh) ? clipMesh.clone(true) : null;
-						} else if(!(mesh instanceof THREE.Group)) {
+						} else if (!(mesh instanceof THREE.Group)) {
 							clipMeshClone = mesh.clone(true);
 						}
 						if (clipMeshClone !== null) {
@@ -1950,9 +1946,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						}
 						this.subscribeRefer(
 							'sharedMesh',
-							ThreeUtil.getSubscribe(this.sharedMesh, () => {
-								this.needUpdate = true;
-							}, 'loaded')
+							ThreeUtil.getSubscribe(
+								this.sharedMesh,
+								() => {
+									this.needUpdate = true;
+								},
+								'loaded'
+							)
 						);
 					} else {
 						if (geometry !== null) {
@@ -2048,6 +2048,74 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 			}
 			this.mesh = mesh;
 			this.setObject3d(this.mesh);
+			this.unSubscribeRefer('geomeryChange');
+			this.unSubscribeRefer('materialChange');
+			this.unSubscribeReferList('geomeryListChange');
+			this.unSubscribeReferList('materialListChange');
+			switch (this.type.toLowerCase()) {
+				case 'merged':
+				case 'naive':
+				case 'multi':
+				case 'multimaterial':
+				case 'marchingcubes':
+				case 'md2charactercomplex':
+				case 'reflectorrtt':
+				case 'flow':
+				case 'instancedflow':
+					if (ThreeUtil.isNotNull(this.geometry)) {
+						this.subscribeRefer(
+							'geomeryChange',
+							ThreeUtil.getSubscribe(
+								this.geometry,
+								() => {
+									this.needUpdate = true;
+								},
+								'loaded'
+							)
+						);
+					}
+					if (ThreeUtil.isNotNull(this.geometryList)) {
+						this.geometryList.forEach((geometry) => {
+							this.subscribeReferList(
+								'geomeryListChange',
+								ThreeUtil.getSubscribe(
+									geometry,
+									() => {
+										this.needUpdate = true;
+									},
+									'loaded'
+								)
+							);
+						});
+					}
+					if (ThreeUtil.isNotNull(this.material)) {
+						this.subscribeRefer(
+							'materialChange',
+							ThreeUtil.getSubscribe(
+								this.material,
+								() => {
+									this.needUpdate = true;
+								},
+								'loaded'
+							)
+						);
+					}
+					if (ThreeUtil.isNotNull(this.materialList)) {
+						this.materialList.forEach((material) => {
+							this.subscribeReferList(
+								'materialListChange',
+								ThreeUtil.getSubscribe(
+									material,
+									() => {
+										this.needUpdate = true;
+									},
+									'loaded'
+								)
+							);
+						});
+					}
+					break;
+			}
 		}
 	}
 

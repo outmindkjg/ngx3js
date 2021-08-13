@@ -89,6 +89,10 @@ export interface LoadedObject {
 	source?: any;
 }
 
+export interface LoadedNameMap {
+	[ key : string] : LoadedNameMap
+}
+
 /**
  * Gui base control
  */
@@ -977,6 +981,23 @@ export class ThreeUtil {
 	 */
 	public static setRenderer(lastRenderer: any) {
 		this.lastRenderer = lastRenderer;
+		if (this.pmremGenerator !== null) {
+			this.pmremGenerator.dispose();
+		}
+		this.pmremGenerator = null;
+	}
+
+	private static pmremGenerator : THREE.PMREMGenerator = null;
+
+	/**
+	 * Gets pmrem generator
+	 * @returns pmrem generator
+	 */
+	public static getPmremGenerator(): THREE.PMREMGenerator {
+		if (ThreeUtil.isNull(this.pmremGenerator)) {
+			this.pmremGenerator = new THREE.PMREMGenerator(this.getRenderer() as THREE.WebGLRenderer);
+		}
+		return this.pmremGenerator;
 	}
 
 	/**
@@ -2393,8 +2414,7 @@ export class ThreeUtil {
 		if (texture instanceof THREE.Texture) {
 			return texture;
 		} else if (texture instanceof THREE.Object3D || this.isNotNull(texture.getObject3d)) {
-			const pmremGenerator = new THREE.PMREMGenerator( this.getRenderer() as THREE.WebGLRenderer );
-			return pmremGenerator.fromScene( texture instanceof THREE.Object3D ? texture : texture.getObject3d() ).texture;
+			return this.getPmremGenerator().fromScene( texture instanceof THREE.Object3D ? texture : texture.getObject3d() ).texture;
 		} else if (this.isNotNull(texture.getTexture)) {
 			const foundTexture = texture.getTexture();
 			if (!(foundTexture instanceof THREE.VideoTexture) || foundTexture.image.readyState > 0) {

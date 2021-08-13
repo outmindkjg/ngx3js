@@ -490,7 +490,6 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
         this.callOnLoad();
         if (isLoaded) {
           this.setSubscribeNext('loaded');
-          console.log('loaded');
         }
         if (ThreeUtil.isNotNull(this.windowExport) && this.windowExport != '') {
           window[this.windowExport] = this._cashedObj;

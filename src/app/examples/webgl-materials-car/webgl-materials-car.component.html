@@ -18,7 +18,7 @@
   <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="0.1" [far]="100">
     <ngx3js-position [x]="4.25" [y]="1.4" [z]="-4.5"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xeeeeee'" [environment]="'room'">
+  <ngx3js-scene #scene [background]="'0xeeeeee'" [environment]="'sceen.room'">
     <ngx3js-fog [color]="'0xeeeeee'" [near]="10" [far]="50"></ngx3js-fog>
     <ngx3js-helper 
       (onLoad)="setGridHelp($event)"
@@ -41,7 +41,7 @@
       >
       </ngx3js-material>
     </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/ferrari.glb'" [storageOption]="{ useDraco : true, debugName : true, decoderPath : 'js/libs/draco/gltf/' }">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-material 
         [type]="'MeshPhysical'"
