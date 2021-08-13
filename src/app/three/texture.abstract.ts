@@ -761,9 +761,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 								case 'depth':
 									loadOption[key.toLowerCase()] = parseInt(value);
 									break;
-								case 'sigma' :
-								case 'near' :
-								case 'far' :
+								case 'sigma':
+								case 'near':
+								case 'far':
 									loadOption[key.toLowerCase()] = parseFloat(value);
 									break;
 								case 'loaderType':
@@ -1004,11 +1004,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 						});
 						return texture;
 					} else if (image.endsWith('.room')) {
-						const renderTarget = ThreeUtil.getPmremGenerator().fromScene(new RoomEnvironment(), 
-							ThreeUtil.getTypeSafe(options.sigma, 0),
-							ThreeUtil.getTypeSafe(options.near, 0.1),
-							ThreeUtil.getTypeSafe(options.far, 100),
-						);
+						const renderTarget = ThreeUtil.getPmremGenerator().fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(options.sigma, 0), ThreeUtil.getTypeSafe(options.near, 0.1), ThreeUtil.getTypeSafe(options.far, 100));
 						return renderTarget.texture;
 					} else if (image.endsWith('.nrrd')) {
 						if (this.nrrdLoader === null) {
@@ -1197,7 +1193,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * @param [options]
 	 * @returns texture options
 	 */
-	public static setTextureOptions(texture: { [key : string] : any } , options: { [key: string]: any } = {}): any {
+	public static setTextureOptions(texture: { [key: string]: any }, options: { [key: string]: any } = {}): any {
 		if (options == {}) {
 			return;
 		}
@@ -1478,12 +1474,13 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 							}
 							material.needsUpdate = true;
 						} else if (material instanceof THREE.Scene) {
-							switch (this.type.toLowerCase()) {
+							switch (textureType.toLowerCase()) {
 								case 'environmentbackground':
 								case 'environment-background':
 								case 'background-environment':
 								case 'backgroundenvironment':
-									material.background = material.environment = texture;
+									material.environment = texture;
+									material.background = texture;
 									break;
 								case 'environment':
 									material.environment = texture;

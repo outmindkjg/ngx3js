@@ -1369,16 +1369,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 					geometry = tmpGeometry;
 				}
 			}
-			if (this.geometry !== null) {
-				this.geometry.copy(geometry);
-				this.geometry.type = geometry.type;
-				if (ThreeUtil.isNotNull(geometry['parameters'])) {
-					this.geometry['parameters'] = geometry['parameters'];
-				}
-				this.setSubscribeNext(this.subscribeType);
-			} else {
-				this.geometry = geometry;
-			}
+			this.geometry = geometry;
 			if (ThreeUtil.isNotNull(this.name)) {
 				this.geometry.name = this.name;
 			}

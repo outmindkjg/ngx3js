@@ -170,17 +170,19 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
         });
       }
       object3dList.forEach(object3d => {
-        if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
-          object3d.scale.copy(scale);
-        } else {
-          if (ThreeUtil.isNotNull(this.x)) {
-            object3d.scale.x = scale.x;
-          }
-          if (ThreeUtil.isNotNull(this.y)) {
-            object3d.scale.y = scale.y;
-          }
-          if (ThreeUtil.isNotNull(this.z)) {
-            object3d.scale.z = scale.z;
+        if (object3d instanceof THREE.Object3D) {
+          if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
+            object3d.scale.copy(scale);
+          } else {
+            if (ThreeUtil.isNotNull(this.x)) {
+              object3d.scale.x = scale.x;
+            }
+            if (ThreeUtil.isNotNull(this.y)) {
+              object3d.scale.y = scale.y;
+            }
+            if (ThreeUtil.isNotNull(this.z)) {
+              object3d.scale.z = scale.z;
+            }
           }
         }
       });

@@ -29,9 +29,9 @@
       >
       </ngx3js-light>
     </ngx3js-camera>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/obj/male02/male02.obj'" [storageOption]="{ materialType : 'map' }">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/obj/male02/male02.obj'" [storageOption]="{ debugName : true }">
       <ngx3js-position [x]="0" [y]="-95" [z]="0"></ngx3js-position>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'">
+      <ngx3js-material [refName]="'*'" [type]="'meshlambert'" [color]="'0xffffff'">
         <ngx3js-texture [image]="'textures/uv_grid_opengl.jpg'"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>

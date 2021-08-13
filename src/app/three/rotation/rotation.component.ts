@@ -176,7 +176,7 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 					});
 				}
 				object3dList.forEach(object3d => {
-					if (ThreeUtil.isNotNull(object3d) && object3d instanceof THREE.Object3D) {
+					if (object3d instanceof THREE.Object3D) {
 						if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
 							object3d.rotation.copy(rotation);
 						} else {
