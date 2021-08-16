@@ -229,7 +229,6 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 									}
 									if (ThreeUtil.isNotNull(this.y)) {
 										object3d.position.y = position.y;
-										console.log(position);
 									}
 									if (ThreeUtil.isNotNull(this.z)) {
 										object3d.position.z = position.z;
@@ -388,8 +387,8 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 		if (this.position === null || this._needUpdate) {
 			this.needUpdate = false;
 			this.position = this._getPosition();
-			this.synkObject3d(this.position);
 			this.setObject(this.position);
+			this.synkObject3d(this.position);
 		}
 		return this.position;
 	}

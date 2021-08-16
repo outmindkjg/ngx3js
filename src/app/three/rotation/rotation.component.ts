@@ -286,8 +286,8 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 		if (this.rotation === null || this._needUpdate) {
 			this.needUpdate = false;
 			this.rotation = this._getRotation();
-			this.synkObject3d(this.rotation);
 			this.setObject(this.rotation);
+			this.synkObject3d(this.rotation);
 		}
 		return this.rotation;
 	}

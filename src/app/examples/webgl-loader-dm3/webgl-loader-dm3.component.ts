@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from '../../three';
+import { BaseComponent, MeshComponent, ThreeUtil } from '../../three';
 import * as THREE from 'three';
 
 @Component({
@@ -47,8 +47,8 @@ export class WebglLoaderDm3Component extends BaseComponent<{
   }
 
   setMeshVisible(name : string , visible : boolean) {
-    this.loadedMesh = this.meshObject3d.children[0] as THREE.Mesh;
-    if (this.loadedMesh !== null && this.loadedMesh !== undefined) {
+    this.loadedMesh = this.meshObject3d as THREE.Mesh;
+    if (ThreeUtil.isNotNull(this.loadedMesh) && ThreeUtil.isNotNull(this.loadedMesh.userData.layers)) {
       const layers = this.loadedMesh.userData.layers;
       this.loadedMesh.traverse( function ( child ) {
         if ( child.userData.hasOwnProperty( 'attributes' ) ) {

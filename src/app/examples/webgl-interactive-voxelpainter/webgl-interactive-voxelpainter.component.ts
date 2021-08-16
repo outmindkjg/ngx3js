@@ -42,7 +42,7 @@ export class WebglInteractiveVoxelpainterComponent extends BaseComponent<{
         }
         this.rollOver.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
         switch(event.type) {
-          case 'pointerup' :
+          case 'click' :
             if(event.event.shiftKey) {
               if ( intersect.object !== this.plane ) {
                 intersect.object.parent.remove(intersect.object);

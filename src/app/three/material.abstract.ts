@@ -1293,8 +1293,8 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 				material.onBeforeCompile = this.onBeforeCompile;
 			}
 			this.material = material;
-			this.synkObject3d(this.material);
 			super.setObject(this.material);
+			this.synkObject3d(this.material);
 			this.setSubscribeNext('material');
 		}
 	}

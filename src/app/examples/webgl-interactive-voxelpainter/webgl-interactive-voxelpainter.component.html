@@ -71,7 +71,7 @@
         <ngx3js-position [x]="pos.x" [y]="pos.y" [z]="pos.z"></ngx3js-position>
       </ngx3js-mesh>
     </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true" (onLoad)="setPlane($event)">
+    <ngx3js-mesh [visible]="false" (onLoad)="setPlane($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
       <ngx3js-geometry

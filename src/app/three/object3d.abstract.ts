@@ -1198,7 +1198,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 							}
 						});
 						if (newPositionList.length > 0) {
-							this.object3d.position.copy(newPositionList[0].getPosition());
+							// this.object3d.position.copy(newPositionList[0].getPosition());
 						}
 						this._cachedPositionList = newPositionList;
 						this.setSubscribeNext('position');

@@ -669,7 +669,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 				this.getObject3d();
 				return;
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'mesh', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light'], this.OBJECT3D_ATTR)) {
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['rigidbody', 'mesh', 'geometry', 'material', 'svg', 'listener', 'audio', 'helper', 'light','viewport'], this.OBJECT3D_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}

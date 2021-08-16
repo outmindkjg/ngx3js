@@ -425,6 +425,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 */
 	constructor() {
 		super();
+		console.clear();
 	}
 
 	/**
@@ -1451,7 +1452,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 					const control = this.initLocalComponent('control', new ControlComponent());
 					const controlOptions = this.controlOptions || {};
 					controlOptions.lookatList = this.lookatList;
-					control.updateInputParams(controlOptions, true, {}, controlType);
+					control.updateInputParams(controlOptions, false, {}, controlType);
 					control.setCameraDomElement(camera, domElement, scenes);
 					controls.push(control);
 					this.renderControl = control;
@@ -1514,7 +1515,6 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 */
 	public getRenderer(): THREE.Renderer {
 		if (this.renderer === null || this._needUpdate) {
-			// console.clear();
 			this.needUpdate = false;
 			this.dispose();
 			if (this.renderer !== null) {

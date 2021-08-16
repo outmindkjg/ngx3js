@@ -1899,11 +1899,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 										this.addChanges(['volumeoption']);
 									}
 									loadedMesh.parent = null;
+									this.mesh = loadedMesh;
+									this.setObject3d(loadedMesh);
 									if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
 										this.addParentObject3d(source.skeleton.bones[0]);
 									}
-									this.mesh = loadedMesh;
-									this.setObject3d(loadedMesh);
 								}
 							},
 							this.storageOption

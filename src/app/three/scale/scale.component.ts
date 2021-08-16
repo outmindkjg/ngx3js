@@ -297,8 +297,8 @@ export class ScaleComponent extends AbstractSubscribeComponent implements OnInit
     if (this.scale === null || this._needUpdate) {
       this.needUpdate = false;
       this.scale = this._getScale();
-      this.synkObject3d(this.scale);
       this.setObject(this.scale);
+      this.synkObject3d(this.scale);
     }
     return this.scale;
   }

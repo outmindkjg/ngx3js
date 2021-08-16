@@ -106,7 +106,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 	 * Object3d  of lookat component
 	 */
 	private _object3d: {
-		[key: string]: THREE.Object3D;
+		[key: string]: THREE.Object3D | { target : THREE.Vector3 };
 	} = {};
 
   /**
@@ -129,10 +129,14 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 	public setObject3d(object3d: AbstractSubscribeComponent) {
 		if (ThreeUtil.isNotNull(object3d)) {
 			const key: string = object3d.getId();
-			const object = ThreeUtil.getObject3d(object3d);
-			if (ThreeUtil.isNotNull(this.refName) && ThreeUtil.isNotNull(object)) {
-				this._object3d[key] = object.getObjectByName(this.refName);
-			} else {
+			const object : any = object3d.getObject();
+			if (object instanceof THREE.Object3D) {
+				if (ThreeUtil.isNotNull(this.refName) && ThreeUtil.isNotNull(object)) {
+					this._object3d[key] = object.getObjectByName(this.refName);
+				} else {
+					this._object3d[key] = object;
+				}
+			} else if (ThreeUtil.isNotNull(object.target)){
 				this._object3d[key] = object;
 			}
 			this.subscribeRefer(
@@ -167,7 +171,7 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 	public synkObject3d(lookat: THREE.Vector3 = null, key : string = null) {
 		if (ThreeUtil.isNotNull(lookat) && this.enabled) {
 			if (ThreeUtil.isNotNull(this._object3d)) {
-				const object3dList : THREE.Object3D[] = [];
+				const object3dList : (THREE.Object3D | { target : THREE.Vector3 } )[] = [];
 				if (ThreeUtil.isNotNull(key)) {
 					if (ThreeUtil.isNotNull(this._object3d[key])) {
 						object3dList.push(this._object3d[key]);
@@ -181,7 +185,14 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 				}
 				object3dList.forEach(object3d => {
 					if (ThreeUtil.isNotNull(this.x) && ThreeUtil.isNotNull(this.y) && ThreeUtil.isNotNull(this.z)) {
-						object3d.lookAt(lookat);
+						if (object3d instanceof THREE.Object3D) {
+							object3d.lookAt(lookat);
+						} else if (ThreeUtil.isNotNull(object3d.target)) {
+							object3d.target.set(lookat.x,lookat.y,lookat.z);
+							if (ThreeUtil.isNotNull(object3d['update'])) {
+								object3d['update']();
+							}
+						}
 					}
 				});
 			} else if (this.lookat !== lookat) {
@@ -284,8 +295,8 @@ export class LookatComponent extends AbstractSubscribeComponent implements OnIni
 		if (this._needUpdate) {
 			this.needUpdate = false;
 			this.lookat = this._getLookAt();
-			this.synkObject3d(this.lookat);
 			this.setObject(this.lookat);
+			this.synkObject3d(this.lookat);
 		}
 		return this.lookat;
 	}

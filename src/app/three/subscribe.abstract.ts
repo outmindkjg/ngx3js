@@ -388,18 +388,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
           if (ThreeUtil.isNotNull(this.userData)) {
             Object.entries(this.userData).forEach(([key, value]) => {
               switch (key) {
-                case 'position':
-                case 'positionUp':
-                case 'positionLookat':
-                case 'initPosition':
-                case 'rotation':
-                case 'scale':
-                case 'lookat':
-                case 'customDepthMaterial':
-                case 'customDistanceMaterial':
-                case 'material':
-                case 'geometry':
-                  this.consoleLog('userData Error', key, 'error');
+                case 'component' :
                   break;
                 default:
                   this._userData[key] = value;
@@ -463,21 +452,12 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
       this.needUpdate = false;
       if (ThreeUtil.isNotNull(this._cashedObj)) {
         if (ThreeUtil.isNotNull(this._cashedObj.userData)) {
-          Object.entries(this._userData).forEach(([key, value]) => {
+          Object.entries(this._cashedObj.userData).forEach(([key, value]) => {
             switch (key) {
-              case 'position':
-              case 'positionUp':
-              case 'positionLookat':
-              case 'initPosition':
-              case 'rotation':
-              case 'scale':
-              case 'lookat':
-              case 'customDepthMaterial':
-              case 'customDistanceMaterial':
-              case 'material':
-              case 'rigidBody':
-              case 'geometry':
-                delete this._userData[key];
+              case 'component' :
+                break;
+              default :
+                this._userData[key] = value;
                 break;
             }
           });

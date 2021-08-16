@@ -596,6 +596,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 		super.ngAfterContentInit();
 	}
 
+	private _cachedLookatList : LookatComponent[] = [];
+
 	/**
 	 * Applys changes
 	 * @param changes
@@ -620,30 +622,31 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 					case 'target':
-						this.unSubscribeRefer('target');
-						if (ThreeUtil.isNotNull(this.control['target'])) {
-							if (ThreeUtil.isNotNull(this.target)) {
-								this.control['target'] = ThreeUtil.getLookAt(this.target);
-								this.subscribeRefer(
-									'target',
-									ThreeUtil.getSubscribe(
-										this.target,
-										(event) => {
-											this.addChanges(event);
-										},
-										'lookat'
-									)
-								);
+						const newLookatList : LookatComponent[] = [];
+						if (ThreeUtil.isNotNull(this.target)) {
+							if (this.target instanceof LookatComponent) {
+								newLookatList.push(this.target);
 							} else {
-								this.unSubscribeReferList('lookatList');
-								if (ThreeUtil.isNotNull(this.lookatList)) {
-									if (this.lookatList.length > 0) {
-										this.control['target'] = this.lookatList.first.getLookAt();
-									}
-									this.subscribeListQuery(this.lookatList, 'lookatList', 'lookat');
-								}
+								this.control['target'] = ThreeUtil.getLookAt(this.target);
 							}
 						}
+						if (ThreeUtil.isNotNull(this.lookatList)) {
+							this.lookatList.forEach((lookat) => {
+								newLookatList.push(lookat);
+							});
+						}
+						this._cachedLookatList.forEach(lookat => {
+							if (newLookatList.indexOf(lookat) === -1) {
+								lookat.unsetObject3d(this);
+							}
+						});
+						newLookatList.forEach(lookat => {
+							if (this._cachedLookatList.indexOf(lookat) === -1) {
+								lookat.setObject3d(this);
+							}
+						});
+						this._cachedLookatList = newLookatList;
+						// this.setSubscribeNext('lookat');
 						break;
 				}
 			});
@@ -690,7 +693,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 							this._camera = cameraCom.getCamera();
 							this.needUpdate = true;
 						},
-						'changecamera'
+						'loaded'
 					)
 				);
 			}

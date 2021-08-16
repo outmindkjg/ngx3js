@@ -1373,8 +1373,8 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 			if (ThreeUtil.isNotNull(this.name)) {
 				this.geometry.name = this.name;
 			}
-			this.synkObject3d(this.geometry);
 			super.setObject(this.geometry);
+			this.synkObject3d(this.geometry);
 		}
 	}
 
