@@ -843,7 +843,6 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 					}
 					break;
 				case 'mixer':
-					console.log(this.model);
 					const animationMixer = new THREE.AnimationMixer(this.model);
 					animationMixer.timeScale = this.getTimeScale(1);
 					mixer = animationMixer;

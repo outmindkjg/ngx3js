@@ -1004,7 +1004,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 						});
 						return texture;
 					} else if (image.endsWith('.room')) {
-						const renderTarget = ThreeUtil.getPmremGenerator().fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(options.sigma, 0), ThreeUtil.getTypeSafe(options.near, 0.1), ThreeUtil.getTypeSafe(options.far, 100));
+						const pmremGenerator = ThreeUtil.getPmremGenerator();
+						const renderTarget = pmremGenerator.fromScene(new RoomEnvironment(), ThreeUtil.getTypeSafe(options.sigma, 0), ThreeUtil.getTypeSafe(options.near, 0.1), ThreeUtil.getTypeSafe(options.far, 100));
+						pmremGenerator.dispose();
 						return renderTarget.texture;
 					} else if (image.endsWith('.nrrd')) {
 						if (this.nrrdLoader === null) {
@@ -1583,7 +1585,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * @param texture
 	 */
 	protected setTextureLoaded(texture: THREE.Texture) {
-		if (texture !== null) {
+		if (texture !== null && ThreeUtil.isTextureLoaded(texture)) {
 			if (ThreeUtil.isNotNull(this.cubeType)) {
 				switch (this.cubeType.toLowerCase()) {
 					case 'angular':
@@ -1592,8 +1594,10 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					case 'fromequirectangular':
 						{
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
-							const equirectangular = ThreeUtil.getPmremGenerator().fromEquirectangular(texture).texture;
+							const pmremGenerator = ThreeUtil.getPmremGenerator();
+							const equirectangular = pmremGenerator.fromEquirectangular(texture).texture;
 							texture.dispose();
+							pmremGenerator.dispose();
 							texture = equirectangular;
 						}
 						break;
@@ -1602,8 +1606,10 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 					case 'fromcubemap':
 						if (texture instanceof THREE.CubeTexture) {
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
-							const cubemap = ThreeUtil.getPmremGenerator().fromCubemap(texture).texture;
+							const pmremGenerator = ThreeUtil.getPmremGenerator();
+							const cubemap = pmremGenerator.fromCubemap(texture).texture;
 							texture.dispose();
+							pmremGenerator.dispose();
 							texture = cubemap;
 						}
 						break;

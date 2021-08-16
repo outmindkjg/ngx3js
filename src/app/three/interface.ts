@@ -981,23 +981,14 @@ export class ThreeUtil {
 	 */
 	public static setRenderer(lastRenderer: any) {
 		this.lastRenderer = lastRenderer;
-		if (this.pmremGenerator !== null) {
-			this.pmremGenerator.dispose();
-		}
-		this.pmremGenerator = null;
 	}
-
-	private static pmremGenerator : THREE.PMREMGenerator = null;
 
 	/**
 	 * Gets pmrem generator
 	 * @returns pmrem generator
 	 */
 	public static getPmremGenerator(): THREE.PMREMGenerator {
-		if (ThreeUtil.isNull(this.pmremGenerator)) {
-			this.pmremGenerator = new THREE.PMREMGenerator(this.getRenderer() as THREE.WebGLRenderer);
-		}
-		return this.pmremGenerator;
+		return new THREE.PMREMGenerator(this.getRenderer() as THREE.WebGLRenderer);
 	}
 
 	/**
@@ -2414,7 +2405,10 @@ export class ThreeUtil {
 		if (texture instanceof THREE.Texture) {
 			return texture;
 		} else if (texture instanceof THREE.Object3D || this.isNotNull(texture.getObject3d)) {
-			return this.getPmremGenerator().fromScene( texture instanceof THREE.Object3D ? texture : texture.getObject3d() ).texture;
+			const pmremGenerator = ThreeUtil.getPmremGenerator();
+			const pmremGeneratorTexture =  pmremGenerator.fromScene( texture instanceof THREE.Object3D ? texture : texture.getObject3d() ).texture;
+			pmremGenerator.dispose();
+			return pmremGeneratorTexture;
 		} else if (this.isNotNull(texture.getTexture)) {
 			const foundTexture = texture.getTexture();
 			if (!(foundTexture instanceof THREE.VideoTexture) || foundTexture.image.readyState > 0) {
@@ -2545,19 +2539,24 @@ export class ThreeUtil {
 	 */
 	public static isTextureLoaded(texture: THREE.Texture): boolean {
 		if (texture instanceof THREE.CubeTexture || texture['isCubeTexture']) {
-			if (this.isNotNull(texture.image) && texture.image.length === 6) {
+			if (this.isNotNull(texture.image) && texture.image.length >= 6) {
 				return true;
 			}
+		}
+		if (texture instanceof THREE.CompressedTexture || texture['isCompressedTexture']) {
+			return true;	
 		}
 		if (texture instanceof THREE.DataTexture || texture['isDataTexture']) {
 			if (this.isNotNull(texture.image) && this.isNotNull(texture.image.data) && texture.image.data.length > 0) {
 				return true;
 			}
-		} else if (texture instanceof THREE.VideoTexture || texture['isVideoTexture']) {
+		}
+		if (texture instanceof THREE.VideoTexture || texture['isVideoTexture']) {
 			if (this.isNotNull(texture.image) && texture.image instanceof HTMLVideoElement && texture.image.error === null) {
 				return true;
 			}
-		} else if (texture instanceof THREE.Texture && this.isNotNull(texture.image)) {
+		} 
+		if (texture instanceof THREE.Texture && this.isNotNull(texture.image)) {
 			if (texture.image instanceof HTMLImageElement || texture.image instanceof HTMLCanvasElement || texture.image instanceof HTMLVideoElement) {
 				return true;
 			}
@@ -2567,8 +2566,9 @@ export class ThreeUtil {
 			if (ThreeUtil.isNotNull(texture.image.data) && texture.image.data.length > 0) {
 				return true;
 			}
-		}
-		return false;
+		} // todo
+		console.log(texture.image);
+		return true;
 	}
 
 	/**

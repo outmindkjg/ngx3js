@@ -20,8 +20,8 @@
     <ngx3js-position [x]="sceneInfo.cameraPosX" [y]="sceneInfo.cameraPosY" [z]="sceneInfo.cameraPosZ"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0x222222'">
-    <ngx3js-material [materialType]="'background-environment-angular'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'">
-    </ngx3js-material>
+    <ngx3js-texture [type]="'background-environment'" [cubeType]="'angular'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'">
+    </ngx3js-texture>
     <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"

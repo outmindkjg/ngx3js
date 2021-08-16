@@ -1811,7 +1811,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 					basemesh = new THREE.Group();
 					if (this.shareParts !== null) {
 						const loadShareParts = () => {
-							const shareParts = this.shareParts.getClips();
+							const shareParts = ThreeUtil.getObject3d(this.shareParts).userData.clips;
 							if (shareParts instanceof MD2CharacterComplex) {
 								const character = new MD2CharacterComplex();
 								character.shareParts(shareParts);
@@ -1827,7 +1827,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								this.setUserData('refTarget', character);
 								this.setUserData('clips', this.clips);
 								this.applyChanges3d(['mixer', 'material']);
-								this.setSubscribeNext(['loaded']);
+								// this.setSubscribeNext(['loaded']);
 								super.callOnLoad();
 							}
 						};
@@ -1842,7 +1842,6 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								'loaded'
 							)
 						);
-						this.shareParts.getObject3d();
 						loadShareParts();
 					}
 					break;
