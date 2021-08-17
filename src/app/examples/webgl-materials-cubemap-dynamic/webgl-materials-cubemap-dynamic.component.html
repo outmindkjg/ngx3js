@@ -17,8 +17,7 @@
   <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
     <ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-camera [type]="'cube'" [near]="1" [far]="1000" [material]="material">
-  </ngx3js-camera>
+  <ngx3js-camera #cubeCamera [type]="'cube'" [near]="1" [far]="1000" [material]="material"></ngx3js-camera>
   <ngx3js-scene #scene [background]="texture">
     <ngx3js-shared>
       <ngx3js-texture #texture [image]="'textures/2294472375_24a3b8ef46_o.jpg'" [encoding]="'sRGBEncoding'" [mapping]="'EquirectangularReflectionMapping'"></ngx3js-texture>
@@ -27,6 +26,7 @@
         [type]="'MeshBasicMaterial'"
         [combine]="'MultiplyOperation'"
         [reflectivity]="1"
+        [envMap]="cubeCamera"
       ></ngx3js-material>
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">

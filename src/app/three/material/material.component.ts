@@ -2159,7 +2159,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 								this.material['sizeAttenuation'] = ThreeUtil.getTypeSafe(this.sizeAttenuation);
 							}
 						}
-
 						break;
 					case 'dashed':
 						if (ThreeUtil.isNotNull(this.dashed) && this.material['dashed'] !== undefined) {

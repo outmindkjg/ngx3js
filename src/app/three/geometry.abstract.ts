@@ -930,7 +930,7 @@ export abstract class AbstractGeometryComponent extends AbstractSubscribeCompone
 	synkObject3d(geometry: THREE.BufferGeometry = null, key: string = null) {
 		if (ThreeUtil.isNotNull(geometry) && this.enabled) {
 			if (ThreeUtil.isNotNull(this._object3d)) {
-				const object3dList: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[] = [];
+				let object3dList: (THREE.Mesh | THREE.Line | THREE.Points | THREE.Sprite)[] = [];
 				if (ThreeUtil.isNotNull(key)) {
 					if (ThreeUtil.isNotNull(this._object3d[key]) && ThreeUtil.isNotNull(this._object3d[key]) && this._object3d[key].length > 0) {
 						object3dList.push(...this._object3d[key]);

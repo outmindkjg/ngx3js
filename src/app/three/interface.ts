@@ -1404,7 +1404,7 @@ export class ThreeUtil {
 			return true;
 		} else if (
 			typeof color === 'string' &&
-			(color.startsWith('rgb(') || color.startsWith('RGB(') || color.startsWith('color(') || color.startsWith('COLOR(') || color.startsWith('0x') || color.startsWith('hsl(') || color.startsWith('HSL(') || color.startsWith('#') || /^[a-z]{3,10}$/.test(color) || color.indexOf('random') >= 0)
+			(color.startsWith('0x') || color.startsWith('rgb(') || color.startsWith('RGB(') || color.startsWith('color(') || color.startsWith('COLOR(') || color.startsWith('hsl(') || color.startsWith('HSL(') || color.startsWith('#') || /^[a-z]{3,10}$/.test(color) || color.indexOf('random') >= 0)
 		) {
 			return true;
 		} else {
@@ -2566,9 +2566,8 @@ export class ThreeUtil {
 			if (ThreeUtil.isNotNull(texture.image.data) && texture.image.data.length > 0) {
 				return true;
 			}
-		} // todo
-		console.log(texture.image);
-		return true;
+		}
+		return false;
 	}
 
 	/**

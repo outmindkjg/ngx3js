@@ -652,7 +652,7 @@ export class MixerComponent extends AbstractSubscribeComponent implements OnInit
 							break;
 						case 'clip':
 							this.clipList.forEach((clip) => {
-								clip.setMixer(mixer, this.clips);
+								clip.setMixer(mixer, this.clips, this.model);
 							});
 							break;
 					}

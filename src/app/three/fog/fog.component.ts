@@ -135,7 +135,7 @@ export class FogComponent extends AbstractSubscribeComponent implements OnInit {
         case 'exp':
         case 'exp2':
         case 'fogexp2':
-          this.fog = new THREE.FogExp2(ThreeUtil.getColorSafe(this.color,0xffffff).getHex(), ThreeUtil.getTypeSafe(this.density));
+          this.fog = new THREE.FogExp2(ThreeUtil.getColorSafe(this.color,0xffffff).getHex(), ThreeUtil.getTypeSafe(this.density, 0.00025));
           break;
         case 'fog':
         default:

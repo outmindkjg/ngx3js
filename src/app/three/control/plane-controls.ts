@@ -58,12 +58,10 @@ export class PlaneControls {
     if (domElement === undefined) {
       console.warn('THREE.PlainControls: The second parameter "domElement" is now mandatory.');
     }
-    this.handleResize();
-    this.cameraPosition = camera.position.clone();
     window.setTimeout(() => {
       this.handleResize();
+      this.setActive(true);
     }, 100);
-    this.setActive(true);
   }
 
   /**
@@ -100,7 +98,7 @@ export class PlaneControls {
   /**
    * Camera position of plane controls
    */
-  private cameraPosition: THREE.Vector3 = new THREE.Vector3();
+  private cameraPosition: THREE.Vector3 = null;
 
   /**
    * Sets active
@@ -146,7 +144,9 @@ export class PlaneControls {
    * @param delta
    */
   public update(delta: number) {
-    this.camera.position.lerp(this.cameraPosition, this.panSpeed * delta);
-    this.camera.lookAt(this.target);
+    if (this.cameraPosition !== null) {
+      this.camera.position.lerp(this.cameraPosition, this.panSpeed * delta);
+      this.camera.lookAt(this.target);
+    }
   }
 }

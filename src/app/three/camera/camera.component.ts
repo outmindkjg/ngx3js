@@ -1,5 +1,6 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { CubeCamera } from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
@@ -591,21 +592,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	private camera: THREE.Camera = null;
 
 	/**
-	 * Cube camera1 of camera component
-	 */
-	public cubeCamera1: THREE.CubeCamera = null;
-
-	/**
-	 * Cube camera2 of camera component
-	 */
-	public cubeCamera2: THREE.CubeCamera = null;
-
-	/**
-	 * Clips  of camera component
-	 */
-	private clips: THREE.AnimationClip[] = null;
-
-	/**
 	 * Renderer  of camera component
 	 */
 	private renderer: THREE.Renderer = null;
@@ -837,10 +823,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 		if (this.camera === null) {
 			this.getObject3d();
 		}
-		switch (this.type.toLowerCase()) {
-			case 'cube':
-			case 'cubecamera':
-				return this.cubeCamera1.renderTarget;
+		if (this.camera instanceof THREE.CubeCamera) {
+			return this.camera.renderTarget;
 		}
 		return undefined;
 	}
@@ -883,7 +867,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 					break;
 				case 'cubecamera':
 				case 'cube':
-					const cubeCamera1 = new THREE.CubeCamera(
+					const cubeCamera = new THREE.CubeCamera(
 						this.getNear(0.1),
 						this.getFar(2000),
 						new THREE.WebGLCubeRenderTarget(512, {
@@ -893,22 +877,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 							minFilter: THREE.LinearMipmapLinearFilter,
 						})
 					);
-					const cubeCamera2 = new THREE.CubeCamera(
-						this.getNear(0.1),
-						this.getFar(2000),
-						new THREE.WebGLCubeRenderTarget(512, {
-							encoding: THREE.sRGBEncoding,
-							format: THREE.RGBFormat,
-							generateMipmaps: true,
-							minFilter: THREE.LinearMipmapLinearFilter,
-						})
-					);
-					this.cubeCamera1 = cubeCamera1;
-					this.cubeCamera2 = cubeCamera2;
-					const cubeGroup = new THREE.Group();
-					cubeGroup.add(this.cubeCamera1);
-					cubeGroup.add(this.cubeCamera2);
-					this.camera = cubeGroup as any;
+					this.camera = cubeCamera as any;
 					break;
 				case 'cinematic':
 					this.camera = new CinematicCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
@@ -991,11 +960,6 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	}
 
 	/**
-	 * Cube render count of camera component
-	 */
-	private _cubeRenderCount = 0;
-
-	/**
 	 * Renders camera component
 	 * @param renderer
 	 * @param cssRenderer
@@ -1016,16 +980,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 			}
 		}
 		if (renderer instanceof THREE.WebGLRenderer) {
-			if (this.cubeCamera1 !== null) {
-				this._cubeRenderCount++;
-				this._cubeRenderCount = this._cubeRenderCount % 2;
-				// const cubeCamera = this._cubeRenderCount % 2 === 0 ? this.cubeCamera1 : this.cubeCamera2;
-				const cubeCamera = this.cubeCamera1;
-				cubeCamera.update(renderer, this.getScene(scenes));
+			if (this.camera instanceof THREE.CubeCamera) {
+				this.camera.update(renderer, this.getScene(scenes));
 				if (ThreeUtil.isNotNull(this.material)) {
-					const material = ThreeUtil.getMaterial(this.material['getMaterial']);
-					if (ThreeUtil.isNotNull(material) && ThreeUtil.isNotNull(material['envMap'])) {
-						material['envMap'] = cubeCamera.renderTarget.texture;
+					const material = ThreeUtil.getMaterial(this.material);
+					if (ThreeUtil.isNotNull(material) && material['envMap'] !== undefined) {
+						material['envMap'] = this.camera.renderTarget.texture;
 					}
 				}
 				return;

@@ -84,8 +84,14 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 * Whether to use physically correct lighting mode. Default is *false*.
 	 * See the [example:webgl_lights_physical lights / physical] example.
 	 */
-	@Input() private physicallyCorrectLights: boolean = false;
+	@Input() private physicallyCorrectLights: boolean = null;
 
+	/**
+	 * Converts this color from gamma space to linear space by taking [page:.r r], [page:.g g] and [page:.b b] to the power of [page:Float gammaFactor].
+	 */
+	@Input() private gammaFactor: number = null;
+
+	
 	/**
 	 * Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)
 	 * Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.
@@ -1222,6 +1228,10 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 							if (ThreeUtil.isNotNull(this.physicallyCorrectLights)) {
 								this.renderer.physicallyCorrectLights = this.physicallyCorrectLights;
 							}
+							if (ThreeUtil.isNotNull(this.gammaFactor)) {
+								this.renderer.gammaFactor = this.gammaFactor;
+							}
+
 							if (this.renderer.shadowMap.enabled && ThreeUtil.isNotNull(this.shadowMapType)) {
 								this.renderer.shadowMap.type = this.getShadowMapType('pcfsoft');
 							}

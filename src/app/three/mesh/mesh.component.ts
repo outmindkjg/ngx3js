@@ -1521,9 +1521,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						flow.updateCurve(0, flowCurve);
 					}
 					this.setUserData('storageSource', flow);
-					basemesh = flow.object3D;
+					basemesh = new THREE.Group();
+					basemesh.add(flow.object3D);
 					if (ThreeUtil.isNotNull(this.moveAlongCurve)) {
-						basemesh.onBeforeRender = () => {
+						flow.object3D.onBeforeRender = () => {
 							flow.moveAlongCurve(ThreeUtil.getTypeSafe(this.moveAlongCurve, 0.001));
 						};
 					}
@@ -1626,22 +1627,13 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						}
 					}
 					this.setUserData('storageSource', instancedFlow);
-					basemesh = instancedFlow.object3D;
+					basemesh = new THREE.Group();
+					basemesh.add(instancedFlow.object3D);
 					if (ThreeUtil.isNotNull(this.moveAlongCurve)) {
-						basemesh.onBeforeRender = () => {
+						instancedFlow.object3D.onBeforeRender = () => {
 							instancedFlow.moveAlongCurve(ThreeUtil.getTypeSafe(this.moveAlongCurve, 0.001));
 						};
 					}
-					this.subscribeRefer(
-						'customGeometry',
-						ThreeUtil.getSubscribe(
-							geometry,
-							() => {
-								this.needUpdate = true;
-							},
-							'loaded'
-						)
-					);
 					break;
 				case 'lineloop':
 					let points = [];
@@ -1898,8 +1890,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 										this.addChanges(['volumeoption']);
 									}
 									loadedMesh.parent = null;
-									this.mesh = loadedMesh;
-									this.setObject3d(loadedMesh);
+									this.setMesh(loadedMesh);
 									if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
 										this.addParentObject3d(source.skeleton.bones[0]);
 									}
@@ -1909,39 +1900,20 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						);
 					} else if (ThreeUtil.isNotNull(this.sharedMesh)) {
 						this.unSubscribeRefer('sharedMesh');
-						basemesh = new THREE.Group();
 						const mesh = this.sharedMesh.getObject3d();
 						const clips = mesh.userData.clips;
-						let clipsClone = null;
-						if (ThreeUtil.isNotNull(clips)) {
-							if (Array.isArray(clips)) {
-								clipsClone = [];
-								clips.forEach((clip) => {
-									clipsClone.push(clip.clone());
-								});
-							} else {
-								clipsClone = clips;
-							}
-						} else {
-							clipsClone = null;
-						}
-						const clipMesh = mesh.userData.refTarget;
+						const clipMesh = mesh.userData.refTarget || mesh;
 						let clipMeshClone: THREE.Object3D = null;
+						this.setUserData('clips', clips);
+						this.setUserData('storageSource', clipMesh.userData.storageSource);
 						if (ThreeUtil.isNotNull(clipMesh)) {
+							const oldUserData = clipMesh.userData;
 							clipMesh.userData = {};
-							clipMeshClone = ThreeUtil.isNotNull(clipMesh) ? clipMesh.clone(true) : null;
-						} else if (!(mesh instanceof THREE.Group)) {
-							clipMeshClone = mesh.clone(true);
+							clipMeshClone = clipMesh.clone(true);
+							clipMesh.userData = oldUserData;
 						}
 						if (clipMeshClone !== null) {
-							this.setUserData('refTarget', clipMeshClone);
-							this.setUserData('clips', clipsClone);
-							Object.assign(clipMeshClone.userData, this.getUserData());
-							this.setUserData('storageSource', clipMeshClone.userData.storageSource);
-							basemesh.add(clipMeshClone);
-							if (ThreeUtil.isNotNull(clipMeshClone['material'])) {
-								clipMeshClone['material'] = clipMeshClone['material'].clone();
-							}
+							basemesh = clipMeshClone;
 						}
 						this.subscribeRefer(
 							'sharedMesh',

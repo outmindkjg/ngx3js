@@ -17,16 +17,16 @@
   </ngx3js-camera>
   <ngx3js-scene #scene>
     <ngx3js-fog [type]="'fogexp2'" [color]="'0x000000'" [density]="0.001"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'" [windowExport]="'mesh'">
       <ngx3js-geometry
         [type]="'Buffer'"
         [attrPosition]="vertices"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'Points'" 
-        [color]="'HSL(1.0,0.5,0.5)'"
+      <ngx3js-material 
+        [type]="'Points'" 
+        [color]="'HSL(1.0,0.3,0.7)'"
         [size]="35"
-        [sizeAttenuation]="true"
+        [sizeAttenuation]="controls.sizeAttenuation"
         [alphaTest]="0.5"
         [transparent]="true"
       >

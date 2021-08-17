@@ -989,6 +989,11 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	 */
 	public setObject3d(object3d: THREE.Object3D) {
 		if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
+			if (this.object3d !== null) {
+				object3d.position.copy(this.object3d.position);
+				object3d.rotation.copy(this.object3d.rotation);
+				object3d.scale.copy(this.object3d.scale);
+			}
 			if (this.object3d !== null && this.object3d.parent !== null) {
 				this.object3d.parent.remove(this.object3d);
 			}

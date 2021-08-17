@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Mesh, Points, PointsMaterial } from 'three';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
+import { Component } from '@angular/core';
+import { Points, PointsMaterial } from 'three';
+import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-points-billboards',
   templateUrl: './webgl-points-billboards.component.html',
   styleUrls: ['./webgl-points-billboards.component.scss']
 })
-export class WebglPointsBillboardsComponent extends BaseComponent<{}> {
+export class WebglPointsBillboardsComponent extends BaseComponent<{
+  sizeAttenuation : boolean;
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      sizeAttenuation : true
+    },[
+      { name : 'sizeAttenuation' , type : 'checkbox'}
+    ]);
   }
 
   ngOnInit() {

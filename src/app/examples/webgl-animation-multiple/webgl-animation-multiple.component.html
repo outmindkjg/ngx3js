@@ -32,32 +32,37 @@
       </ngx3js-light>
       <ngx3js-mesh (onLoad)="setMesh($event)">
           <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [storageOption]="{ scale : 0.01 }" [castShadow]="true">
+          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [castShadow]="true">
+            <ngx3js-scale [multiply]="1"></ngx3js-scale>
             <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
             <ngx3js-mixer [action]="'Idle'">
               <ngx3js-clip [name]="'Idle'"></ngx3js-clip>
             </ngx3js-mixer>
           </ngx3js-mesh>
-          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [storageOption]="{ scale : 0.02 }"  [castShadow]="true" [windowExport]="'Soldier'">
+          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [castShadow]="true" [windowExport]="'Soldier'">
+            <ngx3js-scale [multiply]="2"></ngx3js-scale>
             <ngx3js-position [x]="3" [y]="0" [z]="0"></ngx3js-position>
             <ngx3js-mixer [action]="'Walk'">
               <ngx3js-clip [name]="'Walk'"></ngx3js-clip>
             </ngx3js-mixer>
           </ngx3js-mesh>
-          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [storageOption]="{ scale : 0.01 }" [castShadow]="true">
+          <ngx3js-mesh [storageName]="'models/gltf/Soldier.glb'" [castShadow]="true">
+            <ngx3js-scale [multiply]="1"></ngx3js-scale>
             <ngx3js-position [x]="1" [y]="0" [z]="0"></ngx3js-position>
             <ngx3js-mixer [action]="'Run'">
               <ngx3js-clip [name]="'Run'"></ngx3js-clip>
             </ngx3js-mixer>
           </ngx3js-mesh>
-          <ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [storageOption]="{ scale : 0.01 }" [castShadow]="true">
+          <ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [castShadow]="true">
+            <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
             <ngx3js-position [x]="-4" [y]="1" [z]="0"></ngx3js-position>
             <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
             <ngx3js-mixer [action]="'parrot_A_'">
               <ngx3js-clip [name]="'parrot_A_'"></ngx3js-clip>
             </ngx3js-mixer>
           </ngx3js-mesh>
-          <ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [storageOption]="{ scale : 0.02 }" [castShadow]="true">
+          <ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [castShadow]="true">
+            <ngx3js-scale [multiply]="0.02"></ngx3js-scale>
             <ngx3js-position [x]="-2" [y]="1" [z]="0"></ngx3js-position>
             <ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
           </ngx3js-mesh>

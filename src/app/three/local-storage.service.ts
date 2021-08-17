@@ -673,9 +673,6 @@ export class LocalStorageService {
       this._getObjectFromKey(
         safeKey,
         (result: LoadedObject) => {
-          if (result.object && result.object instanceof THREE.Group && result.object.children.length === 1) {
-            result.object = result.object.children[0];
-          }
           if (result.object && options.debugName) {
             console.log(this.getNameMap(result.object, {}));
           }

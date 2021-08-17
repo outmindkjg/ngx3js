@@ -16,7 +16,7 @@
   <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000" [scene]="scene">
     <ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-camera [type]="'OrthographicCamera'" [near]="1" [far]="10" [scene]="sceneOrtho" [orthoSize]="400"  (onRender)="onBeforeRenderOrthographicCamera($event)">
+  <ngx3js-camera #orthographicCamera [type]="'OrthographicCamera'" [near]="1" [far]="10" [scene]="sceneOrtho" [orthoSize]="400"  (onRender)="onBeforeRenderOrthographicCamera($event)">
     <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene>
@@ -32,7 +32,7 @@
   </ngx3js-scene>
   <ngx3js-scene #sceneOrtho>
     <ngx3js-mesh [type]="'Sprite'">
-      <ngx3js-position [x]="-100" [y]="100" [z]="1"></ngx3js-position>
+      <ngx3js-position [camera]="orthographicCamera" [x]="-0.7" [y]="0.7" [z]="1"></ngx3js-position>
       <ngx3js-scale [x]="textureSize/2" [y]="textureSize/2" [z]="1"></ngx3js-scale>
       <ngx3js-material [type]="'SpriteMaterial'" [side]="'double'">
         <ngx3js-texture [type]="'map'" [data]="spriteData" [width]="textureSize" [height]="textureSize" [format]="'RGBFormat'" (onLoad)="setTexture($event)"></ngx3js-texture>

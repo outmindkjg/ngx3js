@@ -37,6 +37,7 @@
     ></ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)" #baseMesh [storageName]="'models/gltf/AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf'" [morphTargets]="true">
       <ngx3js-rotation [x]="0" [y]="0" [z]="90"></ngx3js-rotation>
+      <ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
       <ngx3js-mesh [geometry]="baseMesh" [type]="'Points'" (onLoad)="setPoints($event)">
         <ngx3js-material 
           [type]="'PointsMaterial'"

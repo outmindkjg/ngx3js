@@ -40,7 +40,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * Notice - case insensitive.
 	 *
 	 */
-	@Input() private cubeType: string = null;
+	@Input() protected cubeType: string = null;
 
 	/**
 	 * The name of the object (doesn't need to be unique). Default is an empty string.
@@ -1585,7 +1585,7 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 	 * @param texture
 	 */
 	protected setTextureLoaded(texture: THREE.Texture) {
-		if (texture !== null && ThreeUtil.isTextureLoaded(texture)) {
+		if (texture !== null) {
 			if (ThreeUtil.isNotNull(this.cubeType)) {
 				switch (this.cubeType.toLowerCase()) {
 					case 'angular':
@@ -1596,8 +1596,8 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 							AbstractTextureComponent.setTextureOptions(texture, this.getTextureOptions());
 							const pmremGenerator = ThreeUtil.getPmremGenerator();
 							const equirectangular = pmremGenerator.fromEquirectangular(texture).texture;
-							texture.dispose();
 							pmremGenerator.dispose();
+							texture.dispose();
 							texture = equirectangular;
 						}
 						break;
@@ -1621,6 +1621,9 @@ export abstract class AbstractTextureComponent extends AbstractSubscribeComponen
 			}
 			AbstractTextureComponent.setTextureOptions(this.texture, this.getTextureOptions());
 			this.synkMaterial(this.texture);
+			if (ThreeUtil.isTextureLoaded(this.texture)) {
+				this.texture.needsUpdate = true;
+			}
 			this.setSubscribeNext(['texture', 'loaded']);
 		}
 	}

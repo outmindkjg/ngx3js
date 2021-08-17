@@ -34,7 +34,7 @@
       </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>
-  <ngx3js-camera #cameraOrtho [type]="'OrthographicCamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="0.01" [far]="10000"  [scene]="orthScene" [clearDepth]="true" [autoClear]="false">
+  <ngx3js-camera #cameraOrtho [type]="'OrthographicCamera'" [orthoSize]="1024" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="0.01" [far]="10000"  [scene]="orthScene" [clearDepth]="true" [autoClear]="false">
     <ngx3js-rotation [x]="10" [y]="0" [z]="0"></ngx3js-rotation>
     <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
   </ngx3js-camera>
@@ -46,7 +46,7 @@
     </ngx3js-shared>
     <ngx3js-mesh #spriteTL [type]="'Sprite'" [material]="material" [centerX]="0.0" [centerY]="1.0">
       <ngx3js-position [x]="-1" [y]="1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>
-        <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
+      <ngx3js-scale [x]="128" [y]="128" [z]="1"></ngx3js-scale>
     </ngx3js-mesh>
     <ngx3js-mesh #spriteTR [type]="'Sprite'" [material]="material" [centerX]="1.0" [centerY]="1.0">
       <ngx3js-position [x]="1" [y]="1" [z]="-10" [camera]="cameraOrtho"></ngx3js-position>

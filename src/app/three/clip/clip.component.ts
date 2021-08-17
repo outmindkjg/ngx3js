@@ -253,6 +253,8 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 	 */
 	private mixer: THREE.AnimationMixer = null;
 
+	private model: any = null;
+	
 	/**
 	 * Clips  of clip component
 	 */
@@ -274,9 +276,10 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 	 * @param clips
 	 * @param [fps]
 	 */
-	public setMixer(mixer: THREE.AnimationMixer, clips: THREE.AnimationClip[]) {
+	public setMixer(mixer: THREE.AnimationMixer, clips: THREE.AnimationClip[], model : any) {
 		if (this.mixer !== mixer) {
 			this.mixer = mixer;
+			this.model = model;
 			this.clips = clips || null;
 			this.clip = null;
 			this.action = null;
@@ -444,7 +447,11 @@ export class ClipComponent extends AbstractSubscribeComponent implements OnInit 
 							keyframe.setClip(this.clip);
 						});
 					}
-					this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
+					if (this.model instanceof THREE.Object3D || this.model instanceof THREE.AnimationObjectGroup) {
+						this.action = this.mixer.clipAction(clip, this.model, this.getBlendMode());
+					} else {
+						this.action = this.mixer.clipAction(clip, null, this.getBlendMode());
+					}
 				}
 				if (this.getClampWhenFinished(false)) {
 					this.action.clampWhenFinished = true;

@@ -58,6 +58,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     if (this.menuId !== null && this.menuId !== undefined) {
       this.checkSearchMenuSelected(this.searchMenu);
       this.setFocus(this.menuId);
+
     }
   }
 
@@ -183,6 +184,10 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
           this.gitHub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub';
           this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/ngx3js/tree/master/src/app'+child.safeId+ '';
           this.ngxGithub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub ngx';
+          setTimeout(() => {
+            console.log('INFO : ', child.id);
+            console.log('INFO : ', child.safeId);
+          }, 1000);
         }
       });
     });

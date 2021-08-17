@@ -334,12 +334,26 @@ export class TextureComponent extends AbstractTextureComponent implements OnInit
           this.texture = new THREE.Texture();
         }
       } else if (ThreeUtil.isNotNull(this.storageName)) {
-        if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
-          this.texture = new THREE.DataTexture(new Uint8Array(6), 1, 1);
-        } else if (this.storageName.endsWith('.pvr') || this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
-          this.texture = new THREE.CompressedTexture(null, 1, 1);
-        } else {
-          this.texture = new THREE.Texture();
+        const cubeType = ThreeUtil.getTypeSafe(this.cubeType, 'none');
+        switch(cubeType.toLowerCase()) {
+					case 'angular':
+					case 'equirect':
+					case 'equirectangular':
+					case 'fromequirectangular':
+          case 'cube':
+          case 'cubemap':
+          case 'fromcubemap':
+            this.texture = new THREE.CubeTexture([]);
+            break;
+          default :
+            if (this.storageName.endsWith('.hdr') || this.storageName.endsWith('.exr')) {
+              this.texture = new THREE.DataTexture(new Uint8Array(6), 1, 1);
+            } else if (this.storageName.endsWith('.pvr') || this.storageName.endsWith('.ktx') || this.storageName.endsWith('.ktx2') || this.storageName.endsWith('.dds')) {
+              this.texture = new THREE.CompressedTexture(null, 1, 1);
+            } else {
+              this.texture = new THREE.Texture();
+            }
+            break;
         }
         this.localStorageService.getTexture(
           this.storageName,

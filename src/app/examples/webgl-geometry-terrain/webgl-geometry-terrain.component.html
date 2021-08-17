@@ -17,8 +17,8 @@
     <ngx3js-position [x]="100" [y]="800" [z]="-800"></ngx3js-position>
   </ngx3js-camera>
 
-  <ngx3js-scene #scene [background]="'0xbfd1e5'">
-    <ngx3js-fog [type]="'FogExp2'" [color]="'0xefd1b5'" [density]="0.00025"></ngx3js-fog>
+  <ngx3js-scene #scene [background]="'0xefd1b5'">
+    <ngx3js-fog [type]="'FogExp2'" [color]="'0xefd1b5'" [density]="0.00055"></ngx3js-fog>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-geometry
@@ -31,7 +31,7 @@
         [widthSegments]="256"
         [depthSegments]="256"
       ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'">
+      <ngx3js-material [type]="'MeshBasicMaterial'">
         <ngx3js-texture [perlin]="geometry"></ngx3js-texture>
       </ngx3js-material>
     </ngx3js-mesh>

@@ -1,6 +1,7 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shadowmap - models by <a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from <a href="http://www.ro.me" target="_blank" rel="noopener">rome</a><br />
   move camera with WASD / RF + mouse
+  todo
 </div>
 <ngx3js-renderer
   [controlType]="'orbit'"
@@ -12,6 +13,7 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
+  <ngx3js-viewer [type]="'shadowmapviewer'" [x]="10" [y]="-10" [width]="'25%'" [height]="'25%'" [light]="spotLight"></ngx3js-viewer>
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="23" [near]="10" [far]="3000">
     <ngx3js-position [x]="700" [y]="50" [z]="1900"></ngx3js-position>
@@ -24,6 +26,7 @@
     >
     </ngx3js-light>
     <ngx3js-light
+      #spotLight
       [type]="'Spot'"
       [color]="'0xffffff'"
       [intensity]="1"
@@ -48,7 +51,7 @@
       <ngx3js-mesh #horse [storageName]="'models/gltf/Horse.glb'"></ngx3js-mesh>
     </ngx3js-shared>
     <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse">
+      <ngx3js-mesh *ngFor="let info of horsePositions" [sharedMesh]="horse" [castShadow]="true">
         <ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
         <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
         <ngx3js-mixer [action]="'run'" [delayTime]="info.delay">
@@ -56,7 +59,7 @@
         </ngx3js-mixer>
       </ngx3js-mesh>
     </ngx3js-mesh>
-    <ngx3js-mesh>
+    <ngx3js-mesh [castShadow]="true">
       <ngx3js-position [x]="0" [y]="-80" [z]="0"></ngx3js-position>
       <ngx3js-geometry
         [type]="'text'"
@@ -72,7 +75,7 @@
       ></ngx3js-geometry>
       <ngx3js-material [type]="'MeshPhong'" [color]="'0xff0000'" [specular]="'0xffffff'"></ngx3js-material>
     </ngx3js-mesh>
-    <ngx3js-mesh #cubes1 [material]="planeMaterial"> 
+    <ngx3js-mesh #cubes1 [material]="planeMaterial" [castShadow]="true"> 
       <ngx3js-position [x]="0" [y]="-300" [z]="20"></ngx3js-position>
       <ngx3js-geometry 
         [type]="'box'"
@@ -82,7 +85,7 @@
       >
       </ngx3js-geometry>
     </ngx3js-mesh>
-    <ngx3js-mesh #cubes2 [material]="planeMaterial"> 
+    <ngx3js-mesh #cubes2 [material]="planeMaterial" [castShadow]="true"> 
       <ngx3js-position [x]="0" [y]="-300" [z]="20"></ngx3js-position>
       <ngx3js-geometry 
         [type]="'box'"
