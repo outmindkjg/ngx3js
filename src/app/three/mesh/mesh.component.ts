@@ -1914,6 +1914,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						}
 						if (clipMeshClone !== null) {
 							basemesh = clipMeshClone;
+							basemesh.traverse((object) => {
+								if (object instanceof THREE.Mesh) {
+									object.castShadow = this.castShadow;
+									object.receiveShadow = this.receiveShadow;
+								}
+							});
 						}
 						this.subscribeRefer(
 							'sharedMesh',
