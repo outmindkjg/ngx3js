@@ -1551,10 +1551,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 				this.getMaterial();
 				return;
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['name', 'refgeometry', 'align'], this.MATERIAL_ATTR)) {
-				this.needUpdate = true;
-				return;
-			}
 			if (
 				!ThreeUtil.isOnlyIndexOf(
 					changes,
@@ -1636,7 +1632,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 				this.needUpdate = true;
 				return;
 			}
-
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
 				changes = ThreeUtil.pushUniq(changes, ['texture']);
 			}
@@ -2087,7 +2082,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 						}
 						break;
 					case 'transmission':
-						if (ThreeUtil.isNotNull(this.roughness) && this.material['transmission'] !== undefined) {
+						if (ThreeUtil.isNotNull(this.transmission) && this.material['transmission'] !== undefined) {
 							if (this.material['transmission'] instanceof NODES.FloatNode) {
 								this.material['transmission'].value = ThreeUtil.getTypeSafe(this.transmission, 1);
 							} else {
@@ -2122,7 +2117,6 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 								this.material['envMapIntensity'] = ThreeUtil.getTypeSafe(this.envMapIntensity, 1);
 							}
 						}
-
 						break;
 					case 'vertextangents':
 						if (ThreeUtil.isNotNull(this.vertexTangents) && this.material['vertexTangents'] !== undefined) {

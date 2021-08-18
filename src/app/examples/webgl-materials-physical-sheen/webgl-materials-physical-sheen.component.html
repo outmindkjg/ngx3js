@@ -34,7 +34,7 @@
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-mesh [storageName]="'models/fbx/cloth.fbx'">
         <ngx3js-scale [multiply]="0.5"></ngx3js-scale>
-        <ngx3js-material [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></ngx3js-material>
+        <ngx3js-material [refName]="'*'" [type]="controls.nodeMaterial ? 'StandardNodeMaterial' : 'MeshPhysicalMaterial'" [side]="'double'" [metalness]="0" [roughness]="controls.roughness" [color]="controls.color" [sheen]="controls.sheenBRDF ? controls.sheen : null"></ngx3js-material>
       </ngx3js-mesh>
       <ngx3js-mesh>
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>

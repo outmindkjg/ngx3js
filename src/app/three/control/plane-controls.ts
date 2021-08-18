@@ -61,6 +61,8 @@ export class PlaneControls {
     window.setTimeout(() => {
       this.handleResize();
       this.setActive(true);
+      this.cameraPosition = new THREE.Vector3();
+      this.cameraPosition.copy(this.camera.position);
     }, 100);
   }
 

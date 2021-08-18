@@ -989,11 +989,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	 */
 	public setObject3d(object3d: THREE.Object3D) {
 		if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
-			if (this.object3d !== null) {
-				object3d.position.copy(this.object3d.position);
-				object3d.rotation.copy(this.object3d.rotation);
-				object3d.scale.copy(this.object3d.scale);
-			}
 			if (this.object3d !== null && this.object3d.parent !== null) {
 				this.object3d.parent.remove(this.object3d);
 			}
@@ -1011,6 +1006,26 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 				this.setTweenTarget(this.object3d);
 			}
 			super.setObject(this.object3d);
+			if (this.object3d !== null) {
+				this.cachedPositionList.forEach(position => {
+					position.setObject3d(this);	
+				});
+				this.cachedRotationList.forEach(rotation => {
+					rotation.setObject3d(this);	
+				});
+				this.cachedScaleList.forEach(scale => {
+					scale.setObject3d(this);	
+				});
+				this.cachedLookatList.forEach(lookat => {
+					lookat.setObject3d(this);	
+				});
+				this.cachedMaterialList.forEach(material => {
+					material.setObject3d(this);	
+				});
+				this.cachedGeometryList.forEach(geometry => {
+					geometry.setObject3d(this);	
+				});
+			}
 		}
 	}
 
@@ -1034,13 +1049,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 		this.applyChanges3d(changes);
 	}
 
-	private _cachedPrefab: THREE.Object3D = null;
-	private _cachedPositionList : PositionComponent[] = [];
-	private _cachedRotationList : RotationComponent[] = [];
-	private _cachedScaleList : ScaleComponent[] = [];
-	private _cachedLookatList : LookatComponent[] = [];
-	private _cachedMaterialList : AbstractMaterialComponent[] = [];
-	private _cachedGeometryList : AbstractGeometryComponent[] = [];
+	private cachedPrefab: THREE.Object3D = null;
+	protected cachedPositionList : PositionComponent[] = [];
+	protected cachedRotationList : RotationComponent[] = [];
+	protected cachedScaleList : ScaleComponent[] = [];
+	protected cachedLookatList : LookatComponent[] = [];
+	protected cachedMaterialList : AbstractMaterialComponent[] = [];
+	protected cachedGeometryList : AbstractGeometryComponent[] = [];
 
 	/**
 	 * Applys changes3d
@@ -1096,13 +1111,13 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 					case 'prefab':
 						if (ThreeUtil.isNotNull(this.prefab)) {
 							this.unSubscribeRefer('prefab');
-							if (this._cachedPrefab !== null && this._cachedPrefab.parent !== null) {
-								this._cachedPrefab.parent.remove(this._cachedPrefab.parent);
+							if (this.cachedPrefab !== null && this.cachedPrefab.parent !== null) {
+								this.cachedPrefab.parent.remove(this.cachedPrefab.parent);
 							}
 							const tmpPrefab: THREE.Object3D = ThreeUtil.getObject3d(this.prefab, false);
 							if (tmpPrefab !== null) {
-								this._cachedPrefab = tmpPrefab.clone(true);
-								this.object3d.add(this._cachedPrefab);
+								this.cachedPrefab = tmpPrefab.clone(true);
+								this.object3d.add(this.cachedPrefab);
 							}
 							this.subscribeRefer(
 								'prefab',
@@ -1119,7 +1134,6 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 					case 'onbeforerender':
 						if (ThreeUtil.isNotNull(this.onBeforeRender)) {
 							this.object3d.onBeforeRender = this.onBeforeRender;
-							console.log(this.object3d);
 						}
 						break;
 					case 'matrixautoupdate':
@@ -1192,20 +1206,20 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 								newPositionList.push(position);
 							});
 						}
-						this._cachedPositionList.forEach(position => {
+						this.cachedPositionList.forEach(position => {
 							if (newPositionList.indexOf(position) === -1) {
 								position.unsetObject3d(this);
 							}
 						});
 						newPositionList.forEach(position => {
-							if (this._cachedPositionList.indexOf(position) === -1) {
+							if (this.cachedPositionList.indexOf(position) === -1) {
 								position.setObject3d(this);
 							}
 						});
 						if (newPositionList.length > 0) {
 							// this.object3d.position.copy(newPositionList[0].getPosition());
 						}
-						this._cachedPositionList = newPositionList;
+						this.cachedPositionList = newPositionList;
 						this.setSubscribeNext('position');
 						break;
 					case 'rotation':
@@ -1222,17 +1236,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 								newRotationList.push(rotation);
 							});
 						}
-						this._cachedRotationList.forEach(rotation => {
+						this.cachedRotationList.forEach(rotation => {
 							if (newRotationList.indexOf(rotation) === -1) {
 								rotation.unsetObject3d(this);
 							}
 						});
 						newRotationList.forEach(rotation => {
-							if (this._cachedRotationList.indexOf(rotation) === -1) {
+							if (this.cachedRotationList.indexOf(rotation) === -1) {
 								rotation.setObject3d(this);
 							}
 						});
-						this._cachedRotationList = newRotationList;
+						this.cachedRotationList = newRotationList;
 						this.setSubscribeNext('rotation');
 						break;
 					case 'scale':
@@ -1249,17 +1263,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 								newScaleList.push(scale);
 							});
 						}
-						this._cachedScaleList.forEach(scale => {
+						this.cachedScaleList.forEach(scale => {
 							if (newScaleList.indexOf(scale) === -1) {
 								scale.unsetObject3d(this);
 							}
 						});
 						newScaleList.forEach(scale => {
-							if (this._cachedScaleList.indexOf(scale) === -1) {
+							if (this.cachedScaleList.indexOf(scale) === -1) {
 								scale.setObject3d(this);
 							}
 						});
-						this._cachedScaleList = newScaleList;
+						this.cachedScaleList = newScaleList;
 						this.setSubscribeNext('scale');
 						break;
 					case 'lookat':
@@ -1276,17 +1290,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 								newLookatList.push(lookat);
 							});
 						}
-						this._cachedLookatList.forEach(lookat => {
+						this.cachedLookatList.forEach(lookat => {
 							if (newLookatList.indexOf(lookat) === -1) {
 								lookat.unsetObject3d(this);
 							}
 						});
 						newLookatList.forEach(lookat => {
-							if (this._cachedLookatList.indexOf(lookat) === -1) {
+							if (this.cachedLookatList.indexOf(lookat) === -1) {
 								lookat.setObject3d(this);
 							}
 						});
-						this._cachedLookatList = newLookatList;
+						this.cachedLookatList = newLookatList;
 						this.setSubscribeNext('lookat');
 						break;
 					case 'controller':
@@ -1357,17 +1371,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 						newMaterialList.forEach(material => {
 							cachedMaterialList.push(material.component);
 						});
-						this._cachedMaterialList.forEach(material => {
+						this.cachedMaterialList.forEach(material => {
 							if (cachedMaterialList.indexOf(material) === -1) {
 								material.unsetObject3d(this);
 							}
 						});
 						newMaterialList.forEach(material => {
-							if (this._cachedMaterialList.indexOf(material.component) === -1) {
+							if (this.cachedMaterialList.indexOf(material.component) === -1) {
 								material.component.setObject3d(this, material.type);
 							}
 						});
-						this._cachedMaterialList = cachedMaterialList;
+						this.cachedMaterialList = cachedMaterialList;
 						break;
 					case 'geometry':
 							const newGeometryList : AbstractGeometryComponent[] = [];
@@ -1383,17 +1397,17 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 									newGeometryList.push(geometry);
 								});
 							}
-							this._cachedGeometryList.forEach(geometry => {
+							this.cachedGeometryList.forEach(geometry => {
 								if (newGeometryList.indexOf(geometry) === -1) {
 									geometry.unsetObject3d(this);
 								}
 							});
 							newGeometryList.forEach(geometry => {
-								if (this._cachedGeometryList.indexOf(geometry) === -1) {
+								if (this.cachedGeometryList.indexOf(geometry) === -1) {
 									geometry.setObject3d(this);
 								}
 							});
-							this._cachedGeometryList = newGeometryList;
+							this.cachedGeometryList = newGeometryList;
 							break;
 					case 'mixer':
 						this.unSubscribeReferList('mixerList');

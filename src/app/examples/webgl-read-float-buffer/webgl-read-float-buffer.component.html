@@ -1,6 +1,12 @@
 <div class="info">
   <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> read float pixels webgl example<br/>
 </div>
+<div class="bottom">
+  <div id="lbl_left" class="lbl" #rgbInfo>
+    
+  </div>
+</div>
+
 <ngx3js-renderer
   [controlType]="'orbit'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
@@ -10,7 +16,9 @@
   [shadowMapEnabled]="true"
   [guiControl]="controls"
   [guiParams]="controlsParams"
+  [useEvent]="'mousemove'"
   (onRender)="onRender($event)"
+  [afterRender]="afterRender"
 >
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="85" [near]="1" [far]="10000">

@@ -23,14 +23,11 @@ import { CSS3DObject, CSS3DSprite } from 'three/examples/jsm/renderers/CSS3DRend
 import { SVGObject } from 'three/examples/jsm/renderers/SVGRenderer';
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import { GeometryCompressionUtils } from 'three/examples/jsm/utils/GeometryCompressionUtils';
 import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils';
 import { CurveComponent } from '../curve/curve.component';
-import { AbstractGeometryComponent } from '../geometry.abstract';
 import { HtmlComponent } from '../html/html.component';
 import { CssStyle, ThreeColor, ThreeUtil } from '../interface';
 import { LensflareelementComponent } from '../lensflareelement/lensflareelement.component';
-import { AbstractMaterialComponent, MeshMaterialRaw } from '../material.abstract';
 import { MaterialComponent } from '../material/material.component';
 import { AbstractObject3dComponent } from '../object3d.abstract';
 import { AbstractTextureComponent } from '../texture.abstract';

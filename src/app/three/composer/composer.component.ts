@@ -546,7 +546,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
               const scene = this.getScene(this._composerScene);
               const camera = this.getCamera(this._composerCamera);
               this.passList.forEach((pass) => {
-                pass.setEffectComposer(scene, camera, this.effectComposer);
+                pass.setEffectComposer(scene, camera, this.effectComposer, this._composerRenderer);
               });
             }
             break;

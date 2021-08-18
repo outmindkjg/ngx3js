@@ -252,7 +252,7 @@ export abstract class AbstractSubscribeComponent implements OnInit, OnChanges, O
   /**
    * Change list of abstract subscribe component
    */
-  private _changeList: string[] = null;
+  protected _changeList: string[] = null;
 
   /**
    * Checks changes

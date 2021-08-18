@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { ShaderMaterial } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { DataTexture, ShaderMaterial, Texture, Vector2 } from 'three';
+import { BaseComponent, RendererInfo, RendererTimer } from '../../three';
 import { MaterialComponent } from '../../three/material/material.component';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-webgl-read-float-buffer',
@@ -10,9 +11,39 @@ import { MaterialComponent } from '../../three/material/material.component';
 })
 export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 
+	/**
+	 * View child of renderer component
+	 */
+	@ViewChild('rgbInfo') private rgbInfo: ElementRef = null;
+
   constructor() {
     super({},[]);
   }
+
+  ngOnInit() {
+    this.afterRender = (renderInfo : RendererInfo) => {
+      const read = new Float32Array( 4 );
+      const renderer = renderInfo.renderer as THREE.WebGLRenderer;
+      const rtTexture = this.rtTexture;
+      renderer.setRenderTarget( rtTexture );
+      renderer.clear();
+      const sceneRTT = renderInfo.scenes[0];
+      const cameraRTT = renderInfo.cameras[0];
+      renderer.render( sceneRTT, cameraRTT );
+      renderer.setRenderTarget( null );
+      const valueNode = this.rgbInfo.nativeElement;
+      const mouse = renderInfo.timer.event.mouse;
+      
+      renderer.readRenderTargetPixels( rtTexture , rtTexture.width * ( 1 + mouse.x) / 2 , rtTexture.height * ( 1 + mouse.y) / 2, 1, 1, read );
+      valueNode.innerHTML = 'r:' + read[ 0 ] + '<br/>g:' + read[ 1 ] + '<br/>b:' + read[ 2 ];
+    }
+  }
+
+  rtTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat, type: THREE.FloatType } );
+
+  texture : DataTexture = new DataTexture(null, 100, 100 );
+  
+  afterRender :(renderInfo : RendererInfo) => void;
 
   setMaterial(material : MaterialComponent) {
     this.material = material.getMaterial() as ShaderMaterial;
@@ -34,5 +65,6 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
       }
     }
   }
+
 
 }

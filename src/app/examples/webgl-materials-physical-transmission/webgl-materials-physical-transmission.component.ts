@@ -7,6 +7,10 @@ import { BaseComponent, RendererTimer } from '../../three';
   styleUrls: ['./webgl-materials-physical-transmission.component.scss']
 })
 export class WebglMaterialsPhysicalTransmissionComponent extends BaseComponent<{
+  opacity: number,
+  metalness: number,
+  roughness: number,
+  reflectivity: number,
   color: number,
   transmission: number,
   envMapIntensity: number,
@@ -16,6 +20,10 @@ export class WebglMaterialsPhysicalTransmissionComponent extends BaseComponent<{
 
   constructor() {
     super({
+      opacity: 1,
+      metalness: 0,
+      roughness: 0,
+      reflectivity: 0.5,
       color: 0xffffff,
       transmission: 0.90,
       envMapIntensity: 1,
@@ -23,7 +31,11 @@ export class WebglMaterialsPhysicalTransmissionComponent extends BaseComponent<{
       exposure: 1
     },[
       {name : 'color', type : 'color' },
-      {name : 'transmission', type : 'number', min : 0, max : 1 },
+      {name : 'transmission', type : 'number', min : 0, max : 1, step: 0.01 },
+      {name : 'opacity', type : 'number', min : 0, max : 1, step: 0.01 },
+      {name : 'metalness', type : 'number', min : 0, max : 1, step: 0.01 },
+      {name : 'roughness', type : 'number', min : 0, max : 1, step: 0.01 },
+      {name : 'reflectivity', type : 'number', min : 0, max : 1, step: 0.01 },
       {name : 'envMapIntensity', title : 'envMap intensity', type : 'number', min : 0, max : 1 },
       {name : 'lightIntensity', title : 'light intensity', type : 'number', min : 0, max : 1 },
       {name : 'exposure', type : 'number', min : 0, max : 1 },

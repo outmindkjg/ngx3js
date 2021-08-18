@@ -2314,10 +2314,8 @@ export class ThreeUtil {
 			object.setSubscribeNext(key);
 		} else if (this.isThreeComponent(object)) {
 			const threeComponent = this.getThreeComponent(object);
-			if (threeComponent === null) {
-				console.log(threeComponent, object);
-			}
 			if (this.isNotNull(threeComponent)) {
+				console.log(threeComponent, object);
 				this.setSubscribeNext(threeComponent, key);
 			} else {
 				console.error(object);
@@ -2337,7 +2335,7 @@ export class ThreeUtil {
 	public static getSubscribe(object: any, callBack: (key?: string) => void, nextKey: string): Subscription {
 		if (this.isThreeComponent(object)) {
 			const threeComponent = this.getThreeComponent(object);
-			if (this.isNotNull(threeComponent.getSubscribe)) {
+			if (this.isNotNull(threeComponent) && this.isNotNull(threeComponent.getSubscribe)) {
 				object = threeComponent;
 			}
 		}

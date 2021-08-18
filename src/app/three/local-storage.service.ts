@@ -676,9 +676,23 @@ export class LocalStorageService {
           if (result.object && options.debugName) {
             console.log(this.getNameMap(result.object, {}));
           }
+          if (result.source && options.debug) {
+            console.log(result.source);
+          }
           let cloneObject3d : THREE.Object3D = null;
           if (ThreeUtil.isNotNull(result.object)) {
             cloneObject3d = result.object;
+            if (options.firstMesh) {
+              let foundMesh : THREE.Object3D = null;
+              cloneObject3d.traverse( ( node ) => {
+                if (foundMesh === null && node['isMesh']) {
+                  foundMesh = node;
+                }
+              });
+              if (foundMesh !== null) {
+                cloneObject3d = foundMesh;
+              }
+            }
             if (options.autoCenter) {
               const object = cloneObject3d;
               const objectBox = new THREE.Box3().setFromObject(object);

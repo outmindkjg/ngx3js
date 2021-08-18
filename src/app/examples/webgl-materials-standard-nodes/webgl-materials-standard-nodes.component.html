@@ -29,7 +29,7 @@
       [groundColor]="'0x222233'"
       [intensity]="4"
     ></ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'Cerberus.obj'" [storageOption]="{ path : 'models/obj/cerberus/'}">
+    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'Cerberus.obj'" [storageOption]="{ path : 'models/obj/cerberus/', firstMesh : true }">
       <ngx3js-position [x]="-0.45" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
       <ngx3js-material [type]="'MeshStandardNodeMaterial'"

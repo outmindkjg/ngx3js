@@ -45,6 +45,7 @@ import { TextureComponent } from '../texture/texture.component';
 export class PassComponent extends AbstractSubscribeComponent implements OnInit {
   /**
    * Input  of pass component
+   * 
    */
   @Input() public type: string = '';
 
@@ -192,6 +193,37 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
    * Input  of pass component
    */
   @Input() private height: number = null;
+
+	/**
+	 * [page:Textures THREE.LinearEncoding] is the default.
+	 * See the [page:Textures texture constants] page for details of other formats.<br /><br />
+	 * Note that if this value is changed on a texture after the material has been used,
+	 * it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
+	 *
+	 * Notice - case insensitive.
+	 *
+	 * @see THREE.TextureEncoding
+	 *
+	 * @see THREE.LinearEncoding - LinearEncoding ,
+	 * @see THREE.sRGBEncoding - sRGBEncoding ,
+	 * @see THREE.GammaEncoding - GammaEncoding ,
+	 * @see THREE.RGBEEncoding - RGBEEncoding ,
+	 * @see THREE.LogLuvEncoding - LogLuvEncoding ,
+	 * @see THREE.RGBM7Encoding - RGBM7Encoding ,
+	 * @see THREE.RGBM16Encoding - RGBM16Encoding ,
+	 * @see THREE.RGBDEncoding - RGBDEncoding ,
+	 */
+	@Input() private encoding: string = null;
+
+	/**
+	 * Define whether the material uses morphTargets. Default is false.
+	 */
+	@Input() private selects: THREE.Mesh[] = null;
+
+	/**
+	 * Define whether the material uses morphTargets. Default is false.
+	 */
+	@Input() private morphTargets: boolean = null;
 
   /**
    * Input  of pass component
@@ -1309,6 +1341,12 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   private effectCamera: THREE.Camera = null;
 
   /**
+   * Effect camera of pass component
+   */
+  private effectRenderer: THREE.WebGLRenderer = null;
+  
+
+  /**
    * Pass  of pass component
    */
   private pass: Pass = null;
@@ -1332,11 +1370,12 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
    * @param [camera]
    * @param [effectComposer]
    */
-  public setEffectComposer(scene?: THREE.Scene, camera?: THREE.Camera, effectComposer?: EffectComposer) {
-    if (this.effectComposer !== effectComposer || scene !== this.effectScene || camera !== this.effectCamera) {
+  public setEffectComposer(scene?: THREE.Scene, camera?: THREE.Camera, effectComposer?: EffectComposer, renderer?: THREE.WebGLRenderer) {
+    if (this.effectComposer !== effectComposer || scene !== this.effectScene || camera !== this.effectCamera || renderer !== this.effectRenderer) {
       this.effectComposer = effectComposer;
       this.effectScene = scene;
       this.effectCamera = camera;
+      this.effectRenderer = renderer;
       if (this.pass === null) {
         this.getPass();
       } else {
@@ -1404,7 +1443,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
    * Gets pass
    * @returns pass
    */
-  public getPass(): Pass {
+  public getPass<T extends Pass>():T {
     if (this.pass === null || this._needUpdate) {
       this.needUpdate = false;
       let pass: Pass = null;
@@ -1436,7 +1475,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'bloompass':
           case 'bloom':
-            pass = new BloomPass(this.getStrength(), this.getKernelSize(), this.getSigma(), this.getResolution());
+            pass = new BloomPass(this.getStrength(1), this.getKernelSize(25), this.getSigma(4), this.getResolution(256));
             break;
           case 'bokehpass':
           case 'bokeh':
@@ -1622,16 +1661,16 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             });
             break;
           case 'ssrrpass':
-          case 'ssrr': // todo
+          case 'ssrr': 
             pass = new SSRrPass({
-              renderer: null, //  WebGLRenderer;
-              scene: null, //  Scene;
-              camera: null, //  Camera;
-              width: null, //  number | undefined;
-              height: null, //  number | undefined;
-              selects: null, //  Mesh[] | null;
-              encoding: null, //  TextureEncoding;
-              morphTargets: null, //  boolean | undefined;
+              renderer : this.effectRenderer,
+              scene : this.getScene(this.effectScene),
+              camera : this.getCamera(this.effectCamera),
+              width: this.getWidth(1024),
+              height: this.getHeight(1025),
+              selects: ThreeUtil.getTypeSafe(this.selects, []), //  Mesh[] | null;
+              encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'), //  TextureEncoding;
+              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false), //  boolean | undefined;
             });
             break;
           case 'lutpass':
@@ -1674,6 +1713,6 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       this.pass = pass;
       this.setObject(this.pass);
     }
-    return this.pass;
+    return this.pass as T;
   }
 }

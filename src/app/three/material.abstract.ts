@@ -951,8 +951,8 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	 * @param changes The changed properties.
 	 */
 	ngOnChanges(changes: SimpleChanges): void {
-		super.ngOnChanges(changes);
 		if (changes && this.material !== null) {
+			super.ngOnChanges(changes);
 		}
 	}
 
@@ -999,6 +999,9 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	public setObject3d(object3d: AbstractSubscribeComponent, refType: string = 'auto') {
 		if (ThreeUtil.isNotNull(object3d)) {
 			const key: string = object3d.getId();
+			if (refType === 'auto' && ThreeUtil.isNotNull(this._object3d[key])) {
+				refType = this._object3d[key].refType;
+			}
 			let object = ThreeUtil.getObject3d(object3d);
 			const objectList: THREE.Object3D[] = [];
 			let meshes: {

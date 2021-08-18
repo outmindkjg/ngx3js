@@ -44,20 +44,20 @@
     </ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="-500" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
+      <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'" [storageOption]="{ debugName : true }">
         <ngx3js-scale [multiply]="15"></ngx3js-scale>
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshLambert'" [color]="'0xffffff'" [envMap]="reflectionCube"></ngx3js-material>
+        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xffffff'" [envMap]="reflectionCube"></ngx3js-material>
       </ngx3js-mesh>
       <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
         <ngx3js-scale [multiply]="15"></ngx3js-scale>
         <ngx3js-position [x]="-900" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshLambert'" [color]="'0xffee00'" [envMap]="refractionCube" [refractionRatio]="0.95"></ngx3js-material>
+        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xffee00'" [envMap]="refractionCube" [refractionRatio]="0.95"></ngx3js-material>
       </ngx3js-mesh>
       <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
         <ngx3js-scale [multiply]="15"></ngx3js-scale>
         <ngx3js-position [x]="900" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshLambert'" [color]="'0xff6600'" [envMap]="reflectionCube"  [combine]="'Mix'" [reflectivity]="0.3"></ngx3js-material>
+        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xff6600'" [envMap]="reflectionCube"  [combine]="'Mix'" [reflectivity]="0.3"></ngx3js-material>
       </ngx3js-mesh>
     </ngx3js-mesh>
   </ngx3js-scene>

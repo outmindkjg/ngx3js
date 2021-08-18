@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer } from '../../three';
 import * as THREE from 'three';
-import { BufferGeometry, Object3D, Points } from 'three';
+import { BufferGeometry, Points } from 'three';
+import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
 
 @Component({
   selector: 'app-webgl-points-dynamic',
@@ -108,7 +108,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
         }
         info.mesh = realMesh;
       }
-    }, 1000);
+    }, 3000);
   }
 
   onRender(timer : RendererTimer) {

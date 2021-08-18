@@ -32,7 +32,7 @@
     <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'Cerberus.obj'" [storageOption]="{ path : 'models/obj/cerberus/'}">
       <ngx3js-position [x]="-0.45" [y]="0" [z]="0"></ngx3js-position>
       <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
-      <ngx3js-material [type]="'MeshStandardMaterial'"
+      <ngx3js-material [refName]="'*'" [type]="'MeshStandardMaterial'"
         [roughness]="1"
         [metalness]="1"
       >

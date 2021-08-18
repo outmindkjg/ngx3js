@@ -7,6 +7,7 @@
   [controlType]="'plane'"
   [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true, xDistance : 9000, yDistance : 0 }"
   [statsMode]="0"
+  [autoClear]="false"
   [antialias]="true"
   [shadowMapEnabled]="true"
   [guiControl]="controls"
@@ -16,13 +17,13 @@
   <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
   <ngx3js-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="50000">
     <ngx3js-position [x]="0" [y]="700" [z]="7000"></ngx3js-position>
-    <!-- ngx3js-composer>
-      <ngx3js-pass [type]="'render'"></ngx3js-pass>
-      <ngx3js-pass [type]="'bloom'" [strength]="0.75"></ngx3js-pass>
-      <ngx3js-pass [type]="'film'" [noiseIntensity]="0.5" [scanlinesIntensity]="0.5" [scanlinesCount]="1448" [grayscale]="false"></ngx3js-pass>
-      <ngx3js-pass [type]="'shader'" [shader]="'focus'" [uniforms]="{ screenWidth : 1024, screenHeight : 1024 }"></ngx3js-pass>
-    </!-->
   </ngx3js-camera>
+  <ngx3js-composer>
+    <ngx3js-pass [type]="'render'"></ngx3js-pass>
+    <ngx3js-pass [type]="'bloom'" [strength]="0.75"></ngx3js-pass>
+    <ngx3js-pass [type]="'film'" [noiseIntensity]="0.5" [scanlinesIntensity]="0.5" [scanlinesCount]="1448" [grayscale]="false"></ngx3js-pass>
+    <ngx3js-pass [type]="'shader'" [shader]="'focus'" [uniforms]="{ screenWidth : 2048, screenHeight : 2048 }"></ngx3js-pass>
+  </ngx3js-composer>
   <ngx3js-scene #scene [background]="'0x000104'">
     <ngx3js-fog [type]="'FogExp2'" [color]="'0x000104'" [density]="0.0000675"></ngx3js-fog>
     <ngx3js-shared>

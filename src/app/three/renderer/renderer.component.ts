@@ -301,6 +301,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	@Input() private beforeRender: (info: RendererInfo) => boolean = null;
 
 	/**
+	 * Input  of renderer component
+	 */
+	@Input() private afterRender: (info: RendererInfo) => any = null;
+
+	/**
 	 * Output  of renderer component
 	 */
 	@Output() private eventListener: EventEmitter<RendererEvent> = new EventEmitter<RendererEvent>();
@@ -1712,6 +1717,9 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			this.viewerList.forEach((viewer) => {
 				viewer.render(this.renderer, this.scene || this.sceneList, this.camera || this.cameraList, renderTimer);
 			});
+		}
+		if (ThreeUtil.isNotNull(this.afterRender)) {
+			this.afterRender(this.getRenderInfo(renderTimer));
 		}
 		if (this.stats !== null) {
 			this.stats.end();

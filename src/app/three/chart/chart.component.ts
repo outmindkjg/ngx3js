@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent, GuiControlParam, RendererEvent, RendererTimer, ThreeColor, ThreeUtil, ThreeVector } from '../interface';
 import * as THREE from 'three';
+import * as CHARTJS from 'chart.js';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { MeshComponent } from '../mesh/mesh.component';
 
@@ -686,5 +687,16 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 		if (this.tooltip !== null && this.tooltipPosition !== null) {
 			this.tooltip.position.lerp(this.tooltipPosition, timer.delta * 3);
 		}
+	}
+
+	public test() {
+		const item: CHARTJS.ChartItem = "";
+		const config: CHARTJS.ChartConfiguration = { 
+			type : 'bar', 
+			data : { 
+				datasets : []
+			}
+		};
+		new CHARTJS.Chart(item,config);
 	}
 }
