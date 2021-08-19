@@ -8,24 +8,53 @@ import { BaseComponent, MeshComponent } from '../../three';
   styleUrls: ['./css3d-periodictable.component.scss'],
 })
 export class Css3dPeriodictableComponent extends BaseComponent<{
+  autoPlay : boolean;
   display: string;
 }> {
   constructor() {
     super(
       {
+        autoPlay : true,
         display: 'table',
       },
       [
+        { name : 'autoPlay', type : 'checkbox', change : () => {
+          if (this.checkAutoPlayBind === null) {
+            this.checkAutoPlay();
+          }
+        }},
         {
           name: 'display',
           type: 'select',
           select: ['table', 'sphere', 'helix', 'grid'],
+          listen : true,
           change: () => {
             this.changeTable();
           },
         },
       ]
     );
+  }
+
+  checkAutoPlay() {
+    this.checkAutoPlayBind = null;
+    if (this.controls.autoPlay) {
+      switch(this.controls.display) {
+        case 'table' :
+          this.controls.display = 'sphere';
+          break;
+        case 'sphere' :
+          this.controls.display = 'helix';
+          break;
+        case 'helix' :
+          this.controls.display = 'grid';
+          break;
+        case 'grid' :
+          this.controls.display = 'table';
+          break;
+      }
+      this.changeTable();
+    }
   }
 
   ngOnInit() {
@@ -722,9 +751,14 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
             seqn++;
           }
         });
+        this.checkAutoPlayBind = setTimeout(() => {
+          this.checkAutoPlay();
+        }, 7000);
       }
     }
   }
+
+  private checkAutoPlayBind : any = null;
 
   tweenTable: {
     table: { position: THREE.Vector3; rotation: THREE.Euler }[];

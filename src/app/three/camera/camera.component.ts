@@ -1,6 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { CubeCamera } from 'three';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
@@ -24,12 +23,15 @@ import { LocalStorageService } from './../local-storage.service';
 export class CameraComponent extends AbstractObject3dComponent implements OnInit {
 	/**
 	 * The type of camera
+	 * 
+	 * PingPong - When use "PingPongCamera", the camera muse be located in scene
 	 *
 	 * Notice - case insensitive.
-	 *
+	 * 
 	 * @see THREE.PerspectiveCamera - PerspectiveCamera, Perspective
 	 * @see THREE.ArrayCamera       - ArrayCamera, Array
-	 * @see THREE.CubeCamera        - CubeCamera, Cube
+	 * @see THREE.CubeCamera        - CubeCamera, Cube, CubePingPong
+	 * @see THREE.CubeCamera        - PingPong, CubePingPong, CubePingPongCamera, PingPongCamera
 	 * @see THREE.OrthographicCamera - OrthographicCamera, Orthographic
 	 * @see THREE.StereoCamera      - StereoCamera, Stereo
 	 */
@@ -158,16 +160,32 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 */
 	@Input() private y: number | string = 0;
 
-	/**
-	 * The viewport of this render target.
-	 * Vector4.width
-	 */
+  /**
+   * The size of width 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
+	 * - type string const refer
+	 *   width,height,x,y, 
+   */
 	@Input() private width: number | string = '100%';
 
-	/**
-	 * The viewport of this render target.
-	 * Vector4.height
-	 */
+  /**
+   * The size of height 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
+	 * - type string const refer
+	 *   width,height,x,y, 
+   */
 	@Input() private height: number | string = '100%';
 
 	/**
@@ -428,9 +446,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 					return offsetX;
 				}
 			default:
-				const x = this.getViewPortSize(this.x, this.cameraWidth, def);
+				const x = this.getViewPortSize(this.x, this.rendererWidth, def);
 				if (x < 0) {
-					return this.cameraWidth - this.getWidth() + x;
+					return this.rendererWidth - this.getWidth() + x;
 				} else {
 					return x;
 				}
@@ -453,9 +471,9 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 					return offsetY;
 				}
 			default:
-				const y = this.getViewPortSize(this.y, this.cameraHeight, def);
+				const y = this.getViewPortSize(this.y, this.rendererHeight, def);
 				if (y < 0) {
-					return this.cameraHeight - this.getHeight() + y;
+					return this.rendererHeight - this.getHeight() + y;
 				} else {
 					return y;
 				}
@@ -468,7 +486,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns width
 	 */
 	private getWidth(def?: number | string): number {
-		return this.getViewPortSize(this.width, this.cameraWidth, def);
+		return this.getViewPortSize(this.width, this.rendererWidth, def);
 	}
 
 	/**
@@ -477,7 +495,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns height
 	 */
 	private getHeight(def?: number | string): number {
-		return this.getViewPortSize(this.height, this.cameraHeight, def);
+		return this.getViewPortSize(this.height, this.rendererHeight, def);
 	}
 
 	/**
@@ -486,7 +504,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns scissor x
 	 */
 	private getScissorX(def?: number | string): number {
-		return this.getViewPortSize(this.scissorX, this.cameraWidth, def);
+		return this.getViewPortSize(this.scissorX, this.rendererWidth, def);
 	}
 
 	/**
@@ -495,7 +513,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns scissor y
 	 */
 	private getScissorY(def?: number | string): number {
-		return this.getViewPortSize(this.scissorY, this.cameraHeight, def);
+		return this.getViewPortSize(this.scissorY, this.rendererHeight, def);
 	}
 
 	/**
@@ -504,7 +522,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns scissor width
 	 */
 	private getScissorWidth(def?: number | string): number {
-		return this.getViewPortSize(this.scissorWidth, this.cameraWidth, def);
+		return this.getViewPortSize(this.scissorWidth, this.rendererWidth, def);
 	}
 
 	/**
@@ -513,7 +531,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @returns scissor height
 	 */
 	private getScissorHeight(def?: number | string): number {
-		return this.getViewPortSize(this.scissorHeight, this.cameraHeight, def);
+		return this.getViewPortSize(this.scissorHeight, this.rendererHeight, def);
 	}
 
 	/**
@@ -589,7 +607,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	/**
 	 * Camera  of camera component
 	 */
-	private camera: THREE.Camera = null;
+	private camera: THREE.Camera | THREE.Object3D = null;
+
+	/**
+	 * Camera  of camera component
+	 */
+	private cameraExtra: THREE.CubeCamera[] = null;
 
 	/**
 	 * Renderer  of camera component
@@ -679,7 +702,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 								case 'viewport':
 								case 'camera':
 									if (this.camera instanceof THREE.PerspectiveCamera) {
-										this.camera['viewport'].set(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(window.devicePixelRatio);
+										this.camera['viewport'].set(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(this.pixelRatio);
 									}
 									break;
 							}
@@ -694,29 +717,34 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	/**
 	 * Camera width of camera component
 	 */
-	private cameraWidth: number = 0;
+	private rendererWidth: number = 1024;
 
 	/**
 	 * Camera height of camera component
 	 */
-	private cameraHeight: number = 0;
+	private rendererHeight: number = 1024;
 
 	/**
 	 * full width of camera component
 	 */
-	private fullWidth: number = 0;
+	private fullWidth: number = 1024;
 
 	/**
 	 * full height of camera component
 	 */
-	private fullHeight: number = 0;
+	private fullHeight: number = 1024;
+
+	/**
+	 * pixelRatio of camera component
+	 */
+	private pixelRatio: number = 1;
 
 	/**
 	 * Gets size
 	 * @returns size
 	 */
 	public getSize(): THREE.Vector2 {
-		return new THREE.Vector2(this.cameraWidth, this.cameraHeight);
+		return new THREE.Vector2(this.rendererWidth, this.rendererHeight);
 	}
 
 	/**
@@ -778,15 +806,16 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @param fullWidth
 	 * @param fullHeight
 	 */
-	public setCameraSize(width: number, height: number, fullWidth: number, fullHeight: number) {
+	public setRendererSize(width: number, height: number, fullWidth: number, fullHeight: number, pixelRatio : number = 1) {
 		this.fullWidth = fullWidth;
 		this.fullHeight = fullHeight;
+		this.pixelRatio = pixelRatio;
 		if (this.isCameraChild) {
-			this.cameraWidth = width;
-			this.cameraHeight = height;
+			this.rendererWidth = width;
+			this.rendererHeight = height;
 		} else {
-			this.cameraWidth = width;
-			this.cameraHeight = height;
+			this.rendererWidth = width;
+			this.rendererHeight = height;
 		}
 		if (this.camera !== null) {
 			if (this.camera instanceof THREE.OrthographicCamera) {
@@ -851,11 +880,12 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 	 * @template T
 	 * @returns camera
 	 */
-	public getCamera<T extends THREE.Camera>(): T {
+	public getCamera<T extends THREE.Camera | THREE.Object3D>(): T {
 		if (this.camera === null || this._needUpdate) {
 			this.needUpdate = false;
-			const width = this.cameraWidth;
-			const height = this.cameraHeight;
+			this.cameraExtra = null;
+			const width = this.rendererWidth;
+			const height = this.rendererHeight;
 			switch (this.type.toLowerCase()) {
 				case 'arraycamera':
 				case 'array':
@@ -867,7 +897,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 					break;
 				case 'cubecamera':
 				case 'cube':
-					const cubeCamera = new THREE.CubeCamera(
+					this.camera = new THREE.CubeCamera(
 						this.getNear(0.1),
 						this.getFar(2000),
 						new THREE.WebGLCubeRenderTarget(512, {
@@ -877,7 +907,37 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 							minFilter: THREE.LinearMipmapLinearFilter,
 						})
 					);
-					this.camera = cubeCamera as any;
+					break;
+				case 'cubepingpongcamera' :
+				case 'cubepingpong' :
+				case 'pingpongcamera' :
+				case 'pingpong' :
+						const webGLCubeRenderTarget1 = new THREE.WebGLCubeRenderTarget(512, {
+						encoding: THREE.sRGBEncoding,
+						format: THREE.RGBFormat,
+						generateMipmaps: true,
+						minFilter: THREE.LinearMipmapLinearFilter,
+					})
+					const cubeCamera1 = new THREE.CubeCamera(
+						this.getNear(0.1),
+						this.getFar(2000),
+						webGLCubeRenderTarget1
+					);
+					const webGLCubeRenderTarget2 = new THREE.WebGLCubeRenderTarget(512, {
+						encoding: THREE.sRGBEncoding,
+						format: THREE.RGBFormat,
+						generateMipmaps: true,
+						minFilter: THREE.LinearMipmapLinearFilter,
+					})
+					const cubeCamera2 = new THREE.CubeCamera(
+						this.getNear(0.1),
+						this.getFar(2000),
+						webGLCubeRenderTarget2
+					);
+					this.camera = new THREE.Group();
+					this.camera.add(cubeCamera1, cubeCamera2);
+					this.cameraExtra = [];
+					this.cameraExtra.push(cubeCamera1, cubeCamera2);
 					break;
 				case 'cinematic':
 					this.camera = new CinematicCamera(this.getFov(50), this.getAspect(width, height), this.getNear(0.1), this.getFar(2000));
@@ -903,7 +963,7 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 						switch (this.viewportType.toLowerCase()) {
 							case 'viewport':
 							case 'camera':
-								perspectiveCamera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(window.devicePixelRatio);
+								perspectiveCamera['viewport'] = new THREE.Vector4(this.getX(), this.getY(), this.getWidth(), this.getHeight()).multiplyScalar(this.pixelRatio);
 								break;
 						}
 					}
@@ -959,6 +1019,8 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 		return new THREE.Scene();
 	}
 
+	private cubePingPong : number = 0;
+
 	/**
 	 * Renders camera component
 	 * @param renderer
@@ -980,14 +1042,23 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 			}
 		}
 		if (renderer instanceof THREE.WebGLRenderer) {
-			if (this.camera instanceof THREE.CubeCamera) {
-				this.camera.update(renderer, this.getScene(scenes));
-				if (ThreeUtil.isNotNull(this.material)) {
-					const material = ThreeUtil.getMaterial(this.material);
-					if (ThreeUtil.isNotNull(material) && material['envMap'] !== undefined) {
-						material['envMap'] = this.camera.renderTarget.texture;
-					}
+			if (this.camera instanceof THREE.CubeCamera || this.camera instanceof THREE.Group) {
+				let cubeCamera : THREE.CubeCamera = null;
+				if (this.cameraExtra !== null && this.cameraExtra !== null && this.cameraExtra.length > 0) {
+					this.cubePingPong = (this.cubePingPong + 1 ) % this.cameraExtra.length;
+					cubeCamera  = this.cameraExtra[this.cubePingPong];
+				} else if (this.camera instanceof THREE.CubeCamera){
+					cubeCamera  = this.camera;
 				}
+				if (cubeCamera !== null) {
+					cubeCamera.update(renderer, this.getScene(scenes));
+					if (ThreeUtil.isNotNull(this.material)) {
+						const material = ThreeUtil.getMaterial(this.material);
+						if (ThreeUtil.isNotNull(material) && material['envMap'] !== undefined) {
+							material['envMap'] = cubeCamera.renderTarget.texture;
+						}
+					}
+				}	
 				return;
 			}
 			if (ThreeUtil.isNotNull(this.autoClear)) {
@@ -997,13 +1068,15 @@ export class CameraComponent extends AbstractObject3dComponent implements OnInit
 				renderer.setClearColor(this.getClearColor(), this.getClearAlpha(1));
 			}
 		}
-		this.onRender.emit(renderTimer);
-		if (this.scenes !== null && this.scenes.length > 0) {
-			this.scenes.forEach((sceneCom) => {
-				this.renderWithScene(renderer, camera, sceneCom.getScene());
-			});
-		} else {
-			this.renderWithScene(renderer, camera, this.getScene(scenes));
+		if (camera instanceof THREE.Camera) {
+			this.onRender.emit(renderTimer);
+			if (this.scenes !== null && this.scenes.length > 0) {
+				this.scenes.forEach((sceneCom) => {
+					this.renderWithScene(renderer, camera, sceneCom.getScene());
+				});
+			} else {
+				this.renderWithScene(renderer, camera, this.getScene(scenes));
+			}
 		}
 		if (cssRenderer !== null) {
 			if (Array.isArray(cssRenderer)) {

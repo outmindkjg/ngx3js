@@ -186,6 +186,9 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 			);
 			this.getPosition();
 			this.synkObject3d(this.position, key);
+			if (ThreeUtil.isNull(object.userData.initPosition)) {
+				object.userData.initPosition = object.position.clone();
+			}
 		}
 	}
 

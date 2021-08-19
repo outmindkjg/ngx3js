@@ -407,12 +407,25 @@ export abstract class BaseComponent<T> implements OnInit, AfterViewInit {
 	public scene: SceneComponent = null;
 
 	/**
+	 * Scene  of base component
+	 */
+	public sceneObject3d: THREE.Scene = null;
+
+	/**
+	 * Scene  of base component
+	 */
+	public sceneChildren: THREE.Object3D[] = null;
+
+	/**
 	 * Sets scene
 	 * @param scene
 	 */
 	public setScene(scene: SceneComponent) {
 		this.scene = scene;
+		this.sceneObject3d = scene.getScene();
+		this.sceneChildren = this.sceneObject3d.children;
 	}
+
 
 	/**
 	 * Camera  of base component
@@ -2333,6 +2346,9 @@ export class ThreeUtil {
 	 * @returns subscribe
 	 */
 	public static getSubscribe(object: any, callBack: (key?: string) => void, nextKey: string): Subscription {
+		if (this.isNull(object)) {
+			return null;
+		}
 		if (this.isThreeComponent(object)) {
 			const threeComponent = this.getThreeComponent(object);
 			if (this.isNotNull(threeComponent) && this.isNotNull(threeComponent.getSubscribe)) {

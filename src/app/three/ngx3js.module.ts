@@ -50,6 +50,7 @@ import { TranslationComponent } from './translation/translation.component';
 import { TweenComponent } from './tween/tween.component';
 import { ViewerComponent } from './viewer/viewer.component';
 import { VisualComponent } from './visual/visual.component';
+import { SizeComponent } from './size/size.component';
 
 const COMMON_PIPES = [];
 const COMMON_DIRECTIVES = [DrawingCanvasDirective];
@@ -101,7 +102,8 @@ const MODULE_COMPONENTS = [
   PhysicsConstraintComponent,
   RigidbodyNodeComponent,
   RenderTargetComponent,
-  ChartComponent
+  ChartComponent,
+  SizeComponent
 ];
 
 /**

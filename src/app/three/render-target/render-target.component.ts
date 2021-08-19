@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { ThreeUtil } from '../interface';
+import { SizeComponent } from '../size/size.component';
 import { AbstractTextureComponent } from '../texture.abstract';
 
 /**
@@ -48,13 +49,31 @@ export class RenderTargetComponent extends AbstractTextureComponent implements O
    */
   @Input() private depthTexture: any = null;
 
+  /**
+   * Input  of pass component
+   */
+  @Input() private targetSize: THREE.Vector2 | SizeComponent = null;
 
   /**
-   * Gets depth texture
-   * @returns depth texture
+   * Gets height
+   * @param [def]
+   * @returns height
    */
-  private getDevicePixelRatio(size : number, def : number): number {
-    return ThreeUtil.getTypeSafe(size, def) * window.devicePixelRatio;
+  private getTargetSize(width?: number, height? : number): THREE.Vector2 {
+    if (ThreeUtil.isNotNull(this.targetSize)) {
+      if (this.targetSize instanceof THREE.Vector2) {
+        return this.targetSize;
+      } else if (this.targetSize instanceof SizeComponent) {
+        return this.targetSize.getSize();
+      }
+    }
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(width, this.size, 1024),
+      ThreeUtil.getTypeSafe(height, this.size, 1024),
+      null,
+      null, 
+      true
+    ).multiplyScalar(window.devicePixelRatio);
   }
 
   /**
@@ -70,9 +89,10 @@ export class RenderTargetComponent extends AbstractTextureComponent implements O
       options.stencilBuffer = ThreeUtil.getTypeSafe(this.stencilBuffer, false);
     }
     if (ThreeUtil.isNotNull(this.depthTexture)) {
+      const targetSize = this.getTargetSize();
       options.depthTexture = new THREE.DepthTexture(
-        this.getDevicePixelRatio(this.depthTexture.width, 1024), 
-        this.getDevicePixelRatio(this.depthTexture.height, 1024),
+        targetSize.x, 
+        targetSize.y,
         ThreeUtil.getTextureDataTypeSafe(this.depthTexture.type),
         ThreeUtil.getMappingSafe(this.depthTexture.mapping),
         ThreeUtil.getWrappingSafe(this.depthTexture.wrapS, this.depthTexture.wrap),
@@ -183,13 +203,16 @@ export class RenderTargetComponent extends AbstractTextureComponent implements O
   public getRenderTarget<T>(): T {
     if (this.renderTarget === null || this._needUpdate) {
       this.needUpdate = false;
+      this.unSubscribeRefer('targetSize');
+      const renderTargetSize = this.getTargetSize(this.width, this.height);
       switch (this.type.toLowerCase()) {
         case 'cube':
         case 'cuberender':
         case 'cuberendertarget':
         case 'webglcuberendertarget':
+          const size = Math.max(renderTargetSize.x, renderTargetSize.y);
           this.renderTarget = new THREE.WebGLCubeRenderTarget(
-            this.getDevicePixelRatio(this.size, 1024), 
+            size,
             this.getTargetTextureOptions()
           );
           break;
@@ -197,34 +220,50 @@ export class RenderTargetComponent extends AbstractTextureComponent implements O
         case 'multiplerender':
         case 'webglmultiplerender':
         case 'webglmultiplerendertargets':
-          // const size = renderer.getDrawingBufferSize( new THREE.Vector2() );
           this.renderTarget = new THREE.WebGLMultipleRenderTargets(
-            this.getDevicePixelRatio(this.width, 1024), 
-            this.getDevicePixelRatio(this.height, 1024), 
-            ThreeUtil.getTypeSafe(this.count, 1));
+            renderTargetSize.x, 
+            renderTargetSize.y, 
+            ThreeUtil.getTypeSafe(this.count, 1)
+          );
           break;
         case 'sample':
         case 'multisample':
         case 'multisamplerender':
         case 'multisamplerendertarget':
         case 'webglmultisamplerendertarget':
-          this.renderTarget = new THREE.WebGLMultisampleRenderTarget(
-            this.getDevicePixelRatio(this.width, 1024), 
-            this.getDevicePixelRatio(this.height, 1024), 
+          const webGLMultisampleRenderTarget = new THREE.WebGLMultisampleRenderTarget(
+            renderTargetSize.x, 
+            renderTargetSize.y, 
             this.getTargetTextureOptions()
           );
+          this.renderTarget = webGLMultisampleRenderTarget;
           break;
         case 'render':
         case 'rendertarget':
         case 'webglrendertarget':
         default:
           this.renderTarget = new THREE.WebGLRenderTarget(
-            this.getDevicePixelRatio(this.width, 1024), 
-            this.getDevicePixelRatio(this.height, 1024), 
+            renderTargetSize.x,
+            renderTargetSize.y,
             this.getTargetTextureOptions()
           );
           break;
       }
+      this.subscribeRefer('targetSize', ThreeUtil.getSubscribe(this.size, () => {
+        const size = this.getTargetSize();
+        if (this.renderTarget instanceof THREE.WebGLCubeRenderTarget) {
+          const cubeSize = Math.max(size.x, size.y);
+          this.renderTarget.setSize(cubeSize, cubeSize);
+        } else {
+          this.renderTarget.setSize(size.x, size.y);
+          if (this.renderTarget instanceof THREE.WebGLRenderTarget) {
+            if (ThreeUtil.isNotNull(this.renderTarget.depthTexture)) {
+              this.renderTarget.depthTexture.image.width = size.width;
+              this.renderTarget.depthTexture.image.height = size.height;
+            }
+          }
+        }
+      }, 'loaded'));
       let texture : THREE.Texture = null;
       if (Array.isArray(this.renderTarget.texture)) {
         texture = this.renderTarget.texture[0];

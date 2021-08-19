@@ -84,6 +84,9 @@ current theejs verion "^0.130.0"
 -+ 1  import { BufferGeometry } from '../../../src/Three';
 -+ 3  export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasElement;
 
+// node_modules/@types/three/examples/jsm/objects/ReflectorForSSRPass.d.ts
+ + 59  export { Reflector as ReflectorForSSRPass };
+
 
 ```
 
@@ -164,6 +167,8 @@ git remote -v
 
 ng g directive three/drawing-canvas
 ng g c three/viewer
+ng g c three/size
+
 ng g c examples/webgl-portal
 ng g c examples/webxr-ar-lighting
 ng g c examples/webxr_vr_handinput_pointerclick

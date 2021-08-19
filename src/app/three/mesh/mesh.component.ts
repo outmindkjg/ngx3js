@@ -15,6 +15,7 @@ import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import { ReflectorRTT } from 'three/examples/jsm/objects/ReflectorRTT';
 import { Refractor } from 'three/examples/jsm/objects/Refractor';
+import { ReflectorForSSRPass } from 'three/examples/jsm/objects/ReflectorForSSRPass';
 import { Sky } from 'three/examples/jsm/objects/Sky';
 import { Water } from 'three/examples/jsm/objects/Water';
 import { Water as Water2 } from 'three/examples/jsm/objects/Water2';
@@ -34,6 +35,7 @@ import { AbstractTextureComponent } from '../texture.abstract';
 import { HelperComponent, HelperOptions } from './../helper/helper.component';
 import { LightComponent, LightOptions } from './../light/light.component';
 import { LocalStorageService } from './../local-storage.service';
+import { SizeComponent } from '../size/size.component';
 
 /**
  * Volume Options
@@ -80,6 +82,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * @see Reflector - Reflector
 	 * @see ReflectorRTT - ReflectorRTT
 	 * @see Refractor - Refractor
+	 * @see ReflectorForSSRPass - RefractorForSSRPass
 	 * @see Water - Water
 	 * @see Water2 - Water2
 	 * @see Sky - Sky
@@ -224,9 +227,20 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	@Input() private textureHeight: number = null;
 
 	/**
+	 * The texture size
+	 */
+	@Input() private textureSize: THREE.Vector2 | SizeComponent = null;
+
+	/**
 	 * The clip bias of Reflector
 	 */
 	@Input() private clipBias: number = null;
+
+	/**
+	 * The clip bias of Reflector
+	 */
+	@Input() private useDepthTexture: boolean = null;
+	
 
 	/**
 	 * The color of sun
@@ -652,24 +666,28 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 		return ThreeUtil.getColorSafe(this.color, this.waterColor, def);
 	}
 
-	/**
-	 * Gets texture width
-	 * @param [def]
-	 * @returns texture width
-	 */
-	private getTextureWidth(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.textureWidth, def);
-	}
-
-	/**
-	 * Gettextures height
-	 * @param [def]
-	 * @returns height
-	 */
-	private gettextureHeight(def?: number): number {
-		return ThreeUtil.getTypeSafe(this.textureHeight, def);
-	}
-
+  /**
+   * Gets height
+   * @param [def]
+   * @returns height
+   */
+  private getTextureSize(width?: number, height? : number): THREE.Vector2 {
+    if (ThreeUtil.isNotNull(this.textureSize)) {
+      if (this.textureSize instanceof THREE.Vector2) {
+        return this.textureSize;
+      } else if (this.textureSize instanceof SizeComponent) {
+        return this.textureSize.getSize();
+      }
+    }
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(this.textureWidth, width, 1024),
+      ThreeUtil.getTypeSafe(this.textureHeight, height, 1024),
+      null,
+      null, 
+      true
+    ).multiplyScalar(window.devicePixelRatio);
+  }
+	
 	/**
 	 * Gets clip bias
 	 * @param [def]
@@ -1338,6 +1356,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 				this.clipMesh = null;
 			}
 			this.unSubscribeRefer('customGeometry');
+      this.unSubscribeRefer('textureSize');
 			let geometry: THREE.BufferGeometry = null;
 			if ((this.geometryList !== null && this.geometryList.length > 0) || this.geometry !== null) {
 				geometry = this.getGeometry();
@@ -1422,18 +1441,8 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 					}
 					break;
 				case 'reflector':
-					basemesh = new Reflector(geometry, {
-						color: this.getColor(),
-						textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
-						textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
-						clipBias: this.getClipBias(0.003),
-						shader: this.getShader(),
-						encoding: this.getEncoding(),
-					});
-					break;
-				case 'reflectorrtt':
-					const reflectorSize = ThreeUtil.getRendererSize().clone().multiplyScalar(window.devicePixelRatio);
-					const reflectorRTT = new ReflectorRTT(geometry, {
+					const reflectorSize = this.getTextureSize();
+					const reflector = new Reflector(geometry, {
 						color: this.getColor(),
 						textureWidth: reflectorSize.x,
 						textureHeight: reflectorSize.y,
@@ -1441,19 +1450,34 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						shader: this.getShader(),
 						encoding: this.getEncoding(),
 					});
-					this.subscribeRefer(
-						'renderSize',
-						ThreeUtil.getSizeSubscribe().subscribe((size) => {
-							reflectorRTT.getRenderTarget().setSize(size.x * window.devicePixelRatio, size.y * window.devicePixelRatio);
-						})
-					);
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						const size = this.getTextureSize();
+						reflector.getRenderTarget().setSize(size.x, size.y);
+					}, 'loaded'));
+					basemesh = reflector;
+					break;
+				case 'reflectorrtt':
+					const reflectorRTTSize = this.getTextureSize();
+					const reflectorRTT = new ReflectorRTT(geometry, {
+						color: this.getColor(),
+						textureWidth: reflectorRTTSize.x,
+						textureHeight: reflectorRTTSize.y,
+						clipBias: this.getClipBias(0.003),
+						shader: this.getShader(),
+						encoding: this.getEncoding(),
+					});
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						const size = this.getTextureSize();
+						reflectorRTT.getRenderTarget().setSize(size.x, size.y);
+					}, 'loaded'));
 					basemesh = reflectorRTT;
 					break;
 				case 'refractor':
+					const refractorSize = this.getTextureSize();
 					const refractor = new Refractor(geometry, {
 						color: this.getColor(),
-						textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
-						textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+						textureWidth: refractorSize.x,
+						textureHeight: refractorSize.y,
 						clipBias: this.getClipBias(0.003),
 						shader: this.getShader(),
 						encoding: this.getEncoding(),
@@ -1466,12 +1490,32 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 								break;
 						}
 					});
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						const size = this.getTextureSize();
+						refractor.getRenderTarget().setSize(size.x, size.y);
+					}, 'loaded'));
 					basemesh = refractor;
 					break;
+				case 'reflectorforssrpass':
+					const reflectorForSSRPassSize = this.getTextureSize();
+					const reflectorForSSRPass = new ReflectorForSSRPass(geometry, {
+						textureWidth: reflectorForSSRPassSize.x,
+						textureHeight: reflectorForSSRPassSize.y,
+						clipBias: this.getClipBias(0.003),
+						color: this.getColor(0x7F7F7F).getHex(),
+						useDepthTexture: ThreeUtil.getTypeSafe(this.useDepthTexture, true)
+					});
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						const size = this.getTextureSize();
+						reflectorForSSRPass.getRenderTarget().setSize(size.x, size.y);
+					}, 'loaded'));
+					basemesh = reflectorForSSRPass;
+					break;
 				case 'water':
+					const waterSize = this.getTextureSize();
 					const water = new Water(geometry, {
-						textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
-						textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+						textureWidth: waterSize.x,
+						textureHeight: waterSize.y,
 						clipBias: this.getClipBias(0.003),
 						alpha: this.getAlpha(),
 						time: 0,
@@ -1483,12 +1527,17 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						fog: false,
 					});
 					this.getUndateUniforms(water.material['uniforms']);
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						// const size = this.getTextureSize();
+						// todo
+					}, 'loaded'));
 					basemesh = water;
 					break;
 				case 'water2':
+					const water2Size = this.getTextureSize();
 					const water2 = new Water2(geometry, {
-						textureWidth: this.getTextureWidth(1024) * window.devicePixelRatio,
-						textureHeight: this.gettextureHeight(1024) * window.devicePixelRatio,
+						textureWidth: water2Size.x,
+						textureHeight: water2Size.y,
 						clipBias: this.getClipBias(0.003),
 						color: this.getColor(),
 						flowDirection: this.getFlowDirection(),
@@ -1502,6 +1551,10 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 						encoding: this.getEncoding(),
 					});
 					this.getUndateUniforms(water2.material['uniforms']);
+					this.subscribeRefer('textureSize', ThreeUtil.getSubscribe(this.textureSize, () => {
+						// const size = this.getTextureSize();
+						// todo
+					}, 'loaded'));
 					basemesh = water2;
 					break;
 				case 'sky':

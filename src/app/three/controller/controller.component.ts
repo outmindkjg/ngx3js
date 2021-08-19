@@ -567,7 +567,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
       this._controller = null;
       let controller: any = null;
       this._duration = ThreeUtil.getTypeSafe(this.mstDuration, 1);
-
       if (this.pathGuide !== null) {
         this.pathGuide.parent.remove(this.pathGuide);
         this.pathGuide = null;

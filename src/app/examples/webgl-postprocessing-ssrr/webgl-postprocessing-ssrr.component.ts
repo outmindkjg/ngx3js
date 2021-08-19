@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Mesh } from 'three';
+import * as THREE from 'three';
 import { SSRrPass } from 'three/examples/jsm/postprocessing/SSRrPass';
-import { BaseComponent, MeshComponent, PassComponent, RendererEvent } from '../../three';
+import { BaseComponent, MeshComponent, PassComponent, RendererEvent, SceneComponent } from '../../three';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssrr',
@@ -143,22 +143,30 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 		);
 	}
 
+	selectableMesh : THREE.Mesh[] = [];
 	setSSRrPass(pass: PassComponent) {
 		this.pass = pass.getPass();
 		this.updatePass();
 		setTimeout(() => {
-			if (this.meshObject3d !== null) {
-				const bunny = this.meshObject3d.getObjectByName('bunny') as Mesh;
-				const box = this.meshObject3d.getObjectByName('box') as Mesh;
-				if (bunny !== null) {
-					this.selected.push(bunny);
-				}
-				if (box !== null) {
-					this.selected.push(box);
-				}
-        console.log(this.pass['selects']);
+			if (this.sceneChildren !== null) {
+				this.selectableMesh = [];
+				const selectName = ['bunny','box','sphere','cone'];
+				this.sceneChildren.forEach(child => {
+					if (child instanceof THREE.Mesh) {
+						const name = child.name;
+						if (selectName.indexOf(name) > -1) {
+							this.selectableMesh.push(child);
+							switch(name) {
+								case 'bunny' :
+								case 'box' :
+									this.selected.push(child);
+									break;
+							}
+						}
+					}
+				});
 			}
-		}, 3000);
+		}, 1000);
 	}
 
 	updatePass() {
@@ -196,13 +204,17 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 					this.pass.output = 8;
 					break;
 			}
-			console.log(this.pass['selects']);
 		}
+	}
+
+	setScene(scene : SceneComponent) {
+		super.setScene(scene);
+
 	}
 
 	pass: SSRrPass = null;
 
-	selected: Mesh[] = [];
+	selected: THREE.Mesh[] = [];
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
@@ -212,10 +224,10 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 		if (this.pass !== null && this.camera !== null) {
 			switch (event.type) {
 				case 'pointerdown':
-					const intersection = this.camera.getIntersection(event.mouse, this.meshChildren);
+					const intersection = this.camera.getIntersection(event.mouse, this.selectableMesh);
 					if (intersection !== null && intersection.object !== null) {
 						const mesh = intersection.object;
-						if (mesh instanceof Mesh) {
+						if (mesh instanceof THREE.Mesh) {
 							const index = this.selected.indexOf(mesh);
 							if (index >= 0) {
 								this.selected.splice(index, 1);
@@ -224,10 +236,8 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 							}
 						}
 					}
-
 					break;
 				default:
-					console.log(event.type);
 					break;
 			}
 		}

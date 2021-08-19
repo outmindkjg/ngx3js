@@ -1220,6 +1220,9 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 							// this.object3d.position.copy(newPositionList[0].getPosition());
 						}
 						this.cachedPositionList = newPositionList;
+						if (newPositionList.length === 0 ){
+							this.setUserData('initPosition', this.object3d.position.clone());
+						}
 						this.setSubscribeNext('position');
 						break;
 					case 'rotation':

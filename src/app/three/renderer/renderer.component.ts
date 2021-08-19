@@ -13,6 +13,7 @@ import { ControllerComponent } from '../controller/controller.component';
 import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { SharedComponent } from '../shared/shared.component';
+import { SizeComponent } from '../size/size.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { ViewerComponent } from '../viewer/viewer.component';
 import { AudioComponent } from './../audio/audio.component';
@@ -243,6 +244,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 */
 	@Input() private guiOpen: boolean = false;
 
+		/**
+	 * The guiOpen of GUI
+	 */
+	@Input() private composerEnable: boolean = true;
+
 	/**
 	 * whether to use a logarithmic depth buffer. It may
 	 * be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting
@@ -376,6 +382,11 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	@ContentChildren(SharedComponent, { descendants: true }) private sharedList: QueryList<SharedComponent>;
 
 	/**
+	 * Content children of renderer component
+	 */
+	@ContentChildren(SizeComponent, { descendants: true }) private sizeList: QueryList<SizeComponent>;
+
+	/**
 	 * View child of renderer component
 	 */
 	@ViewChild('canvas') private canvasEle: ElementRef = null;
@@ -503,6 +514,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 		this.subscribeListQueryChange(this.clippingPlanesList, 'clippingPlanesList', 'clippingPlanes');
 		this.subscribeListQueryChange(this.canvas2dList, 'canvas2dList', 'canvas2d');
 		this.subscribeListQueryChange(this.sharedList, 'sharedList', 'shared');
+		this.subscribeListQueryChange(this.sizeList, 'sizeList', 'size');
 		super.ngAfterContentInit();
 	}
 
@@ -936,16 +948,20 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			}
 			this.offsetRight = this.offsetLeft + this.rendererWidth;
 			this.offsetBottom = this.offsetTop + this.rendererHeight;
+			const pixelRatio = window.devicePixelRatio;
 			this.events.size.set(this.rendererWidth, this.rendererHeight);
 			this.renderer.setSize(this.rendererWidth, this.rendererHeight);
 			this.composerList.forEach((composer) => {
-				composer.setComposerSize(this.rendererWidth, this.rendererHeight);
+				composer.setRendererSize(this.rendererWidth, this.rendererHeight, pixelRatio);
 			});
 			this.cameraList.forEach((camera) => {
-				camera.setCameraSize(this.rendererWidth, this.rendererHeight, width, height);
+				camera.setRendererSize(this.rendererWidth, this.rendererHeight, width, height, pixelRatio);
 			});
 			this.viewerList.forEach((viewer) => {
-				viewer.setViewerSize(this.rendererWidth, this.rendererHeight);
+				viewer.setRendererSize(this.rendererWidth, this.rendererHeight, pixelRatio);
+			});
+			this.sizeList.forEach((size) => {
+				size.setRendererSize(this.rendererWidth, this.rendererHeight, pixelRatio);
 			});
 			if (this.cssRenderer !== null) {
 				if (Array.isArray(this.cssRenderer)) {
@@ -960,6 +976,8 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			this.canvas2dList.forEach((canvas2d) => {
 				canvas2d.setSize(rendererSize);
 			});
+
+
 			this._sizeSubject.next(rendererSize);
 		}
 	}
@@ -1108,6 +1126,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 						'shadowmapenabled',
 						'physicallycorrectlights',
 						'shadowmaptype',
+						'composerenable',
 						'autoclear',
 						'autoclearcolor',
 						'outputencoding',
@@ -1118,6 +1137,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 						'controloptions',
 						'guiparams',
 						'guicontrol',
+						'size'
 					],
 					this.OBJECT_ATTR
 				)
@@ -1128,7 +1148,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			if (ThreeUtil.isIndexOf(changes, 'init')) {
 				changes = ThreeUtil.pushUniq(changes, ['useevent', 'shared', 'resize', 'scene', 'camera', 'control', 'composer', 'viewer', 'listener', 'audio', 'controller', 'lookat', 'control', 'clippingPlanes', 'canvas2d', 'statsmode', 'guicontrol', 'webglrenderer']);
 			}
-			if (ThreeUtil.isIndexOf(changes, ['width', 'height', 'x', 'y'])) {
+			if (ThreeUtil.isIndexOf(changes, ['width', 'height', 'x', 'y','size'])) {
 				changes = ThreeUtil.pushUniq(changes, ['resize']);
 			}
 			if (ThreeUtil.isIndexOf(changes, 'guiparams')) {
@@ -1293,12 +1313,21 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 						break;
 					case 'composer':
 						this.unSubscribeReferList('composerList');
-						if (ThreeUtil.isNotNull(this.composerList)) {
+						if (ThreeUtil.isNotNull(this.composerList) && this.renderer instanceof THREE.WebGLRenderer) {
+							const renderer = this.renderer;
 							if (this.composerList.length > 0 && this.cameraList.length > 0 && this.sceneList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
-								const camera = this.cameraList.first.getCamera();
+								let camera : THREE.Camera = null;
+								this.cameraList.forEach(cameraCom => {
+									if (camera === null) {
+										const tmpCamera = cameraCom.getCamera();
+										if (tmpCamera instanceof THREE.Camera) {
+											camera = tmpCamera;
+										}
+									}
+								});
 								const scene = this.sceneList.first.getScene();
 								this.composerList.forEach((composer) => {
-									composer.setRenderer(this.renderer as THREE.WebGLRenderer, camera, scene);
+									composer.setRenderer(renderer, camera, scene);
 								});
 							}
 							this.subscribeListQuery(this.composerList, 'composerList', 'composer');
@@ -1703,7 +1732,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 		if (ThreeUtil.isNull(this.beforeRender) || !this.beforeRender(this.getRenderInfo(renderTimer))) {
 			// if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer && this.panSpeed ) {
 			this._updateSubject.next(renderTimer);
-			if (this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
+			if (this.composerEnable && this.composerList.length > 0 && this.renderer instanceof THREE.WebGLRenderer) {
 				this.composerList.forEach((composer) => {
 					composer.render(this.renderer as THREE.WebGLRenderer, renderTimer);
 				});

@@ -5,6 +5,7 @@ export * from './camera/camera.component';
 export * from './canvas/canvas.component';
 export * from './chart/chart.component';
 export * from './clip/clip.component';
+export * from './size/size.component';
 export * from './composer/composer.component';
 export * from './control/control.component';
 export * from './control/plane-controls';

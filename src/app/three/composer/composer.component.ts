@@ -71,12 +71,26 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private y: number | string = 0;
 
   /**
-   * Input  of composer component
+   * The size of width 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private width: number | string = '100%';
 
   /**
-   * Input  of composer component
+   * The size of height 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private height: number | string = '100%';
 
@@ -86,22 +100,50 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private scissorTest: boolean = false;
 
   /**
-   * Input  of composer component
+   * The scissor position of left 
+   * - type number
+   *  fixed position
+   * - type string with include % 
+   *  relative position from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private scissorX: number | string = 0;
 
   /**
-   * Input  of composer component
+   * The scissor position of top 
+   * - type number
+   *  fixed position
+   * - type string with include % 
+   *  relative position from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private scissorY: number | string = 0;
 
   /**
-   * Input  of composer component
+   * The scissor of width 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private scissorWidth: number | string = '100%';
 
   /**
-   * Input  of composer component
+   * The scissor of height 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private scissorHeight: number | string = '100%';
 
@@ -116,7 +158,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   @Input() private cameraDistance: number = null;
 
   /**
-   * Input  of composer component
+   * AsciiEffect
+   * 
+   * @see AsciiEffect AsciiEffect
    */
   @Input() private charSet: string = null;
 
@@ -235,9 +279,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns x
    */
   private getX(def?: number | string): number {
-    const x = this.getViewPortSize(this.x, this.composerWidth, def);
+    const x = this.getViewPortSize(this.x, this.rendererWidth, def);
     if (x < 0) {
-      return this.composerWidth - this.getWidth() + x;
+      return this.rendererWidth - this.getWidth() + x;
     } else {
       return x;
     }
@@ -249,9 +293,9 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns y
    */
   private getY(def?: number | string): number {
-    const y = this.getViewPortSize(this.y, this.composerHeight, def);
+    const y = this.getViewPortSize(this.y, this.rendererHeight, def);
     if (y < 0) {
-      return this.composerHeight - this.getHeight() + y;
+      return this.rendererHeight - this.getHeight() + y;
     } else {
       return y;
     }
@@ -263,7 +307,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns width
    */
   private getWidth(def?: number | string): number {
-    return this.getViewPortSize(this.width, this.composerWidth, def);
+    return this.getViewPortSize(this.width, this.rendererWidth, def);
   }
 
   /**
@@ -272,7 +316,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns height
    */
   private getHeight(def?: number | string): number {
-    return this.getViewPortSize(this.height, this.composerHeight, def);
+    return this.getViewPortSize(this.height, this.rendererHeight, def);
   }
 
   /**
@@ -281,7 +325,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns scissor x
    */
   private getScissorX(def?: number | string): number {
-    return this.getViewPortSize(this.scissorX, this.composerWidth, def);
+    return this.getViewPortSize(this.scissorX, this.rendererWidth, def);
   }
 
   /**
@@ -290,7 +334,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns scissor y
    */
   private getScissorY(def?: number | string): number {
-    return this.getViewPortSize(this.scissorY, this.composerHeight, def);
+    return this.getViewPortSize(this.scissorY, this.rendererHeight, def);
   }
 
   /**
@@ -299,7 +343,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns scissor width
    */
   private getScissorWidth(def?: number | string): number {
-    return this.getViewPortSize(this.scissorWidth, this.composerWidth, def);
+    return this.getViewPortSize(this.scissorWidth, this.rendererWidth, def);
   }
 
   /**
@@ -308,7 +352,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
    * @returns scissor height
    */
   private getScissorHeight(def?: number | string): number {
-    return this.getViewPortSize(this.scissorHeight, this.composerHeight, def);
+    return this.getViewPortSize(this.scissorHeight, this.rendererHeight, def);
   }
 
   /**
@@ -373,7 +417,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
       const cHeight = this.getHeight();
       return cWidth / cHeight;
     } else {
-      return this.composerWidth > 0 && this.composerHeight > 0 ? this.composerWidth / this.composerHeight : 1;
+      return this.rendererWidth > 0 && this.rendererHeight > 0 ? this.rendererWidth / this.rendererHeight : 1;
     }
   }
 
@@ -429,23 +473,34 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
   /**
    * Composer width of composer component
    */
-  private composerWidth: number = 0;
+  private rendererWidth: number = 1024;
 
   /**
    * Composer height of composer component
    */
-  private composerHeight: number = 0;
+  private rendererHeight: number = 1024;
+
+	/**
+	 * pixelRatio of camera component
+	 */
+	private pixelRatio: number = 1;
 
   /**
    * Sets composer size
    * @param width
    * @param height
    */
-  public setComposerSize(width: number, height: number) {
-    this.composerWidth = width;
-    this.composerHeight = height;
-    if (this.effectComposer !== null && (this.effectComposer instanceof AsciiEffect || this.effectComposer instanceof PeppersGhostEffect)) {
-      this.effectComposer.setSize(this.composerWidth, this.composerHeight);
+  public setRendererSize(width: number, height: number, pixelRatio : number ) {
+    this.rendererWidth = width;
+    this.rendererHeight = height;
+    this.pixelRatio = pixelRatio;
+    if (this.effectComposer !== null) {
+      if (this.effectComposer instanceof AsciiEffect || this.effectComposer instanceof PeppersGhostEffect) {
+        this.effectComposer.setSize(this.rendererWidth, this.rendererHeight);
+      } else if (this.effectComposer instanceof EffectComposer) {
+        this.effectComposer.setSize(this.rendererWidth, this.rendererHeight);
+        this.effectComposer.setPixelRatio(this.pixelRatio);
+      }
     }
   }
 
@@ -633,7 +688,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
           asciiEffect.domElement.style.backgroundColor = 'black';
           this._composerRenderer.domElement.parentNode.appendChild(asciiEffect.domElement);
           this.effectComposer = asciiEffect;
-          asciiEffect.setSize(this.composerWidth, this.composerHeight);
+          asciiEffect.setSize(this.rendererWidth, this.rendererHeight);
           break;
         case 'peppersghosteffect':
         case 'peppersghost':
@@ -653,7 +708,7 @@ export class ComposerComponent extends AbstractTweenComponent implements OnInit 
           break;
         default:
           const effectComposer = new EffectComposer(this._composerRenderer, this.getRenderTarget());
-          effectComposer.setPixelRatio(window.devicePixelRatio);
+          effectComposer.setPixelRatio(this.pixelRatio);
           this.effectComposer = effectComposer;
           if (ThreeUtil.isNotNull(this.renderToScreen)) {
             this.effectComposer.renderToScreen = this.renderToScreen;

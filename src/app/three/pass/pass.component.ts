@@ -1,6 +1,7 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { LUTCubeLoader, LUTCubeResult } from 'three/examples/jsm/loaders/LUTCubeLoader';
+import { ReflectorForSSRPass } from 'three/examples/jsm/objects/ReflectorForSSRPass';
 import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass';
@@ -29,8 +30,10 @@ import { TAARenderPass } from 'three/examples/jsm/postprocessing/TAARenderPass';
 import { TexturePass } from 'three/examples/jsm/postprocessing/TexturePass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 import { ThreeColor, ThreeUtil } from '../interface';
+import { MeshComponent } from '../mesh/mesh.component';
 import { ShaderComponent } from '../shader/shader.component';
 import { ShaderUtils } from '../shader/shaders/shaderUtils';
+import { SizeComponent } from '../size/size.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TextureComponent } from '../texture/texture.component';
 
@@ -185,14 +188,33 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   @Input() private dtSize: number = null;
 
   /**
-   * Input  of pass component
+   * The size of width 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private width: number = null;
 
   /**
-   * Input  of pass component
+   * The size of height 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private height: number = null;
+
+  /**
+   * Input  of pass component
+   */
+  @Input() private size: THREE.Vector2 | SizeComponent = null;
 
 	/**
 	 * [page:Textures THREE.LinearEncoding] is the default.
@@ -234,6 +256,11 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
    * Input  of pass component
    */
   @Input() private overrideMaterial: THREE.Material = null;
+
+	/**
+	 * Define whether the material uses morphTargets. Default is false.
+	 */
+	@Input() private mesh: THREE.Mesh | MeshComponent | any = null;
 
   /**
    * Input  of pass component
@@ -876,21 +903,25 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
   }
 
   /**
-   * Gets width
-   * @param [def]
-   * @returns width
-   */
-  private getWidth(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.width, def);
-  }
-
-  /**
    * Gets height
    * @param [def]
    * @returns height
    */
-  private getHeight(def?: number): number {
-    return ThreeUtil.getTypeSafe(this.height, def);
+  private getSize(width?: number, height? : number): THREE.Vector2 {
+    if (ThreeUtil.isNotNull(this.size)) {
+      if (this.size instanceof THREE.Vector2) {
+        return this.size;
+      } else if (this.size instanceof SizeComponent) {
+        return this.size.getSize();
+      }
+    }
+    return ThreeUtil.getVector2Safe(
+      ThreeUtil.getTypeSafe(this.width, width, 1024),
+      ThreeUtil.getTypeSafe(this.height, height, 1024),
+      null,
+      null, 
+      true
+    ).multiplyScalar(window.devicePixelRatio);
   }
 
   /**
@@ -905,7 +936,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
       if (child instanceof THREE.Object3D) {
         safeObject3d.push(child);
       } else if (child.getMesh) {
-        safeObject3d.push(child.getObject3d());
+        safeObject3d.push(child.getMesh());
       } else if (child.getHelper) {
         safeObject3d.push(child.getHelper());
       } else if (child.getObject3d) {
@@ -1447,6 +1478,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
     if (this.pass === null || this._needUpdate) {
       this.needUpdate = false;
       let pass: Pass = null;
+      this.unSubscribeRefer('passSize');
       if (ThreeUtil.isNotNull(this.refer)) {
         this.unSubscribeRefer('referPass');
         if (ThreeUtil.isNotNull(this.refer.getPass)) {
@@ -1508,11 +1540,17 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'halftonepass':
           case 'halftone':
+            const halftoneSize = this.getSize();
             const halftonePass = new HalftonePass(
-              this.getWidth(),
-              this.getHeight(),
+              halftoneSize.x,
+              halftoneSize.y,
               null // this.getParams(null)
             );
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              halftonePass.uniforms['width'].value = size.x;
+              halftonePass.uniforms['height'].value = size.y;
+            }, 'loaded'));
             pass = halftonePass;
             break;
           case 'clearmaskpass':
@@ -1529,7 +1567,8 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'outlinepass':
           case 'outline':
-            const outlinePass = new OutlinePass(ThreeUtil.getVector2Safe(this.getWidth(1024), this.getHeight(1024)), this.getScene(this.effectScene), this.getCamera(this.effectCamera));
+            const outlineSize = this.getSize();
+            const outlinePass = new OutlinePass(outlineSize, this.getScene(this.effectScene), this.getCamera(this.effectCamera));
             if (ThreeUtil.isNotNull(this.patternTexture)) {
               outlinePass.patternTexture = this.getPatternTexture();
             }
@@ -1560,6 +1599,10 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             if (ThreeUtil.isNotNull(this.pulsePeriod)) {
               outlinePass.pulsePeriod = ThreeUtil.getTypeSafe(this.pulsePeriod, 0.0);
             }
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              outlinePass.setSize(size.x, size.y);
+            }, 'loaded'));
             pass = outlinePass;
             break;
           case 'renderpass':
@@ -1600,7 +1643,13 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'smaapass':
           case 'smaa':
-            pass = new SMAAPass(this.getWidth(1024), this.getHeight(1024));
+            const smaaSize = this.getSize();
+            const smaaPass = new SMAAPass(smaaSize.x, smaaSize.y);
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              smaaPass.setSize(size.x, size.y);
+            }, 'loaded'));
+            pass = smaaPass;
             break;
           case 'ssaarenderpass':
           case 'ssaarender':
@@ -1615,11 +1664,16 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             break;
           case 'ssaopass':
           case 'ssao':
-            const ssaoPass = new SSAOPass(this.getScene(this.effectScene), this.getCamera(this.effectCamera), this.getWidth(), this.getHeight());
+            const ssaoSize = this.getSize();
+            const ssaoPass = new SSAOPass(this.getScene(this.effectScene), this.getCamera(this.effectCamera), ssaoSize.x, ssaoSize.y);
             ssaoPass.output = this.getSsaoOutput('Default');
             ssaoPass.kernelRadius = ThreeUtil.getTypeSafe(this.kernelRadius, this.saoKernelRadius, 8);
             ssaoPass.minDistance = ThreeUtil.getTypeSafe(this.minDistance, 0.005);
             ssaoPass.maxDistance = ThreeUtil.getTypeSafe(this.maxDistance, 0.1);
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              ssaoPass.setSize(size.x,size.y);
+            }, 'loaded'));
             pass = ssaoPass;
             break;
           case 'taarenderpass':
@@ -1645,33 +1699,51 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
             pass = new UnrealBloomPass(ThreeUtil.getVector2Safe(this.width | 512, this.height | 512, new THREE.Vector2(512, 512)), this.getStrength(1.5), this.getRadius(0.4), this.getThreshold(0.85));
             break;
           case 'ssrpass':
-          case 'ssr': // todo
-            pass = new SSRPass({
-              renderer: null, // WebGLRenderer;
-              scene: null, // this.getScene(this.effectScene),
-              camera: null, // this.getCamera(this.effectCamera),
-              width: null, // number | undefined;
-              height: null, // number | undefined;
-              selects: null, // Mesh[] | null;
-              encoding: null, // TextureEncoding;
-              isPerspectiveCamera: null, // boolean | undefined;
-              isBouncing: null, // boolean | undefined;
-              morphTargets: null, // boolean | undefined;
-              groundReflector: null, // Reflector | null;
-            });
-            break;
-          case 'ssrrpass':
-          case 'ssrr': 
-            pass = new SSRrPass({
+          case 'ssr': 
+            let groundReflector : ReflectorForSSRPass = null;
+            if (ThreeUtil.isNotNull(this.mesh)) {
+              const object3d = ThreeUtil.getObject3d(this.mesh);
+              if (object3d instanceof ReflectorForSSRPass) {
+                groundReflector = object3d;
+                groundReflector.material.depthWrite= false;
+              }
+            }
+            const ssrSize = this.getSize();
+            const ssrPass  = new SSRPass({
               renderer : this.effectRenderer,
               scene : this.getScene(this.effectScene),
               camera : this.getCamera(this.effectCamera),
-              width: this.getWidth(1024),
-              height: this.getHeight(1025),
-              selects: ThreeUtil.getTypeSafe(this.selects, []), //  Mesh[] | null;
-              encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'), //  TextureEncoding;
-              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false), //  boolean | undefined;
+              width: ssrSize.x,
+              height: ssrSize.y,
+              selects: ThreeUtil.getTypeSafe(this.selects, []),
+              encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'),
+              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false),
+              groundReflector: groundReflector
             });
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              ssrPass.setSize(size.x,size.y);
+            }, 'loaded'));
+            pass = ssrPass;
+            break;
+          case 'ssrrpass':
+          case 'ssrr': 
+            const ssrrSize = this.getSize();
+            const ssrrPass = new SSRrPass({
+              renderer : this.effectRenderer,
+              scene : this.getScene(this.effectScene),
+              camera : this.getCamera(this.effectCamera),
+              width: ssrrSize.x,
+              height: ssrrSize.y,
+              selects: ThreeUtil.getTypeSafe(this.selects, []),
+              encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'),
+              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false)
+            });
+            this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
+              const size = this.getSize();
+              ssrrPass.setSize(size.x,size.y);
+            }, 'loaded'));
+            pass = ssrrPass;
             break;
           case 'lutpass':
           case 'lut':

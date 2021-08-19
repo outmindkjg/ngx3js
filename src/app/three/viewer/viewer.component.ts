@@ -53,12 +53,26 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   @Input() private y: number | string = 0;
 
   /**
-   * Input  of viewer component
+   * The size of width 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private width: number | string = '100%';
 
   /**
-   * Input  of viewer component
+   * The size of height 
+   * - type number
+   *  fixed size
+   * - type string with include % 
+   *  relative size from renderer size 
+   *  for example 
+   *    in case renderer = 1024 
+   *    '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
    */
   @Input() private height: number | string = '100%';
 
@@ -338,6 +352,22 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   }
 
   /**
+   * Sets parent
+   * @param parent
+   * @returns true if parent
+   */
+  public setParent(parent: any): boolean {
+    if (super.setParent(parent)) {
+      if (this.viewer !== null && this.viewer instanceof THREE.Mesh) {
+        this.parent.add(this.viewer);
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Viewer  of viewer component
    */
   private viewer: any = null;
@@ -345,21 +375,30 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
   /**
    * Renderer width of viewer component
    */
-  private rendererWidth: number = 0;
+  private rendererWidth: number = 1024;
 
   /**
    * Renderer height of viewer component
    */
-  private rendererHeight: number = 0;
+  private rendererHeight: number = 1024;
+
+  /**
+   * Renderer height of viewer component
+   */
+  private pixelRatio: number = 1;
 
   /**
    * Sets viewer size
    * @param width
    * @param height
    */
-  public setViewerSize(width: number, height: number) {
+  public setRendererSize(width: number, height: number, pixelRatio : number) {
     this.rendererWidth = width;
     this.rendererHeight = height;
+    this.pixelRatio = pixelRatio;
+    if (this.viewer !== null) {
+      this.resizeViewer();
+    }
   }
 
   /**
@@ -457,6 +496,7 @@ export class ViewerComponent extends AbstractSubscribeComponent implements OnIni
           if (this.parent !== null) {
             this.parent.add(this.viewer);
           }
+          console.log(this.parent);
           break;
         case 'progressivelightmap':
         case 'progressivelight':
