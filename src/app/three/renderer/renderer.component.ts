@@ -5,7 +5,6 @@ import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
-
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent, ControlOptions } from '../control/control.component';
@@ -1477,34 +1476,23 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 		if (cameraComp !== null && cameraComp !== undefined) {
 			const camera: THREE.Camera = cameraComp.getCamera();
 			switch (controlType.toLowerCase()) {
-				case 'orbit':
-				case 'fly':
-				case 'firstperson':
-				case 'transform':
-				case 'trackball':
-				case 'plane':
-				case 'deviceorientationcontrols' :
-				case 'deviceorientation' :
-				case 'dragcontrols' :
-				case 'drag' :
-				case 'orbitcontrols':
-				case 'flycontrols':
-				case 'firstpersoncontrols':
-				case 'transformcontrols':
-				case 'trackballcontrols':
-				case 'planecontrols':
-					const control = this.initLocalComponent('control', new ControlComponent());
-					const controlOptions = this.controlOptions || {};
-					controlOptions.lookatList = this.lookatList;
-					control.updateInputParams(controlOptions, false, {}, controlType);
-					control.setCameraDomElement(camera, domElement, scenes);
-					controls.push(control);
-					this.renderControl = control;
+				case 'none':
+					break;
+				default :	
+					if (controlType.length > 1) {
+						const control = this.initLocalComponent('control', new ControlComponent());
+						const controlOptions = this.controlOptions || {};
+						controlOptions.lookatList = this.lookatList;
+						control.updateInputParams(controlOptions, false, {}, controlType);
+						control.setCameraDomElement(camera, domElement, scenes, this.renderer);
+						controls.push(control);
+						this.renderControl = control;
+					}
 					break;
 			}
 			if (this.controlList !== null && this.controlList !== undefined) {
 				this.controlList.forEach((control) => {
-					control.setCameraDomElement(camera, domElement, scenes);
+					control.setCameraDomElement(camera, domElement, scenes, this.renderer);
 					controls.push(control);
 				});
 			}

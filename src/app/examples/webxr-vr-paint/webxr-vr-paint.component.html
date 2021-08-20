@@ -1,71 +1,60 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - todo
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - paint
+  - todo - need vr device to dev
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
+  [controlType]="'vr'"
   [controlOptions]="{ enablePan : false , enableDamping : true }"
   [statsMode]="0"
   [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
+  [shadowMapEnabled]="false"
   [guiControl]="controls"
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+  <ngx3js-lookat [x]="0" [y]="1.6" [z]="0"></ngx3js-lookat>
+  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="50">
+    <ngx3js-position [x]="0" [y]="1.6" [z]="3"></ngx3js-position>
   </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+  <ngx3js-scene #scene [background]="'0x222222'">
     <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
+      [type]="'HemisphereLight'"
+      [skyColor]="'0x888877'"
+      [groundColor]="'0x777788'"
+    ></ngx3js-light>
     <ngx3js-light
-      [type]="'directional'"
+      [type]="'DirectionalLight'"
       [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
+      [intensity]="1.5"
     >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+      <ngx3js-position [x]="0" [y]="4" [z]="0"></ngx3js-position>
     </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [tween]="tween">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'tube'"
-        [curve]="controls.curve"
-        [curveNormal]="true"
-        [tubularSegments]="64"
-        [radius]="0.1"
-        [radialSegments]="10"
-        [closed]="false"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xffffff'" [shininess]="3"></ngx3js-material>
-      <ngx3js-controller [type]="'tween'" [duration]="controls.duration" [curve]="controls.tween" [visible]="true"></ngx3js-controller>
+    <ngx3js-helper [type]="'GridHelper'" [size]="10" [divisions]="20" [color1]="'0x555555'" [color2]="'0x555555'"></ngx3js-helper>
+    <ngx3js-mesh (onLoad)="setMesh($event)">
+      <ngx3js-mesh #table [name]="'table'">
+        <ngx3js-position [x]="0" [y]="0.35" [z]="0.85"></ngx3js-position>
+        <ngx3js-geometry
+          [type]="'BoxGeometry'"
+          [width]="0.5"
+          [height]="0.8"
+          [depth]="0.5"
+        ></ngx3js-geometry>
+        <ngx3js-material [type]="'MeshStandardMaterial'" [color]="'0x444444'" [roughness]="1.0" [metalness]="0.0"></ngx3js-material>
+      </ngx3js-mesh>
     </ngx3js-mesh>
     <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+      <ngx3js-position [x]="0" [y]="-0.1" [z]="0"></ngx3js-position>
+      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
       <ngx3js-geometry
-        [type]="'box'"
-        [width]="2"
-        [height]="2"
-        [depth]="2"
+        [type]="'Plane'"
+        [width]="4"
+        [height]="4"
       ></ngx3js-geometry>
       <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [wireframe]="true"
+        [type]="'MeshStandardMaterial'"
+        [color]="'0x222222'"
+        [roughness]="1.0"
+        [metalness]="0.0"
       ></ngx3js-material>
     </ngx3js-mesh>
   </ngx3js-scene>

@@ -21,6 +21,18 @@ export interface ApplyMatrix4 {
 }
 
 /**
+ * Curves parameters
+ */
+export interface CurvesParameters {
+	radiusInner?: number;
+	waveH?: number;
+	waveR?: number;
+	rateX?: number;
+	rateY?: number;
+	rateZ?: number;
+}
+
+/**
  * Texture option
  */
 export interface TextureOption {
@@ -2328,7 +2340,6 @@ export class ThreeUtil {
 		} else if (this.isThreeComponent(object)) {
 			const threeComponent = this.getThreeComponent(object);
 			if (this.isNotNull(threeComponent)) {
-				console.log(threeComponent, object);
 				this.setSubscribeNext(threeComponent, key);
 			} else {
 				console.error(object);

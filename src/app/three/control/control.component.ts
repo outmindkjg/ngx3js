@@ -8,6 +8,7 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { VRButton } from 'three/examples/jsm/webxr/VRButton';
 
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
@@ -564,7 +565,13 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * before a directive, pipe, or service instance is destroyed.
 	 */
 	ngOnDestroy(): void {
-		if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
+		if (this.controlDomElement !== null && this.controlDomElement.parentElement !== null) {
+			this.controlDomElement.parentElement.removeChild(this.controlDomElement);
+		}
+		if (this.control instanceof TransformControls && this.control.parent) {
+			this.control.parent.remove(this.control);
+		}
+		if (ThreeUtil.isNotNull(this.control.dispose)) {
 			this.control.dispose();
 		}
 		super.ngOnDestroy();
@@ -659,10 +666,21 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	private _camera: THREE.Camera = null;
 
 	/**
+	 * Renderer  of control
+	 */
+	private _renderer: THREE.Renderer = null;
+
+	/**
+	 * Renderer  of control
+	 */
+	private controlDomElement: HTMLElement = null;
+	
+	/**
 	 * Scene  of control
 	 */
 	private _scene: QueryList<SceneComponent> = null;
 
+	
 	/**
 	 * Dom element of control
 	 */
@@ -674,14 +692,12 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * @param domElement
 	 * @param scenes
 	 */
-	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>) {
-		if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes) {
-			if (this.control !== null && ThreeUtil.isNotNull(this.control.dispose)) {
-				this.control.dispose();
-			}
+	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>, renderer : THREE.Renderer) {
+		if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes || this._renderer !== renderer) {
 			this._camera = camera;
 			this._domElement = domElement;
 			this._scene = scenes;
+			this._renderer = renderer;
 			this.unSubscribeRefer('cameraload');
 			const cameraCom = ThreeUtil.getThreeComponent(camera);
 			if (ThreeUtil.isNotNull(cameraCom)) {
@@ -730,9 +746,36 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					this.control.dispose();
 				}
 			}
+			let controlType = this.type.toLowerCase();
+			if (this._renderer instanceof THREE.WebGLRenderer) {
+				switch (controlType) {
+					case 'vr' :
+					case 'xr' :
+						if ( 'xr' in navigator ) {
+							this._renderer.xr.enabled = true;
+							this._renderer.xr.setReferenceSpaceType( 'local' );
+							const xr = navigator['xr'] as any;
+							xr.isSessionSupported( 'immersive-vr' ).then((supported) => {
+								if (!supported) {
+									this.type = 'OrbitControls';
+									this.needUpdate = true;
+								}
+							})
+						} else {
+							controlType = 'OrbitControls';
+						}
+						this.controlDomElement = VRButton.createButton( this._renderer );
+						this._renderer.domElement.parentElement.appendChild(this.controlDomElement);
+						break;
+				}
+			}
 			this.control = null;
 			let control: any = null;
-			switch (this.type.toLowerCase()) {
+			switch (controlType.toLowerCase()) {
+				case 'vr' :
+				case 'xr' :
+					control = this.controlDomElement;
+					break;
 				case 'flycontrols':
 				case 'fly':
 					const flyControls = new FlyControls(camera, domElement);

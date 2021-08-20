@@ -40,6 +40,14 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 	@Input() private refName: string | string[] = null;
 
 	/**
+	 * refIndex  of material component
+	 * if the material of mesh is array
+	 * use this index
+	 */
+	@Input() private refIndex: number = -1;
+	
+
+	/**
 	 * Defines whether this material is visible. Default is *true*.
 	 */
 	@Input() public visible: boolean = null;
@@ -1038,7 +1046,11 @@ export abstract class AbstractMaterialComponent extends AbstractSubscribeCompone
 					if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points || object instanceof THREE.Sprite) {
 						let refIndex: number = -1;
 						if (Array.isArray(object.material)) {
-							refIndex = object.material.indexOf(this.material);
+							if (this.refIndex > -1) {
+								refIndex = this.refIndex;
+							} else {
+								refIndex = object.material.indexOf(this.material);
+							}
 						} else {
 							refIndex = -1;
 						}
