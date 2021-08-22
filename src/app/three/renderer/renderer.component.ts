@@ -1484,7 +1484,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 						const controlOptions = this.controlOptions || {};
 						controlOptions.lookatList = this.lookatList;
 						control.updateInputParams(controlOptions, false, {}, controlType);
-						control.setCameraDomElement(camera, domElement, scenes, this.renderer);
+						control.setCameraDomElement(camera, domElement, scenes, this.renderer, this._renderCaller);
 						controls.push(control);
 						this.renderControl = control;
 					}
@@ -1492,7 +1492,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 			}
 			if (this.controlList !== null && this.controlList !== undefined) {
 				this.controlList.forEach((control) => {
-					control.setCameraDomElement(camera, domElement, scenes, this.renderer);
+					control.setCameraDomElement(camera, domElement, scenes, this.renderer, this._renderCaller);
 					controls.push(control);
 				});
 			}

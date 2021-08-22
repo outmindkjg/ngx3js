@@ -1,5 +1,5 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - todo
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> 
 </div>
 <ngx3js-renderer
   [controlType]="'vr'"
@@ -11,10 +11,6 @@
   [guiParams]="controlsParams"
   (onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="500">
-    <ngx3js-position [x]="0" [y]="0.1" [z]="1"></ngx3js-position>
-  </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0xf0f0ff'">
     <ngx3js-light
       [type]="'Hemisphere'"
@@ -24,16 +20,9 @@
       <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
     </ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)" #train>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'box'"
-          [width]="0.1"
-          [height]="0.1"
-          [depth]="0.1"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
-      </ngx3js-mesh>
+      <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="500">
+        <ngx3js-position [x]="0" [y]="0.1" [z]="1"></ngx3js-position>
+      </ngx3js-camera>
     </ngx3js-mesh>
     <ngx3js-mesh>
       <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>

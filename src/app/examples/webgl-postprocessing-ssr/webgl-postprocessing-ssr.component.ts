@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import * as THREE from 'three';
 import { ReflectorForSSRPass } from 'three/examples/jsm/objects/ReflectorForSSRPass';
 import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass';
-import { SSRrPass } from 'three/examples/jsm/postprocessing/SSRrPass';
 import { BaseComponent, MeshComponent, PassComponent, RendererEvent, SceneComponent } from '../../three';
 
 @Component({

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent, CurveUtils, MeshComponent, RendererTimer } from '../../three';
 import * as THREE from 'three';
-import { Object3D } from 'three';
 
 @Component({
   selector: 'app-webxr-vr-rollercoaster',
@@ -39,7 +38,19 @@ export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
     this.funfairs = mesh.getMesh().children;
   }
 
-  funfairs : Object3D[] = [];
+  funfairs : THREE.Object3D[] = [];
+
+  setMesh(mesh : MeshComponent) {
+    super.setMesh(mesh);
+    this.train = this.meshObject3d;
+  }
+
+  train : THREE.Object3D = null;
+  velocity = 0;
+  progress = 0;
+  position = new THREE.Vector3();
+  tangent = new THREE.Vector3();
+  lookAt = new THREE.Vector3();
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
@@ -47,6 +58,23 @@ export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
     this.funfairs.forEach(funfair => {
       funfair.rotation.y = time * 0.0004;
     })
+    if (this.train !== null) {
 
+      this.progress += this.velocity;
+      this.progress = this.progress % 1;
+      const position = this.position;
+      position.copy( this.curve.getPointAt( this.progress ) );
+      position.y += 0.3;
+
+      this.train.position.copy( position );
+      const tangent = this.tangent;
+      tangent.copy( this.curve.getTangentAt( this.progress ) );
+      this.velocity -= tangent.y * 0.0000001 * timer.delta;
+      this.velocity = Math.max( 0.00004, Math.min( 0.0002, this.velocity ) );
+
+      this.train.lookAt( this.lookAt.copy( position ).sub( tangent ) );
+
+
+    }
   }
 }

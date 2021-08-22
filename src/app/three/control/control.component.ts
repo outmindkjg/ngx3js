@@ -670,6 +670,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 */
 	private _renderer: THREE.Renderer = null;
 
+	private _renderCaller : (...args: any[]) => void = null;
+
 	/**
 	 * Renderer  of control
 	 */
@@ -692,12 +694,13 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * @param domElement
 	 * @param scenes
 	 */
-	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>, renderer : THREE.Renderer) {
+	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>, renderer : THREE.Renderer, renderCaller: (...args: any[]) => void = null) {
 		if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes || this._renderer !== renderer) {
 			this._camera = camera;
 			this._domElement = domElement;
 			this._scene = scenes;
 			this._renderer = renderer;
+			this._renderCaller = renderCaller;
 			this.unSubscribeRefer('cameraload');
 			const cameraCom = ThreeUtil.getThreeComponent(camera);
 			if (ThreeUtil.isNotNull(cameraCom)) {
@@ -754,15 +757,18 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 						if ( 'xr' in navigator ) {
 							this._renderer.xr.enabled = true;
 							this._renderer.xr.setReferenceSpaceType( 'local' );
+							const renderer = this._renderer;
 							const xr = navigator['xr'] as any;
 							xr.isSessionSupported( 'immersive-vr' ).then((supported) => {
 								if (!supported) {
 									this.type = 'OrbitControls';
 									this.needUpdate = true;
+								} else {
+									renderer.setAnimationLoop(this._renderCaller);
 								}
 							})
 						} else {
-							controlType = 'OrbitControls';
+							controlType = 'FlyControls';
 						}
 						this.controlDomElement = VRButton.createButton( this._renderer );
 						this._renderer.domElement.parentElement.appendChild(this.controlDomElement);

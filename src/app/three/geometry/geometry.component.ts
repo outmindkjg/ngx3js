@@ -7,6 +7,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import { BoxLineGeometry } from 'three/examples/jsm/geometries/BoxLineGeometry';
 import { CurveComponent } from '../curve/curve.component';
 import { CurveUtils } from '../curve/curveUtils';
 import { AbstractGeometryComponent, GeometriesParametric } from '../geometry.abstract';
@@ -1161,6 +1162,19 @@ export class GeometryComponent extends AbstractGeometryComponent implements OnIn
 							ThreeUtil.getTypeSafe(this.radius, 0.1)
 						);
 						break;
+					case 'boxlinebuffergeometry':
+					case 'boxlinegeometry':
+					case 'boxline':
+						geometry = new BoxLineGeometry(
+							ThreeUtil.getTypeSafe(this.width, this.height, 1),
+							ThreeUtil.getTypeSafe(this.height, this.width, 1),
+							ThreeUtil.getTypeSafe(this.depth, this.width, 1),
+							ThreeUtil.getTypeSafe(this.widthSegments, this.segments, 1),
+							ThreeUtil.getTypeSafe(this.heightSegments, this.segments, 1),
+							ThreeUtil.getTypeSafe(this.depthSegments, this.segments, 1)
+						);
+						break;
+
 					case 'boxbuffergeometry':
 					case 'boxgeometry':
 					case 'boxbuffer':

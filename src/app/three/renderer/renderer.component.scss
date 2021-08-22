@@ -27,6 +27,9 @@
     display: inline-block;
     position: relative;
     ::ng-deep {
+      button#VRButton {
+        pointer-events: all;
+      }
       >div {
         background-color: transparent;
         z-index: 2;
