@@ -20,6 +20,7 @@ export class AVRControls {
 		this.button = this.getButton();
 		this.renderer.domElement.parentElement.appendChild(this.button);
 		if ('xr' in navigator) {
+			this.renderer.xr.enabled = true;
 			const xr: any = navigator['xr'];
 			switch (this.type.toLowerCase()) {
 				case 'ar':
@@ -185,10 +186,11 @@ export class AVRControls {
 			this.onSessionEnded();
 		};
 		session.addEventListener('end', this._onSessionEnded);
-		this.renderer.xr.enabled = true;
 		try {
-		await this.renderer.xr.setSession(session);
-		} catch(ex) {}
+			await this.renderer.xr.setSession(session);
+		} catch(ex) {
+			console.log(ex);
+		}
 		const button = this.button;
 		button.style.left = 'calc(50% - 50px)';
 		button.style.width = '100px';
@@ -248,12 +250,15 @@ export class VirtualSession extends THREE.EventDispatcher implements THREE.XRSes
 
 	requestReferenceSpace(type: THREE.XRReferenceSpaceType): Promise<THREE.XRReferenceSpace> {
 		return new Promise<THREE.XRReferenceSpace>((resolve, reject) => {
-			// resolve(null);
+			resolve(null);
 		});
 	}
 
 	updateRenderState(renderStateInit: THREE.XRRenderStateInit): Promise<void> {
-		return new Promise<void>((resolve, reject) => {});
+		return new Promise<void>((resolve, reject) => {
+			Object.assign(this.renderState, renderStateInit);
+			resolve();
+		});
 	}
 
 	requestAnimationFrame(callback: THREE.XRFrameRequestCallback): number {
