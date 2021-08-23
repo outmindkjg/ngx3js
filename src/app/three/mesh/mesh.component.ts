@@ -1,6 +1,7 @@
 import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { TubePainter } from 'three/examples/jsm/misc/TubePainter';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
@@ -1826,6 +1827,18 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 					const line = new THREE.Line(geometry, this.getMaterials());
 					line.castShadow = this.castShadow;
 					basemesh = line;
+					break;
+				case 'tubepainter' :
+					const tubePainter : any = new TubePainter();
+					if (ThreeUtil.isNotNull(this.size)) {
+						tubePainter['setSize']( this.size );
+					}
+					tubePainter.mesh.material['side'] = THREE.DoubleSide;
+					tubePainter.moveTo( new THREE.Vector3(0, 0, 0));
+					tubePainter.lineTo( new THREE.Vector3(0.1, 0.1, 0));
+					tubePainter.lineTo( new THREE.Vector3(0.1, -0.1, 0));
+					tubePainter.update();
+					basemesh = tubePainter.mesh;
 					break;
 				case 'line2':
 					const lineMaterial = this.getMaterialOne();

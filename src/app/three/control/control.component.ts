@@ -9,6 +9,7 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton';
+import { ARButton } from 'three/examples/jsm/webxr/ARButton';
 
 import { CSM } from 'three/examples/jsm/csm/CSM';
 import { RendererTimer, ThreeUtil } from '../interface';
@@ -16,6 +17,8 @@ import { LookatComponent } from '../lookat/lookat.component';
 import { SceneComponent } from '../scene/scene.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { PlaneControls } from './plane-controls';
+import { SelectBoxControls } from './selection-box-controls';
+import { AVRControls } from './avr-controls';
 
 /**
  * Control options
@@ -357,7 +360,6 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * The keys of control
 	 */
 	@Input() private keys: string[] = null;
-	
 
 	/**
 	 * The rotateSpeed of control
@@ -603,7 +605,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 		super.ngAfterContentInit();
 	}
 
-	private _cachedLookatList : LookatComponent[] = [];
+	private _cachedLookatList: LookatComponent[] = [];
 
 	/**
 	 * Applys changes
@@ -629,7 +631,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 					case 'target':
-						const newLookatList : LookatComponent[] = [];
+						const newLookatList: LookatComponent[] = [];
 						if (ThreeUtil.isNotNull(this.target)) {
 							if (this.target instanceof LookatComponent) {
 								newLookatList.push(this.target);
@@ -642,12 +644,12 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 								newLookatList.push(lookat);
 							});
 						}
-						this._cachedLookatList.forEach(lookat => {
+						this._cachedLookatList.forEach((lookat) => {
 							if (newLookatList.indexOf(lookat) === -1) {
 								lookat.unsetObject3d(this);
 							}
 						});
-						newLookatList.forEach(lookat => {
+						newLookatList.forEach((lookat) => {
 							if (this._cachedLookatList.indexOf(lookat) === -1) {
 								lookat.setObject3d(this);
 							}
@@ -670,19 +672,18 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 */
 	private _renderer: THREE.Renderer = null;
 
-	private _renderCaller : (...args: any[]) => void = null;
+	private _renderCaller: (...args: any[]) => void = null;
 
 	/**
 	 * Renderer  of control
 	 */
 	private controlDomElement: HTMLElement = null;
-	
+
 	/**
 	 * Scene  of control
 	 */
 	private _scene: QueryList<SceneComponent> = null;
 
-	
 	/**
 	 * Dom element of control
 	 */
@@ -694,7 +695,7 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 * @param domElement
 	 * @param scenes
 	 */
-	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>, renderer : THREE.Renderer, renderCaller: (...args: any[]) => void = null) {
+	public setCameraDomElement(camera: THREE.Camera, domElement: HTMLElement, scenes: QueryList<SceneComponent>, renderer: THREE.Renderer, renderCaller: (...args: any[]) => void = null) {
 		if (this._camera !== camera || this._domElement !== domElement || this._scene !== scenes || this._renderer !== renderer) {
 			this._camera = camera;
 			this._domElement = domElement;
@@ -749,38 +750,18 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					this.control.dispose();
 				}
 			}
-			let controlType = this.type.toLowerCase();
-			if (this._renderer instanceof THREE.WebGLRenderer) {
-				switch (controlType) {
-					case 'vr' :
-					case 'xr' :
-						if ( 'xr' in navigator ) {
-							this._renderer.xr.enabled = true;
-							this._renderer.xr.setReferenceSpaceType( 'local' );
-							const renderer = this._renderer;
-							const xr = navigator['xr'] as any;
-							xr.isSessionSupported( 'immersive-vr' ).then((supported) => {
-								if (!supported) {
-									this.type = 'OrbitControls';
-									this.needUpdate = true;
-								} else {
-									renderer.setAnimationLoop(this._renderCaller);
-								}
-							})
-						} else {
-							controlType = 'FlyControls';
-						}
-						this.controlDomElement = VRButton.createButton( this._renderer );
-						this._renderer.domElement.parentElement.appendChild(this.controlDomElement);
-						break;
-				}
-			}
 			this.control = null;
 			let control: any = null;
-			switch (controlType.toLowerCase()) {
-				case 'vr' :
-				case 'xr' :
-					control = this.controlDomElement;
+			switch (this.type.toLowerCase()) {
+				case 'ar':
+				case 'vr':
+				case 'xr':
+					control = new AVRControls(this.type, camera, this._scene.first.getScene(), this._renderer as THREE.WebGLRenderer, {}, domElement, this._renderCaller, true);
+					break;
+				case 'ar-only':
+				case 'vr-only':
+				case 'xr-only':
+					control = new AVRControls(this.type.substr(0, 2), camera, this._scene.first.getScene(), this._renderer as THREE.WebGLRenderer, {}, domElement, this._renderCaller, false);
 					break;
 				case 'flycontrols':
 				case 'fly':
@@ -804,8 +785,8 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 					const deviceOrientationControls = new DeviceOrientationControls(camera);
 					control = deviceOrientationControls;
 					break;
-				case 'pointerlockcontrols' :
-				case 'pointerlock' :
+				case 'pointerlockcontrols':
+				case 'pointerlock':
 					const pointerLockControls = new PointerLockControls(camera);
 					control = pointerLockControls;
 					this._scene.first.getScene().add(pointerLockControls.getObject());
@@ -885,6 +866,11 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 						trackballControls.keys = this.keys;
 					}
 					control = trackballControls;
+					break;
+				case 'selectbox':
+				case 'selectboxcontrols':
+					const selectBoxControls = new SelectBoxControls(camera, this._scene.first.getScene(), this._renderer as THREE.WebGLRenderer);
+					control = selectBoxControls;
 					break;
 				case 'csm':
 					let csmScene = ThreeUtil.getTypeSafe(this.scene, {});
@@ -1007,15 +993,9 @@ export class ControlComponent extends AbstractSubscribeComponent implements OnIn
 	 */
 	public render(renderTimer: RendererTimer) {
 		if (this.control !== null && ThreeUtil.isNotNull(this.control.update)) {
-			if (
-				this.control instanceof FlyControls || 
-				this.control instanceof FirstPersonControls ||
-				this.control instanceof PlaneControls
-			) {
+			if (this.control instanceof FlyControls || this.control instanceof FirstPersonControls || this.control instanceof PlaneControls || this.control instanceof AVRControls) {
 				this.control.update(renderTimer.delta);
-			} else if (
-					this.control instanceof TransformControls 
-			) {
+			} else if (this.control instanceof TransformControls) {
 				// pass
 			} else {
 				this.control.update();

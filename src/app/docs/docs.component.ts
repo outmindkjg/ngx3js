@@ -243,7 +243,7 @@ export class DocsComponent implements OnInit {
   checkLoadedPageInfo(object: any, synkObj : any[]) {
     Object.entries(object).forEach(([key, value]) => {
       if (typeof value === 'string') {
-        this.getSearchItem(key, value, '', '');
+        this.getSearchItem(key, value, [], '');
         const refKey = /[\-A-z0-9]+$/.exec( value ).toString();
         refKey.endsWith
         synkObj.forEach(obj => {
@@ -300,8 +300,9 @@ export class DocsComponent implements OnInit {
     }
     const searchMenu: SearchMenuTop[] = [];
     const listLocale = this.list[this.language] || this.list['en'];
+    const filterList = filter.split(' ');
     Object.entries(listLocale).forEach(([key, value]) => {
-      const children = this.getSearchChildren(value, filter, key);
+      const children = this.getSearchChildren(value, filterList, key);
       if (children.length > 0) {
         searchMenu.push({
           name: key.split('_').join(' '),
@@ -335,13 +336,13 @@ export class DocsComponent implements OnInit {
     return searchMenu;
   }
 
-  private getSearchChildren(menu: Object, keyword: string, parentId: string): SearchMenu[] {
+  private getSearchChildren(menu: Object, keyword: string[], parentId: string): SearchMenu[] {
     const children: SearchMenu[] = [];
     Object.entries(menu).forEach(([key, value]) => {
       if (typeof value === 'object') {
         const childChildren = this.getSearchChildren(value, keyword, key);
         if (childChildren.length > 0) {
-          const child = this.getSearchItem(key, childChildren[0].id, '', parentId + ' '+ key);
+          const child = this.getSearchItem(key, childChildren[0].id, [], parentId + ' '+ key);
           child.children = childChildren;
           children.push(child);
         }
@@ -355,21 +356,25 @@ export class DocsComponent implements OnInit {
     return children;
   }
 
-  private getSearchItem(name: string, url : string, keyword: string, parentId: string): SearchMenu {
+  private getSearchItem(name: string, url : string, keyword: string[], parentId: string): SearchMenu {
     const tags: string[] = [];
     url.toLowerCase().split('/').forEach(txt => {
       tags.push(txt.toLowerCase());
     });
     tags.push(name.toLowerCase());
     tags.push(parentId.toLowerCase());
-    const tagTxt = tags.join(' ');
-    if (keyword == '' || tagTxt.indexOf(keyword) > -1) {
-      const itemTags: string[] = [];
-      name.split(' ').forEach((key) => {
-        if (parentId !== key && itemTags.indexOf(key) === -1) {
-          itemTags.push(key);
+    const sampleTags = tags.join(' ').toLowerCase();
+    let isFounded : boolean = true;
+    if (keyword.length > 0) {
+      keyword.forEach(txt => {
+        if (txt.length > 0) {
+          if (sampleTags.indexOf(txt) === -1) {
+            isFounded = false;
+          }
         }
-      });
+      })
+    }
+    if (isFounded) {
       let saveUrl = '';
       if (url.startsWith('/docs/')) {
         url = url.substr(6);
@@ -381,7 +386,12 @@ export class DocsComponent implements OnInit {
       }
       const urlInfos = url.split('/');
       this.loadedPageInfo[urlInfos[urlInfos.length -1]] = saveUrl;
-  
+      const itemTags = [];
+      name.split(' ').forEach((key) => {
+        if (parentId !== key && tags.indexOf(key) === -1) {
+          itemTags.push(key);
+        }
+      });
       return {
         id: saveUrl,
         safeId: url.replace(/_/gi, '-'),

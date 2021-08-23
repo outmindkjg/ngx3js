@@ -162,8 +162,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
       filter = filter.toLowerCase();
     }
     const searchMenu: SearchMenuTop[] = [];
+    const filterList = filter.split(' ');
     Object.entries(this.files).forEach(([key, value]) => {
-      const children = this.getSearchChildren(value, filter, key);
+      const children = this.getSearchChildren(value, filterList, key);
       if (children.length > 0) {
         searchMenu.push({
           name: key.split('_').join(' '),
@@ -194,7 +195,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     return searchMenu;
   }
 
-  private getSearchChildren(menu: string[], keyword: string, parentId: string): SearchMenu[] {
+  private getSearchChildren(menu: string[], keyword: string[], parentId: string): SearchMenu[] {
     const children: SearchMenu[] = [];
     menu.forEach((id) => {
       const child = this.getSearchItem(id, keyword, parentId);
@@ -205,9 +206,22 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
     return children;
   }
 
-  private getSearchItem(id: string, keyword: string, parentId: string): SearchMenu {
+  private getSearchItem(id: string, keyword: string[], parentId: string): SearchMenu {
     const tags: string[] = this.tags[id] !== undefined ? this.tags[id] : [];
-    if (keyword == '' || tags.indexOf(keyword) > -1 || id.indexOf(keyword) > -1) {
+    let isFounded : boolean = true;
+    if (keyword.length > 0) {
+      const allTags = [...tags];
+      allTags.push(id);
+      const sampleTags = allTags.join(' ').toLowerCase();
+      keyword.forEach(txt => {
+        if (txt.length > 0) {
+          if (sampleTags.indexOf(txt) === -1) {
+            isFounded = false;
+          }
+        }
+      })
+    }
+    if (isFounded) {
       const itemTags: string[] = [];
       id.split('_').forEach((key) => {
         if (parentId !== key && itemTags.indexOf(key) === -1) {

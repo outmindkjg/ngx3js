@@ -3201,6 +3201,7 @@ export interface RendererEvent {
 	rateY?: number;
 	width?: number;
 	height?: number;
+	nativeElement? : HTMLElement;
 	size?: THREE.Vector2;
 	mouse?: THREE.Vector2;
 	direction?: THREE.Vector2;

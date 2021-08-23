@@ -38,6 +38,11 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 	@Input() private z: number | string = 0;
 
 	/**
+	 * The current value of the order component.
+	 */
+	@Input() private order: string = null;
+	
+	/**
 	 * The value type is radian. Default value is *false*.
 	 */
 	@Input() private isRadian: boolean = false;
@@ -189,6 +194,9 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 							if (ThreeUtil.isNotNull(this.z)) {
 								object3d.rotation.z = rotation.z;
 							}
+							if (ThreeUtil.isNotNull(this.order)) {
+								object3d.rotation.order = rotation.order;
+							}
 						}
 					}
 				});
@@ -273,6 +281,9 @@ export class RotationComponent extends AbstractSubscribeComponent implements OnI
 				rotation = new THREE.Euler(this.x, this.y, this.z);
 			} else {
 				rotation = ThreeUtil.getEulerSafe(this.x, this.y, this.z, null, true);
+			}
+			if (ThreeUtil.isNotNull(this.order)) {
+				rotation.order = this.order;
 			}
 		}
 		return rotation;

@@ -27,6 +27,7 @@
     display: inline-block;
     position: relative;
     ::ng-deep {
+      button#ARButton,
       button#VRButton {
         pointer-events: all;
       }

@@ -679,6 +679,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	 */
 	private events: RendererEvent = {
 		type: 'none',
+		nativeElement : null,
 		client: new THREE.Vector2(),
 		clientX: 0,
 		clientY: 0,
@@ -937,6 +938,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 		if (this.renderer !== null) {
 			this.events.width = this.rendererWidth;
 			this.events.height = this.rendererHeight;
+			this.events.nativeElement = this.rendererEle.nativeElement;
 			this.offsetTop = 0;
 			this.offsetLeft = 0;
 			let offsetParent = this.rendererEle.nativeElement;

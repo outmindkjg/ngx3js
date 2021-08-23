@@ -1,67 +1,47 @@
 <div class="info">
-    <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - todo
+  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - Lighting Estimation<br/>
+  (Chrome Android 90+)
+  - need ar/vr device to test
   </div>
   <ngx3js-renderer
-    [controlType]="'orbit'"
+    [controlType]="'ar'"
     [controlOptions]="{ enablePan : false , enableDamping : true }"
     [statsMode]="0"
     [antialias]="true"
-    [clearColor]="'0xffffff'"
     [shadowMapEnabled]="true"
     [guiControl]="controls"
     [guiParams]="controlsParams"
     (onRender)="onRender($event)"
   >
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-      <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+    <ngx3js-lookat [x]="0" [y]="0" [z]="-2"></ngx3js-lookat>
+    <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="20">
+      <ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
     </ngx3js-camera>
-    <ngx3js-scene #scene [background]="'0xa0a0a0'">
-      <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+    <ngx3js-scene #scene>
+      <ngx3js-texture [type]="'environment'" [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/', dataType : 'UnsignedByteType'}" [cubeType]="'fromEquirectangular'"></ngx3js-texture>
       <ngx3js-light
-        [type]="'Hemisphere'"
+        [type]="'HemisphereLight'"
         [skyColor]="'0xffffff'"
-        [groundColor]="'0x444444'"
-      >
-        <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-      </ngx3js-light>
-      <ngx3js-light
-        [type]="'directional'"
-        [color]="'0xffffff'"
+        [groundColor]="'0xbbbbff'"
         [intensity]="1"
-        [castShadow]="true"
-        [shadowCameraTop]="2"
-        [shadowCameraBottom]="-2"
-        [shadowCameraLeft]="-2"
-        [shadowCameraRight]="2"
-        [shadowCameraNear]="0.1"
-        [shadowCameraFar]="40"
       >
-        <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+        <ngx3js-position [x]="0.5" [y]="1" [z]="0.25"></ngx3js-position>
       </ngx3js-light>
+      <ngx3js-shared>
+        <ngx3js-geometry
+          #ballGeometry
+          [type]="'SphereBufferGeometry'"
+          [radius]="0.175"
+          [widthSegments]="32"
+          [heightSegments]="32"
+        ></ngx3js-geometry>
+      </ngx3js-shared>
       <ngx3js-mesh (onLoad)="setMesh($event)">
-        <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'box'"
-          [width]="1"
-          [height]="1"
-          [depth]="1"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="100"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshPhong'"
-          [color]="'0x999999'"
-          [depthWrite]="false"
-        ></ngx3js-material>
+        <ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
+        <ngx3js-mesh *ngFor="let info of ballMeshInfos" [geometry]="ballGeometry">
+          <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+          <ngx3js-material [type]="'MeshStandardMaterial'" [color]="info.color" [roughness]="info.roughness" [metalness]="info.metalness"></ngx3js-material>
+        </ngx3js-mesh>
       </ngx3js-mesh>
     </ngx3js-scene>
   </ngx3js-renderer>
