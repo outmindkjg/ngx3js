@@ -146,6 +146,7 @@ import { Ngx3JsModule } from './three/ngx3js.module';
 npm install -g @angular/cli
 npm install ammojs-typed
 npm install three
+npm install --save three three.ar.js
 npm install @types/three
 npm install @types/dat.gui –save-dev
 npm install @types/physijs –save-dev
