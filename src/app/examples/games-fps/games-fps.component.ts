@@ -15,7 +15,6 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	}
 
 	ngOnInit() {
-		this.worldOctree = new Octree();
 		this.playerCollider = new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35);
     this.spheresInfos = [];
     for ( let i = 0; i < 20; i ++ ) {
@@ -85,7 +84,8 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	setWorld(world: MeshComponent) {
 		const scene = world.getMesh();
     if (scene.children.length > 0) {
-      this.worldOctree.fromGraphNode(scene);
+      this.worldOctree = new Octree();
+		  this.worldOctree.fromGraphNode(scene);
       scene.traverse((child) => {
         if (child['isMesh']) {
           child.castShadow = true;
@@ -221,7 +221,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.camera !== null) {
+    if (this.camera !== null && this.worldOctree !== null) {
       const STEPS_PER_FRAME = 5;
       const deltaTime = Math.min( 0.05, timer.delta ) / STEPS_PER_FRAME;
       for ( let i = 0 ; i < STEPS_PER_FRAME ; i ++ ) {

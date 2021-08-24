@@ -1,6 +1,7 @@
 import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { createText } from 'three/examples/jsm/webxr/Text2D';
 import { TubePainter } from 'three/examples/jsm/misc/TubePainter';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -320,6 +321,11 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 	 * Input  of mesh component
 	 */
 	@Input() private size: number = null;
+
+	/**
+	 * Input  of mesh component
+	 */
+	@Input() private text: string = null;
 
 	/**
 	 * Input  of mesh component
@@ -1840,6 +1846,12 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 					tubePainter.update();
 					basemesh = tubePainter.mesh;
 					break;
+				case 'text' :
+					basemesh = createText(
+						ThreeUtil.getTypeSafe(this.text, 'test'), 
+						ThreeUtil.getTypeSafe(this.size, 1)
+					);
+					break;
 				case 'line2':
 					const lineMaterial = this.getMaterialOne();
 					if (geometry instanceof LineGeometry && lineMaterial instanceof LineMaterial) {
@@ -1955,6 +1967,7 @@ export class MeshComponent extends AbstractObject3dComponent implements OnInit {
 									loadedMesh.parent = null;
 									this.setMesh(loadedMesh);
 									if (ThreeUtil.isNotNull(source) && ThreeUtil.isNotNull(source.skeleton) && ThreeUtil.isNotNull(source.skeleton.bones) && source.skeleton.bones.length > 0) {
+
 										this.addParentObject3d(source.skeleton.bones[0]);
 									}
 								}

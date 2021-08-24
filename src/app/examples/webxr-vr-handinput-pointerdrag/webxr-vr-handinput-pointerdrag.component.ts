@@ -12,4 +12,17 @@ export class WebxrVrHandinputPointerdragComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
+  ngOnInit() {
+    this.boxInfos = [];
+    for ( let i = 0; i < 20; i ++ ) {
+      this.boxInfos.push({
+        position : { x : Math.random()*2 - 1, y : Math.random()*2 - 1, z : Math.random()*2 - 1},
+        color : Math.random() * 0xffffff
+      })
+    }
+  }
+  boxInfos : {
+    position : { x : number, y : number, z : number },
+    color : number;
+  }[] = []
 }

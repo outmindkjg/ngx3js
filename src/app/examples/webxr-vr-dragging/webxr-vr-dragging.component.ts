@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { AbstractGeometryComponent, BaseComponent, GeometryComponent, SharedComponent } from '../../three';
 
 @Component({
   selector: 'app-webxr-vr-dragging',
@@ -30,5 +30,35 @@ export class WebxrVrDraggingComponent extends BaseComponent<{
     ]);
   }
 
+  setShared(shared : SharedComponent) {
+    const geometries = shared.getGeometryComponents();
+    setTimeout(() => {
+      this.geoInfos = [];
+      for ( let i = 0; i < 50; i ++ ) {
+        this.geoInfos.push({
+          geometry : geometries[Math.floor( Math.random() * geometries.length )],
+          color :  Math.random() * 0xffffff,
+          position : {
+            x : Math.random() * 4 - 2,
+            y : Math.random() * 2,
+            z : Math.random() * 4 - 2
+          },
+          rotation : {
+            x : Math.random() * 360,
+            y : Math.random() * 360,
+            z : Math.random() * 360
+          },
+          scale : Math.random() + 0.5
+        })
+      }
+    }, 100);
+  }
 
+  geoInfos : {
+    geometry : AbstractGeometryComponent;
+    color : number;
+    position : { x : number, y : number, z : number };
+    rotation : { x : number, y : number, z : number };
+    scale : number;
+  }[] = [];
 }

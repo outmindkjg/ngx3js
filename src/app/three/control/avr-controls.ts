@@ -68,6 +68,8 @@ export class AVRControls {
 		};
 		if (this.control === null && this.altControl) {
 			this.control = new OrbitControls(this.camera, this.domElement);
+			this.control.enablePan = true;
+			this.control.enableDamping = true;
 			if (this.target !== null && this.control.target !== this.target) {
 				this.control.target.copy(this.target);
 				this.target = this.control.target;

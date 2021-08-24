@@ -220,6 +220,11 @@ export class PositionComponent extends AbstractTweenComponent implements OnInit 
 								}
 								object3d.up.copy(position);
 								break;
+							case 'target' :
+								if (ThreeUtil.isNotNull(object3d['target'])) {
+									const target : THREE.Object3D = object3d['target'];
+									target.position.copy(position);
+								}
 							case 'lookat':
 								object3d.lookAt(position);
 								break;

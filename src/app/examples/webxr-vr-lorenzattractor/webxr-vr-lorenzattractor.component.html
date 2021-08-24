@@ -1,68 +1,33 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> 
-  - need ar/vr device to test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> media and projection layers<br />
+	(Oculus Browser 16.1+) - need ar/vr device to test
 </div>
-<ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
->
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+<ngx3js-renderer [controlType]="'vr'" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+	<ngx3js-lookat [x]="0" [y]="1.6" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
+		<ngx3js-position [x]="0" [y]="1.6" [z]="3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x444444'">
+		<ngx3js-light [type]="'HemisphereLight'" [skyColor]="'0x808080'" [groundColor]="'0x606060'"></ngx3js-light>
+		<ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="1" [castShadow]="true" [shadowCameraTop]="2" [shadowCameraBottom]="-2" [shadowCameraLeft]="-2" [shadowCameraRight]="2" [shadowMapSize]="4096">
+			<ngx3js-position [x]="0" [y]="6" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'line'">
+			<ngx3js-scale [x]="1" [y]="1" [z]="5"></ngx3js-scale>
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[points]="[
+					{ x: 0, y: 0, z: 0 },
+					{ x: 0, y: 0, z: -1 }
+				]"
+			></ngx3js-geometry>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry [type]="'PlaneGeometry'" [width]="4" [height]="4"></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshStandardMaterial'" [color]="'0x222222'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

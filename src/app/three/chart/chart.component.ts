@@ -690,13 +690,36 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 	}
 
 	public test() {
-		const item: CHARTJS.ChartItem = "";
+		const item: CHARTJS.ChartItem = document.createElement('canvas');
+		item.width = 500;
+		item.height = 500;
+		item.style.position = 'absolute';
+		item.style.left = '0';
+		item.style.top = '0';
+		item.style.zIndex = '1000';
+		CHARTJS.registry.addControllers(CHARTJS.BarController);
+		CHARTJS.registry.addElements(CHARTJS.BarElement);
+		CHARTJS.registry.addScales(CHARTJS.CategoryScale, CHARTJS.LinearScale);
+		
+		document.body.appendChild(item);
 		const config: CHARTJS.ChartConfiguration = { 
 			type : 'bar', 
 			data : { 
-				datasets : []
+				datasets : [
+					{
+						type: 'bar',
+						label: 'My First Dataset',
+						data: [65, 59, 80, 81, 56, 55, 40],
+						backgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.9)', 'rgba(255, 205, 86, 0.9)', 'rgba(75, 192, 192, 0.9)', 'rgba(54, 162, 235, 0.9)', 'rgba(153, 102, 255, 0.9)', 'rgba(201, 203, 207, 0.9)'],
+						borderColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)'],
+						hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 205, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)', 'rgba(201, 203, 207, 1)'],
+						hoverBorderColor: ['rgb(255, 0, 0)', 'rgb(255, 255, 64)', 'rgb(255, 255, 86)', 'rgb(75, 192, 192)', 'rgb(54, 255, 235)', 'rgb(153, 102, 255)', 'rgb(201, 255, 207)'],
+						borderWidth: 1,
+					}
+				]
 			}
 		};
-		new CHARTJS.Chart(item,config);
+		const chart = new CHARTJS.Chart(item,config);
+		console.log(chart);
 	}
 }
