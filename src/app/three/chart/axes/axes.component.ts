@@ -204,7 +204,7 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 			const width = ThreeUtil.getTypeSafe(this.width, 1);
 			const height = ThreeUtil.getTypeSafe(this.height, 1);
 			const depth = ThreeUtil.getTypeSafe(this.depth, 1);
-			const radiusSegments = ThreeUtil.getTypeSafe(this.radiusSegments, 5);
+			const radiusSegments = ThreeUtil.getTypeSafe(this.radiusSegments, 32);
 			const radius = ThreeUtil.getTypeSafe(this.radius, Math.min(width, height) / 2);
 			const borderIndex: number[] = [];
 			switch (this.type.toLowerCase()) {
@@ -305,7 +305,19 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 				let gridLine: Float32Array = null;
 				switch (this.type.toLowerCase()) {
 					case 'radar':
-						gridLine = this.getGridLine(0, height / 2, (depth / 2) * 0.99, 0, -height / 2, (depth / 2) * 0.99, 'x', width, xGridSteps);
+						gridLine = new Float32Array(xGridSteps.length * 6);
+						const radarZ = - depth / 2 * 0.99;
+						xGridSteps.forEach((grid, i) => {
+							const idx = i * 6;
+							const x = Math.sin(Math.PI * 2 * grid) * radius;
+							const y = Math.cos(Math.PI * 2 * grid) * radius;
+							gridLine[idx + 0] = x;
+							gridLine[idx + 1] = y;
+							gridLine[idx + 2] = radarZ;
+							gridLine[idx + 3] = 0;
+							gridLine[idx + 4] = 0;
+							gridLine[idx + 5] = radarZ;
+						});
 						break;
 					case 'front':
 						gridLine = this.getGridLine(0, height / 2, (depth / 2) * 0.99, 0, -height / 2, (depth / 2) * 0.99, 'x', width, xGridSteps);
@@ -339,14 +351,28 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 				const yGridStep = ThreeUtil.getTypeSafe(this.yGridStep, 5);
 				const yGridSteps = Array.isArray(yGridStep) ? yGridStep : this.getGridStep(yGridStep, this.type);
 				this._geometryGridY = new THREE.BufferGeometry();
-				this._materialGridY = new THREE.LineBasicMaterial({
+				this._materialGridY = new THREE.LineDashedMaterial({
 					color: ThreeUtil.getColorSafe(this.yGridColor, this.gridColor, 0x00ff00),
-					linewidth: 1,
+					linewidth: 3,
+					dashSize : 3,
+					gapSize : 1,
+					scale : 1
 				});
 				let gridLine: Float32Array = null;
 				switch (this.type.toLowerCase()) {
 					case 'radar':
-						gridLine = this.getGridLine(0, height / 2, (depth / 2) * 0.99, 0, -height / 2, (depth / 2) * 0.99, 'x', width, yGridSteps);
+						const radarSize = attributeBorder.length;
+						const radarZ = - depth / 2 * 0.99;
+						gridLine = new Float32Array(radarSize * yGridSteps.length);
+						yGridSteps.forEach((grid, i) => {
+							const step = i * radarSize;
+							for(let l = 0 ; l < attributeBorder.length ; l += 3) {
+								const idx = step + l;
+								gridLine[idx + 0 ] = attributeBorder[l + 0] * grid;
+								gridLine[idx + 1 ] = attributeBorder[l + 1] * grid;
+								gridLine[idx + 2 ] = radarZ;
+							}
+						});
 						break;
 					case 'front':
 						gridLine = this.getGridLine(width / 2, 0, (depth / 2) * 0.99, -width / 2, 0, (depth / 2) * 0.99, 'y', height, yGridSteps);
