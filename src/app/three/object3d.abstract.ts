@@ -987,7 +987,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	 * Sets object3d
 	 * @param object3d
 	 */
-	public setObject3d(object3d: THREE.Object3D) {
+	protected setObject3d(object3d: THREE.Object3D) {
 		if (ThreeUtil.isNotNull(object3d) && this.object3d !== object3d) {
 			if (this.object3d !== null && this.object3d.parent !== null) {
 				this.object3d.parent.remove(this.object3d);

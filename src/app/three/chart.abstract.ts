@@ -4,7 +4,7 @@ import { AbstractObject3dComponent } from './object3d.abstract';
 
 
 /**
- * AbstractObject3dComponent
+ * AbstractChartComponent
  */
 @Component({
 	template: '',
@@ -14,26 +14,6 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	 * Object3 d attr of abstract object3d component
 	 */
 	protected CHART_ATTR: string[] = [
-		'name',
-		'position',
-		'onbeforerender',
-		'rotation',
-		'scale',
-		'layers',
-		'visible',
-		'castshadow',
-		'receiveshadow',
-		'frustumculled',
-		'renderorder',
-		'customdepthmaterial',
-		'customdistancematerial',
-		'material',
-		'helper',
-		'lodistance',
-		'helper',
-		'mixer',
-		'animationgroup',
-		'prefab',
 	];
 
 	/**
@@ -91,24 +71,65 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	}
 
 	/**
+	 * Sets parent
+	 * @param parent
+	 * @returns true if parent
+	 */
+	public setParent(parent: THREE.Object3D): boolean {
+		if (super.setParent(parent)) {
+			this.getChart();
+			return true;
+		}
+		return false;
+	}
+
+	protected chart : THREE.Object3D = null;
+
+	protected setObject3d(object : THREE.Object3D) {
+		this.setChart(object);
+	}
+
+	protected setChart(object : THREE.Object3D) {
+		this.chart = object;
+		super.setObject3d(object);
+	}
+
+	/**
+	 * Gets object3d
+	 * @template T
+	 * @returns object3d
+	 */
+	public getObject3d<T extends THREE.Object3D>(): T {
+		return this.getChart();
+	}
+
+	/**
+	 * Gets Chart
+	 * @template T
+	 * @returns object3d
+	 */
+	public getChart<T extends THREE.Object3D>(): T {
+		return this.chart as T;
+	}
+
+	/**
 	 * Applys changes3d
 	 * @param changes
 	 * @returns
 	 */
 	protected applyChanges3d(changes: string[]) {
-		if (this.object3d !== null) {
+		if (this.chart !== null) {
 			if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, ['init'])) {
-				changes = ThreeUtil.pushUniq(changes, [
-				]);
+				changes = ThreeUtil.pushUniq(changes, []);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 				}
 			});
-			super.applyChanges(changes);
+			super.applyChanges3d(changes);
 		}
 	}
 

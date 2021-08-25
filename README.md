@@ -170,6 +170,20 @@ ng g directive three/drawing-canvas
 ng g c three/viewer
 ng g c three/size
 
+// ng g c three/chart/bar
+// ng g c three/chart/line
+// ng g c three/chart/scatter
+// ng g c three/chart/bubble
+// ng g c three/chart/pie
+// ng g c three/chart/doughnut
+// ng g c three/chart/polarArea
+// ng g c three/chart/radar
+
+// ng g c three/chart/axes
+// ng g c three/chart/legend
+// ng g c three/chart/title
+
+
 ng g c examples/webgl-portal
 ng g c examples/webxr-ar-lighting
 ng g c examples/webxr_vr_handinput_pointerclick

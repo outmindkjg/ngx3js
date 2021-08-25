@@ -63,7 +63,7 @@ export interface ChartData {
 @Component({
 	selector: 'ngx3js-chart',
 	templateUrl: './chart.component.html',
-	styleUrls: ['./chart.component.scss'],
+	styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent extends BaseComponent<any> implements OnChanges {
 	/**
@@ -228,7 +228,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 			for (let i = 0; i < idxLen; i++) {
 				colorList.push({
 					color: this.COLORS[i % this.COLORS.length],
-					opacity: 1,
+					opacity: 1
 				});
 			}
 		}
@@ -346,8 +346,8 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 								backgroundColor: colorInfo,
 								borderColor: borderColor[idx],
 								hoverBackgroundColor: hoverBackgroundColor[idx],
-								hoverBorderColor: hoverBorderColor[idx],
-							});
+								hoverBorderColor: hoverBorderColor[idx]
+							})
 						});
 						data.data.forEach((value, idx) => {
 							const x = barChartXMax - idx;
@@ -382,8 +382,8 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 								borderColor: borderColor[idx],
 								hoverBackgroundColor: hoverBackgroundColor[idx],
 								hoverBorderColor: hoverBorderColor[idx],
-							});
-						});
+		});
+});
 						const lineCurvePath = [];
 
 						data.data.forEach((value, idx) => {
@@ -401,14 +401,14 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 								color: colorInfo.backgroundColor,
 								borderWidth: borderWidth / 300,
 								borderColor: colorInfo.borderColor,
-							});
-						});
+});
+});
 						this.lineCurvePath.push(lineCurvePath);
 						lineChartCurrIdx++;
 					}
 					break;
 			}
-		});
+});
 		this.axisX = { x: 0, y: -this.height / 2, z: 0 };
 		this.axisY = { x: this.width / 2, y: 0, z: 0 };
 		this.axisZ = { x: 0, y: 0, z: this.depth / 2 };
@@ -426,7 +426,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 			this.yLabel.push({
 				position: { x: this.width / 2, y: position.y, z: 0 },
 				text: i.toFixed(2),
-			});
+});
 		}
 		this.xLabel = [];
 		this.data.labels.forEach((label, idx) => {
@@ -434,8 +434,8 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 			this.xLabel.push({
 				position: { x: position.x - this.axisX.x, y: position.y - this.axisX.y, z: position.z  - this.axisX.z},
 				text: label,
-			});
-		});
+});
+});
 		this.elapsedTime = 0;
 	}
 
@@ -447,7 +447,7 @@ export class ChartComponent extends BaseComponent<any> implements OnChanges {
 	 */
 	private getTooltipText(label: string, value: any): string {
 		if (typeof value === 'number') {
-			return '<span>' + label + '</span> : ' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			return '<span>' + label + '</span> : ' + value.toFixed(2).replace(/\B(?=(\d{3,})+(?!\d))/g, ',');
 		} else {
 			return '<span>' + label + '</span> : ' + value;
 		}
