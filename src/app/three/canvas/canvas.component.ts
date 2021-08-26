@@ -1,7 +1,7 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { BackgroundComponent } from '../background/background.component';
-import { ControllerComponent } from '../controller/controller.component';
+import { AbstractControllerComponent } from '../controller.component.abstract';
 import { HtmlComponent } from '../html/html.component';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TransformComponent } from '../transform/transform.component';
@@ -43,9 +43,9 @@ export class CanvasComponent extends AbstractSubscribeComponent implements OnIni
   @ContentChildren(BackgroundComponent) private backgroundList: QueryList<BackgroundComponent>;
 
   /**
-   * The controller list of ControllerComponent
+   * The controller list of AbstractControllerComponent
    */
-  @ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+  @ContentChildren(AbstractControllerComponent, { descendants: true }) private controllerList: QueryList<AbstractControllerComponent>;
 
   /**
    * Collection  of canvas component

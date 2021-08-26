@@ -3,11 +3,11 @@ import * as THREE from 'three';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { AnimationGroupComponent } from './animation-group/animation-group.component';
-import { ControllerComponent } from './controller/controller.component';
+import { AbstractControllerComponent } from './controller.component.abstract';
 import { AbstractGeometryComponent } from './geometry.abstract';
 import { TagAttributes, ThreeUtil } from './interface';
 import { LookatComponent } from './lookat/lookat.component';
-import { AbstractMaterialComponent, MeshMaterialRaw } from './material.abstract';
+import { AbstractMaterialComponent } from './material.abstract';
 import { MixerComponent } from './mixer/mixer.component';
 import { PositionComponent } from './position/position.component';
 import { RigidbodyComponent } from './rigidbody/rigidbody.component';
@@ -69,7 +69,7 @@ export interface Object3dOptions {
 	/**
 	 *
 	 */
-	controller?: ControllerComponent;
+	controller?: AbstractControllerComponent;
 
 	/**
 	 * A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
@@ -176,7 +176,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	/**
 	 *
 	 */
-	@Input() private controller: ControllerComponent = null;
+	@Input() private controller: AbstractControllerComponent = null;
 
 	/**
 	 *
@@ -267,7 +267,7 @@ export abstract class AbstractObject3dComponent extends AbstractTweenComponent i
 	/**
 	 * Content children of abstract object3d component
 	 */
-	@ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
+	@ContentChildren(AbstractControllerComponent, { descendants: false }) protected controllerList: QueryList<AbstractControllerComponent>;
 
 	/**
 	 * Content children of abstract object3d component

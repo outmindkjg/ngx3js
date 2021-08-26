@@ -10,7 +10,7 @@ import { SvgComponent } from '../svg/svg.component';
 import { AbstractTextureComponent } from '../texture.abstract';
 import { AudioComponent } from './../audio/audio.component';
 import { CameraComponent } from './../camera/camera.component';
-import { ControllerComponent } from './../controller/controller.component';
+import { AbstractControllerComponent } from './../controller.component.abstract';
 import { HelperComponent } from './../helper/helper.component';
 import { LightComponent } from './../light/light.component';
 import { ListenerComponent } from './../listener/listener.component';
@@ -98,7 +98,7 @@ export class SharedComponent extends AbstractSubscribeComponent implements OnIni
   /**
    * Content children of shared component
    */
-  @ContentChildren(ControllerComponent, { descendants: false }) public controllerList: QueryList<ControllerComponent>;
+  @ContentChildren(AbstractControllerComponent, { descendants: false }) public controllerList: QueryList<AbstractControllerComponent>;
 
   /**
    * Content children of shared component

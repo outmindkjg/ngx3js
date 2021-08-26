@@ -62,6 +62,7 @@ import { ChartAxesComponent } from './chart/axes/axes.component';
 import { ChartLegendComponent } from './chart/legend/legend.component';
 import { ChartTitleComponent } from './chart/title/title.component';
 import { ChartPolarAreaComponent } from './chart/polar-area/polar-area.component';
+import { ChartControllerComponent } from './chart/controller/controller.component';
 
 const COMMON_PIPES = [];
 const COMMON_DIRECTIVES = [DrawingCanvasDirective];
@@ -125,7 +126,8 @@ const MODULE_COMPONENTS = [
   ChartAxesComponent, 
   ChartLegendComponent, 
   ChartTitleComponent, 
-  ChartPolarAreaComponent  
+  ChartPolarAreaComponent,
+  ChartControllerComponent
 ];
 
 /**

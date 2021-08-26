@@ -1,7 +1,13 @@
-import { AfterContentInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ThreeUtil } from './interface';
+import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { RendererTimer, ThreeColor, ThreeUtil } from './interface';
 import { AbstractObject3dComponent } from './object3d.abstract';
+import * as THREE from 'three';
 
+export interface AttributeUpdateInfo { 
+	index : number, 
+	from : number, 
+	to : number
+}
 
 /**
  * AbstractChartComponent
@@ -10,6 +16,79 @@ import { AbstractObject3dComponent } from './object3d.abstract';
 	template: '',
 })
 export abstract class AbstractChartComponent extends AbstractObject3dComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+
+	/**
+	 * Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
+	 */
+	@Input() protected width: number = null;
+
+	/**
+	 * Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
+	 */
+	@Input() protected height: number = null;
+
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	@Input() protected depth: number = null;
+
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	@Input() protected depthIdx: number = 0;
+
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	@Input() protected depthLength: number = 1;
+
+	@Input() protected backgroundColor: ThreeColor = null;
+	
+	@Input() protected opacity: number = null;
+
+	@Input() protected borderColor: ThreeColor = null;
+
+	@Input() protected borderDash: number[] = null;
+
+	@Input() protected borderWidth: number = null;
+
+	@Input() protected fill: boolean = null;
+
+	@Input() protected hoverBackgroundColor: ThreeColor = null;
+	
+	@Input() protected hoverOpacity: number = null;
+
+	@Input() protected hoverBorderColor: ThreeColor = null;
+
+	@Input() protected hoverBorderWidth: number = null;
+
+	@Input() protected label: string = null;
+
+	@Input() protected showLine: boolean = null;
+
+	@Input() protected pointBackgroundColor: ThreeColor = null;
+	
+	@Input() protected pointOpacity: number = null;
+
+	@Input() protected pointBorderColor: ThreeColor = null;
+
+	@Input() protected pointBorderWidth: number = null;
+
+	@Input() protected pointHoverBackgroundColor: ThreeColor = null;
+	
+	@Input() protected pointHoverBorderColor: ThreeColor = null;
+
+	@Input() protected pointHoverBorderWidth: number = null;
+
+	@Input() protected pointHoverRadius: number = null;
+
+	@Input() protected pointStyle: string = 'circle';
+
+	@Input() protected pointRadius: number = null;
+
+	@Input() protected pointRotation: number = null;
+
+
 	/**
 	 * Object3 d attr of abstract object3d component
 	 */
@@ -68,6 +147,35 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	 */
 	ngAfterContentInit(): void {
 		super.ngAfterContentInit();
+	}
+
+	/**
+	 * Gets side
+	 *
+	 * Notice - case insensitive.
+	 *
+	 * @see THREE.Side
+	 * @see THREE.FrontSide - FrontSide , Front
+	 * @see THREE.BackSide - BackSide , Back
+	 * @see THREE.DoubleSide - DoubleSide , Double
+	 *
+	 * @param [def]
+	 * @returns side
+	 */
+	protected getSide(value : string, def?: string): THREE.Side {
+		const side = ThreeUtil.getTypeSafe(value, def);
+		switch (side.toLowerCase()) {
+			case 'backside':
+			case 'back':
+				return THREE.BackSide;
+			case 'doubleside':
+			case 'double':
+				return THREE.DoubleSide;
+			case 'frontside':
+			case 'front':
+			default:
+				return THREE.FrontSide;
+		}
 	}
 
 	/**
@@ -133,4 +241,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		}
 	}
 
+	public update(rendererTimer: RendererTimer, elapsedTime : number, delta : number) {
+
+	}
 }

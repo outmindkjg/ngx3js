@@ -11,15 +11,12 @@ import { AbstractObject3dComponent } from '../../object3d.abstract';
 	providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => ChartTitleComponent) }],
 })
 export class ChartTitleComponent extends AbstractChartComponent implements OnInit {
+
 	@Input() private type: string = '';
 	@Input() private message: string = null;
-	@Input() private width: number = null;
-	@Input() private height: number = null;
 	@Input() private color: ThreeColor = null;
-	@Input() private backgroundColor: ThreeColor = null;
 	@Input() private align: string = null;
 	@Input() private fontFamily: string = null;
-	@Input() private opacity: number = null;
 
 	constructor() {
 		super();

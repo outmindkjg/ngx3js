@@ -1,8 +1,8 @@
 import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
-import { AbstractChartComponent } from '../../chart.abstract';
-import { AbstractObject3dComponent } from '../../object3d.abstract';
 import * as THREE from 'three';
+import { AbstractChartComponent } from '../../chart.abstract';
 import { ThreeColor, ThreeUtil } from '../../interface';
+import { AbstractObject3dComponent } from '../../object3d.abstract';
 
 @Component({
 	selector: 'ngx3js-chart-axes',
@@ -13,18 +13,6 @@ import { ThreeColor, ThreeUtil } from '../../interface';
 export class ChartAxesComponent extends AbstractChartComponent implements OnInit {
 	@Input() private type: string = '';
 	/**
-	 * Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
-	 */
-	@Input() private width: number = null;
-	/**
-	 * Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
-	 */
-	@Input() private height: number = null;
-	/**
-	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
-	 */
-	@Input() private depth: number = null;
-	/**
 	 * Radius of the circle/cone/dodecahedron/sphere..., default = 1.
 	 */
 	@Input() private radius: number = null;
@@ -34,14 +22,11 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 	 */
 	@Input() private radiusSegments: number = null;
 
-	@Input() private borderColor: ThreeColor = null;
-	@Input() private backgroundColor: ThreeColor = null;
 	@Input() private gridColor: ThreeColor = null;
 	@Input() private xGridColor: ThreeColor = null;
 	@Input() private yGridColor: ThreeColor = null;
 	@Input() private xGridStep: number[] | number = null;
 	@Input() private yGridStep: number[] | number = null;
-	@Input() private opacity: number = null;
 
 	/**
 	 * Defines which side of faces will be rendered - front, back or both.
@@ -124,34 +109,6 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 	private _geometryGridY: THREE.BufferGeometry = null;
 
 	/**
-	 * Gets side
-	 *
-	 * Notice - case insensitive.
-	 *
-	 * @see THREE.Side
-	 * @see THREE.FrontSide - FrontSide , Front
-	 * @see THREE.BackSide - BackSide , Back
-	 * @see THREE.DoubleSide - DoubleSide , Double
-	 *
-	 * @param [def]
-	 * @returns side
-	 */
-	protected getSide(def?: string): THREE.Side {
-		const side = ThreeUtil.getTypeSafe(this.side, def, '');
-		switch (side.toLowerCase()) {
-			case 'backside':
-			case 'back':
-				return THREE.BackSide;
-			case 'doubleside':
-			case 'double':
-				return THREE.DoubleSide;
-			case 'frontside':
-			case 'front':
-			default:
-				return THREE.FrontSide;
-		}
-	}
-	/**
 	 * Applys changes3d
 	 * @param changes
 	 * @returns
@@ -161,12 +118,12 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 			if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
 				this.getTitle();
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['opacity', 'align'], this.CHART_ATTR)) {
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['opacity'], this.CHART_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, ['init'])) {
-				changes = ThreeUtil.pushUniq(changes, ['opacity', 'align']);
+				changes = ThreeUtil.pushUniq(changes, ['opacity']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
@@ -174,8 +131,6 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 						if (ThreeUtil.isNotNull(this.opacity)) {
 							this._materialWall.opacity = ThreeUtil.getTypeSafe(this.opacity, 1);
 						}
-						break;
-					case 'align':
 						break;
 				}
 			});
@@ -256,9 +211,9 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 					break;
 			}
 			this._materialWall = new THREE.MeshPhongMaterial({
-				color: ThreeUtil.getColorSafe(this.backgroundColor, 0xff0000),
+				color: ThreeUtil.getColorSafe(this.backgroundColor, 0xd0d0d0),
 				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
-				side: this.getSide('front'),
+				side: this.getSide(this.side,'front'),
 				transparent: true,
 			});
 			const wallMesh = new THREE.Mesh(this._geometryWall, this._materialWall);
@@ -287,7 +242,7 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 			}
 			this._geometryWallBorder.setAttribute('position', new THREE.BufferAttribute(attributeBorder, 3));
 			this._materialWallBorder = new THREE.LineBasicMaterial({
-				color: ThreeUtil.getColorSafe(this.borderColor, 0xffff00),
+				color: ThreeUtil.getColorSafe(this.borderColor, 0x909090),
 				linewidth: 1,
 				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
 			});
@@ -298,10 +253,6 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 				const xGridStep = ThreeUtil.getTypeSafe(this.xGridStep, 5);
 				const xGridSteps = Array.isArray(xGridStep) ? xGridStep : this.getGridStep(xGridStep, this.type);
 				this._geometryGridX = new THREE.BufferGeometry();
-				this._materialGridX = new THREE.LineBasicMaterial({
-					color: ThreeUtil.getColorSafe(this.xGridColor, this.gridColor, 0x00ff00),
-					linewidth: 1,
-				});
 				let gridLine: Float32Array = null;
 				switch (this.type.toLowerCase()) {
 					case 'radar':
@@ -343,6 +294,10 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 						break;
 				}
 				this._geometryGridX.setAttribute('position', new THREE.BufferAttribute(gridLine, 3));
+				this._materialGridX = new THREE.LineBasicMaterial({
+					color: ThreeUtil.getColorSafe(this.xGridColor, this.gridColor, 0xf0f0f0),
+					linewidth: 1,
+				});
 				const gridXMesh = new THREE.LineSegments(this._geometryGridX, this._materialGridX);
 				gridXMesh.name = 'gridx';
 				this._axes.add(gridXMesh);
@@ -351,13 +306,6 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 				const yGridStep = ThreeUtil.getTypeSafe(this.yGridStep, 5);
 				const yGridSteps = Array.isArray(yGridStep) ? yGridStep : this.getGridStep(yGridStep, this.type);
 				this._geometryGridY = new THREE.BufferGeometry();
-				this._materialGridY = new THREE.LineDashedMaterial({
-					color: ThreeUtil.getColorSafe(this.yGridColor, this.gridColor, 0x00ff00),
-					linewidth: 3,
-					dashSize : 3,
-					gapSize : 1,
-					scale : 1
-				});
 				let gridLine: Float32Array = null;
 				switch (this.type.toLowerCase()) {
 					case 'radar':
@@ -404,6 +352,10 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 						break;
 				}
 				this._geometryGridY.setAttribute('position', new THREE.BufferAttribute(gridLine, 3));
+				this._materialGridY = new THREE.LineDashedMaterial({
+					color: ThreeUtil.getColorSafe(this.yGridColor, this.gridColor, 0xf0f0f0),
+					linewidth: 1,
+				});
 				const gridYMesh = new THREE.LineSegments(this._geometryGridY, this._materialGridY);
 				gridYMesh.name = 'gridy';
 				this._axes.add(gridYMesh);

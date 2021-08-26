@@ -8,7 +8,7 @@ import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ComposerComponent } from '../composer/composer.component';
 import { ControlComponent, ControlOptions } from '../control/control.component';
-import { ControllerComponent } from '../controller/controller.component';
+import { AbstractControllerComponent } from '../controller.component.abstract';
 import { GuiControlParam, RendererEvent, RendererInfo, RendererTimer, ThreeClock, ThreeGui, ThreeStats, ThreeUtil } from '../interface';
 import { PlaneComponent } from '../plane/plane.component';
 import { SharedComponent } from '../shared/shared.component';
@@ -353,7 +353,7 @@ export class RendererComponent extends AbstractSubscribeComponent implements OnI
 	/**
 	 * Content children of renderer component
 	 */
-	@ContentChildren(ControllerComponent, { descendants: true }) private controllerList: QueryList<ControllerComponent>;
+	@ContentChildren(AbstractControllerComponent, { descendants: true }) private controllerList: QueryList<AbstractControllerComponent>;
 
 	/**
 	 * Content children of renderer component

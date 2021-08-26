@@ -178,6 +178,7 @@ ng g c three/size
 // ng g c three/chart/doughnut
 // ng g c three/chart/polarArea
 // ng g c three/chart/radar
+// ng g c three/chart/controller
 
 // ng g c three/chart/axes
 // ng g c three/chart/legend

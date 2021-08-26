@@ -5,7 +5,7 @@ import { HtmlComponent } from '../html/html.component';
 import { CssStyle, ThreeUtil } from '../interface';
 import { AbstractSubscribeComponent } from '../subscribe.abstract';
 import { TransformComponent } from '../transform/transform.component';
-// import { ControllerComponent } from '../controller/controller.component';
+// import { AbstractControllerComponent } from '../controller/controller.component';
 
 /**
  * Html collection
@@ -171,7 +171,7 @@ export class VisualComponent extends AbstractSubscribeComponent implements OnIni
   /**
    * Content children of visual component
    */
-  // @ContentChildren(ControllerComponent, { descendants: false }) private controllerList: QueryList<ControllerComponent>;
+  // @ContentChildren(AbstractControllerComponent, { descendants: false }) private controllerList: QueryList<AbstractControllerComponent>;
 
   /**
    * Collection  of visual component

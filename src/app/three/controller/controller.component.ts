@@ -1,11 +1,8 @@
-import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
+import { Component, ContentChildren, forwardRef, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { CameraComponent } from '../camera/camera.component';
-import { CanvasComponent } from '../canvas/canvas.component';
 import { AbstractThreeController, AutoUniformsController } from '../controller.abstract';
-import { RendererEvent, RendererTimer, ThreeColor, ThreeUtil } from '../interface';
-import { SceneComponent } from '../scene/scene.component';
-import { AbstractSubscribeComponent } from '../subscribe.abstract';
+import { AbstractControllerComponent } from '../controller.component.abstract';
+import { RendererTimer, ThreeColor, ThreeUtil } from '../interface';
 import { HtmlCollection } from '../visual/visual.component';
 import { ControllerItemComponent, ControlObjectItem } from './controller-item/controller-item.component';
 
@@ -16,8 +13,9 @@ import { ControllerItemComponent, ControlObjectItem } from './controller-item/co
   selector: 'ngx3js-controller',
   templateUrl: './controller.component.html',
   styleUrls: ['./controller.component.scss'],
+  providers: [{ provide: AbstractControllerComponent, useExisting: forwardRef(() => ControllerComponent) }],
 })
-export class ControllerComponent extends AbstractSubscribeComponent implements OnInit {
+export class ControllerComponent extends AbstractControllerComponent implements OnInit {
   /**
    * Input  of controller component
    *
@@ -334,16 +332,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
   private _controller: AbstractThreeController = null;
 
   /**
-   * Ref object3d of controller component
-   */
-  private refObject3d: THREE.Object3D = null;
-
-  /**
-   * Ref object2d of controller component
-   */
-  private refObject2d: HtmlCollection = null;
-
-  /**
    * Path guide of controller component
    */
   private pathGuide: THREE.Object3D = null;
@@ -419,138 +407,6 @@ export class ControllerComponent extends AbstractSubscribeComponent implements O
     attributes: null,
     morphAttributes: null,
   };
-
-  /**
-   * Sets object3d
-   * @param refObject3d
-   */
-  public setObject3d(refObject3d: THREE.Object3D) {
-    if (this.refObject3d !== refObject3d) {
-      this.refObject3d = refObject3d;
-      if (this.refObject3d !== null) {
-        this.unSubscribeRefer('position');
-        this.addChanges('position');
-        this.subscribeRefer(
-          'position',
-          ThreeUtil.getSubscribe(
-            this.refObject3d,
-            () => {
-              this.unSubscribeRefer('position');
-              this.addChanges('position');
-            },
-            'position'
-          )
-        );
-      }
-      if (this.checkController()) {
-        this.addChanges('object3d');
-      }
-    }
-  }
-
-  /**
-   * Sets object2d
-   * @param refObject2d
-   */
-  public setObject2d(refObject2d: HtmlCollection) {
-    if (this.refObject2d !== refObject2d) {
-      this.refObject2d = refObject2d;
-      if (this.checkController()) {
-        this.addChanges('object2d');
-      }
-    }
-  }
-
-  /**
-   * Renderer  of controller component
-   */
-  private _renderer: THREE.Renderer = null;
-
-  /**
-   * Scenes  of controller component
-   */
-  private _scenes: QueryList<SceneComponent> = null;
-
-  /**
-   * Cameras  of controller component
-   */
-  private _cameras: QueryList<CameraComponent> = null;
-
-  /**
-   * Canvas2ds  of controller component
-   */
-  private _canvas2ds: QueryList<CanvasComponent> = null;
-
-  /**
-   * Scene  of controller component
-   */
-  private _scene: THREE.Scene = null;
-
-  /**
-   * Canvas  of controller component
-   */
-  private _canvas: HtmlCollection = null;
-
-  /**
-   * Event  of controller component
-   */
-  private _event: RendererEvent = null;
-
-  /**
-   * Sets renderer
-   * @param renderer
-   * @param scenes
-   * @param cameras
-   * @param canvas2ds
-   */
-  public setRenderer(renderer: THREE.Renderer, scenes: QueryList<SceneComponent>, cameras: QueryList<CameraComponent>, canvas2ds: QueryList<CanvasComponent>) {
-    this._renderer = renderer;
-    this._event = ThreeUtil.getThreeComponent(renderer)?.events;
-    this._scenes = scenes;
-    this._cameras = cameras;
-    this._canvas2ds = canvas2ds;
-    if (this.checkController()) {
-      this.addChanges('render');
-    }
-  }
-
-  /**
-   * Sets scene
-   * @param scene
-   */
-  public setScene(scene: THREE.Scene) {
-    this._scene = scene;
-    if (this.checkController()) {
-      this.addChanges('scene');
-    }
-  }
-
-  /**
-   * Sets canvas
-   * @param canvas
-   */
-  public setCanvas(canvas: HtmlCollection) {
-    this._canvas = canvas;
-    if (this.checkController()) {
-      this.addChanges('canvas');
-    }
-  }
-
-  /**
-   * Checks controller
-   * @returns true if controller
-   */
-  private checkController(): boolean {
-    if (this.refObject3d !== null || this.refObject2d !== null) {
-      if (this._needUpdate) {
-        this.getController();
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return false;
-  }
 
   /**
    * Controller items of controller component

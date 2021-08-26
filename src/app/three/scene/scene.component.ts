@@ -1,6 +1,6 @@
 import { Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
-import { ControllerComponent } from '../controller/controller.component';
+import { AbstractControllerComponent } from '../controller.component.abstract';
 import { FogComponent } from '../fog/fog.component';
 import { ThreeColor, ThreeTexture, ThreeUtil } from '../interface';
 import { AbstractObject3dComponent } from '../object3d.abstract';
@@ -58,7 +58,7 @@ export class SceneComponent extends AbstractObject3dComponent implements OnInit 
 	/**
 	 * Content children of scene component
 	 */
-	@ContentChildren(ControllerComponent, { descendants: true }) private sceneControllerList: QueryList<ControllerComponent>;
+	@ContentChildren(AbstractControllerComponent, { descendants: true }) private sceneControllerList: QueryList<AbstractControllerComponent>;
 
 	/**
 	 * Content children of scene component
