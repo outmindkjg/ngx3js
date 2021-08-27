@@ -2,7 +2,7 @@ import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, Simpl
 import { RendererTimer, ThreeColor, ThreeUtil } from './interface';
 import { AbstractObject3dComponent } from './object3d.abstract';
 import * as THREE from 'three';
-import { Mesh } from 'three';
+import { Mesh, RingGeometry } from 'three';
 import { OutlineGeometry } from './geometry/geometry.outline';
 import { StarGeometry } from './geometry/geometry.star';
 
@@ -256,10 +256,13 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		let geometry: THREE.BufferGeometry = null;
 		switch (type.toLowerCase()) {
 			case 'plane':
-				geometry = new THREE.PlaneGeometry(width, height, depth, depth);
+				geometry = new THREE.PlaneGeometry(depth, depth, depth);
 				break;
 			case 'star':
 				geometry = new StarGeometry(depth, depth * 0.5, 5);
+				break;
+			case 'ring':
+				geometry = new RingGeometry(depth, depth * 0.5, 5, 1, 0);
 				break;
 			case 'sphere':
 				geometry = new THREE.SphereGeometry(depth, 10, 5);
@@ -267,6 +270,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 			case 'box':
 				geometry = new THREE.BoxGeometry(depth, depth, depth);
 				break;
+			case 'circle':
 			default:
 				geometry = new THREE.CircleGeometry(depth, width, 0, Math.PI * 1.3);
 				break;

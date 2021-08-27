@@ -38,6 +38,21 @@ export class OutlineGeometry extends THREE.WireframeGeometry {
 					vertices.push(attrPosition.getX(2), attrPosition.getY(2), attrPosition.getZ(2));
 				}
 				break;
+			case 'RingGeometry' :
+				for (let i = 4; i < attrPosition.count; i += 8) {
+					vertices.push(attrPosition.getX(i), attrPosition.getY(i), attrPosition.getZ(i));
+					vertices.push(attrPosition.getX(i + 1), attrPosition.getY(i + 1), attrPosition.getZ(i + 1));
+					vertices.push(attrPosition.getX(i + 2), attrPosition.getY(i + 2), attrPosition.getZ(i + 2));
+					vertices.push(attrPosition.getX(i + 3), attrPosition.getY(i + 3), attrPosition.getZ(i + 3));
+				}
+				if (parameters.thetaLength < Math.PI * 2) {
+					vertices.push(attrPosition.getX(0), attrPosition.getY(0), attrPosition.getZ(0));
+					vertices.push(attrPosition.getX(1), attrPosition.getY(1), attrPosition.getZ(1));
+					const endIdx = attrPosition.count - 2;
+					vertices.push(attrPosition.getX(endIdx), attrPosition.getY(endIdx), attrPosition.getZ(endIdx));
+					vertices.push(attrPosition.getX(endIdx + 1), attrPosition.getY(endIdx + 1), attrPosition.getZ(endIdx + 1));
+				}
+				break;
 			case 'BoxGeometry' :
 				{
 					const width_half = (parameters.width / 2) * scale;

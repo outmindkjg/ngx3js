@@ -12,9 +12,9 @@ export class NgxChartLineComponent extends BaseComponent<{
 
   constructor() {
     super({
-      pointStyle : 'box'
+      pointStyle : 'ring'
     },[
-      { name : 'pointStyle', type : 'select', select : ['circle', 'sphere', 'plane', 'box', 'star']}
+      { name : 'pointStyle', type : 'select', select : ['circle', 'sphere', 'plane', 'box', 'star', 'ring']}
     ]);
   }
 
