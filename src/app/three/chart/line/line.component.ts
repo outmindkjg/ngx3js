@@ -272,30 +272,44 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 				attribute : this._geometryBorder.getAttribute('position'),
 				values : lineUpdateAttributes
 			})
+			let pointer : THREE.Object3D = null;
+			let pointerInfo = null;
 			switch(this.pointStyle.toLowerCase()) {
+				case 'plane' :
+					pointerInfo = this.getMeshAndBorder(
+						this.pointStyle, 
+						0.06, 
+						0.06, 
+						10, 
+						this.pointBackgroundColor,
+						this.pointBorderColor
+					)
+					break;
 				case 'circle' :
 				default :
-					this._geometryPoint = new THREE.SphereGeometry(
-						ThreeUtil.getTypeSafe(this.pointRadius, 0.03)
-					);
-					this._geometryPointBorder = new THREE.WireframeGeometry(this._geometryPoint);
+					pointerInfo = this.getMeshAndBorder(
+						this.pointStyle, 
+						6, 
+						3, 
+						ThreeUtil.getTypeSafe(this.pointRadius, 0.03), 
+						this.pointBackgroundColor,
+						this.pointBorderColor
+					)
 					break;
 			}
+			pointer = pointerInfo.mesh;
+			this._geometryPoint = pointerInfo.geometry;
+			this._materialPoint = pointerInfo.material;
+			this._geometryPointBorder = pointerInfo.geometryBorder;
+			this._materialPointBorder = pointerInfo.materialBorder;
 			const updatePosition : {
 				object3d :THREE.Object3D,
 				value : AttributeUpdateInfo
 			}[] = [];
-			this._materialPoint = new THREE.MeshPhongMaterial({
-				color : ThreeUtil.getColorSafe(this.pointBackgroundColor, 0xff00ff)
-			})
-			this._materialPointBorder = new THREE.LineBasicMaterial({
-				color : ThreeUtil.getColorSafe(this.pointBorderColor, 0x000000)
-			})
-
 			upPoints.forEach((p,i) => {
 				const x = i * lineStepX + lineBaseX;
 				const position : THREE.Vector3 = new THREE.Vector3(x,middleY,baseZ);
-				const point = new THREE.Mesh(this._geometryPoint ,this._materialPoint);
+				const point = pointer.clone(true);
 				point.position.copy(position);
 				point.castShadow = true;
 				this._line.add(point);
@@ -307,22 +321,9 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 						to : p
 					}
 				})
-				const pointBorder = new THREE.LineSegments(this._geometryPointBorder ,this._materialPointBorder);
-				pointBorder.position.copy(position);
-				pointBorder.castShadow = true;
-				this._line.add(pointBorder);
-				updatePosition.push({
-					object3d : pointBorder,
-					value : {
-						index : 1,
-						from : middleY,
-						to : p
-					}
-				})
 			})
 			this.setChart(this._line);
 			this._updatePosition = updatePosition;
-
 			if (this.controllerList.length === 0) {
 				this.update(null, 1, 0.1);
 			}

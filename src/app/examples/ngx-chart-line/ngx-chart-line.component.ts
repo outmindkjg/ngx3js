@@ -6,10 +6,16 @@ import { BaseComponent } from '../../three';
   templateUrl: './ngx-chart-line.component.html',
   styleUrls: ['./ngx-chart-line.component.scss']
 })
-export class NgxChartLineComponent extends BaseComponent<{}> {
+export class NgxChartLineComponent extends BaseComponent<{
+  pointStyle : string
+}> {
 
   constructor() {
-    super({},[]);
+    super({
+      pointStyle : 'box'
+    },[
+      { name : 'pointStyle', type : 'select', select : ['circle', 'sphere', 'plane', 'box', 'star']}
+    ]);
   }
 
 }

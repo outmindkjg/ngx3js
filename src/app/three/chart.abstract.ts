@@ -2,11 +2,14 @@ import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, Simpl
 import { RendererTimer, ThreeColor, ThreeUtil } from './interface';
 import { AbstractObject3dComponent } from './object3d.abstract';
 import * as THREE from 'three';
+import { Mesh } from 'three';
+import { OutlineGeometry } from './geometry/geometry.outline';
+import { StarGeometry } from './geometry/geometry.star';
 
-export interface AttributeUpdateInfo { 
-	index : number, 
-	from : number, 
-	to : number
+export interface AttributeUpdateInfo {
+	index: number;
+	from: number;
+	to: number;
 }
 
 /**
@@ -16,7 +19,6 @@ export interface AttributeUpdateInfo {
 	template: '',
 })
 export abstract class AbstractChartComponent extends AbstractObject3dComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-
 	/**
 	 * Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
 	 */
@@ -43,7 +45,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	@Input() protected depthLength: number = 1;
 
 	@Input() protected backgroundColor: ThreeColor = null;
-	
+
 	@Input() protected opacity: number = null;
 
 	@Input() protected borderColor: ThreeColor = null;
@@ -55,7 +57,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	@Input() protected fill: boolean = null;
 
 	@Input() protected hoverBackgroundColor: ThreeColor = null;
-	
+
 	@Input() protected hoverOpacity: number = null;
 
 	@Input() protected hoverBorderColor: ThreeColor = null;
@@ -67,7 +69,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	@Input() protected showLine: boolean = null;
 
 	@Input() protected pointBackgroundColor: ThreeColor = null;
-	
+
 	@Input() protected pointOpacity: number = null;
 
 	@Input() protected pointBorderColor: ThreeColor = null;
@@ -75,7 +77,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	@Input() protected pointBorderWidth: number = null;
 
 	@Input() protected pointHoverBackgroundColor: ThreeColor = null;
-	
+
 	@Input() protected pointHoverBorderColor: ThreeColor = null;
 
 	@Input() protected pointHoverBorderWidth: number = null;
@@ -88,12 +90,10 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 
 	@Input() protected pointRotation: number = null;
 
-
 	/**
 	 * Object3 d attr of abstract object3d component
 	 */
-	protected CHART_ATTR: string[] = [
-	];
+	protected CHART_ATTR: string[] = [];
 
 	/**
 	 * Creates an instance of abstract object3d component.
@@ -135,7 +135,6 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	ngOnChanges(changes: SimpleChanges): void {
 		super.ngOnChanges(changes);
 		if (changes && this.object3d !== null) {
-			
 		}
 	}
 
@@ -162,7 +161,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	 * @param [def]
 	 * @returns side
 	 */
-	protected getSide(value : string, def?: string): THREE.Side {
+	protected getSide(value: string, def?: string): THREE.Side {
 		const side = ThreeUtil.getTypeSafe(value, def);
 		switch (side.toLowerCase()) {
 			case 'backside':
@@ -191,13 +190,13 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		return false;
 	}
 
-	protected chart : THREE.Object3D = null;
+	protected chart: THREE.Object3D = null;
 
-	protected setObject3d(object : THREE.Object3D) {
+	protected setObject3d(object: THREE.Object3D) {
 		this.setChart(object);
 	}
 
-	protected setChart(object : THREE.Object3D) {
+	protected setChart(object: THREE.Object3D) {
 		this.chart = object;
 		super.setObject3d(object);
 	}
@@ -241,7 +240,54 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		}
 	}
 
-	public update(rendererTimer: RendererTimer, elapsedTime : number, delta : number) {
-
+	protected getMeshAndBorder(
+		type: string,
+		width: number,
+		height: number,
+		depth: number,
+		backgroundColor: ThreeColor,
+		borderColor: ThreeColor
+	): { mesh: THREE.Mesh; geometry: THREE.BufferGeometry; material: THREE.Material; geometryBorder: THREE.BufferGeometry; materialBorder: THREE.LineDashedMaterial } {
+		const material = new THREE.MeshPhongMaterial({
+			color: ThreeUtil.getColorSafe(backgroundColor, 0xff0000),
+			opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
+			transparent: true,
+		});
+		let geometry: THREE.BufferGeometry = null;
+		switch (type.toLowerCase()) {
+			case 'plane':
+				geometry = new THREE.PlaneGeometry(width, height, depth, depth);
+				break;
+			case 'star':
+				geometry = new StarGeometry(depth, depth * 0.5, 5);
+				break;
+			case 'sphere':
+				geometry = new THREE.SphereGeometry(depth, 10, 5);
+				break;
+			case 'box':
+				geometry = new THREE.BoxGeometry(depth, depth, depth);
+				break;
+			default:
+				geometry = new THREE.CircleGeometry(depth, width, 0, Math.PI * 1.3);
+				break;
+		}
+		const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
+		mesh.castShadow = true;
+		const geometryBorder = new OutlineGeometry(geometry, 1.2);
+		const materialBorder = new THREE.LineDashedMaterial({
+			color: ThreeUtil.getColorSafe(borderColor, this.borderColor, 0x000000),
+			linewidth: 3,
+			linecap: 'round',
+			linejoin: 'round',
+			dashSize: 3,
+			gapSize: 1,
+			scale: 500,
+		});
+		let border: THREE.LineSegments = new THREE.LineSegments(geometryBorder, materialBorder);
+		border.computeLineDistances();
+		mesh.add(border);
+		return { mesh: mesh, geometry: geometry, material: material, geometryBorder: geometryBorder, materialBorder: materialBorder };
 	}
+
+	public update(rendererTimer: RendererTimer, elapsedTime: number, delta: number) {}
 }
