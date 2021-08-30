@@ -39,18 +39,42 @@ export class OutlineGeometry extends THREE.WireframeGeometry {
 				}
 				break;
 			case 'RingGeometry' :
-				for (let i = 4; i < attrPosition.count; i += 8) {
-					vertices.push(attrPosition.getX(i), attrPosition.getY(i), attrPosition.getZ(i));
-					vertices.push(attrPosition.getX(i + 1), attrPosition.getY(i + 1), attrPosition.getZ(i + 1));
-					vertices.push(attrPosition.getX(i + 2), attrPosition.getY(i + 2), attrPosition.getZ(i + 2));
-					vertices.push(attrPosition.getX(i + 3), attrPosition.getY(i + 3), attrPosition.getZ(i + 3));
-				}
-				if (parameters.thetaLength < Math.PI * 2) {
-					vertices.push(attrPosition.getX(0), attrPosition.getY(0), attrPosition.getZ(0));
-					vertices.push(attrPosition.getX(1), attrPosition.getY(1), attrPosition.getZ(1));
-					const endIdx = attrPosition.count - 2;
-					vertices.push(attrPosition.getX(endIdx), attrPosition.getY(endIdx), attrPosition.getZ(endIdx));
-					vertices.push(attrPosition.getX(endIdx + 1), attrPosition.getY(endIdx + 1), attrPosition.getZ(endIdx + 1));
+				{
+					let thetaSegments = parameters.thetaSegments;
+					thetaSegments = Math.max( 3, thetaSegments );
+					const outerRadius = parameters.outerRadius * scale;
+					const innerRadius = parameters.innerRadius * 1 / scale;
+					const thetaStart = parameters.thetaStart;
+					const thetaLength = parameters.thetaLength;
+					const vertex = new THREE.Vector3();
+					for ( let i = 0; i < thetaSegments; i ++ ) {
+						const segmentStart = thetaStart + i / thetaSegments * thetaLength;
+						vertex.x = outerRadius * Math.cos( segmentStart );
+						vertex.y = outerRadius * Math.sin( segmentStart );
+						vertices.push( vertex.x, vertex.y, vertex.z );
+						const segmentEnd = thetaStart + (i + 1) / thetaSegments * thetaLength;
+						vertex.x = outerRadius * Math.cos( segmentEnd );
+						vertex.y = outerRadius * Math.sin( segmentEnd );
+						vertices.push( vertex.x, vertex.y, vertex.z );
+					}
+					for ( let i = thetaSegments; i > 0; i -- ) {
+						const segmentStart = thetaStart + i / thetaSegments * thetaLength;
+						vertex.x = innerRadius * Math.cos( segmentStart );
+						vertex.y = innerRadius * Math.sin( segmentStart );
+						vertices.push( vertex.x, vertex.y, vertex.z );
+						const segmentEnd = thetaStart + (i - 1) / thetaSegments * thetaLength;
+						vertex.x = innerRadius * Math.cos( segmentEnd );
+						vertex.y = innerRadius * Math.sin( segmentEnd );
+						vertices.push( vertex.x, vertex.y, vertex.z );
+					}
+					if (parameters.thetaLength < Math.PI * 2) {
+						const idx1 = (thetaSegments * 2 - 1) * 3;
+						vertices.push( vertices[idx1 + 0], vertices[idx1+1], vertices[idx1+2] );
+						vertices.push( vertices[idx1 + 3], vertices[idx1+4], vertices[idx1+5] );
+						const idx2 = (thetaSegments * 4 - 1) * 3;
+						vertices.push( vertices[idx2 + 0], vertices[idx2+1], vertices[idx2+2] );
+						vertices.push( vertices[0], vertices[1], vertices[2] );
+					}
 				}
 				break;
 			case 'BoxGeometry' :

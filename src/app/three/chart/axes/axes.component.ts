@@ -118,18 +118,18 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 			if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
 				this.getTitle();
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['opacity'], this.CHART_ATTR)) {
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['options'], this.CHART_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, ['init'])) {
-				changes = ThreeUtil.pushUniq(changes, ['opacity']);
+				changes = ThreeUtil.pushUniq(changes, ['options']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
-					case 'opacity':
-						if (ThreeUtil.isNotNull(this.opacity)) {
-							this._materialWall.opacity = ThreeUtil.getTypeSafe(this.opacity, 1);
+					case 'options':
+						if (ThreeUtil.isNotNull(this.options)) {
+							this._materialWall.opacity = ThreeUtil.getTypeSafe(this.options.opacity, 1);
 						}
 						break;
 				}
@@ -210,9 +210,10 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 					this._geometryWall.translate(0, -height / 2, 0);
 					break;
 			}
+			const options = ThreeUtil.getTypeSafe(this.options, {});
 			this._materialWall = new THREE.MeshPhongMaterial({
-				color: ThreeUtil.getColorSafe(this.backgroundColor, 0xd0d0d0),
-				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
+				color: ThreeUtil.getColorSafe(options.backgroundColor, 0xd0d0d0),
+				opacity: ThreeUtil.getTypeSafe(options.opacity, 1),
 				side: this.getSide(this.side,'front'),
 				transparent: true,
 			});
@@ -242,9 +243,9 @@ export class ChartAxesComponent extends AbstractChartComponent implements OnInit
 			}
 			this._geometryWallBorder.setAttribute('position', new THREE.BufferAttribute(attributeBorder, 3));
 			this._materialWallBorder = new THREE.LineBasicMaterial({
-				color: ThreeUtil.getColorSafe(this.borderColor, 0x909090),
+				color: ThreeUtil.getColorSafe(options.borderColor, 0x909090),
 				linewidth: 1,
-				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
+				opacity: ThreeUtil.getTypeSafe(options.opacity, 1),
 			});
 			const borderMesh = new THREE.LineSegments(this._geometryWallBorder, this._materialWallBorder);
 			borderMesh.name = 'border';

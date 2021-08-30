@@ -12,6 +12,27 @@ export interface AttributeUpdateInfo {
 	to: number;
 }
 
+export interface ShapeInfo {
+	backgroundColor?: ThreeColor;
+	opacity?: number;
+	borderColor?: ThreeColor;
+	borderWidth?: number;
+	radius?: number;
+	hoverBackgroundColor?: ThreeColor;
+	hoverOpacity?: number;
+	hoverBorderColor?: ThreeColor;
+	hoverBorderWidth?: number;
+	hoverRadius?: number;
+}
+
+export interface ChartShape {
+	mesh: THREE.Mesh; 
+	geometry: THREE.BufferGeometry; 
+	material: THREE.Material; 
+	geometryBorder: THREE.BufferGeometry; 
+	materialBorder: THREE.LineDashedMaterial 
+}
+
 /**
  * AbstractChartComponent
  */
@@ -44,51 +65,13 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	 */
 	@Input() protected depthLength: number = 1;
 
-	@Input() protected backgroundColor: ThreeColor = null;
-
-	@Input() protected opacity: number = null;
-
-	@Input() protected borderColor: ThreeColor = null;
-
-	@Input() protected borderDash: number[] = null;
-
-	@Input() protected borderWidth: number = null;
-
-	@Input() protected fill: boolean = null;
-
-	@Input() protected hoverBackgroundColor: ThreeColor = null;
-
-	@Input() protected hoverOpacity: number = null;
-
-	@Input() protected hoverBorderColor: ThreeColor = null;
-
-	@Input() protected hoverBorderWidth: number = null;
+	@Input() protected options: ShapeInfo = null;
 
 	@Input() protected label: string = null;
 
-	@Input() protected showLine: boolean = null;
-
-	@Input() protected pointBackgroundColor: ThreeColor = null;
-
-	@Input() protected pointOpacity: number = null;
-
-	@Input() protected pointBorderColor: ThreeColor = null;
-
-	@Input() protected pointBorderWidth: number = null;
-
-	@Input() protected pointHoverBackgroundColor: ThreeColor = null;
-
-	@Input() protected pointHoverBorderColor: ThreeColor = null;
-
-	@Input() protected pointHoverBorderWidth: number = null;
-
-	@Input() protected pointHoverRadius: number = null;
-
 	@Input() protected pointStyle: string = 'circle';
 
-	@Input() protected pointRadius: number = null;
-
-	@Input() protected pointRotation: number = null;
+	@Input() protected pointOptions: ShapeInfo = null;
 
 	/**
 	 * Object3 d attr of abstract object3d component
@@ -239,47 +222,54 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 			super.applyChanges3d(changes);
 		}
 	}
+	protected getPointShape() : ChartShape {
+		return this.getMeshAndBorder(ThreeUtil.getTypeSafe(this.pointStyle, 'circle'), this.pointOptions);
+	}
 
 	protected getMeshAndBorder(
 		type: string,
-		width: number,
-		height: number,
-		depth: number,
-		backgroundColor: ThreeColor,
-		borderColor: ThreeColor
-	): { mesh: THREE.Mesh; geometry: THREE.BufferGeometry; material: THREE.Material; geometryBorder: THREE.BufferGeometry; materialBorder: THREE.LineDashedMaterial } {
-		const material = new THREE.MeshPhongMaterial({
-			color: ThreeUtil.getColorSafe(backgroundColor, 0xff0000),
-			opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
-			transparent: true,
-		});
+		options :ShapeInfo
+	): ChartShape {
+		if (ThreeUtil.isNull(options)) {
+			options = {}
+		}
+		if (ThreeUtil.isNull(options.radius)) {
+			options.radius = 0.06;
+		}
 		let geometry: THREE.BufferGeometry = null;
+		let side : string = 'front';
 		switch (type.toLowerCase()) {
 			case 'plane':
-				geometry = new THREE.PlaneGeometry(depth, depth, depth);
+				geometry = new THREE.PlaneGeometry(options.radius * 2, options.radius * 2);
 				break;
 			case 'star':
-				geometry = new StarGeometry(depth, depth * 0.5, 5);
+				geometry = new StarGeometry(options.radius * 0.5, options.radius, 5);
 				break;
 			case 'ring':
-				geometry = new RingGeometry(depth, depth * 0.5, 5, 1, 0);
+				geometry = new RingGeometry(options.radius * 0.5, options.radius);
 				break;
 			case 'sphere':
-				geometry = new THREE.SphereGeometry(depth, 10, 5);
+				geometry = new THREE.SphereGeometry(options.radius, 10, 5);
 				break;
 			case 'box':
-				geometry = new THREE.BoxGeometry(depth, depth, depth);
+				geometry = new THREE.BoxGeometry(options.radius * 2, options.radius * 2, options.radius * 2);
 				break;
 			case 'circle':
 			default:
-				geometry = new THREE.CircleGeometry(depth, width, 0, Math.PI * 1.3);
+				geometry = new THREE.CircleGeometry(options.radius , 32);
 				break;
 		}
+		const material = new THREE.MeshPhongMaterial({
+			color: ThreeUtil.getColorSafe(options.backgroundColor, 0xff0000),
+			opacity: ThreeUtil.getTypeSafe(options.opacity, 1),
+			side : this.getSide(side),
+			transparent: true,
+		});
 		const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
 		mesh.castShadow = true;
 		const geometryBorder = new OutlineGeometry(geometry, 1.2);
 		const materialBorder = new THREE.LineDashedMaterial({
-			color: ThreeUtil.getColorSafe(borderColor, this.borderColor, 0x000000),
+			color: ThreeUtil.getColorSafe(options.borderColor, 0x000000),
 			linewidth: 3,
 			linecap: 'round',
 			linejoin: 'round',

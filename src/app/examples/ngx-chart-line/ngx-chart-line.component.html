@@ -43,7 +43,7 @@
       <ngx3js-chart-axes [type]="'x'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
       <ngx3js-chart-axes [type]="'y'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
       <ngx3js-chart-axes [type]="'z'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-line [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="0" [backgroundColor]="'0xffff00'" [pointStyle]="controls.pointStyle">
+      <ngx3js-chart-line [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="0" [options]="{ backgroundColor : '0xffff00' }" [pointStyle]="controls.pointStyle">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-chart-controller></ngx3js-chart-controller>
       </ngx3js-chart-line>
@@ -54,10 +54,10 @@
     </ngx3js-mesh>
     <ngx3js-mesh [visible]="false">
       <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-chart-title [type]="'title'" [width]="10" [height]="1" [backgroundColor]="'0xff0000'" [message]="'Abc우리'" [align]="'left-top'">
+      <ngx3js-chart-title [type]="'title'" [width]="10" [height]="1" [options]="{ backgroundColor : '0xff0000' }" [message]="'Abc우리'" [align]="'left-top'">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
       </ngx3js-chart-title>
-      <ngx3js-chart-title [type]="'subtitle'" [width]="10" [height]="0.5" [backgroundColor]="'0xff0000'" [message]="'Sub Abc우리'" [align]="'right-top'" [opacity]="0.5">
+      <ngx3js-chart-title [type]="'subtitle'" [width]="10" [height]="0.5" [options]="{ backgroundColor : '0xff0000', opacity : 0.5 }" [message]="'Sub Abc우리'" [align]="'right-top'">
         <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
         <ngx3js-rotation [x]="0" [y]="0" [z]="45"></ngx3js-rotation>
       </ngx3js-chart-title>

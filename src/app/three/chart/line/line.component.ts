@@ -103,18 +103,18 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 			if (ThreeUtil.isIndexOf(changes, ['clearinit'])) {
 				this.getLine();
 			}
-			if (!ThreeUtil.isOnlyIndexOf(changes, ['opacity'], this.CHART_ATTR)) {
+			if (!ThreeUtil.isOnlyIndexOf(changes, ['options'], this.CHART_ATTR)) {
 				this.needUpdate = true;
 				return;
 			}
 			if (ThreeUtil.isIndexOf(changes, ['init'])) {
-				changes = ThreeUtil.pushUniq(changes, ['opacity']);
+				changes = ThreeUtil.pushUniq(changes, ['options']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
-					case 'opacity':
-						if (ThreeUtil.isNotNull(this.opacity)) {
-							this._material.opacity = ThreeUtil.getTypeSafe(this.opacity, 1);
+					case 'options':
+						if (ThreeUtil.isNotNull(this.options)) {
+							this._material.opacity = ThreeUtil.getTypeSafe(this.options.opacity, 1);
 						}
 						break;
 				}
@@ -243,9 +243,10 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 			this._geometry.setAttribute('position', new THREE.BufferAttribute(attributePosition, 3));
 			this._geometry.setIndex(attributeIndex);
 			this._geometry.computeVertexNormals();
+			const options = ThreeUtil.getTypeSafe(this.options, {});
 			this._material = new THREE.MeshPhongMaterial({
-				color: ThreeUtil.getColorSafe(this.backgroundColor, 0xff0000),
-				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
+				color: ThreeUtil.getColorSafe(options.backgroundColor, 0xff0000),
+				opacity: ThreeUtil.getTypeSafe(options.opacity, 1),
 				side: this.getSide('double'),
 				transparent: true,
 			});
@@ -261,8 +262,7 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 			this._geometryBorder = new THREE.BufferGeometry();
 			this._geometryBorder.setAttribute('position', new THREE.BufferAttribute(attributeLine, 3));
 			this._materialBorder = new THREE.LineBasicMaterial({
-				color: ThreeUtil.getColorSafe(this.backgroundColor, 0x00ff00),
-				opacity: ThreeUtil.getTypeSafe(this.opacity, 1),
+				color: ThreeUtil.getColorSafe(options.borderColor, 0x00ff00),
 				transparent: true,
 			});
 			const borderMesh = new THREE.LineSegments(this._geometryBorder, this._materialBorder);
@@ -272,32 +272,8 @@ export class ChartLineComponent extends AbstractChartComponent implements OnInit
 				attribute : this._geometryBorder.getAttribute('position'),
 				values : lineUpdateAttributes
 			})
-			let pointer : THREE.Object3D = null;
-			let pointerInfo = null;
-			switch(this.pointStyle.toLowerCase()) {
-				case 'plane' :
-					pointerInfo = this.getMeshAndBorder(
-						this.pointStyle, 
-						0.06, 
-						0.06, 
-						10, 
-						this.pointBackgroundColor,
-						this.pointBorderColor
-					)
-					break;
-				case 'circle' :
-				default :
-					pointerInfo = this.getMeshAndBorder(
-						this.pointStyle, 
-						6, 
-						3, 
-						ThreeUtil.getTypeSafe(this.pointRadius, 0.03), 
-						this.pointBackgroundColor,
-						this.pointBorderColor
-					)
-					break;
-			}
-			pointer = pointerInfo.mesh;
+			let pointerInfo = this.getPointShape();
+			let pointer : THREE.Object3D = pointerInfo.mesh;
 			this._geometryPoint = pointerInfo.geometry;
 			this._materialPoint = pointerInfo.material;
 			this._geometryPointBorder = pointerInfo.geometryBorder;

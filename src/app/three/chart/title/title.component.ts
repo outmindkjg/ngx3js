@@ -91,9 +91,9 @@ export class ChartTitleComponent extends AbstractChartComponent implements OnIni
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
-					case 'opacity':
-						if (ThreeUtil.isNotNull(this.opacity)) {
-							this._material.opacity = ThreeUtil.getTypeSafe(this.opacity, 1);
+					case 'options':
+						if (ThreeUtil.isNotNull(this.options)) {
+							this._material.opacity = ThreeUtil.getTypeSafe(this.options.opacity, 1);
 						}
 						break;
 					case 'align':
@@ -166,8 +166,9 @@ export class ChartTitleComponent extends AbstractChartComponent implements OnIni
 			}
 			canvas.width = textWidth;
 			canvas.height = textHeight;
-			if (ThreeUtil.isNotNull(this.backgroundColor)) {
-				context.fillStyle = '#' + ThreeUtil.getColorSafe(this.backgroundColor, '0x000000').getHexString();
+			const options = ThreeUtil.getTypeSafe(this.options, {});
+			if (ThreeUtil.isNotNull(options.backgroundColor)) {
+				context.fillStyle = '#' + ThreeUtil.getColorSafe(options.backgroundColor, '0x000000').getHexString();
 				context.fillRect(0, 0, textWidth, textHeight);
 			}
 			context.font = font;
