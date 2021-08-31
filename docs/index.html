@@ -58,12 +58,12 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#threejs" id="threejs" style="color: inherit; text-decoration: none;">
-					<h1>three.js</h1>
+				<a href="#ngx3js" id="ngx3js" style="color: inherit; text-decoration: none;">
+					<h1>ngx3js</h1>
 				</a>
-				<p><a href="https://www.npmjs.com/package/three"><img src="https://img.shields.io/npm/v/three" alt="NPM Package"></a>
-					<a href="https://bundlephobia.com/result?p=three"><img src="https://badgen.net/bundlephobia/minzip/three" alt="Build Size"></a>
-				<a href="https://www.npmtrends.com/three"><img src="https://img.shields.io/npm/dw/three" alt="NPM Downloads"></a></p>
+				<p><a href="https://www.npmjs.com/package/ngx3js"><img src="https://img.shields.io/npm/v/ngx3js" alt="NPM Package"></a>
+					<a href="https://bundlephobia.com/result?p=ngx3js"><img src="https://badgen.net/bundlephobia/minzip/ngx3js" alt="Build Size"></a>
+				<a href="https://www.npmtrends.com/ngx3js"><img src="https://img.shields.io/npm/dw/ngx3js" alt="NPM Downloads"></a></p>
 				<a href="#javascript-3d-library" id="javascript-3d-library" style="color: inherit; text-decoration: none;">
 					<h4>JavaScript 3D library</h4>
 				</a>
@@ -77,15 +77,15 @@
 				current theejs verion &quot;^0.130.0&quot;</p>
 				<pre><code class="language-javascript">
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/utils/SceneUtils.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">  </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Group</span><span style="color: #000000">, </span><span style="color: #001080">InstancedMesh</span><span style="color: #000000">, </span><span style="color: #001080">Material</span><span style="color: #000000">, </span><span style="color: #001080">Object3D</span><span style="color: #000000">, </span><span style="color: #001080">Scene</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">5</span><span style="color: #000000">  </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">createMultiMaterialObject</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #267F99">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">materials</span><span style="color: #000000">: </span><span style="color: #267F99">Material</span><span style="color: #000000">[]): </span><span style="color: #267F99">Group</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">    </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Group</span><span style="color: #000000">, </span><span style="color: #001080">InstancedMesh</span><span style="color: #000000">, </span><span style="color: #001080">Material</span><span style="color: #000000">, </span><span style="color: #001080">Object3D</span><span style="color: #000000">, </span><span style="color: #001080">Scene</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">5</span><span style="color: #000000">    </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">createMultiMaterialObject</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #267F99">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">materials</span><span style="color: #000000">: </span><span style="color: #267F99">Material</span><span style="color: #000000">[]): </span><span style="color: #267F99">Group</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/misc/MorphAnimMesh.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">  </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">AnimationAction</span><span style="color: #000000">, </span><span style="color: #001080">AnimationMixer</span><span style="color: #000000">, </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Material</span><span style="color: #000000">, </span><span style="color: #001080">Mesh</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">4</span><span style="color: #000000">  </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">material</span><span style="color: #000000">: </span><span style="color: #001080">Material</span><span style="color: #000000">);</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">    </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">AnimationAction</span><span style="color: #000000">, </span><span style="color: #001080">AnimationMixer</span><span style="color: #000000">, </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Material</span><span style="color: #000000">, </span><span style="color: #001080">Mesh</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">4</span><span style="color: #000000">    </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">material</span><span style="color: #000000">: </span><span style="color: #001080">Material</span><span style="color: #000000">);</span>
 
 <span style="color: #008000">// node_modules/ammojs-typed/ammo/ammo.d.ts</span>
-<span style="color: #000000">+ </span><span style="color: #098658">7</span><span style="color: #000000">    </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">castObject</span><span style="color: #000000">(</span><span style="color: #001080">obj1</span><span style="color: #000000"> : </span><span style="color: #267F99">any</span><span style="color: #000000">, </span><span style="color: #001080">obj2</span><span style="color: #000000"> : </span><span style="color: #267F99">any</span><span style="color: #000000">) : </span><span style="color: #267F99">btCollisionObject</span><span style="color: #000000">;</span>
+<span style="color: #000000"> + </span><span style="color: #098658">7</span><span style="color: #000000">    </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">castObject</span><span style="color: #000000">(</span><span style="color: #001080">obj1</span><span style="color: #000000"> : </span><span style="color: #267F99">any</span><span style="color: #000000">, </span><span style="color: #001080">obj2</span><span style="color: #000000"> : </span><span style="color: #267F99">any</span><span style="color: #000000">) : </span><span style="color: #267F99">btCollisionObject</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/loaders/TiltLoader.js</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">408</span><span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">loader</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">TextureLoader</span><span style="color: #000000">().</span><span style="color: #795E26">setPath</span><span style="color: #000000">( </span><span style="color: #A31515">&#039;/assets/examples/textures/tiltbrush/&#039;</span><span style="color: #000000"> );</span>
@@ -98,7 +98,7 @@
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/loaders/SVGLoader.d.ts</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">     </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Loader</span><span style="color: #000000">, </span><span style="color: #001080">LoadingManager</span><span style="color: #000000">, </span><span style="color: #001080">ShapePath</span><span style="color: #000000">, </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Vector2</span><span style="color: #000000">, </span><span style="color: #001080">Shape</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">40</span><span style="color: #000000">      </span><span style="color: #001080">static</span><span style="color: #000000"> </span><span style="color: #795E26">pointsToStroke</span><span style="color: #000000">( </span><span style="color: #001080">points</span><span style="color: #000000">: </span><span style="color: #001080">Vector2</span><span style="color: #000000">[], </span><span style="color: #001080">style</span><span style="color: #000000">: </span><span style="color: #001080">StrokeStyle</span><span style="color: #000000">, </span><span style="color: #001080">arcDivisions</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">minDistance</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">40</span><span style="color: #000000">   </span><span style="color: #001080">static</span><span style="color: #000000"> </span><span style="color: #795E26">pointsToStroke</span><span style="color: #000000">( </span><span style="color: #001080">points</span><span style="color: #000000">: </span><span style="color: #001080">Vector2</span><span style="color: #000000">[], </span><span style="color: #001080">style</span><span style="color: #000000">: </span><span style="color: #001080">StrokeStyle</span><span style="color: #000000">, </span><span style="color: #001080">arcDivisions</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">minDistance</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">52</span><span style="color: #000000">   </span><span style="color: #001080">static</span><span style="color: #000000"> </span><span style="color: #795E26">pointsToStrokeWithBuffers</span><span style="color: #000000">( </span><span style="color: #001080">points</span><span style="color: #000000">: </span><span style="color: #001080">Vector2</span><span style="color: #000000">[], </span><span style="color: #001080">style</span><span style="color: #000000">: </span><span style="color: #001080">StrokeStyle</span><span style="color: #000000">, </span><span style="color: #001080">arcDivisions</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">minDistance</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">vertices</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">[], </span><span style="color: #001080">normals</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">[], </span><span style="color: #001080">uvs</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">[], </span><span style="color: #001080">vertexOffset</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">number</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/lines/WireframeGeometry2.d.ts</span>
@@ -110,7 +110,7 @@
 <span style="color: #000000">-+ </span><span style="color: #098658">17</span><span style="color: #000000"> </span><span style="color: #795E26">intersectsOBB</span><span style="color: #000000">( </span><span style="color: #001080">obb</span><span style="color: #000000">: </span><span style="color: #0070C1">OBB</span><span style="color: #000000">, </span><span style="color: #001080">epsilon</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">boolean</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/modifiers/CurveModifier.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">7</span><span style="color: #000000">     </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">,</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">7</span><span style="color: #000000">    </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">,</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">43</span><span style="color: #000000">   </span><span style="color: #795E26">constructor</span><span style="color: #000000">( </span><span style="color: #001080">count</span><span style="color: #000000">: </span><span style="color: #267F99">Number</span><span style="color: #000000">, </span><span style="color: #001080">curveCount</span><span style="color: #000000">: </span><span style="color: #267F99">Number</span><span style="color: #000000">, </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">material</span><span style="color: #000000">: </span><span style="color: #001080">Material</span><span style="color: #000000"> );</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/loaders/VOXLoader.d.ts</span>
@@ -119,20 +119,20 @@
 <span style="color: #000000">-+ </span><span style="color: #098658">25</span><span style="color: #000000">   }</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">18</span><span style="color: #000000">     </span><span style="color: #795E26">modify</span><span style="color: #000000">( </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">cutOffPoint</span><span style="color: #000000">: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">tryKeepNormals</span><span style="color: #000000">: </span><span style="color: #001080">boolean</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">18</span><span style="color: #000000">   </span><span style="color: #795E26">modify</span><span style="color: #000000">( </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">cutOffPoint</span><span style="color: #000000">: </span><span style="color: #001080">number</span><span style="color: #000000">, </span><span style="color: #001080">tryKeepNormals</span><span style="color: #000000">: </span><span style="color: #001080">boolean</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/modifiers/SimplifyModifier.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">5</span><span style="color: #000000">  </span><span style="color: #795E26">modify</span><span style="color: #000000">( </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000"> , </span><span style="color: #001080">count</span><span style="color: #000000">: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">5</span><span style="color: #000000">    </span><span style="color: #795E26">modify</span><span style="color: #000000">( </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000"> , </span><span style="color: #001080">count</span><span style="color: #000000">: </span><span style="color: #001080">number</span><span style="color: #000000"> ): </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/objects/Water.d.ts</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">     </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Color</span><span style="color: #000000">, </span><span style="color: #001080">Mesh</span><span style="color: #000000">, </span><span style="color: #001080">Side</span><span style="color: #000000">, </span><span style="color: #001080">Texture</span><span style="color: #000000">, </span><span style="color: #001080">Vector3</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">20</span><span style="color: #000000"> </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">: </span><span style="color: #001080">WaterOptions</span><span style="color: #000000">);</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/objects/ShadowMesh.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">4</span><span style="color: #000000"> </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">mesh</span><span style="color: #000000"> : </span><span style="color: #001080">Mesh</span><span style="color: #000000">);</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">4</span><span style="color: #000000">    </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">mesh</span><span style="color: #000000"> : </span><span style="color: #001080">Mesh</span><span style="color: #000000">);</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/objects/Water2.d.ts</span>
-<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">     </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Color</span><span style="color: #000000">, </span><span style="color: #001080">Mesh</span><span style="color: #000000">, </span><span style="color: #001080">Texture</span><span style="color: #000000">, </span><span style="color: #001080">TextureEncoding</span><span style="color: #000000">, </span><span style="color: #001080">Vector2</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
+<span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">    </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">Color</span><span style="color: #000000">, </span><span style="color: #001080">Mesh</span><span style="color: #000000">, </span><span style="color: #001080">Texture</span><span style="color: #000000">, </span><span style="color: #001080">TextureEncoding</span><span style="color: #000000">, </span><span style="color: #001080">Vector2</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">20</span><span style="color: #000000">     </span><span style="color: #795E26">constructor</span><span style="color: #000000">(</span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">: </span><span style="color: #001080">Water2Options</span><span style="color: #000000">);</span>
 
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/postprocessing/SAOPass.d.ts</span>
@@ -141,6 +141,9 @@
 <span style="color: #008000">// node_modules/@types/three/examples/jsm/utils/UVsDebug.d.ts</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">1</span><span style="color: #000000">  </span><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">BufferGeometry</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;../../../src/Three&#039;</span><span style="color: #000000">;</span>
 <span style="color: #000000">-+ </span><span style="color: #098658">3</span><span style="color: #000000">  </span><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">UVsDebug</span><span style="color: #000000">( </span><span style="color: #001080">geometry</span><span style="color: #000000">: </span><span style="color: #267F99">BufferGeometry</span><span style="color: #000000">, </span><span style="color: #001080">size</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000"> ): </span><span style="color: #267F99">HTMLCanvasElement</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">// node_modules/@types/three/examples/jsm/objects/ReflectorForSSRPass.d.ts</span>
+<span style="color: #000000"> + </span><span style="color: #098658">59</span><span style="color: #000000">  </span><span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">Reflector</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">ReflectorForSSRPass</span><span style="color: #000000"> };</span>
 
 
 </code></pre>
@@ -199,6 +202,7 @@
 				<pre><code class="language-sh"><span style="color: #000000">npm install -g @angular/cli</span>
 <span style="color: #000000">npm install ammojs-typed</span>
 <span style="color: #000000">npm install three</span>
+<span style="color: #000000">npm install --save three three.ar.js</span>
 <span style="color: #000000">npm install @types/three</span>
 <span style="color: #000000">npm install @types/dat.gui –save-dev</span>
 <span style="color: #000000">npm install @types/physijs –save-dev</span>
@@ -208,11 +212,11 @@
 <span style="color: #000000">npm run maxbuildprod</span>
 
 <span style="color: #000000">npm install typedoc --save-dev</span>
-<span style="color: #000000">npx typedoc --out docs</span>
+<span style="color: #000000">npx typedoc --out docs --exclude </span><span style="color: #A31515">&quot;**/*+(index|.spec|.e2e).ts&quot;</span>
 <span style="color: #000000">npx typedoc --exclude </span><span style="color: #A31515">&quot;**/*+(index|.spec|.e2e).ts&quot;</span>
 <span style="color: #000000">npx typedoc --json docs_api.json --exclude </span><span style="color: #A31515">&quot;**/*+(index|.spec|.e2e).ts&quot;</span>
 
-<span style="color: #000000">rm -rf src/app/**/dist</span>
+<span style="color: #000000">rm -rf src/app/**/*spec.ts</span>
 <span style="color: #000000">rm -rf src/app/**/*.js</span>
 
 <span style="color: #000000">git remote set-url origin https://github.com/outmindkjg/ngx3js.git</span>
@@ -220,7 +224,31 @@
 
 <span style="color: #000000">ng g directive three/drawing-canvas</span>
 <span style="color: #000000">ng g c three/viewer</span>
+<span style="color: #000000">ng g c three/size</span>
+
+<span style="color: #000000">// ng g c three/chart/bar</span>
+<span style="color: #000000">// ng g c three/chart/line</span>
+<span style="color: #000000">// ng g c three/chart/scatter</span>
+<span style="color: #000000">// ng g c three/chart/bubble</span>
+<span style="color: #000000">// ng g c three/chart/pie</span>
+<span style="color: #000000">// ng g c three/chart/doughnut</span>
+<span style="color: #000000">// ng g c three/chart/polarArea</span>
+<span style="color: #000000">// ng g c three/chart/radar</span>
+<span style="color: #000000">// ng g c three/chart/controller</span>
+
+<span style="color: #000000">// ng g c three/chart/axes</span>
+<span style="color: #000000">// ng g c three/chart/legend</span>
+<span style="color: #000000">// ng g c three/chart/title</span>
+
+
 <span style="color: #000000">ng g c examples/webgl-portal</span>
+<span style="color: #000000">ng g c examples/webxr-ar-lighting</span>
+<span style="color: #000000">ng g c examples/webxr_vr_handinput_pointerclick</span>
+<span style="color: #000000">ng g c examples/webxr_vr_handinput_pointerdrag</span>
+<span style="color: #000000">ng g c examples/webxr_vr_handinput_pressbutton</span>
+<span style="color: #000000">ng g c examples/webxr_vr_layers</span>
+<span style="color: #000000">ng g c examples/misc_exporter_usdz</span>
+
 </code></pre>
 				<a href="#cloning-this-repository" id="cloning-this-repository" style="color: inherit; text-decoration: none;">
 					<h3>Cloning this repository</h3>
@@ -335,202 +363,7 @@
 						<a href="classes/CurveUtils.html" class="tsd-kind-icon">Curve<wbr>Utils</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/CurvesCircle.html" class="tsd-kind-icon">Curves<wbr>Circle</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsap.html" class="tsd-kind-icon">Curves<wbr>Gsap</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBackEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Back<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBackEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Back<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBackEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Back<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBounceEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Bounce<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBounceEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Bounce<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapBounceEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Bounce<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCircEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Circ<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCircEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Circ<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCircEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Circ<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCubicEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Cubic<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCubicEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Cubic<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapCubicEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Cubic<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapElasticEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Elastic<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapElasticEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Elastic<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapElasticEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Elastic<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapExpoEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Expo<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapExpoEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Expo<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapExpoEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Expo<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapLinearEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Linear<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapLinearEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Linear<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapLinearEaseNone.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Linear<wbr>Ease<wbr>None</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapLinearEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Linear<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower0EaseNone.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power0<wbr>Ease<wbr>None</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower1EaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power1<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower1EaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power1<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower1EaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power1<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower2EaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power2<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower2EaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power2<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower2EaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power2<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower3EaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power3<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower3EaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power3<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower3EaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power3<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower4EaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power4<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower4EaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power4<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapPower4EaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Power4<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuadEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quad<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuadEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quad<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuadEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quad<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuartEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quart<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuartEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quart<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuartEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quart<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuintEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quint<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuintEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quint<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapQuintEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Quint<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapSineEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Sine<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapSineEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Sine<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapSineEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Sine<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapStrongEaseIn.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Strong<wbr>Ease<wbr>In</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapStrongEaseInOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Strong<wbr>Ease<wbr>InOut</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesGsapStrongEaseOut.html" class="tsd-kind-icon">Curves<wbr>Gsap<wbr>Strong<wbr>Ease<wbr>Out</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesLine.html" class="tsd-kind-icon">Curves<wbr>Line</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/CurvesNormal.html" class="tsd-kind-icon">Curves<wbr>Normal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesPolygon.html" class="tsd-kind-icon">Curves<wbr>Polygon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonDecagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Decagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonDodecagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Dodecagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonHeptagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Heptagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonHexagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Hexagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonNonagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Nonagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonOctagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Octagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonPentagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Pentagon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonSquare.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Square</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonTriangle.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Triangle</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/CurvesRegularPolygonUndecagon.html" class="tsd-kind-icon">Curves<wbr>Regular<wbr>Polygon<wbr>Undecagon</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/DrawingCanvasDirective.html" class="tsd-kind-icon">Drawing<wbr>Canvas<wbr>Directive</a>
@@ -647,6 +480,9 @@
 						<a href="classes/SharedComponent.html" class="tsd-kind-icon">Shared<wbr>Component</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/SizeComponent.html" class="tsd-kind-icon">Size<wbr>Component</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/StarDepthGeometry.html" class="tsd-kind-icon">Star<wbr>Depth<wbr>Geometry</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -749,10 +585,10 @@
 						<a href="interfaces/LightOptions.html" class="tsd-kind-icon">Light<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/LoadedObject.html" class="tsd-kind-icon">Loaded<wbr>Object</a>
+						<a href="interfaces/LoadedNameMap.html" class="tsd-kind-icon">Loaded<wbr>Name<wbr>Map</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/MeshGeometry.html" class="tsd-kind-icon">Mesh<wbr>Geometry</a>
+						<a href="interfaces/LoadedObject.html" class="tsd-kind-icon">Loaded<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/MeshMaterialRaw.html" class="tsd-kind-icon">Mesh<wbr>Material<wbr>Raw</a>

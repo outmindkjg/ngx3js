@@ -3,18 +3,23 @@ import { AbstractChartComponent } from '../../chart.abstract';
 import { AbstractObject3dComponent } from '../../object3d.abstract';
 
 @Component({
-  selector: 'ngx3js-chart-polar-area',
-  templateUrl: './polar-area.component.html',
-  styleUrls: ['./polar-area.component.scss']
-, providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => ChartPolarAreaComponent) }]
+	selector: 'ngx3js-chart-polar-area',
+	templateUrl: './polar-area.component.html',
+	styleUrls: ['./polar-area.component.scss'],
+	providers: [{ provide: AbstractObject3dComponent, useExisting: forwardRef(() => ChartPolarAreaComponent) }],
 })
 export class ChartPolarAreaComponent extends AbstractChartComponent implements OnInit {
-
+	/**
+	 * Input  of chart polar area component
+	 */
 	@Input() public type: string = '';
 
-  constructor() { 
-    super();
-  }
+	/**
+	 * Creates an instance of chart polar area component.
+	 */
+	constructor() {
+		super();
+	}
 
 	/**
 	 * A callback method that is invoked immediately after the
@@ -59,5 +64,4 @@ export class ChartPolarAreaComponent extends AbstractChartComponent implements O
 	ngAfterContentInit(): void {
 		super.ngAfterContentInit();
 	}
-  
 }
