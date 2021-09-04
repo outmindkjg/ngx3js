@@ -114,8 +114,9 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#MATERIAL_ATTR" class="tsd-kind-icon">MATERIAL_<wbr>ATTR</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#OBJECT_ATTR" class="tsd-kind-icon">OBJECT_<wbr>ATTR</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractMaterialComponent.html#_meshMaterial" class="tsd-kind-icon">_mesh<wbr>Material</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#_changeList" class="tsd-kind-icon">_change<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#_needUpdate" class="tsd-kind-icon">_need<wbr>Update</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractMaterialComponent.html#_object3d" class="tsd-kind-icon">_object3d</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#alphaTest" class="tsd-kind-icon">alpha<wbr>Test</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#alphaToCoverage" class="tsd-kind-icon">alpha<wbr>ToCoverage</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#blendDst" class="tsd-kind-icon">blend<wbr>Dst</a></li>
@@ -144,7 +145,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#material" class="tsd-kind-icon">material</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#materialType" class="tsd-kind-icon">material<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#nameList" class="tsd-kind-icon">name<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#onBeforeCompile" class="tsd-kind-icon">on<wbr>Before<wbr>Compile</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#opacity" class="tsd-kind-icon">opacity</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#parent" class="tsd-kind-icon">parent</a></li>
@@ -153,6 +153,8 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#polygonOffsetUnits" class="tsd-kind-icon">polygon<wbr>Offset<wbr>Units</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#precision" class="tsd-kind-icon">precision</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#premultipliedAlpha" class="tsd-kind-icon">premultiplied<wbr>Alpha</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractMaterialComponent.html#refIndex" class="tsd-kind-icon">ref<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AbstractMaterialComponent.html#refName" class="tsd-kind-icon">ref<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#refer" class="tsd-kind-icon">refer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#shadowSide" class="tsd-kind-icon">shadow<wbr>Side</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#side" class="tsd-kind-icon">side</a></li>
@@ -196,9 +198,10 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#getChanges" class="tsd-kind-icon">get<wbr>Changes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getClippingPlanes" class="tsd-kind-icon">get<wbr>Clipping<wbr>Planes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getDepthFunc" class="tsd-kind-icon">get<wbr>Depth<wbr>Func</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#getId" class="tsd-kind-icon">get<wbr>Id</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="AbstractMaterialComponent.html#getMaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getMaterialParameters" class="tsd-kind-icon">get<wbr>Material<wbr>Parameters</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#getObject" class="tsd-kind-icon">get<wbr>Object</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="AbstractMaterialComponent.html#getObject" class="tsd-kind-icon">get<wbr>Object</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getPrecision" class="tsd-kind-icon">get<wbr>Precision</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getShadowSide" class="tsd-kind-icon">get<wbr>Shadow<wbr>Side</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#getSide" class="tsd-kind-icon">get<wbr>Side</a></li>
@@ -219,8 +222,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="AbstractMaterialComponent.html#ngOnInit" class="tsd-kind-icon">ng<wbr>OnInit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#runSubscribeNext" class="tsd-kind-icon">run<wbr>Subscribe<wbr>Next</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#setMaterial" class="tsd-kind-icon">set<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#setMesh" class="tsd-kind-icon">set<wbr>Mesh</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#setObject" class="tsd-kind-icon">set<wbr>Object</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#setObject3d" class="tsd-kind-icon">set<wbr>Object3d</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#setParent" class="tsd-kind-icon">set<wbr>Parent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#setSubscribeNext" class="tsd-kind-icon">set<wbr>Subscribe<wbr>Next</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#setSubscribeType" class="tsd-kind-icon">set<wbr>Subscribe<wbr>Type</a></li>
@@ -230,13 +233,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#subscribeListQueryChange" class="tsd-kind-icon">subscribe<wbr>List<wbr>Query<wbr>Change</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#subscribeRefer" class="tsd-kind-icon">subscribe<wbr>Refer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#subscribeReferList" class="tsd-kind-icon">subscribe<wbr>Refer<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="AbstractMaterialComponent.html#synkMesh" class="tsd-kind-icon">synk<wbr>Mesh</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#synkObject3d" class="tsd-kind-icon">synk<wbr>Object3d</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#unSubscribeRefer" class="tsd-kind-icon">un<wbr>Subscribe<wbr>Refer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#unSubscribeReferList" class="tsd-kind-icon">un<wbr>Subscribe<wbr>Refer<wbr>List</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AbstractMaterialComponent.html#unSubscription" class="tsd-kind-icon">un<wbr>Subscription</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AbstractMaterialComponent.html#unsetObject3d" class="tsd-kind-icon">unset<wbr>Object3d</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="AbstractMaterialComponent.html#updateInputParams" class="tsd-kind-icon">update<wbr>Input<wbr>Params</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="AbstractMaterialComponent.html#getMeshMaterial" class="tsd-kind-icon">get<wbr>Mesh<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="AbstractMaterialComponent.html#isMeshMaterial" class="tsd-kind-icon">is<wbr>Mesh<wbr>Material</a></li>
 							</ul>
 						</section>
 					</div>
@@ -255,7 +257,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L910">src/app/three/material.abstract.ts:910</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L924">src/app/three/material.abstract.ts:924</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -276,7 +278,7 @@
 					<div class="tsd-signature tsd-kind-icon">MATERIAL_<wbr>ATTR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L860">src/app/three/material.abstract.ts:860</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L874">src/app/three/material.abstract.ts:874</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +294,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#OBJECT_ATTR">OBJECT_ATTR</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L55">src/app/three/subscribe.abstract.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L55">src/app/three/subscribe.abstract.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -301,18 +303,19 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_meshMaterial" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mesh<wbr>Material</h3>
-					<div class="tsd-signature tsd-kind-icon">_mesh<wbr>Material<span class="tsd-signature-symbol">:</span> <a href="../modules.html#MeshMaterial" class="tsd-signature-type" data-tsd-kind="Type alias">MeshMaterial</a><span class="tsd-signature-symbol"> = null</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="_changeList" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _change<wbr>List</h3>
+					<div class="tsd-signature tsd-kind-icon">_change<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#_changeList">_changeList</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L966">src/app/three/material.abstract.ts:966</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L255">src/app/three/subscribe.abstract.ts:255</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Mesh material of abstract material component</p>
+							<p>Change list of abstract subscribe component</p>
 						</div>
 					</div>
 				</section>
@@ -323,7 +326,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#_needUpdate">_needUpdate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L227">src/app/three/subscribe.abstract.ts:227</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L236">src/app/three/subscribe.abstract.ts:236</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -332,13 +335,44 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_object3d" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _object3d</h3>
+					<div class="tsd-signature tsd-kind-icon">_object3d<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L980">src/app/three/material.abstract.ts:980</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Object3d  of Material component</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-symbol">{ </span>meshes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>mesh<span class="tsd-signature-symbol">: </span><a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Mesh.html" class="tsd-signature-type" data-tsd-kind="Class">Mesh</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Line.html" class="tsd-signature-type" data-tsd-kind="Class">Line</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Points.html" class="tsd-signature-type" data-tsd-kind="Class">Points</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Sprite.html" class="tsd-signature-type" data-tsd-kind="Class">Sprite</a><span class="tsd-signature-symbol">; </span>refIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>refType<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>meshes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>mesh<span class="tsd-signature-symbol">: </span><a href="THREE.Scene.html" class="tsd-signature-type" data-tsd-kind="Class">Scene</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Mesh.html" class="tsd-signature-type" data-tsd-kind="Class">Mesh</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Line.html" class="tsd-signature-type" data-tsd-kind="Class">Line</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Points.html" class="tsd-signature-type" data-tsd-kind="Class">Points</a><span class="tsd-signature-symbol"> | </span><a href="THREE.Sprite.html" class="tsd-signature-type" data-tsd-kind="Class">Sprite</a><span class="tsd-signature-symbol">; </span>refIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>ref<wbr>Type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="alphaTest" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> alpha<wbr>Test</h3>
 					<div class="tsd-signature tsd-kind-icon">alpha<wbr>Test<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L76">src/app/three/material.abstract.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L84">src/app/three/material.abstract.ts:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -355,7 +389,7 @@
 					<div class="tsd-signature tsd-kind-icon">alpha<wbr>ToCoverage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L69">src/app/three/material.abstract.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L77">src/app/three/material.abstract.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -370,7 +404,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Dst<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L97">src/app/three/material.abstract.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L105">src/app/three/material.abstract.ts:105</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -423,7 +457,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Dst<wbr>Alpha<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L102">src/app/three/material.abstract.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L110">src/app/three/material.abstract.ts:110</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -438,7 +472,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Equation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L119">src/app/three/material.abstract.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L127">src/app/three/material.abstract.ts:127</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -476,7 +510,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Equation<wbr>Alpha<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L124">src/app/three/material.abstract.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L132">src/app/three/material.abstract.ts:132</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -491,7 +525,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Src<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L151">src/app/three/material.abstract.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L165">src/app/three/material.abstract.ts:165</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -532,7 +566,7 @@
 					<div class="tsd-signature tsd-kind-icon">blend<wbr>Src<wbr>Alpha<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L156">src/app/three/material.abstract.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L170">src/app/three/material.abstract.ts:170</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -547,7 +581,7 @@
 					<div class="tsd-signature tsd-kind-icon">blending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L134">src/app/three/material.abstract.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L148">src/app/three/material.abstract.ts:148</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -557,6 +591,26 @@
 							See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].</p>
 						</div>
 						<p>Notice - case insensitive.</p>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p>THREE.NoBlending - NoBlending, No</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.NormalBlending - NormalBlending, Normal</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.AdditiveBlending - AdditiveBlending, Additive</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.SubtractiveBlending - SubtractiveBlending, Subtractive</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.MultiplyBlending - MultiplyBlending, Multiply</p>
+							</dd>
+							<dt>see</dt>
+							<dd><p>THREE.CustomBlending - CustomBlending, Custom</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -565,7 +619,7 @@
 					<div class="tsd-signature tsd-kind-icon">clip<wbr>Intersection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L162">src/app/three/material.abstract.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L176">src/app/three/material.abstract.ts:176</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -581,7 +635,7 @@
 					<div class="tsd-signature tsd-kind-icon">clip<wbr>Shadows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L177">src/app/three/material.abstract.ts:177</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L191">src/app/three/material.abstract.ts:191</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -596,7 +650,7 @@
 					<div class="tsd-signature tsd-kind-icon">clipping<wbr>Planes<span class="tsd-signature-symbol">:</span> <a href="THREE.Plane.html" class="tsd-signature-type" data-tsd-kind="Class">Plane</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="PlaneComponent.html" class="tsd-signature-type" data-tsd-kind="Class">PlaneComponent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L172">src/app/three/material.abstract.ts:172</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L186">src/app/three/material.abstract.ts:186</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -616,7 +670,7 @@
 					<div class="tsd-signature tsd-kind-icon">clipping<wbr>Planes<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryList</span><span class="tsd-signature-symbol">&lt;</span><a href="PlaneComponent.html" class="tsd-signature-type" data-tsd-kind="Class">PlaneComponent</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L421">src/app/three/material.abstract.ts:421</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L435">src/app/three/material.abstract.ts:435</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -631,7 +685,7 @@
 					<div class="tsd-signature tsd-kind-icon">color<wbr>Write<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L183">src/app/three/material.abstract.ts:183</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L197">src/app/three/material.abstract.ts:197</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -647,7 +701,7 @@
 					<div class="tsd-signature tsd-kind-icon">control<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L410">src/app/three/material.abstract.ts:410</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L424">src/app/three/material.abstract.ts:424</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -663,7 +717,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#debug">debug</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L15">src/app/three/subscribe.abstract.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L15">src/app/three/subscribe.abstract.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -678,7 +732,7 @@
 					<div class="tsd-signature tsd-kind-icon">defines<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L188">src/app/three/material.abstract.ts:188</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L202">src/app/three/material.abstract.ts:202</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -693,7 +747,7 @@
 					<div class="tsd-signature tsd-kind-icon">depth<wbr>Func<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L206">src/app/three/material.abstract.ts:206</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L220">src/app/three/material.abstract.ts:220</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -738,7 +792,7 @@
 					<div class="tsd-signature tsd-kind-icon">depth<wbr>Test<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L211">src/app/three/material.abstract.ts:211</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L225">src/app/three/material.abstract.ts:225</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -753,7 +807,7 @@
 					<div class="tsd-signature tsd-kind-icon">depth<wbr>Write<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L217">src/app/three/material.abstract.ts:217</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L231">src/app/three/material.abstract.ts:231</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -769,7 +823,7 @@
 					<div class="tsd-signature tsd-kind-icon">dithering<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L263">src/app/three/material.abstract.ts:263</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L277">src/app/three/material.abstract.ts:277</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -786,7 +840,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#enabled">enabled</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L25">src/app/three/subscribe.abstract.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L25">src/app/three/subscribe.abstract.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -801,7 +855,7 @@
 					<div class="tsd-signature tsd-kind-icon">flat<wbr>Shading<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L268">src/app/three/material.abstract.ts:268</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L282">src/app/three/material.abstract.ts:282</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -816,7 +870,7 @@
 					<div class="tsd-signature tsd-kind-icon">fog<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L222">src/app/three/material.abstract.ts:222</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L236">src/app/three/material.abstract.ts:236</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -832,7 +886,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L65">src/app/three/subscribe.abstract.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L65">src/app/three/subscribe.abstract.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -847,7 +901,7 @@
 					<div class="tsd-signature tsd-kind-icon">material<span class="tsd-signature-symbol">:</span> <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1207">src/app/three/material.abstract.ts:1207</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1276">src/app/three/material.abstract.ts:1276</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -862,7 +916,7 @@
 					<div class="tsd-signature tsd-kind-icon">material<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;material&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L50">src/app/three/material.abstract.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L58">src/app/three/material.abstract.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -877,27 +931,12 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L35">src/app/three/material.abstract.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L35">src/app/three/material.abstract.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The name of the object (doesn&#39;t need to be unique). Default is an empty string.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="nameList" class="tsd-anchor"></a>
-					<h3>name<wbr>List</h3>
-					<div class="tsd-signature tsd-kind-icon">name<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L45">src/app/three/material.abstract.ts:45</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The name of the object to apply loaded mesh when restore from assets.</p>
 						</div>
 					</div>
 				</section>
@@ -907,7 +946,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Compile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="../interfaces/THREE.Shader.html" class="tsd-signature-type" data-tsd-kind="Interface">Shader</a>, renderer<span class="tsd-signature-symbol">?: </span><a href="THREE.WebGLRenderer.html" class="tsd-signature-type" data-tsd-kind="Class">WebGLRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L416">src/app/three/material.abstract.ts:416</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L430">src/app/three/material.abstract.ts:430</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -953,7 +992,7 @@
 					<div class="tsd-signature tsd-kind-icon">opacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L64">src/app/three/material.abstract.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L72">src/app/three/material.abstract.ts:72</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -973,7 +1012,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L761">src/app/three/subscribe.abstract.ts:761</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L754">src/app/three/subscribe.abstract.ts:754</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -988,7 +1027,7 @@
 					<div class="tsd-signature tsd-kind-icon">polygon<wbr>Offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L227">src/app/three/material.abstract.ts:227</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L241">src/app/three/material.abstract.ts:241</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1003,7 +1042,7 @@
 					<div class="tsd-signature tsd-kind-icon">polygon<wbr>Offset<wbr>Factor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L232">src/app/three/material.abstract.ts:232</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L246">src/app/three/material.abstract.ts:246</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1018,7 +1057,7 @@
 					<div class="tsd-signature tsd-kind-icon">polygon<wbr>Offset<wbr>Units<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L237">src/app/three/material.abstract.ts:237</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L251">src/app/three/material.abstract.ts:251</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1033,7 +1072,7 @@
 					<div class="tsd-signature tsd-kind-icon">precision<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L246">src/app/three/material.abstract.ts:246</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L260">src/app/three/material.abstract.ts:260</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1050,7 +1089,7 @@
 					<div class="tsd-signature tsd-kind-icon">premultiplied<wbr>Alpha<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L257">src/app/three/material.abstract.ts:257</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L271">src/app/three/material.abstract.ts:271</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1064,13 +1103,45 @@
 						lowp</p>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="refIndex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> ref<wbr>Index</h3>
+					<div class="tsd-signature tsd-kind-icon">ref<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L47">src/app/three/material.abstract.ts:47</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>refIndex  of material component
+								if the material of mesh is array
+							use this index</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="refName" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> ref<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">ref<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L40">src/app/three/material.abstract.ts:40</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>refName  of material component</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="refer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> refer</h3>
 					<div class="tsd-signature tsd-kind-icon">refer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L55">src/app/three/material.abstract.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L63">src/app/three/material.abstract.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1085,7 +1156,7 @@
 					<div class="tsd-signature tsd-kind-icon">shadow<wbr>Side<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L296">src/app/three/material.abstract.ts:296</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L310">src/app/three/material.abstract.ts:310</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1117,7 +1188,7 @@
 					<div class="tsd-signature tsd-kind-icon">side<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L282">src/app/three/material.abstract.ts:282</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L296">src/app/three/material.abstract.ts:296</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1149,7 +1220,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Fail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L361">src/app/three/material.abstract.ts:361</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L375">src/app/three/material.abstract.ts:375</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1194,7 +1265,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Func<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L319">src/app/three/material.abstract.ts:319</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L333">src/app/three/material.abstract.ts:333</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1210,7 +1281,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Func<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L344">src/app/three/material.abstract.ts:344</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L358">src/app/three/material.abstract.ts:358</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1225,7 +1296,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L334">src/app/three/material.abstract.ts:334</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L348">src/app/three/material.abstract.ts:348</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1269,7 +1340,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Write<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L311">src/app/three/material.abstract.ts:311</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L325">src/app/three/material.abstract.ts:325</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1284,7 +1355,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencil<wbr>Write<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L339">src/app/three/material.abstract.ts:339</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L353">src/app/three/material.abstract.ts:353</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1299,7 +1370,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencilZFail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L378">src/app/three/material.abstract.ts:378</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L392">src/app/three/material.abstract.ts:392</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1344,7 +1415,7 @@
 					<div class="tsd-signature tsd-kind-icon">stencilZPass<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L395">src/app/three/material.abstract.ts:395</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L409">src/app/three/material.abstract.ts:409</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1390,7 +1461,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#subscribeType">subscribeType</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L618">src/app/three/subscribe.abstract.ts:618</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L611">src/app/three/subscribe.abstract.ts:611</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1405,7 +1476,7 @@
 					<div class="tsd-signature tsd-kind-icon">tone<wbr>Mapped<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L301">src/app/three/material.abstract.ts:301</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L315">src/app/three/material.abstract.ts:315</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1420,7 +1491,7 @@
 					<div class="tsd-signature tsd-kind-icon">transparent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L405">src/app/three/material.abstract.ts:405</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L419">src/app/three/material.abstract.ts:419</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1440,7 +1511,7 @@
 					<div class="tsd-signature tsd-kind-icon">vertex<wbr>Colors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L306">src/app/three/material.abstract.ts:306</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L320">src/app/three/material.abstract.ts:320</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1455,7 +1526,7 @@
 					<div class="tsd-signature tsd-kind-icon">visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L40">src/app/three/material.abstract.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L53">src/app/three/material.abstract.ts:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1471,7 +1542,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#windowExport">windowExport</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L20">src/app/three/subscribe.abstract.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L20">src/app/three/subscribe.abstract.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1493,7 +1564,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L232">src/app/three/subscribe.abstract.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L241">src/app/three/subscribe.abstract.ts:241</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1525,7 +1596,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#addChanges">addChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L307">src/app/three/subscribe.abstract.ts:307</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L316">src/app/three/subscribe.abstract.ts:316</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1556,7 +1627,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#applyChanges">applyChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1253">src/app/three/material.abstract.ts:1253</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1322">src/app/three/material.abstract.ts:1322</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1585,7 +1656,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#callOnLoad">callOnLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L220">src/app/three/subscribe.abstract.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L229">src/app/three/subscribe.abstract.ts:229</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1608,7 +1679,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#checkChanges">checkChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L253">src/app/three/subscribe.abstract.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L262">src/app/three/subscribe.abstract.ts:262</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1638,7 +1709,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#clearChanges">clearChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L360">src/app/three/subscribe.abstract.ts:360</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L369">src/app/three/subscribe.abstract.ts:369</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1661,7 +1732,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#consoleLog">consoleLog</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L281">src/app/three/subscribe.abstract.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L290">src/app/three/subscribe.abstract.ts:290</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1696,7 +1767,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#consoleLogTime">consoleLogTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L268">src/app/three/subscribe.abstract.ts:268</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L277">src/app/three/subscribe.abstract.ts:277</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1731,7 +1802,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#destroyLocalComponent">destroyLocalComponent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L634">src/app/three/subscribe.abstract.ts:634</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L627">src/app/three/subscribe.abstract.ts:627</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1762,7 +1833,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L194">src/app/three/subscribe.abstract.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L203">src/app/three/subscribe.abstract.ts:203</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1784,7 +1855,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L454">src/app/three/material.abstract.ts:454</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L468">src/app/three/material.abstract.ts:468</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1851,7 +1922,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L486">src/app/three/material.abstract.ts:486</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L500">src/app/three/material.abstract.ts:500</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1880,7 +1951,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L525">src/app/three/material.abstract.ts:525</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L539">src/app/three/material.abstract.ts:539</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1948,7 +2019,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#getChanges">getChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L342">src/app/three/subscribe.abstract.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L351">src/app/three/subscribe.abstract.ts:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1971,7 +2042,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L795">src/app/three/material.abstract.ts:795</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L809">src/app/three/material.abstract.ts:809</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2000,7 +2071,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L570">src/app/three/material.abstract.ts:570</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L584">src/app/three/material.abstract.ts:584</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2019,6 +2090,30 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getId" class="tsd-anchor"></a>
+					<h3>get<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Id<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#getId">getId</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L72">src/app/three/subscribe.abstract.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets id</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>id</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="getMaterial" class="tsd-anchor"></a>
 					<h3>get<wbr>Material</h3>
@@ -2029,7 +2124,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1214">src/app/three/material.abstract.ts:1214</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1283">src/app/three/material.abstract.ts:1283</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2058,7 +2153,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1147">src/app/three/material.abstract.ts:1147</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1216">src/app/three/material.abstract.ts:1216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2077,10 +2172,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="getObject" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Object</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
+					<h3>get<wbr>Object</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Object&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -2088,7 +2183,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#getObject">getObject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L416">src/app/three/subscribe.abstract.ts:416</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L414">src/app/three/subscribe.abstract.ts:414</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2117,7 +2212,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L598">src/app/three/material.abstract.ts:598</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L612">src/app/three/material.abstract.ts:612</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2146,7 +2241,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L653">src/app/three/material.abstract.ts:653</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L667">src/app/three/material.abstract.ts:667</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2190,7 +2285,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L624">src/app/three/material.abstract.ts:624</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L638">src/app/three/material.abstract.ts:638</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2234,7 +2329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L711">src/app/three/material.abstract.ts:711</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L725">src/app/three/material.abstract.ts:725</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2263,7 +2358,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L683">src/app/three/material.abstract.ts:683</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L697">src/app/three/material.abstract.ts:697</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2292,7 +2387,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L739">src/app/three/material.abstract.ts:739</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L753">src/app/three/material.abstract.ts:753</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2321,7 +2416,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L767">src/app/three/material.abstract.ts:767</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L781">src/app/three/material.abstract.ts:781</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2351,7 +2446,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#getSubscribe">getSubscribe</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L497">src/app/three/subscribe.abstract.ts:497</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L490">src/app/three/subscribe.abstract.ts:490</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2374,7 +2469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L826">src/app/three/material.abstract.ts:826</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L840">src/app/three/material.abstract.ts:840</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2407,7 +2502,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#getUserData">getUserData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L429">src/app/three/subscribe.abstract.ts:429</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L427">src/app/three/subscribe.abstract.ts:427</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2434,7 +2529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L674">src/app/three/material.abstract.ts:674</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L688">src/app/three/material.abstract.ts:688</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2464,7 +2559,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#initLocalComponent">initLocalComponent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L648">src/app/three/subscribe.abstract.ts:648</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L641">src/app/three/subscribe.abstract.ts:641</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2503,7 +2598,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#isIdEuals">isIdEuals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L209">src/app/three/subscribe.abstract.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L218">src/app/three/subscribe.abstract.ts:218</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2532,7 +2627,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L428">src/app/three/material.abstract.ts:428</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L442">src/app/three/material.abstract.ts:442</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2563,7 +2658,7 @@
 								<p>Implementation of AfterContentInit.ngAfterContentInit</p>
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#ngAfterContentInit">ngAfterContentInit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L959">src/app/three/material.abstract.ts:959</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L973">src/app/three/material.abstract.ts:973</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2590,7 +2685,7 @@
 								<p>Implementation of OnChanges.ngOnChanges</p>
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#ngOnChanges">ngOnChanges</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L947">src/app/three/material.abstract.ts:947</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L961">src/app/three/material.abstract.ts:961</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2626,7 +2721,7 @@
 								<p>Implementation of OnDestroy.ngOnDestroy</p>
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#ngOnDestroy">ngOnDestroy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L932">src/app/three/material.abstract.ts:932</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L946">src/app/three/material.abstract.ts:946</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2651,7 +2746,7 @@
 								<p>Implementation of OnInit.ngOnInit</p>
 								<p>Overrides <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#ngOnInit">ngOnInit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L924">src/app/three/material.abstract.ts:924</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L938">src/app/three/material.abstract.ts:938</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2686,7 +2781,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#runSubscribeNext">runSubscribeNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L567">src/app/three/subscribe.abstract.ts:567</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L560">src/app/three/subscribe.abstract.ts:560</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2716,7 +2811,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1222">src/app/three/material.abstract.ts:1222</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1291">src/app/three/material.abstract.ts:1291</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2736,36 +2831,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setMesh" class="tsd-anchor"></a>
-					<h3>set<wbr>Mesh</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Mesh<span class="tsd-signature-symbol">(</span>meshMaterial<span class="tsd-signature-symbol">: </span><a href="../modules.html#MeshMaterial" class="tsd-signature-type" data-tsd-kind="Type alias">MeshMaterial</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L972">src/app/three/material.abstract.ts:972</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Sets mesh</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>meshMaterial: <a href="../modules.html#MeshMaterial" class="tsd-signature-type" data-tsd-kind="Type alias">MeshMaterial</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="setObject" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> set<wbr>Object</h3>
@@ -2777,7 +2842,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setObject">setObject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L450">src/app/three/subscribe.abstract.ts:450</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L448">src/app/three/subscribe.abstract.ts:448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2797,6 +2862,39 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setObject3d" class="tsd-anchor"></a>
+					<h3>set<wbr>Object3d</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Object3d<span class="tsd-signature-symbol">(</span>object3d<span class="tsd-signature-symbol">: </span><a href="AbstractSubscribeComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSubscribeComponent</a>, refType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1007">src/app/three/material.abstract.ts:1007</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets object3d</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>object3d: <a href="AbstractSubscribeComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSubscribeComponent</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+								<li>
+									<h5>refType: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;auto&#x27;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="setParent" class="tsd-anchor"></a>
 					<h3>set<wbr>Parent</h3>
@@ -2808,7 +2906,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setParent">setParent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L768">src/app/three/subscribe.abstract.ts:768</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L761">src/app/three/subscribe.abstract.ts:761</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2838,7 +2936,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setSubscribeNext">setSubscribeNext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L515">src/app/three/subscribe.abstract.ts:515</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L508">src/app/three/subscribe.abstract.ts:508</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2869,7 +2967,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setSubscribeType">setSubscribeType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L200">src/app/three/subscribe.abstract.ts:200</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L209">src/app/three/subscribe.abstract.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2900,7 +2998,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setTween">setTween</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L138">src/app/three/subscribe.abstract.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L148">src/app/three/subscribe.abstract.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2936,7 +3034,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#setUserData">setUserData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L438">src/app/three/subscribe.abstract.ts:438</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L436">src/app/three/subscribe.abstract.ts:436</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2970,7 +3068,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#subscribeListQuery">subscribeListQuery</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L740">src/app/three/subscribe.abstract.ts:740</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L733">src/app/three/subscribe.abstract.ts:733</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3007,7 +3105,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#subscribeListQueryChange">subscribeListQueryChange</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L722">src/app/three/subscribe.abstract.ts:722</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L715">src/app/three/subscribe.abstract.ts:715</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3044,7 +3142,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#subscribeRefer">subscribeRefer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L606">src/app/three/subscribe.abstract.ts:606</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L599">src/app/three/subscribe.abstract.ts:599</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3078,7 +3176,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#subscribeReferList">subscribeReferList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L707">src/app/three/subscribe.abstract.ts:707</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L700">src/app/three/subscribe.abstract.ts:700</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3101,28 +3199,31 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="synkMesh" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> synk<wbr>Mesh</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">synk<wbr>Mesh<span class="tsd-signature-symbol">(</span>material<span class="tsd-signature-symbol">?: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="synkObject3d" class="tsd-anchor"></a>
+					<h3>synk<wbr>Object3d</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">synk<wbr>Object3d<span class="tsd-signature-symbol">(</span>material<span class="tsd-signature-symbol">?: </span><a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a>, key<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L986">src/app/three/material.abstract.ts:986</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L1102">src/app/three/material.abstract.ts:1102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synks mesh</p>
+									<p>Synks object3d</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>material: <a href="THREE.Material.html" class="tsd-signature-type" data-tsd-kind="Class">Material</a><span class="tsd-signature-symbol"> = null</span></h5>
+								</li>
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -3140,7 +3241,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#unSubscribeRefer">unSubscribeRefer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L594">src/app/three/subscribe.abstract.ts:594</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L587">src/app/three/subscribe.abstract.ts:587</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3171,7 +3272,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#unSubscribeReferList">unSubscribeReferList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L693">src/app/three/subscribe.abstract.ts:693</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L686">src/app/three/subscribe.abstract.ts:686</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3202,7 +3303,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#unSubscription">unSubscription</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L576">src/app/three/subscribe.abstract.ts:576</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L569">src/app/three/subscribe.abstract.ts:569</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3221,6 +3322,36 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="unsetObject3d" class="tsd-anchor"></a>
+					<h3>unset<wbr>Object3d</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">unset<wbr>Object3d<span class="tsd-signature-symbol">(</span>object3d<span class="tsd-signature-symbol">: </span><a href="AbstractSubscribeComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSubscribeComponent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/material.abstract.ts#L994">src/app/three/material.abstract.ts:994</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>unSets object3d</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>object3d: <a href="AbstractSubscribeComponent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSubscribeComponent</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="updateInputParams" class="tsd-anchor"></a>
 					<h3>update<wbr>Input<wbr>Params</h3>
@@ -3232,7 +3363,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="AbstractSubscribeComponent.html">AbstractSubscribeComponent</a>.<a href="AbstractSubscribeComponent.html#updateInputParams">updateInputParams</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/subscribe.abstract.ts#L666">src/app/three/subscribe.abstract.ts:666</a></li>
+									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/6549281e/src/app/three/subscribe.abstract.ts#L659">src/app/three/subscribe.abstract.ts:659</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3264,64 +3395,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="getMeshMaterial" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Mesh<wbr>Material</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Mesh<wbr>Material<span class="tsd-signature-symbol">(</span>mesh<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#MeshMaterial" class="tsd-signature-type" data-tsd-kind="Type alias">MeshMaterial</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1118">src/app/three/material.abstract.ts:1118</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Gets mesh material</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>mesh: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules.html#MeshMaterial" class="tsd-signature-type" data-tsd-kind="Type alias">MeshMaterial</a></h4>
-							<p>mesh material</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="isMeshMaterial" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Mesh<wbr>Material</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Mesh<wbr>Material<span class="tsd-signature-symbol">(</span>mesh<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/outmindkjg/ngx3js/blob/9b0831d1/src/app/three/material.abstract.ts#L1105">src/app/three/material.abstract.ts:1105</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Determines whether mesh material is</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>mesh: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							<p>true if mesh material</p>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -3348,11 +3421,14 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#OBJECT_ATTR" class="tsd-kind-icon">OBJECT_<wbr>ATTR</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="AbstractMaterialComponent.html#_meshMaterial" class="tsd-kind-icon">_mesh<wbr>Material</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="AbstractMaterialComponent.html#_changeList" class="tsd-kind-icon">_change<wbr>List</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#_needUpdate" class="tsd-kind-icon">_need<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="AbstractMaterialComponent.html#_object3d" class="tsd-kind-icon">_object3d</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#alphaTest" class="tsd-kind-icon">alpha<wbr>Test</a>
@@ -3438,9 +3514,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="AbstractMaterialComponent.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="AbstractMaterialComponent.html#nameList" class="tsd-kind-icon">name<wbr>List</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#onBeforeCompile" class="tsd-kind-icon">on<wbr>Before<wbr>Compile</a>
 							</li>
@@ -3464,6 +3537,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#premultipliedAlpha" class="tsd-kind-icon">premultiplied<wbr>Alpha</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="AbstractMaterialComponent.html#refIndex" class="tsd-kind-icon">ref<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="AbstractMaterialComponent.html#refName" class="tsd-kind-icon">ref<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#refer" class="tsd-kind-icon">refer</a>
@@ -3564,13 +3643,16 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#getDepthFunc" class="tsd-kind-icon">get<wbr>Depth<wbr>Func</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="AbstractMaterialComponent.html#getId" class="tsd-kind-icon">get<wbr>Id</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="AbstractMaterialComponent.html#getMaterial" class="tsd-kind-icon">get<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#getMaterialParameters" class="tsd-kind-icon">get<wbr>Material<wbr>Parameters</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="AbstractMaterialComponent.html#getObject" class="tsd-kind-icon">get<wbr>Object</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
@@ -3633,11 +3715,11 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#setMaterial" class="tsd-kind-icon">set<wbr>Material</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="AbstractMaterialComponent.html#setMesh" class="tsd-kind-icon">set<wbr>Mesh</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#setObject" class="tsd-kind-icon">set<wbr>Object</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="AbstractMaterialComponent.html#setObject3d" class="tsd-kind-icon">set<wbr>Object3d</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="AbstractMaterialComponent.html#setParent" class="tsd-kind-icon">set<wbr>Parent</a>
@@ -3666,8 +3748,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#subscribeReferList" class="tsd-kind-icon">subscribe<wbr>Refer<wbr>List</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="AbstractMaterialComponent.html#synkMesh" class="tsd-kind-icon">synk<wbr>Mesh</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="AbstractMaterialComponent.html#synkObject3d" class="tsd-kind-icon">synk<wbr>Object3d</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#unSubscribeRefer" class="tsd-kind-icon">un<wbr>Subscribe<wbr>Refer</a>
@@ -3678,14 +3760,11 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="AbstractMaterialComponent.html#unSubscription" class="tsd-kind-icon">un<wbr>Subscription</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="AbstractMaterialComponent.html#unsetObject3d" class="tsd-kind-icon">unset<wbr>Object3d</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="AbstractMaterialComponent.html#updateInputParams" class="tsd-kind-icon">update<wbr>Input<wbr>Params</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="AbstractMaterialComponent.html#getMeshMaterial" class="tsd-kind-icon">get<wbr>Mesh<wbr>Material</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="AbstractMaterialComponent.html#isMeshMaterial" class="tsd-kind-icon">is<wbr>Mesh<wbr>Material</a>
 							</li>
 						</ul>
 					</li>
