@@ -2,7 +2,7 @@ import { AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, Simpl
 import { RendererTimer, ThreeColor, ThreeUtil } from './interface';
 import { AbstractObject3dComponent } from './object3d.abstract';
 import * as THREE from 'three';
-import { Mesh, RingGeometry } from 'three';
+import { MathUtils, Mesh, RingGeometry } from 'three';
 import { OutlineGeometry } from './geometry/geometry.outline';
 import { StarGeometry } from './geometry/geometry.star';
 
@@ -65,14 +65,36 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	 */
 	@Input() protected depthLength: number = 1;
 
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	 @Input() protected depthSize: number = 0.8;
+
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	@Input() protected widthLength: number = 1;
+
 	@Input() protected options: ShapeInfo = null;
 
 	@Input() protected label: string = null;
 
 	@Input() protected pointStyle: string = 'circle';
 
+	@Input() protected pointOffset: number = 0.1;
+
 	@Input() protected pointOptions: ShapeInfo = null;
 
+	/**
+	 * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	 */
+	 @Input() protected scaleMin: number = null;
+
+	 /**
+	  * Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+	  */
+	 @Input() protected scaleMax: number = null;
+ 
 	/**
 	 * Object3 d attr of abstract object3d component
 	 */
@@ -178,10 +200,122 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 	protected setObject3d(object: THREE.Object3D) {
 		this.setChart(object);
 	}
+	
+	protected getDepthCenter() : number {
+		const depth = ThreeUtil.getTypeSafe(this.depth, 1);
+		const depthIdx = ThreeUtil.getTypeSafe(this.depthIdx, 0);
+		const depthLength = Math.max(1, ThreeUtil.getTypeSafe(this.depthLength, 1));
+		return depth / depthLength * (depthIdx + 0.5) - depth / 2;
+	}
+
+	protected getDepthSize() : number {
+		const depth = ThreeUtil.getTypeSafe(this.depth, 1);
+		const depthLength = Math.max(1, ThreeUtil.getTypeSafe(this.depthLength, 1));
+		return depth / depthLength * ThreeUtil.getTypeSafe(this.depthSize, 0.9);
+	}
+
+	protected getWidthCenter(widthIdx : number ) : number {
+		const width = ThreeUtil.getTypeSafe(this.width, 1);
+		const widthLength = Math.max(1, ThreeUtil.getTypeSafe(this.widthLength, 1));
+		return width / widthLength * (widthIdx + 0.5) - width / 2;
+	}
+
+	protected getHeightCenter(scaleMin : number, scaleMax : number , value : number ) : number {
+		const scaleDist = scaleMax - scaleMin;
+		const height = ThreeUtil.getTypeSafe(this.height, 1);
+		return ((value - scaleMin)/ scaleDist - 0.5) * height / 2;
+	}
+
+	protected getScaleMinMax(data : number[]) {
+		let scaleMax = 100;
+		let scaleMin = 0;
+		if (ThreeUtil.isNotNull(this.scaleMax)) {
+			scaleMax = ThreeUtil.getTypeSafe(this.scaleMax, 100);
+		} else if (data.length > 0){
+			scaleMax = -Infinity;
+			data.forEach(p => {
+				scaleMax = Math.max(scaleMax, p);
+			});
+		}
+		if (ThreeUtil.isNotNull(this.scaleMin)) {
+			scaleMin = ThreeUtil.getTypeSafe(this.scaleMin, 0);
+		} else if (data.length > 0){
+			scaleMin = Infinity;
+			data.forEach(p => {
+				scaleMin = Math.min(scaleMin, p);
+			});
+		}
+		return [scaleMin, scaleMax];
+	}
+
+	protected getTestData(data : number[], len : number = 10) {
+		if (data.length === 0) {
+			for(let i = 0 ; i < len; i++) {
+				data.push(Math.random() * 100);
+			}
+			this.widthLength = data.length;
+		}
+		return data;
+	}
+
+	protected addPointer(upPoints : number[], pointer : THREE.Object3D, parent : THREE.Object3D, middleY : number, baseZ : number) {
+		const height = ThreeUtil.getTypeSafe(this.height, 1);
+		const offsetY = height * ThreeUtil.getTypeSafe(this.pointOffset, 0);
+		upPoints.forEach((p,i) => {
+			const x = this.getWidthCenter(i);
+			const point = pointer.clone(true);
+			point.position.set(x,middleY,baseZ);
+			point.castShadow = true;
+			parent.add(point);
+			this.addUpdatePosition(point, {
+				index : 1,
+				from : middleY,
+				to : p + offsetY
+			}, true);
+		})
+	}
+
+	private _updateAttributes : {
+		attribute :THREE.BufferAttribute | THREE.InterleavedBufferAttribute,
+		values : AttributeUpdateInfo[]
+	}[] = [];
+
+	private _updatePosition : {
+		position :THREE.Vector3,
+		value : AttributeUpdateInfo
+	}[] = [];
+
+	private _updatePoints : THREE.Object3D[] = [];
+
+	protected addUpdateAttributes(geometry : THREE.BufferGeometry, values : AttributeUpdateInfo[]) {
+		this._updateAttributes.push({
+			attribute : geometry.getAttribute('position'),
+			values : values
+		})
+	}
+
+	protected addUpdatePosition(object3d : THREE.Object3D , value : AttributeUpdateInfo, isPointer : boolean = true) {
+		this._updatePosition.push({
+			position : object3d.position,
+			value : value
+		});
+		if (isPointer) {
+			this._updatePoints.push(object3d);
+		}
+	}
+
+	protected clearChart() {
+		this._updateAttributes = [];
+		this._updatePosition = [];
+		this._updatePoints = [];
+	}
 
 	protected setChart(object: THREE.Object3D) {
 		this.chart = object;
 		super.setObject3d(object);
+		if (this.controllerList.length === 0) {
+			this.update(null, 1, 0.1);
+		}
 	}
 
 	/**
@@ -241,12 +375,15 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		switch (type.toLowerCase()) {
 			case 'plane':
 				geometry = new THREE.PlaneGeometry(options.radius * 2, options.radius * 2);
+				side = 'double';
 				break;
 			case 'star':
 				geometry = new StarGeometry(options.radius * 0.5, options.radius, 5);
+				side = 'double';
 				break;
 			case 'ring':
 				geometry = new RingGeometry(options.radius * 0.5, options.radius);
+				side = 'double';
 				break;
 			case 'sphere':
 				geometry = new THREE.SphereGeometry(options.radius, 10, 5);
@@ -257,6 +394,7 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 			case 'circle':
 			default:
 				geometry = new THREE.CircleGeometry(options.radius , 32);
+				side = 'double';
 				break;
 		}
 		const material = new THREE.MeshPhongMaterial({
@@ -283,5 +421,33 @@ export abstract class AbstractChartComponent extends AbstractObject3dComponent i
 		return { mesh: mesh, geometry: geometry, material: material, geometryBorder: geometryBorder, materialBorder: materialBorder };
 	}
 
-	public update(rendererTimer: RendererTimer, elapsedTime: number, delta: number) {}
+	public update(_: RendererTimer, elapsedTime : number, delta : number) {
+		if (ThreeUtil.isNotNull(this._updateAttributes) || ThreeUtil.isNotNull(this._updatePosition) || ThreeUtil.isNotNull(this._updatePoints)) {
+			if (elapsedTime > 0 && elapsedTime < 1.5 && delta > 0) {
+				elapsedTime = Math.min(elapsedTime, 1);
+				if (ThreeUtil.isNotNull(this._updateAttributes) && this._updateAttributes.length > 0) {
+					this._updateAttributes.forEach(info => {
+						const attribute = info.attribute;
+						info.values.forEach(data => {
+							attribute.setY(data.index, MathUtils.lerp(data.from, data.to, elapsedTime));
+						})
+						attribute.needsUpdate = true;
+					});
+				}
+				if (ThreeUtil.isNotNull(this._updatePosition) && this._updatePosition.length > 0) {
+					this._updatePosition.forEach(info => {
+						const position = info.position;
+						const data = info.value;
+						position.setY(MathUtils.lerp(data.from, data.to, elapsedTime));
+					});
+				}
+			}
+			if (ThreeUtil.isNotNull(this._updatePoints) && this._updatePoints.length > 0) {
+				this._updatePoints.forEach(object3d => {
+					object3d.rotation.y += delta * 0.5;
+					object3d.rotation.x += delta * 0.3;
+				});
+			}
+		}
+	}
 }

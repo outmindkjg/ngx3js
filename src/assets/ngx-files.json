@@ -1,5 +1,5 @@
  {
 	"ngx3js / chart": [
-		"ngx_chart_bar"
+		"ngx_chart_line"
 	]
 }

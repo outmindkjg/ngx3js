@@ -14,14 +14,7 @@
     <ngx3js-position [x]="0" [y]="2" [z]="3"></ngx3js-position>
   </ngx3js-camera>
   <ngx3js-scene #scene [background]="'0x000000'">
-    <ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
+    <ngx3js-light [type]="'AmbientLight'" [color]="'0xffffff'" [intensity]="0.3"></ngx3js-light>
     <ngx3js-light
       [type]="'directional'"
       [color]="'0xffffff'"
@@ -31,43 +24,26 @@
       [shadowCameraBottom]="-1"
       [shadowCameraLeft]="-1"
       [shadowCameraRight]="1"
-      [shadowCameraNear]="0.1"
+      [shadowCameraNear]="0.01"
       [shadowCameraFar]="40"
       [shadowMapSize]="1024"
       [shadowRadius]="5"
     >
-      <ngx3js-position [x]="-3" [y]="5" [z]="10"></ngx3js-position>
+      <ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
     </ngx3js-light>
     <ngx3js-mesh (onLoad)="setMesh($event)">
       <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
       <ngx3js-chart-axes [type]="'x'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
       <ngx3js-chart-axes [type]="'y'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
       <ngx3js-chart-axes [type]="'z'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-line [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="0" [options]="{ backgroundColor : '0xffff00' }" [pointStyle]="controls.pointStyle">
+      <ngx3js-chart-line [type]="'linedepth'" [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="0" [options]="{ backgroundColor : '0x00ff00' }" [pointStyle]="controls.pointStyle">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-chart-controller></ngx3js-chart-controller>
       </ngx3js-chart-line>
-      <ngx3js-chart-bar [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="1">
+      <ngx3js-chart-line [type]="'line'" [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="1" [options]="{ backgroundColor : '0xff0000' }" [pointStyle]="controls.pointStyle">
         <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
         <ngx3js-chart-controller></ngx3js-chart-controller>
-      </ngx3js-chart-bar>
-    </ngx3js-mesh>
-    <ngx3js-mesh [visible]="false">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-chart-title [type]="'title'" [width]="10" [height]="1" [options]="{ backgroundColor : '0xff0000' }" [message]="'Abc우리'" [align]="'left-top'">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      </ngx3js-chart-title>
-      <ngx3js-chart-title [type]="'subtitle'" [width]="10" [height]="0.5" [options]="{ backgroundColor : '0xff0000', opacity : 0.5 }" [message]="'Sub Abc우리'" [align]="'right-top'">
-        <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="0" [z]="45"></ngx3js-rotation>
-      </ngx3js-chart-title>
-      <ngx3js-chart-axes [visible]="false" [type]="'x'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [visible]="false" [type]="'top'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [type]="'y'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [visible]="false" [type]="'right'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [visible]="false" [type]="'z'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [visible]="false" [type]="'front'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [type]="'radar'" [radius]="1.5" [width]="2" [height]="1" [depth]="0.4" [xGridStep]="9" [yGridStep]="3"></ngx3js-chart-axes>
+      </ngx3js-chart-line>
     </ngx3js-mesh>
   </ngx3js-scene>
 </ngx3js-renderer>

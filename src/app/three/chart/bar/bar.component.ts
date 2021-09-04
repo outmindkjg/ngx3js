@@ -76,13 +76,21 @@ export class ChartBarComponent extends AbstractChartComponent implements OnInit 
 
 	private _line: THREE.Object3D = null;
 	
-	private _material: THREE.MeshBasicMaterial = null;
+	private _material: THREE.Material = null;
 
 	private _geometry: THREE.BufferGeometry = null;
 
 	private _materialBorder: THREE.LineBasicMaterial = null;
 
 	private _geometryBorder: THREE.BufferGeometry = null;
+	
+	private _materialPoint: THREE.Material = null;
+
+	private _geometryPoint: THREE.BufferGeometry = null;
+
+	private _materialPointBorder: THREE.LineBasicMaterial = null;
+
+	private _geometryPointBorder: THREE.BufferGeometry = null;
 	
 	/**
 	 * Applys changes3d
@@ -132,38 +140,14 @@ export class ChartBarComponent extends AbstractChartComponent implements OnInit 
 	public getLine<T extends THREE.Object3D>(): T {
 		if (this._line === null || this._needUpdate) {
 			this.needUpdate = false;
-			this._updateAttributes = [];
+			this.clearChart();
 			this._line = new THREE.Group();
 			const width = ThreeUtil.getTypeSafe(this.width, 1);
 			const height = ThreeUtil.getTypeSafe(this.height, 1);
-			const depth = ThreeUtil.getTypeSafe(this.depth, 1);
-			const depthIdx = ThreeUtil.getTypeSafe(this.depthIdx, 0);
-			const depthLength = Math.max(1, ThreeUtil.getTypeSafe(this.depthLength, 1));
 			const data : number[] = ThreeUtil.getTypeSafe(this.data, []);
-			if (data.length === 0) {
-				for(let i = 0 ; i < 10; i++) {
-					data.push(Math.random() * 100);
-				}
-			}
-			const baseZ = depth / depthLength * (depthIdx + 0.5) - depth / 2;
-			let scaleMax = 100;
-			let scaleMin = 0;
-			if (ThreeUtil.isNotNull(this.scaleMax)) {
-				scaleMax = ThreeUtil.getTypeSafe(this.scaleMax, 100);
-			} else if (data.length > 0){
-				scaleMax = -Infinity;
-				data.forEach(p => {
-					scaleMax = Math.max(scaleMax, p);
-				});
-			}
-			if (ThreeUtil.isNotNull(this.scaleMin)) {
-				scaleMin = ThreeUtil.getTypeSafe(this.scaleMin, 0);
-			} else if (data.length > 0){
-				scaleMin = Infinity;
-				data.forEach(p => {
-					scaleMin = Math.min(scaleMin, p);
-				});
-			}
+			this.getTestData(data);
+			const baseZ = this.getDepthCenter();
+			const [scaleMax, scaleMin] = this.getScaleMinMax(data);
 			const scaleDist = scaleMax - scaleMin;
 			const upPoints: number[] = [];
 			const downPoints: number[] = [];
@@ -177,15 +161,15 @@ export class ChartBarComponent extends AbstractChartComponent implements OnInit 
 			let attributeIndex : number[] = [];
 			let areaUpdateAttributes : AttributeUpdateInfo[] = [];
 			let lineUpdateAttributes : AttributeUpdateInfo[] = [];
+			const lineStepX = width / upPoints.length;
+			const lineBaseX = - width / 2 + lineStepX / 2;
+			const lineLen = upPoints.length;
+			const middleY = 0;
 			switch (this.type.toLowerCase()) {
 				case 'line' :
 				default:
 					attributePosition = new Float32Array(upPoints.length * 2 * 3);
 					attributeLine = new Float32Array((upPoints.length - 1) * 2 * 3);
-					const lineStepX = width / upPoints.length;
-					const lineBaseX = - width / 2 + lineStepX / 2;
-					const lineLen = upPoints.length;
-					const middleY = 0;
 					let areaIdx = 0;
 					upPoints.forEach((p,i) => {
 						const idx = i * 6;
@@ -246,10 +230,7 @@ export class ChartBarComponent extends AbstractChartComponent implements OnInit 
 			wallMesh.receiveShadow = true;
 			wallMesh.castShadow = true;
 			this._line.add(wallMesh);
-			this._updateAttributes.push({
-				attribute : this._geometry.getAttribute('position'),
-				values : areaUpdateAttributes
-			})
+			this.addUpdateAttributes(this._geometry, areaUpdateAttributes);
 			this._geometryBorder = new THREE.BufferGeometry();
 			this._geometryBorder.setAttribute('position', new THREE.BufferAttribute(attributeLine, 3));
 			this._materialBorder = new THREE.LineBasicMaterial({
@@ -259,35 +240,29 @@ export class ChartBarComponent extends AbstractChartComponent implements OnInit 
 			const borderMesh = new THREE.LineSegments(this._geometryBorder, this._materialBorder);
 			borderMesh.name = 'border';
 			this._line.add(borderMesh);
-			this._updateAttributes.push({
-				attribute : this._geometryBorder.getAttribute('position'),
-				values : lineUpdateAttributes
+			this.addUpdateAttributes(this._geometryBorder, lineUpdateAttributes);
+			let pointerInfo = this.getPointShape();
+			let pointer : THREE.Object3D = pointerInfo.mesh;
+			this._geometryPoint = pointerInfo.geometry;
+			this._materialPoint = pointerInfo.material;
+			this._geometryPointBorder = pointerInfo.geometryBorder;
+			this._materialPointBorder = pointerInfo.materialBorder;
+			upPoints.forEach((p,i) => {
+				const x = i * lineStepX + lineBaseX;
+				const position : THREE.Vector3 = new THREE.Vector3(x,middleY,baseZ);
+				const point = pointer.clone(true);
+				point.position.copy(position);
+				point.castShadow = true;
+				this._line.add(point);
+				this.addUpdatePosition(point, {
+					index : 1,
+					from : middleY,
+					to : p
+				}, true);
 			})
 			this.setChart(this._line);
-			if (this.controllerList.length === 0) {
-				this.update(null, 1, 0.1);
-			}
 		}
 		return this._line as T;
 	}
 
-	private _updateAttributes : {
-		attribute :THREE.BufferAttribute | THREE.InterleavedBufferAttribute,
-		values : AttributeUpdateInfo[]
-	}[] = [];
-
-	public update(_: RendererTimer, elapsedTime : number, delta : number) {
-		if (ThreeUtil.isNotNull(this._updateAttributes)) {
-			if (elapsedTime > 0 && elapsedTime < 1.5 && delta > 0) {
-				elapsedTime = Math.min(elapsedTime, 1);
-				this._updateAttributes.forEach(info => {
-					const attribute = info.attribute;
-					info.values.forEach(data => {
-						attribute.setY(data.index, MathUtils.lerp(data.from, data.to, elapsedTime));
-					})
-					attribute.needsUpdate = true;
-				});
-			}
-		}
-	}
 }
