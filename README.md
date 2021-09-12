@@ -14,79 +14,40 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 
 ### FIX dependencies ###
 I found some errors on three.js. Before use this source. You muse fix them by you self.
-current theejs verion "^0.130.0"
-
+current theejs verion "^0.131.0"
+I found some errors on @types/three. Before use this source. You muse fix them by you self.
+current theejs verion "^0.131.0"
 ```javascript
 
-// node_modules/@types/three/examples/jsm/utils/SceneUtils.d.ts
--+ 1    import { BufferGeometry, Group, InstancedMesh, Material, Object3D, Scene } from '../../../src/Three';
--+ 5    function createMultiMaterialObject(geometry: BufferGeometry, materials: Material[]): Group;
-
-// node_modules/@types/three/examples/jsm/misc/MorphAnimMesh.d.ts
--+ 1    import { AnimationAction, AnimationMixer, BufferGeometry, Material, Mesh } from '../../../src/Three';
--+ 4    constructor(geometry: BufferGeometry, material: Material);
-
 // node_modules/ammojs-typed/ammo/ammo.d.ts
- + 7    function castObject(obj1 : any, obj2 : any) : btCollisionObject;
+ + 7    function castObject(obj1 : any, obj2 : any) : any;
 
-// node_modules/@types/three/examples/jsm/loaders/TiltLoader.js
+// node_modules/three/examples/jsm/loaders/TiltLoader.js
 -+ 408	const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
 
 // node_modules/@types/three/examples/jsm/geometries/TeapotGeometry.d.ts
--+ 4 	constructor( size?: number, segments?: number, bottom?: boolean, lid?: boolean, body?: boolean, fitLid?: boolean, blinn?: boolean );
+-+ 11 	blinn?: boolean,
 
-// node_modules/@types/three/examples/jsm/exporters/OBJExporter.js
--+ 138 	} else if (vertices !== undefined){
+// node_modules/three/examples/jsm/exporters/OBJExporter.js
+-+ 134 	} else if (vertices !== undefined){
 
 // node_modules/@types/three/examples/jsm/loaders/SVGLoader.d.ts
 -+ 1 	import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector2, Shape } from '../../../src/Three';
--+ 40   static pointsToStroke( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number ): BufferGeometry;
--+ 52   static pointsToStrokeWithBuffers( points: Vector2[], style: StrokeStyle, arcDivisions?: number, minDistance?: number, vertices?: number[], normals?: number[], uvs?: number[], vertexOffset?: number ): number;
-
-// node_modules/@types/three/examples/jsm/lines/WireframeGeometry2.d.ts
--+ 1 	import { BufferGeometry } from '../../../src/Three';
--+ 6 	constructor( geometry: BufferGeometry );
+-+ 47   points: Vector2[],
+-+ 53   points: Vector2[],
 
 // node_modules/@types/three/examples/jsm/math/OBB.d.ts
--+ 8 	constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
--+ 17 intersectsOBB( obb: OBB, epsilon?: number ): boolean;
-
-// node_modules/@types/three/examples/jsm/modifiers/CurveModifier.d.ts
--+ 7    BufferGeometry,
--+ 43   constructor( count: Number, curveCount: Number, geometry: BufferGeometry, material: Material );
-
-// node_modules/@types/three/examples/jsm/loaders/VOXLoader.d.ts
--+ 23   export class VOXMesh extends Mesh {
--+ 24   	constructor( chunk );
--+ 25   }
-
-// node_modules/@types/three/examples/jsm/modifiers/EdgeSplitModifier.d.ts
--+ 18   modify( geometry: BufferGeometry, cutOffPoint: number, tryKeepNormals: boolean ): BufferGeometry;
-
-// node_modules/@types/three/examples/jsm/modifiers/SimplifyModifier.d.ts
--+ 5    modify( geometry: BufferGeometry , count: number ): BufferGeometry;
-
-// node_modules/@types/three/examples/jsm/objects/Water.d.ts
--+ 1 	import { BufferGeometry, Color, Mesh, Side, Texture, Vector3 } from '../../../src/Three';
--+ 20 constructor(geometry: BufferGeometry, options: WaterOptions);
+-+ 8 	  constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
+-+ 17   intersectsOBB(obb: OBB, epsilon?: number): boolean;
 
 // node_modules/@types/three/examples/jsm/objects/ShadowMesh.d.ts
 -+ 4    constructor(mesh : Mesh);
 
-// node_modules/@types/three/examples/jsm/objects/Water2.d.ts
--+ 1    import { BufferGeometry, Color, Mesh, Texture, TextureEncoding, Vector2 } from '../../../src/Three';
--+ 20 	constructor(geometry: BufferGeometry, options: Water2Options);
-
-// node_modules/@types/three/examples/jsm/postprocessing/SAOPass.d.ts
--+ 31 	saoBlur: boolean;
-
-// node_modules/@types/three/examples/jsm/utils/UVsDebug.d.ts
--+ 1  import { BufferGeometry } from '../../../src/Three';
--+ 3  export function UVsDebug( geometry: BufferGeometry, size: number ): HTMLCanvasElement;
-
 // node_modules/@types/three/examples/jsm/objects/ReflectorForSSRPass.d.ts
- + 59  export { Reflector as ReflectorForSSRPass };
+ + 59   export { Reflector as ReflectorForSSRPass };
 
+// node_modules/@types/three/examples/jsm/nodes/inputs/ColorNode.d.ts
+ + 7    constructor(color: ColorRepresentation, g?: number, b?: number);
 
 ```
 

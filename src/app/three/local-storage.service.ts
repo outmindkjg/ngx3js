@@ -1691,8 +1691,8 @@ export class LocalStorageService {
                   material.color.copy(objectMaterial['color']);
                   material.map = objectMaterial['map'];
                   // material.skinning = objectMaterial['skinning'];
-                  material.morphTargets = objectMaterial['morphTargets'];
-                  material.morphNormals = objectMaterial['morphNormals'];
+                  // material.morphTargets = objectMaterial['morphTargets'];
+                  // material.morphNormals = objectMaterial['morphNormals'];
                   object.material[i] = material;
                 }
               } else {
@@ -1702,8 +1702,8 @@ export class LocalStorageService {
                 material.color.copy(objectMaterial['color']);
                 material.map = objectMaterial['map'];
                 // material.skinning = objectMaterial['skinning'];
-                material.morphTargets = objectMaterial['morphTargets'];
-                material.morphNormals = objectMaterial['morphNormals'];
+                // material.morphTargets = objectMaterial['morphTargets'];
+                // material.morphNormals = objectMaterial['morphNormals'];
                 object.material = material;
               }
             }

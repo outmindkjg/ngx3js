@@ -265,7 +265,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
 	 * @returns rigid body
 	 */
 	public getRigidBody(body: Ammo.btCollisionObject): Ammo.btRigidBody {
-		return this.ammo['castObject'](body, this.ammo.btRigidBody);
+		return this.ammo.castObject(body, this.ammo.btRigidBody);
 	}
 
 	/**
@@ -287,7 +287,7 @@ export class PhysicsComponent extends AbstractSubscribeComponent implements OnIn
 	 * @returns bt vector3
 	 */
 	public getBtVector3(pointer: any): Ammo.btVector3 {
-		return this.ammo['castObject'](pointer, this.ammo.btVector3);
+		return this.ammo.castObject(pointer, this.ammo.btVector3);
 	}
 
 	/**

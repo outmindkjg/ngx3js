@@ -17,7 +17,7 @@ import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader';
 import { FilmShader } from 'three/examples/jsm/shaders/FilmShader';
 import { FocusShader } from 'three/examples/jsm/shaders/FocusShader';
 import { FreiChenShader } from 'three/examples/jsm/shaders/FreiChenShader';
-import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
+// import { FresnelShader } from 'three/examples/jsm/shaders/FresnelShader';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader';
 import { GodRaysCombineShader, GodRaysDepthMaskShader, GodRaysFakeSunShader, GodRaysGenerateShader } from 'three/examples/jsm/shaders/GodRaysShader';
@@ -132,8 +132,8 @@ export const ShaderConf: {
   godrayscombine: 'godrayscombineshader',
   godraysfakesunshader: GodRaysFakeSunShader,
   godraysfakesun: 'godraysfakesunshader',
-  fresnelshader: FresnelShader,
-  fresnel: 'fresnelshader',
+  // fresnelshader: FresnelShader,
+  // fresnel: 'fresnelshader',
   depthlimitedblurshader: DepthLimitedBlurShader,
   depthlimitedblur: 'depthlimitedblurshader',
   convolutionshader: ConvolutionShader,

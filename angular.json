@@ -103,9 +103,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/examples/files/main.scss",
-              "src/assets/examples/files/page.scss",
-              "src/assets/examples/files/prettify/threejs.scss",
               "node_modules/~highlight.js/styles/github.css",
               "src/styles.scss"
             ],

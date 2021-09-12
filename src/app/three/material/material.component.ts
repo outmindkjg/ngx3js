@@ -2274,7 +2274,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							linewidth: ThreeUtil.getTypeSafe(this.linewidth),
 							linecap: ThreeUtil.getTypeSafe(this.linecap),
 							linejoin: ThreeUtil.getTypeSafe(this.linejoin),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
 						};
 						material = new THREE.LineBasicMaterial(this.getMaterialParameters(parametersLineBasicMaterial));
 						break;
@@ -2298,7 +2298,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframe: ThreeUtil.getTypeSafe(this.wireframe),
 							wireframeLinewidth: ThreeUtil.getTypeSafe(this.wireframeLinewidth),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
 							reflectivity: ThreeUtil.getTypeSafe(this.reflectivity),
 							combine: this.getCombine(),
 							wireframeLinecap: ThreeUtil.getTypeSafe(this.wireframeLinecap),
@@ -2355,8 +2355,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							displacementScale: ThreeUtil.getTypeSafe(this.displacementScale),
 							displacementBias: ThreeUtil.getTypeSafe(this.displacementBias),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						material = new THREE.MeshMatcapMaterial(this.getMaterialParameters(parametersMeshMatcapMaterial));
 						break;
@@ -2376,8 +2376,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframe: ThreeUtil.getTypeSafe(this.wireframe),
 							wireframeLinewidth: ThreeUtil.getTypeSafe(this.wireframeLinewidth),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						material = new THREE.MeshNormalMaterial(this.getMaterialParameters(parametersMeshNormalMaterial));
 						break;
@@ -2409,8 +2409,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframe: ThreeUtil.getTypeSafe(this.wireframe),
 							wireframeLinewidth: ThreeUtil.getTypeSafe(this.wireframeLinewidth),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 							reflectivity: ThreeUtil.getTypeSafe(this.reflectivity),
 							specular: this.getSpecular(),
 							shininess: ThreeUtil.getTypeSafe(this.shininess),
@@ -2454,9 +2454,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframe: ThreeUtil.getTypeSafe(this.wireframe),
 							wireframeLinewidth: ThreeUtil.getTypeSafe(this.wireframeLinewidth),
 							// skinning: this.getSkinning(),
-							vertexTangents: ThreeUtil.getTypeSafe(this.vertexTangents),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// vertexTangents: ThreeUtil.getTypeSafe(this.vertexTangents),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 							clearcoat: ThreeUtil.getTypeSafe(this.clearcoat),
 							// clearcoatMap: this.getTexture('clearcoatMap'),
 							clearcoatRoughness: ThreeUtil.getTypeSafe(this.clearcoatRoughness),
@@ -2504,9 +2504,9 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframe: ThreeUtil.getTypeSafe(this.wireframe),
 							wireframeLinewidth: ThreeUtil.getTypeSafe(this.wireframeLinewidth),
 							// skinning: this.getSkinning(),
-							vertexTangents: ThreeUtil.getTypeSafe(this.vertexTangents),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// vertexTangents: ThreeUtil.getTypeSafe(this.vertexTangents),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						const meshStandardMaterial = new THREE.MeshStandardMaterial(this.getMaterialParameters(parametersMeshStandardMaterial));
 						material = meshStandardMaterial;
@@ -2540,8 +2540,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframeLinecap: ThreeUtil.getTypeSafe(this.wireframeLinecap, 'round'),
 							wireframeLinejoin: ThreeUtil.getTypeSafe(this.wireframeLinejoin, 'round'),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						material = new THREE.MeshToonMaterial(this.getMaterialParameters(parametersMeshToonMaterial));
 						break;
@@ -2553,7 +2553,7 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							alphaMap: this.getTexture('alphaMap'),
 							size: ThreeUtil.getTypeSafe(this.size),
 							sizeAttenuation: ThreeUtil.getTypeSafe(this.sizeAttenuation),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
 						};
 						material = new THREE.PointsMaterial(this.getMaterialParameters(parametersPointsMaterial));
 						break;
@@ -2569,8 +2569,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							lights: ThreeUtil.getTypeSafe(this.lights),
 							clipping: ThreeUtil.getTypeSafe(this.clipping),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						const rawShaderMaterial = new THREE.RawShaderMaterial(this.getMaterialParameters(parametersRawShaderMaterial));
 						if (ThreeUtil.isNotNull(this.glslVersion)) {
@@ -2593,8 +2593,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							lights: ThreeUtil.getTypeSafe(this.lights),
 							clipping: ThreeUtil.getTypeSafe(this.clipping),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						const shaderMaterial = new THREE.ShaderMaterial(this.getMaterialParameters(parametersShaderMaterial));
 						if (ThreeUtil.isNotNull(this.glslVersion)) {
@@ -2760,8 +2760,8 @@ export class MaterialComponent extends AbstractMaterialComponent implements OnIn
 							wireframeLinecap: ThreeUtil.getTypeSafe(this.wireframeLinecap, 'round'),
 							wireframeLinejoin: ThreeUtil.getTypeSafe(this.wireframeLinejoin, 'round'),
 							// skinning: this.getSkinning(),
-							morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
-							morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
+							// morphTargets: ThreeUtil.getTypeSafe(this.morphTargets),
+							// morphNormals: ThreeUtil.getTypeSafe(this.morphNormals),
 						};
 						const meshLambertMaterial = new THREE.MeshLambertMaterial(this.getMaterialParameters(parametersMeshLambertMaterial));
 						material = meshLambertMaterial;

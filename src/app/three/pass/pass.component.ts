@@ -1717,7 +1717,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
               height: ssrSize.y,
               selects: ThreeUtil.getTypeSafe(this.selects, []),
               encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'),
-              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false),
+              // morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false),
               groundReflector: groundReflector
             });
             this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
@@ -1737,7 +1737,7 @@ export class PassComponent extends AbstractSubscribeComponent implements OnInit 
               height: ssrrSize.y,
               selects: ThreeUtil.getTypeSafe(this.selects, []),
               encoding: ThreeUtil.getTextureEncodingSafe(this.encoding,'sRGBEncoding'),
-              morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false)
+              // morphTargets: ThreeUtil.getTypeSafe(this.morphTargets, false)
             });
             this.subscribeRefer('passSize', ThreeUtil.getSubscribe(this.size, () => {
               const size = this.getSize();
