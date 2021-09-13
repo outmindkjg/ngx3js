@@ -39,6 +39,7 @@
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "fs": "0.0.1-security",
+    "fs-web": "^1.0.1",
     "gsap": "^3.7.1",
     "ngx-highlightjs": "^4.1.4",
     "path": "^0.12.7",
