@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { DragControls } from 'three/examples/jsm/controls/DragControls';
-import { BaseComponent, ControlComponent, MeshComponent, RendererEvent } from '../../three';
+import { BaseComponent, ControlComponent, MeshComponent, RendererEvent, DragControls, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-controls-drag',

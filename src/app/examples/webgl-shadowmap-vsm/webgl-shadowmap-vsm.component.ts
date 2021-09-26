@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { DirectionalLight, SpotLight } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
-import { LightComponent } from '../../three/light/light.component';
+import { BaseComponent, LightComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-shadowmap-vsm',
@@ -34,16 +32,16 @@ export class WebglShadowmapVsmComponent extends BaseComponent<{
   }
 
   setSpotLight(light : LightComponent) {
-    this.spotLight = light.getObject3d() as SpotLight;
+    this.spotLight = light.getObject3d() as THREE.SpotLight;
   }
 
-  spotLight : SpotLight = null;
+  spotLight : THREE.SpotLight = null;
 
   setDirLight(light : LightComponent) {
-    this.dirLight = light.getObject3d() as DirectionalLight;
+    this.dirLight = light.getObject3d() as THREE.DirectionalLight;
   }
 
-  dirLight : DirectionalLight = null;
+  dirLight : THREE.DirectionalLight = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

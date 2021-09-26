@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractGeometryComponent, BaseComponent, GeometryComponent, SharedComponent } from '../../three';
+import { AbstractGeometryComponent, BaseComponent, GeometryComponent, SharedComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webxr-vr-dragging',

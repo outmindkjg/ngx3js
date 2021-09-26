@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import { GeometryUtils } from 'three/examples/jsm/utils/GeometryUtils.js';
-import * as THREE from 'three';
+import { BaseComponent, GeometryUtils, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lines-dashed',

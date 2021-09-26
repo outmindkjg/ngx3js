@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import * as THREE from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl2-volume-cloud',
@@ -52,7 +51,7 @@ export class Webgl2VolumeCloudComponent extends BaseComponent<{
       this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;
       const uniforms = this.getUniforms();
       if (uniforms !== null ) {
-        uniforms.cameraPos.value.copy( this.camera.getCamera().position );
+        uniforms.cameraPos.value.copy( (this.camera.getCamera() as THREE.Camera).position );
         uniforms.frame.value ++;
       }
     }

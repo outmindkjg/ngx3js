@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
-import { HelperComponent } from '../../three/helper/helper.component';
-import { PlaneComponent } from '../../three/plane/plane.component';
-import * as THREE from 'three';
+import { Component } from '@angular/core';
+import { BaseComponent, HelperComponent, PlaneComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-clipping-stencil',

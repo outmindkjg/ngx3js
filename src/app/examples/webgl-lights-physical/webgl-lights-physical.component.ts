@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererComponent, RendererTimer } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, MeshComponent, RendererComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lights-physical',

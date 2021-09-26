@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BufferGeometry, Color, Object3D, Vector3 } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-custom-attributes-points2',
@@ -13,21 +12,21 @@ export class WebglCustomAttributesPoints2Component extends BaseComponent<{}> {
     super({},[]);
   }
 
-  object3d : Object3D = null;
-  geometry : BufferGeometry = null;
+  object3d : THREE.Object3D = null;
+  geometry : THREE.BufferGeometry = null;
   sphereGeometryLength : number = 68 * (38 -1);
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.object3d = mesh.getObject3d();
-    const geometry:BufferGeometry = (this.object3d as any).geometry;
+    const geometry:THREE.BufferGeometry = (this.object3d as any).geometry;
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;
       const positionAttribute = geometry.getAttribute( 'position' );
       const attributes = geometry.attributes;
       const colors = geometry.getAttribute( 'ca' ).array;
       const sizes = geometry.getAttribute( 'size' ).array as any;
-      const color = new Color();
-      const vertex = new Vector3();
+      const color = new THREE.Color();
+      const vertex = new THREE.Vector3();
       const radius = 100;
       const sphereGeometryLength = this.sphereGeometryLength ; // sphereGeometry.getAttribute( 'position' ).count;
       for ( let i = 0, l = positionAttribute.count; i < l; i ++ ) {

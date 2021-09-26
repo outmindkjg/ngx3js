@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BoxGeometry, BufferGeometry, Color, Euler, Float32BufferAttribute, Matrix4, Object3D, Quaternion, Vector3 } from 'three';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, BufferGeometryUtils, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-custom-attributes-points3',
@@ -45,7 +43,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 
     radius = 200;
 
-    let boxGeometry1 : any = new BoxGeometry( radius, 0.1 * radius, 0.1 * radius, 50, 5, 5 );
+    let boxGeometry1 : any = new THREE.BoxGeometry( radius, 0.1 * radius, 0.1 * radius, 50, 5, 5 );
 
     // if normal and uv attributes are not removed, mergeVertices() can't consolidate indentical vertices with different normal/uv data
 
@@ -68,7 +66,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
     this.addGeo( boxGeometry1, - 110, - 110, 0, Math.PI / 2 );
 
     // corner edges
-    let boxGeometry2 : any = new BoxGeometry( 0.1 * radius, radius * 1.2, 0.1 * radius, 5, 60, 5 );
+    let boxGeometry2 : any = new THREE.BoxGeometry( 0.1 * radius, radius * 1.2, 0.1 * radius, 5, 60, 5 );
 
     boxGeometry2.deleteAttribute( 'normal' );
     boxGeometry2.deleteAttribute( 'uv' );
@@ -80,12 +78,12 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
     this.addGeo( boxGeometry2, - 110, 0, 110, 0 );
     this.addGeo( boxGeometry2, - 110, 0, - 110, 0 );
 
-    const positionAttribute = new Float32BufferAttribute( vertices, 3 );
+    const positionAttribute = new THREE.Float32BufferAttribute( vertices, 3 );
 
     const colors = [];
     const sizes = [];
 
-    const color = new Color();
+    const color = new THREE.Color();
 
     for ( let i = 0; i < positionAttribute.count; i ++ ) {
 
@@ -108,12 +106,12 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
     this.colors = colors;    
   }
 
-  matrix = new Matrix4();
-  position = new Vector3();
-  rotation = new Euler();
-  quaternion = new Quaternion();
-  scale = new Vector3( 1, 1, 1 );
-  vertex = new Vector3();
+  matrix = new THREE.Matrix4();
+  position = new THREE.Vector3();
+  rotation = new THREE.Euler();
+  quaternion = new THREE.Quaternion();
+  scale = new THREE.Vector3( 1, 1, 1 );
+  vertex = new THREE.Vector3();
 
   addGeo( geo, x, y, z, ry ) {
     const position = this.position;
@@ -137,12 +135,12 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
   colors : number[] = null;
   sizes : number[] = null;
 
-  object3d : Object3D = null;
-  geometry : BufferGeometry = null;
+  object3d : THREE.Object3D = null;
+  geometry : THREE.BufferGeometry = null;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.object3d = mesh.getObject3d();
-    const geometry:BufferGeometry = (this.object3d as any).geometry;
+    const geometry:THREE.BufferGeometry = (this.object3d as any).geometry;
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;
     }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil } from '../../three';
-import { HelperComponent } from '../../three/helper/helper.component';
+import { BaseComponent, HelperComponent, MeshComponent, RendererTimer, ThreeUtil } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-car',

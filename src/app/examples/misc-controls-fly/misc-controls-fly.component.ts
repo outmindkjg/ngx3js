@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Vector3 } from 'three';
-import { FlyControls } from 'three/examples/jsm/controls/FlyControls';
-import { AbstractGeometryComponent, AbstractMaterialComponent, BaseComponent, ControlComponent, GeometryComponent, MaterialComponent, MeshComponent, RendererTimer, SharedComponent } from '../../three';
+import { AbstractGeometryComponent, AbstractMaterialComponent, BaseComponent, ControlComponent, FlyControls, MeshComponent, RendererTimer, SharedComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-controls-fly',
@@ -109,7 +107,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
   }
 
   flyControl : FlyControls = null;
-  dMoonVec = new Vector3();
+  dMoonVec = new THREE.Vector3();
   radius = 6371;
   onRender(timer : RendererTimer) {
     super.onRender(timer);
@@ -120,7 +118,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
       this.meshClouds.rotation.y += 1.25 * rotationSpeed * delta;
     }
     if (this.flyControl !== null && this.camera !== null && this.meshMoon !== null) {
-      const camera = this.camera.getCamera();
+      const camera : THREE.Camera = this.camera.getCamera();
       const dPlanet = camera.position.length();
       this.dMoonVec.subVectors( camera.position, this.meshMoon.position );
       const dMoon = this.dMoonVec.length();

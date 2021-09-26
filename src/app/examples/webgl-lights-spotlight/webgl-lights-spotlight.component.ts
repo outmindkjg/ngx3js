@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, ThreeUtil } from '../../three';
-import { HelperComponent } from '../../three/helper/helper.component';
-import { LightComponent } from '../../three/light/light.component';
+import { BaseComponent, HelperComponent, LightComponent, RendererTimer } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lights-spotlight',

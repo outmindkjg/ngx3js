@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from '../../three';
+import { BaseComponent, MeshComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-loader-ifc',

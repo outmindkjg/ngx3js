@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lensflares',

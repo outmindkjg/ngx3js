@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { CircleGeometry, IUniform, Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-buffergeometry-instancing-billboards',
@@ -14,7 +13,7 @@ export class WebglBuffergeometryInstancingBillboardsComponent extends BaseCompon
   }
 
   ngOnInit() {
-    const circleGeometry = new CircleGeometry( 1, 6 );
+    const circleGeometry = new THREE.CircleGeometry( 1, 6 );
     const particleCount = 75000;
     const translateArray : number[] = [];
     for ( let i = 0, i3 = 0, l = particleCount; i < l; i ++, i3 += 3 ) {
@@ -34,8 +33,8 @@ export class WebglBuffergeometryInstancingBillboardsComponent extends BaseCompon
     this.uniforms = (this.object3d as any).material.uniforms;
   }
 
-  object3d : Object3D = null;
-  uniforms : { [uniform: string]: IUniform } = null;
+  object3d : THREE.Object3D = null;
+  uniforms : { [uniform: string]: THREE.IUniform } = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

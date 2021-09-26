@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { DirectionalLight, Mesh } from 'three';
-import { BaseComponent, RendererEvent } from '../../three';
-import { LightComponent } from '../../three/light/light.component';
+import { BaseComponent, LightComponent, RendererEvent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-pmrem-test',
@@ -38,17 +36,17 @@ export class WebglPmremTestComponent extends BaseComponent<{}> {
   }[] = [];
 
   setLight(light : LightComponent) {
-    this.directionalLight = light.getLight() as DirectionalLight;
+    this.directionalLight = light.getLight() as THREE.DirectionalLight;
   }
 
-  directionalLight : DirectionalLight = null;
+  directionalLight : THREE.DirectionalLight = null;
 
   mouseEvent(event : RendererEvent) {
     if (this.meshObject3d !== null && this.directionalLight !== null) {
       switch(event.type) {
         case 'mouseover' :
           this.meshObject3d.traverse((child) => {
-						if ( child instanceof Mesh ) {
+						if ( child instanceof THREE.Mesh ) {
               (child.material as any).envMapIntensity = 1;
             }
           });
@@ -56,7 +54,7 @@ export class WebglPmremTestComponent extends BaseComponent<{}> {
           break;
         case 'mouseout' :
           this.meshObject3d.traverse((child) => {
-						if ( child instanceof Mesh ) {
+						if ( child instanceof THREE.Mesh ) {
               (child.material as any).envMapIntensity = 0;
             }
           });

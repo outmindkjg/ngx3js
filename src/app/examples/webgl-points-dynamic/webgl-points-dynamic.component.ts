@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import * as THREE from 'three';
-import { BufferGeometry, Points } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-points-dynamic',
@@ -65,8 +63,8 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
   }
 
   meshInfos : {
-    geometry? : BufferGeometry;
-    mesh? : Points;
+    geometry? : THREE.BufferGeometry;
+    mesh? : THREE.Points;
     geoType : string;
     position : { x : number, y : number, z : number};
     scale : number;

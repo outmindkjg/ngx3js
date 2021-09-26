@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import * as THREE from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl2-volume-perlin',
@@ -44,7 +43,7 @@ export class Webgl2VolumePerlinComponent extends BaseComponent<{
       this.mesh.getMesh()
       const uniforms = this.getUniforms();
       if (uniforms !== null ) {
-        uniforms.cameraPos.value.copy( this.camera.getCamera().position );
+        uniforms.cameraPos.value.copy( (this.camera.getCamera() as THREE.Camera).position );
       }
     }
   }

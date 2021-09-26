@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BufferAttribute, Points } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-points-waves',
@@ -38,13 +37,13 @@ export class WebglPointsWavesComponent extends BaseComponent<{}> {
   
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
-    const geometry = (mesh.getObject3d() as Points).geometry;
-    this.position = geometry.getAttribute('position') as BufferAttribute || null;
-    this.scale = geometry.getAttribute('scale') as BufferAttribute || null;
+    const geometry = (mesh.getObject3d() as THREE.Points).geometry;
+    this.position = geometry.getAttribute('position') as THREE.BufferAttribute || null;
+    this.scale = geometry.getAttribute('scale') as THREE.BufferAttribute || null;
   }
 
-  position : BufferAttribute = null;
-  scale : BufferAttribute = null;
+  position : THREE.BufferAttribute = null;
+  scale : THREE.BufferAttribute = null;
   
   onRender(timer : RendererTimer) {
     super.onRender(timer);

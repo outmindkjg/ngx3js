@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as THREE from 'three';
-import { RendererTimer } from './../../three';
-import { GeometryComponent } from './../../three/geometry/geometry.component';
-import { BaseComponent } from './../../three/interface';
-import { MeshComponent } from './../../three/mesh/mesh.component';
+import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-animation-cloth',

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CurveUtils, MeshComponent, RendererTimer } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, CurveUtils, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webxr-vr-rollercoaster',

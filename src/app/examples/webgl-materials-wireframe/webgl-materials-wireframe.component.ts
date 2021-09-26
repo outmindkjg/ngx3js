@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BufferAttribute, BufferGeometry, Vector3 } from 'three';
-import { BaseComponent, GeometryComponent, ThreeUtil } from '../../three';
+import { BaseComponent, THREE, ThreeUtil } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-wireframe',
@@ -19,14 +18,14 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
     ]);
   }
 
-  setGeometry(geometry : BufferGeometry) {
+  setGeometry(geometry : THREE.BufferGeometry) {
     if (ThreeUtil.isNotNull(geometry.attributes.position)) {
       geometry.deleteAttribute( 'normal' );
       geometry.deleteAttribute( 'uv' );
       const vectors = [
-        new Vector3( 1, 0, 0 ),
-        new Vector3( 0, 1, 0 ),
-        new Vector3( 0, 0, 1 )
+        new THREE.Vector3( 1, 0, 0 ),
+        new THREE.Vector3( 0, 1, 0 ),
+        new THREE.Vector3( 0, 0, 1 )
       ];
 
       const position = geometry.attributes.position;
@@ -34,7 +33,7 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
       for ( let i = 0, l = position.count; i < l; i ++ ) {
         vectors[ i % 3 ].toArray( centers, i * 3 );
       }
-      geometry.setAttribute( 'center', new BufferAttribute( centers, 3 ) );
+      geometry.setAttribute( 'center', new THREE.BufferAttribute( centers, 3 ) );
     }
   }
 

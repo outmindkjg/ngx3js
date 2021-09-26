@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BackSide, DoubleSide, FrontSide, Material, MeshStandardMaterial, Texture } from 'three';
-import { BaseComponent, GuiControlParam, MeshComponent } from '../../three';
-import { MaterialComponent } from '../../three/material/material.component';
-import * as Nodes from 'three/examples/jsm/nodes/Nodes';
+import { BaseComponent, GuiControlParam, MaterialComponent, MeshComponent, THREE, NODES } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-nodes',
@@ -276,25 +273,25 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
   }
   orgMaterial: any = null;
   material: any = null;
-  map: Texture = null;
-  envMap: Texture = null;
-  normalMap: Texture = null;
-  sataturation: Nodes.FloatNode = null;
+  map: THREE.Texture = null;
+  envMap: THREE.Texture = null;
+  normalMap: THREE.Texture = null;
+  sataturation: NODES.FloatNode = null;
   changeMaterial(key: string) {
     if (this.material !== null) {
       switch (key) {
         case 'map':
           if (this.controls.useMap) {
             if (this.controls.useNode) {
-              this.material = new Nodes.MeshStandardNodeMaterial();
-              this.sataturation = new Nodes.FloatNode( 1 );
-              this.material.map = new Nodes.ColorAdjustmentNode(
-                new Nodes.TextureNode( this.map ),
+              this.material = new NODES.MeshStandardNodeMaterial();
+              this.sataturation = new NODES.FloatNode( 1 );
+              this.material.map = new NODES.ColorAdjustmentNode(
+                new NODES.TextureNode( this.map ),
                 this.sataturation,
-                Nodes.ColorAdjustmentNode.SATURATION
+                NODES.ColorAdjustmentNode.SATURATION
               );
             } else {
-              this.material = new MeshStandardMaterial();
+              this.material = new THREE.MeshStandardMaterial();
               this.sataturation = null;
               this.material.map = this.map;
             }
@@ -326,13 +323,13 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
         case 'side':
           switch (this.controls.side) {
             case 'double':
-              this.material.side = DoubleSide;
+              this.material.side = THREE.DoubleSide;
               break;
             case 'back':
-              this.material.side = BackSide;
+              this.material.side = THREE.BackSide;
               break;
             case 'front':
-              this.material.side = FrontSide;
+              this.material.side = THREE.FrontSide;
               break;
           }
           break;

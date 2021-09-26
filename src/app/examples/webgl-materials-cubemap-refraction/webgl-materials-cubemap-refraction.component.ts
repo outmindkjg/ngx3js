@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
-import { LightComponent } from '../../three/light/light.component';
+import { BaseComponent, LightComponent, RendererTimer } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-cubemap-refraction',

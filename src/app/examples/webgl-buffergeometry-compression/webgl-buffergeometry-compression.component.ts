@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D, Vector3 } from 'three';
-import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, BufferGeometryUtils, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-buffergeometry-compression',
@@ -141,7 +139,7 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
   setLightGroup(mesh : MeshComponent) {
     this.lights = mesh.getObject3d().children; 
   }
-  lights : Object3D[] = [];
+  lights : THREE.Object3D[] = [];
 
   setGeometry(mesh : MeshComponent) {
     const geometry = (mesh.getObject3d() as any).geometry;
@@ -152,7 +150,7 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
     super.onRender(timer);
     this.lights.forEach( light => {
       const direction = light.position.clone();
-      direction.applyAxisAngle( new Vector3( 1, 1, 0 ), this.controls.rotationSpeed / 180 * Math.PI );
+      direction.applyAxisAngle( new THREE.Vector3( 1, 1, 0 ), this.controls.rotationSpeed / 180 * Math.PI );
       light.position.add( direction.sub( light.position ) );
     });
   }

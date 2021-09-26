@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../../three';
-import * as THREE from 'three';
-import { PlaneComponent } from '../../three/plane/plane.component';
-import { MaterialComponent } from '../../three/material/material.component';
+import { Component } from '@angular/core';
+import { BaseComponent, MaterialComponent, PlaneComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-clipping-intersection',

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-variations-physical',
@@ -97,7 +96,7 @@ export class WebglMaterialsVariationsPhysicalComponent extends BaseComponent<{}>
     this.pointLight = mesh.getObject3d();
   }
 
-  pointLight : Object3D = null;
+  pointLight : THREE.Object3D = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from '../../three';
-import { LightComponent } from '../../three/light/light.component';
+import { BaseComponent, MeshComponent, LightComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lightprobe',

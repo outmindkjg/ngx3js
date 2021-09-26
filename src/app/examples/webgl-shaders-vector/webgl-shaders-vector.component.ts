@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
+import { BaseComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-shaders-vector',

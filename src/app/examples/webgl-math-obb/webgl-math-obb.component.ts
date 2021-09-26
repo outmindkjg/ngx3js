@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
-import * as THREE from 'three';
-import { OBB } from 'three/examples/jsm/math/OBB';
+import { BaseComponent, MeshComponent, RendererEvent, RendererTimer, OBB, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-math-obb',

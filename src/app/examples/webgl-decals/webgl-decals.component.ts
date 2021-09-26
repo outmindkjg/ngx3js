@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, ThreeUtil } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, MeshComponent, RendererEvent, ThreeUtil, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-decals',

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import * as THREE from 'three';
-import { BaseComponent, MeshComponent } from '../../three';
+import { BaseComponent, MeshComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-css3d-periodictable',

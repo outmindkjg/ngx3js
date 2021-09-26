@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent } from '../../three';
+import { BaseComponent, RendererEvent } from 'ngx3js';
 
 @Component({
   selector: 'app-physics-ammo-rope',

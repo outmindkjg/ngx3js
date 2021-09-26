@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from '../../three';
-import { HelperComponent } from '../../three/helper/helper.component';
+import { BaseComponent, HelperComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-helpers',

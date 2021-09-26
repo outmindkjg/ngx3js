@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import * as THREE from 'three';
-import { ReflectorForSSRPass } from 'three/examples/jsm/objects/ReflectorForSSRPass';
-import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass';
-import { BaseComponent, MeshComponent, PassComponent, RendererEvent, SceneComponent } from '../../three';
+import { BaseComponent, MeshComponent, PassComponent, ReflectorForSSRPass, RendererEvent, SceneComponent, SSRPass, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-ssr',

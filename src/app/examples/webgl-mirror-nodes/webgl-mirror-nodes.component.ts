@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-mirror-nodes',
@@ -20,12 +19,12 @@ export class WebglMirrorNodesComponent extends BaseComponent<{ blur : number}> {
   setSphereGroup(mesh : MeshComponent) {
     this.sphereGroup = mesh.getObject3d();
   }
-  sphereGroup : Object3D = null;
+  sphereGroup : THREE.Object3D = null;
 
   setSmallSphere(mesh : MeshComponent) {
     this.smallSphere = mesh.getObject3d();
   }
-  smallSphere : Object3D = null;
+  smallSphere : THREE.Object3D = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

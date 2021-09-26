@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-physical-clearcoat',
@@ -17,7 +16,7 @@ export class WebglMaterialsPhysicalClearcoatComponent extends BaseComponent<{}> 
     this.particleLight = mesh.getMesh();
   }
 
-  particleLight : Object3D = null;
+  particleLight : THREE.Object3D = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

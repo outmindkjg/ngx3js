@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Material } from 'three';
-import { BaseComponent, RendererTimer, ThreeUtil } from '../../three';
-import { MaterialComponent } from '../../three/material/material.component';
+import { BaseComponent, MaterialComponent, RendererTimer, ThreeUtil } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-loader-nodes',

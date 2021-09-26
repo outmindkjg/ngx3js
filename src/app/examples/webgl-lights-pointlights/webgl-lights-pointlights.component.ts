@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lights-pointlights',

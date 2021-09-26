@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererComponent, RendererEvent } from '../../three';
-import * as THREE from 'three';
-import { ControlComponent } from '../../three/control/control.component';
+import { BaseComponent, ControlComponent, MeshComponent, RendererComponent, RendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-transform',

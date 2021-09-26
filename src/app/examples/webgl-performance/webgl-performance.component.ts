@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererEvent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-performance',
@@ -48,7 +47,7 @@ export class WebglPerformanceComponent extends BaseComponent<{}> {
     this.meshChildren = mesh.getObject3d().children;
   }
 
-  meshChildren : Object3D[] = [];
+  meshChildren : THREE.Object3D[] = [];
 
   mouseX : number = 0;
   mouseY : number = 0;

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent } from '../../three';
-import * as THREE from 'three';
-import { ControlComponent } from '../../three/control/control.component';
+import { BaseComponent, ControlComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-spline-editor',

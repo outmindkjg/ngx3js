@@ -1,8 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { DataTexture, ShaderMaterial, Texture, Vector2 } from 'three';
-import { BaseComponent, RendererInfo, RendererTimer } from '../../three';
-import { MaterialComponent } from '../../three/material/material.component';
-import * as THREE from 'three';
+import { BaseComponent, MaterialComponent, RendererInfo, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-read-float-buffer',
@@ -41,15 +38,15 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 
   rtTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat, type: THREE.FloatType } );
 
-  texture : DataTexture = new DataTexture(null, 100, 100 );
+  texture : THREE.DataTexture = new THREE.DataTexture(null, 100, 100 );
   
   afterRender :(renderInfo : RendererInfo) => void;
 
   setMaterial(material : MaterialComponent) {
-    this.material = material.getMaterial() as ShaderMaterial;
+    this.material = material.getMaterial() as THREE.ShaderMaterial;
   }
 
-  material : ShaderMaterial = null;
+  material : THREE.ShaderMaterial = null;
   delta = 0.01;
   onRender(timer : RendererTimer) {
     super.onRender(timer);

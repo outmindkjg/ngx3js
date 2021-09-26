@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-import { TAARenderPass } from 'three/examples/jsm/postprocessing/TAARenderPass';
-import { BaseComponent, RendererTimer } from '../../three';
-import { PassComponent } from '../../three/pass/pass.component';
+import { BaseComponent, PassComponent, RendererTimer, RenderPass, TAARenderPass } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-taa',

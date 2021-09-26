@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Color, DataTexture, MathUtils, RGBFormat, Texture, Vector2, WebGLRenderer } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
-import { TextureComponent } from '../../three/texture/texture.component';
+import { BaseComponent, RendererTimer, TextureComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-texture-partialupdate',
@@ -19,15 +17,15 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
     const width = 32;
     const height = 32;
     const data = new Uint8Array( width * height * 3 );
-    this.dataTexture = new DataTexture( data, width, height, RGBFormat );
+    this.dataTexture = new THREE.DataTexture( data, width, height, THREE.RGBFormat );
 
   }
-  diffuseMap : Texture = null;
+  diffuseMap : THREE.Texture = null;
 
   last : number = 0;
-  position = new Vector2();
-  color = new Color();
-  dataTexture : DataTexture = null;
+  position = new THREE.Vector2();
+  color = new THREE.Color();
+  dataTexture : THREE.DataTexture = null;
 
   updateDataTexture( texture ) {
     const color = this.color;
@@ -49,13 +47,13 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);
-    if (this.diffuseMap !== null && timer.renderer instanceof WebGLRenderer) {
+    if (this.diffuseMap !== null && timer.renderer instanceof THREE.WebGLRenderer) {
       const elapsedTime = timer.elapsedTime;
       if ( elapsedTime - this.last > 0.1 ) {
         this.last = elapsedTime;
         const position = this.position;
-        position.x = ( 32 * MathUtils.randInt( 1, 16 ) ) - 32;
-        position.y = ( 32 * MathUtils.randInt( 1, 16 ) ) - 32;
+        position.x = ( 32 * THREE.MathUtils.randInt( 1, 16 ) ) - 32;
+        position.y = ( 32 * THREE.MathUtils.randInt( 1, 16 ) ) - 32;
         this.updateDataTexture( this.dataTexture );
         timer.renderer.copyTextureToTexture( position, this.dataTexture, this.diffuseMap );
       }

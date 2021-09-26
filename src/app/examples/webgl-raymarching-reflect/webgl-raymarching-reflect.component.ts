@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-raymarching-reflect',
@@ -51,7 +50,7 @@ export class WebglRaymarchingReflectComponent extends BaseComponent<{
     this.dolly = mesh.getObject3d();
   }
 
-  dolly : Object3D = null;
+  dolly : THREE.Object3D = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

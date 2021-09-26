@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import * as THREE from 'three';
-import { NURBSSurface } from 'three/examples/jsm/curves/NURBSSurface';
-import { NURBSCurve } from 'three/examples/jsm/curves/NURBSCurve';
+import { BaseComponent, NURBSCurve, NURBSSurface, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-nurbs',

@@ -1,7 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { BufferGeometry, Color, Float32BufferAttribute, Raycaster, Vector3 } from 'three';
-import { BaseComponent, ControlComponent, RendererEvent, RendererTimer } from '../../three';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { BaseComponent, ControlComponent, RendererEvent, RendererTimer, THREE, PointerLockControls } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-controls-pointerlock',
@@ -19,12 +17,12 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
-  initFloor(floorGeometry : BufferGeometry) {
+  initFloor(floorGeometry : THREE.BufferGeometry) {
     floorGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices
     floorGeometry.rotateX( - Math.PI / 2 );
     let position = floorGeometry.attributes.position;
-    const vertex = new Vector3();
-    const color = new Color();
+    const vertex = new THREE.Vector3();
+    const color = new THREE.Color();
     for ( let i = 0, l = position.count; i < l; i ++ ) {
       vertex.fromBufferAttribute( position, i );
       vertex.x += Math.random() * 20 - 10;
@@ -39,19 +37,19 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
       color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
       colorsFloor.push( color.r, color.g, color.b );
     }
-    floorGeometry.setAttribute( 'color', new Float32BufferAttribute( colorsFloor, 3 ) );
+    floorGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colorsFloor, 3 ) );
     return floorGeometry;
   }
 
-  initBox(boxGeometry : BufferGeometry) {
+  initBox(boxGeometry : THREE.BufferGeometry) {
     const position = boxGeometry.attributes.position;
     const colorsBox = [];
-    const color = new Color();
+    const color = new THREE.Color();
     for ( let i = 0, l = position.count; i < l; i ++ ) {
       color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
       colorsBox.push( color.r, color.g, color.b );
     }
-    boxGeometry.setAttribute( 'color', new Float32BufferAttribute( colorsBox, 3 ) );
+    boxGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colorsBox, 3 ) );
   }
 
   ngOnInit() {
@@ -94,9 +92,9 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
   moveLeft = false;
   moveRight = false;
   canJump = false;
-  velocity = new Vector3();
-  direction = new Vector3();
-  raycaster = new Raycaster( new Vector3(), new Vector3( 0, - 1, 0 ), 0, 10 );
+  velocity = new THREE.Vector3();
+  direction = new THREE.Vector3();
+  raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
 
   keyDownEvent (event : RendererEvent) {
      switch(event.type) {

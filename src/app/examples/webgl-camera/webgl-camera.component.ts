@@ -1,9 +1,5 @@
-import { MeshComponent } from './../../three/mesh/mesh.component';
-import { RendererTimer } from './../../three/interface';
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import * as THREE from 'three';
-import { CameraComponent } from '../../three/camera/camera.component';
+import { BaseComponent, CameraComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-camera',

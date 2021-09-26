@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Texture } from 'three';
-import { BaseComponent } from '../../three';
-import { SharedComponent } from '../../three/shared/shared.component';
+import { BaseComponent, SharedComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl2-materials-texture3d',
@@ -48,8 +46,8 @@ export class Webgl2MaterialsTexture3dComponent extends BaseComponent<{
     })
   }
 
-  viridisTexture : Texture = null;
-  grayTexture : Texture = null;
+  viridisTexture : THREE.Texture = null;
+  grayTexture : THREE.Texture = null;
 
   updateUniforms() {
     if (this.mesh !== null) {

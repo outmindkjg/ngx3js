@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
-import * as THREE from 'three';
-import { CameraComponent } from '../../three/camera/camera.component';
+import { BaseComponent, CameraComponent, MeshComponent, RendererEvent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-interactive-raycasting-points',

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-shadowmap-pointlight',
@@ -18,7 +17,7 @@ export class WebglShadowmapPointlightComponent extends BaseComponent<{}> {
     this.lights = mesh.getObject3d().children;
   }
 
-  lights : Object3D[] = null;
+  lights : THREE.Object3D[] = null;
 
   pointLightColors : number[] = [0x0088ff, 0x88ff88, 0xff8888];
 

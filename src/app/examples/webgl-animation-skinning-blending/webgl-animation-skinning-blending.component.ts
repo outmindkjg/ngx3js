@@ -1,9 +1,5 @@
-import { ThreeUtil } from './../../three/interface';
-import { MixerComponent } from './../../three/mixer/mixer.component';
 import { Component } from '@angular/core';
-import {
-  BaseComponent
-} from './../../three';
+import { BaseComponent, MixerComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-animation-skinning-blending',

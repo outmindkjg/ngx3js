@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
-import { AbstractGeometryComponent } from '../../three/geometry.abstract';
-import { SharedComponent } from '../../three/shared/shared.component';
+import { AbstractGeometryComponent, BaseComponent, RendererTimer, SharedComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-pixel',

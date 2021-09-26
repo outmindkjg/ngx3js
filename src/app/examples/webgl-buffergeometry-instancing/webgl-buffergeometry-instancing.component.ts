@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IUniform, Object3D, Vector4 } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-buffergeometry-instancing',
@@ -22,7 +21,7 @@ export class WebglBuffergeometryInstancingComponent extends BaseComponent<{
   }
 
   ngOnInit() {
-    const vector = new Vector4();
+    const vector = new THREE.Vector4();
     const instances = 50000;
     const positions = [];
     const offsets = [];
@@ -78,8 +77,8 @@ export class WebglBuffergeometryInstancingComponent extends BaseComponent<{
     this.uniforms = (this.object3d as any).material.uniforms;
   }
 
-  object3d : Object3D = null;
-  uniforms : { [uniform: string]: IUniform } = null;
+  object3d : THREE.Object3D = null;
+  uniforms : { [uniform: string]: THREE.IUniform } = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

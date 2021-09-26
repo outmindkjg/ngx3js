@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass';
-import { BaseComponent, RendererTimer } from '../../three';
-import { PassComponent } from '../../three/pass/pass.component';
+import { BaseComponent, PassComponent, RendererTimer, SSAOPass } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-ssao',

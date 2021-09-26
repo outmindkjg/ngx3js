@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D, Scene } from 'three';
-import { BaseComponent } from '../../three';
-import { LocalStorageService } from '../../three/local-storage.service';
+import { BaseComponent, LocalStorageService, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-exporter-gltf',
@@ -63,7 +61,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
   }
 
   exportGLTF( name : string | string[] , fileName : string ) {
-    const objects : Object3D[] = [];
+    const objects : THREE.Object3D[] = [];
     const objNames : string[] = [];
     if (Array.isArray(name)) {
       name.forEach(txt => {
@@ -72,7 +70,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
     } else {
       objNames.push(name);
     }
-    const scene1 : Scene = this.scene.getObject3d();
+    const scene1 : THREE.Scene = this.scene.getObject3d();
     objNames.forEach((objName) => {
       switch(objName) {
         case 'scene1' :

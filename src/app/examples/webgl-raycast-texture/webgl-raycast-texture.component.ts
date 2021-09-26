@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MeshBasicMaterial, Object3D, Texture } from 'three';
-import { BaseComponent, GeometryComponent, MeshComponent, RendererEvent } from '../../three';
-import { TextureComponent } from '../../three/texture/texture.component';
+import { BaseComponent, GeometryComponent, MeshComponent, RendererEvent, TextureComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-raycast-texture',
@@ -146,14 +144,14 @@ export class WebglRaycastTextureComponent extends BaseComponent<{
     this.children = mesh.getObject3d().children;
   }
 
-  children : Object3D[] = [];
+  children : THREE.Object3D[] = [];
 
   setMouseMove(event : RendererEvent) {
     if (this.camera !== null && this.children.length > 0) {
       const intersect = this.camera.getIntersection(event.mouse, this.children);
       if (intersect !== null) {
         const uv = intersect.uv;
-        ((intersect.object as any).material as MeshBasicMaterial).map.transformUv( uv );
+        ((intersect.object as any).material as THREE.MeshBasicMaterial).map.transformUv( uv );
         this.setCrossPosition(uv.x, uv.y);
       }
     }

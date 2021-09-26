@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Color } from 'three';
-import { BaseComponent } from '../../three';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-buffergeometry-points',
@@ -18,7 +17,7 @@ export class WebglBuffergeometryPointsComponent extends BaseComponent<{}> {
     const positions = [];
     const colors = [];
 
-    const color = new Color();
+    const color = new THREE.Color();
 
     const n = 1000, n2 = n / 2; // particles spread in the cube
 

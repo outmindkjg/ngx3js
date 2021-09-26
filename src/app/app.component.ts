@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ThreeUtil } from './three';
+import { ThreeUtil } from 'ngx3js';
 
 export interface SearchMenu {
   id: string;

@@ -19,35 +19,17 @@ I found some errors on @types/three. Before use this source. You muse fix them b
 current theejs verion "^0.131.0"
 ```javascript
 
-// node_modules/ammojs-typed/ammo/ammo.d.ts
- + 7    function castObject(obj1 : any, obj2 : any) : any;
-
-// node_modules/three/examples/jsm/loaders/TiltLoader.js
--+ 408	const loader = new TextureLoader().setPath( '/assets/examples/textures/tiltbrush/' );
-
-// node_modules/@types/three/examples/jsm/geometries/TeapotGeometry.d.ts
--+ 11 	blinn?: boolean,
-
-// node_modules/three/examples/jsm/exporters/OBJExporter.js
--+ 134 	} else if (vertices !== undefined){
-
-// node_modules/@types/three/examples/jsm/loaders/SVGLoader.d.ts
--+ 1 	import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector2, Shape } from '../../../src/Three';
--+ 47   points: Vector2[],
--+ 53   points: Vector2[],
-
-// node_modules/@types/three/examples/jsm/math/OBB.d.ts
--+ 8 	  constructor( center?: Vector3, halfSize?: Vector3, rotation?: Matrix3 );
--+ 17   intersectsOBB(obb: OBB, epsilon?: number): boolean;
-
-// node_modules/@types/three/examples/jsm/objects/ShadowMesh.d.ts
--+ 4    constructor(mesh : Mesh);
-
 // node_modules/@types/three/examples/jsm/objects/ReflectorForSSRPass.d.ts
  + 59   export { Reflector as ReflectorForSSRPass };
 
 // node_modules/@types/three/examples/jsm/nodes/inputs/ColorNode.d.ts
- + 7    constructor(color: ColorRepresentation, g?: number, b?: number);
+ + 7    constructor(color: any, g?: number, b?: number);
+
+// node_modules/@types/three/examples/jsm/loaders/NodeMaterialLoader.d.ts - create
+ + 1    export class NodeMaterialLoader {}
+
+// node_modules/@types/three/examples/jsm/libs/dat.gui.module.d.ts
+ + 1    export class GUI {}
 
 ```
 
@@ -65,7 +47,6 @@ import { Ngx3JsModule } from './three/ngx3js.module';
 	imports: [..., Ngx3JsModule],
 	....
 })
-
 
 // angular.json
 {
@@ -99,6 +80,19 @@ import { Ngx3JsModule } from './three/ngx3js.module';
     }
   },
   ......
+}
+
+// tsconfig.json
+{
+  ....
+  "compilerOptions": {
+    ....
+    "paths": {
+      "fs": ["./node_modules/fs-web"]
+    },
+    .....
+  }
+  ....
 }
 ```
 

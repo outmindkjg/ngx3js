@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D, PointsMaterial, HSL } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
-import { MaterialComponent } from '../../three/material/material.component';
+import { BaseComponent, MaterialComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-points-sprites',
@@ -36,7 +34,7 @@ export class WebglPointsSpritesComponent extends BaseComponent<{
   vertices : number[] = [];
 
   setMaterial(material : MaterialComponent) {
-    const mat = material.getMaterial() as PointsMaterial;
+    const mat = material.getMaterial() as THREE.PointsMaterial;
     if (this.materials.indexOf(mat) < 0) {
       mat.userData.map = mat.map;
       mat.userData.hslColor = mat.color.getHSL({h : 0, s : 0, l : 0});
@@ -45,14 +43,14 @@ export class WebglPointsSpritesComponent extends BaseComponent<{
     }
   }
 
-  materials : PointsMaterial[] = [];
+  materials : THREE.PointsMaterial[] = [];
 
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.children = mesh.getObject3d().children;
   }
 
-  children : Object3D[] = [];
+  children : THREE.Object3D[] = [];
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     const time = timer.elapsedTime * 0.05;

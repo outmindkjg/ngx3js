@@ -411,7 +411,7 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { MenuComponent } from './menu/menu.component';
-import { Ngx3JsModule } from './three/ngx3js.module';
+import { Ngx3JsModule } from 'ngx3js';
 import { WebgpuLightsCustomComponent } from './examples/webgpu-lights-custom/webgpu-lights-custom.component';
 import { WebgpuLightsSelectiveComponent } from './examples/webgpu-lights-selective/webgpu-lights-selective.component';
 import { WebgpuMaterialsComponent } from './examples/webgpu-materials/webgpu-materials.component';
@@ -420,7 +420,6 @@ import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handi
 import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
 import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
 import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
-
 
 @NgModule({
 	declarations: [

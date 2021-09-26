@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-shaders-fresnel',

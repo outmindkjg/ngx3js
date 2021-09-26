@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import { TeapotGeometry } from 'three/examples/jsm/geometries/TeapotGeometry.js';
-import * as THREE from 'three';
+import { BaseComponent, TeapotGeometry, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-teapot',

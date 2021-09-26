@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent, RendererTimer } from '../../three';
-import { CameraComponent } from '../../three/camera/camera.component';
-import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
-import * as THREE from 'three';
+import { Component } from '@angular/core';
+import { BaseComponent, CameraComponent, RendererTimer, CinematicCamera, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-camera-cinematic',

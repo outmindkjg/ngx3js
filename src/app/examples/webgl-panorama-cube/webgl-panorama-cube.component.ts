@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ThreeUtil } from '../../three';
+import { BaseComponent, ThreeUtil } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-panorama-cube',

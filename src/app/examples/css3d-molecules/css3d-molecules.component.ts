@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, ThreeUtil } from '../../three';
+import { BaseComponent, MeshComponent, ThreeUtil } from 'ngx3js';
 
 @Component({
   selector: 'app-css3d-molecules',

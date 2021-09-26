@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BufferGeometry, Color, Float32BufferAttribute, IUniform, Object3D } from 'three';
-import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-custom-attributes-lines',
@@ -13,8 +12,8 @@ export class WebglCustomAttributesLinesComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
-  object3d : Object3D = null;
-  geometry : BufferGeometry = null;
+  object3d : THREE.Object3D = null;
+  geometry : THREE.BufferGeometry = null;
   uniforms :{[ key : string ] : any} = {
     amplitude : { type : 'number', value : 5.0 },
     opacity : { type : 'number', value : 0.3 },
@@ -25,8 +24,8 @@ export class WebglCustomAttributesLinesComponent extends BaseComponent<{}> {
     const geometry = geo.getGeometry();
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;
-      const customColor = this.geometry.attributes.customColor as Float32BufferAttribute;
-      const color = new Color( 0xffffff );
+      const customColor = this.geometry.attributes.customColor as THREE.Float32BufferAttribute;
+      const color = new THREE.Color( 0xffffff );
       for ( let i = 0, l = customColor.count; i < l; i ++ ) {
         color.setHSL( i / l, 0.5, 0.5 );
         color.toArray( customColor.array, i * customColor.itemSize );

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, MeshComponent, RendererEvent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-interactive-buffergeometry',

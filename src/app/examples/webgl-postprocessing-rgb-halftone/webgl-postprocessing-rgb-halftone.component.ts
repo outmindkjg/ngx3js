@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass';
-import { BaseComponent } from '../../three';
-import { PassComponent } from '../../three/pass/pass.component';
+import { BaseComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-rgb-halftone',

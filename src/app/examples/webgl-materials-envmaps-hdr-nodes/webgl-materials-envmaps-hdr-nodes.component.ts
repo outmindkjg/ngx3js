@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { WebGLRenderer } from 'three';
-import { BaseComponent, RendererTimer } from '../../three';
+import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-envmaps-hdr-nodes',
@@ -34,7 +33,7 @@ export class WebglMaterialsEnvmapsHdrNodesComponent extends BaseComponent<{
       { name : 'metalness', type : 'number', min : 0, max : 1, step : 0.01},
       { name : 'exposure', type : 'number', min : 0, max : 2, step : 0.01,finishChange : () => {
         if (this.renderer !== null) {
-          const renderer = this.renderer.getRenderer() as WebGLRenderer;
+          const renderer = this.renderer.getRenderer() as THREE.WebGLRenderer;
           renderer.toneMappingExposure = this.controls.exposure;
         }
       }},

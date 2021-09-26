@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RendererComponent, ThreeUtil } from './../three';
+import { RendererComponent, ThreeUtil } from 'ngx3js';
 import { HttpClient } from '@angular/common/http';
 import { MenuComponent } from '../menu/menu.component';
 

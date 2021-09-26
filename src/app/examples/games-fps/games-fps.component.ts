@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer } from '../../three';
-import { Octree } from 'three/examples/jsm/math/Octree';
-import { Capsule } from 'three/examples/jsm/math/Capsule';
-import * as THREE from 'three';
+import { BaseComponent, Capsule, MeshComponent, Octree, RendererEvent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-games-fps',
@@ -48,7 +45,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
       case 'mousemove' :
       case 'pointermove' :
         if (this.camera !== null && document.pointerLockElement === event.nativeElement ) {
-          const camera = this.camera.getCamera();
+          const camera : THREE.Camera = this.camera.getCamera();
 					camera.rotation.y -= event.event.movementX / 500;
 					camera.rotation.x -= event.event.movementY / 500;
         }
@@ -56,7 +53,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
       case 'click' :
         if (this.camera !== null) {
           const sphere = this.spheresInfos[ this.sphereIdx ];
-          const camera = this.camera.getCamera();
+          const camera : THREE.Camera = this.camera.getCamera();
           camera.getWorldDirection( this.playerDirection );
           sphere.collider.center.copy( this.playerCollider.end );
           sphere.velocity.copy( this.playerDirection ).multiplyScalar( 30 );
@@ -75,8 +72,8 @@ export class GamesFpsComponent extends BaseComponent<{}> {
     velocity : THREE.Vector3
   }[] = [];
 
-	worldOctree: Octree = null;
-	playerCollider: Capsule = null;
+	worldOctree: any = null;
+	playerCollider: any = null;
 	playerVelocity = new THREE.Vector3();
 	playerDirection = new THREE.Vector3();
 	playerOnFloor = false;
@@ -121,7 +118,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
     const deltaPosition = this.playerVelocity.clone().multiplyScalar( deltaTime );
     this.playerCollider.translate( deltaPosition );
     this.playerCollitions();
-    const camera = this.camera.getCamera();
+    const camera : THREE.Camera = this.camera.getCamera();
     camera.position.copy( this.playerCollider.end );
   }
 
@@ -167,7 +164,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
   }
 
   getForwardVector() {
-    const camera = this.camera.getCamera();
+    const camera : THREE.Camera = this.camera.getCamera();
     camera.getWorldDirection( this.playerDirection );
     this.playerDirection.y = 0;
     this.playerDirection.normalize();
@@ -175,7 +172,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
   }
 
   getSideVector() {
-    const camera = this.camera.getCamera();
+    const camera : THREE.Camera = this.camera.getCamera();
     camera.getWorldDirection( this.playerDirection );
     this.playerDirection.y = 0;
     this.playerDirection.normalize();

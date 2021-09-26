@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
-import * as THREE from 'three';
-import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js';
+import { BaseComponent, MeshComponent, MeshSurfaceSampler, RendererTimer, THREE } from 'ngx3js';
 			
 @Component({
   selector: 'app-webgl-instancing-scatter',

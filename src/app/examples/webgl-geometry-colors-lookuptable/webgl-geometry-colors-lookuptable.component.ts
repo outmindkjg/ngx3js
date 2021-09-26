@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from '../../three';
-import * as THREE from 'three';
-import { Lut } from 'three/examples/jsm/math/Lut';
+import { BaseComponent, Lut, MeshComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-colors-lookuptable',

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { PositionalAudio } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webaudio-timing',
@@ -61,7 +60,7 @@ export class WebaudioTimingComponent extends BaseComponent<{
 				} else {
 					if ( ball.userData.down === true ) {
             const audio = ball.children[ 0 ];
-            if (audio instanceof PositionalAudio) {
+            if (audio instanceof THREE.PositionalAudio) {
               if (audio.isPlaying) {
                 audio.stop();
               }

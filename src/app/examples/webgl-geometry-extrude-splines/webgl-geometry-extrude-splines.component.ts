@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, MeshComponent, RendererTimer } from '../../three';
-import * as THREE from 'three';
-import { CameraComponent } from '../../three/camera/camera.component';
-import { HelperComponent } from '../../three/helper/helper.component';
+import { BaseComponent, CameraComponent, GeometryComponent, HelperComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-extrude-splines',

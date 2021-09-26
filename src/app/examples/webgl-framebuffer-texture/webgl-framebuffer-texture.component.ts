@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { GeometryUtils } from 'three/examples/jsm/utils/GeometryUtils';
-import { BaseComponent, RendererTimer } from '../../three';
-import * as THREE from 'three';
-import { TextureComponent } from '../../three/texture/texture.component';
-import { DataTexture, Vector2, WebGLRenderer } from 'three';
+import { BaseComponent, GeometryUtils, RendererTimer, TextureComponent, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-framebuffer-texture',
@@ -35,10 +31,10 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
   }
 
   setTexture(texture : TextureComponent) {
-    this.texture = texture.getTexture() as DataTexture;
+    this.texture = texture.getTexture() as THREE.DataTexture;
   }
 
-  texture : DataTexture = null;
+  texture : THREE.DataTexture = null;
 
   spriteData : Uint8Array = null;
 
@@ -63,7 +59,7 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
   }
 
   onBeforeRenderOrthographicCamera (timer : RendererTimer){
-    if (this.texture !== null && timer.renderer instanceof WebGLRenderer) {
+    if (this.texture !== null && timer.renderer instanceof THREE.WebGLRenderer) {
       this.vector.x = ( timer.event.width * this.dpr / 2 ) - ( this.textureSize / 2 );
       this.vector.y = ( timer.event.height * this.dpr / 2 ) - ( this.textureSize / 2 );
       timer.renderer.copyFramebufferToTexture( this.vector, this.texture);
@@ -71,7 +67,7 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
     }
   }
 
-  varctor : Vector2 = new Vector2();
+  varctor : THREE.Vector2 = new THREE.Vector2();
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.mesh !== null) {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Color, Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-variations-phong',
@@ -24,7 +23,7 @@ export class WebglMaterialsVariationsPhongComponent extends BaseComponent<{}> {
         const specularColor = 'rgb('+ beta * 0.2 *255 + ','+beta * 0.2 *255+','+ beta * 0.2 * 255+')';
         for ( let gamma = 0; gamma <= 1.0; gamma += stepSize ) {
           // basic monochromatic energy preservation
-          const diffuseColor = new Color().setHSL( alpha, 0.5, gamma * 0.5 + 0.1 ).multiplyScalar( 1 - beta * 0.2 );
+          const diffuseColor = new THREE.Color().setHSL( alpha, 0.5, gamma * 0.5 + 0.1 ).multiplyScalar( 1 - beta * 0.2 );
           this.sphereInfos.push({
             color: diffuseColor.getHex(),
             specular: specularColor,
@@ -101,7 +100,7 @@ export class WebglMaterialsVariationsPhongComponent extends BaseComponent<{}> {
     this.pointLight = mesh.getObject3d();
   }
 
-  pointLight : Object3D = null;
+  pointLight : THREE.Object3D = null;
 
   onRender(timer : RendererTimer) {
     super.onRender(timer);

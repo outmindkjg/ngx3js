@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil } from 'ngx3js';
 
 export interface MaterialInfo {
   type : string;

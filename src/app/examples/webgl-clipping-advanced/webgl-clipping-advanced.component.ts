@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererComponent, RendererTimer } from '../../three';
-import { MaterialComponent } from '../../three/material/material.component';
-import { PlaneComponent } from '../../three/plane/plane.component';
-import * as THREE from 'three';
+import { BaseComponent, MaterialComponent, PlaneComponent, RendererComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-clipping-advanced',

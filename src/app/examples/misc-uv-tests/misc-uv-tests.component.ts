@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as THREE from 'three';
-import { UVsDebug } from 'three/examples/jsm/utils/UVsDebug';
+import { THREE, UVsDebug } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-uv-test',

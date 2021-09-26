@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer';
-import { BaseComponent } from '../../three';
+import { BaseComponent , GPUComputationRenderer} from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-gpgpu-birds',

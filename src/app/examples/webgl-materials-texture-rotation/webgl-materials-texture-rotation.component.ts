@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Texture } from 'three';
-import { BaseComponent } from '../../three';
-import { TextureComponent } from '../../three/texture/texture.component';
+import { BaseComponent, TextureComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-rotation',
@@ -112,5 +110,5 @@ export class WebglMaterialsTextureRotationComponent extends BaseComponent<{
 		this.texture = texture.getTexture();
 	}
 
-	texture: Texture = null;
+	texture: THREE.Texture = null;
 }

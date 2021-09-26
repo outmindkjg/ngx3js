@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BufferGeometry, Color, Object3D, Vector3 } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-custom-attributes-points',
@@ -19,8 +18,8 @@ export class WebglCustomAttributesPointsComponent extends BaseComponent<{}> {
     const positions = new Float32Array( amount * 3 );
     const colors = new Float32Array( amount * 3 );
     const sizes = new Float32Array( amount );
-    const vertex = new Vector3();
-    const color = new Color( 0xffffff );
+    const vertex = new THREE.Vector3();
+    const color = new THREE.Color( 0xffffff );
     for ( let i = 0; i < amount; i ++ ) {
       vertex.x = ( Math.random() * 2 - 1 ) * radius;
       vertex.y = ( Math.random() * 2 - 1 ) * radius;
@@ -43,12 +42,12 @@ export class WebglCustomAttributesPointsComponent extends BaseComponent<{}> {
   colors : Float32Array = null;
   sizes : Float32Array = null;
 
-  object3d : Object3D = null;
-  geometry : BufferGeometry = null;
+  object3d : THREE.Object3D = null;
+  geometry : THREE.BufferGeometry = null;
   setMesh(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.object3d = mesh.getObject3d();
-    const geometry:BufferGeometry = (this.object3d as any).geometry;
+    const geometry:THREE.BufferGeometry = (this.object3d as any).geometry;
     if (geometry !== null && geometry.getAttribute('position') !== undefined) {
       this.geometry = geometry;
     }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-godrays',
@@ -17,7 +16,7 @@ export class WebglPostprocessingGodraysComponent extends BaseComponent<{}> {
     this.sphere = mesh.getObject3d();
   }
 
-  sphere : Object3D = null;
+  sphere : THREE.Object3D = null;
   orbitRadius :  number = 200;
   onRender(timer : RendererTimer) {
     super.onRender(timer);

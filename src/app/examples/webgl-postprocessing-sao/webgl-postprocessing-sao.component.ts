@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import { PassComponent } from '../../three/pass/pass.component';
+import { BaseComponent, PassComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-sao',

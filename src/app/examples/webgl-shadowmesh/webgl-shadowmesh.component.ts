@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-shadowmesh',
@@ -38,22 +37,22 @@ export class WebglShadowmeshComponent extends BaseComponent<{
 
   lightPosition : {x : number, y : number, z : number } = null;
 
-  cube : Object3D = null;
+  cube : THREE.Object3D = null;
   setCube(mesh : MeshComponent) {
     this.cube = mesh.getObject3d();
   }
 
-  cylinder : Object3D = null;
+  cylinder : THREE.Object3D = null;
   setCylinder(mesh : MeshComponent) {
     this.cylinder = mesh.getObject3d();
   }
 
-  torus : Object3D = null;
+  torus : THREE.Object3D = null;
   setTorus(mesh : MeshComponent) {
     this.torus = mesh.getObject3d();
   }
 
-  pyramid : Object3D = null;
+  pyramid : THREE.Object3D = null;
   setPyramid(mesh : MeshComponent) {
     this.pyramid = mesh.getObject3d();
   }

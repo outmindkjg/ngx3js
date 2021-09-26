@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ThreeUtil } from '../../three';
-import * as THREE from 'three';
+import { BaseComponent, ThreeUtil, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webxr-vr-panorama',

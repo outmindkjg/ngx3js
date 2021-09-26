@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-masking',
@@ -13,13 +12,13 @@ export class WebglPostprocessingMaskingComponent extends BaseComponent<{}> {
     super({},[]);
   }
 
-  box : Object3D = null;
+  box : THREE.Object3D = null;
   setBox(mesh : MeshComponent) {
     super.setMesh(mesh);
     this.box = mesh.getObject3d();
   }
 
-  torus : Object3D = null;
+  torus : THREE.Object3D = null;
   setTorus(mesh : MeshComponent) {
     this.torus = mesh.getObject3d();
   }

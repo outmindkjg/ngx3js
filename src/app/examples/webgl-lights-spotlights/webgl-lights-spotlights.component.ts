@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import { HelperComponent } from '../../three/helper/helper.component';
-import { TweenComponent } from '../../three/tween/tween.component';
+import { BaseComponent, HelperComponent, TweenComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lights-spotlights',

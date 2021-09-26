@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { OrthographicCamera } from 'three';
-import { BaseComponent } from '../../three';
+import { BaseComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-misc-controls-trackball',

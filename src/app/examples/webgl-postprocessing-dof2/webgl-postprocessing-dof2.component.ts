@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Object3D, PerspectiveCamera } from 'three';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
+import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-postprocessing-dof2',
@@ -72,7 +71,7 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
       { name : 'fringe', type : 'number', min : 0.0, max : 5.0, step : 0.001 },
       { name : 'focalLength', type : 'number', min : 16, max : 80, step : 0.001, finishChange : () =>{
         if (this.camera !== null) {
-          const camera = this.camera.getObject3d() as PerspectiveCamera;
+          const camera = this.camera.getObject3d() as THREE.PerspectiveCamera;
           camera.setFocalLength(this.controls.focalLength);
         }
       }},
@@ -127,7 +126,7 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
 
   monkeyInfos : { x : number, y : number, z : number, ry : number }[] = [];
   ballInfos : { x : number, y : number, z : number, color : number }[] = [];
-  meshLeaves : Object3D[] = [];
+  meshLeaves : THREE.Object3D[] = [];
   setLeaves(mesh : MeshComponent) {
     this.meshLeaves = mesh.getObject3d().children;
     this.meshLeaves.forEach(child => {

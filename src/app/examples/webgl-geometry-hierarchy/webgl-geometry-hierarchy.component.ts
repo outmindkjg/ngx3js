@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, RendererTimer } from '../../three';
+import { BaseComponent, RendererEvent, RendererTimer } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-geometry-hierarchy',

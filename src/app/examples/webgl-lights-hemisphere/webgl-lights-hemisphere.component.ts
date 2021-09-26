@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../../three';
-import { LightComponent } from '../../three/light/light.component';
-import { HelperComponent } from '../../three/helper/helper.component';
+import { BaseComponent, HelperComponent, LightComponent } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-lights-hemisphere',

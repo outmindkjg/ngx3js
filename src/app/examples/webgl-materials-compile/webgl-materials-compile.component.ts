@@ -1,17 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from '../../three';
-import {
-  NodeFrame,
-  FloatNode,
-  ColorNode,
-  ConstNode,
-  ExpressionNode,
-  MathNode,
-  OperatorNode,
-  TimerNode,
-  PhongNodeMaterial
-} from 'three/examples/jsm/nodes/Nodes';
-import { Mesh } from 'three';
+import { BaseComponent, MeshComponent, NODES, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
   selector: 'app-webgl-materials-compile',
@@ -45,44 +33,44 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 
   setMeshChild() {
     if (this.meshChildren !== null) {
-      this.meshChildren.forEach((mesh : Mesh) => {
+      this.meshChildren.forEach((mesh : THREE.Mesh) => {
 				if ( mesh.material ) {
           (mesh.material as any).dispose();
         }
-				const mtl = new PhongNodeMaterial();
-				const time = new TimerNode();
-				const speed = new FloatNode( Math.random() );
-				const color = new ColorNode( Math.random() * 0xFFFFFF );
-				const timeSpeed = new OperatorNode(
+				const mtl = new NODES.PhongNodeMaterial();
+				const time = new NODES.TimerNode();
+				const speed = new NODES.FloatNode( Math.random() );
+				const color = new NODES.ColorNode( Math.random() * 0xFFFFFF );
+				const timeSpeed = new NODES.OperatorNode(
 					time,
 					speed,
-					OperatorNode.MUL
+					NODES.OperatorNode.MUL
 				);
-				const sinCycleInSecs = new OperatorNode(
+				const sinCycleInSecs = new NODES.OperatorNode(
 					timeSpeed,
-					new ConstNode( ConstNode.PI2 ),
-					OperatorNode.MUL
+					new NODES.ConstNode( NODES.ConstNode.PI2 ),
+					NODES.OperatorNode.MUL
 				);
-				const cycle = new MathNode( sinCycleInSecs, MathNode.SIN );
-				const cycleColor = new OperatorNode(
+				const cycle = new NODES.MathNode( sinCycleInSecs, NODES.MathNode.SIN );
+				const cycleColor = new NODES.OperatorNode(
 					cycle,
 					color,
-					OperatorNode.MUL
+					NODES.OperatorNode.MUL
 				);
-				const cos = new MathNode( cycleColor, MathNode.SIN );
-				mtl.color = new ColorNode( 0 );
+				const cos = new NODES.MathNode( cycleColor, NODES.MathNode.SIN );
+				mtl.color = new NODES.ColorNode( 0 );
 				mtl.emissive = cos;
-				const transformer = new ExpressionNode( "position + 0.0 * " + Math.random(), "vec3", [ ] );
+				const transformer = new NODES.ExpressionNode( "position + 0.0 * " + Math.random(), "vec3", [ ] );
 				(mtl as any).transform = transformer;
 				// build shader ( ignore auto build )
 				mtl.build();
 				// set material
 				mesh.material = mtl;
       });
-      this.frame = new NodeFrame(0);
+      this.frame = new NODES.NodeFrame(0);
     }
   }
-	frame : NodeFrame = null;
+	frame : NODES.NodeFrame = null;
   onRender(timer : RendererTimer) {
     super.onRender(timer);
     if (this.frame != null && this.meshChildren !== null) {
