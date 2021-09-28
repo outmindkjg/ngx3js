@@ -2,5 +2,6 @@
     "printWidth" : 300,
     "singleQuote" : true,
     "bracketSpacing" : true,
-    "tabWidth" : 2
+    "useTabs" : true,
+    "tabWidth" : 4
 }
