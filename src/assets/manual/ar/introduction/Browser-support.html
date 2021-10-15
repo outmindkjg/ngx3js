@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,25 +12,37 @@
 		<h2>نظرة عامة</h2>
 		<div>
 			<p>
-				يمكن لـ Three.js استخدام WebGL لعرض المشاهد الخاصة بك على جميع المتصفحات الحديثة. بالنسبة إلى المتصفحات الأقدم ، وخاصة Internet Explorer 10 والإصدارات الأقدم ، قد تضطر إلى الرجوع إلى أحد المستعرضات الأخرى [link:https://github.com/mrdoob/three.js/tree/master/examples/jsm/renderers renderers] (CSS2DRenderer و CSS3DRenderer و SVGRenderer). بالإضافة إلى ذلك ، قد تضطر إلى تضمين بعض polyfills ، بالأخص إذا كنت تستخدم ملفات من المجلد [link:https://github.com/mrdoob/three.js/tree/master/examples /examples].
+				يمكن لـ Three.js استخدام WebGL لعرض المشاهد الخاصة بك على جميع المتصفحات
+				الحديثة. بالنسبة إلى المتصفحات الأقدم ، وخاصة Internet Explorer 10
+				والإصدارات الأقدم ، قد تضطر إلى الرجوع إلى أحد المستعرضات الأخرى
+				[link:https://github.com/mrdoob/three.js/tree/master/examples/jsm/renderers
+				renderers] (CSS2DRenderer و CSS3DRenderer و SVGRenderer). بالإضافة إلى
+				ذلك ، قد تضطر إلى تضمين بعض polyfills ، بالأخص إذا كنت تستخدم ملفات من
+				المجلد [link:https://github.com/mrdoob/three.js/tree/master/examples
+				/examples].
 			</p>
 			<p>
-				ملاحظة: إذا لم تكن بحاجة إلى دعم هذه المتصفحات القديمة ، فلا يوصى باستخدام برامج العارض الأخرى لأنها أبطأ وتدعم ميزات أقل من WebGLRenderer.
+				ملاحظة: إذا لم تكن بحاجة إلى دعم هذه المتصفحات القديمة ، فلا يوصى
+				باستخدام برامج العارض الأخرى لأنها أبطأ وتدعم ميزات أقل من
+				WebGLRenderer.
 			</p>
 		</div>
 
 		<h2>المتصفحات التي تدعم WebGL</h2>
 		<div>
 			<p>
-				Google Chrome 9+, Firefox 4+, Opera 15+, Safari 5.1+, Internet Explorer 11 و Microsoft Edge.<br/>
-				يمكنك العثور على المتصفحات التي تدعم WebGL في [link:https://caniuse.com/#feat=webgl Can I use WebGL].
+				Google Chrome 9+, Firefox 4+, Opera 15+, Safari 5.1+, Internet Explorer
+				11 و Microsoft Edge.<br />
+				يمكنك العثور على المتصفحات التي تدعم WebGL في
+				[link:https://caniuse.com/#feat=webgl Can I use WebGL].
 			</p>
 		</div>
 
 		<h2>ميزات لغة JavaScript أو واجهات الويب البرمجية المستخدمة في three.js</h2>
 		<div>
 			<p>
-				فيما يلي بعض الميزات المستخدمة في three.js. قد يتطلب بعض منهم polyfills إضافية.
+				فيما يلي بعض الميزات المستخدمة في three.js. قد يتطلب بعض منهم polyfills
+				إضافية.
 			</p>
 			<table>
 				<thead>
@@ -64,7 +76,10 @@
 					<tr>
 						<td>Promise</td>
 						<td>Examples</td>
-						<td>GLTFLoader, DRACOLoader, BasisTextureLoader, GLTFExporter, VRButton, ARButton, etc.</td>
+						<td>
+							GLTFLoader, DRACOLoader, BasisTextureLoader, GLTFExporter,
+							VRButton, ARButton, etc.
+						</td>
 					</tr>
 					<tr>
 						<td>Fetch</td>
@@ -92,7 +107,10 @@
 
 		<h2>Polyfills</h2>
 		<div>
-			<p>فقط قم باستيراد polyfills بناءً على متطلباتك. إذا أخذنا IE9 كمثال ، فأنت بحاجة إلى ملء هذه الميزات على الأقل:</p>
+			<p>
+				فقط قم باستيراد polyfills بناءً على متطلباتك. إذا أخذنا IE9 كمثال ، فأنت
+				بحاجة إلى ملء هذه الميزات على الأقل:
+			</p>
 			<ul>
 				<li>Typed Arrays</li>
 				<li>Blob</li>
@@ -102,21 +120,14 @@
 		<h3>مقترح polyfills</h3>
 		<div>
 			<ul>
+				<li>[link:https://github.com/zloirock/core-js core-js]</li>
 				<li>
-					[link:https://github.com/zloirock/core-js core-js]
+					[link:https://github.com/inexorabletash/polyfill/blob/master/typedarray.js
+					typedarray.js]
 				</li>
-				<li>
-					[link:https://github.com/inexorabletash/polyfill/blob/master/typedarray.js typedarray.js]
-				</li>
-				<li>
-					[link:https://github.com/stefanpenner/es6-promise/ ES6-Promise]
-				</li>
-				<li>
-					[link:https://github.com/eligrey/Blob.js Blob.js]
-				</li>
-				<li>
-					[link:https://github.com/github/fetch fetch]
-				</li>
+				<li>[link:https://github.com/stefanpenner/es6-promise/ ES6-Promise]</li>
+				<li>[link:https://github.com/eligrey/Blob.js Blob.js]</li>
+				<li>[link:https://github.com/github/fetch fetch]</li>
 			</ul>
 		</div>
 	</body>

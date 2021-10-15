@@ -1,32 +1,61 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GLTFLoader + <a href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_variants" target="_blank" rel="noopener">KHR_materials_variants</a> extension<br />
-  <a href="https://github.com/pushmatrix/glTF-Sample-Models/tree/master/2.0/MaterialsVariantsShoe" target="_blank" rel="noopener">Materials Variants Shoe</a> by
-  <a href="https://github.com/Shopify" target="_blank" rel="noopener">Shopify, Inc</a><br />
-  <a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	GLTFLoader +
+	<a
+		href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_variants"
+		target="_blank"
+		rel="noopener"
+		>KHR_materials_variants</a
+	>
+	extension<br />
+	<a
+		href="https://github.com/pushmatrix/glTF-Sample-Models/tree/master/2.0/MaterialsVariantsShoe"
+		target="_blank"
+		rel="noopener"
+		>Materials Variants Shoe</a
+	>
+	by
+	<a href="https://github.com/Shopify" target="_blank" rel="noopener"
+		>Shopify, Inc</a
+	><br />
+	<a
+		href="https://hdrihaven.com/hdri/?h=royal_esplanade"
+		target="_blank"
+		rel="noopener"
+		>Royal Esplanade</a
+	>
+	by
+	<a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0.5" [z]="-0.2"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-    <ngx3js-position [x]="2.5" [y]="1.5" [z]="3.0"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-texture 
-      [type]="'background-environment'"
-      [cubeType]="'angular'"
-      [storageName]="'textures/equirectangular/quarry_01_1k.hdr'">
-    </ngx3js-texture>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/MaterialsVariantsShoe/glTF/MaterialsVariantsShoe.gltf'">
-      <ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0.5" [z]="-0.2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+		<ngx3js-position [x]="2.5" [y]="1.5" [z]="3.0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-texture
+			[type]="'background-environment'"
+			[cubeType]="'angular'"
+			[storageName]="'textures/equirectangular/quarry_01_1k.hdr'"
+		>
+		</ngx3js-texture>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="
+				'models/gltf/MaterialsVariantsShoe/glTF/MaterialsVariantsShoe.gltf'
+			"
+		>
+			<ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

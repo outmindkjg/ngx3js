@@ -1,40 +1,49 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - custom attributes example - billboards - alphatest
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	custom attributes example - billboards - alphatest
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="false"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="false"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh *ngIf="vertices && sizes"(onLoad)="setMesh($event)" [type]="'Points'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BufferGeometry'"
-        [attrPosition]="vertices"
-        [attrColor]="colors"
-        [attrColorKey]="'ca'"
-        [attrColorSize]="3"
-        [attrSize]="sizes"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'" 
-        [uniforms]="{
-          amplitude : { type : 'number', value : 1.0 },
-          color : { type : 'color', value : '0xffffff' },
-          pointTexture : { type : 'texture', value : 'textures/sprites/ball.png', options : 'RepeatWrapping' }
-        }"
-        [shader]="'AttributeSizeColor1'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh
+			*ngIf="vertices && sizes"
+			(onLoad)="setMesh($event)"
+			[type]="'Points'"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[attrPosition]="vertices"
+				[attrColor]="colors"
+				[attrColorKey]="'ca'"
+				[attrColorSize]="3"
+				[attrSize]="sizes"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[uniforms]="{
+					amplitude: { type: 'number', value: 1.0 },
+					color: { type: 'color', value: '0xffffff' },
+					pointTexture: {
+						type: 'texture',
+						value: 'textures/sprites/ball.png',
+						options: 'RepeatWrapping'
+					}
+				}"
+				[shader]="'AttributeSizeColor1'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

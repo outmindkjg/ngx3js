@@ -1,48 +1,64 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - Lighting Estimation<br/>
-  (Chrome Android 90+)
-  - need ar/vr device to test
-  </div>
-  <ngx3js-renderer
-    [controlType]="'ar'"
-    [controlOptions]="{ enablePan : false , enableDamping : true }"
-    [statsMode]="0"
-    [antialias]="true"
-    [shadowMapEnabled]="true"
-    [guiControl]="controls"
-    [guiParams]="controlsParams"
-    (onRender)="onRender($event)"
-  >
-    <ngx3js-lookat [x]="0" [y]="0" [z]="-2"></ngx3js-lookat>
-    <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="20">
-      <ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-scene #scene>
-      <ngx3js-texture [type]="'environment'" [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/', dataType : 'UnsignedByteType'}" [cubeType]="'fromEquirectangular'"></ngx3js-texture>
-      <ngx3js-light
-        [type]="'HemisphereLight'"
-        [skyColor]="'0xffffff'"
-        [groundColor]="'0xbbbbff'"
-        [intensity]="1"
-      >
-        <ngx3js-position [x]="0.5" [y]="1" [z]="0.25"></ngx3js-position>
-      </ngx3js-light>
-      <ngx3js-shared>
-        <ngx3js-geometry
-          #ballGeometry
-          [type]="'SphereBufferGeometry'"
-          [radius]="0.175"
-          [widthSegments]="32"
-          [heightSegments]="32"
-        ></ngx3js-geometry>
-      </ngx3js-shared>
-      <ngx3js-mesh (onLoad)="setMesh($event)">
-        <ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
-        <ngx3js-mesh *ngFor="let info of ballMeshInfos" [geometry]="ballGeometry">
-          <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-          <ngx3js-material [type]="'MeshStandardMaterial'" [color]="info.color" [roughness]="info.roughness" [metalness]="info.metalness"></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-scene>
-  </ngx3js-renderer>
-  
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar -
+	Lighting Estimation<br />
+	(Chrome Android 90+) - need ar/vr device to test
+</div>
+<ngx3js-renderer
+	[controlType]="'ar'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="-2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="20">
+		<ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-texture
+			[type]="'environment'"
+			[storageName]="'royal_esplanade_1k.hdr'"
+			[storageOption]="{
+				path: 'textures/equirectangular/',
+				dataType: 'UnsignedByteType'
+			}"
+			[cubeType]="'fromEquirectangular'"
+		></ngx3js-texture>
+		<ngx3js-light
+			[type]="'HemisphereLight'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0xbbbbff'"
+			[intensity]="1"
+		>
+			<ngx3js-position [x]="0.5" [y]="1" [z]="0.25"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#ballGeometry
+				[type]="'SphereBufferGeometry'"
+				[radius]="0.175"
+				[widthSegments]="32"
+				[heightSegments]="32"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
+			<ngx3js-mesh *ngFor="let info of ballMeshInfos" [geometry]="ballGeometry">
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshStandardMaterial'"
+					[color]="info.color"
+					[roughness]="info.roughness"
+					[metalness]="info.metalness"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

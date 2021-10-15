@@ -1,79 +1,109 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <br/>Fast subsurface scattering in Blinn-Phong shading demo<br/>
-  [Thanks for the art support from <a href="https://github.com/shaochun" target="_blank" rel="noopener">Shaochun Lin</a>]
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<br />Fast subsurface scattering in Blinn-Phong shading demo<br />
+	[Thanks for the art support from
+	<a href="https://github.com/shaochun" target="_blank" rel="noopener"
+		>Shaochun Lin</a
+	>]
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [outputEncoding]="'sRGBEncoding'"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[outputEncoding]="'sRGBEncoding'"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="300" [z]="1600"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene >
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x888888'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'DirectionalLight'"
-      [color]="'0xffffff'"
-      [intensity]="0.03"
-    >
-      <ngx3js-position [x]="0" [y]="0.5" [z]="0.5" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="-50" [z]="350"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'SphereGeometry'"
-        [radius]="4"
-        [widthSegments]="8"
-        [heightSegments]="8"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></ngx3js-material>
-      <ngx3js-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="7" [distance]="300"></ngx3js-light>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="-100" [y]="20" [z]="-260"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'SphereGeometry'"
-        [radius]="4"
-        [widthSegments]="8"
-        [heightSegments]="8"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x888888'"></ngx3js-material>
-      <ngx3js-light [type]="'PointLight'" [color]="'0x888800'" [intensity]="1" [distance]="500"></ngx3js-light>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
-      <ngx3js-geometry [storageName]="'models/fbx/stanford-bunny.fbx'"></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'" 
-        [shader]="'SubsurfaceScatteringShader'"
-        [uniforms]="{
-          map : { type : 'texture', value : 'models/fbx/white.jpg', options : 'RepeatWrapping'},
-          diffuse : { type : 'v3', value : [1.0,0.2,0.2] },
-          shininess : { type : 'number', value : 500 },
-          thicknessColor : { type : 'v3', value : [0.5,0.3,0.0] },
-          thicknessDistortion : { type : 'number', value : 0.1 },
-          thicknessAmbient : { type : 'number', value : 0.4 },
-          thicknessAttenuation : { type : 'number', value : 0.8 },
-          thicknessPower : { type : 'number', value : 2.0 },
-          thicknessScale : { type : 'number', value : 16.0 },
-          thicknessMap : { type : 'texture', value : 'models/fbx/bunny_thickness.jpg'}
-        }"
-        [lights]="true"
-        [extensions]="'derivatives'"
-        (onLoad)="setMatrial($event)"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="5000">
+		<ngx3js-position [x]="0" [y]="300" [z]="1600"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x888888'"></ngx3js-light>
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.03"
+		>
+			<ngx3js-position
+				[x]="0"
+				[y]="0.5"
+				[z]="0.5"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="-50" [z]="350"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'SphereGeometry'"
+				[radius]="4"
+				[widthSegments]="8"
+				[heightSegments]="8"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0x888888'"
+			></ngx3js-material>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0x888800'"
+				[intensity]="7"
+				[distance]="300"
+			></ngx3js-light>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="-100" [y]="20" [z]="-260"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'SphereGeometry'"
+				[radius]="4"
+				[widthSegments]="8"
+				[heightSegments]="8"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0x888888'"
+			></ngx3js-material>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0x888800'"
+				[intensity]="1"
+				[distance]="500"
+			></ngx3js-light>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+			<ngx3js-geometry
+				[storageName]="'models/fbx/stanford-bunny.fbx'"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'SubsurfaceScatteringShader'"
+				[uniforms]="{
+					map: {
+						type: 'texture',
+						value: 'models/fbx/white.jpg',
+						options: 'RepeatWrapping'
+					},
+					diffuse: { type: 'v3', value: [1.0, 0.2, 0.2] },
+					shininess: { type: 'number', value: 500 },
+					thicknessColor: { type: 'v3', value: [0.5, 0.3, 0.0] },
+					thicknessDistortion: { type: 'number', value: 0.1 },
+					thicknessAmbient: { type: 'number', value: 0.4 },
+					thicknessAttenuation: { type: 'number', value: 0.8 },
+					thicknessPower: { type: 'number', value: 2.0 },
+					thicknessScale: { type: 'number', value: 16.0 },
+					thicknessMap: {
+						type: 'texture',
+						value: 'models/fbx/bunny_thickness.jpg'
+					}
+				}"
+				[lights]="true"
+				[extensions]="'derivatives'"
+				(onLoad)="setMatrial($event)"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

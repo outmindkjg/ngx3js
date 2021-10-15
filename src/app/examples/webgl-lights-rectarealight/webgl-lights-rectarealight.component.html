@@ -1,79 +1,87 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - THREE.RectAreaLight<br/>
-  by <a href="http://github.com/abelnation" target="_blank" rel="noopener">abelnation</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	THREE.RectAreaLight<br />
+	by
+	<a href="http://github.com/abelnation" target="_blank" rel="noopener"
+		>abelnation</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="5" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="5" [z]="-15"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene >
-    <ngx3js-light
-      [type]="'RectArea'"
-      [color]="'0xff0000'"
-      [intensity]="5"
-      [width]="4"
-      [height]="10"
-    >
-      <ngx3js-position [x]="-5" [y]="5" [z]="5"></ngx3js-position>
-      <ngx3js-helper [type]="'light'"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'RectArea'"
-      [color]="'0x00ff00'"
-      [intensity]="5"
-      [width]="4"
-      [height]="10"
-    >
-      <ngx3js-position [x]="0" [y]="5" [z]="5"></ngx3js-position>
-      <ngx3js-helper [type]="'light'"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'RectArea'"
-      [color]="'0x0000ff'"
-      [intensity]="5"
-      [width]="4"
-      [height]="10"
-    >
-      <ngx3js-position [x]="5" [y]="5" [z]="5"></ngx3js-position>
-      <ngx3js-helper [type]="'light'"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [name]="'meshKnot'">
-      <ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnot'"
-        [radius]="1.5"
-        [tube]="0.5"
-        [radialSegments]="200"
-        [tubularSegments]="16"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshstandard'" [color]="'0xffffff'" [roughness]="0" [metalness]="0"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Box'"
-        [width]="2000"
-        [height]="0.1"
-        [depth]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshStandard'"
-        [color]="'0x808080'"
-        [roughness]="0.1"
-        [metalness]="0"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="5" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="5" [z]="-15"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'RectArea'"
+			[color]="'0xff0000'"
+			[intensity]="5"
+			[width]="4"
+			[height]="10"
+		>
+			<ngx3js-position [x]="-5" [y]="5" [z]="5"></ngx3js-position>
+			<ngx3js-helper [type]="'light'"></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'RectArea'"
+			[color]="'0x00ff00'"
+			[intensity]="5"
+			[width]="4"
+			[height]="10"
+		>
+			<ngx3js-position [x]="0" [y]="5" [z]="5"></ngx3js-position>
+			<ngx3js-helper [type]="'light'"></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'RectArea'"
+			[color]="'0x0000ff'"
+			[intensity]="5"
+			[width]="4"
+			[height]="10"
+		>
+			<ngx3js-position [x]="5" [y]="5" [z]="5"></ngx3js-position>
+			<ngx3js-helper [type]="'light'"></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [name]="'meshKnot'">
+			<ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnot'"
+				[radius]="1.5"
+				[tube]="0.5"
+				[radialSegments]="200"
+				[tubularSegments]="16"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'meshstandard'"
+				[color]="'0xffffff'"
+				[roughness]="0"
+				[metalness]="0"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Box'"
+				[width]="2000"
+				[height]="0.1"
+				[depth]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandard'"
+				[color]="'0x808080'"
+				[roughness]="0.1"
+				[metalness]="0"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>
-

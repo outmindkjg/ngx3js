@@ -2,95 +2,94 @@ import { Component } from '@angular/core';
 import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-buffergeometry',
-  templateUrl: './webgl-buffergeometry.component.html',
-  styleUrls: ['./webgl-buffergeometry.component.scss']
+	selector: 'app-webgl-buffergeometry',
+	templateUrl: './webgl-buffergeometry.component.html',
+	styleUrls: ['./webgl-buffergeometry.component.scss'],
 })
 export class WebglBuffergeometryComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	ngOnInit() {
+		const positions = [];
+		const normals = [];
+		const colors = [];
 
-  ngOnInit() {
-    const positions = [];
-    const normals = [];
-    const colors = [];
+		const color = new THREE.Color();
 
-    const color = new THREE.Color();
+		const n = 800,
+			n2 = n / 2; // triangles spread in the cube
+		const d = 12,
+			d2 = d / 2; // individual triangle size
 
-    const n = 800, n2 = n / 2;	// triangles spread in the cube
-    const d = 12, d2 = d / 2;	// individual triangle size
+		const pA = new THREE.Vector3();
+		const pB = new THREE.Vector3();
+		const pC = new THREE.Vector3();
 
-    const pA = new THREE.Vector3();
-    const pB = new THREE.Vector3();
-    const pC = new THREE.Vector3();
+		const cb = new THREE.Vector3();
+		const ab = new THREE.Vector3();
+		const triangles = 160000;
 
-    const cb = new THREE.Vector3();
-    const ab = new THREE.Vector3();
-    const triangles = 160000;
+		for (let i = 0; i < triangles; i++) {
+			// positions
 
-    for ( let i = 0; i < triangles; i ++ ) {
+			const x = Math.random() * n - n2;
+			const y = Math.random() * n - n2;
+			const z = Math.random() * n - n2;
 
-      // positions
+			const ax = x + Math.random() * d - d2;
+			const ay = y + Math.random() * d - d2;
+			const az = z + Math.random() * d - d2;
 
-      const x = Math.random() * n - n2;
-      const y = Math.random() * n - n2;
-      const z = Math.random() * n - n2;
+			const bx = x + Math.random() * d - d2;
+			const by = y + Math.random() * d - d2;
+			const bz = z + Math.random() * d - d2;
 
-      const ax = x + Math.random() * d - d2;
-      const ay = y + Math.random() * d - d2;
-      const az = z + Math.random() * d - d2;
+			const cx = x + Math.random() * d - d2;
+			const cy = y + Math.random() * d - d2;
+			const cz = z + Math.random() * d - d2;
 
-      const bx = x + Math.random() * d - d2;
-      const by = y + Math.random() * d - d2;
-      const bz = z + Math.random() * d - d2;
+			positions.push(ax, ay, az);
+			positions.push(bx, by, bz);
+			positions.push(cx, cy, cz);
 
-      const cx = x + Math.random() * d - d2;
-      const cy = y + Math.random() * d - d2;
-      const cz = z + Math.random() * d - d2;
+			// flat face normals
 
-      positions.push( ax, ay, az );
-      positions.push( bx, by, bz );
-      positions.push( cx, cy, cz );
+			pA.set(ax, ay, az);
+			pB.set(bx, by, bz);
+			pC.set(cx, cy, cz);
 
-      // flat face normals
+			cb.subVectors(pC, pB);
+			ab.subVectors(pA, pB);
+			cb.cross(ab);
 
-      pA.set( ax, ay, az );
-      pB.set( bx, by, bz );
-      pC.set( cx, cy, cz );
+			cb.normalize();
 
-      cb.subVectors( pC, pB );
-      ab.subVectors( pA, pB );
-      cb.cross( ab );
+			const nx = cb.x;
+			const ny = cb.y;
+			const nz = cb.z;
 
-      cb.normalize();
+			normals.push(nx, ny, nz);
+			normals.push(nx, ny, nz);
+			normals.push(nx, ny, nz);
 
-      const nx = cb.x;
-      const ny = cb.y;
-      const nz = cb.z;
+			// colors
 
-      normals.push( nx, ny, nz );
-      normals.push( nx, ny, nz );
-      normals.push( nx, ny, nz );
+			const vx = x / n + 0.5;
+			const vy = y / n + 0.5;
+			const vz = z / n + 0.5;
+			color.setRGB(vx, vy, vz);
+			colors.push(color.r, color.g, color.b);
+			colors.push(color.r, color.g, color.b);
+			colors.push(color.r, color.g, color.b);
+		}
+		this.positions = positions;
+		this.normals = normals;
+		this.colors = colors;
+	}
 
-      // colors
-
-      const vx = ( x / n ) + 0.5;
-      const vy = ( y / n ) + 0.5;
-      const vz = ( z / n ) + 0.5;
-      color.setRGB( vx, vy, vz );
-      colors.push( color.r, color.g, color.b );
-      colors.push( color.r, color.g, color.b );
-      colors.push( color.r, color.g, color.b );
-    }
-    this.positions = positions;
-    this.normals = normals;
-    this.colors = colors;
-  }
-
-  positions : number[] = [];
-  normals : number[]  = [];
-  colors : number[]  = [];
-
+	positions: number[] = [];
+	normals: number[] = [];
+	colors: number[] = [];
 }

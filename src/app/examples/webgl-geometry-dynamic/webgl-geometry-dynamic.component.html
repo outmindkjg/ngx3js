@@ -1,41 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - dynamic geometry<br />
-  left click: forward, right click: backward
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	dynamic geometry<br />
+	left click: forward, right click: backward
 </div>
 <ngx3js-renderer
-  [controlType]="'FirstPerson'"
-  [controlOptions]="{ movementSpeed : 500 , lookSpeed : 0.1 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'FirstPerson'"
+	[controlOptions]="{ movementSpeed: 500, lookSpeed: 0.1 }"
+	[statsMode]="0"
+	[antialias]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="200" [z]="-500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xaaccff'">
-    <ngx3js-helper [type]="'Axes'" [size]="500"></ngx3js-helper>
-    <ngx3js-fog [type]="'exp2'" [color]="'0xaaccff'" [density]="0.0007"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="20000"
-        [height]="20000"
-        [widthSegments]="127"
-        [heightSegments]="127"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0x0044ff'" [side]="'double'">
-        <ngx3js-texture 
-          [image]="'textures/water.jpg'"
-          [wrapS]="'Repeat'"
-          [wrapT]="'Repeat'"
-          [repeatX]="5"
-          [repeatY]="5"
-        ></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="200" [z]="-500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xaaccff'">
+		<ngx3js-helper [type]="'Axes'" [size]="500"></ngx3js-helper>
+		<ngx3js-fog
+			[type]="'exp2'"
+			[color]="'0xaaccff'"
+			[density]="0.0007"
+		></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="20000"
+				[height]="20000"
+				[widthSegments]="127"
+				[heightSegments]="127"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasic'"
+				[color]="'0x0044ff'"
+				[side]="'double'"
+			>
+				<ngx3js-texture
+					[image]="'textures/water.jpg'"
+					[wrapS]="'Repeat'"
+					[wrapT]="'Repeat'"
+					[repeatX]="5"
+					[repeatY]="5"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

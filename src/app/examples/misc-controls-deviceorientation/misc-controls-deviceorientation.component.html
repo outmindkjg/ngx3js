@@ -1,50 +1,65 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - equirectangular panorama demo with DeviceOrientation controls.<br/>
-  photo by <a href="http://www.flickr.com/photos/jonragnarsson/2294472375/" target="_blank" rel="noopener">Jón Ragnarsson</a>.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	equirectangular panorama demo with DeviceOrientation controls.<br />
+	photo by
+	<a
+		href="http://www.flickr.com/photos/jonragnarsson/2294472375/"
+		target="_blank"
+		rel="noopener"
+		>Jón Ragnarsson</a
+	>.
 </div>
 <ngx3js-renderer
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-control [type]="'DeviceOrientationControls'">
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  </ngx3js-control>
-  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1100">
-    <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'SphereGeometry'"
-        [radius]="500"
-        [widthSegments]="60"
-        [heightSegments]="40"        
-      >
-        <ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
-      </ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasicMaterial'">
-        <ngx3js-texture [type]="'map'" [image]="'textures/2294472375_24a3b8ef46_o.jpg'"></ngx3js-texture>
-      </ngx3js-material>      
-    </ngx3js-mesh>
-    <ngx3js-mesh #helper>
-      <ngx3js-geometry
-        #helperGeometry
-        [type]="'BoxGeometry'"
-        [width]="100"
-        [height]="100"
-        [depth]="100"
-        [widthSegments]="4"
-        [heightSegments]="4"
-        [depthSegments]="4"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material #helperMaterial [type]="'MeshBasicMaterial'"  [color]="'0xff00ff'" [wireframe]="true">
-      </ngx3js-material>      
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-control [type]="'DeviceOrientationControls'">
+		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	</ngx3js-control>
+	<ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1100">
+		<ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'SphereGeometry'"
+				[radius]="500"
+				[widthSegments]="60"
+				[heightSegments]="40"
+			>
+				<ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
+			</ngx3js-geometry>
+			<ngx3js-material [type]="'MeshBasicMaterial'">
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/2294472375_24a3b8ef46_o.jpg'"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh #helper>
+			<ngx3js-geometry
+				#helperGeometry
+				[type]="'BoxGeometry'"
+				[width]="100"
+				[height]="100"
+				[depth]="100"
+				[widthSegments]="4"
+				[heightSegments]="4"
+				[depthSegments]="4"
+			>
+			</ngx3js-geometry>
+			<ngx3js-material
+				#helperMaterial
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xff00ff'"
+				[wireframe]="true"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

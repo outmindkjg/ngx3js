@@ -839,7 +839,13 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
 	],
-	imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		HighlightModule,
+		Ngx3JsModule,
+	],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{

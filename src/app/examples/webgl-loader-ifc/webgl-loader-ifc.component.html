@@ -1,44 +1,51 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  -
-  <a href="https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/" target="_blank" rel="noopener">IFC</a>
-  loader
-  unsupported
-  IFC Loader unsafe. cause some problem by crypt module.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	-
+	<a
+		href="https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/"
+		target="_blank"
+		rel="noopener"
+		>IFC</a
+	>
+	loader unsupported IFC Loader unsafe. cause some problem by crypt module.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="1000">
-    <ngx3js-position [x]="90" [y]="25" [z]="-70"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x8cc7de'">
-    <ngx3js-light
-      #directionalLight1
-      [type]="'directional'"
-      [color]="'0xffeeff'"
-      [intensity]="0.8"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      #directionalLight2
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.8"
-    >
-      <ngx3js-position [x]="-1" [y]="0.5" [z]="-1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/ifc/rac_advanced_sample_project.ifc'" [storageOption]="{ wasmPath : 'jsm/loaders/ifc/'}">
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="1000">
+		<ngx3js-position [x]="90" [y]="25" [z]="-70"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x8cc7de'">
+		<ngx3js-light
+			#directionalLight1
+			[type]="'directional'"
+			[color]="'0xffeeff'"
+			[intensity]="0.8"
+		>
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			#directionalLight2
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="0.8"
+		>
+			<ngx3js-position [x]="-1" [y]="0.5" [z]="-1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/ifc/rac_advanced_sample_project.ifc'"
+			[storageOption]="{ wasmPath: 'jsm/loaders/ifc/' }"
+		>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

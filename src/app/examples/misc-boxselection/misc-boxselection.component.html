@@ -1,59 +1,77 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - box selection
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - box selection
 </div>
 <ngx3js-renderer
-  [controlType]="'selectbox'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [shadowMapType]="'PCFShadowMap'"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'selectbox'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[shadowMapType]="'PCFShadowMap'"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xf0f0f0'">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x505050'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'SpotLight'"
-      [color]="'0xffffff'"
-      [intensity]="1.5"
-      [angle]="180/9"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="1000"
-      [shadowCameraFar]="4000"
-      [shadowMapSize]="1024"
-    >
-      <ngx3js-position [x]="0" [y]="500" [z]="2000"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'box'"
-        [width]="20"
-        [height]="20"
-        [depth]="20"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of boxInfos" [geometry]="geometry" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
-        <ngx3js-scale [x]="info.scale.x" [y]="info.scale.y" [z]="info.scale.z"></ngx3js-scale>
-        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
-        <ngx3js-material [type]="'MeshLambertMaterial'" [color]="info.color"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="5000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xf0f0f0'">
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x505050'"></ngx3js-light>
+		<ngx3js-light
+			[type]="'SpotLight'"
+			[color]="'0xffffff'"
+			[intensity]="1.5"
+			[angle]="180 / 9"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="1000"
+			[shadowCameraFar]="4000"
+			[shadowMapSize]="1024"
+		>
+			<ngx3js-position [x]="0" [y]="500" [z]="2000"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'box'"
+				[width]="20"
+				[height]="20"
+				[depth]="20"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of boxInfos"
+				[geometry]="geometry"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position
+					[x]="info.position.x"
+					[y]="info.position.y"
+					[z]="info.position.z"
+				></ngx3js-position>
+				<ngx3js-scale
+					[x]="info.scale.x"
+					[y]="info.scale.y"
+					[z]="info.scale.z"
+				></ngx3js-scale>
+				<ngx3js-rotation
+					[x]="info.rotation.x"
+					[y]="info.rotation.y"
+					[z]="info.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-material
+					[type]="'MeshLambertMaterial'"
+					[color]="info.color"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

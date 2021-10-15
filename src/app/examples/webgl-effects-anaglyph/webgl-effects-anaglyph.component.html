@@ -1,60 +1,87 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - effects - anaglyph<br/>
-  skybox by <a href="http://ict.debevec.org/~debevec/" target="_blank" rel="noopener">Paul Debevec</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	effects - anaglyph<br />
+	skybox by
+	<a href="http://ict.debevec.org/~debevec/" target="_blank" rel="noopener"
+		>Paul Debevec</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-material [materialType]="'background'">
-      <ngx3js-texture #envMap [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']"></ngx3js-texture>
-    </ngx3js-material>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh *ngFor="let model of models" (onLoad)="setSpheres($event)">
-        <ngx3js-position [x]="model.x" [y]="model.y" [z]="model.z"></ngx3js-position>
-        <ngx3js-scale [x]="model.scale" [y]="model.scale" [z]="model.scale"></ngx3js-scale>
-        <ngx3js-geometry
-          [type]="'Sphere'"
-          [radius]="0.1"
-          [widthSegments]="32"
-          [heightSegments]="16"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="envMap"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-material [materialType]="'background'">
+			<ngx3js-texture
+				#envMap
+				[image]="'textures/cube/pisa/'"
+				[cubeImage]="[
+					'px.png',
+					'nx.png',
+					'py.png',
+					'ny.png',
+					'pz.png',
+					'nz.png'
+				]"
+			></ngx3js-texture>
+		</ngx3js-material>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh *ngFor="let model of models" (onLoad)="setSpheres($event)">
+				<ngx3js-position
+					[x]="model.x"
+					[y]="model.y"
+					[z]="model.z"
+				></ngx3js-position>
+				<ngx3js-scale
+					[x]="model.scale"
+					[y]="model.scale"
+					[z]="model.scale"
+				></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'Sphere'"
+					[radius]="0.1"
+					[widthSegments]="32"
+					[heightSegments]="16"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xffffff'"
+					[envMap]="envMap"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

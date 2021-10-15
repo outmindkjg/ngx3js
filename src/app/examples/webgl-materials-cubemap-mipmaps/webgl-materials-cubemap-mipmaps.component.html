@@ -1,48 +1,66 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cubemap customized mipmaps demo. Author <a href="https://github.com/AngusLang" target="_blank">Angus</a><br/>
-  Left: webgl generated mipmaps<br/>
-  Right: manual mipmaps<br/>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	cubemap customized mipmaps demo. Author
+	<a href="https://github.com/AngusLang" target="_blank">Angus</a><br />
+	Left: webgl generated mipmaps<br />
+	Right: manual mipmaps<br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #sphere
-        [type]="'sphere'"
-        [radius]="100"
-        [widthSegments]="128"
-        [heightSegments]="128"
-      ></ngx3js-geometry>
-      <ngx3js-texture #texture8 
-        [image]="'textures/cube/angus/'" 
-        [cubeImage]="['cube_m00_c00.jpg', 'cube_m00_c01.jpg', 'cube_m00_c02.jpg', 'cube_m00_c03.jpg', 'cube_m00_c04.jpg', 'cube_m00_c05.jpg']"  
-        [minFilter]="'LinearMipMapLinearFilter'"
-        [magFilter]="'LinearFilter'"
-        [generateMipmaps]="true"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="sphere">
-        <ngx3js-position [x]="100" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="texture8"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="sphere">
-        <ngx3js-position [x]="-100" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [envMap]="texture8"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#sphere
+				[type]="'sphere'"
+				[radius]="100"
+				[widthSegments]="128"
+				[heightSegments]="128"
+			></ngx3js-geometry>
+			<ngx3js-texture
+				#texture8
+				[image]="'textures/cube/angus/'"
+				[cubeImage]="[
+					'cube_m00_c00.jpg',
+					'cube_m00_c01.jpg',
+					'cube_m00_c02.jpg',
+					'cube_m00_c03.jpg',
+					'cube_m00_c04.jpg',
+					'cube_m00_c05.jpg'
+				]"
+				[minFilter]="'LinearMipMapLinearFilter'"
+				[magFilter]="'LinearFilter'"
+				[generateMipmaps]="true"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="sphere">
+				<ngx3js-position [x]="100" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xffffff'"
+					[envMap]="texture8"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="sphere">
+				<ngx3js-position [x]="-100" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xffffff'"
+					[envMap]="texture8"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

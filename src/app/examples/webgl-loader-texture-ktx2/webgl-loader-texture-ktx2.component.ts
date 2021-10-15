@@ -2,20 +2,19 @@ import { Component } from '@angular/core';
 import { BaseComponent } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-loader-texture-ktx2',
-  templateUrl: './webgl-loader-texture-ktx2.component.html',
-  styleUrls: ['./webgl-loader-texture-ktx2.component.scss']
+	selector: 'app-webgl-loader-texture-ktx2',
+	templateUrl: './webgl-loader-texture-ktx2.component.html',
+	styleUrls: ['./webgl-loader-texture-ktx2.component.scss'],
 })
 export class WebglLoaderTextureKtx2Component extends BaseComponent<{
-  exposure : number
+	exposure: number;
 }> {
-
-  constructor() {
-    super({
-      exposure : 2.0
-    },[
-      { name : 'exposure', type :'number', min : 0, max : 4 , step : 0.01 }
-    ]);
-  }
-  
+	constructor() {
+		super(
+			{
+				exposure: 2.0,
+			},
+			[{ name: 'exposure', type: 'number', min: 0, max: 4, step: 0.01 }]
+		);
+	}
 }

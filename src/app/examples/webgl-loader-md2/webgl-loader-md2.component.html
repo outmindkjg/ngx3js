@@ -1,76 +1,83 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MD2 Loader -
-  Character by <a href="http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=368">Brian Collins</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	MD2 Loader - Character by
+	<a href="http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=368"
+		>Brian Collins</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="50" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="150" [z]="400"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-fog [color]="'0x050505'" [near]="400" [far]="1000"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x222222'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'spot'"
-      [color]="'0xffffff'"
-      [intensity]="5"
-      [distance]="1000"
-      [angle]="28"
-      [penumbra]="0.5"
-      [shadowMapSizeWidth]="1024"
-      [shadowMapSizeHeight]="1024"
-    >
-      <ngx3js-position [x]="200" [y]="250" [z]="500"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'spot'"
-      [color]="'0xffffff'"
-      [intensity]="5"
-      [distance]="1000"
-      [angle]="28"
-      [penumbra]="0.5"
-      [shadowMapSizeWidth]="1024"
-      [shadowMapSizeHeight]="1024"
-    >
-      <ngx3js-position [x]="-100" [y]="350" [z]="350"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/md2/ratamahatta/ratamahatta.md2'" [storageOption]="config" [windowExport]="'model'">
-      <ngx3js-mixer [action]="controls.animation" [type]="'Character'" [skin]="controls.skinIdx" [weapon]="controls.weaponIdx"></ngx3js-mixer>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="2000"
-        [height]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0xffffff'"
-      >
-        <ngx3js-texture [image]="'textures/terrain/grasslight-big.jpg'"
-          [repeatX]="8"
-          [repeatY]="8"
-          [wrapS]="'Repeat'"
-          [wrapT]="'Repeat'"
-          [encoding]="'sRGB'"
-        ></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="50" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="150" [z]="400"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-fog [color]="'0x050505'" [near]="400" [far]="1000"></ngx3js-fog>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x222222'"> </ngx3js-light>
+		<ngx3js-light
+			[type]="'spot'"
+			[color]="'0xffffff'"
+			[intensity]="5"
+			[distance]="1000"
+			[angle]="28"
+			[penumbra]="0.5"
+			[shadowMapSizeWidth]="1024"
+			[shadowMapSizeHeight]="1024"
+		>
+			<ngx3js-position [x]="200" [y]="250" [z]="500"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'spot'"
+			[color]="'0xffffff'"
+			[intensity]="5"
+			[distance]="1000"
+			[angle]="28"
+			[penumbra]="0.5"
+			[shadowMapSizeWidth]="1024"
+			[shadowMapSizeHeight]="1024"
+		>
+			<ngx3js-position [x]="-100" [y]="350" [z]="350"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/md2/ratamahatta/ratamahatta.md2'"
+			[storageOption]="config"
+			[windowExport]="'model'"
+		>
+			<ngx3js-mixer
+				[action]="controls.animation"
+				[type]="'Character'"
+				[skin]="controls.skinIdx"
+				[weapon]="controls.weaponIdx"
+			></ngx3js-mixer>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="2000"
+				[height]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'">
+				<ngx3js-texture
+					[image]="'textures/terrain/grasslight-big.jpg'"
+					[repeatX]="8"
+					[repeatY]="8"
+					[wrapS]="'Repeat'"
+					[wrapT]="'Repeat'"
+					[encoding]="'sRGB'"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

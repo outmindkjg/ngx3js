@@ -1,35 +1,32 @@
-<div class="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js webgl</a> - molecules</div>
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener"
+		>three.js webgl</a
+	>
+	- molecules
+</div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [cssType]="'css2d'"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[cssType]="'css2d'"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="5000">
-      <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.8"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.5"
-    >
-      <ngx3js-position [x]="-1" [y]="-1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="selectedMolecule">
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="5000">
+			<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+		</ngx3js-camera>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.8">
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.5">
+			<ngx3js-position [x]="-1" [y]="-1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="selectedMolecule">
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,83 +1,109 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl hemisphere light example<br/>
-  flamingo by <a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from <a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br/><br/>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl hemisphere light example<br />
+	flamingo by
+	<a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from
+	<a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a
+	><br /><br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, autoRotate: true, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'hsl( 0.6, 0, 1 )'">
-    <ngx3js-fog [color]="'0xffffff'" [near]="1"  [far]="5000"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'HSL(0.6, 1, 0.6)'"
-      [groundColor]="'HSL(0.095, 1, 0.75)'"
-      [intensity]="0.6"
-      (onLoad)="setHemiLight($event)"
-    >
-      <ngx3js-position [x]="0" [y]="50" [z]="0"></ngx3js-position>
-      <ngx3js-helper [type]="'light'" [size]="10" (onLoad)="setHemiLightHelper($event)"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'HSL( 0.1, 1, 0.95 )'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowMapSizeWidth]="2048"
-      [shadowMapSizeHeight]="2048"
-      [shadowCameraTop]="50"
-      [shadowCameraBottom]="-50"
-      [shadowCameraLeft]="-50"
-      [shadowCameraRight]="50"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="3500"
-      [shadowBias]="-0.0001"
-      (onLoad)="setDirLight($event)"
-    >
-      <ngx3js-position [x]="-1" [y]="1.75" [z]="1" [multiply]="30"></ngx3js-position>
-      <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-      <ngx3js-helper [type]="'light'" [size]="10" (onLoad)="setDirLightHelper($event)"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-mesh>
-      <ngx3js-geometry
-        [type]="'Sphere'"
-        [radius]="4000"
-        [widthSegments]="32"
-        [heightSegments]="15"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'Shader'" [shader]="'lightshemisphere'" [side]="'Back'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Flamingo.glb'" [castShadow]="true" [receiveShadow]="true">
-      <ngx3js-scale [x]="0.35" [y]="0.35" [z]="0.35"></ngx3js-scale>
-      <ngx3js-position [x]="0" [y]="15" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="-57" [z]="0"></ngx3js-rotation>
-      <ngx3js-mixer [action]="'play'" [duration]="1">
-        <ngx3js-clip [name]="'play'" [index]="0"></ngx3js-clip>
-      </ngx3js-mixer>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-33" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="10000"
-        [height]="10000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshLambert'"
-        [color]="'HSL( 0.095, 1, 0.75 )'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="5000">
+		<ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'hsl( 0.6, 0, 1 )'">
+		<ngx3js-fog [color]="'0xffffff'" [near]="1" [far]="5000"></ngx3js-fog>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'HSL(0.6, 1, 0.6)'"
+			[groundColor]="'HSL(0.095, 1, 0.75)'"
+			[intensity]="0.6"
+			(onLoad)="setHemiLight($event)"
+		>
+			<ngx3js-position [x]="0" [y]="50" [z]="0"></ngx3js-position>
+			<ngx3js-helper
+				[type]="'light'"
+				[size]="10"
+				(onLoad)="setHemiLightHelper($event)"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'HSL( 0.1, 1, 0.95 )'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowMapSizeWidth]="2048"
+			[shadowMapSizeHeight]="2048"
+			[shadowCameraTop]="50"
+			[shadowCameraBottom]="-50"
+			[shadowCameraLeft]="-50"
+			[shadowCameraRight]="50"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="3500"
+			[shadowBias]="-0.0001"
+			(onLoad)="setDirLight($event)"
+		>
+			<ngx3js-position
+				[x]="-1"
+				[y]="1.75"
+				[z]="1"
+				[multiply]="30"
+			></ngx3js-position>
+			<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+			<ngx3js-helper
+				[type]="'light'"
+				[size]="10"
+				(onLoad)="setDirLightHelper($event)"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-mesh>
+			<ngx3js-geometry
+				[type]="'Sphere'"
+				[radius]="4000"
+				[widthSegments]="32"
+				[heightSegments]="15"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'Shader'"
+				[shader]="'lightshemisphere'"
+				[side]="'Back'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/Flamingo.glb'"
+			[castShadow]="true"
+			[receiveShadow]="true"
+		>
+			<ngx3js-scale [x]="0.35" [y]="0.35" [z]="0.35"></ngx3js-scale>
+			<ngx3js-position [x]="0" [y]="15" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="0" [y]="-57" [z]="0"></ngx3js-rotation>
+			<ngx3js-mixer [action]="'play'" [duration]="1">
+				<ngx3js-clip [name]="'play'" [index]="0"></ngx3js-clip>
+			</ngx3js-mixer>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-33" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="10000"
+				[height]="10000"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshLambert'"
+				[color]="'HSL( 0.095, 1, 0.75 )'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

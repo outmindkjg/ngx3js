@@ -2,60 +2,56 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-buffergeometry-rawshader',
-  templateUrl: './webgl-buffergeometry-rawshader.component.html',
-  styleUrls: ['./webgl-buffergeometry-rawshader.component.scss']
+	selector: 'app-webgl-buffergeometry-rawshader',
+	templateUrl: './webgl-buffergeometry-rawshader.component.html',
+	styleUrls: ['./webgl-buffergeometry-rawshader.component.scss'],
 })
 export class WebglBuffergeometryRawshaderComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	ngOnInit() {
+		const vertexCount = 200 * 3;
+		const positions = [];
+		const colors = [];
 
-  ngOnInit() {
-    const vertexCount = 200 * 3;
-    const positions = [];
-    const colors = [];
+		for (let i = 0; i < vertexCount; i++) {
+			// adding x,y,z
+			positions.push(Math.random() - 0.5);
+			positions.push(Math.random() - 0.5);
+			positions.push(Math.random() - 0.5);
 
-    for ( let i = 0; i < vertexCount; i ++ ) {
+			// adding r,g,b,a
+			colors.push(Math.random() * 255);
+			colors.push(Math.random() * 255);
+			colors.push(Math.random() * 255);
+			colors.push(Math.random() * 255);
+		}
 
-      // adding x,y,z
-      positions.push( Math.random() - 0.5 );
-      positions.push( Math.random() - 0.5 );
-      positions.push( Math.random() - 0.5 );
+		this.positions = positions;
+		this.colors = colors;
+	}
 
-      // adding r,g,b,a
-      colors.push( Math.random() * 255 );
-      colors.push( Math.random() * 255 );
-      colors.push( Math.random() * 255 );
-      colors.push( Math.random() * 255 );
+	positions: number[] = [];
+	colors: number[] = [];
 
-    }
+	setMesh(mesh: MeshComponent) {
+		super.setMesh(mesh);
+		this.object3d = mesh.getObject3d() as THREE.Mesh;
+		this.uniforms = (this.object3d as any).material.uniforms;
+	}
 
-    this.positions = positions;
-    this.colors = colors;
-  }
+	object3d: THREE.Mesh = null;
+	uniforms: { [uniform: string]: THREE.IUniform } = null;
 
-  positions : number[] = [];
-  colors : number[] = [];
-
-  setMesh(mesh : MeshComponent) {
-    super.setMesh(mesh);
-    this.object3d = mesh.getObject3d() as THREE.Mesh;
-    this.uniforms = (this.object3d as any).material.uniforms;
-  }
-
-  object3d : THREE.Mesh = null;
-  uniforms : { [uniform: string]: THREE.IUniform } = null;
-
-  onRender(timer : RendererTimer) {
-    super.onRender(timer);
-    if (this.object3d !== null && this.uniforms !== null) {
-      const time = timer.elapsedTime;
-      this.uniforms[ "time" ].value = time * 5;
-      this.object3d.rotation.x = time * 0.2;
-      this.object3d.rotation.y = time * 0.4;
-    }
-  }
-
+	onRender(timer: RendererTimer) {
+		super.onRender(timer);
+		if (this.object3d !== null && this.uniforms !== null) {
+			const time = timer.elapsedTime;
+			this.uniforms['time'].value = time * 5;
+			this.object3d.rotation.x = time * 0.2;
+			this.object3d.rotation.y = time * 0.4;
+		}
+	}
 }

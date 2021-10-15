@@ -1,36 +1,35 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - OBJLoader test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	OBJLoader test
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xcccccc'"
-      [intensity]="0.4"
-    >
-    </ngx3js-light>
-    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-      <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
-      <ngx3js-light
-        [type]="'point'"
-        [color]="'0xffffff'"
-        [intensity]="0.8"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'male02.obj'" [storageOption]="{ material : 'male02_dds.mtl', path : 'models/obj/male02/' }">
-      <ngx3js-position [x]="0" [y]="-95" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xcccccc'" [intensity]="0.4">
+		</ngx3js-light>
+		<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+			<ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+			<ngx3js-light [type]="'point'" [color]="'0xffffff'" [intensity]="0.8">
+			</ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'male02.obj'"
+			[storageOption]="{
+				material: 'male02_dds.mtl',
+				path: 'models/obj/male02/'
+			}"
+		>
+			<ngx3js-position [x]="0" [y]="-95" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,49 +1,80 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Temporal Anti-Aliasing (TAA) pass by <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a><br/><br/>
-  When there is no motion in the scene, the TAA render pass accumulates jittered camera samples<br/>
-  across frames to create a high quality anti-aliased result.<br/><br/>
-  Texture interpolation, mipmapping and anistropic sampling is disabled to emphasize<br/> the effect SSAA levels have one the resulting render quality.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Temporal Anti-Aliasing (TAA) pass by
+	<a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a
+	><br /><br />
+	When there is no motion in the scene, the TAA render pass accumulates jittered
+	camera samples<br />
+	across frames to create a high quality anti-aliased result.<br /><br />
+	Texture interpolation, mipmapping and anistropic sampling is disabled to
+	emphasize<br />
+	the effect SSAA levels have one the resulting render quality.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-composer [scene]="scene" [camera]="camera">
-    <ngx3js-pass [type]="'TAARenderPass'" [unbiased]="false" [sampleLevel]="0" [accumulate]="false" (onLoad)="setTaaPass($event)"></ngx3js-pass>
-    <ngx3js-pass [type]="'RenderPass'" [enabled]="false" (onLoad)="setRenderPass($event)"></ngx3js-pass>
-    <ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'" ></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'box'"
-        [width]="120"
-        [height]="120"
-        [depth]="120"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-100" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [wireframe]="true"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="100" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'">
-          <ngx3js-texture [image]="'textures/brick_diffuse.jpg'" [filter]="'NearestFilter'" [anisotropy]="1" [generateMipmaps]="false"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-composer [scene]="scene" [camera]="camera">
+		<ngx3js-pass
+			[type]="'TAARenderPass'"
+			[unbiased]="false"
+			[sampleLevel]="0"
+			[accumulate]="false"
+			(onLoad)="setTaaPass($event)"
+		></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'RenderPass'"
+			[enabled]="false"
+			(onLoad)="setRenderPass($event)"
+		></ngx3js-pass>
+		<ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="70"
+		[near]="1"
+		[far]="1000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'box'"
+				[width]="120"
+				[height]="120"
+				[depth]="120"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-100" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0xffffff'"
+					[wireframe]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="100" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasicMaterial'">
+					<ngx3js-texture
+						[image]="'textures/brick_diffuse.jpg'"
+						[filter]="'NearestFilter'"
+						[anisotropy]="1"
+						[generateMipmaps]="false"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

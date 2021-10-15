@@ -1,37 +1,52 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl particle billboards example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl particle billboards example
 </div>
 <ngx3js-renderer
-  [controlType]="'plane'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'plane'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="55" [near]="2" [far]="2000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-fog [type]="'fogexp2'" [color]="'0x000000'" [density]="0.001"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'" [windowExport]="'mesh'">
-      <ngx3js-geometry
-        [type]="'Buffer'"
-        [attrPosition]="vertices"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'Points'" 
-        [color]="'HSL(1.0,0.3,0.7)'"
-        [size]="35"
-        [sizeAttenuation]="controls.sizeAttenuation"
-        [alphaTest]="0.5"
-        [transparent]="true"
-      >
-        <ngx3js-texture [image]="'textures/sprites/disc.png'"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="55"
+		[near]="2"
+		[far]="2000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-fog
+			[type]="'fogexp2'"
+			[color]="'0x000000'"
+			[density]="0.001"
+		></ngx3js-fog>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[type]="'Points'"
+			[windowExport]="'mesh'"
+		>
+			<ngx3js-geometry
+				[type]="'Buffer'"
+				[attrPosition]="vertices"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'Points'"
+				[color]="'HSL(1.0,0.3,0.7)'"
+				[size]="35"
+				[sizeAttenuation]="controls.sizeAttenuation"
+				[alphaTest]="0.5"
+				[transparent]="true"
+			>
+				<ngx3js-texture [image]="'textures/sprites/disc.png'"></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

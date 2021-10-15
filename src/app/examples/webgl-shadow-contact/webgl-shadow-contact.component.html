@@ -1,70 +1,69 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - contact shadows
-  todo
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - contact shadows todo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
-    <ngx3js-position [x]="0.5" [y]="1" [z]="2"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-shared>
-      <ngx3js-material #material [type]="'MeshNormalMaterial'"></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh #box [material]="material">
-        <ngx3js-position [x]="1/2.0" [y]="0.1" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="0.4"
-          [height]="0.4"
-          [depth]="0.4"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh #icosahedron [material]="material">
-      <ngx3js-position [x]="-1/4" [y]="0.1" [z]="0.433"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'IcosahedronGeometry'"
-        [radius]="0.3"
-      ></ngx3js-geometry>
-    </ngx3js-mesh>
-    <ngx3js-mesh #TorusKnot [material]="material">
-      <ngx3js-position [x]="-1/4" [y]="0.1" [z]="-0.433"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnotGeometry'"
-        [radius]="0.4"
-        [tube]="0.05"
-        [radialSegments]="256"
-        [tubularSegments]="24"
-        [p]="1"
-        [q]="3"
-      ></ngx3js-geometry>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-0.2" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="2.5"
-        [height]="2.5"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasic'"
-        [color]="'0xf0f0f0'"
-        [depthWrite]="false"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
+		<ngx3js-position [x]="0.5" [y]="1" [z]="2"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-shared>
+			<ngx3js-material
+				#material
+				[type]="'MeshNormalMaterial'"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh #box [material]="material">
+				<ngx3js-position [x]="1 / 2.0" [y]="0.1" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="0.4"
+					[height]="0.4"
+					[depth]="0.4"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh #icosahedron [material]="material">
+			<ngx3js-position [x]="-1 / 4" [y]="0.1" [z]="0.433"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'IcosahedronGeometry'"
+				[radius]="0.3"
+			></ngx3js-geometry>
+		</ngx3js-mesh>
+		<ngx3js-mesh #TorusKnot [material]="material">
+			<ngx3js-position [x]="-1 / 4" [y]="0.1" [z]="-0.433"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="0.4"
+				[tube]="0.05"
+				[radialSegments]="256"
+				[tubularSegments]="24"
+				[p]="1"
+				[q]="3"
+			></ngx3js-geometry>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-0.2" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry [type]="'Plane'" [width]="2.5" [height]="2.5">
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasic'"
+				[color]="'0xf0f0f0'"
+				[depthWrite]="false"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

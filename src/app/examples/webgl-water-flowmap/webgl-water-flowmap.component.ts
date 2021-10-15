@@ -2,20 +2,19 @@ import { Component } from '@angular/core';
 import { BaseComponent } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-water-flowmap',
-  templateUrl: './webgl-water-flowmap.component.html',
-  styleUrls: ['./webgl-water-flowmap.component.scss']
+	selector: 'app-webgl-water-flowmap',
+	templateUrl: './webgl-water-flowmap.component.html',
+	styleUrls: ['./webgl-water-flowmap.component.scss'],
 })
 export class WebglWaterFlowmapComponent extends BaseComponent<{
-  visible : boolean;
+	visible: boolean;
 }> {
-
-  constructor() {
-    super({
-      visible : false
-    },[
-      { name : 'visible', title : 'Show Flow Map', type : 'checkbox'}
-    ]);
-  }
-
+	constructor() {
+		super(
+			{
+				visible: false,
+			},
+			[{ name: 'visible', title: 'Show Flow Map', type: 'checkbox' }]
+		);
+	}
 }

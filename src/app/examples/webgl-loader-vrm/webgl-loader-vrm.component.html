@@ -1,32 +1,44 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - VRMLoader<br />
-  Alicia by
-  <a href="https://3d.nicovideo.jp/works/td32797" target="_blank" rel="noopener">Dwango</a> /
-  <a href="http://3d.nicovideo.jp/alicia/rule.html">License</a><br />
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	VRMLoader<br />
+	Alicia by
+	<a href="https://3d.nicovideo.jp/works/td32797" target="_blank" rel="noopener"
+		>Dwango</a
+	>
+	/ <a href="http://3d.nicovideo.jp/alicia/rule.html">License</a><br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 1 , maxDistance: 5 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		autoRotate: true,
+		minDistance: 1,
+		maxDistance: 5
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0.9" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-    <ngx3js-position [x]="0" [y]="1.6" [z]="-2.2"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xbbbbff'"
-      [groundColor]="'0x444422'"
-    >
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/vrm/Alicia/AliciaSolid.vrm'">
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0.9" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+		<ngx3js-position [x]="0" [y]="1.6" [z]="-2.2"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xbbbbff'"
+			[groundColor]="'0x444422'"
+		>
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/vrm/Alicia/AliciaSolid.vrm'"
+		>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

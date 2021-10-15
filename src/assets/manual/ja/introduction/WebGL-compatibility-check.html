@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -17,17 +17,10 @@
 		</p>
 
 		<code>
-		if ( WEBGL.isWebGLAvailable() ) {
-
-			// Initiate function or other initializations here
-			animate();
-
-		} else {
-
-			const warning = WEBGL.getWebGLErrorMessage();
-			document.getElementById( 'container' ).appendChild( warning );
-
-		}
+			if ( WEBGL.isWebGLAvailable() ) { // Initiate function or other
+			initializations here animate(); } else { const warning =
+			WEBGL.getWebGLErrorMessage(); document.getElementById( 'container'
+			).appendChild( warning ); }
 		</code>
 	</body>
 </html>

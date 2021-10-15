@@ -1,69 +1,126 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Multisampled Renderbuffers<br />
-  Left: WebGLRenderTarget, Right: WebGLMultisampleRenderTarget.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Multisampled Renderbuffers<br />
+	Left: WebGLRenderTarget, Right: WebGLMultisampleRenderTarget.
 </div>
 <ngx3js-renderer
-  [type]="'webgl2'"
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'keydown,keyup'"
-  (onRender)="onRender($event)"
+	[type]="'webgl2'"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, autoRotate: true, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'keydown,keyup'"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-fog [color]="'0xcccccc'" [near]="100" [far]="1500"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x222222'"
-      [intensity]="1.5"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'SphereGeometry'"
-        [radius]="10"
-        [widthSegments]="64"
-        [heightSegments]="40"
-      ></ngx3js-geometry>
-      <ngx3js-material #material [type]="'MeshLambertMaterial'" [color]="'0xee0808'"></ngx3js-material>
-      <ngx3js-material #material2 [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [wireframe]="true"></ngx3js-material>
-      <ngx3js-pass #renderPass [type]="'RenderPass'" [scene]="scene" [camera]="camera"></ngx3js-pass>
-      <ngx3js-pass #copyPass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
-    </ngx3js-shared>
-    <ngx3js-composer [scissorTest]="true" [scissorX]="0" [scissorY]="0" [scissorWidth]="'50%-1'" [scissorHeight]="'100%'" [scene]="scene" [camera]="camera">
-      <ngx3js-pass [refer]="renderPass"></ngx3js-pass>
-      <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-    </ngx3js-composer>
-    <ngx3js-composer [scissorTest]="true" [scissorX]="'50%'" [scissorY]="0" [scissorWidth]="'50%'" [scissorHeight]="'100%'" [scene]="scene" [camera]="camera">
-      <ngx3js-render-target 
-        [type]="'WebGLMultisampleRenderTarget'"
-        [format]="'RGBFormat'"
-      ></ngx3js-render-target>
-      <ngx3js-pass [refer]="renderPass"></ngx3js-pass>
-      <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-    </ngx3js-composer>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry" [material]="material">
-        <ngx3js-position [x]="info.px" [y]="info.py" [z]="info.pz"></ngx3js-position>
-        <ngx3js-rotation [x]="info.rx" [y]="0" [z]="info.rz"></ngx3js-rotation>
-        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry" [material]="material2">
-        <ngx3js-position [x]="info.px" [y]="info.py" [z]="info.pz"></ngx3js-position>
-        <ngx3js-rotation [x]="info.rx" [y]="0" [z]="info.rz"></ngx3js-rotation>
-        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="2000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-fog [color]="'0xcccccc'" [near]="100" [far]="1500"></ngx3js-fog>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0x222222'"
+			[intensity]="1.5"
+		>
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'SphereGeometry'"
+				[radius]="10"
+				[widthSegments]="64"
+				[heightSegments]="40"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshLambertMaterial'"
+				[color]="'0xee0808'"
+			></ngx3js-material>
+			<ngx3js-material
+				#material2
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xffffff'"
+				[wireframe]="true"
+			></ngx3js-material>
+			<ngx3js-pass
+				#renderPass
+				[type]="'RenderPass'"
+				[scene]="scene"
+				[camera]="camera"
+			></ngx3js-pass>
+			<ngx3js-pass
+				#copyPass
+				[type]="'ShaderPass'"
+				[shader]="'CopyShader'"
+			></ngx3js-pass>
+		</ngx3js-shared>
+		<ngx3js-composer
+			[scissorTest]="true"
+			[scissorX]="0"
+			[scissorY]="0"
+			[scissorWidth]="'50%-1'"
+			[scissorHeight]="'100%'"
+			[scene]="scene"
+			[camera]="camera"
+		>
+			<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
+			<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
+		</ngx3js-composer>
+		<ngx3js-composer
+			[scissorTest]="true"
+			[scissorX]="'50%'"
+			[scissorY]="0"
+			[scissorWidth]="'50%'"
+			[scissorHeight]="'100%'"
+			[scene]="scene"
+			[camera]="camera"
+		>
+			<ngx3js-render-target
+				[type]="'WebGLMultisampleRenderTarget'"
+				[format]="'RGBFormat'"
+			></ngx3js-render-target>
+			<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
+			<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
+		</ngx3js-composer>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of meshInfos"
+				[geometry]="geometry"
+				[material]="material"
+			>
+				<ngx3js-position
+					[x]="info.px"
+					[y]="info.py"
+					[z]="info.pz"
+				></ngx3js-position>
+				<ngx3js-rotation [x]="info.rx" [y]="0" [z]="info.rz"></ngx3js-rotation>
+				<ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngFor="let info of meshInfos"
+				[geometry]="geometry"
+				[material]="material2"
+			>
+				<ngx3js-position
+					[x]="info.px"
+					[y]="info.py"
+					[z]="info.pz"
+				></ngx3js-position>
+				<ngx3js-rotation [x]="info.rx" [y]="0" [z]="info.rz"></ngx3js-rotation>
+				<ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

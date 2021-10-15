@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ControlComponent, MeshComponent, RendererComponent, RendererEvent, THREE } from 'ngx3js';
+import {
+	BaseComponent,
+	ControlComponent,
+	MeshComponent,
+	RendererComponent,
+	RendererEvent,
+	THREE,
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-transform',
@@ -23,17 +30,17 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 
 	setTransformControl(transformControl: ControlComponent) {
 		this.transformControl = transformControl;
-    if (this.meshObject3d !== null) {
-      this.transformControl.getControl().attach(this.meshObject3d);
-    }
+		if (this.meshObject3d !== null) {
+			this.transformControl.getControl().attach(this.meshObject3d);
+		}
 	}
 
-  setMesh(mesh : MeshComponent) {
-    super.setMesh(mesh);
-    if (this.transformControl !== null) {
-      this.transformControl.getControl().attach(this.meshObject3d);
-    }
-  }
+	setMesh(mesh: MeshComponent) {
+		super.setMesh(mesh);
+		if (this.transformControl !== null) {
+			this.transformControl.getControl().attach(this.meshObject3d);
+		}
+	}
 
 	orbitControl: ControlComponent = null;
 
@@ -55,27 +62,27 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 	}
 
 	setEventListener(event: RendererEvent) {
-    if (this.transformControl !== null) {
-      const control = this.transformControl.getControl();
-      switch (event.type) {
-        case 'keydown':
-					switch ( event.event.keyCode ) {
+		if (this.transformControl !== null) {
+			const control = this.transformControl.getControl();
+			switch (event.type) {
+				case 'keydown':
+					switch (event.event.keyCode) {
 						case 81: // Q
-							control.setSpace( control.space === 'local' ? 'world' : 'local' );
+							control.setSpace(control.space === 'local' ? 'world' : 'local');
 							break;
 						case 16: // Shift
-							control.setTranslationSnap( 100 );
-							control.setRotationSnap( THREE.MathUtils.degToRad( 15 ) );
-							control.setScaleSnap( 0.25 );
+							control.setTranslationSnap(100);
+							control.setRotationSnap(THREE.MathUtils.degToRad(15));
+							control.setScaleSnap(0.25);
 							break;
 						case 87: // W
-							control.setMode( 'translate' );
+							control.setMode('translate');
 							break;
 						case 69: // E
-							control.setMode( 'rotate' );
+							control.setMode('rotate');
 							break;
 						case 82: // R
-							control.setMode( 'scale' );
+							control.setMode('scale');
 							break;
 						case 67: // C
 							break;
@@ -83,34 +90,34 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 							break;
 						case 187:
 						case 107: // +, =, num+
-							control.setSize( control.size + 0.1 );
+							control.setSize(control.size + 0.1);
 							break;
 						case 189:
 						case 109: // -, _, num-
-							control.setSize( Math.max( control.size - 0.1, 0.1 ) );
+							control.setSize(Math.max(control.size - 0.1, 0.1));
 							break;
 						case 88: // X
-							control.showX = ! control.showX;
+							control.showX = !control.showX;
 							break;
 						case 89: // Y
-							control.showY = ! control.showY;
+							control.showY = !control.showY;
 							break;
 						case 90: // Z
-							control.showZ = ! control.showZ;
+							control.showZ = !control.showZ;
 							break;
 						case 32: // Spacebar
-							control.enabled = ! control.enabled;
+							control.enabled = !control.enabled;
 							break;
 					}
-          break;
-        case 'keyup':
-          control.setTranslationSnap( null );
-          control.setRotationSnap( null );
-          control.setScaleSnap( null );
-          break;
-        default:
-          break;
-      }
-    }
+					break;
+				case 'keyup':
+					control.setTranslationSnap(null);
+					control.setRotationSnap(null);
+					control.setScaleSnap(null);
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }

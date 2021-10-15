@@ -1,44 +1,61 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl cube refraction demo.<br/>
-  skybox by <a href="http://www.zfight.com/" target="_blank" rel="noopener">Jochum Skoglund</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl cube refraction demo.<br />
+	skybox by
+	<a href="http://www.zfight.com/" target="_blank" rel="noopener"
+		>Jochum Skoglund</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
-    <ngx3js-position [x]="0" [y]="0" [z]="3200"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="background">
-    <ngx3js-shared>
-      <ngx3js-texture #background [image]="'textures/cube/Park3Med/'" [cubeImage]="['','jpg']" [mapping]="'CubeRefraction'"></ngx3js-texture>
-      <ngx3js-geometry
-        #geometry
-        [type]="'Sphere'"
-        [radius]="100"
-        [widthSegments]="32"
-        [heightSegments]="16"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #material
-        [type]="'MeshBasic'" 
-        [color]="'0xffffff'"
-        [envMap]="background"
-        [refractionRatio]="0.95"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let sphere of sphereInfos" [geometry]="geometry" [material]="material">
-        <ngx3js-position [x]="sphere.x" [y]="sphere.y" [z]="sphere.z"></ngx3js-position>
-        <ngx3js-scale [multiply]="sphere.scale"></ngx3js-scale>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="100000">
+		<ngx3js-position [x]="0" [y]="0" [z]="3200"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="background">
+		<ngx3js-shared>
+			<ngx3js-texture
+				#background
+				[image]="'textures/cube/Park3Med/'"
+				[cubeImage]="['', 'jpg']"
+				[mapping]="'CubeRefraction'"
+			></ngx3js-texture>
+			<ngx3js-geometry
+				#geometry
+				[type]="'Sphere'"
+				[radius]="100"
+				[widthSegments]="32"
+				[heightSegments]="16"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshBasic'"
+				[color]="'0xffffff'"
+				[envMap]="background"
+				[refractionRatio]="0.95"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let sphere of sphereInfos"
+				[geometry]="geometry"
+				[material]="material"
+			>
+				<ngx3js-position
+					[x]="sphere.x"
+					[y]="sphere.y"
+					[z]="sphere.z"
+				></ngx3js-position>
+				<ngx3js-scale [multiply]="sphere.scale"></ngx3js-scale>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

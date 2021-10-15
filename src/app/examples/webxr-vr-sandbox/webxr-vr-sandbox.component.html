@@ -1,65 +1,116 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - vr sandbox
-  - need ar/vr device to test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - vr
+	sandbox - need ar/vr device to test
 </div>
 <ngx3js-renderer
-  [controlType]="'vr'"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'vr'"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1.25" [z]="-2"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
-    <ngx3js-position [x]="0" [y]="1.6" [z]="1.5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-size #renderSize></ngx3js-size>
-    <ngx3js-texture #background [type]="'background'" [image]="'textures/cube/MilkyWay/'" [cubeImage]="['dark-s_','jpg']"></ngx3js-texture>
-    <ngx3js-light
-      #light1
-      [type]="'DirectionalLight'"
-      [color]="'0x8800ff'"
-      [castShadow]="true"
-      [shadowCameraZoom]="4"
-    >
-      <ngx3js-position [x]="-1" [y]="1.5" [z]="-1.5"></ngx3js-position>
-      <ngx3js-position [type]="'target'" [x]="0" [y]="0" [z]="-2"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      #light2
-      [type]="'DirectionalLight'"
-      [color]="'0xff0000'"
-      [castShadow]="true"
-      [shadowCameraZoom]="4"
-      [windowExport]="'light'"
-    >
-      <ngx3js-position [x]="1" [y]="1.5" [z]="-2.5"></ngx3js-position>
-      <ngx3js-position [type]="'target'" [x]="0" [y]="0" [z]="-2"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [name]="'torus'" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="1.25" [z]="-2"></ngx3js-position>
-        <ngx3js-geometry [type]="'TorusKnotGeometry'" [radius]="controls.radius" [tube]="controls.tube" [tubularSegments]="controls.tubularSegments" [radiusSegments]="controls.radialSegments" [p]="controls.p" [q]="controls.q"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshStandardMaterial'" [roughness]="0.01" [metalness]="0.2" [envMap]="background"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [name]="'cylinder'" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
-        <ngx3js-geometry [type]="'CylinderGeometry'" [radiusTop]="1" [radiusBottom]="1" [height]="0.1" [radiusSegments]="50"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshPhongMaterial'" ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #reflector [type]="'Reflector'" [textureSize]="renderSize">
-        <ngx3js-position [x]="1" [y]="1.25" [z]="-3"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="-180/4" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry [type]="'PlaneGeometry'" [width]="2" [height]="2"></ngx3js-geometry>
-        <ngx3js-mesh [name]="'frame'" [castShadow]="true" [receiveShadow]="true">
-          <ngx3js-position [x]="0" [y]="0" [z]="-0.07"></ngx3js-position>
-          <ngx3js-geometry [type]="'BoxGeometry'" [width]="2.1" [height]="2.1" [depth]="0.1"></ngx3js-geometry>
-          <ngx3js-material [type]="'MeshPhongMaterial'" ></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1.25" [z]="-2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
+		<ngx3js-position [x]="0" [y]="1.6" [z]="1.5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-size #renderSize></ngx3js-size>
+		<ngx3js-texture
+			#background
+			[type]="'background'"
+			[image]="'textures/cube/MilkyWay/'"
+			[cubeImage]="['dark-s_', 'jpg']"
+		></ngx3js-texture>
+		<ngx3js-light
+			#light1
+			[type]="'DirectionalLight'"
+			[color]="'0x8800ff'"
+			[castShadow]="true"
+			[shadowCameraZoom]="4"
+		>
+			<ngx3js-position [x]="-1" [y]="1.5" [z]="-1.5"></ngx3js-position>
+			<ngx3js-position
+				[type]="'target'"
+				[x]="0"
+				[y]="0"
+				[z]="-2"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			#light2
+			[type]="'DirectionalLight'"
+			[color]="'0xff0000'"
+			[castShadow]="true"
+			[shadowCameraZoom]="4"
+			[windowExport]="'light'"
+		>
+			<ngx3js-position [x]="1" [y]="1.5" [z]="-2.5"></ngx3js-position>
+			<ngx3js-position
+				[type]="'target'"
+				[x]="0"
+				[y]="0"
+				[z]="-2"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [name]="'torus'" [castShadow]="true" [receiveShadow]="true">
+				<ngx3js-position [x]="0" [y]="1.25" [z]="-2"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'TorusKnotGeometry'"
+					[radius]="controls.radius"
+					[tube]="controls.tube"
+					[tubularSegments]="controls.tubularSegments"
+					[radiusSegments]="controls.radialSegments"
+					[p]="controls.p"
+					[q]="controls.q"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshStandardMaterial'"
+					[roughness]="0.01"
+					[metalness]="0.2"
+					[envMap]="background"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				[name]="'cylinder'"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="-2"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'CylinderGeometry'"
+					[radiusTop]="1"
+					[radiusBottom]="1"
+					[height]="0.1"
+					[radiusSegments]="50"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhongMaterial'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #reflector [type]="'Reflector'" [textureSize]="renderSize">
+				<ngx3js-position [x]="1" [y]="1.25" [z]="-3"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="-180 / 4" [z]="0"></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'PlaneGeometry'"
+					[width]="2"
+					[height]="2"
+				></ngx3js-geometry>
+				<ngx3js-mesh
+					[name]="'frame'"
+					[castShadow]="true"
+					[receiveShadow]="true"
+				>
+					<ngx3js-position [x]="0" [y]="0" [z]="-0.07"></ngx3js-position>
+					<ngx3js-geometry
+						[type]="'BoxGeometry'"
+						[width]="2.1"
+						[height]="2.1"
+						[depth]="0.1"
+					></ngx3js-geometry>
+					<ngx3js-material [type]="'MeshPhongMaterial'"></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

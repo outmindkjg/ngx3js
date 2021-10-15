@@ -1,30 +1,35 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - buffergeometry - custom VBOs
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - buffergeometry - custom VBOs
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="5" [far]="3500">
-    <ngx3js-position [x]="0" [y]="0" [z]="2750"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-fog [color]="'0x050505'" [near]="2000" [far]="3500"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BufferGeometry'"
-        [attrPosition]="positions"
-        [attrColor]="colors"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'PointsMaterial'" [size]="15" [vertexColors]="true"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="5" [far]="3500">
+		<ngx3js-position [x]="0" [y]="0" [z]="2750"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-fog [color]="'0x050505'" [near]="2000" [far]="3500"></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[attrPosition]="positions"
+				[attrColor]="colors"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'PointsMaterial'"
+				[size]="15"
+				[vertexColors]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

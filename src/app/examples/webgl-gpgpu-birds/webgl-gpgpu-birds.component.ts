@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent , GPUComputationRenderer} from 'ngx3js';
+import { BaseComponent, GPUComputationRenderer } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-gpgpu-birds',
-  templateUrl: './webgl-gpgpu-birds.component.html',
-  styleUrls: ['./webgl-gpgpu-birds.component.scss']
+	selector: 'app-webgl-gpgpu-birds',
+	templateUrl: './webgl-gpgpu-birds.component.html',
+	styleUrls: ['./webgl-gpgpu-birds.component.scss'],
 })
 export class WebglGpgpuBirdsComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
-
-  fragmentShaderPosition = `
+	fragmentShaderPosition = `
   uniform float time;
   uniform float delta;
 
@@ -34,7 +33,7 @@ export class WebglGpgpuBirdsComponent extends BaseComponent<{}> {
   }
   `;
 
-  fragmentShaderVelocity = `
+	fragmentShaderVelocity = `
   uniform float time;
   uniform float testing;
   uniform float delta; // about 0.016
@@ -192,8 +191,7 @@ export class WebglGpgpuBirdsComponent extends BaseComponent<{}> {
   }
   `;
 
-  ngOnInit() {
-    GPUComputationRenderer
-  }
-  
+	ngOnInit() {
+		GPUComputationRenderer;
+	}
 }

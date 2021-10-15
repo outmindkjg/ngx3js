@@ -1,34 +1,57 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - USDZ exporter<br />
-  Battle Damaged Sci-fi Helmet by
-  <a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener">theblueturtle_</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	USDZ exporter<br />
+	Battle Damaged Sci-fi Helmet by
+	<a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener"
+		>theblueturtle_</a
+	>
 </div>
-  <ngx3js-renderer
-    [controlType]="'orbit'"
-    [controlOptions]="{ enablePan : false , enableDamping : true, minDistance : 2, maxDistance : 10 }"
-    [statsMode]="0"
-    [antialias]="true"
-    [shadowMapEnabled]="true"
-    [guiControl]="controls"
-    [guiParams]="controlsParams"
-    (onRender)="onRender($event)"
-  >
-    <ngx3js-lookat [x]="0" [y]="-0.15" [z]="-0.2"></ngx3js-lookat>
-    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-      <ngx3js-position [x]="-2.5" [y]="0.6" [z]="3.0"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-scene #scene [background]="'0xf0f0f0'" [environment]="{ value : 'sceen.room', options : 'sigma=0.04'}" (onLoad)="setScene($event)">
-      <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'">
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="-1.1" [z]="-0.25"></ngx3js-position>
-        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-scale [multiply]="2"></ngx3js-scale>
-        <ngx3js-geometry [type]="'PlaneGeometry'"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [blending]="'MultiplyBlending'" [toneMapped]="false">
-          <ngx3js-texture [program]="'shadow2'" [width]="128" [height]="128"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-scene>
-  </ngx3js-renderer>
-  
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 2,
+		maxDistance: 10
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="-0.15" [z]="-0.2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+		<ngx3js-position [x]="-2.5" [y]="0.6" [z]="3.0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene
+		#scene
+		[background]="'0xf0f0f0'"
+		[environment]="{ value: 'sceen.room', options: 'sigma=0.04' }"
+		(onLoad)="setScene($event)"
+	>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'"
+		>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="-1.1" [z]="-0.25"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-scale [multiply]="2"></ngx3js-scale>
+			<ngx3js-geometry [type]="'PlaneGeometry'"></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[blending]="'MultiplyBlending'"
+				[toneMapped]="false"
+			>
+				<ngx3js-texture
+					[program]="'shadow2'"
+					[width]="128"
+					[height]="128"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

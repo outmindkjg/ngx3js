@@ -1,52 +1,65 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - gradually transform an orientation to a target orientation
+	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
+		>three.js</a
+	>
+	- gradually transform an orientation to a target orientation
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : false }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		autoRotate: false
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh (onLoad)="setCone($event)">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Cone'"
-          [radius]="0.1"
-          [height]="0.5"
-          [radialSegments]="8"
-        >
-          <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
-        </ngx3js-geometry>
-        <ngx3js-material [type]="'MeshNormal'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh (onLoad)="setTarget($event)">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Sphere'"
-          [radius]="0.05"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xff0000'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Sphere'"
-          [radius]="2"
-          [widthSegments]="32"
-          [heightSegments]="32"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xcccccc'" [wireframe]="true" [transparent]="true" [opacity]="0.3"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="10">
+		<ngx3js-position [x]="0" [y]="0" [z]="5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh (onLoad)="setCone($event)">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Cone'"
+					[radius]="0.1"
+					[height]="0.5"
+					[radialSegments]="8"
+				>
+					<ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+				</ngx3js-geometry>
+				<ngx3js-material [type]="'MeshNormal'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh (onLoad)="setTarget($event)">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry [type]="'Sphere'" [radius]="0.05"></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xff0000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Sphere'"
+					[radius]="2"
+					[widthSegments]="32"
+					[heightSegments]="32"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xcccccc'"
+					[wireframe]="true"
+					[transparent]="true"
+					[opacity]="0.3"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

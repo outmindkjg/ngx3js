@@ -1,25 +1,48 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - tilt loader<br/>
-  <a href="https://poly.google.com/view/ewUb8s99x_k" target="_blank" rel="noopener">TILTSPHERE</a> by <a href="https://poly.google.com/user/8CZPjCt8LvV" target="_blank" rel="noopener">Rosie Summers</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	tilt loader<br />
+	<a
+		href="https://poly.google.com/view/ewUb8s99x_k"
+		target="_blank"
+		rel="noopener"
+		>TILTSPHERE</a
+	>
+	by
+	<a
+		href="https://poly.google.com/user/8CZPjCt8LvV"
+		target="_blank"
+		rel="noopener"
+		>Rosie Summers</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="40" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-      <ngx3js-position [x]="0" [y]="73" [z]="100"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-helper [type]="'grid'" [size]="50" [divisions]="50" [color1]="'0xffffff'" [color2]="'0x555555'"></ngx3js-helper>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'BRUSH_DOME.tilt'" [storageOption]="{ path : 'models/tilt/'}">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="40" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+			<ngx3js-position [x]="0" [y]="73" [z]="100"></ngx3js-position>
+		</ngx3js-camera>
+		<ngx3js-helper
+			[type]="'grid'"
+			[size]="50"
+			[divisions]="50"
+			[color1]="'0xffffff'"
+			[color2]="'0x555555'"
+		></ngx3js-helper>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'BRUSH_DOME.tilt'"
+			[storageOption]="{ path: 'models/tilt/' }"
+		>
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

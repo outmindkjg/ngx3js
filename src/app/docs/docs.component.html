@@ -1,33 +1,67 @@
 <div id="docs">
-  <div id="panel" #panel [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
-    <app-menu [menuType]="'docs'" #menu></app-menu>
-    <div id="panelScrim" (click)="menu.toggleMenu()"></div>
-    <div id="contentWrapper">
-      <div id="inputWrapper">
-        <input #search placeholder="" type="text" id="filterInput" autocorrect="off" autocapitalize="off" spellcheck="false" (keyup)="searchKeyUp()" (focus)="searchFocus()" (blur)="searchBlur()" />
-        <div id="exitSearchButton" (click)="searchClear()"></div>
-        <select id="language" (change)="changeLocale($event)">
-          <option *ngFor="let locale of localeInfos" [value]="locale.value" [selected]="locale.value === language">{{locale.text}}</option>
-        </select>
-      </div>
-      <div id="content">
-        <div *ngFor="let item of searchMenu">
-          <h2>{{ item.name }}</h2>
-          <div *ngFor="let child of item.children">
-            <h3>{{ child.name }}</h3>
-            <ul>
-              <li *ngFor="let gchild of child.children"><a href="#" [routerLink]="gchild.id" [ngClass]="gchild.selected ? 'selected' : 'unselected'">{{ gchild.name }}</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="viewer">
-    <div id="viewer-inner">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-  <a class="button github" #gitHub target="_blank" href="#" title="View source code"><img src="assets/examples/files/ic_mode_edit_black_24dp.svg" /></a>
-
+	<div
+		id="panel"
+		#panel
+		[ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'"
+	>
+		<app-menu [menuType]="'docs'" #menu></app-menu>
+		<div id="panelScrim" (click)="menu.toggleMenu()"></div>
+		<div id="contentWrapper">
+			<div id="inputWrapper">
+				<input
+					#search
+					placeholder=""
+					type="text"
+					id="filterInput"
+					autocorrect="off"
+					autocapitalize="off"
+					spellcheck="false"
+					(keyup)="searchKeyUp()"
+					(focus)="searchFocus()"
+					(blur)="searchBlur()"
+				/>
+				<div id="exitSearchButton" (click)="searchClear()"></div>
+				<select id="language" (change)="changeLocale($event)">
+					<option
+						*ngFor="let locale of localeInfos"
+						[value]="locale.value"
+						[selected]="locale.value === language"
+					>
+						{{ locale.text }}
+					</option>
+				</select>
+			</div>
+			<div id="content">
+				<div *ngFor="let item of searchMenu">
+					<h2>{{ item.name }}</h2>
+					<div *ngFor="let child of item.children">
+						<h3>{{ child.name }}</h3>
+						<ul>
+							<li *ngFor="let gchild of child.children">
+								<a
+									href="#"
+									[routerLink]="gchild.id"
+									[ngClass]="gchild.selected ? 'selected' : 'unselected'"
+									>{{ gchild.name }}</a
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="viewer">
+		<div id="viewer-inner">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+	<a
+		class="button github"
+		#gitHub
+		target="_blank"
+		href="#"
+		title="View source code"
+		><img src="assets/examples/files/ic_mode_edit_black_24dp.svg"
+	/></a>
 </div>

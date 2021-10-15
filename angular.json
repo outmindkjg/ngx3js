@@ -72,7 +72,26 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
+						"development": {
+							"buildOptimizer": false,
+							"optimization": {
+								"scripts": false,
+								"styles": {
+									"minify": false,
+									"inlineCritical": false
+								},
+								"fonts": {
+									"inline": true
+								}
+							},
+							"vendorChunk": false,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": false,
+							"aot": true,
+							"inlineStyleLanguage": "scss"
+						}
           }
         },
         "serve": {

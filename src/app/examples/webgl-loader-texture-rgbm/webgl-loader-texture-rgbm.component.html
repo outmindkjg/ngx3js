@@ -1,34 +1,37 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl RGBM texture loader example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl RGBM texture loader example
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [toneMapping]="'Reinhard'"
-  [toneMappingExposure]="2.0"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[toneMapping]="'Reinhard'"
+	[toneMappingExposure]="2.0"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-3"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="1"
-        [height]="1.5"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [side]="'double'">
-        <ngx3js-texture [storageName]="'textures/memorial.png'"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="-3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="1"
+				[height]="1.5"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshBasic'" [side]="'double'">
+				<ngx3js-texture
+					[storageName]="'textures/memorial.png'"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

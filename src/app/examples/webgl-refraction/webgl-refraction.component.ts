@@ -2,43 +2,43 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-refraction',
-  templateUrl: './webgl-refraction.component.html',
-  styleUrls: ['./webgl-refraction.component.scss']
+	selector: 'app-webgl-refraction',
+	templateUrl: './webgl-refraction.component.html',
+	styleUrls: ['./webgl-refraction.component.scss'],
 })
 export class WebglRefractionComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	setSmallSphere(smallSphere: MeshComponent) {
+		this.smallSphere = smallSphere.getObject3d();
+	}
 
-  setSmallSphere(smallSphere : MeshComponent) {
-    this.smallSphere = smallSphere.getObject3d();
-  }
+	smallSphere: THREE.Object3D = null;
 
-  smallSphere : THREE.Object3D = null;
+	setRefractor(refractor: MeshComponent) {
+		this.refractorMaterial = (refractor.getObject3d() as THREE.Mesh)
+			.material as THREE.ShaderMaterial;
+		// this.refractorMaterial.side = DoubleSide;
+	}
 
-  setRefractor(refractor : MeshComponent) {
-    this.refractorMaterial = (refractor.getObject3d() as THREE.Mesh).material as THREE.ShaderMaterial;
-    // this.refractorMaterial.side = DoubleSide;
-  }
+	refractorMaterial: THREE.ShaderMaterial = null;
 
-  refractorMaterial : THREE.ShaderMaterial = null;
-
-  onRender(timer : RendererTimer) {
-    super.onRender(timer);
-    if (this.refractorMaterial !== null) {
-      this.refractorMaterial.uniforms[ "time" ].value += timer.delta;
-    }
-    if (this.smallSphere !== null) {
-      const time = timer.elapsedTime;
-      this.smallSphere.position.set(
-        Math.cos( time ) * 30,
-        Math.abs( Math.cos( time * 2 ) ) * 20 + 5,
-        Math.sin( time ) * 30
-      )
-      this.smallSphere.rotation.y = ( Math.PI / 2 ) - time;
-      this.smallSphere.rotation.z = time * 8;
-    }
-  }
+	onRender(timer: RendererTimer) {
+		super.onRender(timer);
+		if (this.refractorMaterial !== null) {
+			this.refractorMaterial.uniforms['time'].value += timer.delta;
+		}
+		if (this.smallSphere !== null) {
+			const time = timer.elapsedTime;
+			this.smallSphere.position.set(
+				Math.cos(time) * 30,
+				Math.abs(Math.cos(time * 2)) * 20 + 5,
+				Math.sin(time) * 30
+			);
+			this.smallSphere.rotation.y = Math.PI / 2 - time;
+			this.smallSphere.rotation.z = time * 8;
+		}
+	}
 }

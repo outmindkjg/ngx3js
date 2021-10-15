@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,46 +11,47 @@
 		<h1>كيفية إنشاء محتوى VR</h1>
 
 		<p>
-			يقدم هذا الدليل لمحة موجزة عن المكونات الأساسية لتطبيق VR مخصص للويب بإستعمال three.js.
+			يقدم هذا الدليل لمحة موجزة عن المكونات الأساسية لتطبيق VR مخصص للويب
+			بإستعمال three.js.
 		</p>
 
 		<h2>سير العمل</h2>
 
 		<p>
-			أولاً ، عليك ضم [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/webxr/VRButton.js VRButton.js] في مشروعك.
+			أولاً ، عليك ضم
+			[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/webxr/VRButton.js
+			VRButton.js] في مشروعك.
 		</p>
 
 		<code>
-import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+			import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 		</code>
 
 		<p>
-			*VRButton.createButton()* يقوم بأمرين مهمين: أولا يقوم بإنشاء زر يشير إلى توافق الواقع الافتراضي. إلى جانب ذلك ، يبدأ جلسة VR إذا قام المستخدم بتنشيط الزر. كل ما عليك فعله هو إضافة السطر التالي من التعليمات البرمجية إلى تطبيقك.
+			*VRButton.createButton()* يقوم بأمرين مهمين: أولا يقوم بإنشاء زر يشير إلى
+			توافق الواقع الافتراضي. إلى جانب ذلك ، يبدأ جلسة VR إذا قام المستخدم
+			بتنشيط الزر. كل ما عليك فعله هو إضافة السطر التالي من التعليمات البرمجية
+			إلى تطبيقك.
 		</p>
 
 		<code>
-document.body.appendChild( VRButton.createButton( renderer ) );
+			document.body.appendChild( VRButton.createButton( renderer ) );
 		</code>
 
-		<p>
-			بعد ذلك ، عليك توجيه نموذج *WebGLRenderer* لتمكين عرض XR.
-		</p>
+		<p>بعد ذلك ، عليك توجيه نموذج *WebGLRenderer* لتمكين عرض XR.</p>
 
-		<code>
-renderer.xr.enabled = true;
-		</code>
+		<code> renderer.xr.enabled = true; </code>
 
 		<p>
-			أخيرًا ، يجب عليك ضبط حلقة الرسوم المتحركة لأننا لا نستطيع استخدام وظيفة *window.requestAnimationFrame()* المعروفة لدينا. بالنسبة لمشاريع الواقع الافتراضي ، نستخدم [page:WebGLRenderer.setAnimationLoop setAnimationLoop].
+			أخيرًا ، يجب عليك ضبط حلقة الرسوم المتحركة لأننا لا نستطيع استخدام وظيفة
+			*window.requestAnimationFrame()* المعروفة لدينا. بالنسبة لمشاريع الواقع
+			الافتراضي ، نستخدم [page:WebGLRenderer.setAnimationLoop setAnimationLoop].
 			يبدو الحد الأدنى من الكود كما يلي:
 		</p>
 
 		<code>
-renderer.setAnimationLoop( function () {
-
-	renderer.render( scene, camera );
-
-} );
+			renderer.setAnimationLoop( function () { renderer.render( scene, camera );
+			} );
 		</code>
 
 		<h2>الخطوات التالية</h2>
@@ -71,7 +71,5 @@ renderer.setAnimationLoop( function () {
 			[example:webxr_vr_sculpt WebXR / VR / sculpt]<br />
 			[example:webxr_vr_video WebXR / VR / video]
 		</p>
-
 	</body>
-
 </html>

@@ -12,103 +12,94 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			LookatComponent<br>
-			<br>
-			vector - A vector representing a position in world space.<br>
-			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br>
-			<br>
-			Rotates the object to face a point in world space.<br>
-			<br>
-			This method does not support objects having non-uniformly-scaled parent(s).<br>
-			<br>
+			LookatComponent<br />
+			<br />
+			vector - A vector representing a position in world space.<br />
+			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the
+			world space position.<br />
+			<br />
+			Rotates the object to face a point in world space.<br />
+			<br />
+			This method does not support objects having non-uniformly-scaled
+			parent(s).<br />
+			<br />
 			[page:Object3D Object3D] - THREE.Object3D.lookAt
 		</p>
 
 		<h2>Component</h2>
 		<code>
-			&lt;ngx3js-lookat
-			[ debug ]="..."
-			[ enabled ]="..."
-			[ refer ]="..."
-			[ windowExport ]="..."
-			[ x ]="..."
-			[ y ]="..."
-			[ z ]="..."
-		&gt;&lt;/ngx3js-lookat&gt;
+			&lt;ngx3js-lookat [ debug ]="..." [ enabled ]="..." [ refer ]="..." [
+			windowExport ]="..." [ x ]="..." [ y ]="..." [ z ]="..."
+			&gt;&lt;/ngx3js-lookat&gt;
 		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common input properties.
 		</p>
 
 		<h3>[property:any refer]</h3>
-		<p>
-			Input  of lookat component
-		</p>
+		<p>Input of lookat component</p>
 
 		<h3>[property:number x]</h3>
-		<p>
-			The current value of the x component. Default value is *0*.
-		</p>
+		<p>The current value of the x component. Default value is *0*.</p>
 
 		<h3>[property:number y]</h3>
-		<p>
-			The current value of the y component. Default value is *0*.
-		</p>
+		<p>The current value of the y component. Default value is *0*.</p>
 
 		<h3>[property:number z]</h3>
-		<p>
-			The current value of the z component. Default value is *0*.
-		</p>
+		<p>The current value of the z component. Default value is *0*.</p>
 
 		<h2>Properties - Output</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:void applyChanges]( [param:string changes][] )</h3>
 		<p>
-			Applys changes<br>
-			<br>
+			Applys changes<br />
+			<br />
 			Returns :
 		</p>
 
-		<h3>[method:Vector3 getLookAt](  )</h3>
+		<h3>[method:Vector3 getLookAt]( )</h3>
 		<p>
-			Gets look at<br>
-			<br>
+			Gets look at<br />
+			<br />
 			Returns : look at
 		</p>
 
-		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
+		<h3>[method:TagAttributes getTagAttribute]( [param:any options] )</h3>
 		<p>
-			Gets tag attribute<br>
-			<br>
+			Gets tag attribute<br />
+			<br />
 			Returns : tag attribute
 		</p>
 
-		<h3>[method:void setObject3d](  [param:Object3D object3d] )</h3>
-		<p>
-			Sets object3d
-		</p>
+		<h3>[method:void setObject3d]( [param:Object3D object3d] )</h3>
+		<p>Sets object3d</p>
 
-		<h3>[method:void setScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
-		<p>
-			Sets scale
-		</p>
+		<h3>
+			[method:void setScale]( [param:number x], [param:number y], [param:number
+			z] )
+		</h3>
+		<p>Sets scale</p>
 
-		<h3>[method:void synkObject3d](  [param:Vector3 lookat] )</h3>
-		<p>
-			Synks object3d
-		</p>
+		<h3>[method:void synkObject3d]( [param:Vector3 lookat] )</h3>
+		<p>Synks object3d</p>
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/lookat/lookat.component.ts lookat/lookat.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/lookat/lookat.component.ts
+			lookat/lookat.component.ts]
+		</p>
 	</body>
 </html>

@@ -1,44 +1,63 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl raycast sprite<br>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl raycast sprite<br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'mousemove'"
-  (eventListener)="onMouseOver($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'mousemove'"
+	(eventListener)="onMouseOver($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="15" [y]="15" [z]="15"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [type]="'Sprite'">
-        <ngx3js-position [x]="6" [y]="5" [z]="5"></ngx3js-position>
-        <ngx3js-scale [x]="2" [y]="5" [z]="1"></ngx3js-scale>
-        <ngx3js-material [type]="'Sprite'" [color]="'0x6699ff'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'Sprite'" [centerX]="0.5" [centerY]="0">
-        <ngx3js-position [x]="8" [y]="-2" [z]="2"></ngx3js-position>
-        <ngx3js-scale [x]="0.1" [y]="0.5" [z]="0.1"></ngx3js-scale>
-        <ngx3js-material [type]="'Sprite'" [color]="'0x6699ff'" [sizeAttenuation]="false" [rotation]="240"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="-5" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [x]="1" [y]="2" [z]="1"></ngx3js-scale>
-        <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-mesh [type]="'Sprite'" [centerX]="-0.1" [centerY]="0">
-          <ngx3js-position [x]="0" [y]="2" [z]="5"></ngx3js-position>
-          <ngx3js-scale [x]="10" [y]="2" [z]="3"></ngx3js-scale>
-          <ngx3js-material [type]="'Sprite'" [color]="'0x6699ff'" [rotation]="60"></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="50"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="15" [y]="15" [z]="15"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [type]="'Sprite'">
+				<ngx3js-position [x]="6" [y]="5" [z]="5"></ngx3js-position>
+				<ngx3js-scale [x]="2" [y]="5" [z]="1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'Sprite'"
+					[color]="'0x6699ff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'Sprite'" [centerX]="0.5" [centerY]="0">
+				<ngx3js-position [x]="8" [y]="-2" [z]="2"></ngx3js-position>
+				<ngx3js-scale [x]="0.1" [y]="0.5" [z]="0.1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'Sprite'"
+					[color]="'0x6699ff'"
+					[sizeAttenuation]="false"
+					[rotation]="240"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="-5" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="1" [y]="2" [z]="1"></ngx3js-scale>
+				<ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [type]="'Sprite'" [centerX]="-0.1" [centerY]="0">
+					<ngx3js-position [x]="0" [y]="2" [z]="5"></ngx3js-position>
+					<ngx3js-scale [x]="10" [y]="2" [z]="3"></ngx3js-scale>
+					<ngx3js-material
+						[type]="'Sprite'"
+						[color]="'0x6699ff'"
+						[rotation]="60"
+					></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

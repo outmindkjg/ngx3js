@@ -1,94 +1,102 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - THREE.PointLight ShadowMap by <a href="https://github.com/mkkellogg">mkkellogg</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	THREE.PointLight ShadowMap by
+	<a href="https://github.com/mkkellogg">mkkellogg</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="10" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="10" [z]="40"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x111122'"
-      [intensity]="1"
-    >
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture 
-        #alphaMap
-        [type]="'alphaMap'" 
-        [program]="sphereCanvas" 
-        [width]="2" 
-        [height]="2"
-        [magFilter]="'NearestFilter'"
-        [wrap]="'Repeat'"
-        [repeatX]="1"
-        [repeatY]="4.5"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-light *ngFor="let color of pointLightColors;let idx = index;" 
-          [type]="'PointLight'"
-          [color]="color"
-          [intensity]="1.5"
-          [distance]="20"
-          [shadowCameraNear]="1"
-          [shadowCameraFar]="60"
-          [shadowBias]="-0.005"
-          [castShadow]="true"
-      >
-        <ngx3js-position [x]="idx * 5" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-mesh [castShadow]="true" [receiveShadow]="true">
-          <ngx3js-geometry
-            [type]="'SphereGeometry'"
-            [radius]="0.3"
-            [widthSegments]="12"
-            [heightSegments]="6"
-          ></ngx3js-geometry>
-          <ngx3js-material [type]="'MeshBasic'" [color]="color" [colorMultiply]="1.5"></ngx3js-material>
-        </ngx3js-mesh>
-        <ngx3js-mesh [castShadow]="true" [receiveShadow]="true">
-          <ngx3js-geometry
-            [type]="'SphereGeometry'"
-            [radius]="2"
-            [widthSegments]="32"
-            [heightSegments]="8"
-          ></ngx3js-geometry>
-          <ngx3js-material [type]="'MeshPhongMaterial'" [side]="'double'" [alphaTest]="0.5" [alphaMap]="alphaMap">
-          </ngx3js-material>
-          <ngx3js-material 
-            [type]="'MeshDistance'" 
-            [materialType]="'customdistance'" 
-            [alphaTest]="0.5"
-            [alphaMap]="alphaMap"
-          ></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-light>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
-      <ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BoxGeometry'"
-        [width]="30"
-        [height]="30"
-        [depth]="30"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhongMaterial'"
-        [color]="'0xa0adaf'"
-        [specular]="'0x111111'"
-        [side]="'back'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="10" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="10" [z]="40"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x111122'" [intensity]="1">
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#alphaMap
+				[type]="'alphaMap'"
+				[program]="sphereCanvas"
+				[width]="2"
+				[height]="2"
+				[magFilter]="'NearestFilter'"
+				[wrap]="'Repeat'"
+				[repeatX]="1"
+				[repeatY]="4.5"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-light
+				*ngFor="let color of pointLightColors; let idx = index"
+				[type]="'PointLight'"
+				[color]="color"
+				[intensity]="1.5"
+				[distance]="20"
+				[shadowCameraNear]="1"
+				[shadowCameraFar]="60"
+				[shadowBias]="-0.005"
+				[castShadow]="true"
+			>
+				<ngx3js-position [x]="idx * 5" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-mesh [castShadow]="true" [receiveShadow]="true">
+					<ngx3js-geometry
+						[type]="'SphereGeometry'"
+						[radius]="0.3"
+						[widthSegments]="12"
+						[heightSegments]="6"
+					></ngx3js-geometry>
+					<ngx3js-material
+						[type]="'MeshBasic'"
+						[color]="color"
+						[colorMultiply]="1.5"
+					></ngx3js-material>
+				</ngx3js-mesh>
+				<ngx3js-mesh [castShadow]="true" [receiveShadow]="true">
+					<ngx3js-geometry
+						[type]="'SphereGeometry'"
+						[radius]="2"
+						[widthSegments]="32"
+						[heightSegments]="8"
+					></ngx3js-geometry>
+					<ngx3js-material
+						[type]="'MeshPhongMaterial'"
+						[side]="'double'"
+						[alphaTest]="0.5"
+						[alphaMap]="alphaMap"
+					>
+					</ngx3js-material>
+					<ngx3js-material
+						[type]="'MeshDistance'"
+						[materialType]="'customdistance'"
+						[alphaTest]="0.5"
+						[alphaMap]="alphaMap"
+					></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-light>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
+			<ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BoxGeometry'"
+				[width]="30"
+				[height]="30"
+				[depth]="30"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xa0adaf'"
+				[specular]="'0x111111'"
+				[side]="'back'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

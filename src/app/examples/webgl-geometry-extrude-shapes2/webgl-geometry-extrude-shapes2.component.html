@@ -1,55 +1,67 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shapes extrusion via geodata
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	shapes extrusion via geodata
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xb0b0b0'">
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xcccccc'"
-      [intensity]="0.2"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.6"
-    >
-      <ngx3js-position [x]="0.75" [y]="0.75" [z]="1.0" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-helper [type]="'Grid'" [size]="160" [divisions]="10" >
-      <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
-    </ngx3js-helper>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [name]="'Taipei'">
-        <ngx3js-position [x]="-365" [y]="125" [z]="10"></ngx3js-position>
-        <ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-mesh *ngFor="let map of taipeiMap" [name]="map.name" [visible]="map.visible">
-          <ngx3js-position [x]="0" [y]="0" [z]="20-map.depth"></ngx3js-position>
-          <ngx3js-geometry
-            [type]="'Extrude'"
-            [depth]="map.depth"
-            [steps]="1"
-            [bevelEnabled]="false"
-          >
-            <ngx3js-svg [path]="map.path"></ngx3js-svg>
-          </ngx3js-geometry>
-          <ngx3js-material [type]="'MeshLambert'" [color]="map.color" [emissive]="map.color" [transparent]="true" [opacity]="0.9"></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xb0b0b0'">
+		<ngx3js-light [type]="'Ambient'" [color]="'0xcccccc'" [intensity]="0.2">
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.6">
+			<ngx3js-position
+				[x]="0.75"
+				[y]="0.75"
+				[z]="1.0"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-helper [type]="'Grid'" [size]="160" [divisions]="10">
+			<ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+		</ngx3js-helper>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [name]="'Taipei'">
+				<ngx3js-position [x]="-365" [y]="125" [z]="10"></ngx3js-position>
+				<ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					*ngFor="let map of taipeiMap"
+					[name]="map.name"
+					[visible]="map.visible"
+				>
+					<ngx3js-position
+						[x]="0"
+						[y]="0"
+						[z]="20 - map.depth"
+					></ngx3js-position>
+					<ngx3js-geometry
+						[type]="'Extrude'"
+						[depth]="map.depth"
+						[steps]="1"
+						[bevelEnabled]="false"
+					>
+						<ngx3js-svg [path]="map.path"></ngx3js-svg>
+					</ngx3js-geometry>
+					<ngx3js-material
+						[type]="'MeshLambert'"
+						[color]="map.color"
+						[emissive]="map.color"
+						[transparent]="true"
+						[opacity]="0.9"
+					></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -2,24 +2,24 @@ import { Component } from '@angular/core';
 import { BaseComponent, LocalStorageService } from 'ngx3js';
 
 @Component({
-  selector: 'app-misc-exporter-draco',
-  templateUrl: './misc-exporter-draco.component.html',
-  styleUrls: ['./misc-exporter-draco.component.scss']
+	selector: 'app-misc-exporter-draco',
+	templateUrl: './misc-exporter-draco.component.html',
+	styleUrls: ['./misc-exporter-draco.component.scss'],
 })
 export class MiscExporterDracoComponent extends BaseComponent<{
-  export : () => void
+	export: () => void;
 }> {
-
-  constructor(
-    private localStorageService : LocalStorageService
-  ) {
-    super({
-      export : () => {
-        this.localStorageService.getExportObject('file.drc', this.meshObject3d);
-      }
-    },[
-      { name : 'export', type : 'button'}
-    ]);
-  }
-
+	constructor(private localStorageService: LocalStorageService) {
+		super(
+			{
+				export: () => {
+					this.localStorageService.getExportObject(
+						'file.drc',
+						this.meshObject3d
+					);
+				},
+			},
+			[{ name: 'export', type: 'button' }]
+		);
+	}
 }

@@ -1,98 +1,129 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - lensflares<br/>
-  textures from <a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br/>
-  fly with WASD/RF/QE + mouse
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	lensflares<br />
+	textures from
+	<a href="http://www.ro.me" target="_blank" rel="noopener">ro.me</a><br />
+	fly with WASD/RF/QE + mouse
 </div>
 <ngx3js-renderer
-  [controlType]="'fly'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , movementSpeed: 250 , rollSpeed: 5 , autoForward: false , dragToLook: false }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'fly'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		movementSpeed: 250,
+		rollSpeed: 5,
+		autoForward: false,
+		dragToLook: false
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="15000">
-    <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x010303'">
-    <ngx3js-fog [color]="'0x010303'" [near]="3500"  [far]="15000"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xd89126'"
-      [intensity]="0.05"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="0" [y]="-1" [z]="0" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh *ngFor="let light of lightInfo" 
-      [type]="'light'" 
-      [lightOptions]="{
-        type : 'Point',
-        color : light.color,
-        intensity : 1.5,
-        distance : 2000
-      }"
-    >
-      <ngx3js-position [x]="light.x" [y]="light.x" [z]="light.z"></ngx3js-position>
-      <ngx3js-mesh [type]="'lensflare'">
-        <ngx3js-lensflareelement
-          [image]="'textures/lensflare/lensflare0.png'"
-          [size]="700"
-          [distance]="0"
-          [color]="light.color"
-        ></ngx3js-lensflareelement>
-        <ngx3js-lensflareelement
-          [image]="'textures/lensflare/lensflare3.png'"
-          [size]="60"
-          [distance]="0.6"
-        ></ngx3js-lensflareelement>
-        <ngx3js-lensflareelement
-          [image]="'textures/lensflare/lensflare3.png'"
-          [size]="70"
-          [distance]="0.7"
-        ></ngx3js-lensflareelement>
-        <ngx3js-lensflareelement
-          [image]="'textures/lensflare/lensflare3.png'"
-          [size]="120"
-          [distance]="0.9"
-        ></ngx3js-lensflareelement>
-        <ngx3js-lensflareelement
-          [image]="'textures/lensflare/lensflare3.png'"
-          [size]="70"
-          [distance]="1"
-        ></ngx3js-lensflareelement>
-      </ngx3js-mesh>      
-    </ngx3js-mesh>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #boxGeometry
-        [type]="'box'"
-        [width]="250"
-        [height]="250"
-        [depth]="250"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #boxMaterial
-        [type]="'MeshPhong'" 
-        [color]="'0xffffff'"
-        [specular]="'0xffffff'"
-        [shininess]="50"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let box of boxInfo" [geometry]="boxGeometry" [material]="boxMaterial">
-        <ngx3js-position [x]="box.position.x" [y]="box.position.y" [z]="box.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="box.rotation.x" [y]="box.rotation.y" [z]="box.rotation.z"></ngx3js-rotation>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="15000">
+		<ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x010303'">
+		<ngx3js-fog [color]="'0x010303'" [near]="3500" [far]="15000"></ngx3js-fog>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xd89126'"
+			[intensity]="0.05"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position
+				[x]="0"
+				[y]="-1"
+				[z]="0"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			*ngFor="let light of lightInfo"
+			[type]="'light'"
+			[lightOptions]="{
+				type: 'Point',
+				color: light.color,
+				intensity: 1.5,
+				distance: 2000
+			}"
+		>
+			<ngx3js-position
+				[x]="light.x"
+				[y]="light.x"
+				[z]="light.z"
+			></ngx3js-position>
+			<ngx3js-mesh [type]="'lensflare'">
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare0.png'"
+					[size]="700"
+					[distance]="0"
+					[color]="light.color"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="60"
+					[distance]="0.6"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="70"
+					[distance]="0.7"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="120"
+					[distance]="0.9"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="70"
+					[distance]="1"
+				></ngx3js-lensflareelement>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#boxGeometry
+				[type]="'box'"
+				[width]="250"
+				[height]="250"
+				[depth]="250"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#boxMaterial
+				[type]="'MeshPhong'"
+				[color]="'0xffffff'"
+				[specular]="'0xffffff'"
+				[shininess]="50"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let box of boxInfo"
+				[geometry]="boxGeometry"
+				[material]="boxMaterial"
+			>
+				<ngx3js-position
+					[x]="box.position.x"
+					[y]="box.position.y"
+					[z]="box.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="box.rotation.x"
+					[y]="box.rotation.y"
+					[z]="box.rotation.z"
+				></ngx3js-rotation>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

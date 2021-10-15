@@ -1,49 +1,49 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - morph targets<br/>
-  by <a href="https://discoverthreejs.com/" target="_blank" rel="noopener">Discover three.js</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	morph targets<br />
+	by
+	<a href="https://discoverthreejs.com/" target="_blank" rel="noopener"
+		>Discover three.js</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene [background]="'0x8FBCD4'">
-    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="50">
-      <ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
-      <ngx3js-light
-        [type]="'point'"
-        [color]="'0xffffff'"
-        [intensity]="1"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x8FBCD4'"
-      [intensity]="0.4"
-    >
-    </ngx3js-light>
-    <ngx3js-shared>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="2"
-        [height]="2"
-        [depth]="2"
-        [widthSegments]="32"
-        [heightSegments]="32"
-        [depthSegments]="32"
-        (onLoad)="setGeometry($event)"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshPhong'" [color]="'0xff0000'" [flatShading]="true" [morphTargets]="true"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene [background]="'0x8FBCD4'">
+		<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="50">
+			<ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
+			<ngx3js-light [type]="'point'" [color]="'0xffffff'" [intensity]="1">
+			</ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x8FBCD4'" [intensity]="0.4">
+		</ngx3js-light>
+		<ngx3js-shared> </ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="2"
+				[height]="2"
+				[depth]="2"
+				[widthSegments]="32"
+				[heightSegments]="32"
+				[depthSegments]="32"
+				(onLoad)="setGeometry($event)"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0xff0000'"
+				[flatShading]="true"
+				[morphTargets]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,75 +1,91 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  marching cubes<br/>
-  based on greggman's <a href="https://webglsamples.org/blob/blob.html">blob</a>, original code by Henrik Rydgård
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	marching cubes<br />
+	based on greggman's
+	<a href="https://webglsamples.org/blob/blob.html">blob</a>, original code by
+	Henrik Rydgård
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
-    <ngx3js-position [x]="-500" [y]="500" [z]="1500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x080808'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'hsl('+controls.lhue+','+controls.lsaturation+','+controls.llightness+')'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture 
-        #refractionCube
-        [type]="'envMap'" 
-        [image]="'textures/cube/SwedishRoyalCastle/'" 
-        [cubeImage]="['','jpg']" 
-        [mapping]="'CubeRefraction'"
-      ></ngx3js-texture>
-      <ngx3js-texture 
-        #texture
-        [type]="'map'" 
-        [image]="'textures/uv_grid_opengl.jpg'" 
-        [wrapS]="'Repeat'"
-        [wrapT]="'Repeat'"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'MarchingCubes'" [planeInfos]="planeInfos" [blobInfos]="blobInfos" [resolution]="controls.resolution" [isolation]="controls.isolation" [enableUvs]="materialInfo.enableUvs" [enableColors]="materialInfo.enableColors">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [x]="700" [y]="700" [z]="700"></ngx3js-scale>
-      <ngx3js-material
-        [type]="materialInfo.type"
-        [color]="materialInfo.color"
-        [envMap]="materialInfo.envMap ? refractionCube : null"
-        [map]="materialInfo.map ? texture : null"
-        [refractionRatio]="materialInfo.refractionRatio"
-        [roughness]="materialInfo.roughness"
-        [metalness]="materialInfo.metalness"
-        [specular]="materialInfo.specular"
-        [shininess]="materialInfo.shininess"
-        [flatShading]="materialInfo.flatShading"
-        [vertexColors]="materialInfo.vertexColors"
-      >
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
+		<ngx3js-position [x]="-500" [y]="500" [z]="1500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-light [type]="'Ambient'" [color]="'0x080808'"> </ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
+			<ngx3js-position
+				[x]="controls.lx"
+				[y]="controls.ly"
+				[z]="controls.lz"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'Point'"
+			[color]="
+				'hsl(' +
+				controls.lhue +
+				',' +
+				controls.lsaturation +
+				',' +
+				controls.llightness +
+				')'
+			"
+			[intensity]="1"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#refractionCube
+				[type]="'envMap'"
+				[image]="'textures/cube/SwedishRoyalCastle/'"
+				[cubeImage]="['', 'jpg']"
+				[mapping]="'CubeRefraction'"
+			></ngx3js-texture>
+			<ngx3js-texture
+				#texture
+				[type]="'map'"
+				[image]="'textures/uv_grid_opengl.jpg'"
+				[wrapS]="'Repeat'"
+				[wrapT]="'Repeat'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[type]="'MarchingCubes'"
+			[planeInfos]="planeInfos"
+			[blobInfos]="blobInfos"
+			[resolution]="controls.resolution"
+			[isolation]="controls.isolation"
+			[enableUvs]="materialInfo.enableUvs"
+			[enableColors]="materialInfo.enableColors"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-scale [x]="700" [y]="700" [z]="700"></ngx3js-scale>
+			<ngx3js-material
+				[type]="materialInfo.type"
+				[color]="materialInfo.color"
+				[envMap]="materialInfo.envMap ? refractionCube : null"
+				[map]="materialInfo.map ? texture : null"
+				[refractionRatio]="materialInfo.refractionRatio"
+				[roughness]="materialInfo.roughness"
+				[metalness]="materialInfo.metalness"
+				[specular]="materialInfo.specular"
+				[shininess]="materialInfo.shininess"
+				[flatShading]="materialInfo.flatShading"
+				[vertexColors]="materialInfo.vertexColors"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

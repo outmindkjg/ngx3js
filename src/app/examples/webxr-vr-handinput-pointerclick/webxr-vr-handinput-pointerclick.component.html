@@ -1,55 +1,134 @@
 <div class="info">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - handinput - point and click<br />
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr -
+	handinput - point and click<br />
 	(Oculus Browser 15.1+) - need ar/vr device to test
 </div>
-<ngx3js-renderer [controlType]="'vr'" [statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
+<ngx3js-renderer
+	[controlType]="'vr'"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
 	<ngx3js-lookat [x]="0" [y]="1" [z]="-2"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
 		<ngx3js-position [x]="0" [y]="1.2" [z]="0.3"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x444444'">
-		<ngx3js-light [type]="'HemisphereLight'" [skyColor]="'0x808080'" [groundColor]="'0x606060'"></ngx3js-light>
-		<ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [castShadow]="true" [shadowCameraTop]="2" [shadowCameraBottom]="-2" [shadowCameraLeft]="-2" [shadowCameraRight]="2" [shadowMapSize]="4096">
+		<ngx3js-light
+			[type]="'HemisphereLight'"
+			[skyColor]="'0x808080'"
+			[groundColor]="'0x606060'"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowMapSize]="4096"
+		>
 			<ngx3js-position [x]="0" [y]="6" [z]="0"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-position [x]="0" [y]="1" [z]="-2"></ngx3js-position>
-			<ngx3js-geometry [type]="'TorusKnotGeometry'" [radius]="0.3" [tube]="0.1" [radiusSegments]="200" [tubularSegments]="32"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [metalness]="0.8"></ngx3js-material>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="0.3"
+				[tube]="0.1"
+				[radiusSegments]="200"
+				[tubularSegments]="32"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xffffff'"
+				[metalness]="0.8"
+			></ngx3js-material>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry [type]="'PlaneGeometry'" [width]="4" [height]="4"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x222222'"></ngx3js-material>
+			<ngx3js-geometry
+				[type]="'PlaneGeometry'"
+				[width]="4"
+				[height]="4"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0x222222'"
+			></ngx3js-material>
 		</ngx3js-mesh>
 		<ngx3js-mesh #menuMesh>
 			<ngx3js-position [x]="0.4" [y]="1" [z]="-1"></ngx3js-position>
 			<ngx3js-rotation [x]="0" [y]="-15" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry [type]="'PlaneGeometry'" [width]="0.24" [height]="0.5"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhongMaterial'" [opacity]="0" [transparent]="true"></ngx3js-material>
+			<ngx3js-geometry
+				[type]="'PlaneGeometry'"
+				[width]="0.24"
+				[height]="0.5"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[opacity]="0"
+				[transparent]="true"
+			></ngx3js-material>
 			<ngx3js-mesh #orangeButton [castShadow]="true" [receiveShadow]="true">
 				<ngx3js-position [x]="0" [y]="0.18" [z]="0"></ngx3js-position>
-				<ngx3js-geometry [type]="'BoxGeometry'" [width]="0.2" [height]="0.1" [depth]="0.01"></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffd3b5'"></ngx3js-material>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="0.2"
+					[height]="0.1"
+					[depth]="0.01"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xffd3b5'"
+				></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-mesh #pinkButton [castShadow]="true" [receiveShadow]="true">
 				<ngx3js-position [x]="0" [y]="0.06" [z]="0"></ngx3js-position>
-				<ngx3js-geometry [type]="'BoxGeometry'" [width]="0.2" [height]="0.1" [depth]="0.01"></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xe84a5f'"></ngx3js-material>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="0.2"
+					[height]="0.1"
+					[depth]="0.01"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xe84a5f'"
+				></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-mesh #resetButton [castShadow]="true" [receiveShadow]="true">
 				<ngx3js-position [x]="0" [y]="-0.06" [z]="0"></ngx3js-position>
-				<ngx3js-geometry [type]="'BoxGeometry'" [width]="0.2" [height]="0.1" [depth]="0.01"></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x355c7d'"></ngx3js-material>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="0.2"
+					[height]="0.1"
+					[depth]="0.01"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0x355c7d'"
+				></ngx3js-material>
 				<ngx3js-mesh [type]="'text'" [text]="'reset'" [size]="0.06">
 					<ngx3js-position [x]="0" [y]="0" [z]="0.0051"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
 			<ngx3js-mesh #exitButton [castShadow]="true" [receiveShadow]="true">
 				<ngx3js-position [x]="0" [y]="-0.18" [z]="0"></ngx3js-position>
-				<ngx3js-geometry [type]="'BoxGeometry'" [width]="0.2" [height]="0.1" [depth]="0.01"></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xff0000'"></ngx3js-material>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="0.2"
+					[height]="0.1"
+					[depth]="0.01"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xff0000'"
+				></ngx3js-material>
 				<ngx3js-mesh [type]="'text'" [text]="'exit'" [size]="0.06">
 					<ngx3js-position [x]="0" [y]="0" [z]="0.0051"></ngx3js-position>
 				</ngx3js-mesh>

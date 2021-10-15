@@ -1,36 +1,45 @@
 <div class="info">
-  <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - lottie - not work - unsupported<br/>
+	<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl
+	- lottie - not work - unsupported<br />
 
-  <input [id]="'scrubber'" [type]="'range'" [value]="'0'" [style]="'width: 300px'">
+	<input
+		[id]="'scrubber'"
+		[type]="'range'"
+		[value]="'0'"
+		[style]="'width: 300px'"
+	/>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="2.5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x111111'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'RoundedBox'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-        [segments]="7"
-        [radius]="0.2"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandard'" [roughness]="0.1">
-        <ngx3js-texture [storageName]="'textures/lottie/24017-lottie-logo-animation.json'" [storageOption]="{ loaderType : 'Lottie'}"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
+		<ngx3js-position [x]="0" [y]="0" [z]="2.5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x111111'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'RoundedBox'"
+				[width]="1"
+				[height]="1"
+				[depth]="1"
+				[segments]="7"
+				[radius]="0.2"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshStandard'" [roughness]="0.1">
+				<ngx3js-texture
+					[storageName]="'textures/lottie/24017-lottie-logo-animation.json'"
+					[storageOption]="{ loaderType: 'Lottie' }"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -2,31 +2,30 @@ import { Component } from '@angular/core';
 import { BaseComponent } from 'ngx3js';
 
 @Component({
-  selector: 'app-misc-animation-groups',
-  templateUrl: './misc-animation-groups.component.html',
-  styleUrls: ['./misc-animation-groups.component.scss']
+	selector: 'app-misc-animation-groups',
+	templateUrl: './misc-animation-groups.component.html',
+	styleUrls: ['./misc-animation-groups.component.scss'],
 })
 export class MiscAnimationGroupsComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
-
-  ngOnInit() {
-    this.boxInfos = [];
-    for ( let i = 0; i < 5; i ++ ) {
-      for ( let j = 0; j < 5; j ++ ) {
-        this.boxInfos.push({
-          x : 32 - ( 16 * i ),
-          y : 0,
-          z : 32 - ( 16 * j )
-        });
-      }
-    }
-  }
-  boxInfos : {
-    x : number;
-    y : number;
-    z : number;
-  }[] = [];
+	ngOnInit() {
+		this.boxInfos = [];
+		for (let i = 0; i < 5; i++) {
+			for (let j = 0; j < 5; j++) {
+				this.boxInfos.push({
+					x: 32 - 16 * i,
+					y: 0,
+					z: 32 - 16 * j,
+				});
+			}
+		}
+	}
+	boxInfos: {
+		x: number;
+		y: number;
+		z: number;
+	}[] = [];
 }

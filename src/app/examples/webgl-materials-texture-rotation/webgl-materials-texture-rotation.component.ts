@@ -29,7 +29,7 @@ export class WebglMaterialsTextureRotationComponent extends BaseComponent<{
 				centerY: 0.5,
 			},
 			[
-				{ name: 'test', title : 'change Material', type: 'checkbox' },
+				{ name: 'test', title: 'change Material', type: 'checkbox' },
 				{
 					name: 'offsetX',
 					title: 'offset.x',

@@ -2,48 +2,49 @@ import { Component } from '@angular/core';
 import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-materials-envmaps-parallax',
-  templateUrl: './webgl-materials-envmaps-parallax.component.html',
-  styleUrls: ['./webgl-materials-envmaps-parallax.component.scss']
+	selector: 'app-webgl-materials-envmaps-parallax',
+	templateUrl: './webgl-materials-envmaps-parallax.component.html',
+	styleUrls: ['./webgl-materials-envmaps-parallax.component.scss'],
 })
 export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
-  boxProjected : boolean;
+	boxProjected: boolean;
 }> {
+	constructor() {
+		super(
+			{
+				boxProjected: true,
+			},
+			[{ name: 'boxProjected', type: 'checkbox' }]
+		);
+	}
 
-  constructor() {
-    super({
-      boxProjected : true
-    },[
-      { name : 'boxProjected', type : 'checkbox'}
-    ]);
-  }
+	ngOnInit() {
+		this.onBeforeCompile = (shader) => {
+			this._onBeforeCompile(shader);
+		};
+	}
 
-  ngOnInit() {
-    this.onBeforeCompile = (shader) => {
-      this._onBeforeCompile(shader);
-    }
-  }
+	onBeforeCompile: any = null;
+	_onBeforeCompile(shader: THREE.Shader) {
+		shader.uniforms.cubeMapSize = { value: new THREE.Vector3(200, 200, 100) };
+		shader.uniforms.cubeMapPos = { value: new THREE.Vector3(0, -50, 0) };
 
-  onBeforeCompile : any = null;
-  _onBeforeCompile(shader : THREE.Shader) {
-    shader.uniforms.cubeMapSize = { value: new THREE.Vector3( 200, 200, 100 ) };
-    shader.uniforms.cubeMapPos = { value: new THREE.Vector3( 0, - 50, 0 ) };
+		//replace shader chunks with box projection chunks
+		shader.vertexShader =
+			'varying vec3 vWorldPosition;\n' + shader.vertexShader;
 
-    //replace shader chunks with box projection chunks
-    shader.vertexShader = 'varying vec3 vWorldPosition;\n' + shader.vertexShader;
+		shader.vertexShader = shader.vertexShader.replace(
+			'#include <worldpos_vertex>',
+			this.worldposReplace
+		);
 
-    shader.vertexShader = shader.vertexShader.replace(
-      '#include <worldpos_vertex>',
-      this.worldposReplace
-    );
+		shader.fragmentShader = shader.fragmentShader.replace(
+			'#include <envmap_physical_pars_fragment>',
+			this.envmapPhysicalParsReplace
+		);
+	}
 
-    shader.fragmentShader = shader.fragmentShader.replace(
-      '#include <envmap_physical_pars_fragment>',
-      this.envmapPhysicalParsReplace
-    );
-  }
-
-  worldposReplace = /* glsl */`
+	worldposReplace = /* glsl */ `
   #define BOX_PROJECTED_ENV_MAP
 
   #if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP )
@@ -59,7 +60,7 @@ export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
   #endif
   `;
 
-  envmapPhysicalParsReplace = /* glsl */`
+	envmapPhysicalParsReplace = /* glsl */ `
   #if defined( USE_ENVMAP )
 
     #define BOX_PROJECTED_ENV_MAP
@@ -199,5 +200,4 @@ export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
     }
   #endif
   `;
-
 }

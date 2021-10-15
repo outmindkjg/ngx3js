@@ -1,50 +1,55 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Tiled forward lighting<br/>
-  Created by <a href="https://github.com/wizgrav" target="_blank" rel="noopener">wizgrav</a>.
-  todo
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> -
+	Tiled forward lighting<br />
+	Created by
+	<a href="https://github.com/wizgrav" target="_blank" rel="noopener">wizgrav</a
+	>. todo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [toneMapping]="'NoToneMapping'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[toneMapping]="'NoToneMapping'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="240.0"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x111111'">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-      [intensity]="0.33"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xff0000'"
-      [intensity]="0.1"
-      [distance]="0.1"
-    ></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #waltHead
-        [storageName]="'models/obj/walt/WaltHead.obj'"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of headInfos">
-        <ngx3js-position [x]="info.x" [y]="0" [z]="info.z"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="info.ry" [z]="0"></ngx3js-rotation>
-        <ngx3js-mesh [geometry]="waltHead">
-          <ngx3js-position [x]="0" [y]="-37" [z]="0"></ngx3js-position>
-          <ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="240.0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x111111'">
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.33"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xff0000'"
+			[intensity]="0.1"
+			[distance]="0.1"
+		></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#waltHead
+				[storageName]="'models/obj/walt/WaltHead.obj'"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh *ngFor="let info of headInfos">
+				<ngx3js-position [x]="info.x" [y]="0" [z]="info.z"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="info.ry" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [geometry]="waltHead">
+					<ngx3js-position [x]="0" [y]="-37" [z]="0"></ngx3js-position>
+					<ngx3js-material
+						[type]="'meshlambert'"
+						[color]="'0xff0000'"
+					></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

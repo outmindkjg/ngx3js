@@ -121,33 +121,19 @@ rm -rf src/app/**/*.js
 git remote set-url origin https://github.com/outmindkjg/ngx3js.git
 git remote -v
 
-ng g directive three/drawing-canvas
-ng g c three/viewer
-ng g c three/size
-
-// ng g c three/chart/bar
-// ng g c three/chart/line
-// ng g c three/chart/scatter
-// ng g c three/chart/bubble
-// ng g c three/chart/pie
-// ng g c three/chart/doughnut
-// ng g c three/chart/polarArea
-// ng g c three/chart/radar
-// ng g c three/chart/controller
-
-// ng g c three/chart/axes
-// ng g c three/chart/legend
-// ng g c three/chart/title
+cd ngx3js-module build
+cd ngx3js-module watch
+ng serve
 
 
-ng g c examples/webgl-portal
-ng g c examples/webxr-ar-lighting
-ng g c examples/webxr_vr_handinput_pointerclick
-ng g c examples/webxr_vr_handinput_pointerdrag
-ng g c examples/webxr_vr_handinput_pressbutton
-ng g c examples/webxr_vr_layers
-ng g c examples/misc_exporter_usdz
+```
 
+```sh
+# prettier format change
+npx prettier --write src/**/*.json
+npx prettier --write src/**/*.ts
+npx prettier --write src/**/*.html
+npx prettier --write src/**/*.scss
 ```
 
 

@@ -1,40 +1,40 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> buffergeometry - selective - draw
-  <div id="title"></div>
-  <div id="ui"><a href="#" id="hideLines">CULL SOME LINES</a> - <a href="#" id="showAllLines">SHOW ALL LINES</a></div>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	buffergeometry - selective - draw
+	<div id="title"></div>
+	<div id="ui">
+		<a href="#" id="hideLines">CULL SOME LINES</a> -
+		<a href="#" id="showAllLines">SHOW ALL LINES</a>
+	</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="3.5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x444444'"
-    >
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'LineSegments'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BufferGeometry'"
-        [attrPosition]="linePositions"
-        [attrVertColor]="lineColors"
-        [attrVisible]="lineVisible"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'" 
-        [shader]="'SelectiveDraw'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
+		<ngx3js-position [x]="0" [y]="0" [z]="3.5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x444444'"> </ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'LineSegments'">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[attrPosition]="linePositions"
+				[attrVertColor]="lineColors"
+				[attrVisible]="lineVisible"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'SelectiveDraw'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

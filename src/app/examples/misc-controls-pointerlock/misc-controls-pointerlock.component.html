@@ -1,76 +1,88 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - misc_controls_pointerlock
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	misc_controls_pointerlock
 </div>
 <div #blocker id="blocker" (click)="controlLockStart()">
-  <div id="instructions">
-    <p style="font-size:36px">
-      Click to play
-    </p>
-    <p>
-      Move: WASD<br/>
-      Jump: SPACE<br/>
-      Look: MOUSE
-    </p>
-  </div>
+	<div id="instructions">
+		<p style="font-size: 36px">Click to play</p>
+		<p>
+			Move: WASD<br />
+			Jump: SPACE<br />
+			Look: MOUSE
+		</p>
+	</div>
 </div>
 <ngx3js-renderer
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'keydown,keyup'"
-  (eventListener)="keyDownEvent($event)"
-  (onRender)="onRender($event)"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'keydown,keyup'"
+	(eventListener)="keyDownEvent($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-control [type]="'PointerLockControls'" (onLoad)="setPointerLock($event)">
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  </ngx3js-control>
+	<ngx3js-control
+		[type]="'PointerLockControls'"
+		(onLoad)="setPointerLock($event)"
+	>
+		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	</ngx3js-control>
 
-  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="10" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-fog [color]="'0xffffff'" [near]="0" [far]="750"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xeeeeff'"
-      [groundColor]="'0x777788'"
-      [intensity]="0.75"
-    >
-      <ngx3js-position [x]="0.5" [y]="1" [z]="0.75"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #boxGeometry
-        [type]="'BoxGeometry'"
-        [width]="20"
-        [height]="20"
-        [depth]="20"
-        [toNonIndexed]="true"
-        [onInit]="initBox"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of boxInfos" [geometry]="boxGeometry">
-        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="info.color" [specular]="'0xffffff'" [flatShading]="true" [vertexColors]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="2000"
-        [height]="2000"
-        [widthSegments]="100"
-        [heightSegments]="100"
-        [onInit]="initFloor"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasicMaterial'"
-        [vertexColors]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="10" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-fog [color]="'0xffffff'" [near]="0" [far]="750"></ngx3js-fog>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xeeeeff'"
+			[groundColor]="'0x777788'"
+			[intensity]="0.75"
+		>
+			<ngx3js-position [x]="0.5" [y]="1" [z]="0.75"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#boxGeometry
+				[type]="'BoxGeometry'"
+				[width]="20"
+				[height]="20"
+				[depth]="20"
+				[toNonIndexed]="true"
+				[onInit]="initBox"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh *ngFor="let info of boxInfos" [geometry]="boxGeometry">
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="info.color"
+					[specular]="'0xffffff'"
+					[flatShading]="true"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="2000"
+				[height]="2000"
+				[widthSegments]="100"
+				[heightSegments]="100"
+				[onInit]="initFloor"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[vertexColors]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

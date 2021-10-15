@@ -1,115 +1,120 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - parametric geometries
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - parametric geometries
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0x000000'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-shared>
-    <ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
-      <ngx3js-texture [type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16"></ngx3js-texture>
-    </ngx3js-material>
-  </ngx3js-shared>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xcccccc'"
-      [intensity]="0.4"
-    >
-    </ngx3js-light>
-    <ngx3js-camera [type]="'perspective'" (onLoad)="setCamera($event)" [fov]="45" [near]="1" [far]="2000">
-      <ngx3js-position [x]="0" [y]="400" [z]="800"></ngx3js-position>
-      <ngx3js-light
-        [type]="'Point'"
-        [color]="'0xffffff'"
-        [intensity]="0.8"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="-200" [y]="0" [z]="200"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Parametric'"
-          [parametric]="'plane'"
-          [width]="100"
-          [height]="100"
-          [slices]="10"
-          [stacks]="10"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
-        <ngx3js-scale [x]="5" [y]="5" [z]="5"></ngx3js-scale>
-        <ngx3js-geometry
-          [type]="'Parametric'"
-          [parametric]="'klein'"
-          [slices]="20"
-          [stacks]="20"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
-        <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
-        <ngx3js-geometry
-          [type]="'Parametric'"
-          [parametric]="'mobius'"
-          [slices]="20"
-          [stacks]="20"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
-        <ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
-        <ngx3js-geometry
-          [type]="'Parametric'"
-          [parametric]="'mobius'"
-          [slices]="20"
-          [stacks]="20"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="-200" [y]="0" [z]="-200"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'parametrictorusknot'"
-          [radius]="50"
-          [tube]="10"
-          [radialSegments]="50"
-          [tubularSegments]="20"
-          [p]="2"
-          [q]="3"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="0" [y]="0" [z]="-200"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'parametricSphere'"
-          [radius]="50"
-          [widthSegments]="20"
-          [heightSegments]="10"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="200" [y]="0" [z]="-200"></ngx3js-position>
-        <ngx3js-scale  [x]="2" [y]="2" [z]="2"></ngx3js-scale>
-        <ngx3js-geometry
-          [type]="'parametricTube'"
-          [curve]="'GrannyKnot'"
-          [radius]="50"
-          [tubularSegments]="100"
-          [radius]="3"
-          [radiusSegments]="8"
-          [closed]="true"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-shared>
+		<ngx3js-material #material [type]="'MeshPhong'" [side]="'double'">
+			<ngx3js-texture
+				[type]="'map'"
+				[image]="'textures/uv_grid_opengl.jpg'"
+				[wrapS]="'Repeat'"
+				[wrapT]="'Repeat'"
+				[anisotropy]="16"
+			></ngx3js-texture>
+		</ngx3js-material>
+	</ngx3js-shared>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xcccccc'" [intensity]="0.4">
+		</ngx3js-light>
+		<ngx3js-camera
+			[type]="'perspective'"
+			(onLoad)="setCamera($event)"
+			[fov]="45"
+			[near]="1"
+			[far]="2000"
+		>
+			<ngx3js-position [x]="0" [y]="400" [z]="800"></ngx3js-position>
+			<ngx3js-light [type]="'Point'" [color]="'0xffffff'" [intensity]="0.8">
+			</ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="-200" [y]="0" [z]="200"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Parametric'"
+					[parametric]="'plane'"
+					[width]="100"
+					[height]="100"
+					[slices]="10"
+					[stacks]="10"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="0" [y]="0" [z]="200"></ngx3js-position>
+				<ngx3js-scale [x]="5" [y]="5" [z]="5"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'Parametric'"
+					[parametric]="'klein'"
+					[slices]="20"
+					[stacks]="20"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
+				<ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'Parametric'"
+					[parametric]="'mobius'"
+					[slices]="20"
+					[stacks]="20"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="200" [y]="0" [z]="200"></ngx3js-position>
+				<ngx3js-scale [x]="30" [y]="30" [z]="30"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'Parametric'"
+					[parametric]="'mobius'"
+					[slices]="20"
+					[stacks]="20"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="-200" [y]="0" [z]="-200"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'parametrictorusknot'"
+					[radius]="50"
+					[tube]="10"
+					[radialSegments]="50"
+					[tubularSegments]="20"
+					[p]="2"
+					[q]="3"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="0" [y]="0" [z]="-200"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'parametricSphere'"
+					[radius]="50"
+					[widthSegments]="20"
+					[heightSegments]="10"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="200" [y]="0" [z]="-200"></ngx3js-position>
+				<ngx3js-scale [x]="2" [y]="2" [z]="2"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'parametricTube'"
+					[curve]="'GrannyKnot'"
+					[radius]="50"
+					[tubularSegments]="100"
+					[radius]="3"
+					[radiusSegments]="8"
+					[closed]="true"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

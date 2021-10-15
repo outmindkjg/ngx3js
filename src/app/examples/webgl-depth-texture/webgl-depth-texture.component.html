@@ -1,52 +1,66 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> webgl - depth texture<br/>
-  Stores render target depth in a texture attachment.<br/>
-  Created by <a href="http://twitter.com/mattdesl" target="_blank" rel="noopener">@mattdesl</a>.
-  not use
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> webgl
+	- depth texture<br />
+	Stores render target depth in a texture attachment.<br />
+	Created by
+	<a href="http://twitter.com/mattdesl" target="_blank" rel="noopener"
+		>@mattdesl</a
+	>. not use
 </div>
 <ngx3js-renderer
-[controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
-    <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh *ngFor="let model of models">
-        <ngx3js-position [x]="model.position.x" [y]="model.position.y" [z]="model.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="model.rotation.x" [y]="model.rotation.y" [z]="model.rotation.z"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'TorusKnot'"
-          [radius]="1"
-          [tube]="0.3"
-          [radialSegments]="128"
-          [tubularSegments]="64"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'blue'"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
+		<ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh *ngFor="let model of models">
+				<ngx3js-position
+					[x]="model.position.x"
+					[y]="model.position.y"
+					[z]="model.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="model.rotation.x"
+					[y]="model.rotation.y"
+					[z]="model.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'TorusKnot'"
+					[radius]="1"
+					[tube]="0.3"
+					[radialSegments]="128"
+					[tubularSegments]="64"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'blue'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

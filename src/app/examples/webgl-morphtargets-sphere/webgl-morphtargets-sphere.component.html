@@ -1,53 +1,58 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - WebGL morph target example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	WebGL morph target example
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.2" [far]="100">
-    <ngx3js-position [x]="0" [y]="5" [z]="5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0xff2200'"
-      [intensity]="0.7"
-    >
-      <ngx3js-position [x]="100" [y]="100" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0x22ff00'"
-      [intensity]="0.7"
-    >
-      <ngx3js-position [x]="-100" [y]="-100" [z]="-100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x111111'"
-    ></ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" #baseMesh [storageName]="'models/gltf/AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf'" [morphTargets]="true" [storageOption]="{ firstMesh : true }" [windowExport]="'model'">
-      <ngx3js-rotation [x]="0" [y]="0" [z]="90"></ngx3js-rotation>
-      <ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
-      <ngx3js-mesh [geometry]="baseMesh" [type]="'Points'" (onLoad)="setPoints($event)">
-        <ngx3js-material 
-          [type]="'PointsMaterial'"
-          [size]="10"
-          [sizeAttenuation]="false"
-          [alphaTest]="0.5"
-          [morphTargets]="true"
-        >
-          <ngx3js-texture [image]="'textures/sprites/disc.png'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.2" [far]="100">
+		<ngx3js-position [x]="0" [y]="5" [z]="5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Point'" [color]="'0xff2200'" [intensity]="0.7">
+			<ngx3js-position [x]="100" [y]="100" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'Point'" [color]="'0x22ff00'" [intensity]="0.7">
+			<ngx3js-position [x]="-100" [y]="-100" [z]="-100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x111111'"></ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			#baseMesh
+			[storageName]="
+				'models/gltf/AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf'
+			"
+			[morphTargets]="true"
+			[storageOption]="{ firstMesh: true }"
+			[windowExport]="'model'"
+		>
+			<ngx3js-rotation [x]="0" [y]="0" [z]="90"></ngx3js-rotation>
+			<ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
+			<ngx3js-mesh
+				[geometry]="baseMesh"
+				[type]="'Points'"
+				(onLoad)="setPoints($event)"
+			>
+				<ngx3js-material
+					[type]="'PointsMaterial'"
+					[size]="10"
+					[sizeAttenuation]="false"
+					[alphaTest]="0.5"
+					[morphTargets]="true"
+				>
+					<ngx3js-texture
+						[image]="'textures/sprites/disc.png'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

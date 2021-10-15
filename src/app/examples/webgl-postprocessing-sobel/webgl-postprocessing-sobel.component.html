@@ -1,50 +1,71 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - webgl - postprocessing<br/>
-  sobel (edge detection)
+	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
+		>three.js</a
+	>
+	- webgl - postprocessing<br />
+	sobel (edge detection)
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-composer [scene]="scene" [camera]="camera">
-    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
-    <ngx3js-pass [type]="'ShaderPass'" [enabled]="controls.enable" [shader]="'LuminosityShader'"></ngx3js-pass>
-    <ngx3js-pass [type]="'ShaderPass'" [enabled]="controls.enable" [shader]="'SobelOperatorShader'" [uniforms]="{ resolutionX : 1024, resolutionY : 1024}"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [skyColor]="'0xcccccc'"
-      [intensity]="0.4"
-    >
-    </ngx3js-light>
-    <ngx3js-camera #camera [type]="'perspective'" [fov]="70" [near]="0.1" [far]="200">
-      <ngx3js-position [x]="0" [y]="10" [z]="25"></ngx3js-position>
-      <ngx3js-light
-        [type]="'PointLight'"
-        [skyColor]="'0xffffff'"
-        [intensity]="0.8"
-      ></ngx3js-light>
-    </ngx3js-camera>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnotGeometry'"
-        [radius]="8"
-        [tube]="3"
-        [radiusSegments]="256"
-        [tubularSegments]="32"
-        [p]="2"
-        [q]="3"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffff00'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-composer [scene]="scene" [camera]="camera">
+		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'ShaderPass'"
+			[enabled]="controls.enable"
+			[shader]="'LuminosityShader'"
+		></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'ShaderPass'"
+			[enabled]="controls.enable"
+			[shader]="'SobelOperatorShader'"
+			[uniforms]="{ resolutionX: 1024, resolutionY: 1024 }"
+		></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[skyColor]="'0xcccccc'"
+			[intensity]="0.4"
+		>
+		</ngx3js-light>
+		<ngx3js-camera
+			#camera
+			[type]="'perspective'"
+			[fov]="70"
+			[near]="0.1"
+			[far]="200"
+		>
+			<ngx3js-position [x]="0" [y]="10" [z]="25"></ngx3js-position>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[skyColor]="'0xffffff'"
+				[intensity]="0.8"
+			></ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="8"
+				[tube]="3"
+				[radiusSegments]="256"
+				[tubularSegments]="32"
+				[p]="2"
+				[q]="3"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xffff00'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

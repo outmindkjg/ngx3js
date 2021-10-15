@@ -1,36 +1,47 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl_postprocessing_afterimage
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl_postprocessing_afterimage
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-composer>
-    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
-    <ngx3js-pass [type]="'AfterimagePass'" [damp]="controls.value" [enabled]="controls.enable"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-fog [color]="'0x000000'" [near]="1" [far]="1000"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="150"
-        [height]="150"
-        [depth]="150"
-        [segments]="2"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshNormalMaterial'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-composer>
+		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'AfterimagePass'"
+			[damp]="controls.value"
+			[enabled]="controls.enable"
+		></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="70"
+		[near]="1"
+		[far]="1000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-fog [color]="'0x000000'" [near]="1" [far]="1000"></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="150"
+				[height]="150"
+				[depth]="150"
+				[segments]="2"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshNormalMaterial'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

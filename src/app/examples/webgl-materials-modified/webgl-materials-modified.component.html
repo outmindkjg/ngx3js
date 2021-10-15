@@ -1,37 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> wegbl - modified material.
-  <a href="http://graphics.cs.williams.edu/data/meshes.xml#14" target="_blank" rel="noopener">Lee Perry-Smith</a> head.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	wegbl - modified material.
+	<a
+		href="http://graphics.cs.williams.edu/data/meshes.xml#14"
+		target="_blank"
+		rel="noopener"
+		>Lee Perry-Smith</a
+	>
+	head.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="0.1" [far]="100">
-    <ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-3.5" [y]="-0.5" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshNormalMaterial'" (onLoad)="setMaterial($event, 2.0)"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="3.5" [y]="-0.5" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshNormalMaterial'" (onLoad)="setMaterial($event, -2.0)"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="0.1" [far]="100">
+		<ngx3js-position [x]="0" [y]="0" [z]="20"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-3.5" [y]="-0.5" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshNormalMaterial'"
+					(onLoad)="setMaterial($event, 2.0)"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="3.5" [y]="-0.5" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshNormalMaterial'"
+					(onLoad)="setMaterial($event, -2.0)"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

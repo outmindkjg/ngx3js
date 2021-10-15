@@ -1,89 +1,107 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - curve modifier
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - curve modifier
 </div>
 <ngx3js-renderer
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'pointerdown,pointerup,pointermove'"
-  (eventListener)="setEventListener($event)"
-  (onRender)="onRender($event)"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'pointerdown,pointerup,pointermove'"
+	(eventListener)="setEventListener($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-control [type]="'Transform'" (onLoad)="setTransformControl($event)" (eventListener)="setTransformEventListener($event)"></ngx3js-control>
-  <ngx3js-control
-    [type]="'orbit'"
-    [enablePan]="false"
-    [enableDamping]="true"
-    (onLoad)="setOrbitControl($event)"
-  ></ngx3js-control>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffaa33'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="-10" [y]="10" [z]="10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x003973'"
-      [intensity]="1"
-    >
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry 
-        #boxGeometry
-        [type]="'box'"
-        [width]="0.1"
-        [height]="0.1"
-        [depth]="0.1"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #boxMaterial
-        [type]="'MeshBasic'"
-        [color]="'0xffff00'"
-      ></ngx3js-material>
-      <ngx3js-curve 
-        #curve
-        [type]="'catmullrom'" 
-        [points]="curvePath"
-        [closed]="true"
-        [curveType]="'centripetal'"
-      ></ngx3js-curve>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let box of initialPoints" [geometry]="boxGeometry" [material]="boxMaterial" (onLoad)="setPointMesh($event)">
-        <ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'lineloop'" [curve]="curve" [divisions]="50">
-        <ngx3js-material [type]="'LineBasic'" [color]="'0x00ff00'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'flow'" [curve]="curve" [moveAlongCurve]="controls.moveAlongCurve">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Text'"
-          [font]="'helvetiker_regular'"
-          [text]="'Hello three.js!'"
-          [size]="0.2"
-          [height]="0.05"
-          [curveSegments]="12"
-          [bevelEnabled]="true"
-          [bevelThickness]="0.02"
-          [bevelSize]="0.01"
-          [bevelOffset]="0"
-          [bevelSegments]="5"
-        >
-          <ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
-        </ngx3js-geometry>
-        <ngx3js-material [type]="'MeshStandard'" [color]="'0x99ffff'"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-control
+		[type]="'Transform'"
+		(onLoad)="setTransformControl($event)"
+		(eventListener)="setTransformEventListener($event)"
+	></ngx3js-control>
+	<ngx3js-control
+		[type]="'orbit'"
+		[enablePan]="false"
+		[enableDamping]="true"
+		(onLoad)="setOrbitControl($event)"
+	></ngx3js-control>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="40"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'directional'" [color]="'0xffaa33'" [intensity]="1">
+			<ngx3js-position [x]="-10" [y]="10" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x003973'" [intensity]="1">
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#boxGeometry
+				[type]="'box'"
+				[width]="0.1"
+				[height]="0.1"
+				[depth]="0.1"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#boxMaterial
+				[type]="'MeshBasic'"
+				[color]="'0xffff00'"
+			></ngx3js-material>
+			<ngx3js-curve
+				#curve
+				[type]="'catmullrom'"
+				[points]="curvePath"
+				[closed]="true"
+				[curveType]="'centripetal'"
+			></ngx3js-curve>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let box of initialPoints"
+				[geometry]="boxGeometry"
+				[material]="boxMaterial"
+				(onLoad)="setPointMesh($event)"
+			>
+				<ngx3js-position [x]="box.x" [y]="box.y" [z]="box.z"></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'lineloop'" [curve]="curve" [divisions]="50">
+				<ngx3js-material
+					[type]="'LineBasic'"
+					[color]="'0x00ff00'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				[type]="'flow'"
+				[curve]="curve"
+				[moveAlongCurve]="controls.moveAlongCurve"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Text'"
+					[font]="'helvetiker_regular'"
+					[text]="'Hello three.js!'"
+					[size]="0.2"
+					[height]="0.05"
+					[curveSegments]="12"
+					[bevelEnabled]="true"
+					[bevelThickness]="0.02"
+					[bevelSize]="0.01"
+					[bevelOffset]="0"
+					[bevelSegments]="5"
+				>
+					<ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+				</ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshStandard'"
+					[color]="'0x99ffff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

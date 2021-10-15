@@ -1,29 +1,38 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, PassComponent, ReflectorForSSRPass, RendererEvent, SceneComponent, SSRPass, THREE } from 'ngx3js';
+import {
+	BaseComponent,
+	MeshComponent,
+	PassComponent,
+	ReflectorForSSRPass,
+	RendererEvent,
+	SceneComponent,
+	SSRPass,
+	THREE,
+} from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-postprocessing-ssr',
-  templateUrl: './webgl-postprocessing-ssr.component.html',
-  styleUrls: ['./webgl-postprocessing-ssr.component.scss']
+	selector: 'app-webgl-postprocessing-ssr',
+	templateUrl: './webgl-postprocessing-ssr.component.html',
+	styleUrls: ['./webgl-postprocessing-ssr.component.scss'],
 })
 export class WebglPostprocessingSsrComponent extends BaseComponent<{
-		enableSSR: boolean;
-		autoRotate: boolean;
+	enableSSR: boolean;
+	autoRotate: boolean;
+	otherMeshes: boolean;
+	groundReflector: boolean;
+	thickness: number;
+	infiniteThick: boolean;
+	settings: {
+		fresnel: boolean;
+		distanceAttenuation: boolean;
 		otherMeshes: boolean;
-		groundReflector: boolean;
-		thickness: number;
-		infiniteThick : boolean;
-		settings: {
-			fresnel: boolean;
-			distanceAttenuation: boolean;
-			otherMeshes : boolean;
-			maxDistance: number;
-			bouncing: boolean;
-			output : string;
-			opacity : number;
-			blur : boolean;
-		}
-	}> {
+		maxDistance: number;
+		bouncing: boolean;
+		output: string;
+		opacity: number;
+		blur: boolean;
+	};
+}> {
 	constructor() {
 		super(
 			{
@@ -32,23 +41,27 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 				otherMeshes: true,
 				groundReflector: true,
 				thickness: 0.018,
-				infiniteThick : false,
+				infiniteThick: false,
 				settings: {
 					fresnel: true,
 					distanceAttenuation: true,
-					otherMeshes : true,
+					otherMeshes: true,
 					maxDistance: 0.1,
 					bouncing: false,
-					output : 'Default',
-					opacity : 1,
-					blur : true,
+					output: 'Default',
+					opacity: 1,
+					blur: true,
 				},
 			},
 			[
 				{ name: 'enableSSR', title: 'Enable SSR', type: 'checkbox' },
-				{ name: 'groundReflector', type: 'checkbox', change : () => {
-					this.updatePass();
-				}},
+				{
+					name: 'groundReflector',
+					type: 'checkbox',
+					change: () => {
+						this.updatePass();
+					},
+				},
 				{
 					name: 'thickness',
 					type: 'number',
@@ -69,7 +82,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 				{
 					name: 'autoRotate',
 					title: 'autoRotate',
-					type: 'checkbox'
+					type: 'checkbox',
 				},
 				{
 					name: 'more settings',
@@ -118,33 +131,40 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 						{
 							name: 'output',
 							type: 'select',
-							select: ['Default', 'SSR Only', 'Beauty', 'Depth','Normal', 'Metalness'],
+							select: [
+								'Default',
+								'SSR Only',
+								'Beauty',
+								'Depth',
+								'Normal',
+								'Metalness',
+							],
 							change: () => {
 								this.updatePass();
 							},
-						}
+						},
 					],
 				},
 			]
 		);
 	}
 
-	selectableMesh : THREE.Mesh[] = [];
+	selectableMesh: THREE.Mesh[] = [];
 	setSSRrPass(pass: PassComponent) {
 		this.pass = pass.getPass();
 		this.updatePass();
 		setTimeout(() => {
 			if (this.sceneChildren !== null) {
 				this.selectableMesh = [];
-				const selectName = ['bunny','box','sphere','cone'];
-				this.sceneChildren.forEach(child => {
+				const selectName = ['bunny', 'box', 'sphere', 'cone'];
+				this.sceneChildren.forEach((child) => {
 					if (child instanceof THREE.Mesh) {
 						const name = child.name;
 						if (selectName.indexOf(name) > -1) {
 							this.selectableMesh.push(child);
-							switch(name) {
-								case 'bunny' :
-								case 'box' :
+							switch (name) {
+								case 'bunny':
+								case 'box':
 									this.selected.push(child);
 									break;
 							}
@@ -155,7 +175,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		}, 1000);
 	}
 
-	groundReflector : ReflectorForSSRPass = null;
+	groundReflector: ReflectorForSSRPass = null;
 	updatePass() {
 		if (this.pass !== null) {
 			if (this.controls.groundReflector) {
@@ -173,12 +193,14 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 			this.pass.thickness = this.controls.thickness;
 			this.pass['infiniteThick'] = this.controls.infiniteThick;
 			this.pass['fresnel'] = this.controls.settings.fresnel;
-			this.pass['distanceAttenuation'] = this.controls.settings.distanceAttenuation;
+			this.pass['distanceAttenuation'] =
+				this.controls.settings.distanceAttenuation;
 			this.pass.maxDistance = this.controls.settings.maxDistance;
 			this.pass['bouncing'] = this.controls.settings.bouncing;
 			if (this.groundReflector !== null) {
 				this.groundReflector.fresnel = this.controls.settings.fresnel;
-				this.groundReflector.distanceAttenuation = this.controls.settings.distanceAttenuation;
+				this.groundReflector.distanceAttenuation =
+					this.controls.settings.distanceAttenuation;
 				this.groundReflector.maxDistance = this.controls.settings.maxDistance;
 			}
 			switch (this.controls.settings.output.toLowerCase()) {
@@ -204,9 +226,8 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		}
 	}
 
-	setScene(scene : SceneComponent) {
+	setScene(scene: SceneComponent) {
 		super.setScene(scene);
-
 	}
 
 	pass: SSRPass = null;
@@ -221,7 +242,10 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		if (this.pass !== null && this.camera !== null) {
 			switch (event.type) {
 				case 'pointerdown':
-					const intersection = this.camera.getIntersection(event.mouse, this.selectableMesh);
+					const intersection = this.camera.getIntersection(
+						event.mouse,
+						this.selectableMesh
+					);
 					if (intersection !== null && intersection.object !== null) {
 						const mesh = intersection.object;
 						if (mesh instanceof THREE.Mesh) {

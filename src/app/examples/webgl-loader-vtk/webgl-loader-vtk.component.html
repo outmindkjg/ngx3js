@@ -1,74 +1,104 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  vtk formats loader test<br />
-  Legacy vtk model from <a href="http://www.cc.gatech.edu/projects/large_models/" target="_blank" rel="noopener">The GeorgiaTech Lagre Geometric Model Archive</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	vtk formats loader test<br />
+	Legacy vtk model from
+	<a
+		href="http://www.cc.gatech.edu/projects/large_models/"
+		target="_blank"
+		rel="noopener"
+		>The GeorgiaTech Lagre Geometric Model Archive</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 0.1 , maxDistance: 0.5 , rotateSpeed: 5.0 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		autoRotate: true,
+		minDistance: 0.1,
+		maxDistance: 0.5,
+		rotateSpeed: 5.0
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="'1e10'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0.2"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x000000'"
-      [intensity]="1"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.5"
-    >
-      <ngx3js-position [x]="2" [y]="2" [z]="2"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh>
-        <ngx3js-position [x]="-0.075" [y]="0.005" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="0.2"></ngx3js-scale>
-        <ngx3js-geometry [storageName]="'models/vtk/bunny.vtk'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambert'"
-          [color]="'0xffffff'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="-0.025" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
-        <ngx3js-geometry [storageName]="'models/vtk/cube_ascii.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambert'"
-          [color]="'0x00ff00'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0.025" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
-        <ngx3js-geometry [storageName]="'models/vtk/cube_binary.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambert'"
-          [color]="'0x0000ff'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0.075" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="0.01"></ngx3js-scale>
-        <ngx3js-geometry [storageName]="'models/vtk/cube_no_compression.vtp'" [center]="true" [computeVertexNormals]="true"></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambert'"
-          [color]="'0xff0000'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-camera
+			[type]="'perspective'"
+			[fov]="60"
+			[near]="0.01"
+			[far]="'1e10'"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0.2"></ngx3js-position>
+		</ngx3js-camera>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0x000000'"
+			[intensity]="1"
+		>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.5">
+			<ngx3js-position [x]="2" [y]="2" [z]="2"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh>
+				<ngx3js-position [x]="-0.075" [y]="0.005" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="0.2"></ngx3js-scale>
+				<ngx3js-geometry
+					[storageName]="'models/vtk/bunny.vtk'"
+					[center]="true"
+					[computeVertexNormals]="true"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambert'"
+					[color]="'0xffffff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="-0.025" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+				<ngx3js-geometry
+					[storageName]="'models/vtk/cube_ascii.vtp'"
+					[center]="true"
+					[computeVertexNormals]="true"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambert'"
+					[color]="'0x00ff00'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0.025" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+				<ngx3js-geometry
+					[storageName]="'models/vtk/cube_binary.vtp'"
+					[center]="true"
+					[computeVertexNormals]="true"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambert'"
+					[color]="'0x0000ff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0.075" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="0.01"></ngx3js-scale>
+				<ngx3js-geometry
+					[storageName]="'models/vtk/cube_no_compression.vtp'"
+					[center]="true"
+					[computeVertexNormals]="true"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambert'"
+					[color]="'0xff0000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

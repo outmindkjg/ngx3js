@@ -1,89 +1,118 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Unbiased Manual Supersamling Anti-Aliasing (SSAA) pass by <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a><br/><br/>
-  This example shows how to unbias the rounding errors accumulated using high number of SSAA samples on a 8-bit per channel buffer.<br/><br/>
-  Turn off the "unbiased" feature to see the banding that results from accumulated rounding errors.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Unbiased Manual Supersamling Anti-Aliasing (SSAA) pass by
+	<a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a
+	><br /><br />
+	This example shows how to unbias the rounding errors accumulated using high
+	number of SSAA samples on a 8-bit per channel buffer.<br /><br />
+	Turn off the "unbiased" feature to see the banding that results from
+	accumulated rounding errors.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #cameraP [type]="'PerspectiveCamera'" [fov]="65" [near]="3" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-camera #cameraO [type]="'OrthographicCamera'" [fov]="65" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="3" [far]="10" [zoom]="'auto'">
-    <ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-composer [scene]="scene" [camera]="cameraP">
-    <ngx3js-pass [type]="'SSAARenderPass'" 
-      [scene]="scene" 
-      [camera]="cameraP" 
-      [enabled]="controls.camera == 'perspective'"
-      [clearColor]="controls.clearColor"
-      [clearAlpha]="controls.clearAlpha"
-      [sampleLevel]="controls.sampleLevel"
-      [unbiased]="controls.unbiased"
-    ></ngx3js-pass>
-    <ngx3js-pass [type]="'SSAARenderPass'" 
-      [scene]="scene" 
-      [camera]="cameraO"
-      [enabled]="controls.camera != 'perspective'"
-      [clearColor]="controls.clearColor"
-      [clearAlpha]="controls.clearAlpha"
-      [sampleLevel]="controls.sampleLevel"
-      [unbiased]="controls.unbiased"
-    ></ngx3js-pass>
-    <ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'" [enabled]="!controls.renderToScreen"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xddffdd'"
-      [intensity]="1.0"
-    >
-      <ngx3js-position [x]="-70" [y]="-70" [z]="70"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffdddd'"
-      [intensity]="1.0"
-    >
-      <ngx3js-position [x]="-70" [y]="70" [z]="70"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xddddff'"
-      [intensity]="1.0"
-    >
-      <ngx3js-position [x]="70" [y]="-70" [z]="70"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-      [intensity]="0.05"
-    ></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'SphereGeometry'"
-        [radius]="3"
-        [widthSegments]="48"
-        [heightSegments]="24"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry">
-        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
-        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshStandardMaterial'" [color]="info.color" [roughness]="info.roughness" [metalness]="info.metalness"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#cameraP
+		[type]="'PerspectiveCamera'"
+		[fov]="65"
+		[near]="3"
+		[far]="10"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-camera
+		#cameraO
+		[type]="'OrthographicCamera'"
+		[fov]="65"
+		[left]="-0.5"
+		[right]="0.5"
+		[top]="0.5"
+		[bottom]="-0.5"
+		[near]="3"
+		[far]="10"
+		[zoom]="'auto'"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-composer [scene]="scene" [camera]="cameraP">
+		<ngx3js-pass
+			[type]="'SSAARenderPass'"
+			[scene]="scene"
+			[camera]="cameraP"
+			[enabled]="controls.camera == 'perspective'"
+			[clearColor]="controls.clearColor"
+			[clearAlpha]="controls.clearAlpha"
+			[sampleLevel]="controls.sampleLevel"
+			[unbiased]="controls.unbiased"
+		></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'SSAARenderPass'"
+			[scene]="scene"
+			[camera]="cameraO"
+			[enabled]="controls.camera != 'perspective'"
+			[clearColor]="controls.clearColor"
+			[clearAlpha]="controls.clearAlpha"
+			[sampleLevel]="controls.sampleLevel"
+			[unbiased]="controls.unbiased"
+		></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'ShaderPass'"
+			[shader]="'CopyShader'"
+			[enabled]="!controls.renderToScreen"
+		></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xddffdd'" [intensity]="1.0">
+			<ngx3js-position [x]="-70" [y]="-70" [z]="70"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffdddd'" [intensity]="1.0">
+			<ngx3js-position [x]="-70" [y]="70" [z]="70"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xddddff'" [intensity]="1.0">
+			<ngx3js-position [x]="70" [y]="-70" [z]="70"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.05"
+		></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'SphereGeometry'"
+				[radius]="3"
+				[widthSegments]="48"
+				[heightSegments]="24"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry">
+				<ngx3js-position
+					[x]="info.position.x"
+					[y]="info.position.y"
+					[z]="info.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="info.rotation.x"
+					[y]="info.rotation.y"
+					[z]="info.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshStandardMaterial'"
+					[color]="info.color"
+					[roughness]="info.roughness"
+					[metalness]="info.metalness"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

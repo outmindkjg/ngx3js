@@ -1,63 +1,78 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl ocean
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl ocean
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="55" [near]="1" [far]="20000">
-    <ngx3js-position [x]="30" [y]="30" [z]="100"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [environment]="sky">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="30"
-        [height]="30"
-        [depth]="30"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandard'" [roughness]="0"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh #sky [type]="'sky'"
-      [uniforms]="{
-        sunPosition : { type : 'v3', value : sunDirection },
-        turbidity : { type : 'number', value : 10 },
-        rayleigh : { type : 'number', value : 2 },
-        mieCoefficient : { type : 'number', value : 0.005 },
-        mieDirectionalG : { type : 'number', value : 0.8 }
-      }"
-    >
-      <ngx3js-scale [multiply]="10000"></ngx3js-scale>
-    </ngx3js-mesh>
-    <ngx3js-mesh [type]="'water'" 
-      [sunColor]="'0xffffff'"
-      [waterColor]="'0x001e0f'"
-      [sunDirection]="sunDirection"
-      [textureWidth]="512"
-      [textureHeight]="512"
-      [alpha]="controls.water.alpha"
-      [distortionScale]="controls.water.distortionScale"
-      [uniforms]="{
-        size : { type : 'number', value : controls.water.size }
-      }"
-    >
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="10000"
-        [height]="10000"
-      ></ngx3js-geometry>
-      <ngx3js-texture [type]="'waterNormals'" [image]="'textures/waternormals.jpg'" [wrapS]="'repeat'" [wrapT]="'repeat'"></ngx3js-texture>
-      <ngx3js-controller [type]="'uniforms'" [controlParams]="{ key : 'time', speed : 0.1 }"></ngx3js-controller>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="55" [near]="1" [far]="20000">
+		<ngx3js-position [x]="30" [y]="30" [z]="100"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [environment]="sky">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="30"
+				[height]="30"
+				[depth]="30"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandard'"
+				[roughness]="0"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh
+			#sky
+			[type]="'sky'"
+			[uniforms]="{
+				sunPosition: { type: 'v3', value: sunDirection },
+				turbidity: { type: 'number', value: 10 },
+				rayleigh: { type: 'number', value: 2 },
+				mieCoefficient: { type: 'number', value: 0.005 },
+				mieDirectionalG: { type: 'number', value: 0.8 }
+			}"
+		>
+			<ngx3js-scale [multiply]="10000"></ngx3js-scale>
+		</ngx3js-mesh>
+		<ngx3js-mesh
+			[type]="'water'"
+			[sunColor]="'0xffffff'"
+			[waterColor]="'0x001e0f'"
+			[sunDirection]="sunDirection"
+			[textureWidth]="512"
+			[textureHeight]="512"
+			[alpha]="controls.water.alpha"
+			[distortionScale]="controls.water.distortionScale"
+			[uniforms]="{
+				size: { type: 'number', value: controls.water.size }
+			}"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="10000"
+				[height]="10000"
+			></ngx3js-geometry>
+			<ngx3js-texture
+				[type]="'waterNormals'"
+				[image]="'textures/waternormals.jpg'"
+				[wrapS]="'repeat'"
+				[wrapT]="'repeat'"
+			></ngx3js-texture>
+			<ngx3js-controller
+				[type]="'uniforms'"
+				[controlParams]="{ key: 'time', speed: 0.1 }"
+			></ngx3js-controller>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

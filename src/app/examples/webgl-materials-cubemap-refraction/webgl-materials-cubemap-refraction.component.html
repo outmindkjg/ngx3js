@@ -1,70 +1,100 @@
 <div class="info">
-  <a href="https://threejs.org">Three.js</a> cube map refraction demo<br/>
-  Lucy model from <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford 3d scanning repository</a><br/>
-  Texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank" rel="noopener">Humus</a>
+	<a href="https://threejs.org">Three.js</a> cube map refraction demo<br />
+	Lucy model from
+	<a href="http://graphics.stanford.edu/data/3Dscanrep/"
+		>Stanford 3d scanning repository</a
+	><br />
+	Texture by
+	<a
+		href="http://www.humus.name/index.php?page=Textures"
+		target="_blank"
+		rel="noopener"
+		>Humus</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'plane'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'plane'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="100000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-4000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="textureCube">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-    ></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture
-        #textureCube
-        [image]="'textures/cube/Park3Med/'"
-        [cubeImage]="['','jpg']"
-        [mapping]="'CubeRefraction'"
-      ></ngx3js-texture>
-      <ngx3js-geometry #geometry [storageName]="'models/ply/binary/Lucy100k.ply'" [computeVertexNormals]="true"></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xffffff'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      (onLoad)="setLight($event)"
-      [type]="'PointLight'"
-      [color]="'0xffffff'"
-      [intensity]="2"
-    >
-      <ngx3js-mesh>
-        <ngx3js-scale [multiply]="0.05"></ngx3js-scale>
-        <ngx3js-geometry [type]="'Sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="8"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [geometry]="geometry"> 
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="1.5"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [envMap]="textureCube" [refractionRatio]="0.98"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-1500" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="1.5"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xccfffd'" [envMap]="textureCube" [refractionRatio]="0.985"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="1500" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="1.5"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xccddff'" [envMap]="textureCube" [refractionRatio]="0.985" [reflectivity]="0.9"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="100000">
+		<ngx3js-position [x]="0" [y]="0" [z]="-4000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="textureCube">
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0xffffff'"></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#textureCube
+				[image]="'textures/cube/Park3Med/'"
+				[cubeImage]="['', 'jpg']"
+				[mapping]="'CubeRefraction'"
+			></ngx3js-texture>
+			<ngx3js-geometry
+				#geometry
+				[storageName]="'models/ply/binary/Lucy100k.ply'"
+				[computeVertexNormals]="true"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xffffff'"> </ngx3js-light>
+		<ngx3js-light
+			(onLoad)="setLight($event)"
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="2"
+		>
+			<ngx3js-mesh>
+				<ngx3js-scale [multiply]="0.05"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'Sphere'"
+					[radius]="100"
+					[widthSegments]="16"
+					[heightSegments]="8"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xffffff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="1.5"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xffffff'"
+					[envMap]="textureCube"
+					[refractionRatio]="0.98"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-1500" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="1.5"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xccfffd'"
+					[envMap]="textureCube"
+					[refractionRatio]="0.985"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="1500" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="1.5"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xccddff'"
+					[envMap]="textureCube"
+					[refractionRatio]="0.985"
+					[reflectivity]="0.9"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

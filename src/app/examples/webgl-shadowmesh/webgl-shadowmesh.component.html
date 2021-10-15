@@ -1,148 +1,218 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shadow mesh
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	shadow mesh
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="false"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="false"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="55" [near]="1" [far]="3000">
-    <ngx3js-position [x]="0" [y]="2.5" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x0096ff'">
-    <ngx3js-viewer [type]="'shadowmesh'" [mesh]="cube" [light]="sunLight" [plane]="plane"></ngx3js-viewer>
-    <ngx3js-viewer [type]="'shadowmesh'" [mesh]="sphere" [light]="sunLight" [plane]="plane"></ngx3js-viewer>
-    <ngx3js-viewer [type]="'shadowmesh'" [mesh]="pyramid" [light]="sunLight" [plane]="plane"></ngx3js-viewer>
-    <ngx3js-viewer [type]="'shadowmesh'" [mesh]="cylinder" [light]="sunLight" [plane]="plane"></ngx3js-viewer>
-    <ngx3js-viewer [type]="'shadowmesh'" [mesh]="torus" [light]="sunLight" [plane]="plane"></ngx3js-viewer>
-    <ngx3js-light
-      #sunLight
-      [type]="controls.lightType"
-      [color]="'rgb(255,255,255)'"
-      [intensity]="1"
-      [castShadow]="true"
-    >
-      <ngx3js-position [x]="lightPosition.x" [y]="lightPosition.y" [z]="lightPosition.z"></ngx3js-position>
-      <ngx3js-lookat [refer]="scene"></ngx3js-lookat>
-    </ngx3js-light>
-    <ngx3js-helper 
-      [visible]="controls.lightType !== 'PointLight'"
-      [type]="'arrowhelper'"
-      [arrowFrom]="sunLight"
-      [arrowTo]="scene" 
-      [length]="0.9"
-      [color]="'0xffff00'"
-      [headLength]="0.25"
-      [headWidth]="0.08"
-    ></ngx3js-helper>
-    <ngx3js-helper 
-      [visible]="controls.lightType !== 'PointLight'"
-      [type]="'arrowhelper'"
-      [arrowFrom]="sunLight"
-      [arrowTo]="scene" 
-      [length]="0.9"
-      [color]="'0xffff00'"
-      [headLength]="0.25"
-      [headWidth]="0.08"
-      [originX]="0"
-      [originY]="0.2"
-      [originZ]="0"
-    ></ngx3js-helper>
-    <ngx3js-helper 
-      [visible]="controls.lightType !== 'PointLight'"
-      [type]="'arrowhelper'"
-      [arrowFrom]="sunLight"
-      [arrowTo]="scene" 
-      [length]="0.9"
-      [color]="'0xffff00'"
-      [headLength]="0.25"
-      [headWidth]="0.08"
-      [originX]="0"
-      [originY]="-0.2"
-      [originZ]="0"
-    ></ngx3js-helper>
-    <ngx3js-mesh
-      *ngIf="controls.lightType === 'PointLight'"
-      #lightSphere
-    >
-      <ngx3js-position [refer]="sunLight"></ngx3js-position>
-      <ngx3js-geometry [type]="'Sphere'" [radius]="0.09"></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'rgb(255,255,255)'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh #cube (onLoad)="setCube($event)" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'box'"
-          [width]="1"
-          [height]="1"
-          [depth]="1"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,0,0)'" [emissive]="'0x200000'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #cylinder (onLoad)="setCylinder($event)" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="-2.5"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Cylinder'"
-          [radiusTop]="0.3"
-          [radiusBottom]="0.3"
-          [height]="2"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'rgb(0,0,255)'" [emissive]="'0x000020'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #torus (onLoad)="setTorus($event)" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="-6"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Torus'"
-          [radius]="1"
-          [tube]="0.2"
-          [radialSegments]="10"
-          [tubularSegments]="16"
-          [arc]="360"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,0,255)'" [emissive]="'0x200020'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #sphere  [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="4" [y]="0.5" [z]="2"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Sphere'"
-          [radius]="0.5"
-          [widthSegments]="20"
-          [heightSegments]="10"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,255,255)'" [emissive]="'0x222222'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #pyramid  (onLoad)="setPyramid($event)" [castShadow]="true" [receiveShadow]="true">
-        <ngx3js-position [x]="-4" [y]="1" [z]="2"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Cylinder'"
-          [radiusTop]="0"
-          [radiusBottom]="0.5"
-          [height]="2"
-          [radialSegments]="4"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'meshlambert'" [color]="'rgb(255,255,0)'" [emissive]="'0x440000'"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh #plane [receiveShadow]="false">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="30"
-        [height]="0.01"
-        [depth]="40"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshLambert'"
-        [color]="'rgb(0,130,0)'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="55" [near]="1" [far]="3000">
+		<ngx3js-position [x]="0" [y]="2.5" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x0096ff'">
+		<ngx3js-viewer
+			[type]="'shadowmesh'"
+			[mesh]="cube"
+			[light]="sunLight"
+			[plane]="plane"
+		></ngx3js-viewer>
+		<ngx3js-viewer
+			[type]="'shadowmesh'"
+			[mesh]="sphere"
+			[light]="sunLight"
+			[plane]="plane"
+		></ngx3js-viewer>
+		<ngx3js-viewer
+			[type]="'shadowmesh'"
+			[mesh]="pyramid"
+			[light]="sunLight"
+			[plane]="plane"
+		></ngx3js-viewer>
+		<ngx3js-viewer
+			[type]="'shadowmesh'"
+			[mesh]="cylinder"
+			[light]="sunLight"
+			[plane]="plane"
+		></ngx3js-viewer>
+		<ngx3js-viewer
+			[type]="'shadowmesh'"
+			[mesh]="torus"
+			[light]="sunLight"
+			[plane]="plane"
+		></ngx3js-viewer>
+		<ngx3js-light
+			#sunLight
+			[type]="controls.lightType"
+			[color]="'rgb(255,255,255)'"
+			[intensity]="1"
+			[castShadow]="true"
+		>
+			<ngx3js-position
+				[x]="lightPosition.x"
+				[y]="lightPosition.y"
+				[z]="lightPosition.z"
+			></ngx3js-position>
+			<ngx3js-lookat [refer]="scene"></ngx3js-lookat>
+		</ngx3js-light>
+		<ngx3js-helper
+			[visible]="controls.lightType !== 'PointLight'"
+			[type]="'arrowhelper'"
+			[arrowFrom]="sunLight"
+			[arrowTo]="scene"
+			[length]="0.9"
+			[color]="'0xffff00'"
+			[headLength]="0.25"
+			[headWidth]="0.08"
+		></ngx3js-helper>
+		<ngx3js-helper
+			[visible]="controls.lightType !== 'PointLight'"
+			[type]="'arrowhelper'"
+			[arrowFrom]="sunLight"
+			[arrowTo]="scene"
+			[length]="0.9"
+			[color]="'0xffff00'"
+			[headLength]="0.25"
+			[headWidth]="0.08"
+			[originX]="0"
+			[originY]="0.2"
+			[originZ]="0"
+		></ngx3js-helper>
+		<ngx3js-helper
+			[visible]="controls.lightType !== 'PointLight'"
+			[type]="'arrowhelper'"
+			[arrowFrom]="sunLight"
+			[arrowTo]="scene"
+			[length]="0.9"
+			[color]="'0xffff00'"
+			[headLength]="0.25"
+			[headWidth]="0.08"
+			[originX]="0"
+			[originY]="-0.2"
+			[originZ]="0"
+		></ngx3js-helper>
+		<ngx3js-mesh *ngIf="controls.lightType === 'PointLight'" #lightSphere>
+			<ngx3js-position [refer]="sunLight"></ngx3js-position>
+			<ngx3js-geometry [type]="'Sphere'" [radius]="0.09"></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasic'"
+				[color]="'rgb(255,255,255)'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				#cube
+				(onLoad)="setCube($event)"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'box'"
+					[width]="1"
+					[height]="1"
+					[depth]="1"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'meshlambert'"
+					[color]="'rgb(255,0,0)'"
+					[emissive]="'0x200000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				#cylinder
+				(onLoad)="setCylinder($event)"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="-2.5"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Cylinder'"
+					[radiusTop]="0.3"
+					[radiusBottom]="0.3"
+					[height]="2"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'meshlambert'"
+					[color]="'rgb(0,0,255)'"
+					[emissive]="'0x000020'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				#torus
+				(onLoad)="setTorus($event)"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="-6"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Torus'"
+					[radius]="1"
+					[tube]="0.2"
+					[radialSegments]="10"
+					[tubularSegments]="16"
+					[arc]="360"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'meshlambert'"
+					[color]="'rgb(255,0,255)'"
+					[emissive]="'0x200020'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #sphere [castShadow]="true" [receiveShadow]="true">
+				<ngx3js-position [x]="4" [y]="0.5" [z]="2"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Sphere'"
+					[radius]="0.5"
+					[widthSegments]="20"
+					[heightSegments]="10"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'meshlambert'"
+					[color]="'rgb(255,255,255)'"
+					[emissive]="'0x222222'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				#pyramid
+				(onLoad)="setPyramid($event)"
+				[castShadow]="true"
+				[receiveShadow]="true"
+			>
+				<ngx3js-position [x]="-4" [y]="1" [z]="2"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Cylinder'"
+					[radiusTop]="0"
+					[radiusBottom]="0.5"
+					[height]="2"
+					[radialSegments]="4"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'meshlambert'"
+					[color]="'rgb(255,255,0)'"
+					[emissive]="'0x440000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh #plane [receiveShadow]="false">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="30"
+				[height]="0.01"
+				[depth]="40"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshLambert'"
+				[color]="'rgb(0,130,0)'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

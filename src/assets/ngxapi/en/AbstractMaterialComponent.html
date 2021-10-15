@@ -11,332 +11,416 @@
 
 		<h1>[name]</h1>
 
-		<p class="desc">
-			AbstractMaterialComponent
-		</p>
+		<p class="desc">AbstractMaterialComponent</p>
 
 		<h2>Properties - Input</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common input properties.
 		</p>
 
 		<h3>[property:number alphaTest]</h3>
 		<p>
-			Sets the alpha value to be used when running an alpha test.<br>
-			The material will not be renderered if the opacity is lower than this value.<br>
+			Sets the alpha value to be used when running an alpha test.<br />
+			The material will not be renderered if the opacity is lower than this
+			value.<br />
 			Default is *0*.
 		</p>
 
 		<h3>[property:number alphaToCoverage]</h3>
 		<p>
-			Enables alpha to coverage. Can only be used with MSAA-enabled contexts (meaning when the renderer was created with *antialias* parameter set to *true*). Default is *false*.
+			Enables alpha to coverage. Can only be used with MSAA-enabled contexts
+			(meaning when the renderer was created with *antialias* parameter set to
+			*true*). Default is *false*.
 		</p>
 
 		<h3>[property:string blendDst]</h3>
 		<p>
-			Which blending to use when displaying objects with this material. <br>
-			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br>
-			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br>
-			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br>
-			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br>
-			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br>
-			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br>
-			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br>
-			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br>
-			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br>
-			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br>
-			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br>
-			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
+			Which blending to use when displaying objects with this material. <br />
+			This must be set to [page:Materials CustomBlending] to use custom
+			[page:Constant blendSrc], [page:Constant blendDst] or [page:Constant
+			blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values.
+			Default is [page:Materials NormalBlending].<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor -
+			SrcColorFactor , SrcColor<br />
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] -
+			THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor ,
+			OneMinusSrcColor<br />
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor -
+			SrcAlphaFactor , SrcAlpha<br />
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] -
+			THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor ,
+			OneMinusSrcAlpha<br />
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor -
+			DstAlphaFactor , DstAlpha<br />
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] -
+			THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor ,
+			OneMinusDstAlpha<br />
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor -
+			DstColorFactor , DstColor<br />
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] -
+			THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor
 		</p>
 
 		<h3>[property:number blendDstAlpha]</h3>
 		<p>
-			The transparency of the [page:.blendDst]. Uses [page:.blendDst] value if null. Default is *null*.
+			The transparency of the [page:.blendDst]. Uses [page:.blendDst] value if
+			null. Default is *null*.
 		</p>
 
 		<h3>[property:string blendEquation]</h3>
 		<p>
-			Blending equation to use when applying blending. Default is [page:CustomBlendingEquation AddEquation].<br>
-			See the blending equation [page:CustomBlendingEquation constants] for all possible values.<br>
-			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:BlendingEquation BlendingEquation] - THREE.BlendingEquation<br>
-			[page:AddEquation AddEquation] - THREE.AddEquation - AddEquation , Add<br>
-			[page:SubtractEquation SubtractEquation] - THREE.SubtractEquation - SubtractEquation , Subtract<br>
-			[page:ReverseSubtractEquation ReverseSubtractEquation] - THREE.ReverseSubtractEquation - ReverseSubtractEquation , ReverseSubtract<br>
-			[page:MinEquation MinEquation] - THREE.MinEquation - MinEquation , Min<br>
+			Blending equation to use when applying blending. Default is
+			[page:CustomBlendingEquation AddEquation].<br />
+			See the blending equation [page:CustomBlendingEquation constants] for all
+			possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials
+			CustomBlending] for this to have any effect.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingEquation BlendingEquation] - THREE.BlendingEquation<br />
+			[page:AddEquation AddEquation] - THREE.AddEquation - AddEquation , Add<br />
+			[page:SubtractEquation SubtractEquation] - THREE.SubtractEquation -
+			SubtractEquation , Subtract<br />
+			[page:ReverseSubtractEquation ReverseSubtractEquation] -
+			THREE.ReverseSubtractEquation - ReverseSubtractEquation ,
+			ReverseSubtract<br />
+			[page:MinEquation MinEquation] - THREE.MinEquation - MinEquation , Min<br />
 			[page:MaxEquation MaxEquation] - THREE.MaxEquation - MaxEquation , Max
 		</p>
 
 		<h3>[property:number blendEquationAlpha]</h3>
 		<p>
-			The transparency of the [page:.blendEquation]. Uses [page:.blendEquation] value if null. Default is *null*.
+			The transparency of the [page:.blendEquation]. Uses [page:.blendEquation]
+			value if null. Default is *null*.
 		</p>
 
 		<h3>[property:string blendSrc]</h3>
 		<p>
-			Blending source. Default is [page:CustomBlendingEquation SrcAlphaFactor].<br>
-			See the source factors [page:CustomBlendingEquation constants] for all possible values.<br>
-			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Blending Blending] - THREE.Blending<br>
-			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending , No<br>
-			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending , Normal<br>
-			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending , Additive<br>
-			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending , Subtractive<br>
-			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending , Multiply<br>
-			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending , Custom
+			Blending source. Default is [page:CustomBlendingEquation
+			SrcAlphaFactor].<br />
+			See the source factors [page:CustomBlendingEquation constants] for all
+			possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials
+			CustomBlending] for this to have any effect.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Blending Blending] - THREE.Blending<br />
+			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending , No<br />
+			[page:NormalBlending NormalBlending] - THREE.NormalBlending -
+			NormalBlending , Normal<br />
+			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending -
+			AdditiveBlending , Additive<br />
+			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending
+			- SubtractiveBlending , Subtractive<br />
+			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending -
+			MultiplyBlending , Multiply<br />
+			[page:CustomBlending CustomBlending] - THREE.CustomBlending -
+			CustomBlending , Custom
 		</p>
 
 		<h3>[property:number blendSrcAlpha]</h3>
 		<p>
-			The transparency of the [page:.blendSrc]. Uses [page:.blendSrc] value if null. Default is *null*.
+			The transparency of the [page:.blendSrc]. Uses [page:.blendSrc] value if
+			null. Default is *null*.
 		</p>
 
 		<h3>[property:string blending]</h3>
 		<p>
-			Which blending to use when displaying objects with this material. <br>
-			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br>
-			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].<br>
-			<br>
+			Which blending to use when displaying objects with this material. <br />
+			This must be set to [page:Materials CustomBlending] to use custom
+			[page:Constant blendSrc], [page:Constant blendDst] or [page:Constant
+			blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values.
+			Default is [page:Materials NormalBlending].<br />
+			<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:boolean clipIntersection]</h3>
 		<p>
-			Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union.<br>
+			Changes the behavior of clipping planes so that only their intersection is
+			clipped, rather than their union.<br />
 			Default is *false*.
 		</p>
 
 		<h3>[property:boolean clipShadows]</h3>
 		<p>
-			Defines whether to clip shadows according to the clipping planes specified on this material. Default is *false*.
+			Defines whether to clip shadows according to the clipping planes specified
+			on this material. Default is *false*.
 		</p>
 
 		<h3>[property:mixed clippingPlanes]</h3>
 		<p>
-			User-defined clipping planes specified as THREE.Plane objects in world space.<br>
-			These planes apply to the objects this material is attached to.<br>
-			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br>
-			This requires [page:WebGLRenderer.localClippingEnabled] to be *true*.<br>
-			See the [example:webgl_clipping_intersection WebGL / clipping /intersection] example.<br>
-			Default is *null*.<br>
-			<br>
+			User-defined clipping planes specified as THREE.Plane objects in world
+			space.<br />
+			These planes apply to the objects this material is attached to.<br />
+			Points in space whose signed distance to the plane is negative are clipped
+			(not rendered).<br />
+			This requires [page:WebGLRenderer.localClippingEnabled] to be *true*.<br />
+			See the [example:webgl_clipping_intersection WebGL / clipping
+			/intersection] example.<br />
+			Default is *null*.<br />
+			<br />
 			[page:Plane Plane] | [page:PlaneComponent PlaneComponent]
 		</p>
 
 		<h3>[property:boolean colorWrite]</h3>
 		<p>
-			Whether to render the material's color.<br>
-			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is *true*.
+			Whether to render the material's color.<br />
+			This can be used in conjunction with a mesh's [page:Integer renderOrder]
+			property to create invisible objects that occlude other objects. Default
+			is *true*.
 		</p>
 
 		<h3>[property:any control]</h3>
-		<p>
-			Input  of abstract material component
-		</p>
+		<p>Input of abstract material component</p>
 
 		<h3>[property:any defines]</h3>
 		<p>
-			Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is *undefined*.
+			Custom defines to be injected into the shader. These are passed in form of
+			an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2:
+			Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.
+			Default is *undefined*.
 		</p>
 
 		<h3>[property:string depthFunc]</h3>
 		<p>
-			Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:DepthModes DepthModes] - THREE.DepthModes<br>
-			[page:NeverDepth NeverDepth] - THREE.NeverDepth - NeverDepth , Never<br>
-			[page:AlwaysDepth AlwaysDepth] - THREE.AlwaysDepth - AlwaysDepth , Always<br>
-			[page:LessDepth LessDepth] - THREE.LessDepth - LessDepth , Less<br>
-			[page:LessEqualDepth LessEqualDepth] - THREE.LessEqualDepth - LessEqualDepth , LessEqual<br>
-			[page:EqualDepth EqualDepth] - THREE.EqualDepth - EqualDepth , Equal<br>
-			[page:GreaterEqualDepth GreaterEqualDepth] - THREE.GreaterEqualDepth - GreaterEqualDepth , GreaterEqual<br>
-			[page:GreaterDepth GreaterDepth] - THREE.GreaterDepth - GreaterDepth , Greater<br>
-			[page:NotEqualDepth NotEqualDepth] - THREE.NotEqualDepth - NotEqualDepth , NotEqual
+			Which depth function to use. Default is [page:Materials LessEqualDepth].
+			See the depth mode [page:Materials constants] for all possible values.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:DepthModes DepthModes] - THREE.DepthModes<br />
+			[page:NeverDepth NeverDepth] - THREE.NeverDepth - NeverDepth , Never<br />
+			[page:AlwaysDepth AlwaysDepth] - THREE.AlwaysDepth - AlwaysDepth ,
+			Always<br />
+			[page:LessDepth LessDepth] - THREE.LessDepth - LessDepth , Less<br />
+			[page:LessEqualDepth LessEqualDepth] - THREE.LessEqualDepth -
+			LessEqualDepth , LessEqual<br />
+			[page:EqualDepth EqualDepth] - THREE.EqualDepth - EqualDepth , Equal<br />
+			[page:GreaterEqualDepth GreaterEqualDepth] - THREE.GreaterEqualDepth -
+			GreaterEqualDepth , GreaterEqual<br />
+			[page:GreaterDepth GreaterDepth] - THREE.GreaterDepth - GreaterDepth ,
+			Greater<br />
+			[page:NotEqualDepth NotEqualDepth] - THREE.NotEqualDepth - NotEqualDepth ,
+			NotEqual
 		</p>
 
 		<h3>[property:boolean depthTest]</h3>
 		<p>
-			Whether to have depth test enabled when rendering this material. Default is *true*.
+			Whether to have depth test enabled when rendering this material. Default
+			is *true*.
 		</p>
 
 		<h3>[property:boolean depthWrite]</h3>
 		<p>
-			Whether rendering this material has any effect on the depth buffer. Default is *true*.<br>
-			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
+			Whether rendering this material has any effect on the depth buffer.
+			Default is *true*.<br />
+			When drawing 2D overlays it can be useful to disable the depth writing in
+			order to layer several things together without creating z-index artifacts.
 		</p>
 
 		<h3>[property:boolean dithering]</h3>
 		<p>
-			Whether to apply dithering to the color to remove the appearance of banding.<br>
+			Whether to apply dithering to the color to remove the appearance of
+			banding.<br />
 			Default is *false*.
 		</p>
 
 		<h3>[property:boolean flatShading]</h3>
 		<p>
-			Define whether the material is rendered with flat shading. Default is false.
+			Define whether the material is rendered with flat shading. Default is
+			false.
 		</p>
 
 		<h3>[property:boolean fog]</h3>
-		<p>
-			Whether the material is affected by fog. Default is *true*.
-		</p>
+		<p>Whether the material is affected by fog. Default is *true*.</p>
 
 		<h3>[property:string materialType]</h3>
-		<p>
-			The Material type. can be material, background etc.
-		</p>
+		<p>The Material type. can be material, background etc.</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
+			The name of the object (doesn't need to be unique). Default is an empty
+			string.
 		</p>
 
 		<h3>[property:string nameList][]</h3>
-		<p>
-			The name of the object to apply loaded mesh when restore from assets.
-		</p>
+		<p>The name of the object to apply loaded mesh when restore from assets.</p>
 
 		<h3>[property:any onBeforeCompile]</h3>
 		<p>
-			An callback that is executed immediately before the shader program is compiled.<br>
-			This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.
+			An callback that is executed immediately before the shader program is
+			compiled.<br />
+			This function is called with the shader source code as a parameter. Useful
+			for the modification of built-in materials.
 		</p>
 
 		<h3>[property:number opacity]</h3>
 		<p>
-			Float in the range of *0.0* - *1.0* indicating how transparent the material is.<br>
-			A value of *0.0* indicates fully transparent, *1.0* is fully opaque.<br>
-			If the material's [page:Boolean transparent] property is not set to *true*, the material will remain<br>
-			fully opaque and this value will only affect its color. <br>
+			Float in the range of *0.0* - *1.0* indicating how transparent the
+			material is.<br />
+			A value of *0.0* indicates fully transparent, *1.0* is fully opaque.<br />
+			If the material's [page:Boolean transparent] property is not set to
+			*true*, the material will remain<br />
+			fully opaque and this value will only affect its color. <br />
 			Default is *1.0*.
 		</p>
 
 		<h3>[property:boolean polygonOffset]</h3>
 		<p>
-			Whether to use polygon offset. Default is *false*. This corresponds to the *GL_POLYGON_OFFSET_FILL* WebGL feature.
+			Whether to use polygon offset. Default is *false*. This corresponds to the
+			*GL_POLYGON_OFFSET_FILL* WebGL feature.
 		</p>
 
 		<h3>[property:number polygonOffsetFactor]</h3>
-		<p>
-			Sets the polygon offset factor. Default is *0*.
-		</p>
+		<p>Sets the polygon offset factor. Default is *0*.</p>
 
 		<h3>[property:number polygonOffsetUnits]</h3>
-		<p>
-			Sets the polygon offset units. Default is *0*.
-		</p>
+		<p>Sets the polygon offset units. Default is *0*.</p>
 
 		<h3>[property:string precision]</h3>
 		<p>
-			Override the renderer's default precision for this material. Can be "*highp*", "*mediump*" or "*lowp*".<br>
-			Default is *null*.<br>
-			<br>
+			Override the renderer's default precision for this material. Can be
+			"*highp*", "*mediump*" or "*lowp*".<br />
+			Default is *null*.<br />
+			<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:boolean premultipliedAlpha]</h3>
 		<p>
-			Whether to premultiply the alpha (transparency) value.<br>
-			See [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission] for an example of the difference.<br>
-			Default is *false*.<br>
-			<br>
-			highp<br>
-			mediump<br>
+			Whether to premultiply the alpha (transparency) value.<br />
+			See [Example:webgl_materials_physical_transmission WebGL / Materials /
+			Physical / Transmission] for an example of the difference.<br />
+			Default is *false*.<br />
+			<br />
+			highp<br />
+			mediump<br />
 			lowp
 		</p>
 
 		<h3>[property:any refer]</h3>
 		<p>
-			The refer Material. When this value is not null will override the material with clone.
+			The refer Material. When this value is not null will override the material
+			with clone.
 		</p>
 
 		<h3>[property:string shadowSide]</h3>
 		<p>
-			Defines which side of faces cast shadows.<br>
-			When set, can be [page:Materials THREE.FrontSide], [page:Materials THREE.BackSide], or [page:Materials THREE.DoubleSide]. Default is *null*. <br>
-			If *null*, the side casting shadows is determined as follows: <br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Side Side] - THREE.Side<br>
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br>
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br>
+			Defines which side of faces cast shadows.<br />
+			When set, can be [page:Materials THREE.FrontSide], [page:Materials
+			THREE.BackSide], or [page:Materials THREE.DoubleSide]. Default is *null*.
+			<br />
+			If *null*, the side casting shadows is determined as follows: <br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Side Side] - THREE.Side<br />
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
 			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double
 		</p>
 
 		<h3>[property:string side]</h3>
 		<p>
-			Defines which side of faces will be rendered - front, back or both.<br>
-			Default is [page:Materials THREE.FrontSide].<br>
-			Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.DoubleSide].<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Side Side] - THREE.Side<br>
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br>
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br>
+			Defines which side of faces will be rendered - front, back or both.<br />
+			Default is [page:Materials THREE.FrontSide].<br />
+			Other options are [page:Materials THREE.BackSide] and [page:Materials
+			THREE.DoubleSide].<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Side Side] - THREE.Side<br />
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
 			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double
 		</p>
 
 		<h3>[property:string stencilFail]</h3>
 		<p>
-			Which stencil operation to perform when the comparison function returns false. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:StencilOp StencilOp] - THREE.StencilOp<br>
-			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br>
-			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br>
-			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br>
-			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br>
-			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br>
-			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br>
-			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br>
-			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
+			Which stencil operation to perform when the comparison function returns
+			false. Default is [page:Materials KeepStencilOp]. See the stencil
+			operations [page:Materials constants] for all possible values.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:StencilOp StencilOp] - THREE.StencilOp<br />
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp ,
+			ZeroStencil<br />
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp ,
+			KeepStencil<br />
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp -
+			ReplaceStencilOp , ReplaceStencil<br />
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp -
+			IncrementStencilOp , IncrementStencil<br />
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp -
+			DecrementStencilOp , DecrementStencil<br />
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] -
+			THREE.IncrementWrapStencilOp - IncrementWrapStencilOp ,
+			IncrementWrapStencil<br />
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] -
+			THREE.DecrementWrapStencilOp - DecrementWrapStencilOp ,
+			DecrementWrapStencil<br />
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp -
+			InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:string stencilFunc]</h3>
 		<p>
-			The stencil comparison function to use. Default is [page:Materials AlwaysStencilFunc]. See stencil function [page:Materials constants] for all possible values.<br>
-			<br>
+			The stencil comparison function to use. Default is [page:Materials
+			AlwaysStencilFunc]. See stencil function [page:Materials constants] for
+			all possible values.<br />
+			<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number stencilFuncMask]</h3>
 		<p>
-			The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.
+			The bit mask to use when comparing against the stencil buffer. Default is
+			*0xFF*.
 		</p>
 
 		<h3>[property:number stencilRef]</h3>
 		<p>
-			The value to use when performing stencil comparisons or stencil operations. Default is *0*.<br>
-			<br>
-			[page:StencilFunc StencilFunc] - THREE.StencilFunc<br>
-			[page:NeverStencilFunc NeverStencilFunc] - THREE.NeverStencilFunc - NeverStencilFunc , NeverStencil<br>
-			[page:LessStencilFunc LessStencilFunc] - THREE.LessStencilFunc - LessStencilFunc , LessStencil<br>
-			[page:EqualStencilFunc EqualStencilFunc] - THREE.EqualStencilFunc - EqualStencilFunc , EqualStencil<br>
-			[page:LessEqualStencilFunc LessEqualStencilFunc] - THREE.LessEqualStencilFunc - LessEqualStencilFunc , LessEqualStencil<br>
-			[page:GreaterStencilFunc GreaterStencilFunc] - THREE.GreaterStencilFunc - GreaterStencilFunc , GreaterStencil<br>
-			[page:NotEqualStencilFunc NotEqualStencilFunc] - THREE.NotEqualStencilFunc - NotEqualStencilFunc , NotEqualStencil<br>
-			[page:GreaterEqualStencilFunc GreaterEqualStencilFunc] - THREE.GreaterEqualStencilFunc - GreaterEqualStencilFunc , GreaterEqualStencil<br>
-			[page:AlwaysStencilFunc AlwaysStencilFunc] - THREE.AlwaysStencilFunc - AlwaysStencilFunc , AlwaysStencil
+			The value to use when performing stencil comparisons or stencil
+			operations. Default is *0*.<br />
+			<br />
+			[page:StencilFunc StencilFunc] - THREE.StencilFunc<br />
+			[page:NeverStencilFunc NeverStencilFunc] - THREE.NeverStencilFunc -
+			NeverStencilFunc , NeverStencil<br />
+			[page:LessStencilFunc LessStencilFunc] - THREE.LessStencilFunc -
+			LessStencilFunc , LessStencil<br />
+			[page:EqualStencilFunc EqualStencilFunc] - THREE.EqualStencilFunc -
+			EqualStencilFunc , EqualStencil<br />
+			[page:LessEqualStencilFunc LessEqualStencilFunc] -
+			THREE.LessEqualStencilFunc - LessEqualStencilFunc , LessEqualStencil<br />
+			[page:GreaterStencilFunc GreaterStencilFunc] - THREE.GreaterStencilFunc -
+			GreaterStencilFunc , GreaterStencil<br />
+			[page:NotEqualStencilFunc NotEqualStencilFunc] - THREE.NotEqualStencilFunc
+			- NotEqualStencilFunc , NotEqualStencil<br />
+			[page:GreaterEqualStencilFunc GreaterEqualStencilFunc] -
+			THREE.GreaterEqualStencilFunc - GreaterEqualStencilFunc ,
+			GreaterEqualStencil<br />
+			[page:AlwaysStencilFunc AlwaysStencilFunc] - THREE.AlwaysStencilFunc -
+			AlwaysStencilFunc , AlwaysStencil
 		</p>
 
 		<h3>[property:boolean stencilWrite]</h3>
 		<p>
-			Whether stencil operations are performed against the stencil buffer. In order to perform writes or comparisons against the stencil buffer this value must be *true*. Default is *false*.
+			Whether stencil operations are performed against the stencil buffer. In
+			order to perform writes or comparisons against the stencil buffer this
+			value must be *true*. Default is *false*.
 		</p>
 
 		<h3>[property:number stencilWriteMask]</h3>
@@ -346,321 +430,368 @@
 
 		<h3>[property:string stencilZFail]</h3>
 		<p>
-			Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:StencilOp StencilOp] - THREE.StencilOp<br>
-			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br>
-			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br>
-			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br>
-			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br>
-			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br>
-			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br>
-			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br>
-			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
+			Which stencil operation to perform when the comparison function returns
+			true but the depth test fails. Default is [page:Materials KeepStencilOp].
+			See the stencil operations [page:Materials constants] for all possible
+			values.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:StencilOp StencilOp] - THREE.StencilOp<br />
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp ,
+			ZeroStencil<br />
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp ,
+			KeepStencil<br />
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp -
+			ReplaceStencilOp , ReplaceStencil<br />
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp -
+			IncrementStencilOp , IncrementStencil<br />
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp -
+			DecrementStencilOp , DecrementStencil<br />
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] -
+			THREE.IncrementWrapStencilOp - IncrementWrapStencilOp ,
+			IncrementWrapStencil<br />
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] -
+			THREE.DecrementWrapStencilOp - DecrementWrapStencilOp ,
+			DecrementWrapStencil<br />
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp -
+			InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:string stencilZPass]</h3>
 		<p>
-			Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:StencilOp StencilOp] - THREE.StencilOp<br>
-			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp , ZeroStencil<br>
-			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp , KeepStencil<br>
-			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp - ReplaceStencilOp , ReplaceStencil<br>
-			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp - IncrementStencilOp , IncrementStencil<br>
-			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp - DecrementStencilOp , DecrementStencil<br>
-			[page:IncrementWrapStencilOp IncrementWrapStencilOp] - THREE.IncrementWrapStencilOp - IncrementWrapStencilOp , IncrementWrapStencil<br>
-			[page:DecrementWrapStencilOp DecrementWrapStencilOp] - THREE.DecrementWrapStencilOp - DecrementWrapStencilOp , DecrementWrapStencil<br>
-			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
+			Which stencil operation to perform when the comparison function returns
+			true and the depth test passes. Default is [page:Materials KeepStencilOp].
+			See the stencil operations [page:Materials constants] for all possible
+			values.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:StencilOp StencilOp] - THREE.StencilOp<br />
+			[page:ZeroStencilOp ZeroStencilOp] - THREE.ZeroStencilOp - ZeroStencilOp ,
+			ZeroStencil<br />
+			[page:KeepStencilOp KeepStencilOp] - THREE.KeepStencilOp - KeepStencilOp ,
+			KeepStencil<br />
+			[page:ReplaceStencilOp ReplaceStencilOp] - THREE.ReplaceStencilOp -
+			ReplaceStencilOp , ReplaceStencil<br />
+			[page:IncrementStencilOp IncrementStencilOp] - THREE.IncrementStencilOp -
+			IncrementStencilOp , IncrementStencil<br />
+			[page:DecrementStencilOp DecrementStencilOp] - THREE.DecrementStencilOp -
+			DecrementStencilOp , DecrementStencil<br />
+			[page:IncrementWrapStencilOp IncrementWrapStencilOp] -
+			THREE.IncrementWrapStencilOp - IncrementWrapStencilOp ,
+			IncrementWrapStencil<br />
+			[page:DecrementWrapStencilOp DecrementWrapStencilOp] -
+			THREE.DecrementWrapStencilOp - DecrementWrapStencilOp ,
+			DecrementWrapStencil<br />
+			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp -
+			InvertStencilOp , InvertStencil
 		</p>
 
 		<h3>[property:boolean toneMapped]</h3>
 		<p>
-			Defines whether this material is tone mapped according to the renderer's [page:WebGLRenderer.toneMapping toneMapping] setting. Default is *true*.
+			Defines whether this material is tone mapped according to the renderer's
+			[page:WebGLRenderer.toneMapping toneMapping] setting. Default is *true*.
 		</p>
 
 		<h3>[property:boolean transparent]</h3>
 		<p>
-			Defines whether this material is transparent. This has an effect on rendering<br>
-			as transparent objects need special treatment and are rendered after<br>
-			non-transparent objects. <br>
-			When set to true, the extent to which the material is transparent is<br>
-			controlled by setting its [page:Float opacity] property. <br>
+			Defines whether this material is transparent. This has an effect on
+			rendering<br />
+			as transparent objects need special treatment and are rendered after<br />
+			non-transparent objects. <br />
+			When set to true, the extent to which the material is transparent is<br />
+			controlled by setting its [page:Float opacity] property. <br />
 			Default is *false*.
 		</p>
 
 		<h3>[property:boolean vertexColors]</h3>
-		<p>
-			Defines whether vertex coloring is used. Default is *false*.
-		</p>
+		<p>Defines whether vertex coloring is used. Default is *false*.</p>
 
 		<h3>[property:boolean visible]</h3>
-		<p>
-			Defines whether this material is visible. Default is *true*.
-		</p>
+		<p>Defines whether this material is visible. Default is *true*.</p>
 
 		<h2>Properties - Output</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:void applyChanges]( [param:string changes][] )</h3>
 		<p>
-			Applys changes<br>
-			<br>
+			Applys changes<br />
+			<br />
 			Returns :
 		</p>
 
-		<h3>[method:BlendingDstFactor getBlendDst](  [param:string def] )</h3>
+		<h3>[method:BlendingDstFactor getBlendDst]( [param:string def] )</h3>
 		<p>
-			Which blending to use when displaying objects with this material. <br>
-			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br>
-			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br>
-			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br>
-			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br>
-			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br>
-			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br>
-			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br>
-			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br>
-			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br>
-			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br>
-			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br>
-			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor<br>
-			<br>
+			Which blending to use when displaying objects with this material. <br />
+			This must be set to [page:Materials CustomBlending] to use custom
+			[page:Constant blendSrc], [page:Constant blendDst] or [page:Constant
+			blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values.
+			Default is [page:Materials NormalBlending].<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor -
+			SrcColorFactor , SrcColor<br />
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] -
+			THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor ,
+			OneMinusSrcColor<br />
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor -
+			SrcAlphaFactor , SrcAlpha<br />
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] -
+			THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor ,
+			OneMinusSrcAlpha<br />
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor -
+			DstAlphaFactor , DstAlpha<br />
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] -
+			THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor ,
+			OneMinusDstAlpha<br />
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor -
+			DstColorFactor , DstColor<br />
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] -
+			THREE.OneMinusDstColorFactor - OneMinusDstColorFactor ,
+			OneMinusDstColor<br />
+			<br />
 			Returns : blend dst
 		</p>
 
-		<h3>[method:BlendingEquation getBlendEquation](  [param:string def] )</h3>
+		<h3>[method:BlendingEquation getBlendEquation]( [param:string def] )</h3>
 		<p>
-			Gets blend equation<br>
-			<br>
+			Gets blend equation<br />
+			<br />
 			Returns : blend equation
 		</p>
 
-		<h3>[method:void getBlendSrc](  [param:string def] )</h3>
+		<h3>[method:void getBlendSrc]( [param:string def] )</h3>
 		<p>
-			Which blending to use when displaying objects with this material. <br>
-			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br>
-			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br>
-			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br>
-			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br>
-			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br>
-			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br>
-			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br>
-			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br>
-			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br>
-			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br>
-			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br>
-			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor<br>
-			<br>
-			[page:BlendingDstFactor BlendingDstFactor] | [page:BlendingSrcFactor BlendingSrcFactor]<br>
-			<br>
+			Which blending to use when displaying objects with this material. <br />
+			This must be set to [page:Materials CustomBlending] to use custom
+			[page:Constant blendSrc], [page:Constant blendDst] or [page:Constant
+			blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values.
+			Default is [page:Materials NormalBlending].<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor -
+			SrcColorFactor , SrcColor<br />
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] -
+			THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor ,
+			OneMinusSrcColor<br />
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor -
+			SrcAlphaFactor , SrcAlpha<br />
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] -
+			THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor ,
+			OneMinusSrcAlpha<br />
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor -
+			DstAlphaFactor , DstAlpha<br />
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] -
+			THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor ,
+			OneMinusDstAlpha<br />
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor -
+			DstColorFactor , DstColor<br />
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] -
+			THREE.OneMinusDstColorFactor - OneMinusDstColorFactor ,
+			OneMinusDstColor<br />
+			<br />
+			[page:BlendingDstFactor BlendingDstFactor] | [page:BlendingSrcFactor
+			BlendingSrcFactor]<br />
+			<br />
 			Returns : blend src
 		</p>
 
-		<h3>[method:void getClippingPlanes](  [param:Plane def][] )</h3>
+		<h3>[method:void getClippingPlanes]( [param:Plane def][] )</h3>
 		<p>
-			Gets clipping planes<br>
-			<br>
+			Gets clipping planes<br />
+			<br />
 			Returns : clipping planes
 		</p>
 
-		<h3>[method:DepthModes getDepthFunc](  [param:string def] )</h3>
+		<h3>[method:DepthModes getDepthFunc]( [param:string def] )</h3>
 		<p>
-			Gets depth func<br>
-			<br>
+			Gets depth func<br />
+			<br />
 			Returns : depth func
 		</p>
 
-		<h3>[method:T getMaterial](  )</h3>
+		<h3>[method:T getMaterial]( )</h3>
 		<p>
-			Gets material<br>
-			<br>
+			Gets material<br />
+			<br />
 			Returns : material
 		</p>
 
-		<h3>[method:MaterialParameters getMaterialParameters](  [param:any extendObj] )</h3>
+		<h3>
+			[method:MaterialParameters getMaterialParameters]( [param:any extendObj] )
+		</h3>
 		<p>
-			Gets material parameters<br>
-			<br>
+			Gets material parameters<br />
+			<br />
 			Returns : material parameters
 		</p>
 
-		<h3>[method:void getPrecision](  [param:string def] )</h3>
+		<h3>[method:void getPrecision]( [param:string def] )</h3>
 		<p>
-			Gets precision<br>
-			<br>
+			Gets precision<br />
+			<br />
 			Returns : precision
 		</p>
 
-		<h3>[method:Side getShadowSide](  [param:string def] )</h3>
+		<h3>[method:Side getShadowSide]( [param:string def] )</h3>
 		<p>
-			Gets shadow side<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Side Side] - THREE.Side<br>
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br>
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br>
-			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br>
-			<br>
+			Gets shadow side<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Side Side] - THREE.Side<br />
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
+			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br />
+			<br />
 			Returns : shadow side
 		</p>
 
-		<h3>[method:Side getSide](  [param:string def] )</h3>
+		<h3>[method:Side getSide]( [param:string def] )</h3>
 		<p>
-			Gets side<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Side Side] - THREE.Side<br>
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br>
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br>
-			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br>
-			<br>
+			Gets side<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Side Side] - THREE.Side<br />
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
+			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br />
+			<br />
 			Returns : side
 		</p>
 
-		<h3>[method:StencilOp getStencilFail](  [param:string def] )</h3>
+		<h3>[method:StencilOp getStencilFail]( [param:string def] )</h3>
 		<p>
-			Gets stencil fail<br>
-			<br>
+			Gets stencil fail<br />
+			<br />
 			Returns : stencil fail
 		</p>
 
-		<h3>[method:StencilFunc getStencilFunc](  [param:string def] )</h3>
+		<h3>[method:StencilFunc getStencilFunc]( [param:string def] )</h3>
 		<p>
-			Gets stencil func<br>
-			<br>
+			Gets stencil func<br />
+			<br />
 			Returns : stencil func
 		</p>
 
-		<h3>[method:StencilOp getStencilZFail](  [param:string def] )</h3>
+		<h3>[method:StencilOp getStencilZFail]( [param:string def] )</h3>
 		<p>
-			Gets stencil zfail<br>
-			<br>
+			Gets stencil zfail<br />
+			<br />
 			Returns : stencil zfail
 		</p>
 
-		<h3>[method:StencilOp getStencilZPass](  [param:string def] )</h3>
+		<h3>[method:StencilOp getStencilZPass]( [param:string def] )</h3>
 		<p>
-			Gets stencil zpass<br>
-			<br>
+			Gets stencil zpass<br />
+			<br />
 			Returns : stencil zpass
 		</p>
 
-		<h3>[method:Texture getTextureOption](  [param:any map],  [param:string name] )</h3>
+		<h3>
+			[method:Texture getTextureOption]( [param:any map], [param:string name] )
+		</h3>
 		<p>
-			Gets texture option<br>
-			<br>
+			Gets texture option<br />
+			<br />
 			Returns : texture option
 		</p>
 
-		<h3>[method:boolean getVertexColors](  [param:boolean def] )</h3>
+		<h3>[method:boolean getVertexColors]( [param:boolean def] )</h3>
 		<p>
-			Gets vertex colors<br>
-			<br>
+			Gets vertex colors<br />
+			<br />
 			Returns : true if vertex colors
 		</p>
 
-		<h3>[method:boolean isMaterialType](  [param:string materialType] )</h3>
+		<h3>[method:boolean isMaterialType]( [param:string materialType] )</h3>
 		<p>
-			Determines whether material type is<br>
-			<br>
+			Determines whether material type is<br />
+			<br />
 			Returns : true if material type
 		</p>
 
-		<h3>[method:void setMaterial](  [param:Material material] )</h3>
-		<p>
-			Sets material
-		</p>
+		<h3>[method:void setMaterial]( [param:Material material] )</h3>
+		<p>Sets material</p>
 
-		<h3>[method:void setMesh](  [param:MeshMaterial meshMaterial] )</h3>
-		<p>
-			Sets mesh
-		</p>
+		<h3>[method:void setMesh]( [param:MeshMaterial meshMaterial] )</h3>
+		<p>Sets mesh</p>
 
-		<h3>[method:void synkMesh](  [param:Material material] )</h3>
-		<p>
-			Synks mesh
-		</p>
+		<h3>[method:void synkMesh]( [param:Material material] )</h3>
+		<p>Synks mesh</p>
 
-		<h3>[method:MeshMaterial getMeshMaterial](  [param:any mesh] )</h3>
+		<h3>[method:MeshMaterial getMeshMaterial]( [param:any mesh] )</h3>
 		<p>
-			Gets mesh material<br>
-			<br>
+			Gets mesh material<br />
+			<br />
 			Returns : mesh material
 		</p>
 
-		<h3>[method:boolean isMeshMaterial](  [param:any mesh] )</h3>
+		<h3>[method:boolean isMeshMaterial]( [param:any mesh] )</h3>
 		<p>
-			Determines whether mesh material is<br>
-			<br>
+			Determines whether mesh material is<br />
+			<br />
 			Returns : true if mesh material
 		</p>
 
-		<hr>
+		<hr />
 		<h1 id="MeshMaterialRaw">MeshMaterialRaw</h1>
 
-		<p class="desc">
-			Mesh material raw
-		</p>
+		<p class="desc">Mesh material raw</p>
 
 		<h2>Properties</h2>
 		<h3>[property:Material customDepthMaterial]?</h3>
-		<p>
-			
-		</p>
+		<p></p>
 
 		<h3>[property:Material customDistanceMaterial]?</h3>
-		<p>
-			
-		</p>
+		<p></p>
 
 		<h3>[property:BufferGeometry geometry]?</h3>
-		<p>
-			
-		</p>
+		<p></p>
 
 		<h3>[property:mixed material]</h3>
 		<p>
-			<br>
+			<br />
 			[page:Material Material] | [page:Material Material]
 		</p>
 
 		<h3>[property:any userData]?</h3>
-		<p>
-			
-		</p>
+		<p></p>
 
-		<hr>
+		<hr />
 		<h1 id="MeshMaterial">MeshMaterial</h1>
 
 		<p class="desc">
-			Mesh Material<br>
-			<br>
+			Mesh Material<br />
+			<br />
 			[page:MeshMaterialRaw MeshMaterialRaw] | [page:THREE.Scene THREE.Scene]
 		</p>
 
-
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/material.abstract.ts material.abstract.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/material.abstract.ts
+			material.abstract.ts]
+		</p>
 	</body>
 </html>

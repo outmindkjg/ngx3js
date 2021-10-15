@@ -420,7 +420,11 @@ const routes: Routes = [
 		path: 'docs',
 		component: DocsComponent,
 		children: [
-			{ path: '', pathMatch: 'full', redirectTo: 'manual/en/introduction/Creating-a-scene' },
+			{
+				path: '',
+				pathMatch: 'full',
+				redirectTo: 'manual/en/introduction/Creating-a-scene',
+			},
 			{ path: '**', component: ApiReadComponent },
 		],
 	},
@@ -934,7 +938,10 @@ const routes: Routes = [
 				path: 'webgl_performance_static',
 				component: WebglPerformanceStaticComponent,
 			},
-			{ path: 'webgl_points_billboards', component: WebglPointsBillboardsComponent },
+			{
+				path: 'webgl_points_billboards',
+				component: WebglPointsBillboardsComponent,
+			},
 			{ path: 'webgl_points_dynamic', component: WebglPointsDynamicComponent },
 			{ path: 'webgl_points_sprites', component: WebglPointsSpritesComponent },
 			{ path: 'webgl_points_waves', component: WebglPointsWavesComponent },
@@ -1015,7 +1022,10 @@ const routes: Routes = [
 				path: 'webgl_materials_nodes',
 				component: WebglMaterialsNodesComponent,
 			},
-			{ path: 'webgl_materials_standard_nodes', component: WebglMaterialsStandardNodesComponent },
+			{
+				path: 'webgl_materials_standard_nodes',
+				component: WebglMaterialsStandardNodesComponent,
+			},
 			{
 				path: 'webgl_mirror_nodes',
 				component: WebglMirrorNodesComponent,
@@ -1263,14 +1273,23 @@ const routes: Routes = [
 				component: Webgl2VolumeInstancingComponent,
 			},
 			{ path: 'webgl2_volume_perlin', component: Webgl2VolumePerlinComponent },
-			{ path: 'webgl2_rendertarget_texture2darray', component: Webgl2RendertargetTexture2darrayComponent },
+			{
+				path: 'webgl2_rendertarget_texture2darray',
+				component: Webgl2RendertargetTexture2darrayComponent,
+			},
 
 			{ path: 'webgpu_sandbox', component: WebgpuSandboxComponent },
 			{ path: 'webgpu_rtt', component: WebgpuRttComponent },
 			{ path: 'webgpu_compute', component: WebgpuComputeComponent },
-			{ path: 'webgpu_instance_uniform', component: WebgpuInstanceUniformComponent },
+			{
+				path: 'webgpu_instance_uniform',
+				component: WebgpuInstanceUniformComponent,
+			},
 			{ path: 'webgpu_lights_custom', component: WebgpuLightsCustomComponent },
-			{ path: 'webgpu_lights_selective', component: WebgpuLightsSelectiveComponent },
+			{
+				path: 'webgpu_lights_selective',
+				component: WebgpuLightsSelectiveComponent,
+			},
 			{ path: 'webgpu_materials', component: WebgpuMaterialsComponent },
 			{ path: 'webaudio_orientation', component: WebaudioOrientationComponent },
 			{ path: 'webaudio_sandbox', component: WebaudioSandboxComponent },
@@ -1292,9 +1311,18 @@ const routes: Routes = [
 				path: 'webxr_vr_handinput_profiles',
 				component: WebxrVrHandinputProfilesComponent,
 			},
-			{ path: 'webxr_vr_handinput_pointerclick', component: WebxrVrHandinputPointerclickComponent },
-			{ path: 'webxr_vr_handinput_pointerdrag', component: WebxrVrHandinputPointerdragComponent },
-			{ path: 'webxr_vr_handinput_pressbutton', component: WebxrVrHandinputPressbuttonComponent },
+			{
+				path: 'webxr_vr_handinput_pointerclick',
+				component: WebxrVrHandinputPointerclickComponent,
+			},
+			{
+				path: 'webxr_vr_handinput_pointerdrag',
+				component: WebxrVrHandinputPointerdragComponent,
+			},
+			{
+				path: 'webxr_vr_handinput_pressbutton',
+				component: WebxrVrHandinputPressbuttonComponent,
+			},
 			{ path: 'webxr_vr_layers', component: WebxrVrLayersComponent },
 			{ path: 'webxr_vr_haptics', component: WebxrVrHapticsComponent },
 			{
@@ -1492,12 +1520,30 @@ const routes: Routes = [
 			{ path: 'webgl_loader_3ds', component: WebglLoaderDs3Component },
 			{ path: 'webgl_loader_3dm', component: WebglLoaderDm3Component },
 
-			{ path: 'webgl_shadowmap_progressive', component: WebglShadowmapProgressiveComponent },
-			{ path: 'webgl2_materials_texture3d_partialupdate', component: Webgl2MaterialsTexture3dPartialupdateComponent },
-			{ path: 'webgl2_multiple_rendertargets', component: Webgl2MultipleRendertargetsComponent },
-			{ path: 'webgl_postprocessing_ssr', component: WebglPostprocessingSsrComponent },
-			{ path: 'webgl_postprocessing_ssrr', component: WebglPostprocessingSsrrComponent },
-			{ path: 'physics_oimo_instancing', component: PhysicsOimoInstancingComponent },
+			{
+				path: 'webgl_shadowmap_progressive',
+				component: WebglShadowmapProgressiveComponent,
+			},
+			{
+				path: 'webgl2_materials_texture3d_partialupdate',
+				component: Webgl2MaterialsTexture3dPartialupdateComponent,
+			},
+			{
+				path: 'webgl2_multiple_rendertargets',
+				component: Webgl2MultipleRendertargetsComponent,
+			},
+			{
+				path: 'webgl_postprocessing_ssr',
+				component: WebglPostprocessingSsrComponent,
+			},
+			{
+				path: 'webgl_postprocessing_ssrr',
+				component: WebglPostprocessingSsrrComponent,
+			},
+			{
+				path: 'physics_oimo_instancing',
+				component: PhysicsOimoInstancingComponent,
+			},
 			{ path: 'webgl_loader_ifc', component: WebglLoaderIfcComponent },
 			{ path: 'ngx_material', component: NgxMaterialComponent },
 			{ path: 'ngx_geometry', component: NgxGeometryComponent },

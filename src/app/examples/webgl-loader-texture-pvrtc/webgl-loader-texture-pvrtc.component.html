@@ -1,88 +1,135 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - PVR compressed textures
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl - PVR compressed textures
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [requiredExtensions]="['compressed']"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[requiredExtensions]="['compressed']"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'box'"
-        [width]="200"
-        [height]="200"
-        [depth]="200"
-      ></ngx3js-geometry>
-      <ngx3js-geometry
-        #torus
-        [type]="'TorusGeometry'"
-        [radius]="100"
-        [tube]="50"
-        [radialSegments]="32"
-        [tubularSegments]="24"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-500" [y]="200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'">
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_4bpp_rgb.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-166" [y]="200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'">
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_4bpp_rgb_mips.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="166" [y]="200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'">
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_2bpp_rgb.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="500" [y]="200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'">
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_4bpp_rgb_v3.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-500" [y]="-200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [side]="'double'" [transparent]="true" [depthTest]="false">
-          <ngx3js-texture [storageName]="'textures/compressed/flare_4bpp_rgba.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="-166" [y]="-200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [side]="'double'" [transparent]="true" [depthTest]="false">
-          <ngx3js-texture [storageName]="'textures/compressed/flare_2bpp_rgba.pvr'" [filter]="'LinearFilter'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="torus">
-        <ngx3js-position [x]="166" [y]="-200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [side]="'double'" [transparent]="true" [depthTest]="false">
-          <ngx3js-texture [storageName]="'textures/compressed/park3_cube_nomip_4bpp_rgb.pvr'" [filter]="'LinearFilter'" [mapping]="'CubeReflectionMapping'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="torus">
-        <ngx3js-position [x]="500" [y]="-200" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [side]="'double'" [transparent]="true" [depthTest]="false">
-          <ngx3js-texture [storageName]="'textures/compressed/park3_cube_mip_2bpp_rgb_v3.pvr'" [filter]="'LinearFilter'" [mapping]="'CubeReflectionMapping'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'box'"
+				[width]="200"
+				[height]="200"
+				[depth]="200"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#torus
+				[type]="'TorusGeometry'"
+				[radius]="100"
+				[tube]="50"
+				[radialSegments]="32"
+				[tubularSegments]="24"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-500" [y]="200" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasicMaterial'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_4bpp_rgb.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-166" [y]="200" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasicMaterial'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_4bpp_rgb_mips.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="166" [y]="200" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasicMaterial'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_2bpp_rgb.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="500" [y]="200" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasicMaterial'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_4bpp_rgb_v3.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-500" [y]="-200" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[side]="'double'"
+					[transparent]="true"
+					[depthTest]="false"
+				>
+					<ngx3js-texture
+						[storageName]="'textures/compressed/flare_4bpp_rgba.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="-166" [y]="-200" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[side]="'double'"
+					[transparent]="true"
+					[depthTest]="false"
+				>
+					<ngx3js-texture
+						[storageName]="'textures/compressed/flare_2bpp_rgba.pvr'"
+						[filter]="'LinearFilter'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="torus">
+				<ngx3js-position [x]="166" [y]="-200" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[side]="'double'"
+					[transparent]="true"
+					[depthTest]="false"
+				>
+					<ngx3js-texture
+						[storageName]="'textures/compressed/park3_cube_nomip_4bpp_rgb.pvr'"
+						[filter]="'LinearFilter'"
+						[mapping]="'CubeReflectionMapping'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="torus">
+				<ngx3js-position [x]="500" [y]="-200" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[side]="'double'"
+					[transparent]="true"
+					[depthTest]="false"
+				>
+					<ngx3js-texture
+						[storageName]="'textures/compressed/park3_cube_mip_2bpp_rgb_v3.pvr'"
+						[filter]="'LinearFilter'"
+						[mapping]="'CubeReflectionMapping'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

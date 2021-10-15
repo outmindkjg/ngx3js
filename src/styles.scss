@@ -3,259 +3,253 @@
 
 pre.prettyprint,
 code.prettyprint {
-  background-color: #f5f5f5;
-  font-family: 'Roboto Mono', monospace;
+	background-color: #f5f5f5;
+	font-family: 'Roboto Mono', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
-  pre.prettyprint,
-  code.prettyprint {
-    background-color: #363636;
-    color: #a0a0a0;
-    .hljs-keyword,
-    .hljs-selector-tag,
-    .hljs-subst {
-      color: #a0a0a0;
-    }
-    .hljs-tag,
-    .hljs-name,
-    .hljs-attribute {
-      color: #aaaacc;
-      font-weight: normal;
-    }
-  }
+	pre.prettyprint,
+	code.prettyprint {
+		background-color: #363636;
+		color: #a0a0a0;
+		.hljs-keyword,
+		.hljs-selector-tag,
+		.hljs-subst {
+			color: #a0a0a0;
+		}
+		.hljs-tag,
+		.hljs-name,
+		.hljs-attribute {
+			color: #aaaacc;
+			font-weight: normal;
+		}
+	}
 }
 
-
 #example #viewer-inner {
-  .debug {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 0;
-    z-index: 10;
-    opacity: 0.1;
-    transition: opacity 1s;
-  }
-  .debug:hover {
-    opacity: 1;
-  }
-  .canvas {
-    display: inline-block;
-  }
+	.debug {
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 0;
+		z-index: 10;
+		opacity: 0.1;
+		transition: opacity 1s;
+	}
+	.debug:hover {
+		opacity: 1;
+	}
+	.canvas {
+		display: inline-block;
+	}
 
-  .three-canvas {
-    position: absolute;
-    perspective: 200px;
-    left: 0;
-    top: 0;
-    right: auto;
-    bottom: auto;
-  }
-  input.three-visual,
-  textarea.three-visual,
-  label.three-visual,
-  form.three-visual > label {
-    display: block;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    resize: none;
-  }
-  .three-visual {
-    box-sizing: border-box;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: auto;
-    bottom: auto;
-    pointer-events: none;
-  }
+	.three-canvas {
+		position: absolute;
+		perspective: 200px;
+		left: 0;
+		top: 0;
+		right: auto;
+		bottom: auto;
+	}
+	input.three-visual,
+	textarea.three-visual,
+	label.three-visual,
+	form.three-visual > label {
+		display: block;
+		overflow: hidden;
+		padding: 0;
+		margin: 0;
+		resize: none;
+	}
+	.three-visual {
+		box-sizing: border-box;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: auto;
+		bottom: auto;
+		pointer-events: none;
+	}
 
-  div.bottom,
-  div.info {
-    opacity: 0.3;
-    transition: opacity 0.5s;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    font-size: 13px;
-    box-sizing: border-box;
-    text-align: center;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    pointer-events: none;
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    z-index: 3;
-    p {
-      margin: 0.2em 0;
-    }
-    a {
-      pointer-events: auto;
-      color: #ff0;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    &.dark {
-      color: #444;
-      a {
-        color: #08f;
-      }
-    }
-    .lbl {
-      text-align: left;
-      position: absolute;
-      bottom: 5px;
-      z-index: 100;
-      text-shadow: #000 1px 1px 1px;
-      background-color: rgba(151, 80, 80, 0.85);
-      padding: 1em;
-      border: 2px solid #000;
-      .g {
-        color: #aaa;
-      }
-      .c {
-        color: #fa0;
-      }
-      &.canvas {
-        pointer-events: all;
-        padding: 0;
-        overflow: hidden;
-        > canvas {
-          background-color: white;
-        }
-        > button.clear-btn {
-          position: absolute;
-          left: 0px;
-          top: 0px;
-          border-radius: 0 0 3px 0;
-          width:1rem;
-          height:1rem;
-          border: 0 none;
-          font-size: 0.7rem;
-          background-color: #000000;
-          color : white;
-          margin: 0;
-          padding: 0;
-        }
-      }
-      &#lbl_left {
-        border-radius: 2px 15px 2px 2px;
-        left: 5px;
-      }
-      &#lbl_right {
-        border-radius: 15px 2px 2px 2px;
-        right: 5px;
-      }
-    }
-  }
+	div.bottom,
+	div.info {
+		opacity: 0.3;
+		transition: opacity 0.5s;
+		position: absolute;
+		top: 0px;
+		left: 0;
+		right: 0;
+		padding: 10px;
+		font-size: 13px;
+		box-sizing: border-box;
+		text-align: center;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		pointer-events: none;
+		color: #ffffff;
+		background-color: rgba(255, 255, 255, 0.2);
+		box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+		z-index: 3;
+		p {
+			margin: 0.2em 0;
+		}
+		a {
+			pointer-events: auto;
+			color: #ff0;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		&.dark {
+			color: #444;
+			a {
+				color: #08f;
+			}
+		}
+		.lbl {
+			text-align: left;
+			position: absolute;
+			bottom: 5px;
+			z-index: 100;
+			text-shadow: #000 1px 1px 1px;
+			background-color: rgba(151, 80, 80, 0.85);
+			padding: 1em;
+			border: 2px solid #000;
+			.g {
+				color: #aaa;
+			}
+			.c {
+				color: #fa0;
+			}
+			&.canvas {
+				pointer-events: all;
+				padding: 0;
+				overflow: hidden;
+				> canvas {
+					background-color: white;
+				}
+				> button.clear-btn {
+					position: absolute;
+					left: 0px;
+					top: 0px;
+					border-radius: 0 0 3px 0;
+					width: 1rem;
+					height: 1rem;
+					border: 0 none;
+					font-size: 0.7rem;
+					background-color: #000000;
+					color: white;
+					margin: 0;
+					padding: 0;
+				}
+			}
+			&#lbl_left {
+				border-radius: 2px 15px 2px 2px;
+				left: 5px;
+			}
+			&#lbl_right {
+				border-radius: 15px 2px 2px 2px;
+				right: 5px;
+			}
+		}
+	}
 
-  div.bottom {
-    position: absolute;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0;
-  }
+	div.bottom {
+		position: absolute;
+		top: auto;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 0;
+	}
 }
 
 #example #viewer-inner:hover {
-  div.bottom,
-  div.info {
-    opacity: 1;
-  }
+	div.bottom,
+	div.info {
+		opacity: 1;
+	}
 }
 
 div#example,
 div#docs {
-  height: 100%;
-  position: relative;
-  a.button {
-    position: absolute;
-    opacity: 0.2;
-    right :1rem;
-    bottom :1rem;
-    z-index: 100;
-    padding: 12px;
-    border-radius: 25px;
-    border:2px solid var(--background-color);
-    background-color: var(--text-color);
-    transform: rotate(0deg);
-    transform-origin: center center;
-    transition: transform 0.5s, opacity 0.5s;
-    cursor: pointer;
-  }
+	height: 100%;
+	position: relative;
+	a.button {
+		position: absolute;
+		opacity: 0.2;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 100;
+		padding: 12px;
+		border-radius: 25px;
+		border: 2px solid var(--background-color);
+		background-color: var(--text-color);
+		transform: rotate(0deg);
+		transform-origin: center center;
+		transition: transform 0.5s, opacity 0.5s;
+		cursor: pointer;
+	}
 
-  a.button.download {
-    bottom: 80px;
-  }
+	a.button.download {
+		bottom: 80px;
+	}
 
-  a.button.ngxgithub {
-    right: 80px;
-  }
-  
-  a.button:hover {
-    opacity: 1;
-    transform: rotate(360deg);
-  }
-  a.button img {
-    display: block;
-    width: var(--icon-size);
-  }
-  a.button.text {
-    padding-right: 20px;
-    padding-left: 20px;
-    color: var(--color-blue);
-    opacity: 1;
-    font-weight: 500;
-  }
-  
+	a.button.ngxgithub {
+		right: 80px;
+	}
+
+	a.button:hover {
+		opacity: 1;
+		transform: rotate(360deg);
+	}
+	a.button img {
+		display: block;
+		width: var(--icon-size);
+	}
+	a.button.text {
+		padding-right: 20px;
+		padding-left: 20px;
+		color: var(--color-blue);
+		opacity: 1;
+		font-weight: 500;
+	}
 }
 
 div#example div#viewer #viewer-inner {
-  overflow: hidden;
+	overflow: hidden;
 }
 div#viewer {
-  position: absolute;
-  border: 0px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  padding-left: var(--panel-width);
-  #viewer-inner {
-    position: relative;
-    box-sizing: border-box;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+	position: absolute;
+	border: 0px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	padding-left: var(--panel-width);
+	#viewer-inner {
+		position: relative;
+		box-sizing: border-box;
+		height: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
 }
-
-
 
 /* mobile */
 
 @media all and (max-width: 640px) {
-  div#docs,
-  div#example {
-    div#viewer {
-      height: calc(100% - var(--header-height));
-      padding-left: 0;
-    }
-  }
+	div#docs,
+	div#example {
+		div#viewer {
+			height: calc(100% - var(--header-height));
+			padding-left: 0;
+		}
+	}
 }
-
-

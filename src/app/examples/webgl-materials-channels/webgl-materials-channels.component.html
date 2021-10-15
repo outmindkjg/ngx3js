@@ -1,112 +1,142 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - <span id="description">Normal, Depth, DepthRGBA, DepthRGBAUnpacked, Materials</span><br/>
-  by <a href="https://Clara.io">Ben Houston</a>. ninja head from <a href="https://gpuopen.com/archive/gamescgi/amd-gpu-meshmapper/" target="_blank" rel="noopener">AMD GPU MeshMapper</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	<span id="description"
+		>Normal, Depth, DepthRGBA, DepthRGBAUnpacked, Materials</span
+	><br />
+	by <a href="https://Clara.io">Ben Houston</a>. ninja head from
+	<a
+		href="https://gpuopen.com/archive/gamescgi/amd-gpu-meshmapper/"
+		target="_blank"
+		rel="noopener"
+		>AMD GPU MeshMapper</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , minDistance: 1000 , maxDistance: 2400 , minZoom: 0.5 , maxZoom: 1.5 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 1000,
+		maxDistance: 2400,
+		minZoom: 0.5,
+		maxZoom: 1.5
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'ambient'"
-      [color]="'0xffffff'"
-      [intensity]="0.1"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0xff0000'"
-      [intensity]="0.5"
-    >
-      <ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-camera [type]="controls.camera" [fov]="45" [near]="500" [far]="3000">
-      <ngx3js-position [x]="0" [y]="0" [z]="1500"></ngx3js-position>
-      <ngx3js-light
-        [type]="'Point'"
-        [color]="'0xff6666'"
-        [intensity]="1"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0x0000ff'"
-      [intensity]="0.5"
-    >
-      <ngx3js-position [x]="-1000" [y]="0" [z]="1000"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture #normalMap [image]="'models/obj/ninja/normal.png'"></ngx3js-texture>
-      <ngx3js-texture #aoMap [image]="'models/obj/ninja/ao.jpg'"></ngx3js-texture>
-      <ngx3js-texture #displacementMap [image]="'models/obj/ninja/displacement.jpg'"></ngx3js-texture>
-      <ngx3js-material 
-        #standard
-        [type]="'MeshStandard'"
-        [color]="'0xffffff'"
-        [metalness]="0.5"
-        [roughness]="0.6"
-        [displacementMap]="displacementMap"
-        [displacementScale]="2.436143"
-        [displacementBias]="-0.428408"
-        [aoMap]="aoMap"
-        [normalMap]="normalMap"
-        [normalScaleX]="1"
-        [normalScaleY]="-1"
-        [side]="controls.side"
-      ></ngx3js-material>
-      <ngx3js-material 
-        #depthBasic
-        [type]="'MeshDepth'"
-        [depthPacking]="'Basic'"
-        [displacementMap]="displacementMap"
-        [displacementScale]="2.436143"
-        [displacementBias]="-0.428408"
-        [side]="controls.side"
-      ></ngx3js-material>
-      <ngx3js-material 
-        #depthRGBA
-        [type]="'MeshDepth'"
-        [depthPacking]="'RGBA'"
-        [displacementMap]="displacementMap"
-        [displacementScale]="2.436143"
-        [displacementBias]="-0.428408"
-        [side]="controls.side"
-      ></ngx3js-material>
-      <ngx3js-material 
-        #normal
-        [type]="'MeshNormal'"
-        [displacementMap]="displacementMap"
-        [displacementScale]="2.436143"
-        [displacementBias]="-0.428408"
-        [normalMap]="normalMap"
-        [normalScaleX]="1"
-        [normalScaleY]="-1"
-        [side]="controls.side"
-      ></ngx3js-material>
-      <ngx3js-geometry
-        #ninjaHead
-        [storageName]="'models/obj/ninja/ninjaHead_Low.obj'"
-        [center]="true"
-        [scale]="25"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngIf="controls.material == 'standard'" [material]="standard" [geometry]="ninjaHead">
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngIf="controls.material == 'normal'" [material]="normal" [geometry]="ninjaHead">
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngIf="controls.material == 'depthBasic'" [material]="depthBasic" [geometry]="ninjaHead">
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngIf="controls.material == 'depthRGBA'" [material]="depthRGBA" [geometry]="ninjaHead">
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'ambient'" [color]="'0xffffff'" [intensity]="0.1">
+		</ngx3js-light>
+		<ngx3js-light [type]="'Point'" [color]="'0xff0000'" [intensity]="0.5">
+			<ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-camera
+			[type]="controls.camera"
+			[fov]="45"
+			[near]="500"
+			[far]="3000"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="1500"></ngx3js-position>
+			<ngx3js-light [type]="'Point'" [color]="'0xff6666'" [intensity]="1">
+			</ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-light [type]="'Point'" [color]="'0x0000ff'" [intensity]="0.5">
+			<ngx3js-position [x]="-1000" [y]="0" [z]="1000"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#normalMap
+				[image]="'models/obj/ninja/normal.png'"
+			></ngx3js-texture>
+			<ngx3js-texture
+				#aoMap
+				[image]="'models/obj/ninja/ao.jpg'"
+			></ngx3js-texture>
+			<ngx3js-texture
+				#displacementMap
+				[image]="'models/obj/ninja/displacement.jpg'"
+			></ngx3js-texture>
+			<ngx3js-material
+				#standard
+				[type]="'MeshStandard'"
+				[color]="'0xffffff'"
+				[metalness]="0.5"
+				[roughness]="0.6"
+				[displacementMap]="displacementMap"
+				[displacementScale]="2.436143"
+				[displacementBias]="-0.428408"
+				[aoMap]="aoMap"
+				[normalMap]="normalMap"
+				[normalScaleX]="1"
+				[normalScaleY]="-1"
+				[side]="controls.side"
+			></ngx3js-material>
+			<ngx3js-material
+				#depthBasic
+				[type]="'MeshDepth'"
+				[depthPacking]="'Basic'"
+				[displacementMap]="displacementMap"
+				[displacementScale]="2.436143"
+				[displacementBias]="-0.428408"
+				[side]="controls.side"
+			></ngx3js-material>
+			<ngx3js-material
+				#depthRGBA
+				[type]="'MeshDepth'"
+				[depthPacking]="'RGBA'"
+				[displacementMap]="displacementMap"
+				[displacementScale]="2.436143"
+				[displacementBias]="-0.428408"
+				[side]="controls.side"
+			></ngx3js-material>
+			<ngx3js-material
+				#normal
+				[type]="'MeshNormal'"
+				[displacementMap]="displacementMap"
+				[displacementScale]="2.436143"
+				[displacementBias]="-0.428408"
+				[normalMap]="normalMap"
+				[normalScaleX]="1"
+				[normalScaleY]="-1"
+				[side]="controls.side"
+			></ngx3js-material>
+			<ngx3js-geometry
+				#ninjaHead
+				[storageName]="'models/obj/ninja/ninjaHead_Low.obj'"
+				[center]="true"
+				[scale]="25"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngIf="controls.material == 'standard'"
+				[material]="standard"
+				[geometry]="ninjaHead"
+			>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngIf="controls.material == 'normal'"
+				[material]="normal"
+				[geometry]="ninjaHead"
+			>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngIf="controls.material == 'depthBasic'"
+				[material]="depthBasic"
+				[geometry]="ninjaHead"
+			>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngIf="controls.material == 'depthRGBA'"
+				[material]="depthRGBA"
+				[geometry]="ninjaHead"
+			>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

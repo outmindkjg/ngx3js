@@ -1,44 +1,62 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> <br/>
-  "W" translate | "E" rotate | "R" scale | "+/-" adjust size<br />
-  "Q" toggle world/local space |  "Shift" snap to grid<br />
-  "X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
-  "C" toggle camera | "V" random zoom
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<br />
+	"W" translate | "E" rotate | "R" scale | "+/-" adjust size<br />
+	"Q" toggle world/local space | "Shift" snap to grid<br />
+	"X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
+	"C" toggle camera | "V" random zoom
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'keydown,keyup'"
-  (eventListener)="setEventListener($event)"
-  (onRender)="onRender($event)"
-  (onLoad)="setRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'keydown,keyup'"
+	(eventListener)="setEventListener($event)"
+	(onRender)="onRender($event)"
+	(onLoad)="setRender($event)"
 >
-  <ngx3js-control [type]="'TransformControls'"  (eventListener)="setTransformEventListener($event)" (onLoad)="setTransformControl($event)"></ngx3js-control>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="30000">
-    <ngx3js-lookat [x]="0" [y]="200" [z]="0"></ngx3js-lookat>
-    <ngx3js-position [x]="1000" [y]="500" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="2">
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BoxGeometry'"
-        [width]="200"
-        [height]="200"
-        [depth]="200"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshLambertMaterial'" [transparent]="true">
-        <ngx3js-texture [type]="'map'" [image]="'textures/crate.gif'"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-helper [type]="'GridHelper'" [size]="1000" [divisions]="10" [color1]="'0x888888'" [color2]="'0x444444'"></ngx3js-helper>
-  </ngx3js-scene>
+	<ngx3js-control
+		[type]="'TransformControls'"
+		(eventListener)="setTransformEventListener($event)"
+		(onLoad)="setTransformControl($event)"
+	></ngx3js-control>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="30000">
+		<ngx3js-lookat [x]="0" [y]="200" [z]="0"></ngx3js-lookat>
+		<ngx3js-position [x]="1000" [y]="500" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xa0a0a0'">
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[intensity]="2"
+		>
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BoxGeometry'"
+				[width]="200"
+				[height]="200"
+				[depth]="200"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshLambertMaterial'" [transparent]="true">
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/crate.gif'"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-helper
+			[type]="'GridHelper'"
+			[size]="1000"
+			[divisions]="10"
+			[color1]="'0x888888'"
+			[color2]="'0x444444'"
+		></ngx3js-helper>
+	</ngx3js-scene>
 </ngx3js-renderer>

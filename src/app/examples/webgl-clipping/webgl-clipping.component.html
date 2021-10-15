@@ -1,84 +1,100 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl_clipping
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl_clipping
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0x000000'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [globalClippingEnabled]="controls.globalClipping.enabled"
-  [localClippingEnabled]="controls.localClipping.enabled"
-  (onRender)="onRender($event)"
-  (onLoad)="setRenderer($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[globalClippingEnabled]="controls.globalClipping.enabled"
+	[localClippingEnabled]="controls.localClipping.enabled"
+	(onRender)="onRender($event)"
+	(onLoad)="setRenderer($event)"
 >
-  <ngx3js-plane (onLoad)="setGlobalPlane($event)" [x]="-1" [y]="0" [z]="0" [w]="0.1"></ngx3js-plane>
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
-    <ngx3js-position [x]="0" [y]="1.3" [z]="3"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x505050'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Spot'"
-      [color]="'0xffffff'"
-      [angle]="36"
-      [penumbra]="0.2"
-      [castShadow]="true"
-      [shadowCameraNear]="3"
-      [shadowCameraFar]="10"
-      [shadowMapSizeWidth]="1024"
-      [shadowMapSizeHeight]="1024"
-    >
-      <ngx3js-position [x]="2" [y]="3" [z]="3"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0x55505a'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="1"
-      [shadowCameraBottom]="-1"
-      [shadowCameraLeft]="-1"
-      [shadowCameraRight]="1"
-      [shadowCameraNear]="1"
-      [shadowCameraFar]="10"
-    >
-       <ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
-      <ngx3js-position [x]="0" [y]="0.8" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnot'"
-        [radius]="0.4"
-        [tube]="0.08"
-        [radialSegments]="95"
-        [tubularSegments]="20"
-      ></ngx3js-geometry>
-      <ngx3js-material (onLoad)="setMaterial($event)"  [type]="'MeshPhong'" [color]="'0x80ee10'" [shininess]="100" [side]="'double'" [clipShadows]="true">
-          <ngx3js-plane  (onLoad)="setLocalPlane($event)" [x]="0" [y]="-1" [z]="0" [w]="0.8"></ngx3js-plane>
-      </ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="9"
-        [height]="9"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0xa0adaf'"
-        [shininess]="150"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-plane
+		(onLoad)="setGlobalPlane($event)"
+		[x]="-1"
+		[y]="0"
+		[z]="0"
+		[w]="0.1"
+	></ngx3js-plane>
+	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="36" [near]="0.25" [far]="16">
+		<ngx3js-position [x]="0" [y]="1.3" [z]="3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x505050'"> </ngx3js-light>
+		<ngx3js-light
+			[type]="'Spot'"
+			[color]="'0xffffff'"
+			[angle]="36"
+			[penumbra]="0.2"
+			[castShadow]="true"
+			[shadowCameraNear]="3"
+			[shadowCameraFar]="10"
+			[shadowMapSizeWidth]="1024"
+			[shadowMapSizeHeight]="1024"
+		>
+			<ngx3js-position [x]="2" [y]="3" [z]="3"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0x55505a'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="1"
+			[shadowCameraBottom]="-1"
+			[shadowCameraLeft]="-1"
+			[shadowCameraRight]="1"
+			[shadowCameraNear]="1"
+			[shadowCameraFar]="10"
+		>
+			<ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
+			<ngx3js-position [x]="0" [y]="0.8" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnot'"
+				[radius]="0.4"
+				[tube]="0.08"
+				[radialSegments]="95"
+				[tubularSegments]="20"
+			></ngx3js-geometry>
+			<ngx3js-material
+				(onLoad)="setMaterial($event)"
+				[type]="'MeshPhong'"
+				[color]="'0x80ee10'"
+				[shininess]="100"
+				[side]="'double'"
+				[clipShadows]="true"
+			>
+				<ngx3js-plane
+					(onLoad)="setLocalPlane($event)"
+					[x]="0"
+					[y]="-1"
+					[z]="0"
+					[w]="0.8"
+				></ngx3js-plane>
+			</ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="9"
+				[height]="9"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0xa0adaf'"
+				[shininess]="150"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

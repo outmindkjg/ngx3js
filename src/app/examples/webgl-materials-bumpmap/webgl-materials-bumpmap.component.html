@@ -1,57 +1,78 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - bump mapping without tangents<br/>
-  <a href="http://graphics.cs.williams.edu/data/meshes.xml#14" target="_blank" rel="noopener">Lee Perry-Smith</a> head
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	bump mapping without tangents<br />
+	<a
+		href="http://graphics.cs.williams.edu/data/meshes.xml#14"
+		target="_blank"
+		rel="noopener"
+		>Lee Perry-Smith</a
+	>
+	head
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1200"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x060708'">
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0x443333'"
-      [groundColor]="'0x111122'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Spot'"
-      [color]="'0xffffbb'"
-      [intensity]="2"
-      [castShadow]="true"
-      [shadowMapSizeWidth]="2048"
-      [shadowMapSizeHeight]="2048"
-      [shadowCameraNear]="200"
-      [shadowCameraFar]="1500"
-      [shadowCameraFov]="40"
-      [shadowBias]="-0.005"
-    >
-      <ngx3js-position [x]="0.5" [y]="0" [z]="1" [multiply]="700"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true" [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
-      <ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
-      <ngx3js-geometry 
-        [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'MeshPhong'" 
-        [color]="'0x552811'"
-        [specular]="'0x222222'"
-        [shininess]="25"
-        [bumpScale]="12"
-      >
-        <ngx3js-texture [type]="'bumpMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1200"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x060708'">
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0x443333'"
+			[groundColor]="'0x111122'"
+		>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'Spot'"
+			[color]="'0xffffbb'"
+			[intensity]="2"
+			[castShadow]="true"
+			[shadowMapSizeWidth]="2048"
+			[shadowMapSizeHeight]="2048"
+			[shadowCameraNear]="200"
+			[shadowCameraFar]="1500"
+			[shadowCameraFov]="40"
+			[shadowBias]="-0.005"
+		>
+			<ngx3js-position
+				[x]="0.5"
+				[y]="0"
+				[z]="1"
+				[multiply]="700"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[castShadow]="true"
+			[receiveShadow]="true"
+		>
+			<ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+			<ngx3js-scale [x]="100" [y]="100" [z]="100"></ngx3js-scale>
+			<ngx3js-geometry
+				[storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0x552811'"
+				[specular]="'0x222222'"
+				[shininess]="25"
+				[bumpScale]="12"
+			>
+				<ngx3js-texture
+					[type]="'bumpMap'"
+					[image]="
+						'models/gltf/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'
+					"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

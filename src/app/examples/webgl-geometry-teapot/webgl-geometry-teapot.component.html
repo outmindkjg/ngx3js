@@ -1,58 +1,79 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - the Utah Teapot<br />
-  from <a href="https://www.udacity.com/course/interactive-3d-graphics--cs291" target="_blank" rel="noopener">Udacity Interactive 3D Graphics</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	the Utah Teapot<br />
+	from
+	<a
+		href="https://www.udacity.com/course/interactive-3d-graphics--cs291"
+		target="_blank"
+		rel="noopener"
+		>Udacity Interactive 3D Graphics</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
-    <ngx3js-position [x]="-600" [y]="500" [z]="1300"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared >
-    <ngx3js-texture #map [type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [anisotropy]="16" [encoding]="'sRGB'"></ngx3js-texture>
-    <ngx3js-texture #envMap [type]="'env'" [image]="'textures/cube/pisa/'" [cubeImage]="['px.png','nx.png','py.png','ny.png','pz.png','nz.png']" [encoding]="'sRGB'"></ngx3js-texture>
-    <ngx3js-material 
-      #background
-      [materialType]="'background'"
-      [map]="envMap"
-    >
-    </ngx3js-material>
-  </ngx3js-shared>
-  <ngx3js-scene #scene [background]="material.env ? background : '0xAAAAAA'">
-    <ngx3js-light
-      [type]="'0x333333'"
-      [color]="ambientLight"
-      [intensity]="controls.ka"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="lightColor"
-      [intensity]="controls.llightness"
-    >
-      <ngx3js-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="teapot" >
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-material 
-        [type]="material.type" 
-        [color]="material.color" 
-        [side]="material.side" 
-        [specular]="material.specular" 
-        [flatShading]="material.flatShading" 
-        [wireframe]="material.wireframe" 
-        [map]="material.map ? map : null" 
-        [envMap]="material.env ? envMap : null"
-      >
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
+		<ngx3js-position [x]="-600" [y]="500" [z]="1300"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared>
+		<ngx3js-texture
+			#map
+			[type]="'map'"
+			[image]="'textures/uv_grid_opengl.jpg'"
+			[wrapS]="'Repeat'"
+			[wrapT]="'Repeat'"
+			[anisotropy]="16"
+			[encoding]="'sRGB'"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#envMap
+			[type]="'env'"
+			[image]="'textures/cube/pisa/'"
+			[cubeImage]="['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']"
+			[encoding]="'sRGB'"
+		></ngx3js-texture>
+		<ngx3js-material #background [materialType]="'background'" [map]="envMap">
+		</ngx3js-material>
+	</ngx3js-shared>
+	<ngx3js-scene #scene [background]="material.env ? background : '0xAAAAAA'">
+		<ngx3js-light
+			[type]="'0x333333'"
+			[color]="ambientLight"
+			[intensity]="controls.ka"
+		>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="lightColor"
+			[intensity]="controls.llightness"
+		>
+			<ngx3js-position
+				[x]="controls.lx"
+				[y]="controls.ly"
+				[z]="controls.lz"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="teapot">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-material
+				[type]="material.type"
+				[color]="material.color"
+				[side]="material.side"
+				[specular]="material.specular"
+				[flatShading]="material.flatShading"
+				[wireframe]="material.wireframe"
+				[map]="material.map ? map : null"
+				[envMap]="material.env ? envMap : null"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

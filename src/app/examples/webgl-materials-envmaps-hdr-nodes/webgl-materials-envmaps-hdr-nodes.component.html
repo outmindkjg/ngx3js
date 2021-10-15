@@ -1,80 +1,83 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - High dynamic range (RGBE) Image-based Lighting (IBL)<br />using run-time generated pre-filtered roughness mipmaps (PMREM)<br/>
-  Created by Prashant Sharma and <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> -
+	High dynamic range (RGBE) Image-based Lighting (IBL)<br />using run-time
+	generated pre-filtered roughness mipmaps (PMREM)<br />
+	Created by Prashant Sharma and
+	<a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [toneMapping]="'ACESFilmicToneMapping'"
-  [outputEncoding]="'sRGBEncoding'"
-  [shadowMapEnabled]="true"
-  [toneMappingExposure]="1"
-  [physicallyCorrectLights]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
-  (onLoad)="setRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[toneMapping]="'ACESFilmicToneMapping'"
+	[outputEncoding]="'sRGBEncoding'"
+	[shadowMapEnabled]="true"
+	[toneMappingExposure]="1"
+	[physicallyCorrectLights]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+	(onLoad)="setRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared>
-    <ngx3js-texture 
-      #background 
-      [image]="envMapInfo.image" 
-      [cubeImage]="envMapInfo.cubeImage" 
-      [loaderType]="envMapInfo.loaderType"
-      [magFilter]="envMapInfo.magFilter"
-      [encoding]="envMapInfo.encoding"
-      [cubeType]="'cubemap'"
-    ></ngx3js-texture>
-  </ngx3js-shared>
-  <ngx3js-scene #scene [background]="background">
-    <ngx3js-light
-      [type]="'ambientlight'"
-      [color]="'0xffffff'"
-      [intensity]="0.2"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directionallight'"
-      [color]="'0xffffff'"
-      [intensity]="0.8"
-    >
-      <ngx3js-position [x]="3" [y]="10" [z]="10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnotGeometry'"
-        [radius]="18"
-        [tube]="8"
-        [radiusSegments]="150"
-        [tubularSegments]="20"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'MeshStandard'" 
-        [color]="'0xffffff'" 
-        [roughness]="controls.roughness"
-        [metalness]="controls.metalness"
-        [envMap]="background"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
-      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="200"
-        [height]="200"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasicMaterial'"
-        [map]="background"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared>
+		<ngx3js-texture
+			#background
+			[image]="envMapInfo.image"
+			[cubeImage]="envMapInfo.cubeImage"
+			[loaderType]="envMapInfo.loaderType"
+			[magFilter]="envMapInfo.magFilter"
+			[encoding]="envMapInfo.encoding"
+			[cubeType]="'cubemap'"
+		></ngx3js-texture>
+	</ngx3js-shared>
+	<ngx3js-scene #scene [background]="background">
+		<ngx3js-light
+			[type]="'ambientlight'"
+			[color]="'0xffffff'"
+			[intensity]="0.2"
+		>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directionallight'"
+			[color]="'0xffffff'"
+			[intensity]="0.8"
+		>
+			<ngx3js-position [x]="3" [y]="10" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="18"
+				[tube]="8"
+				[radiusSegments]="150"
+				[tubularSegments]="20"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandard'"
+				[color]="'0xffffff'"
+				[roughness]="controls.roughness"
+				[metalness]="controls.metalness"
+				[envMap]="background"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
+			<ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="200"
+				[height]="200"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[map]="background"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

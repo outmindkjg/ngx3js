@@ -1,48 +1,75 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GLTFLoader + compression extensions<br />
-  <a href="https://sketchfab.com/3d-models/coffeemat-7fb196a40a6e4697aad9ca2f75c8b33d" target="_blank" rel="noopener">Coffeemat</a> by
-  <a href="https://sketchfab.com/OFFcours1" target="_blank" rel="noopener">Roman Red</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	GLTFLoader + compression extensions<br />
+	<a
+		href="https://sketchfab.com/3d-models/coffeemat-7fb196a40a6e4697aad9ca2f75c8b33d"
+		target="_blank"
+		rel="noopener"
+		>Coffeemat</a
+	>
+	by
+	<a href="https://sketchfab.com/OFFcours1" target="_blank" rel="noopener"
+		>Roman Red</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 400 , maxDistance: 1000 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		autoRotate: true,
+		minDistance: 400,
+		maxDistance: 1000
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="10" [y]="90" [z]="-16"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="100" [z]="0"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xbbbbbb'">
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xffffff'"
-      [groundColor]="'0x444444'"
-    >
-      <ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-helper [type]="'grid'" [size]="500" [divisions]="10" [color1]="'0xffffff'" [color2]="'0xffffff'" [opacity]="0.5"></ngx3js-helper>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/coffeemat.glb'" [storageOption]="{ useKtx2 : true, useMeshoptDecoder : true }" [windowExport]="'coffeemat'">
-      <ngx3js-position [y]="8"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="10" [y]="90" [z]="-16"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="100" [z]="0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xbbbbbb'">
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-helper
+			[type]="'grid'"
+			[size]="500"
+			[divisions]="10"
+			[color1]="'0xffffff'"
+			[color2]="'0xffffff'"
+			[opacity]="0.5"
+		></ngx3js-helper>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/coffeemat.glb'"
+			[storageOption]="{ useKtx2: true, useMeshoptDecoder: true }"
+			[windowExport]="'coffeemat'"
+		>
+			<ngx3js-position [y]="8"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>
