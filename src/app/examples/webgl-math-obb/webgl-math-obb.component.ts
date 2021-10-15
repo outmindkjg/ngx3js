@@ -99,7 +99,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 			});
 			for (let i = 0, il = this.meshChildren.length; i < il; i++) {
 				const object = this.meshChildren[i];
-				const obb = object.userData.obb as OBB;
+				const obb = object.userData.obb as any;
 				const objectMaterial = object['material'] as THREE.MeshLambertMaterial;
 				for (let j = i + 1, jl = this.meshChildren.length; j < jl; j++) {
 					const objectToTest = this.meshChildren[j];
