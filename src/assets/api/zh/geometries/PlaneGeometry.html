@@ -13,37 +13,35 @@
 
 		<p class="desc">一个用于生成平面几何体的类。</p>
 
-		<iframe
-			id="scene"
-			src="scenes/geometry-browser.html#PlaneGeometry"
-		></iframe>
+		<iframe id="scene" src="scenes/geometry-browser.html#PlaneGeometry"></iframe>
 
 		<script>
-			// iOS iframe auto-resize workaround
 
-			if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-				const scene = document.getElementById('scene');
+		// iOS iframe auto-resize workaround
 
-				scene.style.width = getComputedStyle(scene).width;
-				scene.style.height = getComputedStyle(scene).height;
-				scene.setAttribute('scrolling', 'no');
-			}
+		if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
+
+			const scene = document.getElementById( 'scene' );
+
+			scene.style.width = getComputedStyle( scene ).width;
+			scene.style.height = getComputedStyle( scene ).height;
+			scene.setAttribute( 'scrolling', 'no' );
+
+		}
+
 		</script>
 
 		<h2>代码示例</h2>
 
-		<code
-			>const geometry = new THREE.PlaneGeometry( 1, 1 ); const material = new
-			THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-			const plane = new THREE.Mesh( geometry, material ); scene.add( plane );
+		<code>const geometry = new THREE.PlaneGeometry( 1, 1 );
+		const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+		const plane = new THREE.Mesh( geometry, material );
+		scene.add( plane );
 		</code>
 
 		<h2>构造器</h2>
 
-		<h3>
-			[name]([param:Float width], [param:Float height], [param:Integer
-			widthSegments], [param:Integer heightSegments])
-		</h3>
+		<h3>[name]([param:Float width], [param:Float height], [param:Integer widthSegments], [param:Integer heightSegments])</h3>
 		<p>
 			width — 平面沿着X轴的宽度。默认值是1。<br />
 			height — 平面沿着Y轴的高度。默认值是1。<br />
@@ -65,8 +63,7 @@
 		<h2>源代码</h2>
 
 		<p>
-			[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js
-			src/[path].js]
+			[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 		</p>
 	</body>
 </html>

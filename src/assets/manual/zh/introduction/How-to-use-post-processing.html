@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8">
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -23,22 +23,23 @@
 		<h2>工作流程</h2>
 
 		<p>
-			首先，我们要做的是从示例（examples）文件夹导入所有必需的文件。本指南假设你正在使用three.js官方npm包（[link:https://www.npmjs.com/package/three
-			npm package]）。 在本指南的基础示例中，我们需要下列文件。
+			首先，我们要做的是从示例（examples）文件夹导入所有必需的文件。本指南假设你正在使用three.js官方npm包（[link:https://www.npmjs.com/package/three npm package]）。
+			在本指南的基础示例中，我们需要下列文件。
 		</p>
 
 		<code>
-			import { EffectComposer } from
-			'three/examples/jsm/postprocessing/EffectComposer.js'; import { RenderPass
-			} from 'three/examples/jsm/postprocessing/RenderPass.js'; import {
-			GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
 
 		<p>
 			当这些文件被成功导入后，我们便可以通过传入一个[page:WebGLRenderer]的实例，来创建我们的合成器了。
 		</p>
 
-		<code> const composer = new EffectComposer( renderer ); </code>
+		<code>
+		const composer = new EffectComposer( renderer );
+		</code>
 
 		<p>
 			在使用合成器时，我们需要对应用程序的动画循环进行更改。
@@ -46,8 +47,13 @@
 		</p>
 
 		<code>
-			function animate() { requestAnimationFrame( animate ); composer.render();
-			}
+		function animate() {
+
+			requestAnimationFrame( animate );
+
+			composer.render();
+
+		}
 		</code>
 
 		<p>
@@ -58,24 +64,24 @@
 		</p>
 
 		<code>
-			const renderPass = new RenderPass( scene, camera ); composer.addPass(
-			renderPass ); const glitchPass = new GlitchPass(); composer.addPass(
-			glitchPass );
+		const renderPass = new RenderPass( scene, camera );
+		composer.addPass( renderPass );
+
+		const glitchPass = new GlitchPass();
+		composer.addPass( glitchPass );
 		</code>
 
 		<p>
 			*RenderPass*通常位于过程链的开始，以便将渲染好的场景作为输入来提供给下一个后期处理步骤。
 			在我们的示例中，*GlitchPass*将会使用这些图像数据，来应用一个疯狂的故障效果。参见这个示例：
-			[link:https://threejs.org/examples/webgl_postprocessing_glitch live
-			example]来看一看它的实际效果。
+			[link:https://threejs.org/examples/webgl_postprocessing_glitch live example]来看一看它的实际效果。
 		</p>
 
 		<h2>内置过程</h2>
 
 		<p>
 			你可以使用由本引擎提供的各种预定义好的后期处理过程，
-			它们位于[link:https://github.com/mrdoob/three.js/tree/dev/examples/jsm/postprocessing
-			postprocessing]目录中。
+			它们位于[link:https://github.com/mrdoob/three.js/tree/dev/examples/jsm/postprocessing postprocessing]目录中。
 		</p>
 
 		<h2>自定义过程</h2>
@@ -86,17 +92,19 @@
 		</p>
 
 		<code>
-			import { ShaderPass } from
-			'three/examples/jsm/postprocessing/ShaderPass.js'; import {
-			LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
-			// later in your init routine const luminosityPass = new ShaderPass(
-			LuminosityShader ); composer.addPass( luminosityPass );
+		import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+		import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
+
+		// later in your init routine
+
+		const luminosityPass = new ShaderPass( LuminosityShader );
+		composer.addPass( luminosityPass );
 		</code>
 
 		<p>
-			本仓库中提供了一个名为[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js
-			CopyShader]的文件，
+			本仓库中提供了一个名为[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader]的文件，
 			这是你自定义自己的着色器的一个很好的起始代码。*CopyShader*仅仅是拷贝了读缓冲区中的图像内容到写缓冲区，不会应用任何效果。
 		</p>
+
 	</body>
 </html>
