@@ -7,9 +7,9 @@
     "allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",
     "strictNullChecks" : false,
-		"emitDecoratorMetadata": true,
+		// "emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"target": "es5",
+		"target": "es6",
 		"typeRoots": [
 			"node_modules/@types",
       "node_modules/ammojs-typed/ammo/ambient"

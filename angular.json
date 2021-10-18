@@ -105,8 +105,12 @@
 					"configurations": {
 						"production": {
 							"browserTarget": "three-sample:build:production"
+						},
+						"development": {
+							"browserTarget": "three-sample:build:development"
 						}
-					}
+					},
+					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
