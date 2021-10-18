@@ -1,40 +1,46 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - modifier tessellation
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	modifier tessellation
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
-    <ngx3js-position [x]="-100" [y]="100" [z]="200"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'text'"
-        [font]="'helvetiker_bold'"
-        [text]="'THREE.JS'"
-        [size]="40"
-        [height]="5"
-        [curveSegments]="3"
-        [bevelThickness]="2"
-        [bevelSize]="1"
-        [bevelEnabled]="true"
-        [center]="true"
-        [tessellate]="true"
-        [maxEdgeLength]="8"
-        [maxIterations]="6"
-        (onLoad)="setGeometry($event)"
-      ></ngx3js-geometry>
-      <ngx3js-material [visible]="true" [type]="'Shader'" [uniforms]="uniforms" [shader]="'ModifierTessellation'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="10000">
+		<ngx3js-position [x]="-100" [y]="100" [z]="200"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'text'"
+				[font]="'helvetiker_bold'"
+				[text]="'THREE.JS'"
+				[size]="40"
+				[height]="5"
+				[curveSegments]="3"
+				[bevelThickness]="2"
+				[bevelSize]="1"
+				[bevelEnabled]="true"
+				[center]="true"
+				[tessellate]="true"
+				[maxEdgeLength]="8"
+				[maxIterations]="6"
+				(onLoad)="setGeometry($event)"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[visible]="true"
+				[type]="'Shader'"
+				[uniforms]="uniforms"
+				[shader]="'ModifierTessellation'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

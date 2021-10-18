@@ -1,68 +1,92 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - spotlight by <a href="http://master-domain.com" target="_blank" rel="noopener">Master James</a><br />
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - spotlight by
+	<a href="http://master-domain.com" target="_blank" rel="noopener"
+		>Master James</a
+	><br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false, autoRotate : true  , minDistance: 20 , maxDistance: 500 , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		autoRotate: true,
+		minDistance: 20,
+		maxDistance: 500,
+		enableDamping: true
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="1000">
-    <ngx3js-position [x]="160" [y]="40" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light [type]="'Ambient'" [color]="'0xffffff'" [intensity]="0.1"></ngx3js-light>
-    <ngx3js-light
-      [type]="'Spot'"
-      [color]="'0xffffff'"
-      [angle]="45"
-      [intensity]="1"
-      [penumbra]="0.1"
-      [decay]="2"
-      [distance]="200"
-      [castShadow]="true"
-      [shadowMapSizeWidth]="512"
-      [shadowMapSizeHeight]="512"
-      [shadowCameraNear]="10"
-      [shadowCameraFar]="200"
-      [shadowFocus]="1"
-      (onLoad)="setSpotLight($event)"
-      >
-      <ngx3js-position [x]="15" [y]="40" [z]="35"></ngx3js-position>
-      <ngx3js-helper [type]="'light'" (onLoad)="setLightHelper($event)"></ngx3js-helper>
-      <ngx3js-helper [type]="'camera'" (onLoad)="setShadowCameraHelper($event)"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Cylinder'"
-        [radiusTop]="5"
-        [radiusBottom]="5"
-        [height]="2"
-        [radialSegments]="32"
-        [heightSegments]="1"
-        [openEnded]="false"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshPhong'" [color]="'0x4080ff'" [dithering]="true"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="2000"
-        [height]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x808080'"
-        [dithering]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="1000">
+		<ngx3js-position [x]="160" [y]="40" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'Ambient'"
+			[color]="'0xffffff'"
+			[intensity]="0.1"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'Spot'"
+			[color]="'0xffffff'"
+			[angle]="45"
+			[intensity]="1"
+			[penumbra]="0.1"
+			[decay]="2"
+			[distance]="200"
+			[castShadow]="true"
+			[shadowMapSizeWidth]="512"
+			[shadowMapSizeHeight]="512"
+			[shadowCameraNear]="10"
+			[shadowCameraFar]="200"
+			[shadowFocus]="1"
+			(onLoad)="setSpotLight($event)"
+		>
+			<ngx3js-position [x]="15" [y]="40" [z]="35"></ngx3js-position>
+			<ngx3js-helper
+				[type]="'light'"
+				(onLoad)="setLightHelper($event)"
+			></ngx3js-helper>
+			<ngx3js-helper
+				[type]="'camera'"
+				(onLoad)="setShadowCameraHelper($event)"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Cylinder'"
+				[radiusTop]="5"
+				[radiusBottom]="5"
+				[height]="2"
+				[radialSegments]="32"
+				[heightSegments]="1"
+				[openEnded]="false"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0x4080ff'"
+				[dithering]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="2000"
+				[height]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0x808080'"
+				[dithering]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

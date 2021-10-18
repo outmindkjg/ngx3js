@@ -1,91 +1,83 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Physical Material Reflectivity (reflectance at F0)<br/>
-  example by <a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> -
+	Physical Material Reflectivity (reflectance at F0)<br />
+	example by
+	<a href="http://clara.io/" target="_blank" rel="noopener">Ben Houston</a>.
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [outputEncoding]="'sRGBEncoding'"
-  [toneMappingExposure]="controls.exposure"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[outputEncoding]="'sRGBEncoding'"
+	[toneMappingExposure]="controls.exposure"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="-10" [z]="20*3.5"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x000000'">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x222222'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffffff'"
-      [castShadow]="true"
-    ><ngx3js-position [x]="150" [y]="10" [z]="0"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffffff'"
-      [castShadow]="true"
-    ><ngx3js-position [x]="-150" [y]="0" [z]="0"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffffff'"
-      [castShadow]="true"
-    ><ngx3js-position [x]="0" [y]="-10" [z]="-150"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffffff'"
-      [castShadow]="true"
-    ><ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #emerald
-        [storageName]="'models/obj/emerald.obj'"
-      ></ngx3js-geometry>
-      <ngx3js-texture #hdrEquirect 
-        [storageName]="'royal_esplanade_1k.hdr'" 
-        [storageOption]="{ path : 'textures/equirectangular/'}"
-        [cubeType]="'Equirectangular'"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [geometry]="emerald">
-        <ngx3js-material 
-          [type]="'MeshPhysicalMaterial'" 
-          [color]="gemBackMaterialColor"
-          [metalness]="1"
-          [roughness]="0"
-          [opacity]="0.5"
-          [side]="'BackSide'"
-          [transparent]="true"
-          [reflectivity]="controls.reflectivity"
-          [envMap]="hdrEquirect"
-          [envMapIntensity]="5"
-          [premultipliedAlpha]="true"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="emerald">
-        <ngx3js-material 
-          [type]="'MeshPhysicalMaterial'" 
-          [color]="gemBackMaterialColor"
-          [metalness]="0"
-          [roughness]="0"
-          [opacity]="0.25"
-          [side]="'FrontSide'"
-          [transparent]="true"
-          [reflectivity]="controls.reflectivity"
-          [envMap]="hdrEquirect"
-          [envMapIntensity]="10"
-          [premultipliedAlpha]="true"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="-10" [z]="20 * 3.5"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x222222'"></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [castShadow]="true"
+			><ngx3js-position [x]="150" [y]="10" [z]="0"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [castShadow]="true"
+			><ngx3js-position [x]="-150" [y]="0" [z]="0"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [castShadow]="true"
+			><ngx3js-position [x]="0" [y]="-10" [z]="-150"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [castShadow]="true"
+			><ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#emerald
+				[storageName]="'models/obj/emerald.obj'"
+			></ngx3js-geometry>
+			<ngx3js-texture
+				#hdrEquirect
+				[storageName]="'royal_esplanade_1k.hdr'"
+				[storageOption]="{ path: 'textures/equirectangular/' }"
+				[cubeType]="'Equirectangular'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh [geometry]="emerald">
+				<ngx3js-material
+					[type]="'MeshPhysicalMaterial'"
+					[color]="gemBackMaterialColor"
+					[metalness]="1"
+					[roughness]="0"
+					[opacity]="0.5"
+					[side]="'BackSide'"
+					[transparent]="true"
+					[reflectivity]="controls.reflectivity"
+					[envMap]="hdrEquirect"
+					[envMapIntensity]="5"
+					[premultipliedAlpha]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="emerald">
+				<ngx3js-material
+					[type]="'MeshPhysicalMaterial'"
+					[color]="gemBackMaterialColor"
+					[metalness]="0"
+					[roughness]="0"
+					[opacity]="0.25"
+					[side]="'FrontSide'"
+					[transparent]="true"
+					[reflectivity]="controls.reflectivity"
+					[envMap]="hdrEquirect"
+					[envMapIntensity]="10"
+					[premultipliedAlpha]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

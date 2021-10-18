@@ -1,44 +1,51 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - instanced circle billboards - colors
-  <div id="notSupported" style="display:none">Sorry, your graphics card + browser does not support hardware instancing</div>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	instanced circle billboards - colors
+	<div id="notSupported" style="display: none">
+		Sorry, your graphics card + browser does not support hardware instancing
+	</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1400"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-texture #circle [type]="'uniforms.map'" [image]="'textures/sprites/circle.png'"></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="500"></ngx3js-scale>
-      <ngx3js-geometry
-        [type]="'instanced'"
-        [attrIndex]="index"
-        [attributes]="attributes"
-        [attrTranslate]="translateArray"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'RawShaderMaterial'" 
-        [uniforms]="{
-          map : { value : circle },
-          time : { type : 'number', value : 0.0 }
-        }"
-        [shader]="'ScaleColor'"
-        [depthTest]="true"
-        [depthWrite]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="5000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1400"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#circle
+				[type]="'uniforms.map'"
+				[image]="'textures/sprites/circle.png'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-scale [multiply]="500"></ngx3js-scale>
+			<ngx3js-geometry
+				[type]="'instanced'"
+				[attrIndex]="index"
+				[attributes]="attributes"
+				[attrTranslate]="translateArray"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'RawShaderMaterial'"
+				[uniforms]="{
+					map: { value: circle },
+					time: { type: 'number', value: 0.0 }
+				}"
+				[shader]="'ScaleColor'"
+				[depthTest]="true"
+				[depthWrite]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

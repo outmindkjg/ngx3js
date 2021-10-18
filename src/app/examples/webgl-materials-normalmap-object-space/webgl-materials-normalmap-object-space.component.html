@@ -1,38 +1,44 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl object-space normalmap demo<br />
-  Nefertiti Bust by
-  <a href="http://www.cultlab3d.de/" target="_blank" rel="noopener">CultLab3D</a><br />
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl object-space normalmap demo<br />
+	Nefertiti Bust by
+	<a href="http://www.cultlab3d.de/" target="_blank" rel="noopener">CultLab3D</a
+	><br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-      [intensity]="0.2"
-    ></ngx3js-light>
-    <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-      <ngx3js-position [x]="-10" [y]="0" [z]="23"></ngx3js-position>
-      <ngx3js-light
-        [type]="'PointLight'"
-        [color]="'0xffffff'"
-        [intensity]="1.5"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-  
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Nefertiti/Nefertiti.glb'" [storageOption]="{ autoCenter : true }">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="0.5"></ngx3js-scale>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.2"
+		></ngx3js-light>
+		<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+			<ngx3js-position [x]="-10" [y]="0" [z]="23"></ngx3js-position>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0xffffff'"
+				[intensity]="1.5"
+			>
+			</ngx3js-light>
+		</ngx3js-camera>
+
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/Nefertiti/Nefertiti.glb'"
+			[storageOption]="{ autoCenter: true }"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-scale [multiply]="0.5"></ngx3js-scale>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

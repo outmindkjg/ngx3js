@@ -1,149 +1,240 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - texture filtering example<br/>
-  painting by <a href="http://en.wikipedia.org/wiki/Basket_of_Fruit_%28Caravaggio%29">Caravaggio</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	texture filtering example<br />
+	painting by
+	<a href="http://en.wikipedia.org/wiki/Basket_of_Fruit_%28Caravaggio%29"
+		>Caravaggio</a
+	>
 </div>
 <div class="bottom">
-  <div id="lbl_left" class="lbl">
-		Floor <span class="g">(128x128)</span><br/>
-		mag: <span class="c">Linear</span><br/>
-		min: <span class="c">LinearMipmapLinear</span><br/>
-		<br/>
-		Painting <span class="g">(748x600)</span><br/>
-		mag: <span class="c">Linear</span><br/>
+	<div id="lbl_left" class="lbl">
+		Floor <span class="g">(128x128)</span><br />
+		mag: <span class="c">Linear</span><br />
+		min: <span class="c">LinearMipmapLinear</span><br />
+		<br />
+		Painting <span class="g">(748x600)</span><br />
+		mag: <span class="c">Linear</span><br />
 		min: <span class="c">Linear</span>
-  </div>
-  <div id="lbl_right" class="lbl">
-		Floor <br/>
-		mag: <span class="c">Nearest</span><br/>
-		min: <span class="c">Nearest</span><br/>
-		<br/>
-		Painting <br/>
-		mag: <span class="c">Nearest</span><br/>
+	</div>
+	<div id="lbl_right" class="lbl">
+		Floor <br />
+		mag: <span class="c">Nearest</span><br />
+		min: <span class="c">Nearest</span><br />
+		<br />
+		Painting <br />
+		mag: <span class="c">Nearest</span><br />
 		min: <span class="c">Nearest</span>
 	</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-composer [scissorTest]="true" [scissorX]="0" [scissorY]="0" [scissorWidth]="'50%-1'" [scissorHeight]="'100%'" [scene]="scene1" [camera]="camera">
-    <ngx3js-pass #renderPass [type]="'RenderPass'" [scene]="scene1" [camera]="camera"></ngx3js-pass>
-    <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-composer [scissorTest]="true" [scissorX]="'50%'" [scissorY]="0" [scissorWidth]="'50%'" [scissorHeight]="'100%'" [scene]="scene2" [camera]="camera">
-    <ngx3js-pass #renderPass [type]="'RenderPass'" [scene]="scene2" [camera]="camera"></ngx3js-pass>
-    <ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-control [type]="'plane'"></ngx3js-control>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="35" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared>
-    <ngx3js-pass #copyPass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
-    <ngx3js-geometry
-      #geometry
-      [type]="'PlaneGeometry'"
-      [width]="100"
-      [height]="100"
-    ></ngx3js-geometry>
-    <ngx3js-texture 
-      #texturePainting1 
-      [image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'"
-      [minFilter]="'LinearFilter'"
-      [magFilter]="'LinearFilter'"
-      [mapping]="'UVMapping'"
-    ></ngx3js-texture>
-    <ngx3js-texture 
-      #texturePainting2 
-      [image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'"
-      [minFilter]="'NearestFilter'"
-      [magFilter]="'NearestFilter'"
-    ></ngx3js-texture>
-    <ngx3js-texture 
-      #textureCanvas1 
-      [program]="'checkpattern'"
-      [magFilter]="'LinearFilter'"
-      [minFilter]="'LinearMipmapLinearFilter'"
-      [wrap]="'RepeatWrapping'"
-      [repeat]="1000"
-      [width]="128"
-      [height]="128"
-      [programParam]="{ color : '#fff'}"
-    ></ngx3js-texture>
-    <ngx3js-texture 
-      #textureCanvas2 
-      [program]="'checkpattern'"
-      [magFilter]="'NearestFilter'"
-      [minFilter]="'NearestFilter'"
-      [wrap]="'RepeatWrapping'"
-      [repeat]="1000"
-      [width]="128"
-      [height]="128"
-      [programParam]="{ color : '#fff'}"
-    ></ngx3js-texture>
-  </ngx3js-shared>
-  <ngx3js-scene #scene1 [background]="'0x000000'">
-    <ngx3js-fog [color]="'0x000000'" [near]="1500" [far]="4000"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [x]="7.58" [y]="6"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [map]="texturePainting1"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-        <ngx3js-scale [x]="7.58*1.1" [y]="6*1.1"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x000000'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #meshShadow [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="-1.1*600/2" [z]="-1.1*600/2"></ngx3js-position>
-        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-scale [x]="7.58*1.1" [y]="6*1.1"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x000000'" [opacity]="0.75" [transparent]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh #meshCanvas1 [geometry]="geometry">
-      <ngx3js-position [x]="0" [y]="- 1.117 * 600 / 2" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-scale [multiply]="1000"></ngx3js-scale>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [map]="textureCanvas1" [side]="'double'" [transparent]="true">
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
-  <ngx3js-scene #scene2 [background]="'0x000000'">
-    <ngx3js-fog [color]="'0x000000'" [near]="1500" [far]="4000"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [x]="7.58" [y]="6"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffccaa'" [map]="texturePainting2"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-        <ngx3js-scale [x]="7.58*1.1" [y]="6*1.1"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x000000'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #meshShadow [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="-1.1*600/2" [z]="-1.1*600/2"></ngx3js-position>
-        <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-scale [x]="7.58*1.1" [y]="6*1.1"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x000000'" [opacity]="0.75" [transparent]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh #meshCanvas2 [geometry]="geometry">
-      <ngx3js-position [x]="0" [y]="- 1.117 * 600 / 2" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-scale [multiply]="1000"></ngx3js-scale>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffccaa'" [map]="textureCanvas2" [side]="'double'" [transparent]="true">
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-composer
+		[scissorTest]="true"
+		[scissorX]="0"
+		[scissorY]="0"
+		[scissorWidth]="'50%-1'"
+		[scissorHeight]="'100%'"
+		[scene]="scene1"
+		[camera]="camera"
+	>
+		<ngx3js-pass
+			#renderPass
+			[type]="'RenderPass'"
+			[scene]="scene1"
+			[camera]="camera"
+		></ngx3js-pass>
+		<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-composer
+		[scissorTest]="true"
+		[scissorX]="'50%'"
+		[scissorY]="0"
+		[scissorWidth]="'50%'"
+		[scissorHeight]="'100%'"
+		[scene]="scene2"
+		[camera]="camera"
+	>
+		<ngx3js-pass
+			#renderPass
+			[type]="'RenderPass'"
+			[scene]="scene2"
+			[camera]="camera"
+		></ngx3js-pass>
+		<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-control [type]="'plane'"></ngx3js-control>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="35"
+		[near]="1"
+		[far]="5000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="1500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared>
+		<ngx3js-pass
+			#copyPass
+			[type]="'ShaderPass'"
+			[shader]="'CopyShader'"
+		></ngx3js-pass>
+		<ngx3js-geometry
+			#geometry
+			[type]="'PlaneGeometry'"
+			[width]="100"
+			[height]="100"
+		></ngx3js-geometry>
+		<ngx3js-texture
+			#texturePainting1
+			[image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'"
+			[minFilter]="'LinearFilter'"
+			[magFilter]="'LinearFilter'"
+			[mapping]="'UVMapping'"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#texturePainting2
+			[image]="'textures/758px-Canestra_di_frutta_(Caravaggio).jpg'"
+			[minFilter]="'NearestFilter'"
+			[magFilter]="'NearestFilter'"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#textureCanvas1
+			[program]="'checkpattern'"
+			[magFilter]="'LinearFilter'"
+			[minFilter]="'LinearMipmapLinearFilter'"
+			[wrap]="'RepeatWrapping'"
+			[repeat]="1000"
+			[width]="128"
+			[height]="128"
+			[programParam]="{ color: '#fff' }"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#textureCanvas2
+			[program]="'checkpattern'"
+			[magFilter]="'NearestFilter'"
+			[minFilter]="'NearestFilter'"
+			[wrap]="'RepeatWrapping'"
+			[repeat]="1000"
+			[width]="128"
+			[height]="128"
+			[programParam]="{ color: '#fff' }"
+		></ngx3js-texture>
+	</ngx3js-shared>
+	<ngx3js-scene #scene1 [background]="'0x000000'">
+		<ngx3js-fog [color]="'0x000000'" [near]="1500" [far]="4000"></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="7.58" [y]="6"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0xffffff'"
+					[map]="texturePainting1"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+				<ngx3js-scale [x]="7.58 * 1.1" [y]="6 * 1.1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0x000000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #meshShadow [geometry]="geometry">
+				<ngx3js-position
+					[x]="0"
+					[y]="(-1.1 * 600) / 2"
+					[z]="(-1.1 * 600) / 2"
+				></ngx3js-position>
+				<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-scale [x]="7.58 * 1.1" [y]="6 * 1.1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0x000000'"
+					[opacity]="0.75"
+					[transparent]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh #meshCanvas1 [geometry]="geometry">
+			<ngx3js-position
+				[x]="0"
+				[y]="(-1.117 * 600) / 2"
+				[z]="0"
+			></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-scale [multiply]="1000"></ngx3js-scale>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[map]="textureCanvas1"
+				[side]="'double'"
+				[transparent]="true"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+	<ngx3js-scene #scene2 [background]="'0x000000'">
+		<ngx3js-fog [color]="'0x000000'" [near]="1500" [far]="4000"></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="7.58" [y]="6"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0xffccaa'"
+					[map]="texturePainting2"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="geometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+				<ngx3js-scale [x]="7.58 * 1.1" [y]="6 * 1.1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0x000000'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #meshShadow [geometry]="geometry">
+				<ngx3js-position
+					[x]="0"
+					[y]="(-1.1 * 600) / 2"
+					[z]="(-1.1 * 600) / 2"
+				></ngx3js-position>
+				<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-scale [x]="7.58 * 1.1" [y]="6 * 1.1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0x000000'"
+					[opacity]="0.75"
+					[transparent]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh #meshCanvas2 [geometry]="geometry">
+			<ngx3js-position
+				[x]="0"
+				[y]="(-1.117 * 600) / 2"
+				[z]="0"
+			></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-scale [multiply]="1000"></ngx3js-scale>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xffccaa'"
+				[map]="textureCanvas2"
+				[side]="'double'"
+				[transparent]="true"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

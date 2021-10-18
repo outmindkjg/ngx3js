@@ -1,51 +1,73 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - panorama
-  - need ar/vr device to test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr -
+	panorama - need ar/vr device to test
 </div>
 <ngx3js-renderer
-  [controlType]="'xr'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'xr'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000" [layers]="layers">
-    <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngIf="canvasLeftInfos" [layers]="[1]" [materialIsArray]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="100"
-          [height]="100"
-          [depth]="100"
-        >
-          <ngx3js-scale [x]="1" [y]="1" [z]="-1"></ngx3js-scale>
-        </ngx3js-geometry>
-        <ngx3js-material *ngFor="let info of canvasLeftInfos;let idx = index;" [type]="'MeshBasicMaterial'" [refIndex]="idx">
-          <ngx3js-texture [canvas]="info"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngIf="canvasRightInfos" [layers]="[2]" [materialIsArray]="true">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="100"
-          [height]="100"
-          [depth]="100"
-        >
-          <ngx3js-scale [x]="1" [y]="1" [z]="-1"></ngx3js-scale>
-        </ngx3js-geometry>
-        <ngx3js-material *ngFor="let info of canvasRightInfos;let idx = index;" [type]="'MeshBasicMaterial'" [refIndex]="idx">
-          <ngx3js-texture [canvas]="info"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="70"
+		[near]="1"
+		[far]="1000"
+		[layers]="layers"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngIf="canvasLeftInfos"
+				[layers]="[1]"
+				[materialIsArray]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="100"
+					[height]="100"
+					[depth]="100"
+				>
+					<ngx3js-scale [x]="1" [y]="1" [z]="-1"></ngx3js-scale>
+				</ngx3js-geometry>
+				<ngx3js-material
+					*ngFor="let info of canvasLeftInfos; let idx = index"
+					[type]="'MeshBasicMaterial'"
+					[refIndex]="idx"
+				>
+					<ngx3js-texture [canvas]="info"></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngIf="canvasRightInfos"
+				[layers]="[2]"
+				[materialIsArray]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="100"
+					[height]="100"
+					[depth]="100"
+				>
+					<ngx3js-scale [x]="1" [y]="1" [z]="-1"></ngx3js-scale>
+				</ngx3js-geometry>
+				<ngx3js-material
+					*ngFor="let info of canvasRightInfos; let idx = index"
+					[type]="'MeshBasicMaterial'"
+					[refIndex]="idx"
+				>
+					<ngx3js-texture [canvas]="info"></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

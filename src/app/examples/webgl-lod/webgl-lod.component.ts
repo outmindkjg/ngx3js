@@ -2,32 +2,29 @@ import { Component } from '@angular/core';
 import { BaseComponent } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-lod',
-  templateUrl: './webgl-lod.component.html',
-  styleUrls: ['./webgl-lod.component.scss']
+	selector: 'app-webgl-lod',
+	templateUrl: './webgl-lod.component.html',
+	styleUrls: ['./webgl-lod.component.scss'],
 })
 export class WebglLodComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	ngOnInit() {
+		this.lodInfos = [];
+		for (let j = 0; j < 500; j++) {
+			this.lodInfos.push({
+				x: 9000 * (0.5 - Math.random()),
+				y: 4500 * (0.5 - Math.random()),
+				z: 9000 * (0.5 - Math.random()),
+			});
+		}
+	}
 
-  ngOnInit() {
-    this.lodInfos = [];
-    for ( let j = 0; j < 500; j ++ ) {
-      this.lodInfos.push({
-        x : 9000 * ( 0.5 - Math.random() ),
-        y : 4500 * ( 0.5 - Math.random() ),
-        z : 9000 * ( 0.5 - Math.random() ),
-      })
-    }
-  }
-  
-  lodInfos : {
-    x : number;
-    y : number;
-    z : number;
-  }[] = [];
-
-
+	lodInfos: {
+		x: number;
+		y: number;
+		z: number;
+	}[] = [];
 }

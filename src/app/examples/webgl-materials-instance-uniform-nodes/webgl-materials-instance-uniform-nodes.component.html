@@ -1,0 +1,55 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl material instance uniform
+	todo
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate : true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000" (onLoad)="setCamera($event)">
+		<ngx3js-position [x]="0" [y]="200" [z]="800"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x111111'"></ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.125">
+			<ngx3js-position [x]="0.5" [y]="0.5" [z]="0.5" [normalize]="true"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [intensity]="1" (onLoad)="setLight($event)">
+			<ngx3js-mesh>
+				<ngx3js-geometry
+					[type]="'SphereGeometry'"
+					[radius]="4"
+					[widthSegments]="8"
+					[heightSegments]="8"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'"></ngx3js-material>
+			</ngx3js-mesh>		
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'SphereGeometry'"
+				[radius]="70"
+				[widthSegments]="32"
+				[heightSegments]="16"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh *ngFor="let  info of meshInfos" [geometry]="geometry">
+				<ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z" ></ngx3js-position>
+				<ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z" ></ngx3js-rotation>
+				<ngx3js-material #material [type]="'MeshStandardMaterial'" [color]="info.color"></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-helper [type]="'GridHelper'" [size]="1000" [divisions]="40" [color1]="'0x303030'" [color2]="'0x303030'">
+			<ngx3js-position [x]="0" [y]="-75" [z]="0" ></ngx3js-position>
+		</ngx3js-helper>
+	</ngx3js-scene>
+</ngx3js-renderer>

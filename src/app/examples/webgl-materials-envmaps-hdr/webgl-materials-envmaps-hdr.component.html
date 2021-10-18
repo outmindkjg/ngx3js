@@ -1,56 +1,73 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Example of an IBL (Image based lighting) pipeline based around<br> equirectangular EXR lightprobe data. Created by <a href="https://github.com/richardmonette" target="_blank" rel="noopener">Richard Monette</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> -
+	Example of an IBL (Image based lighting) pipeline based around<br />
+	equirectangular EXR lightprobe data. Created by
+	<a href="https://github.com/richardmonette" target="_blank" rel="noopener"
+		>Richard Monette</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [outputEncoding]="'sRGB'"
-  [toneMapping]="'ACESFilmic'"
-  [toneMappingExposure]="controls.exposure"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[outputEncoding]="'sRGB'"
+	[toneMapping]="'ACESFilmic'"
+	[toneMappingExposure]="controls.exposure"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared>
-    <ngx3js-texture #pngBackground [image]="'textures/equirectangular.png'" [encoding]="'sRGB'" [cubeType]="'equirectangular'"></ngx3js-texture>
-    <ngx3js-texture #exrBackground [storageName]="'textures/piz_compressed.exr'" [cubeType]="'equirectangular'"></ngx3js-texture>
-  </ngx3js-shared>
-  <ngx3js-scene #scene [background]="controls.envMap == 'EXR' ? exrBackground : pngBackground">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnot'"
-        [radius]="18"
-        [tube]="8"
-        [radialSegments]="150"
-        [tubularSegments]="20"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'MeshStandard'" 
-        [metalness]="controls.metalness" 
-        [roughness]="controls.roughness" 
-        [envMapIntensity]="1.0"
-        [envMap]="controls.envMap == 'EXR' ? exrBackground : pngBackground"
-      >
-      </ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
-      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="200"
-        [height]="200"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared>
+		<ngx3js-texture
+			#pngBackground
+			[image]="'textures/equirectangular.png'"
+			[encoding]="'sRGB'"
+			[cubeType]="'equirectangular'"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#exrBackground
+			[storageName]="'textures/piz_compressed.exr'"
+			[cubeType]="'equirectangular'"
+		></ngx3js-texture>
+	</ngx3js-shared>
+	<ngx3js-scene
+		#scene
+		[background]="controls.envMap == 'EXR' ? exrBackground : pngBackground"
+	>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnot'"
+				[radius]="18"
+				[tube]="8"
+				[radialSegments]="150"
+				[tubularSegments]="20"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandard'"
+				[metalness]="controls.metalness"
+				[roughness]="controls.roughness"
+				[envMapIntensity]="1.0"
+				[envMap]="controls.envMap == 'EXR' ? exrBackground : pngBackground"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true" [visible]="controls.debug">
+			<ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="200"
+				[height]="200"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshBasic'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

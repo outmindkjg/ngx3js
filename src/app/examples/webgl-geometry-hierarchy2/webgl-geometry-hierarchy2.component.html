@@ -1,42 +1,58 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>  - notuse
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	notuse
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
-  [useEvent]="'mousemove'"
-  (eventListener)="setEventListener($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+	[useEvent]="'mousemove'"
+	(eventListener)="setEventListener($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera (onLoad)="setCamera($event)" [type]="'perspective'" [fov]="60" [near]="1" [far]="15000">
-    <ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-shared>
-      <ngx3js-geometry 
-        #geometry
-        [type]="'box'"
-        [width]="100"
-        [height]="100"
-        [depth]="100"
-      ></ngx3js-geometry>
-      <ngx3js-material #material [type]="'MeshNormal'" ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="1000" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-mesh *ngFor="let info of meshInfos" [material]="material" [geometry]="geometry" (onLoad)="addChildMesh($event,info)">
-          <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		(onLoad)="setCamera($event)"
+		[type]="'perspective'"
+		[fov]="60"
+		[near]="1"
+		[far]="15000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'box'"
+				[width]="100"
+				[height]="100"
+				[depth]="100"
+			></ngx3js-geometry>
+			<ngx3js-material #material [type]="'MeshNormal'"></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="1000" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-mesh
+					*ngFor="let info of meshInfos"
+					[material]="material"
+					[geometry]="geometry"
+					(onLoad)="addChildMesh($event, info)"
+				>
+					<ngx3js-position
+						[x]="info.x"
+						[y]="info.y"
+						[z]="info.z"
+					></ngx3js-position>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -2,17 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-shadowmap-pcss',
-  templateUrl: './webgl-shadowmap-pcss.component.html',
-  styleUrls: ['./webgl-shadowmap-pcss.component.scss']
+	selector: 'app-webgl-shadowmap-pcss',
+	templateUrl: './webgl-shadowmap-pcss.component.html',
+	styleUrls: ['./webgl-shadowmap-pcss.component.scss'],
 })
-export class WebglShadowmapPcssComponent extends BaseComponent<{}> implements OnInit, OnDestroy{
+export class WebglShadowmapPcssComponent
+	extends BaseComponent<{}>
+	implements OnInit, OnDestroy
+{
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
-
-  PCSS = `
+	PCSS = `
 
   #define LIGHT_WORLD_SIZE 0.005
   #define LIGHT_FRUSTUM_WIDTH 3.75
@@ -101,61 +103,62 @@ export class WebglShadowmapPcssComponent extends BaseComponent<{}> implements On
   
   `;
 
-  PCSSGetShadow = `
+	PCSSGetShadow = `
 
   return PCSS( shadowMap, shadowCoord );
   
   `;
 
-  ngOnDestroy() {
-    THREE.ShaderChunk.shadowmap_pars_fragment = this.shadowmap_pars_fragment;
-  }
+	ngOnDestroy() {
+		THREE.ShaderChunk.shadowmap_pars_fragment = this.shadowmap_pars_fragment;
+	}
 
-  shadowmap_pars_fragment : string = null ;
-  ngOnInit() {
-    let shader = THREE.ShaderChunk.shadowmap_pars_fragment;
-    this.shadowmap_pars_fragment = shader;
-    shader = shader.replace(
-      '#ifdef USE_SHADOWMAP',
-      '#ifdef USE_SHADOWMAP' + this.PCSS
-    );
+	shadowmap_pars_fragment: string = null;
+	ngOnInit() {
+		let shader = THREE.ShaderChunk.shadowmap_pars_fragment;
+		this.shadowmap_pars_fragment = shader;
+		shader = shader.replace(
+			'#ifdef USE_SHADOWMAP',
+			'#ifdef USE_SHADOWMAP' + this.PCSS
+		);
 
-    shader = shader.replace(
-      '#if defined( SHADOWMAP_TYPE_PCF )',
-      this.PCSSGetShadow + '#if defined( SHADOWMAP_TYPE_PCF )'
-    );
+		shader = shader.replace(
+			'#if defined( SHADOWMAP_TYPE_PCF )',
+			this.PCSSGetShadow + '#if defined( SHADOWMAP_TYPE_PCF )'
+		);
 
-    THREE.ShaderChunk.shadowmap_pars_fragment = shader;
-    
-    this.sphereInfos = [];
-    for ( let i = 0; i < 20; i ++ ) {
-      this.sphereInfos.push({
-        px : Math.random() - 0.5,
-        pz : Math.random() - 0.5,
-        ps : Math.random() * 2 + 1,
-        color : Math.random() * 0xffffff,
-        phase : Math.random() * Math.PI
-      });
-    }
-  }
+		THREE.ShaderChunk.shadowmap_pars_fragment = shader;
 
-  sphereInfos : {
-    px : number;
-    pz : number;
-    ps : number;
-    phase : number;
-    color : number;
-  }[] = [];
+		this.sphereInfos = [];
+		for (let i = 0; i < 20; i++) {
+			this.sphereInfos.push({
+				px: Math.random() - 0.5,
+				pz: Math.random() - 0.5,
+				ps: Math.random() * 2 + 1,
+				color: Math.random() * 0xffffff,
+				phase: Math.random() * Math.PI,
+			});
+		}
+	}
 
-  onRender(timer : RendererTimer) {
-    super.onRender(timer);
-    if (this.meshChildren !== null && this.meshChildren.length > 0) {
-      const time = timer.elapsedTime;
-      this.meshChildren.forEach(child => {
-        if ( 'phase' in child.userData ) {
-          child.position.y = Math.abs( Math.sin( time + child.userData.phase ) ) * 4 + 0.3;
-        }
-      });
-    }
-  }
+	sphereInfos: {
+		px: number;
+		pz: number;
+		ps: number;
+		phase: number;
+		color: number;
+	}[] = [];
+
+	onRender(timer: RendererTimer) {
+		super.onRender(timer);
+		if (this.meshChildren !== null && this.meshChildren.length > 0) {
+			const time = timer.elapsedTime;
+			this.meshChildren.forEach((child) => {
+				if ('phase' in child.userData) {
+					child.position.y =
+						Math.abs(Math.sin(time + child.userData.phase)) * 4 + 0.3;
+				}
+			});
+		}
+	}
 }

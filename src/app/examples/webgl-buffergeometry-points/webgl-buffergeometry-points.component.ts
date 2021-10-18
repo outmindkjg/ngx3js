@@ -2,51 +2,48 @@ import { Component } from '@angular/core';
 import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-buffergeometry-points',
-  templateUrl: './webgl-buffergeometry-points.component.html',
-  styleUrls: ['./webgl-buffergeometry-points.component.scss']
+	selector: 'app-webgl-buffergeometry-points',
+	templateUrl: './webgl-buffergeometry-points.component.html',
+	styleUrls: ['./webgl-buffergeometry-points.component.scss'],
 })
 export class WebglBuffergeometryPointsComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	ngOnInit() {
+		const particles = 500000;
+		const positions = [];
+		const colors = [];
 
-  ngOnInit() {
-    const particles = 500000;
-    const positions = [];
-    const colors = [];
+		const color = new THREE.Color();
 
-    const color = new THREE.Color();
+		const n = 1000,
+			n2 = n / 2; // particles spread in the cube
 
-    const n = 1000, n2 = n / 2; // particles spread in the cube
+		for (let i = 0; i < particles; i++) {
+			// positions
 
-    for ( let i = 0; i < particles; i ++ ) {
+			const x = Math.random() * n - n2;
+			const y = Math.random() * n - n2;
+			const z = Math.random() * n - n2;
 
-      // positions
+			positions.push(x, y, z);
 
-      const x = Math.random() * n - n2;
-      const y = Math.random() * n - n2;
-      const z = Math.random() * n - n2;
+			// colors
 
-      positions.push( x, y, z );
+			const vx = x / n + 0.5;
+			const vy = y / n + 0.5;
+			const vz = z / n + 0.5;
 
-      // colors
+			color.setRGB(vx, vy, vz);
 
-      const vx = ( x / n ) + 0.5;
-      const vy = ( y / n ) + 0.5;
-      const vz = ( z / n ) + 0.5;
+			colors.push(color.r, color.g, color.b);
+		}
+		this.positions = positions;
+		this.colors = colors;
+	}
 
-      color.setRGB( vx, vy, vz );
-
-      colors.push( color.r, color.g, color.b );
-
-    }
-    this.positions = positions;
-    this.colors = colors;
-  }
-
-  positions : number[] = [];
-  colors : number[] = [];
-
+	positions: number[] = [];
+	colors: number[] = [];
 }

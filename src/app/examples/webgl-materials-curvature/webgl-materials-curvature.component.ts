@@ -125,13 +125,37 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 			const array = bufferGeo.attributes.position.array;
 			const normArray = bufferGeo.attributes.normal.array;
 
-			const posA = new THREE.Vector3(array[3 * i], array[3 * i + 1], array[3 * i + 2]);
-			const posB = new THREE.Vector3(array[3 * (i + 1)], array[3 * (i + 1) + 1], array[3 * (i + 1) + 2]);
-			const posC = new THREE.Vector3(array[3 * (i + 2)], array[3 * (i + 2) + 1], array[3 * (i + 2) + 2]);
+			const posA = new THREE.Vector3(
+				array[3 * i],
+				array[3 * i + 1],
+				array[3 * i + 2]
+			);
+			const posB = new THREE.Vector3(
+				array[3 * (i + 1)],
+				array[3 * (i + 1) + 1],
+				array[3 * (i + 1) + 2]
+			);
+			const posC = new THREE.Vector3(
+				array[3 * (i + 2)],
+				array[3 * (i + 2) + 1],
+				array[3 * (i + 2) + 2]
+			);
 
-			const normA = new THREE.Vector3(normArray[3 * i], normArray[3 * i + 1], normArray[3 * i + 2]).normalize();
-			const normB = new THREE.Vector3(normArray[3 * (i + 1)], normArray[3 * (i + 1) + 1], normArray[3 * (i + 1) + 2]).normalize();
-			const normC = new THREE.Vector3(normArray[3 * (i + 2)], normArray[3 * (i + 2) + 1], normArray[3 * (i + 2) + 2]).normalize();
+			const normA = new THREE.Vector3(
+				normArray[3 * i],
+				normArray[3 * i + 1],
+				normArray[3 * i + 2]
+			).normalize();
+			const normB = new THREE.Vector3(
+				normArray[3 * (i + 1)],
+				normArray[3 * (i + 1) + 1],
+				normArray[3 * (i + 1) + 2]
+			).normalize();
+			const normC = new THREE.Vector3(
+				normArray[3 * (i + 2)],
+				normArray[3 * (i + 2) + 1],
+				normArray[3 * (i + 2) + 2]
+			).normalize();
 
 			const strA = posA.toArray().toString();
 			const strB = posB.toArray().toString();
@@ -212,12 +236,19 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 
 		for (let i = 0; i < bufferGeo.attributes.position.count; i++) {
 			const array = bufferGeo.attributes.position.array;
-			const pos = new THREE.Vector3(array[3 * i], array[3 * i + 1], array[3 * i + 2]);
+			const pos = new THREE.Vector3(
+				array[3 * i],
+				array[3 * i + 1],
+				array[3 * i + 2]
+			);
 			const str = pos.toArray().toString();
 			curvatureAttribute[i] = curvatureDict[str];
 		}
 
-		bufferGeo.setAttribute('curvature', new THREE.BufferAttribute(curvatureAttribute, 1));
+		bufferGeo.setAttribute(
+			'curvature',
+			new THREE.BufferAttribute(curvatureAttribute, 1)
+		);
 
 		//starting filter is to show both concave and convex
 		const curvatureFiltered = new Float32Array(curvatureAttribute);

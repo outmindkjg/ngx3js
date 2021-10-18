@@ -1,52 +1,70 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl environment mapping example<br/>
-  Equirectangular Map by <a href="http://gl.ict.usc.edu/Data/HighResProbes/">University of Southern California</a><br/>
-  Spherical Map by <a href="http://www.pauldebevec.com/Probes/">Paul Debevec</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl environment mapping example<br />
+	Equirectangular Map by
+	<a href="http://gl.ict.usc.edu/Data/HighResProbes/"
+		>University of Southern California</a
+	><br />
+	Spherical Map by <a href="http://www.pauldebevec.com/Probes/">Paul Debevec</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [outputEncoding]="'sRGB'"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[outputEncoding]="'sRGB'"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="100000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="controls.background == 'Cube'? textureCube : textureEquirec">
-    <ngx3js-shared>
-      <ngx3js-texture 
-        #textureCube
-        [image]="'textures/cube/Bridge2/'" [cubeImage]="['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg']"
-        [mapping]="controls.refraction ? 'CubeRefraction':'CubeReflection'"
-        [encoding]="'sRGB'"
-      ></ngx3js-texture>
-      <ngx3js-texture 
-        #textureEquirec
-        [image]="'textures/2294472375_24a3b8ef46_o.jpg'"
-        [mapping]="controls.refraction ? 'EquirectangularRefraction':'EquirectangularReflection'"
-        [encoding]="'sRGB'"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xffffff'"
-    >
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Icosahedron'"
-        [radius]="400"
-        [detail]="15"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [envMap]="controls.background == 'Cube'? textureCube : textureEquirec"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="100000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene
+		#scene
+		[background]="controls.background == 'Cube' ? textureCube : textureEquirec"
+	>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#textureCube
+				[image]="'textures/cube/Bridge2/'"
+				[cubeImage]="[
+					'posx.jpg',
+					'negx.jpg',
+					'posy.jpg',
+					'negy.jpg',
+					'posz.jpg',
+					'negz.jpg'
+				]"
+				[mapping]="controls.refraction ? 'CubeRefraction' : 'CubeReflection'"
+				[encoding]="'sRGB'"
+			></ngx3js-texture>
+			<ngx3js-texture
+				#textureEquirec
+				[image]="'textures/2294472375_24a3b8ef46_o.jpg'"
+				[mapping]="
+					controls.refraction
+						? 'EquirectangularRefraction'
+						: 'EquirectangularReflection'
+				"
+				[encoding]="'sRGB'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xffffff'"> </ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Icosahedron'"
+				[radius]="400"
+				[detail]="15"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'meshlambert'"
+				[envMap]="controls.background == 'Cube' ? textureCube : textureEquirec"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

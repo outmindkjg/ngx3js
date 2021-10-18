@@ -1,39 +1,55 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> svg - lines
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> svg
+	- lines
 </div>
 <ngx3js-renderer
-  [type]="'svg'"
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[type]="'svg'"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="33" [near]="0.1" [far]="100">
-    <ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared>
-    <ngx3js-geometry
-      #geometry
-      [type]="'BufferGeometry'"
-      [attrPosition]="vertices"
-    ></ngx3js-geometry>
-  </ngx3js-shared>
-  <ngx3js-scene #scene [background]="'0x000000'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of lines" [name]="info.name" [type]="'line'" [geometry]="geometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
-        <ngx3js-material [type]="'LineBasicMaterial'" [color]="info.color" [linewidth]="10"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'line'" [geometry]="geometry">
-        <ngx3js-scale [multiply]="2"></ngx3js-scale>
-        <ngx3js-material [type]="'LineDashedMaterial'" [color]="'blue'" [linewidth]="1" [dashSize]="10" [gapSize]="10"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="33" [near]="0.1" [far]="100">
+		<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared>
+		<ngx3js-geometry
+			#geometry
+			[type]="'BufferGeometry'"
+			[attrPosition]="vertices"
+		></ngx3js-geometry>
+	</ngx3js-shared>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of lines"
+				[name]="info.name"
+				[type]="'line'"
+				[geometry]="geometry"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[color]="info.color"
+					[linewidth]="10"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'line'" [geometry]="geometry">
+				<ngx3js-scale [multiply]="2"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'LineDashedMaterial'"
+					[color]="'blue'"
+					[linewidth]="1"
+					[dashSize]="10"
+					[gapSize]="10"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

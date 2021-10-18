@@ -1,60 +1,65 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - texture rotation
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - texture rotation
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="10" [y]="15" [z]="25"></ngx3js-position>
-  </ngx3js-camera>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="10" [y]="15" [z]="25"></ngx3js-position>
+	</ngx3js-camera>
 
-  <ngx3js-scene #scene >
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="10"
-        [height]="10"
-        [depth]="10"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xff0000'" [enabled]="controls.test">
-        <ngx3js-texture 
-          [type]="'map'"
-          [image]="'textures/uv_grid_opengl.jpg'"
-          [wrap]="'RepeatWrapping'"
-          [offsetX]="controls.offsetX"
-          [offsetY]="controls.offsetY"
-          [repeatX]="controls.repeatX"
-          [repeatY]="controls.repeatY"
-          [centerX]="controls.centerX"
-          [centerY]="controls.centerY"
-          [rotation]="controls.rotation"
-          [anisotropy]="16"
-        ></ngx3js-texture>
-      </ngx3js-material>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [enabled]="!controls.test">
-        <ngx3js-texture 
-          [type]="'map'"
-          [image]="'textures/uv_grid_opengl.jpg'"
-          [wrap]="'RepeatWrapping'"
-          [offsetX]="controls.offsetX"
-          [offsetY]="controls.offsetY"
-          [repeatX]="controls.repeatX"
-          [repeatY]="controls.repeatY"
-          [centerX]="controls.centerX"
-          [centerY]="controls.centerY"
-          [rotation]="controls.rotation"
-          [anisotropy]="16"
-        ></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="10"
+				[height]="10"
+				[depth]="10"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xff0000'"
+				[enabled]="controls.test"
+			>
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/uv_grid_opengl.jpg'"
+					[wrap]="'RepeatWrapping'"
+					[offsetX]="controls.offsetX"
+					[offsetY]="controls.offsetY"
+					[repeatX]="controls.repeatX"
+					[repeatY]="controls.repeatY"
+					[centerX]="controls.centerX"
+					[centerY]="controls.centerY"
+					[rotation]="controls.rotation"
+					[anisotropy]="16"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-material [type]="'MeshBasicMaterial'" [enabled]="!controls.test">
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/uv_grid_opengl.jpg'"
+					[wrap]="'RepeatWrapping'"
+					[offsetX]="controls.offsetX"
+					[offsetY]="controls.offsetY"
+					[repeatX]="controls.repeatX"
+					[repeatY]="controls.repeatY"
+					[centerX]="controls.centerX"
+					[centerY]="controls.centerY"
+					[rotation]="controls.rotation"
+					[anisotropy]="16"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

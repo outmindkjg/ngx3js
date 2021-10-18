@@ -1,40 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> WebGL 2 - buffergeometry - integer attributes
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	WebGL 2 - buffergeometry - integer attributes
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="false"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="false"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="3500">
-    <ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-fog [color]="'0x050505'" [near]="2500" [far]="3500"></ngx3js-fog>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BufferGeometry'"
-        [attrPosition]="positions"
-        [attrUv]="uvs"
-        [attrTextureIndex]="textureIndices"
-        [computeBoundingSphere]="true"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'"
-        [uniforms]="{ uTextures : { type : 'textureList', value : ['textures/crate.gif','textures/floors/FloorsCheckerboard_S_Diffuse.jpg', 'textures/terrain/grasslight-big.jpg']} }"
-        [shader]="'ShaderDemo5'"
-        [side]="'double'"
-        [glslVersion]="'GLSL3'"
-      >
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="3500">
+		<ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-fog [color]="'0x050505'" [near]="2500" [far]="3500"></ngx3js-fog>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[attrPosition]="positions"
+				[attrUv]="uvs"
+				[attrTextureIndex]="textureIndices"
+				[computeBoundingSphere]="true"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[uniforms]="{
+					uTextures: {
+						type: 'textureList',
+						value: [
+							'textures/crate.gif',
+							'textures/floors/FloorsCheckerboard_S_Diffuse.jpg',
+							'textures/terrain/grasslight-big.jpg'
+						]
+					}
+				}"
+				[shader]="'ShaderDemo5'"
+				[side]="'double'"
+				[glslVersion]="'GLSL3'"
+			>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

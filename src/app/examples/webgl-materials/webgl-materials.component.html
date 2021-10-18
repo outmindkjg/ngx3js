@@ -1,87 +1,105 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl materials
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl materials
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="200" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x111111'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.125"
-    >
-      <ngx3js-position [x]="1" [y]="0" [z]="0" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'point'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      (onLoad)="setPointLight($event)"
-    >
-      <ngx3js-mesh>
-        <ngx3js-geometry
-          [type]="'Sphere'"
-          [radius]="4"
-          [width]="8"
-          [height]="8"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshBasic'"
-          [color]="'0xffffff'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #sphereGeometry
-        [type]="'Sphere'"
-        [radius]="70"
-        [widthSegments]="32"
-        [heightSegments]="16"
-      ></ngx3js-geometry>
-      <ngx3js-texture 
-        #texture
-        [width]="256" [height]="256" [program]="canvasProgram"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-helper [type]="'Grid'" [size]="1000" [divisions]="40" [color1]="'0x303030'" [color2]="'0x303030'">
-      <ngx3js-position [x]="0" [y]="-75" [z]="0"></ngx3js-position>
-    </ngx3js-helper>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh *ngFor="let mesh of meshInfos" [geometry]="sphereGeometry">
-        <ngx3js-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="mesh.rotation.x" [y]="mesh.rotation.y" [z]="mesh.rotation.z"></ngx3js-rotation>
-        <ngx3js-material 
-          [type]="mesh.material.type" 
-          [map]="mesh.material.map ? texture : null"          
-          [transparent]="mesh.material.transparent"
-          [color]="mesh.material.color"
-          [specular]="mesh.material.specular"
-          [shininess]="mesh.material.shininess"
-          [flatShading]="mesh.material.flatShading"
-          [blending]="mesh.material.blending"
-          [wireframe]="mesh.material.wireframe"
-          [emissive]="mesh.material.emissive"
-          [opacity]="mesh.material.opacity"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="200" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x111111'"> </ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="0.125"
+		>
+			<ngx3js-position
+				[x]="1"
+				[y]="0"
+				[z]="0"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'point'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			(onLoad)="setPointLight($event)"
+		>
+			<ngx3js-mesh>
+				<ngx3js-geometry
+					[type]="'Sphere'"
+					[radius]="4"
+					[width]="8"
+					[height]="8"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0xffffff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#sphereGeometry
+				[type]="'Sphere'"
+				[radius]="70"
+				[widthSegments]="32"
+				[heightSegments]="16"
+			></ngx3js-geometry>
+			<ngx3js-texture
+				#texture
+				[width]="256"
+				[height]="256"
+				[program]="canvasProgram"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-helper
+			[type]="'Grid'"
+			[size]="1000"
+			[divisions]="40"
+			[color1]="'0x303030'"
+			[color2]="'0x303030'"
+		>
+			<ngx3js-position [x]="0" [y]="-75" [z]="0"></ngx3js-position>
+		</ngx3js-helper>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh *ngFor="let mesh of meshInfos" [geometry]="sphereGeometry">
+				<ngx3js-position
+					[x]="mesh.position.x"
+					[y]="mesh.position.y"
+					[z]="mesh.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="mesh.rotation.x"
+					[y]="mesh.rotation.y"
+					[z]="mesh.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-material
+					[type]="mesh.material.type"
+					[map]="mesh.material.map ? texture : null"
+					[transparent]="mesh.material.transparent"
+					[color]="mesh.material.color"
+					[specular]="mesh.material.specular"
+					[shininess]="mesh.material.shininess"
+					[flatShading]="mesh.material.flatShading"
+					[blending]="mesh.material.blending"
+					[wireframe]="mesh.material.wireframe"
+					[emissive]="mesh.material.emissive"
+					[opacity]="mesh.material.opacity"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

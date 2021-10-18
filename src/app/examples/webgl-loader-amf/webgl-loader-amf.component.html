@@ -1,54 +1,70 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <a href="http://amf.wikispaces.com" target="_blank" rel="noopener">AMF File format</a>
-  <div>AMF loader test by <a href="https://github.com/tamarintech" target="_blank" rel="noopener">tamarintech</a></div>
-  <div>Rook manufacturing file from <a href="http://amf.wikispaces.com/AMF+test+files" target="_blank" rel="noopener">AMF test files</a></div>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<a href="http://amf.wikispaces.com" target="_blank" rel="noopener"
+		>AMF File format</a
+	>
+	<div>
+		AMF loader test by
+		<a href="https://github.com/tamarintech" target="_blank" rel="noopener"
+			>tamarintech</a
+		>
+	</div>
+	<div>
+		Rook manufacturing file from
+		<a
+			href="http://amf.wikispaces.com/AMF+test+files"
+			target="_blank"
+			rel="noopener"
+			>AMF test files</a
+		>
+	</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1.2" [z]="2"></ngx3js-lookat>
-  <ngx3js-scene #scene [background]="'0x999999'">
-    <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-      <ngx3js-position [x]="0" [y]="0" [z]="1" [type]="'up'"></ngx3js-position>
-      <ngx3js-position [x]="0" [y]="-9" [z]="6"></ngx3js-position>
-      <ngx3js-light
-        [type]="'Point'"
-        [color]="'0xffffff'"
-        [intensity]="0.8"
-      >
-      </ngx3js-light>
-    </ngx3js-camera>
-      <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x999999'"
-    >
-    </ngx3js-light>
-    <ngx3js-helper [type]="'Grid'" [size]="50" [divisions]="50" [color1]="'0x444444'" [color2]="'0x888888'">
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-    </ngx3js-helper>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/amf/rook.amf'">
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="100"
-        [height]="100"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x999999'"
-        [depthWrite]="false"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1.2" [z]="2"></ngx3js-lookat>
+	<ngx3js-scene #scene [background]="'0x999999'">
+		<ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+			<ngx3js-position [x]="0" [y]="0" [z]="1" [type]="'up'"></ngx3js-position>
+			<ngx3js-position [x]="0" [y]="-9" [z]="6"></ngx3js-position>
+			<ngx3js-light [type]="'Point'" [color]="'0xffffff'" [intensity]="0.8">
+			</ngx3js-light>
+		</ngx3js-camera>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x999999'"> </ngx3js-light>
+		<ngx3js-helper
+			[type]="'Grid'"
+			[size]="50"
+			[divisions]="50"
+			[color1]="'0x444444'"
+			[color2]="'0x888888'"
+		>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+		</ngx3js-helper>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/amf/rook.amf'"
+		>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="100"
+				[height]="100"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0x999999'"
+				[depthWrite]="false"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

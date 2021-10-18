@@ -1,49 +1,73 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Float volume render test (mip / isosurface)
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Float volume render test (mip / isosurface)
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false, enableDamping : true }"
-  [type]="'webgl2'"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[type]="'webgl2'"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="64" [y]="64" [z]="128"></ngx3js-lookat>
-  <ngx3js-camera [type]="'OrthographicCamera'" [near]="1" [far]="1000" [zoom]="'auto'">
-    <ngx3js-position [x]="0" [y]="64" [z]="128"></ngx3js-position>
-    <ngx3js-position [type]="'up'" [x]="0" [y]="0" [z]="1"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-shared (onLoad)="setColorMapTexture($event)">
-    <ngx3js-texture #viridis [name]="'viridis'" [image]="'textures/cm_viridis.png'"></ngx3js-texture>
-    <ngx3js-texture #gray [name]="'gray'" [image]="'textures/cm_gray.png'"></ngx3js-texture>
-  </ngx3js-shared>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="128"
-        [height]="128"
-        [depth]="256"
-      >
-        <ngx3js-position [type]="'translate'" [x]="63.5" [y]="63.5" [z]="127.5"></ngx3js-position>
-      </ngx3js-geometry>
-      <ngx3js-material [type]="'ShaderMaterial'" 
-        [shader]="'VolumeRenderShader1'"
-        [uniforms]="{
-          u_data : { type : 'texture3d', value : 'models/nrrd/stent.nrrd', options : 'RedFormat,FloatType,LinearFilter,unpackAlignment=1'},
-          u_size : { type : 'vector3', value : [128,128,256 ]},
-          u_clim : { type : 'vector2', value : [0,1]},
-          u_renderstyle : { type : 'int', value : 1 },
-          u_renderthreshold : { type : 'float', value : 0.15 },
-          u_cmdata : { type : 'texture', value : viridis }
-        }"
-        [side]="'backside'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="64" [y]="64" [z]="128"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'OrthographicCamera'"
+		[near]="1"
+		[far]="1000"
+		[zoom]="'auto'"
+	>
+		<ngx3js-position [x]="0" [y]="64" [z]="128"></ngx3js-position>
+		<ngx3js-position [type]="'up'" [x]="0" [y]="0" [z]="1"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-shared (onLoad)="setColorMapTexture($event)">
+		<ngx3js-texture
+			#viridis
+			[name]="'viridis'"
+			[image]="'textures/cm_viridis.png'"
+		></ngx3js-texture>
+		<ngx3js-texture
+			#gray
+			[name]="'gray'"
+			[image]="'textures/cm_gray.png'"
+		></ngx3js-texture>
+	</ngx3js-shared>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="128"
+				[height]="128"
+				[depth]="256"
+			>
+				<ngx3js-position
+					[type]="'translate'"
+					[x]="63.5"
+					[y]="63.5"
+					[z]="127.5"
+				></ngx3js-position>
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'VolumeRenderShader1'"
+				[uniforms]="{
+					u_data: {
+						type: 'texture3d',
+						value: 'models/nrrd/stent.nrrd',
+						options: 'RedFormat,FloatType,LinearFilter,unpackAlignment=1'
+					},
+					u_size: { type: 'vector3', value: [128, 128, 256] },
+					u_clim: { type: 'vector2', value: [0, 1] },
+					u_renderstyle: { type: 'int', value: 1 },
+					u_renderthreshold: { type: 'float', value: 0.15 },
+					u_cmdata: { type: 'texture', value: viridis }
+				}"
+				[side]="'backside'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

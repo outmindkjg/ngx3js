@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, RendererTimer, OBB, THREE } from 'ngx3js';
+import {
+	BaseComponent,
+	MeshComponent,
+	RendererEvent,
+	RendererTimer,
+	OBB,
+	THREE,
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-math-obb',
@@ -47,7 +54,10 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 
 	eventListener(event: RendererEvent) {
 		if (this.camera !== null && this.hitBox !== null) {
-			const intersect = this.camera.getIntersection(event.mouse, this.meshChildren);
+			const intersect = this.camera.getIntersection(
+				event.mouse,
+				this.meshChildren
+			);
 			if (intersect !== null && intersect.object !== null) {
 				this.hitBox.visible = true;
 				intersect.object.add(this.hitBox);
@@ -89,14 +99,16 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 			});
 			for (let i = 0, il = this.meshChildren.length; i < il; i++) {
 				const object = this.meshChildren[i];
-				const obb = object.userData.obb as OBB;
+				const obb = object.userData.obb as any;
 				const objectMaterial = object['material'] as THREE.MeshLambertMaterial;
 				for (let j = i + 1, jl = this.meshChildren.length; j < jl; j++) {
 					const objectToTest = this.meshChildren[j];
 					const obbToTest = objectToTest.userData.obb;
 					if (obb.intersectsOBB(obbToTest) === true) {
 						objectMaterial.color.setHex(0xff0000);
-						const objectTestMaterial = objectToTest['material'] as THREE.MeshLambertMaterial;
+						const objectTestMaterial = objectToTest[
+							'material'
+						] as THREE.MeshLambertMaterial;
 						objectTestMaterial.color.setHex(0xff0000);
 					}
 				}

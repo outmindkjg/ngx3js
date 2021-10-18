@@ -1,46 +1,54 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl2 - volume
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl2 - volume
 </div>
 <ngx3js-renderer
-  [type]="'webgl2'"
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[type]="'webgl2'"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="1"
-        [height]="1"
-        [depth]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'RawShaderMaterial'" 
-        [glslVersion]="'GLSL3'" 
-        [shader]="'perlinshader'"
-        [uniforms]="{
-          map : { type : 'DataTexture3D', value : 'perlin' }
-        }"
-      ></ngx3js-material>
-      <ngx3js-controller [type]="'auto'">
-        <ngx3js-controller-item 
-          [type]="'uniforms'" 
-          [uniform]="'cameraPos'" 
-          [valueType]="'copyposition'" 
-          [refValue]="camera"
-        ></ngx3js-controller-item>
-      </ngx3js-controller>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="60"
+		[near]="0.1"
+		[far]="100"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="1"
+				[height]="1"
+				[depth]="1"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'RawShaderMaterial'"
+				[glslVersion]="'GLSL3'"
+				[shader]="'perlinshader'"
+				[uniforms]="{
+					map: { type: 'DataTexture3D', value: 'perlin' }
+				}"
+			></ngx3js-material>
+			<ngx3js-controller [type]="'auto'">
+				<ngx3js-controller-item
+					[type]="'uniforms'"
+					[uniform]="'cameraPos'"
+					[valueType]="'copyposition'"
+					[refValue]="camera"
+				></ngx3js-controller-item>
+			</ngx3js-controller>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

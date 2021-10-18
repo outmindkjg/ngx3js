@@ -1,72 +1,90 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> - Transmission
+	<a href="https://threejs.org" target="_blank" rel="noopener">threejs</a> -
+	Transmission
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, minDistance : 10, maxDistance : 150 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [toneMapping]="'ACESFilmicToneMapping'"
-  [toneMappingExposure]="controls.exposure"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 10,
+		maxDistance: 150
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[toneMapping]="'ACESFilmicToneMapping'"
+	[toneMappingExposure]="controls.exposure"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="hdrCubeRenderTarget">
-    <ngx3js-light
-      [type]="'SpotLight'"
-      [color]="'0xffffff'"
-      [intensity]="controls.lightIntensity"
-      [angle]="30"
-    >
-      <ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'SpotLight'"
-      [color]="'0xffffff'"
-      [intensity]="controls.lightIntensity"
-      [angle]="30"
-    >
-      <ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture #hdrCubeRenderTarget [storageName]="'royal_esplanade_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}" [cubeType]="'angular'"></ngx3js-texture>
-      <ngx3js-geometry
-        #geometry
-        [type]="'SphereGeometry'"
-        [radius]="20"
-        [widthSegments]="64"
-        [heightSegments]="32"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #material
-        [type]="'MeshPhysicalMaterial'" 
-        [color]="controls.color"
-        [metalness]="controls.metalness"
-        [roughness]="controls.roughness"
-        [reflectivity]="controls.reflectivity"
-        [alphaTest]="0.5"
-        [envMap]="hdrCubeRenderTarget"
-        [envMapIntensity]="controls.envMapIntensity"
-        [depthWrite]="false"
-        [transmission]="controls.transmission"
-        [opacity]="controls.opacity"
-        [side]="'DoubleSide'"
-        [transparent]="true"
-      >
-        <ngx3js-texture [type]="'alphaMap'" [canvas]="'white'" [magFilter]="'NearestFilter'" [wrap]="'RepeatWrapping'" [repeatX]="1" [repeatY]="3.5"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="geometry" [material]="material">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="120"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="hdrCubeRenderTarget">
+		<ngx3js-light
+			[type]="'SpotLight'"
+			[color]="'0xffffff'"
+			[intensity]="controls.lightIntensity"
+			[angle]="30"
+		>
+			<ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'SpotLight'"
+			[color]="'0xffffff'"
+			[intensity]="controls.lightIntensity"
+			[angle]="30"
+		>
+			<ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#hdrCubeRenderTarget
+				[storageName]="'royal_esplanade_1k.hdr'"
+				[storageOption]="{ path: 'textures/equirectangular/' }"
+				[cubeType]="'angular'"
+			></ngx3js-texture>
+			<ngx3js-geometry
+				#geometry
+				[type]="'SphereGeometry'"
+				[radius]="20"
+				[widthSegments]="64"
+				[heightSegments]="32"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshPhysicalMaterial'"
+				[color]="controls.color"
+				[metalness]="controls.metalness"
+				[roughness]="controls.roughness"
+				[reflectivity]="controls.reflectivity"
+				[alphaTest]="0.5"
+				[envMap]="hdrCubeRenderTarget"
+				[envMapIntensity]="controls.envMapIntensity"
+				[depthWrite]="false"
+				[transmission]="controls.transmission"
+				[opacity]="controls.opacity"
+				[side]="'DoubleSide'"
+				[transparent]="true"
+			>
+				<ngx3js-texture
+					[type]="'alphaMap'"
+					[canvas]="'white'"
+					[magFilter]="'NearestFilter'"
+					[wrap]="'RepeatWrapping'"
+					[repeatX]="1"
+					[repeatY]="3.5"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry" [material]="material">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

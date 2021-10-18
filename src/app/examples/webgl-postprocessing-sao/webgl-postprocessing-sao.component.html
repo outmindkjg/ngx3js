@@ -1,78 +1,95 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> - Scalable Ambient Occlusion (SAO)<br/>
-  shader by <a href="http://clara.io">Ben Houston</a> / Post-processing pass by <a href="http://ludobaka.github.io">Ludobaka</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
+		>three.js</a
+	>
+	- Scalable Ambient Occlusion (SAO)<br />
+	shader by <a href="http://clara.io">Ben Houston</a> / Post-processing pass by
+	<a href="http://ludobaka.github.io">Ludobaka</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0x000000'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-composer [scene]="scene" [camera]="camera">
-    <ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
-    <ngx3js-pass 
-      [type]="'SAOPass'" 
-      [depthTexture]="false" 
-      [useNormals]="true"
-      [output]="'default'"
-      [saoBias]="0.5"
-      [saoIntensity]="0.18"
-      [saoScale]="1"
-      [saoKernelRadius]="100"
-      [saoMinResolution]="0"
-      [saoBlur]="true"
-      [saoBlurRadius]="8"
-      [saoBlurStdDev]="4"
-      [saoBlurDepthCutoff]="0.01"
-      (onLoad)="setSaoPass($event)"
-    ></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="65" [near]="3" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xddffdd'"
-      [intensity]="0.8"
-    ><ngx3js-position [x]="-70" [y]="-70" [z]="70"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xffdddd'"
-      [intensity]="0.8"
-    ><ngx3js-position [x]="-70" [y]="70" [z]="70"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'PointLight'"
-      [color]="'0xddddff'"
-      [intensity]="0.8"
-    ><ngx3js-position [x]="70" [y]="70" [z]="70"></ngx3js-position></ngx3js-light>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-      [intensity]="0.05"
-    ></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #sphereGeometry
-        [type]="'SphereGeometry'"
-        [radius]="3"
-        [widthSegments]="48"
-        [heightSegments]="24"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="sphereGeometry">
-        <ngx3js-position [x]="info.position.x" [y]="info.position.y" [z]="info.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="info.rotation.x" [y]="info.rotation.y" [z]="info.rotation.z"></ngx3js-rotation>
-        <ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
-        <ngx3js-material [type]="'MeshStandardMaterial'" [color]="info.color" [roughness]="info.roughness" [metalness]="info.metalness"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-composer [scene]="scene" [camera]="camera">
+		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
+		<ngx3js-pass
+			[type]="'SAOPass'"
+			[depthTexture]="false"
+			[useNormals]="true"
+			[output]="'default'"
+			[saoBias]="0.5"
+			[saoIntensity]="0.18"
+			[saoScale]="1"
+			[saoKernelRadius]="100"
+			[saoMinResolution]="0"
+			[saoBlur]="true"
+			[saoBlurRadius]="8"
+			[saoBlurStdDev]="4"
+			[saoBlurDepthCutoff]="0.01"
+			(onLoad)="setSaoPass($event)"
+		></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="65"
+		[near]="3"
+		[far]="10"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xddffdd'" [intensity]="0.8"
+			><ngx3js-position [x]="-70" [y]="-70" [z]="70"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xffdddd'" [intensity]="0.8"
+			><ngx3js-position [x]="-70" [y]="70" [z]="70"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light [type]="'PointLight'" [color]="'0xddddff'" [intensity]="0.8"
+			><ngx3js-position [x]="70" [y]="70" [z]="70"></ngx3js-position
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.05"
+		></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#sphereGeometry
+				[type]="'SphereGeometry'"
+				[radius]="3"
+				[widthSegments]="48"
+				[heightSegments]="24"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="sphereGeometry">
+				<ngx3js-position
+					[x]="info.position.x"
+					[y]="info.position.y"
+					[z]="info.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="info.rotation.x"
+					[y]="info.rotation.y"
+					[z]="info.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-scale [multiply]="info.scale"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshStandardMaterial'"
+					[color]="info.color"
+					[roughness]="info.roughness"
+					[metalness]="info.metalness"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

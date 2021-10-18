@@ -1,32 +1,49 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  <a href="https://developers.google.com/kml/documentation/kmzarchives" target="_blank" rel="noopener">KMZ</a> loader
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	<a
+		href="https://developers.google.com/kml/documentation/kmzarchives"
+		target="_blank"
+		rel="noopener"
+		>KMZ</a
+	>
+	loader
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
-    <ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x999999'">
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-    >
-      <ngx3js-position [x]="0.5" [y]="1.0" [z]="0.5" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/kmz/Box.kmz'">
-      <ngx3js-position [x]="0" [y]="0.5" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-    <ngx3js-helper [type]="'grid'" [size]="50" [divisions]="50" [color1]="'0xffffff'" [color2]="'0x555555'"></ngx3js-helper>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="500">
+		<ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x999999'">
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'">
+			<ngx3js-position
+				[x]="0.5"
+				[y]="1.0"
+				[z]="0.5"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/kmz/Box.kmz'"
+		>
+			<ngx3js-position [x]="0" [y]="0.5" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+		<ngx3js-helper
+			[type]="'grid'"
+			[size]="50"
+			[divisions]="50"
+			[color1]="'0xffffff'"
+			[color2]="'0x555555'"
+		></ngx3js-helper>
+	</ngx3js-scene>
 </ngx3js-renderer>

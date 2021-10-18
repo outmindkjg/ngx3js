@@ -1,69 +1,92 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive - raycasting - points 
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - interactive - raycasting - points
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , autoRotate : true , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'move'"
-  (eventListener)="onMouseMove($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, autoRotate: true, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'move'"
+	(eventListener)="onMouseMove($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="100000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="10" [y]="10" [z]="10"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #sphereGeometry
-        [type]="'Sphere'"
-        [radius]="0.1"
-        [widthSegments]="32"
-        [heightSegments]="32"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        #sphereMaterial
-        [type]="'MeshBasic'"
-        [color]="'0xff0000'"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setSphere($event)">
-      <ngx3js-mesh *ngFor="let info of sphereIndex" [geometry]="sphereGeometry" [material]="sphereMaterial"></ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [type]="'Points'">
-        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
-        <ngx3js-position [x]="-5" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'buffer'"
-          [attributes]="pointCloudInfo"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'Points'">
-        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'buffer'"
-          [attributes]="indexedPointcloud"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'Points'">
-        <ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
-        <ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'buffer'"
-          [attributes]="indexedWithOffsetPointcloud"
-          [addGroup]="true"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'Points'" [size]="0.05" [vertexColors]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="0.1"
+		[far]="100000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="10" [y]="10" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#sphereGeometry
+				[type]="'Sphere'"
+				[radius]="0.1"
+				[widthSegments]="32"
+				[heightSegments]="32"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#sphereMaterial
+				[type]="'MeshBasic'"
+				[color]="'0xff0000'"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setSphere($event)">
+			<ngx3js-mesh
+				*ngFor="let info of sphereIndex"
+				[geometry]="sphereGeometry"
+				[material]="sphereMaterial"
+			></ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [type]="'Points'">
+				<ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+				<ngx3js-position [x]="-5" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'buffer'"
+					[attributes]="pointCloudInfo"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'Points'"
+					[size]="0.05"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'Points'">
+				<ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'buffer'"
+					[attributes]="indexedPointcloud"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'Points'"
+					[size]="0.05"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'Points'">
+				<ngx3js-scale [x]="5" [y]="10" [z]="10"></ngx3js-scale>
+				<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'buffer'"
+					[attributes]="indexedWithOffsetPointcloud"
+					[addGroup]="true"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'Points'"
+					[size]="0.05"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

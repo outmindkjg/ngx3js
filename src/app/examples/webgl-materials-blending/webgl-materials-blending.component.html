@@ -1,54 +1,75 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Material Blending
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Material Blending
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="600"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="4000"
-        [height]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'">
-        <ngx3js-texture [width]="128" [height]="128" [program]="canvasProgram" [wrapS]="'Repeat'" [wrapT]="'Repeat'" [repeatX]="128" [repeatY]="64"></ngx3js-texture>
-      </ngx3js-material>
-      <ngx3js-mesh *ngFor="let mesh of meshInfos">
-        <ngx3js-position [x]="mesh.x" [y]="mesh.y" [z]="mesh.z"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="100"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [transparent]="true" [blending]="mesh.blending">
-          <ngx3js-texture [image]="mesh.map"></ngx3js-texture>
-        </ngx3js-material>
-        <ngx3js-mesh>
-          <ngx3js-position [x]="0" [y]="-75" [z]="0"></ngx3js-position>
-          <ngx3js-geometry
-            [type]="'Plane'"
-            [width]="100"
-            [height]="25"
-          ></ngx3js-geometry>
-          <ngx3js-material [type]="'MeshBasic'" [transparent]="true">
-            <ngx3js-texture [program]="labelProgram" [text]="mesh.name" [width]="128" [height]="32"></ngx3js-texture>
-          </ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="600"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="4000"
+				[height]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshBasic'">
+				<ngx3js-texture
+					[width]="128"
+					[height]="128"
+					[program]="canvasProgram"
+					[wrapS]="'Repeat'"
+					[wrapT]="'Repeat'"
+					[repeatX]="128"
+					[repeatY]="64"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-mesh *ngFor="let mesh of meshInfos">
+				<ngx3js-position
+					[x]="mesh.x"
+					[y]="mesh.y"
+					[z]="mesh.z"
+				></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Plane'"
+					[width]="100"
+					[height]="100"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[transparent]="true"
+					[blending]="mesh.blending"
+				>
+					<ngx3js-texture [image]="mesh.map"></ngx3js-texture>
+				</ngx3js-material>
+				<ngx3js-mesh>
+					<ngx3js-position [x]="0" [y]="-75" [z]="0"></ngx3js-position>
+					<ngx3js-geometry
+						[type]="'Plane'"
+						[width]="100"
+						[height]="25"
+					></ngx3js-geometry>
+					<ngx3js-material [type]="'MeshBasic'" [transparent]="true">
+						<ngx3js-texture
+							[program]="labelProgram"
+							[text]="mesh.name"
+							[width]="128"
+							[height]="32"
+						></ngx3js-texture>
+					</ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,90 +1,110 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - BufferGeometry Compression<br />
-  Octahedron and Quantization encoding methods from Tarek Sherif
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	BufferGeometry Compression<br />
+	Octahedron and Quantization encoding methods from Tarek Sherif
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="10000000">
-    <ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setLightGroup($event)">
-      <ngx3js-light
-        [type]="'PointLight'"
-        [color]="'0xffffff'"
-        [intensity]="1"
-        [distance]="0"
-      >
-        <ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
-      </ngx3js-light>
-      <ngx3js-light
-        [type]="'PointLight'"
-        [color]="'0xffffff'"
-        [intensity]="1"
-        [distance]="0"
-      >
-        <ngx3js-position [x]="200" [y]="-200" [z]="200"></ngx3js-position>
-      </ngx3js-light>
-      <ngx3js-light
-        [type]="'PointLight'"
-        [color]="'0xffffff'"
-        [intensity]="1"
-        [distance]="0"
-      >
-        <ngx3js-position [x]="-200" [y]="-200" [z]="-200"></ngx3js-position>
-      </ngx3js-light>
-    </ngx3js-mesh>
-    <ngx3js-helper [type]="'AxesHelper'" [size]="500"></ngx3js-helper>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="modelInfo.type"
-        [radius]="modelInfo.radius"
-        [detail]="modelInfo.detail"
-        [radiusTop]="modelInfo.radiusTop"
-        [radiusBottom]="modelInfo.radiusBottom"
-        [height]="modelInfo.height"
-        [radialSegments]="modelInfo.radialSegments"
-        [size]="modelInfo.size"
-        [segments]="modelInfo.segments"
-        [radialSegments]="modelInfo.radialSegments"
-        [bottom]="modelInfo.bottom"
-        [lid]="modelInfo.lid"
-        [body]="modelInfo.body"
-        [fitLid]="modelInfo.fitLid"
-        [blinn]="modelInfo.blinn"
-        [tube]="modelInfo.tube"
-        [tubularSegments]="modelInfo.tubularSegments"
-        [p]="modelInfo.p"
-        [q]="modelInfo.q"
-        [compressPositions]="controls.QuantizePosEncoding"
-        [compressNormals]="controls.NormEncodingMethods"
-        [compressUvs]="controls.DefaultUVEncoding"
-        ></ngx3js-geometry>
-      <ngx3js-texture #texture [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'"></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh 
-        [geometry]="geometry" 
-        (onLoad)="setGeometry($event)" 
-      >
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [emissive]="'0x111111'" [map]="controls.texture? texture : null"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'LineSegments'" [visible]="controls.wireframe">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [refer]="geometry" [lineType]="'WireframeGeometry'"></ngx3js-geometry>
-        <ngx3js-material [type]="'LineBasicMaterial'" [color]="'0xaaaaaa'" [transparent]="true" [opacity]="0.8"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="50"
+		[near]="0.01"
+		[far]="10000000"
+	>
+		<ngx3js-position [x]="200" [y]="200" [z]="200"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setLightGroup($event)">
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0xffffff'"
+				[intensity]="1"
+				[distance]="0"
+			>
+				<ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0xffffff'"
+				[intensity]="1"
+				[distance]="0"
+			>
+				<ngx3js-position [x]="200" [y]="-200" [z]="200"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-light
+				[type]="'PointLight'"
+				[color]="'0xffffff'"
+				[intensity]="1"
+				[distance]="0"
+			>
+				<ngx3js-position [x]="-200" [y]="-200" [z]="-200"></ngx3js-position>
+			</ngx3js-light>
+		</ngx3js-mesh>
+		<ngx3js-helper [type]="'AxesHelper'" [size]="500"></ngx3js-helper>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="modelInfo.type"
+				[radius]="modelInfo.radius"
+				[detail]="modelInfo.detail"
+				[radiusTop]="modelInfo.radiusTop"
+				[radiusBottom]="modelInfo.radiusBottom"
+				[height]="modelInfo.height"
+				[radialSegments]="modelInfo.radialSegments"
+				[size]="modelInfo.size"
+				[segments]="modelInfo.segments"
+				[radialSegments]="modelInfo.radialSegments"
+				[bottom]="modelInfo.bottom"
+				[lid]="modelInfo.lid"
+				[body]="modelInfo.body"
+				[fitLid]="modelInfo.fitLid"
+				[blinn]="modelInfo.blinn"
+				[tube]="modelInfo.tube"
+				[tubularSegments]="modelInfo.tubularSegments"
+				[p]="modelInfo.p"
+				[q]="modelInfo.q"
+				[compressPositions]="controls.QuantizePosEncoding"
+				[compressNormals]="controls.NormEncodingMethods"
+				[compressUvs]="controls.DefaultUVEncoding"
+			></ngx3js-geometry>
+			<ngx3js-texture
+				#texture
+				[image]="'textures/uv_grid_opengl.jpg'"
+				[wrap]="'RepeatWrapping'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="geometry" (onLoad)="setGeometry($event)">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xffffff'"
+					[emissive]="'0x111111'"
+					[map]="controls.texture ? texture : null"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'LineSegments'" [visible]="controls.wireframe">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[refer]="geometry"
+					[lineType]="'WireframeGeometry'"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[color]="'0xaaaaaa'"
+					[transparent]="true"
+					[opacity]="0.8"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

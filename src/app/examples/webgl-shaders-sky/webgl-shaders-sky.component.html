@@ -1,37 +1,44 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - sky + sun shader
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - sky + sun shader
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [toneMapping]="'acesfilmic'"
-  [toneMappingExposure]="0.5"
-  (onRender)="onRender($event)"
-  (onLoad)="setRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[toneMapping]="'acesfilmic'"
+	[toneMappingExposure]="0.5"
+	(onRender)="onRender($event)"
+	(onLoad)="setRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="100" [far]="2000000">
-    <ngx3js-position [x]="0" [y]="100" [z]="2000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-helper [type]="'grid'" [size]="10000" [divisions]="2" [color1]="'0xffffff'" [color2]="'0xffffff'"></ngx3js-helper>
-    <ngx3js-mesh 
-      (onLoad)="setMesh($event)" 
-      [type]="'sky'"
-      [uniforms]="{
-        sunPosition : { type : 'v3', value : sunDirection },
-        turbidity : { type : 'number', value : controls.turbidity },
-        rayleigh : { type : 'number', value : controls.rayleigh },
-        mieCoefficient : { type : 'number', value : controls.mieCoefficient },
-        mieDirectionalG : { type : 'number', value : controls.mieDirectionalG }
-      }"
-    >
-      <ngx3js-scale [multiply]="450000"></ngx3js-scale>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="100" [far]="2000000">
+		<ngx3js-position [x]="0" [y]="100" [z]="2000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-helper
+			[type]="'grid'"
+			[size]="10000"
+			[divisions]="2"
+			[color1]="'0xffffff'"
+			[color2]="'0xffffff'"
+		></ngx3js-helper>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[type]="'sky'"
+			[uniforms]="{
+				sunPosition: { type: 'v3', value: sunDirection },
+				turbidity: { type: 'number', value: controls.turbidity },
+				rayleigh: { type: 'number', value: controls.rayleigh },
+				mieCoefficient: { type: 'number', value: controls.mieCoefficient },
+				mieDirectionalG: { type: 'number', value: controls.mieDirectionalG }
+			}"
+		>
+			<ngx3js-scale [multiply]="450000"></ngx3js-scale>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

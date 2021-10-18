@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RendererComponent, ThreeUtil } from 'ngx3js';
@@ -32,7 +38,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 
 	private subscription: Subscription;
 
-	constructor(private router: Router, private ele: ElementRef, private http: HttpClient) {
+	constructor(
+		private router: Router,
+		private ele: ElementRef,
+		private http: HttpClient
+	) {
 		this.subscription = this.router.events.subscribe((event: any) => {
 			if (event instanceof NavigationEnd) {
 				this.changeRouter(event.urlAfterRedirects || event.url);
@@ -63,7 +73,8 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 
 	setFocus(menuId: string) {
 		setTimeout(() => {
-			const links: HTMLAnchorElement[] = this.ele.nativeElement.getElementsByTagName('a');
+			const links: HTMLAnchorElement[] =
+				this.ele.nativeElement.getElementsByTagName('a');
 			let selected: HTMLAnchorElement = null;
 			for (let i = 0; i < links.length; i++) {
 				if (links[i].getAttribute('href') === '#' + menuId) {
@@ -83,7 +94,12 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	downloadThumbFile() {
 		if (ThreeUtil.lastRenderer !== null) {
 			const lastRenderer = ThreeUtil.lastRenderer as RendererComponent;
-			lastRenderer.getCanvasJson((json) => {}, { width: 400, height: 250, name: 'auto', type: 'jpg' });
+			lastRenderer.getCanvasJson((json) => {}, {
+				width: 400,
+				height: 250,
+				name: 'auto',
+				type: 'jpg',
+			});
 		}
 		return false;
 	}
@@ -174,10 +190,18 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				child.selected = child.id === this.menuId;
 				if (child.selected) {
 					document.title = child.name + ' :: Three.js examples';
-					this.gitHub.nativeElement.href = 'https://github.com/mrdoob/three.js/blob/master' + child.id + '.html';
-					this.gitHub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub';
-					this.ngxGithub.nativeElement.href = 'https://github.com/outmindkjg/ngx3js/tree/master/src/app' + child.safeId + '';
-					this.ngxGithub.nativeElement.title = 'View source code for "' + child.name + '" on GitHub ngx';
+					this.gitHub.nativeElement.href =
+						'https://github.com/mrdoob/three.js/blob/master' +
+						child.id +
+						'.html';
+					this.gitHub.nativeElement.title =
+						'View source code for "' + child.name + '" on GitHub';
+					this.ngxGithub.nativeElement.href =
+						'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
+						child.safeId +
+						'';
+					this.ngxGithub.nativeElement.title =
+						'View source code for "' + child.name + '" on GitHub ngx';
 					setTimeout(() => {
 						console.log('INFO : ', child.id);
 						console.log('INFO : ', child.safeId);
@@ -188,7 +212,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		return searchMenu;
 	}
 
-	private getSearchChildren(menu: string[], keyword: string[], parentId: string): SearchMenu[] {
+	private getSearchChildren(
+		menu: string[],
+		keyword: string[],
+		parentId: string
+	): SearchMenu[] {
 		const children: SearchMenu[] = [];
 		menu.forEach((id) => {
 			const child = this.getSearchItem(id, keyword, parentId);
@@ -199,7 +227,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		return children;
 	}
 
-	private getSearchItem(id: string, keyword: string[], parentId: string): SearchMenu {
+	private getSearchItem(
+		id: string,
+		keyword: string[],
+		parentId: string
+	): SearchMenu {
 		const tags: string[] = this.tags[id] !== undefined ? this.tags[id] : [];
 		let isFounded: boolean = true;
 		if (keyword.length > 0) {

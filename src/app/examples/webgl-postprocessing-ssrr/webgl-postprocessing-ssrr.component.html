@@ -1,102 +1,140 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  SSRrPass demo by <a href="https://github.com/gonnavis" target="_blank">Vis</a>.<br />
-  click object to toggle transparent<br/>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	SSRrPass demo by
+	<a href="https://github.com/gonnavis" target="_blank">Vis</a>.<br />
+	click object to toggle transparent<br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="false"
-  [outputEncoding]="'sRGBEncoding'"
-  [autoClear]="false"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'pointerdown'"
-  [composerEnable]="controls.enableSSRr"
-  (eventListener)="onPointerDown($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="false"
+	[outputEncoding]="'sRGBEncoding'"
+	[autoClear]="false"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'pointerdown'"
+	[composerEnable]="controls.enableSSRr"
+	(eventListener)="onPointerDown($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0.0635" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="0.1" [far]="15" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="0.13271600513224902" [y]="0.3489546826045913" [z]="0.43921296427927076"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-composer>
-    <ngx3js-pass [type]="'SSRrPass'" [width]="2048" [height]="2048" [encoding]="'sRGBEncoding'" [selects]="selected" (onLoad)="setSSRrPass($event)"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-scene #scene [background]="'0x443333'" (onLoad)="setScene($event)">
-    <ngx3js-fog [color]="'0x443333'" [near]="1" [far]="4"></ngx3js-fog>
-    <ngx3js-light
-      [name]="'hemiLight'"
-      [type]="'HemisphereLight'"
-      [skyColor]="'0x443333'"
-      [groundColor]="'0x111122'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [name]="'SpotLight'"
-      [type]="'SpotLight'"
-      [angle]="180/16"
-      [penumbra]="0.5"
-      [castShadow]="true"
-    >
-      <ngx3js-position [x]="-1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh [name]="'bunny'" [castShadow]="true">
-      <ngx3js-position [x]="0" [y]="-0.0365" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [storageName]="'models/draco/bunny.drc'"
-        [computeVertexNormals]="true"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandardMaterial'" [color]="'0x606060'" [transparent]="true"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [name]="'box'" [castShadow]="true">
-      <ngx3js-position [x]="-0.12" [y]="0.025" [z]="0.015"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BoxBufferGeometry'"
-        [width]="0.05"
-        [height]="0.05"
-        [depth]="0.05"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandardMaterial'" [color]="'green'" [transparent]="true"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [name]="'sphere'" [castShadow]="true">
-      <ngx3js-position [x]="-0.05" [y]="0.025" [z]="0.08"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'IcosahedronBufferGeometry'"
-        [radius]="0.025"
-        [detail]="4"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandardMaterial'" [color]="'cyan'" [transparent]="true"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [name]="'cone'" [castShadow]="true">
-      <ngx3js-position [x]="-0.05" [y]="0.025" [z]="-0.055"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'ConeBufferGeometry'"
-        [radius]="0.025"
-        [height]="0.05"
-        [radiusSegments]="64"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshStandardMaterial'" [color]="'yellow'" [transparent]="true"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-    </ngx3js-mesh>
-    <ngx3js-mesh [name]="'plane'" [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-0.0001" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="8"
-        [height]="8"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhongMaterial'"
-        [color]="'0x999999'"
-        [specular]="'0x101010'"
-      >
-        <ngx3js-texture [type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'" [repeat]="20"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0.0635" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="35"
+		[near]="0.1"
+		[far]="15"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position
+			[x]="0.13271600513224902"
+			[y]="0.3489546826045913"
+			[z]="0.43921296427927076"
+		></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-composer>
+		<ngx3js-pass
+			[type]="'SSRrPass'"
+			[width]="2048"
+			[height]="2048"
+			[encoding]="'sRGBEncoding'"
+			[selects]="selected"
+			(onLoad)="setSSRrPass($event)"
+		></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-scene #scene [background]="'0x443333'" (onLoad)="setScene($event)">
+		<ngx3js-fog [color]="'0x443333'" [near]="1" [far]="4"></ngx3js-fog>
+		<ngx3js-light
+			[name]="'hemiLight'"
+			[type]="'HemisphereLight'"
+			[skyColor]="'0x443333'"
+			[groundColor]="'0x111122'"
+		>
+		</ngx3js-light>
+		<ngx3js-light
+			[name]="'SpotLight'"
+			[type]="'SpotLight'"
+			[angle]="180 / 16"
+			[penumbra]="0.5"
+			[castShadow]="true"
+		>
+			<ngx3js-position [x]="-1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh [name]="'bunny'" [castShadow]="true">
+			<ngx3js-position [x]="0" [y]="-0.0365" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[storageName]="'models/draco/bunny.drc'"
+				[computeVertexNormals]="true"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandardMaterial'"
+				[color]="'0x606060'"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [name]="'box'" [castShadow]="true">
+			<ngx3js-position [x]="-0.12" [y]="0.025" [z]="0.015"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BoxBufferGeometry'"
+				[width]="0.05"
+				[height]="0.05"
+				[depth]="0.05"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandardMaterial'"
+				[color]="'green'"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [name]="'sphere'" [castShadow]="true">
+			<ngx3js-position [x]="-0.05" [y]="0.025" [z]="0.08"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'IcosahedronBufferGeometry'"
+				[radius]="0.025"
+				[detail]="4"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandardMaterial'"
+				[color]="'cyan'"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [name]="'cone'" [castShadow]="true">
+			<ngx3js-position [x]="-0.05" [y]="0.025" [z]="-0.055"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'ConeBufferGeometry'"
+				[radius]="0.025"
+				[height]="0.05"
+				[radiusSegments]="64"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshStandardMaterial'"
+				[color]="'yellow'"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)"> </ngx3js-mesh>
+		<ngx3js-mesh [name]="'plane'" [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-0.0001" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="8"
+				[height]="8"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0x999999'"
+				[specular]="'0x101010'"
+			>
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/uv_grid_opengl.jpg'"
+					[wrap]="'RepeatWrapping'"
+					[repeat]="20"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

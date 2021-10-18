@@ -1,71 +1,88 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - LWOLoader
-  <P>Lightwave Object loader by <a href="https://discoverthreejs.com/" target="_blank" rel="noopener">Discover three.js</a></P>
-  Models by <a href="https://onthez.com/" target="_blank" rel="noopener">on the z</a> - Environment images by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	LWOLoader
+	<P
+		>Lightwave Object loader by
+		<a href="https://discoverthreejs.com/" target="_blank" rel="noopener"
+			>Discover three.js</a
+		></P
+	>
+	Models by
+	<a href="https://onthez.com/" target="_blank" rel="noopener">on the z</a> -
+	Environment images by
+	<a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [physicallyCorrectLights]="true"
-  [gammaFactor]="1.18"
-  [outputEncoding]="'sRGBEncoding'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[physicallyCorrectLights]="true"
+	[gammaFactor]="1.18"
+	[outputEncoding]="'sRGBEncoding'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="1.33" [y]="10" [z]="-6.7"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="200">
-    <ngx3js-position [x]="-0.7" [y]="14.6" [z]="43.2"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xa0a0a0'">
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xaaaaaa'"
-      [intensity]="1.75"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="180"
-      [shadowCameraBottom]="-100"
-      [shadowCameraLeft]="-120"
-      [shadowCameraRight]="120"
-    >
-      <ngx3js-position [x]="0" [y]="200" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.7"
-    >
-      <ngx3js-position [x]="-100" [y]="200" [z]="-100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="0.4"
-    >
-      <ngx3js-position [x]="100" [y]="-200" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="-100" [y]="-100" [z]="100"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/lwo/Objects/LWO3/Demo.lwo'" >
-      <ngx3js-position [refName]="'LWStandard-ThreeJSPhong'" [x]="-2" [y]="12" [z]="0"></ngx3js-position>
-      <ngx3js-position [refName]="'LWPrincipledBSDF-ThreeJSStandard'" [x]="2" [y]="12" [z]="0"></ngx3js-position>
-      <ngx3js-position [refName]="'Rocket'" [x]="0" [y]="10.5" [z]="-1"></ngx3js-position>
-    </ngx3js-mesh>
-    <ngx3js-helper [type]="'grid'" [size]="200" [divisions]="20" [color1]="'0x000000'" [color2]="'0x000000'"></ngx3js-helper>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="1.33" [y]="10" [z]="-6.7"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="200">
+		<ngx3js-position [x]="-0.7" [y]="14.6" [z]="43.2"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xa0a0a0'">
+		<ngx3js-light [type]="'Ambient'" [color]="'0xaaaaaa'" [intensity]="1.75">
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="180"
+			[shadowCameraBottom]="-100"
+			[shadowCameraLeft]="-120"
+			[shadowCameraRight]="120"
+		>
+			<ngx3js-position [x]="0" [y]="200" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.7">
+			<ngx3js-position [x]="-100" [y]="200" [z]="-100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="0.4">
+			<ngx3js-position [x]="100" [y]="-200" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
+			<ngx3js-position [x]="-100" [y]="-100" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/lwo/Objects/LWO3/Demo.lwo'"
+		>
+			<ngx3js-position
+				[refName]="'LWStandard-ThreeJSPhong'"
+				[x]="-2"
+				[y]="12"
+				[z]="0"
+			></ngx3js-position>
+			<ngx3js-position
+				[refName]="'LWPrincipledBSDF-ThreeJSStandard'"
+				[x]="2"
+				[y]="12"
+				[z]="0"
+			></ngx3js-position>
+			<ngx3js-position
+				[refName]="'Rocket'"
+				[x]="0"
+				[y]="10.5"
+				[z]="-1"
+			></ngx3js-position>
+		</ngx3js-mesh>
+		<ngx3js-helper
+			[type]="'grid'"
+			[size]="200"
+			[divisions]="20"
+			[color1]="'0x000000'"
+			[color2]="'0x000000'"
+		></ngx3js-helper>
+	</ngx3js-scene>
 </ngx3js-renderer>

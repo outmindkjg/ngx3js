@@ -1,35 +1,44 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl materials matcap<br />
-  Drag-and-drop JPG, PNG, or EXR MatCap image files<br/>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl materials matcap<br />
+	Drag-and-drop JPG, PNG, or EXR MatCap image files<br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [toneMapping]="'ACESFilmicToneMapping'"
-  [toneMappingExposure]="controls.exposure"
-  [outputEncoding]="'sRGBEncoding'"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[toneMapping]="'ACESFilmicToneMapping'"
+	[toneMappingExposure]="controls.exposure"
+	[outputEncoding]="'sRGBEncoding'"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
-    <ngx3js-position [x]="0" [y]="0" [z]="13"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0.25" [z]="0"></ngx3js-position>
-      <ngx3js-geometry [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'MeshMatcapMaterial'" 
-        [color]="controls.color"
-      >
-        <ngx3js-texture [type]="'matcap'" [storageName]="'textures/matcaps/040full.exr'" [useDropImage]="true"></ngx3js-texture>
-        <ngx3js-texture [type]="'normalMap'" [image]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
+		<ngx3js-position [x]="0" [y]="0" [z]="13"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0.25" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshMatcapMaterial'" [color]="controls.color">
+				<ngx3js-texture
+					[type]="'matcap'"
+					[storageName]="'textures/matcaps/040full.exr'"
+					[useDropImage]="true"
+				></ngx3js-texture>
+				<ngx3js-texture
+					[type]="'normalMap'"
+					[image]="
+						'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'
+					"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,44 +1,57 @@
 <div class="info">
-  <a href="https://threejs.org">Three.js</a> parallax mapping <br />
-  Oryginal shaders authors:
-  <a href="http://sunandblackcat.com/tipFullView.php?topicid=28">Igor Dyhta</a>,
-  <a href="http://mmikkelsen3d.blogspot.sk/2012/02/parallaxpoc-mapping-and-no-tangent.html">Morten S. Mikkelsen</a><br />
-  Texture by <a href="http://agf81.deviantart.com/">AGF81</a>
+	<a href="https://threejs.org">Three.js</a> parallax mapping <br />
+	Oryginal shaders authors:
+	<a href="http://sunandblackcat.com/tipFullView.php?topicid=28">Igor Dyhta</a>,
+	<a
+		href="http://mmikkelsen3d.blogspot.sk/2012/02/parallaxpoc-mapping-and-no-tangent.html"
+		>Morten S. Mikkelsen</a
+	><br />
+	Texture by <a href="http://agf81.deviantart.com/">AGF81</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="1.0"
-        [height]="1.0"
-        [depth]="1.0"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'" 
-        [shader]="'ParallaxShader'"
-        [uniforms]="{ 
-          map : { type : 'texture', value : map },
-          bumpMap : { type : 'texture', value : bumpMap }
-        }"
-      >
-        <ngx3js-texture #map [type]="'map'" [image]="'textures/brick_diffuse.jpg'" [anisotropy]="4"></ngx3js-texture>
-        <ngx3js-texture #bumpMap [type]="'bumpMap'" [image]="'textures/brick_bump.jpg'" [anisotropy]="4"></ngx3js-texture>
-    </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.01" [far]="10">
+		<ngx3js-position [x]="0" [y]="0" [z]="2"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="1.0"
+				[height]="1.0"
+				[depth]="1.0"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'ParallaxShader'"
+				[uniforms]="{
+					map: { type: 'texture', value: map },
+					bumpMap: { type: 'texture', value: bumpMap }
+				}"
+			>
+				<ngx3js-texture
+					#map
+					[type]="'map'"
+					[image]="'textures/brick_diffuse.jpg'"
+					[anisotropy]="4"
+				></ngx3js-texture>
+				<ngx3js-texture
+					#bumpMap
+					[type]="'bumpMap'"
+					[image]="'textures/brick_bump.jpg'"
+					[anisotropy]="4"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

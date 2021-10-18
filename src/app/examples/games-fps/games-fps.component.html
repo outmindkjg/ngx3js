@@ -1,85 +1,100 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> 
-  Octree threejs demo - basic collisions with static triangle mesh<br />WASD to move, space to jump, use mouse to throw balls and move the camera.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	Octree threejs demo - basic collisions with static triangle mesh<br />WASD to
+	move, space to jump, use mouse to throw balls and move the camera.
 </div>
 <ngx3js-renderer
-  [controlType]="'none'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [shadowMapType]="'VSMShadowMap'"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'mousedown,mousemove,keyup,keydown,click'"
-  (eventListener)="setMouseEvent($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'none'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[shadowMapType]="'VSMShadowMap'"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'mousedown,mousemove,keyup,keydown,click'"
+	(eventListener)="setMouseEvent($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="0.1" [far]="1000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-    <ngx3js-rotation [x]="0" [y]="0" [z]="0" [order]="'YXZ'"></ngx3js-rotation>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x88ccff'">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x6688cc'"
-    ></ngx3js-light>
-    <ngx3js-light
-      #fillLight1
-      [type]="'DirectionalLight'"
-      [color]="'0xff9999'"
-      [intensity]="0.5"
-    >
-      <ngx3js-position [x]="-1" [y]="1" [z]="2"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      #fillLight2
-      [type]="'DirectionalLight'"
-      [color]="'0x8888ff'"
-      [intensity]="0.2"
-    >
-      <ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      #directionalLight
-      [type]="'DirectionalLight'"
-      [color]="'0xffffaa'"
-      [intensity]="1.2"
-      [castShadow]="true"
-      [shadowCameraNear]="0.01"
-      [shadowCameraFar]="500"
-      [shadowCameraRight]="30"
-      [shadowCameraLeft]="-30"
-      [shadowCameraTop]="30"
-      [shadowCameraBottom]="-30"
-      [shadowMapSize]="1024"
-      [shadowRadius]="4"
-      [shadowBias]="-0.00006"
-    >
-      <ngx3js-position [x]="-5" [y]="25" [z]="-1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #sphereGeometry
-        [type]="'SphereGeometry'"
-        [radius]="0.2"
-        [widthSegments]="32"
-        [heightSegments]="32"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #sphereMaterial
-        [type]="'MeshStandardMaterial'" 
-        [color]="'0x888855'"
-        [roughness]="0.8"
-        [metalness]="0.5"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of spheresInfos;let idx = index;" [geometry]="sphereGeometry" [material]="sphereMaterial" [castShadow]="true" [receiveShadow]="true" (onLoad)="setSpheres($event,idx)"></ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh [storageName]="'collision-world.glb'" [storageOption]="{ path : 'models/gltf/' }" (onLoad)="setWorld($event)">
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="75"
+		[near]="0.1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+		<ngx3js-rotation [x]="0" [y]="0" [z]="0" [order]="'YXZ'"></ngx3js-rotation>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x88ccff'">
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'"></ngx3js-light>
+		<ngx3js-light
+			#fillLight1
+			[type]="'DirectionalLight'"
+			[color]="'0xff9999'"
+			[intensity]="0.5"
+		>
+			<ngx3js-position [x]="-1" [y]="1" [z]="2"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			#fillLight2
+			[type]="'DirectionalLight'"
+			[color]="'0x8888ff'"
+			[intensity]="0.2"
+		>
+			<ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			#directionalLight
+			[type]="'DirectionalLight'"
+			[color]="'0xffffaa'"
+			[intensity]="1.2"
+			[castShadow]="true"
+			[shadowCameraNear]="0.01"
+			[shadowCameraFar]="500"
+			[shadowCameraRight]="30"
+			[shadowCameraLeft]="-30"
+			[shadowCameraTop]="30"
+			[shadowCameraBottom]="-30"
+			[shadowMapSize]="1024"
+			[shadowRadius]="4"
+			[shadowBias]="-0.00006"
+		>
+			<ngx3js-position [x]="-5" [y]="25" [z]="-1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#sphereGeometry
+				[type]="'SphereGeometry'"
+				[radius]="0.2"
+				[widthSegments]="32"
+				[heightSegments]="32"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#sphereMaterial
+				[type]="'MeshStandardMaterial'"
+				[color]="'0x888855'"
+				[roughness]="0.8"
+				[metalness]="0.5"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of spheresInfos; let idx = index"
+				[geometry]="sphereGeometry"
+				[material]="sphereMaterial"
+				[castShadow]="true"
+				[receiveShadow]="true"
+				(onLoad)="setSpheres($event, idx)"
+			></ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh
+			[storageName]="'collision-world.glb'"
+			[storageOption]="{ path: 'models/gltf/' }"
+			(onLoad)="setWorld($event)"
+		>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,45 +1,129 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cameras<br/>
-  <b>O</b> orthographic <b>P</b> perspective 
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	cameras<br />
+	<b>O</b> orthographic <b>P</b> perspective
 </div>
-<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan : false , enableDamping : true }" [statsMode]="0" [antialias]="true" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)" [autoClear]="true">
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-camera (onLoad)="setCameraMain($event)" [type]="'perspective'"  [fov]="50" [near]="1" [far]="10000" [autoClear]="true" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'100%'">
-      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-mesh [name]="'cameraRig'" (onLoad)="setCameraRig($event)">
-      <ngx3js-lookat [refer]="main_mesh"></ngx3js-lookat>
-      <ngx3js-camera (onLoad)="setCameraPerspective($event)" [visible]="true" [type]="'perspective'"  [fov]="50" [near]="150" [far]="1000" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
-        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-helper [type]="'camera'"></ngx3js-helper>
-      </ngx3js-camera>
-      <ngx3js-camera (onLoad)="setCameraOrthographic($event)" [visible]="false" [type]="'Orthographic'" [near]="150" [far]="1000" [left]="-0.5" [top]="1" [right]="0.5" [bottom]="-1" [fov]="50" [autoClear]="false" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'100%'">
-        <ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-helper [visible]="false" [type]="'camera'"></ngx3js-helper>
-      </ngx3js-camera>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position>
-        <ngx3js-geometry [type]="'sphere'" [radius]="5" [widthSegments]="16" [heightSegments]="8"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0x0000ff'" [wireframe]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh  #main_mesh (onLoad)="setMesh($event)">
-      <ngx3js-geometry [type]="'sphere'" [radius]="100" [widthSegments]="16" [heightSegments]="8"></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0xffffff'" [wireframe]="true"></ngx3js-material>
-      <ngx3js-mesh (onLoad)="setSphere1($event)">
-        <ngx3js-position [x]="0" [y]="150" [z]="0"></ngx3js-position>
-        <ngx3js-geometry [type]="'sphere'" [radius]="50" [widthSegments]="16" [heightSegments]="8"></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0x00ff00'" [wireframe]="true"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh [type]="'Points'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry  [type]="'geometry'" [attrPosition]="vertices"></ngx3js-geometry>
-      <ngx3js-material [type]="'Points'" [color]="'0x888888'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+	[autoClear]="true"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-camera
+			(onLoad)="setCameraMain($event)"
+			[type]="'perspective'"
+			[fov]="50"
+			[near]="1"
+			[far]="10000"
+			[autoClear]="true"
+			[viewport]="true"
+			[x]="'50%'"
+			[y]="0"
+			[width]="'50%'"
+			[height]="'100%'"
+		>
+			<ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-position [x]="0" [y]="0" [z]="2500"></ngx3js-position>
+		</ngx3js-camera>
+		<ngx3js-mesh [name]="'cameraRig'" (onLoad)="setCameraRig($event)">
+			<ngx3js-lookat [refer]="main_mesh"></ngx3js-lookat>
+			<ngx3js-camera
+				(onLoad)="setCameraPerspective($event)"
+				[visible]="true"
+				[type]="'perspective'"
+				[fov]="50"
+				[near]="150"
+				[far]="1000"
+				[autoClear]="false"
+				[viewport]="true"
+				[x]="0"
+				[y]="0"
+				[width]="'50%'"
+				[height]="'100%'"
+			>
+				<ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-helper [type]="'camera'"></ngx3js-helper>
+			</ngx3js-camera>
+			<ngx3js-camera
+				(onLoad)="setCameraOrthographic($event)"
+				[visible]="false"
+				[type]="'Orthographic'"
+				[near]="150"
+				[far]="1000"
+				[left]="-0.5"
+				[top]="1"
+				[right]="0.5"
+				[bottom]="-1"
+				[fov]="50"
+				[autoClear]="false"
+				[viewport]="true"
+				[x]="0"
+				[y]="0"
+				[width]="'50%'"
+				[height]="'100%'"
+			>
+				<ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-helper [visible]="false" [type]="'camera'"></ngx3js-helper>
+			</ngx3js-camera>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="150"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'sphere'"
+					[radius]="5"
+					[widthSegments]="16"
+					[heightSegments]="8"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0x0000ff'"
+					[wireframe]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh #main_mesh (onLoad)="setMesh($event)">
+			<ngx3js-geometry
+				[type]="'sphere'"
+				[radius]="100"
+				[widthSegments]="16"
+				[heightSegments]="8"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasic'"
+				[color]="'0xffffff'"
+				[wireframe]="true"
+			></ngx3js-material>
+			<ngx3js-mesh (onLoad)="setSphere1($event)">
+				<ngx3js-position [x]="0" [y]="150" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'sphere'"
+					[radius]="50"
+					[widthSegments]="16"
+					[heightSegments]="8"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0x00ff00'"
+					[wireframe]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh [type]="'Points'">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'geometry'"
+				[attrPosition]="vertices"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'Points'" [color]="'0x888888'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

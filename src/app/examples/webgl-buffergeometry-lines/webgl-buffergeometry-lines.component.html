@@ -1,30 +1,35 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - buffergeometry - lines
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - buffergeometry - lines
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="4000">
-    <ngx3js-position [x]="0" [y]="0" [z]="2750"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Line'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'BufferGeometry'"
-        [attrPosition]="positions"
-        [attrColor]="colors"
-        [morphAttributes]="morphAttributes"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'LineBasicMaterial'" [vertexColors]="true" [morphTargets]="true"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="1" [far]="4000">
+		<ngx3js-position [x]="0" [y]="0" [z]="2750"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Line'">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'BufferGeometry'"
+				[attrPosition]="positions"
+				[attrColor]="colors"
+				[morphAttributes]="morphAttributes"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'LineBasicMaterial'"
+				[vertexColors]="true"
+				[morphTargets]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

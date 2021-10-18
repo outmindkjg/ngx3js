@@ -1,41 +1,49 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - morph targets - horse<br/>
-  model by <a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from <a href="http://www.ro.me" target="_blank" rel="noopener">rome</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - morph targets - horse<br />
+	model by
+	<a href="https://mirada.com/" target="_blank" rel="noopener">mirada</a> from
+	<a href="http://www.ro.me" target="_blank" rel="noopener">rome</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
-    <ngx3js-position [x]="600" [y]="300" [z]="0"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xf0f0f0'">
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xefefff'"
-      [intensity]="1.5"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffefef'"
-      [intensity]="1.5"
-    >
-      <ngx3js-position [x]="-1" [y]="-1" [z]="-1" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/Horse.glb'">
-      <ngx3js-scale [x]="1.5" [y]="1.5" [z]="1.5"></ngx3js-scale>
-      <ngx3js-mixer [action]="'run'">
-        <ngx3js-clip [index]="0" [name]="'run'"></ngx3js-clip>
-      </ngx3js-mixer>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
+		<ngx3js-position [x]="600" [y]="300" [z]="0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xf0f0f0'">
+		<ngx3js-light [type]="'directional'" [color]="'0xefefff'" [intensity]="1.5">
+			<ngx3js-position
+				[x]="1"
+				[y]="1"
+				[z]="1"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffefef'" [intensity]="1.5">
+			<ngx3js-position
+				[x]="-1"
+				[y]="-1"
+				[z]="-1"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/Horse.glb'"
+		>
+			<ngx3js-scale [x]="1.5" [y]="1.5" [z]="1.5"></ngx3js-scale>
+			<ngx3js-mixer [action]="'run'">
+				<ngx3js-clip [index]="0" [name]="'run'"></ngx3js-clip>
+			</ngx3js-mixer>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

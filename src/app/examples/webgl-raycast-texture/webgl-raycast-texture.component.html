@@ -1,72 +1,80 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - raycast texture<br>Left to right: buffer geometry - geometry - indexed buffer geometry
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	raycast texture<br />Left to right: buffer geometry - geometry - indexed
+	buffer geometry
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'mousemove'"
-  (eventListener)="setMouseMove($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'mousemove'"
+	(eventListener)="setMouseMove($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="-30" [y]="40" [z]="50"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xeeeeee'">
-    <ngx3js-shared>
-      <ngx3js-material #material [type]="'MeshBasic'" [side]="'double'">
-        <ngx3js-texture 
-          [image]="'textures/uv_grid_opengl.jpg'" 
-          [mapping]="'uv'" 
-          [wrapS]="controls.wrapS" 
-          [wrapT]="controls.wrapT"
-          [repeatX]="controls.repeat.x"
-          [repeatY]="controls.repeat.y"
-          [offsetX]="controls.offset.x"
-          [offsetY]="controls.offset.y"
-          [rotation]="controls.rotation"
-          (onLoad)="setTexture($event)"
-        ></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="4" [y]="-5" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'box'"
-          [width]="20"
-          [height]="20"
-          [depth]="20"
-          (onLoad)="setGeometry('box', $event)"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="-16" [y]="-5" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="25"
-          [height]="25"
-          [widthSegments]="1"
-          [heightSegments]="1"
-          (onLoad)="setGeometry('plane', $event)"
-          ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [material]="material">
-        <ngx3js-position [x]="24" [y]="-5" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Circle'"
-          [radius]="25"
-          [segments]="40"
-          [thetaStart]="0"
-          [thetaLength]="360"
-          (onLoad)="setGeometry('circle', $event)"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="-30" [y]="40" [z]="50"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xeeeeee'">
+		<ngx3js-shared>
+			<ngx3js-material #material [type]="'MeshBasic'" [side]="'double'">
+				<ngx3js-texture
+					[image]="'textures/uv_grid_opengl.jpg'"
+					[mapping]="'uv'"
+					[wrapS]="controls.wrapS"
+					[wrapT]="controls.wrapT"
+					[repeatX]="controls.repeat.x"
+					[repeatY]="controls.repeat.y"
+					[offsetX]="controls.offset.x"
+					[offsetY]="controls.offset.y"
+					[rotation]="controls.rotation"
+					(onLoad)="setTexture($event)"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="4" [y]="-5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'box'"
+					[width]="20"
+					[height]="20"
+					[depth]="20"
+					(onLoad)="setGeometry('box', $event)"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="-16" [y]="-5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Plane'"
+					[width]="25"
+					[height]="25"
+					[widthSegments]="1"
+					[heightSegments]="1"
+					(onLoad)="setGeometry('plane', $event)"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="24" [y]="-5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Circle'"
+					[radius]="25"
+					[segments]="40"
+					[thetaStart]="0"
+					[thetaLength]="360"
+					(onLoad)="setGeometry('circle', $event)"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

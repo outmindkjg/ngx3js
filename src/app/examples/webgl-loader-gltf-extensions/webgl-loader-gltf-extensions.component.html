@@ -1,43 +1,66 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  <a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
-  <div [id]="'description'"></div>
-  todo
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener"
+		>glTF</a
+	>
+	2.0 loader<br />
+	<div [id]="'description'"></div>
+	todo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="sceneInfo.centerX" [y]="sceneInfo.centerY" [z]="sceneInfo.centerZ"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
-    <ngx3js-position [x]="sceneInfo.cameraPosX" [y]="sceneInfo.cameraPosY" [z]="sceneInfo.cameraPosZ"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x222222'">
-    <ngx3js-texture [type]="'background-environment'" [cubeType]="'angular'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'">
-    </ngx3js-texture>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="2"
-      [shadowCameraBottom]="-2"
-      [shadowCameraLeft]="-2"
-      [shadowCameraRight]="2"
-      [shadowCameraNear]="0.1"
-      [shadowCameraFar]="40"
-    >
-      <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="sceneInfo.url" [storageOption]="{ useDraco : true, useDds : true, decoderPath : 'js/libs/draco/gltf/'}">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat
+		[x]="sceneInfo.centerX"
+		[y]="sceneInfo.centerY"
+		[z]="sceneInfo.centerZ"
+	></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
+		<ngx3js-position
+			[x]="sceneInfo.cameraPosX"
+			[y]="sceneInfo.cameraPosY"
+			[z]="sceneInfo.cameraPosZ"
+		></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x222222'">
+		<ngx3js-texture
+			[type]="'background-environment'"
+			[cubeType]="'angular'"
+			[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'"
+		>
+		</ngx3js-texture>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="sceneInfo.url"
+			[storageOption]="{
+				useDraco: true,
+				useDds: true,
+				decoderPath: 'js/libs/draco/gltf/'
+			}"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -2,22 +2,22 @@ import { Component } from '@angular/core';
 import { BaseComponent, RendererComponent, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl-materials-texture-anisotropy',
-  templateUrl: './webgl-materials-texture-anisotropy.component.html',
-  styleUrls: ['./webgl-materials-texture-anisotropy.component.scss']
+	selector: 'app-webgl-materials-texture-anisotropy',
+	templateUrl: './webgl-materials-texture-anisotropy.component.html',
+	styleUrls: ['./webgl-materials-texture-anisotropy.component.scss'],
 })
 export class WebglMaterialsTextureAnisotropyComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
-
-  setRender(render : RendererComponent) {
-    super.setRender(render);
-    setTimeout(() => {
-      this.anisotropy = (render.getRenderer() as THREE.WebGLRenderer).capabilities.getMaxAnisotropy();
-    }, 1000);
-  }
-  anisotropy : number = 1;
-
+	setRender(render: RendererComponent) {
+		super.setRender(render);
+		setTimeout(() => {
+			this.anisotropy = (
+				render.getRenderer() as THREE.WebGLRenderer
+			).capabilities.getMaxAnisotropy();
+		}, 1000);
+	}
+	anisotropy: number = 1;
 }

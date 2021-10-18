@@ -1,158 +1,184 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a><br>
-  Ammo.js physics terrain heightfield demo  
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a
+	><br />
+	Ammo.js physics terrain heightfield demo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'pointerdown'"
-  (eventListener)="onMouseClick($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'pointerdown'"
+	(eventListener)="onMouseClick($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="-7" [y]="5" [z]="8"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xbfd1e5'">
-    <ngx3js-physics [gravity]="-9.8"></ngx3js-physics>    
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x404040'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'DirectionalLight'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="20"
-      [shadowCameraBottom]="-20"
-      [shadowCameraLeft]="-20"
-      [shadowCameraRight]="20"
-      [shadowCameraNear]="2"
-      [shadowCameraFar]="50"
-      [shadowMapSize]="1024"
-    >
-      <ngx3js-position [x]="-10" [y]="10" [z]="5"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-texture #colorTexture [image]="'textures/colors.png'"></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh *ngFor="let info of ballInfos;let idx = index;" [name]="'Ball ' + idx" [castShadow]="true" [receiveShadow]="true">
-      <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'SphereGeometry'"
-        [radius]="0.4"
-        [widthSegments]="18"
-        [heightSegments]="16"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x202020'"></ngx3js-material>
-      <ngx3js-rigidbody [mass]="3" [friction]="0.5" [velocityX]="info.vx" [velocityY]="info.vy" [velocityZ]="info.vz"></ngx3js-rigidbody>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh #Ramp [receiveShadow]="true" [castShadow]="true">
-        <ngx3js-position [x]="3" [y]="1" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="0" [z]="30"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="10"
-          [height]="1"
-          [depth]="4"
-          [widthSegments]="1"
-          [heightSegments]="1"
-          [depthSegments]="1"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshPhongMaterial'"
-          [color]="'0x606060'"
-        ></ngx3js-material>
-        <ngx3js-rigidbody [mass]="0"></ngx3js-rigidbody>
-      </ngx3js-mesh>
-      <ngx3js-mesh [receiveShadow]="true" [castShadow]="true" [frustumCulled]="false">
-        <ngx3js-position [x]="5" [y]="5" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'SphereGeometry'"
-          [radius]="1.5"
-          [widthSegments]="40"
-          [heightSegments]="25"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshPhongMaterial'"
-          [color]="'0xFFFFFF'"
-          [map]="colorTexture"
-        ></ngx3js-material>
-        <ngx3js-rigidbody 
-          [isSoftBody]="true" 
-          [mass]="15" 
-          [margin]="0.01"
-          [viterations]="40"
-          [piterations]="40"
-          [collisions]="'0x11'"
-          [friction]="0.1"
-          [damping]="0.01"
-          [stiffness]="0.9"
-          [pressure]="250"
-        ></ngx3js-rigidbody>
-      </ngx3js-mesh>
-      <ngx3js-mesh [receiveShadow]="true" [castShadow]="true" [frustumCulled]="false">
-        <ngx3js-position [x]="-2" [y]="5" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="1"
-          [height]="1"
-          [depth]="5"
-          [widthSegments]="4"
-          [heightSegments]="4"
-          [depthSegments]="20"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshPhongMaterial'"
-          [color]="'0xFFFFFF'"
-          [map]="colorTexture"
-        ></ngx3js-material>
-        <ngx3js-rigidbody 
-          [isSoftBody]="true" 
-          [mass]="15" 
-          [margin]="0.01"
-          [viterations]="40"
-          [piterations]="40"
-          [collisions]="'0x11'"
-          [friction]="0.1"
-          [damping]="0.01"
-          [stiffness]="0.9"
-          [pressure]="120"
-        ></ngx3js-rigidbody>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh  name="'terrain'" [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-0.5" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'BoxGeometry'"
-        [width]="40"
-        [height]="1"
-        [depth]="40"
-        [widthSegments]="1"
-        [heightSegments]="1"
-        [depthSegments]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhongMaterial'"
-        [color]="'0xFFFFFF'"
-      >
-        <ngx3js-texture 
-          [image]="'textures/grid.png'"
-          [wrap]="'RepeatWrapping'"
-          [repeat]="40"
-        ></ngx3js-texture>
-      </ngx3js-material>
-      <ngx3js-rigidbody [mass]="0"></ngx3js-rigidbody>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="60"
+		[near]="0.2"
+		[far]="2000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="-7" [y]="5" [z]="8"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xbfd1e5'">
+		<ngx3js-physics [gravity]="-9.8"></ngx3js-physics>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x404040'"></ngx3js-light>
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="20"
+			[shadowCameraBottom]="-20"
+			[shadowCameraLeft]="-20"
+			[shadowCameraRight]="20"
+			[shadowCameraNear]="2"
+			[shadowCameraFar]="50"
+			[shadowMapSize]="1024"
+		>
+			<ngx3js-position [x]="-10" [y]="10" [z]="5"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-texture
+				#colorTexture
+				[image]="'textures/colors.png'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh
+			*ngFor="let info of ballInfos; let idx = index"
+			[name]="'Ball ' + idx"
+			[castShadow]="true"
+			[receiveShadow]="true"
+		>
+			<ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'SphereGeometry'"
+				[radius]="0.4"
+				[widthSegments]="18"
+				[heightSegments]="16"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0x202020'"
+			></ngx3js-material>
+			<ngx3js-rigidbody
+				[mass]="3"
+				[friction]="0.5"
+				[velocityX]="info.vx"
+				[velocityY]="info.vy"
+				[velocityZ]="info.vz"
+			></ngx3js-rigidbody>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh #Ramp [receiveShadow]="true" [castShadow]="true">
+				<ngx3js-position [x]="3" [y]="1" [z]="0"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="0" [z]="30"></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="10"
+					[height]="1"
+					[depth]="4"
+					[widthSegments]="1"
+					[heightSegments]="1"
+					[depthSegments]="1"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0x606060'"
+				></ngx3js-material>
+				<ngx3js-rigidbody [mass]="0"></ngx3js-rigidbody>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				[receiveShadow]="true"
+				[castShadow]="true"
+				[frustumCulled]="false"
+			>
+				<ngx3js-position [x]="5" [y]="5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'SphereGeometry'"
+					[radius]="1.5"
+					[widthSegments]="40"
+					[heightSegments]="25"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xFFFFFF'"
+					[map]="colorTexture"
+				></ngx3js-material>
+				<ngx3js-rigidbody
+					[isSoftBody]="true"
+					[mass]="15"
+					[margin]="0.01"
+					[viterations]="40"
+					[piterations]="40"
+					[collisions]="'0x11'"
+					[friction]="0.1"
+					[damping]="0.01"
+					[stiffness]="0.9"
+					[pressure]="250"
+				></ngx3js-rigidbody>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				[receiveShadow]="true"
+				[castShadow]="true"
+				[frustumCulled]="false"
+			>
+				<ngx3js-position [x]="-2" [y]="5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="1"
+					[height]="1"
+					[depth]="5"
+					[widthSegments]="4"
+					[heightSegments]="4"
+					[depthSegments]="20"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0xFFFFFF'"
+					[map]="colorTexture"
+				></ngx3js-material>
+				<ngx3js-rigidbody
+					[isSoftBody]="true"
+					[mass]="15"
+					[margin]="0.01"
+					[viterations]="40"
+					[piterations]="40"
+					[collisions]="'0x11'"
+					[friction]="0.1"
+					[damping]="0.01"
+					[stiffness]="0.9"
+					[pressure]="120"
+				></ngx3js-rigidbody>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh name="'terrain'" [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-0.5" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="0" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'BoxGeometry'"
+				[width]="40"
+				[height]="1"
+				[depth]="40"
+				[widthSegments]="1"
+				[heightSegments]="1"
+				[depthSegments]="1"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xFFFFFF'">
+				<ngx3js-texture
+					[image]="'textures/grid.png'"
+					[wrap]="'RepeatWrapping'"
+					[repeat]="40"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-rigidbody [mass]="0"></ngx3js-rigidbody>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

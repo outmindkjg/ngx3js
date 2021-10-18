@@ -1,57 +1,85 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - buffergeometry drawrange<br/>
-  by <a href="https://twitter.com/fernandojsg">fernandojsg</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - buffergeometry drawrange<br />
+	by <a href="https://twitter.com/fernandojsg">fernandojsg</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, minDistance : 1000, maxDistance : 3000, autoRotate : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [guiOpen]="true"
-  [outputEncoding]="'sRGBEncoding'"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 1000,
+		maxDistance: 3000,
+		autoRotate: true
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[guiOpen]="true"
+	[outputEncoding]="'sRGBEncoding'"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="4000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1750"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-mesh #box>
-        <ngx3js-geometry
-          [type]="'box'"
-          [width]="800"
-          [height]="800"
-          [depth]="800"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-helper [type]="'BoxHelper'" [target]="box" [color]="'0x101010'" [materialBlending]="'AdditiveBlending'" [materialTransparent]="true">
-      </ngx3js-helper>
-      <ngx3js-mesh [type]="'Points'" (onLoad)="setPointCloud($event)">
-          <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="particlePositions" [attrPositionUsage]="'DynamicDrawUsage'" [drawRangeStart]="0" [drawRangeCount]="controls.particleCount"></ngx3js-geometry>
-          <ngx3js-material
-            [type]="'PointsMaterial'"
-            [color]="'0xFFFFFF'"
-            [size]="3"
-            [blending]="'AdditiveBlending'"
-            [transparent]="true"
-            [sizeAttenuation]="false"
-          ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'LineSegments'" (onLoad)="setLineMesh($event)">
-        <ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="linePositions" [attrPositionUsage]="'DynamicDrawUsage'" [attrColor]="lineColors" [attrColorUsage]="'DynamicDrawUsage'" [computeBoundingSphere]="true" [drawRangeStart]="0" [drawRangeCount]="0"></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'LineBasicMaterial'"
-          [vertexColors]="true"
-          [blending]="'AdditiveBlending'"
-          [transparent]="true"
-        ></ngx3js-material>
-    </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="4000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1750"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-mesh #box>
+				<ngx3js-geometry
+					[type]="'box'"
+					[width]="800"
+					[height]="800"
+					[depth]="800"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-helper
+				[type]="'BoxHelper'"
+				[target]="box"
+				[color]="'0x101010'"
+				[materialBlending]="'AdditiveBlending'"
+				[materialTransparent]="true"
+			>
+			</ngx3js-helper>
+			<ngx3js-mesh [type]="'Points'" (onLoad)="setPointCloud($event)">
+				<ngx3js-geometry
+					[type]="'BufferGeometry'"
+					[attrPosition]="particlePositions"
+					[attrPositionUsage]="'DynamicDrawUsage'"
+					[drawRangeStart]="0"
+					[drawRangeCount]="controls.particleCount"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'PointsMaterial'"
+					[color]="'0xFFFFFF'"
+					[size]="3"
+					[blending]="'AdditiveBlending'"
+					[transparent]="true"
+					[sizeAttenuation]="false"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'LineSegments'" (onLoad)="setLineMesh($event)">
+				<ngx3js-geometry
+					[type]="'BufferGeometry'"
+					[attrPosition]="linePositions"
+					[attrPositionUsage]="'DynamicDrawUsage'"
+					[attrColor]="lineColors"
+					[attrColorUsage]="'DynamicDrawUsage'"
+					[computeBoundingSphere]="true"
+					[drawRangeStart]="0"
+					[drawRangeCount]="0"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[vertexColors]="true"
+					[blending]="'AdditiveBlending'"
+					[transparent]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

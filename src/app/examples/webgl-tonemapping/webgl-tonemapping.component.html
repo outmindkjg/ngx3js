@@ -1,31 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Tone Mapping<br />
-  Battle Damaged Sci-fi Helmet by
-  <a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener">theblueturtle_</a><br />
-  <a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Tone Mapping<br />
+	Battle Damaged Sci-fi Helmet by
+	<a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener"
+		>theblueturtle_</a
+	><br />
+	<a
+		href="https://hdrihaven.com/hdri/?h=royal_esplanade"
+		target="_blank"
+		rel="noopener"
+		>Royal Esplanade</a
+	>
+	by
+	<a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [toneMapping]="'ACESFilmic'"
-  [outputEncoding]="'sRGBEncoding'"
-  [toneMappingExposure]="1.0"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
-  (onLoad)="setRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[toneMapping]="'ACESFilmic'"
+	[outputEncoding]="'sRGBEncoding'"
+	[toneMappingExposure]="1.0"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+	(onLoad)="setRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="-0.2"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-    <ngx3js-position [x]="-1.8" [y]="0.6" [z]="2.7"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-texture [type]="'background-environment'" [cubeType]="'angular'" [storageName]="'venice_sunset_1k.hdr'" [storageOption]="{ path : 'textures/equirectangular/'}"></ngx3js-texture>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'DamagedHelmet.gltf'" [storageOption]="{ path : 'models/gltf/DamagedHelmet/glTF/'}">
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="-0.2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
+		<ngx3js-position [x]="-1.8" [y]="0.6" [z]="2.7"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-texture
+			[type]="'background-environment'"
+			[cubeType]="'angular'"
+			[storageName]="'venice_sunset_1k.hdr'"
+			[storageOption]="{ path: 'textures/equirectangular/' }"
+		></ngx3js-texture>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'DamagedHelmet.gltf'"
+			[storageOption]="{ path: 'models/gltf/DamagedHelmet/glTF/' }"
+		>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

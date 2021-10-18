@@ -420,6 +420,11 @@ import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handi
 import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
 import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
 import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
+import { WebglLoaderGltfSheenComponent } from './examples/webgl-loader-gltf-sheen/webgl-loader-gltf-sheen.component';
+import { WebglMorphtargetsFaceComponent } from './examples/webgl-morphtargets-face/webgl-morphtargets-face.component';
+import { WebglMaterialsInstanceUniformNodesComponent } from './examples/webgl-materials-instance-uniform-nodes/webgl-materials-instance-uniform-nodes.component';
+import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-points-nodes.component';
+import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
 
 @NgModule({
 	declarations: [
@@ -510,6 +515,7 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebglMaterialsComponent,
 		WebglMarchingcubesComponent,
 		WebglLodComponent,
+		WebglLoaderGltfSheenComponent,
 		WebglLoaderXyzComponent,
 		WebglLoaderXComponent,
 		WebglLoaderVtkComponent,
@@ -608,6 +614,7 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebglMaterialsVideoComponent,
 		WebglMaterialsVideoWebcamComponent,
 		WebglMaterialsWireframeComponent,
+		WebglMaterialsInstanceUniformNodesComponent,
 		WebglMathObbComponent,
 		WebglMathOrientationTransformComponent,
 		WebglMirrorComponent,
@@ -617,6 +624,7 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebglModifierSimplifierComponent,
 		WebglModifierTessellationComponent,
 		WebglMorphtargetsComponent,
+		WebglMorphtargetsFaceComponent,
 		WebglMorphtargetsHorseComponent,
 		WebglMorphtargetsSphereComponent,
 		WebglMultipleCanvasesCircleComponent,
@@ -635,6 +643,7 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebglPointsDynamicComponent,
 		WebglPointsSpritesComponent,
 		WebglPointsWavesComponent,
+		WebglPointsNodesComponent,
 		WebglRaycastSpriteComponent,
 		WebglRaycastTextureComponent,
 		WebglReadFloatBufferComponent,
@@ -742,6 +751,7 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		Webgl2VolumeInstancingComponent,
 		Webgl2VolumePerlinComponent,
 		WebgpuSandboxComponent,
+		WebgpuSkinningComponent,
 		WebgpuRttComponent,
 		WebgpuComputeComponent,
 		WebaudioOrientationComponent,
@@ -839,7 +849,13 @@ import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-laye
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
 	],
-	imports: [BrowserModule, AppRoutingModule, HttpClientModule, HighlightModule, Ngx3JsModule],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		HighlightModule,
+		Ngx3JsModule,
+	],
 	providers: [
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{

@@ -1,43 +1,63 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - panorama with depth<br />
-  Created by <a href="https://orfleisher.com" target="_blank" rel="noopener">@juniorxsound</a>. Panorama from <a href="https://krpano.com/examples/?depthmap" target="_blank" rel="noopener">krpano</a>.
-  - need ar/vr device to test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr -
+	panorama with depth<br />
+	Created by
+	<a href="https://orfleisher.com" target="_blank" rel="noopener"
+		>@juniorxsound</a
+	>. Panorama from
+	<a href="https://krpano.com/examples/?depthmap" target="_blank" rel="noopener"
+		>krpano</a
+	>. - need ar/vr device to test
 </div>
 <ngx3js-renderer
-  [controlType]="'vr'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'vr'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x101010'">
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-    ></ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #panoSphereGeo
-        [type]="'SphereGeometry'"
-        [radius]="6"
-        [widthSegments]="256"
-        [heightSegments]="256"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)"  #sphere [geometry]="panoSphereGeo">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-material [type]="'MeshStandardMaterial'" [side]="'BackSide'" [displacementScale]="-4.0">
-        <ngx3js-texture [type]="'map'" [image]="'textures/kandao3.jpg'" [minFilter]="'NearestFilter'" [generateMipmaps]="false"></ngx3js-texture>
-        <ngx3js-texture [type]="'displacementMap'" [image]="'textures/kandao3_depthmap.jpg'" [minFilter]="'NearestFilter'" [generateMipmaps]="false"></ngx3js-texture>
-      </ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x101010'">
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+		></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#panoSphereGeo
+				[type]="'SphereGeometry'"
+				[radius]="6"
+				[widthSegments]="256"
+				[heightSegments]="256"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)" #sphere [geometry]="panoSphereGeo">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-material
+				[type]="'MeshStandardMaterial'"
+				[side]="'BackSide'"
+				[displacementScale]="-4.0"
+			>
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/kandao3.jpg'"
+					[minFilter]="'NearestFilter'"
+					[generateMipmaps]="false"
+				></ngx3js-texture>
+				<ngx3js-texture
+					[type]="'displacementMap'"
+					[image]="'textures/kandao3_depthmap.jpg'"
+					[minFilter]="'NearestFilter'"
+					[generateMipmaps]="false"
+				></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

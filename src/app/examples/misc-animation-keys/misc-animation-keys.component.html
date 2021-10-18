@@ -1,41 +1,70 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - animation - basic use
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - animation - basic use
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
-    <ngx3js-position [x]="25" [y]="25" [z]="50"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="5"
-        [height]="5"
-        [depth]="5"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xffffff'" [transparent]="true"></ngx3js-material>
-      <ngx3js-mixer [action]="'default'" [duration]="3">
-        <ngx3js-clip [duration]="3" [name]="'default'">
-          <ngx3js-keyframe [type]="'position'" [times]="[0,1,2]" [vectors]="[0, 0, 0, 30, 0, 0, 0, 0, 0]"></ngx3js-keyframe>
-          <ngx3js-keyframe [type]="'scale'" [times]="[0,1,2]" [vectors]="[1, 1, 1, 2, 2, 2, 1, 1, 1]" ></ngx3js-keyframe>
-          <ngx3js-keyframe [type]="'quaternion'" [times]="[0,1,2]" [quaternions]="[{x : 0, y : 0, z : 0},{x : 180, y : 0, z : 0},{x : 0, y : 0, z : 0}]"></ngx3js-keyframe>
-          <ngx3js-keyframe [type]="'color'" [times]="[0,1,2]" [colors]="['0xff0000','0x00ff00','0x0000ff']" [interpolation]="'InterpolateDiscrete'"></ngx3js-keyframe>
-          <ngx3js-keyframe [type]="'opacity'" [times]="[0,1,2]" [values]="[1,0,1]"></ngx3js-keyframe>
-        </ngx3js-clip>
-      </ngx3js-mixer>
-    </ngx3js-mesh>
-    <ngx3js-helper [type]="'AxesHelper'" [size]="10"></ngx3js-helper>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="1000">
+		<ngx3js-position [x]="25" [y]="25" [z]="50"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="5"
+				[height]="5"
+				[depth]="5"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xffffff'"
+				[transparent]="true"
+			></ngx3js-material>
+			<ngx3js-mixer [action]="'default'" [duration]="3">
+				<ngx3js-clip [duration]="3" [name]="'default'">
+					<ngx3js-keyframe
+						[type]="'position'"
+						[times]="[0, 1, 2]"
+						[vectors]="[0, 0, 0, 30, 0, 0, 0, 0, 0]"
+					></ngx3js-keyframe>
+					<ngx3js-keyframe
+						[type]="'scale'"
+						[times]="[0, 1, 2]"
+						[vectors]="[1, 1, 1, 2, 2, 2, 1, 1, 1]"
+					></ngx3js-keyframe>
+					<ngx3js-keyframe
+						[type]="'quaternion'"
+						[times]="[0, 1, 2]"
+						[quaternions]="[
+							{ x: 0, y: 0, z: 0 },
+							{ x: 180, y: 0, z: 0 },
+							{ x: 0, y: 0, z: 0 }
+						]"
+					></ngx3js-keyframe>
+					<ngx3js-keyframe
+						[type]="'color'"
+						[times]="[0, 1, 2]"
+						[colors]="['0xff0000', '0x00ff00', '0x0000ff']"
+						[interpolation]="'InterpolateDiscrete'"
+					></ngx3js-keyframe>
+					<ngx3js-keyframe
+						[type]="'opacity'"
+						[times]="[0, 1, 2]"
+						[values]="[1, 0, 1]"
+					></ngx3js-keyframe>
+				</ngx3js-clip>
+			</ngx3js-mixer>
+		</ngx3js-mesh>
+		<ngx3js-helper [type]="'AxesHelper'" [size]="10"></ngx3js-helper>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -7,102 +7,109 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
+		&rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>[name]</h1>
 
 		<p class="desc">
-			ListenerComponent<br>
-			<br>
-			The [name] represents a virtual [link:https://developer.mozilla.org/de/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.<br>
-			A three.js application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].<br>
-			In most cases, the listener object is a child of the camera. So the 3D transformation of the camera represents the 3D transformation of the listener.<br>
-			<br>
+			ListenerComponent<br />
+			<br />
+			The [name] represents a virtual
+			[link:https://developer.mozilla.org/de/docs/Web/API/AudioListener
+			listener] of the all positional and non-positional audio effects in the
+			scene.<br />
+			A three.js application usually creates a single instance of [name]. It is
+			a mandatory construtor parameter for audios entities like [page:Audio
+			Audio] and [page:PositionalAudio PositionalAudio].<br />
+			In most cases, the listener object is a child of the camera. So the 3D
+			transformation of the camera represents the 3D transformation of the
+			listener.<br />
+			<br />
 			[page:AudioListener AudioListener] - THREE.AudioListener
 		</p>
 
 		<h2>Component</h2>
 		<code>
-			&lt;ngx3js-listener
-			[ castShadow ]="..."
-			[ debug ]="..."
-			[ enabled ]="..."
-			[ frustumCulled ]="..."
-			[ matrixAutoUpdate ]="..."
-			[ name ]="..."
-			[ receiveShadow ]="..."
-			[ tweenStart ]="..."
-			[ visible ]="..."
-			[ volume ]="..."
-			[ windowExport ]="..."
-		&gt;&lt;/ngx3js-listener&gt;
+			&lt;ngx3js-listener [ castShadow ]="..." [ debug ]="..." [ enabled ]="..."
+			[ frustumCulled ]="..." [ matrixAutoUpdate ]="..." [ name ]="..." [
+			receiveShadow ]="..." [ tweenStart ]="..." [ visible ]="..." [ volume
+			]="..." [ windowExport ]="..." &gt;&lt;/ngx3js-listener&gt;
 		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common input properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common input properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common input properties.
 		</p>
 
 		<h3>[property:number volume]</h3>
-		<p>
-			Set the volume.
-		</p>
+		<p>Set the volume.</p>
 
 		<h2>Properties - Output</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common output properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common output properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
-		</p>
-
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
-		<p>
-			Applys changes3d
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:AudioListener getListener](  )</h3>
+		<h3>[method:void applyChanges3d]( [param:string changes][] )</h3>
+		<p>Applys changes3d</p>
+
+		<h3>[method:AudioListener getListener]( )</h3>
 		<p>
-			Gets listener<br>
-			<br>
+			Gets listener<br />
+			<br />
 			Returns : listener
 		</p>
 
-		<h3>[method:T getObject3d](  )</h3>
+		<h3>[method:T getObject3d]( )</h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<h3>[method:boolean setParent]( [param:Object3D parent] )</h3>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/listener/listener.component.ts listener/listener.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/listener/listener.component.ts
+			listener/listener.component.ts]
+		</p>
 	</body>
 </html>

@@ -1,37 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> webaudio - visualizer<br/>
-  music by <a href="http://www.newgrounds.com/audio/listen/376737" target="_blank" rel="noopener">skullbeatz</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
+		>three.js</a
+	>
+	webaudio - visualizer<br />
+	music by
+	<a
+		href="http://www.newgrounds.com/audio/listen/376737"
+		target="_blank"
+		rel="noopener"
+		>skullbeatz</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0x000000'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-    <ngx3js-listener></ngx3js-listener>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-audio #audio [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3'">
-      <ngx3js-controller>
-        <ngx3js-controller-item [type]="'autoupdate'"></ngx3js-controller-item>
-      </ngx3js-controller>
-    </ngx3js-audio>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'PlaneGeometry'"
-        [width]="1"
-        [height]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'ShaderMaterial'" [shader]="'audioVisualizer'" [uniforms]="{ tAudioData : { type : 'DataTexture', value : audio }}"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
+		<ngx3js-listener></ngx3js-listener>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-audio #audio [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3'">
+			<ngx3js-controller>
+				<ngx3js-controller-item [type]="'autoupdate'"></ngx3js-controller-item>
+			</ngx3js-controller>
+		</ngx3js-audio>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'PlaneGeometry'"
+				[width]="1"
+				[height]="1"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'audioVisualizer'"
+				[uniforms]="{ tAudioData: { type: 'DataTexture', value: audio } }"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

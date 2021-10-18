@@ -1,73 +1,107 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MD2 Loader -
-  Ogro by <a href="http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=556">Magarnigal</a><br />
-  use arrows to control characters, mouse for camera
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	MD2 Loader - Ogro by
+	<a href="http://planetquake.gamespy.com/View.php?view=Quake2.Detail&id=556"
+		>Magarnigal</a
+	><br />
+	use arrows to control characters, mouse for camera
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, enableKeys : false }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'keydown,keyup'"
-  (eventListener)="setKeyDownEvent($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		enableKeys: false
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'keydown,keyup'"
+	(eventListener)="setKeyDownEvent($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="50" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="45" [near]="1" [far]="4000">
-    <ngx3js-position [x]="0" [y]="150" [z]="1300"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-fog [color]="'0xffffff'" [near]="1000" [far]="4000"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x222222'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      #light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="2.25"
-      [castShadow]="true"
-      [shadowCameraTop]="350"
-      [shadowCameraBottom]="-350"
-      [shadowCameraLeft]="-1000"
-      [shadowCameraRight]="1000"
-      [shadowCameraNear]="100"
-      [shadowCameraFar]="1200"
-      [shadowMapSizeWidth]="1024"
-      [shadowMapSizeHeight]="512"
-    >
-      <ngx3js-position [x]="200" [y]="450" [z]="500"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-mesh #baseCharacter [storageName]="'models/md2/ogro/ogro.md2'" [storageOption]="configOgro"></ngx3js-mesh>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let character of characterInfos" [type]="'MD2CharacterComplex'" [shareParts]="baseCharacter">
-        <ngx3js-position [x]="character.x" [y]="character.y" [z]="character.z"></ngx3js-position>
-        <ngx3js-scale [x]="3" [y]="3" [z]="3"></ngx3js-scale>
-        <ngx3js-mixer [controls]="characterControls" [type]="'Character'" [skin]="character.skin" [weapon]="0"></ngx3js-mixer>
-        <ngx3js-helper *ngIf="character.useGyro" [type]="'gyroscope'" [children]="[camera,light]"></ngx3js-helper>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="16000"
-        [height]="16000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0xffffff'"
-      ><ngx3js-texture [image]="'textures/terrain/grasslight-big.jpg'" [repeatX]="64" [repeatY]="64" [wrapS]="'Repeat'" [wrapT]="'Repeat'"></ngx3js-texture></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="50" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="4000"
+	>
+		<ngx3js-position [x]="0" [y]="150" [z]="1300"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-fog [color]="'0xffffff'" [near]="1000" [far]="4000"></ngx3js-fog>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x222222'"> </ngx3js-light>
+		<ngx3js-light
+			#light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="2.25"
+			[castShadow]="true"
+			[shadowCameraTop]="350"
+			[shadowCameraBottom]="-350"
+			[shadowCameraLeft]="-1000"
+			[shadowCameraRight]="1000"
+			[shadowCameraNear]="100"
+			[shadowCameraFar]="1200"
+			[shadowMapSizeWidth]="1024"
+			[shadowMapSizeHeight]="512"
+		>
+			<ngx3js-position [x]="200" [y]="450" [z]="500"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-mesh
+				#baseCharacter
+				[storageName]="'models/md2/ogro/ogro.md2'"
+				[storageOption]="configOgro"
+			></ngx3js-mesh>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let character of characterInfos"
+				[type]="'MD2CharacterComplex'"
+				[shareParts]="baseCharacter"
+			>
+				<ngx3js-position
+					[x]="character.x"
+					[y]="character.y"
+					[z]="character.z"
+				></ngx3js-position>
+				<ngx3js-scale [x]="3" [y]="3" [z]="3"></ngx3js-scale>
+				<ngx3js-mixer
+					[controls]="characterControls"
+					[type]="'Character'"
+					[skin]="character.skin"
+					[weapon]="0"
+				></ngx3js-mixer>
+				<ngx3js-helper
+					*ngIf="character.useGyro"
+					[type]="'gyroscope'"
+					[children]="[camera, light]"
+				></ngx3js-helper>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="16000"
+				[height]="16000"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhong'" [color]="'0xffffff'"
+				><ngx3js-texture
+					[image]="'textures/terrain/grasslight-big.jpg'"
+					[repeatX]="64"
+					[repeatY]="64"
+					[wrapS]="'Repeat'"
+					[wrapT]="'Repeat'"
+				></ngx3js-texture
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>
-

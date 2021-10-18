@@ -1,57 +1,78 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - exporter - collada<br /><br />
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - exporter - collada<br /><br />
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
-    <ngx3js-position [x]="-600" [y]="550" [z]="1300"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'hsl('+controls.hue+','+controls.saturation+','+(controls.lightness * controls.ka )+')'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'DirectionalLight'"
-      [color]="'hsl('+controls.lhue+','+controls.lsaturation+','+controls.llightness+')'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="controls.lx" [y]="controls.ly" [z]="controls.lz"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TeapotGeometry'"
-        [size]="400"
-        [segments]="controls.newTess"
-        [bottom]="controls.bottom"
-        [lid]="controls.lid"
-        [body]="controls.body"
-        [fitLid]="controls.fitLid"
-        [blinn]="!controls.nonblinn"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="materialType" 
-        [color]="overrideParams.color" 
-        [side]="overrideParams.side" 
-        [specular]="overrideParams.specular"
-        [wireframe]="overrideParams.wireframe"
-        [flatShading]="overrideParams.flatShading"
-        [map]="overrideParams.map"
-        [normalMap]="overrideParams.normalMap"
-        [envMap]="overrideParams.envMap"
-        [colorMultiply]="controls.kd"
-        [specularMultiply]="controls.ks"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="80000">
+		<ngx3js-position [x]="-600" [y]="550" [z]="1300"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="
+				'hsl(' +
+				controls.hue +
+				',' +
+				controls.saturation +
+				',' +
+				controls.lightness * controls.ka +
+				')'
+			"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="
+				'hsl(' +
+				controls.lhue +
+				',' +
+				controls.lsaturation +
+				',' +
+				controls.llightness +
+				')'
+			"
+			[intensity]="1"
+		>
+			<ngx3js-position
+				[x]="controls.lx"
+				[y]="controls.ly"
+				[z]="controls.lz"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TeapotGeometry'"
+				[size]="400"
+				[segments]="controls.newTess"
+				[bottom]="controls.bottom"
+				[lid]="controls.lid"
+				[body]="controls.body"
+				[fitLid]="controls.fitLid"
+				[blinn]="!controls.nonblinn"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="materialType"
+				[color]="overrideParams.color"
+				[side]="overrideParams.side"
+				[specular]="overrideParams.specular"
+				[wireframe]="overrideParams.wireframe"
+				[flatShading]="overrideParams.flatShading"
+				[map]="overrideParams.map"
+				[normalMap]="overrideParams.normalMap"
+				[envMap]="overrideParams.envMap"
+				[colorMultiply]="controls.kd"
+				[specularMultiply]="controls.ks"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -16,7 +16,14 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
 		canvas.width = 256;
 		canvas.height = 256;
 		const context = canvas.getContext('2d');
-		context.fillStyle = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ')';
+		context.fillStyle =
+			'rgb(' +
+			Math.floor(Math.random() * 256) +
+			',' +
+			Math.floor(Math.random() * 256) +
+			',' +
+			Math.floor(Math.random() * 256) +
+			')';
 		context.fillRect(0, 0, 256, 256);
 		return canvas;
 	}
@@ -29,9 +36,16 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
 				this.lastMesh.geometry.dispose();
 				(this.lastMesh.material as THREE.Material).dispose();
 			}
-			const geometry = new THREE.SphereGeometry(50, Math.random() * 64, Math.random() * 32);
+			const geometry = new THREE.SphereGeometry(
+				50,
+				Math.random() * 64,
+				Math.random() * 32
+			);
 			const texture = new THREE.CanvasTexture(this.createImage());
-			const material = new THREE.MeshBasicMaterial({ map: texture, wireframe: true });
+			const material = new THREE.MeshBasicMaterial({
+				map: texture,
+				wireframe: true,
+			});
 			const mesh = new THREE.Mesh(geometry, material);
 			this.mesh.getObject3d().add(mesh);
 			this.lastMesh = mesh;

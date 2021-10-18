@@ -1,52 +1,90 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive lines
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - interactive lines
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'move'"
-  (eventListener)="onMouseMove($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'move'"
+	(eventListener)="onMouseMove($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-    <ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xf0f0f0'">
-    <ngx3js-mesh (onLoad)="setSphere($event)" [visible]="false">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Sphere'"
-        [radius]="5"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'" [color]="'0xff0000'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'Buffer'"
-        [attrPosition]="points"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-mesh (onLoad)="setParentTransform($event)">
-        <ngx3js-position [x]="parentTransform.position.x" [y]="parentTransform.position.y" [z]="parentTransform.position.z"></ngx3js-position>
-        <ngx3js-rotation [x]="parentTransform.rotation.x" [y]="parentTransform.rotation.y" [z]="parentTransform.rotation.z"></ngx3js-rotation>
-        <ngx3js-scale [x]="parentTransform.scale.x" [y]="parentTransform.scale.y" [z]="parentTransform.scale.z"></ngx3js-scale>
-        <ngx3js-mesh *ngFor="let line of lineInfos" [type]="line.type" [geometry]="geometry">
-          <ngx3js-position [x]="line.position.x" [y]="line.position.y" [z]="line.position.z"></ngx3js-position>
-          <ngx3js-rotation [x]="line.rotation.x" [y]="line.rotation.y" [z]="line.rotation.z"></ngx3js-rotation>
-          <ngx3js-scale [x]="line.scale.x" [y]="line.scale.y" [z]="line.scale.z"></ngx3js-scale>
-          <ngx3js-material [type]="'LineBasic'" [color]="line.color"></ngx3js-material>
-        </ngx3js-mesh>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xf0f0f0'">
+		<ngx3js-mesh (onLoad)="setSphere($event)" [visible]="false">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry [type]="'Sphere'" [radius]="5"></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasic'"
+				[color]="'0xff0000'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'Buffer'"
+				[attrPosition]="points"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh (onLoad)="setParentTransform($event)">
+				<ngx3js-position
+					[x]="parentTransform.position.x"
+					[y]="parentTransform.position.y"
+					[z]="parentTransform.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="parentTransform.rotation.x"
+					[y]="parentTransform.rotation.y"
+					[z]="parentTransform.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-scale
+					[x]="parentTransform.scale.x"
+					[y]="parentTransform.scale.y"
+					[z]="parentTransform.scale.z"
+				></ngx3js-scale>
+				<ngx3js-mesh
+					*ngFor="let line of lineInfos"
+					[type]="line.type"
+					[geometry]="geometry"
+				>
+					<ngx3js-position
+						[x]="line.position.x"
+						[y]="line.position.y"
+						[z]="line.position.z"
+					></ngx3js-position>
+					<ngx3js-rotation
+						[x]="line.rotation.x"
+						[y]="line.rotation.y"
+						[z]="line.rotation.z"
+					></ngx3js-rotation>
+					<ngx3js-scale
+						[x]="line.scale.x"
+						[y]="line.scale.y"
+						[z]="line.scale.z"
+					></ngx3js-scale>
+					<ngx3js-material
+						[type]="'LineBasic'"
+						[color]="line.color"
+					></ngx3js-material>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

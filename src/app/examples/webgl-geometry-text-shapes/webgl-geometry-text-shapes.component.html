@@ -1,49 +1,60 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - simple text from json fonts
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - simple text from json fonts
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="-400" [z]="600"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xf0f0f0'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="0" [z]="-150"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'shape'"
-          [text]="'   Three.js\nSimple text.'"
-          [align]="'center'"
-          [font]="'helvetiker'"
-          [weight]="'regular'"
-          [size]="100"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" [color]="'0x006699'" [transparent]="true" [opacity]="0.4" [side]="'double'"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-svg 
-          [type]="'line'"
-          [geometryType]="'buffer'"
-          [text]="'   Three.js\nSimple text.'"
-          [align]="'center'"
-          [font]="'helvetiker'"
-          [weight]="'regular'"
-          [size]="100"
-        >
-          <ngx3js-material [type]="'LineBasic'" [color]="'0x006699'" [side]="'double'"></ngx3js-material>
-        </ngx3js-svg>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="-400" [z]="600"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xf0f0f0'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="-150"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'shape'"
+					[text]="'   Three.js\nSimple text.'"
+					[align]="'center'"
+					[font]="'helvetiker'"
+					[weight]="'regular'"
+					[size]="100"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[color]="'0x006699'"
+					[transparent]="true"
+					[opacity]="0.4"
+					[side]="'double'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-svg
+					[type]="'line'"
+					[geometryType]="'buffer'"
+					[text]="'   Three.js\nSimple text.'"
+					[align]="'center'"
+					[font]="'helvetiker'"
+					[weight]="'regular'"
+					[size]="100"
+				>
+					<ngx3js-material
+						[type]="'LineBasic'"
+						[color]="'0x006699'"
+						[side]="'double'"
+					></ngx3js-material>
+				</ngx3js-svg>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

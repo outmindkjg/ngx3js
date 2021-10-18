@@ -1,60 +1,81 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - SpotLights<br/>
-  by <a href="http://master-domain.com" target="_blank" rel="noopener">Master James</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	SpotLights<br />
+	by
+	<a href="http://master-domain.com" target="_blank" rel="noopener"
+		>Master James</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="2000">
-    <ngx3js-position [x]="46" [y]="22" [z]="-21"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene >
-    <ngx3js-light
-      *ngFor="let light of lightInfos"
-      [type]="'Spot'"
-      [color]="light.color"
-      [intensity]="2"
-      [castShadow]="true"
-      [angle]="17"
-      [penumbra]="0.2"
-      [decay]="2"
-      [distance]="50"
-    >
-      <ngx3js-position [x]="light.x" [y]="light.y" [z]="light.z"></ngx3js-position>
-      <ngx3js-tween [easing]="'power4.easein'" [targets]="'position'" (onLoad)="setLightTween($event)"></ngx3js-tween>
-      <ngx3js-tween [easing]="'power4.easein'" (onLoad)="setLightTween($event)"></ngx3js-tween>
-      <ngx3js-helper [type]="'light'" (onLoad)="setLightHelpers($event)"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'box'"
-        [width]="3"
-        [height]="1"
-        [depth]="2"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshPhong'" [color]="'0xaaaaaa'"></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true">
-      <ngx3js-position [x]="0" [y]="-0.05" [z]="0"></ngx3js-position>
-      <ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="2000"
-        [height]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0x808080'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="35" [near]="1" [far]="2000">
+		<ngx3js-position [x]="46" [y]="22" [z]="-21"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			*ngFor="let light of lightInfos"
+			[type]="'Spot'"
+			[color]="light.color"
+			[intensity]="2"
+			[castShadow]="true"
+			[angle]="17"
+			[penumbra]="0.2"
+			[decay]="2"
+			[distance]="50"
+		>
+			<ngx3js-position
+				[x]="light.x"
+				[y]="light.y"
+				[z]="light.z"
+			></ngx3js-position>
+			<ngx3js-tween
+				[easing]="'power4.easein'"
+				[targets]="'position'"
+				(onLoad)="setLightTween($event)"
+			></ngx3js-tween>
+			<ngx3js-tween
+				[easing]="'power4.easein'"
+				(onLoad)="setLightTween($event)"
+			></ngx3js-tween>
+			<ngx3js-helper
+				[type]="'light'"
+				(onLoad)="setLightHelpers($event)"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'box'"
+				[width]="3"
+				[height]="1"
+				[depth]="2"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0xaaaaaa'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-0.05" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="2000"
+				[height]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0x808080'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

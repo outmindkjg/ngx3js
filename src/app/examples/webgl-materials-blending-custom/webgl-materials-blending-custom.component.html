@@ -1,85 +1,107 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-  Material Blending - Custom
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Material Blending - Custom
 </div>
 
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="80" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="700"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="4000"
-        [height]="2000"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'MeshBasic'">
-        <ngx3js-texture 
-          [width]="128" 
-          [height]="128" 
-          [program]="backgroundInfo.program" 
-          [image]="backgroundInfo.image"
-          [wrapS]="backgroundInfo.wrapS" 
-          [wrapT]="backgroundInfo.wrapT" 
-          [repeatX]="backgroundInfo.repeatX" 
-          [repeatY]="backgroundInfo.repeatY"
-        ></ngx3js-texture>
-      </ngx3js-material>
-      <ngx3js-mesh *ngFor="let mesh of labelDstInfos">
-        <ngx3js-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="25"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" 
-          [transparent]="true"
-        >
-          <ngx3js-texture [width]="128" [height]="32" [program]="labelProgramDst" [text]="mesh.name"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngFor="let mesh of labelSrcInfos">
-        <ngx3js-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="25"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" 
-          [transparent]="true"
-        >
-          <ngx3js-texture [width]="128" [height]="32" [program]="labelProgramSrc" [text]="mesh.name"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh *ngFor="let mesh of meshInfos">
-        <ngx3js-position [x]="mesh.position.x" [y]="mesh.position.y" [z]="mesh.position.z"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'Plane'"
-          [width]="100"
-          [height]="100"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasic'" 
-          [transparent]="true"
-          [blending]="'Custom'"
-          [blendSrc]="mesh.blendSrc"
-          [blendDst]="mesh.blendDst"
-          [blendEquation]="controls.equation"
-        >
-          <ngx3js-texture [image]="controls.foreground"  [premultiplyAlpha]="controls.premultiply"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="80" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="700"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="-1"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="4000"
+				[height]="2000"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshBasic'">
+				<ngx3js-texture
+					[width]="128"
+					[height]="128"
+					[program]="backgroundInfo.program"
+					[image]="backgroundInfo.image"
+					[wrapS]="backgroundInfo.wrapS"
+					[wrapT]="backgroundInfo.wrapT"
+					[repeatX]="backgroundInfo.repeatX"
+					[repeatY]="backgroundInfo.repeatY"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-mesh *ngFor="let mesh of labelDstInfos">
+				<ngx3js-position
+					[x]="mesh.position.x"
+					[y]="mesh.position.y"
+					[z]="mesh.position.z"
+				></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Plane'"
+					[width]="100"
+					[height]="25"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasic'" [transparent]="true">
+					<ngx3js-texture
+						[width]="128"
+						[height]="32"
+						[program]="labelProgramDst"
+						[text]="mesh.name"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngFor="let mesh of labelSrcInfos">
+				<ngx3js-position
+					[x]="mesh.position.x"
+					[y]="mesh.position.y"
+					[z]="mesh.position.z"
+				></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Plane'"
+					[width]="100"
+					[height]="25"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasic'" [transparent]="true">
+					<ngx3js-texture
+						[width]="128"
+						[height]="32"
+						[program]="labelProgramSrc"
+						[text]="mesh.name"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngFor="let mesh of meshInfos">
+				<ngx3js-position
+					[x]="mesh.position.x"
+					[y]="mesh.position.y"
+					[z]="mesh.position.z"
+				></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'Plane'"
+					[width]="100"
+					[height]="100"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[transparent]="true"
+					[blending]="'Custom'"
+					[blendSrc]="mesh.blendSrc"
+					[blendDst]="mesh.blendDst"
+					[blendEquation]="controls.equation"
+				>
+					<ngx3js-texture
+						[image]="controls.foreground"
+						[premultiplyAlpha]="controls.premultiply"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

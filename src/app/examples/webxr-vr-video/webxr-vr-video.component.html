@@ -1,54 +1,80 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr - 360 stereo video<br />
-  stereoscopic panoramic render by <a href="http://pedrofe.com/rendering-for-oculus-rift-with-arnold/" target="_blank" rel="noopener">pedrofe</a>. scene from <a href="http://www.meryproject.com/" target="_blank" rel="noopener">mery project</a>.
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> vr -
+	360 stereo video<br />
+	stereoscopic panoramic render by
+	<a
+		href="http://pedrofe.com/rendering-for-oculus-rift-with-arnold/"
+		target="_blank"
+		rel="noopener"
+		>pedrofe</a
+	>. scene from
+	<a href="http://www.meryproject.com/" target="_blank" rel="noopener"
+		>mery project</a
+	>.
 </div>
 <ngx3js-renderer
-  [controlType]="'vr'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'vr'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="2000" [layers]="layers">
-    <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x101010'">
-    <ngx3js-shared>
-      <ngx3js-texture #texture [loaderType]="'video'" [image]="'textures/MaryOculus.mp4'"></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [layers]="[1]">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'SphereGeometry'"
-          [radius]="500"
-          [widthSegments]="60"
-          [heightSegments]="40"
-          [onInit]="setGeometry1"
-        >
-          <ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
-        </ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [map]="texture"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [layers]="[2]">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'SphereGeometry'"
-          [radius]="500"
-          [widthSegments]="60"
-          [heightSegments]="40"
-          [onInit]="setGeometry2"
-        >
-          <ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
-        </ngx3js-geometry>
-        <ngx3js-material [type]="'MeshBasicMaterial'" [map]="texture"></ngx3js-material>
-      </ngx3js-mesh>      
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="70"
+		[near]="1"
+		[far]="2000"
+		[layers]="layers"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x101010'">
+		<ngx3js-shared>
+			<ngx3js-texture
+				#texture
+				[loaderType]="'video'"
+				[image]="'textures/MaryOculus.mp4'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [layers]="[1]">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'SphereGeometry'"
+					[radius]="500"
+					[widthSegments]="60"
+					[heightSegments]="40"
+					[onInit]="setGeometry1"
+				>
+					<ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
+				</ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[map]="texture"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [layers]="[2]">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="-90" [z]="0"></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'SphereGeometry'"
+					[radius]="500"
+					[widthSegments]="60"
+					[heightSegments]="40"
+					[onInit]="setGeometry2"
+				>
+					<ngx3js-scale [x]="-1" [y]="1" [z]="1"></ngx3js-scale>
+				</ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[map]="texture"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

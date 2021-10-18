@@ -1,30 +1,54 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-  <a href="http://pointclouds.org/documentation/tutorials/pcd_file_format.php#pcd-file-format" target="_blank" rel="noopener">PCD File format</a>
-  <div>PCD loader test by <a href="http://filipecaixeta.com.br" target="_blank" rel="noopener">Filipe Caixeta</a></div>
-  <div>+/-: Increase/Decrease point size</div>
-  <div>c: Change color</div>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<a
+		href="http://pointclouds.org/documentation/tutorials/pcd_file_format.php#pcd-file-format"
+		target="_blank"
+		rel="noopener"
+		>PCD File format</a
+	>
+	<div>
+		PCD loader test by
+		<a href="http://filipecaixeta.com.br" target="_blank" rel="noopener"
+			>Filipe Caixeta</a
+		>
+	</div>
+	<div>+/-: Increase/Decrease point size</div>
+	<div>c: Change color</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true , autoRotate : true , minDistance: 0.3 , maxDistance: 100 , staticMoving: true , rotateSpeed: 2.0 , zoomSpeed: 0.3 , panSpeed: 0.2 }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  [useEvent]="'keypress'"
-  (eventListener)="setKeyPress($event)"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		autoRotate: true,
+		minDistance: 0.3,
+		maxDistance: 100,
+		staticMoving: true,
+		rotateSpeed: 2.0,
+		zoomSpeed: 0.3,
+		panSpeed: 0.2
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'keypress'"
+	(eventListener)="setKeyPress($event)"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene [background]="'0x000000'">
-    <ngx3js-camera [type]="'perspective'" [fov]="15" [near]="0.01" [far]="40">
-      <ngx3js-position [x]="0.4" [y]="0" [z]="-2"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/pcd/binary/Zaghetto.pcd'" [storageOption]="{ autoCenter : true }">
-      <ngx3js-rotation [x]="-180" [y]="0" [z]="0"></ngx3js-rotation>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-camera [type]="'perspective'" [fov]="15" [near]="0.01" [far]="40">
+			<ngx3js-position [x]="0.4" [y]="0" [z]="-2"></ngx3js-position>
+		</ngx3js-camera>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/pcd/binary/Zaghetto.pcd'"
+			[storageOption]="{ autoCenter: true }"
+		>
+			<ngx3js-rotation [x]="-180" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

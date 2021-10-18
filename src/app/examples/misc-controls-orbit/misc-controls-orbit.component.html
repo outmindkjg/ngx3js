@@ -1,62 +1,72 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - orbit controls
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	orbit controls
 </div>
 <ngx3js-renderer
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-control [type]="'OrbitControls'" [enableDamping]="true" [dampingFactor]="0.05" [screenSpacePanning]="false" [minDistance]="100" [maxDistance]="500" [maxPolarAngle]="90">
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  </ngx3js-control>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
-    <ngx3js-position [x]="400" [y]="200" [z]="0"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xcccccc'">
-    <ngx3js-fog [type]="'FogExp2'" [color]="'0xcccccc'" [density]="0.002"></ngx3js-fog>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x222222'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      #dirLight1
-      [type]="'DirectionalLight'"
-      [color]="'0xffffff'"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      #dirLight2
-      [type]="'DirectionalLight'"
-      [color]="'0x002288'"
-    >
-      <ngx3js-position [x]="-1" [y]="-1" [z]="-1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #geometry
-        [type]="'CylinderGeometry'"
-        [radiusTop]="0"
-        [radiusBottom]="10"
-        [height]="30"
-        [radialSegments]="4"
-        [heightSegments]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        #material
-        [type]="'MeshPhongMaterial'" 
-        [color]="'0xffffff'"
-        [flatShading]="true"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry" [material]="material" [matrixAutoUpdate]="false">
-        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-control
+		[type]="'OrbitControls'"
+		[enableDamping]="true"
+		[dampingFactor]="0.05"
+		[screenSpacePanning]="false"
+		[minDistance]="100"
+		[maxDistance]="500"
+		[maxPolarAngle]="90"
+	>
+		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	</ngx3js-control>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="1" [far]="1000">
+		<ngx3js-position [x]="400" [y]="200" [z]="0"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xcccccc'">
+		<ngx3js-fog
+			[type]="'FogExp2'"
+			[color]="'0xcccccc'"
+			[density]="0.002"
+		></ngx3js-fog>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x222222'"> </ngx3js-light>
+		<ngx3js-light #dirLight1 [type]="'DirectionalLight'" [color]="'0xffffff'">
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light #dirLight2 [type]="'DirectionalLight'" [color]="'0x002288'">
+			<ngx3js-position [x]="-1" [y]="-1" [z]="-1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'CylinderGeometry'"
+				[radiusTop]="0"
+				[radiusBottom]="10"
+				[height]="30"
+				[radialSegments]="4"
+				[heightSegments]="1"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xffffff'"
+				[flatShading]="true"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of meshInfos"
+				[geometry]="geometry"
+				[material]="material"
+				[matrixAutoUpdate]="false"
+			>
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

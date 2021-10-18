@@ -1,51 +1,50 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Node-Based Material<br />
-  Serialized using <a href="webgl_materials_nodes.html">webgl_materials_nodes.html</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Node-Based Material<br />
+	Serialized using
+	<a href="webgl_materials_nodes.html">webgl_materials_nodes.html</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
-    <ngx3js-position [x]="50" [y]="30" [z]="-50"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x464646'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffddcc'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="1" [y]="0.75" [z]="0.5"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xccccff'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="-1" [y]="0.75" [z]="-0.5"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TeapotGeometry'"
-        [size]="15"
-        [segments]="18"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'node'" [storageName]="storageName" [storageOption]="{ 
-        cloud : { type : 'texture', value : 'textures/lava/cloud.png', options : 'RepeatWrapping'
-      }}" (onLoad)="setMaterial($event)"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="1000">
+		<ngx3js-position [x]="50" [y]="30" [z]="-50"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x464646'"> </ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffddcc'" [intensity]="1">
+			<ngx3js-position [x]="1" [y]="0.75" [z]="0.5"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xccccff'" [intensity]="1">
+			<ngx3js-position [x]="-1" [y]="0.75" [z]="-0.5"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TeapotGeometry'"
+				[size]="15"
+				[segments]="18"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'node'"
+				[storageName]="storageName"
+				[storageOption]="{
+					cloud: {
+						type: 'texture',
+						value: 'textures/lava/cloud.png',
+						options: 'RepeatWrapping'
+					}
+				}"
+				(onLoad)="setMaterial($event)"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,46 +1,63 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">
-    three.js
-  </a>
-  - 2D Texture array framebuffer color attachment
-  <br />
-  <p>
-    This example shows how to render to an array of 2D texture.<br/>
-    WebGL2 allows to render to specific "layers" in 3D texture and array of textures.
-  </p>
-  Scanned head data by
-  <a href="https://www.codeproject.com/Articles/352270/Getting-started-with-Volume-Rendering" target="_blank" rel="noopener">Divine Augustine</a><br />
-  licensed under
-  <a href="https://www.codeproject.com/info/cpol10.aspx" target="_blank" rel="noopener">CPOL</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener"> three.js </a>
+	- 2D Texture array framebuffer color attachment
+	<br />
+	<p>
+		This example shows how to render to an array of 2D texture.<br />
+		WebGL2 allows to render to specific "layers" in 3D texture and array of
+		textures.
+	</p>
+	Scanned head data by
+	<a
+		href="https://www.codeproject.com/Articles/352270/Getting-started-with-Volume-Rendering"
+		target="_blank"
+		rel="noopener"
+		>Divine Augustine</a
+	><br />
+	licensed under
+	<a
+		href="https://www.codeproject.com/info/cpol10.aspx"
+		target="_blank"
+		rel="noopener"
+		>CPOL</a
+	>
 </div>
-  <ngx3js-renderer
-    [controlType]="'orbit'"
-    [controlOptions]="{ enablePan : false , enableDamping : true }"
-    [statsMode]="0"
-    [antialias]="true"
-    [shadowMapEnabled]="true"
-    [guiControl]="controls"
-    [guiParams]="controlsParams"
-    (onRender)="onRender($event)"
-  >
-    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-    <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
-      <ngx3js-position [x]="0" [y]="0" [z]="70"></ngx3js-position>
-    </ngx3js-camera>
-    <ngx3js-scene #scene>
-      <ngx3js-mesh (onLoad)="setMesh($event)">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'PlaneBufferGeometry'"
-          [width]="50"
-          [height]="50"
-        ></ngx3js-geometry>
-        <ngx3js-material [type]="'ShaderMaterial'" [shader]="'ShaderDemo15'" [uniforms]="{
-					diffuse: { type :'texture2d', value : 'textures/3d/head256x256x109.zip', options : 'width=256,height=256,depth=109,filename=head256x256x109,RedFormat,UnsignedByteType' },
-          depth: { value: 55 },
-          size: { type : 'vector2', value: [50, 50] }
-        }"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-scene>
-  </ngx3js-renderer>
-  
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="70"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'PlaneBufferGeometry'"
+				[width]="50"
+				[height]="50"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[shader]="'ShaderDemo15'"
+				[uniforms]="{
+					diffuse: {
+						type: 'texture2d',
+						value: 'textures/3d/head256x256x109.zip',
+						options:
+							'width=256,height=256,depth=109,filename=head256x256x109,RedFormat,UnsignedByteType'
+					},
+					depth: { value: 55 },
+					size: { type: 'vector2', value: [50, 50] }
+				}"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

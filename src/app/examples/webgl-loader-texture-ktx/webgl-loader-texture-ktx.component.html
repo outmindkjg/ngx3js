@@ -1,54 +1,65 @@
 <div class="info">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl - compressed KTX textures<br />
-	<a href="https://www.khronos.org/opengles/sdk/tools/KTX/file_format_spec/">Khronos Texture</a> is a lightweight file format for OpenGL
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl - compressed KTX textures<br />
+	<a href="https://www.khronos.org/opengles/sdk/tools/KTX/file_format_spec/"
+		>Khronos Texture</a
+	>
+	is a lightweight file format for OpenGL
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-shared>
-      <ngx3js-geometry
-        #boxGeometry
-        [type]="'box'"
-        [width]="200"
-        [height]="200"
-        [depth]="200"
-      ></ngx3js-geometry>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [geometry]="boxGeometry">
-        <ngx3js-position [x]="-300" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasic'" >
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_BC1.ktx'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="boxGeometry">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasic'" 
-          [depthTest]="false"
-          [transparent]="true"
-          [side]="'Double'"
-        >
-          <ngx3js-texture [storageName]="'textures/compressed/lensflare_BC3.ktx'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [geometry]="boxGeometry">
-        <ngx3js-position [x]="300" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [type]="'MeshBasic'" >
-          <ngx3js-texture [storageName]="'textures/compressed/disturb_BC1.ktx'"></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#boxGeometry
+				[type]="'box'"
+				[width]="200"
+				[height]="200"
+				[depth]="200"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [geometry]="boxGeometry">
+				<ngx3js-position [x]="-300" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasic'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_BC1.ktx'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="boxGeometry">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshBasic'"
+					[depthTest]="false"
+					[transparent]="true"
+					[side]="'Double'"
+				>
+					<ngx3js-texture
+						[storageName]="'textures/compressed/lensflare_BC3.ktx'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [geometry]="boxGeometry">
+				<ngx3js-position [x]="300" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material [type]="'MeshBasic'">
+					<ngx3js-texture
+						[storageName]="'textures/compressed/disturb_BC1.ktx'"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

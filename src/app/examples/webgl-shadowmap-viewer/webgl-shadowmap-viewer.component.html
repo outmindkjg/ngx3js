@@ -1,108 +1,127 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - ShadowMapViewer example by <a href="https://github.com/arya-s">arya-s</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	ShadowMapViewer example by <a href="https://github.com/arya-s">arya-s</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-viewer [type]="'shadowmapviewer'" [x]="10" [y]="-10" [width]="'15%'" [height]="'width'" [light]="dirLight"></ngx3js-viewer>
-  <ngx3js-viewer [type]="'shadowmapviewer'" [x]="-10" [y]="-10" [width]="'15%'" [height]="'width'" [light]="spotLight"></ngx3js-viewer>
-  
-  <ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-    <ngx3js-position [x]="0" [y]="15" [z]="35"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x404040'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      #spotLight
-      [type]="'SpotLight'"
-      [color]="'0xffffff'"
-      [name]="'Spot Light'"
-      [angle]="36"
-      [penumbra]="0.3"
-      [castShadow]="true"
-      [shadowCameraNear]="8"
-      [shadowCameraFar]="30"
-      [shadowMapSize]="1024"
-    >
-      <ngx3js-position [x]="10" [y]="10" [z]="5"></ngx3js-position>
-      <ngx3js-helper [type]="'CameraHelper'"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-light
-      #dirLight
-      [type]="'DirectionalLight'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [name]="'Dir. Light'"
-      [castShadow]="true"
-      [shadowCameraNear]="1"
-      [shadowCameraFar]="10"
-      [shadowCameraRight]="15"
-      [shadowCameraLeft]="-15"
-      [shadowCameraTop]="15"
-      [shadowCameraBottom]="-15"
-      [shadowMapSize]="1024"
-    >
-      <ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>
-      <ngx3js-helper [type]="'CameraHelper'"></ngx3js-helper>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-material 
-        #material
-        [type]="'MeshPhongMaterial'" 
-        [color]="'0xff0000'" 
-        [shininess]="150" 
-        [specular]="'0x222222'"
-      ></ngx3js-material>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh [castShadow]="true" [receiveShadow]="true" [material]="material">
-        <ngx3js-scale [multiply]="1/18"></ngx3js-scale>
-        <ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'TorusKnotGeometry'"
-          [radius]="25"
-          [tube]="8"
-          [radialSegments]="75"
-          [tubularSegments]="20"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-      <ngx3js-mesh [castShadow]="true" [receiveShadow]="true" [material]="material">
-        <ngx3js-position [x]="8" [y]="3" [z]="8"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'BoxGeometry'"
-          [width]="3"
-          [height]="3"
-          [depth]="3"
-        ></ngx3js-geometry>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="3"></ngx3js-scale>
-      <ngx3js-geometry
-        [type]="'BoxGeometry'"
-        [width]="10"
-        [height]="0.15"
-        [depth]="10"
-      ></ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhong'"
-        [color]="'0xa0adaf'"
-        [shininess]="150"
-        [specular]="'0x111111'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-viewer
+		[type]="'shadowmapviewer'"
+		[x]="10"
+		[y]="-10"
+		[width]="'15%'"
+		[height]="'width'"
+		[light]="dirLight"
+	></ngx3js-viewer>
+	<ngx3js-viewer
+		[type]="'shadowmapviewer'"
+		[x]="-10"
+		[y]="-10"
+		[width]="'15%'"
+		[height]="'width'"
+		[light]="spotLight"
+	></ngx3js-viewer>
+
+	<ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="15" [z]="35"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x404040'"> </ngx3js-light>
+		<ngx3js-light
+			#spotLight
+			[type]="'SpotLight'"
+			[color]="'0xffffff'"
+			[name]="'Spot Light'"
+			[angle]="36"
+			[penumbra]="0.3"
+			[castShadow]="true"
+			[shadowCameraNear]="8"
+			[shadowCameraFar]="30"
+			[shadowMapSize]="1024"
+		>
+			<ngx3js-position [x]="10" [y]="10" [z]="5"></ngx3js-position>
+			<ngx3js-helper [type]="'CameraHelper'"></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			#dirLight
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[name]="'Dir. Light'"
+			[castShadow]="true"
+			[shadowCameraNear]="1"
+			[shadowCameraFar]="10"
+			[shadowCameraRight]="15"
+			[shadowCameraLeft]="-15"
+			[shadowCameraTop]="15"
+			[shadowCameraBottom]="-15"
+			[shadowMapSize]="1024"
+		>
+			<ngx3js-position [x]="0" [y]="10" [z]="0"></ngx3js-position>
+			<ngx3js-helper [type]="'CameraHelper'"></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-material
+				#material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xff0000'"
+				[shininess]="150"
+				[specular]="'0x222222'"
+			></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				[castShadow]="true"
+				[receiveShadow]="true"
+				[material]="material"
+			>
+				<ngx3js-scale [multiply]="1 / 18"></ngx3js-scale>
+				<ngx3js-position [x]="0" [y]="3" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'TorusKnotGeometry'"
+					[radius]="25"
+					[tube]="8"
+					[radialSegments]="75"
+					[tubularSegments]="20"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				[castShadow]="true"
+				[receiveShadow]="true"
+				[material]="material"
+			>
+				<ngx3js-position [x]="8" [y]="3" [z]="8"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="3"
+					[height]="3"
+					[depth]="3"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true" [castShadow]="false">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-scale [multiply]="3"></ngx3js-scale>
+			<ngx3js-geometry
+				[type]="'BoxGeometry'"
+				[width]="10"
+				[height]="0.15"
+				[depth]="10"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhong'"
+				[color]="'0xa0adaf'"
+				[shininess]="150"
+				[specular]="'0x111111'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

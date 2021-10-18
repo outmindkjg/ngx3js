@@ -1,30 +1,40 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - sprites
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	css3d - sprites
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [cssType]="'css3d'"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[cssType]="'css3d'"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="5000">
-    <ngx3js-position [x]="600" [y]="400" [z]="1500"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xffffff'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-mesh *ngFor="let info of particlesInfos"
-        [type]="'css3dsprite'" [cssTag]="'img'"
-        [cssStyle]="{ src : 'textures/sprite.png' }"
-      >
-        <ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
-        <ngx3js-controller [type]="'tween'" [duration]="info.duration"></ngx3js-controller>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="5000">
+		<ngx3js-position [x]="600" [y]="400" [z]="1500"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xffffff'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of particlesInfos"
+				[type]="'css3dsprite'"
+				[cssTag]="'img'"
+				[cssStyle]="{ src: 'textures/sprite.png' }"
+			>
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+				<ngx3js-controller
+					[type]="'tween'"
+					[duration]="info.duration"
+				></ngx3js-controller>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

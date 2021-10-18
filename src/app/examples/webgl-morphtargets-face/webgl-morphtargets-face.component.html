@@ -1,0 +1,34 @@
+<div class="info dark">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - morph targets - face<br/>
+	model by <a href="https://www.bannaflak.com/face-cap" target="_blank" rel="noopener">Face Cap</a>
+	todo
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[toneMapping]="'ACESFilmicToneMapping'"
+	[outputEncoding]="'sRGBEncoding'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0.15" [z]="-0.2"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="20">
+		<ngx3js-position [x]="-1.8" [y]="0.8" [z]="3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x666666'">
+		<ngx3js-texture [image]="'test.room'" [type]="'environment'"></ngx3js-texture>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/facecap.glb'"
+			[storageOption]="{ useKtx2 : true, meshoptDecoder : meshoptDecoder}"
+		>
+			<ngx3js-mixer [action]="'smile'">
+				<ngx3js-clip [index]="0" [name]="'smile'"></ngx3js-clip>
+			</ngx3js-mixer>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

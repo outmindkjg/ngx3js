@@ -2,21 +2,19 @@ import { Component } from '@angular/core';
 import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
-  selector: 'app-webgl2-volume-instancing',
-  templateUrl: './webgl2-volume-instancing.component.html',
-  styleUrls: ['./webgl2-volume-instancing.component.scss']
+	selector: 'app-webgl2-volume-instancing',
+	templateUrl: './webgl2-volume-instancing.component.html',
+	styleUrls: ['./webgl2-volume-instancing.component.scss'],
 })
 export class Webgl2VolumeInstancingComponent extends BaseComponent<{}> {
+	constructor() {
+		super({}, []);
+	}
 
-  constructor() {
-    super({},[]);
-  }
+	ngOnInit() {
+		const mesh = new THREE.PlaneGeometry();
+		const clone = mesh.clone();
 
-  ngOnInit() {
-    const mesh = new THREE.PlaneGeometry();
-    const clone = mesh.clone();
-    
-    console.log(mesh, clone instanceof THREE.PlaneGeometry);
-  }
-
+		console.log(mesh, clone instanceof THREE.PlaneGeometry);
+	}
 }

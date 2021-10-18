@@ -1,50 +1,95 @@
-<div class="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - ngx3js - Chart - Line todo</div>
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	ngx3js - Chart - Line todo
+</div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
-    <ngx3js-position [x]="0" [y]="2" [z]="3"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x000000'">
-    <ngx3js-light [type]="'AmbientLight'" [color]="'0xffffff'" [intensity]="0.3"></ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-      [castShadow]="true"
-      [shadowCameraTop]="1"
-      [shadowCameraBottom]="-1"
-      [shadowCameraLeft]="-1"
-      [shadowCameraRight]="1"
-      [shadowCameraNear]="0.01"
-      [shadowCameraFar]="40"
-      [shadowMapSize]="1024"
-      [shadowRadius]="5"
-    >
-      <ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-chart-axes [type]="'x'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [type]="'y'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-axes [type]="'z'" [width]="2" [height]="1" [depth]="0.5" [xGridStep]="3" [yGridStep]="3"></ngx3js-chart-axes>
-      <ngx3js-chart-line [type]="'linedepth'" [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="0" [options]="{ backgroundColor : '0x00ff00' }" [pointStyle]="controls.pointStyle">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-chart-controller></ngx3js-chart-controller>
-      </ngx3js-chart-line>
-      <ngx3js-chart-line [type]="'line'" [width]="2" [height]="1" [depth]="0.5" [depthLength]="2" [depthIdx]="1" [options]="{ backgroundColor : '0xff0000' }" [pointStyle]="controls.pointStyle">
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-chart-controller></ngx3js-chart-controller>
-      </ngx3js-chart-line>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
+		<ngx3js-position [x]="0" [y]="2" [z]="3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.3"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="1"
+			[shadowCameraBottom]="-1"
+			[shadowCameraLeft]="-1"
+			[shadowCameraRight]="1"
+			[shadowCameraNear]="0.01"
+			[shadowCameraFar]="40"
+			[shadowMapSize]="1024"
+			[shadowRadius]="5"
+		>
+			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-chart-axes
+				[type]="'x'"
+				[width]="2"
+				[height]="1"
+				[depth]="0.5"
+				[xGridStep]="3"
+				[yGridStep]="3"
+			></ngx3js-chart-axes>
+			<ngx3js-chart-axes
+				[type]="'y'"
+				[width]="2"
+				[height]="1"
+				[depth]="0.5"
+				[xGridStep]="3"
+				[yGridStep]="3"
+			></ngx3js-chart-axes>
+			<ngx3js-chart-axes
+				[type]="'z'"
+				[width]="2"
+				[height]="1"
+				[depth]="0.5"
+				[xGridStep]="3"
+				[yGridStep]="3"
+			></ngx3js-chart-axes>
+			<ngx3js-chart-line
+				[type]="'linedepth'"
+				[width]="2"
+				[height]="1"
+				[depth]="0.5"
+				[depthLength]="2"
+				[depthIdx]="0"
+				[options]="{ backgroundColor: '0x00ff00' }"
+				[pointStyle]="controls.pointStyle"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-chart-controller></ngx3js-chart-controller>
+			</ngx3js-chart-line>
+			<ngx3js-chart-line
+				[type]="'line'"
+				[width]="2"
+				[height]="1"
+				[depth]="0.5"
+				[depthLength]="2"
+				[depthIdx]="1"
+				[options]="{ backgroundColor: '0xff0000' }"
+				[pointStyle]="controls.pointStyle"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-chart-controller></ngx3js-chart-controller>
+			</ngx3js-chart-line>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>
-

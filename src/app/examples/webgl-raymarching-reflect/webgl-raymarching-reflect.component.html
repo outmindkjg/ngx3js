@@ -1,41 +1,60 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl raymarching example<br/>
-  reflect by <a href="https://github.com/gam0022" target="_blank" rel="noopener">gam0022</a> (<a href="http://qiita.com/gam0022/items/03699a07e4a4b5f2d41f" target="_blank" rel="noopener">article</a>)
-  todo
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl raymarching example<br />
+	reflect by
+	<a href="https://github.com/gam0022" target="_blank" rel="noopener"
+		>gam0022</a
+	>
+	(<a
+		href="http://qiita.com/gam0022/items/03699a07e4a4b5f2d41f"
+		target="_blank"
+		rel="noopener"
+		>article</a
+	>) todo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
-  (onLoad)="setRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+	(onLoad)="setRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh #dolly (onLoad)="setDolly($event)">
-      <ngx3js-camera #camera [type]="'perspective'" [fov]="60" [near]="1" [far]="2000">
-        <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
-      </ngx3js-camera>
-    </ngx3js-mesh>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [frustumCulled]="false">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'PlaneGeometry'"
-        [width]="2.0"
-        [height]="2.0"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'RawShaderMaterial'" 
-        [uniforms]="{
-          resolution : { type : 'vector2', value : camera },
-          cameraWorldMatrix : { type : 'matrixWorld', value : camera },
-          cameraProjectionMatrixInverse : { type : 'projectionMatrixInverse', value : camera }
-        }"
-        [shader]="'RaymarchingReflect'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh #dolly (onLoad)="setDolly($event)">
+			<ngx3js-camera
+				#camera
+				[type]="'perspective'"
+				[fov]="60"
+				[near]="1"
+				[far]="2000"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+			</ngx3js-camera>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [frustumCulled]="false">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'PlaneGeometry'"
+				[width]="2.0"
+				[height]="2.0"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'RawShaderMaterial'"
+				[uniforms]="{
+					resolution: { type: 'vector2', value: camera },
+					cameraWorldMatrix: { type: 'matrixWorld', value: camera },
+					cameraProjectionMatrixInverse: {
+						type: 'projectionMatrixInverse',
+						value: camera
+					}
+				}"
+				[shader]="'RaymarchingReflect'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

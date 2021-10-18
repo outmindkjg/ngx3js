@@ -1,64 +1,90 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - cube mapping demo.<br />
-  Texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank" rel="noopener">Humus</a>, Walt Disney head by <a href="http://davidoreilly.com/post/18087489343/disneyhead" target="_blank" rel="noopener">David OReilly</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	cube mapping demo.<br />
+	Texture by
+	<a
+		href="http://www.humus.name/index.php?page=Textures"
+		target="_blank"
+		rel="noopener"
+		>Humus</a
+	>, Walt Disney head by
+	<a
+		href="http://davidoreilly.com/post/18087489343/disneyhead"
+		target="_blank"
+		rel="noopener"
+		>David OReilly</a
+	>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="5000">
-    <ngx3js-position [x]="0" [y]="0" [z]="2000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="reflectionCube">
-    <ngx3js-shared>
-      <ngx3js-texture 
-        #reflectionCube
-        [image]="'textures/cube/SwedishRoyalCastle/'" 
-        [cubeImage]="['','jpg']"
-      ></ngx3js-texture>
-      <ngx3js-texture 
-        #refractionCube
-        [image]="'textures/cube/SwedishRoyalCastle/'" 
-        [cubeImage]="['','jpg']"
-        [mapping]="'CubeRefraction'"
-      ></ngx3js-texture>
-    </ngx3js-shared>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0xffffff'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0xffffff'"
-      [intensity]="2"
-    >
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="-500" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'" [storageOption]="{ debugName : true }">
-        <ngx3js-scale [multiply]="15"></ngx3js-scale>
-        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xffffff'" [envMap]="reflectionCube"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
-        <ngx3js-scale [multiply]="15"></ngx3js-scale>
-        <ngx3js-position [x]="-900" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xffee00'" [envMap]="refractionCube" [refractionRatio]="0.95"></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
-        <ngx3js-scale [multiply]="15"></ngx3js-scale>
-        <ngx3js-position [x]="900" [y]="0" [z]="0"></ngx3js-position>
-        <ngx3js-material [refName]="'*'" [type]="'MeshLambert'" [color]="'0xff6600'" [envMap]="reflectionCube"  [combine]="'Mix'" [reflectivity]="0.3"></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="5000">
+		<ngx3js-position [x]="0" [y]="0" [z]="2000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="reflectionCube">
+		<ngx3js-shared>
+			<ngx3js-texture
+				#reflectionCube
+				[image]="'textures/cube/SwedishRoyalCastle/'"
+				[cubeImage]="['', 'jpg']"
+			></ngx3js-texture>
+			<ngx3js-texture
+				#refractionCube
+				[image]="'textures/cube/SwedishRoyalCastle/'"
+				[cubeImage]="['', 'jpg']"
+				[mapping]="'CubeRefraction'"
+			></ngx3js-texture>
+		</ngx3js-shared>
+		<ngx3js-light [type]="'Ambient'" [color]="'0xffffff'"> </ngx3js-light>
+		<ngx3js-light [type]="'Point'" [color]="'0xffffff'" [intensity]="2">
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="-500" [z]="0"></ngx3js-position>
+			<ngx3js-mesh
+				[storageName]="'models/obj/walt/WaltHead.obj'"
+				[storageOption]="{ debugName: true }"
+			>
+				<ngx3js-scale [multiply]="15"></ngx3js-scale>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[refName]="'*'"
+					[type]="'MeshLambert'"
+					[color]="'0xffffff'"
+					[envMap]="reflectionCube"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
+				<ngx3js-scale [multiply]="15"></ngx3js-scale>
+				<ngx3js-position [x]="-900" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[refName]="'*'"
+					[type]="'MeshLambert'"
+					[color]="'0xffee00'"
+					[envMap]="refractionCube"
+					[refractionRatio]="0.95"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [storageName]="'models/obj/walt/WaltHead.obj'">
+				<ngx3js-scale [multiply]="15"></ngx3js-scale>
+				<ngx3js-position [x]="900" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[refName]="'*'"
+					[type]="'MeshLambert'"
+					[color]="'0xff6600'"
+					[envMap]="reflectionCube"
+					[combine]="'Mix'"
+					[reflectivity]="0.3"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,40 +1,45 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - custom attributes example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	custom attributes example
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true, autoRotate : true  }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'SphereGeometry'"
-        [radius]="50"
-        [widthSegments]="128"
-        [heightSegments]="64"
-        [autoDisplacement]="true"
-        [autoDisplacementSize]="1"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'"
-        [uniforms]="{
-          amplitude : { type : 'number', value : 1.0 },
-          color : { type : 'color', value : '0xff2200' },
-          colorTexture : { type : 'texture', value : 'textures/water.jpg', options : 'wraprepeat'}
-        }"
-        [shader]="'CustomAttributes'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="300"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'SphereGeometry'"
+				[radius]="50"
+				[widthSegments]="128"
+				[heightSegments]="64"
+				[autoDisplacement]="true"
+				[autoDisplacementSize]="1"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[uniforms]="{
+					amplitude: { type: 'number', value: 1.0 },
+					color: { type: 'color', value: '0xff2200' },
+					colorTexture: {
+						type: 'texture',
+						value: 'textures/water.jpg',
+						options: 'wraprepeat'
+					}
+				}"
+				[shader]="'CustomAttributes'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,29 +1,34 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl particles waves example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl particles waves example
 </div>
 <ngx3js-renderer
-  [controlType]="'plane'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'plane'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'buffer'"
-        [attrPosition]="positions"
-        [attrScale]="scales"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'Shader'" [uniforms]="{ color : { type : 'color', value : '0xffffff'} }" [shader]="'PointsWaves'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="75" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="1000"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'buffer'"
+				[attrPosition]="positions"
+				[attrScale]="scales"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'Shader'"
+				[uniforms]="{ color: { type: 'color', value: '0xffffff' } }"
+				[shader]="'PointsWaves'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

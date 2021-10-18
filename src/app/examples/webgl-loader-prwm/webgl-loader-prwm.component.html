@@ -1,45 +1,57 @@
 <div class="info">
-  <strong>Models</strong>:
-  <a [class]="'model'" href="models/prwm/faceted-nefertiti.*.prwm">Faceted Nefertiti</a>,
-  <a [class]="'model'" href="models/prwm/smooth-suzanne.*.prwm">Smooth Suzanne</a>,
-  <a [class]="'model'" href="models/prwm/vive-controller.*.prwm">Vive Controller</a>
-  <div [class]="'notes'">
-    The parsing of PRWM file is especially fast when the endianness of the file is the same as the endianness of the client platform.
-    The loader will automatically replace the <strong>*</strong> in the model url by either <strong>le</strong> or <strong>be</strong> depending on the client platform's endianness to download the most appropriate file. <a href="https://github.com/kchapelier/PRWM" target="_blank" rel="noopener noreferrer">Specifications and implementations</a><br><br>
-    This platform endianness is <strong [id]="'endianness'">little-endian</strong>.<br>
-    See your console for stats.
-  </div>
+	<strong>Models</strong>:
+	<a [class]="'model'" href="models/prwm/faceted-nefertiti.*.prwm"
+		>Faceted Nefertiti</a
+	>,
+	<a [class]="'model'" href="models/prwm/smooth-suzanne.*.prwm"
+		>Smooth Suzanne</a
+	>,
+	<a [class]="'model'" href="models/prwm/vive-controller.*.prwm"
+		>Vive Controller</a
+	>
+	<div [class]="'notes'">
+		The parsing of PRWM file is especially fast when the endianness of the file
+		is the same as the endianness of the client platform. The loader will
+		automatically replace the <strong>*</strong> in the model url by either
+		<strong>le</strong> or <strong>be</strong> depending on the client
+		platform's endianness to download the most appropriate file.
+		<a
+			href="https://github.com/kchapelier/PRWM"
+			target="_blank"
+			rel="noopener noreferrer"
+			>Specifications and implementations</a
+		><br /><br />
+		This platform endianness is
+		<strong [id]="'endianness'">little-endian</strong>.<br />
+		See your console for stats.
+	</div>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x101030'"
-    >
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffeedd'"
-    >
-      <ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/prwm/smooth-suzanne.*.prwm'">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="50"></ngx3js-scale>
-      <ngx3js-material [type]="'MeshPhong'"></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="0" [z]="250"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x101030'"> </ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffeedd'">
+			<ngx3js-position [x]="0" [y]="0" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/prwm/smooth-suzanne.*.prwm'"
+		>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-scale [multiply]="50"></ngx3js-scale>
+			<ngx3js-material [type]="'MeshPhong'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,128 +1,265 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl postprocessing example<br/>
-  <a href="http://g3d.cs.williams.edu/g3d/data10/index.html#mesh19" target="_blank" rel="noopener">Lee Perry-Smith</a> head
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	webgl postprocessing example<br />
+	<a
+		href="http://g3d.cs.williams.edu/g3d/data10/index.html#mesh19"
+		target="_blank"
+		rel="noopener"
+		>Lee Perry-Smith</a
+	>
+	head
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-shared>
-    <ngx3js-pass #effectBleach [type]="'ShaderPass'" [shader]="'BleachBypassShader'" [uniforms]="{ opacity : 0.95 }"></ngx3js-pass>
-    <ngx3js-pass #effectSepia [type]="'ShaderPass'" [shader]="'SepiaShader'" [uniforms]="{ amount : 0.9 }"></ngx3js-pass>
-    <ngx3js-pass #effectVignette [type]="'ShaderPass'" [shader]="'VignetteShader'" [uniforms]="{ offset : 0.95, darkness : 1.6 }"></ngx3js-pass>
-    <ngx3js-pass #gammaCorrection [type]="'ShaderPass'" [shader]="'GammaCorrectionShader'"></ngx3js-pass>
-    <ngx3js-pass #effectBloom [type]="'BloomPass'" [strength]="0.5"></ngx3js-pass>
-    <ngx3js-pass #effectFilm [type]="'FilmPass'" [noiseIntensity]="0.35" [scanlinesIntensity]="0.025" [scanlinesCount]="648" [grayscale]="false"></ngx3js-pass>
-    <ngx3js-pass #effectFilmBW [type]="'FilmPass'" [noiseIntensity]="0.35" [scanlinesIntensity]="0.5" [scanlinesCount]="2048" [grayscale]="true"></ngx3js-pass>
-    <ngx3js-pass #effectDotScreen [type]="'DotScreenPass'" [centerX]="0" [centerY]="0" [angle]="28" [scale]="0.8"></ngx3js-pass>
-    <ngx3js-pass #effectHBlur [type]="'ShaderPass'" [shader]="'HorizontalBlurShader'" [uniforms]="{ h : 2 / 400}"></ngx3js-pass>
-    <ngx3js-pass #effectVBlur [type]="'ShaderPass'" [shader]="'VerticalBlurShader'" [uniforms]="{ v : 2 / 400}"></ngx3js-pass>
-    <ngx3js-pass #effectColorify1 [type]="'ShaderPass'" [shader]="'ColorifyShader'" [uniforms]="{ color : '0xffc0c0'}"></ngx3js-pass>
-    <ngx3js-pass #effectColorify2 [type]="'ShaderPass'" [shader]="'ColorifyShader'" [uniforms]="{ color : '0xffb0b0'}"></ngx3js-pass>
-    <ngx3js-pass #clearMask [type]="'ClearMaskPass'"></ngx3js-pass>
-    <ngx3js-pass #renderMask [type]="'MaskPass'"></ngx3js-pass>
-    <ngx3js-pass #renderMaskInverse [type]="'MaskPass'" [inverse]="true"></ngx3js-pass>
-    <ngx3js-pass #renderBackground [type]="'RenderPass'" [scene]="sceneBG" [camera]="cameraOrtho"></ngx3js-pass>
-    <ngx3js-pass #renderModel [type]="'RenderPass'" [clear]="false" [scene]="scene" [camera]="camera"></ngx3js-pass>
-  </ngx3js-shared>
-  <ngx3js-composer [clear]="true" [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="0" [width]="'50%'" [height]="'50%'" >
-    <ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderModel"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectFilmBW"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="0" [width]="'50%'" [height]="'50%'" >
-    <ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderModel"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectDotScreen"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectColorify1"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectColorify2"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="0" [y]="'50%'" [width]="'50%'" [height]="'50%'" >
-    <ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderModel"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectSepia"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-composer [camera]="camera" [scene]="scene" [viewport]="true" [x]="'50%'" [y]="'50%'" [width]="'50%'" [height]="'50%'" >
-    <ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderModel"></ngx3js-pass>
-    <ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
-    <ngx3js-pass [refer]="clearMask"></ngx3js-pass>
-    <ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectBloom"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectBleach"></ngx3js-pass>
-    <ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-  </ngx3js-composer>
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera #camera [type]="'perspective'" [fov]="50" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="900"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="0" [y]="-0.1" [z]="1" [normalize]="true"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-light
-      [type]="'AmbientLight'"
-      [color]="'0x111122'"
-      [intensity]="1"
-    >
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
-      <ngx3js-scale [multiply]="100"></ngx3js-scale>
-      <ngx3js-geometry
-        [storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'MeshPhongMaterial'" 
-        [color]="'0x999999'"
-        [specular]="'0x080808'"
-        [shininess]="20"
-        [normalScale]="0.75"
-        [map]="'models/gltf/LeePerrySmith/Map-COL.jpg'"
-        [normalMap]="'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
-  <ngx3js-camera #cameraOrtho [type]="'orthographiccamera'" [left]="-0.5" [right]="0.5" [top]="0.5" [bottom]="-0.5" [near]="-10000" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #sceneBG [background]="background">
-    <ngx3js-texture #background [type]="'background'" [image]="'textures/cube/SwedishRoyalCastle/pz.jpg'"></ngx3js-texture>
-  </ngx3js-scene>
+	<ngx3js-shared>
+		<ngx3js-pass
+			#effectBleach
+			[type]="'ShaderPass'"
+			[shader]="'BleachBypassShader'"
+			[uniforms]="{ opacity: 0.95 }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectSepia
+			[type]="'ShaderPass'"
+			[shader]="'SepiaShader'"
+			[uniforms]="{ amount: 0.9 }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectVignette
+			[type]="'ShaderPass'"
+			[shader]="'VignetteShader'"
+			[uniforms]="{ offset: 0.95, darkness: 1.6 }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#gammaCorrection
+			[type]="'ShaderPass'"
+			[shader]="'GammaCorrectionShader'"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectBloom
+			[type]="'BloomPass'"
+			[strength]="0.5"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectFilm
+			[type]="'FilmPass'"
+			[noiseIntensity]="0.35"
+			[scanlinesIntensity]="0.025"
+			[scanlinesCount]="648"
+			[grayscale]="false"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectFilmBW
+			[type]="'FilmPass'"
+			[noiseIntensity]="0.35"
+			[scanlinesIntensity]="0.5"
+			[scanlinesCount]="2048"
+			[grayscale]="true"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectDotScreen
+			[type]="'DotScreenPass'"
+			[centerX]="0"
+			[centerY]="0"
+			[angle]="28"
+			[scale]="0.8"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectHBlur
+			[type]="'ShaderPass'"
+			[shader]="'HorizontalBlurShader'"
+			[uniforms]="{ h: 2 / 400 }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectVBlur
+			[type]="'ShaderPass'"
+			[shader]="'VerticalBlurShader'"
+			[uniforms]="{ v: 2 / 400 }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectColorify1
+			[type]="'ShaderPass'"
+			[shader]="'ColorifyShader'"
+			[uniforms]="{ color: '0xffc0c0' }"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#effectColorify2
+			[type]="'ShaderPass'"
+			[shader]="'ColorifyShader'"
+			[uniforms]="{ color: '0xffb0b0' }"
+		></ngx3js-pass>
+		<ngx3js-pass #clearMask [type]="'ClearMaskPass'"></ngx3js-pass>
+		<ngx3js-pass #renderMask [type]="'MaskPass'"></ngx3js-pass>
+		<ngx3js-pass
+			#renderMaskInverse
+			[type]="'MaskPass'"
+			[inverse]="true"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#renderBackground
+			[type]="'RenderPass'"
+			[scene]="sceneBG"
+			[camera]="cameraOrtho"
+		></ngx3js-pass>
+		<ngx3js-pass
+			#renderModel
+			[type]="'RenderPass'"
+			[clear]="false"
+			[scene]="scene"
+			[camera]="camera"
+		></ngx3js-pass>
+	</ngx3js-shared>
+	<ngx3js-composer
+		[clear]="true"
+		[camera]="camera"
+		[scene]="scene"
+		[viewport]="true"
+		[x]="0"
+		[y]="0"
+		[width]="'50%'"
+		[height]="'50%'"
+	>
+		<ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderModel"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectFilmBW"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-composer
+		[camera]="camera"
+		[scene]="scene"
+		[viewport]="true"
+		[x]="'50%'"
+		[y]="0"
+		[width]="'50%'"
+		[height]="'50%'"
+	>
+		<ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderModel"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectDotScreen"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectColorify1"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectColorify2"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-composer
+		[camera]="camera"
+		[scene]="scene"
+		[viewport]="true"
+		[x]="0"
+		[y]="'50%'"
+		[width]="'50%'"
+		[height]="'50%'"
+	>
+		<ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderModel"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectSepia"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-composer
+		[camera]="camera"
+		[scene]="scene"
+		[viewport]="true"
+		[x]="'50%'"
+		[y]="'50%'"
+		[width]="'50%'"
+		[height]="'50%'"
+	>
+		<ngx3js-pass [refer]="renderBackground"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderModel"></ngx3js-pass>
+		<ngx3js-pass [refer]="renderMaskInverse"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectHBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVBlur"></ngx3js-pass>
+		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
+		<ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectBloom"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectBleach"></ngx3js-pass>
+		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
+	</ngx3js-composer>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		#camera
+		[type]="'perspective'"
+		[fov]="50"
+		[near]="1"
+		[far]="10000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="900"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
+			<ngx3js-position
+				[x]="0"
+				[y]="-0.1"
+				[z]="1"
+				[normalize]="true"
+			></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x111122'" [intensity]="1">
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="-50" [z]="0"></ngx3js-position>
+			<ngx3js-scale [multiply]="100"></ngx3js-scale>
+			<ngx3js-geometry
+				[storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0x999999'"
+				[specular]="'0x080808'"
+				[shininess]="20"
+				[normalScale]="0.75"
+				[map]="'models/gltf/LeePerrySmith/Map-COL.jpg'"
+				[normalMap]="
+					'models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'
+				"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+	<ngx3js-camera
+		#cameraOrtho
+		[type]="'orthographiccamera'"
+		[left]="-0.5"
+		[right]="0.5"
+		[top]="0.5"
+		[bottom]="-0.5"
+		[near]="-10000"
+		[far]="10000"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #sceneBG [background]="background">
+		<ngx3js-texture
+			#background
+			[type]="'background'"
+			[image]="'textures/cube/SwedishRoyalCastle/pz.jpg'"
+		></ngx3js-texture>
+	</ngx3js-scene>
 </ngx3js-renderer>

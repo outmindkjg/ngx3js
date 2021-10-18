@@ -1,142 +1,134 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> 
-  - need ar/vr device to test
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	- need ar/vr device to test
 </div>
 <ngx3js-renderer
-  [controlType]="'vr-only'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'vr-only'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-scene #scene [background]="'0xf0f0ff'">
-    <ngx3js-light
-      [type]="'Hemisphere'"
-      [skyColor]="'0xfff0f0'"
-      [groundColor]="'0x606066'"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)" #train>
-      <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="500">
-        <ngx3js-position [x]="0" [y]="0.1" [z]="1"></ngx3js-position>
-      </ngx3js-camera>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'RollerCoasterGeometry'"
-        [curve]="curve"
-        [slices]="1500"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhongMaterial'"
-        [vertexColors]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'RollerCoasterLiftersGeometry'"
-        [curve]="curve"
-        [slices]="100"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshPhongMaterial'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'RollerCoasterShadowGeometry'"
-        [curve]="curve"
-        [slices]="500"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasicMaterial'"
-        [color]="'0x305000'"
-        [depthWrite]="false"
-        [transparent]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh #funfairs (onLoad)="setFunfairs($event)">
-      <ngx3js-mesh #Cylinder1>
-        <ngx3js-position [x]="-80" [y]="10" [z]="-70"></ngx3js-position>
-        <ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
-        <ngx3js-geometry
-          [type]="'CylinderGeometry'"
-          [radiusTop]="10"
-          [radiusBottom]="10"
-          [height]="5"
-          [radiusSegments]="15"
-        >
-        </ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambertMaterial'"
-          [color]="'0xff8080'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh #Cylinder2>
-        <ngx3js-position [x]="50" [y]="2" [z]="30"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'CylinderGeometry'"
-          [radiusTop]="5"
-          [radiusBottom]="6"
-          [height]="4"
-          [radiusSegments]="10"
-        >
-        </ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambertMaterial'"
-          [color]="'0x8080ff'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Sky'"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasicMaterial'"
-        [color]="'0xffffff'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh #ground>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'Plane'"
-        [width]="500"
-        [height]="500"
-        [widthSegments]="15"
-        [heightSegments]="15"
-        [onInit]="initGeometry"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshLambertMaterial'"
-        [color]="'0x407000'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-    <ngx3js-mesh>
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TreesGeometry'"
-        [mesh]="ground"
-      >
-      </ngx3js-geometry>
-      <ngx3js-material
-        [type]="'MeshBasicMaterial'"
-        [side]="'DoubleSide'"
-        [vertexColors]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-scene #scene [background]="'0xf0f0ff'">
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xfff0f0'"
+			[groundColor]="'0x606066'"
+		>
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)" #train>
+			<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="500">
+				<ngx3js-position [x]="0" [y]="0.1" [z]="1"></ngx3js-position>
+			</ngx3js-camera>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'RollerCoasterGeometry'"
+				[curve]="curve"
+				[slices]="1500"
+			>
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[vertexColors]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'RollerCoasterLiftersGeometry'"
+				[curve]="curve"
+				[slices]="100"
+			>
+			</ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhongMaterial'"></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0.1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'RollerCoasterShadowGeometry'"
+				[curve]="curve"
+				[slices]="500"
+			>
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0x305000'"
+				[depthWrite]="false"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh #funfairs (onLoad)="setFunfairs($event)">
+			<ngx3js-mesh #Cylinder1>
+				<ngx3js-position [x]="-80" [y]="10" [z]="-70"></ngx3js-position>
+				<ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-geometry
+					[type]="'CylinderGeometry'"
+					[radiusTop]="10"
+					[radiusBottom]="10"
+					[height]="5"
+					[radiusSegments]="15"
+				>
+				</ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambertMaterial'"
+					[color]="'0xff8080'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #Cylinder2>
+				<ngx3js-position [x]="50" [y]="2" [z]="30"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'CylinderGeometry'"
+					[radiusTop]="5"
+					[radiusBottom]="6"
+					[height]="4"
+					[radiusSegments]="10"
+				>
+				</ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshLambertMaterial'"
+					[color]="'0x8080ff'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry [type]="'Sky'"> </ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[color]="'0xffffff'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh #ground>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'Plane'"
+				[width]="500"
+				[height]="500"
+				[widthSegments]="15"
+				[heightSegments]="15"
+				[onInit]="initGeometry"
+			>
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshLambertMaterial'"
+				[color]="'0x407000'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry [type]="'TreesGeometry'" [mesh]="ground">
+			</ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+				[side]="'DoubleSide'"
+				[vertexColors]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

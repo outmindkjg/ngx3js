@@ -1,79 +1,70 @@
 <div class="info dark">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - NURBS curve and surface example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	NURBS curve and surface example
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [clearColor]="'0xffffff'"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
-    <ngx3js-position [x]="0" [y]="150" [z]="750"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xf0f0f0'">
-    <ngx3js-light
-      [type]="'Ambient'"
-      [color]="'0x808080'"
-    ></ngx3js-light>
-    <ngx3js-light
-      [type]="'directional'"
-      [color]="'0xffffff'"
-      [intensity]="1"
-    >
-      <ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="50" [z]="0"></ngx3js-position>
-      <ngx3js-mesh [type]="'line'">
-        <ngx3js-position [x]="200" [y]="-100" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'geometry'"
-          [points]="controlPoints"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'LineBasic'"
-          [color]="'0x333333'"
-          [opacity]="0.25"
-          [transparent]="true"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh [type]="'line'">
-        <ngx3js-position [x]="200" [y]="-100" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'geometry'"
-          [points]="nurbsCurvePoints"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'LineBasic'"
-          [color]="'0x333333'"
-        ></ngx3js-material>
-      </ngx3js-mesh>
-      <ngx3js-mesh>
-        <ngx3js-position [x]="-200" [y]="100" [z]="0"></ngx3js-position>
-        <ngx3js-geometry
-          [type]="'parametric'"
-          [parametric]="nurbsSurface"
-          [slices]="20"
-          [stacks]="20"
-        ></ngx3js-geometry>
-        <ngx3js-material
-          [type]="'MeshLambert'"
-          [side]="'double'"
-        >
-          <ngx3js-texture 
-            [image]="'textures/uv_grid_opengl.jpg'"
-            [wrapT]="'Repeat'"
-            [wrapS]="'Repeat'"
-            [anisotropy]="16"
-          ></ngx3js-texture>
-        </ngx3js-material>
-      </ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="150" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="1" [far]="2000">
+		<ngx3js-position [x]="0" [y]="150" [z]="750"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xf0f0f0'">
+		<ngx3js-light [type]="'Ambient'" [color]="'0x808080'"></ngx3js-light>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1">
+			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="50" [z]="0"></ngx3js-position>
+			<ngx3js-mesh [type]="'line'">
+				<ngx3js-position [x]="200" [y]="-100" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'geometry'"
+					[points]="controlPoints"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasic'"
+					[color]="'0x333333'"
+					[opacity]="0.25"
+					[transparent]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'line'">
+				<ngx3js-position [x]="200" [y]="-100" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'geometry'"
+					[points]="nurbsCurvePoints"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasic'"
+					[color]="'0x333333'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="-200" [y]="100" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'parametric'"
+					[parametric]="nurbsSurface"
+					[slices]="20"
+					[stacks]="20"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshLambert'" [side]="'double'">
+					<ngx3js-texture
+						[image]="'textures/uv_grid_opengl.jpg'"
+						[wrapT]="'Repeat'"
+						[wrapS]="'Repeat'"
+						[anisotropy]="16"
+					></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,45 +1,63 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100">
-    <ngx3js-position [x]="25" [y]="25" [z]="25"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0xE39469'">
-    <ngx3js-light [type]="'Hemisphere'"></ngx3js-light>
-    <ngx3js-light
-      [type]="'Point'"
-      [color]="'0xAA8899'"
-      [intensity]="0.75"
-    >
-      <ngx3js-position [x]="50" [y]="-25" [z]="75"></ngx3js-position>
-    </ngx3js-light>
-    <ngx3js-shared>
-      <ngx3js-mesh #flower [storageName]="'models/gltf/Flower/Flower.glb'" (onLoad)="setFlower($event)"></ngx3js-mesh>
-    </ngx3js-shared>
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnot'"
-        [radius]="10"
-        [tube]="3"
-        [radiusSegments]="100"
-        [tubularSegments]="16"
-        [toNonIndexed]="true"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'meshlambert'" [color]="'0xFFF784'" [wireframe]="false"></ngx3js-material>
-      <ngx3js-mesh *ngIf="stemMaterial && stemGeometry" [type]="'Instanced'" [count]="1000" [material]="stemMaterial" [geometry]="stemGeometry" (onLoad)="setStemMesh($event)" ></ngx3js-mesh>
-      <ngx3js-mesh *ngIf="blossomMaterial && blossomGeometry" [type]="'Instanced'" [count]="1000" [material]="blossomMaterial" [geometry]="blossomGeometry" (onLoad)="setBlossomMesh($event)" ></ngx3js-mesh>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.1" [far]="100">
+		<ngx3js-position [x]="25" [y]="25" [z]="25"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0xE39469'">
+		<ngx3js-light [type]="'Hemisphere'"></ngx3js-light>
+		<ngx3js-light [type]="'Point'" [color]="'0xAA8899'" [intensity]="0.75">
+			<ngx3js-position [x]="50" [y]="-25" [z]="75"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-mesh
+				#flower
+				[storageName]="'models/gltf/Flower/Flower.glb'"
+				(onLoad)="setFlower($event)"
+			></ngx3js-mesh>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnot'"
+				[radius]="10"
+				[tube]="3"
+				[radiusSegments]="100"
+				[tubularSegments]="16"
+				[toNonIndexed]="true"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'meshlambert'"
+				[color]="'0xFFF784'"
+				[wireframe]="false"
+			></ngx3js-material>
+			<ngx3js-mesh
+				*ngIf="stemMaterial && stemGeometry"
+				[type]="'Instanced'"
+				[count]="1000"
+				[material]="stemMaterial"
+				[geometry]="stemGeometry"
+				(onLoad)="setStemMesh($event)"
+			></ngx3js-mesh>
+			<ngx3js-mesh
+				*ngIf="blossomMaterial && blossomGeometry"
+				[type]="'Instanced'"
+				[count]="1000"
+				[material]="blossomMaterial"
+				[geometry]="blossomGeometry"
+				(onLoad)="setBlossomMesh($event)"
+			></ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

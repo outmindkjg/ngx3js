@@ -1,41 +1,48 @@
 <div class="info">
-  <a href="http://threejs.org" target="_blank">threejs</a> - WebGL - Multiple Render Targets<br/>
-  Renders geometry into a G-Buffer.<br/>
-  Visualized here is the color and normal data from the G-Buffer.<br/>
-  Created by <a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>.
-  todo
+	<a href="http://threejs.org" target="_blank">threejs</a> - WebGL - Multiple
+	Render Targets<br />
+	Renders geometry into a G-Buffer.<br />
+	Visualized here is the color and normal data from the G-Buffer.<br />
+	Created by
+	<a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>. todo
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10">
-    <ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene >
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'TorusKnotGeometry'"
-        [radius]="1"
-        [tube]="0.3"
-        [radiusSegments]="128"
-        [tubularSegments]="64"
-      ></ngx3js-geometry>
-      <ngx3js-material [type]="'RawShaderMaterial'" [shader]="'ShaderDemo13'"
-        [uniforms]="{
-          tDiffuse: { type : 'texture', value: 'textures/brick_diffuse.jpg', options : 'RepeatWrapping' },
-          repeat: { type : 'v2', value: [ 5, 0.5] }
-        }"
-        [glslVersion]="'GLSL3'"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="10">
+		<ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="1"
+				[tube]="0.3"
+				[radiusSegments]="128"
+				[tubularSegments]="64"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'RawShaderMaterial'"
+				[shader]="'ShaderDemo13'"
+				[uniforms]="{
+					tDiffuse: {
+						type: 'texture',
+						value: 'textures/brick_diffuse.jpg',
+						options: 'RepeatWrapping'
+					},
+					repeat: { type: 'v2', value: [5, 0.5] }
+				}"
+				[glslVersion]="'GLSL3'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>

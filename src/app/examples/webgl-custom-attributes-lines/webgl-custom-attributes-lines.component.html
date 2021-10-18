@@ -1,48 +1,49 @@
 <div class="info">
-  <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - custom attributes example
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	custom attributes example
 </div>
 <ngx3js-renderer
-  [controlType]="'orbit'"
-  [controlOptions]="{ enablePan : false , enableDamping : true }"
-  [statsMode]="0"
-  [antialias]="true"
-  [shadowMapEnabled]="true"
-  [guiControl]="controls"
-  [guiParams]="controlsParams"
-  (onRender)="onRender($event)"
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
 >
-  <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-  <ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
-    <ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
-  </ngx3js-camera>
-  <ngx3js-scene #scene [background]="'0x050505'">
-    <ngx3js-mesh (onLoad)="setMesh($event)">
-      <ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-      <ngx3js-geometry
-        [type]="'text'"
-        [text]="'three.js'"
-        [font]="'helvetiker_bold'"
-        [size]="50"
-        [height]="15"
-        [curveSegments]="10"
-        [bevelEnabled]="true"
-        [bevelSize]="1.5"
-        [bevelSegments]="10"
-        [center]="true"
-        [autoDisplacement]="true"
-        [autoDisplacementSize]="3"
-        [autoCustomColor]="true"
-        [autoCustomColorSize]="3"
-        (onLoad)="setGeometry($event)"
-      ></ngx3js-geometry>
-      <ngx3js-material 
-        [type]="'ShaderMaterial'" 
-        [uniforms]="uniforms"
-        [shader]="'CustomAttributesLines'"
-        [blending]="'AdditiveBlending'"
-        [depthTest]="false"
-        [transparent]="true"
-      ></ngx3js-material>
-    </ngx3js-mesh>
-  </ngx3js-scene>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="30" [near]="1" [far]="10000">
+		<ngx3js-position [x]="0" [y]="0" [z]="400"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x050505'">
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'text'"
+				[text]="'three.js'"
+				[font]="'helvetiker_bold'"
+				[size]="50"
+				[height]="15"
+				[curveSegments]="10"
+				[bevelEnabled]="true"
+				[bevelSize]="1.5"
+				[bevelSegments]="10"
+				[center]="true"
+				[autoDisplacement]="true"
+				[autoDisplacementSize]="3"
+				[autoCustomColor]="true"
+				[autoCustomColorSize]="3"
+				(onLoad)="setGeometry($event)"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'ShaderMaterial'"
+				[uniforms]="uniforms"
+				[shader]="'CustomAttributesLines'"
+				[blending]="'AdditiveBlending'"
+				[depthTest]="false"
+				[transparent]="true"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
 </ngx3js-renderer>
