@@ -1,15 +1,6 @@
 <div class="info dark">
-	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer"
-		>three.js</a
-	>
-	webaudio - orientation<br />
-	music by
-	<a
-		href="http://www.newgrounds.com/audio/listen/376737"
-		target="_blank"
-		rel="noopener noreferrer"
-		>skullbeatz</a
-	>
+	<a href="https://threejs.org" target="_blank" rel="noopener noreferrer">three.js</a> webaudio - orientation<br/>
+	music by <a href="http://www.newgrounds.com/audio/listen/376737" target="_blank" rel="noopener noreferrer">skullbeatz</a>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -52,7 +43,7 @@
 		</ngx3js-light>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-mesh
-				[storageName]="'models/gltf/BoomBox/glTF-Binary/BoomBox.glb'"
+				[storageName]="'models/gltf/BoomBox.glb'"
 				[castShadow]="true"
 			>
 				<ngx3js-position [x]="0" [y]="0.2" [z]="0"></ngx3js-position>

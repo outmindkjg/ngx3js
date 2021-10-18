@@ -1,30 +1,7 @@
 <div class="info">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	GLTFLoader +
-	<a
-		href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_transmission"
-		target="_blank"
-		rel="noopener"
-		>KHR_materials_transmission</a
-	>
-	extension<br />
-	<a
-		href="https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/TransmissionTest"
-		target="_blank"
-		rel="noopener"
-		>Transmission Test</a
-	>
-	by
-	<a href="https://www.adobe.com/" target="_blank" rel="noopener">Adobe, Inc</a
-	><br />
-	<a
-		href="https://hdrihaven.com/hdri/?h=quarry_01"
-		target="_blank"
-		rel="noopener"
-		>Quarry</a
-	>
-	by
-	<a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GLTFLoader + <a href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_transmission" target="_blank" rel="noopener">KHR_materials_transmission</a> extension<br />
+	Iridescent Dish With Olives by <a href="https://github.com/echadwick-wayfair" target="_blank" rel="noopener">Eric Chadwick</a><br />
+	<a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -39,21 +16,24 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-lookat [x]="0" [y]="0.1" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.25" [far]="20">
-		<ngx3js-position [x]="0" [y]="0" [z]="2.0"></ngx3js-position>
+		<ngx3js-position [x]="0" [y]="0.4" [z]="0.7"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene>
 		<ngx3js-texture
 			[type]="'environment-background'"
 			[cubeType]="'fromEquirectangular'"
-			[storageName]="'textures/equirectangular/quarry_01_1k.hdr'"
-			[storageOption]="{ dataType: 'UnsignedByteType' }"
+			[storageName]="'textures/equirectangular/royal_esplanade_1k.hdr'"
 		></ngx3js-texture>
 		<ngx3js-mesh
 			(onLoad)="setMesh($event)"
-			[storageName]="'models/gltf/TransmissionTest.glb'"
+			[storageName]="'models/gltf/IridescentDishWithOlives.glb'"
+			[storageOption]="{ useDraco : true, decoderPath : 'js/libs/draco/gltf/' }"
 		>
+			<ngx3js-mixer [action]="'default'">
+				<ngx3js-clip [name]="'default'" [index]="0"></ngx3js-clip>
+			</ngx3js-mixer>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

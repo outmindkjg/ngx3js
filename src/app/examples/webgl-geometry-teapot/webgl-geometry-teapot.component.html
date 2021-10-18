@@ -45,8 +45,8 @@
 	</ngx3js-shared>
 	<ngx3js-scene #scene [background]="material.env ? background : '0xAAAAAA'">
 		<ngx3js-light
-			[type]="'0x333333'"
-			[color]="ambientLight"
+			[type]="'ambientLight'"
+			[color]="'0x333333'"
 			[intensity]="controls.ka"
 		>
 		</ngx3js-light>
