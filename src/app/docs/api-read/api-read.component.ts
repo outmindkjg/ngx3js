@@ -184,7 +184,7 @@ export class ApiReadComponent implements OnInit {
 				e.stopPropagation();
 				e.preventDefault();
 				return false;
-			});
+			},  {passive: true} );
 		}
 		const codes = this.docEle.nativeElement.getElementsByTagName('code');
 		for (let i = 0; i < codes.length; i++) {
