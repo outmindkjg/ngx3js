@@ -39,13 +39,10 @@
 		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'line'">
 			<ngx3js-scale [x]="1" [y]="1" [z]="5"></ngx3js-scale>
 			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
-			<ngx3js-geometry
-				[type]="'BufferGeometry'"
-				[points]="[
+			<ngx3js-geometry [type]="'BufferGeometry'" [points]="[
 					{ x: 0, y: 0, z: 0 },
 					{ x: 0, y: 0, z: -1 }
-				]"
-			></ngx3js-geometry>
+				]"></ngx3js-geometry>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
