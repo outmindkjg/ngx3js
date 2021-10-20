@@ -17,7 +17,7 @@
 	[clearColor]="'0xffffff'"
 	[alpha]="true"
 >
-	<ngx3js-control [type]="'arcball'" [gizmoVisible]="controls.gizmoVisible" (onLoad)="setControl($event)"></ngx3js-control>
+	<ngx3js-control [type]="'arcball'" [gizmoVisible]="true" (onLoad)="setControl($event)"></ngx3js-control>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera
 		[type]="'perspective'"

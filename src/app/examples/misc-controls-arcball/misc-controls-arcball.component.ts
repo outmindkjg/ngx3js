@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	ArcballControls, BaseComponent,
-	ControlComponent, RendererTimer
-} from 'ngx3js';
+import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-arcball',
@@ -56,6 +53,9 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					max: 10,
 					step: 0.1,
 					title: 'Scale factor',
+					finishChange: () => {
+						this.changeControl('scaleFactor');
+					},
 				},
 				{
 					name: 'minDistance',
@@ -64,6 +64,9 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					max: 50,
 					step: 0.5,
 					title: 'Min distance',
+					finishChange: () => {
+						this.changeControl('minDistance');
+					},
 				},
 				{
 					name: 'maxDistance',
@@ -72,6 +75,9 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					max: 50,
 					step: 0.5,
 					title: 'Max distance',
+					finishChange: () => {
+						this.changeControl('maxDistance');
+					},
 				},
 				{
 					name: 'minZoom',
@@ -80,6 +86,9 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					max: 50,
 					step: 0.5,
 					title: 'Min zoom',
+					finishChange: () => {
+						this.changeControl('minZoom');
+					},
 				},
 				{
 					name: 'maxZoom',
@@ -88,8 +97,18 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					max: 50,
 					step: 0.5,
 					title: 'Max zoom',
+					finishChange: () => {
+						this.changeControl('maxZoom');
+					},
 				},
-				{ name: 'gizmoVisible', type: 'checkbox', title: 'Show gizmos' },
+				{
+					name: 'gizmoVisible',
+					type: 'checkbox',
+					title: 'Show gizmos',
+					change: () => {
+						this.changeControl('gizmoVisible');
+					},
+				},
 			]
 		);
 	}
@@ -132,13 +151,16 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 			case 'maxZoom':
 				this.arcballControl.maxZoom = this.controls.maxZoom;
 				break;
+			case 'gizmoVisible':
+				this.arcballControl.setGizmosVisible(this.controls.gizmoVisible);
+				break;
 		}
 	}
 
-	arcballControl: ArcballControls = null;
+	arcballControl: any = null;
 
 	setControl(control: ControlComponent) {
-		console.log(control.getControl());
+		this.arcballControl = control.getControl();
 	}
 
 	ngOnInit() {}
