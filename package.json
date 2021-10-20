@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "maxmem": "node --max_old_space_size=4000 ./node_modules/@angular/cli/bin/ng serve",
-    "ngx3jsbuild": "cd ../ngx3js-module/ && ng build ngx3js --watch",
+    "ngx3jswatch": "cd ../ngx3js-module/ && ng build ngx3js --watch",
     "maxbuild": "node --max_old_space_size=4000 ./node_modules/@angular/cli/bin/ng build",
     "maxbuildprod": "node --max_old_space_size=4000 ./node_modules/@angular/cli/bin/ng build --configuration production"
   },
