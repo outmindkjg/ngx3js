@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from 'ngx3js';
-// import { MeshoptDecoder } from '.three/examples/jsm/libs/meshopt_decoder.module';
 
 @Component({
 	selector: 'app-webgl-morphtargets-face',
@@ -12,5 +11,4 @@ export class WebglMorphtargetsFaceComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	meshoptDecoder : null
 }

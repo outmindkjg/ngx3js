@@ -125,6 +125,8 @@ npm install -f
 git remote set-url origin https://github.com/outmindkjg/ngx3js.git
 git remote -v
 
+grep -Ril "AmmoLib = await Ammo" ./node_modules
+
 cd ngx3js-module build
 cd ngx3js-module watch
 ng serve

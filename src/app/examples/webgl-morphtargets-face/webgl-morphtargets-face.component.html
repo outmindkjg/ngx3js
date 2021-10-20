@@ -24,7 +24,7 @@
 		<ngx3js-mesh
 			(onLoad)="setMesh($event)"
 			[storageName]="'models/gltf/facecap.glb'"
-			[storageOption]="{ useKtx2 : true, meshoptDecoder : meshoptDecoder}"
+			[storageOption]="{ useKtx2 : true}"
 		>
 			<ngx3js-mixer [action]="'smile'">
 				<ngx3js-clip [index]="0" [name]="'smile'"></ngx3js-clip>

@@ -1,0 +1,8 @@
+
+::ng-deep {
+    div.canvas {
+        canvas {
+            background : linear-gradient( 180deg, rgba( 0,0,0,1 ) 0%, rgba( 128,128,255,1 ) 100% );
+        }
+    }
+}

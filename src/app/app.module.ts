@@ -425,6 +425,7 @@ import { WebglMorphtargetsFaceComponent } from './examples/webgl-morphtargets-fa
 import { WebglMaterialsInstanceUniformNodesComponent } from './examples/webgl-materials-instance-uniform-nodes/webgl-materials-instance-uniform-nodes.component';
 import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-points-nodes.component';
 import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
+import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
 
 @NgModule({
 	declarations: [
@@ -794,6 +795,7 @@ import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinn
 		MiscControlsPointerlockComponent,
 		MiscControlsTrackballComponent,
 		MiscControlsTransformComponent,
+		MiscControlsArcballComponent,
 		MiscExporterColladaComponent,
 		MiscExporterDracoComponent,
 		MiscExporterGltfComponent,

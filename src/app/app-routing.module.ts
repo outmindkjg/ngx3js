@@ -16,6 +16,7 @@ import { GamesFpsComponent } from './examples/games-fps/games-fps.component';
 import { MiscAnimationGroupsComponent } from './examples/misc-animation-groups/misc-animation-groups.component';
 import { MiscAnimationKeysComponent } from './examples/misc-animation-keys/misc-animation-keys.component';
 import { MiscBoxselectionComponent } from './examples/misc-boxselection/misc-boxselection.component';
+import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
 import { MiscControlsDeviceorientationComponent } from './examples/misc-controls-deviceorientation/misc-controls-deviceorientation.component';
 import { MiscControlsDragComponent } from './examples/misc-controls-drag/misc-controls-drag.component';
 import { MiscControlsFlyComponent } from './examples/misc-controls-fly/misc-controls-fly.component';
@@ -1388,6 +1389,10 @@ const routes: Routes = [
 			{
 				path: 'misc_controls_transform',
 				component: MiscControlsTransformComponent,
+			},
+			{
+				path: 'misc_controls_arcball',
+				component: MiscControlsArcballComponent,
 			},
 			{
 				path: 'misc_exporter_collada',
