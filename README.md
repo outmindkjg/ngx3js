@@ -118,6 +118,10 @@ npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
 rm -rf src/app/**/*spec.ts
 rm -rf src/app/**/*.js
 
+npm install --no-optional --no-shrinkwrap --no-package-lock
+npm install -f
+
+
 git remote set-url origin https://github.com/outmindkjg/ngx3js.git
 git remote -v
 
