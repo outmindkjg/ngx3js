@@ -9,6 +9,7 @@
 	[antialias]="true"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
+	[guiOpen]="true"
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
@@ -31,6 +32,7 @@
 				<ngx3js-texture
 					[storageName]="'textures/lottie/24017-lottie-logo-animation.json'"
 					[storageOption]="{ loaderType: 'Lottie' }"
+					(onLoad)="setLottie($event)"
 				></ngx3js-texture>
 			</ngx3js-material>
 		</ngx3js-mesh>
