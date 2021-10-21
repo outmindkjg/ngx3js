@@ -42,7 +42,7 @@
 							}
 						],
 						"styles": ["src/styles.scss"],
-						"scripts": []
+						"scripts": [ "node_modules/three/examples/js/libs/lottie_canvas.js"]
 					},
 					"configurations": {
 						"production": {
