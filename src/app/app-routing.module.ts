@@ -438,7 +438,7 @@ const routes: Routes = [
 		path: 'examples',
 		component: ExamplesComponent,
 		children: [
-			{ path: '', pathMatch: 'full', redirectTo: 'webgl_animation_cloth' },
+			{ path: '', pathMatch: 'full', redirectTo: 'webgl_animation_keyframes' },
 			{
 				path: 'webgl_animation_cloth',
 				component: WebglAnimationClothComponent,
